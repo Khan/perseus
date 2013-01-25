@@ -10,14 +10,19 @@
 
 <div id="output"></div>
 
+What is <code>x^2</code>?
+
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="/src/core.js"></script>
 <script src="/src/renderer.js"></script>
 
 <script>
 (function() {
+Perseus.init();
+
 var renderer = new Perseus.Renderer({
     content: "What are the $x$-intercepts of $x^2 + 2x - 24$?"
 });
