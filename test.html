@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Perseus</title>
+
+</head>
+<body>
+
+<div id="output"></div>
+
+<script src="/lib/jquery.js"></script>
+<script src="/lib/underscore.js"></script>
+<script src="/lib/backbone.js"></script>
+<script src="/src/core.js"></script>
+<script src="/src/renderer.js"></script>
+
+<script>
+(function() {
+var renderer = new Perseus.Renderer({
+    content: "What are the $x$-intercepts of $x^2 + 2x - 24$?"
+});
+renderer.setElement("#output");
+renderer.render();
+})();
+</script>
+
+</body>
+</html>
