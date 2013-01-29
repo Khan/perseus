@@ -3,6 +3,8 @@
 var Perseus = window.Perseus = {};
 
 Perseus.init = function() {
+    var deferred = $.Deferred();
+
     MathJax.Hub.Config({
         messageStyle: "none",
         skipStartupTypeset: "none",
@@ -11,15 +13,17 @@ Perseus.init = function() {
             imageFont: null,
             scale: 100,
             showMathMenu: false
+        },
+        tex2jax: {
+            inlineMath: [["$", "$"]],
+            processEscapes: true
         }
     });
-    MathJax.Hub.Configured();
 
-    $("code").each(function() {
-        var $script = $('<script type="math/tex">').text($(this).text());
-        $(this).replaceWith($script);
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, $script[0]]);
-    });
+    MathJax.Hub.Configured();
+    MathJax.Hub.Queue(deferred.resolve);
+
+    return deferred;
 };
 
 })();

@@ -10,8 +10,6 @@
 
 <div id="output"></div>
 
-What is <code>x^2</code>?
-
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
@@ -21,13 +19,17 @@ What is <code>x^2</code>?
 
 <script>
 (function() {
-Perseus.init();
 
-var renderer = new Perseus.Renderer({
-    content: "What are the $x$-intercepts of $x^2 + 2x - 24$?"
+Perseus.init().then(function() {
+    var renderer = new Perseus.Renderer({
+        content: "What are the $x$-intercepts of $x^2 + 2x - 24$?"
+    });
+    renderer.setElement("#output");
+    return renderer.render();
+}).then(function() {
+    console.log("all done.");
 });
-renderer.setElement("#output");
-renderer.render();
+
 })();
 </script>
 
