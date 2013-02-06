@@ -13,6 +13,7 @@
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
+<script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="/src/core.js"></script>
 <script src="/src/renderer.js"></script>
@@ -22,7 +23,7 @@
 
 Perseus.init().then(function() {
     var renderer = new Perseus.Renderer({
-        content: "What are the $x$-intercepts of $x^2 + 2x - 24$?"
+        content: "What *are $2 * 3$* <br>the **$x$-intercepts** of $x^2 + \\hbox{$2$ dogs} - 2x - 24$?"
     });
     renderer.setElement("#output");
     return renderer.render();

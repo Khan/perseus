@@ -5,6 +5,10 @@ var Perseus = window.Perseus = {};
 Perseus.init = function() {
     var deferred = $.Deferred();
 
+    marked.setOptions({
+        sanitize: true
+    });
+
     MathJax.Hub.Config({
         messageStyle: "none",
         skipStartupTypeset: "none",
@@ -14,10 +18,6 @@ Perseus.init = function() {
             scale: 100,
             showMathMenu: false
         },
-        tex2jax: {
-            inlineMath: [["$", "$"]],
-            processEscapes: true
-        }
     });
 
     MathJax.Hub.Configured();
