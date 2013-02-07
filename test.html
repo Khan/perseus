@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<div><textarea id="content" style="font-size: 16px; width: 400px; height: 100px;">What *are $2 * 3$* &lt;br&gt;the **$x$-intercepts** of $x^2 + \hbox{$2$ dogs} - 2x - \$24$?</textarea></div>
+
 <div id="output"></div>
 
 <script src="/lib/jquery.js"></script>
@@ -22,11 +24,20 @@
 (function() {
 
 Perseus.init().then(function() {
-    var renderer = new Perseus.Renderer({
-        content: "What *are $2 * 3$* <br>the **$x$-intercepts** of $x^2 + \\hbox{$2$ dogs} - 2x - 24$?"
-    });
-    renderer.setElement("#output");
-    return renderer.render();
+    var renderer;
+
+    $("#content").on("keyup", function() {
+        rerender();
+    }).focus();
+    return rerender();
+
+    function rerender() {
+        renderer = new Perseus.Renderer({
+            content: $("#content").val()
+        });
+        renderer.setElement("#output");
+        return renderer.render();
+    }
 }).then(function() {
     console.log("all done.");
 });
