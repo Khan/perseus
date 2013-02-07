@@ -12,6 +12,8 @@ test("extractMath", function() {
             ["Escaping money: @@0@@.", ["$\\$3.00$"]]);
     deepEqual(extract("Escaping backslashes: $\\\\$3.00."),
             ["Escaping backslashes: @@0@@3.00.", ["$\\\\$"]]);
+    deepEqual(extract("Escaping braces: $\\{$ $\\}$."),
+            ["Escaping braces: @@0@@ @@1@@.", ["$\\{$", "$\\}$"]]);
 
     deepEqual(extract("Things in ${$x^2$ cows}$ braces."),
             ["Things in @@0@@ braces.", ["${$x^2$ cows}$"]]);

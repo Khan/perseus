@@ -22,9 +22,9 @@ var Renderer = Perseus.Renderer = Backbone.View.extend({
                 // Math starting and ending with $. Substitute "< /" for "</"
                 // so it doesn't end the script tag.
                 var tex = original.slice(1, original.length - 1);
-                return ('<script type="math/tex">' +
+                return ("<script type='math/tex'>" +
                         tex.replace(/<\//g, "< /") +
-                        '</script>');
+                        "</script>");
             }
         });
 
@@ -45,8 +45,7 @@ function extractMath(text) {
     //
     // TODO(alpert): Backticks for code
     var savedMath = [];
-    var blocks = text.split(/(\$|\\.|[{}]|@@\d+@@)/g);
-    console.log(JSON.stringify(blocks));
+    var blocks = text.split(/(\$|[{}]|\\[\\${}]|@@\d+@@)/g);
 
     var mathPieces = [], l = blocks.length, block, braces;
     // TODO(alpert): Skip by 2 instead?
@@ -64,7 +63,7 @@ function extractMath(text) {
             } else if (i === l - 1) {
                 // We're at the end... just don't do anything with the $
                 // TODO(alpert): Error somehow?
-                blocks[i] = mathPieces.join("")
+                blocks[i] = mathPieces.join("");
                 mathPieces = [];
             } else if (block === "{") {
                 braces++;

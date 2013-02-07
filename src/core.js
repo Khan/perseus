@@ -17,7 +17,7 @@ Perseus.init = function() {
             imageFont: null,
             scale: 100,
             showMathMenu: false
-        },
+        }
     });
 
     MathJax.Hub.Configured();
