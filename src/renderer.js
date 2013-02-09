@@ -12,7 +12,7 @@ var Renderer = Perseus.Renderer = Backbone.View.extend({
             html = marked(extracted[0]),
             savedMath = extracted[1];
 
-        // Replace math with the original contents
+        // Replace math references
         html = html.replace(/@@(\d+)@@/g, function(match, num) {
             var original = savedMath[num];
             if (original.charAt(0) === "@") {
@@ -45,7 +45,7 @@ function extractMath(text) {
     //
     // TODO(alpert): Backticks for code
     var savedMath = [];
-    var blocks = text.split(/(\$|[{}]|\\[\\${}]|@@\d+@@)/g);
+    var blocks = text.split(/(\$|[{}]|\\[\\${}]|\n{2,}|@@\d+@@)/g);
 
     var mathPieces = [], l = blocks.length, block, braces;
     // TODO(alpert): Skip by 2 instead?
@@ -60,8 +60,8 @@ function extractMath(text) {
             if (block === "$" && braces <= 0) {
                 blocks[i] = saveMath(mathPieces.join(""));
                 mathPieces = [];
-            } else if (i === l - 1) {
-                // We're at the end... just don't do anything with the $
+            } else if (block.slice(0, 2) === "\n\n" || i === l - 1) {
+                // We're at the end of a line... just don't do anything
                 // TODO(alpert): Error somehow?
                 blocks[i] = mathPieces.join("");
                 mathPieces = [];
