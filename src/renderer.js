@@ -28,6 +28,28 @@ var Renderer = Perseus.Renderer = Backbone.View.extend({
             }
         });
 
+        // Replace widget references
+        html = html.replace(
+                /((?:<p>)?)\[\[([a-z-]+) (\d+)\]\]((?:<\/p>)?)/g,
+                function(match, openp, type, id, closep) {
+                    var tag;
+                    if (openp && closep) {
+                        // Block level widget (on its own line) -- we want to
+                        // get rid of the surrounding <p> tags
+                        tag = "div";
+                        openp = closep = "";
+                    } else {
+                        tag = "span";
+                    }
+
+                    // Don't need to call _.escape because it's just
+                    // alphanumeric (okay, and hyphens too...)
+                    return (openp + "<" + tag + " class='perseus-widget' " +
+                            "data-widget-type='" + type + "' " +
+                            "data-widget-id='" + id + "'>" +
+                            "</" + tag + ">" + closep);
+                });
+
         this.$el.html(html);
 
         // Hide the element now so you don't see unprocessed math -- will be
