@@ -45,7 +45,9 @@ Perseus.init().then(function() {
             subwidgets: [0]
         });
         renderer.setElement("#output");
-        return renderer.render();
+        renderer.render().then(function() {
+            renderer.present();
+        });
     }
 }).then(function() {
     console.log("all done.");

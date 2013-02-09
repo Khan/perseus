@@ -30,7 +30,21 @@ var Renderer = Perseus.Renderer = Backbone.View.extend({
 
         this.$el.html(html);
 
+        // Hide the element now so you don't see unprocessed math -- will be
+        // reshown in present()
+        this.$el.hide();
+
         MathJax.Hub.Queue(["Process", MathJax.Hub, this.el]);
+        MathJax.Hub.Queue(deferred.resolve);
+
+        return deferred;
+    },
+
+    present: function() {
+        var deferred = $.Deferred();
+
+        this.$el.show();
+        MathJax.Hub.Queue(["Reprocess", MathJax.Hub, this.el]);
         MathJax.Hub.Queue(deferred.resolve);
 
         return deferred;
