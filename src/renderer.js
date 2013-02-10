@@ -73,6 +73,28 @@ var Renderer = Perseus.Renderer = Backbone.View.extend({
     }
 });
 
+var rmath = /(\$|[{}]|\\[\\${}]|\n{2,}|@@\d+@@)/g;
+
+// In IE8, split doesn't work right. Implement it ourselves.
+var mathSplit = "x".split(/(.)/g).length
+        ? function(str) { return str.split(rmath); }
+        : function(str) {
+            // Based on Steven Levithan's MIT-licensed split, available at
+            // http://blog.stevenlevithan.com/archives/cross-browser-split
+            var output = [];
+            var lastIndex = rmath.lastIndex = 0;
+            var match;
+
+            while (match = rmath.exec(str)) {
+                output.push(str.slice(lastIndex, match.index));
+                output.push.apply(output, match.slice(1));
+                lastIndex = match.index + match[0].length;
+            }
+
+            output.push(str.slice(lastIndex));
+            return output;
+        };
+
 function extractMath(text) {
     // extractMath("$x$ is a cool number, just like $6 * 7$!") gives
     //     ["@@0@@ is a cool number, just like @@1@@!", ["$x$", "$6 * 7$"]]
@@ -81,7 +103,7 @@ function extractMath(text) {
     //
     // TODO(alpert): Backticks for code
     var savedMath = [];
-    var blocks = text.split(/(\$|[{}]|\\[\\${}]|\n{2,}|@@\d+@@)/g);
+    var blocks = mathSplit(text);
 
     var mathPieces = [], l = blocks.length, block, braces;
     // TODO(alpert): Skip by 2 instead?
