@@ -1,9 +1,10 @@
 (function(Perseus) {
 
-var Renderer = Perseus.Renderer = Backbone.View.extend({
-    render: function() {
-        var deferred = $.Deferred();
+// Why all caps? I don't know, but that's what MathJax does in its own source.
+var HUB = MathJax.Hub;
 
+var Renderer = Perseus.Renderer = Perseus.Widget.extend({
+    render: function() {
         // Extract math with HTML entities so we don't get confused by
         // "_italicized equations like $y - y_1 = m (x - x_1)$_"
         // and similar confusing things where underscores and asterisks within
@@ -50,26 +51,50 @@ var Renderer = Perseus.Renderer = Backbone.View.extend({
                             "</" + tag + ">" + closep);
                 });
 
-        this.$el.html(html);
-
         // Hide the element now so you don't see unprocessed math -- will be
         // reshown in present()
         this.$el.hide();
+        this.$el.html(html);
 
-        MathJax.Hub.Queue(["Process", MathJax.Hub, this.el]);
-        MathJax.Hub.Queue(deferred.resolve);
+        var mathDeferred = $.Deferred();
+        HUB.Queue(["Process", HUB, this.el]);
+        HUB.Queue(mathDeferred.resolve);
 
-        return deferred;
+        var subwidgetDeferreds = [];
+
+        this.$(".perseus-widget").each(function() {
+            var $widgetEl = $(this);
+            var widgetType = $widgetEl.data("widgetType");
+            var widgetId = $widgetEl.data("widgetId");
+
+            // TODO(alpert): Error handling if/when getWidget gets fancy
+            subwidgetDeferreds.push(Perseus.Widgets.get(widgetType).then(
+                    function(widgetClass) {
+                        // TODO(alpert): Widget options
+                        var widget = new widgetClass({
+                            el: $widgetEl
+                        });
+                        return widget.render();
+                    }));
+        });
+
+        var widget = this;
+        return $.when.apply($, [mathDeferred].concat(subwidgetDeferreds)).then(
+                function() {
+                    return widget;
+                });
     },
 
     present: function() {
         var deferred = $.Deferred();
 
         this.$el.show();
-        MathJax.Hub.Queue(["Reprocess", MathJax.Hub, this.el]);
-        MathJax.Hub.Queue(deferred.resolve);
+        HUB.Queue(["Reprocess", HUB, this.el]);
+        HUB.Queue(deferred.resolve);
 
-        return deferred;
+        // TODO(alpert): Reprocess subwidgets
+
+        return deferred.promise();
     }
 });
 

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div><textarea id="content" style="font-size: 16px; width: 400px; height: 200px;">What *are $2 * 3$* the **$x$-intercepts** of $x^2 + \hbox{$2$ dogs} - 2x - \$24$?
+<div><textarea id="content" style="font-size: 16px; width: 400px; height: 200px;">What *are $2 * 3$ the* **$x$-intercepts** of $x^2 + \hbox{$2$ dogs} - 2x - \$24$?
 
 1. Pick any number.
 2. Add $2$.
@@ -26,6 +26,8 @@ Answer: [[input-integer 0]] elephants</textarea></div>
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="/src/core.js"></script>
+<script src="/src/widgets.js"></script>
+<script src="/src/widgets/input-integer.js"></script>
 <script src="/src/renderer.js"></script>
 
 <script>
@@ -41,16 +43,18 @@ Perseus.init().then(function() {
 
     function rerender() {
         renderer = new Perseus.Renderer({
+            el: "#output",
             content: $("#content").val(),
             subwidgets: [0]
         });
-        renderer.setElement("#output");
-        renderer.render().then(function() {
-            renderer.present();
+        return renderer.render().then(function() {
+            return renderer.present();
         });
     }
 }).then(function() {
     console.log("all done.");
+}, function(err) {
+    console.error(err);
 });
 
 })();
