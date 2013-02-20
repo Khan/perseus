@@ -5,54 +5,70 @@
 <meta charset="utf-8">
 <title>Perseus</title>
 
+<style type="text/css">
+
+.perseus-single-editor {
+    border-bottom: 4px solid lightgray;
+    margin-bottom: 20px;
+    width: 500px;
+}
+
+.perseus-hint-editor {
+    margin-left: 50px;
+    width: 450px;
+}
+
+.perseus-single-editor > textarea {
+    box-sizing: border-box;
+    font-size: 14px;
+    height: 120px;
+    width: 100%;
+}
+
+</style>
+
 </head>
 <body>
 
-<div><textarea id="content" style="font-size: 16px; width: 400px; height: 200px;">What *are $2 * 3$ the* **$x$-intercepts** of $x^2 + \hbox{$2$ dogs} - 2x - \$24$?
+<div id="seed-content" style="display: none;">What *are $2 * 3$ the* **$x$-intercepts** of $x^2 + \hbox{$2$ dogs} - 2x - \$24$?
 
 1. Pick any number.
 2. Add $2$.
 3. Subtract $x$.
 4. Add $x - 2$.
-5. You have your original number!
-
-Answer: [[input-integer 0]] elephants</textarea></div>
-
-<div id="output"></div>
+5. You have your original number!</div>
+<div id="content"></div>
 
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+<script src="http://mathjax.local/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="/src/core.js"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/widgets/input-integer.js"></script>
 <script src="/src/renderer.js"></script>
+<script src="/src/editor.js"></script>
 
 <script>
 (function() {
 
+var seedContent = $("#seed-content").remove().text();
+
 Perseus.init().then(function() {
-    var renderer;
+    var editor = new Perseus.ItemEditor({
+        el: "#content"
+    });
 
-    $("#content").on("keyup", function() {
-        rerender();
-    }).focus();
-    return rerender();
-
-    function rerender() {
-        renderer = new Perseus.Renderer({
-            el: "#output",
-            content: $("#content").val(),
-            subwidgets: [0]
+    return editor.render().then(function() {
+        return editor.setState({
+            question: {
+                content: seedContent
+            }
         });
-        return renderer.render().then(function() {
-            return renderer.present();
-        });
-    }
+    });
 }).then(function() {
-    console.log("all done.");
+    console.log("all done.", +new Date/1000);
 }, function(err) {
     console.error(err);
 });

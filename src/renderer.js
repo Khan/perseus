@@ -4,6 +4,11 @@
 var HUB = MathJax.Hub;
 
 var Renderer = Perseus.Renderer = Perseus.Widget.extend({
+    initialize: function(options, subwidgetOptions) {
+        // this.options populated in Backbone.View constructor
+        this._subwidgetOptions = subwidgetOptions;
+    },
+
     render: function() {
         // Extract math with HTML entities so we don't get confused by
         // "_italicized equations like $y - y_1 = m (x - x_1)$_"
@@ -52,19 +57,23 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
                 });
 
         // Hide the element now so you don't see unprocessed math -- will be
-        // reshown in present()
+        // reshown at the end of the function
         this.$el.hide();
         this.$el.html(html);
 
         var mathDeferred = $.Deferred();
+        // XXX(alpert): This is sometimes synchronous, other times async
         HUB.Queue(["Process", HUB, this.el]);
         HUB.Queue(mathDeferred.resolve);
 
         var subwidgetDeferreds = [];
+        var subwidgets = {};
+        this._subwidgets = subwidgets;
 
         this.$(".perseus-widget").each(function() {
             var $widgetEl = $(this);
             var widgetType = $widgetEl.data("widgetType");
+            // TODO(alpert): Check that widgetId in subwidgets, not used twice
             var widgetId = $widgetEl.data("widgetId");
 
             // TODO(alpert): Error handling if/when getWidget gets fancy
@@ -74,6 +83,7 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
                         var widget = new widgetClass({
                             el: $widgetEl
                         });
+                        subwidgets[widgetId] = widget;
                         return widget.render();
                     }));
         });
@@ -81,10 +91,12 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         var widget = this;
         return $.when.apply($, [mathDeferred].concat(subwidgetDeferreds)).then(
                 function() {
+                    widget.$el.show();
                     return widget;
                 });
     },
 
+    // TODO(alpert): Rename to "reprocess"
     present: function() {
         var deferred = $.Deferred();
 
@@ -95,6 +107,21 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         // TODO(alpert): Reprocess subwidgets
 
         return deferred.promise();
+    },
+
+    getState: function() {
+        var state = {};
+        var deferreds = _.map(this._subwidgets, function(widget, id) {
+            return widget.getState().then(function(s) {
+                if (s !== undefined) {
+                    state[id] = s;
+                }
+            });
+        });
+
+        return $.when.apply($, deferreds).then(function() {
+            return state;
+        });
     }
 });
 

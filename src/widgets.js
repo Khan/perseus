@@ -1,5 +1,7 @@
 (function(Perseus) {
 
+var Marks = Perseus.Marks;
+
 var Widget = Perseus.Widget = Backbone.View.extend({
     // Abstract class, please subclass me!
 
@@ -21,6 +23,15 @@ var Widget = Perseus.Widget = Backbone.View.extend({
         return $.when();
     }
 });
+
+
+// Static methods
+_.extend(Widget, {
+    validate: function(state, rubric) {
+        return {type: "invalid"};
+    }
+});
+
 
 var widgetTypes = {};
 
