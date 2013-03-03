@@ -41,31 +41,86 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
     }
 });
 
+var QuestionEditor = Perseus.SingleEditor.extend({
+    className: "perseus-question-editor"
+});
+
+var HintEditor = Perseus.SingleEditor.extend({
+    className: "perseus-hint-editor"
+});
+
 var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
+    className: "perseus-item-editor",
+
+    initialize: function() {
+        this.questionEditor = new QuestionEditor();
+        this.hintEditors = [];
+    },
+
     render: function() {
         var editor = this;
-        this.$el.empty().addClass("perseus-item-editor");
+        this.$el.empty();
 
-        this.questionEditor = new Perseus.SingleEditor();
-        this.questionEditor.$el.addClass("perseus-question-editor").appendTo(
-                this.$el);
-
-        this.hintEditors = [];
-        $("<a href='#'>Add a hint</a>").appendTo(this.$el).on("click",
-                function() {
-            var hintEditor = new Perseus.SingleEditor();
-            $(this).before(hintEditor.$el.addClass("perseus-hint-editor"));
-            editor.hintEditors.push(hintEditor);
-            hintEditor.render();
+        var $addHint = $("<a href='#'>Add a hint</a>");
+        $addHint.on("click", function() {
+            editor.hintEditors.push(new HintEditor());
+            editor.render();
         });
 
-        return this.questionEditor.render();
+        this.$el.append(this.questionEditor.$el);
+        _.each(this.hintEditors, function(e) {
+            editor.$el.append(e.$el);
+        });
+        this.$el.append($addHint);
+
+        return this.questionEditor.render().then(function() {
+            return $.when.apply($, _.map(editor.hintEditors, function(e) {
+                    return e.render(); })).then(function() {
+                return editor;
+            });
+        });
+    },
+
+    getState: function() {
+        var editor = this;
+
+        // Grab the question state...
+        return $.when(editor.questionEditor.getState()).then(
+                function(questionState) {
+            // ...then the state for each hint...
+            return $.when.apply($, _.map(editor.hintEditors, function(e) {
+                    return e.getState(); })).then(function(/* hint states */) {
+                // ...then return all of it.
+                var hintStates = _.toArray(arguments);
+                return {
+                    question: questionState,
+                    hints: hintStates
+                };
+            });
+        });
     },
 
     setState: function(options) {
         var editor = this;
-        return this.questionEditor.setState(options.question).then(function() {
-            return editor;
+        this.hintEditors = [];
+        this.$el.children(".perseus-hint-editor").remove();
+
+        _.each(options.hints, function(h) {
+            var hintEditor = new HintEditor();
+            editor.hintEditors.push(hintEditor);
+        });
+
+        // TODO(alpert): Ugh, render clears all state so we need to set the
+        // state after rendering after initializing the editors -- fix me plz.
+        return this.render().then(function() {
+            return editor.questionEditor.setState(options.question);
+        }).then(function() {
+            return $.when.apply($, _.map(options.hints, function(h, i) {
+                var hintEditor = editor.hintEditors[i];
+                return hintEditor.render().then(function() {
+                    return hintEditor.setState(h);
+                });
+            }));
         });
     }
 });
