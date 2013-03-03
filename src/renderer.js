@@ -96,17 +96,17 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
                 });
     },
 
-    // TODO(alpert): Rename to "reprocess"
-    present: function() {
-        var deferred = $.Deferred();
-
-        this.$el.show();
+    reprocess: function() {
+        var mathDeferred = $.Deferred();
         HUB.Queue(["Reprocess", HUB, this.el]);
-        HUB.Queue(deferred.resolve);
+        HUB.Queue(mathDeferred.resolve);
 
         // TODO(alpert): Reprocess subwidgets
 
-        return deferred.promise();
+        var widget = this;
+        return mathDeferred.then(function() {
+            return widget;
+        });
     },
 
     getState: function() {

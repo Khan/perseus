@@ -9,7 +9,7 @@ var Widget = Perseus.Widget = Backbone.View.extend({
         return $.when(this);
     },
 
-    present: function() {
+    reprocess: function() {
         return $.when(this);
     },
 
