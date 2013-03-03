@@ -67,8 +67,7 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         HUB.Queue(mathDeferred.resolve);
 
         var subwidgetDeferreds = [];
-        var subwidgets = {};
-        this._subwidgets = subwidgets;
+        var subwidgets = this.subwidgets = {};
 
         this.$(".perseus-widget").each(function() {
             var $widgetEl = $(this);
@@ -109,19 +108,16 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         });
     },
 
-    getState: function() {
+    toJSON: function() {
+        // TODO(alpert): Text content should probably be here somewhere
         var state = {};
-        var deferreds = _.map(this._subwidgets, function(widget, id) {
-            return widget.getState().then(function(s) {
-                if (s !== undefined) {
-                    state[id] = s;
-                }
-            });
+        _.each(this.subwidgets, function(widget, id) {
+            var s = widget.toJSON();
+            if (!_.isEmpty(s)) {
+                state[id] = s;
+            };
         });
-
-        return $.when.apply($, deferreds).then(function() {
-            return state;
-        });
+        return state;
     }
 });
 

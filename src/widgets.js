@@ -15,12 +15,12 @@ var Widget = Perseus.Widget = Backbone.View.extend({
 
     // TODO(alpert): Add a cleanup method
 
-    getState: function() {
-        return $.when();
+    toJSON: function() {
+        // TODO(alpert): Separate out options like 'el' from actual state
+        return this.options;
     },
 
-    setState: function() {
-        return $.when();
+    set: function(attrs) {
     }
 });
 

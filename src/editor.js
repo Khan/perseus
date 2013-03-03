@@ -1,38 +1,48 @@
 (function(Perseus) {
 
 var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
+    className: "perseus-single-editor",
+
+    options: {
+        content: ""
+    },
+
     render: function() {
         var editor = this;
-        this.$el.empty().addClass("perseus-single-editor");
+        this.$el.empty();
 
-        var $textarea = this.$textarea = $("<textarea>").appendTo(this.$el);
+        var $textarea = this.$textarea = $("<textarea>").val(
+                this.options.content);
         $textarea.on("input", function() {
+            editor.options.content = $textarea.val();
             editor.change();
         });
 
-        this.$output = $("<div>").appendTo(this.$el);
+        var $output = $("<div>");
+
+        this.$el.append($textarea);
+        this.$el.append($output);
 
         var renderer = this.renderer = new Perseus.Renderer({
-            el: this.$output
+            el: $output
         });
 
         return this.change();
     },
 
-    getState: function() {
-        return $.when({
-            content: this.$textarea.val()
-        });
+    set: function(options) {
+        this.options = options;
+        return this.change();
     },
 
-    setState: function(options) {
-        this.$textarea.val(options.content);
-        return this.change();
+    focus: function() {
+        this.$textarea.focus();
     },
 
     change: function() {
         var renderer = this.renderer;
-        renderer.options.content = this.$textarea.val();
+        // TODO(alpert): Use 'set' here when that does the right thing
+        renderer.options.content = this.options.content;
 
         var editor = this;
         return renderer.render().then(function() {
@@ -42,11 +52,13 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
 });
 
 var QuestionEditor = Perseus.SingleEditor.extend({
-    className: "perseus-question-editor"
+    className: Perseus.SingleEditor.prototype.className +
+            " perseus-question-editor"
 });
 
 var HintEditor = Perseus.SingleEditor.extend({
-    className: "perseus-hint-editor"
+    className: Perseus.SingleEditor.prototype.className +
+            " perseus-hint-editor"
 });
 
 var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
@@ -63,8 +75,11 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
 
         var $addHint = $("<a href='#'>Add a hint</a>");
         $addHint.on("click", function() {
-            editor.hintEditors.push(new HintEditor());
-            editor.render();
+            var hintEditor = new HintEditor();
+            editor.hintEditors.push(hintEditor);
+            editor.render().then(function() {
+                hintEditor.focus();
+            });
         });
 
         this.$el.append(this.questionEditor.$el);
@@ -81,47 +96,24 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         });
     },
 
-    getState: function() {
-        var editor = this;
-
-        // Grab the question state...
-        return $.when(editor.questionEditor.getState()).then(
-                function(questionState) {
-            // ...then the state for each hint...
-            return $.when.apply($, _.map(editor.hintEditors, function(e) {
-                    return e.getState(); })).then(function(/* hint states */) {
-                // ...then return all of it.
-                var hintStates = _.toArray(arguments);
-                return {
-                    question: questionState,
-                    hints: hintStates
-                };
-            });
-        });
+    toJSON: function() {
+        return {
+            question: this.questionEditor.toJSON(),
+            hints: _.map(this.hintEditors, function(e) { return e.toJSON(); })
+        };
     },
 
-    setState: function(options) {
-        var editor = this;
-        this.hintEditors = [];
-        this.$el.children(".perseus-hint-editor").remove();
-
-        _.each(options.hints, function(h) {
-            var hintEditor = new HintEditor();
-            editor.hintEditors.push(hintEditor);
+    set: function(options) {
+        this.questionEditor.set(options.question);
+        this.hintEditors = _.map(options.hints, function(h) {
+            return new HintEditor(h);
         });
 
-        // TODO(alpert): Ugh, render clears all state so we need to set the
-        // state after rendering after initializing the editors -- fix me plz.
-        return this.render().then(function() {
-            return editor.questionEditor.setState(options.question);
-        }).then(function() {
-            return $.when.apply($, _.map(options.hints, function(h, i) {
-                var hintEditor = editor.hintEditors[i];
-                return hintEditor.render().then(function() {
-                    return hintEditor.setState(h);
-                });
-            }));
-        });
+        return this.render();
+    },
+
+    focus: function() {
+        this.questionEditor.focus();
     }
 });
 

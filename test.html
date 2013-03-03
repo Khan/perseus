@@ -61,11 +61,13 @@ Perseus.init().then(function() {
     });
 
     return editor.render().then(function() {
-        return editor.setState({
+        return editor.set({
             question: {
                 content: seedContent
             }
         });
+    }).then(function() {
+        editor.focus();
     });
 }).then(function() {
     console.log("all done.", +new Date/1000);
