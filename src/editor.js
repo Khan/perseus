@@ -31,6 +31,7 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
     },
 
     set: function(options) {
+        // TODO(alpert): Should textarea val get set here? Not sure.
         this.options = options;
         return this.change();
     },
@@ -61,11 +62,45 @@ var HintEditor = Perseus.SingleEditor.extend({
             " perseus-hint-editor"
 });
 
+var AnswerEditor = Perseus.Widget.extend({
+    className: "perseus-answer-editor",
+
+    options: {
+        // TODO(alpert): Separate into validatey things
+        correct: ""
+    },
+
+    render: function() {
+        var editor = this;
+        this.$el.empty();
+
+        var $input = $("<input>").val(this.options.correct);
+        $input.on("input", function() {
+            editor.options.correct = $input.val();
+            editor.change();
+        });
+
+        this.$el.append("Rational answer: ");
+        this.$el.append($input);
+    },
+
+    set: function(options) {
+        // TODO(alpert): Move into Perseus.Widget?
+        this.options = options;
+        return this.change();
+    },
+
+    change: function() {
+        // ...
+    }
+});
+
 var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     className: "perseus-item-editor",
 
     initialize: function() {
         this.questionEditor = new QuestionEditor();
+        this.answerEditor = new AnswerEditor();
         this.hintEditors = [];
     },
 
@@ -83,12 +118,15 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         });
 
         this.$el.append(this.questionEditor.$el);
+        this.$el.append(this.answerEditor.$el);
         _.each(this.hintEditors, function(e) {
             editor.$el.append(e.$el);
         });
         this.$el.append($addHint);
 
         return this.questionEditor.render().then(function() {
+            return editor.answerEditor.render();
+        }).then(function() {
             return $.when.apply($, _.map(editor.hintEditors, function(e) {
                     return e.render(); })).then(function() {
                 return editor;
@@ -99,12 +137,14 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     toJSON: function() {
         return {
             question: this.questionEditor.toJSON(),
+            answer: this.answerEditor.toJSON(),
             hints: _.map(this.hintEditors, function(e) { return e.toJSON(); })
         };
     },
 
     set: function(options) {
         this.questionEditor.set(options.question);
+        this.answerEditor.set(options.answer);
         this.hintEditors = _.map(options.hints, function(h) {
             return new HintEditor(h);
         });
