@@ -91,7 +91,9 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         return $.when.apply($, [mathDeferred].concat(subwidgetDeferreds)).then(
                 function() {
                     widget.$el.show();
-                    return widget;
+
+                    // TODO(alpert): Call reprocess elsewhere?
+                    return widget.reprocess();
                 });
     },
 

@@ -31,8 +31,9 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
     },
 
     set: function(options) {
+        // Extend with default options specified above...
         // TODO(alpert): Should textarea val get set here? Not sure.
-        this.options = options;
+        this.options = _.defaults(options, this.constructor.prototype.options);
         return this.change();
     },
 
@@ -60,6 +61,8 @@ var QuestionEditor = Perseus.SingleEditor.extend({
 var HintEditor = Perseus.SingleEditor.extend({
     className: Perseus.SingleEditor.prototype.className +
             " perseus-hint-editor"
+
+    // TODO(alpert): Remove a hint
 });
 
 var AnswerEditor = Perseus.Widget.extend({
@@ -108,7 +111,8 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         var editor = this;
         this.$el.empty();
 
-        var $addHint = $("<a href='#'>Add a hint</a>");
+        var $addHint = $("<a href='#' class='simple-button orange'>" +
+                "I'd like a hint</a>");
         $addHint.on("click", function() {
             var hintEditor = new HintEditor();
             editor.hintEditors.push(hintEditor);
@@ -143,9 +147,9 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     },
 
     set: function(options) {
-        this.questionEditor.set(options.question);
-        this.answerEditor.set(options.answer);
-        this.hintEditors = _.map(options.hints, function(h) {
+        this.questionEditor.set(options.question || {});
+        this.answerEditor.set(options.answer || {});
+        this.hintEditors = _.map(options.hints || [], function(h) {
             return new HintEditor(h);
         });
 
