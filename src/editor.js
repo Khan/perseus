@@ -131,8 +131,8 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         return this.questionEditor.render().then(function() {
             return editor.answerEditor.render();
         }).then(function() {
-            return $.when.apply($, _.map(editor.hintEditors, function(e) {
-                    return e.render(); })).then(function() {
+            return $.when.apply($, _.invoke(editor.hintEditors, "render"))
+                    .then(function() {
                 return editor;
             });
         });
@@ -142,7 +142,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         return {
             question: this.questionEditor.toJSON(),
             answer: this.answerEditor.toJSON(),
-            hints: _.map(this.hintEditors, function(e) { return e.toJSON(); })
+            hints: _.invoke(this.hintEditors, "toJSON")
         };
     },
 

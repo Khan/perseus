@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Perseus render</title>
+
+</head>
+<body>
+
+<div id="content"></div>
+
+<script src="/lib/jquery.js"></script>
+<script src="/lib/underscore.js"></script>
+<script src="/lib/backbone.js"></script>
+<script src="/lib/marked.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+<script src="/src/core.js"></script>
+<script src="/src/widgets.js"></script>
+<script src="/src/widgets/input-integer.js"></script>
+<script src="/src/renderer.js"></script>
+<script src="/src/item-renderer.js"></script>
+
+<script>
+(function() {
+
+var seedContent = {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answer":{"correct":"1"},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
+
+Perseus.init().then(function() {
+    var renderer = new Perseus.ItemRenderer({
+        el: "#content",
+        item: seedContent
+    });
+
+    return renderer.render().then(function() {
+        return renderer.set(seedContent);
+    });
+}).then(function() {
+    console.log("all done.", +new Date/1000);
+}, function(err) {
+    console.error(err);
+});
+
+})();
+</script>
+
+</body>
+</html>

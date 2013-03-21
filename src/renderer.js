@@ -4,6 +4,10 @@
 var HUB = MathJax.Hub;
 
 var Renderer = Perseus.Renderer = Perseus.Widget.extend({
+    options: {
+        content: ""
+    },
+
     initialize: function(options, subwidgetOptions) {
         // this.options populated in Backbone.View constructor
         this._subwidgetOptions = subwidgetOptions;
