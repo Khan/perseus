@@ -70,16 +70,16 @@ var AnswerEditor = Perseus.Widget.extend({
 
     options: {
         // TODO(alpert): Separate into validatey things
-        correct: ""
+        value: ""
     },
 
     render: function() {
         var editor = this;
         this.$el.empty();
 
-        var $input = $("<input>").val(this.options.correct);
+        var $input = $("<input>").val(this.options.value);
         $input.on("input", function() {
-            editor.options.correct = $input.val();
+            editor.options.value = $input.val();
             editor.change();
         });
 

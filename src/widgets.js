@@ -1,7 +1,5 @@
 (function(Perseus) {
 
-var Marks = Perseus.Marks;
-
 var Widget = Perseus.Widget = Backbone.View.extend({
     // Abstract class, please subclass me!
 
@@ -36,6 +34,9 @@ _.extend(Widget, {
 var widgetTypes = {};
 
 var Widgets = Perseus.Widgets = {
+    // TODO(alpert): Stop cheating and really hide this
+    _widgetTypes: widgetTypes,
+
     get: function(type) {
         var deferred = $.Deferred();
 
