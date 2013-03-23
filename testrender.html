@@ -8,7 +8,14 @@
 </head>
 <body>
 
-<div id="content"></div>
+<div id="content">
+<div id="workarea"></div>
+<div id="hintsarea"></div>
+<form id="answerform">
+    <div id="solutionarea"></div>
+    <input type="Submit">
+</form>
+</div>
 
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
@@ -44,8 +51,6 @@ Perseus.init().then(function() {
     });
 
     return renderer.render().then(function() {
-        return renderer.set(seedContent);
-    }).then(function() {
         renderer.focus();
     });
 }).then(function() {

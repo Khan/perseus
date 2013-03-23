@@ -141,14 +141,14 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     toJSON: function() {
         return {
             question: this.questionEditor.toJSON(),
-            answer: this.answerEditor.toJSON(),
+            answerRubric: this.answerEditor.toJSON(),
             hints: _.invoke(this.hintEditors, "toJSON")
         };
     },
 
     set: function(options) {
         this.questionEditor.set(options.question || {});
-        this.answerEditor.set(options.answer || {});
+        this.answerEditor.set(options.answerRubric || {});
         this.hintEditors = _.map(options.hints || [], function(h) {
             return new HintEditor(h);
         });
