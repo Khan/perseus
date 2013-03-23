@@ -5,7 +5,8 @@ var srcFiles = [
     "src/widgets.js",
     "src/widgets/input-integer.js",
     "src/renderer.js",
-    "src/editor.js"
+    "src/editor.js",
+    "src/item-renderer.js"
 ];
 
 grunt.initConfig({
