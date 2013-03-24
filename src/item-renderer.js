@@ -31,12 +31,21 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
         var guess = this.box.toJSON();
         var score = this.box.simpleValidate(this.options.rubric);
 
-        return {
-            empty: false,
-            correct: score.earned >= score.total,
-            message: score.message,
-            guess: guess
-        };
+        if (score.type === "points") {
+            return {
+                empty: false,
+                correct: score.earned >= score.total,
+                message: score.message,
+                guess: guess
+            };
+        } else if (score.type === "invalid") {
+            return {
+                empty: true,
+                correct: false,
+                message: score.message,
+                guess: guess
+            };
+        }
     }
 });
 

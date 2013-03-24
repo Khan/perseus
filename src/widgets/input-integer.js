@@ -35,7 +35,12 @@ _.extend(InputInteger, {
         // For now, rubric is just like {value: "17"}
         // TODO(alpert): Smarter checking
 
-        if (state.value === rubric.value) {
+        if (state.value === "") {
+            return {
+                type: "invalid",
+                message: null
+            };
+        } else if (state.value === rubric.value) {
             return {
                 type: "points",
                 earned: 1,
