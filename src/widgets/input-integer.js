@@ -2,7 +2,7 @@
 
 var InputInteger = Perseus.Widget.extend({
     initialize: function() {
-        this.$input = $("<input>");
+        this.$input = $("<input type='number'>");
     },
 
     render: function() {
