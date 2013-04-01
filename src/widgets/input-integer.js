@@ -58,6 +58,8 @@ _.extend(InputInteger, {
     }
 });
 
+// TODO(alpert): Editor
+
 Perseus.Widgets.register("input-integer", InputInteger);
 
 })(Perseus);

@@ -65,36 +65,68 @@ var HintEditor = Perseus.SingleEditor.extend({
     // TODO(alpert): Remove a hint
 });
 
-var AnswerEditor = Perseus.Widget.extend({
+var AnswerAreaEditor = Perseus.Widget.extend({
     className: "perseus-answer-editor",
 
     options: {
         // TODO(alpert): Separate into validatey things
-        value: ""
+        type: "radio"
+    },
+
+    initialize: function() {
+        var cls = Perseus.Widgets._widgetTypes[this.options.type + "-editor"];
+        // TODO(alpert): Ugh, too many things called editor
+        this.editor = new cls();
     },
 
     render: function() {
         var editor = this;
         this.$el.empty();
 
-        var $input = $("<input>").val(this.options.value);
-        $input.on("input", function() {
-            editor.options.value = $input.val();
-            editor.change();
+        var $select = $("<select>");
+        $select.append(
+                "<option value='radio'>Multiple choice</option>",
+                // TODO(alpert): Make input-integer better then change this
+                "<option value='input-integer'>Exact string equality</option>"
+            );
+        $select.val(this.options.type);
+
+        $select.on("change", function() {
+            editor.setType($select.val());
         });
 
-        this.$el.append("Rational answer: ");
-        this.$el.append($input);
+        // Space for the actual answer-type editor to use
+        var $div2 = this.$div2 = $("<div>").append(this.editor.$el);
+
+        this.$el.append("Answer type: ", $select, $div2);
+
+        return this.editor.render();
+    },
+
+    toJSON: function() {
+        return {
+            type: this.options.type,
+            options: this.editor.toJSON()
+        };
     },
 
     set: function(options) {
         // TODO(alpert): Move into Perseus.Widget?
-        this.options = options;
-        return this.change();
+        _.extend(this.options, options);
+        return this.editor.set(this.options.options);
     },
 
-    change: function() {
-        // ...
+    setType: function(type, options) {
+        // TODO(alpert): How to prefill old vals?
+        this.options.type = type;
+
+        var cls = Perseus.Widgets._widgetTypes[type + "-editor"];
+        // TODO(alpert): Ugh, too many things called editor
+        var ed = this.editor = new cls(options || {});
+
+        this.$div2.empty().append(ed.$el);
+
+        return ed.render();
     }
 });
 
@@ -103,7 +135,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
 
     initialize: function() {
         this.questionEditor = new QuestionEditor();
-        this.answerEditor = new AnswerEditor();
+        this.answerEditor = new AnswerAreaEditor();
         this.hintEditors = [];
     },
 
@@ -112,13 +144,14 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         this.$el.empty();
 
         var $addHint = $("<a href='#' class='simple-button orange'>" +
-                "I'd like a hint</a>");
+                "Add a hint</a>");
         $addHint.on("click", function() {
             var hintEditor = new HintEditor();
             editor.hintEditors.push(hintEditor);
             editor.render().then(function() {
                 hintEditor.focus();
             });
+            return false;
         });
 
         this.$el.append(this.questionEditor.$el);
@@ -141,14 +174,14 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     toJSON: function() {
         return {
             question: this.questionEditor.toJSON(),
-            answerRubric: this.answerEditor.toJSON(),
+            answerArea: this.answerEditor.toJSON(),
             hints: _.invoke(this.hintEditors, "toJSON")
         };
     },
 
     set: function(options) {
         this.questionEditor.set(options.question || {});
-        this.answerEditor.set(options.answerRubric || {});
+        this.answerEditor.set(options.answerArea || {});
         this.hintEditors = _.map(options.hints || [], function(h) {
             return new HintEditor(h);
         });

@@ -5,8 +5,11 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
     tagName: "form",
 
     initialize: function() {
-        var InputInteger = Perseus.Widgets._widgetTypes["input-integer"];
-        this.box = new InputInteger();
+        var type = Perseus.Widgets._widgetTypes[this.options.type];
+
+        // TODO(alpert): box is a stupid name
+        // TODO(alpert): this.options.options is stupid too
+        this.box = new type(this.options.options);
     },
 
     render: function() {
@@ -57,7 +60,8 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
         this.answerAreaRenderer = new AnswerAreaRenderer({
             el: this.$("#answerform"),
             itemRenderer: this,
-            rubric: item.answerRubric
+            type: item.answerArea.type,
+            options: item.answerArea.options
         });
 
         // Renderer for each presented hint
