@@ -123,7 +123,6 @@ var RadioEditor = Radio.extend({
             _.map(editor.options.choices, function(choice, i) {
                 choice.correct = i === idx;
             });
-            console.log(_.pluck(editor.options.choices, "correct"));
         });
 
         this.$el.append(
