@@ -1,8 +1,5 @@
 (function(Perseus) {
 
-// Why all caps? I don't know, but that's what MathJax does in its own source.
-var HUB = MathJax.Hub;
-
 var Renderer = Perseus.Renderer = Perseus.Widget.extend({
     options: {
         content: ""
@@ -67,8 +64,8 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
 
         var mathDeferred = $.Deferred();
         // XXX(alpert): This is sometimes synchronous, other times async
-        HUB.Queue(["Process", HUB, this.el]);
-        HUB.Queue(mathDeferred.resolve);
+        MathJax.Hub.Queue(["Process", MathJax.Hub, this.el]);
+        MathJax.Hub.Queue(mathDeferred.resolve);
 
         var subwidgetDeferreds = [];
         var subwidgets = this.subwidgets = {};
@@ -103,8 +100,8 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
 
     reprocess: function() {
         var mathDeferred = $.Deferred();
-        HUB.Queue(["Reprocess", HUB, this.el]);
-        HUB.Queue(mathDeferred.resolve);
+        MathJax.Hub.Queue(["Reprocess", MathJax.Hub, this.el]);
+        MathJax.Hub.Queue(mathDeferred.resolve);
 
         // TODO(alpert): Reprocess subwidgets
 
