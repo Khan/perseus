@@ -32,7 +32,9 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
 
     scoreInput: function() {
         var guess = this.box.toJSON();
-        var score = this.box.simpleValidate(this.options.rubric);
+
+        // TODO(alpert): Use separate rubric
+        var score = this.box.simpleValidate(this.options.options);
 
         if (score.type === "points") {
             return {
