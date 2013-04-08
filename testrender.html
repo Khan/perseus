@@ -64,7 +64,7 @@ var seedContent = {"question":{"content":"How many monkeys swing from $10$ branc
     }
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
 
-Perseus.init().then(function() {
+Perseus.init({}).then(function() {
     var renderer = zk = new Perseus.ItemRenderer({
         el: "#content",
         item: seedContent
