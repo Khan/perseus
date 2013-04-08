@@ -78,7 +78,7 @@
 
 var seedContent = $("#seed-content").remove().text();
 
-Perseus.init().then(function() {
+Perseus.init({}).then(function() {
     var editor = new Perseus.ItemEditor({
         el: "#content"
     });
