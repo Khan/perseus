@@ -129,6 +129,18 @@ var AnswerAreaEditor = Perseus.Widget.extend({
     }
 });
 
+var ItemEditorRenderer = Perseus.ItemRenderer.extend({
+    showAllHints: function() {
+        while (this.remainingHints.length) {
+            var hintOptions = this.remainingHints.shift();  // TODO(alpert): speed?
+            var renderer = new Perseus.Renderer(hintOptions);
+            renderer.$el.addClass("perseus-hint");
+            this.hintRenderers.push(renderer);
+        }
+        return this.render();
+    },
+});
+
 var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     className: "perseus-item-editor",
 
@@ -174,7 +186,8 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         });
     },
 
-    renderPreview: function(callback) {
+    // TODO(cbhl): rendering is really slow -- remove the debounce and fix it
+    _renderPreview: _.debounce(function() {
         var editor = this;
 
         this.previewEl = this.options.previewEl;
@@ -184,26 +197,23 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
             // TODO(cbhl): The hints repeat a bunch of times... why?
             $("#hintsarea").empty();
 
-            var itemRenderer = this.itemRenderer = new Perseus.ItemRenderer({
+            this.itemRenderer = new ItemEditorRenderer({
                 el: this.previewEl,
                 item: this.toJSON(true)
             });
 
-            if (editor.hintEditors) {
-                $.when.apply($, _.map(editor.hintEditors, function() {
-                    return itemRenderer.showHint();
-                })).then(function() {
-                    if (callback) {
-                        callback();
-                    }
-                });
-            } else {
-                this.itemRenderer.render().then(function() {
-                    if (callback) {
-                        callback();
-                    }
-                });
-           }
+            return this.itemRenderer.showAllHints();
+        }
+    }, 1),
+
+    renderPreview: function(callback) {
+        var deferred = this._renderPreview();
+        if (deferred) {
+            deferred.then(function() {
+                if (callback) {
+                    callback();
+                }
+            });
         } else {
             if (callback) {
                 callback();
