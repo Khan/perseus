@@ -9,47 +9,36 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
 
     render: function() {
         var editor = this;
+        var deferred = $.Deferred();
+
         this.$el.empty();
 
         var $textarea = this.$textarea = $("<textarea>").val(
                 this.options.content);
         $textarea.on("input", function() {
             editor.options.content = $textarea.val();
-            editor.change();
+            editor.trigger("change");
         });
-
-        var $output = $("<div>");
 
         this.$el.append($textarea);
-        this.$el.append($output);
 
-        var renderer = this.renderer = new Perseus.Renderer({
-            el: $output
+        editor.trigger("change", function() {
+            deferred.resolve();
         });
-
-        return this.change();
+        return deferred;
     },
 
     set: function(options) {
         // Extend with default options specified above...
         // TODO(alpert): Should textarea val get set here? Not sure.
         this.options = _.defaults(options, this.constructor.prototype.options);
-        return this.change();
+        this.trigger("change");
+        return this;
     },
 
     focus: function() {
         this.$textarea.focus();
-    },
-
-    change: function() {
-        var renderer = this.renderer;
-        // TODO(alpert): Use 'set' here when that does the right thing
-        renderer.options.content = this.options.content;
-
-        var editor = this;
-        return renderer.render().then(function() {
-            return editor;
-        });
+        return this;
     }
 });
 
@@ -77,6 +66,7 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         var cls = Perseus.Widgets._widgetTypes[this.options.type + "-editor"];
         // TODO(alpert): Ugh, too many things called editor
         this.editor = new cls();
+        this.listenTo(this.editor, "change", this.change);
     },
 
     render: function() {
@@ -98,15 +88,18 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         // Space for the actual answer-type editor to use
         var $div2 = this.$div2 = $("<div>").append(this.editor.$el);
 
-        this.$el.append("Answer type: ", $select, $div2);
+        var $answerTypeLabel = $("<label>");
+        $answerTypeLabel.append("Answer type: ", $select);
+
+        this.$el.append($answerTypeLabel, $div2);
 
         return this.editor.render();
     },
 
-    toJSON: function() {
+    toJSON: function(skipValidation) {
         return {
             type: this.options.type,
-            options: this.editor.toJSON()
+            options: this.editor.toJSON(skipValidation)
         };
     },
 
@@ -124,9 +117,15 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         // TODO(alpert): Ugh, too many things called editor
         var ed = this.editor = new cls(options || {});
 
+        this.listenTo(this.editor, "change", this.change);
+
         this.$div2.empty().append(ed.$el);
 
         return ed.render();
+    },
+
+    change: function(args) {
+        this.trigger.apply(this, ["change"].concat(args));
     }
 });
 
@@ -137,6 +136,9 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         this.questionEditor = new QuestionEditor();
         this.answerEditor = new AnswerAreaEditor();
         this.hintEditors = [];
+
+        this.listenTo(this.questionEditor, "change", this.renderPreview);
+        this.listenTo(this.answerEditor, "change", this.renderPreview);
     },
 
     render: function() {
@@ -147,6 +149,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
                 "Add a hint</a>");
         $addHint.on("click", function() {
             var hintEditor = new HintEditor();
+            editor.listenTo(hintEditor, "change", editor.renderPreview);
             editor.hintEditors.push(hintEditor);
             editor.render().then(function() {
                 hintEditor.focus();
@@ -171,19 +174,59 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         });
     },
 
-    toJSON: function() {
+    renderPreview: function(callback) {
+        var editor = this;
+
+        this.previewEl = this.options.previewEl;
+        if (this.previewEl) {
+            this.$previewEl = $(this.previewEl);
+
+            // TODO(cbhl): The hints repeat a bunch of times... why?
+            $("#hintsarea").empty();
+
+            var itemRenderer = this.itemRenderer = new Perseus.ItemRenderer({
+                el: this.previewEl,
+                item: this.toJSON(true)
+            });
+
+            if (editor.hintEditors) {
+                $.when.apply($, _.map(editor.hintEditors, function() {
+                    return itemRenderer.showHint();
+                })).then(function() {
+                    if (callback) {
+                        callback();
+                    }
+                });
+            } else {
+                this.itemRenderer.render().then(function() {
+                    if (callback) {
+                        callback();
+                    }
+                });
+           }
+        } else {
+            if (callback) {
+                callback();
+            }
+        }
+    },
+
+    toJSON: function(skipValidation) {
         return {
-            question: this.questionEditor.toJSON(),
-            answerArea: this.answerEditor.toJSON(),
-            hints: _.invoke(this.hintEditors, "toJSON")
+            question: this.questionEditor.toJSON(skipValidation),
+            answerArea: this.answerEditor.toJSON(skipValidation),
+            hints: _.invoke(this.hintEditors, "toJSON", skipValidation)
         };
     },
 
     set: function(options) {
+        var editor = this;
         this.questionEditor.set(options.question || {});
         this.answerEditor.set(options.answerArea || {});
         this.hintEditors = _.map(options.hints || [], function(h) {
-            return new HintEditor(h);
+            var hintEditor = new HintEditor(h);
+            editor.listenTo(hintEditor, "change", editor.renderPreview);
+            return hintEditor;
         });
 
         return this.render();

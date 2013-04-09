@@ -111,11 +111,11 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         });
     },
 
-    toJSON: function() {
+    toJSON: function(skipValidation) {
         // TODO(alpert): Text content should probably be here somewhere
         var state = {};
         _.each(this.subwidgets, function(widget, id) {
-            var s = widget.toJSON();
+            var s = widget.toJSON(skipValidation);
             if (!_.isEmpty(s)) {
                 state[id] = s;
             };

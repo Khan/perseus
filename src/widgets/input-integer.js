@@ -19,7 +19,7 @@ var InputInteger = Perseus.Widget.extend({
         this.$input.focus();
     },
 
-    toJSON: function() {
+    toJSON: function(skipValidation) {
         return {
             value: this.$input.val()
         };

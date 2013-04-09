@@ -13,7 +13,7 @@ var Widget = Perseus.Widget = Backbone.View.extend({
 
     // TODO(alpert): Add a cleanup method
 
-    toJSON: function() {
+    toJSON: function(skipValidation) {
         // TODO(alpert): Separate out options like 'el' from actual state
         return this.options;
     },

@@ -53,7 +53,7 @@ var Radio = Perseus.Widget.extend({
         this.$radios.eq(0).focus();
     },
 
-    toJSON: function() {
+    toJSON: function(skipValidation) {
         var selected = this.$radios.filter(":checked").val();
         return {
             // Convert undefined to null
@@ -128,7 +128,7 @@ var RadioEditor = Radio.extend({
         this.$el.append(
                 $("<a href='#'>Add a choice</a>").on("click", function() {
                     // TODO(alpert): Grumble, grumble. This is really silly.
-                    editor.set(editor.toJSON());
+                    editor.set(editor.toJSON(true));
 
                     editor.options.choices.push({
                         content: "",
@@ -143,9 +143,11 @@ var RadioEditor = Radio.extend({
     },
 
     choiceRenderer: function(choice) {
-        return new Perseus.SingleEditor({
+        var editor = new Perseus.SingleEditor({
             content: choice.content
         });
+        this.listenTo(editor, "change", this.change);
+        return editor;
     },
 
     focus: function() {
@@ -154,10 +156,10 @@ var RadioEditor = Radio.extend({
         }
     },
 
-    toJSON: function() {
+    toJSON: function(skipValidation) {
         var selected = this.$radios.filter(":checked");
 
-        if (!selected.length) {
+        if (!skipValidation && !selected.length) {
             // TODO(alpert): Better errors
             alert("Warning: No choice is selected -- students will be " +
                     "unable to answer");
@@ -168,7 +170,7 @@ var RadioEditor = Radio.extend({
         return {
             choices: _.map(this.renderers, function(editor, i) {
                 return {
-                    content: editor.toJSON().content,
+                    content: editor.toJSON(skipValidation).content,
                     correct: i === selectedVal
                 };
             })
@@ -182,6 +184,10 @@ var RadioEditor = Radio.extend({
 
     simpleValidate: function(rubric) {
         return true;
+    },
+
+    change: function(args) {
+        this.trigger.apply(this, ["change"].concat(args));
     }
 });
 
