@@ -197,15 +197,9 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     renderPreview: function(callback) {
         var deferred = this._renderPreview();
         if (deferred) {
-            deferred.then(function() {
-                if (callback) {
-                    callback();
-                }
-            });
-        } else {
-            if (callback) {
-                callback();
-            }
+            deferred.then(callback || $.noop);
+        } else if (callback) {
+            callback();
         }
     },
 
