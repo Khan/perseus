@@ -117,4 +117,16 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
     }
 });
 
+var ItemEditorRenderer = Perseus.ItemEditorRenderer = Perseus.ItemRenderer.extend({
+    showAllHints: function() {
+        while (this.remainingHints.length) {
+            var hintOptions = this.remainingHints.shift();  // TODO(alpert): speed?
+            var renderer = new Perseus.Renderer(hintOptions);
+            renderer.$el.addClass("perseus-hint");
+            this.hintRenderers.push(renderer);
+        }
+        return this.render();
+    },
+});
+
 })(Perseus);

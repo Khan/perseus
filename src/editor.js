@@ -129,18 +129,6 @@ var AnswerAreaEditor = Perseus.Widget.extend({
     }
 });
 
-var ItemEditorRenderer = Perseus.ItemRenderer.extend({
-    showAllHints: function() {
-        while (this.remainingHints.length) {
-            var hintOptions = this.remainingHints.shift();  // TODO(alpert): speed?
-            var renderer = new Perseus.Renderer(hintOptions);
-            renderer.$el.addClass("perseus-hint");
-            this.hintRenderers.push(renderer);
-        }
-        return this.render();
-    },
-});
-
 var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     className: "perseus-item-editor",
 
@@ -197,7 +185,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
             // TODO(cbhl): The hints repeat a bunch of times... why?
             $("#hintsarea").empty();
 
-            this.itemRenderer = new ItemEditorRenderer({
+            this.itemRenderer = new Perseus.ItemEditorRenderer({
                 el: this.previewEl,
                 item: this.toJSON(true)
             });
