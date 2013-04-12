@@ -125,19 +125,25 @@ var RadioEditor = Radio.extend({
             });
         });
 
-        this.$el.append(
-                $("<a href='#'>Add a choice</a>").on("click", function() {
-                    // TODO(alpert): Grumble, grumble. This is really silly.
-                    editor.set(editor.toJSON(true));
+        var $addChoiceDiv = $("<div class='add-choice-container'>");
+        var $addChoice = $("<a href='#' class='simple-button orange " +
+                "icon-plus add-choice-button'>")
+            // Leading space because of FontAwesome icon.
+            .text(" Add a choice")
+            .on("click", function() {
+                // TODO(alpert): Grumble, grumble. This is really silly.
+                editor.set(editor.toJSON(true));
 
-                    editor.options.choices.push({
-                        content: "",
-                        correct: false
-                    });
-                    editor.render();
-                    return false;
-                })
-            );
+                editor.options.choices.push({
+                    content: "",
+                    correct: false
+                });
+                editor.render();
+                return false;
+            });
+        $addChoiceDiv.append($addChoice);
+
+        this.$el.append($addChoiceDiv);
 
         return promise;
     },

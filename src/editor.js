@@ -49,7 +49,40 @@ var QuestionEditor = Perseus.SingleEditor.extend({
 
 var HintEditor = Perseus.SingleEditor.extend({
     className: Perseus.SingleEditor.prototype.className +
-            " perseus-hint-editor"
+            " perseus-hint-editor",
+
+    render: function() {
+        var editor = this;
+        var deferred = $.Deferred();
+
+        this.$el.empty();
+
+        var $removeHintDiv = this.$removeHintDiv = $("<div " +
+            "class='remove-hint-container'>");
+        var $removeHintButton = this.$removeHintButton = $("<a href='#' " +
+            "class='simple-button orange icon-trash remove-hint-button'" +
+            "alt='Remove this Hint'>");
+        // Leading space because of FontAwesome icon.
+        $removeHintButton.text(" Remove this hint");
+        $removeHintButton.on("click", function() {
+            editor.trigger("remove");
+            return false;
+        });
+        $removeHintDiv.append($removeHintButton);
+
+        var $textarea = this.$textarea = $("<textarea>").val(
+                this.options.content);
+        $textarea.on("input", function() {
+            editor.options.content = $textarea.val();
+            editor.trigger("change");
+        });
+
+        this.$el.append($textarea);
+        this.$el.append($removeHintDiv);
+
+        editor.trigger("change", deferred.resolve);
+        return deferred;
+    }
 
     // TODO(alpert): Remove a hint
 });
@@ -75,9 +108,9 @@ var AnswerAreaEditor = Perseus.Widget.extend({
 
         var $select = $("<select>");
         $select.append(
-                "<option value='radio'>Multiple choice</option>",
+                "<option value='radio'>Multiple choice</option>"
                 // TODO(alpert): Make input-integer better then change this
-                "<option value='input-integer'>Exact string equality</option>"
+                // <option value='input-integer'>Exact string equality</option>
             );
         $select.val(this.options.type);
 
@@ -145,24 +178,26 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         var editor = this;
         this.$el.empty();
 
-        var $addHint = $("<a href='#' class='simple-button orange'>" +
-                "Add a hint</a>");
+        var $addHintDiv = $("<div class='add-hint-container'>");
+        var $addHint = $("<a href='#' class='simple-button orange " +
+                "icon-plus add-hint-button'>");
+        // Leading space because of FontAwesome icon.
+        $addHint.text(" Add a hint");
         $addHint.on("click", function() {
-            var hintEditor = new HintEditor();
-            editor.listenTo(hintEditor, "change", editor.renderPreview);
-            editor.hintEditors.push(hintEditor);
+            var hintEditor = editor._addHint();
             editor.render().then(function() {
                 hintEditor.focus();
             });
             return false;
         });
+        $addHintDiv.append($addHint);
 
         this.$el.append(this.questionEditor.$el);
         this.$el.append(this.answerEditor.$el);
         _.each(this.hintEditors, function(e) {
             editor.$el.append(e.$el);
         });
-        this.$el.append($addHint);
+        this.$el.append($addHintDiv);
 
         return this.questionEditor.render().then(function() {
             return editor.answerEditor.render();
@@ -215,13 +250,27 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         var editor = this;
         this.questionEditor.set(options.question || {});
         this.answerEditor.set(options.answerArea || {});
-        this.hintEditors = _.map(options.hints || [], function(h) {
-            var hintEditor = new HintEditor(h);
-            editor.listenTo(hintEditor, "change", editor.renderPreview);
-            return hintEditor;
-        });
+        this.hintEditors = _.map(options.hints || [],
+            _.bind(this._createHint, this));
 
         return this.render();
+    },
+
+    _addHint: function(h) {
+        var hintEditor = this._createHint(h);
+        this.hintEditors.push(hintEditor);
+        return hintEditor;
+    },
+
+    _createHint: function(h) {
+        var editor = this;
+        var hintEditor = new HintEditor(h);
+        this.listenTo(hintEditor, "change", this.renderPreview);
+        hintEditor.on("remove", function() {
+            editor.hintEditors = _.without(editor.hintEditors, hintEditor);
+            editor.render();
+        });
+        return hintEditor;
     },
 
     focus: function() {
