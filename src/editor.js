@@ -225,7 +225,9 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
                 item: this.toJSON(true)
             });
 
-            return this.itemRenderer.showAllHints();
+            return this.itemRenderer.showAllHints().then(function() {
+                $("#answerform input").prop("disabled", true);
+            });
         }
     }, 1),
 
