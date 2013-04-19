@@ -9,7 +9,6 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
 
     render: function() {
         var editor = this;
-        var deferred = $.Deferred();
 
         this.$el.empty();
 
@@ -22,17 +21,16 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
 
         this.$el.append($textarea);
 
-        editor.trigger("change", function() {
-            deferred.resolve();
-        });
-        return deferred;
+        return $.when(this);
     },
 
     set: function(options) {
         // Extend with default options specified above...
         // TODO(alpert): Should textarea val get set here? Not sure.
         this.options = _.defaults(options, this.constructor.prototype.options);
-        this.trigger("change");
+        if (!options.silent) {
+            this.trigger("change");
+        }
         return this;
     },
 
@@ -53,7 +51,6 @@ var HintEditor = Perseus.SingleEditor.extend({
 
     render: function() {
         var editor = this;
-        var deferred = $.Deferred();
 
         this.$el.empty();
 
@@ -80,8 +77,7 @@ var HintEditor = Perseus.SingleEditor.extend({
         this.$el.append($textarea);
         this.$el.append($removeHintDiv);
 
-        editor.trigger("change", deferred.resolve);
-        return deferred;
+        return $.when(this);
     }
 
     // TODO(alpert): Remove a hint
@@ -158,23 +154,32 @@ var AnswerAreaEditor = Perseus.Widget.extend({
     },
 
     change: function(args) {
-        this.trigger.apply(this, ["change"].concat(args));
+        this.trigger("change");
     }
 });
 
 var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     className: "perseus-item-editor",
 
+    _changedSinceLastRender: {
+        question: false,
+        answer: false,
+        hints: false
+    },
+
     initialize: function() {
         this.questionEditor = new QuestionEditor();
         this.answerEditor = new AnswerAreaEditor();
         this.hintEditors = [];
 
-        this.listenTo(this.questionEditor, "change", this.renderPreview);
-        this.listenTo(this.answerEditor, "change", this.renderPreview);
+        this.listenTo(this.questionEditor, "change", this.updateQuestion);
+        this.listenTo(this.answerEditor, "change", this.updateAnswer);
+
+        setInterval(_.bind(this.renderPreview, this), 10);
     },
 
     render: function() {
+        // editor
         var editor = this;
         this.$el.empty();
 
@@ -199,45 +204,92 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         });
         this.$el.append($addHintDiv);
 
-        return this.questionEditor.render().then(function() {
-            return editor.answerEditor.render();
-        }).then(function() {
-            return $.when.apply($, _.invoke(editor.hintEditors, "render"))
-                    .then(function() {
-                return editor;
-            });
-        });
-    },
-
-    // TODO(cbhl): rendering is really slow -- remove the debounce and fix it
-    _renderPreview: _.debounce(function() {
-        var editor = this;
-
+        // preview
         this.previewEl = this.options.previewEl;
-        if (this.previewEl) {
-            this.$previewEl = $(this.previewEl);
+        this.$previewEl = $(this.previewEl);
 
-            // TODO(cbhl): The hints repeat a bunch of times... why?
-            $("#hintsarea").empty();
-
+        if (!this.itemRenderer) {
             this.itemRenderer = new Perseus.ItemEditorRenderer({
                 el: this.previewEl,
                 item: this.toJSON(true)
             });
-
-            return this.itemRenderer.showAllHints().then(function() {
-                $("#answerform input").prop("disabled", true);
-            });
         }
-    }, 1),
 
-    renderPreview: function(callback) {
-        var deferred = this._renderPreview();
-        if (deferred) {
-            deferred.then(callback || $.noop);
-        } else if (callback) {
-            callback();
+        var editors = [this.questionEditor, this.answerEditor].concat(
+            this.hintEditors);
+        var deferreds = _.invoke(editors, "render");
+        return $.when.apply($, deferreds).then(function() {
+            return editor;
+        });
+    },
+
+    renderPreview: function() {
+        var deferreds = [];
+        if (this._changedSinceLastRender.question) {
+            this._changedSinceLastRender.question = false;
+            deferreds.push(this._renderQuestion());
         }
+        if (this._changedSinceLastRender.answer) {
+            this._changedSinceLastRender.answer = false;
+            deferreds.push(this._renderAnswer());
+        }
+        if (this._changedSinceLastRender.hints) {
+            this._changedSinceLastRender.hints = false;
+            deferreds.push(this._renderHints());
+        }
+
+        return $.when.apply($, deferreds);
+    },
+
+    updateQuestion: function() {
+        this._changedSinceLastRender.question = true;
+    },
+
+    updateAnswer: function() {
+        this._changedSinceLastRender.answer = true;
+    },
+
+    updateHints: function() {
+        this._changedSinceLastRender.hints = true;
+    },
+
+    _renderQuestion: function() {
+        // TODO(cbhl): Law of Demeter
+        this.itemRenderer.questionRenderer.options.content =
+            this.questionEditor.options.content;
+
+        return this.itemRenderer.renderQuestion();
+    },
+
+    _renderAnswer: function() {
+        this.itemRenderer.resetAnswerArea(this.answerEditor.toJSON(true));
+
+        return this.itemRenderer.renderAnswer().then(function() {
+            $("#answerform input").prop("disabled", true);
+        });
+    },
+
+    _renderHints: function() {
+        // TODO(cbhl): Law of Demeter
+        if (this.itemRenderer.hintRenderers.length !==
+                this.hintEditors.length) {
+            // Re-create all of them, just in case.
+            $("#hintsarea").empty();
+            this.itemRenderer.hintRenderers = []
+            this.itemRenderer.remainingHints =
+                _.pluck(this.hintEditors, "options");
+            this.itemRenderer.showAllHints()
+        } else {
+            // Just update the hint text.
+            for (var i = 0; i < this.hintEditors.length; i += 1) {
+                var renderer = this.itemRenderer.hintRenderers[i];
+                var editor = this.hintEditors[i];
+                    renderer.options.content =
+                        editor.options.content;
+            }
+        }
+
+        return this.itemRenderer.renderHints();
     },
 
     toJSON: function(skipValidation) {
@@ -250,10 +302,16 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
 
     set: function(options) {
         var editor = this;
-        this.questionEditor.set(options.question || {});
-        this.answerEditor.set(options.answerArea || {});
+        window.itemEditor = this;
+
+        this.questionEditor.set(_.defaults(options.question));
+        this.answerEditor.set(_.defaults(options.answerArea));
         this.hintEditors = _.map(options.hints || [],
             _.bind(this._createHint, this));
+
+        this._changedSinceLastRender.question = true;
+        this._changedSinceLastRender.answer = true;
+        this._changedSinceLastRender.hints = true;
 
         return this.render();
     },
@@ -267,7 +325,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     _createHint: function(h) {
         var editor = this;
         var hintEditor = new HintEditor(h);
-        this.listenTo(hintEditor, "change", this.renderPreview);
+        this.listenTo(hintEditor, "change", this.updateHints);
         hintEditor.on("remove", function() {
             editor.hintEditors = _.without(editor.hintEditors, hintEditor);
             editor.render();

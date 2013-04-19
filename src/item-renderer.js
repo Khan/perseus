@@ -73,22 +73,31 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
         this.remainingHints = item.hints.slice();
     },
 
-    render: function() {
-        var renderer = this;
+    render: function(options) {
+        return $.when(
+            this.renderQuestion(),
+            this.renderAnswer(),
+            this.renderHints()
+            );
+    },
 
+    renderQuestion: function() {
         this.$("#workarea")
             .empty()
             .append(this.questionRenderer.$el);
+        return this.questionRenderer.render();
+    },
 
+    renderAnswer: function() {
+        return this.answerAreaRenderer.render();
+    },
+
+    renderHints: function() {
+        var renderer = this;
         _.each(this.hintRenderers, function(r) {
             renderer.$("#hintsarea").append(r.$el);
         });
-
-        var renderers = [this.questionRenderer, this.answerAreaRenderer]
-                .concat(this.hintRenderers);
-        return $.when.apply($, _.invoke(renderers, "render")).then(function() {
-            return renderer;
-        });
+        return $.when.apply($, _.invoke(this.hintRenderers, "render"));
     },
 
     focus: function() {
@@ -125,8 +134,17 @@ var ItemEditorRenderer = Perseus.ItemEditorRenderer = Perseus.ItemRenderer.exten
             renderer.$el.addClass("perseus-hint");
             this.hintRenderers.push(renderer);
         }
-        return this.render();
+        return;
     },
+
+    resetAnswerArea: function(answerArea) {
+        this.answerAreaRenderer = new AnswerAreaRenderer({
+            el: this.$("#answerform"),
+            itemRenderer: this,
+            type: answerArea.type,
+            options: answerArea.options
+        });
+    }
 });
 
 })(Perseus);

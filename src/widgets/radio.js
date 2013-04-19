@@ -193,7 +193,7 @@ var RadioEditor = Radio.extend({
     },
 
     change: function(args) {
-        this.trigger.apply(this, ["change"].concat(args));
+        this.trigger("change");
     }
 });
 
