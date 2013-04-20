@@ -304,8 +304,8 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         var editor = this;
         window.itemEditor = this;
 
-        this.questionEditor.set(_.defaults(options.question || {}));
-        this.answerEditor.set(_.defaults(options.answerArea || {}));
+        this.questionEditor.set(options.question || {});
+        this.answerEditor.set(options.answerArea || {});
         this.hintEditors = _.map(options.hints || [],
             _.bind(this._createHint, this));
 
