@@ -88,7 +88,7 @@ var AnswerAreaEditor = Perseus.Widget.extend({
 
     options: {
         // TODO(alpert): Separate into validatey things
-        type: "radio"
+        type: "input-number"
     },
 
     initialize: function() {
@@ -104,9 +104,8 @@ var AnswerAreaEditor = Perseus.Widget.extend({
 
         var $select = $("<select>");
         $select.append(
-                "<option value='radio'>Multiple choice</option>"
-                // TODO(alpert): Make input-integer better then change this
-                // <option value='input-integer'>Exact string equality</option>
+                "<option value='radio'>Multiple choice</option>",
+                "<option value='input-number'>Text input (number)</option>"
             );
         $select.val(this.options.type);
 
@@ -135,6 +134,7 @@ var AnswerAreaEditor = Perseus.Widget.extend({
     set: function(options) {
         // TODO(alpert): Move into Perseus.Widget?
         _.extend(this.options, options);
+        this.setType(this.options.type);
         return this.editor.set(this.options.options);
     },
 

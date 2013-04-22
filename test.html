@@ -87,9 +87,14 @@
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+
+<script>var Khan = {}; var KhanUtil = Khan.Util = {};</script>
+<script src="/ke/utils/answer-types.js"></script>
+<script src="/ke/utils/math.js"></script>
+
 <script src="/src/core.js"></script>
 <script src="/src/widgets.js"></script>
-<script src="/src/widgets/input-integer.js"></script>
+<script src="/src/widgets/input-number.js"></script>
 <script src="/src/widgets/radio.js"></script>
 <script src="/src/renderer.js"></script>
 <script src="/src/item-renderer.js"></script>
@@ -101,29 +106,17 @@
 var seedContent = $("#seed-content").remove().text();
 
 Perseus.init({}).then(function() {
-    var editor = new Perseus.ItemEditor({
+    var editor = zk = new Perseus.ItemEditor({
         el: "#editor",
         previewEl: "#content"
     });
 
     return editor.render().then(function() {
         return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "radio",
+    "type": "input-number",
     "options": {
-        "choices": [
-            {
-                "content": "$1$ monkey",
-                "correct": true
-            },
-            {
-                "content": "$2$ monkeys",
-                "correct": false
-            },
-            {
-                "content": "None of the above.",
-                "correct": false
-            }
-        ]
+        "value": 2 + "",
+        "simplify": "required"
     }
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
     }).then(function() {
