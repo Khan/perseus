@@ -208,17 +208,17 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
         this.previewEl = this.options.previewEl;
         this.$previewEl = $(this.previewEl);
 
-        if (!this.itemRenderer) {
-            this.itemRenderer = new Perseus.ItemEditorRenderer({
-                el: this.previewEl,
-                item: this.toJSON(true)
-            });
-        }
-
         var editors = [this.questionEditor, this.answerEditor].concat(
             this.hintEditors);
         var deferreds = _.invoke(editors, "render");
         return $.when.apply($, deferreds).then(function() {
+            if (!editor.itemRenderer) {
+                editor.itemRenderer = new Perseus.ItemEditorRenderer({
+                    el: editor.previewEl,
+                    item: editor.toJSON(true)
+                });
+            }
+
             return editor;
         });
     },
