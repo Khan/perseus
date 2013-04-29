@@ -1,5 +1,10 @@
 (function(Perseus) {
 
+var _resizeTextarea = function($el) {
+    $el.height(24);
+    $el.height($el.prop("scrollHeight") + 12);
+};
+
 var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
     className: "perseus-single-editor",
 
@@ -17,9 +22,11 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
         $textarea.on("input", function() {
             editor.options.content = $textarea.val();
             editor.trigger("change");
+            _resizeTextarea($textarea);
         });
 
         this.$el.append($textarea);
+        _resizeTextarea($textarea);
 
         return $.when(this);
     },
@@ -72,10 +79,12 @@ var HintEditor = Perseus.SingleEditor.extend({
         $textarea.on("input", function() {
             editor.options.content = $textarea.val();
             editor.trigger("change");
+            _resizeTextarea($textarea);
         });
 
         this.$el.append($textarea);
         this.$el.append($removeHintDiv);
+        _resizeTextarea($textarea);
 
         return $.when(this);
     }
