@@ -116,7 +116,7 @@ var InputNumberEditor = Perseus.Widget.extend({
                 $(this).val(ans || 0).trigger("input");
             });
         var $simple = this.$simple = $("<input type='checkbox'>")
-            .prop("checked", this.options.simplify == "required")
+            .prop("checked", this.options.simplify === "required")
             .on("change", function() {
                 // TODO(alpert): A little bit of code duplication here
                 editor.options.simplify = $(this).prop("checked") ?
@@ -136,10 +136,7 @@ var InputNumberEditor = Perseus.Widget.extend({
     },
 
     toJSON: function() {
-        return {
-            value: +this.$input.val(),
-            simplify: this.$simple.prop("checked") ? "required" : "optional"
-        };
+        return this.options;
     },
 
     set: function(options) {

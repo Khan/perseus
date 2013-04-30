@@ -168,6 +168,8 @@ var RadioEditor = Radio.extend({
     },
 
     toJSON: function(skipValidation) {
+        // TODO(alpert): Make this so it just returns this.options (maybe after
+        // a little validation)
         var selected = this.$radios.filter(":checked");
 
         if (!skipValidation && !selected.length) {
