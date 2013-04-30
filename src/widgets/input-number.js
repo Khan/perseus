@@ -113,10 +113,15 @@ var InputNumberEditor = Perseus.Widget.extend({
             })
             .on("blur", function() {
                 var ans = parseOne($(this).val());
-                $(this).val(ans || 0);
+                $(this).val(ans || 0).trigger("input");
             });
         var $simple = this.$simple = $("<input type='checkbox'>")
-            .prop("checked", this.options.simplify == "required");
+            .prop("checked", this.options.simplify == "required")
+            .on("change", function() {
+                // TODO(alpert): A little bit of code duplication here
+                editor.options.simplify = $(this).prop("checked") ?
+                        "required" : "optional";
+            });
 
         this.$el.empty();
         this.$el.append(

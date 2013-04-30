@@ -120,7 +120,7 @@ var RadioEditor = Radio.extend({
             var idx = +$radio.val();
             var checked = $radio.is(":checked");
 
-            _.map(editor.options.choices, function(choice, i) {
+            _.each(editor.options.choices, function(choice, i) {
                 choice.correct = i === idx;
             });
         });
@@ -149,10 +149,15 @@ var RadioEditor = Radio.extend({
     },
 
     choiceRenderer: function(choice) {
+        var radioEditor = this;
         var editor = new Perseus.SingleEditor({
             content: choice.content
         });
-        this.listenTo(editor, "change", this.change);
+        this.listenTo(editor, "change", function() {
+            // TODO(alpert): A little ick, some code duplication too
+            choice.content = editor.options.content;
+            radioEditor.change();
+        });
         return editor;
     },
 

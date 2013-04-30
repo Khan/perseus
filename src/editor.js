@@ -287,7 +287,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
             this.itemRenderer.hintRenderers = []
             this.itemRenderer.remainingHints =
                 _.pluck(this.hintEditors, "options");
-            this.itemRenderer.showAllHints()
+            this.itemRenderer.showAllHints();
         } else {
             // Just update the hint text.
             for (var i = 0; i < this.hintEditors.length; i += 1) {
