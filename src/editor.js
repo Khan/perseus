@@ -64,10 +64,10 @@ var HintEditor = Perseus.SingleEditor.extend({
         var $removeHintDiv = this.$removeHintDiv = $("<div " +
             "class='remove-hint-container'>");
         var $removeHintButton = this.$removeHintButton = $("<a href='#' " +
-            "class='simple-button orange icon-trash remove-hint-button'" +
+            "class='simple-button orange remove-hint-button'" +
             "alt='Remove this Hint'>");
-        // Leading space because of FontAwesome icon.
-        $removeHintButton.text(" Remove this hint");
+        $removeHintButton.append("<span class='icon-trash'>");
+        $removeHintButton.append("<span> Remove this hint</span>");
         $removeHintButton.on("click", function() {
             editor.trigger("remove");
             return false;
@@ -194,9 +194,9 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
 
         var $addHintDiv = $("<div class='add-hint-container'>");
         var $addHint = $("<a href='#' class='simple-button orange " +
-                "icon-plus add-hint-button'>");
-        // Leading space because of FontAwesome icon.
-        $addHint.text(" Add a hint");
+                "add-hint-button'>");
+        $addHint.append("<span class='icon-plus'>");
+        $addHint.append("<span> Add a hint</span>");
         $addHint.on("click", function() {
             var hintEditor = editor._addHint();
             editor.render().then(function() {
