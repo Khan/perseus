@@ -35,6 +35,7 @@
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="/src/core.js"></script>
+<script src="/src/util.js"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/widgets/input-number.js"></script>
 <script src="/src/widgets/radio.js"></script>
@@ -45,17 +46,36 @@
 (function() {
 
 var seedContent = {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "input-number",
+    "type": "radio",
     "options": {
-        "value": "2/3",
-        "simplify": "required"
-    }
+        choices: [{
+            content: "1",
+            correct: false
+        },{
+            content: "2",
+            correct: false
+        },{
+            content: "3",
+            correct: true
+        },{
+            content: "4",
+            correct: false
+        },{
+            content: "5",
+            correct: false
+        },{
+            content: "6",
+            correct: false
+        }],
+        randomize: true
+    },
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
 
 Perseus.init({}).then(function() {
     var renderer = zk = new Perseus.ItemRenderer({
         el: "#content",
-        item: seedContent
+        item: seedContent,
+        problemNum: Math.floor(Math.random() * 50) + 1,
     }).on("attempt", function(info) {
         var score = info.score;
 

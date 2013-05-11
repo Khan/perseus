@@ -10,6 +10,7 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
         // TODO(alpert): box is a stupid name
         // TODO(alpert): this.options.options is stupid too
         this.box = new type(this.options.options);
+        this.box.setState({problemNum: this.options.problemNum});
     },
 
     render: function() {
@@ -63,7 +64,8 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
             el: this.$("#answerform"),
             itemRenderer: this,
             type: item.answerArea.type,
-            options: item.answerArea.options
+            options: item.answerArea.options,
+            problemNum: options.problemNum
         });
 
         // Renderer for each presented hint

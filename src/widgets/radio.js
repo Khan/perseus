@@ -8,16 +8,26 @@ var Radio = Perseus.Widget.extend({
         choices: [{
             content: "",
             correct: true
-        }]
+        }],
+        randomize: false
+    },
+
+    state: {
+        problemNum: 0
     },
 
     initialize: function() {
         this.$radios = $();
     },
 
+    setState: function(state) {
+        this.state = state;
+    },
+
     render: function() {
         var widget = this;
         var radios = [];
+        var labeledElements = [];
         var $widgetUl = $("<ul>").appendTo(this.$el.empty());
 
         var radioGroupName = _.uniqueId("perseus_radio_");
@@ -33,6 +43,15 @@ var Radio = Perseus.Widget.extend({
             renderers.push(renderer);
 
             $label.append($input, renderer.$el);
+            labeledElements.push($label);
+        });
+
+        // optionally randomize presentation of choices
+        // radios must be randomized as well to preserve focus() behavior
+        radios = this.randomize(radios);
+        labeledElements = this.randomize(labeledElements);
+
+        _.each(labeledElements, function($label) {
             $widgetUl.append($("<li>").append($label));
         });
 
@@ -68,6 +87,13 @@ var Radio = Perseus.Widget.extend({
 
     simpleValidate: function(rubric) {
         return Radio.validate(this.toJSON(), rubric);
+    },
+
+    randomize: function(array) {
+        if (!this.options.randomize || !this.state.problemNum) {
+            return array;
+        }
+        return Perseus.Util.shuffle(array, this.state.problemNum);
     }
 });
 
@@ -145,6 +171,15 @@ var RadioEditor = Radio.extend({
 
         this.$el.append($addChoiceDiv);
 
+        var $randomize = this.$randomize = $("<input type='checkbox'>")
+            .prop("checked", this.options.randomize)
+            .on("change", function() {
+                editor.options.randomize = $(this).prop("checked");
+            });
+
+        this.$el.append(
+            $("<label> Randomize answer order</label>").prepend($randomize));
+
         return promise;
     },
 
@@ -186,7 +221,8 @@ var RadioEditor = Radio.extend({
                     content: editor.toJSON(skipValidation).content,
                     correct: i === selectedVal
                 };
-            })
+            }),
+            randomize: this.options.randomize
         };
     },
 

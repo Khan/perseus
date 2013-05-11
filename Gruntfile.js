@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
 var srcFiles = [
     "src/core.js",
+    "src/util.js",
     "src/widgets.js",
     "src/widgets/input-number.js",
     "src/widgets/radio.js",

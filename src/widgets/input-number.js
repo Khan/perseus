@@ -31,6 +31,8 @@ var InputNumber = Perseus.Widget.extend({
         }
     },
 
+    setState: function() {},
+
     render: function() {
         this.$el.empty();
         this.$el.append(this.$input);
