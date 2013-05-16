@@ -34,6 +34,13 @@
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+
+<script>var Khan = {}; var KhanUtil = Khan.Util = {};</script>
+<script src="/ke/utils/jed.js"></script>
+<script src="/ke/utils/i18n.js"></script>
+<script src="/ke/utils/answer-types.js"></script>
+<script src="/ke/utils/math.js"></script>
+
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
 <script src="/src/widgets.js"></script>
@@ -45,31 +52,7 @@
 <script>
 (function() {
 
-var seedContent = {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "radio",
-    "options": {
-        choices: [{
-            content: "1",
-            correct: false
-        },{
-            content: "2",
-            correct: false
-        },{
-            content: "3",
-            correct: true
-        },{
-            content: "4",
-            correct: false
-        },{
-            content: "5",
-            correct: false
-        },{
-            content: "6",
-            correct: false
-        }],
-        randomize: true
-    },
-},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
+var seedContent = {"question":{"content":"[[☃ input-number 1]] How many monkeys swing from $10$ branches of **trees**?","widgets":{"input-number 1":{"options":{"value":"42","simplify":"required"},"type":"input-number"}}},"answerArea":{"type":"input-number","options":{"value":"2","simplify":"required"}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
 
 Perseus.init({}).then(function() {
     var renderer = zk = new Perseus.ItemRenderer({

@@ -66,7 +66,7 @@ _.extend(InputNumber, {
             });
         var result = val(state.value);
 
-        if (result === "") {
+        if (state.value === "" || result === "") {
             return {
                 type: "invalid",
                 message: null

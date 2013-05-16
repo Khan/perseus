@@ -6,9 +6,9 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         widgets: {}
     },
 
-    initialize: function(options, subwidgetOptions) {
-        // this.options populated in Backbone.View constructor
-        this._subwidgetOptions = subwidgetOptions;
+    initialize: function() {
+        this.subwidgetIds = [];
+        this.subwidgets = {};
     },
 
     render: function() {
@@ -70,6 +70,9 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         MathJax.Hub.Queue(mathDeferred.resolve);
 
         var subwidgetDeferreds = [];
+
+        // Need both of these since JS object keys aren't sorted consistently
+        var subwidgetIds = this.subwidgetIds = [];
         var subwidgets = this.subwidgets = {};
 
         this.$(".perseus-widget").each(function() {
@@ -86,6 +89,7 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
                 return;
             }
 
+            subwidgetIds.push(widgetId);
             // TODO(alpert): Error handling if/when getWidget gets fancy
             subwidgetDeferreds.push(Perseus.Widgets.get(widgetInfo.type).then(
                     function(widgetClass) {
@@ -121,6 +125,22 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         });
     },
 
+    focus: function() {
+        var firstWidget = this.subwidgetIds.length ?
+                this.subwidgets[this.subwidgetIds[0]] :
+                null;
+        if (firstWidget) {
+            firstWidget.focus();
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    setState: function() {
+        // TODO(alpert): Propagate state to subwidgets
+    },
+
     toJSON: function(skipValidation) {
         // TODO(alpert): Text content should probably be here somewhere
         var state = {};
@@ -131,6 +151,32 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
             };
         });
         return state;
+    },
+
+    guessAndScore: function() {
+        var widgetOptions = this.options.widgets;
+
+        var totalGuess = [];
+        var totalScore = {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null
+        };
+
+        totalScore = _.chain(this.subwidgetIds)
+                .map(function(id) {
+                    var widget = this.subwidgets[id];
+                    // TODO(alpert): What if id not in subwidgets?
+                    var guess = widget.toJSON();
+
+                    totalGuess.push(guess);
+                    return widget.simpleValidate(widgetOptions[id].options);
+                }, this)
+                .reduce(Perseus.Util.combineScores, totalScore)
+                .value();
+
+        return [totalGuess, totalScore];
     }
 });
 

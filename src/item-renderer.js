@@ -31,28 +31,14 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
         this.box.focus();
     },
 
-    scoreInput: function() {
+    guessAndScore: function() {
         var guess = this.box.toJSON();
 
         // TODO(alpert): Use separate rubric
         var score = this.box.simpleValidate(this.options.options);
 
-        if (score.type === "points") {
-            return {
-                empty: false,
-                correct: score.earned >= score.total,
-                message: score.message,
-                guess: guess
-            };
-        } else if (score.type === "invalid") {
-            return {
-                empty: true,
-                correct: false,
-                message: score.message,
-                guess: guess
-            };
-        }
-    }
+        return [guess, score];
+    },
 });
 
 var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
@@ -103,7 +89,8 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
     },
 
     focus: function() {
-        return this.answerAreaRenderer.focus();
+        return this.questionRenderer.focus() ||
+                this.answerAreaRenderer.focus();
     },
 
     showHint: function() {
@@ -124,7 +111,38 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
     },
 
     scoreInput: function() {
-        return this.answerAreaRenderer.scoreInput();
+        var qGuessAndScore = this.questionRenderer.guessAndScore();
+        var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
+
+        var qGuess = qGuessAndScore[0], qScore = qGuessAndScore[1];
+        var aGuess = aGuessAndScore[0], aScore = aGuessAndScore[1];
+
+        var guess, score;
+        if (qGuess.length === 0) {
+            // No widgets in question. For compatability with old guess format,
+            // leave it out here completely.
+            guess = aGuess;
+            score = aScore;
+        } else {
+            guess = [qGuess, aGuess];
+            score = Perseus.Util.combineScores(qScore, aScore);
+        }
+
+        if (score.type === "points") {
+            return {
+                empty: false,
+                correct: score.earned >= score.total,
+                message: score.message,
+                guess: guess
+            };
+        } else if (score.type === "invalid") {
+            return {
+                empty: true,
+                correct: false,
+                message: score.message,
+                guess: guess
+            };
+        }
     }
 });
 
