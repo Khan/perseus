@@ -22,22 +22,6 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
             html = marked(extracted[0]),
             savedMath = extracted[1];
 
-        // Replace math references
-        html = html.replace(/@@(\d+)@@/g, function(match, num) {
-            var original = savedMath[num];
-            if (original.charAt(0) === "@") {
-                // Not actually math, just sub it back in
-                return original;
-            } else {
-                // Math starting and ending with $. Substitute "< /" for "</"
-                // so it doesn't end the script tag.
-                var tex = original.slice(1, original.length - 1);
-                return ("<script type='math/tex'>" +
-                        tex.replace(/<\//g, "< /") +
-                        "</script>");
-            }
-        });
-
         // Replace widget references
         html = html.replace(
                 /((?:<p>)?)\[\[\u2603 ([a-z-]+ [0-9]+)\]\]((?:<\/p>)?)/g,
@@ -58,6 +42,22 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
                             "data-widget-id='" + id + "'>" +
                             "</" + tag + ">" + closep);
                 });
+
+        // Replace math references
+        html = html.replace(/@@(\d+)@@/g, function(match, num) {
+            var original = savedMath[num];
+            if (original.charAt(0) === "@") {
+                // Not actually math, just sub it back in
+                return original;
+            } else {
+                // Math starting and ending with $. Substitute "< /" for "</"
+                // so it doesn't end the script tag.
+                var tex = original.slice(1, original.length - 1);
+                return ("<script type='math/tex'>" +
+                        tex.replace(/<\//g, "< /") +
+                        "</script>");
+            }
+        });
 
         // Hide the element now so you don't see unprocessed math -- will be
         // reshown at the end of the function
