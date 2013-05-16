@@ -258,12 +258,14 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         var $select = $("<select>");
         $select.append(
                 "<option value='radio'>Multiple choice</option>",
-                "<option value='input-number'>Text input (number)</option>"
+                "<option value='input-number'>Text input (number)</option>",
+                "<option value='multiple'>Custom format</option>"
             );
         $select.val(this.options.type);
 
         $select.on("change", function() {
             editor.setType($select.val());
+            editor.trigger("change");
         });
 
         // Space for the actual answer-type editor to use
@@ -295,7 +297,13 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         // TODO(alpert): How to prefill old vals?
         this.options.type = type;
 
-        var cls = Perseus.Widgets._widgetTypes[type + "-editor"];
+        var cls;
+        if (type === "multiple") {
+            cls = SingleEditor;
+        } else {
+            cls = Perseus.Widgets._widgetTypes[type + "-editor"];
+        }
+
         // TODO(alpert): Ugh, too many things called editor
         var ed = this.editor = new cls(options || {});
 

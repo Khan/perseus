@@ -5,11 +5,17 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
     tagName: "form",
 
     initialize: function() {
-        var type = Perseus.Widgets._widgetTypes[this.options.type];
+        var type = this.options.type;
+        var cls;
+        if (type === "multiple") {
+            cls = Perseus.Renderer;
+        } else {
+            cls = Perseus.Widgets._widgetTypes[this.options.type];
+        }
 
         // TODO(alpert): box is a stupid name
         // TODO(alpert): this.options.options is stupid too
-        this.box = new type(this.options.options);
+        this.box = new cls(this.options.options);
         this.box.setState({problemNum: this.options.problemNum});
     },
 
@@ -32,12 +38,16 @@ var AnswerAreaRenderer = Perseus.Widget.extend({
     },
 
     guessAndScore: function() {
-        var guess = this.box.toJSON();
+        if (this.options.type === "multiple") {
+            // TODO(alpert): These should probably have the same signature...
+            return this.box.guessAndScore();
+        } else {
+            var guess = this.box.toJSON();
+            // TODO(alpert): Use separate rubric
+            var score = this.box.simpleValidate(this.options.options);
 
-        // TODO(alpert): Use separate rubric
-        var score = this.box.simpleValidate(this.options.options);
-
-        return [guess, score];
+            return [guess, score];
+        }
     },
 });
 

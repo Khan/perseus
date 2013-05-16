@@ -52,7 +52,7 @@
 <script>
 (function() {
 
-var seedContent = {"question":{"content":"[[☃ input-number 1]] How many monkeys swing from $10$ branches of **trees**?","widgets":{"input-number 1":{"options":{"value":"42","simplify":"required"},"type":"input-number"}}},"answerArea":{"type":"input-number","options":{"value":"2","simplify":"required"}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
+var seedContent = {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?","widgets":{}},"answerArea":{"type":"multiple","options":{"content":"([[☃ input-number 1]], [[☃ input-number 2]])","widgets":{"input-number 1":{"options":{"value":"1","simplify":"required"},"type":"input-number"},"input-number 2":{"options":{"value":"2","simplify":"required"},"type":"input-number"}}}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
 
 Perseus.init({}).then(function() {
     var renderer = zk = new Perseus.ItemRenderer({

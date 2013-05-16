@@ -70,6 +70,10 @@ body {
     background-color: #ddf;
 }
 
+.perseus-answer-editor {
+    margin-bottom: 20px;
+}
+
 .perseus-hint-editor {
     margin: 0 0 20px 50px;
     width: 450px;
@@ -169,7 +173,7 @@ Perseus.init({}).then(function() {
     });
 
     return editor.render().then(function() {
-        return editor.set({"question":{"content":"[[☃ radio 1]] How many monkeys swing from $10$ branches of **trees**?","widgets":{"radio 1":{"options":{"choices":[{"content":"asdfgh $x^2$","correct":true},{"content":"ghijkl","correct":false}]},"type":"radio"}}},"answerArea":{"type":"input-number","options":{"value":"2","simplify":"required"}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
+        return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?","widgets":{}},"answerArea":{"type":"multiple","options":{"content":"$($[[☃ input-number 1]]$,\\,$[[☃ input-number 2]]$)$","widgets":{"input-number 1":{"options":{"value":"1","simplify":"required"},"type":"input-number"},"input-number 2":{"options":{"value":"2","simplify":"required"},"type":"input-number"}}}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
     }).then(function() {
         editor.focus();
     });
