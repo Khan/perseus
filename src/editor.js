@@ -1,15 +1,14 @@
 (function(Perseus) {
 
-var _resizeTextarea = function($el) {
-    $el.height(24);
-    $el.height($el.prop("scrollHeight") + 12);
-};
+// like [[snowman input-number 1]]
+var rWidget = /\[\[\u2603 ([a-z-]+) ([0-9]+)\]\]/g;
 
 var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
     className: "perseus-single-editor",
 
     options: {
-        content: ""
+        content: "",
+        widgetEnabled: true
     },
 
     render: function() {
@@ -17,18 +16,61 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
 
         this.$el.empty();
 
-        var $textarea = this.$textarea = $("<textarea>").val(
-                this.options.content);
+        var $underlay = this.$underlay = $("<div>")
+                .addClass("perseus-textarea-underlay");
+        var $textarea = this.$textarea = $("<textarea>")
+                .val(this.options.content);
         $textarea.on("input", function() {
             editor.options.content = $textarea.val();
             editor.trigger("change");
-            _resizeTextarea($textarea);
+
+            editor.updateWidgets();
+        }).on("keyup click focus", function() {
+            // There's no useful cursor-move event that works cross-browser
+            editor.updateWidgets();
         });
 
-        this.$el.append($textarea);
-        _resizeTextarea($textarea);
+        this.$el.append($underlay, $textarea);
+        this.updateWidgets();
 
         return $.when(this);
+    },
+
+    updateWidgets: function() {
+        // Called a lot! Make it fast.
+        // TODO(alpert): Cache HTML and only change 'selected' class?
+        var $textarea = this.$textarea;
+
+        var text = $textarea.val();
+        var focused = $textarea[0] === document.activeElement;
+        var selStart = $textarea[0].selectionStart;
+        var selEnd = $textarea[0].selectionEnd;
+
+        var widgetTypes = Perseus.Widgets._widgetTypes;
+        var html = $("<div>").text(text).html();
+
+        if (this.options.widgetEnabled) {
+            // Highlight widgets!
+            html = html.replace(rWidget, function(text, type, id, offset) {
+                var selected = focused && selStart === selEnd &&
+                        offset <= selStart &&
+                        selStart < offset + text.length;
+
+                // TODO(alpert): I so hate making HTML like this.
+                return "<b class='" +
+                    (selected ? "selected " : "") +
+                    (type in widgetTypes ? "" : "error ") +
+                    "' data-widget-type='" + type +
+                    "' data-widget-id='" + id + "'>" +
+                    text + "</b>";
+            });
+        }
+
+        // Without this $, the underlay isn't the proper size when the
+        // text ends with a newline.
+        html = html.replace(/\n|$/g, "<br>");
+
+        this.$underlay.html(html);
     },
 
     set: function(options) {
@@ -52,12 +94,24 @@ var QuestionEditor = Perseus.SingleEditor.extend({
             " perseus-question-editor"
 });
 
-var HintEditor = Perseus.SingleEditor.extend({
-    className: Perseus.SingleEditor.prototype.className +
-            " perseus-hint-editor",
+// TODO(alpert): HintEditor and QuestionEditor are inconsistent
+var HintEditor = Perseus.Widget.extend({
+    className: "perseus-hint-editor",
+
+    initialize: function(options) {
+        var $singleEditor = this.$singleEditor = new SingleEditor({
+            content: options.content,
+            widgetEnabled: false
+        });
+        $singleEditor.on("change", function() {
+            // TODO(alpert): :\
+            this.options.content = $singleEditor.options.content;
+            this.trigger("change");
+        }, this);
+    },
 
     render: function() {
-        var editor = this;
+        var hintEditor = this;
 
         this.$el.empty();
 
@@ -69,27 +123,17 @@ var HintEditor = Perseus.SingleEditor.extend({
         $removeHintButton.append("<span class='icon-trash'>");
         $removeHintButton.append("<span> Remove this hint</span>");
         $removeHintButton.on("click", function() {
-            editor.trigger("remove");
+            hintEditor.trigger("remove");
             return false;
         });
         $removeHintDiv.append($removeHintButton);
 
-        var $textarea = this.$textarea = $("<textarea>").val(
-                this.options.content);
-        $textarea.on("input", function() {
-            editor.options.content = $textarea.val();
-            editor.trigger("change");
-            _resizeTextarea($textarea);
+        this.$el.append(this.$singleEditor.el, $removeHintDiv);
+
+        return this.$singleEditor.render().then(function() {
+            return hintEditor;
         });
-
-        this.$el.append($textarea);
-        this.$el.append($removeHintDiv);
-        _resizeTextarea($textarea);
-
-        return $.when(this);
     }
-
-    // TODO(alpert): Remove a hint
 });
 
 var AnswerAreaEditor = Perseus.Widget.extend({
