@@ -11,33 +11,36 @@ body {
 }
 
 .perseus-single-editor {
-    border: 1px solid #999;
     margin-bottom: 20px;
-    position: relative;
     width: 500px;  /* TODO(alpert): Remove and just use container width? */
 }
 
-.perseus-single-editor > .perseus-textarea-underlay {
+.perseus-textarea-pair {
+    border: 1px solid #999;
+    position: relative;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay {
     color: transparent;
     margin-bottom: 12px;
     padding: 2px;
     white-space: pre-wrap;
 }
 
-.perseus-single-editor > .perseus-textarea-underlay b {
+.perseus-textarea-pair > .perseus-textarea-underlay b {
     font-weight: normal;
     background-color: #dfd;
 }
 
-.perseus-single-editor > .perseus-textarea-underlay b.selected {
+.perseus-textarea-pair > .perseus-textarea-underlay b.selected {
     background-color: #ddf;
 }
 
-.perseus-single-editor > .perseus-textarea-underlay b.error {
-    background-color: #fdd;
+.perseus-textarea-pair > .perseus-textarea-underlay b.error {
+    background-color: #fcc;
 }
 
-.perseus-single-editor > textarea {
+.perseus-textarea-pair > textarea {
     background: transparent;
     border: 0;
     -moz-box-sizing: border-box;
@@ -56,6 +59,15 @@ body {
     I'm not really sure why. not too noticeable if we're just setting the
     background color though. */
     margin: 0;
+}
+
+.perseus-editor-widgets > div {
+    border: 1px solid #999;
+    border-top: none;
+}
+
+.perseus-editor-widgets > div.selected > strong {
+    background-color: #ddf;
 }
 
 .perseus-hint-editor {
@@ -98,7 +110,7 @@ body {
 #content {
     box-sizing: border-box;
     padding: 16px;
-    float: left;
+    margin-left: 520px;
 }
 
 </style>
@@ -157,13 +169,7 @@ Perseus.init({}).then(function() {
     });
 
     return editor.render().then(function() {
-        return editor.set({"question":{"content":"[[☃ input-number 1]] How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "input-number",
-    "options": {
-        "value": 2 + "",
-        "simplify": "required"
-    }
-},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
+        return editor.set({"question":{"content":"[[☃ radio 1]] How many monkeys swing from $10$ branches of **trees**?","widgets":{"radio 1":{"options":{"choices":[{"content":"asdfgh $x^2$","correct":true},{"content":"ghijkl","correct":false}]},"type":"radio"}}},"answerArea":{"type":"input-number","options":{"value":"2","simplify":"required"}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
     }).then(function() {
         editor.focus();
     });

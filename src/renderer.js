@@ -2,7 +2,8 @@
 
 var Renderer = Perseus.Renderer = Perseus.Widget.extend({
     options: {
-        content: ""
+        content: "",
+        widgets: {}
     },
 
     initialize: function(options, subwidgetOptions) {
@@ -11,6 +12,8 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
     },
 
     render: function() {
+        var renderer = this;
+
         // Extract math with HTML entities so we don't get confused by
         // "_italicized equations like $y - y_1 = m (x - x_1)$_"
         // and similar confusing things where underscores and asterisks within
@@ -37,8 +40,8 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
 
         // Replace widget references
         html = html.replace(
-                /((?:<p>)?)\[\[([a-z-]+) (\d+)\]\]((?:<\/p>)?)/g,
-                function(match, openp, type, id, closep) {
+                /((?:<p>)?)\[\[\u2603 ([a-z-]+ [0-9]+)\]\]((?:<\/p>)?)/g,
+                function(match, openp, id, closep) {
                     var tag;
                     if (openp && closep) {
                         // Block level widget (on its own line) -- we want to
@@ -52,7 +55,6 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
                     // Don't need to call _.escape because it's just
                     // alphanumeric (okay, and hyphens too...)
                     return (openp + "<" + tag + " class='perseus-widget' " +
-                            "data-widget-type='" + type + "' " +
                             "data-widget-id='" + id + "'>" +
                             "</" + tag + ">" + closep);
                 });
@@ -72,29 +74,37 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
 
         this.$(".perseus-widget").each(function() {
             var $widgetEl = $(this);
-            var widgetType = $widgetEl.data("widgetType");
             // TODO(alpert): Check that widgetId in subwidgets, not used twice
             var widgetId = $widgetEl.data("widgetId");
+            var widgetInfo = renderer.options.widgets[widgetId];
+
+            if (widgetInfo == null) {
+                // Something went wrong. One cause of this is when typing an
+                // invalid widget name when editing. Hopefully there's nothing
+                // else that gives this situation. We'll just not do anything
+                // with this widget.
+                return;
+            }
 
             // TODO(alpert): Error handling if/when getWidget gets fancy
-            subwidgetDeferreds.push(Perseus.Widgets.get(widgetType).then(
+            subwidgetDeferreds.push(Perseus.Widgets.get(widgetInfo.type).then(
                     function(widgetClass) {
                         // TODO(alpert): Widget options
-                        var widget = new widgetClass({
+                        var options = _.extend({
                             el: $widgetEl
-                        });
+                        }, widgetInfo.options);
+                        var widget = new widgetClass(options);
                         subwidgets[widgetId] = widget;
                         return widget.render();
                     }));
         });
 
-        var widget = this;
         return $.when.apply($, [mathDeferred].concat(subwidgetDeferreds)).then(
                 function() {
-                    widget.$el.show();
+                    renderer.$el.show();
 
                     // TODO(alpert): Call reprocess elsewhere?
-                    return widget.reprocess();
+                    return renderer.reprocess();
                 });
     },
 
