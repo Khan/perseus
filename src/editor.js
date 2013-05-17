@@ -225,14 +225,18 @@ var QuestionEditor = Perseus.SingleEditor.extend({
 var HintEditor = Perseus.Widget.extend({
     className: "perseus-hint-editor",
 
-    initialize: function(options) {
-        var $singleEditor = this.$singleEditor = new SingleEditor({
-            content: options.content,
+    options: {
+        content: ""
+    },
+
+    initialize: function() {
+        var singleEditor = this.singleEditor = new SingleEditor({
+            content: this.options.content,
             widgetEnabled: false
         });
-        $singleEditor.on("change", function() {
+        singleEditor.on("change", function() {
             // TODO(alpert): :\
-            this.options.content = $singleEditor.options.content;
+            this.options.content = singleEditor.options.content;
             this.trigger("change");
         }, this);
     },
@@ -255,11 +259,15 @@ var HintEditor = Perseus.Widget.extend({
         });
         $removeHintDiv.append($removeHintButton);
 
-        this.$el.append(this.$singleEditor.el, $removeHintDiv);
+        this.$el.append(this.singleEditor.el, $removeHintDiv);
 
-        return this.$singleEditor.render().then(function() {
+        return this.singleEditor.render().then(function() {
             return hintEditor;
         });
+    },
+
+    focus: function() {
+        this.singleEditor.focus();
     }
 });
 
