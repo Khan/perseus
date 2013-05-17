@@ -23,12 +23,18 @@ function parseOne(text) {
 }
 
 var InputNumber = Perseus.Widget.extend({
-    initialize: function() {
+    options: {
+        size: "normal"
+    },
+
+    initialize: function(options) {
         if (window.Modernizr && Modernizr.touch) {
             this.$input = $("<input type='number'>");
         } else {
             this.$input = $("<input type='text'>");
         }
+
+        this.$input.addClass("perseus-input-size-" + options.size);
     },
 
     setState: function() {},
@@ -99,7 +105,8 @@ _.extend(InputNumber, {
 var InputNumberEditor = Perseus.Widget.extend({
     options: {
         value: "",
-        simplify: "required"
+        simplify: "required",
+        size: "normal"
     },
 
     initialize: function() {
@@ -116,19 +123,35 @@ var InputNumberEditor = Perseus.Widget.extend({
             .on("blur", function() {
                 var ans = parseOne($(this).val());
                 $(this).val(ans || 0).trigger("input");
+                editor.trigger("change");
             });
+
         var $simple = this.$simple = $("<input type='checkbox'>")
             .prop("checked", this.options.simplify === "required")
             .on("change", function() {
-                // TODO(alpert): A little bit of code duplication here
                 editor.options.simplify = $(this).prop("checked") ?
                         "required" : "optional";
+                editor.trigger("change");
+            });
+
+        var $sizer = this.$sizer = $("<select>")
+            .append(
+                "<option value='normal'>Normal (80px)</option>",
+                "<option value='small'>Small (40px)</option>"
+                )
+            .val(this.options.size)
+            .on("change", function() {
+                editor.options.size = $(this).val();
+                editor.trigger("change");
             });
 
         this.$el.empty();
         this.$el.append(
-            "Correct answer: ", $input, "<br>",
-            $("<label> Require simplification</label>").prepend($simple));
+            $("<div>").append("Correct answer: ", $input),
+            $("<div>").append(
+                $("<label> Require simplification</label>").prepend($simple)),
+            $("<div>").append(
+                $("<label>Width </label>").append($sizer)));
 
         return $.when(this);
     },
