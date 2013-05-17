@@ -186,7 +186,10 @@ var RadioEditor = Radio.extend({
     choiceRenderer: function(choice) {
         var radioEditor = this;
         var editor = new Perseus.SingleEditor({
-            content: choice.content
+            content: choice.content,
+
+            // TODO(alpert): False now, though maybe enabled in the future?
+            widgetEnabled: false
         });
         this.listenTo(editor, "change", function() {
             // TODO(alpert): A little ick, some code duplication too

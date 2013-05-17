@@ -44,8 +44,9 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
             $("<a href='#' class='simple-button green add-widget-button'>")
                 .append("<span class='icon-cogs'>")
                 .append("<span> Add a text box</span>")  // soon, Add a widget
-                .on("click", function() {
+                .on("click", function(e) {
                     // TODO(alpert): Choose widget type
+                    e.preventDefault();
                     var oldVal = $textarea.val();
 
                     for (var i = 1; oldVal.indexOf(
@@ -53,10 +54,7 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
                         ;
                     }
 
-                    // Add a space before the widget if it's not on a new line
-                    var newVal = oldVal +
-                            ((/\n$/).exec(oldVal) ? "" : " ") +
-                            "[[\u2603 input-number " + i + "]]";
+                    var newVal = oldVal + "[[\u2603 input-number " + i + "]]";
 
                     $textarea.val(newVal);
                     $textarea.focus();
