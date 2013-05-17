@@ -6,25 +6,83 @@
 <title>Perseus</title>
 
 <style type="text/css">
+body {
+    font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
 
 .perseus-single-editor {
-    border-bottom: 4px solid lightgray;
     margin-bottom: 20px;
-    width: 500px;
+    width: 500px;  /* TODO(alpert): Remove and just use container width? */
+}
+
+.perseus-textarea-pair {
+    border: 1px solid #999;
+    position: relative;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay {
+    color: transparent;
+    margin-bottom: 12px;
+    padding: 2px;
+    white-space: pre-wrap;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay b {
+    font-weight: normal;
+    background-color: #dfd;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay b.selected {
+    background-color: #ddf;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay b.error {
+    background-color: #fcc;
+}
+
+.perseus-textarea-pair > textarea {
+    background: transparent;
+    border: 0;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    font: inherit;
+    height: 100%;
+    left: 0;
+    padding: 2px;
+    position: absolute;
+    resize: none;
+    top: 0;
+    width: 100%;
+
+    /* for Firefox, this helps. it seems that the underlay is still 1px off and
+    I'm not really sure why. not too noticeable if we're just setting the
+    background color though. */
+    margin: 0;
+}
+
+.perseus-editor-widgets > div {
+    border: 1px solid #999;
+    border-top: none;
+}
+
+.perseus-editor-widgets > div.selected > strong {
+    background-color: #ddf;
+}
+
+.perseus-answer-editor {
+    margin-bottom: 20px;
 }
 
 .perseus-hint-editor {
-    margin-left: 50px;
+    margin: 0 0 20px 50px;
     width: 450px;
 }
 
-.perseus-single-editor > textarea {
-    box-sizing: border-box;
-    font-size: 14px;
-    height: 120px;
-    width: 100%;
+.perseus-hint-editor .perseus-single-editor {
+    width: 450px;
+    margin-bottom: 5px;
 }
-
 
 .perseus-widget-radio > div {
     /* (as opposed to label) */
@@ -56,7 +114,7 @@
 #content {
     box-sizing: border-box;
     padding: 16px;
-    float: left;
+    margin-left: 520px;
 }
 
 </style>
@@ -115,13 +173,7 @@ Perseus.init({}).then(function() {
     });
 
     return editor.render().then(function() {
-        return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "input-number",
-    "options": {
-        "value": 2 + "",
-        "simplify": "required"
-    }
-},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
+        return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?","widgets":{}},"answerArea":{"type":"multiple","options":{"content":"$($[[☃ input-number 1]]$,\\,$[[☃ input-number 2]]$)$","widgets":{"input-number 1":{"options":{"value":"1","simplify":"required"},"type":"input-number"},"input-number 2":{"options":{"value":"2","simplify":"required"},"type":"input-number"}}}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
     }).then(function() {
         editor.focus();
     });
