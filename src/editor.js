@@ -40,6 +40,33 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
                 .append($underlay, $textarea);
         var $widgets = this.$widgets = $("<div>")
                 .addClass("perseus-editor-widgets");
+        if (this.options.widgetEnabled) {
+            $("<a href='#' class='simple-button green add-widget-button'>")
+                .append("<span class='icon-cogs'>")
+                .append("<span> Add a text box</span>")  // soon, Add a widget
+                .on("click", function() {
+                    // TODO(alpert): Choose widget type
+                    var oldVal = $textarea.val();
+
+                    for (var i = 1; oldVal.indexOf(
+                            "[[\u2603 input-number " + i + "]]") > -1; i++) {
+                        ;
+                    }
+
+                    // Add a space before the widget if it's not on a new line
+                    var newVal = oldVal +
+                            ((/\n$/).exec(oldVal) ? "" : " ") +
+                            "[[\u2603 input-number " + i + "]]";
+
+                    $textarea.val(newVal);
+                    $textarea.focus();
+                    $textarea[0].selectionStart = newVal.length;
+                    $textarea[0].selectionEnd = newVal.length;
+
+                    $textarea.trigger("input");
+                })
+                .appendTo($("<div>").appendTo($widgets));
+        }
 
         this.$el.append($textareaPair, $widgets);
         this.updateWidgets();
@@ -120,6 +147,8 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
                 // It's strange if these preloaded options stick around since
                 // it's inconsistent with how things work if you don't have the
                 // serialize/deserialize step in the middle
+                // TODO(alpert): Save options in a consistent manner so that
+                // you can undo the deletion of a widget
                 delete this.options.widgets[id];
             }, this);
 
