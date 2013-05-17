@@ -245,10 +245,7 @@ var AnswerAreaEditor = Perseus.Widget.extend({
     },
 
     initialize: function() {
-        var cls = Perseus.Widgets._widgetTypes[this.options.type + "-editor"];
-        // TODO(alpert): Ugh, too many things called editor
-        this.editor = new cls();
-        this.listenTo(this.editor, "change", this.change);
+        this.setType(this.options.type);
     },
 
     render: function() {
@@ -306,16 +303,16 @@ var AnswerAreaEditor = Perseus.Widget.extend({
 
         // TODO(alpert): Ugh, too many things called editor
         var ed = this.editor = new cls(options || {});
+        this.listenTo(this.editor, "change", function() {
+            this.trigger("change");
+        });
 
-        this.listenTo(this.editor, "change", this.change);
+        // If we haven't rendered yet, just wait for render
+        if (this.$div2 != null) {
+            this.$div2.empty().append(ed.$el);
 
-        this.$div2.empty().append(ed.$el);
-
-        return ed.render();
-    },
-
-    change: function(args) {
-        this.trigger("change");
+            return ed.render();
+        }
     }
 });
 
