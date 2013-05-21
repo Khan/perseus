@@ -15,6 +15,51 @@
     /* TODO(alpert): Better way of doing inline renderers? */
     display: inline;
 }
+
+#answer_area .perseus-widget-expression > input {
+    width: 222px;
+}
+
+.perseus-widget-expression > .output > .placeholder {
+    position: relative;
+    height: 40px;
+    overflow-y: hidden;
+}
+
+.perseus-widget-expression > .output > .placeholder  > .error {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    color: #000;
+    display: none;
+    font-weight: normal;
+    min-height: 24px;
+    width: 175px;
+    position: absolute;
+    top: 0px;
+    left: 45px;
+    margin: auto;
+}
+
+.perseus-widget-expression > .output > .placeholder > .error > .buddy {
+    background: url(https://khan-academy.appspot.com/stylesheets/scratchpads-exec-package/images/error-buddy.png);
+    background-size: 100%;
+    height: 36px;
+    width: 40px;
+    position: absolute;
+    top: -3px;
+    left: -46px;
+}
+
+.perseus-widget-expression > .output > .placeholder > .error > .message {
+    font-family: Helvetica,Arial,sans-serif;
+    line-height: 1.4em;
+    margin: 5px 8px;
+    font-size: 9pt;
+}
 </style>
 
 </head>
@@ -34,11 +79,16 @@
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+<!-- <script src="/Mathjax/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured&amp;imageFont=null"></script> -->
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
+<script src="/src/expressiontools/parser.js"></script>
+<script src="/src/expressiontools/nodes.js"></script>
+<script src="/src/expressiontools/compare.js"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/widgets/input-number.js"></script>
 <script src="/src/widgets/radio.js"></script>
+<script src="/src/widgets/expression.js"></script>
 <script src="/src/renderer.js"></script>
 <script src="/src/item-renderer.js"></script>
 
@@ -46,28 +96,12 @@
 (function() {
 
 var seedContent = {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "radio",
+    "type": "expression",
     "options": {
-        choices: [{
-            content: "1",
-            correct: false
-        },{
-            content: "2",
-            correct: false
-        },{
-            content: "3",
-            correct: true
-        },{
-            content: "4",
-            correct: false
-        },{
-            content: "5",
-            correct: false
-        },{
-            content: "6",
-            correct: false
-        }],
-        randomize: true
+        value: "x^2+5x+6",
+        eval: true,
+        form: true,
+        simplify: true
     },
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
 

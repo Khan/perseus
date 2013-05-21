@@ -114,7 +114,8 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         var $select = $("<select>");
         $select.append(
                 "<option value='radio'>Multiple choice</option>",
-                "<option value='input-number'>Text input (number)</option>"
+                "<option value='input-number'>Text input (number)</option>",
+                "<option value='expression'>Expression</option>"
             );
         $select.val(this.options.type);
 
@@ -284,7 +285,7 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
                 this.hintEditors.length) {
             // Re-create all of them, just in case.
             $("#hintsarea").empty();
-            this.itemRenderer.hintRenderers = []
+            this.itemRenderer.hintRenderers = [];
             this.itemRenderer.remainingHints =
                 _.pluck(this.hintEditors, "options");
             this.itemRenderer.showAllHints();
