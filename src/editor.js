@@ -87,10 +87,6 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
         var widgetTypes = Perseus.Widgets._widgetTypes;
         var html = $("<div>").text(text).html();
 
-        // Without this $, the underlay isn't the proper size when the
-        // text ends with a newline.
-        html = html.replace(/\n|$/g, "<br>");
-
         if (this.options.widgetEnabled) {
             var newWidgetIds = {};
 
@@ -178,6 +174,10 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
                         .addClass("selected");
             }
         }
+
+        // Without this $, the underlay isn't the proper size when the
+        // text ends with a newline.
+        html = html.replace(/\n|$/g, "<br>");
 
         this.$underlay.html(html);
     },
