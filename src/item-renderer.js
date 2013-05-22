@@ -109,11 +109,18 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
             return;
         }
 
-        var hintOptions = this.remainingHints.shift();  // TODO(alpert): speed?
+        var hintOptions = this.remainingHints.shift();
         var renderer = new Perseus.Renderer(hintOptions);
         renderer.$el.addClass("perseus-hint");
         this.hintRenderers.push(renderer);
-        return this.render();
+
+        // TODO(alpert): DRY. Doing it this way is way faster than just calling
+        // render() though.
+        this.$("#hintsarea").append(renderer.$el);
+        var itemRenderer = this;
+        renderer.render().then(function() {
+            return itemRenderer;
+        });
     },
 
     getNumHints: function() {
