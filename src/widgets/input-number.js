@@ -1,27 +1,5 @@
 (function(Perseus) {
 
-// TODO(alpert): Extract answer-types from khan-exercises maybe?
-
-/**
- * Return the first valid interpretation of 'text' as a number, in the form
- * {value: 2.3, exact: true}.
- */
-function parseOne(text) {
-    // TODO(alpert): This is sort of hacky...
-    var first;
-    var val = Khan.answerTypes.predicate.createValidatorFunctional(
-        function(ans) {
-            first = ans;
-            return true;  /* break */
-        }, {
-            simplify: "optional",
-            inexact: true
-        });
-
-    val(text);
-    return first;
-}
-
 var InputNumber = Perseus.Widget.extend({
     options: {
         size: "normal"
@@ -121,7 +99,7 @@ var InputNumberEditor = Perseus.Widget.extend({
                 editor.options.value = $(this).val();
             })
             .on("blur", function() {
-                var ans = parseOne($(this).val());
+                var ans = Perseus.Util.firstNumericalParse($(this).val());
                 $(this).val(ans || 0).trigger("input");
                 editor.trigger("change");
             });

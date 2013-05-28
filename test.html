@@ -10,9 +10,12 @@ body {
     font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
+.graphie svg {
+    position: absolute; top: 0; left: 0;
+}
+
 .perseus-single-editor {
     margin-bottom: 20px;
-    width: 500px;  /* TODO(alpert): Remove and just use container width? */
 }
 
 .perseus-textarea-pair {
@@ -114,9 +117,9 @@ body {
 }
 
 #editor {
-    box-sizing: border-box;
     padding: 16px;
     float: left;
+    width: 500px;
 }
 
 #content {
@@ -154,16 +157,33 @@ body {
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 
-<script>var Khan = {}; var KhanUtil = Khan.Util = {};</script>
+<script>
+    var KhanUtil = {
+        debugLog: function() {}
+    };
+    var Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        scratchpad: {disable: function() {}}
+    };
+</script>
 <script src="/ke/utils/jed.js"></script>
 <script src="/ke/utils/i18n.js"></script>
 <script src="/ke/utils/answer-types.js"></script>
 <script src="/ke/utils/math.js"></script>
 
+<script src="/ke/utils/tmpl.js"></script>
+<script src="/ke/utils/raphael.js"></script>
+<script src="/ke/utils/graphie.js"></script>
+<script src="/ke/utils/jquery.mobile.vmouse.js"></script>
+<script src="/ke/utils/interactive.js"></script>
+
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/widgets/input-number.js"></script>
+<script src="/src/widgets/interactive-graph.js"></script>
 <script src="/src/widgets/radio.js"></script>
 <script src="/src/renderer.js"></script>
 <script src="/src/item-renderer.js"></script>
@@ -181,7 +201,7 @@ Perseus.init({}).then(function() {
     });
 
     return editor.render().then(function() {
-        return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?","widgets":{}},"answerArea":{"type":"multiple","options":{"content":"$($[[☃ input-number 1]]$,\\,$[[☃ input-number 2]]$)$","widgets":{"input-number 1":{"options":{"value":"1","simplify":"required"},"type":"input-number"},"input-number 2":{"options":{"value":"2","simplify":"required"},"type":"input-number"}}}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
+        return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?","widgets":{}},"answerArea":{"type":"interactive-graph","options":{"correct":{"type":"quadratic","coords":[[-4.5,-0.5],[-2.5,4.5],[3.5,7.5]]}}},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
     }).then(function() {
         editor.focus();
     });

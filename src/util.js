@@ -77,6 +77,26 @@ var Util = Perseus.Util = {
                 message: message
             }
         }
+    },
+
+    /**
+     * Return the first valid interpretation of 'text' as a number, in the form
+     * {value: 2.3, exact: true}.
+     */
+    firstNumericalParse: function(text) {
+        // TODO(alpert): This is sort of hacky...
+        var first;
+        var val = Khan.answerTypes.predicate.createValidatorFunctional(
+            function(ans) {
+                first = ans;
+                return true;  /* break */
+            }, {
+                simplify: "optional",
+                inexact: true
+            });
+
+        val(text);
+        return first;
     }
 };
 
