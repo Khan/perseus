@@ -41,20 +41,32 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
         var $widgets = this.$widgets = $("<div>")
                 .addClass("perseus-editor-widgets");
         if (this.options.widgetEnabled) {
-            $("<a href='#' class='simple-button green add-widget-button'>")
-                .append("<span class='icon-cogs'>")
-                .append("<span> Add a text box</span>")  // soon, Add a widget
-                .on("click", function(e) {
-                    // TODO(alpert): Choose widget type
+            var $addWidget = $("<select>")
+                .append(
+                    "<option value=''>Add a widget\u2026</option>",
+                    "<option disabled>--</option>",
+                    "<option value='input-number'>Text input (number)</option>",
+                    "<option value='interactive-graph'>Interactive graph</option>")
+                .on("change", function(e) {
                     e.preventDefault();
+
+                    var widgetType = $(this).val();
+                    if (widgetType === "") {
+                        // TODO(alpert): Not sure if change will trigger here
+                        // but might as well be safe
+                        return;
+                    }
+                    $(this).val("");
+
                     var oldVal = $textarea.val();
 
-                    for (var i = 1; oldVal.indexOf(
-                            "[[\u2603 input-number " + i + "]]") > -1; i++) {
+                    for (var i = 1; oldVal.indexOf("[[\u2603 " + widgetType +
+                            " " + i + "]]") > -1; i++) {
                         ;
                     }
 
-                    var newVal = oldVal + "[[\u2603 input-number " + i + "]]";
+                    var newVal = oldVal + "[[\u2603 " + widgetType + " " + i +
+                            "]]";
 
                     $textarea.val(newVal);
                     $textarea.focus();
