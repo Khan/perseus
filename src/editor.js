@@ -76,6 +76,16 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
                     $textarea.trigger("input");
                 })
                 .appendTo($("<div>").appendTo($widgets));
+
+            _.each(this.widgets, function(widgetEditor, id) {
+                // TODO(alpert): DRY
+                $("<div>")
+                        .attr("data-widget-id", id)
+                        .append($("<strong>").text(id))
+                        .append(widgetEditor.el)
+                        .appendTo($widgets);
+            });
+
         }
 
         this.$el.append($textareaPair, $widgets);
