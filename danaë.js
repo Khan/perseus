@@ -1,5 +1,62 @@
 #!/usr/bin/env casperjs --web-security=no
 
+/*
+To use this script, you'll need to install casperjs. Probably
+"brew install casperjs" will do the trick.
+
+Then you can run it thusly:
+
+    ./danaë [--problem=PROBLEM] [--seed=SEED] [--pretty] EXERCISE
+
+    Converts a single problem from EXERCISE to a Perseus item. EXERCISE is the
+    name of the exercise file without .html. For example, "addition_1".
+
+    OPTIONS
+        --problem=PROBLEM
+            Convert an item from problem type PROBLEM. Defaults to 0. Valid
+            problem types vary depending on the exercise. You can use the number
+            or the name of the problem type.
+
+        --seed=SEED
+            Convert seed SEED. Defaults to 1. Valid seeds are 1-200
+
+        --pretty
+            Formats the JSON output with nice indentation and such.
+
+
+The output of this script can currently be added to perseus via console. To do
+so, assign the output of this script to the variable "item" and run the
+following snippet of code:
+
+    $.ajax({
+        url: "/api/v1/assessment_items",
+        type: "POST",
+        data: JSON.stringify({
+            item_data: JSON.stringify(item),
+            tags: [],
+            author_names: ["Ben Eater"]
+        }),
+        contentType: "application/json",
+        complete: function(data, status) {
+            console.log(status, data);
+        }
+    });
+
+I recommend including some tags if you're converting a bunch of items. The tags
+field is an array of urlsafe key ids of the tags.
+
+If you want to convert a bunch of items, you can use a simple shell script:
+
+    echo -n "["
+    ./danaë.js --seed=1 functions_1
+    for i in $(seq 2 30); do
+        echo -n ","
+        ./danaë.js --seed=$i functions_1
+    done
+    echo "]"
+*/
+
+
 var casper = require('casper').create({
 //    verbose: true,
 //    logLevel: "debug"
