@@ -6,7 +6,7 @@ To use this script, you'll need to install casperjs. Probably
 
 Then you can run it thusly:
 
-    ./danaë [--problem=PROBLEM] [--seed=SEED] [--pretty] EXERCISE
+    ./danaë.js [--problem=PROBLEM] [--seed=SEED] [--pretty] EXERCISE
 
     Converts a single problem from EXERCISE to a Perseus item. EXERCISE is the
     name of the exercise file without .html. For example, "addition_1".
@@ -94,20 +94,21 @@ var setup = function(problem, seed) {
         $(this).html("**" + content + "**");
     });
     // p.question should also be bold
-    $("div#workarea>div>p.question").html("**" +
-            $("div#workarea>div>p.question").html() + "**")
+    $("div#workarea>div>p.question").each(function() {
+        $(this).html("**" + $(this).html() + "**");
+    });
 
     // Helper to sorta turn a div into something markdown-ish (at least line breaks are maybe sorta right?)
     window._extractDiv = function(div) {
         var text = "";
         // replace links with markdown links
-        div.find("A").each(function() {
+        div.find("a").each(function() {
             $(this).text("[" + $(this).text() + "](" +
                 $(this).prop("href") + ")");
         });
         div.contents().each(function() {
             text += $(this).text().replace(/[\n ]+/g, " ");
-            if (($(this).is("P") || $(this).is("DIV")) &&
+            if (($(this).is("p") || $(this).is("div")) &&
                     $(this).css("float") !== "left") {
                 text += "\n\n";
             }
