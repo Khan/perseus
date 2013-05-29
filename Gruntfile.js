@@ -5,6 +5,7 @@ var srcFiles = [
     "src/util.js",
     "src/widgets.js",
     "src/widgets/input-number.js",
+    "src/widgets/interactive-graph.js",
     "src/widgets/radio.js",
     "src/renderer.js",
     "src/editor.js",
