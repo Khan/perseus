@@ -313,8 +313,7 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         $select.append(
                 "<option value='radio'>Multiple choice</option>",
                 "<option value='input-number'>Text input (number)</option>",
-                "<option value='multiple'>Custom format</option>",
-                "<option value='interactive-graph'>Interactive graph</option>"
+                "<option value='multiple'>Custom format</option>"
             );
         $select.val(this.options.type);
 
