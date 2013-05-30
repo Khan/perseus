@@ -25,7 +25,8 @@ var InteractiveGraph = Perseus.Widget.extend({
         scale: 20,
         graph: {
             type: "linear"
-        }
+        },
+        flexibleType: false
     },
 
     graphDefaults: {
@@ -59,19 +60,21 @@ var InteractiveGraph = Perseus.Widget.extend({
         graphie.label([10, 0], "x", "right");
         graphie.addMouseLayer();
 
-        var $select = $("<select>");
-        _.each({
-            linear: "Linear function",
-            quadratic: "Quadratic function"
-        }, function(desc, key) {
-            $("<option>").val(key).text(desc).appendTo($select);
-        });
-        $select.appendTo(this.el)
-            .on("change", function() {
-                widget.useControls($(this).val());
-                widget.trigger("change");
-            })
-            .val(this.options.graph.type);
+        if (this.options.flexibleType) {
+            var $select = $("<select>");
+            _.each({
+                linear: "Linear function",
+                quadratic: "Quadratic function"
+            }, function(desc, key) {
+                $("<option>").val(key).text(desc).appendTo($select);
+            });
+            $select.appendTo(this.el)
+                .on("change", function() {
+                    widget.useControls($(this).val());
+                    widget.trigger("change");
+                })
+                .val(this.options.graph.type);
+        }
 
         this.useControls(this.options.graph.type);
 
@@ -381,7 +384,8 @@ var InteractiveGraphEditor = Perseus.Widget.extend({
 
         var graph = this.graph = new InteractiveGraph({
             scale: 18,
-            graph: this.options.correct
+            graph: this.options.correct,
+            flexibleType: true
         });
         this.$el.append(graph.el);
         graph.render();
@@ -401,8 +405,12 @@ var InteractiveGraphEditor = Perseus.Widget.extend({
     },
 
     toJSON: function() {
+        var correct = this.graph.toJSON();
         return {
-            correct: this.graph.toJSON()
+            // TODO(alpert): Allow specifying flexibleType (whether the graph
+            // type should be a choice or not)
+            graph: {type: correct.type},
+            correct: correct
         };
     }
 });
