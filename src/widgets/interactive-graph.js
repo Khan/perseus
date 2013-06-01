@@ -35,6 +35,10 @@ var InteractiveGraph = Perseus.Widget.extend({
         },
         quadratic: {
             coords: [[-5, 5], [0, 5], [5, 5]]
+        },
+        circle: {
+            center: [0, 0],
+            radius: 2
         }
     },
 
@@ -64,7 +68,8 @@ var InteractiveGraph = Perseus.Widget.extend({
             var $select = $("<select>");
             _.each({
                 linear: "Linear function",
-                quadratic: "Quadratic function"
+                quadratic: "Quadratic function",
+                circle: "Circle"
             }, function(desc, key) {
                 $("<option>").val(key).text(desc).appendTo($select);
             });
@@ -260,6 +265,32 @@ var InteractiveGraph = Perseus.Widget.extend({
         }
     },
 
+    addCircleControls: function() {
+        var graphie = this.graphie;
+
+        var circle = this.circle = graphie.addCircleGraph({
+            center: this.options.graph.center,
+            radius: this.options.graph.radius
+            // TODO(alpert): addCircleGraph doesn't take snap yet
+        });
+
+        var self = this;
+        $(circle).on("move", function() {
+            self.trigger("change");
+        });
+    },
+
+    getCircleEquationString: function() {
+        var center = this.circle.center;
+        return "center (" + center[0] + ", " + center[1] + "), radius " +
+                this.circle.radius;
+    },
+
+
+    removeCircleControls: function() {
+        this.circle.remove();
+    },
+
     toJSON: function() {
         var type = this.options.graph.type;
         if (type === "linear") {
@@ -272,6 +303,12 @@ var InteractiveGraph = Perseus.Widget.extend({
                 type: "quadratic",
                 coords: [this.pointA.coord, this.pointB.coord,
                         this.pointC.coord]
+            };
+        } else if (type === "circle") {
+            return {
+                type: "circle",
+                center: this.circle.center,
+                radius: this.circle.radius
             };
         }
     },
@@ -310,12 +347,11 @@ _.extend(InteractiveGraph, {
 
     validate: function(state, rubric) {
         _.defaults(rubric, InteractiveGraph.prototype.options);
-        var guess = state.coords;
-        var correct = rubric.correct.coords;
-        var initial = rubric.graph.coords;
 
         if (state.type === rubric.correct.type) {
             if (state.type === "linear") {
+                var guess = state.coords;
+                var correct = rubric.correct.coords;
                 // If both of the guess points are on the correct line, it's
                 // correct.
                 if (collinear(correct[0], correct[1], guess[0]) &&
@@ -329,11 +365,23 @@ _.extend(InteractiveGraph, {
                 }
             } else if (state.type === "quadratic") {
                 // If the parabola coefficients match, it's correct.
-                var guessCoeffs = this.quadraticCoefficients(guess);
-                var correctCoeffs = this.quadraticCoefficients(correct);
+                var guessCoeffs = this.quadraticCoefficients(state.coords);
+                var correctCoeffs = this.quadraticCoefficients(
+                        rubric.correct.coords);
                 if (eq(guessCoeffs[0], correctCoeffs[0]) &&
                         eq(guessCoeffs[1], correctCoeffs[1]) &&
                         eq(guessCoeffs[2], correctCoeffs[2])) {
+                    return {
+                        type: "points",
+                        earned: 1,
+                        total: 1,
+                        message: null
+                    };
+                }
+            } else if (state.type === "circle") {
+                if (eq(state.center[0], rubric.correct.center[0]) &&
+                        eq(state.center[1], rubric.correct.center[1]) &&
+                        eq(state.radius, rubric.correct.radius)) {
                     return {
                         type: "points",
                         earned: 1,
@@ -346,7 +394,7 @@ _.extend(InteractiveGraph, {
 
         // The input wasn't correct, so check if it's a blank input or if it's
         // actually just wrong
-        if (_.isEqual(guess, initial)) {
+        if (_.isEqual(state, rubric.graph)) {
             // We're where we started.
             return {
                 type: "invalid",
