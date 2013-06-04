@@ -241,6 +241,7 @@ var AnswerAreaEditor = React.createClass({
                             });
                         }.bind(this)}>
                     <option value="radio">Multiple choice</option>
+                    <option value="dropdown">Drop down</option>
                     <option value="input-number">Text input (number)</option>
                     <option value="expression">Expression input</option>
                     <option value="multiple">Custom format</option>

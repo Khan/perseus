@@ -210,6 +210,10 @@ body {
 </form>
 </div>
 
+<div id="extras">
+    <button id="toJSON">toJSON</button>
+</div>
+
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
@@ -241,6 +245,26 @@ body {
 <script src="/ke/utils/jquery.mobile.vmouse.js"></script>
 <script src="/ke/utils/interactive.js"></script>
 
+
+<!-- pre built
+<script src="/build/core.js"></script>
+<script src="/build/util.js"></script>
+<script src="/build/expressiontools/parser.js"></script>
+<script src="/build/expressiontools/nodes.js"></script>
+<script src="/build/expressiontools/compare.js"></script>
+<script src="/build/widgets.js"></script>
+<script src="/build/widgets/input-number.js"></script>
+<script src="/build/widgets/interactive-graph.js"></script>
+<script src="/build/widgets/radio.js"></script>
+<script src="/build/widgets/dropdown.js"></script>
+<script src="/build/widgets/expression.js"></script>
+<script src="/build/renderer.js"></script>
+<script src="/build/item-renderer.js"></script>
+<script src="/build/editor.js"></script>
+-->
+
+
+<!-- built in development -->
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
 <script src="/src/expressiontools/parser.js"></script>
@@ -250,13 +274,19 @@ body {
 <script src="/src/widgets/input-number.js" type="text/jsx"></script>
 <script src="/src/widgets/interactive-graph.js" type="text/jsx"></script>
 <script src="/src/widgets/radio.js" type="text/jsx"></script>
+<script src="/src/widgets/dropdown.js" type="text/jsx"></script>
 <script src="/src/widgets/expression.js" type="text/jsx"></script>
 <script src="/src/renderer.js" type="text/jsx"></script>
 <script src="/src/item-renderer.js" type="text/jsx"></script>
 <script src="/src/editor.js" type="text/jsx"></script>
 
+
 <script>
 (function() {
+
+$('#toJSON').on('click', function() {
+    console.log(JSON.stringify(zk, null, 4));
+});
 
 var seedContent = $("#seed-content").remove().text();
 
