@@ -1,15 +1,19 @@
 (function(Perseus) {
 
-var _resizeTextarea = function($el) {
-    $el.height(24);
-    $el.height($el.prop("scrollHeight") + 12);
-};
+// like [[snowman input-number 1]]
+var rWidget = /\[\[\u2603 ([a-z-]+) ([0-9]+)\]\]/g;
 
 var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
     className: "perseus-single-editor",
 
     options: {
-        content: ""
+        content: "",
+        widgetEnabled: true,
+        widgets: {}
+    },
+
+    initialize: function() {
+        this.widgets = {};
     },
 
     render: function() {
@@ -17,28 +21,213 @@ var SingleEditor = Perseus.SingleEditor = Perseus.Widget.extend({
 
         this.$el.empty();
 
-        var $textarea = this.$textarea = $("<textarea>").val(
-                this.options.content);
+        var $underlay = this.$underlay = $("<div>")
+                .addClass("perseus-textarea-underlay");
+        var $textarea = this.$textarea = $("<textarea>")
+                .val(this.options.content);
         $textarea.on("input", function() {
             editor.options.content = $textarea.val();
             editor.trigger("change");
-            _resizeTextarea($textarea);
+
+            editor.updateWidgets();
+        }).on("keyup click focus blur", function() {
+            // There's no useful cursor-move event that works cross-browser :(
+            editor.updateWidgets();
         });
 
-        this.$el.append($textarea);
-        _resizeTextarea($textarea);
+        var $textareaPair = $("<div>")
+                .addClass("perseus-textarea-pair")
+                .append($underlay, $textarea);
+        var $widgets = this.$widgets = $("<div>")
+                .addClass("perseus-editor-widgets");
+        if (this.options.widgetEnabled) {
+            var $addWidget = $("<select>")
+                .append(
+                    "<option value=''>Add a widget\u2026</option>",
+                    "<option disabled>--</option>",
+                    "<option value='input-number'>Text input (number)</option>",
+                    "<option value='interactive-graph'>Interactive graph</option>")
+                .on("change", function(e) {
+                    e.preventDefault();
+
+                    var widgetType = $(this).val();
+                    if (widgetType === "") {
+                        // TODO(alpert): Not sure if change will trigger here
+                        // but might as well be safe
+                        return;
+                    }
+                    $(this).val("");
+
+                    var oldVal = $textarea.val();
+
+                    for (var i = 1; oldVal.indexOf("[[\u2603 " + widgetType +
+                            " " + i + "]]") > -1; i++);
+
+                    var newVal = oldVal + "[[\u2603 " + widgetType + " " + i +
+                            "]]";
+
+                    $textarea.val(newVal);
+                    $textarea.focus();
+                    $textarea[0].selectionStart = newVal.length;
+                    $textarea[0].selectionEnd = newVal.length;
+
+                    $textarea.trigger("input");
+                })
+                .appendTo($("<div>").appendTo($widgets));
+
+            _.each(this.widgets, function(widgetEditor, id) {
+                // TODO(alpert): DRY
+                $("<div>")
+                        .attr("data-widget-id", id)
+                        .append($("<strong>").text(id))
+                        .append(widgetEditor.el)
+                        .appendTo($widgets);
+            });
+
+        }
+
+        this.$el.append($textareaPair, $widgets);
+        this.updateWidgets();
 
         return $.when(this);
+    },
+
+    updateWidgets: function() {
+        // Called a lot! Make it fast.
+        // TODO(alpert): Cache HTML and only change 'selected' class?
+        var $textarea = this.$textarea;
+
+        var text = $textarea.val();
+        var focused = $textarea[0] === document.activeElement;
+        var selStart = $textarea[0].selectionStart;
+        var selEnd = $textarea[0].selectionEnd;
+
+        var selectedWidget = null;
+
+        var widgetTypes = Perseus.Widgets._widgetTypes;
+        var html = $("<div>").text(text).html();
+
+        if (this.options.widgetEnabled) {
+            var newWidgetIds = {};
+
+            // Highlight widget text!
+            html = html.replace(rWidget, function(text, type, num, offset) {
+                var id = type + " " + num;
+                var selected = focused && selStart === selEnd &&
+                        offset <= selStart &&
+                        selStart < offset + text.length;
+                if (selected) {
+                    selectedWidget = id;
+                }
+
+                var duplicate = false;
+                if (id in newWidgetIds) {
+                    // A suspicious widget appeared!
+                    duplicate = true;
+                } else {
+                    newWidgetIds[id] = [type, num];
+                }
+
+                // TODO(alpert): I so hate making HTML like this.
+                return "<b class='" +
+                    (selected ? "selected " : "") +
+                    (duplicate || !(type in widgetTypes) ? "error " : "") +
+                    "' data-widget-type='" + type +
+                    "' data-widget-num='" + num + "'>" +
+                    text + "</b>";
+            });
+
+            // This next part can sometimes be a little processing-heavy, but
+            // 99% of the time, widgets and newWidgetIds will have the same
+            // keys and so nothing will change
+            var toDelete = [];
+            _.each(this.widgets, function(widget, id) {
+                if (id in newWidgetIds) {
+                    // We already have this widget! Remove it from the new list
+                    // so we don't add it twice.
+                    delete newWidgetIds[id];
+                } else {
+                    // We had this widget but now we don't want it any more.
+                    toDelete.push(id);
+                }
+            });
+
+            _.each(toDelete, function(id) {
+                this.widgets[id].$el
+                        .closest(this.$widgets.children())
+                        .remove();
+                delete this.widgets[id];
+
+                // It's strange if these preloaded options stick around since
+                // it's inconsistent with how things work if you don't have the
+                // serialize/deserialize step in the middle
+                // TODO(alpert): Save options in a consistent manner so that
+                // you can undo the deletion of a widget
+                delete this.options.widgets[id];
+            }, this);
+
+            // Now newWidgetIds contains only things that we need to add
+            _.each(newWidgetIds, function(typeAndNum, id) {
+                var type = typeAndNum[0], num = typeAndNum[1];
+                var cls = Perseus.Widgets._widgetTypes[type + "-editor"];
+                if (!cls) return;
+                var widgetEditor = this.widgets[id] = new cls(
+                        (this.options.widgets[id] || {}).options);
+                widgetEditor.on("change", function() {
+                    this.trigger("change");
+                }, this);
+
+                $("<div>")
+                        .attr("data-widget-id", id)
+                        .append($("<strong>").text(id))
+                        .append(widgetEditor.el)
+                        .appendTo(this.$widgets);
+
+                // TODO(alpert): async
+                widgetEditor.render();
+            }, this);
+
+            this.$widgets.children().removeClass("selected");
+            if (selectedWidget) {
+                this.$widgets
+                        .children("[data-widget-id='" + selectedWidget + "']")
+                        .addClass("selected");
+            }
+        }
+
+        // Without this $, the underlay isn't the proper size when the
+        // text ends with a newline.
+        html = html.replace(/\n|$/g, "<br>");
+
+        this.$underlay.html(html);
     },
 
     set: function(options) {
         // Extend with default options specified above...
         // TODO(alpert): Should textarea val get set here? Not sure.
         this.options = _.defaults(options, this.constructor.prototype.options);
+
         if (!options.silent) {
             this.trigger("change");
         }
         return this;
+    },
+
+    toJSON: function() {
+        var widgets = {};
+
+        _.each(this.widgets, function(widgetEditor, id) {
+            var typeAndNum = id.split(" ", 2);
+            widgets[id] = {
+                options: widgetEditor.toJSON(),
+                type: typeAndNum[0]
+            };
+        });
+
+        return {
+            content: this.options.content,
+            widgets: widgets
+        };
     },
 
     focus: function() {
@@ -52,12 +241,28 @@ var QuestionEditor = Perseus.SingleEditor.extend({
             " perseus-question-editor"
 });
 
-var HintEditor = Perseus.SingleEditor.extend({
-    className: Perseus.SingleEditor.prototype.className +
-            " perseus-hint-editor",
+// TODO(alpert): HintEditor and QuestionEditor are inconsistent
+var HintEditor = Perseus.Widget.extend({
+    className: "perseus-hint-editor",
+
+    options: {
+        content: ""
+    },
+
+    initialize: function() {
+        var singleEditor = this.singleEditor = new SingleEditor({
+            content: this.options.content,
+            widgetEnabled: false
+        });
+        singleEditor.on("change", function() {
+            // TODO(alpert): :\
+            this.options.content = singleEditor.options.content;
+            this.trigger("change");
+        }, this);
+    },
 
     render: function() {
-        var editor = this;
+        var hintEditor = this;
 
         this.$el.empty();
 
@@ -69,27 +274,21 @@ var HintEditor = Perseus.SingleEditor.extend({
         $removeHintButton.append("<span class='icon-trash'>");
         $removeHintButton.append("<span> Remove this hint</span>");
         $removeHintButton.on("click", function() {
-            editor.trigger("remove");
+            hintEditor.trigger("remove");
             return false;
         });
         $removeHintDiv.append($removeHintButton);
 
-        var $textarea = this.$textarea = $("<textarea>").val(
-                this.options.content);
-        $textarea.on("input", function() {
-            editor.options.content = $textarea.val();
-            editor.trigger("change");
-            _resizeTextarea($textarea);
+        this.$el.append(this.singleEditor.el, $removeHintDiv);
+
+        return this.singleEditor.render().then(function() {
+            return hintEditor;
         });
+    },
 
-        this.$el.append($textarea);
-        this.$el.append($removeHintDiv);
-        _resizeTextarea($textarea);
-
-        return $.when(this);
+    focus: function() {
+        this.singleEditor.focus();
     }
-
-    // TODO(alpert): Remove a hint
 });
 
 var AnswerAreaEditor = Perseus.Widget.extend({
@@ -101,10 +300,7 @@ var AnswerAreaEditor = Perseus.Widget.extend({
     },
 
     initialize: function() {
-        var cls = Perseus.Widgets._widgetTypes[this.options.type + "-editor"];
-        // TODO(alpert): Ugh, too many things called editor
-        this.editor = new cls();
-        this.listenTo(this.editor, "change", this.change);
+        this.setType(this.options.type);
     },
 
     render: function() {
@@ -115,12 +311,14 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         $select.append(
                 "<option value='radio'>Multiple choice</option>",
                 "<option value='input-number'>Text input (number)</option>",
-                "<option value='expression'>Expression</option>"
+                "<option value='expression'>Expression</option>",
+                "<option value='multiple'>Custom format</option>"
             );
         $select.val(this.options.type);
 
         $select.on("change", function() {
             editor.setType($select.val());
+            editor.trigger("change");
         });
 
         // Space for the actual answer-type editor to use
@@ -152,19 +350,25 @@ var AnswerAreaEditor = Perseus.Widget.extend({
         // TODO(alpert): How to prefill old vals?
         this.options.type = type;
 
-        var cls = Perseus.Widgets._widgetTypes[type + "-editor"];
+        var cls;
+        if (type === "multiple") {
+            cls = SingleEditor;
+        } else {
+            cls = Perseus.Widgets._widgetTypes[type + "-editor"];
+        }
+
         // TODO(alpert): Ugh, too many things called editor
         var ed = this.editor = new cls(options || {});
+        this.listenTo(this.editor, "change", function() {
+            this.trigger("change");
+        });
 
-        this.listenTo(this.editor, "change", this.change);
+        // If we haven't rendered yet, just wait for render
+        if (this.$div2 != null) {
+            this.$div2.empty().append(ed.$el);
 
-        this.$div2.empty().append(ed.$el);
-
-        return ed.render();
-    },
-
-    change: function(args) {
-        this.trigger("change");
+            return ed.render();
+        }
     }
 });
 
@@ -264,9 +468,8 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
     },
 
     _renderQuestion: function() {
-        // TODO(cbhl): Law of Demeter
-        this.itemRenderer.questionRenderer.options.content =
-            this.questionEditor.options.content;
+        this.itemRenderer.questionRenderer.options =
+                this.questionEditor.toJSON();
 
         return this.itemRenderer.renderQuestion();
     },
@@ -312,7 +515,6 @@ var ItemEditor = Perseus.ItemEditor = Perseus.Widget.extend({
 
     set: function(options) {
         var editor = this;
-        window.itemEditor = this;
 
         this.questionEditor.set(options.question || {});
         this.answerEditor.set(options.answerArea || {});

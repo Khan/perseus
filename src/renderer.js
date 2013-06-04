@@ -2,15 +2,18 @@
 
 var Renderer = Perseus.Renderer = Perseus.Widget.extend({
     options: {
-        content: ""
+        content: "",
+        widgets: {}
     },
 
-    initialize: function(options, subwidgetOptions) {
-        // this.options populated in Backbone.View constructor
-        this._subwidgetOptions = subwidgetOptions;
+    initialize: function() {
+        this.subwidgetIds = [];
+        this.subwidgets = {};
     },
 
     render: function() {
+        var renderer = this;
+
         // Extract math with HTML entities so we don't get confused by
         // "_italicized equations like $y - y_1 = m (x - x_1)$_"
         // and similar confusing things where underscores and asterisks within
@@ -18,6 +21,27 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         var extracted = extractMath(this.options.content),
             html = marked(extracted[0]),
             savedMath = extracted[1];
+
+        // Replace widget references
+        html = html.replace(
+                /((?:<p>)?)\[\[\u2603 ([a-z-]+ [0-9]+)\]\]((?:<\/p>)?)/g,
+                function(match, openp, id, closep) {
+                    var tag;
+                    if (openp && closep) {
+                        // Block level widget (on its own line) -- we want to
+                        // get rid of the surrounding <p> tags
+                        tag = "div";
+                        openp = closep = "";
+                    } else {
+                        tag = "span";
+                    }
+
+                    // Don't need to call _.escape because it's just
+                    // alphanumeric (okay, and hyphens too...)
+                    return (openp + "<" + tag + " class='perseus-widget' " +
+                            "data-widget-id='" + id + "'>" +
+                            "</" + tag + ">" + closep);
+                });
 
         // Replace math references
         html = html.replace(/@@(\d+)@@/g, function(match, num) {
@@ -35,28 +59,6 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
             }
         });
 
-        // Replace widget references
-        html = html.replace(
-                /((?:<p>)?)\[\[([a-z-]+) (\d+)\]\]((?:<\/p>)?)/g,
-                function(match, openp, type, id, closep) {
-                    var tag;
-                    if (openp && closep) {
-                        // Block level widget (on its own line) -- we want to
-                        // get rid of the surrounding <p> tags
-                        tag = "div";
-                        openp = closep = "";
-                    } else {
-                        tag = "span";
-                    }
-
-                    // Don't need to call _.escape because it's just
-                    // alphanumeric (okay, and hyphens too...)
-                    return (openp + "<" + tag + " class='perseus-widget' " +
-                            "data-widget-type='" + type + "' " +
-                            "data-widget-id='" + id + "'>" +
-                            "</" + tag + ">" + closep);
-                });
-
         // Hide the element now so you don't see unprocessed math -- will be
         // reshown at the end of the function
         this.$el.hide();
@@ -68,33 +70,45 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         MathJax.Hub.Queue(mathDeferred.resolve);
 
         var subwidgetDeferreds = [];
+
+        // Need both of these since JS object keys aren't sorted consistently
+        var subwidgetIds = this.subwidgetIds = [];
         var subwidgets = this.subwidgets = {};
 
         this.$(".perseus-widget").each(function() {
             var $widgetEl = $(this);
-            var widgetType = $widgetEl.data("widgetType");
             // TODO(alpert): Check that widgetId in subwidgets, not used twice
             var widgetId = $widgetEl.data("widgetId");
+            var widgetInfo = renderer.options.widgets[widgetId];
 
+            if (widgetInfo == null) {
+                // Something went wrong. One cause of this is when typing an
+                // invalid widget name when editing. Hopefully there's nothing
+                // else that gives this situation. We'll just not do anything
+                // with this widget.
+                return;
+            }
+
+            subwidgetIds.push(widgetId);
             // TODO(alpert): Error handling if/when getWidget gets fancy
-            subwidgetDeferreds.push(Perseus.Widgets.get(widgetType).then(
+            subwidgetDeferreds.push(Perseus.Widgets.get(widgetInfo.type).then(
                     function(widgetClass) {
                         // TODO(alpert): Widget options
-                        var widget = new widgetClass({
+                        var options = _.extend({
                             el: $widgetEl
-                        });
+                        }, widgetInfo.options);
+                        var widget = new widgetClass(options);
                         subwidgets[widgetId] = widget;
                         return widget.render();
                     }));
         });
 
-        var widget = this;
         return $.when.apply($, [mathDeferred].concat(subwidgetDeferreds)).then(
                 function() {
-                    widget.$el.show();
+                    renderer.$el.show();
 
                     // TODO(alpert): Call reprocess elsewhere?
-                    return widget.reprocess();
+                    return renderer.reprocess();
                 });
     },
 
@@ -111,6 +125,22 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
         });
     },
 
+    focus: function() {
+        var firstWidget = this.subwidgetIds.length ?
+                this.subwidgets[this.subwidgetIds[0]] :
+                null;
+        if (firstWidget) {
+            firstWidget.focus();
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    setState: function() {
+        // TODO(alpert): Propagate state to subwidgets
+    },
+
     toJSON: function(skipValidation) {
         // TODO(alpert): Text content should probably be here somewhere
         var state = {};
@@ -118,33 +148,59 @@ var Renderer = Perseus.Renderer = Perseus.Widget.extend({
             var s = widget.toJSON(skipValidation);
             if (!_.isEmpty(s)) {
                 state[id] = s;
-            };
+            }
         });
         return state;
+    },
+
+    guessAndScore: function() {
+        var widgetOptions = this.options.widgets;
+
+        var totalGuess = [];
+        var totalScore = {
+            type: "points",
+            earned: 0,
+            total: 0,
+            message: null
+        };
+
+        totalScore = _.chain(this.subwidgetIds)
+                .map(function(id) {
+                    var widget = this.subwidgets[id];
+                    // TODO(alpert): What if id not in subwidgets?
+                    var guess = widget.toJSON();
+
+                    totalGuess.push(guess);
+                    return widget.simpleValidate(widgetOptions[id].options);
+                }, this)
+                .reduce(Perseus.Util.combineScores, totalScore)
+                .value();
+
+        return [totalGuess, totalScore];
     }
 });
 
 var rmath = /(\$|[{}]|\\[\\${}]|\n{2,}|@@\d+@@)/g;
 
 // In IE8, split doesn't work right. Implement it ourselves.
-var mathSplit = "x".split(/(.)/g).length
-        ? function(str) { return str.split(rmath); }
-        : function(str) {
-            // Based on Steven Levithan's MIT-licensed split, available at
-            // http://blog.stevenlevithan.com/archives/cross-browser-split
-            var output = [];
-            var lastIndex = rmath.lastIndex = 0;
-            var match;
+var mathSplit = "x".split(/(.)/g).length ?
+    function(str) { return str.split(rmath); } :
+    function(str) {
+        // Based on Steven Levithan's MIT-licensed split, available at
+        // http://blog.stevenlevithan.com/archives/cross-browser-split
+        var output = [];
+        var lastIndex = rmath.lastIndex = 0;
+        var match;
 
-            while (match = rmath.exec(str)) {
-                output.push(str.slice(lastIndex, match.index));
-                output.push.apply(output, match.slice(1));
-                lastIndex = match.index + match[0].length;
-            }
+        while (match = rmath.exec(str)) {
+            output.push(str.slice(lastIndex, match.index));
+            output.push.apply(output, match.slice(1));
+            lastIndex = match.index + match[0].length;
+        }
 
-            output.push(str.slice(lastIndex));
-            return output;
-        };
+        output.push(str.slice(lastIndex));
+        return output;
+    };
 
 function extractMath(text) {
     // extractMath("$x$ is a cool number, just like $6 * 7$!") gives

@@ -2,3 +2,4 @@ lib/
 test/qunit-1.11.0.js
 src/expressiontools/parser-generator.js
 src/expressiontools/parser.js
+danaë.js

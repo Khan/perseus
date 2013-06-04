@@ -9,7 +9,8 @@ var Radio = Perseus.Widget.extend({
             content: "",
             correct: true
         }],
-        randomize: false
+        randomize: false,
+        multipleSelect: false
     },
 
     state: {
@@ -35,7 +36,10 @@ var Radio = Perseus.Widget.extend({
 
         _.each(this.options.choices, function(choice, i) {
             var $label = $("<" + widget.labelTagName + ">");
-            var $input = $("<input type='radio' name='" +
+
+            var type = widget.options.multipleSelect ? "checkbox" : "radio";
+
+            var $input = $("<input type='" + type + "' name='" +
                     _.escape(radioGroupName) + "' value='" + i + "'>");
             radios.push($input[0]);
 
@@ -73,10 +77,17 @@ var Radio = Perseus.Widget.extend({
     },
 
     toJSON: function(skipValidation) {
-        var selected = this.$radios.filter(":checked").val();
+        // Retrieve which choices are selected
+        var isSelected = _.chain(this.$radios)
+            // This de-randomizes the values so that the radios are checked in
+            // the correct order even when randomized
+            .sortBy(function(e) { return $(e).val(); })
+            .map(function(e) { return $(e).is(":checked"); })
+            .value();
+
         return {
-            // Convert undefined to null
-            value: selected != null ? selected : null
+            // This used to be 'value', but now it holds multiple values
+            values: isSelected
         };
     },
 
@@ -99,16 +110,17 @@ var Radio = Perseus.Widget.extend({
 
 _.extend(Radio, {
     validate: function(state, rubric) {
-        if (state.value == null) {
+        if (!_.any(state.values)) {
             return {
                 type: "invalid",
                 message: null
             };
         } else {
-            // Technically this cast doesn't end up doing anything...
-            var idx = +state.value;
+            var correct = _.all(state.values, function(selected, idx) {
+                return rubric.choices[idx].correct === selected;
+            });
 
-            if (rubric.choices[idx].correct) {
+            if (correct) {
                 return {
                     type: "points",
                     earned: 1,
@@ -180,13 +192,29 @@ var RadioEditor = Radio.extend({
         this.$el.append(
             $("<label> Randomize answer order</label>").prepend($randomize));
 
+        this.$el.append("<br>");
+
+        var $multipleSelect = this.$multipleSelect = $("<input type='checkbox'>")
+            .prop("checked", this.options.multipleSelect)
+            .on("change", function() {
+                editor.options.multipleSelect = $(this).prop("checked");
+                editor.trigger("change");
+                editor.render();
+            });
+
+        this.$el.append(
+            $("<label> Allow multiple selections</label>").prepend($multipleSelect));
+
         return promise;
     },
 
     choiceRenderer: function(choice) {
         var radioEditor = this;
         var editor = new Perseus.SingleEditor({
-            content: choice.content
+            content: choice.content,
+
+            // TODO(alpert): False now, though maybe enabled in the future?
+            widgetEnabled: false
         });
         this.listenTo(editor, "change", function() {
             // TODO(alpert): A little ick, some code duplication too
@@ -213,16 +241,20 @@ var RadioEditor = Radio.extend({
                     "unable to answer");
         }
 
-        var selectedVal = +selected.val();
+        var isCorrect = _.map(
+            this.$radios,
+            function(e) { return $(e).is(":checked"); }
+        );
 
         return {
             choices: _.map(this.renderers, function(editor, i) {
                 return {
                     content: editor.toJSON(skipValidation).content,
-                    correct: i === selectedVal
+                    correct: isCorrect[i]
                 };
             }),
-            randomize: this.options.randomize
+            randomize: this.options.randomize,
+            multipleSelect: this.options.multipleSelect
         };
     },
 

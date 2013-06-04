@@ -8,6 +8,7 @@ var srcFiles = [
     "src/expressiontools/compare.js",
     "src/widgets.js",
     "src/widgets/input-number.js",
+    "src/widgets/interactive-graph.js",
     "src/widgets/radio.js",
     "src/widgets/expression.js",
     "src/renderer.js",

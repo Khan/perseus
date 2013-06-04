@@ -6,6 +6,14 @@
 <title>Perseus render</title>
 
 <style>
+body {
+    background: #f7f7f7;
+}
+
+.graphie svg {
+    position: absolute; top: 0; left: 0;
+}
+
 .perseus-widget-radio > label {
     display: block;
 }
@@ -79,7 +87,30 @@
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
-<!-- <script src="/Mathjax/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured&amp;imageFont=null"></script> -->
+
+<script>
+    var KhanUtil = {
+        debugLog: function() {}
+    };
+    var Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        scratchpad: {disable: function() {}}
+    };
+</script>
+
+<script src="/ke/local-only/jed.js"></script>
+<script src="/ke/local-only/i18n.js"></script>
+<script src="/ke/utils/answer-types.js"></script>
+<script src="/ke/utils/math.js"></script>
+
+<script src="/ke/utils/tmpl.js"></script>
+<script src="/ke/utils/raphael.js"></script>
+<script src="/ke/utils/graphie.js"></script>
+<script src="/ke/utils/jquery.mobile.vmouse.js"></script>
+<script src="/ke/utils/interactive.js"></script>
+
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
 <script src="/src/expressiontools/parser.js"></script>
@@ -87,6 +118,7 @@
 <script src="/src/expressiontools/compare.js"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/widgets/input-number.js"></script>
+<script src="/src/widgets/interactive-graph.js"></script>
 <script src="/src/widgets/radio.js"></script>
 <script src="/src/widgets/expression.js"></script>
 <script src="/src/renderer.js"></script>
