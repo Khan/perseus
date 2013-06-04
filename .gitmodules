@@ -1,0 +1,3 @@
+[submodule "ke"]
+	path = ke
+	url = https://github.com/Khan/khan-exercises.git
