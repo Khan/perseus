@@ -10,16 +10,7 @@ var SingleEditor = Perseus.SingleEditor = React.createClass({
         widgets: {}
     },
 
-    getInitialState: function() {
-        var props = _.pick(this.props, _.keys(this.defaultState));
-        return _.defaults(props, this.defaultState);
-    },
-
-    componentDidUpdate: function(prevProps, prevState, rootNode) {
-        if (!_.isEqual(prevState, this.state) && this.props.onChange) {
-            this.props.onChange();
-        }
-    },
+    mixins: [Perseus.Util.PropsToState],
 
     render: function() {
         var widgetEnabled = this.props.widgetEnabled != null ?

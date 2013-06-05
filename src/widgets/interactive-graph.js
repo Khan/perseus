@@ -41,8 +41,8 @@ var InteractiveGraph = React.createClass({
     },
 
     // Don't mix in directly since we're overriding getInitialState
-    componentWillReceiveNewProps:
-            Perseus.Util.PropsToState.componentWillReceiveNewProps,
+    componentWillReceiveProps:
+            Perseus.Util.PropsToState.componentWillReceiveProps,
 
     getInitialState: function() {
         var state = Perseus.Util.PropsToState.getInitialState.call(this);

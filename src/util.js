@@ -132,8 +132,8 @@ var Util = Perseus.Util = {
             return _.defaults(props, this.defaultState);
         },
 
-        componentWillReceiveNewProps: function(nextProps) {
-            this.setState(_.pick(this.props, _.keys(this.defaultState)));
+        componentWillReceiveProps: function(nextProps) {
+            this.setState(_.pick(nextProps, _.keys(this.defaultState)));
         },
 
         componentDidUpdate: function(prevProps, prevState, rootNode) {
