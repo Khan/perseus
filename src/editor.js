@@ -310,6 +310,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                 <a href="#" className="simple-button orange"
                         onClick={this.addHint}>
                     <span className="icon-plus" />
+                    Add a hint
                 </a>
             </div>
         </div>;
