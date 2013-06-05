@@ -16,7 +16,6 @@ var Radio = React.createClass({
 
         return <ul className="perseus-widget-radio">
             {choices.map(function(choice, i) {
-                console.log(choice);
                 return <li>
                     {React.DOM[isEditor ? "div" : "label"](null, [
                         <input

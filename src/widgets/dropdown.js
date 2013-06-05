@@ -3,56 +3,23 @@
 
 var Dropdown = React.createClass({
     render: function() {
-        var choices = this.props.choices;
-        var dropdownGroupName = _.uniqueId("perseus_dropdown_");
+        var choices = this.props.choices.slice();
+        choices.unshift({
+            content: ""
+        });
 
-        return <select name={dropdownGroupName} className="perseus-widget-dropdown">
+        return <select className="perseus-widget-dropdown">
             {choices.map(function(choice, i) {
-                console.log(choice);
                 return <option
-                        ref={"dropdown" + i}
                         value={i}>
-                    {Perseus.Renderer(choice)}
+                    {choice.content}
                 </option>
             }, this)}
         </select>;
     },
 
-    focus: function(i) {
-        if (i == null) {
-            i = 0;
-        }
-
-        if (this.props.isEditor) {
-            this.refs["editor" + i].focus();
-        } else {
-            this.refs["dropdown" + i].getDOMNode().focus();
-        }
-        return true;
-    },
-
     toJSON: function(skipValidation) {
-        // Retrieve which choices are selected
-        var isSelected = this.props.choices.map(function(choice, i) {
-            return this.refs["dropdown" + i].getDOMNode().checked;
-        }, this);
-
-        // Dear future timeline implementers: this used to be {value: i} before
-        // multiple select was added
-        return {values: isSelected};
-    },
-
-    toEditorJSON: function(skipValidation) {
-        var choices = this.props.choices.map(function(choiceProps, i) {
-            var checked = this.refs["dropdown" + i].getDOMNode().checked;
-            var choice = this.refs["editor" + i].toJSON(skipValidation);
-            choice.correct = checked;
-            return choice;
-        }, this);
-
-        return {
-            choices: choices
-        };
+        return {value: this.getDOMNode().selectedIndex};
     },
 
     simpleValidate: function(rubric) {
@@ -62,16 +29,14 @@ var Dropdown = React.createClass({
 
 _.extend(Dropdown, {
     validate: function(state, rubric) {
-        if (!_.any(state.values)) {
+        var selected = state.value;
+        if (selected === 0) {
             return {
                 type: "invalid",
                 message: null
             };
         } else {
-            var correct = _.all(state.values, function(selected, i) {
-                return rubric.choices[i].correct === selected;
-            });
-
+            var correct = rubric.choices[selected - 1].correct;
             return {
                 type: "points",
                 earned: correct ? 1 : 0,
@@ -85,32 +50,33 @@ _.extend(Dropdown, {
 var DropdownEditor = React.createClass({
     defaultState: {
         choices: [{
+            content: "",
             correct: true
-        }],
+        }]
     },
 
     mixins: [Perseus.Util.PropsToState],
 
     render: function() {
-        // TODO(jakesandlund): get real value
-        var dropdownGroupName = 'XXX';
-        return <div>
-            <ul className="perseus-widget-dropdown">
+        // TODO(jakesandlund): is this ok that it is not using the
+        // same one as Dropdown?
+        var dropdownGroupName = _.uniqueId("perseus_dropdown_");
+        return <div className="perseus-widget-dropdown">
+            <ul>
                 {this.state.choices.map(function(choice, i) {
                     return <li>
                         <div>
                             <input
-                                    ref={"dropdown" + i}
-                                    type="radio"
-                                    name={dropdownGroupName}
-                                    checked={choice.correct}
-                                    value={i}>
-                                {Perseus.SingleEditor(_.extend({
-                                    ref: "editor" + i,
-                                    onChange: this.props.onChange,
-                                    widgetEnabled: false
-                                }, choice))}
-                            </input>
+                                ref={"radio" + i}
+                                type="radio"
+                                name={dropdownGroupName}
+                                checked={choice.correct ? "checked" : ""}
+                                value={i} />
+                            <input
+                                type="text"
+                                ref={"editor" + i}
+                                onChange={this.props.onChange}
+                                value={choice.content} />
                         </div>
                     </li>;
                 }, this)}
@@ -130,22 +96,23 @@ var DropdownEditor = React.createClass({
         var choices = this.toJSON(true).choices;
         choices.push({});
         this.setState({choices: choices});
-
-        // XXX
-        //this.focus(choices.length - 1);
+        this.focus(choices.length - 1);
         return false;
     }),
 
     focus: function(i) {
-        this.refs.dropdown.focus(i);
+        this.refs["editor" + i].getDOMNode().focus();
         return true;
     },
 
     toJSON: function(skipValidation) {
-        //var choices = this.refs.dropdown.toEditorJSON(skipValidation).choices;
-        // XXX
         var choices = this.state.choices.map(function (choice, i) {
-            return this.refs["editor" + i].toJSON(skipValidation);
+            var choice = this.refs["editor" + i].getDOMNode().value;
+            var correct = this.refs["radio" + i].getDOMNode().checked;
+            return {
+                content: choice,
+                correct: correct
+            };
         }, this);
         return {
             choices: choices,

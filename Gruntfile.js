@@ -10,6 +10,7 @@ var srcFiles = [
     "build/src/widgets/input-number.js",
     "build/src/widgets/interactive-graph.js",
     "build/src/widgets/radio.js",
+    "build/src/widgets/dropdown.js",
     "build/src/widgets/expression.js",
     "build/src/renderer.js",
     "build/src/editor.js",

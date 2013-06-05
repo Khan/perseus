@@ -91,6 +91,8 @@ var SingleEditor = Perseus.SingleEditor = React.createClass({
                                 Expression input</option>
                         <option value="interactive-graph">
                                 Interactive graph</option>
+                        <option value="dropdown">
+                                Drop down</option>
                     </select>
                 </div>
                 {widgets}
@@ -241,7 +243,6 @@ var AnswerAreaEditor = React.createClass({
                             });
                         }.bind(this)}>
                     <option value="radio">Multiple choice</option>
-                    <option value="dropdown">Drop down</option>
                     <option value="input-number">Text input (number)</option>
                     <option value="expression">Expression input</option>
                     <option value="multiple">Custom format</option>

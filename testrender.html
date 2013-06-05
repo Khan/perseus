@@ -85,8 +85,11 @@ body {
 <div id="hintsarea"></div>
 <form id="answerform">
     <div id="solutionarea"></div>
-    <input type="Submit">
 </form>
+</div>
+
+<div id="extras">
+    <button id="score">Score</button>
 </div>
 
 <script src="/lib/jquery.js"></script>
@@ -120,6 +123,24 @@ body {
 <script src="/ke/utils/jquery.mobile.vmouse.js"></script>
 <script src="/ke/utils/interactive.js"></script>
 
+<!-- pre built
+<script src="/build/core.js"></script>
+<script src="/build/util.js"></script>
+<script src="/build/expressiontools/parser.js"></script>
+<script src="/build/expressiontools/nodes.js"></script>
+<script src="/build/expressiontools/compare.js"></script>
+<script src="/build/widgets.js"></script>
+<script src="/build/widgets/input-number.js"></script>
+<script src="/build/widgets/interactive-graph.js"></script>
+<script src="/build/widgets/radio.js"></script>
+<script src="/build/widgets/dropdown.js"></script>
+<script src="/build/widgets/expression.js"></script>
+<script src="/build/renderer.js"></script>
+<script src="/build/item-renderer.js"></script>
+-->
+
+
+<!-- built in the browser -->
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
 <script src="/src/expressiontools/parser.js"></script>
@@ -129,22 +150,78 @@ body {
 <script src="/src/widgets/input-number.js" type="text/jsx"></script>
 <script src="/src/widgets/interactive-graph.js" type="text/jsx"></script>
 <script src="/src/widgets/radio.js" type="text/jsx"></script>
+<script src="/src/widgets/dropdown.js" type="text/jsx"></script>
 <script src="/src/widgets/expression.js" type="text/jsx"></script>
 <script src="/src/renderer.js" type="text/jsx"></script>
 <script src="/src/item-renderer.js" type="text/jsx"></script>
 
+
+
 <script>
 (function() {
 
-var seedContent = {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "expression",
-    "options": {
-        value: "x^2+5x+6",
-        eval: true,
-        form: true,
-        simplify: true
+$('#score').on('click', function() {
+    console.log(zk.scoreInput());
+});
+
+var seedContent = {
+    "question": {
+        "content": "How many monkeys swing from $10$ branches of **trees**?[[☃ dropdown 1]]",
+        "widgets": {
+            "dropdown 1": {
+                "options": {
+                    "choices": [
+                        {
+                            "content": "aou",
+                            "correct": false
+                        },
+                        {
+                            "content": "oio",
+                            "correct": false
+                        },
+                        {
+                            "content": "oio",
+                            "correct": true
+                        },
+                        {
+                            "content": "iie",
+                            "correct": false
+                        }
+                    ]
+                },
+                "type": "dropdown"
+            }
+        }
     },
-},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
+    "answerArea": {
+        "type": "expression",
+        "options": {
+            "eval": true,
+            "form": false,
+            "simplify": true,
+            "value": "2x+5"
+        }
+    },
+    "hints": [
+        {
+            "content": "Each branch can hold $\\dfrac{1}{10}$ of a monkey.",
+            "widgets": {}
+        },
+        {
+            "content": "Therefore, $10$ branc… oh shit they're attacking me",
+            "widgets": {}
+        },
+        {
+            "content": "If you see this, please help.",
+            "widgets": {}
+        },
+        {
+            "content": "ooh ooh, ahh ahh, too late.",
+            "widgets": {}
+        }
+    ]
+};
+
 
 Perseus.init({}).then(function() {
     var itemMountNode = document.createElement("div");
