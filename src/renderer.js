@@ -150,7 +150,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             if (widget.focus && widget.focus()) {
                 return true;
             }
-        });
+        }, true);
     },
 
     toJSON: function(skipValidation) {
