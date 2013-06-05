@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 (function(Perseus) {
 
 function eq(x, y) {
@@ -16,17 +17,14 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-var InteractiveGraph = Perseus.Widget.extend({
-    className: "perseus-widget-interactive-graph",
-
-    options: {
+var InteractiveGraph = React.createClass({
+    defaultState: {
         // TODO(alpert): Configurable graph range
         snap: 0.5,
         scale: 20,
         graph: {
             type: "linear"
-        },
-        flexibleType: false
+        }
     },
 
     graphDefaults: {
@@ -42,20 +40,60 @@ var InteractiveGraph = Perseus.Widget.extend({
         }
     },
 
-    controlsType: null,
+    // Don't mix in directly since we're overriding getInitialState
+    componentWillReceiveNewProps:
+            Perseus.Util.PropsToState.componentWillReceiveNewProps,
+
+    getInitialState: function() {
+        var state = Perseus.Util.PropsToState.getInitialState.call(this);
+        _.defaults(state.graph, this.graphDefaults[state.graph.type]);
+        return state;
+    },
+
+    componentDidUpdate: function(prevProps, prevState, rootNode) {
+        Perseus.Util.PropsToState.componentDidUpdate.call(
+                this, prevProps, prevState, rootNode);
+        var oldType = prevState.graph.type;
+        var newType = this.state.graph.type;
+        if (oldType !== newType) {
+            this["remove" + capitalize(oldType) + "Controls"]();
+            this["add" + capitalize(newType) + "Controls"]();
+        }
+    },
 
     render: function() {
-        var widget = this;
+        var typeSelect;
+        if (this.props.flexibleType) {
+            typeSelect = <select
+                    ref="typeSelect"
+                    onChange={function(e) {
+                        var type = e.target.value
+                        this.setState({
+                            graph: _.extend({type: type},
+                                    this.graphDefaults[type])
+                        });
+                    }.bind(this)}>
+                <option value="linear">Linear function</option>
+                <option value="quadratic">Quadratic function</option>
+                <option value="circle">Circle</option>
+            </select>;
+        }
 
-        this.$el.css("padding", "25px 25px 0 0");
-        var $graphieDiv = $("<div class='graphie'>");
-        this.$el.empty().append($graphieDiv);
+        return <span className={"perseus-widget " +
+                    "perseus-widget-interactive-graph"}
+                style={{padding: "25px 25px 0 0"}}>
+            <span className="graphie" ref="graphieDiv" />
+            {typeSelect}
+        </span>;
+    },
 
-        var graphie = this.graphie = KhanUtil.createGraphie($graphieDiv[0]);
+    componentDidMount: function() {
+        var graphie = this.graphie = KhanUtil.createGraphie(
+                this.refs.graphieDiv.getDOMNode());
         graphie.graphInit({
             range: 10,
-            scale: this.options.scale,
-            axisArrows: "&lt;-&gt;",
+            scale: this.state.scale,
+            axisArrows: "<->",
             labelFormat: function(s) { return "\\small{" + s + "}"; },
             tickStep: 1,
             labelStep: 1
@@ -64,47 +102,17 @@ var InteractiveGraph = Perseus.Widget.extend({
         graphie.label([10, 0], "x", "right");
         graphie.addMouseLayer();
 
-        if (this.options.flexibleType) {
-            var $select = $("<select>");
-            _.each({
-                linear: "Linear function",
-                quadratic: "Quadratic function",
-                circle: "Circle"
-            }, function(desc, key) {
-                $("<option>").val(key).text(desc).appendTo($select);
-            });
-            $select.appendTo(this.el)
-                .on("change", function() {
-                    widget.useControls($(this).val());
-                    widget.trigger("change");
-                })
-                .val(this.options.graph.type);
-        }
-
-        this.useControls(this.options.graph.type);
-
-        return $.when(this);
-    },
-
-    useControls: function(type) {
-        if (this.controlsType) {
-            // Old controls are visible; remove them
-            this["remove" + capitalize(this.controlsType) + "Controls"]();
-            this.controlsType = null;
-
-            // Reset graph options since we're switching types
-            this.options.graph = {};
-        }
-
-        this.options.graph.type = type;
-        _.defaults(this.options.graph, this.graphDefaults[type]);
-
+        var type = this.state.graph.type;
         this["add" + capitalize(type) + "Controls"]();
-        this.controlsType = type;
+
+        // TODO(alpert): How to do this at initialization instead of here?
+        if (this.refs.typeSelect) {
+            this.refs.typeSelect.getDOMNode().value = type;
+        }
     },
 
     getEquationString: function() {
-        var type = this.options.graph.type;
+        var type = this.state.graph.type;
         return this["get" + capitalize(type) + "EquationString"]();
     },
 
@@ -112,9 +120,9 @@ var InteractiveGraph = Perseus.Widget.extend({
         var graphie = this.graphie;
 
         var pointA = this.pointA = graphie.addMovablePoint({
-            coord: this.options.graph.coords[0],
-            snapX: this.options.snap,
-            snapY: this.options.snap,
+            coord: this.state.graph.coords[0],
+            snapX: this.state.snap,
+            snapY: this.state.snap,
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -122,9 +130,9 @@ var InteractiveGraph = Perseus.Widget.extend({
         });
 
         var pointB = this.pointB = graphie.addMovablePoint({
-            coord: this.options.graph.coords[1],
-            snapX: this.options.snap,
-            snapY: this.options.snap,
+            coord: this.state.graph.coords[1],
+            snapX: this.state.snap,
+            snapY: this.state.snap,
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -146,10 +154,12 @@ var InteractiveGraph = Perseus.Widget.extend({
             return !_.isEqual([x, y], pointA.coord);
         };
 
-        var self = this;
         $([pointA, pointB]).on("move", function() {
-            self.trigger("change");
-        });
+            var graph = _.extend({}, this.state.graph, {
+                coords: [pointA.coord, pointB.coord]
+            });
+            this.setState({graph: graph});
+        }.bind(this));
     },
 
     getLinearEquationString: function() {
@@ -174,9 +184,9 @@ var InteractiveGraph = Perseus.Widget.extend({
         var graphie = this.graphie;
 
         var pointA = this.pointA = graphie.addMovablePoint({
-            coord: this.options.graph.coords[0],
-            snapX: this.options.snap,
-            snapY: this.options.snap,
+            coord: this.state.graph.coords[0],
+            snapX: this.state.snap,
+            snapY: this.state.snap,
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -184,9 +194,9 @@ var InteractiveGraph = Perseus.Widget.extend({
         });
 
         var pointB = this.pointB = graphie.addMovablePoint({
-            coord: this.options.graph.coords[1],
-            snapX: this.options.snap,
-            snapY: this.options.snap,
+            coord: this.state.graph.coords[1],
+            snapX: this.state.snap,
+            snapY: this.state.snap,
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -194,9 +204,9 @@ var InteractiveGraph = Perseus.Widget.extend({
         });
 
         var pointC = this.pointC = graphie.addMovablePoint({
-            coord: this.options.graph.coords[2],
-            snapX: this.options.snap,
-            snapY: this.options.snap,
+            coord: this.state.graph.coords[2],
+            snapX: this.state.snap,
+            snapY: this.state.snap,
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -216,18 +226,17 @@ var InteractiveGraph = Perseus.Widget.extend({
 
         this.updateQuadratic();
 
-        var self = this;
         $([pointA, pointB, pointC]).on("move", function() {
-            self.updateQuadratic();
-            self.trigger("change");
-        });
+            var graph = _.extend({}, this.state.graph, {
+                coords: [pointA.coord, pointB.coord, pointC.coord]
+            });
+            this.setState({graph: graph});
+            this.updateQuadratic();
+        }.bind(this));
     },
 
     getQuadraticCoefficients: function() {
-        var p1 = this.pointA.coord;
-        var p2 = this.pointB.coord;
-        var p3 = this.pointC.coord;
-        return InteractiveGraph.quadraticCoefficients([p1, p2, p3]);
+        return InteractiveGraph.quadraticCoefficients(this.state.graph.coords);
     },
 
     getQuadraticEquationString: function() {
@@ -269,55 +278,38 @@ var InteractiveGraph = Perseus.Widget.extend({
         var graphie = this.graphie;
 
         var circle = this.circle = graphie.addCircleGraph({
-            center: this.options.graph.center,
-            radius: this.options.graph.radius
+            center: this.state.graph.center,
+            radius: this.state.graph.radius
             // TODO(alpert): addCircleGraph doesn't take snap yet
         });
 
-        var self = this;
         $(circle).on("move", function() {
-            self.trigger("change");
-        });
+            var graph = _.extend({}, this.state.graph, {
+                center: circle.center,
+                radius: circle.radius
+            });
+            this.setState({graph: graph});
+        }.bind(this));
     },
 
     getCircleEquationString: function() {
-        var center = this.circle.center;
+        var graph = this.state.graph;
+        var center = graph.center;
         return "center (" + center[0] + ", " + center[1] + "), radius " +
-                this.circle.radius;
+                graph.radius;
     },
-
 
     removeCircleControls: function() {
         this.circle.remove();
     },
 
     toJSON: function() {
-        var type = this.options.graph.type;
-        if (type === "linear") {
-            return {
-                type: "linear",
-                coords: [this.pointA.coord, this.pointB.coord]
-            };
-        } else if (type === "quadratic") {
-            return {
-                type: "quadratic",
-                coords: [this.pointA.coord, this.pointB.coord,
-                        this.pointC.coord]
-            };
-        } else if (type === "circle") {
-            return {
-                type: "circle",
-                center: this.circle.center,
-                radius: this.circle.radius
-            };
-        }
+        return this.state.graph;
     },
 
     simpleValidate: function(rubric) {
         return InteractiveGraph.validate(this.toJSON(), rubric);
     },
-
-    setState: $.noop,
 
     focus: $.noop
 });
@@ -346,8 +338,6 @@ _.extend(InteractiveGraph, {
     },
 
     validate: function(state, rubric) {
-        _.defaults(rubric, InteractiveGraph.prototype.options);
-
         if (state.type === rubric.correct.type) {
             if (state.type === "linear") {
                 var guess = state.coords;
@@ -412,48 +402,40 @@ _.extend(InteractiveGraph, {
 });
 
 
-var InteractiveGraphEditor = Perseus.Widget.extend({
+var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
-    options: {
+    defaultState: {
         correct: {
             type: "linear",
             coords: [[-5, 5], [5, 5]]
         }
     },
 
+    mixins: [Perseus.Util.PropsToState],
+
     render: function() {
-        var editor = this;
-
-        this.$el.empty();
-        var $answerInfo = $("<div>")
-            .text("Correct answer: ")
-            .appendTo(this.el);
-
-        var graph = this.graph = new InteractiveGraph({
-            scale: 18,
-            graph: this.options.correct,
-            flexibleType: true
-        });
-        this.$el.append(graph.el);
-        graph.render();
-
-        var $equation = $("<span>").appendTo($answerInfo);
-        graph.on("change", updateEquation);
-        updateEquation();
-
-        function updateEquation() {
-            $equation.text(graph.getEquationString());
-        }
+        return <div className="perseus-widget-interactive-graph">
+            <div>Correct answer: {this.state.equationString}</div>
+            <InteractiveGraph
+                ref="graph"
+                scale={18}
+                graph={this.state.correct}
+                flexibleType={true}
+                onChange={this.updateEquationString} />
+        </div>;
     },
 
-    set: function(options) {
-        _.extend(this.options, options);
-        return this.render();
+    componentDidMount: function() {
+        setTimeout(this.updateEquationString.bind(this), 0);
     },
+
+    updateEquationString: React.autoBind(function() {
+        this.setState({equationString: this.refs.graph.getEquationString()});
+    }),
 
     toJSON: function() {
-        var correct = this.graph.toJSON();
+        var correct = this.refs.graph.toJSON();
         return {
             // TODO(alpert): Allow specifying flexibleType (whether the graph
             // type should be a choice or not)

@@ -95,6 +95,10 @@ body {
     width: 40px;
 }
 
+.perseus-widget {
+    display: inline-block;
+}
+
 .perseus-widget-radio > div {
     /* (as opposed to label) */
     margin: 0.5em 0;
@@ -172,6 +176,10 @@ body {
     margin-left: 520px;
 }
 
+.graphie {
+    display: inline-block;
+}
+
 </style>
 
 </head>
@@ -199,6 +207,8 @@ body {
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
+<script src="/lib/react-0.3.2.js"></script>
+<script src="/lib/JSXTransformer-0.3.2.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 
 <script>
@@ -230,13 +240,13 @@ body {
 <script src="/src/expressiontools/nodes.js"></script>
 <script src="/src/expressiontools/compare.js"></script>
 <script src="/src/widgets.js"></script>
-<script src="/src/widgets/input-number.js"></script>
-<script src="/src/widgets/interactive-graph.js"></script>
-<script src="/src/widgets/radio.js"></script>
-<script src="/src/widgets/expression.js"></script>
-<script src="/src/renderer.js"></script>
-<script src="/src/item-renderer.js"></script>
-<script src="/src/editor.js"></script>
+<script src="/src/widgets/input-number.js" type="text/jsx"></script>
+<script src="/src/widgets/interactive-graph.js" type="text/jsx"></script>
+<script src="/src/widgets/radio.js" type="text/jsx"></script>
+<script src="/src/widgets/expression.js" type="text/jsx"></script>
+<script src="/src/renderer.js" type="text/jsx"></script>
+<script src="/src/item-renderer.js" type="text/jsx"></script>
+<script src="/src/editor.js" type="text/jsx"></script>
 
 <script>
 (function() {
@@ -244,13 +254,8 @@ body {
 var seedContent = $("#seed-content").remove().text();
 
 Perseus.init({}).then(function() {
-    var editor = zk = new Perseus.ItemEditor({
-        el: "#editor",
-        previewEl: "#content"
-    });
-
-    return editor.render().then(function() {
-        return editor.set({"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
+    zk = React.renderComponent(Perseus.ItemEditor(
+{"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
     "type": "expression",
     "options": {
         "value": "2x+5",
@@ -258,10 +263,8 @@ Perseus.init({}).then(function() {
         "form": false,
         "simplify": true
     }
-},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]});
-    }).then(function() {
-        editor.focus();
-    });
+},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]}
+    , null), document.getElementById("editor"));
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {

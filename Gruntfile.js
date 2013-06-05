@@ -1,23 +1,28 @@
 module.exports = function(grunt) {
 
 var srcFiles = [
-    "src/core.js",
-    "src/util.js",
-    "src/expressiontools/parser.js",
-    "src/expressiontools/nodes.js",
-    "src/expressiontools/compare.js",
-    "src/widgets.js",
-    "src/widgets/input-number.js",
-    "src/widgets/interactive-graph.js",
-    "src/widgets/radio.js",
-    "src/widgets/expression.js",
-    "src/renderer.js",
-    "src/editor.js",
-    "src/item-renderer.js"
+    "build/src/core.js",
+    "build/src/util.js",
+    "build/src/expressiontools/parser.js",
+    "build/src/expressiontools/nodes.js",
+    "build/src/expressiontools/compare.js",
+    "build/src/widgets.js",
+    "build/src/widgets/input-number.js",
+    "build/src/widgets/interactive-graph.js",
+    "build/src/widgets/radio.js",
+    "build/src/widgets/expression.js",
+    "build/src/renderer.js",
+    "build/src/editor.js",
+    "build/src/item-renderer.js"
 ];
 
 grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
+    shell: {
+        jsx: {
+            command: "jsx src/ build/src/"
+        }
+    },
     concat: {
         options: {
             banner: "/*! Perseus | http://github.com/Khan/perseus */\n",
@@ -41,7 +46,8 @@ grunt.initConfig({
 
 grunt.loadNpmTasks("grunt-contrib-concat");
 grunt.loadNpmTasks("grunt-contrib-uglify");
+grunt.loadNpmTasks("grunt-shell");
 
-grunt.registerTask("default", ["concat", "uglify"]);
+grunt.registerTask("default", ["shell:jsx", "concat", "uglify"]);
 
 };

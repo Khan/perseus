@@ -1,5 +1,5 @@
 test("extractMath", function() {
-    var extract = Perseus.Renderer._extractMath;
+    var extract = Perseus.Renderer._extractMathAndWidgets;
 
     deepEqual(extract("Let $x$ be gorillas."),
             ["Let @@0@@ be gorillas.", ["$x$"]]);

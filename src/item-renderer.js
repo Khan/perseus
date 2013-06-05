@@ -1,130 +1,123 @@
+/** @jsx React.DOM */
 (function(Perseus) {
 
-var AnswerAreaRenderer = Perseus.Widget.extend({
-    // TODO(alpert): Move the form higher up in the DOM
-    tagName: "form",
+// TODO(alpert): Thread problemNum to question-area widgets too
 
-    initialize: function() {
-        var type = this.options.type;
+var AnswerAreaRenderer = React.createClass({
+    render: function(rootNode) {
+        var type = this.props.type;
         var cls;
         if (type === "multiple") {
             cls = Perseus.Renderer;
         } else {
-            cls = Perseus.Widgets._widgetTypes[this.options.type];
+            cls = Perseus.Widgets._widgetTypes[type];
         }
 
-        // TODO(alpert): box is a stupid name
-        // TODO(alpert): this.options.options is stupid too
-        this.box = new cls(this.options.options);
-        this.box.setState({problemNum: this.options.problemNum});
-    },
-
-    render: function() {
-        var renderer = this;
-
-        this.$("#solutionarea")
-            .empty()
-            .append(this.box.$el);
-
-        return this.box.render().then(function() {
-            return renderer;
-        });
+        return cls(_.extend({
+            ref: "widget",
+            problemNum: this.props.problemNum
+        }, this.props.options));
     },
 
     focus: function() {
-        // TODO(alpert): Later, we'll need to store which text box was focused
-        // or something like that
-        this.box.focus();
+        this.refs.widget.focus();
     },
 
     guessAndScore: function() {
-        if (this.options.type === "multiple") {
-            // TODO(alpert): These should probably have the same signature...
-            return this.box.guessAndScore();
+        // TODO(alpert): These should probably have the same signature...
+        if (this.props.type === "multiple") {
+            return this.refs.widget.guessAndScore();
         } else {
-            var guess = this.box.toJSON();
-            // TODO(alpert): Use separate rubric
-            var score = this.box.simpleValidate(this.options.options);
+            // TODO(alpert): Separate out the rubric
+            var guess = this.refs.widget.toJSON();
+            var score = this.refs.widget.simpleValidate(this.props.options);
 
             return [guess, score];
         }
     }
 });
 
-var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
-    initialize: function(options) {
-        var item = options.item;
+var HintsRenderer = React.createClass({
+    render: function() {
+        var hintsVisible = this.props.hintsVisible;
+        var hints = this.props.hints
+            .slice(0, hintsVisible === -1 ? undefined : hintsVisible)
+            .map(function(hint, i) {
+                return Perseus.Renderer(hint);
+            });
 
-        this.questionRenderer = new Perseus.Renderer(item.question);
-        this.answerAreaRenderer = new AnswerAreaRenderer({
-            el: this.$("#answerform"),
-            itemRenderer: this,
-            type: item.answerArea.type,
-            options: item.answerArea.options,
-            problemNum: options.problemNum
-        });
+        return <div>{hints}</div>;
+    }
+});
 
-        // Renderer for each presented hint
-        this.hintRenderers = [];
-
-        // Options for each hidden hint
-        this.remainingHints = item.hints.slice();
+var ItemRenderer = Perseus.ItemRenderer = React.createClass({
+    defaultState: {
+        hintsVisible: 0
     },
 
-    render: function(options) {
-        return $.when(
-            this.renderQuestion(),
-            this.renderAnswer(),
-            this.renderHints()
-            );
+    mixins: [Perseus.Util.PropsToState],
+
+    componentDidMount: function() {
+        this.update();
     },
 
-    renderQuestion: function() {
-        this.$("#workarea")
-            .empty()
-            .append(this.questionRenderer.$el);
-        return this.questionRenderer.render();
+    componentDidUpdate: function() {
+        this.update();
     },
 
-    renderAnswer: function() {
-        return this.answerAreaRenderer.render();
+    update: function() {
+        // Since the item renderer works by rendering things into three divs
+        // that have completely different places in the DOM, we have to do this
+        // strangeness instead of relying on React's normal render() method.
+        // TODO(alpert): Figure out how to clean this up somehow
+
+        this.questionRenderer = React.renderComponent(
+                Perseus.Renderer(this.props.item.question),
+                document.getElementById("workarea"));
+
+        this.answerAreaRenderer = React.renderComponent(
+                AnswerAreaRenderer({
+                    type: this.props.item.answerArea.type,
+                    options: this.props.item.answerArea.options,
+                    problemNum: this.props.problemNum
+                }),
+                document.getElementById("solutionarea"));
+
+        this.hintsRenderer = React.renderComponent(
+                HintsRenderer({
+                    hints: this.props.item.hints,
+                    hintsVisible: this.state.hintsVisible
+                }),
+                document.getElementById("hintsarea"));
     },
 
-    renderHints: function() {
-        var renderer = this;
-        _.each(this.hintRenderers, function(r) {
-            renderer.$("#hintsarea").append(r.$el);
-        });
-        return $.when.apply($, _.invoke(this.hintRenderers, "render"));
+    render: function() {
+        return <div />;
     },
 
     focus: function() {
-        return this.questionRenderer.focus() ||
-                this.answerAreaRenderer.focus();
+        return this.answerAreaRenderer.focus();
+    },
+
+    componentWillUnmount: function() {
+        React.unmountAndReleaseReactRootNode(
+                document.getElementById("workarea"));
+        React.unmountAndReleaseReactRootNode(
+                document.getElementById("solutionarea"));
+        React.unmountAndReleaseReactRootNode(
+                document.getElementById("hintsarea"));
     },
 
     showHint: function() {
-        if (!this.remainingHints.length) {
-            // Where'd the hint go? :\
-            return;
+        if (this.state.hintsVisible < this.getNumHints()) {
+            this.setState({
+                hintsVisible: this.state.hintsVisible + 1
+            });
         }
-
-        var hintOptions = this.remainingHints.shift();
-        var renderer = new Perseus.Renderer(hintOptions);
-        renderer.$el.addClass("perseus-hint");
-        this.hintRenderers.push(renderer);
-
-        // TODO(alpert): DRY. Doing it this way is way faster than just calling
-        // render() though.
-        this.$("#hintsarea").append(renderer.$el);
-        var itemRenderer = this;
-        renderer.render().then(function() {
-            return itemRenderer;
-        });
     },
 
     getNumHints: function() {
-        return this.options.item.hints.length;
+        return this.props.item.hints.length;
     },
 
     scoreInput: function() {
@@ -160,27 +153,6 @@ var ItemRenderer = Perseus.ItemRenderer = Perseus.Widget.extend({
                 guess: guess
             };
         }
-    }
-});
-
-var ItemEditorRenderer = Perseus.ItemEditorRenderer = Perseus.ItemRenderer.extend({
-    showAllHints: function() {
-        while (this.remainingHints.length) {
-            var hintOptions = this.remainingHints.shift();  // TODO(alpert): speed?
-            var renderer = new Perseus.Renderer(hintOptions);
-            renderer.$el.addClass("perseus-hint");
-            this.hintRenderers.push(renderer);
-        }
-        return;
-    },
-
-    resetAnswerArea: function(answerArea) {
-        this.answerAreaRenderer = new AnswerAreaRenderer({
-            el: this.$("#answerform"),
-            itemRenderer: this,
-            type: answerArea.type,
-            options: answerArea.options
-        });
     }
 });
 

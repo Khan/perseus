@@ -10,7 +10,7 @@ Perseus.init = function(options) {
 
     var deferred = $.Deferred();
 
-    marked.setOptions({
+    markedReact.setOptions({
         sanitize: true
     });
 

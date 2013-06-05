@@ -1,6 +1,8 @@
 (function(Perseus) {
 
 var Util = Perseus.Util = {
+    rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
+
     seededRNG: function(seed) {
         var randomSeed = seed;
 
@@ -33,6 +35,26 @@ var Util = Perseus.Util = {
 
         return array;
     },
+
+    // In IE8, split doesn't work right. Implement it ourselves.
+    split: "x".split(/(.)/g).length
+        ? function(str, r) { return str.split(r); }
+        : function(str, r) {
+            // Based on Steven Levithan's MIT-licensed split, available at
+            // http://blog.stevenlevithan.com/archives/cross-browser-split
+            var output = [];
+            var lastIndex = r.lastIndex = 0;
+            var match;
+
+            while (match = r.exec(str)) {
+                output.push(str.slice(lastIndex, match.index));
+                output.push.apply(output, match.slice(1));
+                lastIndex = match.index + match[0].length;
+            }
+
+            output.push(str.slice(lastIndex));
+            return output;
+        },
 
     /**
      * Given two score objects for two different widgets, combine them so that
@@ -97,6 +119,28 @@ var Util = Perseus.Util = {
 
         val(text);
         return first;
+    },
+
+    /**
+     * React mixin to copy any properties listed in 'defaultState' from 'props'
+     * to 'state' upon initialization so that they can easily be modified later
+     * by the component. Also calls this.props.onChange on any state change.
+     */
+    PropsToState: {
+        getInitialState: function() {
+            var props = _.pick(this.props, _.keys(this.defaultState));
+            return _.defaults(props, this.defaultState);
+        },
+
+        componentWillReceiveNewProps: function(nextProps) {
+            this.setState(_.pick(this.props, _.keys(this.defaultState)));
+        },
+
+        componentDidUpdate: function(prevProps, prevState, rootNode) {
+            if (!_.isEqual(prevState, this.state) && this.props.onChange) {
+                this.props.onChange();
+            }
+        }
     }
 };
 

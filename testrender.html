@@ -86,6 +86,8 @@ body {
 <script src="/lib/underscore.js"></script>
 <script src="/lib/backbone.js"></script>
 <script src="/lib/marked.js"></script>
+<script src="/lib/react-0.3.2.js"></script>
+<script src="/lib/JSXTransformer-0.3.2.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 
 <script>
@@ -117,12 +119,12 @@ body {
 <script src="/src/expressiontools/nodes.js"></script>
 <script src="/src/expressiontools/compare.js"></script>
 <script src="/src/widgets.js"></script>
-<script src="/src/widgets/input-number.js"></script>
-<script src="/src/widgets/interactive-graph.js"></script>
-<script src="/src/widgets/radio.js"></script>
-<script src="/src/widgets/expression.js"></script>
-<script src="/src/renderer.js"></script>
-<script src="/src/item-renderer.js"></script>
+<script src="/src/widgets/input-number.js" type="text/jsx"></script>
+<script src="/src/widgets/interactive-graph.js" type="text/jsx"></script>
+<script src="/src/widgets/radio.js" type="text/jsx"></script>
+<script src="/src/widgets/expression.js" type="text/jsx"></script>
+<script src="/src/renderer.js" type="text/jsx"></script>
+<script src="/src/item-renderer.js" type="text/jsx"></script>
 
 <script>
 (function() {
@@ -138,26 +140,11 @@ var seedContent = {"question":{"content":"How many monkeys swing from $10$ branc
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]};
 
 Perseus.init({}).then(function() {
-    var renderer = zk = new Perseus.ItemRenderer({
-        el: "#content",
+    var itemMountNode = document.createElement("div");
+    zk = React.renderComponent(Perseus.ItemRenderer({
         item: seedContent,
         problemNum: Math.floor(Math.random() * 50) + 1,
-    }).on("attempt", function(info) {
-        var score = info.score;
-
-        if (score.type === "points") {
-            var msg = "Your score is " + score.earned + " of " + score.total +
-                    ".";
-            if (score.message != null) {
-                msg += "\n\n" + score.message;
-            }
-            alert(msg);
-        }
-    });
-
-    return renderer.render().then(function() {
-        renderer.focus();
-    });
+    }, null), itemMountNode);
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {

@@ -1,99 +1,77 @@
+/** @jsx React.DOM */
 (function(Perseus) {
 
-var Radio = Perseus.Widget.extend({
-    className: "perseus-widget-radio",
-    labelTagName: "label",
-
-    options: {
-        choices: [{
-            content: "",
-            correct: true
-        }],
-        randomize: false,
-        multipleSelect: false
-    },
-
-    state: {
-        problemNum: 0
-    },
-
-    initialize: function() {
-        this.$radios = $();
-    },
-
-    setState: function(state) {
-        this.state = state;
-    },
-
+var Radio = React.createClass({
     render: function() {
-        var widget = this;
-        var radios = [];
-        var labeledElements = [];
-        var $widgetUl = $("<ul>").appendTo(this.$el.empty());
+        var isEditor = this.props.isEditor;
+        var choices = this.props.choices.map(function(choice, i) {
+            return _.extend({
+                originalIndex: i
+            }, choice);
+        });
+        choices = this.randomize(choices);
 
         var radioGroupName = _.uniqueId("perseus_radio_");
-        var renderers = this.renderers = [];
+        var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
-        _.each(this.options.choices, function(choice, i) {
-            var $label = $("<" + widget.labelTagName + ">");
-
-            var type = widget.options.multipleSelect ? "checkbox" : "radio";
-
-            var $input = $("<input type='" + type + "' name='" +
-                    _.escape(radioGroupName) + "' value='" + i + "'>");
-            radios.push($input[0]);
-
-            var renderer = widget.choiceRenderer(choice);
-            renderers.push(renderer);
-
-            $label.append($input, renderer.$el);
-            labeledElements.push($label);
-        });
-
-        // optionally randomize presentation of choices
-        // radios must be randomized as well to preserve focus() behavior
-        radios = this.randomize(radios);
-        labeledElements = this.randomize(labeledElements);
-
-        _.each(labeledElements, function($label) {
-            $widgetUl.append($("<li>").append($label));
-        });
-
-        this.$radios = $(radios);
-
-        return $.when.apply($, _.invoke(renderers, "render")).then(function() {
-            return widget;
-        });
+        return <ul className="perseus-widget-radio">
+            {choices.map(function(choice, i) {
+                return <li>
+                    {React.DOM[isEditor ? "div" : "label"](null, [
+                        <input
+                            ref={"radio" + choice.originalIndex}
+                            type={inputType}
+                            name={radioGroupName}
+                            checked={isEditor && choice.correct}
+                            value={i} />,
+                        isEditor ?
+                            Perseus.SingleEditor(_.extend({
+                                ref: "editor" + choice.originalIndex,
+                                onChange: this.props.onChange,
+                                widgetEnabled: false
+                            }, choice)) :
+                            Perseus.Renderer(choice)
+                    ])}
+                </li>;
+            }, this)}
+        </ul>;
     },
 
-    choiceRenderer: function(choice) {
-        return new Perseus.Renderer({
-            content: choice.content
-        });
-    },
+    focus: function(i) {
+        if (i == null) {
+            i = 0;
+        }
 
-    focus: function() {
-        this.$radios.eq(0).focus();
+        if (this.props.isEditor) {
+            this.refs["editor" + i].focus();
+        } else {
+            this.refs["radio" + i].getDOMNode().focus();
+        }
+        return true;
     },
 
     toJSON: function(skipValidation) {
         // Retrieve which choices are selected
-        var isSelected = _.chain(this.$radios)
-            // This de-randomizes the values so that the radios are checked in
-            // the correct order even when randomized
-            .sortBy(function(e) { return $(e).val(); })
-            .map(function(e) { return $(e).is(":checked"); })
-            .value();
+        var isSelected = this.props.choices.map(function(choice, i) {
+            return this.refs["radio" + i].getDOMNode().checked;
+        }, this);
 
-        return {
-            // This used to be 'value', but now it holds multiple values
-            values: isSelected
-        };
+        // Dear future timeline implementers: this used to be {value: i} before
+        // multiple select was added
+        return {values: isSelected};
     },
 
-    set: function(options) {
-        var val = +options.value;
-        this.$radios.filter("[value=" + val + "]").prop("checked", true);
+    toEditorJSON: function(skipValidation) {
+        var choices = this.props.choices.map(function(choiceProps, i) {
+            var checked = this.refs["radio" + i].getDOMNode().checked;
+            var choice = this.refs["editor" + i].toJSON(skipValidation);
+            choice.correct = checked;
+            return choice;
+        }, this);
+
+        return {
+            choices: choices
+        };
     },
 
     simpleValidate: function(rubric) {
@@ -101,10 +79,11 @@ var Radio = Perseus.Widget.extend({
     },
 
     randomize: function(array) {
-        if (!this.options.randomize || !this.state.problemNum) {
+        if (this.props.randomize && this.props.problemNum) {
+            return Perseus.Util.shuffle(array, this.props.problemNum);
+        } else {
             return array;
         }
-        return Perseus.Util.shuffle(array, this.state.problemNum);
     }
 });
 
@@ -116,159 +95,93 @@ _.extend(Radio, {
                 message: null
             };
         } else {
-            var correct = _.all(state.values, function(selected, idx) {
-                return rubric.choices[idx].correct === selected;
+            var correct = _.all(state.values, function(selected, i) {
+                return rubric.choices[i].correct === selected;
             });
 
-            if (correct) {
-                return {
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null
-                };
-            } else {
-                return {
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null
-                };
-            }
+            return {
+                type: "points",
+                earned: correct ? 1 : 0,
+                total: 1,
+                message: null
+            };
         }
     }
 });
 
-var RadioEditor = Radio.extend({
-    labelTagName: "div",
+var RadioEditor = React.createClass({
+    defaultState: {
+        choices: [{
+            correct: true
+        }],
+        randomize: false,
+        multipleSelect: false
+    },
+
+    mixins: [Perseus.Util.PropsToState],
 
     render: function() {
-        var editor = this;
-        var promise = Radio.prototype.render.call(this);
+        return <div>
+            {Radio(_.extend({
+                ref: "radio",
+                isEditor: true,
+                onChange: this.props.onChange
+            }, this.state, {
+                // Randomizing in the editor is unhelpful
+                randomize: false
+            }))}
 
-        _.chain(this.$radios).zip(this.options.choices).map(function(pair) {
-            var radio = pair[0], choice = pair[1];
-            if (choice.correct) {
-                $(radio).prop("checked", true);
-            }
-        });
+            <div className="add-choice-container">
+                <a href="#" className="simple-button orange"
+                        onClick={this.addHint}>
+                    <span className="icon-plus" />
+                    Add a choice
+                </a>
+            </div>
 
-        this.$radios.on("change", function() {
-            var $radio = $(this);
-            var idx = +$radio.val();
-            var checked = $radio.is(":checked");
+            <div><label>
+                <input
+                    type="checkbox"
+                    checked={this.state.randomize}
+                    onChange={function(e) {
+                        this.setState({randomize: e.target.checked});
+                    }.bind(this)} />
+                Randomize answer order
+            </label></div>
 
-            _.each(editor.options.choices, function(choice, i) {
-                choice.correct = i === idx;
-            });
-        });
-
-        var $addChoiceDiv = $("<div class='add-choice-container'>");
-        var $addChoice = $("<a href='#' class='simple-button orange " +
-                "icon-plus add-choice-button'>")
-            // Leading space because of FontAwesome icon.
-            .text(" Add a choice")
-            .on("click", function() {
-                // TODO(alpert): Grumble, grumble. This is really silly.
-                editor.set(editor.toJSON(true));
-
-                editor.options.choices.push({
-                    content: "",
-                    correct: false
-                });
-                editor.render();
-                return false;
-            });
-        $addChoiceDiv.append($addChoice);
-
-        this.$el.append($addChoiceDiv);
-
-        var $randomize = this.$randomize = $("<input type='checkbox'>")
-            .prop("checked", this.options.randomize)
-            .on("change", function() {
-                editor.options.randomize = $(this).prop("checked");
-            });
-
-        this.$el.append(
-            $("<label> Randomize answer order</label>").prepend($randomize));
-
-        this.$el.append("<br>");
-
-        var $multipleSelect = this.$multipleSelect = $("<input type='checkbox'>")
-            .prop("checked", this.options.multipleSelect)
-            .on("change", function() {
-                editor.options.multipleSelect = $(this).prop("checked");
-                editor.trigger("change");
-                editor.render();
-            });
-
-        this.$el.append(
-            $("<label> Allow multiple selections</label>").prepend($multipleSelect));
-
-        return promise;
+            <div><label>
+                <input
+                    type="checkbox"
+                    checked={this.state.multipleSelect}
+                    onChange={function(e) {
+                        this.setState({multipleSelect: e.target.checked});
+                    }.bind(this)} />
+                Allow multiple selections
+            </label></div>
+        </div>;
     },
 
-    choiceRenderer: function(choice) {
-        var radioEditor = this;
-        var editor = new Perseus.SingleEditor({
-            content: choice.content,
+    addHint: React.autoBind(function() {
+        var choices = this.toJSON(true).choices;
+        choices.push({});
+        this.setState({choices: choices});
 
-            // TODO(alpert): False now, though maybe enabled in the future?
-            widgetEnabled: false
-        });
-        this.listenTo(editor, "change", function() {
-            // TODO(alpert): A little ick, some code duplication too
-            choice.content = editor.options.content;
-            radioEditor.change();
-        });
-        return editor;
-    },
+        this.focus(choices.length - 1);
+        return false;
+    }),
 
-    focus: function() {
-        if (this.renderers.length) {
-            this.renderers[0].focus();
-        }
-    },
-
-    toJSON: function(skipValidation) {
-        // TODO(alpert): Make this so it just returns this.options (maybe after
-        // a little validation)
-        var selected = this.$radios.filter(":checked");
-
-        if (!skipValidation && !selected.length) {
-            // TODO(alpert): Better errors
-            alert("Warning: No choice is selected -- students will be " +
-                    "unable to answer");
-        }
-
-        var isCorrect = _.map(
-            this.$radios,
-            function(e) { return $(e).is(":checked"); }
-        );
-
-        return {
-            choices: _.map(this.renderers, function(editor, i) {
-                return {
-                    content: editor.toJSON(skipValidation).content,
-                    correct: isCorrect[i]
-                };
-            }),
-            randomize: this.options.randomize,
-            multipleSelect: this.options.multipleSelect
-        };
-    },
-
-    set: function(options) {
-        _.extend(this.options, options);
-        return this.render();
-    },
-
-    simpleValidate: function(rubric) {
+    focus: function(i) {
+        this.refs.radio.focus(i);
         return true;
     },
 
-    change: function(args) {
-        this.trigger("change");
+    toJSON: function(skipValidation) {
+        var choices = this.refs.radio.toEditorJSON(skipValidation).choices;
+        return {
+            choices: choices,
+            randomize: this.state.randomize,
+            multipleSelect: this.state.multipleSelect
+        };
     }
 });
 
