@@ -99,7 +99,7 @@ var InputNumberEditor = React.createClass({
                             this.setState({size: e.target.value});
                         }.bind(this)}>
                     <option value="normal">Normal (80px)</option>
-                    <option value="small">Small (80px)</option>
+                    <option value="small">Small (40px)</option>
                 </select>
             </label></div>
         </div>;
