@@ -13,20 +13,22 @@
     <script src="../../lib/underscore.js"></script>
     <script src="../../lib/backbone.js"></script>
     <script src="../../lib/marked.js"></script>
+    <script src="../../lib/react-0.3.2.js"></script>
+    <script src="../../lib/JSXTransformer-0.3.2.js"></script>
 
     <!-- Include Perseus js -->
-    <script src="../../src/core.js"></script>
-    <script src="../../src/util.js"></script>
-    <script src="../../src/expressiontools/parser.js"></script>
-    <script src="../../src/expressiontools/nodes.js"></script>
-    <script src="../../src/expressiontools/compare.js"></script>
-    <script src="../../src/widgets.js"></script>
-    <script src="../../src/widgets/input-number.js"></script>
-    <script src="../../src/widgets/radio.js"></script>
-    <script src="../../src/widgets/expression.js"></script>
-    <script src="../../src/renderer.js"></script>
-    <script src="../../src/item-renderer.js"></script>
-    <script src="../../src/editor.js"></script>
+    <script type="text/jsx" src="../../src/core.js"></script>
+    <script type="text/jsx" src="../../src/util.js"></script>
+    <script type="text/jsx" src="../../src/expressiontools/parser.js"></script>
+    <script type="text/jsx" src="../../src/expressiontools/nodes.js"></script>
+    <script type="text/jsx" src="../../src/expressiontools/compare.js"></script>
+    <script type="text/jsx" src="../../src/widgets.js"></script>
+    <script type="text/jsx" src="../../src/widgets/input-number.js"></script>
+    <script type="text/jsx" src="../../src/widgets/radio.js"></script>
+    <script type="text/jsx" src="../../src/widgets/expression.js"></script>
+    <script type="text/jsx" src="../../src/renderer.js"></script>
+    <script type="text/jsx" src="../../src/item-renderer.js"></script>
+    <script type="text/jsx" src="../../src/editor.js"></script>
 </head>
 <body>
 
@@ -43,7 +45,7 @@
     </div>
 </div>
 
-<script>
+<script type="text/jsx">
 (function(Perseus) {
 
     var parse = function(input) { return Perseus.ExpressionTools.parse(input).expr; }
@@ -346,6 +348,8 @@
         comp("(-x+1)(-1-6x)", "(6x+1)(x-1)");
         comp("(1-x)(-6x-1)", "(6x+1)(x-1)");
         comp("(1-x)(-1-6x)", "(6x+1)(x-1)");
+        comp("-(6x+1)(1-x)", "(6x+1)(x-1)");
+        comp("-(-6x-1)(x-1)", "(6x+1)(x-1)");
 
         comp("(6x+1)(x+1)", "(6x+1)(x-1)", false);
         comp("a-b-c", "c+b+a", false);
