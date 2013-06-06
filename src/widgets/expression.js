@@ -6,25 +6,15 @@ var compare = Perseus.ExpressionTools.compare;
 
 var Expression = React.createClass({
     getInitialState: function() {
-        return {value: ""};
+        return {
+            value: "",
+            lastParsedTex: ""
+        };
     },
-
-    errorTimeout: null,
-    lastParsedTex: "",
 
     render: function() {
         var MJ = Perseus.MJ;  // MathJax
         var result = parse(this.state.value);
-
-        if (result.parsed) {
-            this.lastParsedTex = result.expr.tex();
-
-            // We set a timeout of zero so that this runs after rendering -- at
-            // this point, the error div isn't necessarily in the DOM yet
-            this.errorTimeout = setTimeout(this.hideError, 0);
-        } else {
-            this.errorTimeout = setTimeout(this.showError, 2000);
-        }
 
         return <span className="perseus-widget-expression">
             <input ref="input" type="text"
@@ -33,7 +23,7 @@ var Expression = React.createClass({
             <span className="output">
                 <span className="mathjax"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <MJ>{this.lastParsedTex}</MJ>
+                    <MJ>{this.state.lastParsedTex}</MJ>
                 </span>
                 <span className="placeholder">
                     <span ref="error" className="error"
@@ -46,6 +36,21 @@ var Expression = React.createClass({
                 </span>
             </span>
         </span>;
+    },
+
+    errorTimeout: null,
+
+    componentDidMount: function() {
+        this.componentDidUpdate();
+    },
+
+    componentDidUpdate: function() {
+        clearTimeout(this.errorTimeout);
+        if (parse(this.state.value).parsed) {
+            this.hideError();
+        } else {
+            this.errorTimeout = setTimeout(this.showError, 2000);
+        }
     },
 
     componentWillUnmount: function() {
@@ -74,8 +79,6 @@ var Expression = React.createClass({
      * state.value, and intercepting the backspace key when appropriate...
      */
     handleKeyDown: React.autoBind(function(event) {
-        clearTimeout(this.errorTimeout);
-
         var input = this.refs.input.getDOMNode();
         var text = input.value;
 
@@ -95,7 +98,7 @@ var Expression = React.createClass({
         }
 
         setTimeout(function() {
-            this.setState({value: input.value});
+            this.setValue(input.value);
         }.bind(this), 0);
     }),
 
@@ -147,13 +150,19 @@ var Expression = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        return this.state;
+        return {value: this.state.value};
     },
 
     setValue: function(value) {
         var input = this.refs.input.getDOMNode();
         input.value = value;
-        this.setState({value: value});
+
+        var state = {value: value};
+        var result = parse(value);
+        if (result.parsed) {
+            state.lastParsedTex = result.expr.tex();
+        }
+        this.setState(state);
     },
 
     simpleValidate: function(rubric) {
