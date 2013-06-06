@@ -40,9 +40,15 @@ var InteractiveGraph = React.createClass({
         }
     },
 
-    // Don't mix in directly since we're overriding getInitialState
-    componentWillReceiveProps:
-            Perseus.Util.PropsToState.componentWillReceiveProps,
+    // Don't mix in PropsToState directly since we're adding to all three like
+    // this:
+
+    componentWillReceiveProps: function(nextProps) {
+        // TODO(alpert): Switch to using props more as it's much cleaner here
+        _.defaults(nextProps.graph, this.graphDefaults[nextProps.graph.type]);
+        Perseus.Util.PropsToState.componentWillReceiveProps.call(
+                this, nextProps);
+    },
 
     getInitialState: function() {
         var state = Perseus.Util.PropsToState.getInitialState.call(this);
@@ -68,6 +74,7 @@ var InteractiveGraph = React.createClass({
                     ref="typeSelect"
                     onChange={function(e) {
                         var type = e.target.value
+                        //debugger;
                         this.setState({
                             graph: _.extend({type: type},
                                     this.graphDefaults[type])
@@ -181,6 +188,7 @@ var InteractiveGraph = React.createClass({
     },
 
     addQuadraticControls: function() {
+        //debugger;
         var graphie = this.graphie;
 
         var pointA = this.pointA = graphie.addMovablePoint({
@@ -431,7 +439,12 @@ var InteractiveGraphEditor = React.createClass({
     },
 
     updateEquationString: React.autoBind(function() {
-        this.setState({equationString: this.refs.graph.getEquationString()});
+        setTimeout(function() {
+            this.setState({
+                correct: this.refs.graph.toJSON(),
+                equationString: this.refs.graph.getEquationString()
+            });
+        }.bind(this), 0);
     }),
 
     toJSON: function() {
