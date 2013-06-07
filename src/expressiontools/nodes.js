@@ -122,6 +122,11 @@ _.extend(Expr.prototype, {
     // returns an array of variables used in the expression
     getVars: function() {
         return _.uniq(_.flatten(_.invoke(this.args(), "getVars")));
+    },
+
+    // return the first subnode
+    first: function() {
+        return this.args()[0].first();
     }
 });
 
@@ -335,6 +340,7 @@ _.extend(Mul.prototype, {
     },
 
     tex: function() {
+        var mul = this;
         var negatives = "";
         var numbers = "";
         var others = "";
@@ -345,15 +351,20 @@ _.extend(Mul.prototype, {
             if (term instanceof Neg) {
                 negatives += term.tex();
             } else if (term instanceof Num) {
-                if (numbers === "") {
-                    numbers += term.tex();
-                } else {
-                    numbers += " \\cdot " + term.tex();
-                }
+                numbers += numbers === "" ? term.tex() : " \\cdot " + term.tex();
             } else if (term instanceof Pow && term.isInverse()) {
                 inverses.push(term.base);
+            } else if (term instanceof Add) {
+                others += "(" + term.tex() + ")";
+            } else if (term.first() instanceof Num) {
+                var test = function(term) { return term instanceof Num && !(term instanceof Neg); };
+                if (_.any(mul.terms, test) || others !== "") {
+                    others += " \\cdot " + term.tex();
+                } else {
+                    others += term.tex();
+                }
             } else {
-                others += (term instanceof Add) ? "(" + term.tex() + ")" : term.tex();
+                others += term.tex();
             }
         });
 
@@ -657,7 +668,8 @@ _.extend(Basic.prototype, {
     distribute: function() { return this.copy(); },
     collect: function() { return this.copy(); },
 
-    getVars: function() { return []; }
+    getVars: function() { return []; },
+    first: function() { return this; }
 });
 
 
