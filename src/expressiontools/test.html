@@ -9,18 +9,13 @@
     <script src="../../test/qunit-1.11.0.js"></script>
 
     <!-- Include utility files -->
-    <script src="../../lib/jquery.js"></script>
     <script src="../../lib/underscore.js"></script>
-    <script src="../../lib/backbone.js"></script>
-    <script src="../../lib/marked.js"></script>
-    <script src="../../lib/react-0.3.2.js"></script>
-    <script src="../../lib/JSXTransformer-0.3.2.js"></script>
 
-    <!-- Include Perseus js -->
-    <script type="text/jsx" src="../../src/core.js"></script>
-    <script type="text/jsx" src="../../src/expressiontools/parser.js"></script>
-    <script type="text/jsx" src="../../src/expressiontools/nodes.js"></script>
-    <script type="text/jsx" src="../../src/expressiontools/compare.js"></script>
+    <!-- Include ExpressionTools js -->
+    <script type="text/javascript">var Perseus = {};</script>
+    <script type="text/javascript" src="../../src/expressiontools/parser.js"></script>
+    <script type="text/javascript" src="../../src/expressiontools/nodes.js"></script>
+    <script type="text/javascript" src="../../src/expressiontools/compare.js"></script>
 </head>
 <body>
 
@@ -37,7 +32,7 @@
     </div>
 </div>
 
-<script type="text/jsx">
+<script type="text/javascript">
 (function(Perseus) {
 
     var parse = function(input) { return Perseus.ExpressionTools.parse(input).expr; }
@@ -381,6 +376,15 @@
         tex("x^-(y+z)", "x^{-(y+z)}");
         tex("(x^y)^z", "(x^{y})^{z}");
         tex("pir^2", "\\pi r^{2}");
+        tex("4*10", "4 \\cdot 10");
+        tex("10^5", "10^{5}");
+        tex("4*10^5", "4 \\cdot 10^{5}");
+        tex("10^5x", "10^{5}x");
+        tex("4*10^5x", "4 \\cdot 10^{5}x");
+        // will err slightly on the side of excess multiplication signs
+        // which is better than omitting them when they should be there
+        // TODO(alex): show multiplication sign iff you need to
+        tex("x*(10+4)^5", "x \\cdot (10+4)^{5}");
     });
 
     QUnit.module("transforming");
