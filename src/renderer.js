@@ -87,9 +87,34 @@ var Renderer = Perseus.Renderer = React.createClass({
         return !_.isEqual(this.props, nextProps);
     },
 
+    getPiece: function(saved) {
+        if (saved.charAt(0) === "@") {
+            // Just text
+            return saved;
+        } else if (saved.charAt(0) === "$") {
+            // Math
+            var tex = saved.slice(1, saved.length - 1);
+            return MJ(null, tex);
+        } else if (saved.charAt(0) === "[") {
+            // Widget
+            var match = Perseus.Util.rWidgetParts.exec(saved);
+            var id = match[1];
+
+            var widgetInfo = this.props.widgets[id];
+            if (widgetInfo) {
+                widgetIds.push(id);
+                var cls = Perseus.Widgets._widgetTypes[widgetInfo.type];
+
+                return cls(_.extend({
+                    ref: id
+                }, widgetInfo.options));
+            }
+        }
+    },
+
     render: function() {
-        var props = this.props;
-        var extracted = extractMathAndWidgets(props.content);
+        var self = this;
+        var extracted = extractMathAndWidgets(this.props.content);
         var markdown = extracted[0];
         var savedMath = extracted[1];
         var widgetIds = this.widgetIds = [];
@@ -106,29 +131,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                     pieces[i] = smartypants.call(this, pieces[i]);
                 } else if (type === 1) {
                     // A saved math-or-widget number
-                    var original = savedMath[pieces[i]];
-                    if (original.charAt(0) === "@") {
-                        // Just text
-                        pieces[i] = original;
-                    } else if (original.charAt(0) === "$") {
-                        // Math
-                        var tex = original.slice(1, original.length - 1);
-                        pieces[i] = MJ(null, tex);
-                    } else if (original.charAt(0) === "[") {
-                        // Widget
-                        var match = Perseus.Util.rWidgetParts.exec(original);
-                        var id = match[1];
-
-                        var widgetInfo = props.widgets[id];
-                        if (widgetInfo) {
-                            widgetIds.push(id);
-                            var cls = Perseus.Widgets._widgetTypes[widgetInfo.type];
-
-                            pieces[i] = cls(_.extend({
-                                ref: id
-                            }, widgetInfo.options));
-                        }
-                    }
+                    pieces[i] = self.getPiece(savedMath[pieces[i]])
                 }
             }
             return pieces;
@@ -174,6 +177,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             message: null
         };
 
+        // TODO(alpert): Check if order is consistent here
         var widgetProps = this.props.widgets;
         totalScore = _.chain(widgetProps)
                 .map(function(props, id) {
