@@ -14,164 +14,7 @@ body {
     position: absolute; top: 0; left: 0;
 }
 
-.perseus-single-editor {
-    margin-bottom: 20px;
-}
-
-.perseus-textarea-pair {
-    border: 1px solid #999;
-    position: relative;
-}
-
-.perseus-textarea-pair > .perseus-textarea-underlay {
-    color: transparent;
-    margin-bottom: 12px;
-    padding: 2px;
-    white-space: pre-wrap;
-}
-
-.perseus-textarea-pair > .perseus-textarea-underlay b {
-    font-weight: normal;
-    background-color: #dfd;
-}
-
-.perseus-textarea-pair > .perseus-textarea-underlay b.selected {
-    background-color: #ddf;
-}
-
-.perseus-textarea-pair > .perseus-textarea-underlay b.error {
-    background-color: #fcc;
-}
-
-.perseus-textarea-pair > textarea {
-    background: transparent;
-    border: 0;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-    font: inherit;
-    height: 100%;
-    left: 0;
-    padding: 2px;
-    position: absolute;
-    resize: none;
-    top: 0;
-    width: 100%;
-
-    /* for Firefox, this helps. it seems that the underlay is still 1px off and
-    I'm not really sure why. not too noticeable if we're just setting the
-    background color though. */
-    margin: 0;
-}
-
-.perseus-editor-widgets > div {
-    border: 1px solid #999;
-    border-top: none;
-}
-
-.perseus-editor-widgets > div.selected > strong {
-    background-color: #ddf;
-}
-
-.perseus-answer-editor {
-    margin-bottom: 20px;
-}
-
-.perseus-hint-editor {
-    margin: 0 0 20px 50px;
-    width: 450px;
-}
-
-.perseus-hint-editor .perseus-single-editor {
-    width: 450px;
-    margin-bottom: 5px;
-}
-
-.perseus-input-size-normal {
-    width: 80px;
-}
-
-.perseus-input-size-small {
-    width: 40px;
-}
-
-.perseus-widget {
-    display: inline-block;
-}
-
-.perseus-widget-radio > div {
-    /* (as opposed to label) */
-    margin: 0.5em 0;
-}
-
-.perseus-widget-radio .perseus-single-editor {
-    border: 0;
-    display: inline-block;
-    margin: 0;
-    vertical-align: top;
-    width: 200px;
-}
-
-.perseus-widget-radio .perseus-single-editor > textarea {
-    height: 30px;
-}
-
-.perseus-widget-radio .perseus-single-editor p {
-    margin: 0;
-}
-#answer_area .perseus-widget-expression > input {
-    width: 222px;
-}
-
-.perseus-widget-expression,
-.perseus-widget-expression > .output,
-.perseus-widget-expression > .output > .mathjax,
-.perseus-widget-expression > .output > .placeholder {
-    display: block;
-}
-
-.perseus-widget-expression > .output > .placeholder {
-    position: relative;
-    height: 40px;
-    overflow-y: hidden;
-}
-
-.perseus-widget-expression > .output > .placeholder  > .error {
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    background: #f7f7f7;
-    border: 1px solid #ddd;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    color: #000;
-    display: none;
-    font-weight: normal;
-    min-height: 24px;
-    width: 175px;
-    position: absolute;
-    top: 0px;
-    left: 45px;
-    margin: auto;
-}
-
-.perseus-widget-expression > .output > .placeholder > .error > .buddy {
-    background: url(https://khan-academy.appspot.com/stylesheets/scratchpads-exec-package/images/error-buddy.png);
-    background-size: 100%;
-    height: 36px;
-    width: 40px;
-    position: absolute;
-    top: -3px;
-    left: -46px;
-}
-
-.perseus-widget-expression > .output > .placeholder > .error > .message {
-    font-family: Helvetica,Arial,sans-serif;
-    line-height: 1.4em;
-    margin: 5px 8px;
-    font-size: 9pt;
-}
-
-#editor {
+#perseus-editor {
     padding: 16px;
     float: left;
     width: 500px;
@@ -189,24 +32,26 @@ body {
 
 </style>
 
+<link rel="stylesheet" type="text/css" href="/stylesheets/shared.css" />
+
+<link rel="stylesheet/less" type="text/css" href="/stylesheets/perseus-package/perseus1.less" />
+<link rel="stylesheet/less" type="text/css" href="/stylesheets/perseus-package/perseus2.less" />
+<script src="/lib/less.js"></script>
+
 </head>
 <body>
 
-<div id="seed-content" style="display: none;">What *are $2 * 3$ the* **$x$-intercepts** of $x^2 + \hbox{$2$ dogs} - 2x - \$24$?
+<div class="assessment-item-editor">
+    <div id="perseus-editor" class="framework-perseus"></div>
 
-1. Pick any number.
-2. Add $2$.
-3. Subtract $x$.
-4. Add $x - 2$.
-5. You have your original number!</div>
-<div id="editor"></div>
-
-<div id="content">
-<div id="workarea"></div>
-<div id="hintsarea"></div>
-<form id="answerform">
-    <div id="solutionarea"></div>
-</form>
+    <div id="perseus-content" class="framework-perseus">
+        <div id="workarea"></div>
+        <div id="hintsarea"></div>
+        <form id="answerform">
+            <div id="solutionarea"></div>
+            <span id="examples-show" style="display: none;">Acceptable formats</span>
+        </form>
+    </div>
 </div>
 
 <div id="extras">
@@ -296,8 +141,6 @@ $('#scorePreview').on('click', function() {
     console.log(editor.scorePreview());
 });
 
-var seedContent = $("#seed-content").remove().text();
-
 Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.ItemEditor(
 {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
@@ -309,7 +152,7 @@ Perseus.init({}).then(function() {
         "simplify": true
     }
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]}
-    , null), document.getElementById("editor"));
+    , null), document.getElementById("perseus-editor"));
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {

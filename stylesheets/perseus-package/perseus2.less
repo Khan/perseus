@@ -1,0 +1,384 @@
+// Import bootstrappy things
+@import "../bootstrap-package/variables.less";
+@import "../bootstrap-package/mixins.less";
+@import "../bootstrap-package/tooltip.less";
+@import "../bootstrap-package/labels-badges.less";
+
+//
+// General editor styles
+//
+
+.perseus-single-editor {
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    width: 360px;
+}
+
+.perseus-textarea-pair {
+    border: 1px solid #999;
+    position: relative;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay {
+    color: transparent;
+    margin-bottom: 12px;
+    padding: 2px;
+    white-space: pre-wrap;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay b {
+    font-weight: normal;
+    background-color: #dfd;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay b.selected {
+    background-color: #ddf;
+}
+
+.perseus-textarea-pair > .perseus-textarea-underlay b.error {
+    background-color: #fcc;
+}
+
+.perseus-textarea-pair > textarea {
+    background: transparent;
+    border: 0;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    font: inherit;
+    height: 100%;
+    left: 0;
+    padding: 2px;
+    position: absolute;
+    resize: none;
+    top: 0;
+    width: 100%;
+
+    /* for Firefox, this helps. it seems that the underlay is still 1px off and
+    I'm not really sure why. not too noticeable if we're just setting the
+    background color though. */
+    margin: 0;
+}
+
+.perseus-editor-widgets > div {
+    border: 1px solid #999;
+    border-top: none;
+    padding: 3px;
+}
+
+.perseus-editor-widgets > div.selected > strong {
+    background-color: #ddf;
+}
+
+.MathJax .math {
+    // override athena silliness
+    color: inherit;
+}
+
+.ai-live-qtip {
+    max-width: 360px;
+    min-width: 360px;
+    width: 360px;
+}
+
+.assessment-item-editor {
+    margin: 20px;
+    min-width: 1110px;
+
+    #ai-live-status {
+        width: 360px;
+    }
+
+    .ai-edit-actions {
+        float: right;
+        text-align: right;
+        padding: 8px;
+        .simple-button {
+            margin-right: 5px;
+        }
+    }
+
+    #perseus-editor {
+        margin: 0 0 24px 0;
+    }
+
+    #ai-edit-panel {
+        float: left;
+        width: 360px;
+    }
+
+    #perseus-content {
+        box-sizing: border-box;
+        float: right;
+        width: 747px;
+    }
+
+    #answerform {
+        box-sizing: border-box;
+        float: right;
+        padding: 16px;
+        width: 208px;
+        .simple-button {
+            display: inline-block;
+        }
+    }
+
+    #solutionarea {
+        border: 0;
+    }
+
+    #workarea {
+        margin-right: 208px;
+        width: 509px;
+    }
+
+    #hintsarea {
+        margin-right: 208px;
+        width: 489px;
+    }
+
+    #perseus-content:before {
+        content: "Preview:";
+        font-size: 12pt;
+    }
+
+    .perseus-question-editor:before {
+        content: "Question:";
+        font-size: 12pt;
+    }
+
+    .perseus-answer-editor label {
+        display: block;
+    }
+
+    .perseus-answer-editor:before {
+        content: "Answer:";
+        font-size: 12pt;
+    }
+
+    .perseus-answer-editor:after {
+        // There may be zero .perseus-hint-editors being rendered, so anchor
+        // this heading to something we know will exist.
+        content: "Hints:";
+        font-size: 12pt;
+    }
+
+    .remove-hint-container {
+        text-align: right;
+        margin-top: -5px;
+        margin-bottom: 10px;
+    }
+
+    .add-choice-container,
+    .add-hint-container {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+}
+
+//
+// Radio editor
+//
+
+.perseus-widget-radio > div {
+    /* (as opposed to label) */
+    margin: 0.5em 0;
+}
+
+.perseus-widget-radio .perseus-single-editor {
+    border: 0;
+    display: inline-block;
+    margin: 0 0 5px;
+    vertical-align: top;
+    width: 250px;
+}
+
+.perseus-widget-radio .perseus-single-editor p {
+    margin: 0;
+}
+
+.perseus-widget-radio {
+    input[type=radio] + div {
+        padding-left: 8px;
+    }
+    input[type=radio]:checked + div > textarea {
+        background: #80ff80;
+    }
+    input[type=radio]:not(:checked) + div > textarea {
+        background: #ff8080;
+    }
+}
+
+//
+// Exercise editor
+//
+
+#assessment-items-list th, #assessment-items-list td {
+    padding: 10px 20px 0 0;
+}
+
+#assessment-items-list th {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.modal-body textarea#ex-description {
+    width: 370px;
+    height: 80px;
+}
+
+//
+// Item list
+//
+
+.no-question-warning,
+.no-tags-warning {
+    font-style: italic;
+}
+
+.ro-tags-list,
+.author-list {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ro-tags-list li {
+    border: 1px solid;
+    border-radius: 8px;
+    display: inline;
+    padding: 4px;
+}
+
+.author-list li {
+    display: inline;
+}
+
+.perseus-item-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.perseus-item-list td {
+    padding: 8px;
+}
+
+.perseus-item-list tr:nth-child(odd) {
+    background: #f3f3f3;
+}
+
+.perseus-item-list thead tr {
+    background: #fff !important;
+}
+
+.perseus-item-list th {
+    padding-bottom: 10px;
+}
+
+.tooltip-inner {
+    white-space: pre-line;
+    text-align: left;
+}
+
+//
+// Tag list
+//
+
+#ai-assessment-item-tag-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#ai-assessment-item-tag-list td {
+    padding: 8px;
+}
+
+#ai-assessment-item-tag-list span.tag-description {
+    white-space: pre;
+}
+
+#ai-assessment-item-tag-list tr:nth-child(odd) {
+    background: #f3f3f3;
+}
+
+.modal {
+    position: fixed;
+    width: 500px;
+    margin: 0 0 0 -250px;
+    top: 60px;
+    left: 50%;
+}
+
+.modal .notification {
+    padding: 5px 5px 5px 10px;
+    margin: -10px 0 15px 0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.modal .notification.error {
+    background-color: #FDDFDE;
+    border-color: #FBC7C6;
+}
+
+.modal .notification.info {
+    background-color: #DDF4FB;
+    border-color: #C6EDF9;
+}
+
+.modal .notification.warn {
+    background-color: #fcf8e3;
+    border-color: #fbeed5;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.modal-body {
+    margin: 0 auto;
+}
+
+.modal-body .row:first-child {
+    margin: 0;
+}
+
+.modal-body .row {
+    position: relative;
+    margin: 20px 0 0 0;
+}
+
+.modal-body .labels {
+    position: absolute;
+    width: 100px;
+    text-align: right;
+}
+
+.modal-body .inputs {
+    margin-left: 110px;
+}
+
+.modal-body input,
+.modal-body label {
+    font-size: 15px;
+    font-family: Helvetica Neue, Helvetica, sans-serif;
+}
+
+.modal-body .inputs input[type=text] {
+    width: 250px;
+    margin: 0 5px 0 0;
+}
+
+.modal-body .input-description {
+    font-size: 12px;
+    color: #888;
+    margin: 5px 0 0 0;
+    line-height: 15px;
+    word-wrap: break-word;
+}
+
+.modal-body textarea#tag-description {
+    width: 370px;
+    height: 150px;
+}
