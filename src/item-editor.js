@@ -182,11 +182,19 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
     }),
 
     updatePreview: React.autoBind(function() {
-        React.renderComponent(Perseus.ItemRenderer({
+        this.renderer = React.renderComponent(Perseus.ItemRenderer({
             item: this.toJSON(true),
             initialHintsVisible: -1  /* all */
         }), this.rendererMountNode);
     }),
+
+    scorePreview: function() {
+        if (this.renderer) {
+            return this.renderer.scoreInput();
+        } else {
+            return null;
+        }
+    },
 
     toJSON: function(skipValidation) {
         return {

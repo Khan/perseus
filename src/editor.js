@@ -194,5 +194,4 @@ var Editor = Perseus.Editor = React.createClass({
         this.refs.textarea.getDOMNode().focus();
     }
 });
-
 })(Perseus);

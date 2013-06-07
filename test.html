@@ -211,6 +211,7 @@ body {
 
 <div id="extras">
     <button id="toJSON">toJSON</button>
+    <button id="scorePreview">Score</button>
 </div>
 
 <script src="/lib/jquery.js"></script>
@@ -285,14 +286,19 @@ body {
 <script>
 (function() {
 
+var editor;
+
 $('#toJSON').on('click', function() {
-    console.log(JSON.stringify(zk, null, 4));
+    console.log(JSON.stringify(editor, null, 4));
+});
+$('#scorePreview').on('click', function() {
+    console.log(editor.scorePreview());
 });
 
 var seedContent = $("#seed-content").remove().text();
 
 Perseus.init({}).then(function() {
-    zk = React.renderComponent(Perseus.ItemEditor(
+    editor = React.renderComponent(Perseus.ItemEditor(
 {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
     "type": "expression",
     "options": {
