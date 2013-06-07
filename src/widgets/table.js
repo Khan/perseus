@@ -12,7 +12,6 @@ function stringArrayOfSize(size) {
 var Table = React.createClass({
     render: function() {
         var headers = this.props.headers;
-        console.log('rendering table');
         return <table>
             <thead>
                 <tr>{
@@ -25,19 +24,77 @@ var Table = React.createClass({
             <tbody>{
                 _(this.props.rows).times(function(r) {
                     return <tr>{
-                        headers.map(function(c) {
+                        _(this.props.columns).times(function(c) {
                             return <td>
                                 <input
+                                    ref={"answer" + r + "," + c}
                                     type="text"
                                 />
                             </td>;
                         })
                     }</tr>;
-                })
+                }.bind(this))
             }
             </tbody>
         </table>;
     },
+
+    toJSON: function() {
+        var self = this;
+        return _.map(self.props.answers, function(answer, r) {
+            return _.map(self.props.headers, function(header, c) {
+                return self.refs["answer" + r + "," + c].getDOMNode().value;
+            });
+        });
+    },
+
+    simpleValidate: function(rubric) {
+        return Table.validate(this.toJSON(), rubric);
+    }
+});
+
+_.extend(Table, {
+    purifyAnswers: function(table) {
+        var filled = _.filter(table, function (row) {
+
+            // Check if row has a cell that is nonempty
+            return _.some(row, _.identity);
+        });
+        var nums = _.map(filled, function(row) {
+            return _.map(row, Number);
+        });
+        return nums.sort(function (aRow, bRow) {
+            var i = 0;
+            while (i < aRow.length && aRow[i] === bRow[i]) {
+                i += 1;
+            }
+            if (i === aRow.length) {
+                return 0;
+            } else {
+                return aRow[i] < bRow[i] ? -1 : 1;
+            }
+        });
+    },
+
+    validate: function(state, rubric) {
+        var supplied = Table.purifyAnswers(state);
+        var solution = Table.purifyAnswers(rubric.answers);
+        if (! supplied.length) {
+            return {
+                type: "invalid",
+                message: null
+            };
+        } else {
+            var correct = _.isEqual(supplied, solution);
+
+            return {
+                type: "points",
+                earned: correct ? 1 : 0,
+                total: 1,
+                message: null
+            };
+        }
+    }
 });
 
 var TableEditor = React.createClass({
@@ -52,6 +109,8 @@ var TableEditor = React.createClass({
             headers: [""],
             rows: defaultRows,
             columns: defaultColumns,
+            rawRows: defaultRows,
+            rawColumns: defaultColumns,
             answers: blankAnswers,
         };
     },
@@ -64,7 +123,7 @@ var TableEditor = React.createClass({
                     <input
                         ref="numberOfColumns"
                         type="text"
-                        value={this.state.columns}
+                        value={this.state.rawColumns}
                         onKeyUp={this.sizeKeyUp}
                     />
                 </label>
@@ -75,7 +134,7 @@ var TableEditor = React.createClass({
                     <input
                         ref="numberOfRows"
                         type="text"
-                        value={this.state.rows}
+                        value={this.state.rawRows}
                         onKeyUp={this.sizeKeyUp}
                     />
                 </label>
@@ -144,8 +203,22 @@ var TableEditor = React.createClass({
     }),
 
     sizeKeyUp: React.autoBind(function() {
-        var rows = this.refs.numberOfRows.getDOMNode().value;
-        var cols = this.refs.numberOfColumns.getDOMNode().value;
+        var rawRows = this.refs.numberOfRows.getDOMNode().value;
+        var rawCols = this.refs.numberOfColumns.getDOMNode().value;
+        var rows = +rawRows || 0;
+        var cols = +rawCols || 0;
+        if (rows < 1) {
+            rows = 1;
+        }
+        if (rows > 99) {
+            rows = 99;
+        }
+        if (cols < 1) {
+            cols = 1;
+        }
+        if (cols > 99) {
+            cols = 99;
+        }
         var oldColumns = this.state.columns;
 
         var answers = this.state.answers;
@@ -175,6 +248,8 @@ var TableEditor = React.createClass({
         this.updateState({
             rows: rows,
             columns: cols,
+            rawRows: rawRows,
+            rawColumns: rawCols,
             answers: answers,
             headers: headers
         });
@@ -192,7 +267,7 @@ var TableEditor = React.createClass({
 
     toJSON: function() {
         return _.pick(this.state, 'rows', 'columns', 'headers', 'answers');
-    },
+    }
 });
 
 Perseus.Widgets.register("table", Table);
