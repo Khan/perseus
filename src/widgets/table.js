@@ -157,33 +157,33 @@ var TableEditor = React.createClass({
                 <table>
                     <thead>
                         <tr>{
-                            this.state.headers.map(function(header, i) {
+                            this.loopColumns(function(i) {
                                 return <th>
                                     <input
                                         ref={"columnHeader" + i}
                                         type="text"
-                                        value={header}
+                                        value={this.state.headers[i]}
                                         onKeyUp={this.headerKeyUp}
                                     />
                                 </th>;
-                            }, this)
+                            })
                         }</tr>
                     </thead>
                     <tbody>{
-                        this.state.answers.map(function(answerRow, r) {
+                        this.loopRows(function(r) {
                             return <tr>{
-                                answerRow.map(function(answer, c) {
+                                this.loopColumns(function(c) {
                                     return <td>
                                         <input
                                             ref={"answer" + r + "," + c}
                                             type="text"
                                             onKeyUp={this.answerKeyUp}
-                                            value={answer}
+                                            value={this.state.answers[r][c]}
                                         />
                                     </td>;
-                                }, this)
+                                })
                             }</tr>;
-                        }, this)
+                        })
                     }</tbody>
                 </table>
             </div>
@@ -220,14 +220,13 @@ var TableEditor = React.createClass({
             cols = 99;
         }
         var oldColumns = this.state.columns;
+        var oldRows = this.state.rows;
 
         var answers = this.state.answers;
-        if (this.state.rows < rows) {
-            _(rows - answers.length).times(function() {
+        if (oldRows < rows) {
+            _(rows - oldRows).times(function() {
                 answers.push(stringArrayOfSize(oldColumns));
             });
-        } else {
-            answers.length = rows;
         }
 
         var headers = this.state.headers;
@@ -237,8 +236,6 @@ var TableEditor = React.createClass({
                 _(cols - oldColumns).times(function() {
                     array.push("");
                 });
-            } else {
-                array.length = cols;
             }
         }
 
@@ -255,18 +252,44 @@ var TableEditor = React.createClass({
         });
     }),
 
+    loopRows: function(callback) {
+        var self = this;
+        var ret = [];
+        _(this.state.rows).times(function (r) {
+            ret.push(callback.call(self, r));
+        });
+        return ret;
+    },
+
+    loopColumns: function(callback) {
+        var self = this;
+        var ret = [];
+        _(this.state.columns).times(function (c) {
+            ret.push(callback.call(self, c));
+        });
+        return ret;
+    },
+
     answerKeyUp: React.autoBind(function() {
         var self = this;
-        var answers = this.state.answers.map(function(answerRow, r) {
-            return answerRow.map(function(answer, c) {
+        var answers = this.loopRows(function(r) {
+            return this.loopColumns(function(c) {
                 return this.refs["answer" + r + "," + c].getDOMNode().value;
-            }, this);
-        }, this);
+            });
+        });
         this.updateState({answers: answers});
     }),
 
     toJSON: function() {
-        return _.pick(this.state, 'rows', 'columns', 'headers', 'answers');
+        var self = this;
+        var answers = this.state.answers.slice(0, this.state.rows);
+        answers = _.map(answers, function(row) {
+            return row.slice(0, self.state.columns);
+        });
+        var json = _.pick(this.state, 'rows', 'columns');
+        json.answers = answers;
+        json.headers = this.state.headers.slice(0, this.state.columns);
+        return json;
     }
 });
 
