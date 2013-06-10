@@ -5,33 +5,6 @@
 <meta charset="utf-8">
 <title>Perseus</title>
 
-<style type="text/css">
-body {
-    font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif;
-}
-
-.graphie svg {
-    position: absolute; top: 0; left: 0;
-}
-
-#perseus-editor {
-    padding: 16px;
-    float: left;
-    width: 500px;
-}
-
-#content {
-    box-sizing: border-box;
-    padding: 16px;
-    margin-left: 520px;
-}
-
-.graphie {
-    display: inline-block;
-}
-
-</style>
-
 <link rel="stylesheet" type="text/css" href="/stylesheets/shared.css" />
 
 <link rel="stylesheet/less" type="text/css" href="/stylesheets/perseus-package/perseus1.less" />
@@ -42,7 +15,9 @@ body {
 <body>
 
 <div class="assessment-item-editor">
-    <div id="perseus-editor" class="framework-perseus"></div>
+    <div id="ai-edit-panel">
+        <div id="perseus-editor" class="framework-perseus"></div>
+    </div>
 
     <div id="perseus-content" class="framework-perseus">
         <div id="workarea"></div>
@@ -52,6 +27,7 @@ body {
             <span id="examples-show" style="display: none;">Acceptable formats</span>
         </form>
     </div>
+    <div class="clear"></div>
 </div>
 
 <div id="extras">
