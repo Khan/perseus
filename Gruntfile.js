@@ -13,8 +13,9 @@ var srcFiles = [
     "build/src/widgets/dropdown.js",
     "build/src/widgets/expression.js",
     "build/src/renderer.js",
+    "build/src/item-renderer.js",
     "build/src/editor.js",
-    "build/src/item-renderer.js"
+    "build/src/item-editor.js"
 ];
 
 grunt.initConfig({

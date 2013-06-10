@@ -1,77 +1,102 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
-var Radio = React.createClass({
+var BaseRadio = React.createClass({
     render: function() {
-        var isEditor = this.props.isEditor;
-        var choices = this.props.choices.map(function(choice, i) {
-            return _.extend({
-                originalIndex: i
-            }, choice);
-        });
-        choices = this.randomize(choices);
-
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
         return <ul className="perseus-widget-radio">
-            {choices.map(function(choice, i) {
+            {this.props.choices.map(function(choice, i) {
                 return <li>
-                    {React.DOM[isEditor ? "div" : "label"](null, [
+                    <div>
                         <input
-                            ref={"radio" + choice.originalIndex}
+                            ref={"radio" + i}
                             type={inputType}
                             name={radioGroupName}
-                            checked={isEditor && choice.correct}
-                            value={i} />,
-                        isEditor ?
-                            Perseus.SingleEditor(_.extend({
-                                ref: "editor" + choice.originalIndex,
-                                onChange: this.props.onChange,
-                                widgetEnabled: false
-                            }, choice)) :
-                            Perseus.Renderer(choice)
-                    ])}
+                            checked={choice.checked}
+                            onChange={this.onChange.bind(this, i)} />
+                        {choice.content}
+                    </div>
                 </li>;
             }, this)}
         </ul>;
     },
 
-    focus: function(i) {
-        if (i == null) {
-            i = 0;
-        }
+    onChange: React.autoBind(function(radioIndex, e) {
+        var newChecked = _.map(this.props.choices, function(choice, i) {
+            if (i === radioIndex) {
+                return e.target.checked;
+            } else {
+                if (this.props.multipleSelect) {
+                    return choice.checked;
+                } else {
+                    return false;
+                }
+            }
+        }, this);
 
-        if (this.props.isEditor) {
-            this.refs["editor" + i].focus();
-        } else {
-            this.refs["radio" + i].getDOMNode().focus();
-        }
+        this.props.onCheckedChange(newChecked);
+    }),
+
+    focus: function(i) {
+        this.refs["radio" + (i || 0)].getDOMNode().focus();
         return true;
+    }
+});
+
+var Radio = React.createClass({
+    getDefaultProps: function() {
+        return {
+            choices: [{}],
+            randomize: false,
+            multipleSelect: false
+        };
     },
+
+    render: function() {
+        var isEditor = this.props.isEditor;
+        var choices = this.props.choices.map(function(choice, i) {
+            return {
+                // We need to make a copy, which _.pick does
+                content: Perseus.Renderer(_.pick(choice, "content")),
+                checked: false,
+                originalIndex: i
+            };
+        });
+        choices = this.randomize(choices);
+
+        return <BaseRadio
+            ref="baseRadio"
+            multipleSelect={this.props.multipleSelect}
+            choices={choices.map(function(choice) {
+                return _.pick(choice, "content", "checked");
+            })}
+            onCheckedChange={this.onCheckedChange} />
+    },
+
+    focus: function(i) {
+        return this.refs.baseRadio.focus(i);
+    },
+
+    onCheckedChange: React.autoBind(function(checked) {
+        this.props.onChange({values: checked});
+    }),
 
     toJSON: function(skipValidation) {
-        // Retrieve which choices are selected
-        var isSelected = this.props.choices.map(function(choice, i) {
-            return this.refs["radio" + i].getDOMNode().checked;
-        }, this);
-
-        // Dear future timeline implementers: this used to be {value: i} before
-        // multiple select was added
-        return {values: isSelected};
-    },
-
-    toEditorJSON: function(skipValidation) {
-        var choices = this.props.choices.map(function(choiceProps, i) {
-            var checked = this.refs["radio" + i].getDOMNode().checked;
-            var choice = this.refs["editor" + i].toJSON(skipValidation);
-            choice.correct = checked;
-            return choice;
-        }, this);
-
-        return {
-            choices: choices
-        };
+        // Return checked inputs in the form {values: [bool]}. (Dear future
+        // timeline implementers: this used to be {value: i} before multiple
+        // select was added)
+        if (this.props.values) {
+            return _.pick(this.props, "values");
+        } else {
+            // Nothing checked
+            return {
+                values: _.map(this.props.choices, function() {
+                    return false;
+                })
+            }
+        }
     },
 
     simpleValidate: function(rubric) {
@@ -110,30 +135,41 @@ _.extend(Radio, {
 });
 
 var RadioEditor = React.createClass({
-    defaultState: {
-        choices: [{
-            correct: true
-        }],
-        randomize: false,
-        multipleSelect: false
+    getDefaultProps: function() {
+        return {
+            choices: [{}],
+            randomize: false,
+            multipleSelect: false
+        };
     },
-
-    mixins: [Perseus.Util.PropsToState],
 
     render: function() {
         return <div>
-            {Radio(_.extend({
-                ref: "radio",
-                isEditor: true,
-                onChange: this.props.onChange
-            }, this.state, {
-                // Randomizing in the editor is unhelpful
-                randomize: false
-            }))}
+            <BaseRadio
+                ref="baseRadio"
+                multipleSelect={this.props.multipleSelect}
+                choices={this.props.choices.map(function(choice, i) {
+                    var ref = "editor" + i;
+                    var editor = Perseus.Editor({
+                        ref: ref,
+                        content: choice.content,
+                        widgetEnabled: false,
+                        onChange: function(newProps) {
+                            if ("content" in newProps) {
+                                this.onContentChange(i, newProps.content);
+                            }
+                        }.bind(this)
+                    });
+                    return {
+                        content: editor,
+                        checked: choice.correct
+                    };
+                }, this)}
+                onCheckedChange={this.onCheckedChange} />
 
             <div className="add-choice-container">
                 <a href="#" className="simple-button orange"
-                        onClick={this.addHint}>
+                        onClick={this.addChoice}>
                     <span className="icon-plus" />
                     Add a choice
                 </a>
@@ -142,9 +178,9 @@ var RadioEditor = React.createClass({
             <div><label>
                 <input
                     type="checkbox"
-                    checked={this.state.randomize}
+                    checked={this.props.randomize}
                     onChange={function(e) {
-                        this.setState({randomize: e.target.checked});
+                        this.props.onChange({randomize: e.target.checked});
                     }.bind(this)} />
                 Randomize answer order
             </label></div>
@@ -152,36 +188,51 @@ var RadioEditor = React.createClass({
             <div><label>
                 <input
                     type="checkbox"
-                    checked={this.state.multipleSelect}
+                    checked={this.props.multipleSelect}
                     onChange={function(e) {
-                        this.setState({multipleSelect: e.target.checked});
+                        this.props.onChange({multipleSelect:
+                                e.target.checked});
                     }.bind(this)} />
                 Allow multiple selections
             </label></div>
         </div>;
     },
 
-    addHint: React.autoBind(function() {
-        var choices = this.toJSON(true).choices;
-        choices.push({});
-        this.setState({choices: choices});
-
-        this.focus(choices.length - 1);
-        return false;
+    onCheckedChange: React.autoBind(function(checked) {
+        var choices = _.map(this.props.choices, function(choice, i) {
+            return _.extend({}, choice, {correct: checked[i]});
+        });
+        this.props.onChange({choices: choices});
     }),
 
-    focus: function(i) {
-        this.refs.radio.focus(i);
+    onContentChange: React.autoBind(function(choiceIndex, newContent, e) {
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            content: newContent
+        });
+        this.props.onChange({choices: choices});
+    }),
+
+    addChoice: React.autoBind(function(e) {
+        e.preventDefault();
+
+        var choices = this.props.choices;
+        this.props.onChange({choices: choices.concat([{}])});
+        this.refs["editor" + choices.length].focus();
+    }),
+
+    focus: function() {
+        this.refs.editor0.focus();
         return true;
     },
 
     toJSON: function(skipValidation) {
-        var choices = this.refs.radio.toEditorJSON(skipValidation).choices;
-        return {
-            choices: choices,
-            randomize: this.state.randomize,
-            multipleSelect: this.state.multipleSelect
-        };
+        if (!skipValidation && !_.some(this.props.choices, function(choice) {
+                return choice.correct; })) {
+            alert("Warning: No choice is marked as correct.");
+        }
+
+        return _.pick(this.props, "choices", "randomize", "multipleSelect");
     }
 });
 

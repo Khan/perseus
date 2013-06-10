@@ -4,6 +4,13 @@
 // TODO(alpert): Thread problemNum to question-area widgets too
 
 var AnswerAreaRenderer = React.createClass({
+    getInitialState: function() {
+        // TODO(alpert): Move up to parent props?
+        return {
+            widget: {}
+        };
+    },
+
     render: function(rootNode) {
         var type = this.props.type;
         var cls;
@@ -15,8 +22,12 @@ var AnswerAreaRenderer = React.createClass({
 
         return cls(_.extend({
             ref: "widget",
-            problemNum: this.props.problemNum
-        }, this.props.options));
+            problemNum: this.props.problemNum,
+            onChange: function(newProps) {
+                var widget = _.extend({}, this.state.widget, newProps);
+                this.setState({widget: widget});
+            }.bind(this)
+        }, this.props.options, this.state.widget));
     },
 
     focus: function() {
@@ -51,11 +62,17 @@ var HintsRenderer = React.createClass({
 });
 
 var ItemRenderer = Perseus.ItemRenderer = React.createClass({
-    defaultState: {
-        hintsVisible: 0
+    getDefaultProps: function() {
+        return {
+            initialHintsVisible: 0
+        };
     },
 
-    mixins: [Perseus.Util.PropsToState],
+    getInitialState: function() {
+        return {
+            hintsVisible: this.props.initialHintsVisible
+        };
+    },
 
     componentDidMount: function() {
         this.update();

@@ -5,19 +5,33 @@ var parse = Perseus.ExpressionTools.parse;
 var compare = Perseus.ExpressionTools.compare;
 
 var Expression = React.createClass({
+    getDefaultProps: function() {
+        return {
+            currentValue: ""
+        };
+    },
+
     getInitialState: function() {
         return {
-            value: "",
             lastParsedTex: ""
         };
     },
 
+    componentWillMount: function() {
+        this.updateParsedTex(this.props.currentValue);
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.updateParsedTex(nextProps.currentValue);
+    },
+
     render: function() {
         var MJ = Perseus.MJ;  // MathJax
-        var result = parse(this.state.value);
+        var result = parse(this.props.currentValue);
 
         return <span className="perseus-widget-expression">
             <input ref="input" type="text"
+                value={this.props.currentValue}
                 onKeyDown={this.handleKeyDown}
                 onKeyPress={this.handleKeyPress} />
             <span className="output">
@@ -46,7 +60,7 @@ var Expression = React.createClass({
 
     componentDidUpdate: function() {
         clearTimeout(this.errorTimeout);
-        if (parse(this.state.value).parsed) {
+        if (parse(this.props.currentValue).parsed) {
             this.hideError();
         } else {
             this.errorTimeout = setTimeout(this.showError, 2000);
@@ -76,7 +90,8 @@ var Expression = React.createClass({
 
     /**
      * The keydown handler handles clearing the error timeout, updating
-     * state.value, and intercepting the backspace key when appropriate...
+     * state.currentValue, and intercepting the backspace key when
+     * appropriate...
      */
     handleKeyDown: React.autoBind(function(event) {
         var input = this.refs.input.getDOMNode();
@@ -98,7 +113,7 @@ var Expression = React.createClass({
         }
 
         setTimeout(function() {
-            this.setValue(input.value);
+            this.props.onChange({currentValue: input.value});
         }.bind(this), 0);
     }),
 
@@ -150,19 +165,14 @@ var Expression = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        return {value: this.state.value};
+        return {currentValue: this.props.currentValue};
     },
 
-    setValue: function(value) {
-        var input = this.refs.input.getDOMNode();
-        input.value = value;
-
-        var state = {value: value};
+    updateParsedTex: function(value) {
         var result = parse(value);
         if (result.parsed) {
-            state.lastParsedTex = result.expr.tex();
+            this.setState({lastParsedTex: result.expr.tex()});
         }
-        this.setState(state);
     },
 
     simpleValidate: function(rubric) {
@@ -172,10 +182,10 @@ var Expression = React.createClass({
 
 _.extend(Expression, {
     validate: function(state, rubric) {
-        var answer = parse(state.value);
+        var answer = parse(state.currentValue);
         var expected = parse(rubric.value);
 
-        if (!state.value || !answer.parsed) {
+        if (!state.currentValue || !answer.parsed) {
             return {
                 type: "invalid",
                 message: null
@@ -194,13 +204,13 @@ _.extend(Expression, {
 });
 
 var ExpressionEditor = React.createClass({
-    defaultState: {
-        eval: true,
-        form: false,
-        simplify: false
+    getDefaultProps: function() {
+        return {
+            eval: true,
+            form: false,
+            simplify: false
+        };
     },
-
-    mixins: [Perseus.Util.PropsToState],
 
     optionLabels: {
         eval: "Answer expression must evaluate the same.",
@@ -212,16 +222,20 @@ var ExpressionEditor = React.createClass({
         return <div>
             <label>
                 Correct answer:
-                {Expression(_.extend({
-                    ref: "expression",
-                    onChange: this.props.onChange
-                }, this.state))}
+                <Expression ref="expression" currentValue={this.props.value}
+                    onChange={function(newProps) {
+                        if ("currentValue" in newProps) {
+                            newProps.value = newProps.currentValue;
+                            delete newProps.currentValue;
+                        }
+                        this.props.onChange(newProps);
+                    }.bind(this)} />
             </label>
 
             {_.map(this.optionLabels, function(labelText, option) {
                 return <label>
                     <input type="checkbox" name={option}
-                        checked={this.state[option]}
+                        checked={this.props[option]}
                         onChange={this.handleCheck} />
                     {labelText}
                 </label>;
@@ -229,14 +243,10 @@ var ExpressionEditor = React.createClass({
         </div>;
     },
 
-    componentDidMount: function() {
-        this.refs.expression.setValue(this.props.value || "");
-    },
-
     handleCheck: React.autoBind(function(e) {
-        var state = {};
-        state[e.target.name] = e.target.checked;
-        this.setState(state);
+        var newProps = {};
+        newProps[e.target.name] = e.target.checked;
+        this.props.onChange(newProps);
     }),
 
     focus: function() {
@@ -245,7 +255,7 @@ var ExpressionEditor = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        var value = this.refs.expression.toJSON(skipValidation).value;
+        var value = this.props.value;
 
         if (!skipValidation) {
             if (value === "") {
@@ -254,17 +264,13 @@ var ExpressionEditor = React.createClass({
                 alert("Warning: Entered expression didn't parse.");
             }
 
-            if (!this.state.eval && !this.state.form) {
+            if (!this.props.eval && !this.props.form) {
                 alert("Warning: Neither semantic nor syntactic checking " +
                         "is enabled.");
             }
         }
 
-        var options = _.pick(this.state, [
-            "eval", "form", "simplify"
-        ]);
-        options.value = value;
-        return options;
+        return _.pick(this.props, "value", "eval", "form", "simplify");
     }
 });
 

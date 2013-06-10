@@ -56,37 +56,37 @@ _.extend(InputNumber, {
 });
 
 var InputNumberEditor = React.createClass({
-    defaultState: {
-        value: "0",
-        simplify: "required",
-        size: "normal"
+    getDefaultProps: function() {
+        return {
+            value: "0",
+            simplify: "required",
+            size: "normal"
+        };
     },
-
-    mixins: [Perseus.Util.PropsToState],
 
     componentDidMount: function() {
         // TODO(alpert): How to do this at initialization instead of here?
-        this.refs.size.getDOMNode().value = this.state.size;
+        this.refs.size.getDOMNode().value = this.props.size;
     },
 
     render: function() {
         return <div>
             <div><label>
                 Correct answer:
-                <input type="text" ref="input" value={this.state.value}
+                <input type="text" ref="input" value={this.props.value}
                     onBlur={function(e) {
                         var ans = "" + (Perseus.Util.firstNumericalParse(
                                 e.target.value) || 0);
                         e.target.value = ans;
-                        this.setState({value: ans});
+                        this.props.onChange({value: ans});
                     }.bind(this)} />
             </label></div>
 
             <div><label>
                 <input type="checkbox"
-                    checked={this.state.simplify === "required"}
+                    checked={this.props.simplify === "required"}
                     onChange={function(e) {
-                        this.setState({simplify: e.target.checked ?
+                        this.props.onChange({simplify: e.target.checked ?
                                 "required" : "optional"});
                     }.bind(this)} />
                 Require simplification
@@ -96,7 +96,7 @@ var InputNumberEditor = React.createClass({
                 Width
                 <select ref="size"
                         onChange={function(e) {
-                            this.setState({size: e.target.value});
+                            this.props.onChange({size: e.target.value});
                         }.bind(this)}>
                     <option value="normal">Normal (80px)</option>
                     <option value="small">Small (40px)</option>
@@ -111,7 +111,7 @@ var InputNumberEditor = React.createClass({
     },
 
     toJSON: function() {
-        return this.state;
+        return _.pick(this.props, "value", "simplify", "size");
     }
 });
 

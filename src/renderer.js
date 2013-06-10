@@ -83,11 +83,24 @@ var MJ = Perseus.MJ = (function() {
 
 
 var Renderer = Perseus.Renderer = React.createClass({
+    getDefaultProps: function() {
+        return {
+            content: ""
+        };
+    },
+
+    getInitialState: function() {
+        // TODO(alpert): Move up to parent props?
+        return {
+            widgets: {}
+        };
+    },
+
     shouldComponentUpdate: function(nextProps, nextState) {
         return !_.isEqual(this.props, nextProps);
     },
 
-    getPiece: function(saved) {
+    getPiece: function(saved, widgetIds) {
         if (saved.charAt(0) === "@") {
             // Just text
             return saved;
@@ -106,7 +119,12 @@ var Renderer = Perseus.Renderer = React.createClass({
                 var cls = Perseus.Widgets._widgetTypes[widgetInfo.type];
 
                 return cls(_.extend({
-                    ref: id
+                    ref: id,
+                    onChange: function(newProps) {
+                        var widgets = _.clone(this.state.widgets);
+                        widgets[id] = _.extend({}, widgets[id], newProps);
+                        this.setState({widgets: widgets});
+                    }.bind(this)
                 }, widgetInfo.options));
             }
         }
@@ -131,7 +149,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                     pieces[i] = smartypants.call(this, pieces[i]);
                 } else if (type === 1) {
                     // A saved math-or-widget number
-                    pieces[i] = self.getPiece(savedMath[pieces[i]])
+                    pieces[i] = self.getPiece(savedMath[pieces[i]], widgetIds);
                 }
             }
             return pieces;
