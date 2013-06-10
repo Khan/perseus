@@ -8,8 +8,9 @@ var grammar = {
     lex: {
         rules: [
             ["\\s+",                "/* skip whitespace */"],
-            ["[0-9]+\\.?([0-9]+)?", "return \"NUMBER\""],
-            ["\\.[0-9]+",           "return \"NUMBER\""],
+            ["[0-9]+\\.?",          "return \"INT\""],
+            ["([0-9]+)?\\.[0-9]+",  "return \"FLOAT\""],
+            ["\\*\\*",              "return \"^\""],
             ["\\*",                 "return \"*\""],
             ["\\/",                 "return \"/\""],
             ["-",                   "return \"-\""],
@@ -23,6 +24,8 @@ var grammar = {
             // ["sin",                 "return \"FUNC\""],
             // ["cos",                 "return \"FUNC\""],
             // ["tan",                 "return \"FUNC\""],
+            // ["abs",                 "return \"FUNC\""],
+            // ["\\|",                 "return \"ABS\""],
             ["pi",                  "return \"CONST\""],
             ["e",                   "return \"CONST\""],
             ["[a-zA-Z]",            "return \"VAR\""],
@@ -36,6 +39,7 @@ var grammar = {
     operators: [
         ["left", "+", "-"],
         ["left", "*", "/"],
+        ["left", "UMINUS"],
         ["right", "^"]
     ],
     start: "expression",
@@ -45,32 +49,30 @@ var grammar = {
             ["EOF", "return new yy.Add([]);"]
         ],
         "additive": [
-            ["additive + negative", "$$ = yy.Add.createOrAppend($1, $3);"],
-            ["additive - negative", "$$ = yy.Add.createOrAppend($1, yy.Mul.createOrPrepend(new yy.Neg(true), $3));"],
-            ["negative", "$$ = $1;"]
-        ],
-        "negative": [
-            ["- negative", "$$ = yy.Mul.createOrPrepend(new yy.Neg(), $2);"],
+            ["additive + multiplicative", "$$ = yy.Add.createOrAppend($1, $3);"],
+            ["additive - multiplicative", "$$ = yy.Add.createOrAppend($1, yy.Mul.handleNegative($3, \"subtract\"));"],
             ["multiplicative", "$$ = $1;"]
         ],
         "multiplicative": [
-            ["multiplicative power", "$$ = yy.Mul.createOrAppend($1, $2);"],
-            ["multiplicative * power", "$$ = yy.Mul.createOrAppend($1, $3);"],
-            ["multiplicative / power", "$$ = yy.Mul.createOrAppend($1, new yy.Pow([$3, new yy.Inv()]));"],
-            ["power", "$$ = $1;"]
+            // the second term in an implicit multiplication cannot be negative
+            ["multiplicative power", "$$ = yy.Mul.fold(yy.Mul.createOrAppend($1, $2));"],
+            ["multiplicative * negative", "$$ = yy.Mul.fold(yy.Mul.createOrAppend($1, $3));"],
+            ["multiplicative / negative", "$$ = yy.Mul.fold(yy.Mul.handleDivide($1, $3));"],
+            ["negative", "$$ = $1;"]
         ],
         "power": [
-            ["primitive ^ exponent", "$$ = new yy.Pow([$1, $3]);"],
+            ["primitive ^ negative", "$$ = new yy.Pow([$1, $3]);"],
             ["primitive", "$$ = $1;"]
         ],
-        "exponent": [
-            ["- exponent", "$$ = yy.Mul.createOrPrepend(new yy.Neg(), $2);"],
+        "negative": [
+            ["- negative", "$$ = yy.Mul.handleNegative($2);", {prec: "UMINUS"}],
             ["power", "$$ = $1;"]
         ],
         "primitive": [
             ["CONST", "$$ = new yy.Const(yytext.toLowerCase());"],
             ["VAR", "$$ = new yy.Var(yytext);"],
-            ["NUMBER", "$$ = new yy.Num(Number(yytext));"],
+            ["INT", "$$ = new yy.Int(Number(yytext));"],
+            ["FLOAT", "$$ = new yy.Float(Number(yytext));"],
             ["( additive )", "$$ = $2;"]
         ]
     }

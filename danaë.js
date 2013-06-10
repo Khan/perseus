@@ -1,4 +1,4 @@
-// #!/usr/bin/env casperjs --web-security=no
+#!/usr/bin/env casperjs --web-security=no // @Nolint
 
 /*
 To use this script, you'll need to install casperjs. Probably

@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="../../test/qunit-1.11.0.css" type="text/css" media="screen">
     <script src="../../test/qunit-1.11.0.js"></script>
 
-    <!-- Include utility files -->
+    <!-- Include Underscore -->
     <script src="../../lib/underscore.js"></script>
 
-    <!-- Include ExpressionTools js -->
-    <script type="text/javascript">var Perseus = {};</script>
-    <script type="text/javascript" src="../../src/expressiontools/parser.js"></script>
-    <script type="text/javascript" src="../../src/expressiontools/nodes.js"></script>
-    <script type="text/javascript" src="../../src/expressiontools/compare.js"></script>
+    <!-- Include Expression Tools -->
+    <script> var Perseus = {}; </script>
+    <script src="../../src/expressiontools/parser.js"></script>
+    <script src="../../src/expressiontools/nodes.js"></script>
+    <script src="../../src/expressiontools/compare.js"></script>
 </head>
 <body>
 
@@ -56,10 +56,9 @@
         strictEqual(actual.print(), expected.print(), message);
     };
 
-    var stripnorm = function(input, reference, message) {
-        var actual = parse(input).strip().normalize();
-        var expected = parse(reference).strip().normalize();
-        strictEqual(actual.print(), expected.print(), message);
+    var stripnorm = function(input, expected, message) {
+        var actual = parse(input).strip().normalize().print();
+        strictEqual(actual, expected, message);
     };
 
     var compare = function(options, input, reference, expectedResult, message) {
@@ -130,11 +129,21 @@
         eq("e", "e");
         eq("x", "x");
         eq("-0", "-1*0");
-        eq("-1.", "-1*1");
-        eq("-3.14", "-1*3.14");
+        eq("-1.", "-1");
+        eq("-3.14", "-3.14");
         eq("-pi", "-1*pi");
         eq("-e", "-1*e");
         eq("-x", "-1*x");
+    });
+
+    test("positive and negative rationals", function() {
+        eq("1/2", "1/2");
+        eq("-1/2", "-1/2");
+        eq("1/-2", "-1/2");
+        eq("-1/-2", "-1*-1/2");
+        eq("42/42", "42/42");
+        eq("42/1", "42/1");
+        eq("0/42", "0/42");
     });
 
     test("parens", function() {
@@ -155,6 +164,13 @@
         eq("-x", "-1*x");
         eq("--x", "-1*-1*x");
         eq("---x", "-1*-1*-1*x");
+        eq("-1", "-1");
+        eq("--1", "-1*-1");
+        eq("---1", "-1*-1*-1");
+        eq("-3x", "-3*x");
+        eq("--3x", "-1*-3*x");
+        eq("-x*3", "x*-3");
+        eq("--x*3", "-1*x*-3");
     });
 
     test("addition and subtraction", function() {
@@ -162,14 +178,21 @@
         eq("a-b", "a+-1*b");
         eq("a--b", "a+-1*-1*b");
         eq("a---b", "a+-1*-1*-1*b");
-        eq("1-2+a-b+pi-e", "1+-1*2+a+-1*b+pi+-1*e");
+        eq("2-4", "2+-4"); 
+        eq("2--4", "2+-1*-4");
+        eq("2---4", "2+-1*-1*-4");
+        eq("2-x*4", "2+x*-4");
+        eq("1-2+a-b+pi-e", "1+-2+a+-1*b+pi+-1*e");
         eq("x+1", "x+1");
-        eq("x-1", "x+-1*1");
-        eq("(x-1)", "x+-1*1");
-        eq("a(x-1)", "a*(x+-1*1)");
+        eq("x-1", "x+-1");
+        eq("(x-1)", "x+-1");
+        eq("a(x-1)", "a*(x+-1)");
     });
 
     test("multiplication", function() {
+        eq("a*b", "a*b");
+        eq("-a*b", "-1*a*b");
+        eq("a*-b", "a*-1*b");
         eq("-ab", "-1*a*b");
         eq("-a*b", "-1*a*b");
         eq("-(ab)", "-1*a*b");
@@ -197,22 +220,23 @@
         eq("x^--y", "x^(-1*-1*y)");
         eq("x^-yz", "x^(-1*y)*z");
         eq("x^-y^z", "x^(-1*y^(z))");
+        eq("x**y", "x^(y)");
     });
 
     test("formulas", function() {
         eq("mx+b", "m*x+b");
         eq("v^2/r", "v^(2)*r^(-1)");
-        eq("4/3pir^3", "4*3^(-1)*pi*r^(3)");
+        eq("4/3pir^3", "4/3*pi*r^(3)");
     });
 
     test("factors", function() {
-        eq("(6x+1)(x-1)", "(6*x+1)*(x+-1*1)");
+        eq("(6x+1)(x-1)", "(6*x+1)*(x+-1)");
     });
 
     test("whitespace", function() {
-        eq("12/3", "12*3^(-1)");
-        eq("12 /3", "12*3^(-1)");
-        eq("12/ 3", "12*3^(-1)");
+        eq("12/3", "12/3");
+        eq("12 /3", "12/3");
+        eq("12/ 3", "12/3");
         eq("xy", "x*y");
         eq("x y", "x*y");
     });
@@ -279,24 +303,26 @@
     });
 
     test("strip then normalize", function() {
-        stripnorm("a*b", "b*a");
-        stripnorm("(a*b)*c", "(c*b)*a");
-        stripnorm("(6x+1)(x-1)", "(6x+1)(x-1)");
-        stripnorm("(1+6x)(x-1)", "(6x+1)(x-1)");
-        stripnorm("(6x+1)(-1+x)", "(6x+1)(x-1)");
-        stripnorm("(1+6x)(-1+x)", "(6x+1)(x-1)");
-        stripnorm("(-6x-1)(-x+1)", "(6x+1)(x-1)");
-        stripnorm("(-1-6x)(-x+1)", "(6x+1)(x-1)");
-        stripnorm("(-6x-1)(1-x)", "(6x+1)(x-1)");
-        stripnorm("(-1-6x)(1-x)", "(6x+1)(x-1)");
-        stripnorm("(x-1)(6x+1)", "(6x+1)(x-1)");
-        stripnorm("(x-1)(1+6x)", "(6x+1)(x-1)");
-        stripnorm("(-1+x)(6x+1)", "(6x+1)(x-1)");
-        stripnorm("(-1+x)(1+6x)", "(6x+1)(x-1)");
-        stripnorm("(-x+1)(-6x-1)", "(6x+1)(x-1)");
-        stripnorm("(-x+1)(-1-6x)", "(6x+1)(x-1)");
-        stripnorm("(1-x)(-6x-1)", "(6x+1)(x-1)");
-        stripnorm("(1-x)(-1-6x)", "(6x+1)(x-1)");
+        stripnorm("a*b", "a*b");
+        stripnorm("b*a", "a*b");
+        stripnorm("(a*b)*c", "a*b*c");
+        stripnorm("c*(b*a)", "a*b*c");
+        stripnorm("(6x+1)(x-1)", "(1+6*x)*(1+x)");
+        stripnorm("(1+6x)(x-1)", "(1+6*x)*(1+x)");
+        stripnorm("(6x+1)(-1+x)", "(1+6*x)*(1+x)");
+        stripnorm("(1+6x)(-1+x)", "(1+6*x)*(1+x)");
+        stripnorm("(-6x-1)(-x+1)", "(1+6*x)*(1+x)");
+        stripnorm("(-1-6x)(-x+1)", "(1+6*x)*(1+x)");
+        stripnorm("(-6x-1)(1-x)", "(1+6*x)*(1+x)");
+        stripnorm("(-1-6x)(1-x)", "(1+6*x)*(1+x)");
+        stripnorm("(x-1)(6x+1)", "(1+6*x)*(1+x)");
+        stripnorm("(x-1)(1+6x)", "(1+6*x)*(1+x)");
+        stripnorm("(-1+x)(6x+1)", "(1+6*x)*(1+x)");
+        stripnorm("(-1+x)(1+6x)", "(1+6*x)*(1+x)");
+        stripnorm("(-x+1)(-6x-1)", "(1+6*x)*(1+x)");
+        stripnorm("(-x+1)(-1-6x)", "(1+6*x)*(1+x)");
+        stripnorm("(1-x)(-6x-1)", "(1+6*x)*(1+x)");
+        stripnorm("(1-x)(-1-6x)", "(1+6*x)*(1+x)");
     })
 
     QUnit.module("comparing");
@@ -355,11 +381,15 @@
     QUnit.module("rendering");
 
     test("tex", function() {
+        tex("0", "0");
+        tex("-1", "-1");
+        tex("--1", "--1");
+        tex("1-2", "1-2");
         tex("x", "x");
         tex("a+b", "a+b");
         tex("a-b", "a-b");
         tex("a+-b", "a+-b");
-        tex("a+-1*b", "a+-1b");
+        tex("a+-1*b", "a+-b");
         tex("ab", "ab");
         tex("a*b", "ab");
         tex("a/b", "\\dfrac{a}{b}");
@@ -376,15 +406,23 @@
         tex("x^-(y+z)", "x^{-(y+z)}");
         tex("(x^y)^z", "(x^{y})^{z}");
         tex("pir^2", "\\pi r^{2}");
+        tex("1/2", "\\tfrac{1}{2}");
         tex("4*10", "4 \\cdot 10");
         tex("10^5", "10^{5}");
         tex("4*10^5", "4 \\cdot 10^{5}");
         tex("10^5x", "10^{5}x");
         tex("4*10^5x", "4 \\cdot 10^{5}x");
-        // will err slightly on the side of excess multiplication signs
-        // which is better than omitting them when they should be there
-        // TODO(alex): show multiplication sign iff you need to
-        tex("x*(10+4)^5", "x \\cdot (10+4)^{5}");
+        tex("x*(10+4)^5", "x(10+4)^{5}");
+        tex("x^-1", "x^{-1}");
+        tex("2x^-1", "2x^{-1}");
+        tex("1/x", "\\dfrac{1}{x}");
+        tex("2/x", "\\dfrac{2}{x}");
+        tex("1/x^2", "\\dfrac{1}{x^{2}}");
+        tex("2/x^2", "\\dfrac{2}{x^{2}}");
+        tex("1/1/x", "\\dfrac{\\tfrac{1}{1}}{x}");
+        tex("1/(1/x)", "\\dfrac{1}{\\dfrac{1}{x}}");
+        tex("1/x/x", "\\dfrac{1}{xx}");
+        tex("1/(x/x)", "\\dfrac{1}{\\dfrac{x}{x}}");
     });
 
     QUnit.module("transforming");
@@ -404,9 +442,9 @@
         dist("ab(c+d)e^f", "a*b*c*e^(f)+a*b*d*e^(f)");
         dist("(a+b(c+d))e", "a*e+b*c*e+b*d*e");
         distrepr("(a+b(c+d))e", "Add(Mul(Var(a),Const(e)),Mul(Var(b),Var(c),Const(e)),Mul(Var(b),Var(d),Const(e)))");
-        dist("(ab)^2", "a*a*b*b");
-        dist("2*(ab)^2", "2*a*a*b*b");
-        dist("(a+b)^2", "a*a+a*b+a*b+b*b");
+        dist("(ab)^2", "a^(2)*b^(2)");
+        dist("2*(ab)^2", "2*a^(2)*b^(2)");
+        dist("(a+b)^2", "2*a*b+a^(2)+b^(2)");
         dist("(a+b)(a+b)", "a*a+a*b+a*b+b*b");
         dist("(a+b)(a+b)c", "a*a*c+a*b*c+a*b*c+b*b*c");
     });
@@ -423,15 +461,15 @@
         collectrepr("a+a+a", "Mul(3,Var(a))");
         collect("a+b+b+c", "a+2*b+c");
         collectrepr("a+b+b+c", "Add(Var(a),Mul(2,Var(b)),Var(c))");
-        collect("4x^2-x^2+8x+7-5x-4", "3*x^(2)+3*x+3");
+        collect("4x^2-x^2+8x+7-5x-4", "3+3*x^(2)+3*x");
         // multiplication
         collect("5*7", "35");
         collect("5*7x+20x", "55*x");
         collect("3x*xy+2yx^2", "5*x^(2)*y");
-        collect("4/6", "2*3^(-1)");
+        collect("4/6", "2/3");
         collect("1/1", "1");
-        collect("1/2+1/3", "5*6^(-1)");
-        collect("1/2+1/3+1", "11*6^(-1)");
+        collect("1/2+1/3", "5/6");
+        collect("1/2+1/3+1", "11/6");
         collect("1.2+1/2", "1.7");
         collect("1/2-1/2", "0");
         collect("1/2-.5", "0");
@@ -440,11 +478,14 @@
         collect("x^1", "x");
         collect("(x^y)^z", "x^(y*z)");
         collect("4^1.5", "8");
-        // user-friendly tex representation is currently not guaranteed after collect/distribute
+        // user-friendly tex representation is always guaranteed for negation
         collect("-x", "-1*x");
-        collecttex("-x", "-1x");
+        collecttex("-x", "-x");
+        // however, all bets are off for subtraction and division
         collect("a-b", "a+-1*b");
-        collecttex("a-b", "a+-1b");
+        collecttex("a-b", "a+-b");
+        collect("a/b", "a*b^(-1)");
+        collecttex("a/b", "ab^{-1}");
     });
 
     test("simplify", function() {
@@ -454,15 +495,28 @@
         simplify("(3x)^2", "9*x^(2)");
         // from "Simplifying expressions with exponents"
         simplify("((nx^5)^5)", "n^(5)*x^(25)");
-        simplify("((nx^5)^5)/2", "2^(-1)*n^(5)*x^(25)");
+        simplify("((nx^5)^5)/2", "1/2*n^(5)*x^(25)");
         simplify("((nx^5)^5)/(n^-2x^2)^-3", "n^(-1)*x^(31)");
     });
 
     test("isSimplified", function() {
+        isSimplified("1/2");
+        isSimplified("2/1", false);
         isSimplified("a+b+c");
         isSimplified("a-b-c");
         isSimplified("a+b+c+c", false);
         isSimplified("a-b-c-d-d+d", false);
+        isSimplified("x");
+        isSimplified("-x");
+        isSimplified("-1*x");
+        isSimplified("--x", false);
+        isSimplified("x^-1");
+        isSimplified("1/x");
+        isSimplified("1/x^-1", false);
+        isSimplified("x/1", false);
+        isSimplified("-3x");
+        isSimplified("-x*3");
+        isSimplified("-x*3*y");
     });
 
 })(Perseus);
