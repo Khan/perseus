@@ -89,8 +89,8 @@ var Expression = React.createClass({
     }),
 
     /**
-     * The keydown handler handles clearing the error timeout, updating
-     * state.currentValue, and intercepting the backspace key when
+     * The keydown handler handles clearing the error timeout, telling
+     * props.currentValue to update, and intercepting the backspace key when
      * appropriate...
      */
     handleKeyDown: React.autoBind(function(event) {

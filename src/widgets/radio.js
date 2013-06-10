@@ -149,9 +149,8 @@ var RadioEditor = React.createClass({
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
                 choices={this.props.choices.map(function(choice, i) {
-                    var ref = "editor" + i;
                     var editor = Perseus.Editor({
-                        ref: ref,
+                        ref: "editor" + i,
                         content: choice.content,
                         widgetEnabled: false,
                         onChange: function(newProps) {
@@ -227,8 +226,8 @@ var RadioEditor = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        if (!skipValidation && !_.some(this.props.choices, function(choice) {
-                return choice.correct; })) {
+        if (!skipValidation &&
+                !_.some(_.pluck(this.props.choices, "correct"))) {
             alert("Warning: No choice is marked as correct.");
         }
 
