@@ -37,6 +37,9 @@ var InteractiveGraph = React.createClass({
         circle: {
             center: [0, 0],
             radius: 2
+        },
+        point: {
+            coord: [0, 0]
         }
     },
 
@@ -83,6 +86,7 @@ var InteractiveGraph = React.createClass({
                 <option value="linear">Linear function</option>
                 <option value="quadratic">Quadratic function</option>
                 <option value="circle">Circle</option>
+                <option value="point">Point</option>
             </select>;
         }
 
@@ -311,6 +315,36 @@ var InteractiveGraph = React.createClass({
         this.circle.remove();
     },
 
+    addPointControls: function() {
+        var graphie = this.graphie;
+
+        var point = this.point = graphie.addMovablePoint({
+            coord: this.state.graph.coord,
+            snapX: this.state.snap,
+            snapY: this.state.snap,
+            normalStyle: {
+                stroke: KhanUtil.BLUE,
+                fill: KhanUtil.BLUE
+            }
+        });
+
+        $(point).on("move", function() {
+            var graph = _.extend({}, this.state.graph, {
+                coord: point.coord
+            });
+            this.setState({graph: graph});
+        }.bind(this));
+    },
+
+    getPointEquationString: function() {
+        var graph = this.state.graph;
+        return "(" + graph.coord[0] + ", " + graph.coord[1] + ")";
+    },
+
+    removePointControls: function() {
+        this.point.remove();
+    },
+
     toJSON: function() {
         return this.state.graph;
     },
@@ -380,6 +414,18 @@ _.extend(InteractiveGraph, {
                 if (eq(state.center[0], rubric.correct.center[0]) &&
                         eq(state.center[1], rubric.correct.center[1]) &&
                         eq(state.radius, rubric.correct.radius)) {
+                    return {
+                        type: "points",
+                        earned: 1,
+                        total: 1,
+                        message: null
+                    };
+                }
+            } else if (state.type === "point") {
+                console.log(state);
+                console.log(rubric);
+                if (state.coord[0] === rubric.correct.coord[0] &&
+                        state.coord[1] === rubric.correct.coord[1]) {
                     return {
                         type: "points",
                         earned: 1,
