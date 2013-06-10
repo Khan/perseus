@@ -97,7 +97,9 @@ var Renderer = Perseus.Renderer = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
-        return !_.isEqual(this.props, nextProps);
+        var stateChanged = !_.isEqual(this.state, nextState);
+        var propsChanged = !_.isEqual(this.props, nextProps);
+        return propsChanged || stateChanged;
     },
 
     getPiece: function(saved, widgetIds) {
@@ -125,7 +127,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                         widgets[id] = _.extend({}, widgets[id], newProps);
                         this.setState({widgets: widgets});
                     }.bind(this)
-                }, widgetInfo.options));
+                }, widgetInfo.options, this.state.widgets[id]));
             }
         }
     },

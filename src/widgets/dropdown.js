@@ -2,13 +2,22 @@
 (function(Perseus) {
 
 var Dropdown = React.createClass({
+    getDefaultProps: function() {
+        return {
+            choices: [{}],
+            selected: 0
+        };
+    },
+
     render: function() {
         var choices = this.props.choices.slice();
         choices.unshift({
             content: ""
         });
 
-        return <select className="perseus-widget-dropdown">
+        return <select
+                    onChange={this.onChange}
+                    className="perseus-widget-dropdown">
             {choices.map(function(choice, i) {
                 return <option
                         value={i}>
@@ -18,8 +27,13 @@ var Dropdown = React.createClass({
         </select>;
     },
 
+    onChange: React.autoBind(function(e) {
+        var selected = this.getDOMNode().selectedIndex;
+        this.props.onChange({selected: selected});
+    }),
+
     toJSON: function(skipValidation) {
-        return {value: this.getDOMNode().selectedIndex};
+        return {value: this.props.selected};
     },
 
     simpleValidate: function(rubric) {
@@ -48,22 +62,20 @@ _.extend(Dropdown, {
 });
 
 var DropdownEditor = React.createClass({
-    defaultState: {
-        choices: [{
-            content: "",
-            correct: true
-        }]
+    getDefaultProps: function() {
+        return {
+            choices: [{
+                content: "",
+                correct: true
+            }]
+        };
     },
 
-    mixins: [Perseus.Util.PropsToState],
-
     render: function() {
-        // TODO(jakesandlund): is this ok that it is not using the
-        // same one as Dropdown?
         var dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return <div className="perseus-widget-dropdown">
             <ul>
-                {this.state.choices.map(function(choice, i) {
+                {this.props.choices.map(function(choice, i) {
                     return <li>
                         <div>
                             <input
@@ -71,11 +83,12 @@ var DropdownEditor = React.createClass({
                                 type="radio"
                                 name={dropdownGroupName}
                                 checked={choice.correct ? "checked" : ""}
+                                onChange={this.onCorrectChange.bind(this, i)}
                                 value={i} />
                             <input
                                 type="text"
                                 ref={"editor" + i}
-                                onChange={this.props.onChange}
+                                onInput={this.onContentChange.bind(this, i)}
                                 value={choice.content} />
                         </div>
                     </li>;
@@ -92,12 +105,29 @@ var DropdownEditor = React.createClass({
         </div>;
     },
 
-    addChoice: React.autoBind(function() {
-        var choices = this.toJSON(true).choices;
-        choices.push({});
-        this.setState({choices: choices});
-        this.focus(choices.length - 1);
-        return false;
+    onCorrectChange: function(choiceIndex) {
+        var choices = _.map(this.props.choices, function (choice, i) {
+            return _.extend({}, choice, {
+                correct: i === choiceIndex
+            });
+        });
+        this.props.onChange({choices: choices});
+    },
+
+    onContentChange: function(choiceIndex, e) {
+        var choices = this.props.choices.slice();
+        var choice = _.clone(choices[choiceIndex]);
+        choice.content = e.target.value;
+        choices[choiceIndex] = choice;
+        this.props.onChange({choices: choices});
+    },
+
+    addChoice: React.autoBind(function(e) {
+        e.preventDefault();
+
+        var choices = this.props.choices;
+        this.props.onChange({choices: choices.concat([{}])});
+        this.focus(choices.length);
     }),
 
     focus: function(i) {
@@ -106,7 +136,7 @@ var DropdownEditor = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        var choices = this.state.choices.map(function (choice, i) {
+        var choices = this.props.choices.map(function (choice, i) {
             var choice = this.refs["editor" + i].getDOMNode().value;
             var correct = this.refs["radio" + i].getDOMNode().checked;
             return {
