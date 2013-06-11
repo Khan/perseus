@@ -15,26 +15,31 @@
 </head>
 <body>
 
-<div class="assessment-item-editor">
-    <div id="ai-edit-panel">
-        <div id="perseus-editor" class="framework-perseus"></div>
+<div id="extras">
+    <button id="toJSON">toJSON</button>
+    <button id="scorePreview">Score</button>
+</div>
+
+<!-- Begin Perseus HTML -->
+<div id="perseus" class="perseus-framework">
+    <div id="perseus-editor">
     </div>
 
-    <div id="perseus-content" class="framework-perseus">
+    <div class="perseus-editor-preview-panel">
         <div id="workarea"></div>
         <div id="hintsarea"></div>
         <form id="answerform">
             <div id="solutionarea"></div>
             <span id="examples-show" style="display: none;">Acceptable formats</span>
+            <a href="#" class="simple-button disabled green">
+                Check Answer
+            </a>
         </form>
     </div>
+
     <div class="clear"></div>
 </div>
-
-<div id="extras">
-    <button id="toJSON">toJSON</button>
-    <button id="scorePreview">Score</button>
-</div>
+<!-- End Perseus HTML -->
 
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>

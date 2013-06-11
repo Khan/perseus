@@ -81,37 +81,9 @@
     width: 360px;
 }
 
-.assessment-item-editor {
+#perseus {
     margin: 20px;
     min-width: 1110px;
-
-    #ai-live-status {
-        width: 360px;
-    }
-
-    .ai-edit-actions {
-        float: right;
-        text-align: right;
-        padding: 8px;
-        .simple-button {
-            margin-right: 5px;
-        }
-    }
-
-    #perseus-editor {
-        margin: 0 0 24px 0;
-    }
-
-    #ai-edit-panel {
-        float: left;
-        width: 360px;
-    }
-
-    #perseus-content {
-        box-sizing: border-box;
-        float: right;
-        width: 747px;
-    }
 
     #answerform {
         box-sizing: border-box;
@@ -139,32 +111,6 @@
         width: 489px;
     }
 
-    #perseus-content:before {
-        content: "Preview:";
-        font-size: 12pt;
-    }
-
-    .perseus-question-editor:before {
-        content: "Question:";
-        font-size: 12pt;
-    }
-
-    .perseus-answer-editor label {
-        display: block;
-    }
-
-    .perseus-answer-editor:before {
-        content: "Answer:";
-        font-size: 12pt;
-    }
-
-    .perseus-answer-editor:after {
-        // There may be zero .perseus-hint-editors being rendered, so anchor
-        // this heading to something we know will exist.
-        content: "Hints:";
-        font-size: 12pt;
-    }
-
     .remove-hint-container {
         text-align: right;
         margin-top: -5px;
@@ -178,6 +124,45 @@
     }
 }
 
+.perseus-editor-preview-panel {
+    box-sizing: border-box;
+    float: right;
+    width: 747px;
+}
+
+
+.perseus-item-editor {
+    float: left;
+    width: 360px;
+    margin: 0 0 24px 0;
+}
+
+
+#perseus-content:before {
+    content: "Preview:";
+    font-size: 12pt;
+}
+
+.perseus-question-editor:before {
+    content: "Question:";
+    font-size: 12pt;
+}
+
+.perseus-answer-editor label {
+    display: block;
+}
+
+.perseus-answer-editor:before {
+    content: "Answer:";
+    font-size: 12pt;
+}
+
+.perseus-answer-editor:after {
+    // There may be zero .perseus-hint-editors being rendered, so anchor
+    // this heading to something we know will exist.
+    content: "Hints:";
+    font-size: 12pt;
+}
 //
 // Radio editor
 //
