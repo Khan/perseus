@@ -166,6 +166,8 @@ var Editor = Perseus.Editor = React.createClass({
 
         var textarea = this.refs.textarea.getDOMNode();
         textarea.focus();
+        // Necessary since textarea innerText and value get out of sync
+        textarea.value = newContent;
         textarea.selectionStart = newContent.length;
         textarea.selectionEnd = newContent.length;
     }),
