@@ -126,7 +126,8 @@ var DropdownEditor = React.createClass({
         e.preventDefault();
 
         var choices = this.props.choices;
-        this.props.onChange({choices: choices.concat([{}])});
+        var blankChoice = {content: "", correct: false};
+        this.props.onChange({choices: choices.concat([blankChoice])});
         this.focus(choices.length);
     }),
 
@@ -136,17 +137,7 @@ var DropdownEditor = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        var choices = this.props.choices.map(function (choice, i) {
-            var choice = this.refs["editor" + i].getDOMNode().value;
-            var correct = this.refs["radio" + i].getDOMNode().checked;
-            return {
-                content: choice,
-                correct: correct
-            };
-        }, this);
-        return {
-            choices: choices,
-        };
+        return _.pick(this.props, 'choices');
     }
 });
 
