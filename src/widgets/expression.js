@@ -200,6 +200,14 @@ _.extend(Expression, {
             total: 1,
             message: result.message
         };
+    },
+
+    examples: function() {
+        return [
+            $._("For $3x$, enter **3x** or **3 x** or **3*x**"),
+            $._("For $\\dfrac{1}{x}$, enter **1/x**"),
+            $._("For $x^{y}$, enter **x^y**")
+        ];
     }
 });
 

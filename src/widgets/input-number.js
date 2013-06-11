@@ -52,6 +52,25 @@ _.extend(InputNumber, {
                 message: null
             };
         }
+    },
+
+    examples: function(options) {
+        var integer = $._("an integer, like $6$");
+
+        var proper, improper;
+        if (options.simplify === "optional") {
+            proper = $._("a *proper* fraction, like $1/2$ or $6/10$");
+            improper = $._("an *improper* fraction, like $10/7$ or $14/8$");
+        } else {
+            proper = $._("a *simplified proper* fraction, like $3/5$");
+            improper = $._("a *simplified improper* fraction, like $7/4$");
+        }
+
+        var mixed = $._("a mixed number, like $1\\ 3/4$");
+
+        var decimal = $._("an *exact* decimal, like $0.75$");
+
+        return [integer, proper, improper, mixed, decimal];
     }
 });
 

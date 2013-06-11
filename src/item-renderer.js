@@ -6,21 +6,28 @@
 var AnswerAreaRenderer = React.createClass({
     getInitialState: function() {
         // TODO(alpert): Move up to parent props?
-        return {
-            widget: {}
-        };
-    },
-
-    render: function(rootNode) {
         var type = this.props.type;
         var cls;
+        var examples = null;
+
         if (type === "multiple") {
             cls = Perseus.Renderer;
         } else {
             cls = Perseus.Widgets._widgetTypes[type];
+            if (_.has(cls, "examples")) {
+                examples = cls.examples;
+            }
         }
 
-        return cls(_.extend({
+        return {
+            widget: {},
+            cls: cls,
+            examples: examples
+        };
+    },
+
+    render: function(rootNode) {
+        return this.state.cls(_.extend({
             ref: "widget",
             problemNum: this.props.problemNum,
             onChange: function(newProps) {
@@ -28,6 +35,50 @@ var AnswerAreaRenderer = React.createClass({
                 this.setState({widget: widget});
             }.bind(this)
         }, this.props.options, this.state.widget));
+    },
+
+    componentDidMount: function() {
+        if (this.state.examples && $("#examples-show").length) {
+            $("#examples-show").append("<div id='examples'></div>");
+
+            var examples = this.state.examples(this.props.options);
+            var content = _.map(examples, function(example) {
+                return "- " + example;
+            }).join("\n");
+
+            React.renderComponent(
+                Perseus.Renderer({content: content}), 
+                document.getElementById("examples"));
+
+            $("#examples-show").qtip({
+                content: {
+                    text: $("#examples").remove(),
+                    prerender: true
+                },
+                style: {classes: "qtip-light leaf-tooltip"},
+                position: {
+                    my: "bottom center",
+                    at: "top center"
+                },
+                show: {
+                    delay: 200,
+                    effect: {
+                        length: 0
+                    }
+                },
+                hide: {delay: 0}
+            });
+
+            $("#examples-show").show();
+        }
+    },
+
+    componentWillUnmount: function() {
+        if (this.state.examples && $("#examples-show").length) {
+            $("#examples-show").hide();
+            React.unmountAndReleaseReactRootNode(
+                    document.getElementById("examples"));
+        }
     },
 
     focus: function() {
