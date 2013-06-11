@@ -80,7 +80,7 @@ var Radio = React.createClass({
     },
 
     onCheckedChange: React.autoBind(function(checked) {
-        this.props.onChange({values: checked});
+        this.props.onChange({values: this.derandomize(checked)});
     }),
 
     toJSON: function(skipValidation) {
@@ -106,6 +106,20 @@ var Radio = React.createClass({
     randomize: function(array) {
         if (this.props.randomize && this.props.problemNum) {
             return Perseus.Util.shuffle(array, this.props.problemNum);
+        } else {
+            return array;
+        }
+    },
+
+    derandomize: function(array) {
+        if (this.props.randomize && this.props.problemNum) {
+            var map = Perseus.Util.shuffle(
+                    _.range(array.length), this.props.problemNum);
+            var derandomized = new Array(array.length);
+            _.each(map, function(shuffledIndex, originalIndex) {
+                derandomized[shuffledIndex] = array[originalIndex];
+            });
+            return derandomized;
         } else {
             return array;
         }
