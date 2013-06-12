@@ -6,24 +6,22 @@
 var AnswerAreaRenderer = React.createClass({
     getInitialState: function() {
         // TODO(alpert): Move up to parent props?
-        var type = this.props.type;
-        var cls;
-        var examples = null;
-
-        if (type === "multiple") {
-            cls = Perseus.Renderer;
-        } else {
-            cls = Perseus.Widgets._widgetTypes[type];
-            if (_.has(cls, "examples")) {
-                examples = cls.examples;
-            }
-        }
-
         return {
             widget: {},
-            cls: cls,
-            examples: examples
+            cls: this.getClass(this.props.type)
         };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({cls: this.getClass(nextProps.type)});
+    },
+
+    getClass: function(type) {
+        if (type === "multiple") {
+            return Perseus.Renderer;
+        } else {
+            return Perseus.Widgets._widgetTypes[type];
+        }
     },
 
     render: function(rootNode) {
@@ -38,10 +36,10 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     componentDidMount: function() {
-        if (this.state.examples && $("#examples-show").length) {
+        if (this.state.cls.examples && $("#examples-show").length) {
             $("#examples-show").append("<div id='examples'></div>");
 
-            var examples = this.state.examples(this.props.options);
+            var examples = this.state.cls.examples(this.props.options);
             var content = _.map(examples, function(example) {
                 return "- " + example;
             }).join("\n");
