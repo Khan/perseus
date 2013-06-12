@@ -287,35 +287,41 @@ _.extend(Mul.prototype, {
     // since we don't care about commutativity, we can render a Mul any way we choose
     // so we follow convention: first any negatives, then any numbers, then everything else
     tex: function() {
-        var partitioned = this.partition();
-        var numbers = partitioned[0];
-        var others = partitioned[1];
+        var cdot = " \\cdot ";
+
+        var terms = _.groupBy(this.terms, function(term) {
+            if (term.isDivide()) {
+                return "inverse";
+            } else if (term instanceof Num) {
+                return "number";
+            } else {
+                return "other";
+            }
+        });
+
+        var inverses = terms["inverse"] || [];
+        var numbers = terms["number"] || [];
+        var others = terms["other"] || [];
 
         var negatives = "";
         var tex = "";
 
-        _.each(numbers.terms, function(term, i) {
-            if ((term instanceof Int) && (term.n === -1) &&
-                ((i < numbers.terms.length - 1) || others.terms.length)) {
+        _.each(numbers, function(term, i) {
+            if ((term instanceof Int) && (term.n === -1) && _.any(term.hints) &&
+                ((i < numbers.length - 1) || others.length)) {
                 // e.g. -1*-1 -> --1
                 // e.g. -1*x -> -x
                 negatives += "-";
             } else {
                 // e.g. 2*3 -> 2(dot)3
-                tex += (tex ? " \\cdot " : "") + term.tex();
+                tex += (tex ? cdot : "") + term.tex();
             }
         });
 
-        tex = negatives + tex;
-        var inverses = [];
-
-        _.each(others.terms, function(term) {
-            if (term.isDivide()) {
-                // e.g. 1*x^(-1 w/hint) -> 1/x
-                inverses.push(term.asDenominator());
-            } else if (term.needsExplicitMul()) {
+        _.each(others, function(term) {
+            if (term.needsExplicitMul()) {
                 // e.g. 2*2^3 -> 2(dot)2^3
-                tex += (tex ? " \\cdot " : "") + term.tex();
+                tex += (tex ? cdot : "") + term.tex();
             } else if (term instanceof Add) {
                 // e.g. (a+b)*c -> (a+b)c
                 tex += "(" + term.tex() + ")";
@@ -325,11 +331,13 @@ _.extend(Mul.prototype, {
             }
         });
 
+        var numerator = negatives + tex;
+
         if (!inverses.length) {
-            return tex;
+            return numerator;
         } else {
-            var denominator = (new Mul(inverses)).tex();
-            return "\\dfrac{" + (tex ? tex : "1") + "}{" + denominator + "}";
+            var denominator = (new Mul(_.invoke(inverses, "asDenominator"))).tex();
+            return "\\frac{" + (numerator ? numerator : "1") + "}{" + denominator + "}";
         }
     },
 
@@ -408,7 +416,7 @@ _.extend(Mul.prototype, {
 
     isSubtract: function() {
         return _.any(this.terms, function(term) {
-            return term instanceof Num && term.subtractHint;
+            return term instanceof Num && term.hints.subtract;
         });
     },
 
@@ -440,7 +448,7 @@ _.extend(Mul.prototype, {
     factorOut: function() {
         var factored = false;
         var terms = _.compact(_.map(this.terms, function(term, i, list) {
-            if (!factored && term instanceof Num && term.divideHint) {
+            if (!factored && term instanceof Num && term.hints.divide) {
                 factored = true;
                 return term.n !== -1 ? term.negate() : null;
             } else {
@@ -478,6 +486,7 @@ _.extend(Mul, {
     // negative signs should be folded into numbers whenever possible
     // never fold into a Num that's already negative or a Mul that has a negative Num
     // an optional hint is kept track of to properly render user input
+    // an empty hint means negation
     handleNegative: function(expr, hint) {
         if (expr instanceof Num && expr.n > 0) {
             // e.g. - 2 -> -2
@@ -546,36 +555,36 @@ _.extend(Mul, {
         }
     },
 
-    // ensure the following property:
-    // a Mul cannot contain 1+ "-1"s and have all other Nums be positive
-    // e.g. -1*x        okay
-    // e.g. -1*x*2      not okay (should be x*-2)
-    // e.g. -2*x        okay
-    // e.g. -2*x*3      okay
-    // e.g. -1*-2*x*3   okay
-    // don't need to handle -1*2 or 2*x*-1 because handleNegative already does
+    // fold negative signs into numbers if possible
+    // negative signs are not the same as multiplying by negative one!
+    // e.g. -x      ->  -1*x    simplified
+    // e.g. -2*x    ->  -2*x    simplified
+    // e.g. -x*2    ->  -1*x*2  not simplified -> x*-2 simplified
+    // e.g. -1*x*2  ->  -1*x*2  not simplified
     fold: function(expr) {
         if (expr instanceof Mul) {
             var partitioned = expr.partition();
             var numbers = partitioned[0].terms;
 
             var pos = function(num) { return num.n > 0; };
-            var neg = function(num) { return num.equals(Num.Neg); };
+            var neg = function(num) { return num.n === -1 && num.hints.negate; };
             var posOrNeg = function(num) { return pos(num) || neg(num); };
 
             if (numbers.length > 1 &&
                 _.some(numbers, neg) &&
                 _.some(numbers, pos) &&
                 _.every(numbers, posOrNeg)) {
-                var firstNeg = _.indexOf(expr.terms, Num.Neg);
+
+                var firstNeg = _.indexOf(expr.terms, _.find(expr.terms, neg));
                 var firstNum = _.indexOf(expr.terms, _.find(expr.terms, pos));
 
-                // e.g. -1*x*2 -> x*-2
-                // assumes that firstNeg < firstNum
-                return new Mul(expr.terms.slice(0, firstNeg)
-                    .concat(expr.terms.slice(firstNeg + 1, firstNum))
-                    .concat(expr.terms[firstNum].negate())
-                    .concat(expr.terms.slice(firstNum + 1)));
+                // e.g. -x*2 -> x*-2
+                if (firstNeg < firstNum) {
+                    return new Mul(expr.terms.slice(0, firstNeg)
+                        .concat(expr.terms.slice(firstNeg + 1, firstNum))
+                        .concat(expr.terms[firstNum].negate())
+                        .concat(expr.terms.slice(firstNum + 1)));
+                }
             }
         }
 
@@ -608,7 +617,7 @@ _.extend(Pow.prototype, {
     tex: function() {
         if (this.isDivide()) {
             // e.g. x ^ -1 w/hint -> 1/x
-            return "\\dfrac{1}{" + this.asDenominator().tex() + "}";
+            return "\\frac{1}{" + this.asDenominator().tex() + "}";
         } else {
             // e.g. x ^ y -> x^y
             var base = this.base.tex();
@@ -693,7 +702,7 @@ _.extend(Pow.prototype, {
     },
 
     isDivide: function() {
-        var test = function(arg) { return arg instanceof Num && arg.divideHint; };
+        var test = function(arg) { return arg instanceof Num && arg.hints.divide; };
         return test(this.exp) || (this.exp instanceof Mul && _.any(this.exp.terms, test));
     },
 
@@ -795,24 +804,25 @@ _.extend(Num.prototype, {
     // returns this Num's additive inverse
     negate: abstract,
 
-    // hints for rendering TeX akin to input
-    subtractHint: false,
-    divideHint: false,
+    // hints for interpreting and rendering user input
+    hints: {
+        negate: false,
+        subtract: false,
+        divide: false
+    },
 
-    // return a copy of the Num with that hint set
+    // return a copy of the Num with a new hint set (preserve hints)
     hint: function(hint) {
         if (!hint) return this;
 
         var num = new this.func(this.args());
-        if (hint === "subtract") {
-            num.subtractHint = true;
-        } else if (hint === "divide") {
-            num.divideHint = true;
-        }
+        num.hints = _.clone(this.hints);
+        num.hints[hint] = true;
+
         return num;
     },
 
-    isSubtract: function() { return this.subtractHint; },
+    isSubtract: function() { return this.hints.subtract; },
 
     // return the absolute value of the number
     abs: abstract,
@@ -841,7 +851,7 @@ _.extend(Rational.prototype, {
     },
 
     tex: function() {
-        return "\\tfrac{" + this.n.toString() + "}{" + this.d.toString() + "}";
+        return "\\frac{" + this.n.toString() + "}{" + this.d.toString() + "}";
     },
 
     add: function(num) {
@@ -959,12 +969,14 @@ _.extend(Num, {
         }
     }
 });
-Num.Neg = new Int(-1);
+
+Num.Neg = (new Int(-1)).hint("negate");
+Num.Sub = (new Int(-1)).hint("subtract");
+Num.Div = (new Int(-1)).hint("divide");
+
 Num.Zero = new Int(0);
 Num.Half = new Rational([1, 2]);
 Num.One = new Int(1);
-Num.Sub = Num.Neg.hint("subtract");
-Num.Div = Num.Neg.hint("divide");
 
 
 // set identities here

@@ -35,6 +35,7 @@
 <script type="text/javascript">
 (function(Perseus) {
 
+    // TODO(alex): refactor tests, add messages, move functions to relevant locations
     var parse = function(input) { return Perseus.ExpressionTools.parse(input).expr; }
 
     var eq = function(input, expected, message) {
@@ -384,16 +385,18 @@
         tex("0", "0");
         tex("-1", "-1");
         tex("--1", "--1");
+        tex("-2", "-2");
+        tex("--2", "--2");
         tex("1-2", "1-2");
         tex("x", "x");
         tex("a+b", "a+b");
         tex("a-b", "a-b");
         tex("a+-b", "a+-b");
-        tex("a+-1*b", "a+-b");
+        tex("a+-1*b", "a+-1b");
         tex("ab", "ab");
         tex("a*b", "ab");
-        tex("a/b", "\\dfrac{a}{b}");
-        tex("a/bc/d", "\\dfrac{ac}{bd}");
+        tex("a/b", "\\frac{a}{b}");
+        tex("a/bc/d", "\\frac{ac}{bd}");
         tex("ab+c", "ab+c");
         tex("a(b+c)", "a(b+c)");
         tex("x^y", "x^{y}");
@@ -406,7 +409,7 @@
         tex("x^-(y+z)", "x^{-(y+z)}");
         tex("(x^y)^z", "(x^{y})^{z}");
         tex("pir^2", "\\pi r^{2}");
-        tex("1/2", "\\tfrac{1}{2}");
+        tex("1/2", "\\frac{1}{2}");
         tex("4*10", "4 \\cdot 10");
         tex("10^5", "10^{5}");
         tex("4*10^5", "4 \\cdot 10^{5}");
@@ -415,14 +418,33 @@
         tex("x*(10+4)^5", "x(10+4)^{5}");
         tex("x^-1", "x^{-1}");
         tex("2x^-1", "2x^{-1}");
-        tex("1/x", "\\dfrac{1}{x}");
-        tex("2/x", "\\dfrac{2}{x}");
-        tex("1/x^2", "\\dfrac{1}{x^{2}}");
-        tex("2/x^2", "\\dfrac{2}{x^{2}}");
-        tex("1/1/x", "\\dfrac{\\tfrac{1}{1}}{x}");
-        tex("1/(1/x)", "\\dfrac{1}{\\dfrac{1}{x}}");
-        tex("1/x/x", "\\dfrac{1}{xx}");
-        tex("1/(x/x)", "\\dfrac{1}{\\dfrac{x}{x}}");
+        tex("1/x", "\\frac{1}{x}");
+        tex("-1/x", "\\frac{-1}{x}");
+        tex("2/x", "\\frac{2}{x}");
+        tex("1/x^2", "\\frac{1}{x^{2}}");
+        tex("2/x^2", "\\frac{2}{x^{2}}");
+        tex("1/1/x", "\\frac{\\frac{1}{1}}{x}");
+        tex("1/(1/x)", "\\frac{1}{\\frac{1}{x}}");
+        tex("1/x/x", "\\frac{1}{xx}");
+        tex("1/(x/x)", "\\frac{1}{\\frac{x}{x}}");
+        tex("-1/1/x", "\\frac{\\frac{-1}{1}}{x}");
+        tex("-1/(1/x)", "\\frac{-1}{\\frac{1}{x}}");
+        tex("-1/x/x", "\\frac{-1}{xx}");
+        tex("-1/(x/x)", "\\frac{-1}{\\frac{x}{x}}");
+        tex("9^4", "9^{4}");
+        tex("-9^4", "-9^{4}");
+        tex("1-9^4", "1-9^{4}");
+        tex("1/2", "\\frac{1}{2}");
+        tex("-1/2", "\\frac{-1}{2}");
+        tex("1/-2", "\\frac{-1}{2}");
+        tex("-1/-2", "-\\frac{-1}{2}");
+        tex("-1*2", "-1 \\cdot 2");
+        tex("2*-1", "2 \\cdot -1");
+        tex("-1*2*3", "-1 \\cdot 2 \\cdot 3");
+        tex("-3x", "-3x");
+        tex("--3x", "--3x");
+        tex("-x*3", "-3x");
+        tex("--x*3", "--3x");
     });
 
     QUnit.module("transforming");
@@ -478,12 +500,11 @@
         collect("x^1", "x");
         collect("(x^y)^z", "x^(y*z)");
         collect("4^1.5", "8");
-        // user-friendly tex representation is always guaranteed for negation
+        // user-friendly tex representation is not guaranteed after collect()
         collect("-x", "-1*x");
-        collecttex("-x", "-x");
-        // however, all bets are off for subtraction and division
+        collecttex("-x", "-1x");
         collect("a-b", "a+-1*b");
-        collecttex("a-b", "a+-b");
+        collecttex("a-b", "a+-1b");
         collect("a/b", "a*b^(-1)");
         collecttex("a/b", "ab^{-1}");
     });
