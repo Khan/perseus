@@ -3,6 +3,8 @@ module.exports = function(grunt) {
 var srcFiles = [
     "build/src/core.js",
     "build/src/util.js",
+    "build/src/renderer.js",
+    "build/src/editor.js",
     "build/src/expressiontools/parser.js",
     "build/src/expressiontools/nodes.js",
     "build/src/expressiontools/compare.js",
@@ -11,10 +13,9 @@ var srcFiles = [
     "build/src/widgets/interactive-graph.js",
     "build/src/widgets/radio.js",
     "build/src/widgets/dropdown.js",
+    "build/src/widgets/table.js",
     "build/src/widgets/expression.js",
-    "build/src/renderer.js",
     "build/src/item-renderer.js",
-    "build/src/editor.js",
     "build/src/item-editor.js"
 ];
 

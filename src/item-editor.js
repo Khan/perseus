@@ -77,6 +77,7 @@ var AnswerAreaEditor = React.createClass({
                             this.refs.editor.focus();
                         }.bind(this)}>
                     <option value="radio">Multiple choice</option>
+                    <option value="table">Table of values</option>
                     <option value="input-number">Text input (number)</option>
                     <option value="expression">Expression / Equation</option>
                     <option value="multiple">Custom format</option>

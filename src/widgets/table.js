@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var Editor = Perseus.Editor;
+
 function stringArrayOfSize(size) {
     var array = [];
     _(size).times(function() {
@@ -11,12 +13,13 @@ function stringArrayOfSize(size) {
 
 var Table = React.createClass({
     render: function() {
+        console.log('render table');
         var headers = this.props.headers;
-        return <table>
+        return <table className="perseus-widget-table-of-values">
             <thead>
                 <tr>{
                     headers.map(function(header) {
-                        return <th>{header}</th>;
+                        return <th>{Perseus.Renderer({content: header})}</th>;
                     })
                 }
                 </tr>
@@ -98,7 +101,7 @@ _.extend(Table, {
 });
 
 var TableEditor = React.createClass({
-    getInitialState: function() {
+    getDefaultProps: function() {
         var defaultRows = 4;
         var defaultColumns = 1;
         var blankAnswers = [];
@@ -112,7 +115,12 @@ var TableEditor = React.createClass({
             rawRows: defaultRows,
             rawColumns: defaultColumns,
             answers: blankAnswers,
+            type: "set"
         };
+    },
+
+    focus: function() {
+        this.refs.numberOfColumns.getDOMNode().focus();
     },
 
     render: function() {
@@ -123,8 +131,8 @@ var TableEditor = React.createClass({
                     <input
                         ref="numberOfColumns"
                         type="text"
-                        value={this.state.rawColumns}
-                        onKeyUp={this.sizeKeyUp}
+                        value={this.props.rawColumns}
+                        onInput={this.onSizeInput}
                     />
                 </label>
             </div>
@@ -134,13 +142,13 @@ var TableEditor = React.createClass({
                     <input
                         ref="numberOfRows"
                         type="text"
-                        value={this.state.rawRows}
-                        onKeyUp={this.sizeKeyUp}
+                        value={this.props.rawRows}
+                        onInput={this.onSizeInput}
                     />
                 </label>
             </div>
             <div>
-                Table of answer type:
+                Table of answers type:
                 <ul>
                     <li>
                         <label>
@@ -154,16 +162,18 @@ var TableEditor = React.createClass({
                 </ul>
             </div>
             <div>
-                <table>
+                <table className="perseus-widget-table-of-values">
                     <thead>
                         <tr>{
                             this.loopColumns(function(i) {
                                 return <th>
-                                    <input
+                                    <Editor
                                         ref={"columnHeader" + i}
-                                        type="text"
-                                        value={this.state.headers[i]}
-                                        onKeyUp={this.headerKeyUp}
+                                        content={this.props.headers[i]}
+                                        widgetEnabled={false}
+                                        onChange={
+                                            this.onHeaderChange.bind(this, i)
+                                        }
                                     />
                                 </th>;
                             })
@@ -177,8 +187,8 @@ var TableEditor = React.createClass({
                                         <input
                                             ref={"answer" + r + "," + c}
                                             type="text"
-                                            onKeyUp={this.answerKeyUp}
-                                            value={this.state.answers[r][c]}
+                                            onInput={this.onAnswerInput}
+                                            value={this.props.answers[r][c]}
                                         />
                                     </td>;
                                 })
@@ -190,19 +200,15 @@ var TableEditor = React.createClass({
         </div>;
     },
 
-    updateState: function (update) {
-        this.setState(update);
-        this.props.onChange();
-    },
-
-    headerKeyUp: React.autoBind(function() {
-        var headers = this.state.headers.map(function (header, i) {
-            return this.refs["columnHeader" + i].getDOMNode().value;
-        }, this);
-        this.updateState({headers: headers});
+    onHeaderChange: React.autoBind(function(index, newProps) {
+        if (_.has(newProps, "content")) {
+            var headers = this.props.headers.slice();
+            headers[index] = newProps.content;
+            this.props.onChange({headers: headers});
+        }
     }),
 
-    sizeKeyUp: React.autoBind(function() {
+    onSizeInput: React.autoBind(function() {
         var rawRows = this.refs.numberOfRows.getDOMNode().value;
         var rawCols = this.refs.numberOfColumns.getDOMNode().value;
         var rows = +rawRows || 0;
@@ -210,39 +216,39 @@ var TableEditor = React.createClass({
         if (rows < 1) {
             rows = 1;
         }
-        if (rows > 99) {
-            rows = 99;
+        if (rows > 30) {
+            rows = 30;
         }
         if (cols < 1) {
             cols = 1;
         }
-        if (cols > 99) {
-            cols = 99;
+        if (cols > 6) {
+            cols = 6;
         }
-        var oldColumns = this.state.columns;
-        var oldRows = this.state.rows;
+        var oldColumns = this.props.columns;
+        var oldRows = this.props.rows;
 
-        var answers = this.state.answers;
+        var answers = this.props.answers;
         if (oldRows < rows) {
             _(rows - oldRows).times(function() {
                 answers.push(stringArrayOfSize(oldColumns));
             });
         }
 
-        var headers = this.state.headers;
+        var headers = this.props.headers;
 
         function fixColumnSizing(array) {
-            if (oldColumns < cols) {
-                _(cols - oldColumns).times(function() {
-                    array.push("");
-                });
-            }
+            _(cols - oldColumns).times(function() {
+                array.push("");
+            });
         }
 
-        fixColumnSizing(headers);
-        _.each(answers, fixColumnSizing);
+        if (oldColumns < cols) {
+            fixColumnSizing(headers);
+            _.each(answers, fixColumnSizing);
+        }
 
-        this.updateState({
+        this.props.onChange({
             rows: rows,
             columns: cols,
             rawRows: rawRows,
@@ -255,7 +261,7 @@ var TableEditor = React.createClass({
     loopRows: function(callback) {
         var self = this;
         var ret = [];
-        _(this.state.rows).times(function (r) {
+        _(this.props.rows).times(function (r) {
             ret.push(callback.call(self, r));
         });
         return ret;
@@ -264,31 +270,31 @@ var TableEditor = React.createClass({
     loopColumns: function(callback) {
         var self = this;
         var ret = [];
-        _(this.state.columns).times(function (c) {
+        _(this.props.columns).times(function (c) {
             ret.push(callback.call(self, c));
         });
         return ret;
     },
 
-    answerKeyUp: React.autoBind(function() {
+    onAnswerInput: React.autoBind(function() {
         var self = this;
         var answers = this.loopRows(function(r) {
             return this.loopColumns(function(c) {
                 return this.refs["answer" + r + "," + c].getDOMNode().value;
             });
         });
-        this.updateState({answers: answers});
+        this.props.onChange({answers: answers});
     }),
 
     toJSON: function() {
         var self = this;
-        var answers = this.state.answers.slice(0, this.state.rows);
+        var answers = this.props.answers.slice(0, this.props.rows);
         answers = _.map(answers, function(row) {
-            return row.slice(0, self.state.columns);
+            return row.slice(0, self.props.columns);
         });
-        var json = _.pick(this.state, 'rows', 'columns');
+        var json = _.pick(this.props, 'rows', 'columns');
         json.answers = answers;
-        json.headers = this.state.headers.slice(0, this.state.columns);
+        json.headers = this.props.headers.slice(0, this.props.columns);
         return json;
     }
 });
