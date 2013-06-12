@@ -2,7 +2,7 @@
 
 ## Styles
 
-* `stylesheets/perseus-admin-package` has the styles for just the perseus
-    editor. The non-editor perseus admin styles are in the webapp.
+* `stylesheets/perseus-admin-package` has the styles for the Perseus item
+    editor and the rest of the admin pages.
 * `stylesheets/exercise-content-package` has styles that are shared with
     exercises.

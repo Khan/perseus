@@ -30,7 +30,7 @@ case $1 in
         cp "$webapp/stylesheets/shared-package/$shared" stylesheets/shared.css
 
         pap="stylesheets/perseus-admin-package"
-        files="$webapp/$pap/perseus.less"
+        files="$webapp/$pap/perseus-admin.less"
         cp $files stylesheets/perseus-admin-package
         ;;
 
