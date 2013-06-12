@@ -12,6 +12,12 @@ var Editor = Perseus.Editor = React.createClass({
         };
     },
 
+    componentDidUpdate: function(prevProps, prevState, rootNode) {
+        // TODO(alpert): Maybe fix React so this isn't necessary
+        var textarea = this.refs.textarea.getDOMNode();
+        textarea.value = this.props.content;
+    },
+
     getWidgetEditor: function(id, type, num) {
         var cls = Perseus.Widgets._widgetTypes[type + "-editor"];
         if (!cls) {
@@ -166,8 +172,6 @@ var Editor = Perseus.Editor = React.createClass({
 
         var textarea = this.refs.textarea.getDOMNode();
         textarea.focus();
-        // Necessary since textarea innerText and value get out of sync
-        textarea.value = newContent;
         textarea.selectionStart = newContent.length;
         textarea.selectionEnd = newContent.length;
     }),
