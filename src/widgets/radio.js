@@ -29,7 +29,7 @@ var BaseRadio = React.createClass({
                 return e.target.checked;
             } else {
                 if (this.props.multipleSelect) {
-                    return choice.checked;
+                    return this.refs["radio" + i].getDOMNode().checked;
                 } else {
                     return false;
                 }
@@ -135,7 +135,7 @@ _.extend(Radio, {
             };
         } else {
             var correct = _.all(state.values, function(selected, i) {
-                return rubric.choices[i].correct === selected;
+                return !!rubric.choices[i].correct === selected;
             });
 
             return {
