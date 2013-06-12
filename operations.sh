@@ -1,16 +1,25 @@
 #!/bin/sh
 
-if test -f .webapp
+if [ "X$1" = "X-w" ]
 then
-    webapp=$(cat .webapp)
+    webapp=$1
 else
-    echo "Enter the directory of the webapp. Leave blank for ../webapp"
-    read -p "(default: ../webapp) > " webapp
-    test "X$webapp" = X && webapp=../webapp
-    echo "$webapp" > .webapp
+    webapp=../webapp
+fi
+
+if ! test -d "$webapp"
+then
+    echo "Could not find webapp at $webapp" >&2
+    echo "Use -w [location] to set webapp location" >&2
+    exit 1
 fi
 
 case $1 in
+    -h | --help | help)
+        echo "Use -w as an initial option to change the webapp path"
+        echo "Command: get-css, put-js, put-css"
+        exit 0
+        ;;
     get-css)
         pwd=$(pwd)
         cd "$webapp"
@@ -18,16 +27,11 @@ case $1 in
         cd "$pwd"
         manifest="$webapp/genfiles/stylesheets-packages-compressed.json"
         shared=$(node stylesheets/get_css_name.js "$manifest")
+        cp "$webapp/stylesheets/shared-package/$shared" stylesheets/shared.css
 
-        sp="stylesheets/shared-package"
-        mkdir -p "$sp"
-        cp "$webapp/$sp/mixins.less" "$sp"
-        cp "$webapp/$sp/variables.less" "$sp"
-        cp "$webapp/$sp/$shared" stylesheets/shared.css
-
-        bp="stylesheets/bootstrap-package"
-        test -d "$bp" && rm -r "$bp"
-        cp -R "$webapp/$bp" "$bp"
+        pap="stylesheets/perseus-admin-package"
+        files="$webapp/$pap/perseus.less"
+        cp $files stylesheets/perseus-admin-package
         ;;
 
     put-js)
@@ -35,9 +39,10 @@ case $1 in
         ;;
 
     put-css)
-        pp="$webapp/stylesheets/perseus-package"
-        test -d "$pp" && rm -r "$pp"
-        cp -R stylesheets/perseus-package "$webapp/stylesheets"
-        cp stylesheets/exercise-content-package/perseus.less "$webapp/stylesheets/exercise-content-package"
+        pap="stylesheets/perseus-admin-package"
+        files="$pap/editor.less"
+        cp $files "$webapp/stylesheets/perseus-admin-package"
+        files=$(find stylesheets/exercise-content-package -maxdepth 1 -type f)
+        cp $files "$webapp/stylesheets/exercise-content-package"
         ;;
 esac
