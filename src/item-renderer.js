@@ -72,7 +72,7 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        if (this.state.examples && $("#examples-show").length) {
+        if (this.state.cls.examples && $("#examples-show").length) {
             $("#examples-show").hide();
             React.unmountAndReleaseReactRootNode(
                     document.getElementById("examples"));
