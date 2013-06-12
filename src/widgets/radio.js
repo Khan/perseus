@@ -25,15 +25,7 @@ var BaseRadio = React.createClass({
 
     onChange: React.autoBind(function(radioIndex, e) {
         var newChecked = _.map(this.props.choices, function(choice, i) {
-            if (i === radioIndex) {
-                return e.target.checked;
-            } else {
-                if (this.props.multipleSelect) {
-                    return this.refs["radio" + i].getDOMNode().checked;
-                } else {
-                    return false;
-                }
-            }
+            return this.refs["radio" + i].getDOMNode().checked;
         }, this);
 
         this.props.onCheckedChange(newChecked);
