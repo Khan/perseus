@@ -28,10 +28,6 @@ case $1 in
         manifest="$webapp/genfiles/stylesheets-packages-compressed.json"
         shared=$(node stylesheets/get_css_name.js "$manifest")
         cp "$webapp/stylesheets/shared-package/$shared" stylesheets/shared.css
-
-        pap="stylesheets/perseus-admin-package"
-        files="$webapp/$pap/perseus-admin.less"
-        cp $files stylesheets/perseus-admin-package
         ;;
 
     put-js)
@@ -40,8 +36,8 @@ case $1 in
 
     put-css)
         pap="stylesheets/perseus-admin-package"
-        files="$pap/editor.less"
-        cp $files "$webapp/stylesheets/perseus-admin-package"
+        files=$(find $pap -maxdepth 1 -type f)
+        cp $files "$webapp/$pap"
         files=$(find stylesheets/exercise-content-package -maxdepth 1 -type f)
         cp $files "$webapp/stylesheets/exercise-content-package"
         ;;
