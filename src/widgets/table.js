@@ -4,21 +4,18 @@
 var Editor = Perseus.Editor;
 
 function stringArrayOfSize(size) {
-    var array = [];
-    _(size).times(function() {
-        array.push("");
+    return _(size).times(function() {
+        return "";
     });
-    return array;
 }
 
 var Table = React.createClass({
     render: function() {
-        console.log('render table');
         var headers = this.props.headers;
         return <table className="perseus-widget-table-of-values">
             <thead>
                 <tr>{
-                    headers.map(function(header) {
+                    _.map(headers, function(header) {
                         return <th>{Perseus.Renderer({content: header})}</th>;
                     })
                 }
@@ -57,46 +54,67 @@ var Table = React.createClass({
 });
 
 _.extend(Table, {
-    purifyAnswers: function(table) {
-        var filled = _.filter(table, function (row) {
-
-            // Check if row has a cell that is nonempty
-            return _.some(row, _.identity);
-        });
-        var nums = _.map(filled, function(row) {
-            return _.map(row, Number);
-        });
-        return nums.sort(function (aRow, bRow) {
-            var i = 0;
-            while (i < aRow.length && aRow[i] === bRow[i]) {
-                i += 1;
-            }
-            if (i === aRow.length) {
-                return 0;
-            } else {
-                return aRow[i] < bRow[i] ? -1 : 1;
-            }
-        });
-    },
-
     validate: function(state, rubric) {
-        var supplied = Table.purifyAnswers(state);
-        var solution = Table.purifyAnswers(rubric.answers);
-        if (! supplied.length) {
+        var filterNonEmpty = function (table) {
+            return _.filter(table, function (row) {
+
+                // Check if row has a cell that is nonempty
+                return _.some(row, _.identity);
+            });
+        };
+        var solution = filterNonEmpty(rubric.answers);
+        var supplied = filterNonEmpty(state);
+        var hasEmptyCell = _.some(supplied, function(row) {
+            return _.some(row, function(cell) {
+                return cell === "";
+            });
+        });
+        if (hasEmptyCell || !supplied.length) {
             return {
                 type: "invalid",
                 message: null
             };
-        } else {
-            var correct = _.isEqual(supplied, solution);
-
+        }
+        if (supplied.length !== solution.length) {
             return {
                 type: "points",
-                earned: correct ? 1 : 0,
+                earned: 0,
                 total: 1,
                 message: null
-            };
+            }
         }
+        var createValidator = Khan.answerTypes
+                                  .number.createValidatorFunctional;
+        var message = null;
+        var allCorrect = _.every(solution, function (rowSolution) {
+            var i;
+            for (i = 0; i < supplied.length; i++) {
+                var rowSupplied = supplied[i];
+                var correct = _.every(rowSupplied, function (cellSupplied, i) {
+                    var cellSolution = rowSolution[i];
+                    var validator = createValidator(
+                            cellSolution, {
+                                simplify: true
+                            });
+                    var result = validator(cellSupplied);
+                    if (typeof result === "string") {
+                        message = result;
+                    }
+                    return result === true;
+                });
+                if (correct) {
+                    supplied.splice(i, 1);
+                    return true;
+                }
+            }
+            return false;
+        });
+        return {
+            type: "points",
+            earned: allCorrect ? 1 : 0,
+            total: 1,
+            message: message
+        };
     }
 });
 
@@ -104,16 +122,15 @@ var TableEditor = React.createClass({
     getDefaultProps: function() {
         var defaultRows = 4;
         var defaultColumns = 1;
-        var blankAnswers = [];
-        _(defaultRows).times(function() {
-            blankAnswers.push(stringArrayOfSize(defaultColumns));
+        var blankAnswers = _(defaultRows).times(function() {
+            return stringArrayOfSize(defaultColumns);
         });
         return {
             headers: [""],
             rows: defaultRows,
             columns: defaultColumns,
-            rawRows: defaultRows,
-            rawColumns: defaultColumns,
+            numRawRows: defaultRows,
+            numRawColumns: defaultColumns,
             answers: blankAnswers,
             type: "set"
         };
@@ -124,6 +141,9 @@ var TableEditor = React.createClass({
     },
 
     render: function() {
+        var self = this;
+        var rows = this.props.rows;
+        var cols = this.props.columns;
         return <div>
             <div>
                 <label>
@@ -131,7 +151,7 @@ var TableEditor = React.createClass({
                     <input
                         ref="numberOfColumns"
                         type="text"
-                        value={this.props.rawColumns}
+                        value={this.props.numRawColumns}
                         onInput={this.onSizeInput}
                     />
                 </label>
@@ -142,7 +162,7 @@ var TableEditor = React.createClass({
                     <input
                         ref="numberOfRows"
                         type="text"
-                        value={this.props.rawRows}
+                        value={this.props.numRawRows}
                         onInput={this.onSizeInput}
                     />
                 </label>
@@ -165,14 +185,14 @@ var TableEditor = React.createClass({
                 <table className="perseus-widget-table-of-values">
                     <thead>
                         <tr>{
-                            this.loopColumns(function(i) {
+                            _(cols).times(function(i) {
                                 return <th>
                                     <Editor
                                         ref={"columnHeader" + i}
-                                        content={this.props.headers[i]}
+                                        content={self.props.headers[i]}
                                         widgetEnabled={false}
                                         onChange={
-                                            this.onHeaderChange.bind(this, i)
+                                            self.onHeaderChange.bind(self, i)
                                         }
                                     />
                                 </th>;
@@ -180,15 +200,15 @@ var TableEditor = React.createClass({
                         }</tr>
                     </thead>
                     <tbody>{
-                        this.loopRows(function(r) {
+                        _(rows).times(function(r) {
                             return <tr>{
-                                this.loopColumns(function(c) {
+                                _(cols).times(function(c) {
                                     return <td>
                                         <input
                                             ref={"answer" + r + "," + c}
                                             type="text"
-                                            onInput={this.onAnswerInput}
-                                            value={this.props.answers[r][c]}
+                                            onInput={self.onAnswerInput}
+                                            value={self.props.answers[r][c]}
                                         />
                                     </td>;
                                 })
@@ -209,22 +229,12 @@ var TableEditor = React.createClass({
     }),
 
     onSizeInput: React.autoBind(function() {
-        var rawRows = this.refs.numberOfRows.getDOMNode().value;
-        var rawCols = this.refs.numberOfColumns.getDOMNode().value;
-        var rows = +rawRows || 0;
-        var cols = +rawCols || 0;
-        if (rows < 1) {
-            rows = 1;
-        }
-        if (rows > 30) {
-            rows = 30;
-        }
-        if (cols < 1) {
-            cols = 1;
-        }
-        if (cols > 6) {
-            cols = 6;
-        }
+        var numRawRows = this.refs.numberOfRows.getDOMNode().value;
+        var numRawCols = this.refs.numberOfColumns.getDOMNode().value;
+        var rows = +numRawRows || 0;
+        var cols = +numRawCols || 0;
+        rows = Math.min(Math.max(1, rows), 30);
+        cols = Math.min(Math.max(1, cols), 6);
         var oldColumns = this.props.columns;
         var oldRows = this.props.rows;
 
@@ -251,36 +261,18 @@ var TableEditor = React.createClass({
         this.props.onChange({
             rows: rows,
             columns: cols,
-            rawRows: rawRows,
-            rawColumns: rawCols,
+            numRawRows: numRawRows,
+            numRawColumns: numRawCols,
             answers: answers,
             headers: headers
         });
     }),
 
-    loopRows: function(callback) {
-        var self = this;
-        var ret = [];
-        _(this.props.rows).times(function (r) {
-            ret.push(callback.call(self, r));
-        });
-        return ret;
-    },
-
-    loopColumns: function(callback) {
-        var self = this;
-        var ret = [];
-        _(this.props.columns).times(function (c) {
-            ret.push(callback.call(self, c));
-        });
-        return ret;
-    },
-
     onAnswerInput: React.autoBind(function() {
         var self = this;
-        var answers = this.loopRows(function(r) {
-            return this.loopColumns(function(c) {
-                return this.refs["answer" + r + "," + c].getDOMNode().value;
+        var answers = _(self.props.rows).times(function(r) {
+            return _(self.props.columns).times(function(c) {
+                return self.refs["answer" + r + "," + c].getDOMNode().value;
             });
         });
         this.props.onChange({answers: answers});
