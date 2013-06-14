@@ -44,7 +44,7 @@ var Expression = React.createClass({
                             style={{display: "none"}}>
                         <span className="buddy" />
                         <span className="message"><span>
-                            Sorry, I don't understand that!
+                            {"Sorry, I don't understand that!"}
                         </span></span>
                     </span>
                 </span>
@@ -206,7 +206,10 @@ _.extend(Expression, {
         return [
             $._("For $3x$, enter **3x** or **3 x** or **3*x**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),
-            $._("For $x^{y}$, enter **x^y**")
+            $._("For $x^{y}$, enter **x^y**"),
+            $._("For $\\pi$, enter **pi**"),
+            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
+            $._("For $\\neq$, enter **=/=**")
         ];
     }
 });
@@ -221,7 +224,6 @@ var ExpressionEditor = React.createClass({
     },
 
     optionLabels: {
-        eval: "Answer expression must evaluate the same.",
         form: "Answer expression must have the same form.",
         simplify: "Answer expression must be fully expanded and simplified."
     },
@@ -271,14 +273,9 @@ var ExpressionEditor = React.createClass({
             } else if (!parse(value).parsed) {
                 alert("Warning: Entered expression didn't parse.");
             }
-
-            if (!this.props.eval && !this.props.form) {
-                alert("Warning: Neither semantic nor syntactic checking " +
-                        "is enabled.");
-            }
         }
 
-        return _.pick(this.props, "value", "eval", "form", "simplify");
+        return _.pick(this.props, "value", "form", "simplify");
     }
 });
 

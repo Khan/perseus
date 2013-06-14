@@ -106,7 +106,7 @@ var Editor = Perseus.Editor = React.createClass({
                         <option value="input-number">
                                 Text input (number)</option>
                         <option value="expression">
-                                Expression input</option>
+                                Expression / Equation</option>
                         <option value="interactive-graph">
                                 Interactive graph</option>
                         <option value="dropdown">

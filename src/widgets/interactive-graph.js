@@ -393,8 +393,6 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "point") {
-                console.log(state);
-                console.log(rubric);
                 if (state.coord[0] === rubric.correct.coord[0] &&
                         state.coord[1] === rubric.correct.coord[1]) {
                     return {

@@ -18,15 +18,24 @@ var grammar = {
             ["\\^",                 "return \"^\""],
             ["\\(",                 "return \"(\""],
             ["\\)",                 "return \")\""],
-            // ["sqrt",                "return \"FUNC\""],
-            // ["ln",                  "return \"FUNC\""],
-            // ["log",                 "return \"FUNC\""],
+            ["<=|>=|<>|<|>|=",      "return \"SIGN\""],
+            ["=\\/=",               "yytext = \"<>\"; return \"SIGN\""],
+            ["\\/=",                "yytext = \"<>\"; return \"SIGN\""],
+            ["\\!=",                "yytext = \"<>\"; return \"SIGN\""],
+            ["\u2260",              "yytext = \"<>\"; return \"SIGN\""],
+            ["\u2264",              "yytext = \"<=\"; return \"SIGN\""],
+            ["\u2265",              "yytext = \">=\"; return \"SIGN\""],
+            // ["sqrt",                "return \"sqrt\""],
+            // ["ln",                  "return \"LOG\""],
+            // ["log",                 "return \"LOG\""],
             // ["sin",                 "return \"FUNC\""],
             // ["cos",                 "return \"FUNC\""],
             // ["tan",                 "return \"FUNC\""],
             // ["abs",                 "return \"FUNC\""],
             // ["\\|",                 "return \"ABS\""],
+            // ["\\!",                 "return \"FACT\""],
             ["pi",                  "return \"CONST\""],
+            ["\u03C0",              "yytext = \"pi\"; return \"CONST\""],
             ["e",                   "return \"CONST\""],
             ["[a-zA-Z]",            "return \"VAR\""],
             ["$",                   "return \"EOF\""],
@@ -42,11 +51,15 @@ var grammar = {
         ["left", "UMINUS"],
         ["right", "^"]
     ],
-    start: "expression",
+    start: "equation",
     bnf: {
-        "expression": [
-            ["additive EOF", "return $1;"],
+        "equation": [
+            ["expression SIGN expression EOF", "return new yy.Eq([$1, $2, $3]);"],
+            ["expression EOF", "return $1;"],
             ["EOF", "return new yy.Add([]);"]
+        ],
+        "expression": [
+            ["additive", "$$ = $1;"]
         ],
         "additive": [
             ["additive + multiplicative", "$$ = yy.Add.createOrAppend($1, $3);"],
@@ -73,6 +86,7 @@ var grammar = {
             ["VAR", "$$ = new yy.Var(yytext);"],
             ["INT", "$$ = new yy.Int(Number(yytext));"],
             ["FLOAT", "$$ = new yy.Float(Number(yytext));"],
+            // ["sqrt ( additive )", "$$ = yy.Pow.handleSqrt($3);"],
             ["( additive )", "$$ = $2;"]
         ]
     }

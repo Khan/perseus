@@ -7,6 +7,7 @@
             Add
             Mul
         Pow         2 children
+        <Log>       2 children
         <Eq>        2 children
         <Func>      1 child
         (Atom)      leaf node
@@ -92,7 +93,7 @@ _.extend(Expr.prototype, {
     // collect all like terms
     collect: function() { return this.recurse("collect"); },
 
-    // strict equality check
+    // strict syntactic equality check
     equals: function(other) {
         return this.normalize().print() === other.normalize().print();
     },
@@ -131,6 +132,59 @@ _.extend(Expr.prototype, {
     // whether this node needs an explicit multiplication sign if following a Num
     needsExplicitMul: function() {
         return this.args()[0].needsExplicitMul();
+    },
+
+    // semantic equality check
+    compare: function(other) {
+        // equation comparisons are handled by Eq.compare()
+        if (other instanceof Eq) return false;
+
+        // TODO(alex): if expression has function variables or the constant i -> false
+        var canEval = true;
+
+        if (canEval) {
+            return this.fuzzEval(other);
+        } else {
+            return this.simplify().equals(other.simplify());
+        }
+
+    },
+
+    // plug in random numbers for the variables in both expressions
+    // if they both consistently evaluate the same, then they're the same
+    ITERATIONS: 10,
+    RANGE: 1000,
+    fuzzEval: function(other) {
+        var vars1 = this.getVars();
+        var vars2 = other.getVars();
+
+        if (vars1.length !== vars2.length) return false;
+        if (_.difference(vars1, vars2).length) return false;
+
+        for (var i = 0; i < this.ITERATIONS; i++) {
+
+            var vars = {};
+            _.each(vars1, function(v) {
+                vars[v] = _.random(-this.RANGE, this.RANGE);
+            }, this);
+
+            var result1 = this.eval(vars);
+            var result2 = other.eval(vars);
+
+            var equal = ((isNaN(result1) && isNaN(result2)) ||
+                        (Math.abs(result1 - result2) < 1e-9));
+
+            if (!equal) return false;
+        }
+        return true;
+    },
+
+    // check that the structure of both expressions is the same
+    // all negative signs are stripped and the expressions are converted to
+    // a canonical commutative form
+    // should only be done after compare() returns true to avoid false positives
+    sameForm: function(other) {
+        return this.strip().equals(other.strip());
     }
 });
 
@@ -641,7 +695,7 @@ _.extend(Pow.prototype, {
 
             return (new Mul(terms)).collect();
 
-        } else if (pow.base instanceof Add && pow.exp instanceof Int) {
+        } else if (pow.base instanceof Add && pow.exp instanceof Int && pow.exp.eval() > 0) {
             // e.g. (a+b)^2 -> a*a+a*b+a*b+b*b
 
             var n = pow.exp.eval();
@@ -721,6 +775,125 @@ _.extend(Pow.prototype, {
 });
 
 
+/* equation */
+function Eq(args) {
+    this.left = args[0];
+    this.type = args[1];
+    this.right = args[2];
+}
+Eq.prototype = new Expr();
+
+_.extend(Eq.prototype, {
+    func: Eq,
+    args: function() { return [this.left, this.type, this.right]; },
+    
+    repr: function() {
+        return "Eq(" + this.left.repr() + "," + this.type + "," + this.right.repr() + ")";
+    },
+
+    getVars: function() { return _.uniq([this.left.getVars(), this.right.getVars()]); },
+
+    needsExplicitMul: function() { return false; },
+
+    print: function() {
+        return this.left.print() + this.type + this.right.print();
+    },
+
+    signs: {
+        "=": " = ",
+        "<": " < ",
+        ">": " > ",
+        "<>": " \\ne ",
+        "<=": " \\le ",
+        ">=": " \\ge "        
+    },
+
+    tex: function() {
+        return this.left.tex() + this.signs[this.type] + this.right.tex();
+    },
+
+    recurse: function(method) {
+        var exprs = _.invoke([this.left, this.right], method);
+        return new Eq([exprs[0], this.type, exprs[1]]);
+    },
+
+    normalize: function() {
+        var eq = this.recurse("normalize");
+
+        if (_.contains([">", ">="], eq.type)) {
+            // inequalities should have the smaller side on the left
+            return new Eq([eq.right, eq.type.replace(">", "<"), eq.left]);
+        } else {
+            return eq;
+        }
+    },
+
+    // convert the equation to an expression that is set to zero
+    toExpr: function() {
+        if (this.right instanceof Add) {
+            // invidually negates every additive term
+            // e.g. y=x+1 -> y-x-1
+            var right = _.map(this.right.terms, function(term) {
+                return Mul.handleNegative(term);
+            });
+
+            if (this.left instanceof Add) {
+                return new Add(this.left.terms.concat(right));
+            } else {
+                return new Add([this.left].concat(right));
+            }
+        } else {
+            // otherwise just negate the entire side
+            // e.g. y=3x -> y-3x
+            var right = Mul.handleNegative(this.right);
+            return new Add([this.left, right]);
+        }
+    },
+
+    compare: function(other) {
+        // expression comparisons are handled by Expr.compare()
+        if (!(other instanceof Eq)) return false;
+
+        var eq1 = this.normalize();
+        var eq2 = other.normalize();
+
+        if (eq1.type !== eq2.type) return false;
+
+        var expr1 = eq1.toExpr();
+        var expr2 = eq2.toExpr();
+
+        if (_.contains(["=", "<>"], eq1.type)) {
+            // equals and not-equals can be subtracted either way
+            return expr1.compare(expr2) || 
+                   expr1.compare(Mul.handleNegative(expr2));
+        } else {
+            return expr1.compare(expr2);
+        }
+    },
+
+    // should only be done after compare() returns true to avoid false positives
+    sameForm: function(other) {
+        var eq1 = this.normalize();
+        var eq2 = other.normalize();
+
+        var same = eq1.left.sameForm(eq2.left) && eq1.right.sameForm(eq2.right);
+
+        if (_.contains(["=", "<>"], eq1.type)) {
+            // equals and not-equals can be commutative with respect to the sign
+            return same || (eq1.left.sameForm(eq2.right) && eq1.right.sameForm(eq2.left));
+        } else {
+            return same;
+        }
+    },
+
+    // we don't want to override collect because it would turn y=x into y-x=0
+    // all we want to find out is if the equation was in that form, would it be simplified?
+    isSimplified: function() {
+        return this.toExpr().isSimplified();
+    }
+});
+
+
 /* abstract leaf node */
 function Atom() {};
 Atom.prototype = new Expr();
@@ -730,11 +903,7 @@ _.extend(Atom.prototype, {
         return this.func.name + "(" + this.args() + ")";
     },
 
-    strip: function() { return this; },
-    normalize: function() { return this; },
-    distribute: function() { return this; },
-    collect: function() { return this; },
-
+    recurse: function() { return this; },
     getVars: function() { return []; },
     needsExplicitMul: function() { return false; }
 });
@@ -997,6 +1166,7 @@ parser.yy = {
     Add: Add,
     Mul: Mul,
     Pow: Pow,
+    Eq: Eq,
     Const: Const,
     Var: Var,
     Int: Int,

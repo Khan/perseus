@@ -74,6 +74,7 @@
         strictEqual(parse(input).tex(), expected, message);
     };
 
+    // TODO(alex): remove normalize() from distribute() tests?
     var dist = function(input, expected, message) {
         var actual = parse(input).distribute().normalize().print();
         strictEqual(actual, expected, message);
@@ -228,6 +229,7 @@
         eq("mx+b", "m*x+b");
         eq("v^2/r", "v^(2)*r^(-1)");
         eq("4/3pir^3", "4/3*pi*r^(3)");
+        eq("4/3\u03C0r^3", "4/3*pi*r^(3)");
     });
 
     test("factors", function() {
@@ -242,7 +244,26 @@
         eq("x y", "x*y");
     });
 
+    test("equations", function() {
+        eq("y=x", "y=x");
+        eq("y=x^2", "y=x^(2)");
+        eq("1<2", "1<2");
+        eq("1<=2", "1<=2");
+        eq("2>1", "2>1");
+        eq("2>=1", "2>=1");
+        eq("1<>2", "1<>2");
+        eq("1=/=2", "1<>2");
+        eq("1/=2", "1<>2");
+        eq("1!=2", "1<>2");
+        eq("a\u2260b", "a<>b");
+        eq("a\u2264b", "a<=b");
+        eq("a\u2265b", "a>=b");
+    });
+
     test("structure", function() {
+        repr("", "Add()");
+        repr("1.", "1");
+        repr("1/2", "1/2");
         repr("a+b", "Add(Var(a),Var(b))");
         repr("a+b+c", "Add(Var(a),Var(b),Var(c))");
         repr("a-b", "Add(Var(a),Mul(-1,Var(b)))");
@@ -260,6 +281,7 @@
         repr("pi^2", "Pow(Const(pi),2)")
         repr("pir", "Mul(Const(pi),Var(r))");
         repr("pir^2", "Mul(Const(pi),Pow(Var(r),2))");
+        repr("y=x^2", "Eq(Var(y),=,Pow(Var(x),2))");
     });
 
     QUnit.module("evaluating");
@@ -329,20 +351,36 @@
     QUnit.module("comparing");
 
     test("evaluate only", function() {
-        var comp = _.partial(compare, {
-            eval: true, form: false
-        });
+        var comp = _.partial(compare, {form: false});
 
         comp("2+2", "4");
         comp("a(b+c)", "ab+ac");
         comp("a/b", "a*b^-1");
         comp("(1-x)(-1-6x)", "(6x+1)(x-1)");
+        comp("y=x", "x", false);
+        comp("x", "y=x", false);
+        comp("y=x", "y=x");
+        comp("y=x", "x=y");
+        comp("y=x", "-y=-x");
+        comp("y=x", "-x=-y");
+        comp("y=x", "y=-x", false);
+        comp("y=x", "-y=x", false);
+        comp("y=x", "y=/=x", false);
+        comp("y<x", "x>y");
+        comp("y<=x", "x>=y");
+        comp("y>x", "x<y");
+        comp("y>=x", "x<=y");
+        comp("a+b<c-d", "a+b-c+d<0");
+
+        comp("y=mx+b", "-b-mx=-y");
+        comp("y=mx+b", "y-b=mx");
+        comp("y-3=2(x-4)", "y=2x-5");
+        comp("y-3=2(x-4)", "2x-y=5");
+        comp("y=2x-5", "2x-y=5");
     });
 
-    test("form only", function() {
-        var comp = _.partial(compare, {
-            eval: false, form: true,
-        });
+    test("evaluating and comparing form", function() {
+        var comp = _.partial(compare, {form: true});
 
         comp("a*b", "b*a");
         comp("(a*b)*c", "(c*b)*a");
@@ -367,16 +405,16 @@
 
         comp("(6x+1)(x+1)", "(6x+1)(x-1)", false);
         comp("a-b-c", "c+b+a", false);
-    });
-
-    test("evaluating and comparing form", function() {
-        var comp = _.partial(compare, {
-            eval: true, form: true,
-        });
 
         comp("(6x+1)(x+1)", "(6x+1)(x-1)", false);
         comp("a-b-c", "c+b+a", false);
         comp("mx+b", "b+mx");
+
+        comp("y=mx+b", "-b-mx=-y");
+        comp("y=mx+b", "y-b=mx", false);
+        comp("y-3=2(x-4)", "y=2x-5", false);
+        comp("y-3=2(x-4)", "2x-y=5", false);
+        comp("y=2x-5", "2x-y=5", false);
     });
 
     QUnit.module("rendering");
@@ -445,6 +483,13 @@
         tex("--3x", "--3x");
         tex("-x*3", "-3x");
         tex("--x*3", "--3x");
+        tex("y=x", "y = x");
+        tex("y<x", "y < x");
+        tex("y>x", "y > x");
+        tex("y<>x", "y \\ne x");
+        tex("y=/=x", "y \\ne x");
+        tex("y<=x", "y \\le x");
+        tex("y>=x", "y \\ge x");
     });
 
     QUnit.module("transforming");
@@ -507,6 +552,9 @@
         collecttex("a-b", "a+-1b");
         collect("a/b", "a*b^(-1)");
         collecttex("a/b", "ab^{-1}");
+        collect("y=x*x", "y=x^(2)");
+        // collect does not try to collect across both sides of an equation
+        collect("1+y=1+x^2", "1+y=1+x^(2)");
     });
 
     test("simplify", function() {
@@ -523,11 +571,13 @@
     test("isSimplified", function() {
         isSimplified("1/2");
         isSimplified("2/1", false);
+        isSimplified("(2x)/(5x)", false);
         isSimplified("a+b+c");
         isSimplified("a-b-c");
         isSimplified("a+b+c+c", false);
         isSimplified("a-b-c-d-d+d", false);
         isSimplified("x");
+        isSimplified("x+0", false);
         isSimplified("-x");
         isSimplified("-1*x");
         isSimplified("--x", false);
@@ -535,9 +585,34 @@
         isSimplified("1/x");
         isSimplified("1/x^-1", false);
         isSimplified("x/1", false);
+        isSimplified("x/y");
+        isSimplified("xy/z");
         isSimplified("-3x");
         isSimplified("-x*3");
         isSimplified("-x*3*y");
+        isSimplified("(x+1)/(2(x+1))", false);
+
+        isSimplified("y=x");
+        isSimplified("y=x^2");
+        isSimplified("y=x*x", false);
+
+        isSimplified("y=x^2+1");
+        isSimplified("xy=x^2+1");
+        isSimplified("y+1=x^2+1", false);
+
+        // TODO(alex): fix the following instances in which simplify() is broken:
+
+        // should be true, but isn't because simplify() distributes first
+        // relatively low priority, because form checks better cover this case anyway
+        isSimplified("(x+1)/(x+2)", false);
+
+        // is false, but for the wrong reason (see above)
+        // to do right, simplify() would have to have a factor() step somewhere in there
+        isSimplified("(x+1)/(2x+2)", false);
+        
+        // highest priority because content creators wouldn't expect this
+        // complication: you can't multiply inequalities by things that might be negative
+        isSimplified("xy=x^2", true);
     });
 
 })(Perseus);
