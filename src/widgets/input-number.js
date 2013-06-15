@@ -70,6 +70,9 @@ var InputNumber = React.createClass({
 
 _.extend(InputNumber, {
     validate: function(state, rubric) {
+        if (rubric.answerType == null) {
+            rubric.answerType = "number";
+        }
         var val = Khan.answerTypes.number.createValidatorFunctional(
             rubric.value, {
                 simplify: rubric.simplify,
@@ -103,6 +106,9 @@ _.extend(InputNumber, {
     },
 
     examples: function(options) {
+        if (options.answerType == null) {
+            options.answerType = "number";
+        }
         var forms = answerTypes[options.answerType].forms.split(/\s*,\s*/);
 
         var examples = _.map(forms, function(form) {
