@@ -1,6 +1,50 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var answerTypes = {
+    number: {name: "Numbers",
+             forms: "integer, decimal, proper, improper, mixed"},
+    decimal: {name: "Decimals", forms: "decimal"},
+    integer: {name: "Integers", forms: "integer"},
+    rational: {name: "Rationals", forms: "integer, proper, improper, mixed"},
+    improper: {name: "Improper numbers", forms: "integer, proper, improper"},
+    mixed: {name: "Mixed numbers", forms: "integer, proper, mixed"},
+    percent: {name: "Percents",
+              forms: "decimal, proper, improper, mixed, percent"},
+    pi: {name: "Numbers with pi", forms: "pi"}
+};
+
+var formExamples = {
+    "integer": function(options) { return $._("an integer, like $6$"); },
+    "proper": function(options) {
+        if (options.simplify === "optional") {
+            return $._("a *simplified proper* fraction, like $3/5$");
+        } else {
+            return $._("a *proper* fraction, like $1/2$ or $6/10$");
+        }
+    },
+    "improper": function(options) {
+        if (options.simplify === "optional") {
+            return $._("a *simplified improper* fraction, like $7/4$");
+        } else {
+            return $._("an *improper* fraction, like $10/7$ or $14/8$");
+        }
+    },
+    "mixed": function(options) {
+        return $._("a mixed number, like $1\\ 3/4$");
+    },
+    "decimal": function(options) {
+        return $._("an *exact* decimal, like $0.75$");
+    },
+    "percent": function(options) {
+        return $._("a percent, like $12.34\\%$");
+    },
+    "pi": function(options) {
+        return $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+                "$2/3\\ \\text{pi}$");
+    }
+};
+
 var InputNumber = React.createClass({
     render: function() {
         var type = window.Modernizr && Modernizr.touch ? "number" : "text";
@@ -28,8 +72,12 @@ _.extend(InputNumber, {
     validate: function(state, rubric) {
         var val = Khan.answerTypes.number.createValidatorFunctional(
             rubric.value, {
-                simplify: rubric.simplify
+                simplify: rubric.simplify,
+                inexact: rubric.inexact,
+                maxError: rubric.maxError,
+                forms: answerTypes[rubric.answerType].forms
             });
+
         var result = val(state.value);
 
         if (state.value === "" || result === "") {
@@ -55,22 +103,13 @@ _.extend(InputNumber, {
     },
 
     examples: function(options) {
-        var integer = $._("an integer, like $6$");
+        var forms = answerTypes[options.answerType].forms.split(/\s*,\s*/);
 
-        var proper, improper;
-        if (options.simplify === "optional") {
-            proper = $._("a *proper* fraction, like $1/2$ or $6/10$");
-            improper = $._("an *improper* fraction, like $10/7$ or $14/8$");
-        } else {
-            proper = $._("a *simplified proper* fraction, like $3/5$");
-            improper = $._("a *simplified improper* fraction, like $7/4$");
-        }
+        var examples = _.map(forms, function(form) {
+            return formExamples[form](options);
+        });
 
-        var mixed = $._("a mixed number, like $1\\ 3/4$");
-
-        var decimal = $._("an *exact* decimal, like $0.75$");
-
-        return [integer, proper, improper, mixed, decimal];
+        return examples;
     }
 });
 
@@ -79,7 +118,10 @@ var InputNumberEditor = React.createClass({
         return {
             value: "0",
             simplify: "required",
-            size: "normal"
+            size: "normal",
+            inexact: false,
+            maxError: 0.1,
+            answerType: "number"
         };
     },
 
@@ -89,6 +131,11 @@ var InputNumberEditor = React.createClass({
     },
 
     render: function() {
+        var answerTypeOptions = _.map(answerTypes, function(v, k) {
+            return <option selected={k === this.props.answerType}
+                    value={k}>{v.name}</option>;
+        }, this);
+
         return <div>
             <div><label>
                 Correct answer:
@@ -112,6 +159,38 @@ var InputNumberEditor = React.createClass({
             </label></div>
 
             <div><label>
+                <input type="checkbox"
+                    checked={this.props.inexact}
+                    onChange={function(e) {
+                        this.props.onChange({inexact: e.target.checked});
+                    }.bind(this)} />
+                Allow inexact answers
+            </label>
+
+            <label>
+            <input /* TODO(emily): don't use a hidden checkbox for alignment */
+                type="checkbox" style={{visibility: "hidden"}} />
+            Max error:
+            <input type="text" disabled={!this.props.inexact}
+                value={this.props.maxError}
+                onBlur={function(e) {
+                    var ans = "" + (Perseus.Util.firstNumericalParse(
+                            e.target.value) || 0);
+                    e.target.value = ans;
+                    this.props.onChange({maxError: ans});
+                }.bind(this)} />
+            </label></div>
+
+            <div>
+            Answer type:
+            <select onChange={function(e) {
+                    this.props.onChange({answerType: e.target.value});
+                }.bind(this)}>
+                {answerTypeOptions}
+            </select>
+            </div>
+
+            <div><label>
                 Width
                 <select ref="size"
                         onChange={function(e) {
@@ -130,7 +209,9 @@ var InputNumberEditor = React.createClass({
     },
 
     toJSON: function() {
-        return _.pick(this.props, "value", "simplify", "size");
+        return _.pick(this.props,
+                "value", "simplify", "size", "inexact", "maxError",
+                "answerType");
     }
 });
 

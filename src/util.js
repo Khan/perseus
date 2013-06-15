@@ -114,7 +114,8 @@ var Util = Perseus.Util = {
                 return true;  /* break */
             }, {
                 simplify: "optional",
-                inexact: true
+                inexact: true,
+                forms: "integer, proper, improper, pi, log, mixed, decimal"
             });
 
         val(text);
