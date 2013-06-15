@@ -36,6 +36,9 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     componentDidMount: function() {
+        if (this.props.calculator) {
+            $("#calculator").show();
+        }
         if (this.state.cls.examples && $("#examples-show").length) {
             $("#examples-show").append("<div id='examples'></div>");
 
@@ -72,6 +75,9 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     componentWillUnmount: function() {
+        if (this.props.calculator) {
+            $("#calculator").hide();
+        }
         if (this.state.cls.examples && $("#examples-show").length) {
             $("#examples-show").hide();
             React.unmountAndReleaseReactRootNode(
@@ -145,6 +151,7 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                 AnswerAreaRenderer({
                     type: this.props.item.answerArea.type,
                     options: this.props.item.answerArea.options,
+                    calculator: this.props.item.answerArea.calculator,
                     problemNum: this.props.problemNum
                 }),
                 document.getElementById("solutionarea"));

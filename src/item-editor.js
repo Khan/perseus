@@ -40,7 +40,8 @@ var AnswerAreaEditor = React.createClass({
     getDefaultProps: function() {
         return {
             type: "input-number",
-            options: {}
+            options: {},
+            calculator: false
         };
     },
 
@@ -67,6 +68,13 @@ var AnswerAreaEditor = React.createClass({
 
         return <div className="perseus-answer-editor">
             <label>
+                Show calculator:
+                <input type="checkbox" checked={this.props.calculator}
+                    onChange={function(e) {
+                        this.props.onChange({calculator: e.target.checked});
+                    }.bind(this)} />
+            </label>
+            <label>
                 Answer type:
                 <select ref="answerType"
                         onChange={function(e) {
@@ -91,7 +99,8 @@ var AnswerAreaEditor = React.createClass({
         // Could be just _.pick(this.props, "type", "options"); but validation!
         return {
             type: this.props.type,
-            options: this.refs.editor.toJSON(skipValidation)
+            options: this.refs.editor.toJSON(skipValidation),
+            calculator: this.props.calculator
         };
     }
 });
