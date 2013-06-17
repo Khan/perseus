@@ -204,7 +204,8 @@ _.extend(Expression, {
 
     examples: function() {
         return [
-            $._("For $3x$, enter **3x** or **3 x** or **3*x**"),
+            $._("For $2\\cdot2$, enter **2*2**"),
+            $._("For $3y$, enter **3y** or **3 y** or **3*y**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),
             $._("For $x^{y}$, enter **x^y**"),
             $._("For $\\pi$, enter **pi**"),

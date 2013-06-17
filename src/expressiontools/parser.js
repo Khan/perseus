@@ -600,21 +600,21 @@ case 3:return "^"
 break;
 case 4:return "*"
 break;
-case 5:return "/"
+case 5:return "*"
 break;
-case 6:return "-"
+case 6:return "/"
 break;
-case 7:return "+"
+case 7:return "-"
 break;
-case 8:return "^"
+case 8:return "+"
 break;
-case 9:return "("
+case 9:return "^"
 break;
-case 10:return ")"
+case 10:return "("
 break;
-case 11:return "SIGN"
+case 11:return ")"
 break;
-case 12:yy_.yytext = "<>"; return "SIGN"
+case 12:return "SIGN"
 break;
 case 13:yy_.yytext = "<>"; return "SIGN"
 break;
@@ -622,28 +622,30 @@ case 14:yy_.yytext = "<>"; return "SIGN"
 break;
 case 15:yy_.yytext = "<>"; return "SIGN"
 break;
-case 16:yy_.yytext = "<="; return "SIGN"
+case 16:yy_.yytext = "<>"; return "SIGN"
 break;
-case 17:yy_.yytext = ">="; return "SIGN"
+case 17:yy_.yytext = "<="; return "SIGN"
 break;
-case 18:return "CONST"
+case 18:yy_.yytext = ">="; return "SIGN"
 break;
-case 19:yy_.yytext = "pi"; return "CONST"
+case 19:return "CONST"
 break;
-case 20:return "CONST"
+case 20:yy_.yytext = "pi"; return "CONST"
 break;
-case 21:return "VAR"
+case 21:return "CONST"
 break;
-case 22:return "EOF"
+case 22:return "VAR"
 break;
-case 23:return "INVALID"
+case 23:return "EOF"
 break;
-case 24:console.log(yy_.yytext);
+case 24:return "INVALID"
+break;
+case 25:console.log(yy_.yytext);
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:[0-9]+\.?)/,/^(?:([0-9]+)?\.[0-9]+)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:<=|>=|<>|<|>|=)/,/^(?:=\/=)/,/^(?:\/=)/,/^(?:\!=)/,/^(?:≠)/,/^(?:≤)/,/^(?:≥)/,/^(?:pi)/,/^(?:π)/,/^(?:e)/,/^(?:[a-zA-Z])/,/^(?:$)/,/^(?:.)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:[0-9]+\.?)/,/^(?:([0-9]+)?\.[0-9]+)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:·)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:<=|>=|<>|<|>|=)/,/^(?:=\/=)/,/^(?:\/=)/,/^(?:\!=)/,/^(?:≠)/,/^(?:≤)/,/^(?:≥)/,/^(?:pi)/,/^(?:π)/,/^(?:e)/,/^(?:[a-zA-Z])/,/^(?:$)/,/^(?:.)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],"inclusive":true}}
 };
 return lexer;
 })();

@@ -9,7 +9,7 @@ var BaseRadio = React.createClass({
         return <ul className="perseus-widget-radio">
             {this.props.choices.map(function(choice, i) {
                 return <li>
-                    <div>
+                    <div><label>
                         <input
                             ref={"radio" + i}
                             type={inputType}
@@ -17,7 +17,7 @@ var BaseRadio = React.createClass({
                             checked={choice.checked}
                             onChange={this.onChange.bind(this, i)} />
                         {choice.content}
-                    </div>
+                    </label></div>
                 </li>;
             }, this)}
         </ul>;

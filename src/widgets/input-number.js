@@ -47,8 +47,7 @@ var formExamples = {
 
 var InputNumber = React.createClass({
     render: function() {
-        var type = window.Modernizr && Modernizr.touch ? "number" : "text";
-        return <input ref="input" type={type} className=
+        return <input ref="input" type="text" className=
             {"perseus-input-size-" + (this.props.size || "normal")} />;
     },
 
