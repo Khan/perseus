@@ -165,8 +165,17 @@ var RadioEditor = React.createClass({
                             }
                         }.bind(this)
                     });
+                    var deleteLink = <a href="#"
+                            className="simple-button orange delete-choice"
+                            title="Remove this choice"
+                            onClick={this.onDelete.bind(this, i)}>
+                        <span class="icon-trash" />
+                    </a>;
                     return {
-                        content: editor,
+                        content: <div className="choice-editor">
+                            {editor}
+                            {this.props.choices.length >= 2 && deleteLink}
+                        </div>,
                         checked: choice.correct
                     };
                 }, this)}
@@ -215,6 +224,12 @@ var RadioEditor = React.createClass({
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
+        this.props.onChange({choices: choices});
+    }),
+
+    onDelete: React.autoBind(function(choiceIndex, e) {
+        var choices = this.props.choices.slice();
+        choices.splice(choiceIndex, 1);
         this.props.onChange({choices: choices});
     }),
 
