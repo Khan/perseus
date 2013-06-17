@@ -5,92 +5,35 @@
 <meta charset="utf-8">
 <title>Perseus render</title>
 
-<style>
-body {
-    background: #f7f7f7;
-}
+<link rel="stylesheet" type="text/css" href="/stylesheets/shared.css" />
+<link rel="stylesheet" type="text/css" href="/ke/css/khan-exercise.css" />
 
-.graphie svg {
-    position: absolute; top: 0; left: 0;
-}
-
-.perseus-widget-radio > label {
-    display: block;
-}
-
-.perseus-widget-radio > label > div,
-.perseus-widget-radio > label > div > p {
-    /* TODO(alpert): Better way of doing inline renderers? */
-    display: inline;
-}
-
-#answer_area .perseus-widget-expression > input {
-    width: 222px;
-}
-
-.perseus-widget-expression,
-.perseus-widget-expression > .output,
-.perseus-widget-expression > .output > .mathjax,
-.perseus-widget-expression > .output > .placeholder {
-    display: block;
-}
-
-.perseus-widget-expression > .output > .placeholder {
-    position: relative;
-    height: 40px;
-    overflow-y: hidden;
-}
-
-.perseus-widget-expression > .output > .placeholder  > .error {
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    background: #f7f7f7;
-    border: 1px solid #ddd;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    color: #000;
-    display: none;
-    font-weight: normal;
-    min-height: 24px;
-    width: 175px;
-    position: absolute;
-    top: 0px;
-    left: 45px;
-    margin: auto;
-}
-
-.perseus-widget-expression > .output > .placeholder > .error > .buddy {
-    background: url(https://khan-academy.appspot.com/stylesheets/scratchpads-exec-package/images/error-buddy.png);
-    background-size: 100%;
-    height: 36px;
-    width: 40px;
-    position: absolute;
-    top: -3px;
-    left: -46px;
-}
-
-.perseus-widget-expression > .output > .placeholder > .error > .message {
-    font-family: Helvetica,Arial,sans-serif;
-    line-height: 1.4em;
-    margin: 5px 8px;
-    font-size: 9pt;
-}
-</style>
+<link rel="stylesheet/less" type="text/css" href="/stylesheets/exercise-content-package/perseus.less" />
+<script src="/lib/less.js"></script>
 
 </head>
 <body>
 
-<div id="content">
-<div id="workarea"></div>
-<div id="hintsarea"></div>
-<form id="answerform">
-    <div id="solutionarea"></div>
-    <span id="examples-show" style="display: none;">Acceptable formats</span>
-</form>
+<div id="problem-and-answer" class="framework-perseus" style="width: 797px;">
+    <div id="problemarea">
+        <div id="workarea"></div>
+        <div id="hintsarea"></div>
+    </div>
+    <div id="answer_area_wrap">
+        <div id="answer_area">
+            <form id="answerform">
+                <div id="anwsercontent">
+                    <div id="solutionarea"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
 </div>
 
 <div id="extras">
     <button id="score">Score</button>
+    <span id="examples-show" style="display: none;">Acceptable formats</span>
 </div>
 
 <script src="/lib/jquery.js"></script>
@@ -227,6 +170,7 @@ Perseus.init({}).then(function() {
     zk = React.renderComponent(Perseus.ItemRenderer({
         item: seedContent,
         problemNum: Math.floor(Math.random() * 50) + 1,
+        initialHintsVisible: seedContent.hints.length
     }, null), itemMountNode);
 }).then(function() {
     console.log("all done.", +new Date/1000);
