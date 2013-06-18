@@ -1,3 +1,7 @@
+//
+// Edit this file in the *perseus* repo!
+//
+
 // Steal from webapp/stylesheets/shared-package/variables.less
 @baseFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -14,10 +18,20 @@
     }
 }
 
-.perseus-widget-radio label > div,
-.perseus-widget-radio label > div > p {
-    /* TODO(alpert): Better way of doing inline renderers? */
+.perseus-widget-radio div,
+.perseus-widget-radio div > p {
+    /* TODO(alpert): Find a better way of doing inline renderers */
     display: inline;
+}
+
+#examples > div > ul {
+    // React and Perseus.Renderer add an extra layer each to what qtip expects
+    list-style-type: disc;
+}
+
+.perseus-widget-radio .perseus-textarea-pair,
+.perseus-widget-radio .perseus-textarea-underlay {
+    display: block;
 }
 
 .framework-perseus {
