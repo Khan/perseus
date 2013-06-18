@@ -109,8 +109,11 @@ var HintsRenderer = React.createClass({
         var hints = this.props.hints
             .slice(0, hintsVisible === -1 ? undefined : hintsVisible)
             .map(function(hint, i) {
-                return Perseus.Renderer(hint);
-            });
+                return <div className={i == this.props.hints.length - 1 ?
+                        "last-hint" : ""}>
+                    {Perseus.Renderer(hint)}
+                </div>;
+            }, this);
 
         return <div>{hints}</div>;
     }
