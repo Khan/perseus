@@ -9,7 +9,7 @@ var BaseRadio = React.createClass({
         return <ul className="perseus-widget-radio">
             {this.props.choices.map(function(choice, i) {
                 return <li>
-                    <div><label>
+                    <div>
                         <input
                             ref={"radio" + i}
                             type={inputType}
@@ -17,7 +17,7 @@ var BaseRadio = React.createClass({
                             checked={choice.checked}
                             onChange={this.onChange.bind(this, i)} />
                         {choice.content}
-                    </label></div>
+                    </div>
                 </li>;
             }, this)}
         </ul>;
@@ -157,7 +157,7 @@ var RadioEditor = React.createClass({
                 choices={this.props.choices.map(function(choice, i) {
                     var editor = Perseus.Editor({
                         ref: "editor" + i,
-                        content: choice.content,
+                        content: choice.content || "",
                         widgetEnabled: false,
                         onChange: function(newProps) {
                             if ("content" in newProps) {
@@ -228,6 +228,7 @@ var RadioEditor = React.createClass({
     }),
 
     onDelete: React.autoBind(function(choiceIndex, e) {
+        e.preventDefault();
         var choices = this.props.choices.slice();
         choices.splice(choiceIndex, 1);
         this.props.onChange({choices: choices});
