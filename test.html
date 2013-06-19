@@ -29,8 +29,8 @@
         <div id="workarea"></div>
         <div id="hintsarea"></div>
         <form id="answerform">
-            <div id="solutionarea"></div>
             <span id="examples-show" style="display: none;">Acceptable formats</span>
+            <div id="solutionarea"></div>
             <a href="#" class="simple-button disabled green">
                 Check Answer
             </a>
@@ -130,10 +130,11 @@ Perseus.init({}).then(function() {
 {"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
     "type": "expression",
     "options": {
-        "value": "2x+5",
+        "value": "2*5",
         "eval": true,
         "form": false,
-        "simplify": true
+        "simplify": true,
+        "times": false
     }
 },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, too late."}]}
     , null), document.getElementById("perseus-editor"));

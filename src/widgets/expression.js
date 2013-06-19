@@ -7,7 +7,8 @@ var compare = Perseus.ExpressionTools.compare;
 var Expression = React.createClass({
     getDefaultProps: function() {
         return {
-            currentValue: ""
+            currentValue: "",
+            times: false
         };
     },
 
@@ -25,6 +26,14 @@ var Expression = React.createClass({
         this.updateParsedTex(nextProps.currentValue);
     },
 
+    asTex: function() {
+        var tex = this.state.lastParsedTex;
+        if (this.props.times) {
+            tex = tex.replace(/\\cdot/g, "\\times");
+        }
+        return "\\displaystyle " + tex;
+    },
+
     render: function() {
         var MJ = Perseus.MJ;  // MathJax
         var result = parse(this.props.currentValue);
@@ -37,7 +46,7 @@ var Expression = React.createClass({
             <span className="output">
                 <span className="mathjax"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <MJ>{"\\displaystyle " + this.state.lastParsedTex}</MJ>
+                    <MJ>{this.asTex()}</MJ>
                 </span>
                 <span className="placeholder">
                     <span ref="error" className="error"
@@ -202,9 +211,14 @@ _.extend(Expression, {
         };
     },
 
-    examples: function() {
+    examples: function(options) {
+        var mult = $._("For $2\\cdot2$, enter **2*2**");
+        if (options.times) {
+            mult = mult.replace(/\\cdot/g, "\\times");
+        }
+
         return [
-            $._("For $2\\cdot2$, enter **2*2**"),
+            mult,
             $._("For $3y$, enter **3y** or **3 y** or **3*y**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),
             $._("For $x^{y}$, enter **x^y**"),
@@ -218,22 +232,25 @@ _.extend(Expression, {
 var ExpressionEditor = React.createClass({
     getDefaultProps: function() {
         return {
-            eval: true,
             form: false,
-            simplify: false
+            simplify: false,
+            times: false
         };
     },
 
     optionLabels: {
         form: "Answer expression must have the same form.",
-        simplify: "Answer expression must be fully expanded and simplified."
+        simplify: "Answer expression must be fully expanded and simplified.",
+        times: "Use \u00D7 for rendering multiplication instead of a middle dot."
     },
 
     render: function() {
         return <div>
             <label>
                 Correct answer:
-                <Expression ref="expression" currentValue={this.props.value}
+                <Expression ref="expression"
+                    currentValue={this.props.value}
+                    times={this.props.times}
                     onChange={function(newProps) {
                         if ("currentValue" in newProps) {
                             newProps.value = newProps.currentValue;
@@ -276,7 +293,7 @@ var ExpressionEditor = React.createClass({
             }
         }
 
-        return _.pick(this.props, "value", "form", "simplify");
+        return _.pick(this.props, "value", "form", "simplify", "times");
     }
 });
 

@@ -36,9 +36,16 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     componentDidMount: function() {
-        if (this.props.calculator) {
-            $("#calculator").show();
-        }
+        this.update();
+    },
+
+    componentDidUpdate: function() {
+        this.update();
+    },
+
+    update: function() {
+        $("#calculator").toggle(this.props.calculator);
+
         if (this.state.cls.examples && $("#examples-show").length) {
             $("#examples-show").append("<div id='examples'></div>");
 
@@ -51,6 +58,10 @@ var AnswerAreaRenderer = React.createClass({
                 Perseus.Renderer({content: content}), 
                 document.getElementById("examples"));
 
+            if ($("#examples-show").data("qtip")) {
+                $("#examples-show").qtip("destroy", /* immediate */ true);
+            }
+           
             $("#examples-show").qtip({
                 content: {
                     text: $("#examples").remove(),
