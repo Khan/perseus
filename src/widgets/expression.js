@@ -219,7 +219,7 @@ _.extend(Expression, {
 
         return [
             mult,
-            $._("For $3y$, enter **3y** or **3 y** or **3*y**"),
+            $._("For $3y$, enter **3y** or **3*y**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),
             $._("For $x^{y}$, enter **x^y**"),
             $._("For $\\pi$, enter **pi**"),
@@ -241,7 +241,7 @@ var ExpressionEditor = React.createClass({
     optionLabels: {
         form: "Answer expression must have the same form.",
         simplify: "Answer expression must be fully expanded and simplified.",
-        times: "Use \u00D7 for rendering multiplication instead of a middle dot."
+        times: "Use \u00D7 for rendering multiplication instead of a center dot."
     },
 
     render: function() {
