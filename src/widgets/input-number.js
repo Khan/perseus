@@ -64,6 +64,17 @@ var InputNumber = React.createClass({
 
     simpleValidate: function(rubric) {
         return InputNumber.validate(this.toJSON(), rubric);
+    },
+
+    examples: function() {
+        var type = this.props.answerType || "number";
+        var forms = answerTypes[type].forms.split(/\s*,\s*/);
+
+        var examples = _.map(forms, function(form) {
+            return formExamples[form](this.props);
+        }, this);
+
+        return examples;
     }
 });
 
@@ -102,19 +113,6 @@ _.extend(InputNumber, {
                 message: null
             };
         }
-    },
-
-    examples: function(options) {
-        if (options.answerType == null) {
-            options.answerType = "number";
-        }
-        var forms = answerTypes[options.answerType].forms.split(/\s*,\s*/);
-
-        var examples = _.map(forms, function(form) {
-            return formExamples[form](options);
-        });
-
-        return examples;
     }
 });
 

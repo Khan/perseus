@@ -186,6 +186,23 @@ var Expression = React.createClass({
 
     simpleValidate: function(rubric) {
         return Expression.validate(this.toJSON(), rubric);
+    },
+
+    examples: function() {
+        var mult = $._("For $2\\cdot2$, enter **2*2**");
+        if (this.props.times) {
+            mult = mult.replace(/\\cdot/g, "\\times");
+        }
+
+        return [
+            mult,
+            $._("For $3y$, enter **3y** or **3*y**"),
+            $._("For $\\dfrac{1}{x}$, enter **1/x**"),
+            $._("For $x^{y}$, enter **x^y**"),
+            $._("For $\\pi$, enter **pi**"),
+            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
+            $._("For $\\neq$, enter **=/=**")
+        ];
     }
 });
 
@@ -209,23 +226,6 @@ _.extend(Expression, {
             total: 1,
             message: result.message
         };
-    },
-
-    examples: function(options) {
-        var mult = $._("For $2\\cdot2$, enter **2*2**");
-        if (options.times) {
-            mult = mult.replace(/\\cdot/g, "\\times");
-        }
-
-        return [
-            mult,
-            $._("For $3y$, enter **3y** or **3*y**"),
-            $._("For $\\dfrac{1}{x}$, enter **1/x**"),
-            $._("For $x^{y}$, enter **x^y**"),
-            $._("For $\\pi$, enter **pi**"),
-            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            $._("For $\\neq$, enter **=/=**")
-        ];
     }
 });
 

@@ -210,6 +210,26 @@ var Renderer = Perseus.Renderer = React.createClass({
                 .value();
 
         return [totalGuess, totalScore];
+    },
+
+    examples: function() {
+        var widgets = _.values(this.refs);
+        var examples = _.compact(_.map(widgets, function(widget) {
+            return widget.examples ? widget.examples() : null;
+        }));
+
+        // no widgets with examples
+        if (!examples.length) return null;
+
+        var allEqual = _.all(examples, function(example) {
+            return _.isEqual(examples[0], example);
+        });
+
+        // some widgets have different examples
+        // TODO(alex): handle this better
+        if (!allEqual) return null;
+
+        return examples[0];
     }
 });
 

@@ -51,10 +51,12 @@ var AnswerAreaRenderer = React.createClass({
             $("#examples-show").qtip("destroy", /* immediate */ true);
         }
 
-        if (this.state.cls.examples && $("#examples-show").length) {
+        var widget = this.refs.widget;
+        var examples = widget.examples ? widget.examples() : null;
+
+        if (examples && $("#examples-show").length) {
             $("#examples-show").append("<div id='examples'></div>");
 
-            var examples = this.state.cls.examples(this.props.options);
             var content = _.map(examples, function(example) {
                 return "- " + example;
             }).join("\n");
