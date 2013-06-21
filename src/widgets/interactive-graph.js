@@ -32,7 +32,9 @@ var InteractiveGraph = React.createClass({
     componentDidUpdate: function(prevProps, prevState, rootNode) {
         var oldType = prevProps.graph.type;
         var newType = this.props.graph.type;
-        if (oldType !== newType) {
+        if (oldType !== newType ||
+                newType === "point" &&
+                prevProps.graph.numPoints !== this.props.graph.numPoints) {
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
         }
@@ -40,6 +42,7 @@ var InteractiveGraph = React.createClass({
 
     render: function() {
         var typeSelect;
+        var extraOptions;
         if (this.props.flexibleType) {
             typeSelect = <select
                     ref="typeSelect"
@@ -54,13 +57,35 @@ var InteractiveGraph = React.createClass({
                 <option value="circle">Circle</option>
                 <option value="point">Point</option>
             </select>;
+
+            if (this.props.graph.type === "point") {
+                extraOptions = <select
+                        ref="numPoints"
+                        onChange={function(e) {
+                            var num = +e.target.value
+                            this.props.onChange({
+                                graph: {
+                                    type: "point",
+                                    numPoints: num,
+                                    coords: null
+                                }
+                            });
+                        }.bind(this)}>
+                    <option value="1">1 point</option>
+                    <option value="2">2 points</option>
+                    <option value="3">3 points</option>
+                    <option value="4">4 points</option>
+                    <option value="5">5 points</option>
+                    <option value="6">6 points</option>
+                </select>;
+            }
         }
 
         return <span className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                 style={{padding: "25px 25px 0 0"}}>
             <span className="graphie" ref="graphieDiv" />
-            {typeSelect}
+            {typeSelect}{extraOptions}
         </span>;
     },
 
@@ -85,6 +110,10 @@ var InteractiveGraph = React.createClass({
         // TODO(alpert): How to do this at initialization instead of here?
         if (this.refs.typeSelect) {
             this.refs.typeSelect.getDOMNode().value = type;
+        }
+        if (this.refs.numPoints) {
+            this.refs.numPoints.getDOMNode().value =
+                    this.props.graph.numPoints || 1;
         }
     },
 
@@ -217,7 +246,7 @@ var InteractiveGraph = React.createClass({
     getQuadraticCoefficients: function() {
         // TODO(alpert): Don't duplicate
         var coords = this.props.graph.coords || [[-5, 5], [0, 5], [5, 5]];
-        return InteractiveGraph.quadraticCoefficients(coords);
+        return InteractiveGraph.getQuadraticCoefficients(coords);
     },
 
     getQuadraticEquationString: function() {
@@ -289,31 +318,47 @@ var InteractiveGraph = React.createClass({
     addPointControls: function() {
         var graphie = this.graphie;
 
-        var point = this.point = graphie.addMovablePoint({
-            coord: this.props.graph.coord || [0, 0],
-            snapX: this.props.snap,
-            snapY: this.props.snap,
-            normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
-            }
-        });
-
-        $(point).on("move", function() {
-            var graph = _.extend({}, this.props.graph, {
-                coord: point.coord
+        var coords = InteractiveGraph.getPointCoords(this.props.graph);
+        this.points = _.map(coords, function(coord, i) {
+            var point = graphie.addMovablePoint({
+                coord: coord,
+                snapX: this.props.snap,
+                snapY: this.props.snap,
+                normalStyle: {
+                    stroke: KhanUtil.BLUE,
+                    fill: KhanUtil.BLUE
+                }
             });
-            this.props.onChange({graph: graph});
-        }.bind(this));
+
+            point.onMove = function(x, y) {
+                for (var j = 0; j < this.points.length; j++) {
+                    if (i !== j && _.isEqual([x, y], this.points[j].coord)) {
+                        return false;
+                    }
+                }
+                return true;
+            }.bind(this);
+
+            $(point).on("move", function() {
+                var graph = _.extend({}, this.props.graph, {
+                    coords: _.pluck(this.points, "coord")
+                });
+                this.props.onChange({graph: graph});
+            }.bind(this));
+
+            return point;
+        }, this);
     },
 
     getPointEquationString: function() {
-        var coord = this.props.graph.coord || [0, 0];
-        return "(" + coord[0] + ", " + coord[1] + ")";
+        var coords = InteractiveGraph.getPointCoords(this.props.graph);
+        return coords.map(function(coord) {
+            return "(" + coord[0] + ", " + coord[1] + ")"
+        }).join(", ");
     },
 
     removePointControls: function() {
-        this.point.remove();
+        _.invoke(this.points, "remove");
     },
 
     toJSON: function() {
@@ -329,7 +374,7 @@ var InteractiveGraph = React.createClass({
 
 
 _.extend(InteractiveGraph, {
-    quadraticCoefficients: function(coords) {
+    getQuadraticCoefficients: function(coords) {
         var p1 = coords[0];
         var p2 = coords[1];
         var p3 = coords[2];
@@ -350,8 +395,39 @@ _.extend(InteractiveGraph, {
         return [a, b, c];
     },
 
+    /**
+     * @param {object} graph Like props.graph or props.correct
+     */
+    getPointCoords: function(graph) {
+        var numPoints = graph.numPoints || 1;
+        var coords = graph.coords;
+
+        if (graph.coords) {
+            return graph.coords;
+        } else {
+            switch (numPoints) {
+                case 1:
+                    // Back in the day, one point's coords were in graph.coord
+                    return [graph.coord || [0, 0]];
+                case 2:
+                    return [[-5, 0], [5, 0]];
+                case 3:
+                    return [[-5, 0], [0, 0], [5, 0]];
+                case 4:
+                    return [[-6, 0], [-2, 0], [2, 0], [6, 0]];
+                case 5:
+                    return [[-6, 0], [-3, 0], [0, 0], [3, 0], [6, 0]];
+                case 6:
+                    return [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0], [5, 0]];
+            }
+        }
+    },
+
     validate: function(state, rubric) {
-        if (state.type === rubric.correct.type) {
+        // TODO(alpert): Because this.props.graph doesn't always have coords,
+        // check that .coords exists here, which is always true when something
+        // has moved
+        if (state.type === rubric.correct.type && state.coords) {
             if (state.type === "linear") {
                 var guess = state.coords;
                 var correct = rubric.correct.coords;
@@ -368,8 +444,8 @@ _.extend(InteractiveGraph, {
                 }
             } else if (state.type === "quadratic") {
                 // If the parabola coefficients match, it's correct.
-                var guessCoeffs = this.quadraticCoefficients(state.coords);
-                var correctCoeffs = this.quadraticCoefficients(
+                var guessCoeffs = this.getQuadraticCoefficients(state.coords);
+                var correctCoeffs = this.getQuadraticCoefficients(
                         rubric.correct.coords);
                 if (eq(guessCoeffs[0], correctCoeffs[0]) &&
                         eq(guessCoeffs[1], correctCoeffs[1]) &&
@@ -393,8 +469,9 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "point") {
-                if (state.coord[0] === rubric.correct.coord[0] &&
-                        state.coord[1] === rubric.correct.coord[1]) {
+                var correct = InteractiveGraph.getPointCoords(rubric.correct);
+                if (_.isEqual(state.coords.slice().sort(),
+                        correct.slice().sort())) {
                     return {
                         type: "points",
                         earned: 1,
@@ -481,7 +558,9 @@ var InteractiveGraphEditor = React.createClass({
         return {
             // TODO(alpert): Allow specifying flexibleType (whether the graph
             // type should be a choice or not)
-            graph: {type: correct.type},
+            graph: correct.numPoints ?
+                {type: correct.type, numPoints: correct.numPoints} :
+                {type: correct.type},
             correct: correct
         };
     }
