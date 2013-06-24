@@ -85,7 +85,8 @@ var MJ = Perseus.MJ = (function() {
 var Renderer = Perseus.Renderer = React.createClass({
     getDefaultProps: function() {
         return {
-            content: ""
+            content: "",
+            ignoreMissingWidgets: false
         };
     },
 
@@ -114,11 +115,12 @@ var Renderer = Perseus.Renderer = React.createClass({
             // Widget
             var match = Perseus.Util.rWidgetParts.exec(saved);
             var id = match[1];
+            var type = match[2];
 
-            var widgetInfo = this.props.widgets[id];
-            if (widgetInfo) {
+            var widgetInfo = (this.props.widgets || {})[id];
+            if (widgetInfo || this.props.ignoreMissingWidgets) {
                 widgetIds.push(id);
-                var cls = Perseus.Widgets._widgetTypes[widgetInfo.type];
+                var cls = Perseus.Widgets._widgetTypes[type];
 
                 return cls(_.extend({
                     ref: id,
@@ -127,7 +129,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                         widgets[id] = _.extend({}, widgets[id], newProps);
                         this.setState({widgets: widgets});
                     }.bind(this)
-                }, widgetInfo.options, this.state.widgets[id]));
+                }, (widgetInfo || {}).options, this.state.widgets[id]));
             }
         }
     },
@@ -291,7 +293,6 @@ function extractMathAndWidgets(text) {
     }
 }
 
-// Export functions for unit tests
-Renderer._extractMathAndWidgets = extractMathAndWidgets;
+Renderer.extractMathAndWidgets = extractMathAndWidgets;
 
 })(Perseus);

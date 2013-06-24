@@ -8,7 +8,9 @@ var Editor = Perseus.Editor = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
-            widgets: {}
+            widgets: {},
+            widgetEnabled: true,
+            immutableWidgets: false
         };
     },
 
@@ -40,16 +42,12 @@ var Editor = Perseus.Editor = React.createClass({
     },
 
     render: function() {
-        var widgetEnabled = this.props.widgetEnabled != null ?
-                this.props.widgetEnabled :
-                true;
-
         var pieces;
         var widgets;
         var underlayPieces;
         var widgetEditors;
 
-        if (widgetEnabled) {
+        if (this.props.widgetEnabled) {
             pieces = Perseus.Util.split(this.props.content, rWidgetSplit);
             widgets = {};
             underlayPieces = [];
@@ -98,25 +96,27 @@ var Editor = Perseus.Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetEditors = <div className="perseus-editor-widgets">
-                <div>
-                    <select onChange={this.addWidget}>
-                        <option value="">Add a widget{"\u2026"}</option>
-                        <option disabled>--</option>
-                        <option value="input-number">
-                                Text input (number)</option>
-                        <option value="expression">
-                                Expression / Equation</option>
-                        <option value="interactive-graph">
-                                Interactive graph</option>
-                        <option value="table">
-                                Table of values</option>
-                        <option value="dropdown">
-                                Drop down</option>
-                    </select>
-                </div>
-                {widgets}
-            </div>;
+            if (!this.props.immutableWidgets) {
+                widgetEditors = <div className="perseus-editor-widgets">
+                    <div>
+                        <select onChange={this.addWidget}>
+                            <option value="">Add a widget{"\u2026"}</option>
+                            <option disabled>--</option>
+                            <option value="input-number">
+                                    Text input (number)</option>
+                            <option value="expression">
+                                    Expression / Equation</option>
+                            <option value="interactive-graph">
+                                    Interactive graph</option>
+                            <option value="table">
+                                    Table of values</option>
+                            <option value="dropdown">
+                                    Drop down</option>
+                        </select>
+                    </div>
+                    {widgets}
+                </div>;
+            }
         } else {
             underlayPieces = [this.props.content];
         }
@@ -172,10 +172,7 @@ var Editor = Perseus.Editor = React.createClass({
             widgets: widgets
         });
 
-        var textarea = this.refs.textarea.getDOMNode();
-        textarea.focus();
-        textarea.selectionStart = newContent.length;
-        textarea.selectionEnd = newContent.length;
+        this.focusAndMoveToEnd();
     }),
 
     toJSON: function(skipValidation) {
@@ -198,6 +195,13 @@ var Editor = Perseus.Editor = React.createClass({
 
     focus: function() {
         this.refs.textarea.getDOMNode().focus();
+    },
+
+    focusAndMoveToEnd: function() {
+        this.focus();
+        var textarea = this.refs.textarea.getDOMNode();
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
     }
 });
 })(Perseus);
