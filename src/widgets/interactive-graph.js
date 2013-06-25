@@ -5,6 +5,27 @@ function eq(x, y) {
     return Math.abs(x - y) < 1e-9;
 }
 
+/**
+ * Deep approximate equality on numbers and arrays, not objects yet.
+ */
+function deepEq(x, y) {
+    if (_.isArray(x) && _.isArray(y)) {
+        if (x.length !== y.length) {
+            return false;
+        }
+        for (var i = 0; i < x.length; i++) {
+            if (!deepEq(x[i], y[i])) {
+                return false;
+            }
+        }
+        return true;
+    } else if (_.isArray(x) || _.isArray(y)) {
+        return false;
+    } else {
+        return eq(x, y);
+    }
+}
+
 function ccw(a, b, c) {
     return (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]);
 }
@@ -447,9 +468,7 @@ _.extend(InteractiveGraph, {
                 var guessCoeffs = this.getQuadraticCoefficients(state.coords);
                 var correctCoeffs = this.getQuadraticCoefficients(
                         rubric.correct.coords);
-                if (eq(guessCoeffs[0], correctCoeffs[0]) &&
-                        eq(guessCoeffs[1], correctCoeffs[1]) &&
-                        eq(guessCoeffs[2], correctCoeffs[2])) {
+                if (deepEq(guessCoeffs, correctCoeffs)) {
                     return {
                         type: "points",
                         earned: 1,
@@ -458,8 +477,7 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "circle") {
-                if (eq(state.center[0], rubric.correct.center[0]) &&
-                        eq(state.center[1], rubric.correct.center[1]) &&
+                if (deepEq(state.center, rubric.correct.center) &&
                         eq(state.radius, rubric.correct.radius)) {
                     return {
                         type: "points",
@@ -469,9 +487,17 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "point") {
+                var guess = state.coords;
                 var correct = InteractiveGraph.getPointCoords(rubric.correct);
-                if (_.isEqual(state.coords.slice().sort(),
-                        correct.slice().sort())) {
+                guess = guess.slice();
+                correct = correct.slice();
+                // Everything's already rounded so we shouldn't need to do an
+                // eq() comparison but _.isEqual(0, -0) is false, so we'll use
+                // eq() anyway. The sort should be fine because it'll stringify
+                // it and -0 converted to a string is "0"
+                guess.sort();
+                correct.sort();
+                if (deepEq(guess, correct)) {
                     return {
                         type: "points",
                         earned: 1,
