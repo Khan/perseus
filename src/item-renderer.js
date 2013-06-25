@@ -4,6 +4,12 @@
 // TODO(alpert): Thread problemNum to question-area widgets too
 
 var AnswerAreaRenderer = React.createClass({
+    getDefaultProps: function() {
+        return {
+            calculator: false
+        };
+    },
+
     getInitialState: function() {
         // TODO(alpert): Move up to parent props?
         return {
@@ -44,7 +50,7 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     update: function() {
-        $("#calculator").toggle(!!this.props.calculator);
+        $("#calculator").toggle(this.props.calculator);
 
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
