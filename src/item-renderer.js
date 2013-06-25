@@ -44,7 +44,7 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     update: function() {
-        $("#calculator").toggle(this.props.calculator);
+        $("#calculator").toggle(!!this.props.calculator);
 
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
