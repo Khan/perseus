@@ -4,12 +4,6 @@
 // TODO(alpert): Thread problemNum to question-area widgets too
 
 var AnswerAreaRenderer = React.createClass({
-    getDefaultProps: function() {
-        return {
-            calculator: false
-        };
-    },
-
     getInitialState: function() {
         // TODO(alpert): Move up to parent props?
         return {
@@ -175,7 +169,7 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                 AnswerAreaRenderer({
                     type: this.props.item.answerArea.type,
                     options: this.props.item.answerArea.options,
-                    calculator: this.props.item.answerArea.calculator,
+                    calculator: this.props.item.answerArea.calculator || false,
                     problemNum: this.props.problemNum
                 }),
                 document.getElementById("solutionarea"));
