@@ -86,7 +86,7 @@ _.extend(InputNumber, {
         var val = Khan.answerTypes.number.createValidatorFunctional(
             rubric.value, {
                 simplify: rubric.simplify,
-                inexact: rubric.inexact,
+                inexact: rubric.inexact || undefined,
                 maxError: rubric.maxError,
                 forms: answerTypes[rubric.answerType].forms
             });
