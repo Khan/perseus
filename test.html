@@ -89,6 +89,7 @@
 <script src="/build/widgets/dropdown.js"></script>
 <script src="/build/widgets/table.js"></script>
 <script src="/build/widgets/expression.js"></script>
+<script src="/build/widgets/ordering.js"></script>
 <script src="/build/item-renderer.js"></script>
 <script src="/build/item-editor.js"></script>
 -->
@@ -109,6 +110,7 @@
 <script src="/src/widgets/dropdown.js" type="text/jsx"></script>
 <script src="/src/widgets/table.js" type="text/jsx"></script>
 <script src="/src/widgets/expression.js" type="text/jsx"></script>
+<script src="/src/widgets/ordering.js" type="text/jsx"></script>
 <script src="/src/item-renderer.js" type="text/jsx"></script>
 <script src="/src/item-editor.js" type="text/jsx"></script>
 
@@ -127,16 +129,74 @@ $('#scorePreview').on('click', function() {
 
 Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.ItemEditor(
-{"question":{"content":"How many monkeys swing from $10$ branches of **trees**?"},"answerArea":{
-    "type": "expression",
-    "options": {
-        "value": "2*5",
-        "eval": true,
-        "form": false,
-        "simplify": true,
-        "times": false
-    }
-},"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, **too late.**"}]}
+{"question":
+    {
+        "content": "How many monkeys swing from $10$ branches of **trees**? [[☃ orderer 1]]",
+        "widgets": {
+            "orderer 1": {
+                "options": {
+                    "options": {
+                        "number": [
+                            {
+                            "content": "$3$"
+                        }
+                        ],
+                        "symbol": [
+                            {
+                            "content": "$<$"
+                        }
+                        ],
+                        "variable": [
+                            {
+                            "content": "$x$"
+                        },
+                        {
+                            "content": "$y$"
+                        },
+                        {
+                            "content": "$z$"
+                        }
+                        ]
+                    },
+                    "correctOptions": [
+                        {
+                        "content": "$x$"
+                        },
+                        {
+                            "content": "$<$"
+                        },
+                        {
+                            "content": "$3$"
+                        }
+                    ],
+                    "otherOptions": [
+                        {
+                            "content": "$y$"
+                        },
+                        {
+                            "content": "$z$"
+                        },
+                        {
+                            "content": "$5$"
+                        },
+                        {
+                            "content": "$\\leq$"
+                        }
+                    ]
+                },
+                "type": "orderer"
+            }
+        }
+    },"answerArea":{
+        "type": "expression",
+        "options": {
+            "value": "2*5",
+            "eval": true,
+            "form": false,
+            "simplify": true,
+            "times": false
+        }
+    },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, **too late.**"}]}
     , null), document.getElementById("perseus-editor"));
 }).then(function() {
     console.log("all done.", +new Date/1000);

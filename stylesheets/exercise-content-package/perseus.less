@@ -211,3 +211,113 @@
     }
 }
 
+.draggy-boxy-thing {
+    .draggable-box {
+        background: #eee;
+        border: 1px solid #ccc;
+        border-bottom: 1px solid #aaa;
+
+        box-shadow: 0 1px 2px #ccc;
+        -moz-box-shadow: 0 1px 2px #ccc;
+        -webkit-box-shadow: 0 1px 2px #ccc;
+    }
+
+    .card {
+        background-color: #fff;
+        border: 1px solid #b9b9b9;
+        border-bottom-color: #939393;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+
+        &.placeholder {
+            background:#ddd;
+            border: 1px solid #ccc;
+        }
+
+        &.drag-hint {
+            background: none;
+            border: 1px dashed #aaa;
+            cursor: auto;
+            width: 20px;
+
+            &:hover {
+                border-color: #aaa;
+                box-shadow: none;
+            }
+        }
+
+        &.dragging {
+            background-color: #ffedcd;
+            opacity: 0.8;
+            filter: opacity(0.8);
+        }
+
+        &.stack {
+            &:after {
+                content: " ";
+                background-color: #fff;
+                border: 1px solid #b9b9b9;
+                border-bottom-color: #939393;
+                border-radius: 4px;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+                top: 1px;
+                left: 1px;
+                position: absolute;
+            }
+        }
+
+        &:hover {
+            border-color: #ffa500;
+            box-shadow: 0 0 4px #c56f00;
+            -moz-box-shadow: 0 0 4px #c56f00;
+            -ms-box-shadow: 0 0 4px #c56f00;
+            -o-box-shadow: 0 0 4px #c56f00;
+            -webkit-box-shadow: 0 0 4px #c56f00;
+        }
+    }
+}
+
+.ordering {
+    position: relative;
+
+    .draggable-box {
+        padding: 13px;
+        min-height: 69px;
+        margin-top: 30px;
+    }
+
+    .card {
+        margin-right: 4px;
+        height: 65px;
+        width: auto;
+        padding: 0 10px;
+        line-height: 65px;
+        max-width: 105px;
+        float: left;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+    }
+
+    .bank {
+        margin: 0px 13px;
+
+        .card {
+            margin-right: 10px;
+            margin-bottom: 8px;
+        }
+    }
+
+    div.paragraph {
+        margin: 0;
+    }
+}

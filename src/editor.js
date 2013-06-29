@@ -112,6 +112,8 @@ var Editor = Perseus.Editor = React.createClass({
                                     Table of values</option>
                             <option value="dropdown">
                                     Drop down</option>
+                            <option value="orderer">
+                                    Orderer</option>
                         </select>
                     </div>
                     {widgets}

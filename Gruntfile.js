@@ -15,6 +15,7 @@ var srcFiles = [
     "build/src/widgets/dropdown.js",
     "build/src/widgets/table.js",
     "build/src/widgets/expression.js",
+    "build/src/widgets/ordering.js",
     "build/src/item-renderer.js",
     "build/src/item-editor.js"
 ];
