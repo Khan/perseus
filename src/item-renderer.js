@@ -36,6 +36,7 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     componentDidMount: function() {
+        this.$examples = $("<div id='examples'></div>");
         this.update();
     },
 
@@ -55,7 +56,7 @@ var AnswerAreaRenderer = React.createClass({
         var examples = widget.examples ? widget.examples() : null;
 
         if (examples && $("#examples-show").length) {
-            $("#examples-show").append("<div id='examples'></div>");
+            $("#examples-show").append(this.$examples);
 
             var content = _.map(examples, function(example) {
                 return "- " + example;
@@ -63,12 +64,11 @@ var AnswerAreaRenderer = React.createClass({
 
             React.renderComponent(
                 Perseus.Renderer({content: content}), 
-                document.getElementById("examples"));
+                this.$examples[0]);
            
             $("#examples-show").qtip({
                 content: {
-                    text: $("#examples").remove(),
-                    prerender: true
+                    text: this.$examples.remove()
                 },
                 style: {classes: "qtip-light leaf-tooltip"},
                 position: {
