@@ -9,13 +9,15 @@ var BaseRadio = React.createClass({
         return <ul className="perseus-widget-radio">
             {this.props.choices.map(function(choice, i) {
 
-                var content = <div><input
-                                ref={"radio" + i}
-                                type={inputType}
-                                name={radioGroupName}
-                                checked={choice.checked}
-                                onChange={this.onChange.bind(this, i)} />
-                                {choice.content}</div>;
+                var content = <div>
+                        <input
+                            ref={"radio" + i}
+                            type={inputType}
+                            name={radioGroupName}
+                            checked={choice.checked}
+                            onChange={this.onChange.bind(this, i)} />
+                        {choice.content}
+                    </div>;
 
                 if (this.props.labelWrap) {
                     return <li><label>{content}</label></li>;
