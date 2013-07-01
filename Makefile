@@ -3,7 +3,7 @@
 build:
 	grunt
 
-all: get build put
+all: build put
 
 put: put-js put-css
 
