@@ -8,17 +8,21 @@ var BaseRadio = React.createClass({
 
         return <ul className="perseus-widget-radio">
             {this.props.choices.map(function(choice, i) {
-                return <li>
-                    <div>
-                        <input
-                            ref={"radio" + i}
-                            type={inputType}
-                            name={radioGroupName}
-                            checked={choice.checked}
-                            onChange={this.onChange.bind(this, i)} />
-                        {choice.content}
-                    </div>
-                </li>;
+
+                var content = <div><input
+                                ref={"radio" + i}
+                                type={inputType}
+                                name={radioGroupName}
+                                checked={choice.checked}
+                                onChange={this.onChange.bind(this, i)} />
+                                {choice.content}</div>;
+
+                if (this.props.labelWrap) {
+                    return <li><label>{content}</label></li>;
+                } else {
+                    return <li>{content}</li>;
+                }
+
             }, this)}
         </ul>;
     },
@@ -47,7 +51,6 @@ var Radio = React.createClass({
     },
 
     render: function() {
-        var isEditor = this.props.isEditor;
         var choices = this.props.choices.map(function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
@@ -60,6 +63,7 @@ var Radio = React.createClass({
 
         return <BaseRadio
             ref="baseRadio"
+            labelWrap={true}
             multipleSelect={this.props.multipleSelect}
             choices={choices.map(function(choice) {
                 return _.pick(choice, "content", "checked");
@@ -154,6 +158,7 @@ var RadioEditor = React.createClass({
             <BaseRadio
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
+                labelWrap={false}
                 choices={this.props.choices.map(function(choice, i) {
                     var editor = Perseus.Editor({
                         ref: "editor" + i,
