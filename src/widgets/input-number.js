@@ -17,14 +17,14 @@ var answerTypes = {
 var formExamples = {
     "integer": function(options) { return $._("an integer, like $6$"); },
     "proper": function(options) {
-        if (options.simplify === "optional") {
+        if (options.simplify !== "optional") {
             return $._("a *simplified proper* fraction, like $3/5$");
         } else {
             return $._("a *proper* fraction, like $1/2$ or $6/10$");
         }
     },
     "improper": function(options) {
-        if (options.simplify === "optional") {
+        if (options.simplify !== "optional") {
             return $._("a *simplified improper* fraction, like $7/4$");
         } else {
             return $._("an *improper* fraction, like $10/7$ or $14/8$");
