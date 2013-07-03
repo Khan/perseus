@@ -3,9 +3,9 @@
 
 var PlaceholderCard = React.createClass({
     render: function() {
-        return <div className="card-wrap">
-                <div className="card placeholder"
-                     style={{width: this.props.width}}/>
+        return <div className="card-wrap"
+                    style={{width: this.props.width}}>
+                <div className="card placeholder" />
             </div>
     }
 });
@@ -37,11 +37,11 @@ var DraggableCard = React.createClass({
         // Pull out the content to get rendered
         var rendererProps = _.pick(this.props, "content");
 
-        return <div className="card-wrap">
+        return <div className="card-wrap"
+                    style={style}>
                 <div className={className.join(" ")}
                        onMouseDown={this.onMouseDown}
-                       onTouchStart={this.onMouseDown}
-                       style={style}>
+                       onTouchStart={this.onMouseDown}>
                     {Perseus.Renderer(rendererProps)}
                 </div>
             </div>;
@@ -75,10 +75,7 @@ var FloatingCard = React.createClass({
         var style = {
             position: "absolute",
             left: this.props.startOffset.left,
-            top: this.props.startOffset.top
-        };
-
-        var widthStyle = {
+            top: this.props.startOffset.top,
             width: this.props.width
         };
 
@@ -94,8 +91,7 @@ var FloatingCard = React.createClass({
 
         return <div class="card-wrap"
                     style={style}>
-                <div className={className.join(" ")}
-                     style={widthStyle}>
+                <div className={className.join(" ")}>
                     {Perseus.Renderer(rendererProps)}
                 </div>
             </div>;
@@ -261,7 +257,7 @@ var Orderer = React.createClass({
             dragging: true,
             placeholderIndex: placeholderIndex,
             dragContent: opt.content,
-            dragWidth: $draggable.find(".card").width(),
+            dragWidth: $draggable.width(),
             grabPos: {
                 left: event.pageX,
                 top: event.pageY
