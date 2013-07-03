@@ -3,14 +3,16 @@
 
 var PlaceholderCard = React.createClass({
     render: function() {
-        return <div className="card placeholder"
-            style={{width: this.props.width}} />;
+        return <div className="card-wrap">
+                <div className="card placeholder"
+                     style={{width: this.props.width}}/>
+            </div>
     }
 });
 
 var DragHintCard = React.createClass({
     render: function() {
-        return <div className="card drag-hint" />;
+        return <div className="card-wrap"><div className="card drag-hint" /></div>;
     }
 });
 
@@ -35,11 +37,13 @@ var DraggableCard = React.createClass({
         // Pull out the content to get rendered
         var rendererProps = _.pick(this.props, "content");
 
-        return <div className={className.join(" ")}
-                   style={style}
-                   onMouseDown={this.onMouseDown}
-                   onTouchStart={this.onMouseDown}>
-                {Perseus.Renderer(rendererProps)}
+        return <div className="card-wrap">
+                <div className={className.join(" ")}
+                       onMouseDown={this.onMouseDown}
+                       onTouchStart={this.onMouseDown}
+                       style={style}>
+                    {Perseus.Renderer(rendererProps)}
+                </div>
             </div>;
     },
 
@@ -71,7 +75,10 @@ var FloatingCard = React.createClass({
         var style = {
             position: "absolute",
             left: this.props.startOffset.left,
-            top: this.props.startOffset.top,
+            top: this.props.startOffset.top
+        };
+
+        var widthStyle = {
             width: this.props.width
         };
 
@@ -85,8 +92,12 @@ var FloatingCard = React.createClass({
         // Pull out the content to get rendered
         var rendererProps = _.pick(this.props, "content");
 
-        return <div className={className.join(" ")} style={style}>
-                {Perseus.Renderer(rendererProps)}
+        return <div class="card-wrap"
+                    style={style}>
+                <div className={className.join(" ")}
+                     style={widthStyle}>
+                    {Perseus.Renderer(rendererProps)}
+                </div>
             </div>;
     },
 
@@ -219,7 +230,8 @@ var Orderer = React.createClass({
             })}
         </div>;
 
-        return <div className="draggy-boxy-thing ordering">
+        return <div className="draggy-boxy-thing ordering"
+                    ref="orderer">
                    {bank}
                    {sortable}
                    {dragging}
@@ -249,7 +261,7 @@ var Orderer = React.createClass({
             dragging: true,
             placeholderIndex: placeholderIndex,
             dragContent: opt.content,
-            dragWidth: $draggable.width(),
+            dragWidth: $draggable.find(".card").width(),
             grabPos: {
                 left: event.pageX,
                 top: event.pageY

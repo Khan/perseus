@@ -296,22 +296,27 @@
     }
 
     .card {
-        margin-right: 4px;
-        height: 65px;
-        width: auto;
         padding: 0 10px;
         line-height: 65px;
-        max-width: 105px;
-        float: left;
         cursor: pointer;
         position: relative;
         user-select: none;
+        width: auto;
+        height: 65px;
+    }
+
+    .card-wrap {
+        z-index: 0;
+        position: relative;
+        margin-right: 4px;
+        width: auto;
+        float: left;
     }
 
     .bank {
         margin: 0px 13px;
 
-        .card {
+        .card-wrap {
             margin-right: 10px;
             margin-bottom: 8px;
         }
