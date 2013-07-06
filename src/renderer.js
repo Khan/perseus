@@ -170,11 +170,10 @@ var Renderer = Perseus.Renderer = React.createClass({
     },
 
     focus: function() {
-        _.each(this.widgetIds, function(id) {
+        // Use _.some to break if any widget gets focused
+        _.some(this.widgetIds, function(id) {
             var widget = this.refs[id];
-            if (widget.focus && widget.focus()) {
-                return true;
-            }
+            return widget.focus && widget.focus();
         }, this);
     },
 
