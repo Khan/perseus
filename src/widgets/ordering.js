@@ -6,7 +6,7 @@ var PlaceholderCard = React.createClass({
         return <div className="card-wrap"
                     style={{width: this.props.width}}>
                 <div className="card placeholder" />
-            </div>:
+            </div>;
     }
 });
 
