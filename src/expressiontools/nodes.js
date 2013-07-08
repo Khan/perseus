@@ -32,21 +32,8 @@
 // assert that all abstract methods have been overridden
 var abstract = function() { throw new Error("Abstract method - must override!"); };
 
-// find the greatest common denominator
-var findGCD = function(a, b) {
-    var mod;
-
-    a = Math.abs(a);
-    b = Math.abs(b);
-
-    while (b) {
-        mod = a % b;
-        a = b;
-        b = mod;
-    }
-
-    return a;
-};
+// throw an error that is meant to be caught by the test suite (not user facing)
+var error = function(message) { throw new Error(message); };
 
 
 /* abstract base expression node */
@@ -90,6 +77,9 @@ _.extend(Expr.prototype, {
     // applies the distributive property
     distribute: function() { return this.recurse("distribute"); },
 
+    // naively factors out like terms
+    factor: function() { return this.recurse("factor"); },
+
     // collect all like terms
     collect: function() { return this.recurse("collect"); },
 
@@ -100,7 +90,7 @@ _.extend(Expr.prototype, {
 
     // distribute and collect until the expression no longer changes
     simplify: function() {
-        var simplified = this.distribute().collect();
+        var simplified = this.factor().collect().distribute().collect();
         if (this.equals(simplified)) {
             return simplified;
         } else {
@@ -185,6 +175,27 @@ _.extend(Expr.prototype, {
     // should only be done after compare() returns true to avoid false positives
     sameForm: function(other) {
         return this.strip().equals(other.strip());
+    },
+
+    // returns the GCD of this expression and the given factor
+    findGCD: abstract,
+
+    // return this expression's denominator
+    getDenominator: function() {
+        return Num.One;
+    },
+
+    // return this expression as a Mul
+    asMul: function() {
+        return new Mul([Num.One, this]);
+    },
+
+    // return whether this expression is 100% positive
+    isPositive: abstract,
+
+    // return a factor of this expression that is 100% positive
+    asPositiveFactor: function() { 
+        return this.isPositive() ? this : Num.One;
     }
 });
 
@@ -206,6 +217,10 @@ _.extend(Seq.prototype, {
 
     distribute: function() {
         return this.recurse("distribute").flatten();
+    },
+
+    factor: function() {
+        return this.recurse("factor").flatten();
     },
 
     // partition the sequence into its numeric and non-numeric parts
@@ -248,7 +263,11 @@ _.extend(Seq.prototype, {
     identity: undefined,
 
     // reduce a numeric sequence to a Num
-    reduce: abstract
+    reduce: abstract,
+
+    isPositive: function() {
+        return _.all(_.invoke(this.collect().terms, "isPositive"));
+    }
 });
 
 
@@ -313,11 +332,45 @@ _.extend(Add.prototype, {
         return (new Add(collected)).flatten();
     },
 
+    // naively factor out anything that is common to all terms
+    factor: function() {
+        var terms = _.invoke(this.terms, "collect");
+        var factors;
+
+        if (terms[0] instanceof Mul) {
+            factors = terms[0].terms;
+        } else {
+            factors = [terms[0]];
+        }
+
+        _.each(_.rest(this.terms), function(term) {
+            factors = _.map(factors, function(factor) {
+                return term.findGCD(factor);
+            });
+        });
+        factors = (new Mul(factors)).flatten();
+
+        remainder = _.map(terms, function(term) {
+            return Mul.handleDivide(term, factors).simplify();
+        });
+        remainder = (new Add(remainder)).flatten();
+
+        return Mul.createOrAppend(factors, remainder).flatten();
+    },
+
     reduce: function() {
         return _.reduce(this.terms, function(memo, term) { return memo.add(term); }, this.identity);
     },
 
-    needsExplicitMul: function() { return false; }
+    needsExplicitMul: function() { return false; },
+
+    findGCD: function(factor) {
+        if (this.equals(factor)) {
+            return factor;
+        } else {
+            return Num.One;
+        }
+    }
 });
 
 
@@ -390,7 +443,7 @@ _.extend(Mul.prototype, {
         if (!inverses.length) {
             return numerator;
         } else {
-            var denominator = (new Mul(_.invoke(inverses, "asDenominator"))).tex();
+            var denominator = (new Mul(_.invoke(inverses, "asDivide"))).tex();
             return "\\frac{" + (numerator ? numerator : "1") + "}{" + denominator + "}";
         }
     },
@@ -402,34 +455,62 @@ _.extend(Mul.prototype, {
         return (new Mul(terms)).flatten();
     },
 
+    // distribute numerator and denominator separately
     distribute: function() {
-        var mul = this.recurse("distribute");
 
-        var terms = _.groupBy(mul.terms, function(term) {
+        var isAdd = function(term) {
             return term instanceof Add;
-        });
-        var adds = terms[true] || [];
-        var others = terms[false] || [];
+        };
 
-        if (adds.length === 0) return mul;
+        var isInverse = function(term) {
+            return term instanceof Pow && term.hasNegativeExponent();
+        };
 
-        // loop over each additive sequence
-        var distributed = _.reduce(adds, function(distributed, add) {
-            // loop over each distributed array of terms
-            return _.reduce(distributed, function(temp, array) {
-                // loop over each additive sequence's terms
-                return temp.concat(_.map(add.terms, function(term) {
-                    return array.concat(term);
-                }));
-            }, []);
-        }, [[]]);
+        var isInverseAdd = function(term) {
+            return isInverse(term) && isAdd(term.base);
+        }
 
-        // join each fully distributed array of factors with remaining multiplicative factors
-        var muls = _.map(distributed, function(array) {
-            return (new Mul(others.concat(array))).flatten();
-        });
+        var mul = this.recurse("distribute").flatten();
 
-        return new Add(muls);
+        var hasAdd = _.any(mul.terms, isAdd);
+        var hasInverseAdd = _.any(mul.terms, isInverseAdd);
+
+        if (!(hasAdd || hasInverseAdd)) return mul;
+
+        var terms = _.groupBy(mul.terms, isInverse);
+        var normals = terms[false] || [];
+        var inverses = terms[true] || [];
+
+        if (hasAdd) {
+            var grouped = _.groupBy(normals, isAdd);
+            var adds = grouped[true] || [];
+            var others = grouped[false] || [];
+
+            // loop over each additive sequence
+            var distributed = _.reduce(adds, function(distributed, add) {
+                // loop over each distributed array of terms
+                return _.reduce(distributed, function(temp, array) {
+                    // loop over each additive sequence's terms
+                    return temp.concat(_.map(add.terms, function(term) {
+                        return array.concat(term);
+                    }));
+                }, []);
+            }, [[]]);
+
+            // join each fully distributed array of factors with remaining multiplicative factors
+            var muls = _.map(distributed, function(array) {
+                return (new Mul(others.concat(array))).flatten();
+            });
+
+            normals = [new Add(muls)];
+        }
+
+        if (hasInverseAdd) {
+            var denominator = new Mul(_.invoke(inverses, "getDenominator"));
+            inverses = [new Pow([denominator.distribute(), Num.Div])];
+        }
+
+        return (new Mul(normals.concat(inverses))).flatten();
     },
 
     collect: function() {
@@ -472,6 +553,10 @@ _.extend(Mul.prototype, {
         return _.any(this.terms, function(term) {
             return term instanceof Num && term.hints.subtract;
         });
+    },
+
+    getDenominator: function() {
+        return (new Mul(_.invoke(this.terms, "getDenominator"))).flatten();
     },
 
     // factor a single -1 in to the Mul
@@ -519,6 +604,23 @@ _.extend(Mul.prototype, {
 
     reduce: function() {
         return _.reduce(this.terms, function(memo, term) { return memo.mul(term); }, this.identity);
+    },
+
+    findGCD: function(factor) {
+        return (new Mul(_.invoke(this.terms, "findGCD", factor))).flatten();
+    },
+
+    asMul: function() {
+        return this;
+    },
+
+    asPositiveFactor: function() {
+        if (this.isPositive()) {
+            return this;
+        } else {
+            var terms = _.invoke(this.collect().terms, "asPositiveFactor");
+            return (new Mul(terms)).flatten();    
+        }
     }
 });
 
@@ -671,7 +773,7 @@ _.extend(Pow.prototype, {
     tex: function() {
         if (this.isDivide()) {
             // e.g. x ^ -1 w/hint -> 1/x
-            return "\\frac{1}{" + this.asDenominator().tex() + "}";
+            return "\\frac{1}{" + this.asDivide().tex() + "}";
         } else {
             // e.g. x ^ y -> x^y
             var base = this.base.tex();
@@ -693,22 +795,28 @@ _.extend(Pow.prototype, {
                 return new Pow([term, pow.exp]);
             });
 
-            return (new Mul(terms)).collect();
+            return new Mul(terms);
 
-        } else if (pow.base instanceof Add && pow.exp instanceof Int && pow.exp.eval() > 0) {
+        } else if (pow.base instanceof Add && pow.exp instanceof Int && pow.exp.abs().eval() > 1) {
             // e.g. (a+b)^2 -> a*a+a*b+a*b+b*b
+            // e.g. (a+b)^-2 -> (a*a+a*b+a*b+b*b)^-1
 
-            var n = pow.exp.eval();
+            var positive = pow.exp.eval() > 0;
+            var n = pow.exp.abs().eval();
+
+            var signed = function(mul) {
+                return positive ? mul : new Pow([mul, Num.Div]);
+            };
 
             // compute and cache powers of 2 up to n
             var cache = { 1: pow.base };
-            for (i = 2; i <= n; i *= 2) {
+            for (var i = 2; i <= n; i *= 2) {
                 var mul = new Mul([cache[i / 2], cache[i / 2]]);
                 cache[i] = mul.distribute().collect();
             }
 
             // if n is a power of 2, you're done!
-            if (_.has(cache, n)) return cache[n];
+            if (_.has(cache, n)) return signed(cache[n]);
 
             // otherwise decompose n into powers of 2 ...
             var indices = _.map(n.toString(2).split(""), function(str, i, list) {
@@ -717,7 +825,20 @@ _.extend(Pow.prototype, {
             indices = _.without(indices, 0);
 
             // ... then combine
-            return (new Mul(_.pick(cache, indices))).distribute().collect();
+            var mul = (new Mul(_.pick(cache, indices))).distribute().collect();
+            return signed(mul);
+        } else {
+            return pow;
+        }
+    },
+
+    factor: function() {
+        var pow = this.recurse("factor");
+        if (pow.base instanceof Mul) {
+            var terms = _.map(pow.base.terms, function(term) {
+                return new Pow([term, pow.exp]);
+            });
+            return new Mul(terms);
         } else {
             return pow;
         }
@@ -755,21 +876,111 @@ _.extend(Pow.prototype, {
         }
     },
 
+    // checks whether this Pow represents user-entered division
     isDivide: function() {
-        var test = function(arg) { return arg instanceof Num && arg.hints.divide; };
-        return test(this.exp) || (this.exp instanceof Mul && _.any(this.exp.terms, test));
+        var isDiv = function(arg) { return arg instanceof Num && arg.hints.divide; };
+        return isDiv(this.exp) || (this.exp instanceof Mul && _.any(this.exp.terms, isDiv));
     },
 
-    asDenominator: function() {
+    // assuming this Pow represents user-entered division, returns the denominator
+    asDivide: function() {
         if (this.exp instanceof Num) {
-            if (this.exp.n === -1) {
+            if (this.exp.eval() === -1) {
                 return this.base;
             } else {
                 return new Pow([this.base, this.exp.negate()]);
             }
-        } else {
-            // this.exp must be a Mul
+        } else if (this.exp instanceof Mul) {
             return new Pow([this.base, this.exp.factorOut()]);
+        } else {
+            error("called asDivide() on an Expr that wasn't a Num or Mul");
+        }
+    },
+
+    // check whether this Pow's exponent is negative, ignoring hints
+    hasNegativeExponent: function() {
+        var exp = this.exp.collect();
+        var negative = function(arg) { return arg instanceof Num && arg.eval() < 0; };
+        return negative(exp) || (exp instanceof Mul && _.any(exp.terms, negative))
+    },
+
+    // extract whatever denominator makes sense, ignoring hints
+    getDenominator: function() {
+        if (this.exp instanceof Num && this.exp.eval() === -1) {
+            return this.base;
+        } else if (this.hasNegativeExponent()) {
+            return new Pow([this.base, Mul.handleNegative(this.exp).collect()]);
+        } else {
+            return Num.One;
+        }
+    },
+
+    findGCD: function(factor) {
+        var base, exp;
+        if (factor instanceof Pow) {
+            base = factor.base;
+            exp = factor.exp;
+        } else {
+            base = factor;
+            exp = Num.One;
+        }
+
+        // GCD is only relevant if same base
+        if (this.base.equals(base)) {
+            if (this.exp.equals(exp)) {
+                // exact match
+                // e.g. GCD(x^y^z, x^y^z) -> x^y^z
+                return this;
+            } else if (this.exp instanceof Num && exp instanceof Num) {
+                // two numerical exponents
+                // e.g. GCD(x^3, x^2) -> x^2
+                return (new Pow([this.base, Num.min(this.exp, exp)])).collect();
+            } else if (this.exp instanceof Num || exp instanceof Num) {
+                // one numerical exponent
+                // e.g. GCD(x^2, x^y) -> 1
+                return Num.One;
+            }
+
+            var expA = this.exp.asMul().partition();
+            var expB = exp.asMul().partition();
+
+            if (expA[1].equals(expB[1])) {
+                // exponents match except for coefficient
+                // e.g. GCD(x^3y, x^y) -> x^y
+                var coefficient = Num.min(expA[0].reduce(), expB[0].reduce());
+                var mul = (new Mul([coefficient, expA[1]])).flatten();
+                return (new Pow([base, mul])).collect();
+            }
+        }
+
+        return Num.One;
+    },
+
+    isPositive: function() {
+        if (this.base.isPositive()) return true;
+
+        var exp = this.exp.simplify();
+        if (exp instanceof Int && exp.eval() % 2 === 0) return true;
+
+        return false;
+    },
+
+    asPositiveFactor: function() {
+        if (this.isPositive()) {
+            return this;
+        } else {
+            var exp = this.exp.simplify();
+            if (exp instanceof Int) {
+                var n = exp.eval();
+                if (n > 2) {
+                    // e.g. x^3 -> x^2
+                    return new Pow([this.base, new Int(n-1)]);
+                } else if (n < -2) {
+                    // e.g. x^-3 -> x^-2
+                    return new Pow([this.base, new Int(n+1)]);
+                }
+            }
+            return Num.One;
         }
     }
 });
@@ -830,7 +1041,11 @@ _.extend(Eq.prototype, {
 
     // convert the equation to an expression that is set to zero
     toExpr: function() {
-        if (this.right instanceof Add) {
+        if (this.right instanceof Num && this.right.isEnteredZero()) {
+            // already set to zero
+            // e.g. 42xyz=0 -> 42xyz
+            return this.left;
+        } else if (this.right instanceof Add) {
             // invidually negates every additive term
             // e.g. y=x+1 -> y-x-1
             var right = _.map(this.right.terms, function(term) {
@@ -846,8 +1061,93 @@ _.extend(Eq.prototype, {
             // otherwise just negate the entire side
             // e.g. y=3x -> y-3x
             var right = Mul.handleNegative(this.right);
-            return new Add([this.left, right]);
+            if (this.left instanceof Num && this.left.isEnteredZero()) {
+                // already set to zero
+                // e.g. 0=42xyz -> -42xyz
+                return right;
+            } else {
+                return new Add([this.left, right]);
+            }
         }
+    },
+
+    // TODO(alex): fold into toExpr() ?
+    // normalize the expresssion to a canonical form
+    // e.g. y/2-x/4(=0) -> 2y-x(=0)
+    normalizeExpr: function(expr) {
+        var terms;
+        if (expr instanceof Add) {
+            terms = expr.terms;
+        } else {
+            terms = [expr];
+        }
+
+        for (var i = 0; i < terms.length; i++) {
+            var denominator = terms[i].getDenominator();
+
+            // can't multiply inequalities by non 100% positive factors
+            if (!this.isEquality() && !denominator.isPositive()) {
+                denominator = denominator.asPositiveFactor();
+            }
+
+            if (!denominator.equals(Num.One)) {
+                terms = _.map(terms, function(term) {
+                    return Mul.createOrAppend(term, denominator).collect();
+                });
+            }
+        }
+
+        return (new Add(terms)).flatten();
+    },
+
+    // divide out any common factors in the expression
+    // e.g. 2y-4x(=0) -> y-2x(=0)
+    collectExpr: function(expr) {
+        var factored = expr.factor();
+        if (factored instanceof Mul) {
+            var terms = factored.terms;
+
+            var isAdd = function(term) { return term instanceof Add; };
+            var hasVar = function(term) { return !!term.getVars().length; };
+            var isOne = function(term) { return term.equals(Num.One); };
+
+            var grouped = _.groupBy(terms, isAdd);
+            var adds = grouped[true] || [];
+            var others = grouped[false] || [];
+
+            if (adds.length && this.isEquality()) {
+                // keep only the Adds
+                return (new Mul(adds)).flatten();
+            }
+
+            var denominator = others;
+
+            if (!adds.length) {
+                // if there are no Adds, equation is e.g. 42xyz(=0)
+                // keep all variable terms to preserve meaning
+                denominator = _.reject(denominator, hasVar);
+            }
+
+            if (!this.isEquality()) {
+                // can't divide inequalities by non 100% positive factors
+                denominator = _.invoke(denominator, "asPositiveFactor");
+            }
+
+            // don't need to divide by one
+            denominator = _.reject(denominator, isOne);
+
+            denominator = _.map(denominator, function(term) {
+                return new Pow([term, Num.Div]);
+            });
+
+            return (new Mul(terms.concat(denominator))).flatten();
+        } else {
+            return expr;
+        }
+    },
+
+    isEquality: function() {
+        return _.contains(["=", "<>"], this.type);
     },
 
     compare: function(other) {
@@ -859,10 +1159,10 @@ _.extend(Eq.prototype, {
 
         if (eq1.type !== eq2.type) return false;
 
-        var expr1 = eq1.toExpr();
-        var expr2 = eq2.toExpr();
+        var expr1 = this.collectExpr(this.normalizeExpr(eq1.toExpr()));
+        var expr2 = this.collectExpr(this.normalizeExpr(eq2.toExpr()));
 
-        if (_.contains(["=", "<>"], eq1.type)) {
+        if (eq1.isEquality()) {
             // equals and not-equals can be subtracted either way
             return expr1.compare(expr2) || 
                    expr1.compare(Mul.handleNegative(expr2));
@@ -878,7 +1178,7 @@ _.extend(Eq.prototype, {
 
         var same = eq1.left.sameForm(eq2.left) && eq1.right.sameForm(eq2.right);
 
-        if (_.contains(["=", "<>"], eq1.type)) {
+        if (eq1.isEquality()) {
             // equals and not-equals can be commutative with respect to the sign
             return same || (eq1.left.sameForm(eq2.right) && eq1.right.sameForm(eq2.left));
         } else {
@@ -886,10 +1186,14 @@ _.extend(Eq.prototype, {
         }
     },
 
-    // we don't want to override collect because it would turn y=x into y-x=0
-    // all we want to find out is if the equation was in that form, would it be simplified?
+    // we don't want to override collect because it would turn y=x into y-x(=0)
+    // instead, we ask if the equation was in that form, would it be simplified?
     isSimplified: function() {
-        return this.toExpr().isSimplified();
+        var expr = this.normalizeExpr(this.toExpr());
+        var simplified = this.collectExpr(expr).simplify();
+        return expr.equals(simplified) &&
+               this.left.isSimplified() &&
+               this.right.isSimplified();
     }
 });
 
@@ -905,7 +1209,14 @@ _.extend(Atom.prototype, {
 
     recurse: function() { return this; },
     getVars: function() { return []; },
-    needsExplicitMul: function() { return false; }
+    needsExplicitMul: function() { return false; },
+    findGCD: function(factor) {
+        if (factor instanceof Atom) {
+            return this.equals(factor) ? this : Num.One;
+        } else {
+            return factor.findGCD(this);
+        }
+    }
 });
 
 
@@ -926,7 +1237,9 @@ _.extend(Var.prototype, {
 
     getVars: function() {
         return [this.symbol];
-    }
+    },
+
+    isPositive: function() { return false; }
 });
 
 
@@ -954,6 +1267,10 @@ _.extend(Const.prototype, {
         } else if (this.symbol === "e") {
             return "e";
         }
+    },
+
+    isPositive: function() {
+        return this.eval() > 0;
     }
 });
 
@@ -996,7 +1313,30 @@ _.extend(Num.prototype, {
     // return the absolute value of the number
     abs: abstract,
 
-    needsExplicitMul: function() { return true; }
+    needsExplicitMul: function() { return true; },
+
+    findGCD: function(factor) {
+        if (factor instanceof Num) {
+            return (new Float(Num.findGCD(this.eval(), factor.eval()))).collect();
+        } else {
+            return factor.findGCD(this);
+        }
+    },
+
+    isPositive: function() {
+        return this.eval() > 0;
+    },
+
+    asPositiveFactor: function() {
+        return this.isPositive() ? this : this.abs();
+    },
+
+    // return whether this number is a user-entered zero
+    // distinguishes between 0 and 0.0 vs. 0/42
+    isEnteredZero: function() {
+        return this.eval() === 0 &&
+            (this instanceof Int || this instanceof Float);
+    }
 });
 
 
@@ -1040,7 +1380,7 @@ _.extend(Rational.prototype, {
     },
 
     collect: function() {
-        var gcd = findGCD(this.n, this.d);
+        var gcd = Num.findGCD(this.n, this.d);
 
         var n = this.n / gcd;
         var d = this.d / gcd;
@@ -1063,10 +1403,22 @@ _.extend(Rational.prototype, {
     // for now, assuming that exp is a Num
     raiseToThe: function(exp) {
         if (exp instanceof Int) {
-            return (new Rational([Math.pow(this.n, exp.eval()), Math.pow(this.d, exp.eval())])).collect();
+            var positive = exp.eval() > 0;
+            var abs = exp.abs().eval();
+            var n = Math.pow(this.n, abs);
+            var d = Math.pow(this.d, abs);
+            if (positive) {
+                return (new Rational([n, d])).collect();
+            } else {
+                return (new Rational([d, n])).collect();
+            }
         } else {
             return (new Float(this.eval())).raiseToThe(exp);
         }
+    },
+
+    getDenominator: function() {
+        return new Int(this.d);
     }
 });
 
@@ -1122,6 +1474,18 @@ _.extend(Float.prototype, {
     // for now, assuming that exp is a Num
     raiseToThe: function(exp) {
         return (new Float(Math.pow(this.n, exp.eval()))).collect();
+    },
+
+    // only to be used on non-repeating decimals (e.g. user-provided)
+    asRational: function() {
+        var parts = this.n.toString().split(".");
+        var numerator = Number(parts.join(""));
+        var denominator = Math.pow(10, parts[1].length);
+        return (new Rational([numerator, denominator])).collect();
+    },
+
+    getDenominator: function() {
+        return this.asRational().getDenominator();
     }
 });
 
@@ -1136,6 +1500,34 @@ _.extend(Num, {
         } else {
             return Num.Neg;
         }
+    },
+
+    // find the greatest common denominator
+    findGCD: function(a, b) {
+        var mod;
+
+        a = Math.abs(a);
+        b = Math.abs(b);
+
+        while (b) {
+            mod = a % b;
+            a = b;
+            b = mod;
+        }
+
+        return a;
+    },
+
+    min: function() {
+        return _.min(_.toArray(arguments), function(num) {
+            return num.eval();
+        });
+    },
+
+    max: function() {
+        return _.max(_.toArray(arguments), function(num) {
+            return num.eval();
+        });
     }
 });
 
