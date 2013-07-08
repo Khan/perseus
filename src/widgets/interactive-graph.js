@@ -35,7 +35,45 @@ function collinear(a, b, c) {
 }
 
 function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.replace(/(?:^|-)(.)/g, function(match, letter) {
+        return letter.toUpperCase();
+    });
+}
+
+function getLineEquation(first, second) {
+    if (eq(first[0], second[0])) {
+        return "x = " + first[0].toFixed(3);
+    } else {
+        var m = (second[1] - first[1]) /
+                (second[0] - first[0]);
+        var b = first[1] - m * first[0];
+        return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
+    }
+}
+
+// Stolen from the wikipedia article
+// http://en.wikipedia.org/wiki/Line-line_intersection
+function getLineIntersection(firstPoints, secondPoints) {
+    var x1 = firstPoints[0][0],
+        y1 = firstPoints[0][1],
+        x2 = firstPoints[1][0],
+        y2 = firstPoints[1][1],
+        x3 = secondPoints[0][0],
+        y3 = secondPoints[0][1],
+        x4 = secondPoints[1][0],
+        y4 = secondPoints[1][1];
+
+    var determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+
+    if (Math.abs(determinant) < 1e-9) {
+        return "Lines are parallel"
+    } else {
+        var x = ((x1 * y2 - y1 * x2) * (x3 - x4) -
+                 (x1 - x2) * (x3 * y4 - y3 * x4)) / determinant;
+        var y = ((x1 * y2 - y1 * x2) * (y3 - y4) -
+                 (y1 - y2) * (x3 * y4 - y3 * x4)) / determinant
+        return "Intersection: (" + x.toFixed(3) + ", " + y.toFixed(3) + ")";
+    }
 }
 
 var InteractiveGraph = React.createClass({
@@ -77,6 +115,7 @@ var InteractiveGraph = React.createClass({
                 <option value="quadratic">Quadratic function</option>
                 <option value="circle">Circle</option>
                 <option value="point">Point</option>
+                <option value="linear-system">Linear System</option>
             </select>;
 
             if (this.props.graph.type === "point") {
@@ -336,6 +375,118 @@ var InteractiveGraph = React.createClass({
         this.circle.remove();
     },
 
+    addLinearSystemControls: function() {
+        var graphie = this.graphie;
+        var coords = this.props.graph.coords ||
+                [[[-5, 5], [5, 5]], [[-5, -5], [5, -5]]];
+
+        var firstPoints = this.firstPoints = [
+            graphie.addMovablePoint({
+                coord: coords[0][0],
+                snapX: this.props.snap,
+                snapY: this.props.snap,
+                normalStyle: {
+                    stroke: KhanUtil.BLUE,
+                    fill: KhanUtil.BLUE
+                }
+            }),
+            graphie.addMovablePoint({
+                coord: coords[0][1],
+                snapX: this.props.snap,
+                snapY: this.props.snap,
+                normalStyle: {
+                    stroke: KhanUtil.BLUE,
+                    fill: KhanUtil.BLUE
+                }
+            })
+        ];
+
+        var secondPoints = this.secondPoints = [
+            graphie.addMovablePoint({
+                coord: coords[1][0],
+                snapX: this.props.snap,
+                snapY: this.props.snap,
+                normalStyle: {
+                    stroke: KhanUtil.GREEN,
+                    fill: KhanUtil.GREEN
+                }
+            }),
+            graphie.addMovablePoint({
+                coord: coords[1][1],
+                snapX: this.props.snap,
+                snapY: this.props.snap,
+                normalStyle: {
+                    stroke: KhanUtil.GREEN,
+                    fill: KhanUtil.GREEN
+                }
+            })
+        ];
+
+        var firstLine = this.firstLine = graphie.addMovableLineSegment({
+            pointA: firstPoints[0],
+            pointZ: firstPoints[1],
+            fixed: true,
+            extendLine: true,
+            normalStyle: {
+                stroke: KhanUtil.BLUE,
+                "stroke-width": 2
+            }
+        });
+
+        var secondLine = this.secondLine = graphie.addMovableLineSegment({
+            pointA: secondPoints[0],
+            pointZ: secondPoints[1],
+            fixed: true,
+            extendLine: true,
+            normalStyle: {
+                stroke: KhanUtil.GREEN,
+                "stroke-width": 2
+            }
+        });
+
+        _.each([firstPoints, secondPoints], function(points) {
+            points[0].onMove = function(x, y) {
+                return !_.isEqual([x, y], points[1].coord);
+            };
+
+            points[1].onMove = function(x, y) {
+                return !_.isEqual([x, y], points[0].coord);
+            };
+        });
+
+        $(firstPoints.concat(secondPoints)).on("move", function() {
+            var graph = _.extend({}, this.props.graph, {
+                coords: [
+                    [firstPoints[0].coord, firstPoints[1].coord],
+                    [secondPoints[0].coord, secondPoints[1].coord]
+                ]
+            });
+            this.props.onChange({graph: graph});
+        }.bind(this));
+    },
+
+    getLinearSystemEquationString: function() {
+        return "\n" +
+            getLineEquation(this.firstPoints[0].coord,
+                            this.firstPoints[1].coord) +
+            "\n" +
+            getLineEquation(this.secondPoints[0].coord,
+                            this.secondPoints[1].coord) +
+            "\n" +
+            getLineIntersection([
+                this.firstPoints[0].coord, this.firstPoints[1].coord
+            ], [
+                this.secondPoints[0].coord, this.secondPoints[1].coord
+            ]);
+    },
+
+    removeLinearSystemControls: function() {
+        _.chain(this.firstPoints)
+         .concat(this.secondPoints)
+         .concat([this.firstLine, this.secondLine])
+         .invoke("remove");
+    },
+
     addPointControls: function() {
         var graphie = this.graphie;
 
@@ -463,6 +614,29 @@ _.extend(InteractiveGraph, {
                         message: null
                     };
                 }
+            } else if (state.type === "linear-system") {
+                var guess = state.coords;
+                var correct = rubric.correct.coords;
+
+                if ((
+                        collinear(correct[0][0], correct[0][1], guess[0][0]) &&
+                        collinear(correct[0][0], correct[0][1], guess[0][1]) &&
+                        collinear(correct[1][0], correct[1][1], guess[1][0]) &&
+                        collinear(correct[1][0], correct[1][1], guess[1][1])
+                    ) || (
+                        collinear(correct[0][0], correct[0][1], guess[1][0]) &&
+                        collinear(correct[0][0], correct[0][1], guess[1][1]) &&
+                        collinear(correct[1][0], correct[1][1], guess[0][0]) &&
+                        collinear(correct[1][0], correct[1][1], guess[0][1])
+                    )) {
+                    return {
+                        type: "points",
+                        earned: 1,
+                        total: 1,
+                        message: null
+                    };
+                }
+
             } else if (state.type === "quadratic") {
                 // If the parabola coefficients match, it's correct.
                 var guessCoeffs = this.getQuadraticCoefficients(state.coords);
