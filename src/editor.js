@@ -108,6 +108,8 @@ var Editor = Perseus.Editor = React.createClass({
                                     Expression / Equation</option>
                             <option value="interactive-graph">
                                     Interactive graph</option>
+                            <option value="interactive-number-line">
+                                    Interactive number line</option>
                             <option value="table">
                                     Table of values</option>
                             <option value="dropdown">
