@@ -42,7 +42,8 @@ var Expression = React.createClass({
             <input ref="input" type="text"
                 value={this.props.currentValue}
                 onKeyDown={this.handleKeyDown}
-                onKeyPress={this.handleKeyPress} />
+                onKeyPress={this.handleKeyPress}
+                onChange={this.handleChange} />
             <span className="output">
                 <span className="mathjax"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
@@ -80,29 +81,29 @@ var Expression = React.createClass({
         clearTimeout(this.errorTimeout);
     },
 
-    showError: React.autoBind(function() {
+    showError: function() {
         var $error = $(this.refs.error.getDOMNode());
         if (!$error.is(":visible")) {
             $error.css({ top: 50, opacity: 0.1 }).show()
                 .animate({ top: 0, opacity: 1.0 }, 300);
         }
-    }),
+    },
 
-    hideError: React.autoBind(function() {
+    hideError: function() {
         var $error = $(this.refs.error.getDOMNode());
         if ($error.is(":visible")) {
             $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
                 $(this).hide();
             });
         }
-    }),
+    },
 
     /**
      * The keydown handler handles clearing the error timeout, telling
      * props.currentValue to update, and intercepting the backspace key when
      * appropriate...
      */
-    handleKeyDown: React.autoBind(function(event) {
+    handleKeyDown: function(event) {
         var input = this.refs.input.getDOMNode();
         var text = input.value;
 
@@ -115,23 +116,25 @@ var Expression = React.createClass({
         if (supported && which === 8 /* backspace */) {
             if (start === end && text.slice(start - 1, start + 1) === "()") {
                 event.preventDefault();
-                input.value = text.slice(0, start - 1) + text.slice(start + 1);
+                var val = text.slice(0, start - 1) + text.slice(start + 1);
+
+                // this.props.onChange will update the value for us, but
+                // asynchronously, making it harder to set the selection
+                // usefully, so we just set .value directly here as well.
+                input.value = val;
                 input.selectionStart = start - 1;
                 input.selectionEnd = end - 1;
+                this.props.onChange({currentValue: val});
             }
         }
-
-        setTimeout(function() {
-            this.props.onChange({currentValue: input.value});
-        }.bind(this), 0);
-    }),
+    },
 
     /**
      * ...whereas the keypress handler handles the parentheses because keyCode
      * is more useful for actual character insertions (keypress gives 40 for an
      * open paren '(' instead of keydown which gives 57, the code for '9').
      */
-    handleKeyPress: React.autoBind(function(event) {
+    handleKeyPress: function(event) {
         var input = this.refs.input.getDOMNode();
         var text = input.value;
 
@@ -144,20 +147,23 @@ var Expression = React.createClass({
         if (supported && which === 40 /* left paren */) {
             event.preventDefault();
 
+            var val;
             if (start === end) {
                 var insertMatched = _.any([" ", ")", ""], function(val) {
                     return text.charAt(start) === val;
                 });
 
-                input.value = text.slice(0, start) +
+                val = text.slice(0, start) +
                         (insertMatched ? "()" : "(") + text.slice(end);
             } else {
-                input.value = text.slice(0, start) +
+                val = text.slice(0, start) +
                         "(" + text.slice(start, end) + ")" + text.slice(end);
             }
 
+            input.value = val;
             input.selectionStart = start + 1;
             input.selectionEnd = end + 1;
+            this.props.onChange({currentValue: val});
 
         } else if (supported && which === 41 /* right paren */) {
             if (start === end && text.charAt(start) === ")") {
@@ -166,7 +172,11 @@ var Expression = React.createClass({
                 input.selectionEnd = end + 1;
             }
         }
-    }),
+    },
+
+    handleChange: function(event) {
+        this.props.onChange({currentValue: event.target.value});
+    },
 
     focus: function() {
         this.refs.input.getDOMNode().focus();
@@ -261,7 +271,7 @@ var ExpressionEditor = React.createClass({
             </label>
 
             {_.map(this.optionLabels, function(labelText, option) {
-                return <label>
+                return <label key={option}>
                     <input type="checkbox" name={option}
                         checked={this.props[option]}
                         onChange={this.handleCheck} />
@@ -271,11 +281,11 @@ var ExpressionEditor = React.createClass({
         </div>;
     },
 
-    handleCheck: React.autoBind(function(e) {
+    handleCheck: function(e) {
         var newProps = {};
         newProps[e.target.name] = e.target.checked;
         this.props.onChange(newProps);
-    }),
+    },
 
     focus: function() {
         this.refs.expression.focus();

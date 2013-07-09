@@ -28,9 +28,9 @@ var AnswerAreaRenderer = React.createClass({
         return this.state.cls(_.extend({
             ref: "widget",
             problemNum: this.props.problemNum,
-            onChange: function(newProps) {
+            onChange: function(newProps, cb) {
                 var widget = _.extend({}, this.state.widget, newProps);
-                this.setState({widget: widget});
+                this.setState({widget: widget}, cb);
             }.bind(this)
         }, this.props.options, this.state.widget));
     },
@@ -125,7 +125,8 @@ var HintsRenderer = React.createClass({
             .map(function(hint, i) {
                 var shouldBold = i === this.props.hints.length - 1 &&
                                  !(/\*\*/).test(hint.content);
-                return <div className={shouldBold ? "last-hint" : ""}>
+                return <div className={shouldBold ? "last-hint" : ""}
+                        key={"hint" + i}>
                     {Perseus.Renderer(hint)}
                 </div>;
             }, this);

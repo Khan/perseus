@@ -142,7 +142,7 @@ var InputNumberEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:
-                <input type="text" ref="input" value={this.props.value}
+                <input type="text" ref="input" defaultValue={this.props.value}
                     onBlur={function(e) {
                         var ans = "" + (Perseus.Util.firstNumericalParse(
                                 e.target.value) || 0);
@@ -175,7 +175,7 @@ var InputNumberEditor = React.createClass({
                 type="checkbox" style={{visibility: "hidden"}} />
             Max error:
             <input type="text" disabled={!this.props.inexact}
-                value={this.props.maxError}
+                defaultValue={this.props.maxError}
                 onBlur={function(e) {
                     var ans = "" + (Perseus.Util.firstNumericalParse(
                             e.target.value) || 0);

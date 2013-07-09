@@ -60,9 +60,9 @@ var AnswerAreaEditor = React.createClass({
 
         var editor = cls(_.extend({
             ref: "editor",
-            onChange: function(newProps) {
+            onChange: function(newProps, cb) {
                 var options = _.extend({}, this.props.options, newProps);
-                this.props.onChange({options: options});
+                this.props.onChange({options: options}, cb);
             }.bind(this)
         }, this.props.options));
 
@@ -81,8 +81,9 @@ var AnswerAreaEditor = React.createClass({
                             this.props.onChange({
                                 type: e.target.value,
                                 options: {}
+                            }, function() {
+                                this.refs.editor.focus();
                             });
-                            this.refs.editor.focus();
                         }.bind(this)}>
                     <option value="radio">Multiple choice</option>
                     <option value="table">Table of values</option>
@@ -140,29 +141,30 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
             {Editor(_.extend({
                 ref: "questionEditor",
                 className: "perseus-question-editor",
-                onChange: function(newProps) {
+                onChange: function(newProps, cb) {
                     var question = _.extend({}, this.state.question, newProps);
-                    this.setState({question: question});
+                    this.setState({question: question}, cb);
                 }.bind(this)
             }, this.state.question))}
 
             {AnswerAreaEditor(_.extend({
                 ref: "answerAreaEditor",
-                onChange: function(newProps) {
+                onChange: function(newProps, cb) {
                     var answerArea = _.extend({}, this.state.answerArea,
                             newProps);
-                    this.setState({answerArea: answerArea});
+                    this.setState({answerArea: answerArea}, cb);
                 }.bind(this)
             }, this.state.answerArea))}
 
             {this.state.hints.map(function(hint, i) {
                 return HintEditor(_.extend({
+                    key: "hintEditor" + i,
                     ref: "hintEditor" + i,
-                    onChange: function(newProps) {
+                    onChange: function(newProps, cb) {
                         var hints = _.clone(this.state.hints);
                         hints[i] = _.extend({}, this.state.hints[i],
                                 newProps);
-                        this.setState({hints: hints});
+                        this.setState({hints: hints}, cb);
                     }.bind(this),
                     onRemove: function() {
                         var hints = _.clone(this.state.hints);
@@ -182,21 +184,22 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
         </div>;
     },
 
-    addHint: React.autoBind(function() {
+    addHint: function() {
         var hints = this.state.hints.concat([{}]);
-        this.setState({hints: hints});
-
         var i = hints.length - 1;
-        this.refs["hintEditor" + i].focus();
-        return false;
-    }),
 
-    updatePreview: React.autoBind(function() {
+        this.setState({hints: hints}, function() {
+            this.refs["hintEditor" + i].focus();
+        }.bind(this));
+        return false;
+    },
+
+    updatePreview: function() {
         this.renderer = React.renderComponent(Perseus.ItemRenderer({
             item: this.toJSON(true),
             initialHintsVisible: -1  /* all */
         }), this.rendererMountNode);
-    }),
+    },
 
     scorePreview: function() {
         if (this.renderer) {

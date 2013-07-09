@@ -27,10 +27,10 @@ var Dropdown = React.createClass({
         </select>;
     },
 
-    onChange: React.autoBind(function(e) {
+    onChange: function(e) {
         var selected = this.getDOMNode().selectedIndex;
         this.props.onChange({selected: selected});
-    }),
+    },
 
     toJSON: function(skipValidation) {
         return {value: this.props.selected};
@@ -122,14 +122,15 @@ var DropdownEditor = React.createClass({
         this.props.onChange({choices: choices});
     },
 
-    addChoice: React.autoBind(function(e) {
+    addChoice: function(e) {
         e.preventDefault();
 
         var choices = this.props.choices;
         var blankChoice = {content: "", correct: false};
-        this.props.onChange({choices: choices.concat([blankChoice])});
-        this.focus(choices.length);
-    }),
+        this.props.onChange({
+            choices: choices.concat([blankChoice])
+        }, this.focus.bind(this, choices.length));
+    },
 
     focus: function(i) {
         this.refs["editor" + i].getDOMNode().focus();

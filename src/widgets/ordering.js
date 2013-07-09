@@ -47,14 +47,14 @@ var DraggableCard = React.createClass({
             </div>;
     },
 
-    onMouseDown: React.autoBind(function(event) {
+    onMouseDown: function(event) {
         if (event.button !== 0) {
             return;
         }
 
         event.preventDefault();
         this.props.onMouseDown(this, event);
-    }),
+    },
 
 });
 
@@ -128,7 +128,7 @@ var FloatingCard = React.createClass({
         }
     },
 
-    onVMouseMove: React.autoBind(function(event) {
+    onVMouseMove: function(event) {
         if (this.props.floating) {
             event.preventDefault();
             this.setState({
@@ -136,14 +136,14 @@ var FloatingCard = React.createClass({
             });
             this.props.onMouseMove(this);
         }
-    }),
+    },
 
-    onVMouseUp: React.autoBind(function(event) {
+    onVMouseUp: function(event) {
         if (this.props.floating) {
             event.preventDefault();
             this.props.onMouseUp(this, event);
         }
-    })
+    }
 });
 
 var Orderer = React.createClass({
@@ -235,7 +235,7 @@ var Orderer = React.createClass({
                </div>;
     },
 
-    onClick: React.autoBind(function(type, index, draggable,  event) {
+    onClick: function(type, index, draggable,  event) {
         var $draggable = $(draggable.getDOMNode());
         var list = this.state.current.slice();
 
@@ -264,9 +264,9 @@ var Orderer = React.createClass({
             },
             offsetPos: $draggable.position()
         });
-    }),
+    },
 
-    onRelease: React.autoBind(function(draggable, event) {
+    onRelease: function(draggable, event) {
         var inCardBank = this.isCardInBank(draggable);
         var index = this.state.placeholderIndex;
 
@@ -328,9 +328,9 @@ var Orderer = React.createClass({
                 dragging: false
             });
         }
-    }),
+    },
 
-    onMouseMove: React.autoBind(function(draggable) {
+    onMouseMove: function(draggable) {
         var index;
         if (this.isCardInBank(draggable)) {
             index = null;
@@ -339,7 +339,7 @@ var Orderer = React.createClass({
         }
 
         this.setState({placeholderIndex: index});
-    }),
+    },
 
     findCorrectIndex: function(draggable, list) {
         // Find the correct index for a card given the current cards.
@@ -447,8 +447,9 @@ var TextListEditor = React.createClass({
 
     render: function() {
         var inputs = this.props.options.map(function(option, i) {
-            return <li>
+            return <li key={i}>
                 <input type="text"
+                       key={"editor" + i}
                        ref={"editor" + i}
                        style={{width: getTextWidth(option.content)}}
                        onInput={this.onContentChange.bind(this, i)}
@@ -457,7 +458,7 @@ var TextListEditor = React.createClass({
         }, this);
 
         inputs.push(
-            <li>
+            <li key={inputs.length}>
                 <input type="text"
                        ref={"editorExtra"}
                        onInput={this.addOption}
@@ -469,7 +470,7 @@ var TextListEditor = React.createClass({
         return <ul className="ui-helper-clearfix">{inputs}</ul>;
     },
 
-    addOption: React.autoBind(function(e) {
+    addOption: function(e) {
         // If we type into the empty input box at the end, we add a new input
         // box in its place, copy over the contents, focus it at the correct
         // place, and re-empty the last input box
@@ -479,9 +480,9 @@ var TextListEditor = React.createClass({
         var blankOption = {content: e.target.value};
 
         this.props.onContentChange(options.concat([blankOption]));
-    }),
+    },
 
-    onContentChange: React.autoBind(function(optionIndex, e) {
+    onContentChange: function(optionIndex, e) {
         var options = this.props.options.slice();
         var option = _.clone(options[optionIndex]);
 
@@ -503,7 +504,7 @@ var TextListEditor = React.createClass({
         if (didDelete) {
             this.focusExtra();
         }
-    }),
+    },
 
     focusExtra: function() {
         // Focus the last input box at the end of its selection

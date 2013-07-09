@@ -747,11 +747,11 @@ var InteractiveGraphEditor = React.createClass({
         setTimeout(this.updateEquationString.bind(this), 0);
     },
 
-    updateEquationString: React.autoBind(function() {
+    updateEquationString: function() {
         this.setState({
             equationString: this.refs.graph.getEquationString()
         });
-    }),
+    },
 
     toJSON: function() {
         var correct = this.refs.graph.toJSON();

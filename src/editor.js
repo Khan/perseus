@@ -30,12 +30,12 @@ var Editor = Perseus.Editor = React.createClass({
             <strong>{id}</strong>
             {cls(_.extend({
                 ref: id,
-                onChange: function(newProps) {
+                onChange: function(newProps, cb) {
                     var widgets = _.clone(this.props.widgets);
                     widgets[id] = _.extend({}, widgets[id]);
                     widgets[id].options = _.extend({}, widgets[id].options,
                             newProps);
-                    this.props.onChange({widgets: widgets});
+                    this.props.onChange({widgets: widgets}, cb);
                 }.bind(this)
             }, (this.props.widgets[id] || {}).options))}
         </div>;
@@ -136,20 +136,19 @@ var Editor = Perseus.Editor = React.createClass({
                     {underlayPieces}
                 </div>
 
-                <textarea ref="textarea" onInput={this.handleInput}>
-                    {this.props.content}
-                </textarea>
+                <textarea ref="textarea" onInput={this.handleInput}
+                    value={this.props.content} />
             </div>
             {widgetEditors}
         </div>;
     },
 
-    handleInput: React.autoBind(function() {
+    handleInput: function() {
         var textarea = this.refs.textarea.getDOMNode();
         this.props.onChange({content: textarea.value});
-    }),
+    },
 
-    addWidget: React.autoBind(function(e) {
+    addWidget: function(e) {
         var widgetType = e.target.value;
         if (widgetType === "") {
             // TODO(alpert): Not sure if change will trigger here
@@ -174,10 +173,8 @@ var Editor = Perseus.Editor = React.createClass({
         this.props.onChange({
             content: newContent,
             widgets: widgets
-        });
-
-        this.focusAndMoveToEnd();
-    }),
+        }, this.focusAndMoveToEnd);
+    },
 
     toJSON: function(skipValidation) {
         // Could be _.pick(this.props, "content", "widgets"); but validation!

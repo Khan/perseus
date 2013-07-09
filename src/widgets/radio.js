@@ -29,13 +29,13 @@ var BaseRadio = React.createClass({
         </ul>;
     },
 
-    onChange: React.autoBind(function(radioIndex, e) {
+    onChange: function(radioIndex, e) {
         var newChecked = _.map(this.props.choices, function(choice, i) {
             return this.refs["radio" + i].getDOMNode().checked;
         }, this);
 
         this.props.onCheckedChange(newChecked);
-    }),
+    },
 
     focus: function(i) {
         this.refs["radio" + (i || 0)].getDOMNode().focus();
@@ -77,9 +77,9 @@ var Radio = React.createClass({
         return this.refs.baseRadio.focus(i);
     },
 
-    onCheckedChange: React.autoBind(function(checked) {
+    onCheckedChange: function(checked) {
         this.props.onChange({values: this.derandomize(checked)});
-    }),
+    },
 
     toJSON: function(skipValidation) {
         // Return checked inputs in the form {values: [bool]}. (Dear future
@@ -219,35 +219,36 @@ var RadioEditor = React.createClass({
         </div>;
     },
 
-    onCheckedChange: React.autoBind(function(checked) {
+    onCheckedChange: function(checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
             return _.extend({}, choice, {correct: checked[i]});
         });
         this.props.onChange({choices: choices});
-    }),
+    },
 
-    onContentChange: React.autoBind(function(choiceIndex, newContent, e) {
+    onContentChange: function(choiceIndex, newContent, e) {
         var choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
         this.props.onChange({choices: choices});
-    }),
+    },
 
-    onDelete: React.autoBind(function(choiceIndex, e) {
+    onDelete: function(choiceIndex, e) {
         e.preventDefault();
         var choices = this.props.choices.slice();
         choices.splice(choiceIndex, 1);
         this.props.onChange({choices: choices});
-    }),
+    },
 
-    addChoice: React.autoBind(function(e) {
+    addChoice: function(e) {
         e.preventDefault();
 
         var choices = this.props.choices;
-        this.props.onChange({choices: choices.concat([{}])});
-        this.refs["editor" + choices.length].focus();
-    }),
+        this.props.onChange({choices: choices.concat([{}])}, function() {
+            this.refs["editor" + choices.length].focus();
+        }.bind(this));
+    },
 
     focus: function() {
         this.refs.editor0.focus();

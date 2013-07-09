@@ -184,24 +184,24 @@ var InteractiveNumberLineEditor = React.createClass({
     render: function() {
         return <div>
             <label>
-                min x: <input value={this.props.range[0]}
+                min x: <input defaultValue={'' + this.props.range[0]}
                     onBlur={this.onRangeBlur.bind(this, 0)} />
             </label><br />
             <label>
-                max x: <input value={this.props.range[1]}
+                max x: <input defaultValue={'' + this.props.range[1]}
                     onBlur={this.onRangeBlur.bind(this, 1)} />
             </label><br />
             <label>
-                correct answer: <input value={this.props.correctX}
+                correct answer: <input defaultValue={'' + this.props.correctX}
                     onBlur={this.onBlur.bind(this, "correctX")} />
             </label><br /><br />
             <label>
-                tick step: <input value={this.props.tickStep}
+                tick step: <input defaultValue={'' + this.props.tickStep}
                     onBlur={this.onBlur.bind(this, "tickStep")} />
             </label><br />
             <label>
                 snap increments per tick:
-                <input value={this.props.snapDivisions}
+                <input defaultValue={'' + this.props.snapDivisions}
                     onBlur={this.onBlur.bind(this, "snapDivisions")} />
             </label>
         </div>;

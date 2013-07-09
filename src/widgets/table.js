@@ -220,15 +220,15 @@ var TableEditor = React.createClass({
         </div>;
     },
 
-    onHeaderChange: React.autoBind(function(index, newProps) {
+    onHeaderChange: function(index, newProps) {
         if (_.has(newProps, "content")) {
             var headers = this.props.headers.slice();
             headers[index] = newProps.content;
             this.props.onChange({headers: headers});
         }
-    }),
+    },
 
-    onSizeInput: React.autoBind(function() {
+    onSizeInput: function() {
         var numRawRows = this.refs.numberOfRows.getDOMNode().value;
         var numRawCols = this.refs.numberOfColumns.getDOMNode().value;
         var rows = +numRawRows || 0;
@@ -266,9 +266,9 @@ var TableEditor = React.createClass({
             answers: answers,
             headers: headers
         });
-    }),
+    },
 
-    onAnswerInput: React.autoBind(function() {
+    onAnswerInput: function() {
         var self = this;
         var answers = _(self.props.rows).times(function(r) {
             return _(self.props.columns).times(function(c) {
@@ -276,7 +276,7 @@ var TableEditor = React.createClass({
             });
         });
         this.props.onChange({answers: answers});
-    }),
+    },
 
     toJSON: function() {
         var self = this;
