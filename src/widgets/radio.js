@@ -14,7 +14,7 @@ var BaseRadio = React.createClass({
                             ref={"radio" + i}
                             type={inputType}
                             name={radioGroupName}
-                            checked={choice.checked}
+                            defaultChecked={choice.checked}
                             onChange={this.onChange.bind(this, i)} />
                         {choice.content}
                     </div>;
