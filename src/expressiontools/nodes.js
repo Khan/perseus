@@ -63,9 +63,18 @@ _.extend(Expr.prototype, {
     // returns a TeX string representing the expression
     tex: abstract,
 
+    // returns the name of this expression's constructor as a string
+    name: function() {
+        if (this.func.name) {
+            return this.func.name;
+        } else {
+            return this.func.toString().match(/^function\s*([^\s(]+)/)[1];
+        }
+    },
+
     // returns a string representing current node structure
     repr: function() {
-        return this.func.name + "(" + _.invoke(this.args(), "repr").join(",") + ")";
+        return this.name() + "(" + _.invoke(this.args(), "repr").join(",") + ")";
     },
 
     // removes all negative signs
@@ -1204,7 +1213,7 @@ Atom.prototype = new Expr();
 
 _.extend(Atom.prototype, {
     repr: function() {
-        return this.func.name + "(" + this.args() + ")";
+        return this.name() + "(" + this.args() + ")";
     },
 
     recurse: function() { return this; },

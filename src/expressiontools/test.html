@@ -42,7 +42,8 @@
 
     QUnit.module("parsing");
 
-    var print = function(input, expected, message) {
+    var print = function(input, expected) {
+        var message = input + " parses as " + expected;
         strictEqual(parse(input).print(), expected, message);
     };
 
@@ -191,7 +192,8 @@
         print("a\u2265b", "a>=b");
     });
 
-    var repr = function(input, expected, message) {
+    var repr = function(input, expected) {
+        var message = input + " parses as " + expected;
         strictEqual(parse(input).repr(), expected, message);
     };
 
@@ -222,7 +224,8 @@
 
     QUnit.module("rendering");
 
-    var tex = function(input, expected, message) {
+    var tex = function(input, expected) {
+        var message = input + " renders as " + expected;
         strictEqual(parse(input).tex(), expected, message);
     };
 
@@ -330,8 +333,9 @@
 
     QUnit.module("evaluating");
 
-    var val = function(input, expected, vars, message) {
+    var val = function(input, expected, vars) {
         if (vars === undefined) vars = {};
+        var message = input + " evaluates as " + expected;
         strictEqual(parse(input).eval(vars), expected, message);
     };
 
@@ -362,9 +366,10 @@
 
     QUnit.module("checking form");
 
-    var norm = function(input, reference, message) {
+    var norm = function(input, reference) {
         var actual = parse(input).normalize().print();
         var expected = parse(reference).normalize().print();
+        var message = input + " is the same as " + reference;
         strictEqual(actual, expected, message);
     };
 
@@ -388,9 +393,10 @@
         });
     });
 
-    var stripnorm = function(input, reference, message) {
+    var stripnorm = function(input, reference) {
         var actual = parse(input).strip().normalize().print();
         var expected = parse(reference).strip().normalize().print();
+        var message = input + " is the same as " + reference;
         strictEqual(actual, expected, message);
     };
 
@@ -427,11 +433,12 @@
 
     QUnit.module("comparing");
 
-    var compare = function(options, input, reference, expectedResult, message) {
+    var compare = function(options, input, reference, expectedResult) {
         var actual = parse(input);
         var expected = parse(reference);
         var result = Perseus.ExpressionTools.compare(actual, expected, options);
         if (expectedResult === undefined) expectedResult = true;
+        var message = input + " is " + (expectedResult ? "" : "NOT ") + "the same as " + reference;
         ok(result.equal === expectedResult, message);
     };
 
@@ -470,7 +477,7 @@
             ".5(y+5)=x",
             "y-3=2(x-4)",
             "2y=4x-10",
-            "yz=2xz-5z",
+            "yz=2xz-5z"
         ];
 
         _.each(forms, function(form) {
@@ -528,9 +535,10 @@
 
     QUnit.module("transforming");
 
-    var factor = function(input, reference, message) {
+    var factor = function(input, reference) {
         var actual = parse(input).factor().normalize().repr();
         var expected = parse(reference).normalize().repr();
+        var message = input + " factors as " + reference;
         strictEqual(actual, expected, message);
     };
 
@@ -552,19 +560,22 @@
         factor("x^y+x^z", "x^y+x^z");
     });
 
-    var dist = function(input, reference, message) {
+    var dist = function(input, reference) {
         var actual = parse(input).distribute().normalize().print();
         var expected = parse(reference).normalize().print();
+        var message = input + " expands as " + reference;
         strictEqual(actual, expected, message);
     };
 
-    var distrepr = function(input, expected, message) {
+    var distrepr = function(input, expected) {
         var actual = parse(input).distribute().repr();
+        var message = input + " expands as " + expected;
         strictEqual(actual, expected, message);
     };
 
-    var disttex = function(input, expected, message) {
+    var disttex = function(input, expected) {
         var actual = parse(input).distribute().tex();
+        var message = input + " expands and is rendered as " + expected;
         strictEqual(actual, expected, message);
     };
 
@@ -606,18 +617,22 @@
         dist("(a+b)/(c+d)*a/e", "(aa+ab)/(ce+de)");
     });
 
-    var collect = function(input, expected, message) {
-        var actual = parse(input).collect().print();
+    var collect = function(input, reference) {
+        var actual = parse(input).collect().normalize().print();
+        var expected = parse(reference).normalize().print();
+        var message = input + " collects as " + reference;
         strictEqual(actual, expected, message);
     };
     
-    var collectrepr = function(input, expected, message) {
+    var collectrepr = function(input, expected) {
         var actual = parse(input).collect().repr();
+        var message = input + " collects as " + expected;
         strictEqual(actual, expected, message);
     };
 
-    var collecttex = function(input, expected, message) {
+    var collecttex = function(input, expected) {
         var actual = parse(input).collect().tex();
+        var message = input + " collects and is rendered as " + expected;
         strictEqual(actual, expected, message);
     };
 
@@ -673,9 +688,10 @@
         collect("1+y=1+x^2", "1+y=1+x^(2)");
     });
 
-    var simplify = function(input, reference, message) {
+    var simplify = function(input, reference) {
         var actual = parse(input).simplify().normalize().print();
         var expected = parse(reference).normalize().print();
+        var message = input + " simplifies as " + reference;
         strictEqual(actual, expected, message);
     };
 
@@ -693,8 +709,9 @@
         simplify("1/(xya)+1/(xyb)", "(1/a+1/b) 1/x 1/y");
     });
 
-    var isSimplified = function(input, expectedResult, message) {
+    var isSimplified = function(input, expectedResult) {
         if (expectedResult === undefined) expectedResult = true;
+        var message = input + (expectedResult ? " is " : " is NOT ") + "simplified";
         ok(parse(input).isSimplified() === expectedResult, message);
     }
 
