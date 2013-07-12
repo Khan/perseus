@@ -5,6 +5,10 @@
 // Steal from webapp/stylesheets/shared-package/variables.less
 @baseFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
 
+#perseus {
+    position: relative;
+}
+
 &,  // and moar specificity...
 #answer_area input[type=text],
 #answer_area input[type=number] {
@@ -216,8 +220,19 @@
     }
 }
 
+.draggy-boxy-thing-hover (@color: #ffa500) {
+    border-color: @color;
+    @darker: darken(@color, 11%);
+    box-shadow: 0 0 4px @darker;
+    -moz-box-shadow: 0 0 4px @darker;
+    -ms-box-shadow: 0 0 4px @darker;
+    -o-box-shadow: 0 0 4px @darker;
+    -webkit-box-shadow: 0 0 4px @darker;
+}
+
 .draggy-boxy-thing {
-    .draggable-box {
+    .draggable-box,
+    .cards-area {
         background: #eee;
         border: 1px solid #ccc;
         border-bottom: 1px solid #aaa;
@@ -238,6 +253,7 @@
         -khtml-user-select: none;
         -moz-user-select: none;
         -o-user-select: none;
+        cursor: pointer;
 
         &.placeholder {
             background:#ddd;
@@ -248,7 +264,6 @@
             background: none;
             border: 1px dashed #aaa;
             cursor: auto;
-            width: 20px;
 
             &:hover {
                 border-color: #aaa;
@@ -281,12 +296,7 @@
         }
 
         &:hover {
-            border-color: #ffa500;
-            box-shadow: 0 0 4px #c56f00;
-            -moz-box-shadow: 0 0 4px #c56f00;
-            -ms-box-shadow: 0 0 4px #c56f00;
-            -o-box-shadow: 0 0 4px #c56f00;
-            -webkit-box-shadow: 0 0 4px #c56f00;
+            .draggy-boxy-thing-hover();
         }
     }
 }
@@ -324,6 +334,124 @@
         .card-wrap {
             margin-right: 10px;
             margin-bottom: 8px;
+        }
+    }
+
+    div.paragraph {
+        margin: 0;
+    }
+}
+
+.framework-perseus table.non-markdown {
+    tr:nth-child(odd) {
+        td {
+            background-color: transparent;
+        }
+    }
+
+    th, td {
+        border-width: 0;
+    }
+}
+
+
+.categorization-container {
+    @categoryWidth: 215px;
+
+    position: relative;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    .categories,
+    .bank {
+        float: left;
+    }
+
+    .categories {
+        width: (@categoryWidth + 16px);
+    }
+
+    .cards-list {
+        padding: 13px;
+    }
+
+    .category {
+        float: left;
+        padding: 8px;
+        width: @categoryWidth;
+        text-align: center;
+
+        .card-container {
+            float: left;
+            width: 100%;
+            display: block;
+        }
+        &.non-target {
+            opacity: 0.5;
+        }
+        &.target .cards-list.cards-area {
+            .draggy-boxy-thing-hover(#aaa);
+        }
+    }
+    .header {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .target .header {
+        color: black;
+    }
+    .card {
+        height: 37px;
+        text-align: center;
+        line-height: 34px;
+        width: (@categoryWidth - 48px);
+        padding: 2px 8px 0 8px;
+        margin: 0 auto;
+
+        &:hover {
+            transition-property: border-color, box-shadow;
+            transition-duration: 150ms;
+            -moz-transition-property: border-color, -moz-box-shadow;
+            -moz-transition-duration: 150ms;
+            -webkit-transition-property: border-color, -webkit-box-shadow;
+            -webkit-transition-duration: 150ms;
+        }
+        transition-property: border-color, box-shadow;
+        transition-duration: 150ms;
+        -moz-transition-property: border-color, -moz-box-shadow;
+        -moz-transition-duration: 150ms;
+        -webkit-transition-property: border-color, -webkit-box-shadow;
+        -webkit-transition-duration: 150ms;
+    }
+
+    .card-container {
+        float: left;
+        padding: 4px 0;
+    }
+
+    .card-hidden {
+        visibility: hidden;
+    }
+
+    .card.dragging {
+        position: absolute;
+        display: none;
+        z-index: 1;
+        .draggy-boxy-thing-hover();
+    }
+
+    &.currently-dragging {
+        .card {
+            opacity: 0.5;
+        }
+        .card.dragging {
+            display: block;
+            background-color: white;
+            opacity: 1;
+            filter: opacity(1);
         }
     }
 

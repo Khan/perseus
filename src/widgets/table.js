@@ -3,12 +3,6 @@
 
 var Editor = Perseus.Editor;
 
-function stringArrayOfSize(size) {
-    return _(size).times(function() {
-        return "";
-    });
-}
-
 var Table = React.createClass({
     render: function() {
         var headers = this.props.headers;
@@ -123,7 +117,7 @@ var TableEditor = React.createClass({
         var defaultRows = 4;
         var defaultColumns = 1;
         var blankAnswers = _(defaultRows).times(function() {
-            return stringArrayOfSize(defaultColumns);
+            return Perseus.Util.stringArrayOfSize(defaultColumns);
         });
         return {
             headers: [""],
@@ -241,7 +235,7 @@ var TableEditor = React.createClass({
         var answers = this.props.answers;
         if (oldRows < rows) {
             _(rows - oldRows).times(function() {
-                answers.push(stringArrayOfSize(oldColumns));
+                answers.push(Perseus.Util.stringArrayOfSize(oldColumns));
             });
         }
 

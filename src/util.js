@@ -142,6 +142,12 @@ var Util = Perseus.Util = {
                 this.props.onChange();
             }
         }
+    },
+
+    stringArrayOfSize: function(size) {
+        return _(size).times(function() {
+            return "";
+        });
     }
 };
 

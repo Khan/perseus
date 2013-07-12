@@ -83,6 +83,13 @@ var MJ = Perseus.MJ = (function() {
 
 
 var Renderer = Perseus.Renderer = React.createClass({
+
+    componentWillReceiveProps: function(nextProps) {
+        if (!_.isEqual(this.props, nextProps)) {
+            this.setState({widgets: {}});
+        }
+    },
+
     getDefaultProps: function() {
         return {
             content: "",
