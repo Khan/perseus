@@ -746,6 +746,15 @@
         isSimplified("1/x^-1", false);
     });
 
+    test("isSimplified (equations)", function() {
+        isSimplified("x=10");
+        isSimplified("x=-10");
+        isSimplified("x=10y");
+        isSimplified("x=-10y");
+        isSimplified("x=10+y");
+        isSimplified("x=-10+y");
+    });
+
     test("isSimplified (equalities)", function() {
         isSimplified("y=x");
         isSimplified("y=x^2");

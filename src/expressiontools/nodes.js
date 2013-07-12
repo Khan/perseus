@@ -1058,7 +1058,7 @@ _.extend(Eq.prototype, {
             // invidually negates every additive term
             // e.g. y=x+1 -> y-x-1
             var right = _.map(this.right.terms, function(term) {
-                return Mul.handleNegative(term);
+                return Mul.handleNegative(term).collect();
             });
 
             if (this.left instanceof Add) {
@@ -1069,7 +1069,7 @@ _.extend(Eq.prototype, {
         } else {
             // otherwise just negate the entire side
             // e.g. y=3x -> y-3x
-            var right = Mul.handleNegative(this.right);
+            var right = Mul.handleNegative(this.right).collect();
             if (this.left instanceof Num && this.left.isEnteredZero()) {
                 // already set to zero
                 // e.g. 0=42xyz -> -42xyz
