@@ -7,6 +7,8 @@ var BaseRadio = React.createClass({
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
         return <ul className="perseus-widget-radio">
+            {this.props.multipleSelect &&
+                <div class="instructions">Select all that apply.</div>}
             {this.props.choices.map(function(choice, i) {
 
                 var content = <div>

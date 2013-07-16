@@ -83,7 +83,7 @@ var AnswerAreaEditor = React.createClass({
                                 options: {}
                             }, function() {
                                 this.refs.editor.focus();
-                            });
+                            }.bind(this));
                         }.bind(this)}>
                     <option value="radio">Multiple choice</option>
                     <option value="table">Table of values</option>
