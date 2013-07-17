@@ -45,11 +45,6 @@ var AnswerAreaEditor = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // TODO(alpert): How to do this at initialization instead of here?
-        this.refs.answerType.getDOMNode().value = this.props.type;
-    },
-
     render: function() {
         var cls;
         if (this.props.type === "multiple") {
@@ -76,7 +71,7 @@ var AnswerAreaEditor = React.createClass({
             </label>
             <label>
                 Answer type:
-                <select ref="answerType"
+                <select value={this.props.type}
                         onChange={function(e) {
                             this.props.onChange({
                                 type: e.target.value,

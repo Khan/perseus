@@ -104,7 +104,7 @@ var InteractiveGraph = React.createClass({
         var extraOptions;
         if (this.props.flexibleType) {
             typeSelect = <select
-                    ref="typeSelect"
+                    value={this.props.graph.type}
                     onChange={function(e) {
                         var type = e.target.value
                         this.props.onChange({
@@ -120,7 +120,7 @@ var InteractiveGraph = React.createClass({
 
             if (this.props.graph.type === "point") {
                 extraOptions = <select
-                        ref="numPoints"
+                        value={this.props.graph.numPoints || 1}
                         onChange={function(e) {
                             var num = +e.target.value
                             this.props.onChange({
@@ -166,15 +166,6 @@ var InteractiveGraph = React.createClass({
 
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
-
-        // TODO(alpert): How to do this at initialization instead of here?
-        if (this.refs.typeSelect) {
-            this.refs.typeSelect.getDOMNode().value = type;
-        }
-        if (this.refs.numPoints) {
-            this.refs.numPoints.getDOMNode().value =
-                    this.props.graph.numPoints || 1;
-        }
     },
 
     getEquationString: function() {

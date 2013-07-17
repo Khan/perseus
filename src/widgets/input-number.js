@@ -128,15 +128,9 @@ var InputNumberEditor = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        // TODO(alpert): How to do this at initialization instead of here?
-        this.refs.size.getDOMNode().value = this.props.size;
-    },
-
     render: function() {
         var answerTypeOptions = _.map(answerTypes, function(v, k) {
-            return <option selected={k === this.props.answerType}
-                    value={k}>{v.name}</option>;
+            return <option value={k}>{v.name}</option>;
         }, this);
 
         return <div>
@@ -186,7 +180,9 @@ var InputNumberEditor = React.createClass({
 
             <div>
             Answer type:
-            <select onChange={function(e) {
+            <select
+                value={this.props.answerType}
+                onChange={function(e) {
                     this.props.onChange({answerType: e.target.value});
                 }.bind(this)}>
                 {answerTypeOptions}
@@ -195,7 +191,7 @@ var InputNumberEditor = React.createClass({
 
             <div><label>
                 Width
-                <select ref="size"
+                <select value={this.props.size}
                         onChange={function(e) {
                             this.props.onChange({size: e.target.value});
                         }.bind(this)}>
