@@ -181,6 +181,14 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                     hintsVisible: this.state.hintsVisible
                 }),
                 document.getElementById("hintsarea"));
+
+        if (Khan.scratchpad) {
+            if (_.isEmpty(this.props.item.question.widgets)) {
+                Khan.scratchpad.enable();
+            } else {
+                Khan.scratchpad.disable();
+            }
+        }
     },
 
     render: function() {
