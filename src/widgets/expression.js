@@ -26,14 +26,6 @@ var Expression = React.createClass({
         this.updateParsedTex(nextProps.currentValue);
     },
 
-    asTex: function() {
-        var tex = this.state.lastParsedTex;
-        if (this.props.times) {
-            tex = tex.replace(/\\cdot/g, "\\times");
-        }
-        return "\\displaystyle " + tex;
-    },
-
     render: function() {
         var MJ = Perseus.MJ;  // MathJax
         var result = parse(this.props.currentValue);
@@ -47,7 +39,7 @@ var Expression = React.createClass({
             <span className="output">
                 <span className="mathjax"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <MJ>{this.asTex()}</MJ>
+                    <MJ>{this.state.lastParsedTex}</MJ>
                 </span>
                 <span className="placeholder">
                     <span ref="error" className="error"
@@ -189,8 +181,9 @@ var Expression = React.createClass({
 
     updateParsedTex: function(value) {
         var result = parse(value);
+        var options = _.pick(this.props, "times");
         if (result.parsed) {
-            this.setState({lastParsedTex: result.expr.tex()});
+            this.setState({lastParsedTex: result.expr.asTex(options)});
         }
     },
 
