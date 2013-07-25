@@ -27,7 +27,7 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        var MJ = Perseus.MJ;  // MathJax
+        var TeX = Perseus.TeX;  // MathJax
         var result = parse(this.props.currentValue);
 
         return <span className="perseus-widget-expression">
@@ -39,7 +39,7 @@ var Expression = React.createClass({
             <span className="output">
                 <span className="mathjax"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <MJ>{this.state.lastParsedTex}</MJ>
+                    <TeX>{this.state.lastParsedTex}</TeX>
                 </span>
                 <span className="placeholder">
                     <span ref="error" className="error"
