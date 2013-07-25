@@ -702,7 +702,7 @@ case 35:return "VAR"
 break;
 case 36:yy_.yytext = "phi"; return "VAR"
 break;
-case 37:return (yy.symbols[yy_.yytext] || "VAR").toUpperCase()
+case 37:return yy.symbolLexer(yy_.yytext)
 break;
 case 38:return "EOF"
 break;

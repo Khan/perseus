@@ -1,14 +1,12 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
-var parse = Perseus.ExpressionTools.parse;
-var compare = Perseus.ExpressionTools.compare;
-
 var Expression = React.createClass({
     getDefaultProps: function() {
         return {
             currentValue: "",
-            times: false
+            times: false,
+            functions: []
         };
     },
 
@@ -16,6 +14,11 @@ var Expression = React.createClass({
         return {
             lastParsedTex: ""
         };
+    },
+
+    parse: function(value) {
+        var options = _.pick(this.props, "functions");
+        return Perseus.ExpressionTools.parse(value, options);
     },
 
     componentWillMount: function() {
@@ -27,8 +30,8 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        var TeX = Perseus.TeX;  // MathJax
-        var result = parse(this.props.currentValue);
+        var TeX = Perseus.TeX;  // KaTeX and/or MathJax
+        var result = this.parse(this.props.currentValue);
 
         return <span className="perseus-widget-expression">
             <input ref="input" type="text"
@@ -62,7 +65,7 @@ var Expression = React.createClass({
 
     componentDidUpdate: function() {
         clearTimeout(this.errorTimeout);
-        if (parse(this.props.currentValue).parsed) {
+        if (this.parse(this.props.currentValue).parsed) {
             this.hideError();
         } else {
             this.errorTimeout = setTimeout(this.showError, 2000);
@@ -180,7 +183,7 @@ var Expression = React.createClass({
     },
 
     updateParsedTex: function(value) {
-        var result = parse(value);
+        var result = this.parse(value);
         var options = _.pick(this.props, "times");
         if (result.parsed) {
             this.setState({lastParsedTex: result.expr.asTex(options)});
@@ -211,8 +214,10 @@ var Expression = React.createClass({
 
 _.extend(Expression, {
     validate: function(state, rubric) {
-        var answer = parse(state.currentValue);
-        var expected = parse(rubric.value);
+        var options = _.pick(rubric, "functions");
+        var parse = Perseus.ExpressionTools.parse;
+        var answer = parse(state.currentValue, options);
+        var expected = parse(rubric.value, options);
 
         if (!state.currentValue || !answer.parsed) {
             return {
@@ -221,6 +226,7 @@ _.extend(Expression, {
             };
         }
 
+        var compare = Perseus.ExpressionTools.compare;
         var result = compare(answer.expr, expected.expr, rubric);
 
         return {
@@ -237,7 +243,8 @@ var ExpressionEditor = React.createClass({
         return {
             form: false,
             simplify: false,
-            times: false
+            times: false,
+            functions: ["f", "g", "h"]
         };
     },
 
@@ -254,6 +261,7 @@ var ExpressionEditor = React.createClass({
                 <Expression ref="expression"
                     currentValue={this.props.value}
                     times={this.props.times}
+                    functions={this.props.functions}
                     onChange={function(newProps) {
                         if ("currentValue" in newProps) {
                             newProps.value = newProps.currentValue;
@@ -271,12 +279,24 @@ var ExpressionEditor = React.createClass({
                     {labelText}
                 </label>;
             }, this)}
+            <label>
+                {"Function variables: "}
+                <input type="text"
+                    defaultValue={this.props.functions.join(" ")}
+                    onChange={this.handleFunctions} />
+            </label>
         </div>;
     },
 
     handleCheck: function(e) {
         var newProps = {};
         newProps[e.target.name] = e.target.checked;
+        this.props.onChange(newProps);
+    },
+
+    handleFunctions: function(e) {
+        var newProps = {};
+        newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
         this.props.onChange(newProps);
     },
 
@@ -291,12 +311,13 @@ var ExpressionEditor = React.createClass({
         if (!skipValidation) {
             if (value === "") {
                 alert("Warning: No expression has been entered.");
-            } else if (!parse(value).parsed) {
+            } else if (!this.refs.expression.parse(value).parsed) {
                 alert("Warning: Entered expression didn't parse.");
             }
         }
 
-        return _.pick(this.props, "value", "form", "simplify", "times");
+        return _.pick(this.props, "value", "form", "simplify",
+            "times", "functions");
     }
 });
 

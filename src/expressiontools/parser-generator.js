@@ -44,7 +44,7 @@ var grammar = {
             ["\u03B8",              "yytext = \"theta\"; return \"VAR\""],  // theta
             ["phi",                 "return \"VAR\""],
             ["\u03C6",              "yytext = \"phi\"; return \"VAR\""],  // phi
-            ["[a-zA-Z]",            "return (yy.symbols[yytext] || \"VAR\").toUpperCase()"],
+            ["[a-zA-Z]",            "return yy.symbolLexer(yytext)"],
             ["$",                   "return \"EOF\""],
             [".",                   "return \"INVALID\""]
         ],

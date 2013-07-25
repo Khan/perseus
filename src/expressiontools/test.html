@@ -35,16 +35,16 @@
 <script type="text/javascript">
 (function(Perseus) {
 
-    var parse = function(input, symbols) {
-        return Perseus.ExpressionTools.parse(input, symbols).expr;
+    var parse = function(input, options) {
+        return Perseus.ExpressionTools.parse(input, options).expr;
     };
 
 
     QUnit.module("parsing");
 
-    var print = function(input, expected, symbols) {
+    var print = function(input, expected, options) {
         var message = input + " parses as " + expected;
-        strictEqual(parse(input, symbols).print(), expected, message);
+        strictEqual(parse(input, options).print(), expected, message);
     };
 
     test("empty", function() {
@@ -212,6 +212,8 @@
         print("log_bx_0", "log_(b) (x_(0))");
         print("log_x_0b", "log_(x_(0)) (b)");
 
+        print("log_2.5x", "log_(2.5) (x)");
+
         print("ln ln x", "ln(ln(x))");
         print("ln x ln y", "ln(x)*ln(y)");
         print("ln x/ln y", "ln(x)*ln(y)^(-1)");
@@ -288,15 +290,15 @@
 
     test("function variables", function() {
         print("f(x)", "f*x");
-        print("f(x)", "f(x)", {f: "func"});
-        print("f(x+y)", "f(x+y)", {f: "func"});
-        print("f(x)g(x)", "f(x)*g(x)", {f: "func", g: "func"});
-        print("f(g(h(x)))", "f(g(h(x)))", {f: "func", g: "func", h: "func"});
+        print("f(x)", "f(x)", {functions: ["f"]});
+        print("f(x+y)", "f(x+y)", {functions: ["f"]});
+        print("f(x)g(x)", "f(x)*g(x)", {functions: ["f", "g"]});
+        print("f(g(h(x)))", "f(g(h(x)))", {functions: ["f", "g", "h"]});
     });
 
-    var repr = function(input, expected, symbols) {
+    var repr = function(input, expected, options) {
         var message = input + " parses as " + expected;
-        strictEqual(parse(input, symbols).repr(), expected, message);
+        strictEqual(parse(input, options).repr(), expected, message);
     };
 
     test("structure", function() {
@@ -323,16 +325,16 @@
         repr("y=x^2", "Eq(Var(y),=,Pow(Var(x),2))");
         repr("log_2x", "Log(2,Var(x))");
         repr("f(x+y)", "Mul(Var(f),Add(Var(x),Var(y)))");
-        repr("f(x+y)", "Func(f,Add(Var(x),Var(y)))", {f: "func"});
+        repr("f(x+y)", "Func(f,Add(Var(x),Var(y)))", {functions: ["f"]});
         repr("sin(theta)", "Trig(sin,Var(theta))");
     });
 
 
     QUnit.module("rendering");
 
-    var tex = function(input, expected, symbols) {
+    var tex = function(input, expected, options) {
         var message = input + " renders as " + expected;
-        strictEqual(parse(input, symbols).tex(), expected, message);
+        strictEqual(parse(input, options).tex(), expected, message);
     };
 
     test("positive and negative primitives", function() {
@@ -478,9 +480,9 @@
 
     test("function variables", function() {
         tex("f(x)", "fx");
-        tex("f(x)", "f(x)", {f: "func"});
-        tex("f(sin x)", "f(\\sin(x))", {f: "func"});
-        tex("sin f(x)", "\\sin(f(x))", {f: "func"});
+        tex("f(x)", "f(x)", {functions: ["f"]});
+        tex("f(sin x)", "f(\\sin(x))", {functions: ["f"]});
+        tex("sin f(x)", "\\sin(f(x))", {functions: ["f"]});
     });
 
     var texopt = function(input, expected) {
@@ -662,8 +664,8 @@
     QUnit.module("comparing");
 
     var compare = function(options, input, reference, expectedResult) {
-        var actual = parse(input);
-        var expected = parse(reference);
+        var actual = parse(input, {functions: ["f", "g", "h"]});
+        var expected = parse(reference, {functions: ["f", "g", "h"]});
         var result = Perseus.ExpressionTools.compare(actual, expected, options);
         if (expectedResult === undefined) expectedResult = true;
         var message = input + " is " + (expectedResult ? "" : "NOT ") + "the same as " + reference;
@@ -720,11 +722,34 @@
             "1/3p=117",
             "p=351",
             "p-351=0",
-        ]
+        ];
 
         _.each(forms2, function(form) {
             comp(forms2[0], form);
         });
+
+        comp("x", "xy/y");
+    });
+
+    test("simplify can't yet handle these", function() {
+        var comp = _.partial(compare, {form: false});
+
+        comp("sin(x + 2pi)", "sin(x)");
+        comp("y = sin(x + 2pi)", "y = sin(x)");
+        comp("sin^2(x)+cos^2(x)", "x/x");
+        comp("y = sin^2(x)+cos^2(x)", "y = x/x");
+    });
+
+    test("partially evaluating functions", function() {
+        var comp = _.partial(compare, {form: false});
+
+        comp("f(x)", "f(x)");
+        comp("f(x)", "g(x)", false);
+        comp("f(g(x))", "f(g(x))");
+        comp("sin(f(3x-x))/cos(f(x+x))", "tan(f(2x))");
+        comp("f(x) = sin(x + 2pi)", "f(x) = sin(x)");
+        comp("f(x) = sin^2(x)+cos^2(x)", "f(x) = 1");
+        comp("f(x) = ln|x|+c", "f(x)-ln|x|-c = 0");
     });
 
     test("evaluating and comparing form", function() {
@@ -767,6 +792,7 @@
 
         comp("y=mx+b", "-b-mx=-y");
         comp("y=mx+b", "y-b=mx", false);
+
         comp("y-3=2(x-4)", "y=2x-5", false);
         comp("y-3=2(x-4)", "2x-y=5", false);
         comp("y=2x-5", "2x-y=5", false);
@@ -1045,10 +1071,10 @@
         simplify("1/(xya)+1/(xyb)", "(1/a+1/b) 1/x 1/y");
     });
 
-    var isSimplified = function(input, expectedResult) {
+    var isSimplified = function(input, expectedResult, options) {
         if (expectedResult === undefined) expectedResult = true;
         var message = input + (expectedResult ? " is " : " is NOT ") + "simplified";
-        ok(parse(input).isSimplified() === expectedResult, message);
+        ok(parse(input, options).isSimplified() === expectedResult, message);
     }
 
     test("isSimplified (addition/subtraction)", function() {
@@ -1095,6 +1121,9 @@
         isSimplified("x=-10y");
         isSimplified("x=10+y");
         isSimplified("x=-10+y");
+
+        isSimplified("f(2x) = 10", true, {functions: ["f"]});
+        isSimplified("f(x+x) = 10", false, {functions: ["f"]});
     });
 
     test("isSimplified (equalities)", function() {

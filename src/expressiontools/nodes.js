@@ -42,6 +42,7 @@ var error = function(message) { throw new Error(message); };
 /* constants */
 var ITERATIONS = 10;
 var RANGE = 1000;
+var TOLERANCE = 9; // decimal places
 
 
 /* abstract base expression node */
@@ -64,8 +65,9 @@ _.extend(Expr.prototype, {
 
     // an abstraction for chainable, bottom-up recursion
     recurse: function(method) {
+        var passed = Array.prototype.slice.call(arguments, 1);
         var args = _.map(this.args(), function(arg) {
-            return _.isString(arg) ? arg : arg[method]();
+            return _.isString(arg) ? arg : arg[method].apply(arg, passed);
         });
         return this.construct(args);
     },
@@ -200,40 +202,37 @@ _.extend(Expr.prototype, {
         return this.args()[0].needsExplicitMul();
     },
 
-    // semantic equality check
-    compare: function(other) {
-        // equation comparisons are handled by Eq.compare()
-        if (other instanceof Eq) return false;
-
-        // TODO(alex): if expression has function variables or the constant i -> false
-        var canEval = true;
-
-        if (canEval) {
-            return this.fuzzEval(other);
-        } else {
-            return this.simplify().equals(other.simplify());
-        }
-    },
-
-    // check that the symbols in both expressions are the same
+    // check that the variables in both expressions are the same
     sameVars: function(other) {
         var vars1 = this.getVars();
         var vars2 = other.getVars();
+
+        // the other Expr can have more variables than this one
+        // this lets you multiply equations by other variables
+        var same = function(array1, array2) {
+            return !_.difference(array1, array2).length;
+        };
 
         var lower = function(array) {
             return _.uniq(_.invoke(array, "toLowerCase")).sort();
         };
 
-        var equal = _.isEqual(vars1, vars2);
-        var equalIgnoringCase = _.isEqual(lower(vars1), lower(vars2));
+        var equal = same(vars1, vars2);
+        var equalIgnoringCase = same(lower(vars1), lower(vars2));
 
         return {equal: equal, equalIgnoringCase: equalIgnoringCase};
     },
 
+    // semantic equality check, call after sameVars() to avoid potential false positives
     // plug in random numbers for the variables in both expressions
     // if they both consistently evaluate the same, then they're the same
-    fuzzEval: function(other) {
-        var varList = this.getVars(/* excludeFunc */ true);
+    compare: function(other) {
+        // equation comparisons are handled by Eq.compare()
+        if (other instanceof Eq) return false;
+
+        var varList = _.union(
+            this.getVars(/* excludeFunc */ true),
+            other.getVars(/* excludeFunc */ true));
 
         for (var i = 0; i < ITERATIONS; i++) {
 
@@ -242,15 +241,35 @@ _.extend(Expr.prototype, {
                 vars[v] = _.random(-RANGE, RANGE);
             }, this);
 
-            var result1 = this.eval(vars);
-            var result2 = other.eval(vars);
+            if (this.has(Func) || other.has(Func)) {
+                var result1 = this.partialEval(vars);
+                var result2 = other.partialEval(vars);
 
-            var equal = ((isNaN(result1) && isNaN(result2)) ||
-                        (Math.abs(result1 - result2) < 1e-9));
+                var equal = result1.simplify().equals(result2.simplify());
+
+            } else {            
+                var result1 = this.eval(vars);
+                var result2 = other.eval(vars);
+
+                var equal = ((isNaN(result1) && isNaN(result2)) ||
+                            (Math.abs(result1 - result2) < Math.pow(1, -TOLERANCE)));
+            }
 
             if (!equal) return false;
         }
+
         return true;
+    },
+
+    // evaluate as much of the expression as possible
+    partialEval: function(vars) {
+        if (!this.has(Func)) {
+            return new Float(this.eval(vars).toFixed(TOLERANCE)).collect();
+        } else if (this instanceof Func) {
+            return new Func(this.symbol, this.arg.partialEval(vars));
+        } else {
+            return this.recurse("partialEval", vars);
+        }
     },
 
     // check that the structure of both expressions is the same
@@ -1661,7 +1680,7 @@ Abs.prototype = new Expr();
 _.extend(Abs.prototype, {
     func: Abs,
     args: function() { return [this.arg]; },
-    eval: function() { return Math.abs(this.arg.eval()); },
+    eval: function(vars) { return Math.abs(this.arg.eval(vars)); },
     print: function() { return "abs(" + this.arg.print() + ")"; },
 
     tex: function() {
@@ -1749,10 +1768,6 @@ _.extend(Eq.prototype, {
 
     tex: function() {
         return this.left.tex() + this.signs[this.type] + this.right.tex();
-    },
-
-    getVars: function(excludeFunc) {
-        return this.asExpr().getVars(excludeFunc);
     },
 
     normalize: function() {
@@ -2340,14 +2355,28 @@ parser.yy = {
     Var: Var,
     Int: Int,
     Float: Float,
-    parseError: parseError
+    parseError: parseError,
+
+    constants: ["e"],
+    symbolLexer: function(symbol) {
+        if (_.contains(parser.yy.constants, symbol)) {
+            return "CONST";
+        } else if (_.contains(parser.yy.functions, symbol)) {
+            return "FUNC";
+        } else {
+            return "VAR"
+        }
+    }
 };
 
-Perseus.ExpressionTools.parse = function(input, symbols) {
+Perseus.ExpressionTools.parse = function(input, options) {
     try {
-        if (!symbols) symbols = {};
-        _.extend(symbols, {e: "const"});
-        parser.yy.symbols = symbols;
+        if (options && options.functions) {
+            // reserve the symbol "i" for complex numbers
+            parser.yy.functions = _.without(options.functions, "i");
+        } else {
+            parser.yy.functions = [];
+        }
 
         var expr = parser.parse(input).completeParse();
         return { parsed: true, expr: expr };
@@ -2357,3 +2386,4 @@ Perseus.ExpressionTools.parse = function(input, symbols) {
 };
 
 })(Perseus);
+ 
