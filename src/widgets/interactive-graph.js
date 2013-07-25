@@ -76,12 +76,16 @@ function getLineIntersection(firstPoints, secondPoints) {
     }
 }
 
+function numSteps(range, step) {
+    return Math.floor((range[1] - range[0]) / step);
+}
+
 var InteractiveGraph = React.createClass({
     getDefaultProps: function() {
         return {
-            // TODO(alpert): Configurable graph range
-            snap: 0.5,
-            scale: 20,
+            range: [[-10, 10], [-10, 10]],
+            box: [400, 400],
+            step: [2, 2],
             graph: {
                 type: "linear"
             }
@@ -97,6 +101,22 @@ var InteractiveGraph = React.createClass({
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
         }
+        if (this.shouldSetupGraphie) {
+            this.setupGraphie();
+        }
+    },
+
+    pointsFromNormalized: function (coordsList) {
+        var self = this;
+        return _.map(coordsList, function(coords) {
+            return _.map(coords, function (coord, i) {
+                var range = self.props.range[i];
+                var step = self.props.step[i];
+                var nSteps = numSteps(range, step);
+                var tick = Math.round(coord * nSteps);
+                return range[0] + step * tick;
+            });
+        });
     },
 
     render: function() {
@@ -150,22 +170,60 @@ var InteractiveGraph = React.createClass({
     },
 
     componentDidMount: function() {
+        this.setupGraphie();
+    },
+
+    getStepConfig: function() {
+        var self = this;
+        return _.map(self.props.step, function(step, i) {
+            var extent = self.props.range[i];
+            var scale = Perseus.Util.scaleFromExtent(extent, self.props.box[i]);
+            var constraint = self.props.box[i];
+            var gridStep = Perseus.Util.gridStepFromTickStep(step, scale);
+            return {
+                scale: scale,
+                gridStep: gridStep,
+                snap: gridStep / 2,
+                tickStep: step / gridStep
+            };
+        });
+    },
+
+    setupGraphie: function() {
+        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        $(graphieDiv).empty();
+        var range = this.props.range;
         var graphie = this.graphie = KhanUtil.createGraphie(
                 this.refs.graphieDiv.getDOMNode());
+        this.shouldSetupGraphie = false;
+
+        var stepConfig = this.getStepConfig();
+        graphie.snap = _.pluck(stepConfig, "snap");
         graphie.graphInit({
-            range: 10,
-            scale: this.props.scale,
+            range: range,
+            scale: _.pluck(stepConfig, "scale"),
             axisArrows: "<->",
             labelFormat: function(s) { return "\\small{" + s + "}"; },
-            tickStep: 1,
-            labelStep: 1
+            gridStep: _.pluck(stepConfig, "gridStep"),
+            tickStep: _.pluck(stepConfig, "tickStep"),
+            labelStep: 1,
+            unityLabels: true
         });
-        graphie.label([0, 10], "y", "above");
-        graphie.label([10, 0], "x", "right");
+        graphie.label([0, range[1][1]], "y", "above");
+        graphie.label([range[0][1], 0], "x", "right");
         graphie.addMouseLayer();
 
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
+    },
+
+    componentWillReceiveProps: function (nextProps) {
+        if (!_.isEqual(this.props.range, nextProps.range)) {
+            this.shouldSetupGraphie = true;
+        }
+        if (!_.isEqual(this.props.step, nextProps.step)) {
+            this.shouldSetupGraphie = true;
+        }
     },
 
     getEquationString: function() {
@@ -174,30 +232,34 @@ var InteractiveGraph = React.createClass({
     },
 
     addLinearControls: function() {
-        var graphie = this.graphie;
-        var coords = this.props.graph.coords || [[-5, 5], [5, 5]];
+        var self = this;
+        var graphie = self.graphie;
+        var coords = self.props.graph.coords;
+        if (!coords) {
+            coords = self.pointsFromNormalized([[0.25, 0.75], [0.75, 0.75]]);
+        }
 
-        var pointA = this.pointA = graphie.addMovablePoint({
+        var pointA = self.pointA = graphie.addMovablePoint({
             coord: coords[0],
-            snapX: this.props.snap,
-            snapY: this.props.snap,
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
             }
         });
 
-        var pointB = this.pointB = graphie.addMovablePoint({
+        var pointB = self.pointB = graphie.addMovablePoint({
             coord: coords[1],
-            snapX: this.props.snap,
-            snapY: this.props.snap,
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
             }
         });
 
-        var line = this.line = graphie.addMovableLineSegment({
+        var line = self.line = graphie.addMovableLineSegment({
             pointA: pointA,
             pointZ: pointB,
             fixed: true,
@@ -213,11 +275,11 @@ var InteractiveGraph = React.createClass({
         };
 
         $([pointA, pointB]).on("move", function() {
-            var graph = _.extend({}, this.props.graph, {
+            var graph = _.extend({}, self.props.graph, {
                 coords: [pointA.coord, pointB.coord]
             });
-            this.props.onChange({graph: graph});
-        }.bind(this));
+            self.props.onChange({graph: graph});
+        });
     },
 
     getLinearEquationString: function() {
@@ -238,14 +300,22 @@ var InteractiveGraph = React.createClass({
         this.line.remove();
     },
 
+    defaultQuadraticCoords: function() {
+        var coords = [[0.25, 0.75], [0.5, 0.25], [0.75, 0.75]];
+        return this.pointsFromNormalized(coords);
+    },
+
     addQuadraticControls: function() {
         var graphie = this.graphie;
-        var coords = this.props.graph.coords || [[-5, 5], [0, 5], [5, 5]];
+        var coords = this.props.graph.coords;
+        if (!coords) {
+            coords = this.defaultQuadraticCoords();
+        }
 
         var pointA = this.pointA = graphie.addMovablePoint({
             coord: coords[0],
-            snapX: this.props.snap,
-            snapY: this.props.snap,
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -254,8 +324,8 @@ var InteractiveGraph = React.createClass({
 
         var pointB = this.pointB = graphie.addMovablePoint({
             coord: coords[1],
-            snapX: this.props.snap,
-            snapY: this.props.snap,
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -264,8 +334,8 @@ var InteractiveGraph = React.createClass({
 
         var pointC = this.pointC = graphie.addMovablePoint({
             coord: coords[2],
-            snapX: this.props.snap,
-            snapY: this.props.snap,
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
@@ -296,7 +366,7 @@ var InteractiveGraph = React.createClass({
 
     getQuadraticCoefficients: function() {
         // TODO(alpert): Don't duplicate
-        var coords = this.props.graph.coords || [[-5, 5], [0, 5], [5, 5]];
+        var coords = this.props.graph.coords || this.defaultQuadraticCoords();
         return InteractiveGraph.getQuadraticCoefficients(coords);
     },
 
@@ -320,7 +390,7 @@ var InteractiveGraph = React.createClass({
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
         this.parabola = this.graphie.plot(function(x) {
             return (a * x + b) * x + c;
-        }, [-10, 10]).attr({
+        }, this.props.range[0]).attr({
             stroke: KhanUtil.BLUE
         });
         this.parabola.toBack();
@@ -340,7 +410,7 @@ var InteractiveGraph = React.createClass({
 
         var circle = this.circle = graphie.addCircleGraph({
             center: this.props.graph.center || [0, 0],
-            radius: this.props.graph.radius || 2
+            radius: this.props.graph.radius || _.min(this.props.step)
             // TODO(alpert): addCircleGraph doesn't take snap yet
         });
 
@@ -368,14 +438,20 @@ var InteractiveGraph = React.createClass({
 
     addLinearSystemControls: function() {
         var graphie = this.graphie;
-        var coords = this.props.graph.coords ||
-                [[[-5, 5], [5, 5]], [[-5, -5], [5, -5]]];
+        var coords = this.props.graph.coords;
+        if (!coords) {
+            coords = [
+                [[0.25, 0.75], [0.75, 0.75]],
+                [[0.25, 0.25], [0.75, 0.25]]
+            ];
+            coords = _.map(coords, this.pointsFromNormalized, this);
+        }
 
         var firstPoints = this.firstPoints = [
             graphie.addMovablePoint({
                 coord: coords[0][0],
-                snapX: this.props.snap,
-                snapY: this.props.snap,
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1],
                 normalStyle: {
                     stroke: KhanUtil.BLUE,
                     fill: KhanUtil.BLUE
@@ -383,8 +459,8 @@ var InteractiveGraph = React.createClass({
             }),
             graphie.addMovablePoint({
                 coord: coords[0][1],
-                snapX: this.props.snap,
-                snapY: this.props.snap,
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1],
                 normalStyle: {
                     stroke: KhanUtil.BLUE,
                     fill: KhanUtil.BLUE
@@ -395,8 +471,8 @@ var InteractiveGraph = React.createClass({
         var secondPoints = this.secondPoints = [
             graphie.addMovablePoint({
                 coord: coords[1][0],
-                snapX: this.props.snap,
-                snapY: this.props.snap,
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1],
                 normalStyle: {
                     stroke: KhanUtil.GREEN,
                     fill: KhanUtil.GREEN
@@ -404,8 +480,8 @@ var InteractiveGraph = React.createClass({
             }),
             graphie.addMovablePoint({
                 coord: coords[1][1],
-                snapX: this.props.snap,
-                snapY: this.props.snap,
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1],
                 normalStyle: {
                     stroke: KhanUtil.GREEN,
                     fill: KhanUtil.GREEN
@@ -481,12 +557,12 @@ var InteractiveGraph = React.createClass({
     addPointControls: function() {
         var graphie = this.graphie;
 
-        var coords = InteractiveGraph.getPointCoords(this.props.graph);
+        var coords = InteractiveGraph.getPointCoords(this.props.graph, this);
         this.points = _.map(coords, function(coord, i) {
             var point = graphie.addMovablePoint({
                 coord: coord,
-                snapX: this.props.snap,
-                snapY: this.props.snap,
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1],
                 normalStyle: {
                     stroke: KhanUtil.BLUE,
                     fill: KhanUtil.BLUE
@@ -514,7 +590,7 @@ var InteractiveGraph = React.createClass({
     },
 
     getPointEquationString: function() {
-        var coords = InteractiveGraph.getPointCoords(this.props.graph);
+        var coords = InteractiveGraph.getPointCoords(this.props.graph, this);
         return coords.map(function(coord) {
             return "(" + coord[0] + ", " + coord[1] + ")"
         }).join(", ");
@@ -529,7 +605,7 @@ var InteractiveGraph = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return InteractiveGraph.validate(this.toJSON(), rubric);
+        return InteractiveGraph.validate(this.toJSON(), rubric, this);
     },
 
     focus: $.noop
@@ -561,32 +637,47 @@ _.extend(InteractiveGraph, {
     /**
      * @param {object} graph Like props.graph or props.correct
      */
-    getPointCoords: function(graph) {
+    getPointCoords: function(graph, component) {
         var numPoints = graph.numPoints || 1;
         var coords = graph.coords;
 
-        if (graph.coords) {
-            return graph.coords;
+        if (coords) {
+            return coords;
         } else {
             switch (numPoints) {
                 case 1:
                     // Back in the day, one point's coords were in graph.coord
-                    return [graph.coord || [0, 0]];
+                    coords = [graph.coord || [0, 0]];
+                    break;
                 case 2:
-                    return [[-5, 0], [5, 0]];
+                    coords = [[-5, 0], [5, 0]];
+                    break;
                 case 3:
-                    return [[-5, 0], [0, 0], [5, 0]];
+                    coords = [[-5, 0], [0, 0], [5, 0]];
+                    break;
                 case 4:
-                    return [[-6, 0], [-2, 0], [2, 0], [6, 0]];
+                    coords = [[-6, 0], [-2, 0], [2, 0], [6, 0]];
+                    break;
                 case 5:
-                    return [[-6, 0], [-3, 0], [0, 0], [3, 0], [6, 0]];
+                    coords = [[-6, 0], [-3, 0], [0, 0], [3, 0], [6, 0]];
+                    break;
                 case 6:
-                    return [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0], [5, 0]];
+                    coords = [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0], [5, 0]];
+                    break;
             }
+            // Transform coords from their -10 to 10 space to 0 to 1
+            // because of the old graph.coord, and also it's easier.
+            coords = _.map(coords, function (coords) {
+                return _.map(coords, function (coord) {
+                    return ((coord + 10) / 20);
+                });
+            });
+            var coords = component.pointsFromNormalized(coords);
+            return coords;
         }
     },
 
-    validate: function(state, rubric) {
+    validate: function(state, rubric, component) {
         // TODO(alpert): Because this.props.graph doesn't always have coords,
         // check that .coords exists here, which is always true when something
         // has moved
@@ -653,7 +744,8 @@ _.extend(InteractiveGraph, {
                 }
             } else if (state.type === "point") {
                 var guess = state.coords;
-                var correct = InteractiveGraph.getPointCoords(rubric.correct);
+                var correct = InteractiveGraph.getPointCoords(
+                        rubric.correct, component);
                 guess = guess.slice();
                 correct = correct.slice();
                 // Everything's already rounded so we shouldn't need to do an
@@ -697,10 +789,18 @@ var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
     getDefaultProps: function() {
+        var range = this.props.range || [[-10, 10], [-10, 10]];
+        var step = this.props.step || [2, 2];
         return {
+            box: [340, 340],
+            range: range,
+            rangeTextbox: range,
+            step: step,
+            stepTextbox: step,
+            valid: true,
             correct: {
                 type: "linear",
-                coords: [[-5, 5], [5, 5]]
+                coords: null
             }
         };
     },
@@ -712,11 +812,12 @@ var InteractiveGraphEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-widget-interactive-graph">
-            <div>Correct answer: {this.state.equationString}</div>
-            <InteractiveGraph
+        if (this.props.valid === true) {
+            var graph = <InteractiveGraph
                 ref="graph"
-                scale={18}
+                box={this.props.box}
+                range={this.props.range}
+                step={this.props.step}
                 graph={this.props.correct}
                 flexibleType={true}
                 onChange={function(newProps) {
@@ -730,10 +831,146 @@ var InteractiveGraphEditor = React.createClass({
                     this.props.onChange({correct: correct});
                     this.updateEquationString();
                 }.bind(this)} />
+        } else {
+            var graph = <div>{this.props.valid}</div>;
+        }
+        return <div className="perseus-widget-interactive-graph">
+            <div>Correct answer: {this.state.equationString}</div>
+            <div>
+                <div>x range:
+                    <input  type="text"
+                            ref="range-0-0"
+                            onInput={_.bind(this.changeRange, this, 0, 0)}
+                            value={this.props.rangeTextbox[0][0]} />
+                    <input  type="text"
+                            ref="range-0-1"
+                            onInput={_.bind(this.changeRange, this, 0, 1)}
+                            value={this.props.rangeTextbox[0][1]} />
+                </div>
+                <div>
+                    y range:
+                    <input  type="text"
+                            ref="range-1-0"
+                            onInput={_.bind(this.changeRange, this, 1, 0)}
+                            value={this.props.rangeTextbox[1][0]} />
+                    <input  type="text"
+                            ref="range-1-1"
+                            onInput={_.bind(this.changeRange, this, 1, 1)}
+                            value={this.props.rangeTextbox[1][1]} />
+                </div>
+                <div>
+                    step:
+                    <input  type="text"
+                            ref="step-0"
+                            onInput={_.bind(this.changeStep, this, 0)}
+                            value={this.props.stepTextbox[0]} />
+                    <input  type="text"
+                            ref="step-1"
+                            onInput={_.bind(this.changeStep, this, 1)}
+                            value={this.props.stepTextbox[1]} />
+                </div>
+            </div>
+            {graph}
         </div>;
     },
 
+    validRange: function (range) {
+        var numbers = _.every(range, function (num) {
+            return _.isFinite(num);
+        });
+        if (! numbers) {
+            return "Range must be a valid number";
+        }
+        if (range[0] >= range[1]) {
+            return "Range must have a higher number on the right";
+        }
+        return true;
+    },
+
+    validStep: function (step, range) {
+        if (! _.isFinite(step)) {
+            return "Step must be a valid number";
+        }
+        var nSteps = numSteps(range, step);
+        if (nSteps < 3) {
+            return "Step must be smaller to have at least 3 ticks";
+        }
+        if (nSteps > 20) {
+            return "Step must be larger to have at most 20 ticks";
+        }
+        return true;
+    },
+
+    valid: function (range, step) {
+        var self = this;
+        var msg;
+        var goodRange = _.every(range, function (range) {
+            msg = self.validRange(range);
+            return msg === true;
+        });
+        if (!goodRange) {
+            return msg;
+        }
+        var goodStep = _.every(step, function (step, i) {
+            msg = self.validStep(step, range[i]);
+            return msg === true;
+        });
+        if (!goodStep) {
+            return msg;
+        }
+        return true;
+    },
+
+    changeRange: function (i, j, e) {
+        var val = this.refs["range-" + i + "-" + j].getDOMNode().value;
+        var ranges = this.props.rangeTextbox.slice();
+        var range = ranges[i] = ranges[i].slice();
+        range[j] = val;
+        var step = this.props.stepTextbox.slice();
+        if (this.validRange(range) === true) {
+            step[i] = Perseus.Util.tickStepFromExtent(
+                    range, this.props.box[i]);
+        }
+        this.props.onChange({ rangeTextbox: ranges, stepTextbox: step },
+                this.changeGraph);
+    },
+
+    changeStep: function (i, e) {
+        var val = this.refs["step-" + i].getDOMNode().value;
+        var step = this.props.stepTextbox.slice();
+        step[i] = val;
+        this.props.onChange({ stepTextbox: step },
+                this.changeGraph);
+    },
+
+    changeGraph: function () {
+        var range = this.props.rangeTextbox;
+        var step = this.props.stepTextbox;
+        var range = _.map(this.props.rangeTextbox, function (range) {
+            return _.map(range, Number);
+        });
+        var step = _.map(this.props.stepTextbox, Number);
+        var valid = this.valid(range, step);
+        if (valid === true) {
+            this.props.onChange({
+                valid: true,
+                range: range,
+                step: step,
+                correct: {
+                    type: "linear",
+                    coords: null
+                }
+            });
+        } else {
+            this.props.onChange({
+                valid: valid
+            });
+        }
+    },
+
     componentDidMount: function() {
+        var changeGraph = this.changeGraph;
+        this.changeGraph = _.debounce(_.bind(changeGraph, this), 300);
         // TODO(alpert): Remove setTimeout after facebook/react#77 lands
         setTimeout(this.updateEquationString.bind(this), 0);
     },
@@ -745,15 +982,23 @@ var InteractiveGraphEditor = React.createClass({
     },
 
     toJSON: function() {
-        var correct = this.refs.graph.toJSON();
-        return {
-            // TODO(alpert): Allow specifying flexibleType (whether the graph
-            // type should be a choice or not)
-            graph: correct.numPoints ?
-                {type: correct.type, numPoints: correct.numPoints} :
-                {type: correct.type},
-            correct: correct
+        var json = {
+            step: this.props.step,
+            range: this.props.range
         };
+        var graph = this.refs.graph;
+        if (graph) {
+            var correct = graph && graph.toJSON();
+            _.extend(json, {
+                // TODO(alpert): Allow specifying flexibleType (whether the
+                // graph type should be a choice or not)
+                graph: correct.numPoints ?
+                    {type: correct.type, numPoints: correct.numPoints} :
+                    {type: correct.type},
+                correct: correct
+            });
+        }
+        return json;
     }
 });
 

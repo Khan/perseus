@@ -148,6 +148,99 @@ var Util = Perseus.Util = {
         return _(size).times(function() {
             return "";
         });
+    },
+
+    /**
+     * Given the range and a dimension, come up with the appropriate
+     * scale.
+     * Example:
+     *      scaleFromExtent([-25, 25], 500) // returns 10
+     */
+    scaleFromExtent: function(extent, dimensionConstraint) {
+        var span = extent[1] - extent[0];
+        var scale = dimensionConstraint / span;
+        if (scale > 5) {
+            scale = Math.floor(scale);
+        }
+        return scale;
+    },
+
+    /**
+     * Return a reasonable tick step given extent and dimension.
+     * (extent is [begin, end] of the domain.)
+     * Example:
+     *      tickStepFromExtent([-10, 10], 300) // returns 2
+     */
+    tickStepFromExtent: function(extent, dimensionConstraint) {
+        var span = extent[1] - extent[0];
+
+        // If single number digits
+        if (15 < span && span <= 20) {
+            var tickFactor = 20;
+
+        // triple digit or decimal
+        } else if (span > 100 || span < 5) {
+            var tickFactor = 7;
+
+        // double digit
+        } else {
+            var tickFactor = 12;
+        }
+        var constraintFactor = dimensionConstraint / 500;
+        var desiredNumTicks = tickFactor * constraintFactor;
+        return Perseus.Util.tickStepFromNumTicks(span, desiredNumTicks);
+    },
+
+    /**
+     * Given the tickStep and the graph's scale, find a
+     * grid step.
+     * Example:
+     *      gridStepFromTickStep(200, 0.2) // returns 100
+     */
+    gridStepFromTickStep: function(tickStep, scale) {
+        var tickWidth = tickStep * scale;
+        var x = tickStep;
+        var y = Math.pow(10, Math.floor(Math.log(x) / Math.LN10));
+        var leadingDigit = Math.floor(x / y);
+        if (tickWidth < 25) {
+            return tickStep;
+        }
+        if (tickWidth < 50) {
+            if (leadingDigit === 5) {
+                return tickStep;
+            } else {
+                return tickStep / 2;
+            }
+        }
+        if (leadingDigit === 1) {
+            return tickStep / 2;
+        }
+        if (leadingDigit === 2) {
+            return tickStep / 4;
+        }
+        if (leadingDigit === 5) {
+            return tickStep / 5;
+        }
+    },
+
+    /**
+     * Find a good tick step for the desired number of ticks in the range
+     * Modified from d3.scale.linear: d3_scale_linearTickRange.
+     * Thanks, mbostock!
+     * Example:
+     *      tickStepFromNumTicks(50, 6) // returns 10
+     */
+    tickStepFromNumTicks: function(span, numTicks) {
+        var step = Math.pow(10, Math.floor(Math.log(span / numTicks) / Math.LN10));
+        var err = numTicks / span * step;
+
+        // Filter ticks to get closer to the desired count.
+        if (err <= .15) step *= 10;
+        else if (err <= .35) step *= 5;
+        else if (err <= .75) step *= 2;
+
+        // Round start and stop values to step interval.
+        return step;
     }
 };
 
