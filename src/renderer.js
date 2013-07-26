@@ -81,6 +81,8 @@ var TeX = Perseus.TeX = (function() {
                         throw e;
                     }
 
+                    $(this.refs.katex.getDOMNode()).empty();
+
                     if (this.script) {
                         var component = this;
                         MathJax.Hub.Queue(function() {
