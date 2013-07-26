@@ -86,6 +86,7 @@ _.extend(Expr.prototype, {
     // returns a TeX string, modified by the given options
     asTex: function(options) {
 
+        options = options || {};
         _.defaults(options, {
             display: true,
             dynamic: true,
@@ -315,7 +316,6 @@ _.extend(Expr.prototype, {
         var expr = this.construct(this.args());
         expr.hints = _.clone(this.hints);
         expr.hints[hint] = true;
-
         return expr;
     }, 
 
@@ -625,7 +625,7 @@ _.extend(Mul.prototype, {
         if (!inverses.length) {
             return numerator;
         } else {
-            var denominator = new Mul(_.invoke(inverses, "asDivide")).tex();
+            var denominator = new Mul(_.invoke(inverses, "asDivide")).flatten().tex();
             return "\\frac{" + (numerator ? numerator : "1") + "}{" + denominator + "}";
         }
     },
@@ -1600,7 +1600,13 @@ _.extend(Trig.prototype, {
     },
 
     completeParse: function() {
-        return this.exp ? new Pow(this, this.exp) : this;
+        if (this.exp) {
+            var pow = new Pow(this, this.exp);
+            this.exp = undefined;
+            return pow;
+        } else {
+            return this;
+        }
     },
 
     // TODO(alex): does every new node type need to redefine these?

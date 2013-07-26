@@ -116,7 +116,7 @@ var grammar = {
             ["CONST", "$$ = new yy.Const(yytext.toLowerCase());"],
             ["INT", "$$ = new yy.Int(Number(yytext));"],
             ["FLOAT", "$$ = new yy.Float(Number(yytext));"],
-            ["( additive )", "$$ = $2.addHint('parens');"] // this probably shouldn't be a hint...
+            ["( additive )", "$$ = $2.completeParse().addHint('parens');"] // this probably shouldn't be a hint...
         ],
         "function": [
             ["FUNC", "$$ = yytext;"]

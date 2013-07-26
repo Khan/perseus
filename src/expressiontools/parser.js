@@ -146,7 +146,7 @@ case 30:this.$ = new yy.Int(Number(yytext));
 break;
 case 31:this.$ = new yy.Float(Number(yytext));
 break;
-case 32:this.$ = $$[$0-1].addHint('parens');
+case 32:this.$ = $$[$0-1].completeParse().addHint('parens');
 break;
 case 33:this.$ = yytext;
 break;
