@@ -1,9 +1,22 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+
+var defaultBoxSize = 400;
+var defaultBackgroundImage = {
+    url: null,
+    scale: 1,
+    bottom: 0,
+    left: 0,
+};
+
 function eq(x, y) {
     return Math.abs(x - y) < 1e-9;
 }
+
+// Sample background image:
+// https://ka-perseus-graphie.s3.amazonaws.com/29c1b0fcd17fe63df0f148fe357044d5d5c7d0bb.png
+
 
 /**
  * Deep approximate equality on numbers and arrays, not objects yet.
@@ -84,8 +97,10 @@ var InteractiveGraph = React.createClass({
     getDefaultProps: function() {
         return {
             range: [[-10, 10], [-10, 10]],
-            box: [400, 400],
+            box: [defaultBoxSize, defaultBoxSize],
             step: [2, 2],
+            backgroundImage: defaultBackgroundImage,
+            showGraph: true,
             graph: {
                 type: "linear"
             }
@@ -106,10 +121,10 @@ var InteractiveGraph = React.createClass({
         }
     },
 
-    pointsFromNormalized: function (coordsList) {
+    pointsFromNormalized: function(coordsList) {
         var self = this;
         return _.map(coordsList, function(coords) {
-            return _.map(coords, function (coord, i) {
+            return _.map(coords, function(coord, i) {
                 var range = self.props.range[i];
                 var step = self.props.step[i];
                 var nSteps = numSteps(range, step);
@@ -161,9 +176,27 @@ var InteractiveGraph = React.createClass({
             }
         }
 
+        var box = this.props.box;
+
+        var image = this.props.backgroundImage;
+        if (image.url) {
+            var preScale = box[0] / defaultBoxSize;
+            var scale = image.scale * preScale;
+            var style = {
+                bottom: (preScale * image.bottom) + "px",
+                left: (preScale * image.left) + "px",
+                width: (scale * image.width) + "px",
+                height: (scale * image.height) + "px"
+            };
+            image = <img style={style} src={image.url} />;
+        } else {
+            image = null;
+        }
+
         return <span className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
-                style={{padding: "25px 25px 0 0"}}>
+                style={{width: box[0], height: box[1]}}>
+            {image}
             <span className="graphie" ref="graphieDiv" />
             {typeSelect}{extraOptions}
         </span>;
@@ -199,29 +232,39 @@ var InteractiveGraph = React.createClass({
 
         var stepConfig = this.getStepConfig();
         graphie.snap = _.pluck(stepConfig, "snap");
-        graphie.graphInit({
-            range: range,
-            scale: _.pluck(stepConfig, "scale"),
-            axisArrows: "<->",
-            labelFormat: function(s) { return "\\small{" + s + "}"; },
-            gridStep: _.pluck(stepConfig, "gridStep"),
-            tickStep: _.pluck(stepConfig, "tickStep"),
-            labelStep: 1,
-            unityLabels: true
-        });
-        graphie.label([0, range[1][1]], "y", "above");
-        graphie.label([range[0][1], 0], "x", "right");
+        if (this.props.showGraph) {
+            graphie.graphInit({
+                range: range,
+                scale: _.pluck(stepConfig, "scale"),
+                axisArrows: "<->",
+                labelFormat: function(s) { return "\\small{" + s + "}"; },
+                gridStep: _.pluck(stepConfig, "gridStep"),
+                tickStep: _.pluck(stepConfig, "tickStep"),
+                labelStep: 1,
+                unityLabels: true
+            });
+            graphie.label([0, range[1][1]], "y", "above");
+            graphie.label([range[0][1], 0], "x", "right");
+        } else {
+            graphie.init({
+                range: range,
+                scale: _.pluck(stepConfig, "scale")
+            });
+        }
         graphie.addMouseLayer();
 
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
     },
 
-    componentWillReceiveProps: function (nextProps) {
+    componentWillReceiveProps: function(nextProps) {
         if (!_.isEqual(this.props.range, nextProps.range)) {
             this.shouldSetupGraphie = true;
         }
         if (!_.isEqual(this.props.step, nextProps.step)) {
+            this.shouldSetupGraphie = true;
+        }
+        if (!_.isEqual(this.props.showGraph, nextProps.showGraph)) {
             this.shouldSetupGraphie = true;
         }
     },
@@ -667,8 +710,8 @@ _.extend(InteractiveGraph, {
             }
             // Transform coords from their -10 to 10 space to 0 to 1
             // because of the old graph.coord, and also it's easier.
-            coords = _.map(coords, function (coords) {
-                return _.map(coords, function (coord) {
+            coords = _.map(coords, function(coords) {
+                return _.map(coords, function(coord) {
                     return ((coord + 10) / 20);
                 });
             });
@@ -798,6 +841,8 @@ var InteractiveGraphEditor = React.createClass({
             step: step,
             stepTextbox: step,
             valid: true,
+            backgroundImage: defaultBackgroundImage,
+            showGraph: true,
             correct: {
                 type: "linear",
                 coords: null
@@ -819,6 +864,8 @@ var InteractiveGraphEditor = React.createClass({
                 range={this.props.range}
                 step={this.props.step}
                 graph={this.props.correct}
+                backgroundImage={this.props.backgroundImage}
+                showGraph={this.props.showGraph}
                 flexibleType={true}
                 onChange={function(newProps) {
                     var correct = this.props.correct;
@@ -869,13 +916,52 @@ var InteractiveGraphEditor = React.createClass({
                             onInput={_.bind(this.changeStep, this, 1)}
                             value={this.props.stepTextbox[1]} />
                 </div>
+                <div>
+                    <label>Show grid/ticks:
+                        <input type="checkbox"
+                                checked={this.props.showGraph}
+                                onClick={this.toggleShowGraph} />
+                    </label>
+                </div>
+            </div>
+            <div>
+                <div>Background image:</div>
+                <div>Url:
+                    <input type="text"
+                            ref="bg-url"
+                            onKeyPress={this.changeBackgroundUrl}
+                            onBlur={this.changeBackgroundUrl} />
+                </div>
+                {this.props.backgroundImage.url && <div>
+                    <div>Pixels from left:
+                        <input type="text"
+                                ref="bg-left"
+                                value={this.props.backgroundImage.left}
+                                onInput={
+                        _.partial(this.changeBackgroundSetting, "left")} />
+                    </div>
+                    <div>Pixels from bottom:
+                        <input type="text"
+                                ref="bg-bottom"
+                                value={this.props.backgroundImage.bottom}
+                                onInput={
+                        _.partial(this.changeBackgroundSetting, "bottom")} />
+                    </div>
+                    <div>Image scale:
+                        <input type="text"
+                                ref="bg-scale"
+                                value={this.props.backgroundImage.scale}
+                                onInput={
+                        _.partial(this.changeBackgroundSetting, "scale")} />
+                    </div>
+                </div>}
             </div>
             {graph}
         </div>;
     },
 
-    validRange: function (range) {
-        var numbers = _.every(range, function (num) {
+    validRange: function(range) {
+        var numbers = _.every(range, function(num) {
             return _.isFinite(num);
         });
         if (! numbers) {
@@ -887,7 +973,7 @@ var InteractiveGraphEditor = React.createClass({
         return true;
     },
 
-    validStep: function (step, range) {
+    validStep: function(step, range) {
         if (! _.isFinite(step)) {
             return "Step must be a valid number";
         }
@@ -901,17 +987,17 @@ var InteractiveGraphEditor = React.createClass({
         return true;
     },
 
-    valid: function (range, step) {
+    valid: function(range, step) {
         var self = this;
         var msg;
-        var goodRange = _.every(range, function (range) {
+        var goodRange = _.every(range, function(range) {
             msg = self.validRange(range);
             return msg === true;
         });
         if (!goodRange) {
             return msg;
         }
-        var goodStep = _.every(step, function (step, i) {
+        var goodStep = _.every(step, function(step, i) {
             msg = self.validStep(step, range[i]);
             return msg === true;
         });
@@ -921,7 +1007,7 @@ var InteractiveGraphEditor = React.createClass({
         return true;
     },
 
-    changeRange: function (i, j, e) {
+    changeRange: function(i, j, e) {
         var val = this.refs["range-" + i + "-" + j].getDOMNode().value;
         var ranges = this.props.rangeTextbox.slice();
         var range = ranges[i] = ranges[i].slice();
@@ -935,7 +1021,7 @@ var InteractiveGraphEditor = React.createClass({
                 this.changeGraph);
     },
 
-    changeStep: function (i, e) {
+    changeStep: function(i, e) {
         var val = this.refs["step-" + i].getDOMNode().value;
         var step = this.props.stepTextbox.slice();
         step[i] = val;
@@ -943,10 +1029,10 @@ var InteractiveGraphEditor = React.createClass({
                 this.changeGraph);
     },
 
-    changeGraph: function () {
+    changeGraph: function() {
         var range = this.props.rangeTextbox;
         var step = this.props.stepTextbox;
-        var range = _.map(this.props.rangeTextbox, function (range) {
+        var range = _.map(this.props.rangeTextbox, function(range) {
             return _.map(range, Number);
         });
         var step = _.map(this.props.stepTextbox, Number);
@@ -968,6 +1054,49 @@ var InteractiveGraphEditor = React.createClass({
         }
     },
 
+    changeBackgroundUrl: function(e) {
+        var self = this;
+
+        // Only continue on blur or "enter"
+        if (e.type === "keypress" && e.keyCode !== 13) {
+            return;
+        }
+
+        var url = self.refs["bg-url"].getDOMNode().value;
+        var setUrl = function() {
+            var image = _.clone(self.props.backgroundImage);
+            image.url = url;
+            image.width = img.width;
+            image.height = img.height;
+            self.props.onChange({
+                backgroundImage: image,
+                showGraph: !url
+            });
+        };
+        if (url) {
+            var img = new Image();
+            img.onload = setUrl;
+            img.src = url;
+        } else {
+            var img = {
+                url: url,
+                width: 0,
+                height: 0
+            };
+            setUrl();
+        }
+    },
+
+    changeBackgroundSetting: function(type, e) {
+        var image = _.clone(this.props.backgroundImage);
+        image[type] = e.target.value;
+        this.props.onChange({ backgroundImage: image });
+    },
+
+    toggleShowGraph: function() {
+        this.props.onChange({ showGraph: !this.props.showGraph });
+    },
+
     componentDidMount: function() {
         var changeGraph = this.changeGraph;
         this.changeGraph = _.debounce(_.bind(changeGraph, this), 300);
@@ -984,6 +1113,8 @@ var InteractiveGraphEditor = React.createClass({
     toJSON: function() {
         var json = {
             step: this.props.step,
+            backgroundImage: this.props.backgroundImage,
+            showGraph: this.props.showGraph,
             range: this.props.range
         };
         var graph = this.refs.graph;
