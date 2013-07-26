@@ -263,7 +263,9 @@ var Categorization = React.createClass({
         var dims = findDimensionsFor(root, slot);
         var topLeft = {left: dims.topLeft[0], top: dims.topLeft[1]};
         if (offsetTop) {
-            var parentDims = getDimensions(slot.parent());
+            var placeholder = root.find(".category-" +
+                    item.location.category + " .card.placeholder");
+            var parentDims = getDimensions(placeholder.parent());
             topLeft.top -= parentDims[1];
         }
         var animationTime = dragReturnAnimationTime(
@@ -436,7 +438,7 @@ var Category = React.createClass({
     renderCategoryItem: function(item, options) {
         var dragging = this.props.dragging;
         if (dragging && dragging.itemIndex === item.index) {
-            return <PlaceholderItem />;
+            return <PlaceholderItem item={item} />;
         }
         var key = "category-item-" + item.index;
         return CategoryItem({
@@ -554,7 +556,9 @@ var Category = React.createClass({
 var PlaceholderItem = React.createClass({
     render: function() {
         return <li className="card-container">
-            <div className="card placeholder"></div>
+            <div className="card placeholder">
+                {Perseus.Renderer({content: this.props.item.content})}
+            </div>
         </li>;
     }
 });
