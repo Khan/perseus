@@ -196,7 +196,8 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
     },
 
     focus: function() {
-        return this.answerAreaRenderer.focus();
+        return this.questionRenderer.focus() ||
+                this.answerAreaRenderer.focus();
     },
 
     componentWillUnmount: function() {
