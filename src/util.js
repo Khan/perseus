@@ -176,15 +176,15 @@ var Util = Perseus.Util = {
 
         // If single number digits
         if (15 < span && span <= 20) {
-            var tickFactor = 20;
+            var tickFactor = 23;
 
         // triple digit or decimal
         } else if (span > 100 || span < 5) {
-            var tickFactor = 7;
+            var tickFactor = 10;
 
         // double digit
         } else {
-            var tickFactor = 12;
+            var tickFactor = 16;
         }
         var constraintFactor = dimensionConstraint / 500;
         var desiredNumTicks = tickFactor * constraintFactor;

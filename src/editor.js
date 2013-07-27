@@ -27,7 +27,9 @@ var Editor = Perseus.Editor = React.createClass({
         }
 
         return <div>
-            <strong>{id}</strong>
+            <div>
+                <strong>{id}</strong>
+            </div>
             {cls(_.extend({
                 ref: id,
                 onChange: function(newProps, cb) {

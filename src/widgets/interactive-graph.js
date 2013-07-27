@@ -98,7 +98,7 @@ var InteractiveGraph = React.createClass({
         return {
             range: [[-10, 10], [-10, 10]],
             box: [defaultBoxSize, defaultBoxSize],
-            step: [2, 2],
+            step: [1, 1],
             backgroundImage: defaultBackgroundImage,
             showGraph: true,
             graph: {
@@ -193,13 +193,13 @@ var InteractiveGraph = React.createClass({
             image = null;
         }
 
-        return <span className={"perseus-widget " +
+        return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                 style={{width: box[0], height: box[1]}}>
             {image}
-            <span className="graphie" ref="graphieDiv" />
+            <div className="graphie" ref="graphieDiv" />
             {typeSelect}{extraOptions}
-        </span>;
+        </div>;
     },
 
     componentDidMount: function() {
@@ -213,11 +213,14 @@ var InteractiveGraph = React.createClass({
             var scale = Perseus.Util.scaleFromExtent(extent, self.props.box[i]);
             var constraint = self.props.box[i];
             var gridStep = Perseus.Util.gridStepFromTickStep(step, scale);
+            var tickWidth = step * scale;
+            var unityLabel = tickWidth > 30;
             return {
                 scale: scale,
                 gridStep: gridStep,
                 snap: gridStep / 2,
-                tickStep: step / gridStep
+                tickStep: step / gridStep,
+                unityLabel: unityLabel
             };
         });
     },
@@ -241,7 +244,7 @@ var InteractiveGraph = React.createClass({
                 gridStep: _.pluck(stepConfig, "gridStep"),
                 tickStep: _.pluck(stepConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: true
+                unityLabels: _.pluck(stepConfig, "unityLabel"),
             });
             graphie.label([0, range[1][1]], "y", "above");
             graphie.label([range[0][1], 0], "x", "right");
@@ -833,7 +836,7 @@ var InteractiveGraphEditor = React.createClass({
 
     getDefaultProps: function() {
         var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [2, 2];
+        var step = this.props.step || [1, 1];
         return {
             box: [340, 340],
             range: range,
@@ -883,7 +886,7 @@ var InteractiveGraphEditor = React.createClass({
         }
         return <div className="perseus-widget-interactive-graph">
             <div>Correct answer: {this.state.equationString}</div>
-            <div>
+            <div className="graph-settings">
                 <div>x range:
                     <input  type="text"
                             ref="range-0-0"
@@ -928,6 +931,7 @@ var InteractiveGraphEditor = React.createClass({
                 <div>Background image:</div>
                 <div>Url:
                     <input type="text"
+                            className="graph-settings-background-url"
                             ref="bg-url"
                             onKeyPress={this.changeBackgroundUrl}
                             onBlur={this.changeBackgroundUrl} />
