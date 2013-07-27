@@ -213,8 +213,8 @@ var InteractiveGraph = React.createClass({
             var scale = Perseus.Util.scaleFromExtent(extent, self.props.box[i]);
             var constraint = self.props.box[i];
             var gridStep = Perseus.Util.gridStepFromTickStep(step, scale);
-            var tickWidth = step * scale;
-            var unityLabel = tickWidth > 30;
+            var stepPx = step * scale;
+            var unityLabel = stepPx > 30;
             return {
                 scale: scale,
                 gridStep: gridStep,
@@ -244,7 +244,7 @@ var InteractiveGraph = React.createClass({
                 gridStep: _.pluck(stepConfig, "gridStep"),
                 tickStep: _.pluck(stepConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(stepConfig, "unityLabel"),
+                unityLabels: _.pluck(stepConfig, "unityLabel")
             });
             graphie.label([0, range[1][1]], "y", "above");
             graphie.label([range[0][1], 0], "x", "right");
