@@ -40,7 +40,7 @@ var Expression = React.createClass({
                 onKeyPress={this.handleKeyPress}
                 onChange={this.handleChange} />
             <span className="output">
-                <span className="mathjax"
+                <span className="tex"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
                     <TeX>{this.state.lastParsedTex}</TeX>
                 </span>
@@ -227,6 +227,7 @@ _.extend(Expression, {
         }
 
         var compare = Perseus.ExpressionTools.compare;
+        // are these in the wrong order???
         var result = compare(answer.expr, expected.expr, rubric);
 
         return {

@@ -348,11 +348,11 @@
         tex("-2", "-2");
         tex("--2", "--2");
         tex("x", "x");
-        tex("theta", "\\theta");3
+        tex("theta", "\\theta");
         tex("1/2", "\\frac{1}{2}");
-        tex("-1/2", "\\frac{-1}{2}");
-        tex("1/-2", "\\frac{-1}{2}");
-        tex("-1/-2", "-\\frac{-1}{2}");
+        tex("-1/2", "-\\frac{1}{2}");
+        tex("1/-2", "-\\frac{1}{2}");
+        tex("-1/-2", "--\\frac{1}{2}");
     });
 
     test("addition", function() {
@@ -450,7 +450,7 @@
         tex("1/(1/x)", "\\frac{1}{\\frac{1}{x}}");
         tex("1/x/x", "\\frac{1}{xx}");
         tex("1/(x/x)", "\\frac{1}{\\frac{x}{x}}");
-        tex("-1/1/x", "\\frac{\\frac{-1}{1}}{x}");
+        tex("-1/1/x", "\\frac{-\\frac{1}{1}}{x}");
         tex("-1/(1/x)", "\\frac{-1}{\\frac{1}{x}}");
         tex("-1/x/x", "\\frac{-1}{xx}");
         tex("-1/(x/x)", "\\frac{-1}{\\frac{x}{x}}");
@@ -736,6 +736,7 @@
         });
 
         comp("x", "xy/y");
+        comp("e^x", "e^x");
     });
 
     test("simplify can't yet handle these", function() {

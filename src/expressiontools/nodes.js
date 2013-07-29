@@ -38,10 +38,12 @@ var abstract = function() {
 // throw an error that is meant to be caught by the test suite (not user facing)
 var error = function(message) { throw new Error(message); };
 
+// reliably detect NaN
+var isNaN = function(object) { return object !== object; };
+
 
 /* constants */
-var ITERATIONS = 10;
-var RANGE = 1000;
+var ITERATIONS = 12;
 var TOLERANCE = 9; // decimal places
 
 
@@ -235,25 +237,41 @@ _.extend(Expr.prototype, {
             this.getVars(/* excludeFunc */ true),
             other.getVars(/* excludeFunc */ true));
 
+        var equalNumbers = function(num1, num2) {
+            return ((num1 === num2) ||
+                    (isNaN(num1) && isNaN(num2)) ||
+                    (Math.abs(num1 - num2) < Math.pow(1, -TOLERANCE)));
+        };
+
+        // if no variables, only need to evaluate once
+        if (!varList.length) return equalNumbers(this.eval(), other.eval());
+
+        // collect here to avoid sometimes dividing by zero, and sometimes not
+        // it is better to be deterministic, e.g. x/x -> 1
+        // TODO(alex): may want to keep track of assumptions as they're made
+        var expr1 = this.collect();
+        var expr2 = other.collect();
+
         for (var i = 0; i < ITERATIONS; i++) {
 
             var vars = {};
-            _.each(varList, function(v) {
-                vars[v] = _.random(-RANGE, RANGE);
-            }, this);
+            // one third total iterations each with range 10, 100, and 1000
+            var range = Math.pow(10, 1 + Math.floor(3 * i / ITERATIONS));
 
-            if (this.has(Func) || other.has(Func)) {
-                var result1 = this.partialEval(vars);
-                var result2 = other.partialEval(vars);
+            _.each(varList, function(v) {
+                vars[v] = _.random(-range, range);
+            });
+
+            if (expr1.has(Func) || expr2.has(Func)) {
+                var result1 = expr1.partialEval(vars);
+                var result2 = expr2.partialEval(vars);
 
                 var equal = result1.simplify().equals(result2.simplify());
-
             } else {            
-                var result1 = this.eval(vars);
-                var result2 = other.eval(vars);
+                var result1 = expr1.eval(vars);
+                var result2 = expr2.eval(vars);
 
-                var equal = ((isNaN(result1) && isNaN(result2)) ||
-                            (Math.abs(result1 - result2) < Math.pow(1, -TOLERANCE)));
+                var equal = equalNumbers(result1, result2);
             }
 
             if (!equal) return false;
@@ -977,6 +995,11 @@ _.extend(Mul, {
                     // e.g. (x^y) ^ -1 -> x^(-1*y)
                     // e.g. (x^(yz)) ^ -1 -> x^(-1*y*z)
                     pow = new Pow(b.base, Mul.handleNegative(b.exp, "divide"));
+                } else if (b instanceof Mul) {
+                    // e.g. x / (2x) -> x * 2^(-1) * x^(-1)
+                    // e.g. 2x / (2x) -> 2/2 * x * x^(-1)
+                    // TODO(alex): handle each term in a Mul separately
+                    pow = new Pow(b, Num.Div);
                 } else {
                     // e.g. x ^ -1 -> x^-1
                     pow = new Pow(b, Num.Div);
@@ -2147,7 +2170,8 @@ _.extend(Rational.prototype, {
     },
 
     tex: function() {
-        return "\\frac{" + this.n.toString() + "}{" + this.d.toString() + "}";
+        var tex = "\\frac{" + Math.abs(this.n).toString() + "}{" + this.d.toString() + "}";
+        return this.n < 0 ? "-" + tex : tex;
     },
 
     add: function(num) {
@@ -2184,7 +2208,7 @@ _.extend(Rational.prototype, {
     },
 
     abs: function() {
-        return new Rational(Math.abs(this.n), Math.abs(this.d));
+        return new Rational(Math.abs(this.n), this.d);
     },
 
     // for now, assuming that exp is a Num
