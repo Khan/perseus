@@ -5,22 +5,48 @@ function eq(x, y) {
     return Math.abs(x - y) < 1e-9;
 }
 
+var reverseRel = {
+    ge: "le",
+    gt: "lt",
+    le: "ge",
+    lt: "gt"
+};
+
+var toggleStrictRel = {
+    ge: "gt",
+    gt: "ge",
+    le: "lt",
+    lt: "le"
+};
+
+function formatImproper(n, d) {
+    if (d === 1) {
+        return "" + d;
+    } else {
+        return n + "/" + d;
+    }
+}
+
+function formatMixed(n, d) {
+    if (n < 0) {
+        return "-" + formatMixed(-n, d);
+    }
+    var w = Math.floor(n / d);
+    if (w === 0) {
+        return formatImproper(n, d);
+    } else {
+        return w + "\\:" + formatImproper(n - w * d, d);
+    }
+}
+
 var InteractiveNumberLine = React.createClass({
     getDefaultProps: function() {
         return {
-            pointX: 0
+            labelStyle: "decimal",
+            isInequality: false,
+            pointX: 0,
+            rel: "ge"
         };
-    },
-
-    componentDidUpdate: function(prevProps, prevState, rootNode) {
-        //var oldType = prevProps.graph.type;
-        //var newType = this.props.graph.type;
-        //if (oldType !== newType ||
-        //        newType === "point" &&
-        //        prevProps.graph.numPoints !== this.props.graph.numPoints) {
-        //    this["remove" + capitalize(oldType) + "Controls"]();
-        //    this["add" + capitalize(newType) + "Controls"]();
-        //}
     },
 
     isValid: function() {
@@ -30,6 +56,21 @@ var InteractiveNumberLine = React.createClass({
     },
 
     render: function() {
+        var inequalityControls;
+        if (this.props.isInequality) {
+            inequalityControls = <div>
+                <input type="button" value="Switch direction"
+                    onClick={this.handleReverse} />
+                <input type="button"
+                    value={
+                        this.props.rel === "le" || this.props.rel === "ge" ?
+                            "Make circle open" :
+                            "Make circle filled"
+                        }
+                    onClick={this.handleToggleStrict} />
+            </div>;
+        }
+
         var valid = this.isValid();
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
@@ -38,7 +79,16 @@ var InteractiveNumberLine = React.createClass({
             <div style={{display: valid ? "none" : ""}}>
                 invalid number line configuration
             </div>
+            {inequalityControls}
         </div>;
+    },
+
+    handleReverse: function() {
+        this.props.onChange({rel: reverseRel[this.props.rel]});
+    },
+
+    handleToggleStrict: function() {
+        this.props.onChange({rel: toggleStrictRel[this.props.rel]});
     },
 
     componentDidMount: function() {
@@ -98,9 +148,26 @@ var InteractiveNumberLine = React.createClass({
             }
         });
 
+        var labelStyle = this.props.labelStyle;
         graphie.style({color: KhanUtil.BLUE}, function() {
-            graphie.label([range[0], -0.53], range[0], "center");
-            graphie.label([range[1], -0.53], range[1], "center");
+            if (labelStyle === "decimal") {
+                graphie.label([range[0], -0.53], range[0], "center");
+                graphie.label([range[1], -0.53], range[1], "center");
+            } else if (labelStyle === "improper") {
+                var f0 = KhanUtil.toFraction(range[0]);
+                var f1 = KhanUtil.toFraction(range[1]);
+                graphie.label([range[0], -0.53],
+                        formatImproper(f0[0], f0[1]), "center");
+                graphie.label([range[1], -0.53],
+                        formatImproper(f1[0], f1[1]), "center");
+            } else if (labelStyle === "mixed") {
+                var f0 = KhanUtil.toFraction(range[0]);
+                var f1 = KhanUtil.toFraction(range[1]);
+                graphie.label([range[0], -0.53],
+                        formatMixed(f0[0], f0[1]), "center");
+                graphie.label([range[1], -0.53],
+                        formatMixed(f1[0], f1[1]), "center");
+            }
             if (range[0] < 0 && 0 < range[1]) {
                 graphie.label([0, -0.53], "0", "center");
             }
@@ -108,29 +175,88 @@ var InteractiveNumberLine = React.createClass({
 
         // Point
 
+        var isInequality = this.props.isInequality;
+        var rel = this.props.rel;
+
+        var pointSize;
+        var pointStyle;
+        var highlightStyle;
+        if (isInequality && (rel === "lt" || rel === "gt")) {
+            pointSize = 5;
+            pointStyle = {
+                stroke: KhanUtil.ORANGE,
+                fill: KhanUtil.BACKGROUND,
+                "stroke-width": 3
+            };
+            highlightStyle = {
+                stroke: KhanUtil.ORANGE,
+                fill: KhanUtil.BACKGROUND,
+                "stroke-width": 4
+            };
+        } else {
+            pointSize = 4;
+            pointStyle = highlightStyle = {
+                stroke: KhanUtil.ORANGE,
+                fill: KhanUtil.ORANGE
+            };
+        }
+
         var x = Math.min(Math.max(range[0], this.props.pointX), range[1]);
         var point = this.point = graphie.addMovablePoint({
+            pointSize: pointSize,
             coord: [x, 0],
             snapX: this.props.tickStep / this.props.snapDivisions,
             constraints: {
                 constrainY: true
             },
-            normalStyle: {
-                stroke: KhanUtil.ORANGE,
-                fill: KhanUtil.ORANGE
-            }
+            normalStyle: pointStyle,
+            highlightStyle: highlightStyle
         });
         point.onMove = function(x, y) {
             x = Math.min(Math.max(range[0], x), range[1]);
+            updateInequality(x, y);
             return [x, y];
         };
         point.onMoveEnd = function(x, y) {
             this.props.onChange({pointX: x});
         }.bind(this);
+
+        // Inequality line
+
+        var inequalityLine;
+        updateInequality(x, 0);
+
+        function updateInequality(px, py) {
+            if (inequalityLine) {
+                inequalityLine.remove();
+                inequalityLine = null;
+            }
+            if (isInequality) {
+                var end;
+                if (rel === "ge" || rel === "gt") {
+                    end = [range[1] + (26 / scale), 0];
+                } else {
+                    end = [range[0] - (26 / scale), 0];
+                }
+                inequalityLine = graphie.line(
+                    [px, py],
+                    end,
+                    {
+                        arrows: "->",
+                        stroke: KhanUtil.BLUE,
+                        strokeWidth: 3.5
+                    }
+                );
+                point.toFront();
+            }
+        }
     },
 
     toJSON: function() {
-        return _.pick(this.props, "pointX");
+        return {
+            pointX: this.props.pointX,
+            rel: this.props.isInequality ? this.props.rel : "eq"
+        };
     },
 
     simpleValidate: function(rubric) {
@@ -145,15 +271,18 @@ _.extend(InteractiveNumberLine, {
     validate: function(state, rubric) {
         var range = rubric.range;
         var start = Math.min(Math.max(range[0], 0), range[1]);
+        var startRel = rubric.isInequality ? "ge" : "eq";
+        var correctRel = rubric.correctRel || "eq";
 
-        if (eq(state.pointX, rubric.correctX || 0)) {
+        if (eq(state.pointX, rubric.correctX || 0) &&
+                correctRel === state.rel) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
                 message: null
             };
-        } else if (state.pointX === start) {
+        } else if (state.pointX === start && state.rel === startRel) {
             // We're where we started.
             return {
                 type: "invalid",
@@ -175,8 +304,10 @@ var InteractiveNumberLineEditor = React.createClass({
     getDefaultProps: function() {
         return {
             range: [0, 10],
+            labelStyle: "decimal",
             tickStep: 1,
             snapDivisions: 4,
+            correctRel: "eq",
             correctX: 0
         };
     },
@@ -191,18 +322,40 @@ var InteractiveNumberLineEditor = React.createClass({
                 max x: <input defaultValue={'' + this.props.range[1]}
                     onBlur={this.onRangeBlur.bind(this, 1)} />
             </label><br />
+            <span>
+                correct:
+                <select value={this.props.correctRel}
+                        onChange={this.onChange.bind(this, "correctRel")}>
+                    <optgroup label="Equality">
+                        <option value="eq">x =</option>
+                    </optgroup>
+                    <optgroup label="Inequality">
+                        <option value="lt">x &lt;</option>
+                        <option value="gt">x &gt;</option>
+                        <option value="le">x &le;</option>
+                        <option value="ge">x &ge;</option>
+                    </optgroup>
+                </select>
+                <input defaultValue={'' + this.props.correctX}
+                    onBlur={this.onNumBlur.bind(this, "correctX")} />
+            </span><br /><br />
             <label>
-                correct answer: <input defaultValue={'' + this.props.correctX}
-                    onBlur={this.onBlur.bind(this, "correctX")} />
-            </label><br /><br />
+                label style:
+                <select value={this.props.labelStyle}
+                        onChange={this.onChange.bind(this, "labelStyle")}>
+                    <option value="decimal">Decimals</option>
+                    <option value="improper">Improper fractions</option>
+                    <option value="mixed">Mixed numbers</option>
+                </select>
+            </label><br />
             <label>
                 tick step: <input defaultValue={'' + this.props.tickStep}
-                    onBlur={this.onBlur.bind(this, "tickStep")} />
+                    onBlur={this.onNumBlur.bind(this, "tickStep")} />
             </label><br />
             <label>
                 snap increments per tick:
                 <input defaultValue={'' + this.props.snapDivisions}
-                    onBlur={this.onBlur.bind(this, "snapDivisions")} />
+                    onBlur={this.onNumBlur.bind(this, "snapDivisions")} />
             </label>
         </div>;
     },
@@ -216,7 +369,13 @@ var InteractiveNumberLineEditor = React.createClass({
         this.props.onChange({range: range});
     },
 
-    onBlur: function(key, e) {
+    onChange: function(key, e) {
+        var opts = {};
+        opts[key] = e.target.value;
+        this.props.onChange(opts);
+    },
+
+    onNumBlur: function(key, e) {
         var x = Perseus.Util.firstNumericalParse(e.target.value) || 0;
         e.target.value = x;
 
@@ -225,12 +384,16 @@ var InteractiveNumberLineEditor = React.createClass({
         this.props.onChange(opts);
     },
 
-    componentDidMount: function() {
-    },
-
     toJSON: function() {
-        return _.pick(this.props,
-                "range", "tickStep", "snapDivisions", "correctX");
+        return {
+            range: this.props.range,
+            labelStyle: this.props.labelStyle,
+            tickStep: this.props.tickStep,
+            snapDivisions: this.props.snapDivisions,
+            correctRel: this.props.correctRel,
+            isInequality: this.props.correctRel !== "eq",
+            correctX: this.props.correctX
+        };
     }
 });
 
