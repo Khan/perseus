@@ -206,22 +206,13 @@ var InteractiveGraph = React.createClass({
         this.setupGraphie();
     },
 
-    getStepConfig: function() {
+    getGridConfig: function() {
         var self = this;
         return _.map(self.props.step, function(step, i) {
-            var extent = self.props.range[i];
-            var scale = Perseus.Util.scaleFromExtent(extent, self.props.box[i]);
-            var constraint = self.props.box[i];
-            var gridStep = Perseus.Util.gridStepFromTickStep(step, scale);
-            var stepPx = step * scale;
-            var unityLabel = stepPx > 30;
-            return {
-                scale: scale,
-                gridStep: gridStep,
-                snap: gridStep / 2,
-                tickStep: step / gridStep,
-                unityLabel: unityLabel
-            };
+            return Perseus.Util.gridDimensionConfig(
+                    step,
+                    self.props.range[i],
+                    self.props.box[i]);
         });
     },
 
@@ -233,25 +224,25 @@ var InteractiveGraph = React.createClass({
                 this.refs.graphieDiv.getDOMNode());
         this.shouldSetupGraphie = false;
 
-        var stepConfig = this.getStepConfig();
-        graphie.snap = _.pluck(stepConfig, "snap");
+        var gridConfig = this.getGridConfig();
+        graphie.snap = _.pluck(gridConfig, "snap");
         if (this.props.showGraph) {
             graphie.graphInit({
                 range: range,
-                scale: _.pluck(stepConfig, "scale"),
+                scale: _.pluck(gridConfig, "scale"),
                 axisArrows: "<->",
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
-                gridStep: _.pluck(stepConfig, "gridStep"),
-                tickStep: _.pluck(stepConfig, "tickStep"),
+                gridStep: _.pluck(gridConfig, "gridStep"),
+                tickStep: _.pluck(gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(stepConfig, "unityLabel")
+                unityLabels: _.pluck(gridConfig, "unityLabel")
             });
             graphie.label([0, range[1][1]], "y", "above");
             graphie.label([range[0][1], 0], "x", "right");
         } else {
             graphie.init({
                 range: range,
-                scale: _.pluck(stepConfig, "scale")
+                scale: _.pluck(gridConfig, "scale")
             });
         }
         graphie.addMouseLayer();

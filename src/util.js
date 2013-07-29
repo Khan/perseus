@@ -151,6 +151,37 @@ var Util = Perseus.Util = {
     },
 
     /**
+     * For a graph's x or y dimension, given the tick step,
+     * the ranges extent (e.g. [-10, 10]), and
+     * pixel dimension constraint, return a bunch of configurations for
+     * that dimension.
+     *
+     * Example:
+     *      gridDimensionConfig(10, [-50, 50], 400)
+     *
+     * Returns: {
+     *      scale: 4,
+     *      gridStep: 5,
+     *      snap: 2.5,
+     *      tickStep: 2,
+     *      unityLabel: true
+     * };
+     */
+     gridDimensionConfig: function(absTickStep, extent, dimensionConstraint) {
+        var scale = Perseus.Util.scaleFromExtent(extent, dimensionConstraint);
+        var gridStep = Perseus.Util.gridStepFromTickStep(absTickStep, scale);
+        var stepPx = absTickStep * scale;
+        var unityLabel = stepPx > 30;
+        return {
+            scale: scale,
+            gridStep: gridStep,
+            snap: gridStep / 2,
+            tickStep: absTickStep / gridStep,
+            unityLabel: unityLabel
+        };
+    },
+
+    /**
      * Given the range and a dimension, come up with the appropriate
      * scale.
      * Example:
