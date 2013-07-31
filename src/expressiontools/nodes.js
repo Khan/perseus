@@ -610,35 +610,40 @@ _.extend(Mul.prototype, {
         var numbers = terms.number || [];
         var others = terms.other || [];
 
-        var negatives = "";
-        var tex = "";
+        var numerator;
+        if (numbers.length === 0 && others.length === 1) {
+            numerator = others[0].tex();
+        } else {
+            var negatives = "";
+            var tex = "";
 
-        _.each(numbers, function(term, i) {
-            if ((term instanceof Int) && (term.n === -1) && _.any(term.hints) &&
-                ((i < numbers.length - 1) || others.length)) {
-                // e.g. -1*-1 -> --1
-                // e.g. -1*x -> -x
-                negatives += "-";
-            } else {
-                // e.g. 2*3 -> 2(dot)3
-                tex += (tex ? cdot : "") + term.tex();
-            }
-        });
+            _.each(numbers, function(term, i) {
+                if ((term instanceof Int) && (term.n === -1) && _.any(term.hints) &&
+                    ((i < numbers.length - 1) || others.length)) {
+                    // e.g. -1*-1 -> --1
+                    // e.g. -1*x -> -x
+                    negatives += "-";
+                } else {
+                    // e.g. 2*3 -> 2(dot)3
+                    tex += (tex ? cdot : "") + term.tex();
+                }
+            });
 
-        _.each(others, function(term) {
-            if (term.needsExplicitMul()) {
-                // e.g. 2*2^3 -> 2(dot)2^3
-                tex += (tex ? cdot : "") + term.tex();
-            } else if (term instanceof Add) {
-                // e.g. (a+b)*c -> (a+b)c
-                tex += "(" + term.tex() + ")";
-            } else {
-                // e.g. a*b*c -> abc
-                tex += term.tex();
-            }
-        });
+            _.each(others, function(term) {
+                if (term.needsExplicitMul()) {
+                    // e.g. 2*2^3 -> 2(dot)2^3
+                    tex += (tex ? cdot : "") + term.tex();
+                } else if (term instanceof Add) {
+                    // e.g. (a+b)*c -> (a+b)c
+                    tex += "(" + term.tex() + ")";
+                } else {
+                    // e.g. a*b*c -> abc
+                    tex += term.tex();
+                }
+            });
 
-        var numerator = negatives + tex;
+            numerator = negatives + tex;
+        }
 
         if (!inverses.length) {
             return numerator;
