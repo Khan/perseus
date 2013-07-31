@@ -49,17 +49,20 @@ var TeX = Perseus.TeX = (function() {
         componentDidMount: function(span) {
             var text = this.props.children;
 
-            try {
-                var katexHolder = this.refs.katex.getDOMNode();
-                katex.process(text, katexHolder);
-            } catch (e) {
-                if (e.__proto__ !== katex.ParseError.prototype) {
-                    throw e;
+            if (typeof Exercises === undefined || Exercises.useKatex) {
+                try {
+                    var katexHolder = this.refs.katex.getDOMNode();
+                    katex.process(text, katexHolder);
+                    return;
+                } catch (e) {
+                    if (e.__proto__ !== katex.ParseError.prototype) {
+                        throw e;
+                    }
                 }
-
-                this.setScriptText(text);
-                process(this.script);
             }
+
+            this.setScriptText(text);
+            process(this.script);
         },
 
         componentDidUpdate: function(prevProps, prevState, span) {
@@ -67,39 +70,42 @@ var TeX = Perseus.TeX = (function() {
             var newText = this.props.children;
 
             if (oldText !== newText) {
-                try {
-                    var katexHolder = this.refs.katex.getDOMNode();
-                    katex.process(newText, katexHolder);
-                    if (this.script) {
-                        var jax = MathJax.Hub.getJaxFor(this.script);
-                        if (jax) {
-                            jax.Remove();
+                if (typeof Exercises === undefined || Exercises.useKatex) {
+                    try {
+                        var katexHolder = this.refs.katex.getDOMNode();
+                        katex.process(newText, katexHolder);
+                        if (this.script) {
+                            var jax = MathJax.Hub.getJaxFor(this.script);
+                            if (jax) {
+                                jax.Remove();
+                            }
+                        }
+                        return;
+                    } catch (e) {
+                        if (e.__proto__ !== katex.ParseError.prototype) {
+                            throw e;
                         }
                     }
-                } catch (e) {
-                    if (e.__proto__ !== katex.ParseError.prototype) {
-                        throw e;
-                    }
+                }
 
-                    $(this.refs.katex.getDOMNode()).empty();
+                $(this.refs.katex.getDOMNode()).empty();
 
-                    if (this.script) {
-                        var component = this;
-                        MathJax.Hub.Queue(function() {
-                            var jax = MathJax.Hub.getJaxFor(component.script);
-                            if (jax) {
-                                MathJax.Hub.Queue(function() {
-                                    return jax.Text(newText);
-                                });
-                            } else {
-                                component.setScriptText(newText);
-                                process(component.script);
-                            }
-                        });
-                    } else {
-                        this.setScriptText(newText);
-                        process(this.script);
-                    }
+                if (this.script) {
+                    var component = this;
+                    MathJax.Hub.Queue(function() {
+                        var jax = MathJax.Hub.getJaxFor(component.script);
+                        if (jax) {
+                            MathJax.Hub.Queue(function() {
+                                return jax.Text(newText);
+                            });
+                        } else {
+                            component.setScriptText(newText);
+                            process(component.script);
+                        }
+                    });
+                } else {
+                    this.setScriptText(newText);
+                    process(this.script);
                 }
             }
         },
