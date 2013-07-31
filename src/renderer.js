@@ -53,7 +53,7 @@ var TeX = Perseus.TeX = (function() {
                 var katexHolder = this.refs.katex.getDOMNode();
                 katex.process(text, katexHolder);
             } catch (e) {
-                if (!(e instanceof katex.ParseError)) {
+                if (e.__proto__ !== katex.ParseError.prototype) {
                     throw e;
                 }
 
@@ -77,7 +77,7 @@ var TeX = Perseus.TeX = (function() {
                         }
                     }
                 } catch (e) {
-                    if (!(e instanceof katex.ParseError)) {
+                    if (e.__proto__ !== katex.ParseError.prototype) {
                         throw e;
                     }
 
