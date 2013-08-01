@@ -421,7 +421,7 @@ _.extend(Categorization, {
         if (!complete) {
             return {
                 type: "invalid",
-                message: null
+                message: "Every item needs to be categorized."
             };
         }
         return {
