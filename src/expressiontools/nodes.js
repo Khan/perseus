@@ -238,7 +238,7 @@ _.extend(Expr.prototype, {
             other.getVars(/* excludeFunc */ true));
 
         var equalNumbers = function(num1, num2) {
-            return ((num1 === num2) ||
+            return ((num1 === num2) || /* needed if either is +/- Infinity */
                     (isNaN(num1) && isNaN(num2)) ||
                     (Math.abs(num1 - num2) < Math.pow(1, -TOLERANCE)));
         };
@@ -422,16 +422,10 @@ _.extend(Seq.prototype, {
     },
 
     // return a new Seq with a given term replaced by a different term
-    // given term can be passed directly, by index, or by iterator
+    // (or array of terms). given term can be passed directly, or by index
     // if no new term is provided, the old one is simply removed
     replace: function(oldTerm, newTerm) {
         var index;
-
-        // TODO(alex): is this needed? if not, remove!
-        // looks like it is only useful if newTerm is a transformative function
-        if (_.isFunction(oldTerm)) {
-            oldTerm = _.find(this.terms, oldTerm);
-        }
 
         if (oldTerm instanceof Expr) {
             index = _.indexOf(this.terms, oldTerm);
@@ -439,8 +433,15 @@ _.extend(Seq.prototype, {
             index = oldTerm;
         }
 
+        var newTerms = [];
+        if (_.isArray(newTerm)) {
+            newTerms = newTerm;
+        } else if (newTerm) {
+            newTerms = [newTerm];
+        }
+
         var terms = this.terms.slice(0, index)
-                    .concat(newTerm ? [newTerm] : [])
+                    .concat(newTerms)
                     .concat(this.terms.slice(index + 1));
 
         return new this.func(terms);
@@ -610,16 +611,33 @@ _.extend(Mul.prototype, {
         var numbers = terms.number || [];
         var others = terms.other || [];
 
+        var negatives = "";
         var numerator;
+
         if (numbers.length === 0 && others.length === 1) {
+            // e.g. (x+y)/z -> \frac{x+y}{z}
             numerator = others[0].tex();
         } else {
-            var negatives = "";
+            numbers = _.compact(_.map(numbers, function(term) {
+                if (((term instanceof Rational) && !(term instanceof Int) && !term.hints.fraction)) {
+                    // e.g. 3x/4 -> 3/4*x (internally) -> 3x/4 (rendered)
+                    inverses.push(new Pow(new Int(term.d), Num.Div));
+                    var number = new Int(term.n);
+                    number.hints = term.hints;
+                    return _.any(term.hints) ? number : null;
+                } else {
+                    return term;
+                }
+            }));
+
             var tex = "";
 
-            _.each(numbers, function(term, i) {
-                if ((term instanceof Int) && (term.n === -1) && _.any(term.hints) &&
-                    ((i < numbers.length - 1) || others.length)) {
+            _.each(numbers, function(term) {
+                if (term.hints.subtract && term.hints.entered) {
+                    negatives += "-";
+                    tex += (tex ? cdot : "") + term.abs().tex();
+                } else if ((term instanceof Int) && (term.n === -1) &&
+                    (term.hints.negate || term.hints.subtract)) {
                     // e.g. -1*-1 -> --1
                     // e.g. -1*x -> -x
                     negatives += "-";
@@ -642,14 +660,14 @@ _.extend(Mul.prototype, {
                 }
             });
 
-            numerator = negatives + tex;
+            numerator = tex ? tex : "1";
         }
 
         if (!inverses.length) {
-            return numerator;
+            return negatives + numerator;
         } else {
             var denominator = new Mul(_.invoke(inverses, "asDivide")).flatten().tex();
-            return "\\frac{" + (numerator ? numerator : "1") + "}{" + denominator + "}";
+            return negatives + "\\frac{" + numerator + "}{" + denominator + "}";
         }
     },
 
@@ -876,7 +894,9 @@ _.extend(Mul.prototype, {
 
         if (fold) {
             // e.g. - x*2*3 -> x*-2*3
-            return this.replace(numbers[0], numbers[0].negate().addHint(hint));
+            var num = numbers[0].negate();
+            num.hints = numbers[0].hints;
+            return this.replace(numbers[0], num.addHint(hint));
         } else {
             // e.g. - x*y -> -1*x*y
             // e.g. - x*-2 -> -1*x*-2
@@ -927,6 +947,10 @@ _.extend(Mul.prototype, {
 
     isNegative: function() {
         return _.any(_.invoke(this.collect().terms, "isNegative"));
+    },
+
+    fold: function() {
+        return Mul.fold(this);
     }
 });
 
@@ -969,17 +993,45 @@ _.extend(Mul, {
 
     // division can create either a Rational or a Mul
     handleDivide: function(left, right) {
+
+        // dividing by a Mul is the same as repeated division by its terms
+        if (right instanceof Mul) {
+            var first = Mul.handleDivide(left, right.terms[0]);
+            var rest = new Mul(_.rest(right.terms)).flatten();
+            return Mul.handleDivide(first, rest);
+        }
+
+        var isInt = function(expr) { return expr instanceof Int; };
+
+        // for simplification purposes, fold Ints into Rationals if possible
+        // e.g. 3x / 4 -> 3/4 * x (will still render as 3x/4)
+        if (isInt(right) && left instanceof Mul &&
+            !isInt(_.last(left.terms)) && _.any(_.initial(left.terms), isInt)) {
+
+            var num = _.find(left.terms, isInt);
+
+            if (num.n < 0 && right.n < 0) {
+                var rational = new Rational(num.n, -right.n);
+                rational.hints = num.hints;
+                return left.replace(num, [Num.Neg, rational]);
+            } else {
+                var rational = new Rational(num.n, right.n);
+                rational.hints = num.hints;
+                return left.replace(num, rational);
+            }
+        }
+
         var divide = function(a, b) {
             if (b instanceof Int) {
                 if (a instanceof Int) {
                     if (a.n < 0 && b.n < 0) {
                         // e.g. -2 / -3 -> -1*-2/3
-                        return [Num.Neg, new Rational(a.n, -b.n)];
+                        return [Num.Neg, new Rational(a.n, -b.n).addHint("fraction")];
                     } else {
-                        // e.g. 2 / 3 -> 2/3 
-                        // e.g. -2 / 3 -> -2/3 
-                        // e.g. 2 / -3 -> -2/3 
-                        return [new Rational(a.n, b.n)];
+                        // e.g. 2 / 3 -> 2/3
+                        // e.g. -2 / 3 -> -2/3
+                        // e.g. 2 / -3 -> -2/3
+                        return [new Rational(a.n, b.n).addHint("fraction")];
                     }
                 } else {
                     // e.g. x / 3 -> x*1/3
@@ -1000,11 +1052,6 @@ _.extend(Mul, {
                     // e.g. (x^y) ^ -1 -> x^(-1*y)
                     // e.g. (x^(yz)) ^ -1 -> x^(-1*y*z)
                     pow = new Pow(b.base, Mul.handleNegative(b.exp, "divide"));
-                } else if (b instanceof Mul) {
-                    // e.g. x / (2x) -> x * 2^(-1) * x^(-1)
-                    // e.g. 2x / (2x) -> 2/2 * x * x^(-1)
-                    // TODO(alex): handle each term in a Mul separately
-                    pow = new Pow(b, Num.Div);
                 } else {
                     // e.g. x ^ -1 -> x^-1
                     pow = new Pow(b, Num.Div);
@@ -1018,7 +1065,7 @@ _.extend(Mul, {
                     return [a, pow];
                 }
             }
-        }
+        };
 
         if (left instanceof Mul) {
             var divided = divide(_.last(left.terms), right);
@@ -1055,15 +1102,15 @@ _.extend(Mul, {
                 } else {
                     var newTrigLog;
                     if (trigLog instanceof Trig) {
-                        newTrigLog = Trig.create([trigLog.type, trigLog.exp], Mul.createOrAppend(trigLog.arg, last));
+                        newTrigLog = Trig.create([trigLog.type, trigLog.exp], Mul.createOrAppend(trigLog.arg, last).fold());
                     } else {
-                        newTrigLog = Log.create(trigLog.base, Mul.createOrAppend(trigLog.power, last));
+                        newTrigLog = Log.create(trigLog.base, Mul.createOrAppend(trigLog.power, last).fold());
                     }
 
                     if (index === 0) {
                         return newTrigLog;
                     } else {
-                        return new Mul(expr.terms.slice(0, index).concat(newTrigLog));
+                        return new Mul(expr.terms.slice(0, index).concat(newTrigLog)).fold();
                     }
                 }
             }
@@ -2146,7 +2193,9 @@ _.extend(Num.prototype, {
         negate: false,
         subtract: false,
         divide: false,
-        root: false
+        root: false,
+        fraction: false,
+        entered: false
     }),
 
     // wheter a number is considered simple (one term)
@@ -2255,6 +2304,9 @@ _.extend(Int.prototype, {
     isSimple: function() { return true; }
 });
 
+_.extend(Int, {
+    create: function(n) { return new Int(n).addHint("entered"); }
+});
 
 /* float (n: number) */
 function Float(number) { this.n = number; }
@@ -2310,6 +2362,9 @@ _.extend(Float.prototype, {
     isSimple: function() { return true; }
 });
 
+_.extend(Float, {
+    create: function(n) { return new Float(n).addHint("entered"); }
+});
 
 // static methods and fields that are best defined on Num
 _.extend(Num, {

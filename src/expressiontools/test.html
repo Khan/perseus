@@ -331,6 +331,10 @@
         repr("f(x+y)", "Mul(Var(f),Add(Var(x),Var(y)))");
         repr("f(x+y)", "Func(f,Add(Var(x),Var(y)))", {functions: ["f"]});
         repr("sin(theta)", "Trig(sin,Var(theta))");
+
+        // verify that negative signs get folded into numbers
+        repr("-x*3", "Mul(Var(x),-3)");
+        repr("sin -x*3", "Trig(sin,Mul(Var(x),-3))");
     });
 
 
@@ -359,8 +363,9 @@
         tex("1-2", "1-2");
         tex("a+b", "a+b");
         tex("a-b", "a-b");
+        tex("a-1b", "a-1b");
         tex("a+-b", "a+-b");
-        tex("a+-1*b", "a+-1b");
+        tex("a+-1b", "a+-1b");
     });
 
     test("multiplication", function() {
@@ -372,6 +377,26 @@
         tex("1/(x+y)", "\\frac{1}{x+y}");
         tex("2/(x+y)", "\\frac{2}{x+y}");
         tex("(z+2)/(x+y)", "\\frac{z+2}{x+y}");
+    });
+
+    test("rational expressons", function() {
+        tex("x+1/2", "x+\\frac{1}{2}");
+        tex("x-1/2", "x-\\frac{1}{2}");
+
+        tex("1/2x", "\\frac{1}{2}x");
+        tex("1/2x/y", "\\frac{\\frac{1}{2}x}{y}");
+        tex("-1/2x", "-\\frac{1}{2}x");
+        tex("a-1/2x", "a-\\frac{1}{2}x");
+
+        tex("x/2", "\\frac{x}{2}");
+        tex("1x/2", "\\frac{1x}{2}");
+        tex("-x/2", "-\\frac{x}{2}");
+        tex("a-x/2", "a-\\frac{x}{2}");
+
+        tex("1*-2", "1 \\cdot -2");
+        tex("1*-2*3", "1 \\cdot -2 \\cdot 3");
+        tex("1*-2*3/4", "1 \\cdot -2 \\cdot \\frac{3}{4}");
+        tex("1*-2*3/4/5", "\\frac{1 \\cdot -2 \\cdot \\frac{3}{4}}{5}");
     });
 
     test("exponentiation", function() {
@@ -393,7 +418,7 @@
         tex("1/sqrt(x)", "\\frac{1}{\\sqrt{x}}");
         tex("1/sqrt(x)y", "\\frac{y}{\\sqrt{x}}");
 
-        tex("sqrt(2)/2", "\\frac{1}{2}\\sqrt{2}");
+        tex("sqrt(2)/2", "\\frac{\\sqrt{2}}{2}");
         tex("sqrt(2)^2", "(\\sqrt{2})^{2}");
     });
 
@@ -435,7 +460,8 @@
         tex("x*(10+4)^5", "x(10+4)^{5}");
 
         tex("-1*2", "-1 \\cdot 2");
-        tex("2*-1", "2 \\cdot -1");
+        tex("1*-2", "1 \\cdot -2");
+        tex("-1*-2", "-1 \\cdot -2");
         tex("-1*2*3", "-1 \\cdot 2 \\cdot 3");
     });
 
@@ -1172,6 +1198,9 @@
     });
 
     test("isSimplified (rational expressions)", function() {
+        isSimplified("3/(4x)");
+        isSimplified("3/4 1/x");
+
         isSimplified("(x+1)/(x+2)");
         isSimplified("(x+1)/(2x+2)", false);
         isSimplified("(2x+2)/(x+1)", false);

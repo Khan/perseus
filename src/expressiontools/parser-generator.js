@@ -114,8 +114,8 @@ var grammar = {
             ["variable _ subscriptable", "$$ = new yy.Var($1, $3);"],
             ["variable", "$$ = new yy.Var($1);"],
             ["CONST", "$$ = new yy.Const(yytext.toLowerCase());"],
-            ["INT", "$$ = new yy.Int(Number(yytext));"],
-            ["FLOAT", "$$ = new yy.Float(Number(yytext));"],
+            ["INT", "$$ = yy.Int.create(Number(yytext));"],
+            ["FLOAT", "$$ = yy.Float.create(Number(yytext));"],
             ["( additive )", "$$ = $2.completeParse().addHint('parens');"] // this probably shouldn't be a hint...
         ],
         "function": [
