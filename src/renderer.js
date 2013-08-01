@@ -49,7 +49,7 @@ var TeX = Perseus.TeX = (function() {
         componentDidMount: function(span) {
             var text = this.props.children;
 
-            if (typeof Exercises === undefined || Exercises.useKatex) {
+            if (typeof Exercises === "undefined" || Exercises.useKatex) {
                 try {
                     var katexHolder = this.refs.katex.getDOMNode();
                     katex.process(text, katexHolder);
@@ -70,7 +70,7 @@ var TeX = Perseus.TeX = (function() {
             var newText = this.props.children;
 
             if (oldText !== newText) {
-                if (typeof Exercises === undefined || Exercises.useKatex) {
+                if (typeof Exercises === "undefined" || Exercises.useKatex) {
                     try {
                         var katexHolder = this.refs.katex.getDOMNode();
                         katex.process(newText, katexHolder);
