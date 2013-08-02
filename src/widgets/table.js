@@ -6,7 +6,7 @@ var Editor = Perseus.Editor;
 var Table = React.createClass({
     render: function() {
         var headers = this.props.headers;
-        return <table className="perseus-widget-table-of-values">
+        return <table className="perseus-widget-table-of-values non-markdown">
             <thead>
                 <tr>{
                     _.map(headers, function(header) {
@@ -181,7 +181,7 @@ var TableEditor = React.createClass({
                 </ul>
             </div>
             <div>
-                <table className="perseus-widget-table-of-values">
+                <table className="perseus-widget-table-of-values non-markdown">
                     <thead>
                         <tr>{
                             _(cols).times(function(i) {
