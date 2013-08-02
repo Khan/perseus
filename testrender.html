@@ -119,8 +119,31 @@ $('#score').on('click', function() {
 
 var seedContent = {
     "question": {
-        "content": "How many monkeys swing from $10$ branches of **trees**?",
-        "widgets": {}
+        "content": "How many monkeys swing from $10$ branches of **trees**? [[☃ table 1]]",
+        "widgets": {"table 1": {
+                "options": {
+                    "rows": 4,
+                    "columns": 1,
+                    "answers": [
+                        [
+                            ""
+                        ],
+                        [
+                            ""
+                        ],
+                        [
+                            ""
+                        ],
+                        [
+                            ""
+                        ]
+                    ],
+                    "headers": [
+                        ""
+                    ]
+                },
+                "type": "table"
+            }}
     },
     "answerArea": {
         "type": "expression",
@@ -157,6 +180,7 @@ Perseus.init({}).then(function() {
         problemNum: Math.floor(Math.random() * 50) + 1,
         initialHintsVisible: seedContent.hints.length
     }, null), itemMountNode);
+    zk.focus();
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {

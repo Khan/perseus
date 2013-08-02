@@ -44,6 +44,11 @@ var Table = React.createClass({
 
     simpleValidate: function(rubric) {
         return Table.validate(this.toJSON(), rubric);
+    },
+
+    focus: function() {
+        this.refs["answer0,0"].getDOMNode().focus();
+        return true;
     }
 });
 
