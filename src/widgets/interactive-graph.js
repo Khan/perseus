@@ -924,6 +924,7 @@ var InteractiveGraphEditor = React.createClass({
                     <input type="text"
                             className="graph-settings-background-url"
                             ref="bg-url"
+                            defaultValue={this.props.backgroundImage.url}
                             onKeyPress={this.changeBackgroundUrl}
                             onBlur={this.changeBackgroundUrl} />
                 </div>
