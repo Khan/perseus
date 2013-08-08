@@ -6,9 +6,9 @@ var answerTypes = {
              forms: "integer, decimal, proper, improper, mixed"},
     decimal: {name: "Decimals", forms: "decimal"},
     integer: {name: "Integers", forms: "integer"},
-    rational: {name: "Rationals", forms: "integer, proper, improper, mixed"},
-    improper: {name: "Improper numbers", forms: "integer, proper, improper"},
-    mixed: {name: "Mixed numbers", forms: "integer, proper, mixed"},
+    rational: {name: "Fractions and mixed numbers", forms: "integer, proper, improper, mixed"},
+    improper: {name: "Improper numbers (no mixed)", forms: "integer, proper, improper"},
+    mixed: {name: "Mixed numbers (no improper)", forms: "integer, proper, mixed"},
     percent: {name: "Percents",
               forms: "decimal, proper, improper, mixed, percent"},
     pi: {name: "Numbers with pi", forms: "pi"}
