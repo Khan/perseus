@@ -316,12 +316,14 @@
 
     .card {
         padding: 0 10px;
-        line-height: 65px;
         cursor: pointer;
         position: relative;
         user-select: none;
         width: auto;
-        height: 65px;
+
+        img {
+            vertical-align: middle;
+        }
     }
 
     .card-wrap {
@@ -344,6 +346,16 @@
     div.paragraph {
         margin: 0;
     }
+}
+
+.ordering.height-normal .card {
+    line-height: 65px;
+    height: 65px;
+}
+
+.ordering.height-large .card {
+    line-height: 160px;
+    height: 160px;
 }
 
 .categorization-container {

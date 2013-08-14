@@ -151,7 +151,8 @@ var Orderer = React.createClass({
         return {
             current: [],
             options: [],
-            correctOptions: []
+            correctOptions: [],
+            height: "normal"
         };
     },
 
@@ -226,7 +227,8 @@ var Orderer = React.createClass({
             })}
         </div>;
 
-        return <div className="draggy-boxy-thing ordering"
+        return <div className={"draggy-boxy-thing ordering height-" +
+                        this.props.height}
                     ref="orderer">
                    {bank}
                    {sortable}
@@ -521,7 +523,8 @@ var OrdererEditor = React.createClass({
             ],
             otherOptions: [
                 {content: "$y$"}
-            ]
+            ],
+            height: "normal"
         };
     },
 
@@ -534,12 +537,23 @@ var OrdererEditor = React.createClass({
                             onContentChange={function(options) {
                                 editor.props.onChange({correctOptions: options})
                             }}/>
+
             <div>Other cards:</div>
             <TextListEditor options={this.props.otherOptions}
                             onContentChange={function(options) {
                                 editor.props.onChange({otherOptions: options})
                             }}/>
+
+            <div>Height:</div>
+            <select value={this.props.height} onChange={this.onHeightChange}>
+                <option value="normal">Normal (45px)</option>
+                <option value="large">Large (140px)</option>
+            </select>
         </div>;
+    },
+
+    onHeightChange: function(e) {
+        this.props.onChange({height: e.target.value});
     },
 
     toJSON: function(skipValidation) {
@@ -569,7 +583,8 @@ var OrdererEditor = React.createClass({
         return {
             options: options,
             correctOptions: this.props.correctOptions,
-            otherOptions: this.props.otherOptions
+            otherOptions: this.props.otherOptions,
+            height: this.props.height
         };
     }
 });
