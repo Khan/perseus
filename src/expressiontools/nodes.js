@@ -1973,8 +1973,10 @@ _.extend(Eq.prototype, {
 
         if (eq1.type !== eq2.type) return false;
 
-        var expr1 = eq1.asExpr();
-        var expr2 = eq2.asExpr();
+        // need to collect to properly factor out common factors
+        // e.g x+2x=6 -> 3x=6 -> 3x-6(=0) -> x-2(=0)
+        var expr1 = eq1.divideThrough(eq1.asExpr(/* unfactored */ true).collect());
+        var expr2 = eq2.divideThrough(eq2.asExpr(/* unfactored */ true).collect());
 
         if (eq1.isEquality()) {
             // equals and not-equals can be subtracted either way

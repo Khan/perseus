@@ -764,6 +764,20 @@
 
         comp("x", "xy/y");
         comp("e^x", "e^x");
+
+        var forms3 = [
+            "x+x+x+6=12",
+            "x+2x+6=12",
+            "3x+6=12",
+            "x+2x=6",
+            "2x=6-x",
+            "3x=6",
+            "x=2"
+        ];
+
+        _.each(forms3, function(form) {
+            comp(forms3[0], form);
+        });
     });
 
     test("simplify can't yet handle these", function() {
