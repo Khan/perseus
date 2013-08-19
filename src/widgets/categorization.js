@@ -387,7 +387,10 @@ var Categorization = React.createClass({
     },
 
     toJSON: function() {
-        return _.pick(this.props, "items");
+        var items = _.map(this.props.items, function (item) {
+            return _.pick(item, "location");
+        });
+        return {items: items};
     },
 
     simpleValidate: function(rubric) {
@@ -406,22 +409,22 @@ var Categorization = React.createClass({
 
 _.extend(Categorization, {
     validate: function(state, rubric) {
-        var complete = true;
+        var started = false;
         var allCorrect = true;
         _.each(state.items, function(item, i) {
             var correctLocation = rubric.correctLocations[i];
             var loc = item.location;
-            if (isBank(loc.category)) {
-                complete = false;
+            if (!isBank(loc.category)) {
+                started = true;
             }
             if (loc.category !== correctLocation.category) {
                 allCorrect = false;
             }
         });
-        if (!complete) {
+        if (!started) {
             return {
                 type: "invalid",
-                message: "Every item needs to be categorized."
+                message: "At least one item must be categorized."
             };
         }
         return {
