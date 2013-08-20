@@ -95,9 +95,7 @@ var TeX = Perseus.TeX = (function() {
                     MathJax.Hub.Queue(function() {
                         var jax = MathJax.Hub.getJaxFor(component.script);
                         if (jax) {
-                            MathJax.Hub.Queue(function() {
-                                return jax.Text(newText);
-                            });
+                            return jax.Text(newText);
                         } else {
                             component.setScriptText(newText);
                             process(component.script);
