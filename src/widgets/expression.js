@@ -18,7 +18,7 @@ var Expression = React.createClass({
 
     parse: function(value) {
         var options = _.pick(this.props, "functions");
-        return Perseus.ExpressionTools.parse(value, options);
+        return KAS.parse(value, options);
     },
 
     componentWillMount: function() {
@@ -215,7 +215,7 @@ var Expression = React.createClass({
 _.extend(Expression, {
     validate: function(state, rubric) {
         var options = _.pick(rubric, "functions");
-        var parse = Perseus.ExpressionTools.parse;
+        var parse = KAS.parse;
         var answer = parse(state.currentValue, options);
         var expected = parse(rubric.value, options);
 
@@ -226,7 +226,7 @@ _.extend(Expression, {
             };
         }
 
-        var compare = Perseus.ExpressionTools.compare;
+        var compare = KAS.compare;
         // are these in the wrong order???
         var result = compare(answer.expr, expected.expr, rubric);
 
