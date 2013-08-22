@@ -1096,8 +1096,7 @@ var InteractiveGraphEditor = React.createClass({
     componentDidMount: function() {
         var changeGraph = this.changeGraph;
         this.changeGraph = _.debounce(_.bind(changeGraph, this), 300);
-        // TODO(alpert): Remove setTimeout after facebook/react#77 lands
-        setTimeout(this.updateEquationString.bind(this), 0);
+        this.updateEquationString();
     },
 
     updateEquationString: function() {
