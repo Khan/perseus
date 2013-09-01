@@ -261,10 +261,10 @@ var Renderer = Perseus.Renderer = React.createClass({
             message: null
         };
 
-        // TODO(alpert): Check if order is consistent here
         var widgetProps = this.props.widgets;
-        totalScore = _.chain(widgetProps)
-                .map(function(props, id) {
+        totalScore = _.chain(this.widgetIds)
+                .map(function(id) {
+                    var props = widgetProps[id];
                     var widget = this.refs[id];
                     var guess = widget.toJSON();
                     totalGuess.push(guess);
