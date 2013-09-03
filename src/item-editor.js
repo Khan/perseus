@@ -15,8 +15,27 @@ var HintEditor = React.createClass({
             <Editor ref="editor" content={this.props.content}
                     onChange={this.props.onChange} widgetEnabled={false} />
 
-            <div className="remove-hint-container">
-                <a href="#" className="simple-button orange"
+            <div className="hint-controls-container clearfix">
+                <span class="reorder-hints">
+                    <a href="#"
+                        class={this.props.isLast && "hidden"}
+                        onClick={function() {
+                            this.props.onMove(1);
+                            return false;
+                        }.bind(this)}>
+                        <span className="icon-circle-arrow-down" />
+                    </a>
+                    {' '}
+                    <a href="#"
+                        class={this.props.isFirst && "hidden"}
+                        onClick={function() {
+                            this.props.onMove(-1);
+                            return false;
+                        }.bind(this)}>
+                        <span className="icon-circle-arrow-up" />
+                    </a>
+                </span>
+                <a href="#" className="remove-hint simple-button orange"
                         onClick={function() {
                             this.props.onRemove();
                             return false;
@@ -155,6 +174,8 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                 return HintEditor(_.extend({
                     key: "hintEditor" + i,
                     ref: "hintEditor" + i,
+                    isFirst: i === 0,
+                    isLast: i === this.state.hints.length - 1,
                     onChange: function(newProps, cb) {
                         var hints = _.clone(this.state.hints);
                         hints[i] = _.extend({}, this.state.hints[i],
@@ -165,6 +186,14 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         var hints = _.clone(this.state.hints);
                         hints.splice(i, 1);
                         this.setState({hints: hints});
+                    }.bind(this),
+                    onMove: function(dir) {
+                        var hints = _.clone(this.state.hints);
+                        var hint = hints.splice(i, 1)[0];
+                        hints.splice(i + dir, 0, hint);
+                        this.setState({hints: hints}, function() {
+                            this.refs["hintEditor" + (i + dir)].focus();
+                        });
                     }.bind(this)
                 }, hint));
             }, this)}

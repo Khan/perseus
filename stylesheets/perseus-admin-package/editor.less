@@ -112,12 +112,6 @@
         outline: 1px solid #ccc;
     }
 
-    .remove-hint-container {
-        text-align: right;
-        margin-top: -5px;
-        margin-bottom: 10px;
-    }
-
     .add-choice-container,
     .add-hint-container {
         text-align: left;
@@ -163,6 +157,32 @@
     // this heading to something we know will exist.
     content: "Hints:";
     font-size: 12pt;
+}
+
+.perseus-hint-editor {
+    margin-bottom: 20px;
+
+    .perseus-single-editor {
+        margin-bottom: 5px;
+    }
+
+    .reorder-hints a {
+        font-size: 16px;
+
+        &:hover, &:active {
+            color: #000;
+            text-decoration: none;
+        }
+
+        &.hidden {
+            visibility: hidden;
+        }
+    }
+
+    .remove-hint {
+        padding: 0 10px;
+        float: right;
+    }
 }
 
 //
