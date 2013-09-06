@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var InfoTip = Perseus.InfoTip;
+
 var answerTypes = {
     number: {name: "Numbers",
              forms: "integer, decimal, proper, improper, mixed"},
@@ -189,16 +191,23 @@ var InputNumberEditor = React.createClass({
             </select>
             </div>
 
-            <div><label>
-                Width
-                <select value={this.props.size}
-                        onChange={function(e) {
-                            this.props.onChange({size: e.target.value});
-                        }.bind(this)}>
-                    <option value="normal">Normal (80px)</option>
-                    <option value="small">Small (40px)</option>
-                </select>
-            </label></div>
+            <div>
+                <label>
+                    Width
+                    <select value={this.props.size}
+                            onChange={function(e) {
+                                this.props.onChange({size: e.target.value});
+                            }.bind(this)}>
+                        <option value="normal">Normal (80px)</option>
+                        <option value="small">Small (40px)</option>
+                    </select>
+                </label>
+                <InfoTip>
+                    <p>Use size "Normal" for all text boxes, unless there are
+                    multiple text boxes in one line and the answer area is too
+                    narrow to fit them.</p>
+                </InfoTip>
+            </div>
         </div>;
     },
 

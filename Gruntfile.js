@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 var srcFiles = [
     "build/src/core.js",
     "build/src/util.js",
+    "build/src/info-tip.js",
     "build/src/renderer.js",
     "build/src/editor.js",
     "build/src/widgets.js",
