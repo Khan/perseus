@@ -72,8 +72,8 @@ var AnswerAreaRenderer = React.createClass({
                 },
                 style: {classes: "qtip-light leaf-tooltip"},
                 position: {
-                    my: "bottom center",
-                    at: "top center"
+                    my: "center right",
+                    at: "center left"
                 },
                 show: {
                     delay: 200,
