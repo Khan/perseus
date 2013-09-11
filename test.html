@@ -142,60 +142,40 @@ Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.ItemEditor(
 {"question":
     {
-        "content": "How many monkeys swing from $10$ branches of **trees**? [[☃ orderer 1]]",
+        "content": "[[☃ interactive-graph 1]]",
         "widgets": {
-            "orderer 1": {
+            "interactive-graph 1": {
                 "options": {
-                    "options": {
-                        "number": [
-                            {
-                            "content": "$3$"
-                        }
-                        ],
-                        "symbol": [
-                            {
-                            "content": "$<$"
-                        }
-                        ],
-                        "variable": [
-                            {
-                            "content": "$x$"
-                        },
-                        {
-                            "content": "$y$"
-                        },
-                        {
-                            "content": "$z$"
-                        }
-                        ]
-                    },
-                    "correctOptions": [
-                        {
-                        "content": "$x$"
-                        },
-                        {
-                            "content": "$<$"
-                        },
-                        {
-                            "content": "$3$"
-                        }
+                    "step": [
+                        1,
+                        1
                     ],
-                    "otherOptions": [
-                        {
-                            "content": "$y$"
-                        },
-                        {
-                            "content": "$z$"
-                        },
-                        {
-                            "content": "$5$"
-                        },
-                        {
-                            "content": "$\\leq$"
-                        }
-                    ]
+                    "backgroundImage": {
+                        "url": null,
+                        "scale": 1,
+                        "bottom": 0,
+                        "left": 0
+                    },
+                    "showGraph": true,
+                    "range": [
+                        [
+                            -10,
+                            10
+                        ],
+                        [
+                            -10,
+                            10
+                        ]
+                    ],
+                    "graph": {
+                        "type": "linear"
+                    },
+                    "correct": {
+                        "type": "linear",
+                        "coords": null
+                    }
                 },
-                "type": "orderer"
+                "type": "interactive-graph"
             }
         }
     },"answerArea":{

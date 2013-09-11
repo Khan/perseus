@@ -73,6 +73,8 @@
 <script src="/ke/utils/graphie.js"></script>
 <script src="/ke/utils/jquery.mobile.vmouse.js"></script>
 <script src="/ke/utils/interactive.js"></script>
+<script src="/ke/exercises-stub.js"></script>
+<script src="/ke/utils/tex.js"></script>
 
 <!-- pre built (use for testing IE8) -->
 <!-- <script src="/build/src/core.js"></script>
@@ -112,38 +114,64 @@ $('#score').on('click', function() {
 
 var seedContent = {
     "question": {
-        "content": "How many monkeys swing from $10$ branches of **trees**? [[☃ table 1]]",
-        "widgets": {"table 1": {
+        "content": "[[☃ interactive-graph 1]]",
+        "widgets": {
+            "interactive-graph 1": {
                 "options": {
-                    "rows": 4,
-                    "columns": 1,
-                    "answers": [
+                    "step": [
+                        1,
+                        1
+                    ],
+                    "backgroundImage": {
+                        "url": null,
+                        "scale": 1,
+                        "bottom": 0,
+                        "left": 0
+                    },
+                    "showGraph": true,
+                    "range": [
                         [
-                            ""
+                            -10,
+                            10
                         ],
                         [
-                            ""
-                        ],
-                        [
-                            ""
-                        ],
-                        [
-                            ""
+                            -10,
+                            10
                         ]
                     ],
-                    "headers": [
-                        ""
-                    ]
+                    "graph": {
+                        "type": "polygon"
+                    },
+                    "correct": {
+                        "type": "polygon",
+                        "coords": [
+                            [
+                                3,
+                                -2
+                            ],
+                            [
+                                0,
+                                8
+                            ],
+                            [
+                                -3,
+                                -2
+                            ]
+                        ],
+                        "match": "similar"
+                    }
                 },
-                "type": "table"
-            }}
+                "type": "interactive-graph"
+            }
+        }
     },
     "answerArea": {
-        "type": "expression",
+        "type": "multiple",
         "options": {
-            "value": "1/3p-3=114",
-            "times": true
-        }
+            "content": "",
+            "widgets": {}
+        },
+        "calculator": false
     },
     "hints": [
         {
@@ -159,7 +187,7 @@ var seedContent = {
             "widgets": {}
         },
         {
-            "content": "ooh ooh, ahh ahh, too late.",
+            "content": "ooh ooh, ahh ahh, **too late.**",
             "widgets": {}
         }
     ]
