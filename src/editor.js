@@ -47,7 +47,9 @@ var Editor = Perseus.Editor = React.createClass({
         var pieces;
         var widgets;
         var underlayPieces;
-        var widgetEditors;
+        var widgetsDropDown;
+        var templatesDropDown;
+        var widgetsAndTemplates;
 
         if (this.props.widgetEnabled) {
             pieces = Perseus.Util.split(this.props.content, rWidgetSplit);
@@ -98,29 +100,40 @@ var Editor = Perseus.Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
+            widgetsDropDown =  <select onChange={this.addWidget}>
+                <option value="">Add a widget{"\u2026"}</option>
+                <option disabled>--</option>
+                <option value="input-number">
+                        Text input (number)</option>
+                <option value="expression">
+                        Expression / Equation</option>
+                <option value="interactive-graph">
+                        Interactive graph</option>
+                <option value="interactive-number-line">
+                        Interactive number line</option>
+                <option value="categorization">
+                        Categorization</option>
+                <option value="table">
+                        Table of values</option>
+                <option value="dropdown">
+                        Drop down</option>
+                <option value="orderer">
+                        Orderer</option>
+            </select>;
+
+            templatesDropDown = <select onChange={this.addTemplate}>
+                <option value="">Insert template{"\u2026"}</option>
+                <option disabled>--</option>
+                <option value="table">Table</option>
+                <option value="alignment">Aligned equations</option>
+                <option value="piecewise">Piecewise function</option>
+            </select>;
+
             if (!this.props.immutableWidgets) {
-                widgetEditors = <div className="perseus-editor-widgets">
+                widgetsAndTemplates = <div className="perseus-editor-widgets">
                     <div>
-                        <select onChange={this.addWidget}>
-                            <option value="">Add a widget{"\u2026"}</option>
-                            <option disabled>--</option>
-                            <option value="input-number">
-                                    Text input (number)</option>
-                            <option value="expression">
-                                    Expression / Equation</option>
-                            <option value="interactive-graph">
-                                    Interactive graph</option>
-                            <option value="interactive-number-line">
-                                    Interactive number line</option>
-                            <option value="categorization">
-                                    Categorization</option>
-                            <option value="table">
-                                    Table of values</option>
-                            <option value="dropdown">
-                                    Drop down</option>
-                            <option value="orderer">
-                                    Orderer</option>
-                        </select>
+                        {widgetsDropDown}
+                        {templatesDropDown}
                     </div>
                     {widgets}
                 </div>;
@@ -143,7 +156,7 @@ var Editor = Perseus.Editor = React.createClass({
                 <textarea ref="textarea" onInput={this.handleInput}
                     value={this.props.content} />
             </div>
-            {widgetEditors}
+            {widgetsAndTemplates}
         </div>;
     },
 
@@ -163,13 +176,17 @@ var Editor = Perseus.Editor = React.createClass({
 
         var oldContent = this.props.content;
 
+        // Add newlines before "big" widgets like graphs
+        if (widgetType !== "input-number" && widgetType !== "dropdown") {
+            oldContent = oldContent.replace(/\n*$/, "\n\n");
+        }
+
         for (var i = 1; oldContent.indexOf("[[\u2603 " + widgetType + " " + i +
                 "]]") > -1; i++) {
             ;
         }
 
         var id = widgetType + " " + i;
-        // TODO(alpert): Add newlines before "big" widgets like graphs
         var newContent = oldContent + "[[\u2603 " + id + "]]";
 
         var widgets = _.clone(this.props.widgets);
@@ -178,6 +195,45 @@ var Editor = Perseus.Editor = React.createClass({
             content: newContent,
             widgets: widgets
         }, this.focusAndMoveToEnd);
+    },
+
+    addTemplate: function(e) {
+        var templateType = e.target.value;
+        if (templateType === "") {
+            return;
+        }
+        e.target.value = "";
+
+        var oldContent = this.props.content;
+
+        // Force templates to have a blank line before them,
+        // as they are usually used as block elements
+        // (especially important for tables)
+        oldContent = oldContent.replace(/\n*$/, "\n\n");
+
+        var template;
+        if (templateType === "table") {
+            template = "header 1 | header 2 | header 3\n" +
+                       "- | - | -\n" +
+                       "data 1 | data 2 | data 3\n" +
+                       "data 4 | data 5 | data 6\n" +
+                       "data 7 | data 8 | data 9";
+        } else if (templateType === "alignment") {
+            template = "$\\begin{align} x+5 &= 30 \\\\\n" +
+                       "x+5-5 &= 30-5 \\\\\n" +
+                       "x &= 25 \\end{align}$";
+        } else if (templateType === "piecewise") {
+            template = "$f(x) = \\begin{cases}\n" +
+                       "7 & \\text{if $x=1$} \\\\\n" +
+                       "f(x-1)+5 & \\text{if $x > 1$}\n" +
+                       "\\end{cases}$";
+        } else {
+            throw new Error("Invalid template type: " + templateType);
+        }
+
+        var newContent = oldContent + template;
+
+        this.props.onChange({content: newContent}, this.focusAndMoveToEnd);
     },
 
     toJSON: function(skipValidation) {
