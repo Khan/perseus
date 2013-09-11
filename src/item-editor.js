@@ -81,14 +81,14 @@ var AnswerAreaEditor = React.createClass({
         }, this.props.options));
 
         return <div className="perseus-answer-editor">
-            <label>
+            <div><label>
                 Show calculator:
                 <input type="checkbox" checked={this.props.calculator}
                     onChange={function(e) {
                         this.props.onChange({calculator: e.target.checked});
                     }.bind(this)} />
-            </label>
-            <label>
+            </label></div>
+            <div><label>
                 Answer type:
                 <select value={this.props.type}
                         onChange={function(e) {
@@ -105,7 +105,7 @@ var AnswerAreaEditor = React.createClass({
                     <option value="expression">Expression / Equation</option>
                     <option value="multiple">Custom format</option>
                 </select>
-            </label>
+            </label></div>
             {editor}
         </div>;
     },

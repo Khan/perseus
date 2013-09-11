@@ -257,7 +257,7 @@ var ExpressionEditor = React.createClass({
 
     render: function() {
         return <div>
-            <label>
+            <div><label>
                 Correct answer:
                 <Expression ref="expression"
                     currentValue={this.props.value}
@@ -270,22 +270,22 @@ var ExpressionEditor = React.createClass({
                         }
                         this.props.onChange(newProps);
                     }.bind(this)} />
-            </label>
+            </label></div>
 
             {_.map(this.optionLabels, function(labelText, option) {
-                return <label key={option}>
+                return <div><label key={option}>
                     <input type="checkbox" name={option}
                         checked={this.props[option]}
                         onChange={this.handleCheck} />
                     {labelText}
-                </label>;
+                </label></div>;
             }, this)}
-            <label>
+            <div><label>
                 {"Function variables: "}
                 <input type="text"
                     defaultValue={this.props.functions.join(" ")}
                     onChange={this.handleFunctions} />
-            </label>
+            </label></div>
         </div>;
     },
 
