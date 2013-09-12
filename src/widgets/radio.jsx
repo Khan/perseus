@@ -72,7 +72,7 @@ var Radio = React.createClass({
             choices={choices.map(function(choice) {
                 return _.pick(choice, "content", "checked");
             })}
-            onCheckedChange={this.onCheckedChange} />
+            onCheckedChange={this.onCheckedChange} />;
     },
 
     focus: function(i) {
@@ -95,7 +95,7 @@ var Radio = React.createClass({
                 values: _.map(this.props.choices, function() {
                     return false;
                 })
-            }
+            };
         }
     },
 
@@ -134,9 +134,11 @@ _.extend(Radio, {
                 message: null
             };
         } else {
+            /* jshint -W018 */
             var correct = _.all(state.values, function(selected, i) {
                 return !!rubric.choices[i].correct === selected;
             });
+            /* jshint +W018 */
 
             return {
                 type: "points",

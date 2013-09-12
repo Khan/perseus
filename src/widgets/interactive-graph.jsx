@@ -92,7 +92,7 @@ function intersects(ab, cd) {
 function vector(a, b) {
     return _.map(_.zip(a, b), function(pair) {
         return pair[0] - pair[1];
-    })
+    });
 }
 
 function magnitude(v) {
@@ -212,12 +212,12 @@ function getLineIntersection(firstPoints, secondPoints) {
     var determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 
     if (Math.abs(determinant) < 1e-9) {
-        return "Lines are parallel"
+        return "Lines are parallel";
     } else {
         var x = ((x1 * y2 - y1 * x2) * (x3 - x4) -
                  (x1 - x2) * (x3 * y4 - y3 * x4)) / determinant;
         var y = ((x1 * y2 - y1 * x2) * (y3 - y4) -
-                 (y1 - y2) * (x3 * y4 - y3 * x4)) / determinant
+                 (y1 - y2) * (x3 * y4 - y3 * x4)) / determinant;
         return "Intersection: (" + x.toFixed(3) + ", " + y.toFixed(3) + ")";
     }
 }
@@ -276,7 +276,7 @@ var InteractiveGraph = React.createClass({
             typeSelect = <select
                     value={this.props.graph.type}
                     onChange={function(e) {
-                        var type = e.target.value
+                        var type = e.target.value;
                         this.props.onChange({
                             graph: {type: type}
                         });
@@ -296,7 +296,7 @@ var InteractiveGraph = React.createClass({
                         key="point-select"
                         value={this.props.graph.numPoints || 1}
                         onChange={function(e) {
-                            var num = +e.target.value
+                            var num = +e.target.value;
                             this.props.onChange({
                                 graph: {
                                     type: "point",
@@ -316,7 +316,7 @@ var InteractiveGraph = React.createClass({
                         key="polygon-select"
                         value={this.props.graph.numSides || 3}
                         onChange={function(e) {
-                            var num = +e.target.value
+                            var num = +e.target.value;
                             var graph = _.extend({}, this.props.graph, {
                                 numSides: num,
                                 coords: null
@@ -332,7 +332,7 @@ var InteractiveGraph = React.createClass({
                         key="segment-select"
                         value={this.props.graph.numSegments || 1}
                         onChange={function(e) {
-                            var num = +e.target.value
+                            var num = +e.target.value;
                             this.props.onChange({
                                 graph: {
                                     type: "segment",
@@ -822,7 +822,7 @@ var InteractiveGraph = React.createClass({
     getPointEquationString: function() {
         var coords = InteractiveGraph.getPointCoords(this.props.graph, this);
         return coords.map(function(coord) {
-            return "(" + coord[0] + ", " + coord[1] + ")"
+            return "(" + coord[0] + ", " + coord[1] + ")";
         }).join(", ");
     },
 
@@ -965,8 +965,8 @@ var InteractiveGraph = React.createClass({
                 var segments = _.zip(coords, rotate(coords));
 
                 if (n > 3) {
-                    // Constrain to simple (non self-intersecting) polygon
-                    // by testing whether adjacent segments intersect any others
+                    // Constrain to simple (non self-intersecting) polygon by
+                    // testing whether adjacent segments intersect any others
                     for (var j = -1; j <= 0; j++) {
                         var segment = segments[rel(j)];
                         var others = _.without(segments,
@@ -1083,7 +1083,8 @@ _.extend(InteractiveGraph, {
                     coords = [[-6, 0], [-3, 0], [0, 0], [3, 0], [6, 0]];
                     break;
                 case 6:
-                    coords = [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0], [5, 0]];
+                    coords = [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0],
+                              [5, 0]];
                     break;
             }
             // Transform coords from their -10 to 10 space to 0 to 1
@@ -1268,7 +1269,7 @@ _.extend(InteractiveGraph, {
                         earned: 1,
                         total: 1,
                         message: null
-                    }
+                    };
                 }
             } else if (state.type === "segment") {
                 var guess = state.coords.slice();
@@ -1347,8 +1348,9 @@ var InteractiveGraphEditor = React.createClass({
     },
 
     render: function() {
+        var graph;
         if (this.props.valid === true) {
-            var graph = <InteractiveGraph
+            graph = <InteractiveGraph
                 ref="graph"
                 box={this.props.box}
                 range={this.props.range}
@@ -1367,9 +1369,9 @@ var InteractiveGraphEditor = React.createClass({
                     }
                     this.props.onChange({correct: correct});
                     this.updateEquationString();
-                }.bind(this)} />
+                }.bind(this)} />;
         } else {
-            var graph = <div>{this.props.valid}</div>;
+            graph = <div>{this.props.valid}</div>;
         }
         return <div className="perseus-widget-interactive-graph">
             <div>Correct answer: {this.state.equationString}</div>

@@ -16,7 +16,7 @@ var Util = Perseus.Util = {
             seed = ((seed + 0xfd7046c5) + (seed << 3)) & 0xffffffff;
             seed = ((seed ^ 0xb55a4f09) ^ (seed >>> 16)) & 0xffffffff;
             return (randomSeed = (seed & 0xfffffff)) / 0x10000000;
-        }
+        };
     },
 
     shuffle: function(array, seed) {
@@ -37,16 +37,16 @@ var Util = Perseus.Util = {
     },
 
     // In IE8, split doesn't work right. Implement it ourselves.
-    split: "x".split(/(.)/g).length
-        ? function(str, r) { return str.split(r); }
-        : function(str, r) {
+    split: "x".split(/(.)/g).length ?
+        function(str, r) { return str.split(r); } :
+        function(str, r) {
             // Based on Steven Levithan's MIT-licensed split, available at
             // http://blog.stevenlevithan.com/archives/cross-browser-split
             var output = [];
             var lastIndex = r.lastIndex = 0;
             var match;
 
-            while (match = r.exec(str)) {
+            while ((match = r.exec(str))) {
                 output.push(str.slice(lastIndex, match.index));
                 output.push.apply(output, match.slice(1));
                 lastIndex = match.index + match[0].length;
@@ -205,17 +205,18 @@ var Util = Perseus.Util = {
     tickStepFromExtent: function(extent, dimensionConstraint) {
         var span = extent[1] - extent[0];
 
+        var tickFactor;
         // If single number digits
         if (15 < span && span <= 20) {
-            var tickFactor = 23;
+            tickFactor = 23;
 
         // triple digit or decimal
         } else if (span > 100 || span < 5) {
-            var tickFactor = 10;
+            tickFactor = 10;
 
         // double digit
         } else {
-            var tickFactor = 16;
+            tickFactor = 16;
         }
         var constraintFactor = dimensionConstraint / 500;
         var desiredNumTicks = tickFactor * constraintFactor;
@@ -266,9 +267,13 @@ var Util = Perseus.Util = {
         var err = numTicks / span * step;
 
         // Filter ticks to get closer to the desired count.
-        if (err <= .15) step *= 10;
-        else if (err <= .35) step *= 5;
-        else if (err <= .75) step *= 2;
+        if (err <= 0.15) {
+            step *= 10;
+        } else if (err <= 0.35) {
+            step *= 5;
+        } else if (err <= 0.75) {
+            step *= 2;
+        }
 
         // Round start and stop values to step interval.
         return step;

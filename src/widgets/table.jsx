@@ -80,7 +80,7 @@ _.extend(Table, {
                 earned: 0,
                 total: 1,
                 message: null
-            }
+            };
         }
         var createValidator = Khan.answerTypes
                                   .number.createValidatorFunctional;

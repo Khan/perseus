@@ -92,7 +92,8 @@ var Editor = Perseus.Editor = React.createClass({
             //     if (!(id in widgets)) {
             //         // It's strange if these preloaded options stick around
             //         // since it's inconsistent with how things work if you
-            //         // don't have the serialize/deserialize step in the middle
+            //         // don't have the serialize/deserialize step in the
+            //         // middle
             //         // TODO(alpert): Save options in a consistent manner so
             //         // that you can undo the deletion of a widget
             //         delete this.props.widgets[id];
@@ -183,7 +184,7 @@ var Editor = Perseus.Editor = React.createClass({
 
         for (var i = 1; oldContent.indexOf("[[\u2603 " + widgetType + " " + i +
                 "]]") > -1; i++) {
-            ;
+            // pass
         }
 
         var id = widgetType + " " + i;

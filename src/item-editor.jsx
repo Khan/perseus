@@ -238,7 +238,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
             question: this.refs.questionEditor.toJSON(skipValidation),
             answerArea: this.refs.answerAreaEditor.toJSON(skipValidation),
             hints: this.state.hints.map(function(hint, i) {
-                return this.refs["hintEditor" + i].toJSON(skipValidation)
+                return this.refs["hintEditor" + i].toJSON(skipValidation);
             }, this)
         };
     },

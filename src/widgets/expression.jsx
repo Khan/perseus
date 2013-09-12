@@ -252,7 +252,8 @@ var ExpressionEditor = React.createClass({
     optionLabels: {
         form: "Answer expression must have the same form.",
         simplify: "Answer expression must be fully expanded and simplified.",
-        times: "Use \u00D7 for rendering multiplication instead of a center dot."
+        times: "Use \u00d7 for rendering multiplication instead of a center " +
+                "dot."
     },
 
     render: function() {

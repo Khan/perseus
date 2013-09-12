@@ -55,7 +55,9 @@ var TeX = Perseus.TeX = (function() {
                     katex.process(text, katexHolder);
                     return;
                 } catch (e) {
+                    /* jshint -W103 */
                     if (e.__proto__ !== katex.ParseError.prototype) {
+                    /* jshint +W103 */
                         throw e;
                     }
                 }
@@ -82,7 +84,9 @@ var TeX = Perseus.TeX = (function() {
                         }
                         return;
                     } catch (e) {
+                        /* jshint -W103 */
                         if (e.__proto__ !== katex.ParseError.prototype) {
+                        /* jshint +W103 */
                             throw e;
                         }
                     }
@@ -283,7 +287,9 @@ var Renderer = Perseus.Renderer = React.createClass({
         }));
 
         // no widgets with examples
-        if (!examples.length) return null;
+        if (!examples.length) {
+            return null;
+        }
 
         var allEqual = _.all(examples, function(example) {
             return _.isEqual(examples[0], example);
@@ -291,7 +297,9 @@ var Renderer = Perseus.Renderer = React.createClass({
 
         // some widgets have different examples
         // TODO(alex): handle this better
-        if (!allEqual) return null;
+        if (!allEqual) {
+            return null;
+        }
 
         return examples[0];
     }

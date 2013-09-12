@@ -12,7 +12,9 @@ var PlaceholderCard = React.createClass({
 
 var DragHintCard = React.createClass({
     render: function() {
-        return <div className="card-wrap"><div className="card drag-hint" /></div>;
+        return <div className="card-wrap">
+            <div className="card drag-hint" />
+        </div>;
     }
 });
 
@@ -306,7 +308,7 @@ var Orderer = React.createClass({
             // If we're in the card bank, go through the options to find the
             // one with the same content
             _.each(this.props.options, function(opt, i) {
-                if (opt.content == this.state.dragContent) {
+                if (opt.content === this.state.dragContent) {
                     var card = this.refs["bank" + i].getDOMNode();
                     finalOffset = $(card).position();
                 }
@@ -435,7 +437,7 @@ function getTextWidth(text) {
 
     textWidthCache[text] = width + 5;
     return textWidthCache[text];
-};
+}
 
 
 var TextListEditor = React.createClass({
@@ -535,13 +537,15 @@ var OrdererEditor = React.createClass({
             <div>Correct answer:</div>
             <TextListEditor options={this.props.correctOptions}
                             onContentChange={function(options) {
-                                editor.props.onChange({correctOptions: options})
+                                editor.props.onChange({
+                                    correctOptions: options
+                                });
                             }}/>
 
             <div>Other cards:</div>
             <TextListEditor options={this.props.otherOptions}
                             onContentChange={function(options) {
-                                editor.props.onChange({otherOptions: options})
+                                editor.props.onChange({otherOptions: options});
                             }}/>
 
             <div>Height:</div>

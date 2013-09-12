@@ -1,12 +1,13 @@
 module.exports = function(grunt) {
 
 var srcFiles = [
-    "build/src/core.js",
-    "build/src/util.js",
+    // TODO(alpert): Unify these paths
+    "src/core.js",
+    "src/util.js",
     "build/src/info-tip.js",
     "build/src/renderer.js",
     "build/src/editor.js",
-    "build/src/widgets.js",
+    "src/widgets.js",
     "build/src/widgets/input-number.js",
     "build/src/widgets/interactive-graph.js",
     "build/src/widgets/interactive-number-line.js",
@@ -24,7 +25,7 @@ grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     shell: {
         jsx: {
-            command: "jsx src/ build/src/"
+            command: "jsx -x jsx src/ build/src/"
         }
     },
     concat: {

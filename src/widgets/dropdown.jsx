@@ -22,7 +22,7 @@ var Dropdown = React.createClass({
                 return <option
                         value={i}>
                     {choice.content}
-                </option>
+                </option>;
             }, this)}
         </select>;
     },

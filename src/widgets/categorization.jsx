@@ -179,7 +179,7 @@ var Categorization = React.createClass({
     },
 
     findDrag: function() {
-        return $(this.getDOMNode()).find(".card.dragging")
+        return $(this.getDOMNode()).find(".card.dragging");
     },
 
     updateDrag: function(coords) {
@@ -246,10 +246,11 @@ var Categorization = React.createClass({
         if (_.isEqual(targetCategory, item.location.category)) {
             returnedToSame = true;
         }
+        var slotClass;
         if (returnedToSame) {
-            var slotClass = ".card.placeholder";
+            slotClass = ".card.placeholder";
         } else {
-            var slotClass = ".card-empty-slot";
+            slotClass = ".card-empty-slot";
         }
         var offsetTop = false;
         var slot = root.find(
@@ -307,16 +308,13 @@ var Categorization = React.createClass({
         var dragging = self.state.dragging;
         var isEditor = self.props.isEditor;
 
-        // dragItem
+        var dragItem;
         if (dragging) {
-            var dragItem = dragging ? items[dragging.itemIndex] : null;
             dragItem = CategoryItem({
                 isDragItem: true,
-                item: dragItem,
+                item: dragging ? items[dragging.itemIndex] : null,
                 isEditor: this.props.isEditor
             });
-        } else {
-            var dragItem = null;
         }
 
         // bank
@@ -333,17 +331,15 @@ var Categorization = React.createClass({
                 />
         </div>;
 
-        // deleteItem
+        var deleteItem;
         if (isEditor) {
             var deleteItemClass = "delete-item-area";
             if (targetCategory === "delete") {
                 deleteItemClass += " target";
             }
-            var deleteItem = <div className={deleteItemClass}>
+            deleteItem = <div className={deleteItemClass}>
                 <span className="icon-trash"></span>
             </div>;
-        } else {
-            var deleteItem = "";
         }
 
         // categories
@@ -510,6 +506,7 @@ var Category = React.createClass({
         if (isBank(self.props.category)) {
             return null;
         }
+        var header;
         if (self.props.isEditor) {
             var onChangeHeader = function(e) {
                 var header = self.refs.header;
@@ -519,7 +516,7 @@ var Category = React.createClass({
             var removeCategory = _.partial(
                     self.props.removeCategory, self.props.category);
 
-            var header = <div>
+            header = <div>
                 <div
                         className="remove"
                         onClick={removeCategory}>
@@ -533,7 +530,7 @@ var Category = React.createClass({
                         />
             </div>;
         } else {
-            var header = Perseus.Renderer({
+            header = Perseus.Renderer({
                 content: self.props.categoryHeader
             });
         }
@@ -607,18 +604,19 @@ var CategoryItem = React.createClass({
             }
             self.props.onMouseDown(e);
             e.preventDefault();
-        }
+        };
 
         var className = "card";
         if (self.props.isDragItem) {
             className += " dragging";
         }
 
+        var inner;
         if (isEditor) {
             var mouseDownEditor = function(e) {
                 e.stopPropagation();
             };
-            var inner = <div
+            inner = <div
                     className={className + " card-editor"}
                     onMouseDown={onMouseDown}>
                 <div className="drag-bar">
@@ -633,7 +631,7 @@ var CategoryItem = React.createClass({
                         />
             </div>;
         } else {
-            var inner = <div
+            inner = <div
                 className={className}
                 onMouseDown={onMouseDown}
             >{Perseus.Renderer({content: content})}</div>;
