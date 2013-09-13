@@ -205,6 +205,7 @@ var Expression = React.createClass({
             $._("For $3y$, enter **3y** or **3*y**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),
             $._("For $x^{y}$, enter **x^y**"),
+            $._("For $\\sqrt{x}$, enter **sqrt(x)**"),
             $._("For $\\pi$, enter **pi**"),
             $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
             $._("For $\\neq$, enter **=/=**")
