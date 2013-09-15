@@ -453,7 +453,6 @@ var TextListEditor = React.createClass({
         var inputs = this.props.options.map(function(option, i) {
             return <li key={i}>
                 <input type="text"
-                       key={"editor" + i}
                        ref={"editor" + i}
                        style={{width: getTextWidth(option.content)}}
                        onInput={this.onContentChange.bind(this, i)}
@@ -503,17 +502,6 @@ var TextListEditor = React.createClass({
         }
 
         this.props.onContentChange(options);
-
-        // If we deleted something, re-focus the extra input
-        if (didDelete) {
-            this.focusExtra();
-        }
-    },
-
-    focusExtra: function() {
-        // Focus the last input box at the end of its selection
-        var editor = this.refs.editorExtra.getDOMNode();
-        editor.focus();
     }
 });
 
