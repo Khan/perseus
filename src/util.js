@@ -122,28 +122,6 @@ var Util = Perseus.Util = {
         return first;
     },
 
-    /**
-     * React mixin to copy any properties listed in 'defaultState' from 'props'
-     * to 'state' upon initialization so that they can easily be modified later
-     * by the component. Also calls this.props.onChange on any state change.
-     */
-    PropsToState: {
-        getInitialState: function() {
-            var props = _.pick(this.props, _.keys(this.defaultState));
-            return _.defaults(props, this.defaultState);
-        },
-
-        componentWillReceiveProps: function(nextProps) {
-            this.setState(_.pick(nextProps, _.keys(this.defaultState)));
-        },
-
-        componentDidUpdate: function(prevProps, prevState, rootNode) {
-            if (!_.isEqual(prevState, this.state) && this.props.onChange) {
-                this.props.onChange();
-            }
-        }
-    },
-
     stringArrayOfSize: function(size) {
         return _(size).times(function() {
             return "";
