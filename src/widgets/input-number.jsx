@@ -116,24 +116,19 @@ _.extend(InputNumber, {
 
         var result = val(state.value);
 
-        if (state.value === "" || result === "") {
+        // TODO(eater): Seems silly to translate result to this invalid/points
+        // thing and immediately translate it back in ItemRenderer.scoreInput()
+        if (result.empty) {
             return {
                 type: "invalid",
-                message: null
-            };
-        } else if (typeof result === "string") {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: result
+                message: result.message
             };
         } else {
             return {
                 type: "points",
-                earned: result === true ? 1 : 0,
+                earned: result.correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: result.message
             };
         }
     }
