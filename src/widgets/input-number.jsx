@@ -163,15 +163,31 @@ var InputNumberEditor = React.createClass({
                     }.bind(this)} />
             </label></div>
 
-            <div><label>
-                <input type="checkbox"
-                    checked={this.props.simplify === "required"}
-                    onChange={function(e) {
-                        this.props.onChange({simplify: e.target.checked ?
-                                "required" : "optional"});
-                    }.bind(this)} />
-                Require simplification
-            </label></div>
+            <div>
+                <label>
+                    Unsimplified answers
+                    <select value={this.props.simplify}
+                            onChange={function(e) {
+                                this.props.onChange({simplify: e.target.value});
+                            }.bind(this)}>
+                        <option value="required">will not be graded</option>
+                        <option value="optional">will be accepted</option>
+                        <option value="enforced">will be marked wrong</option>
+                    </select>
+                </label>
+                <InfoTip>
+                    <p>Normally select "will not be graded". This will give the
+                    user a message saying the answer is correct but not
+                    simplified. The user will then have to simplify it and
+                    re-enter, but will not be penalized. (5th grade and
+                    anything after)</p>
+                    <p>Select "will be accepted" only if the user is not
+                    expected to know how to simplify fractions yet. (Anything
+                    prior to 5th grade)</p>
+                    <p>Select "will be marked wrong" only if we are
+                    specifically assessing the ability to simplify.</p>
+                </InfoTip>
+            </div>
 
             <div><label>
                 <input type="checkbox"
