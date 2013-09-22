@@ -96,10 +96,10 @@ _.extend(Table, {
                                 simplify: true
                             });
                     var result = validator(cellSupplied);
-                    if (typeof result === "string") {
-                        message = result;
+                    if (result.message) {
+                        message = result.message;
                     }
-                    return result === true;
+                    return result.correct;
                 });
                 if (correct) {
                     supplied.splice(i, 1);
