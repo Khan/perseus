@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var InfoTip = Perseus.InfoTip;
+
 var PlaceholderCard = React.createClass({
     render: function() {
         return <div className="card-wrap"
@@ -536,11 +538,23 @@ var OrdererEditor = React.createClass({
                                 editor.props.onChange({otherOptions: options});
                             }}/>
 
-            <div>Height:</div>
-            <select value={this.props.height} onChange={this.onHeightChange}>
-                <option value="normal">Normal (45px)</option>
-                <option value="large">Large (140px)</option>
-            </select>
+            <div>
+                <label>
+                    Height:
+                    <select value={this.props.height}
+                            onChange={this.onHeightChange}>
+                        <option value="normal">Normal (45px)</option>
+                        <option value="auto">Automatic</option>
+                        <option value="large">Large (140px)</option>
+                    </select>
+                </label>
+                <InfoTip>
+                    <p>Use size "Normal" for mathy text. Got images? If they
+                    are all the same size, use "Automatic" to save whitespace.
+                    If they are different sizes, but no more than 140px tall,
+                    use "Large".</p>
+                </InfoTip>
+            </div>
         </div>;
     },
 
