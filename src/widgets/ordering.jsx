@@ -545,14 +545,11 @@ var OrdererEditor = React.createClass({
                             onChange={this.onHeightChange}>
                         <option value="normal">Normal (45px)</option>
                         <option value="auto">Automatic</option>
-                        <option value="large">Large (140px)</option>
                     </select>
                 </label>
                 <InfoTip>
-                    <p>Use size "Normal" for mathy text. Got images? If they
-                    are all the same size, use "Automatic" to save whitespace.
-                    If they are different sizes, but no more than 140px tall,
-                    use "Large".</p>
+                    <p>Use size "Normal" for mathy text, "Automatic" for
+                    images.</p>
                 </InfoTip>
             </div>
         </div>;
