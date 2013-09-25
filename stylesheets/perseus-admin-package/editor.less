@@ -1,8 +1,3 @@
-
-.perseus-editor-preview-panel {
-    background-color: rgb(247, 247, 247);
-}
-
 //
 // General editor styles
 //
@@ -82,6 +77,10 @@
     width: 360px;
 }
 
+.perseus-editor-renderer-container {
+    width: 530px;
+}
+
 #perseus {
     margin: 20px;
     width: 1120px;
@@ -98,8 +97,13 @@
     }
 
     #problemarea {
-        width: 530px;
-        float: left;
+        .perseus-editor-renderer-container;
+
+        /* Override the min-height property used for displaying the problem.
+        While editing, the size of the editor itself is a better constraint on
+        the size of the problemarea, and having a smaller problemarea is nicer
+        if it means it aligns better with the editor. */
+        min-height: 0;
     }
 
     #workarea {
@@ -121,14 +125,10 @@
 
 .perseus-editor-preview-panel {
     box-sizing: border-box;
-    float: right;
-    width: 760px;
 }
 
 
 .perseus-item-editor {
-    float: left;
-    width: 360px;
     margin: 0 0 24px 0;
 }
 
@@ -148,15 +148,38 @@
     font-size: 12pt;
 }
 
-.perseus-answer-editor:after {
-    // There may be zero .perseus-hint-editors being rendered, so anchor
-    // this heading to something we know will exist.
-    content: "Hints:";
+.perseus-editor-table {
+    display: table;
+    table-layout: fixed;
+}
+
+.perseus-editor-row {
+    display: table-row;
+}
+
+.perseus-editor-left-cell {
+    display: table-cell;
+    vertical-align: top;
+    width: 360px;
+}
+
+.perseus-editor-right-cell {
+    display: table-cell;
+    vertical-align: top;
+    width: 760px;
+    background-color: #f7f7f7;
+}
+
+.perseus-hints-title {
     font-size: 12pt;
 }
 
+.perseus-hints-title-right {
+    display: table-cell;
+}
+
 .perseus-hint-editor {
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 
     .perseus-single-editor {
         margin-bottom: 5px;
@@ -179,6 +202,14 @@
         padding: 0 10px;
         float: right;
     }
+}
+
+.framework-perseus .perseus-hint-renderer {
+    div.paragraph {
+        margin: 0px 0px 22px 0px;
+    }
+    margin-left: 50px;
+    outline: 1px solid #ccc;
 }
 
 //

@@ -73,8 +73,7 @@ var AnswerAreaEditor = React.createClass({
 var ItemEditor = Perseus.ItemEditor = React.createClass({
     defaultState: {
         question: {},
-        answerArea: {},
-        hints: []
+        answerArea: {}
     },
 
     getDefaultProps: function() {
@@ -103,7 +102,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-item-editor">
+        return <div className="perseus-item-editor perseus-editor-left-cell">
             {Editor(_.extend({
                 ref: "questionEditor",
                 className: "perseus-question-editor",
@@ -122,61 +121,15 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                 }.bind(this)
             }, this.state.answerArea))}
 
-            {this.state.hints.map(function(hint, i) {
-                return HintEditor(_.extend({
-                    key: "hintEditor" + i,
-                    ref: "hintEditor" + i,
-                    isFirst: i === 0,
-                    isLast: i === this.state.hints.length - 1,
-                    onChange: function(newProps, cb) {
-                        var hints = _.clone(this.state.hints);
-                        hints[i] = _.extend({}, this.state.hints[i],
-                                newProps);
-                        this.setState({hints: hints}, cb);
-                    }.bind(this),
-                    onRemove: function() {
-                        var hints = _.clone(this.state.hints);
-                        hints.splice(i, 1);
-                        this.setState({hints: hints});
-                    }.bind(this),
-                    onMove: function(dir) {
-                        var hints = _.clone(this.state.hints);
-                        var hint = hints.splice(i, 1)[0];
-                        hints.splice(i + dir, 0, hint);
-                        this.setState({hints: hints}, function() {
-                            this.refs["hintEditor" + (i + dir)].focus();
-                        });
-                    }.bind(this)
-                }, hint));
-            }, this)}
 
-            <div className="add-hint-container">
-                <a href="#" className="simple-button orange"
-                        onClick={this.addHint}>
-                    <span className="icon-plus" />
-                    Add a hint
-                </a>
-            </div>
+
         </div>;
-    },
-
-    addHint: function() {
-        var hints = this.state.hints.concat([{}]);
-        var i = hints.length - 1;
-
-        this.setState({hints: hints}, function() {
-            this.refs["hintEditor" + i].focus();
-        }.bind(this));
-        return false;
     },
 
     toJSON: function(skipValidation) {
         return {
             question: this.refs.questionEditor.toJSON(skipValidation),
-            answerArea: this.refs.answerAreaEditor.toJSON(skipValidation),
-            hints: this.state.hints.map(function(hint, i) {
-                return this.refs["hintEditor" + i].toJSON(skipValidation);
-            }, this)
+            answerArea: this.refs.answerAreaEditor.toJSON(skipValidation)
         };
     },
 
