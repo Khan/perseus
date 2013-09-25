@@ -3,57 +3,7 @@
 
 var Editor = Perseus.Editor;
 
-var HintEditor = React.createClass({
-    getDefaultProps: function() {
-        return {
-            content: ""
-        };
-    },
-
-    render: function() {
-        return <div className="perseus-hint-editor">
-            <Editor ref="editor" content={this.props.content}
-                    onChange={this.props.onChange} widgetEnabled={false} />
-
-            <div className="hint-controls-container clearfix">
-                <span class="reorder-hints">
-                    <a href="#"
-                        class={this.props.isLast && "hidden"}
-                        onClick={function() {
-                            this.props.onMove(1);
-                            return false;
-                        }.bind(this)}>
-                        <span className="icon-circle-arrow-down" />
-                    </a>
-                    {' '}
-                    <a href="#"
-                        class={this.props.isFirst && "hidden"}
-                        onClick={function() {
-                            this.props.onMove(-1);
-                            return false;
-                        }.bind(this)}>
-                        <span className="icon-circle-arrow-up" />
-                    </a>
-                </span>
-                <a href="#" className="remove-hint simple-button orange"
-                        onClick={function() {
-                            this.props.onRemove();
-                            return false;
-                        }.bind(this)}>
-                    <span className="icon-trash" /> Remove this hint
-                </a>
-            </div>
-        </div>;
-    },
-
-    focus: function() {
-        this.refs.editor.focus();
-    },
-
-    toJSON: function(skipValidation) {
-        return this.refs.editor.toJSON(skipValidation);
-    }
-});
+var HintEditor = Perseus.HintEditor;
 
 var AnswerAreaEditor = React.createClass({
     getDefaultProps: function() {
@@ -127,6 +77,12 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
         hints: []
     },
 
+    getDefaultProps: function() {
+        return {
+            onChange: function() {}
+        };
+    },
+
     getInitialState: function() {
         var props = _.pick(this.props, _.keys(this.defaultState));
         return _.defaults(props, this.defaultState);
@@ -138,16 +94,12 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
 
     componentDidUpdate: function(prevProps, prevState, rootNode) {
         if (!_.isEqual(prevState, this.state)) {
-            this.updatePreview();
+            this.props.onChange();
         }
     },
 
-    componentWillMount: function() {
-        this.rendererMountNode = document.createElement("div");
-    },
-
     componentDidMount: function() {
-        this.updatePreview();
+        this.props.onChange();
     },
 
     render: function() {
@@ -216,21 +168,6 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
             this.refs["hintEditor" + i].focus();
         }.bind(this));
         return false;
-    },
-
-    updatePreview: function() {
-        this.renderer = React.renderComponent(Perseus.ItemRenderer({
-            item: this.toJSON(true),
-            initialHintsVisible: -1  /* all */
-        }), this.rendererMountNode);
-    },
-
-    scorePreview: function() {
-        if (this.renderer) {
-            return this.renderer.scoreInput();
-        } else {
-            return null;
-        }
     },
 
     toJSON: function(skipValidation) {

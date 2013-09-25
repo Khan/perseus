@@ -117,6 +117,8 @@ var AnswerAreaRenderer = React.createClass({
     }
 });
 
+var HintRenderer = Perseus.HintRenderer;
+
 var HintsRenderer = React.createClass({
     render: function() {
         var hintsVisible = this.props.hintsVisible;
@@ -125,10 +127,10 @@ var HintsRenderer = React.createClass({
             .map(function(hint, i) {
                 var shouldBold = i === this.props.hints.length - 1 &&
                                  !(/\*\*/).test(hint.content);
-                return <div className={shouldBold ? "last-hint" : ""}
-                        key={"hint" + i}>
-                    {Perseus.Renderer(hint)}
-                </div>;
+                return <HintRenderer
+                            bold={shouldBold}
+                            hint={hint}
+                            key={"hintRenderer" + i} />;
             }, this);
 
         return <div>{hints}</div>;

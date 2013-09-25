@@ -24,25 +24,7 @@
 </div>
 
 <!-- Begin Perseus HTML -->
-<div id="perseus" class="framework-perseus">
-    <div id="perseus-editor">
-    </div>
-
-    <div class="perseus-editor-preview-panel">
-        <div id="problemarea">
-            <div id="workarea"></div>
-            <div id="hintsarea"></div>
-        </div>
-        <div id="answer_area_wrap">
-            <span id="examples-show" style="display: none;">Acceptable formats</span>
-            <div id="solutionarea"></div>
-            <a href="#" class="simple-button disabled green">
-                Check Answer
-            </a>
-        </div>
-    </div>
-
-    <div class="clear"></div>
+<div id="perseus-container">
 </div>
 <!-- End Perseus HTML -->
 
@@ -85,24 +67,26 @@
 <script src="/ke/utils/tex.js"></script>
 
 
-<!-- pre built
-<script src="/build/core.js"></script>
-<script src="/build/util.js"></script>
-<script src="/build/info-tip.js"></script>
-<script src="/build/renderer.js"></script>
-<script src="/build/editor.js"></script>
-<script src="/build/widgets.js"></script>
-<script src="/build/widgets/input-number.js"></script>
-<script src="/build/widgets/interactive-graph.js"></script>
-<script src="/build/widgets/interactive-number-line.js"></script>
-<script src="/build/widgets/radio.js"></script>
-<script src="/build/widgets/dropdown.js"></script>
-<script src="/build/widgets/table.js"></script>
-<script src="/build/widgets/categorization.js"></script>
-<script src="/build/widgets/expression.js"></script>
-<script src="/build/widgets/ordering.js"></script>
-<script src="/build/item-renderer.js"></script>
-<script src="/build/item-editor.js"></script>
+<!-- pre built --><!--
+<script src="/src/core.js"></script>
+<script src="/src/util.js"></script>
+<script src="/build/src/info-tip.js"></script>
+<script src="/build/src/renderer.js"></script>
+<script src="/build/src/editor.js"></script>
+<script src="/src/widgets.js"></script>
+<script src="/build/src/widgets/input-number.js"></script>
+<script src="/build/src/widgets/interactive-graph.js"></script>
+<script src="/build/src/widgets/interactive-number-line.js"></script>
+<script src="/build/src/widgets/radio.js"></script>
+<script src="/build/src/widgets/dropdown.js"></script>
+<script src="/build/src/widgets/table.js"></script>
+<script src="/build/src/widgets/categorization.js"></script>
+<script src="/build/src/widgets/expression.js"></script>
+<script src="/build/src/widgets/ordering.js"></script>
+<script src="/build/src/hint-editor.js"></script>
+<script src="/build/src/item-renderer.js"></script>
+<script src="/build/src/item-editor.js"></script>
+<script src="/build/src/editor-page.js"></script>
 -->
 
 
@@ -122,8 +106,10 @@
 <script src="/src/widgets/categorization.jsx" type="text/jsx"></script>
 <script src="/src/widgets/expression.jsx" type="text/jsx"></script>
 <script src="/src/widgets/ordering.jsx" type="text/jsx"></script>
+<script src="/src/hint-editor.jsx" type="text/jsx"></script>
 <script src="/src/item-renderer.jsx" type="text/jsx"></script>
 <script src="/src/item-editor.jsx" type="text/jsx"></script>
+<script src="/src/editor-page.jsx" type="text/jsx"></script>
 
 
 <script>
@@ -139,7 +125,7 @@ $('#scorePreview').on('click', function() {
 });
 
 Perseus.init({}).then(function() {
-    editor = React.renderComponent(Perseus.ItemEditor(
+    editor = React.renderComponent(Perseus.EditorPage(
 {"question":
     {
         "content": "[[☃ interactive-graph 1]]",
@@ -188,7 +174,7 @@ Perseus.init({}).then(function() {
             "times": false
         }
     },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, **too late.**"}]}
-    , null), document.getElementById("perseus-editor"));
+    , null), document.getElementById("perseus-container"));
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {
