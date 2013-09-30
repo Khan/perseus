@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var InfoTip = Perseus.InfoTip;
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -247,7 +248,9 @@ var InteractiveGraph = React.createClass({
         if (oldType !== newType ||
                 prevProps.graph.numPoints !== this.props.graph.numPoints ||
                 prevProps.graph.numSides !== this.props.graph.numSides ||
-                prevProps.graph.numSegments !== this.props.graph.numSegments) {
+                prevProps.graph.numSegments !== this.props.graph.numSegments ||
+                prevProps.graph.showAngles !== this.props.graph.showAngles ||
+                prevProps.graph.snapDegrees !== this.props.graph.snapDegrees) {
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
         }
@@ -289,6 +292,7 @@ var InteractiveGraph = React.createClass({
                 <option value="polygon">Polygon</option>
                 <option value="segment">Line Segment(s)</option>
                 <option value="ray">Ray</option>
+                <option value="angle">Angle</option>
             </select>;
 
             if (this.props.graph.type === "point") {
@@ -347,6 +351,40 @@ var InteractiveGraph = React.createClass({
                         </option>;
                     })}
                 </select>;
+            } else if (this.props.graph.type === "angle") {
+                extraOptions = <div>
+                <div>
+                    <label>Show angle measure:
+                        <input type="checkbox"
+                            checked={this.props.graph.showAngles}
+                            onClick={function() {
+                                var graph = _.extend({}, this.props.graph, {
+                                    showAngles: !this.props.graph.showAngles
+                                });
+                                this.props.onChange({graph: graph});
+                            }.bind(this)} />
+                    </label>
+                </div>
+                <div>
+                    <label>Snap to increments of:
+                        <select key="degree-select"
+                            value={this.props.graph.snapDegrees || 1}
+                            onChange={function(e) {
+                                var num = +e.target.value;
+                                var graph = _.extend({}, this.props.graph, {
+                                    snapDegrees: num
+                                });
+                                this.props.onChange({graph: graph});
+                            }.bind(this)}>
+                            {_.map([1, 5, 10], function(n) {
+                                return <option value={n}>
+                                    {n} degree{n > 1 && "s"}
+                                </option>;
+                            })}
+                        </select>
+                    </label>
+                </div>
+                </div>;
             }
         }
 
@@ -369,7 +407,10 @@ var InteractiveGraph = React.createClass({
 
         return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
-                style={{width: box[0], height: box[1]}}>
+                    style={{
+                        width: box[0],
+                        height: this.props.flexibleType ? "auto" : box[1]
+                    }}>
             {image}
             <div className="graphie" ref="graphieDiv" />
             {typeSelect}{extraOptions}
@@ -394,8 +435,7 @@ var InteractiveGraph = React.createClass({
         var graphieDiv = this.refs.graphieDiv.getDOMNode();
         $(graphieDiv).empty();
         var range = this.props.range;
-        var graphie = this.graphie = KhanUtil.createGraphie(
-                this.refs.graphieDiv.getDOMNode());
+        var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
         this.shouldSetupGraphie = false;
 
         var gridConfig = this.getGridConfig();
@@ -998,7 +1038,9 @@ var InteractiveGraph = React.createClass({
         this.polygon = graphie.addMovablePolygon({
             points: this.points,
             snapX: graphie.snap[0],
-            snapY: graphie.snap[1]
+            snapY: graphie.snap[1],
+            angleLabels: _.times(n, function() { return ""; }),
+            numArcs: _.times(n, function() { return 0; })
         });
 
         $(this.polygon).on("move", function() {
@@ -1019,6 +1061,57 @@ var InteractiveGraph = React.createClass({
         return _.map(coords, function(coord) {
             return "(" + coord.join(", ") + ")";
         }).join(" ");
+    },
+
+    addAngleControls: function() {
+        var graphie = this.graphie;
+
+        var coords = this.props.graph.coords;
+        if (!coords) {
+            coords = [[0.75, 0.50], [0.25, 0.50], [0.75, 0.75]];
+            coords = this.pointsFromNormalized(coords);
+        }
+
+        // The vertex snaps to the grid, but the rays don't...
+        this.points = _.map(coords, function(coord, i) {
+            return graphie.addMovablePoint(_.extend({
+                coord: coord,
+                normalStyle: {
+                    stroke: KhanUtil.BLUE,
+                    fill: KhanUtil.BLUE
+                }
+            }, i === 1 ? {
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1]
+            } : {}));
+        });
+
+        // ...they snap to whole-degree angles from the vertex.
+        this.angle = graphie.addMovableAngle({
+            points: this.points,
+            snapDegrees: this.props.graph.snapDegrees || 1,
+            angleLabel: this.props.graph.showAngles ? "$deg0" : "",
+            pushOut: 2
+        });
+
+        $(this.angle).on("move", function() {
+            var graph = _.extend({}, this.props.graph, {
+                coords: this.angle.coords
+            });
+            this.props.onChange({graph: graph});
+        }.bind(this));
+    },
+
+    removeAngleControls: function() {
+        _.invoke(this.points, "remove");
+        this.angle.remove();
+    },
+
+    getAngleEquationString: function() {
+        var coords = this.angle.coords;
+        var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
+        return angle.toFixed(0) + "\u00B0 angle" +
+                " at (" + coords[1].join(", ") + ")";
     },
 
     toJSON: function() {
@@ -1296,7 +1389,31 @@ _.extend(InteractiveGraph, {
                         message: null
                     };
                 }
-            } 
+            } else if (state.type === "angle") {
+                var guess = state.coords;
+                var correct = rubric.correct.coords;
+
+                var match;
+                if (rubric.correct.match === "congruent") {
+                    match = eq(
+                        KhanUtil.findAngle(guess[2], guess[0], guess[1]),
+                        KhanUtil.findAngle(correct[2], correct[0], correct[1])
+                    );
+                } else { /* exact */
+                    match = deepEq(guess[1], correct[1]) && 
+                            collinear(correct[1], correct[0], guess[0]) &&
+                            collinear(correct[1], correct[2], guess[2]);
+                }
+
+                if (match) {
+                    return {
+                        type: "points",
+                        earned: 1,
+                        total: 1,
+                        message: null
+                    };
+                }
+            }
         }
 
         // The input wasn't correct, so check if it's a blank input or if it's
@@ -1451,21 +1568,33 @@ var InteractiveGraphEditor = React.createClass({
                 </div>}
             </div>
             {this.props.correct.type === "polygon" &&
-            <div className="polygon-settings">
+            <div className="type-settings">
                 Student answer must
                 <select
                         value={this.props.correct.match}
-                        onChange={function(e) {
-                            var correct = this.props.correct;
-                            var match = e.target.value;
-                            this.props.onChange({
-                                correct: _.extend(correct, {match: match})
-                            });
-                        }.bind(this)}>
+                        onChange={this.changeMatchType}>
                     <option value="exact">match exactly</option>
                     <option value="congruent">be congruent</option>
                     <option value="similar">be similar</option>
                 </select>
+            </div>}
+            {this.props.correct.type === "angle" &&
+            <div className="type-settings">
+                <div>
+                    Student answer must
+                    <select
+                            value={this.props.correct.match}
+                            onChange={this.changeMatchType}>
+                        <option value="exact">match exactly</option>
+                        <option value="congruent">be congruent</option>
+                    </select>
+                    <InfoTip>
+                        <p>Congruency requires only that the angle measures are
+                        the same. An exact match implies congruency, but also
+                        requires that the angles have the same orientation and
+                        that the vertices are in the same position.</p>
+                    </InfoTip>
+                </div>
             </div>}
             {graph}
         </div>;
@@ -1552,11 +1681,7 @@ var InteractiveGraphEditor = React.createClass({
             this.props.onChange({
                 valid: true,
                 range: range,
-                step: step,
-                correct: {
-                    type: "linear",
-                    coords: null
-                }
+                step: step
             });
         } else {
             this.props.onChange({
@@ -1608,6 +1733,13 @@ var InteractiveGraphEditor = React.createClass({
         this.props.onChange({ showGraph: !this.props.showGraph });
     },
 
+    changeMatchType: function(e) {
+        var correct = _.extend({}, this.props.correct, {
+            match: e.target.value
+        });
+        this.props.onChange({correct: correct});
+    },
+
     componentDidMount: function() {
         var changeGraph = this.changeGraph;
         this.changeGraph = _.debounce(_.bind(changeGraph, this), 300);
@@ -1637,11 +1769,13 @@ var InteractiveGraphEditor = React.createClass({
                 correct: correct
             });
 
-            _.each(["numPoints", "numSides", "numSegments"], function(num) {
-                if (correct[num]) {
-                    json.graph[num] = correct[num];
-                }
-            });
+            _.each(["numPoints", "numSides", "numSegments",
+                    "showAngles", "snapDegrees"],
+                    function(key) {
+                        if (_.has(correct, key)) {
+                            json.graph[key] = correct[key];
+                        }
+                    });
         }
         return json;
     }
