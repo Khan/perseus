@@ -114,6 +114,8 @@ var Editor = Perseus.Editor = React.createClass({
                         Interactive number line</option>
                 <option value="categorization">
                         Categorization</option>
+                <option value="plotter">
+                        Plotter</option>
                 <option value="table">
                         Table of values</option>
                 <option value="dropdown">

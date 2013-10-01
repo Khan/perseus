@@ -493,3 +493,21 @@
         margin: 0;
     }
 }
+
+
+.perseus-widget-plotter {
+    svg, vml {
+        position: absolute;
+    }
+    span.rotate  {
+        -moz-transform: rotate(-90deg);
+        -o-transform: rotate(-90deg);
+        -webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+    }
+    body.ie span.rotate {
+        left: 60px !important;
+        top: 140px !important;
+    }
+}

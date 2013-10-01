@@ -7,7 +7,8 @@
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/shared.css" />
 <link rel="stylesheet" type="text/css" href="/ke/css/khan-exercise.css" />
-<link rel="stylesheet" type="text/css" href="/lib/katex/katex.less" />
+<link rel="stylesheet" type="text/css" href="/lib/katex/fonts/fonts.css" />
+<link rel="stylesheet/less" type="text/css" href="/lib/katex/katex.less" />
 
 <link rel="stylesheet/less" type="text/css" href="/stylesheets/exercise-content-package/perseus.less" />
 <script src="/lib/less.js"></script>
@@ -55,6 +56,7 @@
         Util: KhanUtil,
         error: function() {},
         query: {debug: ""},
+        imageBase: "/ke/images/",
         scratchpad: {
             disable: function() {},
             enable: function() {}
@@ -93,16 +95,19 @@
 <!-- built in the browser -->
 <script src="/src/core.js"></script>
 <script src="/src/util.js"></script>
-
+<script src="/src/renderer.jsx" type="text/jsx"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/widgets/input-number.jsx" type="text/jsx"></script>
 <script src="/src/widgets/interactive-graph.jsx" type="text/jsx"></script>
+<script src="/src/widgets/interactive-number-line.jsx" type="text/jsx"></script>
 <script src="/src/widgets/protractor.jsx" type="text/jsx"></script>
 <script src="/src/widgets/radio.jsx" type="text/jsx"></script>
 <script src="/src/widgets/dropdown.jsx" type="text/jsx"></script>
 <script src="/src/widgets/table.jsx" type="text/jsx"></script>
+<script src="/src/widgets/categorization.jsx" type="text/jsx"></script>
+<script src="/src/widgets/plotter.jsx" type="text/jsx"></script>
 <script src="/src/widgets/expression.jsx" type="text/jsx"></script>
-<script src="/src/renderer.jsx" type="text/jsx"></script>
+<script src="/src/widgets/ordering.jsx" type="text/jsx"></script>
 <script src="/src/hint-editor.jsx" type="text/jsx"></script>
 <script src="/src/item-renderer.jsx" type="text/jsx"></script>
 

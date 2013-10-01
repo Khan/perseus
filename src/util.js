@@ -291,6 +291,34 @@ var Util = Perseus.Util = {
                 setTimeout(this.props.onChange, 0, newProps);    
             }
         },
+    },
+
+    /**
+     * Approximate equality on numbers.
+     */
+    eq: function(x, y) {
+        return Math.abs(x - y) < 1e-9;
+    }, 
+
+    /**
+     * Deep approximate equality on numbers and arrays, not objects yet.
+     */
+    deepEq: function(x, y) {
+        if (_.isArray(x) && _.isArray(y)) {
+            if (x.length !== y.length) {
+                return false;
+            }
+            for (var i = 0; i < x.length; i++) {
+                if (!Perseus.Util.deepEq(x[i], y[i])) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (_.isArray(x) || _.isArray(y)) {
+            return false;
+        } else {
+            return Perseus.Util.eq(x, y);
+        }
     }
 };
 

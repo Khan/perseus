@@ -12,34 +12,11 @@ var defaultBackgroundImage = {
     left: 0,
 };
 
-function eq(x, y) {
-    return Math.abs(x - y) < 1e-9;
-}
+var eq = Perseus.Util.eq;
+var deepEq = Perseus.Util.deepEq;
 
 // Sample background image:
 // https://ka-perseus-graphie.s3.amazonaws.com/29c1b0fcd17fe63df0f148fe357044d5d5c7d0bb.png
-
-
-/**
- * Deep approximate equality on numbers and arrays, not objects yet.
- */
-function deepEq(x, y) {
-    if (_.isArray(x) && _.isArray(y)) {
-        if (x.length !== y.length) {
-            return false;
-        }
-        for (var i = 0; i < x.length; i++) {
-            if (!deepEq(x[i], y[i])) {
-                return false;
-            }
-        }
-        return true;
-    } else if (_.isArray(x) || _.isArray(y)) {
-        return false;
-    } else {
-        return eq(x, y);
-    }
-}
 
 function ccw(a, b, c) {
     return (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]);

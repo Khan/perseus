@@ -50,6 +50,7 @@ add hint button ends up touching the bottom of the page). -->
         Util: KhanUtil,
         error: function() {},
         query: {debug: ""},
+        imageBase: "/ke/images/",
         scratchpad: {
             enable: function() {},
             disable: function() {}
@@ -86,6 +87,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/build/src/widgets/dropdown.js"></script>
 <script src="/build/src/widgets/table.js"></script>
 <script src="/build/src/widgets/categorization.js"></script>
+<script src="/build/src/widgets/plotter.js"></script>
 <script src="/build/src/widgets/expression.js"></script>
 <script src="/build/src/widgets/ordering.js"></script>
 <script src="/build/src/hint-editor.js"></script>
@@ -110,6 +112,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/src/widgets/dropdown.jsx" type="text/jsx"></script>
 <script src="/src/widgets/table.jsx" type="text/jsx"></script>
 <script src="/src/widgets/categorization.jsx" type="text/jsx"></script>
+<script src="/src/widgets/plotter.jsx" type="text/jsx"></script>
 <script src="/src/widgets/expression.jsx" type="text/jsx"></script>
 <script src="/src/widgets/ordering.jsx" type="text/jsx"></script>
 <script src="/src/hint-editor.jsx" type="text/jsx"></script>
@@ -132,54 +135,67 @@ $('#scorePreview').on('click', function() {
 
 Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.EditorPage(
-{"question":
     {
-        "content": "[[☃ interactive-graph 1]]",
-        "widgets": {
-            "interactive-graph 1": {
-                "options": {
-                    "step": [
-                        1,
-                        1
-                    ],
-                    "backgroundImage": {
-                        "url": null,
-                        "scale": 1,
-                        "bottom": 0,
-                        "left": 0
-                    },
-                    "markings": "graph",
-                    "range": [
-                        [
-                            -10,
-                            10
+        "question": {
+            "content": "[[☃ plotter 1]]",
+            "widgets": {
+                "plotter 1": {
+                    "options": {
+                        "labels": [
+                            "hi",       // x
+                            "what???"   // y
                         ],
-                        [
-                            -10,
-                            10
+                        "categories": [
+                            "a",
+                            "b",
+                            "c"
+                        ],
+                        "scaleY": 2,
+                        "snapsPerLine": 2,
+                        "maxY": 20,
+                        "correct": [
+                            3,
+                            4,
+                            5
+                        ],
+                        "type": "bar",
+                        "starting": [
+                            7,
+                            8,
+                            9
                         ]
-                    ],
-                    "graph": {
-                        "type": "linear"
                     },
-                    "correct": {
-                        "type": "linear",
-                        "coords": null
-                    }
-                },
-                "type": "interactive-graph"
+                    "type": "plotter"
+                }
             }
-        }
-    },"answerArea":{
-        "type": "expression",
-        "options": {
-            "value": "2*5",
-            "eval": true,
-            "form": false,
-            "simplify": true,
-            "times": false
-        }
-    },"hints":[{"content":"Each branch can hold $\\dfrac{1}{10}$ of a monkey."},{"content":"Therefore, $10$ branc… oh shit they're attacking me"},{"content":"If you see this, please help."},{"content":"ooh ooh, ahh ahh, **too late.**"}]}
+        },
+        "answerArea": {
+            "type": "multiple",
+            "options": {
+                "content": "",
+                "widgets": {}
+            },
+            "calculator": false
+        },
+        "hints": [
+            {
+                "content": "Each branch can hold $\\dfrac{1}{10}$ of a monkey.",
+                "widgets": {}
+            },
+            {
+                "content": "Therefore, $10$ branc… oh shit they're attacking me",
+                "widgets": {}
+            },
+            {
+                "content": "If you see this, please help.",
+                "widgets": {}
+            },
+            {
+                "content": "ooh ooh, ahh ahh, **too late.**",
+                "widgets": {}
+            }
+        ]
+    } 
     , null), document.getElementById("perseus-container"));
 }).then(function() {
     console.log("all done.", +new Date/1000);
