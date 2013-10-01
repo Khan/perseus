@@ -2,6 +2,7 @@
 (function(Perseus) {
 
 var InfoTip = Perseus.InfoTip;
+var DeprecationMixin = Perseus.Util.DeprecationMixin;
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -227,6 +228,12 @@ function numSteps(range, step) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
+var deprecatedProps = {
+    showGraph: function(props) {
+        return {markings: props.showGraph ? "graph" : "none"};
+    }
+};
+
 
 var InteractiveGraph = React.createClass({
     getDefaultProps: function() {
@@ -235,12 +242,15 @@ var InteractiveGraph = React.createClass({
             box: [defaultBoxSize, defaultBoxSize],
             step: [1, 1],
             backgroundImage: defaultBackgroundImage,
-            showGraph: true,
+            markings: "graph",
             graph: {
                 type: "linear"
             }
         };
     },
+
+    mixins: [DeprecationMixin],
+    deprecatedProps: deprecatedProps,
 
     componentDidUpdate: function(prevProps, prevState, rootNode) {
         var oldType = prevProps.graph.type;
@@ -440,7 +450,8 @@ var InteractiveGraph = React.createClass({
 
         var gridConfig = this.getGridConfig();
         graphie.snap = _.pluck(gridConfig, "snap");
-        if (this.props.showGraph) {
+
+        if (this.props.markings === "graph") {
             graphie.graphInit({
                 range: range,
                 scale: _.pluck(gridConfig, "scale"),
@@ -453,7 +464,16 @@ var InteractiveGraph = React.createClass({
             });
             graphie.label([0, range[1][1]], "y", "above");
             graphie.label([range[0][1], 0], "x", "right");
-        } else {
+        } else if (this.props.markings === "grid") {
+            graphie.graphInit({
+                range: range,
+                scale: _.pluck(gridConfig, "scale"),
+                gridStep: _.pluck(gridConfig, "gridStep"),
+                axes: false,
+                ticks: false,
+                labels: false
+            });
+        } else if (this.props.markings === "none") {
             graphie.init({
                 range: range,
                 scale: _.pluck(gridConfig, "scale")
@@ -472,7 +492,7 @@ var InteractiveGraph = React.createClass({
         if (!_.isEqual(this.props.step, nextProps.step)) {
             this.shouldSetupGraphie = true;
         }
-        if (!_.isEqual(this.props.showGraph, nextProps.showGraph)) {
+        if (!_.isEqual(this.props.markings, nextProps.markings)) {
             this.shouldSetupGraphie = true;
         }
     },
@@ -1450,7 +1470,7 @@ var InteractiveGraphEditor = React.createClass({
             stepTextbox: step,
             valid: true,
             backgroundImage: defaultBackgroundImage,
-            showGraph: true,
+            markings: "graph",
             correct: {
                 type: "linear",
                 coords: null
@@ -1464,6 +1484,9 @@ var InteractiveGraphEditor = React.createClass({
         };
     },
 
+    mixins: [DeprecationMixin],
+    deprecatedProps: deprecatedProps,
+
     render: function() {
         var graph;
         if (this.props.valid === true) {
@@ -1474,7 +1497,7 @@ var InteractiveGraphEditor = React.createClass({
                 step={this.props.step}
                 graph={this.props.correct}
                 backgroundImage={this.props.backgroundImage}
-                showGraph={this.props.showGraph}
+                markings={this.props.markings}
                 flexibleType={true}
                 onChange={function(newProps) {
                     var correct = this.props.correct;
@@ -1515,7 +1538,7 @@ var InteractiveGraphEditor = React.createClass({
                             value={this.props.rangeTextbox[1][1]} />
                 </div>
                 <div>
-                    step:
+                    Step:
                     <input  type="text"
                             ref="step-0"
                             onInput={_.bind(this.changeStep, this, 0)}
@@ -1526,10 +1549,13 @@ var InteractiveGraphEditor = React.createClass({
                             value={this.props.stepTextbox[1]} />
                 </div>
                 <div>
-                    <label>Show grid/ticks:
-                        <input type="checkbox"
-                                checked={this.props.showGraph}
-                                onClick={this.toggleShowGraph} />
+                    <label>Markings:
+                        <select value={this.props.markings}
+                                onChange={this.changeMarkings}>
+                            <option value="graph">Graph (axes + grid)</option>
+                            <option value="grid">Grid only</option>
+                            <option value="none">None</option>
+                        </select>
                     </label>
                 </div>
             </div>
@@ -1669,6 +1695,10 @@ var InteractiveGraphEditor = React.createClass({
                 this.changeGraph);
     },
 
+    changeMarkings: function(e) {
+        this.props.onChange({markings: e.target.value});
+    },
+
     changeGraph: function() {
         var range = this.props.rangeTextbox;
         var step = this.props.stepTextbox;
@@ -1706,7 +1736,7 @@ var InteractiveGraphEditor = React.createClass({
             image.height = img.height;
             self.props.onChange({
                 backgroundImage: image,
-                showGraph: !url
+                markings: url ? "none" : "graph"
             });
         };
         if (url) {
@@ -1727,10 +1757,6 @@ var InteractiveGraphEditor = React.createClass({
         var image = _.clone(this.props.backgroundImage);
         image[type] = e.target.value;
         this.props.onChange({ backgroundImage: image });
-    },
-
-    toggleShowGraph: function() {
-        this.props.onChange({ showGraph: !this.props.showGraph });
     },
 
     changeMatchType: function(e) {
@@ -1756,7 +1782,7 @@ var InteractiveGraphEditor = React.createClass({
         var json = {
             step: this.props.step,
             backgroundImage: this.props.backgroundImage,
-            showGraph: this.props.showGraph,
+            markings: this.props.markings,
             range: this.props.range
         };
         var graph = this.refs.graph;

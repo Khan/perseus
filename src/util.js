@@ -255,6 +255,42 @@ var Util = Perseus.Util = {
 
         // Round start and stop values to step interval.
         return step;
+    },
+
+    /**
+     * Transparently update deprecated props so that the code to deal
+     * with them only lives in one place: (Widget).deprecatedProps
+     * 
+     * For example, if a boolean `foo` was deprecated in favor of a
+     * number 'bar':
+     *      deprecatedProps: {
+     *          foo: function(props) {
+     *              return {bar: props.foo ? 1 : 0};
+     *          }
+     *      }
+     */
+    DeprecationMixin: {
+        // This lifecycle stage is only called before first render
+        componentWillMount: function() {
+            var newProps = {};
+
+            _.each(this.deprecatedProps, function(func, prop) {
+                if (_.has(this.props, prop)) {
+                    _.extend(newProps, func(this.props));
+                }
+            }, this);
+
+            if (!_.isEmpty(newProps)) {
+                // Set new props directly so that widget renders correctly
+                // when it first mounts, even though these will be overwritten
+                // almost immediately afterwards...
+                _.extend(this.props, newProps);
+
+                // ...when we propagate the new props upwards and they come
+                // back down again.
+                setTimeout(this.props.onChange, 0, newProps);    
+            }
+        },
     }
 };
 
