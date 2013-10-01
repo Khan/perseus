@@ -120,6 +120,8 @@ var Editor = Perseus.Editor = React.createClass({
                         Drop down</option>
                 <option value="orderer">
                         Orderer</option>
+                <option value="protractor">
+                        Protractor</option>
             </select>;
 
             templatesDropDown = <select onChange={this.addTemplate}>

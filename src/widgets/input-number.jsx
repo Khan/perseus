@@ -168,7 +168,8 @@ var InputNumberEditor = React.createClass({
                     Unsimplified answers
                     <select value={this.props.simplify}
                             onChange={function(e) {
-                                this.props.onChange({simplify: e.target.value});
+                                this.props.onChange({simplify:
+                                e.target.value});
                             }.bind(this)}>
                         <option value="required">will not be graded</option>
                         <option value="optional">will be accepted</option>
