@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var InfoTip = Perseus.InfoTip;
+
 var Expression = React.createClass({
     getDefaultProps: function() {
         return {
@@ -16,8 +18,8 @@ var Expression = React.createClass({
         };
     },
 
-    parse: function(value) {
-        var options = _.pick(this.props, "functions");
+    parse: function(value, props) {
+        var options = _.pick(props || this.props, "functions");
         return KAS.parse(value, options);
     },
 
@@ -26,7 +28,7 @@ var Expression = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this.updateParsedTex(nextProps.currentValue);
+        this.updateParsedTex(nextProps.currentValue, nextProps);
     },
 
     render: function() {
@@ -182,8 +184,8 @@ var Expression = React.createClass({
         return {currentValue: this.props.currentValue};
     },
 
-    updateParsedTex: function(value) {
-        var result = this.parse(value);
+    updateParsedTex: function(value, props) {
+        var result = this.parse(value, props);
         var options = _.pick(this.props, "times");
         if (result.parsed) {
             this.setState({lastParsedTex: result.expr.asTex(options)});
@@ -282,12 +284,19 @@ var ExpressionEditor = React.createClass({
                     {labelText}
                 </label></div>;
             }, this)}
-            <div><label>
+            <div>
+                <label>
                 {"Function variables: "}
                 <input type="text"
                     defaultValue={this.props.functions.join(" ")}
                     onChange={this.handleFunctions} />
-            </label></div>
+                </label>
+                <InfoTip><p>
+                    Single-letter variables listed here will be interpreted as
+                    functions. This let us know that f(x) means "f of x" and
+                    not "f times x".
+                </p></InfoTip>
+            </div>
         </div>;
     },
 
