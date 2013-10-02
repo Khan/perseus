@@ -260,6 +260,7 @@ var InteractiveGraph = React.createClass({
                 prevProps.graph.numSides !== this.props.graph.numSides ||
                 prevProps.graph.numSegments !== this.props.graph.numSegments ||
                 prevProps.graph.showAngles !== this.props.graph.showAngles ||
+                prevProps.graph.showSides !== this.props.graph.showSides ||
                 prevProps.graph.snapDegrees !== this.props.graph.snapDegrees) {
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
@@ -326,7 +327,9 @@ var InteractiveGraph = React.createClass({
                     })}
                 </select>;
             } else if (this.props.graph.type === "polygon") {
-                extraOptions = <select
+                extraOptions = <div>
+                <div>
+                    <select
                         key="polygon-select"
                         value={this.props.graph.numSides || 3}
                         onChange={function(e) {
@@ -337,10 +340,26 @@ var InteractiveGraph = React.createClass({
                             });
                             this.props.onChange({graph: graph});
                         }.bind(this)}>
-                    {_.map(_.range(3, 13), function(n) {
-                        return <option value={n}>{n} sides</option>;
-                    })}
-                </select>;
+                        {_.map(_.range(3, 13), function(n) {
+                            return <option value={n}>{n} sides</option>;
+                        })}
+                    </select>
+                </div>
+                <div>
+                    <label>Show angle measures:
+                        <input type="checkbox"
+                            checked={this.props.graph.showAngles}
+                            onClick={this.toggleShowAngles} />
+                    </label>
+                </div>
+                <div>
+                    <label>Show side measures:
+                        <input type="checkbox"
+                            checked={this.props.graph.showSides}
+                            onClick={this.toggleShowSides} />
+                    </label>
+                </div>
+                </div>;
             } else if (this.props.graph.type === "segment") {
                 extraOptions = <select
                         key="segment-select"
@@ -367,12 +386,7 @@ var InteractiveGraph = React.createClass({
                     <label>Show angle measure:
                         <input type="checkbox"
                             checked={this.props.graph.showAngles}
-                            onClick={function() {
-                                var graph = _.extend({}, this.props.graph, {
-                                    showAngles: !this.props.graph.showAngles
-                                });
-                                this.props.onChange({graph: graph});
-                            }.bind(this)} />
+                            onClick={this.toggleShowAngles} />
                     </label>
                 </div>
                 <div>
@@ -1055,12 +1069,25 @@ var InteractiveGraph = React.createClass({
             return point;
         }, this);
 
+        var angleLabels = _.times(n, function() {
+            return this.props.graph.showAngles ? "$deg1" : "";
+        }, this);
+
+        var numArcs = _.times(n, function() {
+            return this.props.graph.showAngles ? 1 : 0;
+        }, this);
+
+        var sideLabels = _.times(n, function() {
+            return this.props.graph.showSides ? "$len1" : "";
+        }, this);
+
         this.polygon = graphie.addMovablePolygon({
             points: this.points,
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
-            angleLabels: _.times(n, function() { return ""; }),
-            numArcs: _.times(n, function() { return 0; })
+            angleLabels: angleLabels,
+            numArcs: numArcs,
+            sideLabels: sideLabels
         });
 
         $(this.polygon).on("move", function() {
@@ -1132,6 +1159,20 @@ var InteractiveGraph = React.createClass({
         var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
         return angle.toFixed(0) + "\u00B0 angle" +
                 " at (" + coords[1].join(", ") + ")";
+    },
+
+    toggleShowAngles: function() {
+        var graph = _.extend({}, this.props.graph, {
+            showAngles: !this.props.graph.showAngles
+        });
+        this.props.onChange({graph: graph});
+    },
+
+    toggleShowSides: function() {
+        var graph = _.extend({}, this.props.graph, {
+            showSides: !this.props.graph.showSides
+        });
+        this.props.onChange({graph: graph});
     },
 
     toJSON: function() {
@@ -1796,7 +1837,7 @@ var InteractiveGraphEditor = React.createClass({
             });
 
             _.each(["numPoints", "numSides", "numSegments",
-                    "showAngles", "snapDegrees"],
+                    "showAngles", "showSides", "snapDegrees"],
                     function(key) {
                         if (_.has(correct, key)) {
                             json.graph[key] = correct[key];
