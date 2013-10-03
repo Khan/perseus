@@ -328,37 +328,37 @@ var InteractiveGraph = React.createClass({
                 </select>;
             } else if (this.props.graph.type === "polygon") {
                 extraOptions = <div>
-                <div>
-                    <select
-                        key="polygon-select"
-                        value={this.props.graph.numSides || 3}
-                        onChange={function(e) {
-                            var num = +e.target.value;
-                            var graph = _.extend({}, this.props.graph, {
-                                numSides: num,
-                                coords: null
-                            });
-                            this.props.onChange({graph: graph});
-                        }.bind(this)}>
-                        {_.map(_.range(3, 13), function(n) {
-                            return <option value={n}>{n} sides</option>;
-                        })}
-                    </select>
-                </div>
-                <div>
-                    <label>Show angle measures:
-                        <input type="checkbox"
-                            checked={this.props.graph.showAngles}
-                            onClick={this.toggleShowAngles} />
-                    </label>
-                </div>
-                <div>
-                    <label>Show side measures:
-                        <input type="checkbox"
-                            checked={this.props.graph.showSides}
-                            onClick={this.toggleShowSides} />
-                    </label>
-                </div>
+                    <div>
+                        <select
+                            key="polygon-select"
+                            value={this.props.graph.numSides || 3}
+                            onChange={function(e) {
+                                var num = +e.target.value;
+                                var graph = _.extend({}, this.props.graph, {
+                                    numSides: num,
+                                    coords: null
+                                });
+                                this.props.onChange({graph: graph});
+                            }.bind(this)}>
+                            {_.map(_.range(3, 13), function(n) {
+                                return <option value={n}>{n} sides</option>;
+                            })}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Show angle measures:
+                            <input type="checkbox"
+                                checked={this.props.graph.showAngles}
+                                onClick={this.toggleShowAngles} />
+                        </label>
+                    </div>
+                    <div>
+                        <label>Show side measures:
+                            <input type="checkbox"
+                                checked={this.props.graph.showSides}
+                                onClick={this.toggleShowSides} />
+                        </label>
+                    </div>
                 </div>;
             } else if (this.props.graph.type === "segment") {
                 extraOptions = <select
@@ -382,32 +382,33 @@ var InteractiveGraph = React.createClass({
                 </select>;
             } else if (this.props.graph.type === "angle") {
                 extraOptions = <div>
-                <div>
-                    <label>Show angle measure:
-                        <input type="checkbox"
-                            checked={this.props.graph.showAngles}
-                            onClick={this.toggleShowAngles} />
-                    </label>
-                </div>
-                <div>
-                    <label>Snap to increments of:
-                        <select key="degree-select"
-                            value={this.props.graph.snapDegrees || 1}
-                            onChange={function(e) {
-                                var num = +e.target.value;
-                                var graph = _.extend({}, this.props.graph, {
-                                    snapDegrees: num
-                                });
-                                this.props.onChange({graph: graph});
-                            }.bind(this)}>
-                            {_.map([1, 5, 10], function(n) {
-                                return <option value={n}>
-                                    {n} degree{n > 1 && "s"}
-                                </option>;
-                            })}
-                        </select>
-                    </label>
-                </div>
+                    <div>
+                        <label>Show angle measure:
+                            <input type="checkbox"
+                                checked={this.props.graph.showAngles}
+                                onClick={this.toggleShowAngles} />
+                        </label>
+                    </div>
+                    <div>
+                        <label>Snap to increments of:
+                            <select key="degree-select"
+                                value={this.props.graph.snapDegrees || 1}
+                                onChange={function(e) {
+                                    this.props.onChange({
+                                        graph: _.extend({}, this.props.graph, {
+                                            snapDegrees: +e.target.value,
+                                            coords: null
+                                        })
+                                    });
+                                }.bind(this)}>
+                                {_.map([1, 5, 10], function(n) {
+                                    return <option value={n}>
+                                        {n} degree{n > 1 && "s"}
+                                    </option>;
+                                })}
+                            </select>
+                        </label>
+                    </div>
                 </div>;
             }
         }
@@ -1113,11 +1114,7 @@ var InteractiveGraph = React.createClass({
     addAngleControls: function() {
         var graphie = this.graphie;
 
-        var coords = this.props.graph.coords;
-        if (!coords) {
-            coords = [[0.75, 0.50], [0.25, 0.50], [0.75, 0.75]];
-            coords = this.pointsFromNormalized(coords);
-        }
+        var coords = InteractiveGraph.getAngleCoords(this.props.graph, this);
 
         // The vertex snaps to the grid, but the rays don't...
         this.points = _.map(coords, function(coord, i) {
@@ -1308,6 +1305,37 @@ _.extend(InteractiveGraph, {
         });
     },
 
+    /**
+     * @param {object} graph Like props.graph or props.correct
+     */
+    getAngleCoords: function(graph, component) {
+        var coords = graph.coords;
+        if (coords) {
+            return coords;
+        }
+
+        var snap = graph.snapDegrees || 1;
+        var angle = {
+            1: 23,
+            5: 25,
+            10: 20
+        }[snap] * Math.PI / 180;
+
+        coords = component.pointsFromNormalized([
+            [0.75, 0.50],
+            [0.25, 0.50]
+        ]);
+
+        var radius = magnitude(vector.apply(null, coords));
+
+        coords[2] = [
+            coords[1][0] + radius * Math.cos(angle),
+            coords[1][1] + radius * Math.sin(angle)
+        ];
+
+        return coords;
+    },
+
     normalizeCoords: function(coordsList, range) {
         return _.map(coordsList, function(coords) {
             return _.map(coords, function(coord, i) {
@@ -1456,10 +1484,12 @@ _.extend(InteractiveGraph, {
 
                 var match;
                 if (rubric.correct.match === "congruent") {
-                    match = eq(
-                        KhanUtil.findAngle(guess[2], guess[0], guess[1]),
-                        KhanUtil.findAngle(correct[2], correct[0], correct[1])
-                    );
+                    var angles = _.map([guess, correct], function(coords) {
+                        var angle = KhanUtil.findAngle(
+                            coords[2], coords[0], coords[1]);
+                        return (angle + 360) % 360;
+                    });
+                    match = eq.apply(null, angles);
                 } else { /* exact */
                     match = deepEq(guess[1], correct[1]) && 
                             collinear(correct[1], correct[0], guess[0]) &&
