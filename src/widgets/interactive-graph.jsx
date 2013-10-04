@@ -243,6 +243,7 @@ var InteractiveGraph = React.createClass({
             step: [1, 1],
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
+            showProtractor: false,
             graph: {
                 type: "linear"
             }
@@ -496,6 +497,8 @@ var InteractiveGraph = React.createClass({
         }
         graphie.addMouseLayer();
 
+        this.updateProtractor();
+
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
     },
@@ -508,6 +511,9 @@ var InteractiveGraph = React.createClass({
             this.shouldSetupGraphie = true;
         }
         if (!_.isEqual(this.props.markings, nextProps.markings)) {
+            this.shouldSetupGraphie = true;
+        }
+        if (!_.isEqual(this.props.showProtractor, nextProps.showProtractor)) {
             this.shouldSetupGraphie = true;
         }
     },
@@ -1158,6 +1164,17 @@ var InteractiveGraph = React.createClass({
                 " at (" + coords[1].join(", ") + ")";
     },
 
+    updateProtractor: function() {
+        if (this.protractor) {
+            this.protractor.remove();
+        }
+
+        if (this.props.showProtractor) {
+            var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
+            this.protractor = this.graphie.protractor(coord);
+        }
+    },
+
     toggleShowAngles: function() {
         var graph = _.extend({}, this.props.graph, {
             showAngles: !this.props.graph.showAngles
@@ -1542,6 +1559,7 @@ var InteractiveGraphEditor = React.createClass({
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
+            showProtractor: false,
             correct: {
                 type: "linear",
                 coords: null
@@ -1569,6 +1587,7 @@ var InteractiveGraphEditor = React.createClass({
                 graph={this.props.correct}
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
+                showProtractor={this.props.showProtractor}
                 flexibleType={true}
                 onChange={function(newProps) {
                     var correct = this.props.correct;
@@ -1664,27 +1683,39 @@ var InteractiveGraphEditor = React.createClass({
                     </div>
                 </div>}
             </div>
+            <div className="misc-settings">
+                <label>
+                    Show protractor:
+                    <input type="checkbox"
+                        checked={this.props.showProtractor}
+                        onClick={this.toggleShowProtractor} />
+                </label>
+            </div>
             {this.props.correct.type === "polygon" &&
             <div className="type-settings">
-                Student answer must
-                <select
-                        value={this.props.correct.match}
-                        onChange={this.changeMatchType}>
-                    <option value="exact">match exactly</option>
-                    <option value="congruent">be congruent</option>
-                    <option value="similar">be similar</option>
-                </select>
-            </div>}
-            {this.props.correct.type === "angle" &&
-            <div className="type-settings">
-                <div>
+                <label>
                     Student answer must
                     <select
                             value={this.props.correct.match}
                             onChange={this.changeMatchType}>
                         <option value="exact">match exactly</option>
                         <option value="congruent">be congruent</option>
+                        <option value="similar">be similar</option>
                     </select>
+                </label>
+            </div>}
+            {this.props.correct.type === "angle" &&
+            <div className="type-settings">
+                <div>
+                    <label>
+                        Student answer must
+                        <select
+                                value={this.props.correct.match}
+                                onChange={this.changeMatchType}>
+                            <option value="exact">match exactly</option>
+                            <option value="congruent">be congruent</option>
+                        </select>
+                    </label>
                     <InfoTip>
                         <p>Congruency requires only that the angle measures are
                         the same. An exact match implies congruency, but also
@@ -1837,6 +1868,10 @@ var InteractiveGraphEditor = React.createClass({
         this.props.onChange({correct: correct});
     },
 
+    toggleShowProtractor: function() {
+        this.props.onChange({showProtractor: !this.props.showProtractor});
+    },
+
     componentDidMount: function() {
         var changeGraph = this.changeGraph;
         this.changeGraph = _.debounce(_.bind(changeGraph, this), 300);
@@ -1850,12 +1885,9 @@ var InteractiveGraphEditor = React.createClass({
     },
 
     toJSON: function() {
-        var json = {
-            step: this.props.step,
-            backgroundImage: this.props.backgroundImage,
-            markings: this.props.markings,
-            range: this.props.range
-        };
+        var json = _.pick(this.props, "step", "backgroundImage", "markings",
+            "showProtractor", "range");
+
         var graph = this.refs.graph;
         if (graph) {
             var correct = graph && graph.toJSON();
