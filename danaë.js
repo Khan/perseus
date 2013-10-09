@@ -1,4 +1,4 @@
-#!/usr/bin/env casperjs --web-security=no // @Nolint
+#!/usr/bin/env casperjs --web-security=no
 
 /*
 To use this script, you'll need to install casperjs. Probably
@@ -68,7 +68,7 @@ var seed = casper.cli.options.seed || 1;
 var pretty = casper.cli.has("pretty");
 
 if (exerciseName == null) {
-    casper.echo("usage: doit.js [--seed=SEED] [--problem=PROBLEM_ID] [--pretty] EXERCISE");
+    casper.echo("usage: danaë.js [--seed=SEED] [--problem=PROBLEM_ID] [--pretty] EXERCISE");
     casper.exit();
 }
 
