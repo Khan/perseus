@@ -503,10 +503,7 @@ var InteractiveGraph = React.createClass({
     addLine: function(type) {
         var self = this;
         var graphie = self.graphie;
-        var coords = self.props.graph.coords;
-        if (!coords) {
-            coords = self.pointsFromNormalized([[0.25, 0.75], [0.75, 0.75]]);
-        }
+        var coords = InteractiveGraph.getLineCoords(self.props.graph, self);
 
         var pointA = self.pointA = graphie.addMovablePoint({
             coord: coords[0],
@@ -569,7 +566,7 @@ var InteractiveGraph = React.createClass({
     },
 
     getLinearEquationString: function() {
-        var coords = [this.pointA.coord, this.pointB.coord];
+        var coords = InteractiveGraph.getLineCoords(this.props.graph, this);
         if (eq(coords[0][0], coords[1][0])) {
             return "x = " + coords[0][0].toFixed(3);
         } else {
@@ -726,14 +723,8 @@ var InteractiveGraph = React.createClass({
 
     addLinearSystemControls: function() {
         var graphie = this.graphie;
-        var coords = this.props.graph.coords;
-        if (!coords) {
-            coords = [
-                [[0.25, 0.75], [0.75, 0.75]],
-                [[0.25, 0.25], [0.75, 0.25]]
-            ];
-            coords = _.map(coords, this.pointsFromNormalized, this);
-        }
+        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
+            this);
 
         var firstPoints = this.firstPoints = [
             graphie.addMovablePoint({
@@ -821,18 +812,14 @@ var InteractiveGraph = React.createClass({
     },
 
     getLinearSystemEquationString: function() {
+        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
+            this);
         return "\n" +
-            getLineEquation(this.firstPoints[0].coord,
-                            this.firstPoints[1].coord) +
+            getLineEquation(coords[0][0], coords[0][1]) +
             "\n" +
-            getLineEquation(this.secondPoints[0].coord,
-                            this.secondPoints[1].coord) +
+            getLineEquation(coords[1][0], coords[1][1]) +
             "\n" +
-            getLineIntersection([
-                this.firstPoints[0].coord, this.firstPoints[1].coord
-            ], [
-                this.secondPoints[0].coord, this.secondPoints[1].coord
-            ]);
+            getLineIntersection(coords[0], coords[1]);
     },
 
     removeLinearSystemControls: function() {
@@ -951,7 +938,8 @@ var InteractiveGraph = React.createClass({
     },
 
     getSegmentEquationString: function() {
-        var segments = this.props.graph.coords;
+        var segments = InteractiveGraph.getSegmentCoords(this.props.graph,
+            this);
         return _.map(segments, function(segment) {
             return "[" +
                 _.map(segment, function(coord) {
@@ -970,8 +958,9 @@ var InteractiveGraph = React.createClass({
     },
 
     getRayEquationString: function() {
-        var a = this.pointA.coord;
-        var b = this.pointB.coord;
+        var coords = InteractiveGraph.getLineCoords(this.props.graph, this);
+        var a = coords[0];
+        var b = coords[1];
         var eq = this.getLinearEquationString();
 
         if (a[0] > b[0]) {
@@ -1088,7 +1077,7 @@ var InteractiveGraph = React.createClass({
     },
 
     getPolygonEquationString: function() {
-        var coords = this.props.graph.coords;
+        var coords = InteractiveGraph.getPolygonCoords(this.props.graph, this);
         return _.map(coords, function(coord) {
             return "(" + coord.join(", ") + ")";
         }).join(" ");
@@ -1135,7 +1124,7 @@ var InteractiveGraph = React.createClass({
     },
 
     getAngleEquationString: function() {
-        var coords = this.angle.coords;
+        var coords = InteractiveGraph.getAngleCoords(this.props.graph, this);
         var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
         return angle.toFixed(0) + "\u00B0 angle" +
                 " at (" + coords[1].join(", ") + ")";
@@ -1202,6 +1191,16 @@ _.extend(InteractiveGraph, {
 
     /**
      * @param {object} graph Like props.graph or props.correct
+     * @param {object} component InteractiveGraph instance
+     */
+    getLineCoords: function(graph, component) {
+        return graph.coords ||
+            component.pointsFromNormalized([[0.25, 0.75], [0.75, 0.75]]);
+    },
+
+    /**
+     * @param {object} graph Like props.graph or props.correct
+     * @param {object} component InteractiveGraph instance
      */
     getPointCoords: function(graph, component) {
         var numPoints = graph.numPoints || 1;
@@ -1244,6 +1243,19 @@ _.extend(InteractiveGraph, {
 
     /**
      * @param {object} graph Like props.graph or props.correct
+     * @param {object} component InteractiveGraph instance
+     */
+    getLinearSystemCoords: function(graph, component) {
+        return graph.coords ||
+            _.map([
+                [[0.25, 0.75], [0.75, 0.75]],
+                [[0.25, 0.25], [0.75, 0.25]]
+            ], component.pointsFromNormalized, component);
+    },
+
+    /**
+     * @param {object} graph Like props.graph or props.correct
+     * @param {object} component InteractiveGraph instance
      */
     getPolygonCoords: function(graph, component) {
         var coords = graph.coords;
@@ -1273,6 +1285,7 @@ _.extend(InteractiveGraph, {
 
     /**
      * @param {object} graph Like props.graph or props.correct
+     * @param {object} component InteractiveGraph instance
      */
     getSegmentCoords: function(graph, component) {
         var coords = graph.coords;
@@ -1301,6 +1314,7 @@ _.extend(InteractiveGraph, {
 
     /**
      * @param {object} graph Like props.graph or props.correct
+     * @param {object} component InteractiveGraph instance
      */
     getAngleCoords: function(graph, component) {
         var coords = graph.coords;
@@ -1544,17 +1558,13 @@ var InteractiveGraphEditor = React.createClass({
         };
     },
 
-    getInitialState: function() {
-        return {
-            equationString: ""
-        };
-    },
-
     mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
 
     render: function() {
         var graph;
+        var equationString;
+
         if (this.props.valid === true) {
             graph = <InteractiveGraph
                 ref="graph"
@@ -1575,13 +1585,14 @@ var InteractiveGraphEditor = React.createClass({
                         correct = newProps.graph;
                     }
                     this.props.onChange({correct: correct});
-                    this.updateEquationString();
                 }.bind(this)} />;
+            equationString = graph.getEquationString();
         } else {
             graph = <div>{this.props.valid}</div>;
         }
+
         return <div className="perseus-widget-interactive-graph">
-            <div>Correct answer: {this.state.equationString}</div>
+            <div>Correct answer: {equationString}</div>
             <div className="graph-settings">
                 <div>x range:
                     <input  type="text"
@@ -1852,13 +1863,6 @@ var InteractiveGraphEditor = React.createClass({
     componentDidMount: function() {
         var changeGraph = this.changeGraph;
         this.changeGraph = _.debounce(_.bind(changeGraph, this), 300);
-        this.updateEquationString();
-    },
-
-    updateEquationString: function() {
-        this.setState({
-            equationString: this.refs.graph.getEquationString()
-        });
     },
 
     toJSON: function() {
