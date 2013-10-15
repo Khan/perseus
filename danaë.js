@@ -84,7 +84,6 @@ var setup = function(problem, seed) {
     // Replace mathjax with $math$
     $("code").each(function() {
         var content = $(this).find("script").text();
-        console.log(content);
         content.replace(/\$/g, "\\$");
         $(this).text("$" + content + "$");
     });
@@ -244,8 +243,7 @@ var getProblem = function() {
 var graphieCode;
 var graphUrls = [];
 
-//casper.start("http://sandcastle.khanacademy.org/media/castles/Khan:master/exercises/" +
-casper.start("http://localhost:8000/exercises/" +
+casper.start("http://sandcastle.khanacademy.org/media/castles/Khan:master/exercises/" +
         exerciseName + ".html?problem=" + problemId + "&seed=" + seed + "&nographie");
 casper.waitUntilVisible("div#workarea", null, null, 10000);
 casper.then(function() {
