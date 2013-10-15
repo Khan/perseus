@@ -97,8 +97,12 @@
 
 .perseus-widget-interactive-graph {
     padding: 25px 25px 0 0;
-    position: relative;
-    img {
+
+    > .graphie-container {
+        position: relative
+    }
+
+    > .graphie-container > img {
         position: absolute;
     }
 }

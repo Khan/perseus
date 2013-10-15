@@ -414,8 +414,10 @@ var InteractiveGraph = React.createClass({
                         width: box[0],
                         height: this.props.flexibleType ? "auto" : box[1]
                     }}>
-            {image}
-            <div className="graphie" ref="graphieDiv" />
+            <div className="graphie-container">
+                {image}
+                <div className="graphie" ref="graphieDiv" />
+            </div>
             {typeSelect}{extraOptions}
         </div>;
     },
