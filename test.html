@@ -170,10 +170,24 @@ Perseus.init({}).then(function() {
             }
         },
         "answerArea": {
-            "type": "multiple",
+            "type": "radio",
             "options": {
-                "content": "",
-                "widgets": {}
+                "choices": [
+                    {
+                        "content": "$\\dfrac14$",
+                        "correct": true
+                    },
+                    {
+                        "content": "$\\dfrac12$",
+                        "correct": false
+                    },
+                    {
+                        "content": "$\\dfrac34$",
+                        "correct": false
+                    }
+                ],
+                "randomize": false,
+                "multipleSelect": false
             },
             "calculator": false
         },
