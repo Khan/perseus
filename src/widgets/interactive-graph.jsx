@@ -4,6 +4,8 @@
 var InfoTip = Perseus.InfoTip;
 var DeprecationMixin = Perseus.Util.DeprecationMixin;
 
+var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
+
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
     url: null,
@@ -14,6 +16,8 @@ var defaultBackgroundImage = {
 
 var eq = Perseus.Util.eq;
 var deepEq = Perseus.Util.deepEq;
+
+var UNLIMITED = "unlimited";
 
 // Sample background image:
 // https://ka-perseus-graphie.s3.amazonaws.com/29c1b0fcd17fe63df0f148fe357044d5d5c7d0bb.png
@@ -289,7 +293,8 @@ var InteractiveGraph = React.createClass({
                         key="point-select"
                         value={this.props.graph.numPoints || 1}
                         onChange={function(e) {
-                            var num = +e.target.value;
+                            // Convert numbers, leave UNLIMITED intact:
+                            var num = +e.target.value || e.target.value;
                             this.props.onChange({
                                 graph: {
                                     type: "point",
@@ -303,6 +308,7 @@ var InteractiveGraph = React.createClass({
                             {n} point{n > 1 && "s"}
                         </option>;
                     })}
+                    <option value={UNLIMITED}>unlimited</option>
                 </select>;
             } else if (this.props.graph.type === "polygon") {
                 extraOptions = <div>
@@ -422,6 +428,21 @@ var InteractiveGraph = React.createClass({
         </div>;
     },
 
+    handleAddPointsClick: function(coord) {
+        // This function should only be called when this.isClickToAddPoints()
+        // is true
+        if (!this.isClickToAddPoints()) {
+            throw new Error("handleAddPointsClick should not be registered" +
+                "when isClickToAddPoints() is false");
+        }
+        if (!this.isCoordInTrash(coord)) {
+            this.points.push(
+                this.createPointForPointsType(coord, this.points.length)
+            );
+            this.updateCoordsFromPoints();
+        }
+    },
+
     componentDidMount: function() {
         this.setupGraphie();
     },
@@ -474,9 +495,29 @@ var InteractiveGraph = React.createClass({
                 scale: _.pluck(gridConfig, "scale")
             });
         }
-        graphie.addMouseLayer();
+
+        var onClick = this.isClickToAddPoints() ?
+            this.handleAddPointsClick :
+            null;
+
+        graphie.addMouseLayer({
+            onClick: onClick
+        });
 
         this.updateProtractor();
+
+        if (this.isClickToAddPoints()) {
+            var lowerLeft = graphie.unscalePoint([graphie.xpixels - 40,
+                    graphie.ypixels]);
+            var widthHeight = graphie.unscaleVector([40, 40]);
+            graphie.raphael.image(TRASH_ICON_URI,
+                graphie.xpixels - 40,
+                graphie.ypixels - 40,
+                40,
+                40
+            );
+
+        }
 
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
@@ -492,9 +533,20 @@ var InteractiveGraph = React.createClass({
         if (!_.isEqual(this.props.markings, nextProps.markings)) {
             this.shouldSetupGraphie = true;
         }
+
         if (!_.isEqual(this.props.showProtractor, nextProps.showProtractor)) {
             this.shouldSetupGraphie = true;
         }
+
+        if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
+            this.shouldSetupGraphie = true;
+        }
+    },
+
+    isClickToAddPoints: function(props) {
+        props = props || this.props;
+        return props.graph.type === "point" &&
+                props.graph.numPoints === UNLIMITED;
     },
 
     getEquationString: function() {
@@ -831,39 +883,70 @@ var InteractiveGraph = React.createClass({
          .invoke("remove");
     },
 
-    addPointControls: function() {
+    isCoordInTrash: function(coord) {
         var graphie = this.graphie;
+        var screenPoint = graphie.scalePoint(coord);
+        return screenPoint[0] >= graphie.xpixels - 40 &&
+                screenPoint[1] >= graphie.ypixels - 40;
+    },
 
-        var coords = InteractiveGraph.getPointCoords(this.props.graph, this);
-        this.points = _.map(coords, function(coord, i) {
-            var point = graphie.addMovablePoint({
-                coord: coord,
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
+    createPointForPointsType: function(coord, i) {
+        var self = this;
+        var graphie = self.graphie;
+        var point = graphie.addMovablePoint({
+            coord: coord,
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
+            normalStyle: {
+                stroke: KhanUtil.BLUE,
+                fill: KhanUtil.BLUE
+            }
+        });
+
+        point.onMove = function(x, y) {
+            for (var j = 0; j < self.points.length; j++) {
+                if (i !== j && _.isEqual([x, y], self.points[j].coord)) {
+                    return false;
                 }
-            });
+            }
+            return true;
+        };
 
-            point.onMove = function(x, y) {
-                for (var j = 0; j < this.points.length; j++) {
-                    if (i !== j && _.isEqual([x, y], this.points[j].coord)) {
-                        return false;
-                    }
+        $(point).on("move", this.updateCoordsFromPoints);
+
+        if (self.isClickToAddPoints()) {
+            point.onMoveEnd = function(x, y) {
+                if (self.isCoordInTrash([x, y])) {
+                    // remove this point from points
+                    self.points = _.filter(self.points, function(pt) {
+                        return pt !== point;
+                    });
+                    // update the correct answer box
+                    self.updateCoordsFromPoints();
+
+                    // remove this movablePoint from graphie.
+                    // we wait to do this until we're not inside of
+                    // said point's onMoveEnd method so its state is
+                    // consistent throughout this method call
+                    setTimeout(_.bind(point.remove, point), 0);
                 }
                 return true;
-            }.bind(this);
+            };
+        }
 
-            $(point).on("move", function() {
-                var graph = _.extend({}, this.props.graph, {
-                    coords: _.pluck(this.points, "coord")
-                });
-                this.props.onChange({graph: graph});
-            }.bind(this));
+        return point;
+    },
 
-            return point;
-        }, this);
+    updateCoordsFromPoints: function() {
+        var graph = _.extend({}, this.props.graph, {
+            coords: _.pluck(this.points, "coord")
+        });
+        this.props.onChange({graph: graph});
+    },
+
+    addPointControls: function() {
+        var coords = InteractiveGraph.getPointCoords(this.props.graph, this);
+        this.points = _.map(coords, this.createPointForPointsType, this);
     },
 
     getPointEquationString: function() {
@@ -1231,6 +1314,9 @@ _.extend(InteractiveGraph, {
                 case 6:
                     coords = [[-5, 0], [-3, 0], [-1, 0], [1, 0], [3, 0],
                               [5, 0]];
+                    break;
+                case UNLIMITED:
+                    coords = [];
                     break;
             }
             // Transform coords from their -10 to 10 space to 0 to 1
