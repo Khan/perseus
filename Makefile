@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build clean
 
 build:
 	grunt
@@ -17,3 +17,6 @@ put-js:
 
 put-css:
 	./operations.sh put-css
+
+clean:
+	-rm -rf build/*

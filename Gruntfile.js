@@ -30,7 +30,12 @@ grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     shell: {
         jsx: {
-            command: "jsx -x jsx src/ build/src/"
+            command: "jsx -x jsx src/ build/src/",
+            options: {
+                stderr: true,
+                stdout: true,
+                failOnError: true
+            }
         }
     },
     concat: {
