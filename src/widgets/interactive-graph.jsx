@@ -157,6 +157,16 @@ function similar(coords1, coords2, congruent) {
     return false;
 }
 
+// Less than or approximately equal
+function leq(a, b) {
+    return a < b || eq(a, b);
+}
+
+// Given triangle with sides ABC return angle opposite side C in degrees
+function lawOfCosines(a, b, c) {
+    return Math.acos((a * a + b * b - c * c) / (2 * a * b)) * 180 / Math.PI;
+}
+
 // e.g. rotate([1, 2, 3]) -> [2, 3, 1]
 function rotate(array, n) {
     n = (typeof n === "undefined") ? 1 : (n % array.length);
@@ -243,6 +253,7 @@ var InteractiveGraph = React.createClass({
                 prevProps.graph.numSegments !== this.props.graph.numSegments ||
                 prevProps.graph.showAngles !== this.props.graph.showAngles ||
                 prevProps.graph.showSides !== this.props.graph.showSides ||
+                prevProps.graph.snapTo !== this.props.graph.snapTo ||
                 prevProps.graph.snapDegrees !== this.props.graph.snapDegrees) {
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
@@ -252,15 +263,19 @@ var InteractiveGraph = React.createClass({
         }
     },
 
-    pointsFromNormalized: function(coordsList) {
+    pointsFromNormalized: function(coordsList, noSnap) {
         var self = this;
         return _.map(coordsList, function(coords) {
             return _.map(coords, function(coord, i) {
                 var range = self.props.range[i];
-                var step = self.props.step[i];
-                var nSteps = numSteps(range, step);
-                var tick = Math.round(coord * nSteps);
-                return range[0] + step * tick;
+                if (noSnap) {
+                    return range[0] + (range[1] - range[0]) * coord;
+                } else {
+                    var step = self.props.step[i];
+                    var nSteps = numSteps(range, step);
+                    var tick = Math.round(coord * nSteps);
+                    return range[0] + step * tick;
+                }
             });
         });
     },
@@ -328,6 +343,23 @@ var InteractiveGraph = React.createClass({
                                 return <option value={n}>{n} sides</option>;
                             })}
                         </select>
+                    </div>
+                    <div>
+                        <label> Snap to
+                            <select
+                                key="polygon-snap"
+                                value={this.props.graph.snapTo}
+                                onChange={function(e) {
+                                    var graph = _.extend({}, 
+                                        this.props.graph,
+                                        {snapTo: e.target.value});
+                                    this.props.onChange({graph: graph});
+                                }.bind(this)}>
+                                <option value="grid">grid</option>
+                                <option value="angles">interior angles</option>
+                                <option value="sides">side measures</option>
+                            </select>
+                        </label>
                     </div>
                     <div>
                         <label>Show angle measures:
@@ -1067,16 +1099,22 @@ var InteractiveGraph = React.createClass({
         var coords = InteractiveGraph.getPolygonCoords(this.props.graph, this);
         var n = coords.length;
 
+        // TODO(alex): check against "grid" instead, use constants
+        var snapToGrid = !_.contains(["angles", "sides"],
+            this.props.graph.snapTo);
+
         this.points = _.map(coords, function(coord, i) {
-            var point = graphie.addMovablePoint({
+            var point = graphie.addMovablePoint(_.extend({
                 coord: coord,
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
                 normalStyle: {
                     stroke: KhanUtil.BLUE,
                     fill: KhanUtil.BLUE
                 }
-            });
+            }, snapToGrid ? {
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1]
+            } : {}
+            ));
 
             // Index relative to current point -> absolute index
             function rel(j) {
@@ -1113,7 +1151,106 @@ var InteractiveGraph = React.createClass({
                     }
                 }
 
-                return true;
+                if (this.props.graph.snapTo === "angles") {
+                    // Snap to whole degree interior angles
+
+                    var angles = _.map(angleMeasures(coords), function(rad) {
+                        return rad * 180 / Math.PI;
+                    });
+
+                    // TODO(alex): do this in angleMeasures()
+                    angles = rotate(angles, -1);
+
+                    _.each([-1, 1], function(j) {
+                        angles[rel(j)] = Math.round(angles[rel(j)]);
+                    });
+
+                    var getAngle = function(a, vertex, b) {
+                        var angle = KhanUtil.findAngle(
+                            coords[rel(a)], coords[rel(b)], coords[rel(vertex)]
+                        );
+                        return (angle + 360) % 360;
+                    };
+
+                    var innerAngles = [
+                        angles[rel(-1)] - getAngle(-2, -1, 1),
+                        angles[rel(1)] - getAngle(-1, 1, 2)
+                    ];
+                    innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
+
+                    // Avoid degenerate triangles
+                    if (_.any(innerAngles, function(angle) {
+                                return leq(angle, 1);
+                            })) {
+                        return false;
+                    }
+
+                    var knownSide = magnitude(vector(coords[rel(-1)],
+                        coords[rel(1)]));
+
+                    var onLeft = sign(ccw(
+                        coords[rel(-1)], coords[rel(1)], coords[i]
+                    )) === 1;
+
+                    // Solve for side by using the law of sines
+                    var side = Math.sin(innerAngles[1] * Math.PI / 180) /
+                        Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
+
+                    var outerAngle = KhanUtil.findAngle(coords[rel(1)],
+                        coords[rel(-1)]);
+
+                    var offset = this.graphie.polar(
+                        side,
+                        outerAngle + (onLeft? 1 : -1) * innerAngles[0]
+                    );
+
+                    return this.graphie.addPoints(coords[rel(-1)], offset);
+
+
+                } else if (this.props.graph.snapTo === "sides") {
+                    // Snap to whole unit side measures
+
+                    var sides = _.map([
+                        [coords[rel(-1)], coords[i]],
+                        [coords[i], coords[rel(1)]],
+                        [coords[rel(-1)], coords[rel(1)]]
+                    ], function(coords) {
+                        return magnitude(vector.apply(null, coords));
+                    });
+
+                    _.each([0, 1], function(j) {
+                        sides[j] = Math.round(sides[j]);
+                    });
+
+                    // Avoid degenerate triangles
+                    if (leq(sides[1] + sides[2], sides[0]) ||
+                            leq(sides[0] + sides[2], sides[1]) ||
+                            leq(sides[0] + sides[1], sides[2])) {
+                        return false;
+                    }
+
+                    // Solve for angle by using the law of cosines
+                    var innerAngle = lawOfCosines(sides[0],
+                        sides[2], sides[1]);
+
+                    var outerAngle = KhanUtil.findAngle(coords[rel(1)],
+                        coords[rel(-1)]);
+
+                    var onLeft = sign(ccw(
+                        coords[rel(-1)], coords[rel(1)], coords[i]
+                    )) === 1;
+
+                    var offset = this.graphie.polar(
+                        sides[0],
+                        outerAngle + (onLeft ? 1 : -1) * innerAngle
+                    );
+
+                    return this.graphie.addPoints(coords[rel(-1)], offset);
+
+                } else {
+                    // Snap to grid (already done)
+                    return true;
+                }
 
             }.bind(this);
 
@@ -1128,7 +1265,13 @@ var InteractiveGraph = React.createClass({
         }, this);
 
         var angleLabels = _.times(n, function() {
-            return this.props.graph.showAngles ? "$deg1" : "";
+            if (!this.props.graph.showAngles) {
+                return "";
+            } else if (this.props.graph.snapTo === "angles") {
+                return "$deg0";
+            } else {
+                return "$deg1";
+            }
         }, this);
 
         var numArcs = _.times(n, function() {
@@ -1136,17 +1279,25 @@ var InteractiveGraph = React.createClass({
         }, this);
 
         var sideLabels = _.times(n, function() {
-            return this.props.graph.showSides ? "$len1" : "";
+            if (!this.props.graph.showSides) {
+                return "";
+            } else if (this.props.graph.snapTo === "sides") {
+                return "$len0";
+            } else {
+                return "$len1";
+            }
         }, this);
 
-        this.polygon = graphie.addMovablePolygon({
+        this.polygon = graphie.addMovablePolygon(_.extend({
             points: this.points,
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
             angleLabels: angleLabels,
             numArcs: numArcs,
             sideLabels: sideLabels
-        });
+        }, snapToGrid ? {
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1]
+        } : {}
+        ));
 
         $(this.polygon).on("move", function() {
             var graph = _.extend({}, this.props.graph, {
@@ -1354,7 +1505,10 @@ _.extend(InteractiveGraph, {
         var n = graph.numSides || 3;
         var angle = 2 * Math.PI / n;
         var offset = (1 / n - 1 / 2) * Math.PI;
-        var radius = 4;
+
+        // TODO(alex): Generalize this to more than just triangles so that
+        // all polygons have whole number side lengths if snapping to sides
+        var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7: 4;
 
         // Generate coords of a regular polygon with n sides
         coords = _.times(n, function(i) {
@@ -1367,7 +1521,10 @@ _.extend(InteractiveGraph, {
         var range = [[-10, 10], [-10, 10]];
         coords = InteractiveGraph.normalizeCoords(coords, range);
 
-        coords = component.pointsFromNormalized(coords);
+        var snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
+        coords = component.pointsFromNormalized(coords, 
+            /* noSnap */ !snapToGrid);
+
         return coords;
     },
 
@@ -1968,7 +2125,7 @@ var InteractiveGraphEditor = React.createClass({
             });
 
             _.each(["numPoints", "numSides", "numSegments",
-                    "showAngles", "showSides", "snapDegrees"],
+                    "showAngles", "showSides", "snapTo", "snapDegrees"],
                     function(key) {
                         if (_.has(correct, key)) {
                             json.graph[key] = correct[key];
