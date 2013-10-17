@@ -9,38 +9,13 @@ Perseus.EditorPage = React.createClass({
     
     render: function() {
 
-        var itemEditor = <ItemEditor question={this.props.question}
-                answerArea={this.props.answerArea}
-                onChange={this.updatePreview}
-                ref="itemEditor" />;
-
         return <div id="perseus" className="framework-perseus">
-            <div className="perseus-editor-table">
-                <div className="perseus-editor-row">
+            <ItemEditor 
+                    ref="itemEditor"
+                    question={this.props.question}
+                    answerArea={this.props.answerArea}
+                    onChange={this.updatePreview} />
 
-                    {itemEditor}
-
-                    <div className={"perseus-editor-preview-panel " +
-                                "perseus-editor-right-cell"}>
-                        <div id="problemarea">
-                            <div id="workarea"></div>
-                            <div id="hintsarea" style={{display: "none"}} />
-                        </div>
-                        <div id="answer_area_wrap">
-                            <span id="examples-show" style={{display: "none"}}>
-                                Acceptable formats
-                            </span>
-                            <div id="solutionarea"></div>
-                            <a
-                                    href="#"
-                                    className="simple-button disabled green">
-                                Check Answer
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
             <CombinedHintsEditor
                     ref="hintsEditor"
                     hints={this.props.hints} />

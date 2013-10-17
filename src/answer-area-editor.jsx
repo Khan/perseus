@@ -1,0 +1,190 @@
+/** @jsx React.DOM */
+(function(Perseus) {
+
+var Renderer = Perseus.Renderer;
+var Editor = Perseus.Editor;
+
+var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
+    getInitialState: function() {
+        // TODO(alpert): Move up to parent props?
+        return {
+            widget: {},
+            cls: this.getClass(this.props.type)
+        };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({cls: this.getClass(nextProps.type)});
+    },
+
+    getClass: function(type) {
+        if (type === "multiple") {
+            return Renderer;
+        } else {
+            return Perseus.Widgets._widgetTypes[type];
+        }
+    },
+
+    render: function(rootNode) {
+        return this.state.cls(_.extend({
+            ref: "widget",
+            problemNum: this.props.problemNum,
+            onChange: function(newProps, cb) {
+                var widget = _.extend({}, this.state.widget, newProps);
+                this.setState({widget: widget}, cb);
+            }.bind(this)
+        }, this.props.options, this.state.widget));
+    },
+
+    componentDidMount: function() {
+        this.$examples = $("<div id='examples'></div>");
+        this.update();
+    },
+
+    componentDidUpdate: function() {
+        this.update();
+    },
+
+    update: function() {
+        $("#calculator").toggle(this.props.calculator);
+
+        $("#examples-show").hide();
+        if ($("#examples-show").data("qtip")) {
+            $("#examples-show").qtip("destroy", /* immediate */ true);
+        }
+
+        var widget = this.refs.widget;
+        var examples = widget.examples ? widget.examples() : null;
+
+        if (examples && $("#examples-show").length) {
+            $("#examples-show").append(this.$examples);
+
+            var content = _.map(examples, function(example) {
+                return "- " + example;
+            }).join("\n");
+
+            React.renderComponent(
+                Renderer({content: content}), 
+                this.$examples[0]);
+           
+            $("#examples-show").qtip({
+                content: {
+                    text: this.$examples.remove()
+                },
+                style: {classes: "qtip-light leaf-tooltip"},
+                position: {
+                    my: "center right",
+                    at: "center left"
+                },
+                show: {
+                    delay: 200,
+                    effect: {
+                        length: 0
+                    }
+                },
+                hide: {delay: 0}
+            });
+
+            $("#examples-show").show();
+        }
+    },
+
+    componentWillUnmount: function() {
+        if (this.props.calculator) {
+            $("#calculator").hide();
+        }
+        if (this.state.cls.examples && $("#examples-show").length) {
+            $("#examples-show").hide();
+            React.unmountAndReleaseReactRootNode(
+                    document.getElementById("examples"));
+        }
+    },
+
+    focus: function() {
+        this.refs.widget.focus();
+    },
+
+    guessAndScore: function() {
+        // TODO(alpert): These should probably have the same signature...
+        if (this.props.type === "multiple") {
+            return this.refs.widget.guessAndScore();
+        } else {
+            // TODO(alpert): Separate out the rubric
+            var guess = this.refs.widget.toJSON();
+            var score = this.refs.widget.simpleValidate(this.props.options);
+
+            return [guess, score];
+        }
+    }
+});
+
+var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
+    getDefaultProps: function() {
+        return {
+            type: "input-number",
+            options: {},
+            calculator: false
+        };
+    },
+
+    render: function() {
+        var cls;
+        if (this.props.type === "multiple") {
+            cls = Editor;
+        } else {
+            cls = Perseus.Widgets._widgetTypes[this.props.type + "-editor"];
+        }
+
+        var editor = cls(_.extend({
+            ref: "editor",
+            onChange: function(newProps, cb) {
+                var options = _.extend({}, this.props.options, newProps);
+                this.props.onChange({options: options}, cb);
+            }.bind(this)
+        }, this.props.options));
+
+        return <div className="perseus-answer-editor">
+            <div className="perseus-answer-options">
+            <div><label>
+                Show calculator:
+                <input type="checkbox" checked={this.props.calculator}
+                    onChange={function(e) {
+                        this.props.onChange({calculator: e.target.checked});
+                    }.bind(this)} />
+            </label></div>
+            <div><label>
+                Answer type:
+                <select value={this.props.type}
+                        onChange={function(e) {
+                            this.props.onChange({
+                                type: e.target.value,
+                                options: {}
+                            }, function() {
+                                this.refs.editor.focus();
+                            }.bind(this));
+                        }.bind(this)}>
+                    <option value="radio">Multiple choice</option>
+                    <option value="table">Table of values</option>
+                    <option value="input-number">Text input (number)</option>
+                    <option value="expression">Expression / Equation</option>
+                    <option value="multiple">Custom format</option>
+                </select>
+            </label></div>
+            </div>
+            <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
+                {editor}
+            </div>
+        </div>;
+    },
+
+    toJSON: function(skipValidation) {
+        // Could be just _.pick(this.props, "type", "options"); but validation!
+        return {
+            type: this.props.type,
+            options: this.refs.editor.toJSON(skipValidation),
+            calculator: this.props.calculator
+        };
+    }
+});
+
+})(Perseus);

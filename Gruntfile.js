@@ -19,6 +19,7 @@ var srcFiles = [
     "build/src/widgets/plotter.js",
     "build/src/widgets/expression.js",
     "build/src/widgets/ordering.js",
+    "build/src/answer-area-editor.js",
     "build/src/hint-editor.js",
     "build/src/item-renderer.js",
     "build/src/item-editor.js",

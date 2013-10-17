@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
 
 var HintRenderer = Perseus.HintRenderer = React.createClass({
@@ -14,7 +15,7 @@ var HintRenderer = Perseus.HintRenderer = React.createClass({
             classNames = "perseus-hint-renderer";
         }
         return <div className={classNames}>
-            {Perseus.Renderer(hint)}
+            {Renderer(hint)}
         </div>;
     }
 });
@@ -85,14 +86,10 @@ var CombinedHintEditor = React.createClass({
                 content={this.props.hint.content}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
-                onMove={this.props.onMove}
-                />
+                onMove={this.props.onMove} />
+
             <div className="perseus-editor-right-cell">
-                <div className="perseus-editor-renderer-container">
-                    <HintRenderer
-                        hint={this.props.hint} 
-                        bold={shouldBold} />
-                </div>
+                <HintRenderer hint={this.props.hint} bold={shouldBold} />
             </div>
         </div>;
     },

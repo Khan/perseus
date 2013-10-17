@@ -3,72 +3,7 @@
 
 var Editor = Perseus.Editor;
 
-var HintEditor = Perseus.HintEditor;
-
-var AnswerAreaEditor = React.createClass({
-    getDefaultProps: function() {
-        return {
-            type: "input-number",
-            options: {},
-            calculator: false
-        };
-    },
-
-    render: function() {
-        var cls;
-        if (this.props.type === "multiple") {
-            cls = Editor;
-        } else {
-            cls = Perseus.Widgets._widgetTypes[this.props.type + "-editor"];
-        }
-
-        var editor = cls(_.extend({
-            ref: "editor",
-            onChange: function(newProps, cb) {
-                var options = _.extend({}, this.props.options, newProps);
-                this.props.onChange({options: options}, cb);
-            }.bind(this)
-        }, this.props.options));
-
-        return <div className="perseus-answer-editor">
-            <div><label>
-                Show calculator:
-                <input type="checkbox" checked={this.props.calculator}
-                    onChange={function(e) {
-                        this.props.onChange({calculator: e.target.checked});
-                    }.bind(this)} />
-            </label></div>
-            <div><label>
-                Answer type:
-                <select value={this.props.type}
-                        onChange={function(e) {
-                            this.props.onChange({
-                                type: e.target.value,
-                                options: {}
-                            }, function() {
-                                this.refs.editor.focus();
-                            }.bind(this));
-                        }.bind(this)}>
-                    <option value="radio">Multiple choice</option>
-                    <option value="table">Table of values</option>
-                    <option value="input-number">Text input (number)</option>
-                    <option value="expression">Expression / Equation</option>
-                    <option value="multiple">Custom format</option>
-                </select>
-            </label></div>
-            {editor}
-        </div>;
-    },
-
-    toJSON: function(skipValidation) {
-        // Could be just _.pick(this.props, "type", "options"); but validation!
-        return {
-            type: this.props.type,
-            options: this.refs.editor.toJSON(skipValidation),
-            calculator: this.props.calculator
-        };
-    }
-});
+var AnswerAreaEditor = Perseus.AnswerAreaEditor;
 
 var ItemEditor = Perseus.ItemEditor = React.createClass({
     defaultState: {
@@ -102,27 +37,55 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-item-editor perseus-editor-left-cell">
-            {Editor(_.extend({
-                ref: "questionEditor",
-                className: "perseus-question-editor",
-                onChange: function(newProps, cb) {
-                    var question = _.extend({}, this.state.question, newProps);
-                    this.setState({question: question}, cb);
-                }.bind(this)
-            }, this.state.question))}
+        return <div className="perseus-editor-table">
+            <div className="perseus-editor-row perseus-question-container">
+                <div className="perseus-editor-left-cell">
+                    {Editor(_.extend({
+                        ref: "questionEditor",
+                        className: "perseus-question-editor",
+                        onChange: function(newProps, cb) {
+                            var question = _.extend({}, 
+                                    this.state.question, newProps);
+                            this.setState({question: question}, cb);
+                        }.bind(this)
+                    }, this.state.question))}
+                </div>
 
-            {AnswerAreaEditor(_.extend({
-                ref: "answerAreaEditor",
-                onChange: function(newProps, cb) {
-                    var answerArea = _.extend({}, this.state.answerArea,
-                            newProps);
-                    this.setState({answerArea: answerArea}, cb);
-                }.bind(this)
-            }, this.state.answerArea))}
+                <div className="perseus-editor-right-cell">
+                    <div id="problemarea">
+                        <div id="workarea"></div>
+                        <div id="hintsarea" style={{display: "none"}} />
+                    </div>
+                </div>
+            </div>
 
+            <div className="perseus-editor-row perseus-answer-container">
+                <div className="perseus-editor-left-cell">
+                    {AnswerAreaEditor(_.extend({
+                        ref: "answerAreaEditor",
+                        onChange: function(newProps, cb) {
+                            var answerArea = _.extend({},
+                                    this.state.answerArea, newProps);
+                            this.setState({answerArea: answerArea}, cb);
+                        }.bind(this)
+                    }, this.state.answerArea))}
+                </div>
 
-
+                <div className="perseus-editor-right-cell">
+                    <div id="answer_area">
+                        <span id="examples-show" style={{display: "none"}}>
+                            Acceptable formats
+                        </span>
+                        <div id="solutionarea"></div>
+                        <div className="answer-buttons">
+                            <input
+                                type="button"
+                                className="simple-button disabled green"
+                                value="Check Answer" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>;
     },
 
