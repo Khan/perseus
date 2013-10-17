@@ -4,6 +4,78 @@
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
+/* This component makes its children a drag target. Example:
+ *
+ *     <DragTarget onDrop={this.handleDrop}>Drag to me</DragTarget>
+ *
+ *     ...
+ *
+ *     handleDrop: function(e) {
+ *         this.addImages(e.nativeEvent.dataTransfer.files);
+ *     }
+ *
+ * Now "Drag to me" will be a drag target - when something is dragged over it,
+ * the element will become partially transparent as a visual indicator that
+ * it's a target.
+ */
+// TODO(joel) - indicate before the hover is over the target that it's possible
+// to drag into the target. This would (I think) require a high level handler -
+// like on Perseus itself, waiting for onDragEnter, then passing down the
+// event. Sounds like a pain. Possible workaround - create a div covering the
+// entire page...
+//
+// Other extensions:
+// * custom styles for global drag and dragOver
+// * only respond to certain types of drags (only images for instance)!
+var DragTarget = React.createClass({
+    propTypes: {
+        onDrop: React.PropTypes.func.isRequired,
+        component: React.PropTypes.func
+    },
+    render: function() {
+        // This is the only property of the returned component we need to
+        // calculate here because it will be overwritten by transferPropsTo.
+        var opacity = this.state.dragHover ? { "opacity": 0.3 } : {};
+        var style = _(opacity).extend(this.props.style);
+
+        var component = this.props.component;
+        return this.transferPropsTo(
+            <component style={style}
+                       onDrop={this.handleDrop}
+                       onDragEnd={this.handleDragEnd}
+                       onDragOver={this.handleDragOver}
+                       onDragEnter={this.handleDragEnter}
+                       onDragLeave={this.handleDragLeave}>
+                {this.props.children}
+            </component>
+        );
+    },
+    getInitialState: function() {
+        return { dragHover: false };
+    },
+    getDefaultProps: function() {
+        return { component: React.DOM.div };
+    },
+    handleDrop: function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({ dragHover: false });
+        this.props.onDrop(e);
+    },
+    handleDragEnd: function() {
+        this.setState({ dragHover: false });
+    },
+    handleDragOver: function(e) {
+        e.preventDefault();
+    },
+    handleDragLeave: function() {
+        this.setState({ dragHover: false });
+    },
+    handleDragEnter: function() {
+        this.setState({ dragHover: true });
+    }
+});
+
 var Editor = Perseus.Editor = React.createClass({
     getDefaultProps: function() {
         return {
@@ -151,18 +223,73 @@ var Editor = Perseus.Editor = React.createClass({
         // with a newline.
         underlayPieces.push(<br />);
 
+        // If an image uploader was supplied in the config, make the editor a
+        // drag target, otherwise it's just a div.
+        var container = Perseus.imageUploader ? DragTarget : React.DOM.div;
+
         return <div className={"perseus-single-editor " +
                 (this.props.className || "")}>
-            <div className="perseus-textarea-pair">
+            <container onDrop={this.handleDrop}
+                        className="perseus-textarea-pair">
                 <div className="perseus-textarea-underlay" ref="underlay">
                     {underlayPieces}
                 </div>
 
                 <textarea ref="textarea" onInput={this.handleInput}
                     value={this.props.content} />
-            </div>
+            </container>
             {widgetsAndTemplates}
         </div>;
+    },
+
+    handleDrop: function(e) {
+        var files = e.nativeEvent.dataTransfer.files;
+        var content = this.props.content;
+        var self = this;
+
+        /* For each file we make sure it's an image, then create a sentinel -
+         * snowman + identifier to insert into the current text. The sentinel
+         * only lives there temporarily until we get a response back from the
+         * server that the image is now hosted on AWS, at which time we replace
+         * the temporary sentinel with the permanent url for the image.
+         *
+         * There is an abuse of tap in the middle of the pipeline to make sure
+         * everything is sequenced in the correct order. We want to modify the
+         * content (given any number of images) at the same time, i.e. only
+         * once, so we do that step with the tap. After the content has been
+         * changed we send off the request for each image.
+         *
+         * Note that the snowman doesn't do anything special in this case -
+         * it's effectively just part of a broken link. Perseus could be
+         * extended to recognize this sentinel and highlight it like for
+         * widgets.
+         */
+        _(files)
+            .chain()
+            .map(function(file) {
+                if (!file.type.match('image.*')) {
+                    return null;
+                }
+
+                var sentinel = "\u2603 " + _.uniqueId("image_");
+                // TODO(joel) - figure out how to temporarily include the image
+                // before the server returns.
+                content += "\n\n![](" + sentinel + ")";
+
+                return { file: file, sentinel: sentinel };
+            })
+            .reject(_.isNull)
+            .tap(function() {
+                self.props.onChange({ content: content });
+            })
+            .each(function(fileAndSentinel) {
+                Perseus.imageUploader(fileAndSentinel.file, function(url) {
+                    self.props.onChange({
+                        content: self.props.content.replace(
+                            fileAndSentinel.sentinel, url)
+                    });
+                });
+            });
     },
 
     handleInput: function() {

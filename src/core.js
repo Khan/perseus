@@ -5,7 +5,12 @@ var Perseus = window.Perseus = {};
 Perseus.init = function(options) {
     _.defaults(options, {
         // Pass skipMathJax: true if MathJax is already loaded and configured.
-        skipMathJax: false
+        skipMathJax: false,
+        // A function which takes a file object (guaranteed to be an image) and
+        // a callback, then calls the callback with the url where the image
+        // will be hosted. Image drag and drop is disabled when imageUploader
+        // is null.
+        imageUploader: null
     });
 
     var deferred = $.Deferred();
@@ -31,6 +36,8 @@ Perseus.init = function(options) {
         MathJax.Hub.Configured();
         MathJax.Hub.Queue(deferred.resolve);
     }
+
+    Perseus.imageUploader = options.imageUploader;
 
     return deferred;
 };
