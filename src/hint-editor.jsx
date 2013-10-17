@@ -1,9 +1,14 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+/* Collection of classes for rendering the hint editor area, 
+ * hint editor boxes, and hint previews
+ */
+
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
 
+/* Renders just a hint preview */
 var HintRenderer = Perseus.HintRenderer = React.createClass({
     render: function() {
         var shouldBold = this.props.bold;
@@ -20,6 +25,13 @@ var HintRenderer = Perseus.HintRenderer = React.createClass({
     }
 });
 
+/* Renders a hint editor box
+ *
+ * This includes:
+ *  ~ the textarea for the hint
+ *  ~ the "remove this hint" box
+ *  ~ the move hint up/down arrows
+ */
 var HintEditor = Perseus.HintEditor = React.createClass({
     getDefaultProps: function() {
         return {
@@ -73,6 +85,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
 });
 
 
+/* A single hint-row containing a hint editor and preview */
 var CombinedHintEditor = React.createClass({
     render: function() {
         var shouldBold = this.props.isLast &&
@@ -104,7 +117,12 @@ var CombinedHintEditor = React.createClass({
 });
 
 
-var LeftOnlyHintsCell = React.createClass({
+/* A cell in the hints table with content appearing in the left column
+ * 
+ * Simplifies having to set up the table rows and cells manually
+ * Used for the "Hints:" prompt and "Add a hint" button
+ */
+var LeftColumnHintsTableCell = React.createClass({
     getDefaultProps: function() {
         return {
             className: ""
@@ -123,6 +141,14 @@ var LeftOnlyHintsCell = React.createClass({
 });
 
 
+/* The entire hints editing/preview area
+ *
+ * Includes:
+ *  ~ The "Hints:" prompt
+ *  ~ All the hint edit boxes, move and remove buttons
+ *  ~ All the hint previews
+ *  ~ The "add a hint" button
+ */
 var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
     defaultState: {
         hints: []
@@ -153,19 +179,19 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
         }, this);
         
         return <div className="perseus-hints-container perseus-editor-table">
-            <LeftOnlyHintsCell className="perseus-hints-title">
+            <LeftColumnHintsTableCell className="perseus-hints-title">
                 Hints:
-            </LeftOnlyHintsCell>
+            </LeftColumnHintsTableCell>
 
             {hintElems}
             
-            <LeftOnlyHintsCell className="add-hint-container">
+            <LeftColumnHintsTableCell className="add-hint-container">
                 <a href="#" className="simple-button orange"
                         onClick={this.addHint}>
                     <span className="icon-plus" />
                     Add a hint
                 </a>
-            </LeftOnlyHintsCell>
+            </LeftColumnHintsTableCell>
         </div>;
     },
 
