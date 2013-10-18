@@ -99,7 +99,7 @@ function sideLengths(coords) {
 
 // Based on http://math.stackexchange.com/a/151149
 function angleMeasures(coords) {
-    var triplets = _.zip(coords, rotate(coords, 1), rotate(coords, 2));
+    var triplets = _.zip(rotate(coords, -1), coords, rotate(coords, 1));
 
     var offsets = _.map(triplets, function(triplet) {
         var p = vector(triplet[1], triplet[0]);
@@ -130,13 +130,20 @@ function similar(coords1, coords2, congruent) {
     var sides2 = sideLengths(coords2);
 
     for (var i = 0; i < 2 * n; i++) {
-        var angles = rotate(angles2, i);
-        var sides = rotate(sides2, i);
+        var angles = angles2.slice();
+        var sides = sides2.slice();
 
+        // Reverse angles and sides to allow matching reflected polygons
         if (i >= n) {
             angles.reverse();
             sides.reverse();
+            // Since sides are calculated from two coordinates,
+            // simply reversing results in an off by one error
+            sides = rotate(sides, 1);
         }
+
+        angles = rotate(angles, i);
+        sides = rotate(sides, i);
 
         if (deepEq(angles1, angles)) {
             var factors = _.map(_.zip(sides1, sides),  function(pair) {
@@ -1157,9 +1164,6 @@ var InteractiveGraph = React.createClass({
                     var angles = _.map(angleMeasures(coords), function(rad) {
                         return rad * 180 / Math.PI;
                     });
-
-                    // TODO(alex): do this in angleMeasures()
-                    angles = rotate(angles, -1);
 
                     _.each([-1, 1], function(j) {
                         angles[rel(j)] = Math.round(angles[rel(j)]);
