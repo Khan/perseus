@@ -217,28 +217,26 @@ var Expression = React.createClass({
 
 _.extend(Expression, {
     validate: function(state, rubric) {
-        var options = _.pick(rubric, "functions");
-        var parse = KAS.parse;
-        var answer = parse(state.currentValue, options);
-        var expected = parse(rubric.value, options);
+        var val = Khan.answerTypes.expression.createValidatorFunctional(
+            KAS.parse(rubric.value, rubric).expr, rubric);
 
-        if (!state.currentValue || !answer.parsed) {
+        var result = val(state.currentValue);
+
+        // TODO(eater): Seems silly to translate result to this invalid/points
+        // thing and immediately translate it back in ItemRenderer.scoreInput()
+        if (result.empty) {
             return {
                 type: "invalid",
-                message: null
+                message: result.message
+            };
+        } else {
+            return {
+                type: "points",
+                earned: result.correct ? 1 : 0,
+                total: 1,
+                message: result.message
             };
         }
-
-        var compare = KAS.compare;
-        // are these in the wrong order???
-        var result = compare(answer.expr, expected.expr, rubric);
-
-        return {
-            type: "points",
-            earned: result.equal ? 1 : 0,
-            total: 1,
-            message: result.message
-        };
     }
 });
 
