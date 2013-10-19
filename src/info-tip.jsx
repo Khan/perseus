@@ -9,14 +9,14 @@ var InfoTip = React.createClass({
     },
 
     render: function() {
-        return <span class="perseus-info-tip">
-            <i class="icon-question-sign"
+        return <span className="perseus-info-tip">
+            <i className="icon-question-sign"
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave} />
-            <span class="perseus-info-tip-container"
+            <span className="perseus-info-tip-container"
                     style={{display: this.state.hover ? 'block' : 'none'}}>
-                <span class="perseus-info-tip-triangle"></span>
-                <span class={"perseus-info-tip-content-container " +
+                <span className="perseus-info-tip-triangle"></span>
+                <span className={"perseus-info-tip-content-container " +
                         "vertical-shadow"}>
                     {this.props.children}
                 </span>

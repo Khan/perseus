@@ -45,9 +45,9 @@ var HintEditor = Perseus.HintEditor = React.createClass({
                     onChange={this.props.onChange} widgetEnabled={false} />
 
             <div className="hint-controls-container clearfix">
-                <span class="reorder-hints">
+                <span className="reorder-hints">
                     <a href="#"
-                        class={this.props.isLast && "hidden"}
+                        className={this.props.isLast && "hidden"}
                         onClick={function() {
                             this.props.onMove(1);
                             return false;
@@ -56,7 +56,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
                     </a>
                     {' '}
                     <a href="#"
-                        class={this.props.isFirst && "hidden"}
+                        className={this.props.isFirst && "hidden"}
                         onClick={function() {
                             this.props.onMove(-1);
                             return false;

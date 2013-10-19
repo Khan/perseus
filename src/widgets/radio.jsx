@@ -8,7 +8,7 @@ var BaseRadio = React.createClass({
 
         return <ul className="perseus-widget-radio">
             {this.props.multipleSelect &&
-                <div class="instructions">Select all that apply.</div>}
+                <div className="instructions">Select all that apply.</div>}
             {this.props.choices.map(function(choice, i) {
 
                 var content = <div>
@@ -180,7 +180,7 @@ var RadioEditor = React.createClass({
                             className="simple-button orange delete-choice"
                             title="Remove this choice"
                             onClick={this.onDelete.bind(this, i)}>
-                        <span class="icon-trash" />
+                        <span className="icon-trash" />
                     </a>;
                     return {
                         content: <div className="choice-editor">

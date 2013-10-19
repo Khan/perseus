@@ -93,7 +93,7 @@ var FloatingCard = React.createClass({
         // Pull out the content to get rendered
         var rendererProps = _.pick(this.props, "content");
 
-        return <div class="card-wrap"
+        return <div className="card-wrap"
                     style={style}>
                 <div className={className.join(" ")}>
                     {Perseus.Renderer(rendererProps)}
