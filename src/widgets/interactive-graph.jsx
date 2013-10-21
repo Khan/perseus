@@ -359,7 +359,10 @@ var InteractiveGraph = React.createClass({
                                 onChange={function(e) {
                                     var graph = _.extend({}, 
                                         this.props.graph,
-                                        {snapTo: e.target.value});
+                                        {
+                                            snapTo: e.target.value,
+                                            coords: null
+                                        });
                                     this.props.onChange({graph: graph});
                                 }.bind(this)}>
                                 <option value="grid">grid</option>
