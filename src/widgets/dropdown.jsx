@@ -27,6 +27,11 @@ var Dropdown = React.createClass({
         </select>;
     },
 
+    focus: function() {
+        this.getDOMNode().focus();
+        return true;
+    },
+
     onChange: function(e) {
         var selected = this.getDOMNode().selectedIndex;
         this.props.onChange({selected: selected});

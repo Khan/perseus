@@ -70,18 +70,18 @@ var formExamples = {
 
 var InputNumber = React.createClass({
     render: function() {
-        return <input ref="input" type="text" className=
+        return <input type="text" className=
             {"perseus-input-size-" + (this.props.size || "normal")} />;
     },
 
     focus: function() {
-        this.refs.input.getDOMNode().focus();
+        this.getDOMNode().focus();
         return true;
     },
 
     toJSON: function(skipValidation) {
         return {
-            value: this.refs.input.getDOMNode().value
+            value: this.getDOMNode().value
         };
     },
 
