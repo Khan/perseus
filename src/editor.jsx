@@ -227,17 +227,29 @@ var Editor = Perseus.Editor = React.createClass({
         // drag target, otherwise it's just a div.
         var container = Perseus.imageUploader ? DragTarget : React.DOM.div;
 
-        return <div className={"perseus-single-editor " +
-                (this.props.className || "")}>
-            <container onDrop={this.handleDrop}
-                        className="perseus-textarea-pair">
+        var completeTextarea = [
                 <div className="perseus-textarea-underlay" ref="underlay">
                     {underlayPieces}
-                </div>
+                </div>,
+                <textarea ref="textarea"
+                          onInput={this.handleInput}
+                          value={this.props.content} />
+            ];
+        var textareaWrapper;
+        if (Perseus.imageUploader) {
+            textareaWrapper = <DragTarget onDrop={this.handleDrop}
+                                     className="perseus-textarea-pair">
+                {completeTextarea}
+            </DragTarget>;
+        } else {
+            textareaWrapper = <div className="perseus-textarea-pair">
+                {completeTextarea}
+            </div>;
+        }
 
-                <textarea ref="textarea" onInput={this.handleInput}
-                    value={this.props.content} />
-            </container>
+        return <div className={"perseus-single-editor " +
+                (this.props.className || "")}>
+            {textareaWrapper}
             {widgetsAndTemplates}
         </div>;
     },
