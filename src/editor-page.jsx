@@ -6,15 +6,15 @@ var ItemRenderer = Perseus.ItemRenderer;
 var CombinedHintsEditor = Perseus.CombinedHintsEditor;
 
 Perseus.EditorPage = React.createClass({
-    
+
     render: function() {
 
         return <div id="perseus" className="framework-perseus">
-            <ItemEditor 
+            <ItemEditor
                     ref="itemEditor"
                     question={this.props.question}
                     answerArea={this.props.answerArea}
-                    onChange={this.updatePreview} />
+                    onChange={this.handleChange} />
 
             <CombinedHintsEditor
                     ref="hintsEditor"
@@ -22,18 +22,23 @@ Perseus.EditorPage = React.createClass({
         </div>;
 
     },
-    
+
     componentWillMount: function() {
         this.rendererMountNode = document.createElement("div");
     },
-    
-    updatePreview: function() {
+
+    handleChange: function() {
+        var obj = this.toJSON(true);
+        if (this.props.onChange) {
+            this.props.onChange(obj);
+        }
+
         this.renderer = React.renderComponent(Perseus.ItemRenderer({
-            item: this.toJSON(true),
+            item: obj,
             initialHintsVisible: 0  /* none; to be displayed below */
         }), this.rendererMountNode);
     },
-    
+
     scorePreview: function() {
         if (this.renderer) {
             return this.renderer.scoreInput();
