@@ -139,7 +139,7 @@ var Expression = React.createClass({
         var end = input.selectionEnd;
         var supported = start !== undefined;
 
-        var which = event.nativeEvent.keyCode;
+        var which = event.nativeEvent.charCode;
 
         if (supported && which === 40 /* left paren */) {
             event.preventDefault();
