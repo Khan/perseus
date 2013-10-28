@@ -334,7 +334,7 @@
     }
 }
 
-.ordering {
+.orderer {
     position: relative;
 
     .draggable-box {
@@ -355,9 +355,13 @@
         }
     }
 
-    &.height-normal .card {
+    &.height-normal.layout-horizontal .card {
         line-height: 65px;
         height: 65px;
+    }
+
+    &.height-normal.layout-vertical .card {
+        padding: 5px;
     }
 
     &.height-large .card {
@@ -389,6 +393,49 @@
 
     div.paragraph {
         margin: 0;
+    }
+
+    &.layout-vertical .card-wrap {
+        float: none;
+        text-align: center;
+    }
+
+    &.layout-vertical .bank {
+        box-sizing: border-box;
+        float: left;
+        margin: 10px 0 0 0;
+        max-width: 50%;
+
+        .card-wrap {
+            margin-right: 20px;
+        }
+    }
+
+    &.layout-vertical .draggable-box {
+        box-sizing: border-box;
+        float: left;
+        margin-top: 0;
+        max-width: 50%;
+        min-height: 170px;
+        padding: 10px;
+
+        .card-wrap:first-child {
+            margin: 0;
+        }
+
+        .card-wrap {
+            margin: 8px 0 0 0;
+        }
+
+        .drag-hint {
+            box-sizing: border-box;
+            min-width: 140px;
+            min-height: 34px;
+        }
+
+        .placeholder {
+            box-sizing: border-box;
+        }
     }
 }
 

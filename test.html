@@ -90,7 +90,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/build/src/widgets/categorization.js"></script>
 <script src="/build/src/widgets/plotter.js"></script>
 <script src="/build/src/widgets/expression.js"></script>
-<script src="/build/src/widgets/ordering.js"></script>
+<script src="/build/src/widgets/orderer.js"></script>
 <script src="/build/src/answer-area-editor.js"></script>
 <script src="/build/src/hint-editor.js"></script>
 <script src="/build/src/item-renderer.js"></script>
@@ -116,7 +116,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/src/widgets/categorization.jsx" type="text/jsx"></script>
 <script src="/src/widgets/plotter.jsx" type="text/jsx"></script>
 <script src="/src/widgets/expression.jsx" type="text/jsx"></script>
-<script src="/src/widgets/ordering.jsx" type="text/jsx"></script>
+<script src="/src/widgets/orderer.jsx" type="text/jsx"></script>
 <script src="/src/answer-area-editor.jsx" type="text/jsx"></script>
 <script src="/src/hint-editor.jsx" type="text/jsx"></script>
 <script src="/src/item-renderer.jsx" type="text/jsx"></script>
@@ -140,96 +140,76 @@ Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.EditorPage(
     {
         "question": {
-            "content": "[[☃ interactive-graph 1]]",
+            "content": "![](http://img.sparknotes.com/figures/9/9468de070d794b4c203fe8a51bd73917/sampleproof.gif)\n\n[[☃ orderer 1]]",
             "widgets": {
-                "interactive-graph 1": {
+                "orderer 1": {
                     "options": {
-                        "step": [
-                            1,
-                            1
+                        "options": [
+                            {
+                                "content": "Angles AMB and DMC are congruent."
+                            },
+                            {
+                                "content": "Not part of the proof!"
+                            },
+                            {
+                                "content": "Segment AD bisects segment BC."
+                            },
+                            {
+                                "content": "Segment BC bisects segment AD."
+                            },
+                            {
+                                "content": "Segments AM and MD are congruent."
+                            },
+                            {
+                                "content": "Segments BM and CM are congruent."
+                            },
+                            {
+                                "content": "Triangles ABM and DCM are congruent."
+                            }
                         ],
-                        "backgroundImage": {
-                            "url": null,
-                            "scale": 1,
-                            "bottom": 0,
-                            "left": 0
-                        },
-                        "markings": "graph",
-                        "showProtractor": false,
-                        "range": [
-                            [
-                                -10,
-                                10
-                            ],
-                            [
-                                -10,
-                                10
-                            ]
+                        "correctOptions": [
+                            {
+                                "content": "Segment AD bisects segment BC."
+                            },
+                            {
+                                "content": "Segments AM and MD are congruent."
+                            },
+                            {
+                                "content": "Segment BC bisects segment AD."
+                            },
+                            {
+                                "content": "Segments BM and CM are congruent."
+                            },
+                            {
+                                "content": "Angles AMB and DMC are congruent."
+                            },
+                            {
+                                "content": "Triangles ABM and DCM are congruent."
+                            }
                         ],
-                        "graph": {
-                            "type": "point",
-                            "numPoints": "unlimited"
-                        },
-                        "correct": {
-                            "type": "point",
-                            "coords": [
-                                [
-                                    0,
-                                    0
-                                ],
-                                [
-                                    2,
-                                    2
-                                ],
-                                [
-                                    4,
-                                    4
-                                ]
-                            ],
-                            "numPoints": "unlimited"
-                        }
+                        "otherOptions": [
+                            {
+                                "content": "Not part of the proof!"
+                            }
+                        ],
+                        "height": "normal",
+                        "layout": "vertical"
                     },
-                    "type": "interactive-graph"
+                    "type": "orderer"
                 }
             }
         },
         "answerArea": {
-            "type": "radio",
+            "type": "multiple",
             "options": {
-                "choices": [
-                    {
-                        "content": "$\\dfrac14$",
-                        "correct": true
-                    },
-                    {
-                        "content": "$\\dfrac12$",
-                        "correct": false
-                    },
-                    {
-                        "content": "$\\dfrac34$",
-                        "correct": false
-                    }
-                ],
-                "randomize": false,
-                "multipleSelect": false
+                "content": "Do the proof!",
+                "widgets": {}
             },
             "calculator": false
         },
         "hints": [
             {
-                "content": "Each branch can hold $\\dfrac{1}{10}$ of a monkey.",
-                "widgets": {}
-            },
-            {
-                "content": "Therefore, $10$ branc… oh shit they're attacking me",
-                "widgets": {}
-            },
-            {
-                "content": "If you see this, please help.",
-                "widgets": {}
-            },
-            {
-                "content": "ooh ooh, ahh ahh, **too late.**",
+                "content": "Focus on the proof!!!",
                 "widgets": {}
             }
         ]

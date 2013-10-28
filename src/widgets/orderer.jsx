@@ -5,10 +5,11 @@ var InfoTip = Perseus.InfoTip;
 
 var PlaceholderCard = React.createClass({
     render: function() {
-        return <div className="card-wrap"
-                    style={{width: this.props.width}}>
-                <div className="card placeholder" />
-            </div>;
+        return <div className="card-wrap" style={{width: this.props.width}}>
+            <div
+                className="card placeholder"
+                style={{height: this.props.height}} />
+        </div>;
     }
 });
 
@@ -150,13 +151,19 @@ var FloatingCard = React.createClass({
     }
 });
 
+var NORMAL = "normal",
+    AUTO = "auto",
+    HORIZONTAL = "horizontal",
+    VERTICAL = "vertical";
+
 var Orderer = React.createClass({
     getDefaultProps: function() {
         return {
             current: [],
             options: [],
             correctOptions: [],
-            height: "normal"
+            height: NORMAL,
+            layout: HORIZONTAL
         };
     },
 
@@ -209,6 +216,7 @@ var Orderer = React.createClass({
             var placeholder = <PlaceholderCard
                 ref="placeholder"
                 width={this.state.dragWidth}
+                height={this.state.dragHeight}
                 key="placeholder" />;
             sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
         }
@@ -231,8 +239,9 @@ var Orderer = React.createClass({
             })}
         </div>;
 
-        return <div className={"draggy-boxy-thing ordering height-" +
-                        this.props.height}
+        return <div className={"draggy-boxy-thing orderer " +
+                        "height-" + this.props.height + " " +
+                        "layout-" + this.props.layout + " ui-helper-clearfix"}
                     ref="orderer">
                    {bank}
                    {sortable}
@@ -264,6 +273,7 @@ var Orderer = React.createClass({
             placeholderIndex: placeholderIndex,
             dragContent: opt.content,
             dragWidth: $draggable.width(),
+            dragHeight: $draggable.height(),
             grabPos: {
                 left: event.pageX,
                 top: event.pageY
@@ -349,31 +359,48 @@ var Orderer = React.createClass({
 
     findCorrectIndex: function(draggable, list) {
         // Find the correct index for a card given the current cards.
-        var $dragList = $(this.refs.dragList.getDOMNode()),
+        var isHorizontal = this.props.layout === HORIZONTAL,
+            $dragList = $(this.refs.dragList.getDOMNode()),
             leftEdge = $dragList.offset().left,
+            topEdge = $dragList.offset().top,
             midWidth = $(draggable.getDOMNode()).offset().left - leftEdge,
+            midHeight = $(draggable.getDOMNode()).offset().top - topEdge,
             index = 0,
-            sumWidth = 0;
+            sumWidth = 0,
+            sumHeight = 0;
 
-        _.each(list, function(opt, i) {
-            var card = this.refs["sortable" + i].getDOMNode();
-            var outerWidth = $(card).outerWidth(true);
-            if (midWidth > sumWidth + outerWidth / 2) {
-                index += 1;
-            }
-            sumWidth += outerWidth;
-        }, this);
+        if (isHorizontal) {
+            _.each(list, function(opt, i) {
+                var card = this.refs["sortable" + i].getDOMNode();
+                var outerWidth = $(card).outerWidth(true);
+                if (midWidth > sumWidth + outerWidth / 2) {
+                    index += 1;
+                }
+                sumWidth += outerWidth;
+            }, this);
+        } else {
+            _.each(list, function(opt, i) {
+                var card = this.refs["sortable" + i].getDOMNode();
+                var outerHeight = $(card).outerHeight(true);
+                if (midHeight > sumHeight + outerHeight / 2) {
+                    index += 1;
+                }
+                sumHeight += outerHeight;
+            }, this);
+        }
 
         return index;
     },
 
     isCardInBank: function(draggable) {
-        var $draggable = $(draggable.getDOMNode()),
+        var isHorizontal = this.props.layout === HORIZONTAL,
+            $draggable = $(draggable.getDOMNode()),
             $bank = $(this.refs.bank.getDOMNode()),
             draggableOffset = $draggable.offset(),
             bankOffset = $bank.offset(),
             draggableHeight = $draggable.outerHeight(true),
             bankHeight = $bank.outerHeight(true),
+            bankWidth = $bank.outerWidth(true),
             dragList = this.refs.dragList.getDOMNode(),
             dragListWidth = $(dragList).width(),
             draggableWidth = $draggable.outerWidth(true),
@@ -383,9 +410,14 @@ var Orderer = React.createClass({
                     return sum + $(card).outerWidth(true);
                 }, 0, this);
 
-        return (draggableOffset.top + draggableHeight / 2 <
-                bankOffset.top + bankHeight) ||
-               (currentWidth + draggableWidth > dragListWidth);
+        if (isHorizontal) {
+            return (draggableOffset.top + draggableHeight / 2 <
+                    bankOffset.top + bankHeight) ||
+                   (currentWidth + draggableWidth > dragListWidth);
+        } else {
+            return (draggableOffset.left + draggableWidth / 2 <
+                    bankOffset.left + bankWidth);
+        }
     },
 
     toJSON: function(skipValidation) {
@@ -516,43 +548,64 @@ var OrdererEditor = React.createClass({
             otherOptions: [
                 {content: "$y$"}
             ],
-            height: "normal"
+            height: NORMAL,
+            layout: HORIZONTAL
         };
     },
 
     render: function() {
         var editor = this;
 
-        return <div className="perseus-widget-orderer">
+        return <div
+                className={"perseus-widget-orderer " +
+                "layout-" + this.props.layout}>
             <div>Correct answer:</div>
-            <TextListEditor options={this.props.correctOptions}
-                            onContentChange={function(options) {
-                                editor.props.onChange({
-                                    correctOptions: options
-                                });
-                            }}/>
+            <TextListEditor
+                options={this.props.correctOptions}
+                onContentChange={function(options) {
+                    editor.props.onChange({correctOptions: options});
+                }} />
 
             <div>Other cards:</div>
-            <TextListEditor options={this.props.otherOptions}
-                            onContentChange={function(options) {
-                                editor.props.onChange({otherOptions: options});
-                            }}/>
+            <TextListEditor
+                options={this.props.otherOptions}
+                onContentChange={function(options) {
+                    editor.props.onChange({otherOptions: options});
+                }} />
 
+            <div>
+                <label>
+                    Layout:
+                    <select value={this.props.layout}
+                            onChange={this.onLayoutChange}>
+                        <option value={HORIZONTAL}>Horizontal</option>
+                        <option value={VERTICAL}>Vertical</option>
+                    </select>
+                </label>
+                <InfoTip>
+                    <p>Use the horizontal layout for short text and small
+                    images. The vertical layout is best for longer text (e.g.
+                    proofs).</p>
+                </InfoTip>
+            </div>
             <div>
                 <label>
                     Height:
                     <select value={this.props.height}
                             onChange={this.onHeightChange}>
-                        <option value="normal">Normal (45px)</option>
-                        <option value="auto">Automatic</option>
+                        <option value={NORMAL}>Normal</option>
+                        <option value={AUTO}>Automatic</option>
                     </select>
                 </label>
                 <InfoTip>
-                    <p>Use size "Normal" for mathy text, "Automatic" for
-                    images.</p>
+                    <p>Use "Normal" for text, "Automatic" for images.</p>
                 </InfoTip>
             </div>
         </div>;
+    },
+
+    onLayoutChange: function(e) {
+        this.props.onChange({layout: e.target.value});
     },
 
     onHeightChange: function(e) {
@@ -587,7 +640,8 @@ var OrdererEditor = React.createClass({
             options: options,
             correctOptions: this.props.correctOptions,
             otherOptions: this.props.otherOptions,
-            height: this.props.height
+            height: this.props.height,
+            layout: this.props.layout
         };
     }
 });

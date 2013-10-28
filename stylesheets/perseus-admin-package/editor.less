@@ -351,11 +351,16 @@
 }
 
 .perseus-widget-orderer {
-    input[type=text] {
+
+    &.layout-horizontal input[type=text] {
         float: left;
+    }
+
+    input[type=text] {
         padding: 3px;
         margin-right: 5px;
         min-width: 20px;
+        max-width: 340px;
     }
 }
 
