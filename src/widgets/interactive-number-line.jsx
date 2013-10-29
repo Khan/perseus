@@ -106,6 +106,10 @@ var InteractiveNumberLine = React.createClass({
     addGraphie: function() {
         var graphie = this.graphie = KhanUtil.createGraphie(
                 this.refs.graphieDiv.getDOMNode());
+        // Ensure a sane configuration to avoid infinite loops
+        if (!this.isValid()) {
+            return;
+        }
 
         var range = this.props.range;
         var tickStep = this.props.tickStep;
