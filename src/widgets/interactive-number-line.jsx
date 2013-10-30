@@ -135,10 +135,13 @@ var InteractiveNumberLine = React.createClass({
         });
 
         // Ticks
-
+        var labelStyle = this.props.labelStyle;
         for (var x = Math.ceil(range[0] / tickStep) * tickStep; x <= range[1];
                 x += tickStep) {
             graphie.line([x, -0.2], [x, 0.2]);
+            if (labelStyle === "decimal ticks") {
+                graphie.label([x, -0.53], x, "center");
+            }
         }
 
         graphie.style({
@@ -152,7 +155,6 @@ var InteractiveNumberLine = React.createClass({
             }
         });
 
-        var labelStyle = this.props.labelStyle;
         graphie.style({color: KhanUtil.BLUE}, function() {
             if (labelStyle === "decimal") {
                 graphie.label([range[0], -0.53], range[0], "center");
@@ -348,6 +350,7 @@ var InteractiveNumberLineEditor = React.createClass({
                 <select value={this.props.labelStyle}
                         onChange={this.onChange.bind(this, "labelStyle")}>
                     <option value="decimal">Decimals</option>
+                    <option value="decimal ticks">Decimal ticks</option>
                     <option value="improper">Improper fractions</option>
                     <option value="mixed">Mixed numbers</option>
                 </select>
