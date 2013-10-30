@@ -788,11 +788,15 @@ var InteractiveGraph = React.createClass({
 
     addCircleControls: function() {
         var graphie = this.graphie;
+        var minSnap = _.min(graphie.snap);
 
         var circle = this.circle = graphie.addCircleGraph({
             center: this.props.graph.center || [0, 0],
-            radius: this.props.graph.radius || _.min(this.props.step)
-            // TODO(alpert): addCircleGraph doesn't take snap yet
+            radius: this.props.graph.radius || _.min(this.props.step),
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
+            minRadius: minSnap * 2,
+            snapRadius: minSnap
         });
 
         $(circle).on("move", function() {
