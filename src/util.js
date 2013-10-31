@@ -294,14 +294,18 @@ var Util = Perseus.Util = {
     },
 
     /**
-     * Approximate equality on numbers.
+     * Approximate equality on numbers and primitives.
      */
     eq: function(x, y) {
-        return Math.abs(x - y) < 1e-9;
+        if (_.isNumber(x) && _.isNumber(y)) {
+            return Math.abs(x - y) < 1e-9;
+        } else {
+            return x === y;
+        }
     }, 
 
     /**
-     * Deep approximate equality on numbers and arrays, not objects yet.
+     * Deep approximate equality on primitives, numbers, arrays, and objects.
      */
     deepEq: function(x, y) {
         if (_.isArray(x) && _.isArray(y)) {
@@ -315,6 +319,14 @@ var Util = Perseus.Util = {
             }
             return true;
         } else if (_.isArray(x) || _.isArray(y)) {
+            return false;
+        } else if (_.isObject(x) && _.isObject(y)) {
+            return _.all(x, function(value, key) {
+                return Perseus.Util.deepEq(y[key], value);
+            }) && _.all(y, function(value, key) {
+                return Perseus.Util.deepEq(x[key], value);
+            });
+        } else if (_.isObject(x) || _.isObject(y)) {
             return false;
         } else {
             return Perseus.Util.eq(x, y);
