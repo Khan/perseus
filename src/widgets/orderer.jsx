@@ -53,13 +53,20 @@ var DraggableCard = React.createClass({
     },
 
     onMouseDown: function(event) {
-        if (event.button !== 0) {
+        if (!(event.button === 0 || (event.touches != null && event.touches.length === 1))) {
             return;
         }
 
         event.preventDefault();
-        this.props.onMouseDown(this, event);
-    },
+        if (event.touches != null) {
+            this.props.onMouseDown(this, {
+                    pageX: event.touches[0].pageX,
+                    pageY: event.touches[0].pageY
+                });
+        } else {
+            this.props.onMouseDown(this, event);
+        }
+    }
 
 });
 

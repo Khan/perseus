@@ -170,10 +170,10 @@ var Categorization = React.createClass({
         }, _.bind(self.updateDrag, self, coords));
 
         $(document)
-        .on("mousemove.categorization", function(e) {
+        .on("vmousemove.categorization", function(e) {
             self.updateDrag(getMouseCoords(e));
         })
-        .on("mouseup.categorization", function(e) {
+        .on("vmouseup.categorization", function(e) {
             self.endDrag(getMouseCoords(e));
         });
     },
@@ -229,8 +229,8 @@ var Categorization = React.createClass({
         var item = items[itemIndex];
 
         $(document)
-            .off("mousemove.categorization")
-            .off("mouseup.categorization");
+            .off("vmousemove.categorization")
+            .off("vmouseup.categorization");
 
         var c = self.getAllMouseCoordTypes(coords, $drag);
         var targetCategory = self.findTargetCategory(c.middle);
@@ -634,6 +634,7 @@ var CategoryItem = React.createClass({
             inner = <div
                 className={className}
                 onMouseDown={onMouseDown}
+                onTouchStart={onMouseDown}
             >{Perseus.Renderer({content: content})}</div>;
         }
 
