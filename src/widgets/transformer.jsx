@@ -4,13 +4,6 @@
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
 
-var kvector = KhanUtil.kvector;
-var kpoint = KhanUtil.kpoint;
-var vectorAdd = kvector.add;
-var vectorSubtract = kvector.subtract;
-var vectorScale = kvector.scale;
-var vectorDot = kvector.dot;
-
 // TODO (jack): rename this to Perseus.Components
 var GraphSettings = Perseus.Components.GraphSettings;
 var Graph = Perseus.Components.Graph;
@@ -43,9 +36,9 @@ var defaultGraphProps = function(setProps, boxSize) {
 };
 
 function dilatePointFromCenter(point, dilationCenter, scale) {
-    var pv = vectorSubtract(point, dilationCenter);
-    var pvScaled = vectorScale(pv, scale);
-    var transformedPoint = vectorAdd(dilationCenter, pvScaled);
+    var pv = KhanUtil.kvector.subtract(point, dilationCenter);
+    var pvScaled = KhanUtil.kvector.scale(pv, scale);
+    var transformedPoint = KhanUtil.kvector.add(dilationCenter, pvScaled);
     return transformedPoint;
 }
 
@@ -85,7 +78,7 @@ var Transformations = {
     translation: {
         apply: function(transform) {
             return function(coord) {
-                return kvector.add(coord, transform.vector);
+                return KhanUtil.kvector.add(coord, transform.vector);
             };
         },
         toString: function(transform) {
@@ -96,7 +89,7 @@ var Transformations = {
     rotation: {
         apply: function(transform) {
             return function(coord) {
-                return kpoint.rotateDeg(coord, transform.angleDeg,
+                return KhanUtil.kpoint.rotateDeg(coord, transform.angleDeg,
                         transform.center);
             };
         },
@@ -110,7 +103,7 @@ var Transformations = {
     reflection: {
         apply: function(transform) {
             return function(coord) {
-                return kpoint.reflectOverLine(coord, transform.line);
+                return KhanUtil.kpoint.reflectOverLine(coord, transform.line);
             };
         },
         toString: function(transform) {
@@ -548,7 +541,7 @@ var Transformer = React.createClass({
         // the "button" point in the center of the line of reflection
         this.reflectButton = graphie.addMovablePoint({
             update: function() {
-                this.setCoord(vectorScale(vectorAdd(
+                this.setCoord(KhanUtil.kvector.scale(KhanUtil.kvector.add(
                         self.reflectPoints[0].coord,
                         self.reflectPoints[1].coord
                         ), 0.5));
@@ -612,7 +605,7 @@ var Transformer = React.createClass({
         // the point that we move around the center of rotation to actually
         // cause rotations
         this.rotateHandle = graphie.addMovablePoint({
-            coord: kpoint.addVector(options.coord, [1, 0]),
+            coord: KhanUtil.kpoint.addVector(options.coord, [1, 0]),
             constraints: {
                 fixedDistance: {
                     dist: this.scaleToCurrentRange(1),
