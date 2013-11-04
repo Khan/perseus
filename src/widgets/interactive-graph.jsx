@@ -3,7 +3,8 @@
 
 var InfoTip = Perseus.InfoTip;
 var DeprecationMixin = Perseus.Util.DeprecationMixin;
-var GraphSettings = Perseus.GraphComponents.GraphSettings;
+var GraphSettings = Perseus.Components.GraphSettings;
+var Graph = Perseus.Components.Graph;
 
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
@@ -266,8 +267,8 @@ var InteractiveGraph = React.createClass({
             this["remove" + capitalize(oldType) + "Controls"]();
             this["add" + capitalize(newType) + "Controls"]();
         }
-        if (this.shouldSetupGraphie) {
-            this.setupGraphie();
+        if (this.shouldResetGraphie) {
+            this.resetGraphie();
         }
     },
 
@@ -457,18 +458,33 @@ var InteractiveGraph = React.createClass({
             image = null;
         }
 
+        var onClick = this.isClickToAddPoints() ?
+            this.handleAddPointsClick :
+            null;
+
         return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                     style={{
                         width: box[0],
                         height: this.props.flexibleType ? "auto" : box[1]
                     }}>
-            <div className="graphie-container">
-                {image}
-                <div className="graphie" ref="graphieDiv" />
-            </div>
+            <Graph
+                ref="graph"
+                box={this.props.box}
+                range={this.props.range}
+                step={this.props.step}
+                markings={this.props.markings}
+                backgroundImage={this.props.backgroundImage}
+                showProtractor={this.props.showProtractor}
+                onClick={onClick}
+                onNewGraphie={this.setGraphie} />
             {typeSelect}{extraOptions}
         </div>;
+    },
+
+    setGraphie: function(newGraphie) {
+        this.graphie = newGraphie;
+        this.setupGraphie();
     },
 
     handleAddPointsClick: function(coord) {
@@ -486,68 +502,13 @@ var InteractiveGraph = React.createClass({
         }
     },
 
-    componentDidMount: function() {
-        this.setupGraphie();
-    },
-
-    getGridConfig: function() {
-        var self = this;
-        return _.map(self.props.step, function(step, i) {
-            return Perseus.Util.gridDimensionConfig(
-                    step,
-                    self.props.range[i],
-                    self.props.box[i]);
-        });
+    resetGraphie: function() {
+        this.shouldResetGraphie = false;
+        this.refs.graph.reset();
     },
 
     setupGraphie: function() {
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
-        $(graphieDiv).empty();
-        var range = this.props.range;
-        var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
-        this.shouldSetupGraphie = false;
-
-        var gridConfig = this.getGridConfig();
-        graphie.snap = _.pluck(gridConfig, "snap");
-
-        if (this.props.markings === "graph") {
-            graphie.graphInit({
-                range: range,
-                scale: _.pluck(gridConfig, "scale"),
-                axisArrows: "<->",
-                labelFormat: function(s) { return "\\small{" + s + "}"; },
-                gridStep: _.pluck(gridConfig, "gridStep"),
-                tickStep: _.pluck(gridConfig, "tickStep"),
-                labelStep: 1,
-                unityLabels: _.pluck(gridConfig, "unityLabel")
-            });
-            graphie.label([0, range[1][1]], "y", "above");
-            graphie.label([range[0][1], 0], "x", "right");
-        } else if (this.props.markings === "grid") {
-            graphie.graphInit({
-                range: range,
-                scale: _.pluck(gridConfig, "scale"),
-                gridStep: _.pluck(gridConfig, "gridStep"),
-                axes: false,
-                ticks: false,
-                labels: false
-            });
-        } else if (this.props.markings === "none") {
-            graphie.init({
-                range: range,
-                scale: _.pluck(gridConfig, "scale")
-            });
-        }
-
-        var onClick = this.isClickToAddPoints() ?
-            this.handleAddPointsClick :
-            null;
-
-        graphie.addMouseLayer({
-            onClick: onClick
-        });
-
-        this.updateProtractor();
+        var graphie = this.graphie;
 
         if (this.isClickToAddPoints()) {
             var lowerLeft = graphie.unscalePoint([graphie.xpixels - 40,
@@ -567,22 +528,8 @@ var InteractiveGraph = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(this.props.range, nextProps.range)) {
-            this.shouldSetupGraphie = true;
-        }
-        if (!_.isEqual(this.props.step, nextProps.step)) {
-            this.shouldSetupGraphie = true;
-        }
-        if (!_.isEqual(this.props.markings, nextProps.markings)) {
-            this.shouldSetupGraphie = true;
-        }
-
-        if (!_.isEqual(this.props.showProtractor, nextProps.showProtractor)) {
-            this.shouldSetupGraphie = true;
-        }
-
         if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
-            this.shouldSetupGraphie = true;
+            this.shouldResetGraphie = true;
         }
     },
 
@@ -1378,17 +1325,6 @@ var InteractiveGraph = React.createClass({
                 " at (" + coords[1].join(", ") + ")";
     },
 
-    updateProtractor: function() {
-        if (this.protractor) {
-            this.protractor.remove();
-        }
-
-        if (this.props.showProtractor) {
-            var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
-            this.protractor = this.graphie.protractor(coord);
-        }
-    },
-
     toggleShowAngles: function() {
         var graph = _.extend({}, this.props.graph, {
             showAngles: !this.props.graph.showAngles
@@ -1534,7 +1470,7 @@ _.extend(InteractiveGraph, {
         coords = InteractiveGraph.normalizeCoords(coords, range);
 
         var snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
-        coords = component.pointsFromNormalized(coords, 
+        coords = component.pointsFromNormalized(coords,
             /* noSnap */ !snapToGrid);
 
         return coords;

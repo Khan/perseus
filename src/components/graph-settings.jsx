@@ -266,7 +266,7 @@ var GraphSettings = React.createClass({
 
 });
 
-Perseus.GraphComponents = Perseus.GraphComponents || {};
-Perseus.GraphComponents.GraphSettings = GraphSettings;
+Perseus.Components = Perseus.Components || {};
+Perseus.Components.GraphSettings = GraphSettings;
 
 })(Perseus);

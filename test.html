@@ -64,6 +64,9 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/ke/local-only/jquery.qtip.js"></script>
 <script src="/ke/utils/answer-types.js"></script>
 <script src="/ke/utils/math.js"></script>
+<script src="/ke/utils/kvector.js"></script>
+<script src="/ke/utils/kpoint.js"></script>
+<script src="/ke/utils/kline.js"></script>
 
 <script src="/ke/utils/tmpl.js"></script>
 <script src="/ke/third_party/raphael.js"></script>
@@ -82,6 +85,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/build/src/editor.js"></script>
 <script src="/src/widgets.js"></script>
 <script src="/build/src/components/graph-settings.js"></script>
+<script src="/build/src/components/graph.js"></script>
 <script src="/build/src/widgets/input-number.js"></script>
 <script src="/build/src/widgets/interactive-graph.js"></script>
 <script src="/build/src/widgets/interactive-number-line.js"></script>
@@ -93,6 +97,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/build/src/widgets/plotter.js"></script>
 <script src="/build/src/widgets/expression.js"></script>
 <script src="/build/src/widgets/orderer.js"></script>
+<script src="/build/src/widgets/transformer.js"></script>
 <script src="/build/src/answer-area-editor.js"></script>
 <script src="/build/src/hint-editor.js"></script>
 <script src="/build/src/item-renderer.js"></script>
@@ -109,6 +114,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/src/editor.jsx" type="text/jsx"></script>
 <script src="/src/widgets.js"></script>
 <script src="/src/components/graph-settings.jsx" type="text/jsx"></script>
+<script src="/src/components/graph.jsx" type="text/jsx"></script>
 <script src="/src/widgets/input-number.jsx" type="text/jsx"></script>
 <script src="/src/widgets/interactive-graph.jsx" type="text/jsx"></script>
 <script src="/src/widgets/interactive-number-line.jsx" type="text/jsx"></script>
@@ -120,6 +126,7 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/src/widgets/plotter.jsx" type="text/jsx"></script>
 <script src="/src/widgets/expression.jsx" type="text/jsx"></script>
 <script src="/src/widgets/orderer.jsx" type="text/jsx"></script>
+<script src="/src/widgets/transformer.jsx" type="text/jsx"></script>
 <script src="/src/answer-area-editor.jsx" type="text/jsx"></script>
 <script src="/src/hint-editor.jsx" type="text/jsx"></script>
 <script src="/src/item-renderer.jsx" type="text/jsx"></script>
@@ -143,62 +150,139 @@ Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.EditorPage(
     {
         "question": {
-            "content": "![](http://img.sparknotes.com/figures/9/9468de070d794b4c203fe8a51bd73917/sampleproof.gif)\n\n[[☃ orderer 1]]",
+            "content": "[[☃ transformer 1]]",
             "widgets": {
-                "orderer 1": {
+                "transformer 1": {
                     "options": {
-                        "options": [
-                            {
-                                "content": "Angles AMB and DMC are congruent."
+                        "grading": "shape",
+                        "starting": {
+                            "shape": {
+                                "type": "polygon",
+                                "coords": [
+                                    [
+                                        2,
+                                        2
+                                    ],
+                                    [
+                                        2,
+                                        6
+                                    ],
+                                    [
+                                        7,
+                                        2
+                                    ]
+                                ]
                             },
-                            {
-                                "content": "Not part of the proof!"
+                            "transformations": []
+                        },
+                        "tools": {
+                            "translation": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": true
+                                }
                             },
-                            {
-                                "content": "Segment AD bisects segment BC."
+                            "rotation": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": false
+                                },
+                                "coord": [
+                                    1,
+                                    6
+                                ]
                             },
-                            {
-                                "content": "Segment BC bisects segment AD."
+                            "reflection": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": false
+                                },
+                                "coords": [
+                                    [
+                                        1,
+                                        1
+                                    ],
+                                    [
+                                        3,
+                                        3
+                                    ]
+                                ]
                             },
-                            {
-                                "content": "Segments AM and MD are congruent."
-                            },
-                            {
-                                "content": "Segments BM and CM are congruent."
-                            },
-                            {
-                                "content": "Triangles ABM and DCM are congruent."
+                            "dilation": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": false
+                                },
+                                "coord": [
+                                    6,
+                                    6
+                                ]
                             }
-                        ],
-                        "correctOptions": [
-                            {
-                                "content": "Segment AD bisects segment BC."
+                        },
+                        "drawSolutionShape": true,
+                        "graph": {
+                            "range": [
+                                [
+                                    -10,
+                                    10
+                                ],
+                                [
+                                    -10,
+                                    10
+                                ]
+                            ],
+                            "step": [
+                                1,
+                                1
+                            ],
+                            "markings": "grid",
+                            "backgroundImage": {
+                                "url": null,
+                                "scale": 1,
+                                "bottom": 0,
+                                "left": 0
                             },
-                            {
-                                "content": "Segments AM and MD are congruent."
-                            },
-                            {
-                                "content": "Segment BC bisects segment AD."
-                            },
-                            {
-                                "content": "Segments BM and CM are congruent."
-                            },
-                            {
-                                "content": "Angles AMB and DMC are congruent."
-                            },
-                            {
-                                "content": "Triangles ABM and DCM are congruent."
+                            "showProtractor": false
+                        },
+                        "version": 1,
+                        "correct": {
+                            "transformations": [
+                                {
+                                    "type": "rotation",
+                                    "center": [
+                                        1,
+                                        6
+                                    ],
+                                    "angleDeg": -90
+                                },
+                                {
+                                    "type": "translation",
+                                    "vector": [
+                                        -4.5,
+                                        0
+                                    ]
+                                }
+                            ],
+                            "shape": {
+                                "type": "polygon",
+                                "coords": [
+                                    [
+                                        -7.5,
+                                        5.000000000000002
+                                    ],
+                                    [
+                                        -3.5,
+                                        5
+                                    ],
+                                    [
+                                        -7.500000000000003,
+                                        2.6645352591003757e-15
+                                    ]
+                                ]
                             }
-                        ],
-                        "otherOptions": [
-                            {
-                                "content": "Not part of the proof!"
-                            }
-                        ],
-                        "height": "normal",
-                        "layout": "vertical"
+                        }
                     },
-                    "type": "orderer"
+                    "type": "transformer"
                 }
             }
         },
