@@ -1,9 +1,6 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
-// enable or disable the new, experimental transformation explorer widget
-var ENABLE_TRANSFORMER = false;
-
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
@@ -199,9 +196,8 @@ var Editor = Perseus.Editor = React.createClass({
                         Orderer</option>
                 <option value="protractor">
                         Protractor</option>
-                {ENABLE_TRANSFORMER &&
-                    <option value="transformer">
-                        Transformation explorer</option>}
+                <option value="transformer">
+                        Transformer</option>
             </select>;
 
             templatesDropDown = <select onChange={this.addTemplate}>
