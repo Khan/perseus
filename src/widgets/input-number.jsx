@@ -29,8 +29,8 @@ var answerTypes = {
         forms: "integer, proper, mixed"
     },
     percent: {
-        name: "Percents",
-        forms: "decimal, proper, improper, mixed, percent"
+        name: "Numbers or percents",
+        forms: "integer, decimal, proper, improper, mixed, percent"
     },
     pi: {
         name: "Numbers with pi", forms: "pi"
