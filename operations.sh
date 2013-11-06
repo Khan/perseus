@@ -31,7 +31,7 @@ case $1 in
         ;;
 
     put-js)
-        cp build/perseus.min.js "$webapp/javascript/perseus-package"
+        cp build/perseus{,.min}.js "$webapp/javascript/perseus-package"
         ;;
 
     put-css)
