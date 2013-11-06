@@ -28,7 +28,13 @@ var HintsRenderer = React.createClass({
 var ItemRenderer = Perseus.ItemRenderer = React.createClass({
     getDefaultProps: function() {
         return {
-            initialHintsVisible: 0
+            initialHintsVisible: 0,
+
+            // TODO(joel) - handle this differently. Pass around nodes or
+            // something half reasonable.
+            workAreaSelector: "#workarea",
+            solutionAreaSelector: "#solutionarea",
+            hintsAreaSelector: "#hintsarea"
         };
     },
 
@@ -51,10 +57,9 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-
         this.questionRenderer = React.renderComponent(
                 Perseus.Renderer(this.props.item.question),
-                document.getElementById("workarea"));
+                document.querySelector(this.props.workAreaSelector));
 
         this.answerAreaRenderer = React.renderComponent(
                 AnswerAreaRenderer({
@@ -63,14 +68,14 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                     calculator: this.props.item.answerArea.calculator || false,
                     problemNum: this.props.problemNum
                 }),
-                document.getElementById("solutionarea"));
+                document.querySelector(this.props.solutionAreaSelector));
 
         this.hintsRenderer = React.renderComponent(
                 HintsRenderer({
                     hints: this.props.item.hints,
                     hintsVisible: this.state.hintsVisible
                 }),
-                document.getElementById("hintsarea"));
+                document.querySelector(this.props.hintsAreaSelector));
 
         if (Khan.scratchpad) {
             if (_.isEmpty(this.props.item.question.widgets)) {
@@ -92,11 +97,11 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
 
     componentWillUnmount: function() {
         React.unmountAndReleaseReactRootNode(
-                document.getElementById("workarea"));
+                document.querySelector(this.props.workAreaSelector));
         React.unmountAndReleaseReactRootNode(
-                document.getElementById("solutionarea"));
+                document.querySelector(this.props.solutionAreaSelector));
         React.unmountAndReleaseReactRootNode(
-                document.getElementById("hintsarea"));
+                document.querySelector(this.props.hintsAreaSelector));
     },
 
     showHint: function() {

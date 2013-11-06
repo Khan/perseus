@@ -44,7 +44,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         ref: "questionEditor",
                         className: "perseus-question-editor",
                         onChange: function(newProps, cb) {
-                            var question = _.extend({}, 
+                            var question = _.extend({},
                                     this.state.question, newProps);
                             this.setState({question: question}, cb);
                         }.bind(this)
@@ -53,8 +53,10 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
 
                 <div className="perseus-editor-right-cell">
                     <div id="problemarea">
-                        <div id="workarea"></div>
-                        <div id="hintsarea" style={{display: "none"}} />
+                        <div id="workarea" className="workarea" />
+                        <div id="hintsarea"
+                             className="hintsarea"
+                             style={{display: "none"}} />
                     </div>
                 </div>
             </div>
@@ -76,7 +78,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         <span id="examples-show" style={{display: "none"}}>
                             Acceptable formats
                         </span>
-                        <div id="solutionarea"></div>
+                        <div id="solutionarea" className="solutionarea" />
                         <div className="answer-buttons">
                             <input
                                 type="button"

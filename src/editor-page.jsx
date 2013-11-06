@@ -33,10 +33,18 @@ Perseus.EditorPage = React.createClass({
             this.props.onChange(obj);
         }
 
-        this.renderer = React.renderComponent(Perseus.ItemRenderer({
+        var rendererConfig = _({
             item: obj,
             initialHintsVisible: 0  /* none; to be displayed below */
-        }), this.rendererMountNode);
+        }).extend(
+            _(this.props).pick("workAreaSelector",
+                               "solutionAreaSelector",
+                               "hintsAreaSelector")
+        );
+
+        this.renderer = React.renderComponent(
+            Perseus.ItemRenderer(rendererConfig),
+            this.rendererMountNode);
     },
 
     scorePreview: function() {
