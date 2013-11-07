@@ -351,7 +351,7 @@ var Transformer = React.createClass({
                 this.props.graph
         );
 
-        return <div className={"perseus-widget" +
+        return <div className={"perseus-widget " +
                         "perseus-widget-transformer"}>
             <button
                 className="simple-button orange"
