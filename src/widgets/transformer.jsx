@@ -355,6 +355,7 @@ var Transformer = React.createClass({
                         "perseus-widget-transformer"}>
             <button
                 className="simple-button orange"
+                type="button"
                 onClick={this.resetTransformations}>
                 Reset
             </button>
