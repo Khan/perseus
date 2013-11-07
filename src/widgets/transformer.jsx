@@ -165,7 +165,7 @@ var ShapeTypes = {
         var points = _.map(options.shape.coords, function(coord) {
             return graphie.addMovablePoint(_.extend({}, options, {
                 constraints: {
-                    fixed: options.fixed
+                    fixed: options.fixedPoints
                 },
                 coord: coord,
                 normalStyle: options.pointStyle,
@@ -456,6 +456,7 @@ var TransformationsShapeEditor = React.createClass({
 
     setupGraphie: function(graphie) {
         this.shape = ShapeTypes.addMovableShape(graphie, {
+            fixedPoints: false,
             shape: this.props.shape,
             onMoveEnd: this.updateCoords
         });
@@ -595,6 +596,7 @@ var Transformer = React.createClass({
         // the polygon that we transform
         this.shape = ShapeTypes.addMovableShape(graphie, {
             shape: this.props.starting.shape,
+            fixedPoints: true,
             fixed: !this.props.tools.translation.enabled,
             onMove: function (dX, dY) {
                 dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
