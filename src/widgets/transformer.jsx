@@ -18,6 +18,10 @@ var defaultBackgroundImage = {
     left: 0,
 };
 
+function arraySum(array) {
+    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
+}
+
 var defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
     var range = setProps.range || [[-10, 10], [-10, 10]];
@@ -34,6 +38,19 @@ var defaultGraphProps = function(setProps, boxSize) {
         showProtractor: false
     };
 };
+
+/* Scales a distance from the default range of
+ * [-10, 10] to a given props.range pair
+ *
+ * Used for sizing various transformation tools
+ * (rotation handle, dilation circle)
+ */
+function scaleToRange(dist, range) {
+    var spreadX = range[0][1] - range[0][0];
+    var spreadY = range[1][1] - range[1][0];
+
+    return dist * Math.max(spreadX, spreadY) / 20;
+}
 
 function dilatePointFromCenter(point, dilationCenter, scale) {
     var pv = KhanUtil.kvector.subtract(point, dilationCenter);
@@ -126,6 +143,111 @@ var Transformations = {
             var scaleString = stringFromFraction(transform.scale);
             return "Dilation of scale " + scaleString + " about " +
                     stringFromPoint(transform.center);
+        }
+    }
+};
+
+
+/* Various functions to deal with different shape types */
+var ShapeTypes = {
+    getPointCountForType: function(type) {
+        var splitType = type.split("-");
+        if (splitType[0] === "polygon") {
+            return splitType[1] || 3;
+        } else if (splitType[0] === "line") {
+            return 2;
+        } else if (splitType[0] === "point") {
+            return 1;
+        }
+    },
+
+    addMovableShape: function(graphie, options) {
+        var points = _.map(options.shape.coords, function(coord) {
+            return graphie.addMovablePoint(_.extend({}, options, {
+                constraints: {
+                    fixed: options.fixed
+                },
+                coord: coord,
+                normalStyle: options.pointStyle,
+                highlightStyle: options.pointStyle
+            }));
+        });
+
+        return ShapeTypes.addShape(graphie, options, points);
+    },
+
+    addShape: function(graphie, options, points) {
+        points = points || options.shape.coords;
+
+        var types = options.shape.type;
+        if (!_.isArray(types)) {
+            types = [types];
+        }
+        var nextPoints = _.clone(points);
+
+        var transformFuncs = _.map(types, function(type) {
+            var pointCount = ShapeTypes.getPointCountForType(type);
+            var points = _.first(nextPoints, pointCount);
+            nextPoints = _.rest(nextPoints, pointCount);
+            return ShapeTypes.addType(graphie, type, points, options);
+        });
+
+        transformFuncs = _.filter(transformFuncs, _.identity);
+        var transform = function() {
+            for (var i = 0; i < transformFuncs.length; i++) {
+                transformFuncs[i]();
+            }
+        };
+
+        return {
+            type: types,
+            points: points,
+            update: transform
+        };
+    },
+
+    addType: function(graphie, type, points, options) {
+        var lineCoords = _.isArray(points[0]) ? {
+            coordA: points[0],
+            coordZ: points[1],
+        } : {
+            pointA: points[0],
+            pointZ: points[1],
+        };
+
+        type = type.split("-")[0];
+        if (type === "polygon") {
+            var polygon = graphie.addMovablePolygon(_.extend({}, options, {
+                points: points,
+                constrainToGraph: false
+            }));
+            return _.bind(polygon.transform, polygon);
+        } else if (type === "line") {
+            var line = graphie.addMovableLineSegment(
+                    _.extend({}, options, lineCoords, {
+                movePointsWithLine: true,
+                fixed: options.fixed,
+                constraints: {
+                    fixed: options.fixed
+                },
+                extendLine: true
+            }));
+            return _.bind(line.transform, line, true);
+        } else if (type === "lineSegment") {
+            var line = graphie.addMovableLineSegment(
+                    _.extend({}, options, lineCoords, {
+                movePointsWithLine: true,
+                fixed: options.fixed,
+                constraints: {
+                    fixed: options.fixed
+                },
+                extendLine: false
+            }));
+            return _.bind(line.transform, line, true);
+        } else if (type === "point") {
+            // do nothing
+        } else {
+            throw new Error("Invalid shape type " + type);
         }
     }
 };
@@ -260,7 +382,55 @@ var TransformationsShapeEditor = React.createClass({
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
                 onNewGraphie={this.setupGraphie} />
+            <select
+                    key="type-select"
+                    value={this.getTypeString(this.props.type)}
+                    onChange={this.changeType} >
+                <option value="polygon-3">Triangle</option>
+                <option value="polygon-4">Quadrilateral</option>
+                <option value="polygon-5">Pentagon</option>
+                <option value="polygon-6">Hexagon</option>
+                <option value="line">Line</option>
+                <option value="line,line">2 lines</option>
+            </select>
         </div>;
+    },
+
+    /* Return the option string for a given type */
+    getTypeString: function(type) {
+        if (_.isArray(type)) {
+            return _.map(type, this.getTypeString).join(",");
+        } else if (type === "polygon") {
+            return "polygon-" + this.props.shape.coords.length;
+        } else {
+            return type;
+        }
+    },
+
+    /* Change the type on the window event e
+     *
+     * e.target.value is the new type string
+     */
+    changeType: function(e) {
+        var types = String(e.target.value).split(",");
+        var pointCount = arraySum(_.map(
+                types,
+                ShapeTypes.getPointCountForType
+        ));
+
+        var radius = scaleToRange(4, this.refs.graph.props.range);
+        var offset = (1 / 2 - 1 / pointCount) * 180;
+        var coords = _.times(pointCount, function(i) {
+            return KhanUtil.kpoint.rotateDeg([radius, 0],
+                360 * i / pointCount + offset);
+        });
+
+        this.props.onChange({
+            shape: {
+                type: types,
+                coords: coords
+            }
+        });
     },
 
     componentWillReceiveProps: function(newProps) {
@@ -269,7 +439,7 @@ var TransformationsShapeEditor = React.createClass({
         }
     },
 
-    componentDidMount: function() {
+    componentDidUpdate: function() {
         if (this.shouldSetupGraphie) {
             this.refs.graph.reset();
         }
@@ -278,24 +448,19 @@ var TransformationsShapeEditor = React.createClass({
     updateCoords: function() {
         this.props.onChange({
             shape: {
-                type: "polygon",
-                coords: _.pluck(this.points, "coord")
+                type: this.props.shape.type,
+                coords: _.pluck(this.shape.points, "coord")
             }
         });
     },
 
     setupGraphie: function(graphie) {
-        this.points = _.map(this.props.shape.coords, function(coord) {
-            return graphie.addMovablePoint({
-                coord: coord,
-                onMoveEnd: this.updateCoords
-            });
-        }, this);
-        this.polygon = graphie.addMovablePolygon({
-            points: this.points,
+        this.shape = ShapeTypes.addMovableShape(graphie, {
+            shape: this.props.shape,
             onMoveEnd: this.updateCoords
         });
-    }
+    },
+
 });
 
 /* Display a transformation's text description
@@ -416,9 +581,9 @@ var Transformer = React.createClass({
         if (this.props.drawSolutionShape &&
                 this.props.correct.shape &&
                 this.props.correct.shape.coords) {
-            graphie.addMovablePolygon({
+            ShapeTypes.addShape(graphie, {
                 fixed: true,
-                points: this.props.correct.shape.coords,
+                shape: self.props.correct.shape,
                 normalStyle: {
                     stroke: KhanUtil.GRAY,
                     "stroke-dasharray": "",
@@ -427,24 +592,9 @@ var Transformer = React.createClass({
             });
         }
 
-        // the movablePoints of our polygon
-        var coords = this.props.starting.shape.coords;
-        this.points = _.map(coords, function(coord) {
-            return graphie.addMovablePoint({
-                coord: coord,
-                constraints: {
-                    fixed: true
-                },
-                normalStyle: {
-                    fill: KhanUtil.BLUE,
-                    stroke: KhanUtil.BLUE
-                }
-            });
-        });
-
         // the polygon that we transform
-        this.polygon = graphie.addMovablePolygon({
-            points: this.points,
+        this.shape = ShapeTypes.addMovableShape(graphie, {
+            shape: this.props.starting.shape,
             fixed: !this.props.tools.translation.enabled,
             onMove: function (dX, dY) {
                 dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
@@ -457,7 +607,10 @@ var Transformer = React.createClass({
                     vector: [dX, dY]
                 });
             },
-            constrainToGraph: false
+            pointStyle: {
+                fill: KhanUtil.BLUE,
+                stroke: KhanUtil.BLUE
+            }
         });
 
         this.addRotationTool(this.props.tools.rotation);
@@ -573,13 +726,7 @@ var Transformer = React.createClass({
      * (rotation handle, dilation circle)
      */
     scaleToCurrentRange: function(dist) {
-        var graph = this.refs.graph;
-        var range = graph.props.range;
-        var graphie = graph.graphie();
-        var spreadX = range[0][1] - range[0][0];
-        var spreadY = range[1][1] - range[1][0];
-
-        return dist * Math.max(spreadX, spreadY) / 20;
+        return scaleToRange(dist, this.refs.graph.props.range);
     },
 
     addRotationTool: function(options) {
@@ -765,11 +912,11 @@ var Transformer = React.createClass({
 
     // transform our polygon by transforming each point using a given function
     applyCoordTransformation: function(pointTransform) {
-        _.each(this.polygon.points, function(point) {
+        _.each(this.shape.points, function(point) {
             var newCoord = pointTransform(point.coord);
             point.setCoord(newCoord);
         });
-        this.polygon.transform();
+        this.shape.update();
     },
 
     // kill all transformations, resetting to the initial state
@@ -813,8 +960,8 @@ var Transformer = React.createClass({
         json.answer = {
             transformations: this.props.transformations,
             shape: {
-                type: "polygon",
-                coords: _.pluck(this.points, "coord")
+                type: this.shape.type,
+                coords: _.pluck(this.shape.points, "coord")
             }
         };
         json.version = 1; // give us some safety to change the format
