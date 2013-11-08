@@ -980,14 +980,16 @@ _.extend(Transformer, {
         // but we don't use that setting yet. this is because reflections
         // have many equivalent lines represented by different arrays, so
         // we'll need a better traversal with that knowledge
-        if (deepEq(guess.answer[grading], rubric.correct[grading])) {
+        if (deepEq(guess.answer.shape.coords,
+                rubric.correct.shape.coords)) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
                 message: null
             };
-        } else if (deepEq(guess.answer[grading], rubric.starting[grading])) {
+        } else if (deepEq(guess.answer.shape.coords,
+                rubric.starting.shape.coords)) {
             return {
                 type: "invalid",
                 message: null
