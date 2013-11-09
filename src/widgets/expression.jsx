@@ -209,6 +209,7 @@ var Expression = React.createClass({
             $._("For $x^{y}$, enter **x^y**"),
             $._("For $\\sqrt{x}$, enter **sqrt(x)**"),
             $._("For $\\pi$, enter **pi**"),
+            $._("For $\\sin \\theta$, enter **sin(theta)**"),
             $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
             $._("For $\\neq$, enter **=/=**")
         ];
