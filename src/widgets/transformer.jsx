@@ -222,7 +222,7 @@ var ShapeTypes = {
                 constrainToGraph: false
             }));
             return _.bind(polygon.transform, polygon);
-        } else if (type === "line") {
+        } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
                     _.extend({}, options, lineCoords, {
                 movePointsWithLine: true,
@@ -230,18 +230,7 @@ var ShapeTypes = {
                 constraints: {
                     fixed: options.fixed
                 },
-                extendLine: true
-            }));
-            return _.bind(line.transform, line, true);
-        } else if (type === "lineSegment") {
-            var line = graphie.addMovableLineSegment(
-                    _.extend({}, options, lineCoords, {
-                movePointsWithLine: true,
-                fixed: options.fixed,
-                constraints: {
-                    fixed: options.fixed
-                },
-                extendLine: false
+                extendLine: (type === "line")
             }));
             return _.bind(line.transform, line, true);
         } else if (type === "point") {
