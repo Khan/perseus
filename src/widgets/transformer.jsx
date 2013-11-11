@@ -379,8 +379,6 @@ var TransformationsShapeEditor = React.createClass({
                 <option value="polygon-4">Quadrilateral</option>
                 <option value="polygon-5">Pentagon</option>
                 <option value="polygon-6">Hexagon</option>
-                <option value="line">Line</option>
-                <option value="line,line">2 lines</option>
             </select>
         </div>;
     },
