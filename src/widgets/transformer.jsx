@@ -440,7 +440,7 @@ var TransformationsShapeEditor = React.createClass({
                 onNewGraphie={this.setupGraphie} />
             <select
                     key="type-select"
-                    value={this.getTypeString(this.props.type)}
+                    value={this.getTypeString(this.props.shape.type)}
                     onChange={this.changeType} >
                 <option value="polygon-3">Triangle</option>
                 <option value="polygon-4">Quadrilateral</option>
