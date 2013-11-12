@@ -22,6 +22,28 @@ function arraySum(array) {
     return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
 }
 
+/* Does a pluck on keys inside objects in an object
+ *
+ * Ex:
+ * tools = {
+ *     translation: {
+ *         enabled: true
+ *     },
+ *     rotation: {
+ *         enabled: false
+ *     }
+ * };
+ * pluckObject(tools, "enabled") returns {
+ *     translation: true
+ *     rotation: false
+ * }
+ */
+function pluckObject(object, subKey) {
+    return _.object(_.map(object, function (value, key) {
+        return [key, value[subKey]];
+    }));
+}
+
 var defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
     var range = setProps.range || [[-10, 10], [-10, 10]];
@@ -84,6 +106,25 @@ function stringFromVector(vector) {
 }
 
 var Transformations = {
+    ALL: [
+        {
+            id: "translation",
+            verbName: "Translate"
+        },
+        {
+            id: "rotation",
+            verbName: "Rotate"
+        },
+        {
+            id: "reflection",
+            verbName: "Reflect"
+        },
+        {
+            id: "dilation",
+            verbName: "Dilate"
+        }
+    ],
+
     apply: function(transform) {
         return Transformations[transform.type].apply(transform);
     },
@@ -173,7 +214,13 @@ var ShapeTypes = {
             }));
         });
 
-        return ShapeTypes.addShape(graphie, options, points);
+        var shape = ShapeTypes.addShape(graphie, options, points);
+        var removeShapeWithoutPoints = shape.remove;
+        shape.remove = function() {
+            removeShapeWithoutPoints.apply(shape);
+            _.invoke(points, "remove");
+        };
+        return shape;
     },
 
     addShape: function(graphie, options, points) {
@@ -185,24 +232,34 @@ var ShapeTypes = {
         }
         var nextPoints = _.clone(points);
 
-        var transformFuncs = _.map(types, function(type) {
+        var shapes = _.map(types, function(type) {
             var pointCount = ShapeTypes.getPointCountForType(type);
             var points = _.first(nextPoints, pointCount);
             nextPoints = _.rest(nextPoints, pointCount);
             return ShapeTypes.addType(graphie, type, points, options);
         });
 
-        transformFuncs = _.filter(transformFuncs, _.identity);
-        var transform = function() {
-            for (var i = 0; i < transformFuncs.length; i++) {
-                transformFuncs[i]();
-            }
+        var updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
+        var update = function() {
+            _.invoke(updateFuncs, "call");
+        };
+
+        var removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
+        var remove = function() {
+            _.invoke(removeFuncs, "call");
         };
 
         return {
             type: types,
             points: points,
-            update: transform
+            update: update,
+            remove: remove,
+            toJSON: function() {
+                return {
+                    type: types,
+                    coords: _.pluck(points, "coord")
+                };
+            }
         };
     },
 
@@ -221,7 +278,10 @@ var ShapeTypes = {
                 points: points,
                 constrainToGraph: false
             }));
-            return _.bind(polygon.transform, polygon);
+            return {
+                update: _.bind(polygon.transform, polygon),
+                remove: _.bind(polygon.remove, polygon)
+            };
         } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
                     _.extend({}, options, lineCoords, {
@@ -232,9 +292,16 @@ var ShapeTypes = {
                 },
                 extendLine: (type === "line")
             }));
-            return _.bind(line.transform, line, true);
+            return {
+                update: _.bind(line.transform, line, true),
+                remove: _.bind(line.remove, line)
+            };
         } else if (type === "point") {
             // do nothing
+            return {
+                update: null,
+                remove: null
+            };
         } else {
             throw new Error("Invalid shape type " + type);
         }
@@ -465,6 +532,58 @@ var TransformationItem = React.createClass({
     }
 });
 
+var ToolButton = React.createClass({
+    render: function() {
+        var classes = "simple-button blue";
+        if (this.props.toggled) {
+            classes += " toggled";
+        }
+        return <button
+                type="button"
+                className={classes}
+                onClick={this.props.onClick}>
+            {this.props.displayName}
+        </button>;
+    }
+});
+
+var ToolsBar = React.createClass({
+    getInitialState: function() {
+        return {
+            selected: null
+        };
+    },
+
+    render: function() {
+        var tools = _.map(Transformations.ALL, function(tool) {
+            if (this.props.enabled[tool.id]) {
+                return <ToolButton
+                    displayName={tool.verbName}
+                    toggled={this.state.selected === tool.id}
+                    onClick={_.bind(this.changeSelected, null, tool.id)} />;
+            }
+        }, this);
+
+        return <div>
+            {tools}
+        </div>;
+    },
+
+    changeSelected: function(tool) {
+        this.props.removeTool(this.state.selected);
+        if (!tool || tool === this.state.selected) {
+            this.setState({
+                selected: null
+            });
+        } else {
+            this.props.addTool(tool);
+            this.setState({
+                selected: tool
+            });
+        }
+    }
+});
+
 var Transformer = React.createClass({
     // TODO (jack): These should be refactored into a nice object at the top
     // so that we don't have all this duplication
@@ -521,6 +640,11 @@ var Transformer = React.createClass({
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
                 onNewGraphie={this.setupGraphie} />
+            <ToolsBar
+                ref="toolsBar"
+                enabled={pluckObject(this.props.tools, "enabled")}
+                addTool={this.addTool}
+                removeTool={this.removeTool} />
 
             {transformationList}
 
@@ -562,7 +686,7 @@ var Transformer = React.createClass({
     setupGraphie: function() {
         var self = this;
 
-        var graphie = this.refs.graph.graphie();
+        var graphie = this.graphie();
         this.shouldSetupGraphie = false;
 
         // A background image of our solution:
@@ -580,33 +704,9 @@ var Transformer = React.createClass({
             });
         }
 
-        // the polygon that we transform
-        this.shape = ShapeTypes.addMovableShape(graphie, {
-            shape: this.props.starting.shape,
-            fixedPoints: true,
-            fixed: !this.props.tools.translation.enabled,
-            onMove: function (dX, dY) {
-                dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
-                dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
-                return [dX, dY];
-            },
-            onMoveEnd: function(dX, dY) {
-                self.addTransform({
-                    type: "translation",
-                    vector: [dX, dY]
-                });
-            },
-            pointStyle: {
-                fill: KhanUtil.BLUE,
-                stroke: KhanUtil.BLUE
-            }
-        });
-
-        this.addRotationTool(this.props.tools.rotation);
-
-        this.addReflectionTool(this.props.tools.reflection);
-
-        this.addDilationTool(this.props.tools.dilation);
+        this.currentTool = null;
+        this.refs.toolsBar.changeSelected(null);
+        this.addShape(true, this.props.starting.shape);
 
         // apply any transformations we received in props
         this.transformations = _.clone(this.props.transformations);
@@ -627,7 +727,69 @@ var Transformer = React.createClass({
         };
     },
 
-    addReflectionTool: function(options) {
+    addShape: function(fixed, shape) {
+        var self = this;
+        var graphie = this.graphie();
+        // the polygon that we transform
+        this.shape = ShapeTypes.addMovableShape(graphie, {
+            shape: shape,
+            fixedPoints: true,
+            fixed: fixed,
+            onMove: function (dX, dY) {
+                dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
+                dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
+                return [dX, dY];
+            },
+            onMoveEnd: function(dX, dY) {
+                self.addTransform({
+                    type: "translation",
+                    vector: [dX, dY]
+                });
+            },
+            pointStyle: {
+                fill: KhanUtil.BLUE,
+                stroke: KhanUtil.BLUE
+            }
+        });
+    },
+
+    addTool: function(toolId) {
+        if (toolId === "translation") {
+            this.currentTool = this.addTranslationTool();
+        } else if (toolId === "rotation") {
+            this.currentTool = this.addRotationTool();
+        } else if (toolId === "reflection") {
+            this.currentTool = this.addReflectionTool();
+        } else if (toolId === "dilation") {
+            this.currentTool = this.addDilationTool();
+        } else {
+            throw new Error("Invalid tool id: " + toolId);
+        }
+    },
+
+    removeTool: function(toolId) {
+        if (this.currentTool) {
+            this.currentTool.remove();
+        }
+        this.currentTool = null;
+    },
+
+    addTranslationTool: function() {
+        var self = this;
+        var coords = this.shape.points;
+        this.shape.remove();
+        this.addShape(false, this.shape.toJSON());
+
+        return {
+            remove: function() {
+                self.shape.remove();
+                self.addShape(true, self.shape.toJSON());
+            }
+        };
+    },
+
+    addReflectionTool: function() {
+        var options = this.props.tools.reflection;
         if (!options.enabled) {
             return;
         }
@@ -705,7 +867,14 @@ var Transformer = React.createClass({
             });
         });
 
-
+        return {
+            remove: function() {
+                self.reflectLine.remove();
+                self.reflectPoints[0].remove();
+                self.reflectPoints[1].remove();
+                self.reflectButton.remove();
+            }
+        };
     },
 
     /* Scales a distance from the default range of
@@ -718,7 +887,8 @@ var Transformer = React.createClass({
         return scaleToRange(dist, this.refs.graph.props.range);
     },
 
-    addRotationTool: function(options) {
+    addRotationTool: function() {
+        var options = this.props.tools.rotation;
         if (!options.enabled) {
             return;
         }
@@ -813,9 +983,17 @@ var Transformer = React.createClass({
             ));
             isRotating = false;
         };
+
+        return {
+            remove: function() {
+                self.rotateHandle.remove();
+                self.rotatePoint.remove();
+            }
+        };
     },
 
-    addDilationTool: function(options) {
+    addDilationTool: function() {
+        var options = this.props.tools.dilation;
         if (!options.enabled) {
             return;
         }
@@ -864,6 +1042,12 @@ var Transformer = React.createClass({
             self.changeTool("dilation", {
                 coord: self.dilationCircle.centerPoint.coord
             });
+        };
+
+        return {
+            remove: function() {
+                self.dilationCircle.remove();
+            }
         };
     },
 
