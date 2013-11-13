@@ -487,14 +487,8 @@ var TransformationsShapeEditor = React.createClass({
         });
     },
 
-    componentWillReceiveProps: function(newProps) {
-        if (!deepEq(this.props.shape, newProps.shape)) {
-            this.shouldSetupGraphie = true;
-        }
-    },
-
-    componentDidUpdate: function() {
-        if (this.shouldSetupGraphie) {
+    componentDidUpdate: function(prevProps) {
+        if (!deepEq(prevProps.shape, this.props.shape)) {
             this.refs.graph.reset();
         }
     },
@@ -656,26 +650,25 @@ var Transformer = React.createClass({
                 transform={transform} />;
     },
 
-    componentDidUpdate: function() {
-        if (this.shouldSetupGraphie) {
+    componentDidUpdate: function(prevProps) {
+        if (this.shouldSetupGraphie(this.props, prevProps)) {
             this.refs.graph.reset();
         }
     },
 
-    componentWillReceiveProps: function(nextProps) {
-        this.shouldSetupGraphie = false;
+    shouldSetupGraphie: function(nextProps, prevProps) {
         if (!deepEq(this.transformations, nextProps.transformations)) {
-            this.shouldSetupGraphie = true;
-        } else if (!deepEq(this.props.starting, nextProps.starting)) {
-            this.shouldSetupGraphie = true;
-        } else if (this.props.drawSolutionShape !==
+            return true;
+        } else if (!deepEq(prevProps.starting, nextProps.starting)) {
+            return true;
+        } else if (prevProps.drawSolutionShape !==
                 nextProps.drawSolutionShape) {
-            this.shouldSetupGraphie = true;
+            return true;
         } else if (nextProps.drawSolutionShape && !deepEq(
-                this.props.correct.shape, nextProps.correct.shape)) {
-            this.shouldSetupGraphie = true;
+                prevProps.correct.shape, nextProps.correct.shape)) {
+            return true;
         } else if (!deepEq(this.tools, nextProps.tools)) {
-            this.shouldSetupGraphie = true;
+            return true;
         }
     },
 
@@ -687,7 +680,6 @@ var Transformer = React.createClass({
         var self = this;
 
         var graphie = this.graphie();
-        this.shouldSetupGraphie = false;
 
         // A background image of our solution:
         if (this.props.drawSolutionShape &&
