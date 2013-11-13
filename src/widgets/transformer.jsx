@@ -552,6 +552,7 @@ var ToolsBar = React.createClass({
         var tools = _.map(Transformations.ALL, function(tool) {
             if (this.props.enabled[tool.id]) {
                 return <ToolButton
+                    key={tool.id}
                     displayName={tool.verbName}
                     toggled={this.state.selected === tool.id}
                     onClick={_.bind(this.changeSelected, null, tool.id)} />;
@@ -606,7 +607,11 @@ var Transformer = React.createClass({
     render: function() {
         var transformationList = _.map(
             this.props.transformations,
-            this.renderTransform
+            function(transform, i) {
+                return <TransformationItem
+                            key={"transformation" + i}
+                            transform={transform} />;
+            }
         );
 
         // Fill in any missing value in this.props.graph
@@ -622,7 +627,7 @@ var Transformer = React.createClass({
             <button
                 className="simple-button orange"
                 type="button"
-                onClick={this.resetTransformations}>
+                onClick={this.resetTransformationProps}>
                 Reset
             </button>
             <Graph
@@ -645,14 +650,12 @@ var Transformer = React.createClass({
         </div>;
     },
 
-    renderTransform: function(transform) {
-        return <TransformationItem
-                transform={transform} />;
-    },
-
     componentDidUpdate: function(prevProps) {
         if (this.shouldSetupGraphie(this.props, prevProps)) {
             this.refs.graph.reset();
+        } else if (!deepEq(this.props.transformations,
+                this.transformations)) {
+            this.setTransformations(this.props.transformations);
         }
     },
 
@@ -699,17 +702,14 @@ var Transformer = React.createClass({
         this.currentTool = null;
         this.refs.toolsBar.changeSelected(null);
         this.addShape(true, this.props.starting.shape);
-
-        // apply any transformations we received in props
-        this.transformations = _.clone(this.props.transformations);
-        _.each(this.transformations, self.applyTransform);
+        this.setTransformations(this.props.transformations);
 
         // Save a copy of our tools so that we can check future
         // this.props.tools changes against them
         // This seems weird, but gives us an easy way to tell whether
         // props changes were self-inflicted (for which a graphie reset
-        // is not required, and in fact a bad idea right now because of
-        // resetting the size of the dilation tool).
+        // is not required, and is in fact a bad idea right now because
+        // of resetting the size of the dilation tool).
         // TODO (jack): A deepClone method would be nice here
         this.tools = {
             translation: _.clone(this.props.tools.translation),
@@ -719,10 +719,23 @@ var Transformer = React.createClass({
         };
     },
 
+    /* Applies all transformations in `transformations`
+     * to the starting shape, and updates this.transformations
+     * to reflect this
+     *
+     * Usually called with this.props.transformations
+     */
+    setTransformations: function(transformations) {
+        this.resetCoords();
+        this.transformations = _.clone(transformations);
+        _.each(this.transformations, this.applyTransform);
+    },
+
+    // the polygon that we transform
     addShape: function(fixed, shape) {
         var self = this;
         var graphie = this.graphie();
-        // the polygon that we transform
+
         this.shape = ShapeTypes.addMovableShape(graphie, {
             shape: shape,
             fixedPoints: true,
@@ -1084,8 +1097,16 @@ var Transformer = React.createClass({
         this.shape.update();
     },
 
+    resetCoords: function() {
+        var newCoords = this.props.starting.shape.coords;
+        _.each(this.shape.points, function(point, i) {
+            point.setCoord(newCoords[i]);
+        });
+        this.shape.update();
+    },
+
     // kill all transformations, resetting to the initial state
-    resetTransformations: function() {
+    resetTransformationProps: function() {
         this.props.onChange({
             transformations: []
         });
