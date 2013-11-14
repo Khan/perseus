@@ -195,7 +195,8 @@ var ShapeTypes = {
         var splitType = type.split("-");
         if (splitType[0] === "polygon") {
             return splitType[1] || 3;
-        } else if (splitType[0] === "line") {
+        } else if (splitType[0] === "line" ||
+                splitType[0] === "lineSegment") {
             return 2;
         } else if (splitType[0] === "point") {
             return 1;
@@ -203,18 +204,97 @@ var ShapeTypes = {
     },
 
     addMovableShape: function(graphie, options) {
+        if (options.editable && options.translatable) {
+            throw new Error("It doesn't make sense to have a movable shape " +
+                    "where you can stretch the points and translate them " +
+                    "simultaneously. options: " + JSON.stringify(options));
+        }
+
+        var shape;
         var points = _.map(options.shape.coords, function(coord) {
-            return graphie.addMovablePoint(_.extend({}, options, {
-                constraints: {
-                    fixed: options.fixedPoints
-                },
+            var currentPoint;
+            var isMoving = false;
+            var previousCoord = coord;
+
+            var onMove = function(x, y) {
+                if (!isMoving) {
+                    previousCoord = currentPoint.coord;
+                    isMoving = true;
+                }
+
+                var moveVector = KhanUtil.kvector.subtract(
+                    [x, y],
+                    currentPoint.coord
+                );
+
+                // Translate from (x, y) semantics to (dX, dY) semantics
+                // This is more useful for translations on multiple points,
+                // where we care about how the points moved, not where any
+                // individual point ended up
+                if (options.onMove) {
+                    moveVector = options.onMove(moveVector[0],
+                            moveVector[1]);
+                }
+
+                // Perform a translation on all points in this shape when
+                // any point moves
+                if (options.translatable) {
+                    _.each(points, function(point) {
+                        // The point itself will be updated by the
+                        // movablePoint class, so only translate the other
+                        // points
+                        if (point !== currentPoint) {
+                            point.setCoord(KhanUtil.kvector.add(
+                                point.coord,
+                                moveVector
+                            ));
+                        }
+                    });
+                }
+                shape.update();
+                return KhanUtil.kvector.add(currentPoint.coord, moveVector);
+            };
+
+            var onMoveEnd = options.onMoveEnd && function() {
+                // onMove isn't guaranteed to be called before onMoveEnd, so
+                // we have to take into account that we may not have moved and
+                // set previousCoord.
+                if (isMoving) {
+                    isMoving = false;
+                    // We don't use the supplied x and y parameters here
+                    // because MovablePoint's onMoveEnd semantics suck.
+                    // It returns the mouseX, mouseY without processing them
+                    // through onMove, leaving us with weird fractional moves
+                    var change = KhanUtil.kvector.subtract(
+                        currentPoint.coord,
+                        previousCoord
+                    );
+                    options.onMoveEnd(change[0], change[1]);
+                }
+            };
+
+            currentPoint = graphie.addMovablePoint({
                 coord: coord,
                 normalStyle: options.pointStyle,
-                highlightStyle: options.pointStyle
-            }));
+                highlightStyle: options.pointStyle,
+                constraints: {
+                    fixed: !options.translatable && !options.editable
+                },
+                bounded: false, // Don't bound it when placing it on the graph
+                onMove: onMove,
+                onMoveEnd: onMoveEnd
+            });
+
+            // Bound it when moving
+            // We can't set this earlier, because doing so would mean any
+            // points outside of the graph would be moved into a moved into
+            // a position that doesn't preserve the shape
+            currentPoint.bounded = true;
+
+            return currentPoint;
         });
 
-        var shape = ShapeTypes.addShape(graphie, options, points);
+        shape = ShapeTypes.addShape(graphie, options, points);
         var removeShapeWithoutPoints = shape.remove;
         shape.remove = function() {
             removeShapeWithoutPoints.apply(shape);
@@ -275,6 +355,7 @@ var ShapeTypes = {
         type = type.split("-")[0];
         if (type === "polygon") {
             var polygon = graphie.addMovablePolygon(_.extend({}, options, {
+                fixed: !options.editable,
                 points: points,
                 constrainToGraph: false
             }));
@@ -286,9 +367,9 @@ var ShapeTypes = {
             var line = graphie.addMovableLineSegment(
                     _.extend({}, options, lineCoords, {
                 movePointsWithLine: true,
-                fixed: options.fixed,
+                fixed: true,
                 constraints: {
-                    fixed: options.fixed
+                    fixed: true
                 },
                 extendLine: (type === "line")
             }));
@@ -446,6 +527,12 @@ var TransformationsShapeEditor = React.createClass({
                 <option value="polygon-4">Quadrilateral</option>
                 <option value="polygon-5">Pentagon</option>
                 <option value="polygon-6">Hexagon</option>
+                <option value="line">Line</option>
+                <option value="line,line">2 lines</option>
+                <option value="lineSegment">Line segment</option>
+                <option value="lineSegment,lineSegment">
+                    2 line segments
+                </option>
             </select>
         </div>;
     },
@@ -504,7 +591,7 @@ var TransformationsShapeEditor = React.createClass({
 
     setupGraphie: function(graphie) {
         this.shape = ShapeTypes.addMovableShape(graphie, {
-            fixedPoints: false,
+            editable: true,
             shape: this.props.shape,
             onMoveEnd: this.updateCoords
         });
@@ -701,7 +788,8 @@ var Transformer = React.createClass({
 
         this.currentTool = null;
         this.refs.toolsBar.changeSelected(null);
-        this.addShape(true, this.props.starting.shape);
+        this.addTransformerShape(this.props.starting.shape,
+                /* translatable */ false);
         this.setTransformations(this.props.transformations);
 
         // Save a copy of our tools so that we can check future
@@ -732,14 +820,14 @@ var Transformer = React.createClass({
     },
 
     // the polygon that we transform
-    addShape: function(fixed, shape) {
+    addTransformerShape: function(shape, translatable) {
         var self = this;
         var graphie = this.graphie();
 
         this.shape = ShapeTypes.addMovableShape(graphie, {
             shape: shape,
-            fixedPoints: true,
-            fixed: fixed,
+            editable: false,
+            translatable: translatable,
             onMove: function (dX, dY) {
                 dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
                 dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
@@ -752,8 +840,8 @@ var Transformer = React.createClass({
                 });
             },
             pointStyle: {
-                fill: KhanUtil.BLUE,
-                stroke: KhanUtil.BLUE
+                fill: (translatable ? KhanUtil.ORANGE : KhanUtil.BLUE),
+                stroke: (translatable ? KhanUtil.ORANGE : KhanUtil.BLUE)
             }
         });
     },
@@ -783,12 +871,14 @@ var Transformer = React.createClass({
         var self = this;
         var coords = this.shape.points;
         this.shape.remove();
-        this.addShape(false, this.shape.toJSON());
+        this.addTransformerShape(this.shape.toJSON(),
+                /* translatable */ true);
 
         return {
             remove: function() {
                 self.shape.remove();
-                self.addShape(true, self.shape.toJSON());
+                self.addTransformerShape(self.shape.toJSON(),
+                        /* translatable */ false);
             }
         };
     },
