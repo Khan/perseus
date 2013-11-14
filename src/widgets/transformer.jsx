@@ -764,6 +764,8 @@ var Transformer = React.createClass({
             return true;
         } else if (!deepEq(this.tools, nextProps.tools)) {
             return true;
+        } else {
+            return false;
         }
     },
 
