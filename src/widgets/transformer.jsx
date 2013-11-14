@@ -876,7 +876,6 @@ var Transformer = React.createClass({
 
     addTranslationTool: function() {
         var self = this;
-        var coords = this.shape.points;
         this.shape.remove();
         this.addTransformerShape(this.shape.toJSON(),
                 /* translatable */ true);
