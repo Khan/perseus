@@ -280,6 +280,8 @@ var ShapeTypes = {
                 constraints: {
                     fixed: !options.translatable && !options.editable
                 },
+                snapX: options.snap && options.snap[0] || 0,
+                snapY: options.snap && options.snap[1] || 0,
                 bounded: false, // Don't bound it when placing it on the graph
                 onMove: onMove,
                 onMoveEnd: onMoveEnd
@@ -356,6 +358,8 @@ var ShapeTypes = {
         if (type === "polygon") {
             var polygon = graphie.addMovablePolygon(_.extend({}, options, {
                 fixed: !options.editable,
+                snapX: options.snap && options.snap[0] || 0,
+                snapY: options.snap && options.snap[1] || 0,
                 points: points,
                 constrainToGraph: false
             }));
@@ -592,6 +596,7 @@ var TransformationsShapeEditor = React.createClass({
     setupGraphie: function(graphie) {
         this.shape = ShapeTypes.addMovableShape(graphie, {
             editable: true,
+            snap: graphie.snap,
             shape: this.props.shape,
             onMoveEnd: this.updateCoords
         });
