@@ -1195,9 +1195,9 @@ var Transformer = React.createClass({
     },
 
     resetCoords: function() {
-        var newCoords = this.props.starting.shape.coords;
+        var startCoords = this.props.starting.shape.coords;
         _.each(this.shape.points, function(point, i) {
-            point.setCoord(newCoords[i]);
+            point.setCoord(startCoords[i]);
         });
         this.shape.update();
     },
