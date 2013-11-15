@@ -21,10 +21,36 @@
 <script type="text/jsx" src="/src/core.js"></script>
 <script type="text/jsx" src="/src/util.js"></script>
 <script type="text/jsx" src="/src/widgets.js"></script>
-<script type="text/jsx" src="/src/renderer.js"></script>
+<script type="text/jsx" src="/src/renderer.jsx" type="text/jsx"></script>
+<script type="text/jsx" src="/src/widgets/input-number.jsx" type="text/jsx"></script>
+
+<script>
+    window.KhanUtil = {
+        debugLog: function() {}
+    };
+    window.Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        imageBase: "/ke/images/",
+        scratchpad: {
+            enable: function() {},
+            disable: function() {}
+        }
+    };
+    React.initializeTouchEvents(true);
+</script>
 
 <script src="/test/qunit-1.11.0.js"></script>
+
+<script src="/ke/local-only/jed.js"></script>
+<script src="/ke/local-only/i18n.js"></script>
+<script src="/ke/local-only/localeplanet/icu.en-US.js"></script>
+<script src="/ke/utils/math.js"></script>
+<script src="/ke/utils/answer-types.js"></script>
+
 <script src="/test/renderer.js"></script>
+<script src="/test/widgets.js"></script>
 
 </body>
 </html>

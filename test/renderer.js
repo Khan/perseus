@@ -1,4 +1,4 @@
-test("extractMath", function() {
+asyncTest("extractMath", 10, function() {
     var extract = Perseus.Renderer.extractMathAndWidgets;
 
     deepEqual(extract("Let $x$ be gorillas."),
@@ -25,4 +25,6 @@ test("extractMath", function() {
             ["{Unclosed $ math.}", []]);
     deepEqual(extract("Mismatched ${$ braces."),
             ["Mismatched ${$ braces.", []]);
+
+    start();
 });
