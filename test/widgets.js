@@ -21,7 +21,7 @@ function translateScore(guessAndScore) {
             guess: guess
         };
     }
-};
+}
 
 function testAnswer(component, input, result, description) {
     $("#qunit-fixture input").val(input);
@@ -41,7 +41,7 @@ function testMultipleAnswer(component, inputs, result, description) {
 }
 
 function checkAnswer(component, result, description) {
-    var answer = translateScore(component.guessAndScore())
+    var answer = translateScore(component.guessAndScore());
     if (result === "right") {
         strictEqual(answer.empty, false, description + " - not empty");
         strictEqual(answer.message, null, description + " - no message");
@@ -148,7 +148,7 @@ asyncTest("widget input-number multiple", 42, function() {
     start();
 });
 
-asyncTest("widget input-number multiple", 33, function() {
+asyncTest("widget input-number multiple simplify-enforced", 33, function() {
     var component = React.renderComponent(Perseus.Renderer({
         "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
         "widgets": {
