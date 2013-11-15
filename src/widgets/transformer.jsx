@@ -1235,6 +1235,14 @@ var Transformer = React.createClass({
         return Transformer.validate(this.toJSON(), rubric);
     },
 
+    getCoords: function() {
+        var startCoords = this.props.starting.shape.coords;
+        var transforms = this.props.transformations;
+        return _.reduce(transforms, function (coords, transform) {
+            return _.map(coords, Transformations.apply(transform));
+        }, startCoords);
+    },
+
     toJSON: function() {
         var json = _.pick(this.props, 'grading', 'starting',
                 'tools', 'drawSolutionShape');
@@ -1243,7 +1251,7 @@ var Transformer = React.createClass({
             transformations: this.props.transformations,
             shape: {
                 type: this.shape.type,
-                coords: _.pluck(this.shape.points, "coord")
+                coords: this.getCoords()
             }
         };
         json.version = 1; // give us some safety to change the format
