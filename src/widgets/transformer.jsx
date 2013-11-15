@@ -719,7 +719,7 @@ var Transformer = React.createClass({
             <button
                 className="simple-button orange"
                 type="button"
-                onClick={this.resetTransformationProps}>
+                onClick={this.handleResetClick}>
                 Reset
             </button>
             <Graph
@@ -752,9 +752,7 @@ var Transformer = React.createClass({
     },
 
     shouldSetupGraphie: function(nextProps, prevProps) {
-        if (!deepEq(this.transformations, nextProps.transformations)) {
-            return true;
-        } else if (!deepEq(prevProps.starting, nextProps.starting)) {
+        if (!deepEq(prevProps.starting, nextProps.starting)) {
             return true;
         } else if (prevProps.drawSolutionShape !==
                 nextProps.drawSolutionShape) {
@@ -1202,7 +1200,8 @@ var Transformer = React.createClass({
     },
 
     // kill all transformations, resetting to the initial state
-    resetTransformationProps: function() {
+    handleResetClick: function() {
+        this.refs.toolsBar.changeSelected(null);
         this.props.onChange({
             transformations: []
         });
