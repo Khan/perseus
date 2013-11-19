@@ -720,28 +720,30 @@ var Transformer = React.createClass({
                 this.props.graph
         );
 
-        // This style is applied inline because it is dependent on the
-        // size of the graph as set by the graph.box prop, and this also
-        // lets us specify it in the same place the graph's width is
-        // specified.
         return <div className={"perseus-widget " +
-                        "perseus-widget-transformer"}
-                    style={{width: graph.box[0]}}>
-            <Graph
-                ref="graph"
-                box={graph.box}
-                range={graph.range}
-                step={graph.step}
-                markings={graph.markings}
-                backgroundImage={graph.backgroundImage}
-                showProtractor={graph.showProtractor}
-                onNewGraphie={this.setupGraphie} />
-            <ToolsBar
-                ref="toolsBar"
-                enabled={pluckObject(this.props.tools, "enabled")}
-                addTool={this.addTool}
-                removeTool={this.removeTool}
-                onUndoClick={this.handleUndoClick} />
+                        "perseus-widget-transformer"}>
+
+            // This style is applied inline because it is dependent on the
+            // size of the graph as set by the graph.box prop, and this also
+            // lets us specify it in the same place the graph's width is
+            // specified.
+            <div style={{width: graph.box[0]}}>
+                <Graph
+                    ref="graph"
+                    box={graph.box}
+                    range={graph.range}
+                    step={graph.step}
+                    markings={graph.markings}
+                    backgroundImage={graph.backgroundImage}
+                    showProtractor={graph.showProtractor}
+                    onNewGraphie={this.setupGraphie} />
+                <ToolsBar
+                    ref="toolsBar"
+                    enabled={pluckObject(this.props.tools, "enabled")}
+                    addTool={this.addTool}
+                    removeTool={this.removeTool}
+                    onUndoClick={this.handleUndoClick} />
+            </div>
 
             {transformationList}
 
