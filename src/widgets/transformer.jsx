@@ -653,6 +653,12 @@ var ToolsBar = React.createClass({
 
         return <div>
             {tools}
+            <button
+                className="transformer-undo-button simple-button orange"
+                type="button"
+                onClick={this.props.onUndoClick}>
+                Undo
+            </button>
         </div>;
     },
 
@@ -714,14 +720,13 @@ var Transformer = React.createClass({
                 this.props.graph
         );
 
+        // This style is applied inline because it is dependent on the
+        // size of the graph as set by the graph.box prop, and this also
+        // lets us specify it in the same place the graph's width is
+        // specified.
         return <div className={"perseus-widget " +
-                        "perseus-widget-transformer"}>
-            <button
-                className="simple-button orange"
-                type="button"
-                onClick={this.handleResetClick}>
-                Reset
-            </button>
+                        "perseus-widget-transformer"}
+                    style={{width: graph.box[0]}}>
             <Graph
                 ref="graph"
                 box={graph.box}
@@ -735,7 +740,8 @@ var Transformer = React.createClass({
                 ref="toolsBar"
                 enabled={pluckObject(this.props.tools, "enabled")}
                 addTool={this.addTool}
-                removeTool={this.removeTool} />
+                removeTool={this.removeTool}
+                onUndoClick={this.handleUndoClick} />
 
             {transformationList}
 
@@ -1199,12 +1205,14 @@ var Transformer = React.createClass({
         this.shape.update();
     },
 
-    // kill all transformations, resetting to the initial state
-    handleResetClick: function() {
+    // Remove the last transfromation
+    handleUndoClick: function() {
         this.refs.toolsBar.changeSelected(null);
-        this.props.onChange({
-            transformations: []
-        });
+        if (this.props.transformations.length) {
+            this.props.onChange({
+                transformations: _.initial(this.props.transformations)
+            });
+        }
     },
 
     // add a transformation to our props list of transformation
