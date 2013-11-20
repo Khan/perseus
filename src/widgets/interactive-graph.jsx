@@ -1523,8 +1523,8 @@ _.extend(InteractiveGraph, {
         }[snap] * Math.PI / 180;
 
         coords = component.pointsFromNormalized([
-            [0.75, 0.50],
-            [0.25, 0.50]
+            [0.85, 0.50],
+            [0.5, 0.50]
         ]);
 
         var radius = magnitude(vector.apply(null, coords));
