@@ -176,7 +176,10 @@ var Transformations = {
         },
         handleChange: _.debounce(function() {
             this.props.onChange(this.value());
-        }, RENDER_TRANSFORM_DELAY_IN_MS)
+        }, RENDER_TRANSFORM_DELAY_IN_MS),
+        focus: function() {
+            this.refs.transform.focus();
+        }
     }),
 
     translation: {
@@ -217,6 +220,9 @@ var Transformations = {
                 return {
                     vector: [x, y]
                 };
+            },
+            focus: function() {
+                this.refs.x.focus();
             }
         })
     },
@@ -270,6 +276,9 @@ var Transformations = {
                     angleDeg: angleDeg,
                     center: [centerX, centerY]
                 };
+            },
+            focus: function() {
+                this.refs.centerX.focus();
             }
         })
     },
@@ -335,6 +344,9 @@ var Transformations = {
                 return {
                     line: [[x1, y1], [x2, y2]]
                 };
+            },
+            focus: function() {
+                this.refs.x1.focus();
             }
         })
     },
@@ -388,6 +400,9 @@ var Transformations = {
                     scale: scale,
                     center: [x, y]
                 };
+            },
+            focus: function() {
+                this.refs.x.focus();
             }
         })
     }
@@ -884,7 +899,7 @@ var TransformationList = React.createClass({
             return <span />;  // don't render anything
         }
 
-        var transformationList = _.map(
+        this.transformationList = _.map(
             this.props.transformations,
             function(transform, i) {
                 return <TransformationListItem
@@ -898,7 +913,7 @@ var TransformationList = React.createClass({
         );
 
         return <div className="perseus-transformation-list">
-            {transformationList}
+            {this.transformationList}
         </div>;
     },
 
@@ -910,6 +925,12 @@ var TransformationList = React.createClass({
 
     handleChange: function() {
         this.props.onChange(this.value());
+    },
+
+    focusLast: function() {
+        if (this.transformationList.length) {
+            _.last(this.transformationList).focus();
+        }
     }
 });
 
@@ -1045,6 +1066,7 @@ var Transformer = React.createClass({
             </div>
 
             <TransformationList
+                ref="transformationList"
                 mode={this.props.listMode}
                 transformations={this.props.transformations}
                 onChange={this.setTransformationProps} />
@@ -1166,6 +1188,8 @@ var Transformer = React.createClass({
     },
 
     addTool: function(toolId) {
+        var self = this;
+
         if (this.props.graphMode === "interactive") {
             if (toolId === "translation") {
                 this.currentTool = this.addTranslationTool();
@@ -1179,33 +1203,38 @@ var Transformer = React.createClass({
                 throw new Error("Invalid tool id: " + toolId);
             }
         } else {
+            var transform;
             if (toolId === "translation") {
-                this.doTransform({
+                transform = {
                     type: toolId,
                     vector: [null, null]
-                });
+                };
             } else if (toolId === "rotation") {
-                this.doTransform({
+                transform = {
                     type: toolId,
                     center: [null, null],
                     angleDeg: null
-                });
+                };
             } else if (toolId === "reflection") {
                 // Reflections with nulls in them won't be applied until
                 // fills in the blanks
-                this.doTransform({
+                transform = {
                     type: toolId,
                     line: [[null, null], [null, null]]
-                });
+                };
             } else if (toolId === "dilation") {
-                this.doTransform({
+                transform = {
                     type: toolId,
                     center: [null, null],
                     scale: null
-                });
+                };
             } else {
                 throw new Error("Invalid tool id: " + toolId);
             }
+
+            this.doTransform(transform, function() {
+                self.refs.transformationList.focusLast();
+            });
         }
     },
 
@@ -1514,9 +1543,9 @@ var Transformer = React.createClass({
     },
 
     // apply and save a transform
-    doTransform: function(transform) {
+    doTransform: function(transform, callback) {
         this.applyTransform(transform);
-        this.addTransform(transform);
+        this.addTransform(transform, callback);
     },
 
     // apply a transform to our polygon (without modifying our transformation
@@ -1562,11 +1591,11 @@ var Transformer = React.createClass({
     },
 
     // add a transformation to our props list of transformation
-    addTransform: function(transform) {
+    addTransform: function(transform, callback) {
         this.transformations.push(transform);
         this.props.onChange({
             transformations: this.props.transformations.concat([transform]),
-        });
+        }, callback);
     },
 
     changeTool: function(tool, changes) {
@@ -1769,14 +1798,14 @@ var TransformerEditor = React.createClass({
     },
 
     // propagate a transformations change onto correct.transformations
-    changeTransformer: function(changes) {
+    changeTransformer: function(changes, callback) {
         if (changes.transformations) {
             changes.correct = {
                 transformations: changes.transformations
             };
             delete changes.transformations;
         }
-        this.props.onChange(changes);
+        this.props.onChange(changes, callback);
     },
 
     toJSON: function() {
