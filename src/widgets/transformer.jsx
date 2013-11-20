@@ -3,12 +3,15 @@
 
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
+var RENDER_TRANSFORM_DELAY_IN_MS = 300;
 
-// TODO (jack): rename this to Perseus.Components
+var NumberInput = Perseus.NumberInput;
 var GraphSettings = Perseus.Components.GraphSettings;
 var Graph = Perseus.Components.Graph;
+var TeX = Perseus.TeX;
 
 var deepEq = Perseus.Util.deepEq;
+var InfoTip = Perseus.InfoTip;
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -105,6 +108,8 @@ function stringFromVector(vector) {
             ", " + stringFromDecimal(vector[1]) + ">";
 }
 
+
+/* Perform operations on raw transform objects */
 var Transformations = {
     ALL: [
         {
@@ -126,12 +131,53 @@ var Transformations = {
     ],
 
     apply: function(transform) {
-        return Transformations[transform.type].apply(transform);
+        // Any transformation with empty text boxes is a no-op until
+        // filled out (these show up as nulls in transform.vector/line/etc).
+        // TODO (jack): Merge this just into reflections now that other
+        // transforms are always valid (after merging transformation
+        // collapsing, which may use isValid)
+        if (!Transformations[transform.type].isValid(transform)) {
+            return _.identity;  // do not transform the coord
+        } else {
+            return Transformations[transform.type].apply(transform);
+        }
     },
 
     toString: function(transform) {
         return Transformations[transform.type].toString(transform);
     },
+
+    /* A react representation of this transform object */
+    ListItem: React.createClass({
+        render: function() {
+            if (this.props.mode === "dynamic") {
+                return <div>
+                    {Transformations.toString(this.props.transform)}
+                </div>;
+            } else if (this.props.mode === "interactive") {
+                var transformClass =
+                        Transformations[this.props.transform.type].Input;
+                return transformClass(_.extend({
+                    ref: "transform",
+                    onChange: this.handleChange
+                }, this.props.transform));
+            } else {
+                throw new Error("Invalid mode: " + this.props.mode);
+            }
+        },
+        value: function() {
+            if (this.props.mode === "interactive") {
+                return _.extend({
+                    type: this.props.transform.type,
+                }, this.refs.transform.value());
+            } else {
+                return this.props.transform;
+            }
+        },
+        handleChange: _.debounce(function() {
+            this.props.onChange(this.value());
+        }, RENDER_TRANSFORM_DELAY_IN_MS)
+    }),
 
     translation: {
         apply: function(transform) {
@@ -139,9 +185,40 @@ var Transformations = {
                 return KhanUtil.kvector.add(coord, transform.vector);
             };
         },
+        isValid: function(transform) {
+            return _.isFinite(transform.vector[0]) &&
+                _.isFinite(transform.vector[1]);
+        },
         toString: function(transform) {
             return "Translation by " + stringFromVector(transform.vector);
-        }
+        },
+        Input: React.createClass({
+            render: function() {
+                return <div>
+                    Translation by
+                    <TeX>\langle</TeX>
+                    <NumberInput
+                        ref="x"
+                        placeholder={0}
+                        value={this.props.vector[0]}
+                        onChange={this.props.onChange} />
+                    <TeX>{", {}"}</TeX>
+                    <NumberInput
+                        ref="y"
+                        placeholder={0}
+                        value={this.props.vector[1]}
+                        onChange={this.props.onChange} />
+                    <TeX>\rangle</TeX>
+                </div>;
+            },
+            value: function() {
+                var x = this.refs.x.getValue();
+                var y = this.refs.y.getValue();
+                return {
+                    vector: [x, y]
+                };
+            }
+        })
     },
 
     rotation: {
@@ -151,18 +228,66 @@ var Transformations = {
                         transform.center);
             };
         },
+        isValid: function(transform) {
+            return _.isFinite(transform.angleDeg) &&
+                _.isFinite(transform.center[0]) &&
+                _.isFinite(transform.center[1]);
+        },
         toString: function(transform) {
             return "Rotation by " + stringFromDecimal(transform.angleDeg) +
                     DEGREE_SIGN + " about " +
                     stringFromPoint(transform.center);
-        }
+        },
+        Input: React.createClass({
+            render: function() {
+                return <div>
+                    Rotation about <TeX>(</TeX>
+                    <NumberInput
+                        ref="centerX"
+                        placeholder={0}
+                        value={this.props.center[0]}
+                        onChange={this.props.onChange} />
+                    <TeX>{", {}"}</TeX>
+                    <NumberInput
+                        ref="centerY"
+                        placeholder={0}
+                        value={this.props.center[1]}
+                        onChange={this.props.onChange} />
+                    <TeX>)</TeX> by
+                    <NumberInput
+                        ref="angleDeg"
+                        placeholder={0}
+                        value={this.props.angleDeg}
+                        onChange={this.props.onChange} />
+                    {DEGREE_SIGN}
+                </div>;
+            },
+            value: function() {
+                var angleDeg = this.refs.angleDeg.getValue();
+                var centerX = this.refs.centerX.getValue();
+                var centerY = this.refs.centerY.getValue();
+                return {
+                    angleDeg: angleDeg,
+                    center: [centerX, centerY]
+                };
+            }
+        })
     },
 
     reflection: {
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kpoint.reflectOverLine(coord, transform.line);
+                return KhanUtil.kpoint.reflectOverLine(
+                    coord,
+                    transform.line
+                );
             };
+        },
+        isValid: function(transform) {
+            // A bit hacky, but we'll also define reflecting over a
+            // single point as a no-op, to avoid NaN fun.
+            return _.all(_.flatten(transform.line), _.isFinite) &&
+                    !deepEq(transform.line[0], transform.line[1]);
         },
         toString: function(transform) {
             var point1 = transform.line[0];
@@ -170,7 +295,48 @@ var Transformations = {
             return "Reflection over the line from " +
                     stringFromPoint(point1) + " to " +
                     stringFromPoint(point2);
-        }
+        },
+        Input: React.createClass({
+            render: function() {
+                return <div>
+                    Reflection over the line from
+                    <TeX>(</TeX>
+                    <NumberInput
+                        ref="x1"
+                        allowEmpty={true}
+                        value={this.props.line[0][0]}
+                        onChange={this.props.onChange} />
+                    <TeX>{", {}"}</TeX>
+                    <NumberInput
+                        ref="y1"
+                        allowEmpty={true}
+                        value={this.props.line[0][1]}
+                        onChange={this.props.onChange} />
+                    <TeX>)</TeX> to <TeX>(</TeX>
+                    <NumberInput
+                        ref="x2"
+                        allowEmpty={true}
+                        value={this.props.line[1][0]}
+                        onChange={this.props.onChange} />
+                    <TeX>{", {}"}</TeX>
+                    <NumberInput
+                        ref="y2"
+                        allowEmpty={true}
+                        value={this.props.line[1][1]}
+                        onChange={this.props.onChange} />
+                    <TeX>)</TeX>
+                </div>;
+            },
+            value: function() {
+                var x1 = this.refs.x1.getValue();
+                var y1 = this.refs.y1.getValue();
+                var x2 = this.refs.x2.getValue();
+                var y2 = this.refs.y2.getValue();
+                return {
+                    line: [[x1, y1], [x2, y2]]
+                };
+            }
+        })
     },
 
     dilation: {
@@ -180,11 +346,50 @@ var Transformations = {
                         transform.scale);
             };
         },
+        isValid: function(transform) {
+            return _.isFinite(transform.scale) &&
+                _.isFinite(transform.center[0]) &&
+                _.isFinite(transform.center[1]);
+        },
         toString: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
             return "Dilation of scale " + scaleString + " about " +
                     stringFromPoint(transform.center);
-        }
+        },
+        Input: React.createClass({
+            render: function() {
+                return <div>
+                    Dilation about
+                    <TeX>(</TeX>
+                    <NumberInput
+                        ref="x"
+                        placeholder={0}
+                        value={this.props.center[0]}
+                        onChange={this.props.onChange} />
+                    <TeX>{", {}"}</TeX>
+                    <NumberInput
+                        ref="y"
+                        placeholder={0}
+                        value={this.props.center[1]}
+                        onChange={this.props.onChange} />
+                    <TeX>)</TeX> by scale
+                    <NumberInput
+                        ref="scale"
+                        placeholder={1}
+                        value={this.props.scale}
+                        onChange={this.props.onChange} />
+                </div>;
+            },
+            value: function() {
+                var scale = this.refs.scale.getValue();
+                var x = this.refs.x.getValue();
+                var y = this.refs.y.getValue();
+                return {
+                    scale: scale,
+                    center: [x, y]
+                };
+            }
+        })
     }
 };
 
@@ -394,6 +599,10 @@ var ShapeTypes = {
 };
 
 
+/* A checkbox that syncs its value to props using the
+ * renderer's onChange method, and gets the prop name
+ * dynamically from its props list
+ */
 var PropCheckBox = React.createClass({
     DEFAULT_PROPS: {
         label: "label",
@@ -446,12 +655,12 @@ var ToolSettings = React.createClass({
     render: function() {
         return <div>
             {this.props.name}:
-            {' '}
+            {" "}
             <PropCheckBox
                 label="enabled:"
                 enabled={this.props.settings.enabled}
                 onChange={this.props.onChange} />
-            {' '}
+            {" "}
             {this.props.allowFixed && this.props.settings.enabled &&
                 <PropCheckBox
                     label="fixed:"
@@ -474,6 +683,34 @@ var TransformationExplorerSettings = React.createClass({
     render: function() {
 
         return <div className="transformer-settings">
+            <div>
+                Mode:
+                <select value={this.getMode()}
+                        onChange={this.changeMode}>
+                    <option value="exploration">Exploration</option>
+                    <option value="formal1">Formal with movement</option>
+                    <option value="formal2">Formal without movement</option>
+                </select>
+                <InfoTip>
+                    <ul>
+                        <li>
+                            <b>Exploration:</b> Students create
+                            transformations with tools on the graph.
+                        </li>
+                        <li>
+                            <b>Formal with movement:</b> Students specify
+                            transformations mathematically in the
+                            transformation list. Graph shows the results of
+                            these transformations.
+                        </li>
+                        <li>
+                            <b>Formal without movement:</b> Students specify
+                            transformations mathematically in the
+                            transformation list. Graph does not update.
+                        </li>
+                    </ul>
+                </InfoTip>
+            </div>
             <ToolSettings
                     name="Translations"
                     settings={this.props.tools.translation}
@@ -496,6 +733,41 @@ var TransformationExplorerSettings = React.createClass({
                     drawSolutionShape={this.props.drawSolutionShape}
                     onChange={this.props.onChange} />
         </div>;
+    },
+
+    getMode: function() {
+        if (this.props.graphMode === "interactive") {
+            return "exploration";
+        } else if (this.props.graphMode === "dynamic") {
+            return "formal1";
+        } else if (this.props.graphMode === "static") {
+            return "formal2";
+        } else {
+            throw new Error("invalid graphMode: " + this.props.graphMode);
+        }
+    },
+
+    changeMode: function(e) {
+        var selected = e.target.value;
+        var graphMode, listMode;
+
+        if (selected === "exploration") {
+            graphMode = "interactive";
+            listMode = "dynamic";
+        } else if (selected === "formal1") {
+            graphMode = "dynamic";
+            listMode = "interactive";
+        } else if (selected === "formal2") {
+            graphMode = "static";
+            listMode = "interactive";
+        } else {
+            throw new Error("invalid menu selection: " + selected);
+        }
+
+        this.props.onChange({
+            graphMode: graphMode,
+            listMode: listMode
+        });
     },
 
     changeHandlerFor: function(toolName) {
@@ -604,17 +876,40 @@ var TransformationsShapeEditor = React.createClass({
 
 });
 
-/* Display a transformation's text description
- *
- * // TODO(jack): This is super hacky right now and just prints out
- * the transformation json in an unstyled div D:. Please tell jack to
- * fix this!
- */
-var TransformationItem = React.createClass({
+var TransformationListItem = Transformations.ListItem;
+
+var TransformationList = React.createClass({
     render: function() {
-        return <div>
-            {Transformations.toString(this.props.transform)}
+        if (this.props.mode === "static") {
+            return <span />;  // don't render anything
+        }
+
+        var transformationList = _.map(
+            this.props.transformations,
+            function(transform, i) {
+                return <TransformationListItem
+                            ref={"transformation" + i}
+                            key={"transformation" + i}
+                            transform={transform}
+                            mode={this.props.mode}
+                            onChange={this.handleChange} />;
+            },
+            this
+        );
+
+        return <div className="perseus-transformation-list">
+            {transformationList}
         </div>;
+    },
+
+    value: function() {
+        return _.times(this.props.transformations.length, function(i) {
+            return this.refs["transformation" + i].value();
+        }, this);
+    },
+
+    handleChange: function() {
+        this.props.onChange(this.value());
     }
 });
 
@@ -647,7 +942,7 @@ var ToolsBar = React.createClass({
                     key={tool.id}
                     displayName={tool.verbName}
                     toggled={this.state.selected === tool.id}
-                    onClick={_.bind(this.changeSelected, null, tool.id)} />;
+                    onClick={_.bind(this.changeSelected, this, tool.id)} />;
             }
         }, this);
 
@@ -664,6 +959,16 @@ var ToolsBar = React.createClass({
 
     changeSelected: function(tool) {
         this.props.removeTool(this.state.selected);
+
+        // If this is just a button bar, don't select anything,
+        // but call addTool
+        if (!this.props.togglable && !this.state.selected) {
+            if (tool) {
+                this.props.addTool(tool);
+            }
+            return;
+        }
+
         if (!tool || tool === this.state.selected) {
             this.setState({
                 selected: null
@@ -703,15 +1008,6 @@ var Transformer = React.createClass({
     },
 
     render: function() {
-        var transformationList = _.map(
-            this.props.transformations,
-            function(transform, i) {
-                return <TransformationItem
-                            key={"transformation" + i}
-                            transform={transform} />;
-            }
-        );
-
         // Fill in any missing value in this.props.graph
         // this can happen because the graph json doesn't include
         // box, for example
@@ -719,6 +1015,8 @@ var Transformer = React.createClass({
                 defaultGraphProps(this.props.graph, defaultBoxSize),
                 this.props.graph
         );
+
+        var interactiveToolsMode = this.props.graphMode === "interactive";
 
         return <div className={"perseus-widget " +
                         "perseus-widget-transformer"}>
@@ -745,7 +1043,10 @@ var Transformer = React.createClass({
                     onUndoClick={this.handleUndoClick} />
             </div>
 
-            {transformationList}
+            <TransformationList
+                mode={this.props.listMode}
+                transformations={this.props.transformations}
+                onChange={this.setTransformationProps} />
 
         </div>;
     },
@@ -761,6 +1062,10 @@ var Transformer = React.createClass({
 
     shouldSetupGraphie: function(nextProps, prevProps) {
         if (!deepEq(prevProps.starting, nextProps.starting)) {
+            return true;
+        } else if (prevProps.graphMode !== nextProps.graphMode) {
+            return true;
+        } else if (prevProps.listMode !== nextProps.listMode) {
             return true;
         } else if (prevProps.drawSolutionShape !==
                 nextProps.drawSolutionShape) {
@@ -860,16 +1165,46 @@ var Transformer = React.createClass({
     },
 
     addTool: function(toolId) {
-        if (toolId === "translation") {
-            this.currentTool = this.addTranslationTool();
-        } else if (toolId === "rotation") {
-            this.currentTool = this.addRotationTool();
-        } else if (toolId === "reflection") {
-            this.currentTool = this.addReflectionTool();
-        } else if (toolId === "dilation") {
-            this.currentTool = this.addDilationTool();
+        if (this.props.graphMode === "interactive") {
+            if (toolId === "translation") {
+                this.currentTool = this.addTranslationTool();
+            } else if (toolId === "rotation") {
+                this.currentTool = this.addRotationTool();
+            } else if (toolId === "reflection") {
+                this.currentTool = this.addReflectionTool();
+            } else if (toolId === "dilation") {
+                this.currentTool = this.addDilationTool();
+            } else {
+                throw new Error("Invalid tool id: " + toolId);
+            }
         } else {
-            throw new Error("Invalid tool id: " + toolId);
+            if (toolId === "translation") {
+                this.doTransform({
+                    type: toolId,
+                    vector: [null, null]
+                });
+            } else if (toolId === "rotation") {
+                this.doTransform({
+                    type: toolId,
+                    center: [null, null],
+                    angleDeg: null
+                });
+            } else if (toolId === "reflection") {
+                // Reflections with nulls in them won't be applied until
+                // fills in the blanks
+                this.doTransform({
+                    type: toolId,
+                    line: [[null, null], [null, null]]
+                });
+            } else if (toolId === "dilation") {
+                this.doTransform({
+                    type: toolId,
+                    center: [null, null],
+                    scale: null
+                });
+            } else {
+                throw new Error("Invalid tool id: " + toolId);
+            }
         }
     },
 
@@ -1186,8 +1521,10 @@ var Transformer = React.createClass({
     // apply a transform to our polygon (without modifying our transformation
     // list)
     applyTransform: function(transform) {
-        var transformFunc = Transformations.apply(transform);
-        this.applyCoordTransformation(transformFunc);
+        if (this.props.graphMode !== "static") {
+            var transformFunc = Transformations.apply(transform);
+            this.applyCoordTransformation(transformFunc);
+        }
     },
 
     // transform our polygon by transforming each point using a given function
@@ -1215,6 +1552,12 @@ var Transformer = React.createClass({
                 transformations: _.initial(this.props.transformations)
             });
         }
+    },
+
+    setTransformationProps: function(newTransfomationList) {
+        this.props.onChange({
+            transformations: newTransfomationList
+        });
     },
 
     // add a transformation to our props list of transformation
@@ -1253,8 +1596,8 @@ var Transformer = React.createClass({
     },
 
     toJSON: function() {
-        var json = _.pick(this.props, 'grading', 'starting',
-                'tools', 'drawSolutionShape');
+        var json = _.pick(this.props, "grading", "starting", "graphMode",
+                "listMode", "tools", "drawSolutionShape");
         json.graph = this.refs.graph.toJSON();
         json.answer = {
             transformations: this.props.transformations,
@@ -1308,6 +1651,8 @@ var TransformerEditor = React.createClass({
     getDefaultProps: function() {
         return {
             graph: defaultGraphProps(this.props.graph, 340),
+            graphMode: "interactive",
+            listMode: "dynamic",
             tools: {
                 translation: {
                     enabled: true,
@@ -1379,6 +1724,8 @@ var TransformerEditor = React.createClass({
             <div>Transformation settings:</div>
             <TransformationExplorerSettings
                 ref="transformationSettings"
+                graphMode={this.props.graphMode}
+                listMode={this.props.listMode}
                 tools={this.props.tools}
                 drawSolutionShape={this.props.drawSolutionShape}
                 onChange={this.props.onChange} />
@@ -1392,6 +1739,8 @@ var TransformerEditor = React.createClass({
             <Transformer
                 ref="explorer"
                 graph={graph}
+                graphMode={this.props.graphMode}
+                listMode={this.props.listMode}
                 tools={this.props.tools}
                 drawSolutionShape={this.props.drawSolutionShape}
                 starting={this.props.starting}
