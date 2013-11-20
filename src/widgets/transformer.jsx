@@ -1021,10 +1021,11 @@ var Transformer = React.createClass({
         return <div className={"perseus-widget " +
                         "perseus-widget-transformer"}>
 
-            // This style is applied inline because it is dependent on the
-            // size of the graph as set by the graph.box prop, and this also
-            // lets us specify it in the same place the graph's width is
-            // specified.
+            {/* This style is applied inline because it is dependent on the
+              * size of the graph as set by the graph.box prop, and this also
+              * lets us specify it in the same place the graph's width is
+              * specified.
+              */}
             <div style={{width: graph.box[0]}}>
                 <Graph
                     ref="graph"
