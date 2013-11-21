@@ -1009,6 +1009,8 @@ var Transformer = React.createClass({
     getDefaultProps: function() {
         return {
             graph: {},
+            graphMode: "interactive",
+            listMode: "dynamic",
             grading: "shape",
             transformations: [],
             starting: {
