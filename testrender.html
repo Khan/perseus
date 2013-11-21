@@ -70,6 +70,8 @@
 <script src="/ke/local-only/jquery.qtip.js"></script>
 <script src="/ke/utils/answer-types.js"></script>
 <script src="/ke/utils/math.js"></script>
+<script src="/ke/utils/kvector.js"></script>
+<script src="/ke/utils/kpoint.js"></script>
 
 <script src="/ke/utils/tmpl.js"></script>
 <script src="/ke/third_party/raphael.js"></script>
@@ -139,81 +141,167 @@ $('#score').on('click', function() {
 
 var seedContent = {
     "question": {
-        "content": "[[☃ interactive-graph 1]]",
+        "content": "[[☃ transformer 1]]",
         "widgets": {
-            "interactive-graph 1": {
+            "transformer 1": {
                 "options": {
-                    "step": [
-                        1,
-                        1
-                    ],
-                    "backgroundImage": {
-                        "url": null,
-                        "scale": 1,
-                        "bottom": 0,
-                        "left": 0
+                    "grading": "shape",
+                    "starting": {
+                        "shape": {
+                            "type": [
+                                "lineSegment",
+                                "lineSegment"
+                            ],
+                            "coords": [
+                                [
+                                    3.33333,
+                                    3.33333
+                                ],
+                                [
+                                    -3.33333,
+                                    -3.33333
+                                ],
+                                [
+                                    -3.33333,
+                                    3.33333
+                                ],
+                                [
+                                    3.33333,
+                                    -3.33333
+                                ]
+                            ]
+                        },
+                        "transformations": []
                     },
-                    "markings": "grid",
-                    "showProtractor": true,
-                    "range": [
-                        [
-                            -10,
-                            10
-                        ],
-                        [
-                            -10,
-                            10
-                        ]
-                    ],
+                    "tools": {
+                        "translation": {
+                            "enabled": true,
+                            "constraints": {
+                                "fixed": true
+                            }
+                        },
+                        "rotation": {
+                            "enabled": true,
+                            "constraints": {
+                                "fixed": false
+                            },
+                            "coord": [
+                                1,
+                                6
+                            ]
+                        },
+                        "reflection": {
+                            "enabled": true,
+                            "constraints": {
+                                "fixed": false
+                            },
+                            "coords": [
+                                [
+                                    1,
+                                    1
+                                ],
+                                [
+                                    3,
+                                    3
+                                ]
+                            ]
+                        },
+                        "dilation": {
+                            "enabled": true,
+                            "constraints": {
+                                "fixed": false
+                            },
+                            "coord": [
+                                6,
+                                6
+                            ]
+                        }
+                    },
+                    "drawSolutionShape": true,
                     "graph": {
-                        "type": "polygon"
-                    },
-                    "correct": {
-                        "type": "polygon",
-                        "coords": [
+                        "range": [
                             [
-                                3,
-                                -2
+                                -10,
+                                10
                             ],
                             [
-                                0,
-                                8
-                            ],
-                            [
-                                -3,
-                                -2
+                                -10,
+                                10
                             ]
                         ],
-                        "match": "similar"
+                        "step": [
+                            1,
+                            1
+                        ],
+                        "markings": "grid",
+                        "backgroundImage": {
+                            "url": null,
+                            "scale": 1,
+                            "bottom": 0,
+                            "left": 0
+                        },
+                        "showProtractor": false
+                    },
+                    "version": 1,
+                    "correct": {
+                        "transformations": [
+                            {
+                                "type": "rotation",
+                                "center": [
+                                    1,
+                                    6
+                                ],
+                                "angleDeg": -90
+                            },
+                            {
+                                "type": "translation",
+                                "vector": [
+                                    -4.5,
+                                    0
+                                ]
+                            }
+                        ],
+                        "shape": {
+                            "type": [
+                                "lineSegment",
+                                "lineSegment"
+                            ],
+                            "coords": [
+                                [
+                                    -6.166670000000001,
+                                    3.6666700000000008
+                                ],
+                                [
+                                    -12.833329999999995,
+                                    10.333330000000007
+                                ],
+                                [
+                                    -6.166669999999998,
+                                    10.33333
+                                ],
+                                [
+                                    -12.833329999999998,
+                                    3.666669999999997
+                                ]
+                            ]
+                        }
                     }
                 },
-                "type": "interactive-graph"
+                "type": "transformer"
             }
         }
     },
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "",
+            "content": "Do the proof!",
             "widgets": {}
         },
         "calculator": false
     },
     "hints": [
         {
-            "content": "Each branch can hold $\\dfrac{1}{10}$ of a monkey.",
-            "widgets": {}
-        },
-        {
-            "content": "Therefore, $10$ branc… oh shit they're attacking me",
-            "widgets": {}
-        },
-        {
-            "content": "If you see this, please help.",
-            "widgets": {}
-        },
-        {
-            "content": "ooh ooh, ahh ahh, **too late.**",
+            "content": "Focus on the proof!!!",
             "widgets": {}
         }
     ]
