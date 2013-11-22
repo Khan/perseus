@@ -1065,7 +1065,8 @@ var Transformer = React.createClass({
                     enabled={pluckObject(this.props.tools, "enabled")}
                     addTool={this.addTool}
                     removeTool={this.removeTool}
-                    onUndoClick={this.handleUndoClick} />
+                    onUndoClick={this.handleUndoClick}
+                    togglable={interactiveToolsMode} />
             </div>
 
             <TransformationList
