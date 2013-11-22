@@ -4,6 +4,7 @@
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
 var RENDER_TRANSFORM_DELAY_IN_MS = 300;
+var ROTATE_HANDLE_DIST = 1.5;
 
 var NumberInput = Perseus.NumberInput;
 var GraphSettings = Perseus.Components.GraphSettings;
@@ -1368,7 +1369,8 @@ var Transformer = React.createClass({
         }
         var self = this;
         var graphie = this.refs.graph.graphie();
-        // the center of our rotation, which can be moved to change the
+
+        // The center of our rotation, which can be moved to change the
         // center of rotation
         this.rotatePoint = graphie.addMovablePoint({
             constraints: options.constraints,
@@ -1383,79 +1385,37 @@ var Transformer = React.createClass({
             },
         });
 
-        // the point that we move around the center of rotation to actually
+        // The point that we move around the center of rotation to actually
         // cause rotations
-        this.rotateHandle = graphie.addMovablePoint({
-            coord: KhanUtil.kpoint.addVector(options.coord, [1, 0]),
-            constraints: {
-                fixedDistance: {
-                    dist: this.scaleToCurrentRange(1),
-                    point: this.rotatePoint
-                }
+        this.rotateHandle = graphie.addRotateHandle({
+            center: this.rotatePoint,
+            radius: this.scaleToCurrentRange(ROTATE_HANDLE_DIST),
+            width: this.scaleToCurrentRange(0.24),
+            hoverWidth: this.scaleToCurrentRange(0.4),
+            onMove: function(newAngle, oldAngle) {
+                var transform = self.getRotationTransformFromAngle(
+                    self.rotatePoint.coord,
+                    newAngle - oldAngle
+                );
+
+                // Rotate polygon with rotateHandle
+                self.applyTransform(transform);
+
+                return oldAngle + transform.angleDeg;
+            },
+            onMoveEnd: function(newAngle, oldAngle) {
+                self.addTransform(self.getRotationTransformFromAngle(
+                        self.rotatePoint.coord,
+                        newAngle - oldAngle
+                ));
             }
         });
-
-        // The logic below in onMove handlers is to make sure we
-        // move rotateHandle with rotatePoint
-        var rotatePointPrevCoord = this.rotatePoint.coord;
-        var rotateHandlePrevCoord = this.rotateHandle.coord;
-        var rotateHandleStartCoord = rotateHandlePrevCoord;
-        var isRotating = false;
-
-        this.rotatePoint.onMove = function(x, y) {
-            // when the rotation center moves, we need to move
-            // the rotationHandle as well, or it will end up out
-            // of sync
-            var dX = x - rotatePointPrevCoord[0];
-            var dY = y - rotatePointPrevCoord[1];
-            self.rotateHandle.setCoord([
-                    self.rotateHandle.coord[0] + dX,
-                    self.rotateHandle.coord[1] + dY
-            ]);
-            rotatePointPrevCoord = [x, y];
-            self.rotateHandle.constraints.fixedDistance.point =
-                self.rotatePoint;
-            rotateHandlePrevCoord = self.rotateHandle.coord;
-        };
 
         // Update tools.rotation.coord
         this.rotatePoint.onMoveEnd = function(x, y) {
             self.changeTool("rotation", {
                 coord: [x, y]
             });
-        };
-
-        // Rotate polygon with rotateHandle
-        this.rotateHandle.onMove = function(x, y) {
-            if (!isRotating) {
-                rotateHandleStartCoord = rotateHandlePrevCoord;
-                isRotating = true;
-            }
-
-            var transform = self.getRotationTransformFromCoords(
-                    self.rotatePoint.coord,
-                    rotateHandlePrevCoord,
-                    [x, y]
-            );
-
-            var newHandlePoint = KhanUtil.findPointFromAngle(
-                    rotateHandlePrevCoord,
-                    transform.angleDeg,
-                    self.rotatePoint.coord);
-
-            self.applyTransform(transform);
-
-            rotateHandlePrevCoord = newHandlePoint;
-            return newHandlePoint;
-        };
-
-        this.rotateHandle.onMoveEnd = function() {
-            self.addTransform(self.getRotationTransformFromCoords(
-                    self.rotatePoint.coord,
-                    rotateHandleStartCoord,
-                    rotateHandlePrevCoord
-            ));
-            isRotating = false;
         };
 
         return {
@@ -1527,8 +1487,7 @@ var Transformer = React.createClass({
 
     // returns a transformation object representing a rotation
     // rounds the angle to the nearest 15 degrees
-    getRotationTransformFromCoords: function(center, start, end) {
-        var angleChanged = -KhanUtil.findAngle(start, end, center);
+    getRotationTransformFromAngle: function(center, angleChanged) {
         angleChanged = (angleChanged + 360) % 360;
         if (angleChanged > 180) {
             angleChanged -= 360;
