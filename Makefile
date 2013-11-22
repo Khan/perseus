@@ -5,6 +5,12 @@ build:
 
 all: build put
 
+# build and copy, but skip minification
+fast: concat put
+
+concat:
+	grunt shell:jsx concat
+
 put: put-js put-css
 
 get: get-css
