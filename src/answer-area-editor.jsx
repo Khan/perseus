@@ -64,7 +64,7 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
             }).join("\n");
 
             React.renderComponent(
-                Renderer({content: content}), 
+                Renderer({content: content}),
                 this.$examples[0]);
 
             $("#examples-show").qtip({

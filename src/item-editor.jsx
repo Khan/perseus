@@ -6,34 +6,18 @@ var Editor = Perseus.Editor;
 var AnswerAreaEditor = Perseus.AnswerAreaEditor;
 
 var ItemEditor = Perseus.ItemEditor = React.createClass({
-    defaultState: {
-        question: {},
-        answerArea: {}
-    },
-
     getDefaultProps: function() {
         return {
-            onChange: function() {}
+            onChange: function() {},
+            question: {},
+            answerArea: {}
         };
     },
 
-    getInitialState: function() {
-        var props = _.pick(this.props, _.keys(this.defaultState));
-        return _.defaults(props, this.defaultState);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this.setState(_.pick(nextProps, _.keys(this.defaultState)));
-    },
-
-    componentDidUpdate: function(prevProps, prevState, rootNode) {
-        if (!_.isEqual(prevState, this.state)) {
-            this.props.onChange();
-        }
-    },
-
-    componentDidMount: function() {
-        this.props.onChange();
+    // Notify the parent that the question or answer area has been updated.
+    updateProps: function(newProps, cb) {
+        var props = _(this.props).pick("question", "answerArea");
+        this.props.onChange(_(props).extend(newProps), cb);
     },
 
     render: function() {
@@ -45,10 +29,10 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         className: "perseus-question-editor",
                         onChange: function(newProps, cb) {
                             var question = _.extend({},
-                                    this.state.question, newProps);
-                            this.setState({question: question}, cb);
+                                    this.props.question, newProps);
+                            this.updateProps({question: question}, cb);
                         }.bind(this)
-                    }, this.state.question))}
+                    }, this.props.question))}
                 </div>
 
                 <div className="perseus-editor-right-cell">
@@ -67,10 +51,10 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         ref: "answerAreaEditor",
                         onChange: function(newProps, cb) {
                             var answerArea = _.extend({},
-                                    this.state.answerArea, newProps);
-                            this.setState({answerArea: answerArea}, cb);
+                                    this.props.answerArea, newProps);
+                            this.updateProps({answerArea: answerArea}, cb);
                         }.bind(this)
-                    }, this.state.answerArea))}
+                    }, this.props.answerArea))}
                 </div>
 
                 <div className="perseus-editor-right-cell">

@@ -18,23 +18,20 @@ Perseus.EditorPage = React.createClass({
 
             <CombinedHintsEditor
                     ref="hintsEditor"
-                    hints={this.props.hints} />
+                    hints={this.props.hints}
+                    onChange={this.handleChange} />
         </div>;
 
     },
 
-    componentWillMount: function() {
+    componentDidMount: function() {
         this.rendererMountNode = document.createElement("div");
+        this.updateRenderer();
     },
 
-    handleChange: function() {
-        var obj = this.toJSON(true);
-        if (this.props.onChange) {
-            this.props.onChange(obj);
-        }
-
+    updateRenderer: function(cb) {
         var rendererConfig = _({
-            item: obj,
+            item: _(this.props).pick("question", "hints", "answerArea"),
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
@@ -44,7 +41,16 @@ Perseus.EditorPage = React.createClass({
 
         this.renderer = React.renderComponent(
             Perseus.ItemRenderer(rendererConfig),
-            this.rendererMountNode);
+            this.rendererMountNode,
+            cb);
+    },
+
+    handleChange: function(toChange, cb) {
+        var newProps = _(this.props).pick("question", "hints", "answerArea");
+        _(newProps).extend(toChange);
+        this.props.onChange(newProps, function() {
+            this.updateRenderer(cb);
+        }.bind(this));
     },
 
     scorePreview: function() {
@@ -61,6 +67,31 @@ Perseus.EditorPage = React.createClass({
         });
     }
 
+});
+
+/* Renders an EditorPage as a non-controlled component.
+ *
+ * Normally the parent of EditorPage must pass it an onChange callback and then
+ * respond to any changes by modifying the EditorPage props to reflect those
+ * changes. With StatefulEditorPage changes are stored in state so you can
+ * query them with toJSON.
+ */
+Perseus.StatefulEditorPage = React.createClass({
+    render: function() {
+        return Perseus.EditorPage(this.state);
+    },
+    getInitialState: function() {
+        return _({}).extend(this.props, {
+            onChange: this.handleChange,
+            ref: "editor"
+        });
+    },
+    toJSON: function() {
+        return this.refs.editor.toJSON();
+    },
+    handleChange: function(newState, cb) {
+        this.setState(newState, cb);
+    }
 });
 
 

@@ -153,7 +153,7 @@ $('#scorePreview').on('click', function() {
 });
 
 Perseus.init({}).then(function() {
-    editor = React.renderComponent(Perseus.EditorPage(
+    editor = React.renderComponent(Perseus.StatefulEditorPage(
     {
         "question": {
             "content": "[[☃ plotter 1]]",

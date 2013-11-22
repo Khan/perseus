@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
-/* Collection of classes for rendering the hint editor area, 
+/* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
 
@@ -20,7 +20,7 @@ var HintRenderer = Perseus.HintRenderer = React.createClass({
             classNames = "perseus-hint-renderer";
         }
         return <div className={classNames}>
-            {Renderer(hint)}
+            <Renderer content={this.props.hint.content || ""} />
         </div>;
     }
 });
@@ -118,7 +118,7 @@ var CombinedHintEditor = React.createClass({
 
 
 /* A cell in the hints table with content appearing in the left column
- * 
+ *
  * Simplifies having to set up the table rows and cells manually
  * Used for the "Hints:" prompt and "Add a hint" button
  */
@@ -150,22 +150,15 @@ var LeftColumnHintsTableCell = React.createClass({
  *  ~ The "add a hint" button
  */
 var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
-    defaultState: {
-        hints: []
+    getDefaultProps: function() {
+        return {
+            onChange: function() {},
+            hints: []
+        };
     },
 
-    getInitialState: function() {
-        var props = _.pick(this.props, _.keys(this.defaultState));
-        return _.defaults(props, this.defaultState);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this.setState(_.pick(nextProps, _.keys(this.defaultState)));
-    },
-    
     render: function() {
-        var hints = this.state.hints;
-        var _this = this;
+        var hints = this.props.hints;
         var hintElems = _.map(hints, function(hint, i) {
             return <CombinedHintEditor
                         ref={"hintEditor" + i}
@@ -177,14 +170,14 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
                         onRemove={this.handleHintRemove.bind(this, i)}
                         onMove={this.handleHintMove.bind(this, i)} />;
         }, this);
-        
+
         return <div className="perseus-hints-container perseus-editor-table">
             <LeftColumnHintsTableCell className="perseus-hints-title">
                 Hints:
             </LeftColumnHintsTableCell>
 
             {hintElems}
-            
+
             <LeftColumnHintsTableCell className="add-hint-container">
                 <a href="#" className="simple-button orange"
                         onClick={this.addHint}>
@@ -196,38 +189,39 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
     },
 
     handleHintChange: function(i, newProps, cb) {
-        var hints = _.clone(this.state.hints);
-        hints[i] = _.extend({}, this.state.hints[i], newProps);
-        this.setState({hints: hints}, cb);
+        var hints = _(this.props.hints).clone();
+        _(hints[i]).extend(newProps);
+        this.props.onChange({hints: hints}, cb);
     },
 
     handleHintRemove: function(i) {
-        var hints = _.clone(this.state.hints);
+        var hints = _(this.props.hints).clone();
         hints.splice(i, 1);
-        this.setState({hints: hints});
+        this.props.onChange({hints: hints});
     },
 
     handleHintMove: function(i, dir) {
-        var hints = _.clone(this.state.hints);
+        var hints = _(this.props.hints).clone();
         var hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
-        this.setState({hints: hints}, function() {
+        this.props.onChange({hints: hints}, function() {
             this.refs["hintEditor" + (i + dir)].focus();
-        });
+        }.bind(this));
     },
-   
-    addHint: function() {
-        var hints = this.state.hints.concat([{}]);
-        var i = hints.length - 1;
 
-        this.setState({hints: hints}, function() {
+    addHint: function() {
+        var hints = _(this.props.hints).clone().concat([{}]);
+        this.props.onChange({hints: hints}, function() {
+            var i = hints.length - 1;
             this.refs["hintEditor" + i].focus();
         }.bind(this));
+
+        // TODO(joel) - is this doing anything?
         return false;
     },
 
     toJSON: function(skipValidation) {
-        return this.state.hints.map(function(hint, i) {
+        return this.props.hints.map(function(hint, i) {
             return this.refs["hintEditor" + i].toJSON(skipValidation);
         }, this);
     }
