@@ -51,22 +51,12 @@ grunt.initConfig({
             src: srcFiles,
             dest: "build/perseus.js"
         }
-    },
-    uglify: {
-        options: {
-            banner: "/*! Perseus | http://github.com/Khan/perseus */\n"
-        },
-        build: {
-            src: srcFiles,
-            dest: "build/perseus.min.js"
-        }
     }
 });
 
 grunt.loadNpmTasks("grunt-contrib-concat");
-grunt.loadNpmTasks("grunt-contrib-uglify");
 grunt.loadNpmTasks("grunt-shell");
 
-grunt.registerTask("default", ["shell:jsx", "concat", "uglify"]);
+grunt.registerTask("default", ["shell:jsx", "concat"]);
 
 };
