@@ -4,10 +4,19 @@
 var InfoTip = Perseus.InfoTip;
 var deepEq = Perseus.Util.deepEq;
 
+var BAR = "bar",
+    LINE = "line",
+    PIC = "pic",
+    HISTOGRAM = "histogram";
+
 var Plotter = React.createClass({
+    propTypes: {
+        type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM])
+    },
+
     getDefaultProps: function () {
         return {
-            type: "bar",
+            type: BAR,
             labels: ["", ""],
             categories: [""],
 
@@ -72,9 +81,10 @@ var Plotter = React.createClass({
         self.graphie.pics = [];
         self.mousedownPic = false;
 
-        var isLine = self.props.type === "line";
-        var isBar = self.props.type === "bar";
-        var isPic = self.props.type === "pic";
+        var isBar = self.props.type === BAR,
+            isLine = self.props.type === LINE,
+            isPic = self.props.type === PIC,
+            isHistogram = self.props.type === HISTOGRAM;
 
         var config = {};
         var c = config; // c for short
@@ -89,6 +99,9 @@ var Plotter = React.createClass({
         var plotDimensions = self.props.plotDimensions;
         if (isLine) {
             c.dimX += 1;
+        } else if (isHistogram) {
+            c.barPad = 0;
+            c.barWidth = 1;
         } else if (isBar) {
             c.barPad = 0.15;
             c.barWidth = 1 - 2 * c.barPad;
@@ -167,27 +180,110 @@ var Plotter = React.createClass({
         var c = config;
         var graphie = self.graphie;
 
-        _.each(self.props.categories, function (category, i) {
-            var startHeight = self.state.values[i];
-            var x;
+        if (self.props.type === HISTOGRAM) {
+            // Histograms with n labels/categories have n - 1 buckets
+            _.times(self.props.categories.length - 1, function(i) {
+                self.setupHistogram(i, self.state.values[i], config);
+            });
 
-            if (self.props.type === "bar") {
-                x = self.setupBar(i, startHeight, config);
-            } else if (self.props.type === "line") {
-                x = self.setupLine(i, startHeight, config);
-            } else if (self.props.type === "pic") {
-                x = self.setupPic(i, startHeight, config);
-            }
+            _.each(self.props.categories, function(category, i) {
+                var x = 0.5 + i * c.barWidth;
+                graphie.label([x, 0], category + "", "below", false);
 
-            graphie.label([x, 0], category + "", "below", false);
-
-            var tickHeight = 6 / c.scale[1];
-            graphie.style(
-                {stroke: "#000", strokeWidth: 2, opacity: 1.0},
-                function() {
+                var tickHeight = 6 / c.scale[1];
+                graphie.style({
+                    stroke: "#000", strokeWidth: 2, opacity: 1.0
+                }, function() {
                     graphie.line([x, -tickHeight], [x, 0]);
                 });
+            });
+        } else {
+            _.each(self.props.categories, function (category, i) {
+                var startHeight = self.state.values[i];
+                var x;
+
+                if (self.props.type === BAR) {
+                    x = self.setupBar(i, startHeight, config);
+                } else if (self.props.type === LINE) {
+                    x = self.setupLine(i, startHeight, config);
+                } else if (self.props.type === PIC) {
+                    x = self.setupPic(i, startHeight, config);
+                }
+
+                graphie.label([x, 0], category + "", "below", false);
+
+                var tickHeight = 6 / c.scale[1];
+                graphie.style({
+                    stroke: "#000", strokeWidth: 2, opacity: 1.0
+                }, function() {
+                    graphie.line([x, -tickHeight], [x, 0]);
+                });
+            });
+        }
+    },
+
+    setupHistogram: function(i, startHeight, config) {
+        var self = this;
+        var c = config;
+        var graphie = self.graphie;
+        var barHalfWidth = c.barWidth / 2;
+        // debugger;
+        var x = 0.5 + i * c.barWidth + barHalfWidth;
+        var fill = i % 2 === 0 ? "#9ab8ed" : "#9ae2ed";
+        
+
+        var scaleBar = function(i, height) {
+            var center = graphie.scalePoint(0);
+            c.graph.bars[i].scale(
+                    1, Math.max(0.01, height / c.scaleY),
+                    center[0], center[1]);
+        };
+
+        graphie.style(
+            {stroke: "none", fill: fill, opacity: 1.0},
+            function() {
+                c.graph.bars[i] = graphie.path([
+                    [x - barHalfWidth, 0],
+                    [x - barHalfWidth, c.scaleY],
+                    [x + barHalfWidth, c.scaleY],
+                    [x + barHalfWidth, 0],
+                    [x - barHalfWidth, 0]
+                ]);
+                scaleBar(i, startHeight);
+            });
+
+        c.graph.lines[i] = graphie.addMovableLineSegment({
+            coordA: [x - barHalfWidth, startHeight],
+            coordZ: [x + barHalfWidth, startHeight],
+            snapY: c.scaleY / self.props.snapsPerLine,
+            constraints: {
+                constrainX: true
+            },
+            normalStyle: {
+                "stroke": KhanUtil.BLUE,
+                "stroke-width": 4
+            }
         });
+
+        c.graph.lines[i].onMove = function(dx, dy) {
+            var y = this.coordA[1];
+            if (y < 0 || y > c.dimY) {
+                y = Math.min(Math.max(y, 0), c.dimY);
+                this.coordA[1] = this.coordZ[1] = y;
+
+                // Snap the line back into range.
+                this.transform();
+            }
+
+            var values = _.clone(self.state.values);
+            values[i] = y;
+            self.setState({values: values});
+            self.props.onChange({ values: values });
+
+            scaleBar(i, y);
+        };
+
+        return x;
     },
 
     setupBar: function(i, startHeight, config) {
@@ -403,12 +499,16 @@ var editorDefaults = {
 };
 
 var PlotterEditor = React.createClass({
+    propTypes: {
+        type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM])
+    },
+
     getDefaultProps: function () {
         return _.extend({}, editorDefaults, {
             correct: [1],
             starting: [1],
 
-            type: "bar",
+            type: BAR,
             labels: ["", ""],
             categories: [""],
 
@@ -427,10 +527,12 @@ var PlotterEditor = React.createClass({
     },
 
     render: function() {
+        var setFromScale = this.props.type === LINE ||
+                           this.props.type === HISTOGRAM;
         return <div className="perseus-widget-plotter-editor">
             <div>
                 Chart type:
-                {_.map(["bar", "line", "pic"], function(type) {
+                {_.map([BAR, LINE, PIC, HISTOGRAM], function(type) {
                     return <label key={type}>
                         <input
                             type="radio"
@@ -453,7 +555,7 @@ var PlotterEditor = React.createClass({
                     </label>;
                 }, this)}
             </div>
-            {this.props.type === "line" && <div>
+            {setFromScale && <div>
                 <div>
                     <label>
                         Scale (x):
@@ -476,7 +578,7 @@ var PlotterEditor = React.createClass({
                     </button>
                 </div>
             </div>}
-            {this.props.type === "pic" && <div>
+            {this.props.type === PIC && <div>
                 <label>
                     Picture:
                     <input
@@ -520,7 +622,7 @@ var PlotterEditor = React.createClass({
                         defaultValue={this.props.maxY} />
                 </label>
             </div>
-            {this.props.type !== "pic" && <div>
+            {this.props.type !== PIC && <div>
                 <label>
                     Snaps per line:
                     <input
@@ -563,7 +665,22 @@ var PlotterEditor = React.createClass({
     },
 
     changeType: function(type) {
-        this.props.onChange({type: type});
+        var categories;
+        if (type === HISTOGRAM) {
+            // Switching to histogram, add a label (0) to the left
+            categories = ["0"].concat(this.props.categories);
+            this.props.onChange({type: type, categories: categories});
+        } else if (this.props.type === HISTOGRAM) {
+            // Switching from histogram, remove a label from the left
+            categories = this.props.categories.slice(1);
+            this.props.onChange({type: type, categories: categories});
+        } else {
+            this.props.onChange({type: type});
+        }
+
+        if (categories) {
+            this.refs.categories.getDOMNode().value = categories.join(", ");
+        }
     },
 
     changeLabel: function(i, e) {
@@ -583,6 +700,10 @@ var PlotterEditor = React.createClass({
 
     changeCategories: function(categories) {
         var n = categories.length;
+        if (this.props.type === HISTOGRAM) {
+            // Histograms with n labels/categories have n - 1 buckets
+            n--;
+        }
         var value = this.props.scaleY;
 
         this.props.onChange({
@@ -633,7 +754,13 @@ var PlotterEditor = React.createClass({
         var max = +this.refs["maxX"].getDOMNode().value;
         max = Math.ceil(max / scale) * scale;
 
-        var categories = _.range(scale, max + scale, scale);
+        var categories;
+        if (this.props.type === HISTOGRAM) {
+            // Ranges for histogram labels should start at zero
+            categories = _.range(0, max + scale, scale);
+        } else {
+            categories = _.range(scale, max + scale, scale);
+        }
         this.changeCategories(categories);
 
         this.refs.categories.getDOMNode().value = categories.join(", ");
@@ -643,7 +770,7 @@ var PlotterEditor = React.createClass({
         var json = _.pick(this.props, "correct", "starting", "type", "labels",
             "categories", "scaleY", "maxY", "snapsPerLine");
 
-        if (this.props.type === "pic") {
+        if (this.props.type === PIC) {
             json.picUrl = this.props.picUrl;
         }
 
