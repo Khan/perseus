@@ -356,7 +356,6 @@ var Plotter = React.createClass({
                     [x + barHalfWidth, 0],
                     [x - barHalfWidth, 0]
                 ]);
-                scaleBar(i, startHeight);
             });
 
         c.graph.lines[i] = graphie.addMovableLineSegment({
@@ -390,6 +389,7 @@ var Plotter = React.createClass({
             scaleBar(i, y);
         };
 
+        scaleBar(i, startHeight);
         return x;
     },
 
