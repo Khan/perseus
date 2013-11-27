@@ -92,7 +92,8 @@ var Plotter = React.createClass({
         c.graph = {
             lines: [],
             bars: [],
-            points: []
+            points: [],
+            dividers: []
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
@@ -182,10 +183,14 @@ var Plotter = React.createClass({
 
         if (self.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
-            _.times(self.props.categories.length - 1, function(i) {
-                self.setupHistogram(i, self.state.values[i], config);
+            var scale = _.times(self.props.categories.length - 1, function(i) {
+                return self.setupHistogram(i, self.state.values[i], config);
             });
 
+            // Scale buckets (bars) and dividers
+            _.invoke(scale, "call");
+
+            // Label categories
             _.each(self.props.categories, function(category, i) {
                 var x = 0.5 + i * c.barWidth;
                 graphie.label([x, 0], category + "", "below", false);
@@ -227,30 +232,66 @@ var Plotter = React.createClass({
         var c = config;
         var graphie = self.graphie;
         var barHalfWidth = c.barWidth / 2;
-        // debugger;
-        var x = 0.5 + i * c.barWidth + barHalfWidth;
-        var fill = i % 2 === 0 ? "#9ab8ed" : "#9ae2ed";
-        
+        var x = 0.5 + i * c.barWidth + barHalfWidth;        
 
         var scaleBar = function(i, height) {
             var center = graphie.scalePoint(0);
+
+            // Scale filled bucket (bar)
             c.graph.bars[i].scale(
-                    1, Math.max(0.01, height / c.scaleY),
-                    center[0], center[1]);
+                1, Math.max(0.01, height / c.scaleY),
+                center[0], center[1]
+            );
+
+            // Scale dividers between buckets
+            var leftDivider = c.graph.dividers[i - 1],
+                rightDivider = c.graph.dividers[i];
+
+            if (leftDivider) {
+                var divHeight = Math.min(self.state.values[i - 1], height);
+                leftDivider.scale(
+                    1, Math.max(0.01, divHeight / c.scaleY),
+                    center[0], center[1]
+                );
+            }
+
+            if (rightDivider) {
+                var divHeight = Math.min(height, self.state.values[i + 1]);
+                rightDivider.scale(
+                    1, Math.max(0.01, divHeight / c.scaleY),
+                    center[0], center[1]
+                );
+            }
+
+            // Align top of bar to edge unless at bottom
+            if (height) {
+                c.graph.lines[i].visibleLine.translate(0, 2);
+            }
         };
 
-        graphie.style(
-            {stroke: "none", fill: fill, opacity: 1.0},
-            function() {
-                c.graph.bars[i] = graphie.path([
+        graphie.style({
+            stroke: "none", fill: "#9ab8ed", opacity: 1.0
+        }, function() {
+            c.graph.bars[i] = graphie.path([
+                [x - barHalfWidth, 0],
+                [x - barHalfWidth, c.scaleY],
+                [x + barHalfWidth, c.scaleY],
+                [x + barHalfWidth, 0],
+                [x - barHalfWidth, 0]
+            ]);
+        });
+
+        if (i) {
+            // Don't draw a divider to the left of the first bucket
+            graphie.style({
+                stroke: "#000", strokeWidth: 1, opacity: 0.3
+            }, function() {
+                c.graph.dividers.push(graphie.path([
                     [x - barHalfWidth, 0],
-                    [x - barHalfWidth, c.scaleY],
-                    [x + barHalfWidth, c.scaleY],
-                    [x + barHalfWidth, 0],
-                    [x - barHalfWidth, 0]
-                ]);
-                scaleBar(i, startHeight);
+                    [x - barHalfWidth, c.scaleY]
+                ]));
             });
+        }
 
         c.graph.lines[i] = graphie.addMovableLineSegment({
             coordA: [x - barHalfWidth, startHeight],
@@ -283,7 +324,7 @@ var Plotter = React.createClass({
             scaleBar(i, y);
         };
 
-        return x;
+        return _.bind(scaleBar, this, i, startHeight);
     },
 
     setupBar: function(i, startHeight, config) {
@@ -298,6 +339,11 @@ var Plotter = React.createClass({
             c.graph.bars[i].scale(
                     1, Math.max(0.01, height / c.scaleY),
                     center[0], center[1]);
+
+            // Align top of bar to edge unless at bottom
+            if (height) {
+                c.graph.lines[i].visibleLine.translate(0, 2);
+            }
         };
 
         graphie.style(
