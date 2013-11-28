@@ -402,11 +402,16 @@
         text-align: center;
     }
 
-    &.layout-vertical .bank {
+    &.layout-vertical .bank,  &.layout-vertical .draggable-box {
         box-sizing: border-box;
+        -moz-box-sizing: border-box;
         float: left;
-        margin: 10px 0 0 0;
         max-width: 50%;
+    }
+
+    &.layout-vertical .bank {
+        padding: 10px 0 0 0;
+        margin: 0;
 
         .card-wrap {
             margin-right: 20px;
@@ -414,10 +419,7 @@
     }
 
     &.layout-vertical .draggable-box {
-        box-sizing: border-box;
-        float: left;
         margin-top: 0;
-        max-width: 50%;
         min-height: 170px;
         padding: 10px;
 
