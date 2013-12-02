@@ -30,11 +30,15 @@ var srcFiles = [
     "build/src/editor-page.js"
 ];
 
+var testJsxSuccess = "test -s " + srcFiles.join(" && test -s ");
+
 grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     shell: {
         jsx: {
-            command: "node_modules/react-tools/bin/jsx -x jsx src/ build/src/",
+            // jsx always returns non-zero, so error if any of the required
+            // files were not built
+            command: "node_modules/react-tools/bin/jsx -x jsx src/ build/src/ && " + testJsxSuccess,
             options: {
                 stderr: true,
                 stdout: true,
