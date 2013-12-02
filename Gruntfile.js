@@ -34,7 +34,7 @@ grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     shell: {
         jsx: {
-            command: "jsx -x jsx src/ build/src/",
+            command: "node_modules/react-tools/bin/jsx -x jsx src/ build/src/",
             options: {
                 stderr: true,
                 stdout: true,

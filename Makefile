@@ -3,7 +3,7 @@
 build:
 	grunt
 
-all: build put
+all: clean update build put
 
 concat:
 	grunt shell:jsx concat
@@ -20,6 +20,9 @@ put-js:
 
 put-css:
 	./operations.sh put-css
+
+update:
+	npm install
 
 clean:
 	-rm -rf build/*
