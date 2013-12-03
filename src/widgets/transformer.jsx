@@ -13,6 +13,9 @@ var TeX = Perseus.TeX;
 
 var deepEq = Perseus.Util.deepEq;
 var InfoTip = Perseus.InfoTip;
+var kvector = KhanUtil.kvector;
+var kpoint = KhanUtil.kpoint;
+var kline = KhanUtil.kline;
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -107,6 +110,15 @@ function stringFromPoint(point) {
 function stringFromVector(vector) {
     return "<" + stringFromDecimal(vector[0]) +
             ", " + stringFromDecimal(vector[1]) + ">";
+}
+
+function orderInsensitiveCoordsEqual(coords1, coords2) {
+    coords1 = _.clone(coords1).sort(kpoint.compare);
+    coords2 = _.clone(coords2).sort(kpoint.compare);
+    return _.all(_.map(coords1, function(coord1, i) {
+        var coord2 = coords2[i];
+        return kpoint.equal(coord1, coord2);
+    }));
 }
 
 
@@ -529,17 +541,11 @@ var ShapeTypes = {
     addShape: function(graphie, options, points) {
         points = points || options.shape.coords;
 
-        var types = options.shape.type;
-        if (!_.isArray(types)) {
-            types = [types];
-        }
-        var nextPoints = _.clone(points);
+        var types = ShapeTypes._typesOf(options.shape);
 
-        var shapes = _.map(types, function(type) {
-            var pointCount = ShapeTypes.getPointCountForType(type);
-            var points = _.first(nextPoints, pointCount);
-            nextPoints = _.rest(nextPoints, pointCount);
-            return ShapeTypes.addType(graphie, type, points, options);
+        var shapes = ShapeTypes._mapTypes(types, points,
+                function(type, points) {
+            return ShapeTypes._addType(graphie, type, points, options);
         });
 
         var updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
@@ -566,7 +572,57 @@ var ShapeTypes = {
         };
     },
 
-    addType: function(graphie, type, points, options) {
+    equal: function(shape1, shape2) {
+        var types1 = ShapeTypes._typesOf(shape1);
+        var types2 = ShapeTypes._typesOf(shape2);
+        if (types1.length !== types2.length) {
+            return false;
+        }
+        var shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
+                ShapeTypes._combine);
+        var shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
+                ShapeTypes._combine);
+        return _.all(_.map(shapes1, function(partialShape1, i) {
+            var partialShape2 = shapes2[i];
+            if (partialShape1.type !== partialShape2.type) {
+                return false;
+            }
+            return ShapeTypes._forType(partialShape1.type).equal(
+                partialShape1.coords,
+                partialShape2.coords
+            );
+        }));
+    },
+
+    _typesOf: function(shape) {
+        var types = shape.type;
+        if (!_.isArray(types)) {
+            types = [types];
+        }
+        return _.map(types, function(type) {
+            if (type === "polygon") {
+                return "polygon-3";
+            } else {
+                return type;
+            }
+        });
+    },
+
+    _forType: function(type) {
+        var baseType = type.split("-")[0];
+        return ShapeTypes[baseType];
+    },
+
+    _mapTypes: function(types, points, func, context) {
+        return _.map(types, function(type) {
+            var pointCount = ShapeTypes.getPointCountForType(type);
+            var currentPoints = _.first(points, pointCount);
+            points = _.rest(points, pointCount);
+            return func.call(context, type, currentPoints);
+        });
+    },
+
+    _addType: function(graphie, type, points, options) {
         var lineCoords = _.isArray(points[0]) ? {
             coordA: points[0],
             coordZ: points[1],
@@ -611,6 +667,29 @@ var ShapeTypes = {
         } else {
             throw new Error("Invalid shape type " + type);
         }
+    },
+
+    _combine: function(type, coords) {
+        return {
+            type: type,
+            coords: coords
+        };
+    },
+
+    polygon: {
+        equal: orderInsensitiveCoordsEqual
+    },
+
+    line: {
+        equal: kline.equal
+    },
+
+    lineSegment: {
+        equal: orderInsensitiveCoordsEqual
+    },
+
+    point: {
+        equal: kpoint.equal
     }
 };
 
@@ -1612,8 +1691,8 @@ _.extend(Transformer, {
         // but we don't use that setting yet. this is because reflections
         // have many equivalent lines represented by different arrays, so
         // we'll need a better traversal with that knowledge
-        if (deepEq(guess.answer.shape.coords,
-                rubric.correct.shape.coords)) {
+        if (ShapeTypes.equal(guess.answer.shape,
+                rubric.correct.shape)) {
             return {
                 type: "points",
                 earned: 1,
