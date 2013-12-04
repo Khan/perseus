@@ -70,8 +70,10 @@
 <script src="/ke/local-only/jquery.qtip.js"></script>
 <script src="/ke/utils/answer-types.js"></script>
 <script src="/ke/utils/math.js"></script>
+<script src="/ke/utils/knumber.js"></script>
 <script src="/ke/utils/kvector.js"></script>
 <script src="/ke/utils/kpoint.js"></script>
+<script src="/ke/utils/kline.js"></script>
 
 <script src="/ke/utils/tmpl.js"></script>
 <script src="/ke/third_party/raphael.js"></script>
@@ -141,7 +143,7 @@ $('#score').on('click', function() {
 
 var seedContent = {
     "question": {
-        "content": "[[☃ transformer 1]]",
+        "content": "**Define a dilation that maps line $a$ onto line $b$ by choosing a center and a scale factor.**  \n  \n$$  \n\n[[☃ transformer 1]]",
         "widgets": {
             "transformer 1": {
                 "options": {
@@ -149,39 +151,30 @@ var seedContent = {
                     "starting": {
                         "shape": {
                             "type": [
-                                "lineSegment",
-                                "lineSegment"
+                                "line"
                             ],
                             "coords": [
                                 [
-                                    3.33333,
-                                    3.33333
+                                    3,
+                                    3
                                 ],
                                 [
-                                    -3.33333,
-                                    -3.33333
-                                ],
-                                [
-                                    -3.33333,
-                                    3.33333
-                                ],
-                                [
-                                    3.33333,
-                                    -3.33333
+                                    -3,
+                                    -3
                                 ]
                             ]
                         },
                         "transformations": []
                     },
+                    "graphMode": "static",
+                    "listMode": "interactive",
                     "tools": {
                         "translation": {
-                            "enabled": true,
-                            "constraints": {
-                                "fixed": true
-                            }
+                            "enabled": false,
+                            "constraints": {}
                         },
                         "rotation": {
-                            "enabled": true,
+                            "enabled": false,
                             "constraints": {
                                 "fixed": false
                             },
@@ -191,7 +184,7 @@ var seedContent = {
                             ]
                         },
                         "reflection": {
-                            "enabled": true,
+                            "enabled": false,
                             "constraints": {
                                 "fixed": false
                             },
@@ -217,7 +210,7 @@ var seedContent = {
                             ]
                         }
                     },
-                    "drawSolutionShape": true,
+                    "drawSolutionShape": false,
                     "graph": {
                         "range": [
                             [
@@ -233,12 +226,14 @@ var seedContent = {
                             1,
                             1
                         ],
-                        "markings": "grid",
+                        "markings": "none",
                         "backgroundImage": {
-                            "url": null,
+                            "url": "https://ka-perseus-graphie.s3.amazonaws.com/d405ec3306441f95ee54a59da33fe3b4cdb33a56.png",
                             "scale": 1,
                             "bottom": 0,
-                            "left": 0
+                            "left": 0,
+                            "width": 425,
+                            "height": 425
                         },
                         "showProtractor": false
                     },
@@ -246,42 +241,26 @@ var seedContent = {
                     "correct": {
                         "transformations": [
                             {
-                                "type": "rotation",
+                                "type": "dilation",
+                                "scale": 2,
                                 "center": [
-                                    1,
-                                    6
-                                ],
-                                "angleDeg": -90
-                            },
-                            {
-                                "type": "translation",
-                                "vector": [
-                                    -4.5,
-                                    0
+                                    3,
+                                    1
                                 ]
                             }
                         ],
                         "shape": {
                             "type": [
-                                "lineSegment",
-                                "lineSegment"
+                                "line"
                             ],
                             "coords": [
                                 [
-                                    -6.166670000000001,
-                                    3.6666700000000008
+                                    3,
+                                    5
                                 ],
                                 [
-                                    -12.833329999999995,
-                                    10.333330000000007
-                                ],
-                                [
-                                    -6.166669999999998,
-                                    10.33333
-                                ],
-                                [
-                                    -12.833329999999998,
-                                    3.666669999999997
+                                    -9,
+                                    -7
                                 ]
                             ]
                         }
@@ -294,17 +273,12 @@ var seedContent = {
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "Do the proof!",
+            "content": "Use the interactive graph to define a correct dilation.",
             "widgets": {}
         },
         "calculator": false
     },
-    "hints": [
-        {
-            "content": "Focus on the proof!!!",
-            "widgets": {}
-        }
-    ]
+    "hints": []
 };
 
 
