@@ -44,6 +44,14 @@ grunt.initConfig({
                 stdout: true,
                 failOnError: true
             }
+        },
+        gitRevision: {
+            command: 'echo "// commit `git rev-parse HEAD`" > build/git-revision.js',
+            options: {
+                stderr: true,
+                stdout: true,
+                failOnError: true
+            }
         }
     },
     concat: {
@@ -52,7 +60,7 @@ grunt.initConfig({
             separator: ";"
         },
         dist: {
-            src: srcFiles,
+            src: ["build/git-revision.js"].concat(srcFiles),
             dest: "build/perseus.js"
         }
     }
@@ -61,6 +69,6 @@ grunt.initConfig({
 grunt.loadNpmTasks("grunt-contrib-concat");
 grunt.loadNpmTasks("grunt-shell");
 
-grunt.registerTask("default", ["shell:jsx", "concat"]);
+grunt.registerTask("default", ["shell:jsx", "shell:gitRevision", "concat"]);
 
 };
