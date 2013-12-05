@@ -10,11 +10,6 @@ concat:
 
 put: put-js put-css
 
-get: get-css
-
-get-css:
-	./operations.sh get-css
-
 put-js:
 	./operations.sh put-js
 

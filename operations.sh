@@ -20,15 +20,6 @@ case $1 in
         echo "Command: get-css, put-js, put-css"
         exit 0
         ;;
-    get-css)
-        pwd=$(pwd)
-        cd "$webapp"
-        make css
-        cd "$pwd"
-        manifest="$webapp/genfiles/stylesheets-packages-compressed.json"
-        shared=$(node stylesheets/get_css_name.js "$manifest")
-        cp "$webapp/stylesheets/shared-package/$shared" stylesheets/shared.css
-        ;;
 
     put-js)
         cp build/perseus.js "$webapp/javascript/perseus-package"
