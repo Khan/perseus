@@ -1561,29 +1561,34 @@ var Transformer = React.createClass({
         this.reflectPoints[1].otherPoint = this.reflectPoints[0];
 
         // the line of reflection
-        this.reflectLine = graphie.addMovableLineSegment({
-            fixed: options.constraints.fixed,
-            constraints: options.constraints,
-            pointA: this.reflectPoints[0],
-            pointZ: this.reflectPoints[1],
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
-            extendLine: true,
-            normalStyle: {
-                "stroke": KhanUtil.BLUE,
-                "stroke-width": 2,
-                "stroke-dasharray": "- "
-            },
-            highlightStyle: {
-                "stroke": KhanUtil.ORANGE,
-                "stroke-width": 2,
-                "stroke-dasharray": "- "
-            },
-            movePointsWithLine: true,
-            onMove: function() {
-                self.reflectButton.update();
-            },
-            onMoveEnd: self.updateReflectionTool
+        // TODO(jack): graphie.style here is a hack to prevent the dashed
+        // style from leaking into the rest of the shapes. Remove when
+        // graphie.addMovableLineSegment doesn't leak styles anymore.
+        graphie.style({}, function() {
+            self.reflectLine = graphie.addMovableLineSegment({
+                fixed: options.constraints.fixed,
+                constraints: options.constraints,
+                pointA: self.reflectPoints[0],
+                pointZ: self.reflectPoints[1],
+                snapX: graphie.snap[0],
+                snapY: graphie.snap[1],
+                extendLine: true,
+                normalStyle: {
+                    "stroke": KhanUtil.BLUE,
+                    "stroke-width": 2,
+                    "stroke-dasharray": "- "
+                },
+                highlightStyle: {
+                    "stroke": KhanUtil.ORANGE,
+                    "stroke-width": 2,
+                    "stroke-dasharray": "- "
+                },
+                movePointsWithLine: true,
+                onMove: function() {
+                    self.reflectButton.update();
+                },
+                onMoveEnd: self.updateReflectionTool
+            });
         });
 
         // the "button" point in the center of the line of reflection
