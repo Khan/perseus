@@ -13,6 +13,7 @@ var TeX = Perseus.TeX;
 
 var deepEq = Perseus.Util.deepEq;
 var InfoTip = Perseus.InfoTip;
+var knumber = KhanUtil.knumber;
 var kvector = KhanUtil.kvector;
 var kpoint = KhanUtil.kpoint;
 var kline = KhanUtil.kline;
@@ -122,6 +123,7 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
 }
 
 
+
 /* Perform operations on raw transform objects */
 var Transformations = {
     ALL: [
@@ -153,6 +155,95 @@ var Transformations = {
             return _.identity;  // do not transform the coord
         } else {
             return Transformations[transform.type].apply(transform);
+        }
+    },
+
+    append: function(transformList, newTransform) {
+        // Append newTransform to transformList, and collapse the last
+        // two transforms if they are collapsable
+        var results = Transformations._appendAndCollapseLastTwo(
+            transformList,
+            newTransform
+        );
+        // Collapse any no-ops at the end of the transformation list
+        return Transformations._collapseFinalNoOps(results);
+    },
+
+    _collapseFinalNoOps: function(transforms) {
+        // Collapse no-op transformations at the end of the list
+        if (transforms.length && Transformations.isNoOp(_.last(transforms))) {
+            return _.initial(transforms);
+        } else {
+            return transforms;
+        }
+    },
+
+    _appendAndCollapseLastTwo: function(transformList, newTransform) {
+        if (!transformList.length) {
+            return [newTransform];
+        } else {
+            var collapsed = Transformations.collapse(
+                _.last(transformList),
+                newTransform
+            );
+            return _.initial(transformList).concat(collapsed);
+        }
+    },
+
+    isNoOp: function(transform) {
+        return Transformations[transform.type].isNoOp(transform);
+    },
+
+    collapse: function(transform1, transform2) {
+        // We can only collapse transforms that have the same type
+        if (transform1.type !== transform2.type) {
+            return [transform1, transform2];
+        }
+
+        // Clicking the button again removes empty transformations
+        if (Transformations.isEmpty(transform1) &&
+                Transformations.isEmpty(transform2)) {
+            return [];
+        }
+
+        // Don't collapse invalid transformations otherwise
+        if (!Transformations.isValid(transform1) ||
+                !Transformations.isValid(transform2)) {
+            return [transform1, transform2];
+        }
+
+        return Transformations._collapseValidMonotypedTransforms(
+            transform1,
+            transform2
+        );
+    },
+
+    isValid: function(transform) {
+        return Transformations[transform.type].isValid(transform);
+    },
+
+    isEmpty: function(transform) {
+        return Transformations[transform.type].isEmpty(transform);
+    },
+
+    _collapseValidMonotypedTransforms: function(transform1, transform2) {
+        var collapsed = Transformations[transform1.type].collapse(
+            transform1,
+            transform2
+        );
+        if (collapsed) {
+            // Force all answers into an array
+            if (!_.isArray(collapsed)) {
+                collapsed = [collapsed];
+            }
+            // Add types to all transforms in the answer
+            _.each(collapsed, function(transform) {
+                transform.type = transform1.type;
+            });
+            return collapsed;
+        } else {
+            // These transforms can't be collapsed together
+            return [transform1, transform2];
         }
     },
 
@@ -205,6 +296,21 @@ var Transformations = {
             return _.isFinite(transform.vector[0]) &&
                 _.isFinite(transform.vector[1]);
         },
+        isEmpty: function(transform) {
+            return transform.vector[0] === null &&
+                transform.vector[1] === null;
+        },
+        isNoOp: function(transform) {
+            return kvector.equal(transform.vector, [0, 0]);
+        },
+        collapse: function(transform1, transform2) {
+            return {
+                vector: kvector.add(
+                    transform1.vector,
+                    transform2.vector
+                )
+            };
+        },
         toString: function(transform) {
             return "Translation by " + stringFromVector(transform.vector);
         },
@@ -251,6 +357,23 @@ var Transformations = {
             return _.isFinite(transform.angleDeg) &&
                 _.isFinite(transform.center[0]) &&
                 _.isFinite(transform.center[1]);
+        },
+        isEmpty: function(transform) {
+            return transform.angleDeg === null &&
+                transform.center[0] === null &&
+                transform.center[1] === null;
+        },
+        isNoOp: function(transform) {
+            return knumber.equal(transform.angleDeg, 0);
+        },
+        collapse: function(transform1, transform2) {
+            if (!kpoint.equal(transform1.center, transform2.center)) {
+                return false;
+            }
+            return {
+                center: transform1.center,
+                angleDeg: transform1.angleDeg + transform2.angleDeg
+            };
         },
         toString: function(transform) {
             return "Rotation by " + stringFromDecimal(transform.angleDeg) +
@@ -309,7 +432,21 @@ var Transformations = {
             // A bit hacky, but we'll also define reflecting over a
             // single point as a no-op, to avoid NaN fun.
             return _.all(_.flatten(transform.line), _.isFinite) &&
-                    !deepEq(transform.line[0], transform.line[1]);
+                    !kpoint.equal(transform.line[0], transform.line[1]);
+        },
+        isEmpty: function(transform) {
+            return _.all(_.flatten(transform.line), _.isNull);
+        },
+        isNoOp: function(transform) {
+            // Invalid transforms are implicitly no-ops, so we don't
+            // have to catch that case here.
+            return false;
+        },
+        collapse: function(transform1, transform2) {
+            if (!kline.equal(transform1.line, transform2.line)) {
+                return false;
+            }
+            return [];
         },
         toString: function(transform) {
             var point1 = transform.line[0];
@@ -375,6 +512,23 @@ var Transformations = {
             return _.isFinite(transform.scale) &&
                 _.isFinite(transform.center[0]) &&
                 _.isFinite(transform.center[1]);
+        },
+        isEmpty: function(transform) {
+            return transform.scale === null &&
+                transform.center[0] === null &&
+                transform.center[1] === null;
+        },
+        isNoOp: function(transform) {
+            return knumber.equal(transform.scale, 1);
+        },
+        collapse: function(transform1, transform2) {
+            if (!kpoint.equal(transform1.center, transform2.center)) {
+                return false;
+            }
+            return {
+                center: transform1.center,
+                scale: transform1.scale * transform2.scale
+            };
         },
         toString: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
@@ -1255,13 +1409,11 @@ var Transformer = React.createClass({
             onMove: function (dX, dY) {
                 dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
                 dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
-                return [dX, dY];
-            },
-            onMoveEnd: function(dX, dY) {
                 self.addTransform({
                     type: "translation",
                     vector: [dX, dY]
                 });
+                return [dX, dY];
             },
             pointStyle: {
                 fill: (translatable ? KhanUtil.ORANGE : KhanUtil.BLUE),
@@ -1497,15 +1649,9 @@ var Transformer = React.createClass({
                 );
 
                 // Rotate polygon with rotateHandle
-                self.applyTransform(transform);
+                self.doTransform(transform);
 
                 return oldAngle + transform.angleDeg;
-            },
-            onMoveEnd: function(newAngle, oldAngle) {
-                self.addTransform(self.getRotationTransformFromAngle(
-                        self.rotatePoint.coord,
-                        newAngle - oldAngle
-                ));
             }
         });
 
@@ -1515,6 +1661,7 @@ var Transformer = React.createClass({
                 coord: [x, y]
             });
         };
+
 
         return {
             remove: function() {
@@ -1549,15 +1696,7 @@ var Transformer = React.createClass({
                 minRadius: self.scaleToCurrentRange(1),
                 snapRadius: self.scaleToCurrentRange(0.5),
                 onResize: function(newRadius, oldRadius) {
-                    self.applyTransform({
-                        type: "dilation",
-                        center: self.dilationCircle.centerPoint.coord,
-                        scale: newRadius/oldRadius
-                    });
-                },
-                onResizeEnd: function(newRadius, oldRadius) {
-                    var scale = newRadius / oldRadius;
-                    self.addTransform({
+                    self.doTransform({
                         type: "dilation",
                         center: self.dilationCircle.centerPoint.coord,
                         scale: newRadius/oldRadius
@@ -1651,9 +1790,12 @@ var Transformer = React.createClass({
 
     // add a transformation to our props list of transformation
     addTransform: function(transform, callback) {
-        this.transformations.push(transform);
+        this.transformations = Transformations.append(
+                this.transformations,
+                transform
+        );
         this.props.onChange({
-            transformations: this.props.transformations.concat([transform]),
+            transformations: _.clone(this.transformations)
         }, callback);
     },
 
