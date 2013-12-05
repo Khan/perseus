@@ -103,14 +103,28 @@ function stringFromFraction(number) {
     }
 }
 
-function stringFromPoint(point) {
-    return "(" + stringFromDecimal(point[0]) +
-            ", " + stringFromDecimal(point[1]) + ")";
+function texFromPoint(point) {
+    return [
+        <TeX>{"("}</TeX>,
+        stringFromDecimal(point[0]),
+        <TeX>{", {}"}</TeX>,
+        stringFromDecimal(point[1]) ,
+        <TeX>{")"}</TeX>
+    ];
 }
 
-function stringFromVector(vector) {
-    return "<" + stringFromDecimal(vector[0]) +
-            ", " + stringFromDecimal(vector[1]) + ">";
+function texFromVector(vector) {
+    return [
+        <TeX>{"\\langle"}</TeX>,
+        stringFromDecimal(vector[0]),
+        <TeX>{", {}"}</TeX>,
+        stringFromDecimal(vector[1]) ,
+        <TeX>{"\\rangle"}</TeX>
+    ];
+}
+
+function texFromAngleDeg(angleDeg) {
+    return stringFromDecimal(angleDeg) + DEGREE_SIGN;
 }
 
 function orderInsensitiveCoordsEqual(coords1, coords2) {
@@ -247,8 +261,8 @@ var Transformations = {
         }
     },
 
-    toString: function(transform) {
-        return Transformations[transform.type].toString(transform);
+    toTeX: function(transform) {
+        return Transformations[transform.type].toTeX(transform);
     },
 
     /* A react representation of this transform object */
@@ -256,7 +270,7 @@ var Transformations = {
         render: function() {
             if (this.props.mode === "dynamic") {
                 return <div>
-                    {Transformations.toString(this.props.transform)}
+                    {Transformations.toTeX(this.props.transform)}
                 </div>;
             } else if (this.props.mode === "interactive") {
                 var transformClass =
@@ -311,8 +325,8 @@ var Transformations = {
                 )
             };
         },
-        toString: function(transform) {
-            return "Translation by " + stringFromVector(transform.vector);
+        toTeX: function(transform) {
+            return ["Translation by ", texFromVector(transform.vector)];
         },
         Input: React.createClass({
             render: function() {
@@ -375,10 +389,13 @@ var Transformations = {
                 angleDeg: transform1.angleDeg + transform2.angleDeg
             };
         },
-        toString: function(transform) {
-            return "Rotation by " + stringFromDecimal(transform.angleDeg) +
-                    DEGREE_SIGN + " about " +
-                    stringFromPoint(transform.center);
+        toTeX: function(transform) {
+            return [
+                "Rotation by ",
+                texFromAngleDeg(transform.angleDeg),
+                " about ",
+                texFromPoint(transform.center)
+            ];
         },
         Input: React.createClass({
             render: function() {
@@ -448,12 +465,15 @@ var Transformations = {
             }
             return [];
         },
-        toString: function(transform) {
+        toTeX: function(transform) {
             var point1 = transform.line[0];
             var point2 = transform.line[1];
-            return "Reflection over the line from " +
-                    stringFromPoint(point1) + " to " +
-                    stringFromPoint(point2);
+            return [
+                "Reflection over the line from ",
+                texFromPoint(point1),
+                " to ",
+                texFromPoint(point2)
+            ];
         },
         Input: React.createClass({
             render: function() {
@@ -530,10 +550,14 @@ var Transformations = {
                 scale: transform1.scale * transform2.scale
             };
         },
-        toString: function(transform) {
+        toTeX: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
-            return "Dilation of scale " + scaleString + " about " +
-                    stringFromPoint(transform.center);
+            return [
+                "Dilation of scale ",
+                scaleString,
+                " about ",
+                texFromPoint(transform.center)
+            ];
         },
         Input: React.createClass({
             render: function() {
