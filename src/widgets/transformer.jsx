@@ -1365,12 +1365,15 @@ var Transformer = React.createClass({
                     fill: KhanUtil.ORANGE,
                     stroke: KhanUtil.ORANGE
                 },
-                onMove: function() {
+                onMove: function(x, y) {
                     self.reflectButton.update();
+                    return !kpoint.equal([x, y], this.otherPoint.coord);
                 },
                 onMoveEnd: self.updateReflectionTool
             });
         });
+        this.reflectPoints[0].otherPoint = this.reflectPoints[1];
+        this.reflectPoints[1].otherPoint = this.reflectPoints[0];
 
         // the line of reflection
         this.reflectLine = graphie.addMovableLineSegment({
@@ -1409,6 +1412,12 @@ var Transformer = React.createClass({
             onMove: function() { return false; }
         });
         this.reflectButton.update();
+
+        // Bring the reflection line handles in fron of the button, so that if
+        // drag the reflectPoints really close together, you can still move the
+        // handles away from each other, rather than only being able to apply
+        // the reflection.
+        _.invoke(this.reflectPoints, "toFront");
 
         // hacky click detection
         // TODO (jack): make reflection click detection better
