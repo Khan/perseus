@@ -1194,10 +1194,10 @@ var TransformationList = React.createClass({
 
 var ToolButton = React.createClass({
     render: function() {
-        var classes = "simple-button blue";
-        if (this.props.toggled) {
-            classes += " toggled";
-        }
+        var classes = this.props.toggled ?
+            "simple-button brightblue toggled" :
+            "simple-button blue";
+
         return <button
                 type="button"
                 className={classes}
