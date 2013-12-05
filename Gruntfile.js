@@ -5,6 +5,7 @@ var srcFiles = [
     "src/core.js",
     "src/util.js",
     "build/src/info-tip.js",
+    "build/src/prop-check-box.js",
     "build/src/renderer.js",
     "build/src/editor.js",
     "src/widgets.js",
