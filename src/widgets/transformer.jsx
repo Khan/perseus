@@ -118,7 +118,7 @@ function texFromVector(vector) {
         <TeX>{"\\langle"}</TeX>,
         stringFromDecimal(vector[0]),
         <TeX>{", {}"}</TeX>,
-        stringFromDecimal(vector[1]) ,
+        stringFromDecimal(vector[1]),
         <TeX>{"\\rangle"}</TeX>
     ];
 }
