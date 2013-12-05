@@ -1369,7 +1369,16 @@ var Transformer = React.createClass({
                     self.reflectButton.update();
                     return !kpoint.equal([x, y], this.otherPoint.coord);
                 },
-                onMoveEnd: self.updateReflectionTool
+                onMoveEnd: function() {
+                    // unfortunately, this can be called without a previous
+                    // onMove updating to the right coordinates, so we need
+                    // to update here as well (but we can't prevent an
+                    // invalid line if they manage to move the mouse far
+                    // enough).
+                    self.reflectButton.update();
+                    // Save our line coordinates to props:
+                    self.updateReflectionTool();
+                }
             });
         });
         this.reflectPoints[0].otherPoint = this.reflectPoints[1];
