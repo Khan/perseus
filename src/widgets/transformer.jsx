@@ -18,6 +18,7 @@ var deepEq = Perseus.Util.deepEq;
 var knumber = KhanUtil.knumber;
 var kvector = KhanUtil.kvector;
 var kpoint = KhanUtil.kpoint;
+var kray = KhanUtil.kray;
 var kline = KhanUtil.kline;
 
 var defaultBoxSize = 400;
@@ -886,17 +887,18 @@ var ShapeTypes = {
             if (!kpoint.equal(points1[1], points2[1])) {
                 return false;
             }
-            // TODO(jack): Make a angleDeg function in kpoint
-            var points1_v0 = kvector.subtract(points1[0], points1[1]);
-            var points1_v2 = kvector.subtract(points1[2], points1[1]);
-            var points2_v0 = kvector.subtract(points2[0], points2[1]);
-            var points2_v2 = kvector.subtract(points2[2], points2[1]);
-            // TODO(jack): Make this handle wraparound at 360 degrees
-            // more elegantly (so 0.00...1 == 359.999...)
-            return knumber.equal(
-                kvector.angleDeg(points1_v0, points1_v2),
-                kvector.angleDeg(points2_v0, points2_v2)
-            );
+
+            var line1_0 = [points1[1], points1[0]];
+            var line1_2 = [points1[1], points1[2]];
+            var line2_0 = [points2[1], points2[0]];
+            var line2_2 = [points2[1], points2[2]];
+
+            var equalUnflipped = kray.equal(line1_0, line2_0) &&
+                    kray.equal(line1_2, line2_2);
+            var equalFlipped = kray.equal(line1_0, line2_2) &&
+                    kray.equal(line1_2, line2_0);
+
+            return equalUnflipped || equalFlipped;
         }
     },
 
