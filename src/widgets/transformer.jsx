@@ -611,6 +611,8 @@ var ShapeTypes = {
         } else if (splitType[0] === "line" ||
                 splitType[0] === "lineSegment") {
             return 2;
+        } else if (splitType[0] === "angle") {
+            return 3;
         } else if (splitType[0] === "point") {
             return 1;
         }
@@ -668,11 +670,11 @@ var ShapeTypes = {
                 return KhanUtil.kvector.add(currentPoint.coord, moveVector);
             };
 
-            var onMoveEnd = options.onMoveEnd && function() {
+            var onMoveEnd = function() {
                 // onMove isn't guaranteed to be called before onMoveEnd, so
                 // we have to take into account that we may not have moved and
                 // set previousCoord.
-                if (isMoving) {
+                if (options.onMoveEnd && isMoving) {
                     isMoving = false;
                     // We don't use the supplied x and y parameters here
                     // because MovablePoint's onMoveEnd semantics suck.
@@ -684,6 +686,7 @@ var ShapeTypes = {
                     );
                     options.onMoveEnd(change[0], change[1]);
                 }
+                shape.update();
             };
 
             currentPoint = graphie.addMovablePoint({
@@ -838,6 +841,16 @@ var ShapeTypes = {
                 update: _.bind(line.transform, line, true),
                 remove: _.bind(line.remove, line)
             };
+        } else if (type === "angle") {
+            var angle = graphie.addMovableAngle({
+                fixed: true,
+                points: points,
+                normalStyle: options.normalStyle
+            });
+            return {
+                update: _.bind(angle.update, angle),
+                remove: _.bind(angle.remove, angle)
+            };
         } else if (type === "point") {
             // do nothing
             return {
@@ -866,6 +879,25 @@ var ShapeTypes = {
 
     lineSegment: {
         equal: orderInsensitiveCoordsEqual
+    },
+
+    angle: {
+        equal: function(points1, points2) {
+            if (!kpoint.equal(points1[1], points2[1])) {
+                return false;
+            }
+            // TODO(jack): Make a angleDeg function in kpoint
+            var points1_v0 = kvector.subtract(points1[0], points1[1]);
+            var points1_v2 = kvector.subtract(points1[2], points1[1]);
+            var points2_v0 = kvector.subtract(points2[0], points2[1]);
+            var points2_v2 = kvector.subtract(points2[2], points2[1]);
+            // TODO(jack): Make this handle wraparound at 360 degrees
+            // more elegantly (so 0.00...1 == 359.999...)
+            return knumber.equal(
+                kvector.angleDeg(points1_v0, points1_v2),
+                kvector.angleDeg(points2_v0, points2_v2)
+            );
+        }
     },
 
     point: {
@@ -1038,6 +1070,7 @@ var TransformationsShapeEditor = React.createClass({
                 <option value="lineSegment,lineSegment">
                     2 line segments
                 </option>
+                <option value="angle">Angle</option>
             </select>
         </div>;
     },
