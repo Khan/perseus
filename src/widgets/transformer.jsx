@@ -110,7 +110,7 @@ function texFromPoint(point) {
         <TeX>{"("}</TeX>,
         stringFromDecimal(point[0]),
         <TeX>{", {}"}</TeX>,
-        stringFromDecimal(point[1]) ,
+        stringFromDecimal(point[1]),
         <TeX>{")"}</TeX>
     ];
 }
