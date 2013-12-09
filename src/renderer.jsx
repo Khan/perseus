@@ -257,24 +257,24 @@ var Renderer = Perseus.Renderer = React.createClass({
     },
 
     guessAndScore: function() {
-        var totalGuess = [];
-        var totalScore = {
-            type: "points",
-            earned: 0,
-            total: 0,
-            message: null
-        };
-
         var widgetProps = this.props.widgets;
-        totalScore = _.chain(this.widgetIds)
+
+        var totalGuess = _.map(this.widgetIds, function(id) {
+            return this.refs[id].toJSON();
+        }, this);
+
+        var totalScore = _.chain(this.widgetIds)
+                .filter(function(id) {
+                    var props = widgetProps[id];
+                    // props.graded is unset or true
+                    return props.graded == null || props.graded;
+                })
                 .map(function(id) {
                     var props = widgetProps[id];
                     var widget = this.refs[id];
-                    var guess = widget.toJSON();
-                    totalGuess.push(guess);
                     return widget.simpleValidate(props.options);
                 }, this)
-                .reduce(Perseus.Util.combineScores, totalScore)
+                .reduce(Perseus.Util.combineScores, Perseus.Util.noScore)
                 .value();
 
         return [totalGuess, totalScore];

@@ -66,7 +66,7 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
             React.renderComponent(
                 Renderer({content: content}), 
                 this.$examples[0]);
-           
+
             $("#examples-show").qtip({
                 content: {
                     text: this.$examples.remove()
@@ -109,9 +109,16 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
         if (this.props.type === "multiple") {
             return this.refs.widget.guessAndScore();
         } else {
-            // TODO(alpert): Separate out the rubric
             var guess = this.refs.widget.toJSON();
-            var score = this.refs.widget.simpleValidate(this.props.options);
+
+            var score;
+            if (this.props.graded == null || this.props.graded) {
+                // props.graded is unset or true
+                // TODO(alpert): Separate out the rubric
+                score = this.refs.widget.simpleValidate(this.props.options);
+            } else {
+                score = Perseus.Util.noScore;
+            }
 
             return [guess, score];
         }

@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+var PropCheckBox = Perseus.PropCheckBox;
+
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
@@ -76,6 +78,54 @@ var DragTarget = React.createClass({
     }
 });
 
+
+var WidgetEditor = React.createClass({
+    getDefaultProps: function() {
+        return {
+            graded: true
+        };
+    },
+
+    render: function() {
+        var cls = Perseus.Widgets._widgetTypes[this.props.type + "-editor"];
+
+        var isUngradedEnabled = (this.props.type === "transformer");
+
+        return <div>
+            <div>
+                <strong>{this.props.id}</strong>
+            </div>
+            <div>
+                {isUngradedEnabled &&
+                    <PropCheckBox
+                        label="Graded:"
+                        graded={this.props.graded}
+                        onChange={this.props.onChange} />
+                }
+            </div>
+            {cls(_.extend({
+                ref: "widget",
+                onChange: this._handleWidgetChange
+            }, this.props.options))}
+        </div>;
+    },
+
+    _handleWidgetChange: function(newProps, cb) {
+        this.props.onChange({
+            options: _.extend({}, this.props.options, newProps)
+        }, cb);
+    },
+
+    toJSON: function(skipValidation) {
+        return {
+            type: this.props.type,
+            graded: this.props.graded,
+            options: this.refs.widget.toJSON(skipValidation)
+        };
+    }
+});
+
+
 var Editor = Perseus.Editor = React.createClass({
     getDefaultProps: function() {
         return {
@@ -92,27 +142,22 @@ var Editor = Perseus.Editor = React.createClass({
         textarea.value = this.props.content;
     },
 
-    getWidgetEditor: function(id, type, num) {
-        var cls = Perseus.Widgets._widgetTypes[type + "-editor"];
-        if (!cls) {
+    getWidgetEditor: function(id, type) {
+        if (!Perseus.Widgets._widgetTypes[type + "-editor"]) {
             return;
         }
+        return WidgetEditor(_.extend({
+            ref: id,
+            id: id,
+            type: type,
+            onChange: _.bind(this._handleWidgetEditorChange, this, id)
+        }, this.props.widgets[id]));
+    },
 
-        return <div>
-            <div>
-                <strong>{id}</strong>
-            </div>
-            {cls(_.extend({
-                ref: id,
-                onChange: function(newProps, cb) {
-                    var widgets = _.clone(this.props.widgets);
-                    widgets[id] = _.extend({}, widgets[id]);
-                    widgets[id].options = _.extend({}, widgets[id].options,
-                            newProps);
-                    this.props.onChange({widgets: widgets}, cb);
-                }.bind(this)
-            }, (this.props.widgets[id] || {}).options))}
-        </div>;
+    _handleWidgetEditorChange: function(id, newProps, cb) {
+        var widgets = _.clone(this.props.widgets);
+        widgets[id] = _.extend({}, widgets[id], newProps);
+        this.props.onChange({widgets: widgets}, cb);
     },
 
     render: function() {
@@ -138,7 +183,6 @@ var Editor = Perseus.Editor = React.createClass({
                     var match = Perseus.Util.rWidgetParts.exec(pieces[i]);
                     var id = match[1];
                     var type = match[2];
-                    var num = match[3];
 
                     var selected = false;
                     // TODO(alpert):
@@ -151,7 +195,7 @@ var Editor = Perseus.Editor = React.createClass({
 
                     var duplicate = id in widgets;
 
-                    widgets[id] = this.getWidgetEditor(id, type, num);
+                    widgets[id] = this.getWidgetEditor(id, type);
                     var classes = (duplicate || !widgets[id] ? "error " : "") +
                             (selected ? "selected " : "");
                     underlayPieces.push(
@@ -387,11 +431,7 @@ var Editor = Perseus.Editor = React.createClass({
         var widgets = {};
 
         _.each(this.widgetIds, function(id) {
-            var typeAndNum = id.split(" ", 2);
-            widgets[id] = {
-                options: this.refs[id].toJSON(skipValidation),
-                type: typeAndNum[0]
-            };
+            widgets[id] = this.refs[id].toJSON(skipValidation);
         }, this);
 
         return {

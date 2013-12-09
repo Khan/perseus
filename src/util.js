@@ -3,6 +3,13 @@
 var Util = Perseus.Util = {
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
 
+    noScore: {
+        type: "points",
+        earned: 0,
+        total: 0,
+        message: null
+    },
+
     seededRNG: function(seed) {
         var randomSeed = seed;
 
