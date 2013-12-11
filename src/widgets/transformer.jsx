@@ -1261,6 +1261,7 @@ var Transformer = React.createClass({
             graphMode: "interactive",
             listMode: "dynamic",
             grading: "shape",
+            gradeEmpty: false,
             transformations: [],
             starting: {
                 shape: {
@@ -1863,7 +1864,7 @@ var Transformer = React.createClass({
 
     toJSON: function() {
         var json = _.pick(this.props, "grading", "starting", "graphMode",
-                "listMode", "tools", "drawSolutionShape");
+                "listMode", "tools", "drawSolutionShape", "gradeEmpty");
         json.graph = this.refs.graph.toJSON();
         json.answer = {
             transformations: this.props.transformations,
@@ -1894,11 +1895,14 @@ _.extend(Transformer, {
                 total: 1,
                 message: null
             };
-        } else if (deepEq(guess.answer.shape.coords,
-                rubric.starting.shape.coords)) {
+        } else if (!rubric.gradeEmpty && deepEq(
+                    guess.answer.shape.coords,
+                    rubric.starting.shape.coords
+                )) {
             return {
                 type: "invalid",
-                message: null
+                message: "Use the interactive graph to define a correct " +
+                    "transformation."
             };
         } else {
             return {
@@ -1917,6 +1921,7 @@ var TransformerEditor = React.createClass({
     getDefaultProps: function() {
         return {
             graph: defaultGraphProps(this.props.graph, 340),
+            gradeEmpty: false,
             graphMode: "interactive",
             listMode: "dynamic",
             tools: {
@@ -1975,6 +1980,27 @@ var TransformerEditor = React.createClass({
         );
 
         return <div>
+            <div>
+                <PropCheckBox
+                    label="Grade empty answers as wrong:"
+                    gradeEmpty={this.props.gradeEmpty}
+                    onChange={this.props.onChange} />
+                <InfoTip>
+                    <p>
+                        We generally don't grade empty answers. This usually
+                        works well, but sometimes can result in leaking part
+                        of an answer in a multi-part question.
+                    </p>
+                    <p>
+                        If this is a multi-part question (there is another
+                        widget), you probably want to enable this option.
+                        Otherwise, you should leave it disabled.
+                    </p>
+                    <p>
+                        Confused? Talk to Elizabeth.
+                    </p>
+                </InfoTip>
+            </div>
             <div>Graph settings:</div>
             <GraphSettings
                 box={graph.box}
@@ -2007,6 +2033,7 @@ var TransformerEditor = React.createClass({
                 graph={graph}
                 graphMode={this.props.graphMode}
                 listMode={this.props.listMode}
+                gradeEmpty={this.props.gradeEmpty}
                 tools={this.props.tools}
                 drawSolutionShape={this.props.drawSolutionShape}
                 starting={this.props.starting}
