@@ -1700,29 +1700,44 @@ var Transformer = React.createClass({
         var graphie = this.refs.graph.graphie();
         // the circle for causing dilation transforms
 
-        // TODO (jack): This is hacky and should be a parameter
-        // to addCircleGraph
-        graphie.style({
-            "stroke": KhanUtil.BLUE,
-            "stroke-width": 2,
-            "stroke-dasharray": "- "
-        }, function() {
-            self.dilationCircle = graphie.addCircleGraph({
-                centerConstraints: options.constraints,
-                center: options.coord,
-                radius: self.scaleToCurrentRange(2),
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                minRadius: self.scaleToCurrentRange(1),
-                snapRadius: self.scaleToCurrentRange(0.5),
-                onResize: function(newRadius, oldRadius) {
-                    self.doTransform({
-                        type: "dilation",
-                        center: self.dilationCircle.centerPoint.coord,
-                        scale: newRadius/oldRadius
-                    });
-                }
-            });
+        self.dilationCircle = graphie.addCircleGraph({
+            centerConstraints: options.constraints,
+            center: options.coord,
+            radius: self.scaleToCurrentRange(2),
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1],
+            minRadius: self.scaleToCurrentRange(1),
+            snapRadius: self.scaleToCurrentRange(0.5),
+            onResize: function(newRadius, oldRadius) {
+                self.doTransform({
+                    type: "dilation",
+                    center: self.dilationCircle.centerPoint.coord,
+                    scale: newRadius/oldRadius
+                });
+            },
+            circleNormalStyle: {
+                "stroke": KhanUtil.ORANGE,
+                "stroke-width": 2,
+                "stroke-dasharray": "- ",
+                "fill-opacity": 0
+            },
+            circleHighlightStyle: {
+                "stroke": KhanUtil.ORANGE,
+                "stroke-width": 2,
+                "stroke-dasharray": "",
+                "fill": KhanUtil.ORANGE,
+                "fill-opacity": 0.05
+            },
+            centerNormalStyle: {
+                "stroke": KhanUtil.ORANGE,
+                "stroke-width": 2,
+                "stroke-dasharray": ""
+            },
+            centerHighlightStyle: {
+                "stroke": KhanUtil.ORANGE,
+                "stroke-width": 2,
+                "stroke-dasharray": ""
+            }
         });
 
         var origOnMoveEnd = this.dilationCircle.centerPoint.onMoveEnd;
