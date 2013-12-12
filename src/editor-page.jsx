@@ -91,6 +91,9 @@ Perseus.StatefulEditorPage = React.createClass({
     },
     handleChange: function(newState, cb) {
         this.setState(newState, cb);
+    },
+    scorePreview: function() {
+        return this.refs.editor.scorePreview();
     }
 });
 
