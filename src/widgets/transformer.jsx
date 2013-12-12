@@ -73,6 +73,54 @@ var defaultGraphProps = function(setProps, boxSize) {
     };
 };
 
+var defaultTransformerProps = {
+    gradeEmpty: false,
+    graphMode: "interactive",
+    listMode: "dynamic",
+    tools: {
+        translation: {
+            enabled: true,
+            constraints: {}
+        },
+        rotation: {
+            enabled: true,
+            constraints: {
+                fixed: false
+            },
+            coord: [1, 6]
+        },
+        reflection: {
+            enabled: true,
+            constraints: {
+                fixed: false
+            },
+            coords: [[1, 1], [3, 3]]
+        },
+        dilation: {
+            enabled: true,
+            constraints: {
+                fixed: false
+            },
+            coord: [6, 6]
+        }
+    },
+    drawSolutionShape: true,
+    starting: {
+        shape: {
+            type: "polygon-3",
+            coords: [[2, 2], [2, 6], [7, 2]],
+        },
+        transformations: []
+    },
+    correct: {
+        shape: {
+            type: "polygon-3",
+            coords: [[2, 2], [2, 6], [7, 2]],
+        },
+        transformations: []
+    }
+};
+
 /* Scales a distance from the default range of
  * [-10, 10] to a given props.range pair
  *
@@ -1260,28 +1308,10 @@ var Transformer = React.createClass({
     // TODO (jack): These should be refactored into a nice object at the top
     // so that we don't have all this duplication
     getDefaultProps: function() {
-        return {
+        return _.defaults({
             graph: {},
-            graphMode: "interactive",
-            listMode: "dynamic",
-            grading: "shape",
-            gradeEmpty: false,
-            transformations: [],
-            starting: {
-                shape: {
-                    type: "polygon",
-                    coords: [[2, 2], [2, 6], [7, 2]]
-                },
-                transformations: []
-            },
-            correct: {
-                shape: {
-                    type: "poylgon",
-                    coords: null
-                }
-            },
-            drawSolutionShape: true
-        };
+            transformations: []
+        }, defaultTransformerProps);
     },
 
     render: function() {
@@ -1908,55 +1938,9 @@ var TransformerEditor = React.createClass({
     // TODO (jack): These should be refactored into a nice object at the top
     // so that we don't have all this duplication
     getDefaultProps: function() {
-        return {
-            graph: defaultGraphProps(this.props.graph, 340),
-            gradeEmpty: false,
-            graphMode: "interactive",
-            listMode: "dynamic",
-            tools: {
-                translation: {
-                    enabled: true,
-                    constraints: {}
-                },
-                rotation: {
-                    enabled: true,
-                    constraints: {
-                        fixed: false
-                    },
-                    coord: [1, 6]
-                },
-                reflection: {
-                    enabled: true,
-                    constraints: {
-                        fixed: false
-                    },
-                    coords: [[1, 1], [3, 3]]
-                },
-                dilation: {
-                    enabled: true,
-                    constraints: {
-                        fixed: false
-                    },
-                    coord: [6, 6]
-                }
-            },
-            drawSolutionShape: true,
-            grading: "shape",
-            starting: {
-                shape: {
-                    type: "polygon",
-                    coords: [[2, 2], [2, 6], [7, 2]],
-                },
-                transformations: []
-            },
-            correct: {
-                shape: {
-                    type: "polygon",
-                    coords: [[2, 2], [2, 6], [7, 2]],
-                },
-                transformations: []
-            }
-        };
+        return _.defaults({
+            graph: defaultGraphProps(this.props.graph, 340)
+        }, defaultTransformerProps);
     },
 
     render: function() {
