@@ -1187,8 +1187,8 @@ var TransformationList = React.createClass({
 var ToolButton = React.createClass({
     render: function() {
         var classes = this.props.toggled ?
-            "simple-button brightblue toggled" :
-            "simple-button blue";
+            "simple-button exercise-orange toggled highlighted-tool-button" :
+            "simple-button";
 
         return <button
                 type="button"
@@ -1217,14 +1217,17 @@ var ToolsBar = React.createClass({
             }
         }, this);
 
-        return <div>
-            {tools}
+        return <div className="transformer-tools-bar">
+            <span className="simple-button-group">
+                {tools}
+            </span>
             <button
-                className="transformer-undo-button simple-button orange"
+                className="transformer-undo-button simple-button"
                 type="button"
                 onClick={this.props.onUndoClick}>
                 Undo
             </button>
+            <div className="clear"></div>
         </div>;
     },
 
