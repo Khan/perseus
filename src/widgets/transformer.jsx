@@ -98,7 +98,7 @@ function stringFromDecimal(number) {
 }
 
 function stringFromFraction(number) {
-    var frac = KhanUtil.toFraction(number);
+    var frac = KhanUtil.toFraction(number, knumber.DEFAULT_TOLERANCE);
     if (frac[1] === 1) {
         return stringFromDecimal(number);
     } else {
