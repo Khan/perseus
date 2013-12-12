@@ -5,6 +5,7 @@ var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
 var RENDER_TRANSFORM_DELAY_IN_MS = 300;
 var ROTATE_HANDLE_DIST = 1.5;
+var REFLECT_BUTTON_SIZE = 1;
 
 var InfoTip = Perseus.InfoTip;
 var NumberInput = Perseus.NumberInput;
@@ -1534,16 +1535,9 @@ var Transformer = React.createClass({
                     stroke: KhanUtil.ORANGE
                 },
                 onMove: function(x, y) {
-                    self.reflectButton.update();
                     return !kpoint.equal([x, y], this.otherPoint.coord);
                 },
                 onMoveEnd: function() {
-                    // unfortunately, this can be called without a previous
-                    // onMove updating to the right coordinates, so we need
-                    // to update here as well (but we can't prevent an
-                    // invalid line if they manage to move the mouse far
-                    // enough).
-                    self.reflectButton.update();
                     // Save our line coordinates to props:
                     self.updateReflectionTool();
                 }
@@ -1576,41 +1570,33 @@ var Transformer = React.createClass({
                     "stroke-dasharray": "- "
                 },
                 movePointsWithLine: true,
-                onMove: function() {
-                    self.reflectButton.update();
-                },
                 onMoveEnd: self.updateReflectionTool
             });
         });
 
         // the "button" point in the center of the line of reflection
-        this.reflectButton = graphie.addMovablePoint({
-            update: function() {
-                this.setCoord(KhanUtil.kvector.scale(KhanUtil.kvector.add(
+        this.reflectButton = graphie.addReflectButton({
+            line: this.reflectLine,
+            size: this.scaleToCurrentRange(REFLECT_BUTTON_SIZE),
+            onClick: function() {
+                self.doTransform({
+                    type: "reflection",
+                    line: [
                         self.reflectPoints[0].coord,
                         self.reflectPoints[1].coord
-                        ), 0.5));
+                    ]
+                });
             },
-            onMove: function() { return false; }
-        });
-        this.reflectButton.update();
-
-        // Bring the reflection line handles in fron of the button, so that if
-        // drag the reflectPoints really close together, you can still move the
-        // handles away from each other, rather than only being able to apply
-        // the reflection.
-        _.invoke(this.reflectPoints, "toFront");
-
-        // hacky click detection
-        // TODO (jack): make reflection click detection better
-        $(this.reflectButton.mouseTarget[0]).on("vmouseup", function(e) {
-            self.doTransform({
-                type: "reflection",
-                line: [
-                    self.reflectPoints[0].coord,
-                    self.reflectPoints[1].coord
-                ]
-            });
+            normalStyle: {
+                stroke: KhanUtil.ORANGE,
+                "stroke-width": 1,
+                fill: KhanUtil.ORANGE
+            },
+            highlightStyle: {
+                stroke: KhanUtil.ORANGE,
+                "stroke-width": 1,
+                fill: KhanUtil.ORANGE
+            }
         });
 
         return {
