@@ -1977,8 +1977,8 @@ var TransformerEditor = React.createClass({
                 <InfoTip>
                     <p>
                         We generally don't grade empty answers. This usually
-                        works well, but sometimes can result in leaking part
-                        of an answer in a multi-part question.
+                        works well, but sometimes can result in giving away
+                        part of an answer in a multi-part question.
                     </p>
                     <p>
                         If this is a multi-part question (there is another
