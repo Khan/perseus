@@ -1589,12 +1589,12 @@ var Transformer = React.createClass({
             },
             normalStyle: {
                 stroke: KhanUtil.ORANGE,
-                "stroke-width": 1,
+                "stroke-width": 2,
                 fill: KhanUtil.ORANGE
             },
             highlightStyle: {
                 stroke: KhanUtil.ORANGE,
-                "stroke-width": 1,
+                "stroke-width": 3,
                 fill: KhanUtil.ORANGE
             }
         });
