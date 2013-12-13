@@ -2052,6 +2052,7 @@ var TransformerEditor = React.createClass({
                 tools={this.props.tools}
                 drawSolutionShape={this.props.drawSolutionShape}
                 starting={this.props.starting}
+                correct={this.props.starting}
                 transformations={this.props.correct.transformations}
                 onChange={this.changeTransformer} />
         </div>;
