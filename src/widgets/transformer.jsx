@@ -80,10 +80,12 @@ var defaultTransformerProps = {
     tools: {
         translation: {
             enabled: true,
+            required: false,
             constraints: {}
         },
         rotation: {
             enabled: true,
+            required: false,
             constraints: {
                 fixed: false
             },
@@ -91,6 +93,7 @@ var defaultTransformerProps = {
         },
         reflection: {
             enabled: true,
+            required: false,
             constraints: {
                 fixed: false
             },
@@ -98,6 +101,7 @@ var defaultTransformerProps = {
         },
         dilation: {
             enabled: true,
+            required: false,
             constraints: {
                 fixed: false
             },
@@ -973,11 +977,31 @@ var ToolSettings = React.createClass({
                 enabled={this.props.settings.enabled}
                 onChange={this.props.onChange} />
             {" "}
+            {this.props.settings.enabled &&
+                <PropCheckBox
+                    label="required:"
+                    required={this.props.settings.required}
+                    onChange={this.props.onChange} />
+            }
+            {this.props.settings.enabled &&
+                <InfoTip>
+                    'Required' will only grade the answer as correct if the
+                    student has used at least one such transformation.
+                </InfoTip>
+            }
+            {" "}
             {this.props.allowFixed && this.props.settings.enabled &&
                 <PropCheckBox
                     label="fixed:"
                     fixed={this.props.settings.constraints.fixed}
                     onChange={this.changeConstraints} />
+            }
+            {this.props.allowFixed && this.props.settings.enabled &&
+                <InfoTip>
+                    Enable 'fixed' to prevent the student from repositioning
+                    the tool. The tool will appear in the position at which it
+                    is placed in the editor below.
+                </InfoTip>
             }
         </div>;
     },
@@ -1892,20 +1916,38 @@ var Transformer = React.createClass({
                 coords: this.getCoords()
             }
         };
-        json.version = 1; // give us some safety to change the format
-                          // when we realize that I wrote
-                          // a horrible json spec for this widget
+        json.version = 1.1; // Give us some safety to change the format
+                            // when we realize that I wrote
+                            // a horrible json spec for this widget
         return json;
     }
 });
 
 _.extend(Transformer, {
     validate: function (guess, rubric) {
-        var grading = rubric.grading;  // "shape" or "transformations"
-        // TODO (jack): This won't actually work well for "transformations",
-        // but we don't use that setting yet. this is because reflections
-        // have many equivalent lines represented by different arrays, so
-        // we'll need a better traversal with that knowledge
+        // Check for any required transformations
+        for (i = 0; i < Transformations.ALL.length; i++) {
+            var type = Transformations.ALL[i].id;
+
+            if (rubric.tools[type].required) {
+                var isUsed = _.any(_.map(guess.answer.transformations,
+                        function(transform) {
+                    // Required transformations must appear in the
+                    // transformation list, and must not be no-ops
+                    return (transform.type === type) &&
+                        !Transformations.isNoOp(transform);
+                }));
+
+                if (!isUsed) {
+                    return {
+                        type: "invalid",
+                        message: "Your transformation must use a " + type + "."
+                    };
+                }
+            }
+        }
+
+        // Compare shapes
         if (ShapeTypes.equal(guess.answer.shape,
                 rubric.correct.shape)) {
             return {
