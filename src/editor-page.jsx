@@ -31,7 +31,7 @@ Perseus.EditorPage = React.createClass({
 
     updateRenderer: function(cb) {
         var rendererConfig = _({
-            item: _(this.props).pick("question", "hints", "answerArea"),
+            item: this.toJSON(true),
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
