@@ -1935,6 +1935,7 @@ _.extend(Transformer, {
                     // Required transformations must appear in the
                     // transformation list, and must not be no-ops
                     return (transform.type === type) &&
+                        !Transformations.isEmpty(transform) &&
                         !Transformations.isNoOp(transform);
                 }));
 
