@@ -125,6 +125,11 @@ var defaultTransformerProps = {
     }
 };
 
+function colorForTool(tool) {
+    return tool.constraints.fixed ? KhanUtil.GRAY : KhanUtil.ORANGE;
+}
+
+
 /* Scales a distance from the default range of
  * [-10, 10] to a given props.range pair
  *
@@ -1577,6 +1582,8 @@ var Transformer = React.createClass({
         }
         var self = this;
         var graphie = this.refs.graph.graphie();
+
+        var pointColor = colorForTool(options);
         // the points defining the line of reflection
         this.reflectPoints = _.map(options.coords, function(coord) {
             return graphie.addMovablePoint({
@@ -1585,12 +1592,12 @@ var Transformer = React.createClass({
                 snapX: graphie.snap[0],
                 snapY: graphie.snap[1],
                 normalStyle: {
-                    fill: KhanUtil.ORANGE,
-                    stroke: KhanUtil.ORANGE
+                    fill: pointColor,
+                    stroke: pointColor
                 },
                 highlightStyle: {
-                    fill: KhanUtil.ORANGE,
-                    stroke: KhanUtil.ORANGE
+                    fill: pointColor,
+                    stroke: pointColor
                 },
                 onMove: function(x, y) {
                     return !kpoint.equal([x, y], this.otherPoint.coord);
@@ -1618,7 +1625,10 @@ var Transformer = React.createClass({
                 snapY: graphie.snap[1],
                 extendLine: true,
                 normalStyle: {
-                    "stroke": KhanUtil.BLUE,
+                    "stroke": options.constraints.fixed ?
+                            KhanUtil.GRAY :
+                            KhanUtil.BLUE,  // TODO(jack): Blue might not be
+                                            // the best color here
                     "stroke-width": 2,
                     "stroke-dasharray": "- "
                 },
@@ -1685,6 +1695,7 @@ var Transformer = React.createClass({
         var self = this;
         var graphie = this.refs.graph.graphie();
 
+        var pointColor = colorForTool(options);
         // The center of our rotation, which can be moved to change the
         // center of rotation
         this.rotatePoint = graphie.addMovablePoint({
@@ -1692,12 +1703,16 @@ var Transformer = React.createClass({
             coord: options.coord,
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
-            normalStyle: {              // ugh, this seems to be a global and
-                "stroke-dasharray": ""  // is set to dash above
+            normalStyle: {               // ugh, this seems to be a global and
+                "stroke-dasharray": "",  // is set to dash above
+                stroke: pointColor,
+                fill: pointColor
             },
             highlightStyle: {
-                "stroke-dasharray": ""
-            },
+                "stroke-dasharray": "",
+                stroke: pointColor,
+                fill: pointColor
+            }
         });
 
         // The point that we move around the center of rotation to actually
@@ -1743,8 +1758,9 @@ var Transformer = React.createClass({
         }
         var self = this;
         var graphie = this.refs.graph.graphie();
-        // the circle for causing dilation transforms
 
+        var pointColor = colorForTool(options);
+        // the circle for causing dilation transforms
         self.dilationCircle = graphie.addCircleGraph({
             centerConstraints: options.constraints,
             center: options.coord,
@@ -1774,12 +1790,14 @@ var Transformer = React.createClass({
                 "fill-opacity": 0.05
             },
             centerNormalStyle: {
-                "stroke": KhanUtil.ORANGE,
+                "stroke": pointColor,
+                "fill": pointColor,
                 "stroke-width": 2,
                 "stroke-dasharray": ""
             },
             centerHighlightStyle: {
-                "stroke": KhanUtil.ORANGE,
+                "stroke": pointColor,
+                "fill": pointColor,
                 "stroke-width": 2,
                 "stroke-dasharray": ""
             }
