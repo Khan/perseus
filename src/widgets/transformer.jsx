@@ -897,6 +897,7 @@ var ShapeTypes = {
             };
         } else if (type === "angle") {
             var angle = graphie.addMovableAngle({
+                angleLabel: "$deg0",
                 fixed: true,
                 points: points,
                 normalStyle: options.normalStyle
