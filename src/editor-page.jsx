@@ -86,6 +86,13 @@ Perseus.StatefulEditorPage = React.createClass({
             ref: "editor"
         });
     },
+    // getInitialState isn't called if the react component is re-rendered
+    // in-place on the dom, in which case this is called instead, so we
+    // need to update the state here.
+    // (This component is currently re-rendered by the "Add image" button.)
+    componentWillReceiveProps: function(nextProps) {
+        this.setState(nextProps);
+    },
     toJSON: function() {
         return this.refs.editor.toJSON();
     },
