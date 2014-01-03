@@ -156,56 +156,203 @@ Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.StatefulEditorPage(
     {
         "question": {
-            "content": "[[☃ plotter 1]]",
+            "content": "**Reflect the angle across the line $x = 1$.** \n\n[[☃ transformer 1]]",
             "widgets": {
-                "plotter 1": {
+                "transformer 1": {
+                    "type": "transformer",
+                    "graded": true,
                     "options": {
-                        "correct": [
-                            6,
-                            4.5,
-                            3,
-                            1.5,
-                            1
-                        ],
-                        "starting": [
-                            3,
-                            1.5,
-                            7,
-                            4.5,
-                            1
-                        ],
-                        "type": "histogram",
-                        "labels": [
-                            "hi",
-                            "there"
-                        ],
-                        "categories": [
-                            0,
-                            2.5,
-                            5,
-                            7.5,
-                            10,
-                            12.5
-                        ],
-                        "scaleY": 1,
-                        "maxY": 10,
-                        "snapsPerLine": 2
-                    },
-                    "type": "plotter"
+                        "starting": {
+                            "shape": {
+                                "type": [
+                                    "angle"
+                                ],
+                                "coords": [
+                                    [
+                                        8,
+                                        1
+                                    ],
+                                    [
+                                        4,
+                                        4
+                                    ],
+                                    [
+                                        8,
+                                        7
+                                    ]
+                                ]
+                            },
+                            "transformations": []
+                        },
+                        "graphMode": "interactive",
+                        "listMode": "dynamic",
+                        "tools": {
+                            "translation": {
+                                "enabled": true,
+                                "constraints": {}
+                            },
+                            "rotation": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": false
+                                },
+                                "coord": [
+                                    -9,
+                                    -3
+                                ]
+                            },
+                            "reflection": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": false
+                                },
+                                "coords": [
+                                    [
+                                        -9,
+                                        -3
+                                    ],
+                                    [
+                                        -9,
+                                        3
+                                    ]
+                                ]
+                            },
+                            "dilation": {
+                                "enabled": true,
+                                "constraints": {
+                                    "fixed": false
+                                },
+                                "coord": [
+                                    6,
+                                    6
+                                ]
+                            }
+                        },
+                        "drawSolutionShape": false,
+                        "gradeEmpty": false,
+                        "graph": {
+                            "range": [
+                                [
+                                    -10,
+                                    10
+                                ],
+                                [
+                                    -10,
+                                    10
+                                ]
+                            ],
+                            "step": [
+                                1,
+                                1
+                            ],
+                            "markings": "graph",
+                            "backgroundImage": {
+                                "url": null,
+                                "scale": 1,
+                                "bottom": 0,
+                                "left": 0
+                            },
+                            "showProtractor": false
+                        },
+                        "version": 1.1,
+                        "correct": {
+                            "transformations": [
+                                {
+                                    "type": "reflection",
+                                    "line": [
+                                        [
+                                            1,
+                                            -4.5
+                                        ],
+                                        [
+                                            1,
+                                            5
+                                        ]
+                                    ]
+                                }
+                            ],
+                            "shape": {
+                                "type": [
+                                    "angle"
+                                ],
+                                "coords": [
+                                    [
+                                        -6,
+                                        1
+                                    ],
+                                    [
+                                        -2,
+                                        4
+                                    ],
+                                    [
+                                        -6,
+                                        7
+                                    ]
+                                ]
+                            }
+                        }
+                    }
                 }
-            }
+            },
+            "__owner__": null,
+            "ignoreMissingWidgets": false
         },
         "answerArea": {
             "type": "multiple",
             "options": {
-                "content": "Do the proof!",
-                "widgets": {}
+                "content": "When a pair of parallel lines is reflected, the image created is [[☃ dropdown 1]].\n\nThe distance between the lines in the image is [[☃ dropdown 2]] in the original.",
+                "widgets": {
+                    "dropdown 1": {
+                        "type": "dropdown",
+                        "graded": true,
+                        "options": {
+                            "choices": [
+                                {
+                                    "content": "2 parallel lines",
+                                    "correct": true
+                                },
+                                {
+                                    "content": "2 intersecting lines",
+                                    "correct": false
+                                },
+                                {
+                                    "content": "4 parallel lines",
+                                    "correct": false
+                                }
+                            ]
+                        }
+                    },
+                    "dropdown 2": {
+                        "type": "dropdown",
+                        "graded": true,
+                        "options": {
+                            "choices": [
+                                {
+                                    "content": "greater than",
+                                    "correct": false
+                                },
+                                {
+                                    "content": "the same as",
+                                    "correct": true
+                                },
+                                {
+                                    "content": "less than",
+                                    "correct": false
+                                }
+                            ]
+                        }
+                    }
+                }
             },
             "calculator": false
         },
         "hints": [
             {
-                "content": "Focus on the proof!!!",
+                "content": "To reflect the lines across the line $x=-2$, click the \"Reflect\" button, then move the two outer points of the line of reflection onto any points on the line (any points with an $x$-coordinate of $-2$).  Click the middle point to reflect.",
+                "widgets": {}
+            },
+            {
+                "content": "When a pair of parallel lines is reflected, the image created is also a pair of parallel lines.  \n\nThe distance between them is the same as between the original lines.\n\nThe reflected image should look like this:\n![](https://ka-perseus-graphie.s3.amazonaws.com/e2910a925fec8d3f81341ef6642f58bfa2d8bbfe.png)",
                 "widgets": {}
             }
         ]

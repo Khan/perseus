@@ -784,10 +784,13 @@ var ShapeTypes = {
         points = points || options.shape.coords;
 
         var types = ShapeTypes._typesOf(options.shape);
+        var typeOptions = options.shape.options ||
+                ShapeTypes.defaultOptions(types);
 
         var shapes = ShapeTypes._mapTypes(types, points,
-                function(type, points) {
-            return ShapeTypes._addType(graphie, type, points, options);
+                function(type, points, i) {
+            var shapeOptions = _.extend({}, options, typeOptions[i]);
+            return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
 
         var updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
@@ -800,17 +803,38 @@ var ShapeTypes = {
             _.invoke(removeFuncs, "call");
         };
 
+        var getOptions = function() {
+            return _.map(shapes, function(shape) {
+                if (shape.getOptions) {
+                    return shape.getOptions();
+                } else {
+                    return {};
+                }
+            });
+        };
+
+        var toJSON = function() {
+            var coords = _.map(points, function(pt) {
+                if (_.isArray(pt)) {
+                    return pt;
+                } else {
+                    return pt.coord;
+                }
+            });
+            return {
+                type: types,
+                coords: coords,
+                options: getOptions()
+            };
+        };
+
         return {
             type: types,
             points: points,
             update: update,
             remove: remove,
-            toJSON: function() {
-                return {
-                    type: types,
-                    coords: _.pluck(points, "coord")
-                };
-            }
+            toJSON: toJSON,
+            getOptions: getOptions
         };
     },
 
@@ -850,17 +874,24 @@ var ShapeTypes = {
         });
     },
 
+    defaultOptions: function(types) {
+        return _.map(types, function(type) {
+            var typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
+            return _.extend({}, typeDefaultOptions);
+        });
+    },
+
     _forType: function(type) {
         var baseType = type.split("-")[0];
         return ShapeTypes[baseType];
     },
 
     _mapTypes: function(types, points, func, context) {
-        return _.map(types, function(type) {
+        return _.map(types, function(type, i) {
             var pointCount = ShapeTypes.getPointCountForType(type);
             var currentPoints = _.first(points, pointCount);
             points = _.rest(points, pointCount);
-            return func.call(context, type, currentPoints);
+            return func.call(context, type, currentPoints, i);
         });
     },
 
@@ -908,11 +939,19 @@ var ShapeTypes = {
                 remove: _.bind(line.remove, line)
             };
         } else if (type === "angle") {
+            // If this angle is editable, we want to be able to make angles
+            // both larger and smaller than 180 degrees.
+            // If this angle is not editable, it should always maintain
+            // it's angle measure, even if it is reflected (causing the
+            // clockwise-ness of the points to change)
+            var shouldChangeReflexivity = options.editable ? null : false;
+
             var angle = graphie.addMovableAngle({
                 angleLabel: "$deg0",
                 fixed: true,
                 points: points,
-                normalStyle: options.normalStyle
+                normalStyle: options.normalStyle,
+                reflex: options.reflex
             });
 
             // Hide non-vertex points on uneditable angles
@@ -921,8 +960,13 @@ var ShapeTypes = {
                 points[2].remove();
             }
             return {
-                update: _.bind(angle.update, angle),
-                remove: _.bind(angle.remove, angle)
+                update: _.bind(angle.update, angle, shouldChangeReflexivity),
+                remove: _.bind(angle.remove, angle),
+                getOptions: function() {
+                    return {
+                        reflex: angle.isReflex()
+                    };
+                }
             };
         } else if (type === "point") {
             // do nothing
@@ -971,6 +1015,10 @@ var ShapeTypes = {
                     kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
+        },
+
+        defaultOptions: {
+            reflex: false
         }
     },
 
@@ -1201,7 +1249,8 @@ var TransformationsShapeEditor = React.createClass({
         this.props.onChange({
             shape: {
                 type: types,
-                coords: coords
+                coords: coords,
+                options: ShapeTypes.defaultOptions(types)
             }
         });
     },
@@ -1214,10 +1263,7 @@ var TransformationsShapeEditor = React.createClass({
 
     updateCoords: function() {
         this.props.onChange({
-            shape: {
-                type: this.props.shape.type,
-                coords: _.pluck(this.shape.points, "coord")
-            }
+            shape: this.shape.toJSON()
         });
     },
 
@@ -1929,6 +1975,11 @@ var Transformer = React.createClass({
         return Transformer.validate(this.toJSON(), rubric);
     },
 
+    /**
+     * Calculate where the coordinates would be if they were
+     * moved, even if we're in formal mode with no movement
+     * (and thus the actual movablepoints may not have moved
+     */
     getCoords: function() {
         var startCoords = this.props.starting.shape.coords;
         var transforms = this.props.transformations;
@@ -1943,9 +1994,13 @@ var Transformer = React.createClass({
         json.graph = this.refs.graph.toJSON();
         json.answer = {
             transformations: this.props.transformations,
+            // This doesn't call this.shape.toJSON() because that doesn't
+            // handle coordinates in formal mode without movement, since
+            // the movablepoints never move
             shape: {
                 type: this.shape.type,
-                coords: this.getCoords()
+                coords: this.getCoords(),
+                options: this.shape.getOptions()
             }
         };
         json.version = 1.1; // Give us some safety to change the format
