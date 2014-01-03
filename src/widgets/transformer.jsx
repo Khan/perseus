@@ -896,6 +896,13 @@ var ShapeTypes = {
                 },
                 extendLine: (type === "line")
             }));
+
+            // Hide points on uneditable lines
+            if (type === "line" &&
+                    !_.isArray(points[0]) &&
+                    !options.editable) {
+                _.invoke(points, "remove");
+            }
             return {
                 update: _.bind(line.transform, line, true),
                 remove: _.bind(line.remove, line)
@@ -907,6 +914,12 @@ var ShapeTypes = {
                 points: points,
                 normalStyle: options.normalStyle
             });
+
+            // Hide non-vertex points on uneditable angles
+            if (!_.isArray(points[0]) && !options.editable) {
+                points[0].remove();
+                points[2].remove();
+            }
             return {
                 update: _.bind(angle.update, angle),
                 remove: _.bind(angle.remove, angle)
