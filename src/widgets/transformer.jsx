@@ -1583,7 +1583,6 @@ var Transformer = React.createClass({
         var self = this;
         var graphie = this.refs.graph.graphie();
 
-        var pointColor = colorForTool(options);
         // the points defining the line of reflection
         this.reflectPoints = _.map(options.coords, function(coord) {
             return graphie.addMovablePoint({
@@ -1592,13 +1591,14 @@ var Transformer = React.createClass({
                 snapX: graphie.snap[0],
                 snapY: graphie.snap[1],
                 normalStyle: {
-                    fill: pointColor,
-                    stroke: pointColor
+                    fill: KhanUtil.ORANGE,
+                    stroke: KhanUtil.ORANGE
                 },
                 highlightStyle: {
-                    fill: pointColor,
-                    stroke: pointColor
+                    fill: KhanUtil.ORANGE,
+                    stroke: KhanUtil.ORANGE
                 },
+                visible: !options.constraints.fixed,
                 onMove: function(x, y) {
                     return !kpoint.equal([x, y], this.otherPoint.coord);
                 },
