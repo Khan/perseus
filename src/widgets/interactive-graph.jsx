@@ -1307,7 +1307,7 @@ var InteractiveGraph = React.createClass({
 
         $(this.angle).on("move", function() {
             var graph = _.extend({}, this.props.graph, {
-                coords: this.angle.coords
+                coords: this.angle.getClockwiseCoords()
             });
             this.props.onChange({graph: graph});
         }.bind(this));
