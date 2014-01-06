@@ -16,7 +16,7 @@ var BaseRadio = React.createClass({
                             ref={"radio" + i}
                             type={inputType}
                             name={radioGroupName}
-                            defaultChecked={choice.checked}
+                            checked={choice.checked}
                             onChange={this.onChange.bind(this, i)} />
                         {choice.content}
                     </div>;
@@ -55,11 +55,16 @@ var Radio = React.createClass({
     },
 
     render: function() {
+        var values = this.props.values || _.map(this.props.choices,
+                function() {
+            return false;
+        });
+
         var choices = this.props.choices.map(function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
                 content: Perseus.Renderer(_.pick(choice, "content")),
-                checked: false,
+                checked: values[i],
                 originalIndex: i
             };
         });
@@ -80,7 +85,9 @@ var Radio = React.createClass({
     },
 
     onCheckedChange: function(checked) {
-        this.props.onChange({values: this.derandomize(checked)});
+        this.props.onChange({
+            values: this.derandomize(checked)
+        });
     },
 
     toJSON: function(skipValidation) {
@@ -214,13 +221,37 @@ var RadioEditor = React.createClass({
                 <input
                     type="checkbox"
                     checked={this.props.multipleSelect}
-                    onChange={function(e) {
-                        this.props.onChange({multipleSelect:
-                                e.target.checked});
-                    }.bind(this)} />
+                    onChange={this.onMultipleSelectChange} />
                 Allow multiple selections
             </label></div>
         </div>;
+    },
+
+    onMultipleSelectChange: function(e) {
+
+        var allowMultiple = e.target.checked;
+
+        var numSelected = _.reduce(this.props.choices,
+                function(memo, choice) {
+            return choice.correct ? memo + 1 : memo;
+        }, 0);
+
+        if (!allowMultiple && numSelected > 1) {
+            var choices = _.map(this.props.choices, function(choice) {
+                return _.defaults({
+                    correct: false
+                }, choice);
+            });
+            this.props.onChange({
+                multipleSelect: allowMultiple,
+                choices: choices
+            });
+
+        } else {
+            this.props.onChange({
+                multipleSelect: allowMultiple
+            });
+        }
     },
 
     onCheckedChange: function(checked) {
