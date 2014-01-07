@@ -2,11 +2,10 @@
 (function(Perseus) {
 
 require("./core.js");
-require("./prop-check-box.jsx");
 require("./widgets.js");
 require("./util.js");
 
-var PropCheckBox = Perseus.PropCheckBox;
+var PropCheckBox = require("./components/prop-check-box.jsx");
 
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
