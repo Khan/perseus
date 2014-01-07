@@ -1,5 +1,11 @@
-.PHONY: build debug server all put put-js put-css update clean
+.PHONY: help build debug server all put put-js put-css update clean
 PORT=8000
+
+help:
+	@echo "make server PORT=9000  # runs the perseus server"
+	@echo "make build             # compiles into build/perseus.js"
+	@echo "make debug             # compiles into build/perseus.debug.js"
+	@echo "make all               # build perseus into webapp"
 
 build:
 	mkdir -p build
