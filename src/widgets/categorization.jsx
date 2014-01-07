@@ -1,6 +1,10 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../widgets.js");
+require("../renderer.jsx");
+
 var defaultNumCategories = 2;
 
 function removeFromArray(array, item) {

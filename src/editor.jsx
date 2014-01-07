@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+require("./prop-check-box.jsx");
+require("./widgets.js");
+require("./util.js");
+
 var PropCheckBox = Perseus.PropCheckBox;
 
 // like [[snowman input-number 1]]

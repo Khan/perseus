@@ -1,6 +1,10 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+require("./widgets.js");
+require("./util.js");
+
 /**
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
  */

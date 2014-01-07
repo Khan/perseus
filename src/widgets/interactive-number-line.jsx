@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../info-tip.jsx");
+
 function eq(x, y) {
     return Math.abs(x - y) < 1e-9;
 }

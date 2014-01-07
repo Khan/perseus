@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+
 var InfoTip = React.createClass({
     getInitialState: function() {
         return {

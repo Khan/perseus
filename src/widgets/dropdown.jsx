@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../widgets.js");
+
 var Dropdown = React.createClass({
     getDefaultProps: function() {
         return {

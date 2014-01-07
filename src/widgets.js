@@ -1,5 +1,7 @@
 (function(Perseus) {
 
+require("./core.js");
+
 var widgetTypes = {};
 
 var Widgets = Perseus.Widgets = {

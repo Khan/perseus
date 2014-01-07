@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+require("./renderer.jsx");
+require("./editor.jsx");
+require("./util.js");
+
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
 

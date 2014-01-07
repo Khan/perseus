@@ -5,6 +5,10 @@
  * hint editor boxes, and hint previews
  */
 
+require("./core.js");
+require("./renderer.jsx");
+require("./editor.jsx");
+
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
 

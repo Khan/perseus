@@ -1,6 +1,13 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+require("./answer-area-editor.jsx");
+require("./hint-editor.jsx");
+require("./renderer.jsx");
+require("./all-widgets.js");
+require("./util.js");
+
 // TODO(alpert): Thread problemNum to question-area widgets too
 
 var AnswerAreaRenderer = Perseus.AnswerAreaRenderer;

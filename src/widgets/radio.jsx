@@ -1,6 +1,12 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../renderer.jsx");
+require("../editor.jsx");
+
 var BaseRadio = React.createClass({
     render: function() {
         var radioGroupName = _.uniqueId("perseus_radio_");

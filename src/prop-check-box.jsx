@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+
 /* A checkbox that syncs its value to props using the
  * renderer's onChange method, and gets the prop name
  * dynamically from its props list

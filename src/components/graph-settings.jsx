@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
     url: null,

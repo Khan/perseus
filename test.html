@@ -78,66 +78,16 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/ke/exercises-stub.js"></script>
 <script src="/ke/utils/tex.js"></script>
 
-
 <!-- pre built --><!--
-<script src="/src/core.js"></script>
-<script src="/src/util.js"></script>
-<script src="/build/src/info-tip.js"></script>
-<script src="/build/src/prop-check-box.js"></script>
-<script src="/build/src/renderer.js"></script>
-<script src="/build/src/editor.js"></script>
-<script src="/src/widgets.js"></script>
-<script src="/build/src/components/number-input.js"></script>
-<script src="/build/src/components/graph-settings.js"></script>
-<script src="/build/src/components/graph.js"></script>
-<script src="/build/src/widgets/input-number.js"></script>
-<script src="/build/src/widgets/interactive-graph.js"></script>
-<script src="/build/src/widgets/interactive-number-line.js"></script>
-<script src="/build/src/widgets/protractor.js"></script>
-<script src="/build/src/widgets/radio.js"></script>
-<script src="/build/src/widgets/dropdown.js"></script>
-<script src="/build/src/widgets/table.js"></script>
-<script src="/build/src/widgets/categorization.js"></script>
-<script src="/build/src/widgets/plotter.js"></script>
-<script src="/build/src/widgets/expression.js"></script>
-<script src="/build/src/widgets/orderer.js"></script>
-<script src="/build/src/widgets/transformer.js"></script>
-<script src="/build/src/answer-area-editor.js"></script>
-<script src="/build/src/hint-editor.js"></script>
-<script src="/build/src/item-renderer.js"></script>
-<script src="/build/src/item-editor.js"></script>
-<script src="/build/src/editor-page.js"></script>
+<script src="/build/perseus.js"></script>
 -->
 
+<!-- pre built with source maps--><!--
+<script src="/build/perseus.debug.js"></script>
+-->
 
 <!-- built in the browser -->
-<script src="/src/core.js"></script>
-<script src="/src/util.js"></script>
-<script src="/src/info-tip.jsx" type="text/jsx"></script>
-<script src="/src/prop-check-box.jsx" type="text/jsx"></script>
-<script src="/src/renderer.jsx" type="text/jsx"></script>
-<script src="/src/editor.jsx" type="text/jsx"></script>
-<script src="/src/widgets.js"></script>
-<script src="/src/components/number-input.jsx" type="text/jsx"></script>
-<script src="/src/components/graph-settings.jsx" type="text/jsx"></script>
-<script src="/src/components/graph.jsx" type="text/jsx"></script>
-<script src="/src/widgets/input-number.jsx" type="text/jsx"></script>
-<script src="/src/widgets/interactive-graph.jsx" type="text/jsx"></script>
-<script src="/src/widgets/interactive-number-line.jsx" type="text/jsx"></script>
-<script src="/src/widgets/protractor.jsx" type="text/jsx"></script>
-<script src="/src/widgets/radio.jsx" type="text/jsx"></script>
-<script src="/src/widgets/dropdown.jsx" type="text/jsx"></script>
-<script src="/src/widgets/table.jsx" type="text/jsx"></script>
-<script src="/src/widgets/categorization.jsx" type="text/jsx"></script>
-<script src="/src/widgets/plotter.jsx" type="text/jsx"></script>
-<script src="/src/widgets/expression.jsx" type="text/jsx"></script>
-<script src="/src/widgets/orderer.jsx" type="text/jsx"></script>
-<script src="/src/widgets/transformer.jsx" type="text/jsx"></script>
-<script src="/src/answer-area-editor.jsx" type="text/jsx"></script>
-<script src="/src/hint-editor.jsx" type="text/jsx"></script>
-<script src="/src/item-renderer.jsx" type="text/jsx"></script>
-<script src="/src/item-editor.jsx" type="text/jsx"></script>
-<script src="/src/editor-page.jsx" type="text/jsx"></script>
+<script src="/src/editor-page.jsx"></script>
 
 
 <script>
@@ -152,212 +102,66 @@ $('#scorePreview').on('click', function() {
     console.log(editor.scorePreview());
 });
 
+var question = {
+    "question": {
+        "content": "[[☃ plotter 1]]",
+        "widgets": {
+            "plotter 1": {
+                "options": {
+                    "correct": [
+                        6,
+                        4.5,
+                        3,
+                        1.5,
+                        1
+                    ],
+                    "starting": [
+                        3,
+                        1.5,
+                        7,
+                        4.5,
+                        1
+                    ],
+                    "type": "histogram",
+                    "labels": [
+                        "hi",
+                        "there"
+                    ],
+                    "categories": [
+                        0,
+                        2.5,
+                        5,
+                        7.5,
+                        10,
+                        12.5
+                    ],
+                    "scaleY": 1,
+                    "maxY": 10,
+                    "snapsPerLine": 2
+                },
+                "type": "plotter"
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "Do the proof!",
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "hints": [
+        {
+            "content": "Focus on the proof!!!",
+            "widgets": {}
+        }
+    ]
+};
+
 Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.StatefulEditorPage(
-    {
-        "question": {
-            "content": "**Reflect the angle across the line $x = 1$.** \n\n[[☃ transformer 1]]",
-            "widgets": {
-                "transformer 1": {
-                    "type": "transformer",
-                    "graded": true,
-                    "options": {
-                        "starting": {
-                            "shape": {
-                                "type": [
-                                    "angle"
-                                ],
-                                "coords": [
-                                    [
-                                        8,
-                                        1
-                                    ],
-                                    [
-                                        4,
-                                        4
-                                    ],
-                                    [
-                                        8,
-                                        7
-                                    ]
-                                ]
-                            },
-                            "transformations": []
-                        },
-                        "graphMode": "interactive",
-                        "listMode": "dynamic",
-                        "tools": {
-                            "translation": {
-                                "enabled": true,
-                                "constraints": {}
-                            },
-                            "rotation": {
-                                "enabled": true,
-                                "constraints": {
-                                    "fixed": false
-                                },
-                                "coord": [
-                                    -9,
-                                    -3
-                                ]
-                            },
-                            "reflection": {
-                                "enabled": true,
-                                "constraints": {
-                                    "fixed": false
-                                },
-                                "coords": [
-                                    [
-                                        -9,
-                                        -3
-                                    ],
-                                    [
-                                        -9,
-                                        3
-                                    ]
-                                ]
-                            },
-                            "dilation": {
-                                "enabled": true,
-                                "constraints": {
-                                    "fixed": false
-                                },
-                                "coord": [
-                                    6,
-                                    6
-                                ]
-                            }
-                        },
-                        "drawSolutionShape": false,
-                        "gradeEmpty": false,
-                        "graph": {
-                            "range": [
-                                [
-                                    -10,
-                                    10
-                                ],
-                                [
-                                    -10,
-                                    10
-                                ]
-                            ],
-                            "step": [
-                                1,
-                                1
-                            ],
-                            "markings": "graph",
-                            "backgroundImage": {
-                                "url": null,
-                                "scale": 1,
-                                "bottom": 0,
-                                "left": 0
-                            },
-                            "showProtractor": false
-                        },
-                        "version": 1.1,
-                        "correct": {
-                            "transformations": [
-                                {
-                                    "type": "reflection",
-                                    "line": [
-                                        [
-                                            1,
-                                            -4.5
-                                        ],
-                                        [
-                                            1,
-                                            5
-                                        ]
-                                    ]
-                                }
-                            ],
-                            "shape": {
-                                "type": [
-                                    "angle"
-                                ],
-                                "coords": [
-                                    [
-                                        -6,
-                                        1
-                                    ],
-                                    [
-                                        -2,
-                                        4
-                                    ],
-                                    [
-                                        -6,
-                                        7
-                                    ]
-                                ]
-                            }
-                        }
-                    }
-                }
-            },
-            "__owner__": null,
-            "ignoreMissingWidgets": false
-        },
-        "answerArea": {
-            "type": "multiple",
-            "options": {
-                "content": "When a pair of parallel lines is reflected, the image created is [[☃ dropdown 1]].\n\nThe distance between the lines in the image is [[☃ dropdown 2]] in the original.",
-                "widgets": {
-                    "dropdown 1": {
-                        "type": "dropdown",
-                        "graded": true,
-                        "options": {
-                            "choices": [
-                                {
-                                    "content": "2 parallel lines",
-                                    "correct": true
-                                },
-                                {
-                                    "content": "2 intersecting lines",
-                                    "correct": false
-                                },
-                                {
-                                    "content": "4 parallel lines",
-                                    "correct": false
-                                }
-                            ]
-                        }
-                    },
-                    "dropdown 2": {
-                        "type": "dropdown",
-                        "graded": true,
-                        "options": {
-                            "choices": [
-                                {
-                                    "content": "greater than",
-                                    "correct": false
-                                },
-                                {
-                                    "content": "the same as",
-                                    "correct": true
-                                },
-                                {
-                                    "content": "less than",
-                                    "correct": false
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
-            "calculator": false
-        },
-        "hints": [
-            {
-                "content": "To reflect the lines across the line $x=-2$, click the \"Reflect\" button, then move the two outer points of the line of reflection onto any points on the line (any points with an $x$-coordinate of $-2$).  Click the middle point to reflect.",
-                "widgets": {}
-            },
-            {
-                "content": "When a pair of parallel lines is reflected, the image created is also a pair of parallel lines.  \n\nThe distance between them is the same as between the original lines.\n\nThe reflected image should look like this:\n![](https://ka-perseus-graphie.s3.amazonaws.com/e2910a925fec8d3f81341ef6642f58bfa2d8bbfe.png)",
-                "widgets": {}
-            }
-        ]
-    }
-    , null), document.getElementById("perseus-container"));
+    question, null), document.getElementById("perseus-container"));
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {

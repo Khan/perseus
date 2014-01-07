@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../renderer.jsx");
+
 var InfoTip = Perseus.InfoTip;
 
 var PlaceholderCard = React.createClass({
@@ -53,7 +58,8 @@ var DraggableCard = React.createClass({
     },
 
     onMouseDown: function(event) {
-        if (!(event.button === 0 || (event.touches != null && event.touches.length === 1))) {
+        if (!(event.button === 0 ||
+                (event.touches != null && event.touches.length === 1))) {
             return;
         }
 

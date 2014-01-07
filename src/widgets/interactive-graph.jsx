@@ -1,6 +1,13 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../info-tip.jsx");
+require("../components/graph-settings.jsx");
+require("../components/graph.jsx");
+
 var InfoTip = Perseus.InfoTip;
 var DeprecationMixin = Perseus.Util.DeprecationMixin;
 var GraphSettings = Perseus.Components.GraphSettings;

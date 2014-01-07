@@ -2,10 +2,10 @@
   "name": "perseus",
   "version": "0.0.1",
   "devDependencies": {
-    "grunt": "~0.4.0",
-    "grunt-contrib-concat": "~0.1.3",
-    "grunt-shell": "~0.2.2",
-    "react-tools": "~0.5.1"
+    "react-tools": "~0.5.1",
+    "browserify": "~3.4.0",
+    "beefy": "~0.6.0",
+    "reactify": "~0.4.0"
   },
   "repository": {
     "type": "git",

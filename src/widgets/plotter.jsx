@@ -1,6 +1,11 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../info-tip.jsx");
+
 var InfoTip = Perseus.InfoTip;
 var deepEq = Perseus.Util.deepEq;
 
@@ -561,7 +566,7 @@ var PlotterEditor = React.createClass({
             picSize: 30,
             picBoxHeight: 36,
             picUrl: Khan.imageBase + "badges/earth-small.png",
-            
+
             plotDimensions: [275, 200]
         });
     },

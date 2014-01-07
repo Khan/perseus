@@ -1,5 +1,9 @@
 /** @jsx React.DOM */
-(function(Perseus) {
+
+require("./core.js");
+require("./item-editor.jsx");
+require("./item-renderer.jsx");
+require("./hint-editor.jsx");
 
 var ItemEditor = Perseus.ItemEditor;
 var ItemRenderer = Perseus.ItemRenderer;
@@ -105,4 +109,3 @@ Perseus.StatefulEditorPage = React.createClass({
 });
 
 
-})(Perseus);

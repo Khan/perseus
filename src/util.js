@@ -1,5 +1,7 @@
 (function(Perseus) {
 
+require("./core.js");
+
 var Util = Perseus.Util = {
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
 

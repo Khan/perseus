@@ -1,6 +1,13 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../editor.jsx");
+require("../renderer.jsx");
+require("../info-tip.jsx");
+
 var Editor = Perseus.Editor;
 
 var Table = React.createClass({

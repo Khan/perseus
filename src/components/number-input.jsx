@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 (function(Perseus, undefined) {
 
+require("../core.js");
+require("../util.js");
+
 /* If str represents a valid number, return that number.
  * Otherwise, if str is empty and allowEmpty is true, return
  * null.

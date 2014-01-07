@@ -1,6 +1,10 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("./core.js");
+require("./editor.jsx");
+require("./answer-area-editor.jsx");
+
 var Editor = Perseus.Editor;
 
 var AnswerAreaEditor = Perseus.AnswerAreaEditor;

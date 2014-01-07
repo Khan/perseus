@@ -1,6 +1,16 @@
 /** @jsx React.DOM */
 (function(Perseus) {
 
+require("../core.js");
+require("../util.js");
+require("../widgets.js");
+require("../info-tip.jsx");
+require("../renderer.jsx");
+require("../prop-check-box.jsx");
+require("../components/graph-settings.jsx");
+require("../components/graph.jsx");
+require("../components/number-input.jsx");
+
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
 var RENDER_TRANSFORM_DELAY_IN_MS = 300;
