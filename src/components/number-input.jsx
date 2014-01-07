@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-(function(Perseus, undefined) {
 
 require("../core.js");
 require("../util.js");
@@ -44,7 +43,7 @@ function stringFromNumber(num) {
  * Optionally accepts empty input and sends it to
  * onChange as null
  */
-var NumberInput = Perseus.NumberInput = React.createClass({
+var NumberInput = React.createClass({
     getDefaultProps: function() {
         return {
             allowEmpty: false,
@@ -122,4 +121,5 @@ var NumberInput = Perseus.NumberInput = React.createClass({
     }
 });
 
-})(Perseus);
+module.exports = NumberInput;
+

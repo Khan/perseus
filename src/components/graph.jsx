@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
 require("../core.js");
 require("../util.js");
@@ -204,7 +203,5 @@ var Graph = React.createClass({
     }
 });
 
-Perseus.Components = Perseus.Components || {};
-Perseus.Components.Graph= Graph;
+module.exports = Graph;
 
-})(Perseus);

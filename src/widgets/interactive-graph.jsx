@@ -5,13 +5,12 @@ require("../core.js");
 require("../util.js");
 require("../widgets.js");
 require("../info-tip.jsx");
-require("../components/graph-settings.jsx");
-require("../components/graph.jsx");
+
+var Graph         = require("../components/graph.jsx");
+var GraphSettings = require("../components/graph-settings.jsx");
 
 var InfoTip = Perseus.InfoTip;
 var DeprecationMixin = Perseus.Util.DeprecationMixin;
-var GraphSettings = Perseus.Components.GraphSettings;
-var Graph = Perseus.Components.Graph;
 
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
