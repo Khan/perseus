@@ -747,6 +747,7 @@ var ShapeTypes = {
                 constraints: {
                     fixed: !options.translatable && !options.editable
                 },
+                visible: options.showPoints,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 bounded: false, // Don't bound it when placing it on the graph
@@ -1524,6 +1525,7 @@ var Transformer = React.createClass({
         this.shape = ShapeTypes.addMovableShape(graphie, {
             shape: shape,
             editable: false,
+            showPoints: (this.props.graphMode !== "static"),
             translatable: translatable,
             onMove: function (dX, dY) {
                 dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
