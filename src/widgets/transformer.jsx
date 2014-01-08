@@ -1082,9 +1082,18 @@ var TransformationExplorerSettings = React.createClass({
                 Mode:
                 <select value={this.getMode()}
                         onChange={this.changeMode}>
-                    <option value="exploration">Exploration</option>
-                    <option value="formal1">Formal with movement</option>
-                    <option value="formal2">Formal without movement</option>
+                    <option value="interactive,dynamic">
+                        Exploration with text
+                    </option>
+                    <option value="interactive,static">
+                        Exploration without text
+                    </option>
+                    <option value="dynamic,interactive">
+                        Formal with movement
+                    </option>
+                    <option value="static,interactive">
+                        Formal without movement
+                    </option>
                 </select>
                 <InfoTip>
                     <ul>
@@ -1131,37 +1140,16 @@ var TransformationExplorerSettings = React.createClass({
     },
 
     getMode: function() {
-        if (this.props.graphMode === "interactive") {
-            return "exploration";
-        } else if (this.props.graphMode === "dynamic") {
-            return "formal1";
-        } else if (this.props.graphMode === "static") {
-            return "formal2";
-        } else {
-            throw new Error("invalid graphMode: " + this.props.graphMode);
-        }
+        return this.props.graphMode + "," + this.props.listMode;
     },
 
     changeMode: function(e) {
         var selected = e.target.value;
-        var graphMode, listMode;
-
-        if (selected === "exploration") {
-            graphMode = "interactive";
-            listMode = "dynamic";
-        } else if (selected === "formal1") {
-            graphMode = "dynamic";
-            listMode = "interactive";
-        } else if (selected === "formal2") {
-            graphMode = "static";
-            listMode = "interactive";
-        } else {
-            throw new Error("invalid menu selection: " + selected);
-        }
+        var modes = selected.split(",");
 
         this.props.onChange({
-            graphMode: graphMode,
-            listMode: listMode
+            graphMode: modes[0],
+            listMode: modes[1]
         });
     },
 
