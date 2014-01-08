@@ -4,8 +4,9 @@
 require("../core.js");
 require("../util.js");
 require("../widgets.js");
-require("../renderer.jsx");
 require("../info-tip.jsx");
+
+var TeX = require("../tex.jsx");  // KaTeX and/or MathJax
 
 var InfoTip = Perseus.InfoTip;
 
@@ -38,7 +39,6 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        var TeX = Perseus.TeX;  // KaTeX and/or MathJax
         var result = this.parse(this.props.currentValue);
 
         return <span className="perseus-widget-expression">

@@ -5,12 +5,12 @@ require("../core.js");
 require("../util.js");
 require("../widgets.js");
 require("../info-tip.jsx");
-require("../renderer.jsx");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
+var TeX           = require("../tex.jsx");
 
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
@@ -19,7 +19,6 @@ var ROTATE_HANDLE_DIST = 1.5;
 var REFLECT_BUTTON_SIZE = 1;
 
 var InfoTip = Perseus.InfoTip;
-var TeX = Perseus.TeX;
 
 var deepEq = Perseus.Util.deepEq;
 var knumber = KhanUtil.knumber;
