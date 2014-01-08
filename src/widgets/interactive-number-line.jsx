@@ -6,6 +6,8 @@ require("../util.js");
 require("../widgets.js");
 require("../info-tip.jsx");
 
+var PropCheckBox = require("../components/prop-check-box.jsx");
+
 var InfoTip = Perseus.InfoTip;
 
 function eq(x, y) {
@@ -50,6 +52,7 @@ var InteractiveNumberLine = React.createClass({
     getDefaultProps: function() {
         return {
             labelStyle: "decimal",
+            labelTicks: false,
             isInequality: false,
             pointX: 0,
             rel: "ge"
@@ -110,7 +113,27 @@ var InteractiveNumberLine = React.createClass({
         this.addGraphie();
     },
 
+    _label: function(value) {
+        var graphie = this.graphie;
+        var labelStyle = this.props.labelStyle;
+
+        // TODO(jack): Find out if any exercises have "decimal ticks" set,
+        // and if so, re-save them and remove this check.
+        if (labelStyle === "decimal" || labelStyle === "decimal ticks") {
+            graphie.label([value, -0.53], value, "center");
+        } else if (labelStyle === "improper") {
+            var frac = KhanUtil.toFraction(value);
+            graphie.label([value, -0.53],
+                    formatImproper(frac[0], frac[1]), "center");
+        } else if (labelStyle === "mixed") {
+            var frac = KhanUtil.toFraction(value);
+            graphie.label([value, -0.53],
+                    formatMixed(frac[0], frac[1]), "center");
+        }
+    },
+
     addGraphie: function() {
+        var self = this;
         var graphie = this.graphie = KhanUtil.createGraphie(
                 this.refs.graphieDiv.getDOMNode());
         // Ensure a sane configuration to avoid infinite loops
@@ -146,8 +169,11 @@ var InteractiveNumberLine = React.createClass({
         for (var x = Math.ceil(range[0] / tickStep) * tickStep; x <= range[1];
                 x += tickStep) {
             graphie.line([x, -0.2], [x, 0.2]);
-            if (labelStyle === "decimal ticks") {
-                graphie.label([x, -0.53], x, "center");
+
+            // TODO(jack): Find out if any exercises have "decimal ticks" set,
+            // and if so, re-save them and remove this check.
+            if (this.props.labelTicks || labelStyle === "decimal ticks") {
+                this._label(x);
             }
         }
 
@@ -163,26 +189,10 @@ var InteractiveNumberLine = React.createClass({
         });
 
         graphie.style({color: KhanUtil.BLUE}, function() {
-            if (labelStyle === "decimal") {
-                graphie.label([range[0], -0.53], range[0], "center");
-                graphie.label([range[1], -0.53], range[1], "center");
-            } else if (labelStyle === "improper") {
-                var f0 = KhanUtil.toFraction(range[0]);
-                var f1 = KhanUtil.toFraction(range[1]);
-                graphie.label([range[0], -0.53],
-                        formatImproper(f0[0], f0[1]), "center");
-                graphie.label([range[1], -0.53],
-                        formatImproper(f1[0], f1[1]), "center");
-            } else if (labelStyle === "mixed") {
-                var f0 = KhanUtil.toFraction(range[0]);
-                var f1 = KhanUtil.toFraction(range[1]);
-                graphie.label([range[0], -0.53],
-                        formatMixed(f0[0], f0[1]), "center");
-                graphie.label([range[1], -0.53],
-                        formatMixed(f1[0], f1[1]), "center");
-            }
-            if (range[0] < 0 && 0 < range[1]) {
-                graphie.label([0, -0.53], "0", "center");
+            self._label(range[0]);
+            self._label(range[1]);
+            if (range[0] < 0 && 0 < range[1] && !self.props.labelTicks) {
+                    graphie.label([0, -0.53], "0", "center");
             }
         });
 
@@ -318,6 +328,7 @@ var InteractiveNumberLineEditor = React.createClass({
         return {
             range: [0, 10],
             labelStyle: "decimal",
+            labelTicks: false,
             tickStep: 1,
             snapDivisions: 4,
             correctRel: "eq",
@@ -361,10 +372,13 @@ var InteractiveNumberLineEditor = React.createClass({
                 <select value={this.props.labelStyle}
                         onChange={this.onChange.bind(this, "labelStyle")}>
                     <option value="decimal">Decimals</option>
-                    <option value="decimal ticks">Decimal ticks</option>
                     <option value="improper">Improper fractions</option>
                     <option value="mixed">Mixed numbers</option>
                 </select>
+                <PropCheckBox
+                    label="label ticks"
+                    labelTicks={this.props.labelTicks}
+                    onChange={this.props.onChange} />
             </label><br />
             <label>
                 tick step: <input defaultValue={'' + this.props.tickStep}
@@ -414,6 +428,7 @@ var InteractiveNumberLineEditor = React.createClass({
         return {
             range: this.props.range,
             labelStyle: this.props.labelStyle,
+            labelTicks: this.props.labelTicks,
             tickStep: this.props.tickStep,
             snapDivisions: this.props.snapDivisions,
             correctRel: this.props.correctRel,
