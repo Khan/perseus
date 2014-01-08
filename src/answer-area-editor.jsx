@@ -5,9 +5,11 @@ require("./core.js");
 require("./renderer.jsx");
 require("./editor.jsx");
 require("./util.js");
+require("./info-tip.jsx");
 
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
+var InfoTip = Perseus.InfoTip;
 
 var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
     getInitialState: function() {
@@ -163,7 +165,14 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
                     onChange={function(e) {
                         this.props.onChange({calculator: e.target.checked});
                     }.bind(this)} />
-            </label></div>
+            </label>
+            <InfoTip>
+                <p>Use the calculator when completing difficult calculations is NOT
+                the intent of the question. DON’T use the calculator when testing
+                the student’s ability to complete different types of
+                computations.</p>
+            </InfoTip>
+            </div>
             <div><label>
                 Answer type:
                 <select value={this.props.type}
@@ -181,7 +190,11 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
                     <option value="expression">Expression / Equation</option>
                     <option value="multiple">Custom format</option>
                 </select>
-            </label></div>
+            </label>
+            <InfoTip>
+                <p>Use the custom format if the question is in the question
+                area, and tell the students how to complete the problem.</p>
+            </InfoTip></div>
             </div>
             <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
                 {editor}

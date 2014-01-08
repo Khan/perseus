@@ -378,6 +378,15 @@ var InteractiveGraph = React.createClass({
                                 <option value="sides">side measures</option>
                             </select>
                         </label>
+                        <InfoTip>
+                            <p>These options affect the movement of the vertex
+                            points. The grid option will guide the points to
+                            the nearest half step along the grid.</p>
+
+                            <p>The interior angle and side measure options guide
+                            the points to the nearest whole angle or side</p>
+                            measure respectively.
+                        </InfoTip>
                     </div>
                     <div>
                         <label>Show angle measures:
@@ -385,6 +394,9 @@ var InteractiveGraph = React.createClass({
                                 checked={this.props.graph.showAngles}
                                 onClick={this.toggleShowAngles} />
                         </label>
+                        <InfoTip>
+                            <p>Displays the interior angle measures.</p>
+                        </InfoTip>
                     </div>
                     <div>
                         <label>Show side measures:
@@ -392,6 +404,9 @@ var InteractiveGraph = React.createClass({
                                 checked={this.props.graph.showSides}
                                 onClick={this.toggleShowSides} />
                         </label>
+                        <InfoTip>
+                            <p>Displays the side lengths.</p>
+                        </InfoTip>
                     </div>
                 </div>;
             } else if (this.props.graph.type === "segment") {
@@ -1791,7 +1806,13 @@ var InteractiveGraphEditor = React.createClass({
         }
 
         return <div className="perseus-widget-interactive-graph">
-            <div>Correct answer: {equationString}</div>
+            <div>Correct answer
+                <InfoTip>
+                    <p>Graph the correct answer in the graph below and ensure
+                    the equation or point coordinates displayed represent the
+                    correct answer.</p>
+                </InfoTip>
+                : {equationString}</div>
 
 
             <GraphSettings
@@ -1819,6 +1840,26 @@ var InteractiveGraphEditor = React.createClass({
                         <option value="similar">be similar</option>
                     </select>
                 </label>
+                <InfoTip>
+                    <ul>
+                        <li>
+                            <p><b>Match Exactly:</b> Match exactly in size,
+                            orientation, and location on the grid even if it is
+                            not shown in the background.</p>
+                        </li>
+                        <li>
+                            <p><b>Be Congruent:</b> Be congruent in size and
+                            shape, but can be located anywhere on the grid.</p>
+                        </li>
+                        <li>
+                            <p><b>Be Similar:</b> Be similar with matching
+                            interior angles, and side measures that are
+                            matching or a multiple of the correct side
+                            measures. The figure can be located anywhere on the
+                            grid.</p>
+                        </li>
+                    </ul>
+                </InfoTip>
             </div>}
             {this.props.correct.type === "angle" &&
             <div className="type-settings">

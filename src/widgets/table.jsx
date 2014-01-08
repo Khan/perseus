@@ -9,6 +9,7 @@ require("../renderer.jsx");
 require("../info-tip.jsx");
 
 var Editor = Perseus.Editor;
+var InfoTip = Perseus.InfoTip;
 
 var Table = React.createClass({
     render: function() {
@@ -184,6 +185,12 @@ var TableEditor = React.createClass({
                             />
                             Set of values (complete)
                         </label>
+                        <InfoTip>
+                            <p>The student has to fill out all cells in the
+                            table.  For partially filled tables create a table
+                            using the template, and insert text input boxes
+                            as desired.</p>
+                        </InfoTip>
                     </li>
                 </ul>
             </div>

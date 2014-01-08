@@ -3,7 +3,9 @@
 
 require("../core.js");
 require("../widgets.js");
+require("../info-tip.jsx");
 
+var InfoTip = Perseus.InfoTip;
 var Dropdown = React.createClass({
     getDefaultProps: function() {
         return {
@@ -82,6 +84,13 @@ var DropdownEditor = React.createClass({
     render: function() {
         var dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return <div className="perseus-widget-dropdown">
+            <InfoTip>
+                <p>The drop down is useful for making inequalities in a custom
+                format. We normally use the symbols {"<"}, {">"}, ≤, ≥ (in
+                that order) which you can copy into the choices.  When
+                possible, use the "multiple choice" answer type
+                instead.</p>
+            </InfoTip>
             <ul>
                 {this.props.choices.map(function(choice, i) {
                     return <li>

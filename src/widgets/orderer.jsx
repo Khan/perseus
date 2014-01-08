@@ -578,6 +578,11 @@ var OrdererEditor = React.createClass({
                 onContentChange={function(options) {
                     editor.props.onChange({correctOptions: options});
                 }} />
+            <InfoTip>
+                <p>Place the cards in the correct order. The same card can be used
+                more than once in the answer but will only be displayed once at
+                the top of a stack of identical cards.</p>
+            </InfoTip>
 
             <div>Other cards:</div>
             <TextListEditor
@@ -585,6 +590,9 @@ var OrdererEditor = React.createClass({
                 onContentChange={function(options) {
                     editor.props.onChange({otherOptions: options});
                 }} />
+            <InfoTip>
+                <p>Create cards that are not part of the answer.</p>
+            </InfoTip>
 
             <div>
                 <label>

@@ -627,6 +627,10 @@ var PlotterEditor = React.createClass({
                     <button onClick={this.setCategoriesFromScale}>
                         Set categories from scale
                     </button>
+                    <InfoTip>
+                      <p>Automatically sets categories according to the x-axis
+                      scale and max values.</p>
+                    </InfoTip>
                 </div>
             </div>}
             {this.props.type === PIC && <div>
@@ -638,6 +642,10 @@ var PlotterEditor = React.createClass({
                         defaultValue={this.props.picUrl}
                         onKeyPress={this.changePicUrl}
                         onBlur={this.changePicUrl} />
+                <InfoTip>
+                    <p>Use the default picture of Earth, or insert the URL for
+                    a different picture using the "Add image" function.</p>
+                </InfoTip>
                 </label>
             </div>}
             <div>
@@ -681,6 +689,11 @@ var PlotterEditor = React.createClass({
                         onChange={this.changeSnaps}
                         defaultValue={this.props.snapsPerLine} />
                 </label>
+                <InfoTip>
+                    <p>Creates the specified number of divisions between the
+                    horizontal lines. Fewer snaps between lines makes the graph
+                    easier for the student to create correctly.</p>
+                </InfoTip>
             </div>}
             <div>
                 Editing values:

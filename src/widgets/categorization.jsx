@@ -4,7 +4,9 @@
 require("../core.js");
 require("../widgets.js");
 require("../renderer.jsx");
+require("../info-tip.jsx");
 
+var InfoTip = Perseus.InfoTip;
 var defaultNumCategories = 2;
 
 function removeFromArray(array, item) {
@@ -668,6 +670,15 @@ var CategorizationEditor = React.createClass({
             };
         });
         return <div>
+            <InfoTip>
+              <p>The number of cards and categories is unlimited, but we recommend
+              a max of five cards and three categories to prevent the question
+              from running off the screen.</p>
+
+              <p>For the correct answer, move the cards into the correct
+              categories in the question area on the left side of the
+              screen.</p>
+            </InfoTip>
             <div className="categorization-editor-area">
                 <div className="add-item">
                     <button onClick={self.addItem}>

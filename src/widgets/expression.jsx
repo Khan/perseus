@@ -258,10 +258,26 @@ var ExpressionEditor = React.createClass({
     },
 
     optionLabels: {
-        form: "Answer expression must have the same form.",
-        simplify: "Answer expression must be fully expanded and simplified.",
-        times: "Use \u00d7 for rendering multiplication instead of a center " +
-                "dot."
+        form: {
+            labelText: "Answer expression must have the same form.",
+            infoTip: "The student's answer must be in the same form. " +
+                    "Commutativity and excess negative signs are ignored."
+        },
+        simplify: {
+            labelText: "Answer expression must be fully expanded and " +
+                "simplified.",
+            infoTip: "The student's answer must be fully expanded and " +
+                " simplified. Answering this equation (x^2+2x+1) with this " +
+                " factored equation (x+1)^2 will render this response " +
+                "\"Your answer is not fully expanded and simplified.\""
+        },
+        times: {
+            labelText: "Use \u00d7 for rendering multiplication instead of a "
+                + "center dot.",
+            infoTip: "For pre-algebra problems this option displays " +
+                "multiplication as \\times instead of \\cdot in both the " +
+                "rendered output and the acceptable formats examples."
+        }
     },
 
     render: function() {
@@ -281,13 +297,17 @@ var ExpressionEditor = React.createClass({
                     }.bind(this)} />
             </label></div>
 
-            {_.map(this.optionLabels, function(labelText, option) {
-                return <div><label key={option}>
-                    <input type="checkbox" name={option}
-                        checked={this.props[option]}
+            {_.map(this.optionLabels, function(optionData, optionName) {
+                return <div><label key={optionName}>
+                    <input type="checkbox" name={optionName}
+                        checked={this.props[optionName]}
                         onChange={this.handleCheck} />
-                    {labelText}
-                </label></div>;
+                    {optionData.labelText}
+                </label>
+                <InfoTip><p>
+                    {optionData.infoTip}
+                </p></InfoTip>
+                </div>;
             }, this)}
             <div>
                 <label>

@@ -3,7 +3,9 @@
 
 require("../core.js");
 require("../widgets.js");
+require("../info-tip.jsx");
 
+var InfoTip = Perseus.InfoTip;
 var Protractor = React.createClass({
     getDefaultProps: function() {
         return {
@@ -97,6 +99,10 @@ var ProtractorEditor = React.createClass({
                         defaultValue={this.props.imageUrl}
                         onKeyPress={this.changeImageUrl}
                         onBlur={this.changeImageUrl} />
+            <InfoTip>
+                <p>Create an image in graphie, or use the "Add image" function
+                to create a background.</p>
+            </InfoTip>
             </div>
             {this.props.imageUrl && <div>
                 <div>Pixels from top:

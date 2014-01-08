@@ -2,7 +2,9 @@
 
 require("../core.js");
 require("../util.js");
+require("../info-tip.jsx");
 
+var InfoTip = Perseus.InfoTip;
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
     url: null,
@@ -87,6 +89,10 @@ var GraphSettings = React.createClass({
                             defaultValue={this.props.backgroundImage.url}
                             onKeyPress={this.changeBackgroundUrl}
                             onBlur={this.changeBackgroundUrl} />
+                    <InfoTip>
+                        <p>Create an image in graphie, or use the "Add image"
+                        function to create a background.</p>
+                    </InfoTip>
                 </div>
                 {this.props.backgroundImage.url && <div>
                     <div>Pixels from left:

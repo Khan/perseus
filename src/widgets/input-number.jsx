@@ -227,6 +227,11 @@ var InputNumberEditor = React.createClass({
                 }.bind(this)}>
                 {answerTypeOptions}
             </select>
+            <InfoTip>
+                <p>Use the default "Numbers" unless the answer must be in a
+                specific form (e.g., question is about converting decimals to
+                fractions).</p>
+            </InfoTip>
             </div>
 
             <div>

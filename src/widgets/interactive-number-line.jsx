@@ -6,6 +6,8 @@ require("../util.js");
 require("../widgets.js");
 require("../info-tip.jsx");
 
+var InfoTip = Perseus.InfoTip;
+
 function eq(x, y) {
     return Math.abs(x - y) < 1e-9;
 }
@@ -332,7 +334,11 @@ var InteractiveNumberLineEditor = React.createClass({
             <label>
                 max x: <input defaultValue={'' + this.props.range[1]}
                     onBlur={this.onRangeBlur.bind(this, 1)} />
-            </label><br />
+            </label>
+            <InfoTip>
+                <p>Change "label styles" below to display the max and min x in
+                different number formats.</p>
+            </InfoTip><br />
             <span>
                 correct:
                 <select value={this.props.correctRel}
@@ -363,12 +369,20 @@ var InteractiveNumberLineEditor = React.createClass({
             <label>
                 tick step: <input defaultValue={'' + this.props.tickStep}
                     onBlur={this.onNumBlur.bind(this, "tickStep")} />
-            </label><br />
+            </label>
+            <InfoTip>
+                <p>A tick mark is placed at every number of steps
+                indicated.</p>
+            </InfoTip><br />
             <label>
                 snap increments per tick:
                 <input defaultValue={'' + this.props.snapDivisions}
                     onBlur={this.onNumBlur.bind(this, "snapDivisions")} />
             </label>
+            <InfoTip>
+                <p>Ensure the required number of snap increments is provided to
+                answer the question.</p>
+            </InfoTip>
         </div>;
     },
 

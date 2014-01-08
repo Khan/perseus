@@ -6,7 +6,9 @@ require("../util.js");
 require("../widgets.js");
 require("../renderer.jsx");
 require("../editor.jsx");
+require("../info-tip.jsx");
 
+var InfoTip = Perseus.InfoTip;
 var BaseRadio = React.createClass({
     render: function() {
         var radioGroupName = _.uniqueId("perseus_radio_");
@@ -221,7 +223,14 @@ var RadioEditor = React.createClass({
                         this.props.onChange({randomize: e.target.checked});
                     }.bind(this)} />
                 Randomize answer order
-            </label></div>
+            </label>
+            <InfoTip>
+                <p>For this option to work, don’t label choices or have "None
+                of the above" as an option. For true/false questions, make the
+                first choice True and the second choice False, and do NOT
+                select randomize answer order.</p>
+            </InfoTip>
+            </div>
 
             <div><label>
                 <input
