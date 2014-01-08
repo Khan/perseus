@@ -28,7 +28,7 @@ var toggleStrictRel = {
 
 function formatImproper(n, d) {
     if (d === 1) {
-        return "" + d;
+        return "" + n;
     } else {
         return n + "/" + d;
     }
