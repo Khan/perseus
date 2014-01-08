@@ -205,26 +205,7 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
 
 
 /* Perform operations on raw transform objects */
-var Transformations = {
-    ALL: [
-        {
-            id: "translation",
-            verbName: "Translate"
-        },
-        {
-            id: "rotation",
-            verbName: "Rotate"
-        },
-        {
-            id: "reflection",
-            verbName: "Reflect"
-        },
-        {
-            id: "dilation",
-            verbName: "Dilate"
-        }
-    ],
-
+var TransformOps = {
     apply: function(transform) {
         // Any transformation with empty text boxes is a no-op until
         // filled out (these show up as nulls in transform.vector/line/etc).
@@ -241,17 +222,17 @@ var Transformations = {
     append: function(transformList, newTransform) {
         // Append newTransform to transformList, and collapse the last
         // two transforms if they are collapsable
-        var results = Transformations._appendAndCollapseLastTwo(
+        var results = TransformOps._appendAndCollapseLastTwo(
             transformList,
             newTransform
         );
         // Collapse any no-ops at the end of the transformation list
-        return Transformations._collapseFinalNoOps(results);
+        return TransformOps._collapseFinalNoOps(results);
     },
 
     _collapseFinalNoOps: function(transforms) {
         // Collapse no-op transformations at the end of the list
-        if (transforms.length && Transformations.isNoOp(_.last(transforms))) {
+        if (transforms.length && TransformOps.isNoOp(_.last(transforms))) {
             return _.initial(transforms);
         } else {
             return transforms;
@@ -262,7 +243,7 @@ var Transformations = {
         if (!transformList.length) {
             return [newTransform];
         } else {
-            var collapsed = Transformations.collapse(
+            var collapsed = TransformOps.collapse(
                 _.last(transformList),
                 newTransform
             );
@@ -281,18 +262,18 @@ var Transformations = {
         }
 
         // Clicking the button again removes empty transformations
-        if (Transformations.isEmpty(transform1) &&
-                Transformations.isEmpty(transform2)) {
+        if (TransformOps.isEmpty(transform1) &&
+                TransformOps.isEmpty(transform2)) {
             return [];
         }
 
         // Don't collapse invalid transformations otherwise
-        if (!Transformations.isValid(transform1) ||
-                !Transformations.isValid(transform2)) {
+        if (!TransformOps.isValid(transform1) ||
+                !TransformOps.isValid(transform2)) {
             return [transform1, transform2];
         }
 
-        return Transformations._collapseValidMonotypedTransforms(
+        return TransformOps._collapseValidMonotypedTransforms(
             transform1,
             transform2
         );
@@ -336,7 +317,7 @@ var Transformations = {
         render: function() {
             if (this.props.mode === "dynamic") {
                 return <div>
-                    {Transformations.toTeX(this.props.transform)}
+                    {TransformOps.toTeX(this.props.transform)}
                 </div>;
             } else if (this.props.mode === "interactive") {
                 var transformClass =
@@ -364,9 +345,12 @@ var Transformations = {
         focus: function() {
             this.refs.transform.focus();
         }
-    }),
+    })
+};
 
+var Transformations = {
     translation: {
+        verbName: "Translate",
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kvector.add(coord, transform.vector);
@@ -427,6 +411,7 @@ var Transformations = {
     },
 
     rotation: {
+        verbName: "Rotate",
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kpoint.rotateDeg(coord, transform.angleDeg,
@@ -503,6 +488,7 @@ var Transformations = {
     },
 
     reflection: {
+        verbName: "Reflect",
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kpoint.reflectOverLine(
@@ -588,6 +574,7 @@ var Transformations = {
     },
 
     dilation: {
+        verbName: "Dilate",
         apply: function(transform) {
             return function(coord) {
                 return dilatePointFromCenter(coord, transform.center,
@@ -1283,7 +1270,7 @@ var TransformationsShapeEditor = React.createClass({
 
 });
 
-var TransformationListItem = Transformations.ListItem;
+var TransformationListItem = TransformOps.ListItem;
 
 var TransformationList = React.createClass({
     render: function() {
@@ -1349,13 +1336,13 @@ var ToolsBar = React.createClass({
     },
 
     render: function() {
-        var tools = _.map(Transformations.ALL, function(tool) {
-            if (this.props.enabled[tool.id]) {
+        var tools = _.map(Transformations, function(tool, type) {
+            if (this.props.enabled[type]) {
                 return <ToolButton
-                    key={tool.id}
+                    key={type}
                     displayName={tool.verbName}
-                    toggled={this.state.selected === tool.id}
-                    onClick={_.bind(this.changeSelected, this, tool.id)} />;
+                    toggled={this.state.selected === type}
+                    onClick={_.bind(this.changeSelected, this, type)} />;
             }
         }, this);
 
@@ -1912,7 +1899,7 @@ var Transformer = React.createClass({
     // list)
     applyTransform: function(transform) {
         if (this.props.graphMode !== "static") {
-            var transformFunc = Transformations.apply(transform);
+            var transformFunc = TransformOps.apply(transform);
             this.applyCoordTransformation(transformFunc);
         }
     },
@@ -1952,7 +1939,7 @@ var Transformer = React.createClass({
 
     // add a transformation to our props list of transformation
     addTransform: function(transform, callback) {
-        this.transformations = Transformations.append(
+        this.transformations = TransformOps.append(
                 this.transformations,
                 transform
         );
@@ -1989,7 +1976,7 @@ var Transformer = React.createClass({
         var startCoords = this.props.starting.shape.coords;
         var transforms = this.props.transformations;
         return _.reduce(transforms, function (coords, transform) {
-            return _.map(coords, Transformations.apply(transform));
+            return _.map(coords, TransformOps.apply(transform));
         }, startCoords);
     },
 
@@ -2018,17 +2005,15 @@ var Transformer = React.createClass({
 _.extend(Transformer, {
     validate: function (guess, rubric) {
         // Check for any required transformations
-        for (i = 0; i < Transformations.ALL.length; i++) {
-            var type = Transformations.ALL[i].id;
-
+        for (type in Transformations) {
             if (rubric.tools[type].required) {
                 var isUsed = _.any(_.map(guess.answer.transformations,
                         function(transform) {
                     // Required transformations must appear in the
                     // transformation list, and must not be no-ops
                     return (transform.type === type) &&
-                        !Transformations.isEmpty(transform) &&
-                        !Transformations.isNoOp(transform);
+                        !TransformOps.isEmpty(transform) &&
+                        !TransformOps.isNoOp(transform);
                 }));
 
                 if (!isUsed) {
