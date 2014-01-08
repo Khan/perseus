@@ -3,12 +3,12 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../editor.jsx");
 require("../renderer.jsx");
 require("../info-tip.jsx");
 
-var Editor = Perseus.Editor;
+var Widgets = require("../widgets.js");
+var Editor  = Perseus.Editor;
 var InfoTip = Perseus.InfoTip;
 
 var Table = React.createClass({
@@ -304,7 +304,7 @@ var TableEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("table", Table);
-Perseus.Widgets.register("table-editor", TableEditor);
+Widgets.register("table", Table);
+Widgets.register("table-editor", TableEditor);
 
 })(Perseus);

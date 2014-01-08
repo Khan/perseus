@@ -3,9 +3,9 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../renderer.jsx");
 
+var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
 
 var PlaceholderCard = React.createClass({
@@ -667,8 +667,8 @@ var OrdererEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("orderer", Orderer);
-Perseus.Widgets.register("orderer-editor", OrdererEditor);
+Widgets.register("orderer", Orderer);
+Widgets.register("orderer-editor", OrdererEditor);
 
 })(Perseus);
 

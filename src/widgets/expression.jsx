@@ -3,9 +3,9 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../info-tip.jsx");
 
+var Widgets = require("../widgets.js");
 var TeX = require("../tex.jsx");  // KaTeX and/or MathJax
 
 var InfoTip = Perseus.InfoTip;
@@ -358,7 +358,7 @@ var ExpressionEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("expression", Expression);
-Perseus.Widgets.register("expression-editor", ExpressionEditor);
+Widgets.register("expression", Expression);
+Widgets.register("expression-editor", ExpressionEditor);
 
 })(Perseus);

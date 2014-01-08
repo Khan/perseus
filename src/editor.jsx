@@ -2,9 +2,9 @@
 (function(Perseus) {
 
 require("./core.js");
-require("./widgets.js");
 require("./util.js");
 
+var Widgets = require("./widgets.js");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 
 // like [[snowman input-number 1]]
@@ -91,7 +91,7 @@ var WidgetEditor = React.createClass({
     },
 
     render: function() {
-        var cls = Perseus.Widgets._widgetTypes[this.props.type + "-editor"];
+        var cls = Widgets.get(this.props.type + "-editor");
 
         var isUngradedEnabled = (this.props.type === "transformer");
 
@@ -147,7 +147,7 @@ var Editor = Perseus.Editor = React.createClass({
     },
 
     getWidgetEditor: function(id, type) {
-        if (!Perseus.Widgets._widgetTypes[type + "-editor"]) {
+        if (!Widgets.get(type + "-editor")) {
             return;
         }
         return WidgetEditor(_.extend({

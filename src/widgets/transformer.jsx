@@ -3,7 +3,6 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../info-tip.jsx");
 
 var Graph         = require("../components/graph.jsx");
@@ -11,6 +10,7 @@ var GraphSettings = require("../components/graph-settings.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var TeX           = require("../tex.jsx");
+var Widgets       = require("../widgets.js");
 
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
@@ -2174,8 +2174,7 @@ var TransformerEditor = React.createClass({
 });
 
 
-Perseus.Widgets.register("transformer", Transformer);
-Perseus.Widgets.register("transformer-editor",
-        TransformerEditor);
+Widgets.register("transformer", Transformer);
+Widgets.register("transformer-editor", TransformerEditor);
 
 })(Perseus);

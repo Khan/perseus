@@ -2,9 +2,9 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../widgets.js");
 require("../info-tip.jsx");
 
+var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
 var Protractor = React.createClass({
     getDefaultProps: function() {
@@ -148,7 +148,7 @@ var ProtractorEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("protractor", Protractor);
-Perseus.Widgets.register("protractor-editor", ProtractorEditor);
+Widgets.register("protractor", Protractor);
+Widgets.register("protractor-editor", ProtractorEditor);
 
 })(Perseus);

@@ -7,6 +7,7 @@ require("./editor.jsx");
 require("./util.js");
 require("./info-tip.jsx");
 
+var Widgets = require("./widgets.js");
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
 var InfoTip = Perseus.InfoTip;
@@ -28,7 +29,7 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
         if (type === "multiple") {
             return Renderer;
         } else {
-            return Perseus.Widgets._widgetTypes[type];
+            return Widgets.get(type);
         }
     },
 
@@ -146,7 +147,7 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
         if (this.props.type === "multiple") {
             cls = Editor;
         } else {
-            cls = Perseus.Widgets._widgetTypes[this.props.type + "-editor"];
+            cls = Widgets.get(this.props.type + "-editor");
         }
 
         var editor = cls(_.extend({

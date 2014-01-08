@@ -3,9 +3,9 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../info-tip.jsx");
 
+var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
 
 var answerTypes = {
@@ -266,7 +266,7 @@ var InputNumberEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("input-number", InputNumber);
-Perseus.Widgets.register("input-number-editor", InputNumberEditor);
+Widgets.register("input-number", InputNumber);
+Widgets.register("input-number-editor", InputNumberEditor);
 
 })(Perseus);

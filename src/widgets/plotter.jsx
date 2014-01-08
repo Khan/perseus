@@ -3,9 +3,9 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../info-tip.jsx");
 
+var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
 var deepEq = Perseus.Util.deepEq;
 
@@ -842,7 +842,7 @@ var PlotterEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("plotter", Plotter);
-Perseus.Widgets.register("plotter-editor", PlotterEditor);
+Widgets.register("plotter", Plotter);
+Widgets.register("plotter-editor", PlotterEditor);
 
 })(Perseus);

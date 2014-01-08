@@ -2,10 +2,10 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../widgets.js");
 require("../renderer.jsx");
 require("../info-tip.jsx");
 
+var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
 var defaultNumCategories = 2;
 
@@ -799,7 +799,7 @@ var CategorizationEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("categorization", Categorization);
-Perseus.Widgets.register("categorization-editor", CategorizationEditor);
+Widgets.register("categorization", Categorization);
+Widgets.register("categorization-editor", CategorizationEditor);
 
 })(Perseus);

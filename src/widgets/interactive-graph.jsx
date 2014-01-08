@@ -3,11 +3,11 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../info-tip.jsx");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
+var Widgets       = require("../widgets.js");
 
 var InfoTip = Perseus.InfoTip;
 var DeprecationMixin = Perseus.Util.DeprecationMixin;
@@ -1918,7 +1918,7 @@ var InteractiveGraphEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("interactive-graph", InteractiveGraph);
-Perseus.Widgets.register("interactive-graph-editor", InteractiveGraphEditor);
+Widgets.register("interactive-graph", InteractiveGraph);
+Widgets.register("interactive-graph-editor", InteractiveGraphEditor);
 
 })(Perseus);

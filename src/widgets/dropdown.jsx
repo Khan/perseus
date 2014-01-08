@@ -2,8 +2,9 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../widgets.js");
 require("../info-tip.jsx");
+
+var Widgets = require("../widgets.js");
 
 var InfoTip = Perseus.InfoTip;
 var Dropdown = React.createClass({
@@ -159,7 +160,7 @@ var DropdownEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("dropdown", Dropdown);
-Perseus.Widgets.register("dropdown-editor", DropdownEditor);
+Widgets.register("dropdown", Dropdown);
+Widgets.register("dropdown-editor", DropdownEditor);
 
 })(Perseus);

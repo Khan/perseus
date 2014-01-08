@@ -2,10 +2,10 @@
 (function(Perseus) {
 
 require("./core.js");
-require("./widgets.js");
 require("./util.js");
 
 var TeX = require("./tex.jsx");
+var Widgets = require("./widgets.js");
 
 var Renderer = Perseus.Renderer = React.createClass({
 
@@ -52,7 +52,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             var widgetInfo = (this.props.widgets || {})[id];
             if (widgetInfo || this.props.ignoreMissingWidgets) {
                 widgetIds.push(id);
-                var cls = Perseus.Widgets._widgetTypes[type];
+                var cls = Widgets.get(type);
 
                 return cls(_.extend({
                     ref: id,

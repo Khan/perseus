@@ -3,12 +3,13 @@
 
 require("../core.js");
 require("../util.js");
-require("../widgets.js");
 require("../renderer.jsx");
 require("../editor.jsx");
 require("../info-tip.jsx");
 
+var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
+
 var BaseRadio = React.createClass({
     render: function() {
         var radioGroupName = _.uniqueId("perseus_radio_");
@@ -315,7 +316,7 @@ var RadioEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("radio", Radio);
-Perseus.Widgets.register("radio-editor", RadioEditor);
+Widgets.register("radio", Radio);
+Widgets.register("radio-editor", RadioEditor);
 
 })(Perseus);
