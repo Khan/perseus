@@ -63,10 +63,13 @@ function pluckObject(object, subKey) {
 
 var defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
+    var labels = setProps.labels || ["x", "y"];
     var range = setProps.range || [[-10, 10], [-10, 10]];
     var step = setProps.step || [1, 1];
     return {
         box: [boxSize, boxSize],
+        labels: labels,
+        labelsTextbox: labels,
         range: range,
         rangeTextbox: range,
         step: step,
@@ -1175,6 +1178,7 @@ var TransformationsShapeEditor = React.createClass({
                 ref="graph"
                 box={this.props.graph.box}
                 range={this.props.graph.range}
+                labels={this.props.graph.labels}
                 step={this.props.graph.step}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
@@ -1408,6 +1412,7 @@ var Transformer = React.createClass({
                     ref="graph"
                     box={graph.box}
                     range={graph.range}
+                    labels={graph.labels}
                     step={graph.step}
                     markings={graph.markings}
                     backgroundImage={graph.backgroundImage}
@@ -2087,6 +2092,8 @@ var TransformerEditor = React.createClass({
             <div>Graph settings:</div>
             <GraphSettings
                 box={graph.box}
+                labels={graph.labels}
+                labelsTextbox={graph.labelsTextbox}
                 range={graph.range}
                 rangeTextbox={graph.rangeTextbox}
                 step={graph.step}

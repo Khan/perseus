@@ -23,6 +23,7 @@ var Graph = React.createClass({
     getDefaultProps: function() {
         return {
             box: [defaultBoxSize, defaultBoxSize],
+            labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
             markings: "graph",
@@ -70,6 +71,9 @@ var Graph = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
+        if (!_.isEqual(this.props.labels, nextProps.labels)) {
+            this._shouldSetupGraphie = true;
+        }
         if (!_.isEqual(this.props.range, nextProps.range)) {
             this._shouldSetupGraphie = true;
         }
@@ -127,6 +131,7 @@ var Graph = React.createClass({
 
         var graphieDiv = this.refs.graphieDiv.getDOMNode();
         $(graphieDiv).empty();
+        var labels = this.props.labels;
         var range = this.props.range;
         var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
 
@@ -144,8 +149,8 @@ var Graph = React.createClass({
                 labelStep: 1,
                 unityLabels: _.pluck(gridConfig, "unityLabel")
             });
-            graphie.label([0, range[1][1]], "y", "above");
-            graphie.label([range[0][1], 0], "x", "right");
+            graphie.label([0, range[1][1]], labels[1], "above");
+            graphie.label([range[0][1], 0], labels[0], "right");
         } else if (this.props.markings === "grid") {
             graphie.graphInit({
                 range: range,
@@ -199,7 +204,7 @@ var Graph = React.createClass({
 
     toJSON: function() {
         return _.pick(this.props, 'range', 'step', 'markings',
-                'backgroundImage', 'showProtractor');
+                'labels', 'backgroundImage', 'showProtractor');
     }
 });
 

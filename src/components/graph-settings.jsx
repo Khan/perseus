@@ -19,10 +19,13 @@ function numSteps(range, step) {
 
 var GraphSettings = React.createClass({
     getDefaultProps: function() {
+        var labels = this.props.labels || ["x", "y"];
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
         return {
             box: [340, 340],
+            labels: labels,
+            labelsTextbox: labels,
             range: range,
             rangeTextbox: range,
             step: step,
@@ -37,6 +40,18 @@ var GraphSettings = React.createClass({
     render: function() {
         return <div>
             <div className="graph-settings">
+                <div>x label:
+                    <input  type="text"
+                            ref="labels-0"
+                            onInput={_.bind(this.changeLabel, this, 0)}
+                            value={this.props.labelsTextbox[0]} />
+                </div>
+                <div>y label:
+                    <input  type="text"
+                            ref="labels-1"
+                            onInput={_.bind(this.changeLabel, this, 1)}
+                            value={this.props.labelsTextbox[1]} />
+                </div>
                 <div>x range:
                     <input  type="text"
                             ref="range-0-0"
@@ -182,6 +197,13 @@ var GraphSettings = React.createClass({
         return true;
     },
 
+    changeLabel: function(i, e) {
+        var val = e.target.value;
+        var labels = this.props.labelsTextbox.slice();
+        labels[i] = val;
+        this.props.onChange({ labelsTextbox: labels }, this.changeGraph);
+    },
+
     changeRange: function(i, j, e) {
         var val = this.refs["range-" + i + "-" + j].getDOMNode().value;
         var ranges = this.props.rangeTextbox.slice();
@@ -209,6 +231,7 @@ var GraphSettings = React.createClass({
     },
 
     changeGraph: function() {
+        var labels = this.props.labelsTextbox;
         var range = this.props.rangeTextbox;
         var step = this.props.stepTextbox;
         var range = _.map(this.props.rangeTextbox, function(range) {
@@ -219,6 +242,7 @@ var GraphSettings = React.createClass({
         if (valid === true) {
             this.props.onChange({
                 valid: true,
+                labels: labels,
                 range: range,
                 step: step
             });

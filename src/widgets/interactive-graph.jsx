@@ -244,6 +244,7 @@ var deprecatedProps = {
 var InteractiveGraph = React.createClass({
     getDefaultProps: function() {
         return {
+            labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
             box: [defaultBoxSize, defaultBoxSize],
             step: [1, 1],
@@ -492,6 +493,7 @@ var InteractiveGraph = React.createClass({
             <Graph
                 ref="graph"
                 box={this.props.box}
+                labels={this.props.labels}
                 range={this.props.range}
                 step={this.props.step}
                 markings={this.props.markings}
@@ -1753,10 +1755,13 @@ var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
     getDefaultProps: function() {
+        var labels = this.props.labels || ["x", "y"];
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
         return {
             box: [340, 340],
+            labels: labels,
+            labelsTextbox: labels,
             range: range,
             rangeTextbox: range,
             step: step,
@@ -1784,6 +1789,7 @@ var InteractiveGraphEditor = React.createClass({
                 ref="graph"
                 box={this.props.box}
                 range={this.props.range}
+                labels={this.props.labels}
                 step={this.props.step}
                 graph={this.props.correct}
                 backgroundImage={this.props.backgroundImage}
@@ -1818,6 +1824,8 @@ var InteractiveGraphEditor = React.createClass({
             <GraphSettings
                 box={this.props.box}
                 range={this.props.range}
+                labels={this.props.labels}
+                labelsTextbox={this.props.labelsTextbox}
                 rangeTextbox={this.props.rangeTextbox}
                 step={this.props.step}
                 stepTextbox={this.props.stepTextbox}
@@ -1894,7 +1902,7 @@ var InteractiveGraphEditor = React.createClass({
 
     toJSON: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
-            "showProtractor", "range");
+                          "labels", "showProtractor", "range");
 
         var graph = this.refs.graph;
         if (graph) {
