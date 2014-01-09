@@ -2000,7 +2000,7 @@ var Transformer = React.createClass({
 _.extend(Transformer, {
     validate: function (guess, rubric) {
         // Check for any required transformations
-        for (type in Transformations) {
+        for (var type in Transformations) {
             if (rubric.tools[type].required) {
                 var isUsed = _.any(_.map(guess.answer.transformations,
                         function(transform) {
