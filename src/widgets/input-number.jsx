@@ -75,6 +75,7 @@ var formExamples = {
 
 var InputNumber = React.createClass({
     render: function() {
+        // TODO(jack): Probably make this sync up with its props
         return <input type="text" className=
             {"perseus-input-size-" + (this.props.size || "normal")} />;
     },

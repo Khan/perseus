@@ -21,6 +21,8 @@ var Dropdown = React.createClass({
             content: ""
         });
 
+        // TODO(jack): This should base the selected
+        // item on its props
         return <select
                     onChange={this.onChange}
                     className="perseus-widget-dropdown">
@@ -44,7 +46,7 @@ var Dropdown = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        return {value: this.props.selected};
+        return {value: this.getDOMNode().selectedIndex};
     },
 
     simpleValidate: function(rubric) {
