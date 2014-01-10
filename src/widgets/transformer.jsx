@@ -354,6 +354,7 @@ var TransformOps = {
 var Transformations = {
     translation: {
         verbName: "Translate",
+        nounName: "Translation",
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kvector.add(coord, transform.vector);
@@ -415,6 +416,7 @@ var Transformations = {
 
     rotation: {
         verbName: "Rotate",
+        nounName: "Rotation",
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kpoint.rotateDeg(coord, transform.angleDeg,
@@ -492,6 +494,7 @@ var Transformations = {
 
     reflection: {
         verbName: "Reflect",
+        nounName: "Reflection",
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kpoint.reflectOverLine(
@@ -578,6 +581,7 @@ var Transformations = {
 
     dilation: {
         verbName: "Dilate",
+        nounName: "Dilation",
         apply: function(transform) {
             return function(coord) {
                 return dilatePointFromCenter(coord, transform.center,
@@ -1316,7 +1320,7 @@ var ToolButton = React.createClass({
                 type="button"
                 className={classes}
                 onClick={this.props.onClick}>
-            {this.props.displayName}
+            {this.props.children}
         </button>;
     }
 });
@@ -1332,10 +1336,11 @@ var ToolsBar = React.createClass({
         var tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
                 return <ToolButton
-                    key={type}
-                    displayName={tool.verbName}
-                    toggled={this.state.selected === type}
-                    onClick={_.bind(this.changeSelected, this, type)} />;
+                        key={type}
+                        toggled={this.state.selected === type}
+                        onClick={_.bind(this.changeSelected, this, type)}>
+                    {tool.verbName}
+                </ToolButton>;
             }
         }, this);
 
@@ -1344,9 +1349,11 @@ var ToolsBar = React.createClass({
                 {tools}
             </span>
             <button
-                className="transformer-undo-button simple-button"
-                type="button"
-                onClick={this.props.onUndoClick}>
+                    className="transformer-undo-button simple-button"
+                    type="button"
+                    onClick={this.props.onUndoClick}>
+                <span className="icon-undo" />
+                {" "}
                 Undo
             </button>
             <div className="clear"></div>
@@ -1355,15 +1362,6 @@ var ToolsBar = React.createClass({
 
     changeSelected: function(tool) {
         this.props.removeTool(this.state.selected);
-
-        // If this is just a button bar, don't select anything,
-        // but call addTool
-        if (!this.props.togglable && !this.state.selected) {
-            if (tool) {
-                this.props.addTool(tool);
-            }
-            return;
-        }
 
         if (!tool || tool === this.state.selected) {
             this.setState({
@@ -1374,6 +1372,42 @@ var ToolsBar = React.createClass({
             this.setState({
                 selected: tool
             });
+        }
+    }
+});
+
+var AddTransformBar = React.createClass({
+    render: function() {
+        var tools = _.map(Transformations, function(tool, type) {
+            if (this.props.enabled[type]) {
+                return <ToolButton
+                        key={type}
+                        toggled={false}
+                        onClick={_.bind(this.changeSelected, this, type)}>
+                    <span className="icon-plus" />
+                    {" "}
+                    {tool.nounName}
+                </ToolButton>;
+            }
+        }, this);
+
+        return <div className="transformer-tools-bar">
+            {tools}
+            <button
+                    className="transformer-undo-button simple-button"
+                    type="button"
+                    onClick={this.props.onUndoClick}>
+                <span className="icon-undo" />
+                {" "}
+                Undo
+            </button>
+            <div className="clear"></div>
+        </div>;
+    },
+
+    changeSelected: function(tool) {
+        if (tool) {
+            this.props.addTool(tool);
         }
     }
 });
@@ -1399,39 +1433,56 @@ var Transformer = React.createClass({
 
         var interactiveToolsMode = this.props.graphMode === "interactive";
 
+        var ToolsBarClass = interactiveToolsMode ?
+                ToolsBar :
+                AddTransformBar;
+
+        // This style is applied inline because it is dependent on the
+        // size of the graph as set by the graph.box prop, and this also
+        // lets us specify it in the same place the graph's width is
+        // specified.
+        var toolsBar = <div style={{width: graph.box[0]}}>
+            <ToolsBarClass
+                ref="toolsBar"
+                enabled={pluckObject(this.props.tools, "enabled")}
+                addTool={this.addTool}
+                removeTool={this.removeTool}
+                onUndoClick={this.handleUndoClick} />
+        </div>;
+
         return <div className={"perseus-widget " +
                         "perseus-widget-transformer"}>
+            <Graph
+                ref="graph"
+                box={graph.box}
+                range={graph.range}
+                labels={graph.labels}
+                step={graph.step}
+                markings={graph.markings}
+                backgroundImage={graph.backgroundImage}
+                showProtractor={graph.showProtractor}
+                onNewGraphie={this.setupGraphie} />
 
-            {/* This style is applied inline because it is dependent on the
-              * size of the graph as set by the graph.box prop, and this also
-              * lets us specify it in the same place the graph's width is
-              * specified.
-              */}
-            <div style={{width: graph.box[0]}}>
-                <Graph
-                    ref="graph"
-                    box={graph.box}
-                    range={graph.range}
-                    labels={graph.labels}
-                    step={graph.step}
-                    markings={graph.markings}
-                    backgroundImage={graph.backgroundImage}
-                    showProtractor={graph.showProtractor}
-                    onNewGraphie={this.setupGraphie} />
-                <ToolsBar
-                    ref="toolsBar"
-                    enabled={pluckObject(this.props.tools, "enabled")}
-                    addTool={this.addTool}
-                    removeTool={this.removeTool}
-                    onUndoClick={this.handleUndoClick}
-                    togglable={interactiveToolsMode} />
-            </div>
+            {!interactiveToolsMode && (
+                "Add transformations below:"
+            )}
+
+            {this.props.graphMode === "static" && [
+                <br key="static-br" />,
+                <em key="static-nomove">
+                    Note: For this question, the shape will not move.
+                </em>
+            ]}
+
+            {interactiveToolsMode && toolsBar}
 
             <TransformationList
                 ref="transformationList"
                 mode={this.props.listMode}
                 transformations={this.props.transformations}
                 onChange={this.setTransformationProps} />
+
+            {!interactiveToolsMode && toolsBar}
 
         </div>;
     },
