@@ -177,9 +177,6 @@ var Util = Perseus.Util = {
     scaleFromExtent: function(extent, dimensionConstraint) {
         var span = extent[1] - extent[0];
         var scale = dimensionConstraint / span;
-        if (scale > 5) {
-            scale = Math.floor(scale);
-        }
         return scale;
     },
 
