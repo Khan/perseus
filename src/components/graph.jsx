@@ -71,21 +71,14 @@ var Graph = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(this.props.labels, nextProps.labels)) {
-            this._shouldSetupGraphie = true;
-        }
-        if (!_.isEqual(this.props.range, nextProps.range)) {
-            this._shouldSetupGraphie = true;
-        }
-        if (!_.isEqual(this.props.step, nextProps.step)) {
-            this._shouldSetupGraphie = true;
-        }
-        if (!_.isEqual(this.props.markings, nextProps.markings)) {
-            this._shouldSetupGraphie = true;
-        }
-        if (!_.isEqual(this.props.showProtractor, nextProps.showProtractor)) {
-            this._shouldSetupGraphie = true;
-        }
+        var potentialChanges = ["labels", "range", "step", "markings",
+            "showProtractor"]
+        var self = this;
+        _.each(potentialChanges, function(prop) {
+            if (!_.isEqual(self.props[prop], nextProps[prop])) {
+                self._shouldSetupGraphie = true;
+            }
+        });
     },
 
     /* Reset the graphie canvas to its initial state
