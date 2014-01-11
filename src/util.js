@@ -296,7 +296,7 @@ var Util = Perseus.Util = {
                 // back down again.
                 setTimeout(this.props.onChange, 0, newProps);    
             }
-        },
+        }
     },
 
     /**
