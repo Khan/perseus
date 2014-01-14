@@ -671,6 +671,8 @@ var ShapeTypes = {
             return 2;
         } else if (splitType[0] === "angle") {
             return 3;
+        } else if (splitType[0] === "circle") {
+            return 2;
         } else if (splitType[0] === "point") {
             return 1;
         }
@@ -724,8 +726,24 @@ var ShapeTypes = {
                         }
                     });
                 }
+
+                // Update our shape and our currentPoint
+                // Without this, some shapes (circles, angles) appear
+                // "bouncy" as they are updated with currentPoint at the
+                // current mouse coordinate (oldCoord), rather than newCoord
+                var oldCoord = currentPoint.coord;
+                var newCoord = KhanUtil.kvector.add(
+                    currentPoint.coord,
+                    moveVector
+                );
+                // Temporarily change our coordinate so that
+                // shape.update() sees the new coordinate
+                currentPoint.coord = newCoord;
                 shape.update();
-                return KhanUtil.kvector.add(currentPoint.coord, moveVector);
+                // ...But don't break onMove, which assumes it
+                // is the only thing changing our coord
+                currentPoint.coord = oldCoord;
+                return newCoord;
             };
 
             var onMoveEnd = function() {
@@ -968,6 +986,35 @@ var ShapeTypes = {
                     };
                 }
             };
+        } else if (type === "circle") {
+            var perimeter = {
+                // temporary object for the first removal
+                remove: _.identity
+            };
+            var redrawPerim = function() {
+                var coord0 = points[0].coord || points[0];
+                var coord1 = points[1].coord || points[1];
+                var radius = kpoint.distanceToPoint(coord0, coord1);
+                perimeter.remove();
+                perimeter = graphie.circle(coord0, radius, _.extend({
+                    stroke: KhanUtil.BLUE,
+                    "stroke-width": 2
+                }, options.normalStyle));
+            };
+
+            redrawPerim();
+            if (points[1].remove && !options.editable) {
+                points[1].remove();
+            }
+
+            return {
+                update: redrawPerim,
+                remove: function() {
+                    // Not _.bind because the remove function changes
+                    // when the perimeter is redrawn
+                    perimeter.remove();
+                }
+            };
         } else if (type === "point") {
             // do nothing
             return {
@@ -1019,6 +1066,15 @@ var ShapeTypes = {
 
         defaultOptions: {
             reflex: false
+        }
+    },
+
+    circle: {
+        equal: function(points1, points2) {
+            var radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
+            var radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
+            return kpoint.equal(points1[0], points2[0]) &&
+                knumber.equal(radius1, radius2);
         }
     },
 
@@ -1202,6 +1258,7 @@ var TransformationsShapeEditor = React.createClass({
                     2 line segments
                 </option>
                 <option value="angle">Angle</option>
+                <option value="circle">Circle</option>
             </select>
         </div>;
     },
@@ -2041,7 +2098,7 @@ var Transformer = React.createClass({
                 options: this.shape.getOptions()
             }
         };
-        json.version = 1.1; // Give us some safety to change the format
+        json.version = 1.2; // Give us some safety to change the format
                             // when we realize that I wrote
                             // a horrible json spec for this widget
         return json;
