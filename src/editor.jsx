@@ -435,8 +435,9 @@ var Editor = Perseus.Editor = React.createClass({
     toJSON: function(skipValidation) {
         // Could be _.pick(this.props, "content", "widgets"); but validation!
         var widgets = {};
+        var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
 
-        _.each(this.widgetIds, function(id) {
+        _.each(widgetIds, function(id) {
             widgets[id] = this.refs[id].toJSON(skipValidation);
         }, this);
 
