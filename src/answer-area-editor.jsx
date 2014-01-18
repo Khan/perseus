@@ -168,9 +168,9 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
                     }.bind(this)} />
             </label>
             <InfoTip>
-                <p>Use the calculator when completing difficult calculations is NOT
-                the intent of the question. DON’T use the calculator when testing
-                the student’s ability to complete different types of
+                <p>Use the calculator when completing difficult calculations is
+                NOT the intent of the question. DON’T use the calculator when
+                testing the student’s ability to complete different types of
                 computations.</p>
             </InfoTip>
             </div>

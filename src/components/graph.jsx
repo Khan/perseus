@@ -72,7 +72,7 @@ var Graph = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         var potentialChanges = ["labels", "range", "step", "markings",
-            "showProtractor"]
+            "showProtractor"];
         var self = this;
         _.each(potentialChanges, function(prop) {
             if (!_.isEqual(self.props[prop], nextProps[prop])) {

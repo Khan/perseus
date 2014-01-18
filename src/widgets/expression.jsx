@@ -272,8 +272,8 @@ var ExpressionEditor = React.createClass({
                 "\"Your answer is not fully expanded and simplified.\""
         },
         times: {
-            labelText: "Use \u00d7 for rendering multiplication instead of a "
-                + "center dot.",
+            labelText: "Use \u00d7 for rendering multiplication instead of " +
+                "a center dot.",
             infoTip: "For pre-algebra problems this option displays " +
                 "multiplication as \\times instead of \\cdot in both the " +
                 "rendered output and the acceptable formats examples."

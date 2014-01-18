@@ -671,9 +671,9 @@ var CategorizationEditor = React.createClass({
         });
         return <div>
             <InfoTip>
-              <p>The number of cards and categories is unlimited, but we recommend
-              a max of five cards and three categories to prevent the question
-              from running off the screen.</p>
+              <p>The number of cards and categories is unlimited, but we
+              recommend a max of five cards and three categories to prevent the
+              question from running off the screen.</p>
 
               <p>For the correct answer, move the cards into the correct
               categories in the question area on the left side of the

@@ -579,9 +579,9 @@ var OrdererEditor = React.createClass({
                     editor.props.onChange({correctOptions: options});
                 }} />
             <InfoTip>
-                <p>Place the cards in the correct order. The same card can be used
-                more than once in the answer but will only be displayed once at
-                the top of a stack of identical cards.</p>
+                <p>Place the cards in the correct order. The same card can be
+                used more than once in the answer but will only be displayed
+                once at the top of a stack of identical cards.</p>
             </InfoTip>
 
             <div>Other cards:</div>

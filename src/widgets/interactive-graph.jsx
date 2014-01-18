@@ -387,9 +387,9 @@ var InteractiveGraph = React.createClass({
                             points. The grid option will guide the points to
                             the nearest half step along the grid.</p>
 
-                            <p>The interior angle and side measure options guide
-                            the points to the nearest whole angle or side</p>
-                            measure respectively.
+                            <p>The interior angle and side measure options
+                            guide the points to the nearest whole angle or
+                            side</p> measure respectively.
                         </InfoTip>
                     </div>
                     <div>
