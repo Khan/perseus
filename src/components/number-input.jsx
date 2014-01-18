@@ -54,6 +54,7 @@ var NumberInput = React.createClass({
 
     render: function() {
         return React.DOM.input(_.extend({}, this.props, {
+            className: "number-input",
             type: "text",
             onChange: this._handleChange,
             onBlur: this._handleBlur,

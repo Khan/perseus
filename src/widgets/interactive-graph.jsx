@@ -7,6 +7,7 @@ require("../info-tip.jsx");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
+var NumberInput   = require("../components/number-input.jsx");
 var Widgets       = require("../widgets.js");
 
 var InfoTip = Perseus.InfoTip;
@@ -264,6 +265,8 @@ var InteractiveGraph = React.createClass({
         var oldType = prevProps.graph.type;
         var newType = this.props.graph.type;
         if (oldType !== newType ||
+                prevProps.graph.angleOffsetDeg !==
+                    this.props.graph.angleOffsetDeg ||
                 prevProps.graph.numPoints !== this.props.graph.numPoints ||
                 prevProps.graph.numSides !== this.props.graph.numSides ||
                 prevProps.graph.numSegments !== this.props.graph.numSegments ||
@@ -440,23 +443,38 @@ var InteractiveGraph = React.createClass({
                         </label>
                     </div>
                     <div>
-                        <label>Snap to increments of:
-                            <select key="degree-select"
+                        <label>Snap to increments of
+                            <NumberInput
+                                key="degree-snap"
+                                allowEmpty={false}
                                 value={this.props.graph.snapDegrees || 1}
-                                onChange={function(e) {
+                                onChange={function(newVal) {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {
-                                            snapDegrees: +e.target.value,
+                                            snapDegrees: Math.abs(newVal),
                                             coords: null
                                         })
                                     });
-                                }.bind(this)}>
-                                {_.map([1, 5, 10], function(n) {
-                                    return <option value={n}>
-                                        {n} degree{n > 1 && "s"}
-                                    </option>;
-                                })}
-                            </select>
+                                }.bind(this)} />
+                            degrees
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            With an offset of
+                            <NumberInput
+                                key="angle-offset"
+                                allowEmpty={false}
+                                value={this.props.graph.angleOffsetDeg || 0}
+                                onChange={function(newVal) {
+                                    this.props.onChange({
+                                        graph: _.extend({}, this.props.graph, {
+                                            angleOffsetDeg: newVal,
+                                            coords: null
+                                        })
+                                    });
+                                }.bind(this)} />
+                            degrees
                         </label>
                     </div>
                 </div>;
@@ -1324,6 +1342,7 @@ var InteractiveGraph = React.createClass({
         this.angle = graphie.addMovableAngle({
             points: this.points,
             snapDegrees: this.props.graph.snapDegrees || 1,
+            snapOffsetDeg: this.props.graph.angleOffsetDeg || 0,
             angleLabel: this.props.graph.showAngles ? "$deg0" : "",
             pushOut: 2
         });
@@ -1539,11 +1558,12 @@ _.extend(InteractiveGraph, {
         }
 
         var snap = graph.snapDegrees || 1;
-        var angle = {
-            1: 23,
-            5: 25,
-            10: 20
-        }[snap] * Math.PI / 180;
+        var angle = snap;
+        while (angle < 20) {
+            angle += snap;
+        }
+        angle = angle * Math.PI / 180;
+        var offset = (graph.angleOffsetDeg || 0) * Math.PI / 180;
 
         coords = component.pointsFromNormalized([
             [0.85, 0.50],
@@ -1552,9 +1572,16 @@ _.extend(InteractiveGraph, {
 
         var radius = magnitude(vector.apply(null, coords));
 
+        // Adjust the lower point by angleOffsetDeg degrees
+        coords[0] = [
+            coords[1][0] + radius * Math.cos(offset),
+            coords[1][1] + radius * Math.sin(offset)
+        ];
+        // Position the upper point angle radians from the
+        // lower point
         coords[2] = [
-            coords[1][0] + radius * Math.cos(angle),
-            coords[1][1] + radius * Math.sin(angle)
+            coords[1][0] + radius * Math.cos(angle + offset),
+            coords[1][1] + radius * Math.sin(angle + offset)
         ];
 
         return coords;
@@ -1914,8 +1941,8 @@ var InteractiveGraphEditor = React.createClass({
                 correct: correct
             });
 
-            _.each(["numPoints", "numSides", "numSegments",
-                    "showAngles", "showSides", "snapTo", "snapDegrees"],
+            _.each(["angleOffsetDeg", "numPoints", "numSides", "numSegments",
+                        "showAngles", "showSides", "snapTo", "snapDegrees"],
                     function(key) {
                         if (_.has(correct, key)) {
                             json.graph[key] = correct[key];
