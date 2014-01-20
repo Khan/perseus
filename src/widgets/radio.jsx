@@ -17,7 +17,9 @@ var BaseRadio = React.createClass({
 
         return <ul className="perseus-widget-radio">
             {this.props.multipleSelect &&
-                <div className="instructions">Select all that apply.</div>}
+                <div className="instructions">
+                    {$._("Select all that apply.")}
+                </div>}
             {this.props.choices.map(function(choice, i) {
 
                 var content = <div>
