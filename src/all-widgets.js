@@ -10,6 +10,7 @@ require("./widgets/orderer.jsx");
 require("./widgets/plotter.jsx");
 require("./widgets/protractor.jsx");
 require("./widgets/radio.jsx");
+require("./widgets/sorter.jsx");
 require("./widgets/table.jsx");
 require("./widgets/transformer.jsx");
 

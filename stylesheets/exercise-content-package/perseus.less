@@ -601,3 +601,109 @@
     }
 }
 
+
+.perseus-sortable {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    float: left;
+
+    .perseus-sortable-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+
+        cursor: pointer;
+
+        min-width: 25px;
+        min-height: 44px;
+        padding: 10px;
+
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+    }
+
+    .perseus-sortable-placeholder {
+        background: #ddd;
+        border: 1px solid #ccc;
+    }
+
+    .perseus-sortable-draggable {
+        font-size: 0;
+        text-align: center;
+
+        &:before {
+            // Vertical-align, part 1
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        & > div {
+            // Vertical-align, part 2
+            display: inline-block;
+            font-size: 14px;
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        div.paragraph {
+            margin: 0;
+        }
+
+        &.perseus-sortable-static {
+            cursor: pointer;
+        }
+
+        &.perseus-sortable-static:hover {
+            .draggy-boxy-thing-hover();
+        }
+
+        &.perseus-sortable-dragging {
+            background-color: #ffedcd;
+            filter: opacity(0.8);
+            opacity: 0.8;
+        }
+
+        &.perseus-sortable-disabled {
+            background-color: inherit;
+            border: 1px solid transparent;
+            cursor: default;
+        }
+    }
+
+    &.layout-horizontal {
+        .perseus-sortable-card {
+            float: left;
+        }
+
+        .perseus-sortable-dragging {
+            cursor: ew-resize;
+        }
+    }
+
+    &.layout-vertical {
+        &, .perseus-sortable-card {
+            max-width: 100%;
+        }
+
+        .perseus-sortable-dragging {
+            cursor: ns-resize;
+        }
+    }
+
+    &.unpadded {
+        .perseus-sortable-card {
+            line-height: 0;
+            padding: 0;
+        }
+    }
+}

@@ -24,6 +24,9 @@ var Renderer = Perseus.Renderer = React.createClass({
         return {
             content: "",
             ignoreMissingWidgets: false,
+            // onRender may be called multiple times per render, for example
+            // if there are multiple images or TeX pieces within `content`.
+            // It is a good idea to debounce any functions passed here.
             onRender: function() {}
         };
     },
