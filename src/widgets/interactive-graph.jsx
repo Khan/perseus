@@ -47,6 +47,11 @@ function sign(val) {
     }    
 }
 
+// default to defaultValue if actual is null or undefined
+function defaultVal(actual, defaultValue) {
+    return (actual == null) ? defaultValue : actual;
+}
+
 // Given rect bounding points A and B, whether point C is inside the rect
 function pointInRect(a, b, c) {
     return (c[0] <= Math.max(a[0], b[0]) && c[0] >= Math.min(a[0], b[0]) &&
@@ -265,6 +270,8 @@ var InteractiveGraph = React.createClass({
         var oldType = prevProps.graph.type;
         var newType = this.props.graph.type;
         if (oldType !== newType ||
+                prevProps.graph.allowReflexAngles !==
+                    this.props.graph.allowReflexAngles ||
                 prevProps.graph.angleOffsetDeg !==
                     this.props.graph.angleOffsetDeg ||
                 prevProps.graph.numPoints !== this.props.graph.numPoints ||
@@ -434,6 +441,10 @@ var InteractiveGraph = React.createClass({
                     })}
                 </select>;
             } else if (this.props.graph.type === "angle") {
+                var allowReflexAngles = defaultVal(
+                    this.props.graph.allowReflexAngles,
+                    true
+                );
                 extraOptions = <div>
                     <div>
                         <label>Show angle measure:
@@ -441,6 +452,30 @@ var InteractiveGraph = React.createClass({
                                 checked={this.props.graph.showAngles}
                                 onClick={this.toggleShowAngles} />
                         </label>
+                    </div>
+                    <div>
+                        <label>Allow reflex angles:
+                            <input type="checkbox"
+                                checked={allowReflexAngles}
+                                onClick={function(newVal) {
+                                    this.props.onChange({
+                                        graph: _.extend({}, this.props.graph, {
+                                            allowReflexAngles:
+                                                    !allowReflexAngles,
+                                            coords: null
+                                        })
+                                    });
+                                }.bind(this)} />
+                        </label>
+                        <InfoTip>
+                            <p>
+                                Reflex angles are angles with a measure
+                                greater than 180 degrees.
+                            </p>
+                            <p>
+                                By default, these should remain enabled.
+                            </p>
+                        </InfoTip>
                     </div>
                     <div>
                         <label>Snap to increments of
@@ -1344,7 +1379,8 @@ var InteractiveGraph = React.createClass({
             snapDegrees: this.props.graph.snapDegrees || 1,
             snapOffsetDeg: this.props.graph.angleOffsetDeg || 0,
             angleLabel: this.props.graph.showAngles ? "$deg0" : "",
-            pushOut: 2
+            pushOut: 2,
+            allowReflex: defaultVal(this.props.graph.allowReflexAngles, true)
         });
 
         $(this.angle).on("move", function() {
@@ -1941,8 +1977,9 @@ var InteractiveGraphEditor = React.createClass({
                 correct: correct
             });
 
-            _.each(["angleOffsetDeg", "numPoints", "numSides", "numSegments",
-                        "showAngles", "showSides", "snapTo", "snapDegrees"],
+            _.each(["allowReflexAngles", "angleOffsetDeg", "numPoints",
+                        "numSides", "numSegments", "showAngles", "showSides",
+                        "snapTo", "snapDegrees"],
                     function(key) {
                         if (_.has(correct, key)) {
                             json.graph[key] = correct[key];
