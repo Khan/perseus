@@ -129,7 +129,6 @@ var WidgetEditor = React.createClass({
     }
 });
 
-
 var Editor = Perseus.Editor = React.createClass({
     getDefaultProps: function() {
         return {

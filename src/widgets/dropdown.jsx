@@ -28,6 +28,7 @@ var Dropdown = React.createClass({
                     className="perseus-widget-dropdown">
             {choices.map(function(choice, i) {
                 return <option
+                        key={"" + i}
                         value={i}>
                     {choice.content}
                 </option>;
@@ -96,7 +97,7 @@ var DropdownEditor = React.createClass({
             </InfoTip>
             <ul>
                 {this.props.choices.map(function(choice, i) {
-                    return <li>
+                    return <li key={"" + i}>
                         <div>
                             <input
                                 ref={"radio" + i}
