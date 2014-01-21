@@ -67,7 +67,7 @@ var Matcher = React.createClass({
 
         return <div className="perseus-widget-matcher ui-helper-clearfix">
             <div className="column">
-                {showLabels && <div className="label">
+                {showLabels && <div className="column-label">
                     <Renderer content={this.props.labels[0] || "..."} />
                 </div>}
                 <Sortable
@@ -80,7 +80,7 @@ var Matcher = React.createClass({
                     ref="left" />
             </div>
             <div className="column">
-                {showLabels && <div className="label">
+                {showLabels && <div className="column-label">
                     <Renderer content={this.props.labels[1] || "..."} />
                 </div>}
                 <Sortable
