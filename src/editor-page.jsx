@@ -40,7 +40,8 @@ Perseus.EditorPage = React.createClass({
         }).extend(
             _(this.props).pick("workAreaSelector",
                                "solutionAreaSelector",
-                               "hintsAreaSelector")
+                               "hintsAreaSelector",
+                               "problemNum")
         );
 
         this.renderer = React.renderComponent(

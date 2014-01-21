@@ -7,6 +7,8 @@ require("../renderer.jsx");
 require("../editor.jsx");
 require("../info-tip.jsx");
 
+var shuffle = Perseus.Util.shuffle;
+
 var Widgets = require("../widgets.js");
 var InfoTip = Perseus.InfoTip;
 
@@ -123,7 +125,7 @@ var Radio = React.createClass({
 
     randomize: function(array) {
         if (this.props.randomize && this.props.problemNum) {
-            return Perseus.Util.shuffle(array, this.props.problemNum);
+            return shuffle(array, this.props.problemNum);
         } else {
             return array;
         }
@@ -131,8 +133,7 @@ var Radio = React.createClass({
 
     derandomize: function(array) {
         if (this.props.randomize && this.props.problemNum) {
-            var map = Perseus.Util.shuffle(
-                    _.range(array.length), this.props.problemNum);
+            var map = shuffle(_.range(array.length), this.props.problemNum);
             var derandomized = new Array(array.length);
             _.each(map, function(shuffledIndex, originalIndex) {
                 derandomized[shuffledIndex] = array[originalIndex];

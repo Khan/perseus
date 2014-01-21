@@ -28,21 +28,33 @@ var Util = Perseus.Util = {
         };
     },
 
-    shuffle: function(array, seed) {
-        var random = Util.seededRNG(seed);
+    // Shuffle an array using a given random seed. If `ensurePermuted` is true,
+    // the input and ouput are guaranteed to be distinct permutations.
+    shuffle: function(array, seed, ensurePermuted) {
+        // Always return a copy of the input array
+        var shuffled = _.clone(array);
 
-        // Fischer-Yates shuffle
-        array = array.slice();
-
-        for (var top = array.length; top > 0; top--) {
-            var newEnd = Math.floor(random() * top),
-                tmp = array[newEnd];
-
-            array[newEnd] = array[top - 1];
-            array[top - 1] = tmp;
+        // Handle edge cases (input array is empty or uniform)
+        if (!shuffled.length || _.all(shuffled, function(value) {
+                                    return _.isEqual(value, shuffled[0]);
+                                })) {
+            return shuffled;
         }
 
-        return array;
+        var random = Util.seededRNG(seed);
+
+        do {
+            // Fischer-Yates shuffle
+            for (var top = shuffled.length; top > 0; top--) {
+                var newEnd = Math.floor(random() * top),
+                    temp = shuffled[newEnd];
+
+                shuffled[newEnd] = shuffled[top - 1];
+                shuffled[top - 1] = temp;
+            }
+        } while (ensurePermuted && _.isEqual(array, shuffled));
+
+        return shuffled;
     },
 
     // In IE8, split doesn't work right. Implement it ourselves.

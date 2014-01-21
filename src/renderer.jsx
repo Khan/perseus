@@ -66,7 +66,8 @@ var Renderer = Perseus.Renderer = React.createClass({
                         widgets[id] = _.extend({}, widgets[id], newProps);
                         this.setState({widgets: widgets}, cb);
                     }.bind(this)
-                }, (widgetInfo || {}).options, this.state.widgets[id]));
+                }, (widgetInfo || {}).options, this.state.widgets[id],
+                _.pick(this.props, "problemNum")));
             }
         }
     },

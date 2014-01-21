@@ -8,8 +8,6 @@ require("./renderer.jsx");
 require("./all-widgets.js");
 require("./util.js");
 
-// TODO(alpert): Thread problemNum to question-area widgets too
-
 var AnswerAreaRenderer = Perseus.AnswerAreaRenderer;
 
 var HintRenderer = Perseus.HintRenderer;
@@ -65,7 +63,9 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = React.renderComponent(
-                Perseus.Renderer(this.props.item.question),
+                Perseus.Renderer(_.extend({
+                    problemNum: this.props.problemNum
+                }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
         this.answerAreaRenderer = React.renderComponent(

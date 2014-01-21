@@ -21,6 +21,7 @@
 <div id="extras">
     <button id="toJSON">toJSON</button>
     <button id="scorePreview">Score</button>
+    <span>Seed:</span><span id="problemNum"></span>
 </div>
 
 <!-- Begin Perseus HTML -->
@@ -94,6 +95,7 @@ add hint button ends up touching the bottom of the page). -->
 (function() {
 
 var editor;
+var problemNum = _.random(1, 99);
 
 $('#toJSON').on('click', function() {
     console.log(JSON.stringify(editor, null, 4));
@@ -101,6 +103,7 @@ $('#toJSON').on('click', function() {
 $('#scorePreview').on('click', function() {
     console.log(editor.scorePreview());
 });
+$('#problemNum').text(problemNum);
 
 var question = {
     "hints": [
@@ -202,7 +205,8 @@ var question = {
                 }
             }
         }
-    }
+    ],
+    "problemNum": problemNum
 };
 
 Perseus.init({}).then(function() {
