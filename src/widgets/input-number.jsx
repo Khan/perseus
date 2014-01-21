@@ -160,8 +160,8 @@ var InputNumberEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:
-                <input type="text" ref="input" defaultValue={this.props.value}
-                    onBlur={function(e) {
+                <input type="text" ref="input" value={this.props.value}
+                    onInput={function(e) {
                         var ans = "" + (Perseus.Util.firstNumericalParse(
                                 e.target.value) || 0);
                         e.target.value = ans;
