@@ -103,11 +103,11 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        React.unmountAndReleaseReactRootNode(
+        React.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
-        React.unmountAndReleaseReactRootNode(
+        React.unmountComponentAtNode(
                 document.querySelector(this.props.solutionAreaSelector));
-        React.unmountAndReleaseReactRootNode(
+        React.unmountComponentAtNode(
                 document.querySelector(this.props.hintsAreaSelector));
     },
 

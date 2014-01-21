@@ -103,7 +103,7 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
         }
         if (this.state.cls.examples && $("#examples-show").length) {
             $("#examples-show").hide();
-            React.unmountAndReleaseReactRootNode(
+            React.unmountComponentAtNode(
                     document.getElementById("examples"));
         }
     },
