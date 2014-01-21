@@ -11,15 +11,15 @@ var TeX = (function() {
     var needsProcess = false;
     var timeout = null;
 
-    function process(script) {
+    function process(script, callback) {
         pendingScripts.push(script);
         if (!needsProcess) {
             needsProcess = true;
-            timeout = setTimeout(doProcess, 0);
+            timeout = setTimeout(doProcess, 0, callback);
         }
     }
 
-    function doProcess() {
+    function doProcess(callback) {
         MathJax.Hub.Queue(function() {
             var oldElementScripts = MathJax.Hub.elementScripts;
             MathJax.Hub.elementScripts = function(element) {
@@ -30,9 +30,9 @@ var TeX = (function() {
             };
 
             try {
-                return MathJax.Hub.Process();
+                return MathJax.Hub.Process(null, callback);
             } catch (e) {
-                // (IE8 needs this catch)
+                // IE8 requires `catch` in order to use `finally`
                 throw e;
             } finally {
                 MathJax.Hub.elementScripts = oldElementScripts;
@@ -41,6 +41,13 @@ var TeX = (function() {
     }
 
     return React.createClass({
+        getDefaultProps: function() {
+            return {
+                // Called after math is rendered or re-rendered
+                onRender: function() {}
+            };
+        },
+
         render: function() {
             return <span>
                 <span ref="mathjax" />
@@ -50,11 +57,13 @@ var TeX = (function() {
 
         componentDidMount: function(span) {
             var text = this.props.children;
+            var onRender = this.props.onRender;
 
             if (typeof Exercises === "undefined" || Exercises.useKatex) {
                 try {
                     var katexHolder = this.refs.katex.getDOMNode();
                     katex.process(text, katexHolder);
+                    onRender();
                     return;
                 } catch (e) {
                     /* jshint -W103 */
@@ -66,12 +75,13 @@ var TeX = (function() {
             }
 
             this.setScriptText(text);
-            process(this.script);
+            process(this.script, onRender);
         },
 
         componentDidUpdate: function(prevProps, prevState, span) {
             var oldText = prevProps.children;
             var newText = this.props.children;
+            var onRender = this.props.onRender;
 
             if (oldText !== newText) {
                 if (typeof Exercises === "undefined" || Exercises.useKatex) {
@@ -84,6 +94,7 @@ var TeX = (function() {
                                 jax.Remove();
                             }
                         }
+                        onRender();
                         return;
                     } catch (e) {
                         /* jshint -W103 */
@@ -101,15 +112,15 @@ var TeX = (function() {
                     MathJax.Hub.Queue(function() {
                         var jax = MathJax.Hub.getJaxFor(component.script);
                         if (jax) {
-                            return jax.Text(newText);
+                            return jax.Text(newText, onRender);
                         } else {
                             component.setScriptText(newText);
-                            process(component.script);
+                            process(component.script, onRender);
                         }
                     });
                 } else {
                     this.setScriptText(newText);
-                    process(this.script);
+                    process(this.script, onRender);
                 }
             }
         },

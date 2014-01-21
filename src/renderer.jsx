@@ -23,7 +23,8 @@ var Renderer = Perseus.Renderer = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
-            ignoreMissingWidgets: false
+            ignoreMissingWidgets: false,
+            onRender: function() {}
         };
     },
 
@@ -47,7 +48,7 @@ var Renderer = Perseus.Renderer = React.createClass({
         } else if (saved.charAt(0) === "$") {
             // Math
             var tex = saved.slice(1, saved.length - 1);
-            return <TeX>{tex}</TeX>;
+            return <TeX onRender={this.props.onRender}>{tex}</TeX>;
         } else if (saved.charAt(0) === "[") {
             // Widget
             var match = Perseus.Util.rWidgetParts.exec(saved);
@@ -100,11 +101,29 @@ var Renderer = Perseus.Renderer = React.createClass({
         try {
             return <div>{markedReact(markdown)}</div>;
         } catch (e) {
-            // (IE8 needs this catch)
+            // IE8 requires `catch` in order to use `finally`
             throw e;
         } finally {
             markedReact.InlineLexer.prototype.smartypants = smartypants;
         }
+    },
+
+    handleRender: function() {
+        var onRender = this.props.onRender;
+
+        // Fire callback on image load...
+        $(this.getDOMNode()).find("img").on("load", onRender);
+
+        // ...as well as right now (non-image, non-TeX or image from cache)
+        onRender();
+    },
+
+    componentDidMount: function() {
+        this.handleRender();
+    },
+
+    componentDidUpdate: function() {
+        this.handleRender();
     },
 
     focus: function() {
