@@ -117,62 +117,25 @@ var question = {
         }
     ],
     "question": {
-        "content": "**Put the vertex of the angle at point $\\text{A}$.**  \n\n**Make one of the rays go through point  $\\text{B}$.**\n\n**Make the other ray go through one of the other points to make an obtuse angle.**  \nThe angle should also be less than $180^\\circ$.\n\n[[☃ interactive-graph 1]]",
+        "content": "[[☃ matcher 1]]",
         "widgets": {
-            "interactive-graph 1": {
-                "type": "interactive-graph",
+            "matcher 1": {
+                "type": "matcher",
                 "graded": true,
                 "options": {
-                    "showProtractor": false,
-                    "graph": {
-                        "snapDegrees": 1,
-                        "type": "angle"
-                    },
-                    "labels": [
-                        "x",
-                        "y"
+                    "left": [
+                        "$x$",
+                        "$y$",
+                        "$z$",
+                        "asdf"
                     ],
-                    "range": [
-                        [
-                            -10,
-                            10
-                        ],
-                        [
-                            -10,
-                            10
-                        ]
+                    "right": [
+                        "Hello?",
+                        "$2$",
+                        "$3$",
+                        "$\\dfrac{A}{L^}$"
                     ],
-                    "step": [
-                        1,
-                        1
-                    ],
-                    "markings": "none",
-                    "backgroundImage": {
-                        "scale": 1,
-                        "bottom": 0,
-                        "url": "https://ka-perseus-graphie.s3.amazonaws.com/9d0b14f85f71aad5488abb536a89caa5a285518f.png",
-                        "height": 400,
-                        "width": 400,
-                        "left": 0
-                    },
-                    "correct": {
-                        "snapDegrees": 1,
-                        "coords": [
-                            [
-                                -0.32685776549413736,
-                                7.481733371774737
-                            ],
-                            [
-                                2,
-                                2
-                            ],
-                            [
-                                -5.264765420094208,
-                                -5.264765420094205
-                            ]
-                        ],
-                        "type": "angle"
-                    }
+                    "padding": true
                 }
             }
         }
