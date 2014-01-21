@@ -3,10 +3,12 @@
 
 require("../core.js");
 require("../util.js");
+require("../info-tip.jsx");
 require("../renderer.jsx");
 
-var Widgets = require("../widgets.js");
-var InfoTip = Perseus.InfoTip;
+var InfoTip        = Perseus.InfoTip;
+var TextListEditor = require("../components/text-list-editor.jsx");
+var Widgets        = require("../widgets.js");
 
 var PlaceholderCard = React.createClass({
     render: function() {
@@ -467,90 +469,6 @@ _.extend(Orderer, {
     }
 });
 
-var textWidthCache = {};
-
-function getTextWidth(text) {
-    if (textWidthCache[text]) {
-        return textWidthCache[text];
-    }
-
-    // Hacky way to guess the width of an input box
-    var testElement = $("<span>");
-    testElement.text(text);
-
-    testElement.appendTo("body");
-    var width = testElement.width();
-    testElement.remove();
-
-    textWidthCache[text] = width + 5;
-    return textWidthCache[text];
-}
-
-
-var TextListEditor = React.createClass({
-    getDefaultProps: function() {
-        return {
-            options: [{
-                content: "$x$"
-            }]
-        };
-    },
-
-    render: function() {
-        var inputs = this.props.options.map(function(option, i) {
-            return <li key={i}>
-                <input type="text"
-                       ref={"editor" + i}
-                       style={{width: getTextWidth(option.content)}}
-                       onInput={this.onContentChange.bind(this, i)}
-                       value={option.content} />
-            </li>;
-        }, this);
-
-        inputs.push(
-            <li key={inputs.length}>
-                <input type="text"
-                       ref={"editorExtra"}
-                       onInput={this.addOption}
-                       style={{width: "20px"}}
-                       value="" />
-            </li>
-        );
-
-        return <ul className="ui-helper-clearfix">{inputs}</ul>;
-    },
-
-    addOption: function(e) {
-        // If we type into the empty input box at the end, we add a new input
-        // box in its place, copy over the contents, focus it at the correct
-        // place, and re-empty the last input box
-        e.preventDefault();
-
-        var options = this.props.options;
-        var blankOption = {content: e.target.value};
-
-        this.props.onContentChange(options.concat([blankOption]));
-    },
-
-    onContentChange: function(optionIndex, e) {
-        var options = this.props.options.slice();
-        var option = _.clone(options[optionIndex]);
-
-        option.content = e.target.value;
-        options[optionIndex] = option;
-
-        // Delete empty inputs at the end
-        var didDelete = false;
-        for (var i = options.length - 1;
-             i >= 0 && options[i].content === "";
-             i--) {
-            options.splice(i, 1);
-            didDelete = true;
-        }
-
-        this.props.onContentChange(options);
-    }
-});
 
 var OrdererEditor = React.createClass({
     getDefaultProps: function() {
@@ -569,30 +487,30 @@ var OrdererEditor = React.createClass({
     render: function() {
         var editor = this;
 
-        return <div
-                className={"perseus-widget-orderer " +
-                "layout-" + this.props.layout}>
-            <div>Correct answer:</div>
+        return <div className="perseus-widget-orderer">
+            <div>
+                Correct answer:
+                <InfoTip><p>
+                    Place the cards in the correct order. The same card can be
+                    used more than once in the answer but will only be 
+                    displayed once at the top of a stack of identical cards.
+                </p></InfoTip>
+            </div>
             <TextListEditor
-                options={this.props.correctOptions}
-                onContentChange={function(options) {
-                    editor.props.onChange({correctOptions: options});
-                }} />
-            <InfoTip>
-                <p>Place the cards in the correct order. The same card can be
-                used more than once in the answer but will only be displayed
-                once at the top of a stack of identical cards.</p>
-            </InfoTip>
+                options={_.pluck(this.props.correctOptions, "content")}
+                onChange={this.onOptionsChange.bind(this, "correctOptions")}
+                layout={this.props.layout} />
 
-            <div>Other cards:</div>
+            <div>
+                Other cards:
+                <InfoTip>
+                    <p>Create cards that are not part of the answer.</p>
+                </InfoTip>
+            </div>
             <TextListEditor
-                options={this.props.otherOptions}
-                onContentChange={function(options) {
-                    editor.props.onChange({otherOptions: options});
-                }} />
-            <InfoTip>
-                <p>Create cards that are not part of the answer.</p>
-            </InfoTip>
+                options={_.pluck(this.props.otherOptions, "content")}
+                onChange={this.onOptionsChange.bind(this, "otherOptions")}
+                layout={this.props.layout} />
 
             <div>
                 <label>
@@ -623,6 +541,14 @@ var OrdererEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
+    },
+
+    onOptionsChange: function(whichOptions, options, cb) {
+        var props = {};
+        props[whichOptions] = _.map(options, function(option) {
+            return {content: option};
+        });
+        this.props.onChange(props, cb);
     },
 
     onLayoutChange: function(e) {
