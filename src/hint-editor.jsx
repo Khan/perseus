@@ -214,7 +214,7 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
     },
 
     addHint: function() {
-        var hints = _(this.props.hints).clone().concat([{}]);
+        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
         this.props.onChange({hints: hints}, function() {
             var i = hints.length - 1;
             this.refs["hintEditor" + i].focus();
