@@ -154,21 +154,22 @@ _.extend(InputNumber, {
  */
 var BlurInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.oneOf
-    },
-    render: function() {
-        return <input type="text"
-                      value={this.state.value}
-                      onInput={this.handleInput}
-                      onBlur={this.handleBlur} />;
+        value: React.PropTypes.string.isRequired,
+        onChange: React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return { value: this.props.value };
     },
+    render: function() {
+        return <input type="text"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                      onBlur={this.handleBlur} />;
+    },
     componentWillReceiveProps: function(nextProps) {
         this.setState({ value: nextProps.value });
     },
-    handleInput: function(e) {
+    handleChange: function(e) {
         this.setState({ value: e.target.value });
     },
     handleBlur: function(e) {
@@ -201,7 +202,7 @@ var InputNumberEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:
-                <BlurInput value={this.props.value}
+                <BlurInput value={"" + this.props.value}
                            onChange={this.handleAnswerChange} />
             </label></div>
 
