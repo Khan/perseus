@@ -203,7 +203,8 @@ var InputNumberEditor = React.createClass({
             <div><label>
                 Correct answer:
                 <BlurInput value={"" + this.props.value}
-                           onChange={this.handleAnswerChange} />
+                           onChange={this.handleAnswerChange}
+                           ref="input" />
             </label></div>
 
             <div>
