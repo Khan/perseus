@@ -57,7 +57,7 @@ Perseus.EditorPage = React.createClass({
     handleChange: function(toChange, cb) {
         var newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
-        this.props.onChange(newProps);
+        this.props.onChange(newProps, cb);
     },
 
     scorePreview: function() {
