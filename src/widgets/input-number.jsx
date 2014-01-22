@@ -140,6 +140,42 @@ _.extend(InputNumber, {
     }
 });
 
+/* You know when you want to propagate input to a parent...
+ * but then that parent does something with the input...
+ * then changing the props of the input...
+ * on every keystroke...
+ * so if some input is invalid or incomplete...
+ * the input gets reset or otherwise effed...
+ *
+ * This is the solution.
+ *
+ * Enough melodrama. Its an imput that only sends changes to its parent on
+ * blur.
+ */
+var BlurInput = React.createClass({
+    propTypes: {
+        value: React.PropTypes.oneOf
+    },
+    render: function() {
+        return <input type="text"
+                      value={this.state.value}
+                      onInput={this.handleInput}
+                      onBlur={this.handleBlur} />;
+    },
+    getInitialState: function() {
+        return { value: this.props.value };
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({ value: nextProps.value });
+    },
+    handleInput: function(e) {
+        this.setState({ value: e.target.value });
+    },
+    handleBlur: function(e) {
+        this.props.onChange(e.target.value);
+    }
+});
+
 var InputNumberEditor = React.createClass({
     getDefaultProps: function() {
         return {
@@ -152,6 +188,11 @@ var InputNumberEditor = React.createClass({
         };
     },
 
+    handleAnswerChange: function(str) {
+        var value = Perseus.Util.firstNumericalParse(str) || 0;
+        this.props.onChange({value: value});
+    },
+
     render: function() {
         var answerTypeOptions = _.map(answerTypes, function(v, k) {
             return <option value={k}>{v.name}</option>;
@@ -160,13 +201,8 @@ var InputNumberEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:
-                <input type="text" ref="input" value={this.props.value}
-                    onInput={function(e) {
-                        var ans = "" + (Perseus.Util.firstNumericalParse(
-                                e.target.value) || 0);
-                        e.target.value = ans;
-                        this.props.onChange({value: ans});
-                    }.bind(this)} />
+                <BlurInput value={this.props.value}
+                           onChange={this.handleAnswerChange} />
             </label></div>
 
             <div>
