@@ -105,7 +105,7 @@ var defaultTransformerProps = {
             constraints: {
                 fixed: false
             },
-            coords: [[1, 1], [3, 3]]
+            coords: [[2, -4], [2, 2]]
         },
         dilation: {
             enabled: true,
@@ -1737,77 +1737,76 @@ var Transformer = React.createClass({
         var self = this;
         var graphie = this.refs.graph.graphie();
 
-        // the points defining the line of reflection
-        this.reflectPoints = _.map(options.coords, function(coord) {
-            return graphie.addMovablePoint({
-                constraints: options.constraints,
-                coord: coord,
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    fill: KhanUtil.ORANGE,
-                    stroke: KhanUtil.ORANGE
-                },
-                highlightStyle: {
-                    fill: KhanUtil.ORANGE,
-                    stroke: KhanUtil.ORANGE
-                },
-                visible: !options.constraints.fixed,
-                onMove: function(x, y) {
-                    return !kpoint.equal([x, y], this.otherPoint.coord);
-                },
-                onMoveEnd: function() {
-                    // Save our line coordinates to props:
-                    self.updateReflectionTool();
-                }
+        var updateReflectionTool = function() {
+            self.changeTool("reflection", {
+                coords: _.pluck(reflectPoints, "coord")
             });
-        });
-        this.reflectPoints[0].otherPoint = this.reflectPoints[1];
-        this.reflectPoints[1].otherPoint = this.reflectPoints[0];
+        };
+
+        // The points defining the line of reflection; hidden from the
+        // user.
+        var reflectPoints = _.map(options.coords, function(coord) {
+            return graphie.addMovablePoint({
+                coord: coord,
+                visible: false
+            });
+        }, this);
 
         // the line of reflection
         // TODO(jack): graphie.style here is a hack to prevent the dashed
         // style from leaking into the rest of the shapes. Remove when
         // graphie.addMovableLineSegment doesn't leak styles anymore.
+        var reflectLine;
         graphie.style({}, function() {
-            self.reflectLine = graphie.addMovableLineSegment({
+            reflectLine = graphie.addMovableLineSegment({
                 fixed: options.constraints.fixed,
                 constraints: options.constraints,
-                pointA: self.reflectPoints[0],
-                pointZ: self.reflectPoints[1],
+                pointA: reflectPoints[0],
+                pointZ: reflectPoints[1],
                 snapX: graphie.snap[0],
                 snapY: graphie.snap[1],
                 extendLine: true,
                 normalStyle: {
-                    "stroke": options.constraints.fixed ?
+                    "stroke": (options.constraints.fixed ?
                             KhanUtil.GRAY :
-                            KhanUtil.BLUE,  // TODO(jack): Blue might not be
-                                            // the best color here
+                            KhanUtil.ORANGE
+                    ),
                     "stroke-width": 2,
                     "stroke-dasharray": "- "
                 },
                 highlightStyle: {
                     "stroke": KhanUtil.ORANGE,
                     "stroke-width": 2,
-                    "stroke-dasharray": "- "
+                    "stroke-dasharray": "- " // TODO(jack) solid doesn't
+                                             // work here, but would be
+                                             // nicer
                 },
                 movePointsWithLine: true,
-                onMoveEnd: self.updateReflectionTool
+                onMoveEnd: updateReflectionTool
             });
         });
 
         // the "button" point in the center of the line of reflection
-        this.reflectButton = graphie.addReflectButton({
-            line: this.reflectLine,
+        var reflectButton = graphie.addReflectButton({
+            fixed: options.constraints.fixed,
+            line: reflectLine,
             size: this.scaleToCurrentRange(REFLECT_BUTTON_SIZE),
             onClick: function() {
                 self.doTransform({
                     type: "reflection",
-                    line: [
-                        self.reflectPoints[0].coord,
-                        self.reflectPoints[1].coord
-                    ]
+                    line: _.pluck(reflectPoints, "coord")
                 });
+                if (reflectRotateHandle) {
+                    // flip the rotation handle
+                    reflectRotateHandle.setCoord(kvector.add(
+                        reflectButton.coord,
+                        kvector.subtract(
+                            reflectButton.coord,
+                            reflectRotateHandle.coord
+                        )
+                    ));
+                    reflectRotateHandle.update();
+                }
             },
             normalStyle: {
                 stroke: KhanUtil.ORANGE,
@@ -1818,15 +1817,79 @@ var Transformer = React.createClass({
                 stroke: KhanUtil.ORANGE,
                 "stroke-width": 3,
                 fill: KhanUtil.ORANGE
-            }
+            },
+            onMoveEnd: updateReflectionTool
         });
+
+        var reflectRotateHandle = null;
+        if (!options.constraints.fixed) {
+            // The rotation handle for rotating the line of reflection
+            var initRotateHandleAngle = kvector.polarDegFromCart(
+                kvector.subtract(
+                    reflectPoints[1].coord,
+                    reflectPoints[0].coord
+                )
+            )[1] + 90; // 90 degrees off of the line
+            reflectRotateHandle = graphie.addRotateHandle({
+                center: reflectButton,
+                radius: this.scaleToCurrentRange(2),
+                angleDeg: initRotateHandleAngle,
+                width: this.scaleToCurrentRange(0.24),
+                hoverWidth: this.scaleToCurrentRange(0.4),
+                lengthAngle: 17,
+                onMove: function(newAngle) {
+                    return KhanUtil.roundToNearest(45, newAngle);
+                },
+                onMoveEnd: updateReflectionTool
+            });
+        }
+
+        // Move the reflectButton and reflectRotateHandle with the line
+        $(reflectLine).on("move",
+                function() {
+            reflectButton.update();
+            $(reflectButton).trigger("move"); // update the rotation handle,
+                    // which watches for this in ke/utils/interactive.js.
+        });
+
+        // Update the line and reflect button when the reflectRotateHandle is
+        // rotated
+        if (reflectRotateHandle) {
+            $(reflectRotateHandle).on("move", function() {
+                var rotateHandleApprox = _.map(reflectRotateHandle.coord,
+                        function (val, dim) {
+                    return KhanUtil.roundToNearest(graphie.snap[dim], val);
+                });
+
+                var rotateVector = kvector.subtract(
+                    rotateHandleApprox,
+                    reflectButton.coord
+                );
+
+                var flipped = reflectButton.isFlipped() ? 1 : 0;
+                reflectPoints[flipped].setCoord(kvector.add(
+                    reflectButton.coord,
+                    kvector.rotateDeg(rotateVector, 90)
+                ));
+                reflectPoints[1 - flipped].setCoord(kvector.add(
+                    reflectButton.coord,
+                    kvector.rotateDeg(rotateVector, -90)
+                ));
+
+                reflectLine.transform(true);
+                reflectButton.update();
+            });
+        }
 
         return {
             remove: function() {
-                self.reflectLine.remove();
-                self.reflectPoints[0].remove();
-                self.reflectPoints[1].remove();
-                self.reflectButton.remove();
+                reflectButton.remove();
+                if (reflectRotateHandle) {
+                    reflectRotateHandle.remove();
+                }
+                reflectLine.remove();
+                reflectPoints[0].remove();
+                reflectPoints[1].remove();
             }
         };
     },
@@ -2057,12 +2120,6 @@ var Transformer = React.createClass({
         this.tools[tool] = _.clone(newTools[tool]);
         this.props.onChange({
             tools: newTools,
-        });
-    },
-
-    updateReflectionTool: function() {
-        this.changeTool("reflection", {
-            coords: _.pluck(this.reflectPoints, "coord")
         });
     },
 
