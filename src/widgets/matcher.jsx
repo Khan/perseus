@@ -195,8 +195,9 @@ var MatcherEditor = React.createClass({
                     will be treated as correct. This is useful when ordering is
                     significant, such as in the context of a proof.</p>
                     <p>If disabled, pairwise matching is sufficient. To make
-                    this clear, the left column becomes fixed and only the
-                    cards in the right column can be moved.</p>
+                    this clear, the left column becomes fixed in the provided
+                    order and only the cards in the right column can be moved.
+                    </p>
                 </InfoTip>
             </div>
             <div>
