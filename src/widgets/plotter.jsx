@@ -147,7 +147,7 @@ var Plotter = React.createClass({
                     [0, y],
                     KhanUtil.toFixedApprox(y, 2),
                     "left",
-                    false
+                    true
                 );
                 graphie.style(
                     {stroke: "#000", strokeWidth: 1, opacity: 0.3},
