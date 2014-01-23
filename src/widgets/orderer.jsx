@@ -3,10 +3,9 @@
 
 require("../core.js");
 require("../util.js");
-require("../info-tip.jsx");
 require("../renderer.jsx");
 
-var InfoTip        = Perseus.InfoTip;
+var InfoTip        = require("../components/info-tip.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 var Widgets        = require("../widgets.js");
 

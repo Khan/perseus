@@ -1,7 +1,4 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("./core.js");
 
 var InfoTip = React.createClass({
     getInitialState: function() {
@@ -35,6 +32,4 @@ var InfoTip = React.createClass({
     }
 });
 
-Perseus.InfoTip = InfoTip;
-
-})(Perseus);
+module.exports = InfoTip;

@@ -3,10 +3,10 @@
 
 require("../core.js");
 require("../util.js");
-require("../info-tip.jsx");
 
+var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
-var InfoTip = Perseus.InfoTip;
+
 var deepEq = Perseus.Util.deepEq;
 
 var BAR = "bar",

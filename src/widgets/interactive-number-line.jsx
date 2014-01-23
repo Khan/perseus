@@ -4,11 +4,9 @@
 require("../core.js");
 require("../util.js");
 require("../widgets.js");
-require("../info-tip.jsx");
 
+var InfoTip      = require("../components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
-
-var InfoTip = Perseus.InfoTip;
 
 function eq(x, y) {
     return Math.abs(x - y) < 1e-9;

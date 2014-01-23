@@ -5,12 +5,11 @@ require("./core.js");
 require("./renderer.jsx");
 require("./editor.jsx");
 require("./util.js");
-require("./info-tip.jsx");
 
+var InfoTip = require("./components/info-tip.jsx");
 var Widgets = require("./widgets.js");
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
-var InfoTip = Perseus.InfoTip;
 
 var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
     getInitialState: function() {

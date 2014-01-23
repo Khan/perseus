@@ -2,11 +2,10 @@
 
 require("../core.js");
 require("../util.js");
-require("../info-tip.jsx");
 
+var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 
-var InfoTip = Perseus.InfoTip;
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
     url: null,

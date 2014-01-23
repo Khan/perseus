@@ -2,13 +2,12 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../info-tip.jsx");
 require("../renderer.jsx");
 require("../util.js");
 
 var shuffle = Perseus.Util.shuffle;
 
-var InfoTip        = Perseus.InfoTip;
+var InfoTip        = require("../components/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
 var Renderer       = Perseus.Renderer;
 var Sortable       = require("../components/sortable.jsx");

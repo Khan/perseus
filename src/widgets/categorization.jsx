@@ -3,10 +3,10 @@
 
 require("../core.js");
 require("../renderer.jsx");
-require("../info-tip.jsx");
 
+var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
-var InfoTip = Perseus.InfoTip;
+
 var defaultNumCategories = 2;
 
 function removeFromArray(array, item) {

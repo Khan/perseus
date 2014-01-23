@@ -3,12 +3,10 @@
 
 require("../core.js");
 require("../util.js");
-require("../info-tip.jsx");
 
+var InfoTip = require("../components/info-tip.jsx");
+var TeX     = require("../tex.jsx");  // KaTeX and/or MathJax
 var Widgets = require("../widgets.js");
-var TeX = require("../tex.jsx");  // KaTeX and/or MathJax
-
-var InfoTip = Perseus.InfoTip;
 
 var Expression = React.createClass({
     getDefaultProps: function() {

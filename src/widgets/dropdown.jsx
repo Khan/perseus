@@ -2,11 +2,10 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../info-tip.jsx");
 
+var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
 
-var InfoTip = Perseus.InfoTip;
 var Dropdown = React.createClass({
     getDefaultProps: function() {
         return {

@@ -3,14 +3,13 @@
 
 require("../core.js");
 require("../util.js");
-require("../info-tip.jsx");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
+var InfoTip       = require("../components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var Widgets       = require("../widgets.js");
 
-var InfoTip = Perseus.InfoTip;
 var DeprecationMixin = Perseus.Util.DeprecationMixin;
 
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';

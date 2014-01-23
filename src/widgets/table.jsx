@@ -5,11 +5,11 @@ require("../core.js");
 require("../util.js");
 require("../editor.jsx");
 require("../renderer.jsx");
-require("../info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 
 var Widgets = require("../widgets.js");
 var Editor  = Perseus.Editor;
-var InfoTip = Perseus.InfoTip;
+
 
 var Table = React.createClass({
     render: function() {
