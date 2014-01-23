@@ -20,7 +20,7 @@ debug:
 	./node_modules/.bin/browserify -t reactify -d src/editor-page.jsx >> build/perseus.debug.js
 
 server: update
-	./node_modules/.bin/beefy src/editor-page.jsx $(PORT) -- -t reactify -d
+	./node_modules/.bin/beefy src/editor-page.jsx test/test.js $(PORT) -- -t reactify -d
 
 all: clean update build put
 
