@@ -143,7 +143,12 @@ var Plotter = React.createClass({
 
         if (!isPic) {
             for (var y = 0; y <= c.dimY; y += c.scaleY) {
-                graphie.label([0, y], y, "left", false);
+                graphie.label(
+                    [0, y],
+                    KhanUtil.toFixedApprox(y, 2),
+                    "left",
+                    false
+                );
                 graphie.style(
                     {stroke: "#000", strokeWidth: 1, opacity: 0.3},
                     function() {
