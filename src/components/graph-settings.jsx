@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
@@ -262,11 +262,11 @@ var GraphSettings = React.createClass({
         range[j] = val;
         var step = this.state.stepTextbox.slice();
         var gridStep = this.state.gridStepTextbox.slice();
-        var scale = Perseus.Util.scaleFromExtent(range[i], this.props.box[i]);
+        var scale = Util.scaleFromExtent(range[i], this.props.box[i]);
         if (this.validRange(range) === true) {
-            step[i] = Perseus.Util.tickStepFromExtent(
+            step[i] = Util.tickStepFromExtent(
                     range, this.props.box[i]);
-            gridStep[i] = Perseus.Util.gridStepFromTickStep(step[i], scale);
+            gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
         }
         this.setState({
             stepTextbox: step,

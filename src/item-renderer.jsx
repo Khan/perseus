@@ -6,7 +6,7 @@ require("./answer-area-editor.jsx");
 require("./hint-editor.jsx");
 require("./renderer.jsx");
 require("./all-widgets.js");
-require("./util.js");
+var Util = require("./util.js");
 
 var AnswerAreaRenderer = Perseus.AnswerAreaRenderer;
 
@@ -138,7 +138,7 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
             score = aScore;
         } else {
             guess = [qGuess, aGuess];
-            score = Perseus.Util.combineScores(qScore, aScore);
+            score = Util.combineScores(qScore, aScore);
         }
 
         if (score.type === "points") {

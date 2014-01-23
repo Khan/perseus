@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("./core.js");
-require("./util.js");
+var Util = require("./util.js");
 
 var TeX = require("./tex.jsx");
 var Widgets = require("./widgets.js");
@@ -54,7 +54,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             return <TeX onRender={this.props.onRender}>{tex}</TeX>;
         } else if (saved.charAt(0) === "[") {
             // Widget
-            var match = Perseus.Util.rWidgetParts.exec(saved);
+            var match = Util.rWidgetParts.exec(saved);
             var id = match[1];
             var type = match[2];
 
@@ -88,7 +88,7 @@ var Renderer = Perseus.Renderer = React.createClass({
         // widgets.
         var smartypants = markedReact.InlineLexer.prototype.smartypants;
         markedReact.InlineLexer.prototype.smartypants = function(text) {
-            var pieces = Perseus.Util.split(text, /@@(\d+)@@/g);
+            var pieces = Util.split(text, /@@(\d+)@@/g);
             for (var i = 0; i < pieces.length; i++) {
                 var type = i % 2;
                 if (type === 0) {
@@ -171,7 +171,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                     var widget = this.refs[id];
                     return widget.simpleValidate(props.options);
                 }, this)
-                .reduce(Perseus.Util.combineScores, Perseus.Util.noScore)
+                .reduce(Util.combineScores, Perseus.Util.noScore)
                 .value();
 
         return [totalGuess, totalScore];
@@ -211,7 +211,7 @@ function extractMathAndWidgets(text) {
     //
     // Inspired by http://stackoverflow.com/q/11231030.
     var savedMath = [];
-    var blocks = Perseus.Util.split(text, rInteresting);
+    var blocks = Util.split(text, rInteresting);
 
     var mathPieces = [], l = blocks.length, block, braces;
     for (var i = 0; i < l; i++) {

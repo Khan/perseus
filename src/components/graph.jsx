@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -178,7 +178,7 @@ var Graph = React.createClass({
     _getGridConfig: function() {
         var self = this;
         return _.map(self.props.step, function(step, i) {
-            return Perseus.Util.gridDimensionConfig(
+            return Util.gridDimensionConfig(
                     step,
                     self.props.range[i],
                     self.props.box[i],

@@ -2,12 +2,12 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
 
-var deepEq = Perseus.Util.deepEq;
+var deepEq = Util.deepEq;
 
 var BAR = "bar",
     LINE = "line",

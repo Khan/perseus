@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
@@ -18,7 +18,7 @@ var RENDER_TRANSFORM_DELAY_IN_MS = 300;
 var ROTATE_HANDLE_DIST = 1.5;
 var REFLECT_BUTTON_SIZE = 1;
 
-var deepEq = Perseus.Util.deepEq;
+var deepEq = Util.deepEq;
 var knumber = KhanUtil.knumber;
 var kvector = KhanUtil.kvector;
 var kpoint = KhanUtil.kpoint;
@@ -65,7 +65,7 @@ var defaultGraphProps = function(setProps, boxSize) {
     var range = setProps.range || [[-10, 10], [-10, 10]];
     var step = setProps.step || [1, 1];
     var gridStep = setProps.gridStep ||
-               Perseus.Util.getGridStep(range, step, boxSize);
+               Util.getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
         labels: labels,

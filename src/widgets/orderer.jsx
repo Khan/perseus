@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 require("../renderer.jsx");
 
 var InfoTip        = require("../components/info-tip.jsx");

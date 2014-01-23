@@ -4,7 +4,7 @@
 require("./core.js");
 require("./renderer.jsx");
 require("./editor.jsx");
-require("./util.js");
+var Util = require("./util.js");
 
 var InfoTip = require("./components/info-tip.jsx");
 var Widgets = require("./widgets.js");
@@ -124,7 +124,7 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
                 // TODO(alpert): Separate out the rubric
                 score = this.refs.widget.simpleValidate(this.props.options);
             } else {
-                score = Perseus.Util.noScore;
+                score = Util.noScore;
             }
 
             return [guess, score];

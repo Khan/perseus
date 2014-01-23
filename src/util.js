@@ -1,8 +1,4 @@
-(function(Perseus) {
-
-require("./core.js");
-
-var Util = Perseus.Util = {
+var Util = {
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
 
     noScore: {
@@ -166,7 +162,7 @@ var Util = Perseus.Util = {
      */
     gridDimensionConfig: function(absTickStep, extent, dimensionConstraint,
                                      gridStep) {
-        var scale = Perseus.Util.scaleFromExtent(extent, dimensionConstraint);
+        var scale = Util.scaleFromExtent(extent, dimensionConstraint);
         var stepPx = absTickStep * scale;
         var unityLabel = stepPx > 30;
         return {
@@ -188,8 +184,8 @@ var Util = Perseus.Util = {
      */
     getGridStep: function(range, step, boxSize) {
         return _(2).times(function(i) {
-            var scale = Perseus.Util.scaleFromExtent(range[i], boxSize);
-            var gridStep = Perseus.Util.gridStepFromTickStep(step[i], scale);
+            var scale = Util.scaleFromExtent(range[i], boxSize);
+            var gridStep = Util.gridStepFromTickStep(step[i], scale);
             return gridStep;
         });
     },
@@ -231,7 +227,7 @@ var Util = Perseus.Util = {
         }
         var constraintFactor = dimensionConstraint / 500;
         var desiredNumTicks = tickFactor * constraintFactor;
-        return Perseus.Util.tickStepFromNumTicks(span, desiredNumTicks);
+        return Util.tickStepFromNumTicks(span, desiredNumTicks);
     },
 
     /**
@@ -346,7 +342,7 @@ var Util = Perseus.Util = {
                 return false;
             }
             for (var i = 0; i < x.length; i++) {
-                if (!Perseus.Util.deepEq(x[i], y[i])) {
+                if (!Util.deepEq(x[i], y[i])) {
                     return false;
                 }
             }
@@ -355,18 +351,19 @@ var Util = Perseus.Util = {
             return false;
         } else if (_.isObject(x) && _.isObject(y)) {
             return _.all(x, function(value, key) {
-                return Perseus.Util.deepEq(y[key], value);
+                return Util.deepEq(y[key], value);
             }) && _.all(y, function(value, key) {
-                return Perseus.Util.deepEq(x[key], value);
+                return Util.deepEq(x[key], value);
             });
         } else if (_.isObject(x) || _.isObject(y)) {
             return false;
         } else {
-            return Perseus.Util.eq(x, y);
+            return Util.eq(x, y);
         }
     }
 };
 
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);
 
-})(Perseus);
+module.exports = Util;
+

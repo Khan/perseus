@@ -1,6 +1,10 @@
 (function(undefined) {
 
-var Perseus = window.Perseus = {};
+var Util = require("./util.js");
+
+var Perseus = window.Perseus = {
+    Util: Util
+};
 
 Perseus.init = function(options) {
     _.defaults(options, {

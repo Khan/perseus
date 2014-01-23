@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
@@ -189,7 +189,7 @@ var InputNumberEditor = React.createClass({
     },
 
     handleAnswerChange: function(str) {
-        var value = Perseus.Util.firstNumericalParse(str) || 0;
+        var value = Util.firstNumericalParse(str) || 0;
         this.props.onChange({value: value});
     },
 
@@ -249,7 +249,7 @@ var InputNumberEditor = React.createClass({
             <input type="text" disabled={!this.props.inexact}
                 defaultValue={this.props.maxError}
                 onBlur={function(e) {
-                    var ans = "" + (Perseus.Util.firstNumericalParse(
+                    var ans = "" + (Util.firstNumericalParse(
                             e.target.value) || 0);
                     e.target.value = ans;
                     this.props.onChange({maxError: ans});

@@ -2,14 +2,14 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 require("../renderer.jsx");
 require("../editor.jsx");
 
 var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
 
-var shuffle = Perseus.Util.shuffle;
+var shuffle = Util.shuffle;
 
 var BaseRadio = React.createClass({
     render: function() {

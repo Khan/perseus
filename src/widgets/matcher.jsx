@@ -3,9 +3,9 @@
 
 require("../core.js");
 require("../renderer.jsx");
-require("../util.js");
+var Util = require("../util.js");
 
-var shuffle = Perseus.Util.shuffle;
+var shuffle = Util.shuffle;
 
 var InfoTip        = require("../components/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");

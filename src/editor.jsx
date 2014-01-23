@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("./core.js");
-require("./util.js");
+var Util = require("./util.js");
 
 var Widgets = require("./widgets.js");
 var PropCheckBox = require("./components/prop-check-box.jsx");
@@ -172,7 +172,7 @@ var Editor = Perseus.Editor = React.createClass({
         var widgetsAndTemplates;
 
         if (this.props.widgetEnabled) {
-            pieces = Perseus.Util.split(this.props.content, rWidgetSplit);
+            pieces = Util.split(this.props.content, rWidgetSplit);
             widgets = {};
             underlayPieces = [];
 
@@ -183,7 +183,7 @@ var Editor = Perseus.Editor = React.createClass({
                     underlayPieces.push(pieces[i]);
                 } else {
                     // Widget reference
-                    var match = Perseus.Util.rWidgetParts.exec(pieces[i]);
+                    var match = Util.rWidgetParts.exec(pieces[i]);
                     var id = match[1];
                     var type = match[2];
 

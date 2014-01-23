@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 var knumber = KhanUtil.knumber;
 
 /* If str represents a valid number, return that number.
@@ -13,7 +13,7 @@ function numberFromString(str, defaultValue, allowEmpty) {
     if (str === "") {
         return allowEmpty ? null : defaultValue;
     } else {
-        var result = Perseus.Util.firstNumericalParse(str);
+        var result = Util.firstNumericalParse(str);
         return _.isFinite(result) ? result : defaultValue;
     }
 }

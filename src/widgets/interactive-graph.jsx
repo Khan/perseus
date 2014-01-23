@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
@@ -10,7 +10,7 @@ var InfoTip       = require("../components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var Widgets       = require("../widgets.js");
 
-var DeprecationMixin = Perseus.Util.DeprecationMixin;
+var DeprecationMixin = Util.DeprecationMixin;
 
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
@@ -23,8 +23,8 @@ var defaultBackgroundImage = {
     left: 0,
 };
 
-var eq = Perseus.Util.eq;
-var deepEq = Perseus.Util.deepEq;
+var eq = Util.eq;
+var deepEq = Util.deepEq;
 
 var UNLIMITED = "unlimited";
 
@@ -1823,7 +1823,7 @@ var InteractiveGraphEditor = React.createClass({
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
         var gridStep = this.props.gridStep ||
-                   Perseus.Util.getGridStep(range, step, defaultEditorBoxSize);
+                   Util.getGridStep(range, step, defaultEditorBoxSize);
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: labels,

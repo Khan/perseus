@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 require("../editor.jsx");
 require("../renderer.jsx");
 var InfoTip = require("../components/info-tip.jsx");
@@ -130,7 +130,7 @@ var TableEditor = React.createClass({
         var defaultRows = 4;
         var defaultColumns = 1;
         var blankAnswers = _(defaultRows).times(function() {
-            return Perseus.Util.stringArrayOfSize(defaultColumns);
+            return Util.stringArrayOfSize(defaultColumns);
         });
         return {
             headers: [""],
@@ -254,7 +254,7 @@ var TableEditor = React.createClass({
         var answers = this.props.answers;
         if (oldRows < rows) {
             _(rows - oldRows).times(function() {
-                answers.push(Perseus.Util.stringArrayOfSize(oldColumns));
+                answers.push(Util.stringArrayOfSize(oldColumns));
             });
         }
 

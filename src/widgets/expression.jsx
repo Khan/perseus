@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 
 var InfoTip = require("../components/info-tip.jsx");
 var TeX     = require("../tex.jsx");  // KaTeX and/or MathJax

@@ -2,7 +2,7 @@
 (function(Perseus) {
 
 require("../core.js");
-require("../util.js");
+var Util = require("../util.js");
 require("../widgets.js");
 
 var InfoTip      = require("../components/info-tip.jsx");
@@ -399,7 +399,7 @@ var InteractiveNumberLineEditor = React.createClass({
     },
 
     onRangeBlur: function(i, e) {
-        var x = Perseus.Util.firstNumericalParse(e.target.value) || 0;
+        var x = Util.firstNumericalParse(e.target.value) || 0;
         e.target.value = x;
 
         var range = this.props.range.slice();
@@ -414,7 +414,7 @@ var InteractiveNumberLineEditor = React.createClass({
     },
 
     onNumBlur: function(key, e) {
-        var x = Perseus.Util.firstNumericalParse(e.target.value) || 0;
+        var x = Util.firstNumericalParse(e.target.value) || 0;
         e.target.value = x;
 
         var opts = {};
