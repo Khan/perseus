@@ -2,6 +2,7 @@
 
 require("../core.js");
 require("../util.js");
+var knumber = KhanUtil.knumber;
 
 /* If str represents a valid number, return that number.
  * Otherwise, if str is empty and allowEmpty is true, return
@@ -64,6 +65,12 @@ var NumberInput = React.createClass({
         }));
     },
 
+    componentDidUpdate: function(prevProps) {
+        if (!knumber.equal(this.getValue(), this.props.value)) {
+            this._setValue(this.props.value);
+        }
+    },
+
     /* Return true if the empty string is a valid value for our text input
      *
      * This is the case if props.allowEmpty is explicitly specified, or if
@@ -117,8 +124,12 @@ var NumberInput = React.createClass({
 
         var text = this.getDOMNode().value;
         if (!isNumericString(text, this._allowEmpty())) {
-            $(this.getDOMNode()).val(stringFromNumber(this.props.value));
+            this._setValue(this.props.value);
         }
+    },
+
+    _setValue: function(val) {
+        $(this.getDOMNode()).val(stringFromNumber(val));
     }
 });
 

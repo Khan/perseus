@@ -4,6 +4,8 @@ require("../core.js");
 require("../util.js");
 require("../info-tip.jsx");
 
+var NumberInput = require("../components/number-input.jsx");
+
 var InfoTip = Perseus.InfoTip;
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -18,18 +20,22 @@ function numSteps(range, step) {
 }
 
 var GraphSettings = React.createClass({
+    getInitialState: function() {
+        return {
+            labelsTextbox: this.props.labels,
+            gridStepTextbox: this.props.gridStep,
+            stepTextbox: this.props.step,
+            rangeTextbox: this.props.range
+        };
+    },
+
     getDefaultProps: function() {
-        var labels = this.props.labels || ["x", "y"];
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
         return {
             box: [340, 340],
-            labels: labels,
-            labelsTextbox: labels,
-            range: range,
-            rangeTextbox: range,
-            step: step,
-            stepTextbox: step,
+            labels: ["x", "y"],
+            range: [[-10, 10], [-10, 10]],
+            step: [1, 1],
+            gridStep: [1, 1],
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -44,45 +50,56 @@ var GraphSettings = React.createClass({
                     <input  type="text"
                             ref="labels-0"
                             onInput={_.bind(this.changeLabel, this, 0)}
-                            value={this.props.labelsTextbox[0]} />
+                            value={this.state.labelsTextbox[0]} />
                 </div>
                 <div>y label:
                     <input  type="text"
                             ref="labels-1"
                             onInput={_.bind(this.changeLabel, this, 1)}
-                            value={this.props.labelsTextbox[1]} />
+                            value={this.state.labelsTextbox[1]} />
                 </div>
                 <div>x range:
                     <input  type="text"
                             ref="range-0-0"
                             onInput={_.bind(this.changeRange, this, 0, 0)}
-                            value={this.props.rangeTextbox[0][0]} />
+                            value={this.state.rangeTextbox[0][0]} />
                     <input  type="text"
                             ref="range-0-1"
                             onInput={_.bind(this.changeRange, this, 0, 1)}
-                            value={this.props.rangeTextbox[0][1]} />
+                            value={this.state.rangeTextbox[0][1]} />
                 </div>
                 <div>
                     y range:
                     <input  type="text"
                             ref="range-1-0"
                             onInput={_.bind(this.changeRange, this, 1, 0)}
-                            value={this.props.rangeTextbox[1][0]} />
+                            value={this.state.rangeTextbox[1][0]} />
                     <input  type="text"
                             ref="range-1-1"
                             onInput={_.bind(this.changeRange, this, 1, 1)}
-                            value={this.props.rangeTextbox[1][1]} />
+                            value={this.state.rangeTextbox[1][1]} />
                 </div>
                 <div>
                     Step:
                     <input  type="text"
                             ref="step-0"
                             onInput={_.bind(this.changeStep, this, 0)}
-                            value={this.props.stepTextbox[0]} />
+                            value={this.state.stepTextbox[0]} />
                     <input  type="text"
                             ref="step-1"
                             onInput={_.bind(this.changeStep, this, 1)}
-                            value={this.props.stepTextbox[1]} />
+                            value={this.state.stepTextbox[1]} />
+                </div>
+                <div>
+                    Grid Step:
+                    <NumberInput
+                        ref="grid-step-0"
+                        onChange={_.bind(this.changeGridStep, this, 0)}
+                        value={this.state.gridStepTextbox[0]} />
+                    <NumberInput
+                        ref="grid-step-1"
+                        onChange={_.bind(this.changeGridStep, this, 1)}
+                        value={this.state.gridStepTextbox[1]} />
                 </div>
                 <div>
                     <label>Markings:
@@ -163,21 +180,49 @@ var GraphSettings = React.createClass({
         return true;
     },
 
-    validStep: function(step, range) {
+    validateStepValue: function(settings) {
+        var step = settings.step;
+        var range = settings.range;
+        var name = settings.name;
+        var min = settings.min;
+        var max = settings.max;
+
         if (! _.isFinite(step)) {
-            return "Step must be a valid number";
+            return name + " must be a valid number";
         }
         var nSteps = numSteps(range, step);
-        if (nSteps < 3) {
-            return "Step must be smaller to have at least 3 ticks";
+        if (nSteps < min) {
+            return name + " is too large, there must be at least " +
+               min + " ticks.";
         }
-        if (nSteps > 20) {
-            return "Step must be larger to have at most 20 ticks";
+        if (nSteps > max) {
+            return name + " is too small, there can be at most " +
+               max + " ticks.";
         }
         return true;
     },
 
-    valid: function(range, step) {
+    validGridStep: function(step, range) {
+        return this.validateStepValue({
+            step: step,
+            range: range,
+            name: "Grid step",
+            min: 3,
+            max: 60
+        });
+    },
+
+    validStep: function(step, range) {
+        return this.validateStepValue({
+            step: step,
+            range: range,
+            name: "Step",
+            min: 3,
+            max: 20
+        });
+    },
+
+    validateGraphSettings: function(range, step, gridStep) {
         var self = this;
         var msg;
         var goodRange = _.every(range, function(range) {
@@ -194,35 +239,55 @@ var GraphSettings = React.createClass({
         if (!goodStep) {
             return msg;
         }
+        var goodGridStep = _.every(gridStep, function(gridStep, i) {
+            msg = self.validGridStep(gridStep, range[i]);
+            return msg === true;
+        });
+        if (!goodGridStep) {
+            return msg;
+        }
         return true;
     },
 
     changeLabel: function(i, e) {
         var val = e.target.value;
-        var labels = this.props.labelsTextbox.slice();
+        var labels = this.state.labelsTextbox.slice();
         labels[i] = val;
-        this.props.onChange({ labelsTextbox: labels }, this.changeGraph);
+        this.setState({ labelsTextbox: labels }, this.changeGraph);
     },
 
     changeRange: function(i, j, e) {
         var val = this.refs["range-" + i + "-" + j].getDOMNode().value;
-        var ranges = this.props.rangeTextbox.slice();
+        var ranges = this.state.rangeTextbox.slice();
         var range = ranges[i] = ranges[i].slice();
         range[j] = val;
-        var step = this.props.stepTextbox.slice();
+        var step = this.state.stepTextbox.slice();
+        var gridStep = this.state.gridStepTextbox.slice();
+        var scale = Perseus.Util.scaleFromExtent(range[i], this.props.box[i]);
         if (this.validRange(range) === true) {
             step[i] = Perseus.Util.tickStepFromExtent(
                     range, this.props.box[i]);
+            gridStep[i] = Perseus.Util.gridStepFromTickStep(step[i], scale);
         }
-        this.props.onChange({ rangeTextbox: ranges, stepTextbox: step },
-                this.changeGraph);
+        this.setState({
+            stepTextbox: step,
+            gridStepTextbox: gridStep,
+            rangeTextbox: ranges
+        }, this.changeGraph);
     },
 
     changeStep: function(i, e) {
         var val = this.refs["step-" + i].getDOMNode().value;
-        var step = this.props.stepTextbox.slice();
+        var step = this.state.stepTextbox.slice();
         step[i] = val;
-        this.props.onChange({ stepTextbox: step },
+        this.setState({ stepTextbox: step }, this.changeGraph);
+    },
+
+    changeGridStep: function(i, e) {
+        var val = this.refs["grid-step-" + i].getValue();
+        var gridStep = this.state.gridStepTextbox.slice();
+        gridStep[i] = val;
+        this.setState({ gridStepTextbox: gridStep },
                 this.changeGraph);
     },
 
@@ -231,20 +296,20 @@ var GraphSettings = React.createClass({
     },
 
     changeGraph: function() {
-        var labels = this.props.labelsTextbox;
-        var range = this.props.rangeTextbox;
-        var step = this.props.stepTextbox;
-        var range = _.map(this.props.rangeTextbox, function(range) {
+        var labels = this.state.labelsTextbox;
+        var range = _.map(this.state.rangeTextbox, function(range) {
             return _.map(range, Number);
         });
-        var step = _.map(this.props.stepTextbox, Number);
-        var valid = this.valid(range, step);
+        var step = _.map(this.state.stepTextbox, Number);
+        var gridStep = this.state.gridStepTextbox;
+        var valid = this.validateGraphSettings(range, step, gridStep);
         if (valid === true) {
             this.props.onChange({
                 valid: true,
                 labels: labels,
                 range: range,
-                step: step
+                step: step,
+                gridStep: gridStep
             });
         } else {
             this.props.onChange({

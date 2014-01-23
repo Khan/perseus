@@ -107,135 +107,48 @@ $('#problemNum').text(problemNum);
 
 var question = {
     "question": {
-        "content": "[[☃ transformer 1]]",
+        "content": "[[☃ interactive-graph 1]]",
         "widgets": {
-            "transformer 1": {
-                "type": "transformer",
+            "interactive-graph 1": {
+                "type": "interactive-graph",
                 "graded": true,
                 "options": {
-                    "starting": {
-                        "shape": {
-                            "type": "polygon-3",
-                            "coords": [
-                                [
-                                    2,
-                                    2
-                                ],
-                                [
-                                    2,
-                                    6
-                                ],
-                                [
-                                    7,
-                                    2
-                                ]
-                            ]
-                        },
-                        "transformations": []
+                    "step": [
+                        20,
+                        1
+                    ],
+                    // "gridStep": [
+                    //     1,
+                    //     1
+                    // ],
+                    "backgroundImage": {
+                        "url": null,
+                        "scale": 1,
+                        "bottom": 0,
+                        "left": 0
                     },
-                    "graphMode": "interactive",
-                    "listMode": "dynamic",
-                    "tools": {
-                        "translation": {
-                            "enabled": false,
-                            "required": false,
-                            "constraints": {}
-                        },
-                        "rotation": {
-                            "enabled": false,
-                            "required": false,
-                            "constraints": {
-                                "fixed": false
-                            },
-                            "coord": [
-                                1,
-                                6
-                            ]
-                        },
-                        "reflection": {
-                            "enabled": true,
-                            "required": false,
-                            "constraints": {
-                                "fixed": false
-                            },
-                            "coords": [
-                                [
-                                    1,
-                                    1
-                                ],
-                                [
-                                    3,
-                                    3
-                                ]
-                            ]
-                        },
-                        "dilation": {
-                            "enabled": false,
-                            "required": false,
-                            "constraints": {
-                                "fixed": false
-                            },
-                            "coord": [
-                                6,
-                                6
-                            ]
-                        }
-                    },
-                    "drawSolutionShape": true,
-                    "gradeEmpty": false,
+                    "markings": "graph",
+                    "labels": [
+                        "x",
+                        "y"
+                    ],
+                    "showProtractor": false,
+                    "range": [
+                        [
+                            -10,
+                            100
+                        ],
+                        [
+                            -10,
+                            10
+                        ]
+                    ],
                     "graph": {
-                        "range": [
-                            [
-                                -10,
-                                10
-                            ],
-                            [
-                                -10,
-                                10
-                            ]
-                        ],
-                        "step": [
-                            1,
-                            1
-                        ],
-                        "markings": "graph",
-                        "labels": [
-                            "x",
-                            "y"
-                        ],
-                        "backgroundImage": {
-                            "url": null,
-                            "scale": 1,
-                            "bottom": 0,
-                            "left": 0
-                        },
-                        "showProtractor": false
+                        "type": "linear"
                     },
-                    "version": 1.2,
                     "correct": {
-                        "transformations": [],
-                        "shape": {
-                            "type": [
-                                "polygon-3"
-                            ],
-                            "coords": [
-                                [
-                                    2,
-                                    2
-                                ],
-                                [
-                                    2,
-                                    6
-                                ],
-                                [
-                                    7,
-                                    2
-                                ]
-                            ],
-                            "options": [
-                                {}
-                            ]
-                        }
+                        "type": "linear",
+                        "coords": null
                     }
                 }
             }
@@ -244,14 +157,43 @@ var question = {
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "",
-            "widgets": {}
+            "content": "This is an obtuse angle because its measure is [[☃ dropdown 1]] $90^\\circ$.",
+            "widgets": {
+                "dropdown 1": {
+                    "type": "dropdown",
+                    "graded": true,
+                    "options": {
+                        "choices": [
+                            {
+                                "content": "equal to",
+                                "correct": false
+                            },
+                            {
+                                "content": "greater than",
+                                "correct": true
+                            },
+                            {
+                                "content": "less than",
+                                "correct": false
+                            }
+                        ]
+                    }
+                }
+            }
         },
         "calculator": false
     },
-    "hints": [],
-    "problemNum": problemNum
-};
+    "hints": [
+        {
+            "content": "Here's one way to make an angle with these points, but this angle is acute, not obtuse!  \n![](https://ka-perseus-images.s3.amazonaws.com/93fd1b71b55ca18f4a81ad0520df8c96e07125f4.png)",
+            "widgets": {}
+        },
+        {
+            "content": "Here is the way to make an obtuse angle in this situation. It's an obtuse angle because its measure is greater than $90$ degrees.  \n![](https://ka-perseus-images.s3.amazonaws.com/303cfd47cb758adc31af8f80d440827199c6bc63.png)",
+            "widgets": {}
+        }
+    ]
+} ;
 
 Perseus.init({}).then(function() {
     editor = React.renderComponent(Perseus.StatefulEditorPage(

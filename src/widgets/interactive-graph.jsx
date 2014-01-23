@@ -16,6 +16,7 @@ var DeprecationMixin = Perseus.Util.DeprecationMixin;
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
 var defaultBoxSize = 400;
+var defaultEditorBoxSize = 340;
 var defaultBackgroundImage = {
     url: null,
     scale: 1,
@@ -254,6 +255,7 @@ var InteractiveGraph = React.createClass({
             range: [[-10, 10], [-10, 10]],
             box: [defaultBoxSize, defaultBoxSize],
             step: [1, 1],
+            gridStep: [1, 1],
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
             showProtractor: false,
@@ -549,6 +551,7 @@ var InteractiveGraph = React.createClass({
                 labels={this.props.labels}
                 range={this.props.range}
                 step={this.props.step}
+                gridStep={this.props.gridStep}
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
@@ -1813,7 +1816,6 @@ _.extend(InteractiveGraph, {
     }
 });
 
-
 var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
@@ -1821,14 +1823,14 @@ var InteractiveGraphEditor = React.createClass({
         var labels = this.props.labels || ["x", "y"];
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
+        var gridStep = this.props.gridStep ||
+                   Perseus.Util.getGridStep(range, step, defaultEditorBoxSize);
         return {
-            box: [340, 340],
+            box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: labels,
-            labelsTextbox: labels,
             range: range,
-            rangeTextbox: range,
             step: step,
-            stepTextbox: step,
+            gridStep: gridStep,
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -1854,6 +1856,7 @@ var InteractiveGraphEditor = React.createClass({
                 range={this.props.range}
                 labels={this.props.labels}
                 step={this.props.step}
+                gridStep={this.props.gridStep}
                 graph={this.props.correct}
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
@@ -1888,10 +1891,8 @@ var InteractiveGraphEditor = React.createClass({
                 box={this.props.box}
                 range={this.props.range}
                 labels={this.props.labels}
-                labelsTextbox={this.props.labelsTextbox}
-                rangeTextbox={this.props.rangeTextbox}
                 step={this.props.step}
-                stepTextbox={this.props.stepTextbox}
+                gridStep={this.props.gridStep}
                 valid={this.props.valid}
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
@@ -1965,7 +1966,7 @@ var InteractiveGraphEditor = React.createClass({
 
     toJSON: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
-                          "labels", "showProtractor", "range");
+                          "labels", "showProtractor", "range", "gridStep");
 
         var graph = this.refs.graph;
         if (graph) {

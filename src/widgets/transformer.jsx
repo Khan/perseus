@@ -66,14 +66,14 @@ var defaultGraphProps = function(setProps, boxSize) {
     var labels = setProps.labels || ["x", "y"];
     var range = setProps.range || [[-10, 10], [-10, 10]];
     var step = setProps.step || [1, 1];
+    var gridStep = setProps.gridStep ||
+               Perseus.Util.getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
         labels: labels,
-        labelsTextbox: labels,
         range: range,
-        rangeTextbox: range,
         step: step,
-        stepTextbox: step,
+        gridStep: gridStep,
         valid: true,
         backgroundImage: defaultBackgroundImage,
         markings: "grid",
@@ -1240,6 +1240,7 @@ var TransformationsShapeEditor = React.createClass({
                 range={this.props.graph.range}
                 labels={this.props.graph.labels}
                 step={this.props.graph.step}
+                gridStep={this.props.graph.gridStep}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
                 onNewGraphie={this.setupGraphie} />
@@ -1515,6 +1516,7 @@ var Transformer = React.createClass({
                 range={graph.range}
                 labels={graph.labels}
                 step={graph.step}
+                gridStep={graph.gridStep}
                 markings={graph.markings}
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
@@ -2258,11 +2260,9 @@ var TransformerEditor = React.createClass({
             <GraphSettings
                 box={graph.box}
                 labels={graph.labels}
-                labelsTextbox={graph.labelsTextbox}
                 range={graph.range}
-                rangeTextbox={graph.rangeTextbox}
                 step={graph.step}
-                stepTextbox={graph.stepTextbox}
+                gridStep={graph.gridStep}
                 valid={graph.valid}
                 backgroundImage={graph.backgroundImage}
                 markings={graph.markings}

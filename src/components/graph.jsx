@@ -26,6 +26,7 @@ var Graph = React.createClass({
             labels: ["x", "y"],
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
+            gridStep: [1, 1],
             markings: "graph",
             backgroundImage: defaultBackgroundImage,
             showProtractor: false,
@@ -72,7 +73,7 @@ var Graph = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         var potentialChanges = ["labels", "range", "step", "markings",
-            "showProtractor"];
+            "showProtractor", "gridStep"];
         var self = this;
         _.each(potentialChanges, function(prop) {
             if (!_.isEqual(self.props[prop], nextProps[prop])) {
@@ -137,7 +138,7 @@ var Graph = React.createClass({
                 scale: _.pluck(gridConfig, "scale"),
                 axisArrows: "<->",
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
-                gridStep: _.pluck(gridConfig, "gridStep"),
+                gridStep: this.props.gridStep,
                 tickStep: _.pluck(gridConfig, "tickStep"),
                 labelStep: 1,
                 unityLabels: _.pluck(gridConfig, "unityLabel")
@@ -180,7 +181,8 @@ var Graph = React.createClass({
             return Perseus.Util.gridDimensionConfig(
                     step,
                     self.props.range[i],
-                    self.props.box[i]);
+                    self.props.box[i],
+                    self.props.gridStep[i]);
         });
     },
 
@@ -196,8 +198,8 @@ var Graph = React.createClass({
     },
 
     toJSON: function() {
-        return _.pick(this.props, 'range', 'step', 'markings',
-                'labels', 'backgroundImage', 'showProtractor');
+        return _.pick(this.props, 'range', 'step', 'markings', 'labels',
+                      'backgroundImage', 'showProtractor', 'gridStep');
     }
 });
 
