@@ -23,6 +23,7 @@ var GraphSettings = React.createClass({
         return {
             labelsTextbox: this.props.labels,
             gridStepTextbox: this.props.gridStep,
+            snapStepTextbox: this.props.snapStep,
             stepTextbox: this.props.step,
             rangeTextbox: this.props.range
         };
@@ -35,6 +36,8 @@ var GraphSettings = React.createClass({
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
             gridStep: [1, 1],
+            snapStep: Perseus.Util.snapStepFromGridStep(
+                this.props.gridStep || [1, 1]),
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -79,7 +82,7 @@ var GraphSettings = React.createClass({
                             value={this.state.rangeTextbox[1][1]} />
                 </div>
                 <div>
-                    Step:
+                    Tick Step:
                     <input  type="text"
                             ref="step-0"
                             onInput={_.bind(this.changeStep, this, 0)}
@@ -99,6 +102,17 @@ var GraphSettings = React.createClass({
                         ref="grid-step-1"
                         onChange={_.bind(this.changeGridStep, this, 1)}
                         value={this.state.gridStepTextbox[1]} />
+                </div>
+                <div>
+                    Snap Step:
+                    <NumberInput
+                        ref="snap-step-0"
+                        onChange={_.bind(this.changeSnapStep, this, 0)}
+                        value={this.state.snapStepTextbox[0]} />
+                    <NumberInput
+                        ref="snap-step-1"
+                        onChange={_.bind(this.changeSnapStep, this, 1)}
+                        value={this.state.snapStepTextbox[1]} />
                 </div>
                 <div>
                     <label>Markings:
@@ -183,22 +197,32 @@ var GraphSettings = React.createClass({
         var step = settings.step;
         var range = settings.range;
         var name = settings.name;
-        var min = settings.min;
-        var max = settings.max;
+        var minTicks = settings.minTicks;
+        var maxTicks = settings.maxTicks;
 
         if (! _.isFinite(step)) {
             return name + " must be a valid number";
         }
         var nSteps = numSteps(range, step);
-        if (nSteps < min) {
+        if (nSteps < minTicks) {
             return name + " is too large, there must be at least " +
-               min + " ticks.";
+               minTicks + " ticks.";
         }
-        if (nSteps > max) {
+        if (nSteps > maxTicks) {
             return name + " is too small, there can be at most " +
-               max + " ticks.";
+               maxTicks + " ticks.";
         }
         return true;
+    },
+
+    validSnapStep: function(step, range) {
+        return this.validateStepValue({
+            step: step,
+            range: range,
+            name: "Snap step",
+            minTicks: 5,
+            maxTicks: 60
+        });
     },
 
     validGridStep: function(step, range) {
@@ -206,8 +230,8 @@ var GraphSettings = React.createClass({
             step: step,
             range: range,
             name: "Grid step",
-            min: 3,
-            max: 60
+            minTicks: 3,
+            maxTicks: 60
         });
     },
 
@@ -216,12 +240,12 @@ var GraphSettings = React.createClass({
             step: step,
             range: range,
             name: "Step",
-            min: 3,
-            max: 20
+            minTicks: 3,
+            maxTicks: 20
         });
     },
 
-    validateGraphSettings: function(range, step, gridStep) {
+    validateGraphSettings: function(range, step, gridStep, snapStep) {
         var self = this;
         var msg;
         var goodRange = _.every(range, function(range) {
@@ -245,6 +269,13 @@ var GraphSettings = React.createClass({
         if (!goodGridStep) {
             return msg;
         }
+        var goodSnapStep = _.every(snapStep, function(snapStep, i) {
+            msg = self.validSnapStep(snapStep, range[i]);
+            return msg === true;
+        });
+        if (!goodSnapStep) {
+            return msg;
+        }
         return true;
     },
 
@@ -262,15 +293,18 @@ var GraphSettings = React.createClass({
         range[j] = val;
         var step = this.state.stepTextbox.slice();
         var gridStep = this.state.gridStepTextbox.slice();
-        var scale = Util.scaleFromExtent(range[i], this.props.box[i]);
+        var snapStep = this.state.snapStepTextbox.slice();
+        var scale = Util.scaleFromExtent(range, this.props.box[i]);
         if (this.validRange(range) === true) {
             step[i] = Util.tickStepFromExtent(
                     range, this.props.box[i]);
             gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
+            snapStep[i] = gridStep[i] / 2;
         }
         this.setState({
             stepTextbox: step,
             gridStepTextbox: gridStep,
+            snapStepTextbox: snapStep,
             rangeTextbox: ranges
         }, this.changeGraph);
     },
@@ -282,12 +316,24 @@ var GraphSettings = React.createClass({
         this.setState({ stepTextbox: step }, this.changeGraph);
     },
 
+    changeSnapStep: function(i, e) {
+        var val = this.refs["snap-step-" + i].getValue();
+        var snapStep = this.state.snapStepTextbox.slice();
+        snapStep[i] = val;
+        this.setState({ snapStepTextbox: snapStep },
+                this.changeGraph);
+    },
+
     changeGridStep: function(i, e) {
         var val = this.refs["grid-step-" + i].getValue();
         var gridStep = this.state.gridStepTextbox.slice();
         gridStep[i] = val;
-        this.setState({ gridStepTextbox: gridStep },
-                this.changeGraph);
+        this.setState({
+            gridStepTextbox: gridStep,
+            snapStepTextbox: _.map(gridStep, function(step) {
+                return step / 2;
+            })
+        }, this.changeGraph);
     },
 
     changeMarkings: function(e) {
@@ -301,14 +347,17 @@ var GraphSettings = React.createClass({
         });
         var step = _.map(this.state.stepTextbox, Number);
         var gridStep = this.state.gridStepTextbox;
-        var valid = this.validateGraphSettings(range, step, gridStep);
+        var snapStep = this.state.snapStepTextbox;
+        var valid = this.validateGraphSettings(range, step, gridStep,
+                                                   snapStep);
         if (valid === true) {
             this.props.onChange({
                 valid: true,
                 labels: labels,
                 range: range,
                 step: step,
-                gridStep: gridStep
+                gridStep: gridStep,
+                snapStep: snapStep
             });
         } else {
             this.props.onChange({

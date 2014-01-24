@@ -167,7 +167,6 @@ var Util = {
         var unityLabel = stepPx > 30;
         return {
             scale: scale,
-            snap: gridStep / 2,
             tickStep: absTickStep / gridStep,
             unityLabel: unityLabel
         };
@@ -190,6 +189,9 @@ var Util = {
         });
     },
 
+    snapStepFromGridStep: function(gridStep) {
+        return _.map(gridStep, function(step) { return step / 2; });
+    },
 
     /**
      * Given the range and a dimension, come up with the appropriate

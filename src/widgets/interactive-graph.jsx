@@ -255,6 +255,7 @@ var InteractiveGraph = React.createClass({
             box: [defaultBoxSize, defaultBoxSize],
             step: [1, 1],
             gridStep: [1, 1],
+            snapStep: [0.5, 0.5],
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
             showProtractor: false,
@@ -551,6 +552,7 @@ var InteractiveGraph = React.createClass({
                 range={this.props.range}
                 step={this.props.step}
                 gridStep={this.props.gridStep}
+                snapStep={this.props.snapStep}
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
@@ -1824,12 +1826,15 @@ var InteractiveGraphEditor = React.createClass({
         var step = this.props.step || [1, 1];
         var gridStep = this.props.gridStep ||
                    Util.getGridStep(range, step, defaultEditorBoxSize);
+        var snapStep = this.props.snapStep ||
+                   Perseus.Util.snapStepFromGridStep(gridStep);
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: labels,
             range: range,
             step: step,
             gridStep: gridStep,
+            snapStep: snapStep,
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -1856,6 +1861,7 @@ var InteractiveGraphEditor = React.createClass({
                 labels={this.props.labels}
                 step={this.props.step}
                 gridStep={this.props.gridStep}
+                snapStep={this.props.snapStep}
                 graph={this.props.correct}
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
@@ -1892,6 +1898,7 @@ var InteractiveGraphEditor = React.createClass({
                 labels={this.props.labels}
                 step={this.props.step}
                 gridStep={this.props.gridStep}
+                snapStep={this.props.snapStep}
                 valid={this.props.valid}
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
@@ -1965,7 +1972,8 @@ var InteractiveGraphEditor = React.createClass({
 
     toJSON: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
-                          "labels", "showProtractor", "range", "gridStep");
+                          "labels", "showProtractor", "range", "gridStep",
+                         "snapStep");
 
         var graph = this.refs.graph;
         if (graph) {

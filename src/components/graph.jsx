@@ -27,6 +27,7 @@ var Graph = React.createClass({
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
             gridStep: [1, 1],
+            snapStep: [0.5, 0.5],
             markings: "graph",
             backgroundImage: defaultBackgroundImage,
             showProtractor: false,
@@ -73,7 +74,7 @@ var Graph = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         var potentialChanges = ["labels", "range", "step", "markings",
-            "showProtractor", "gridStep"];
+            "showProtractor", "gridStep", "snapStep"];
         var self = this;
         _.each(potentialChanges, function(prop) {
             if (!_.isEqual(self.props[prop], nextProps[prop])) {
@@ -130,7 +131,7 @@ var Graph = React.createClass({
         var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
 
         var gridConfig = this._getGridConfig();
-        graphie.snap = _.pluck(gridConfig, "snap");
+        graphie.snap = this.props.snapStep;
 
         if (this.props.markings === "graph") {
             graphie.graphInit({
@@ -149,7 +150,7 @@ var Graph = React.createClass({
             graphie.graphInit({
                 range: range,
                 scale: _.pluck(gridConfig, "scale"),
-                gridStep: _.pluck(gridConfig, "gridStep"),
+                gridStep: this.props.gridStep,
                 axes: false,
                 ticks: false,
                 labels: false
@@ -199,7 +200,8 @@ var Graph = React.createClass({
 
     toJSON: function() {
         return _.pick(this.props, 'range', 'step', 'markings', 'labels',
-                      'backgroundImage', 'showProtractor', 'gridStep');
+                      'backgroundImage', 'showProtractor', 'gridStep',
+                      'snapStep');
     }
 });
 
