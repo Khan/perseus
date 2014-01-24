@@ -257,7 +257,6 @@ var deprecatedProps = {
 
 var InteractiveGraph = React.createClass({
     getDefaultProps: function() {
-        var labels = this.props.labels || ["x", "y"];
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
         var gridStep = this.props.gridStep ||
@@ -266,9 +265,9 @@ var InteractiveGraph = React.createClass({
                    Util.snapStepFromGridStep(gridStep);
         return {
             labels: ["x", "y"],
-            range: [[-10, 10], [-10, 10]],
+            range: range,
             box: [defaultBoxSize, defaultBoxSize],
-            step: [1, 1],
+            step: step,
             gridStep: gridStep,
             snapStep: snapStep,
             backgroundImage: defaultBackgroundImage,
@@ -1838,7 +1837,6 @@ var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
     getDefaultProps: function() {
-        var labels = this.props.labels || ["x", "y"];
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
         var gridStep = this.props.gridStep ||
@@ -1847,7 +1845,7 @@ var InteractiveGraphEditor = React.createClass({
                    Util.snapStepFromGridStep(gridStep);
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
-            labels: labels,
+            labels: ["x", "y"],
             range: range,
             step: step,
             gridStep: gridStep,
