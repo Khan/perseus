@@ -12,6 +12,8 @@ var Widgets       = require("../widgets.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
+var knumber = KhanUtil.knumber;
+
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
 var defaultBoxSize = 400;
@@ -130,7 +132,7 @@ function angleMeasures(coords) {
 }
 
 // Whether two polygons are similar (or if specified, congruent)
-function similar(coords1, coords2, congruent) {
+function similar(coords1, coords2, tolerance) {
     if (coords1.length !== coords2.length) {
         return false;
     }
@@ -160,7 +162,9 @@ function similar(coords1, coords2, congruent) {
         sides = rotate(sides, i);
 
         if (deepEq(angles1, angles)) {
-            var factors = _.map(_.zip(sides1, sides),  function(pair) {
+            var sidePairs = _.zip(sides1, sides);
+
+            var factors = _.map(sidePairs, function(pair) {
                 return pair[0] / pair[1];
             });
 
@@ -168,8 +172,11 @@ function similar(coords1, coords2, congruent) {
                 return eq(factors[0], factor);
             });
 
-            if ((congruent && same && eq(factors[0], 1)) ||
-                (!congruent && same)) {
+            var congruentEnough = _.all(sidePairs, function(pair) {
+                return knumber.equal(pair[0], pair[1], tolerance);
+            });
+
+            if (same && congruentEnough) {
                 return true;
             }
         }
@@ -1727,9 +1734,11 @@ _.extend(InteractiveGraph, {
 
                 var match;
                 if (rubric.correct.match === "similar") {
-                    match = similar(guess, correct);
+                    match = similar(guess, correct, Number.POSITIVE_INFINITY);
                 } else if (rubric.correct.match === "congruent") {
-                    match = similar(guess, correct, /* congruent */ true);
+                    match = similar(guess, correct, knumber.DEFAULT_TOLERANCE);
+                } else if (rubric.correct.match === "approx") {
+                    match = similar(guess, correct, 0.1);
                 } else { /* exact */
                     guess.sort();
                     correct.sort();
@@ -1915,6 +1924,7 @@ var InteractiveGraphEditor = React.createClass({
                             onChange={this.changeMatchType}>
                         <option value="exact">match exactly</option>
                         <option value="congruent">be congruent</option>
+                        <option value="approx">be approximately congruent</option>
                         <option value="similar">be similar</option>
                     </select>
                 </label>
@@ -1928,6 +1938,15 @@ var InteractiveGraphEditor = React.createClass({
                         <li>
                             <p><b>Be Congruent:</b> Be congruent in size and
                             shape, but can be located anywhere on the grid.</p>
+                        </li>
+                        <li>
+                            <p>
+                                <b>Be Approximately Congruent:</b>
+                                Be exactly similar, and congruent in size and
+                                shape to within 0.1 units, but can be located
+                                anywhere on the grid. <em>Use this with
+                                snapping to angle measure.</em>
+                            </p>
                         </li>
                         <li>
                             <p><b>Be Similar:</b> Be similar with matching
