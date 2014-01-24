@@ -9,6 +9,7 @@ var GraphSettings = require("../components/graph-settings.jsx");
 var InfoTip       = require("../components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var Widgets       = require("../widgets.js");
+var kpoint        = KhanUtil.kpoint;
 
 var DeprecationMixin = Util.DeprecationMixin;
 
@@ -672,10 +673,10 @@ var InteractiveGraph = React.createClass({
 
         // A and B can't be in the same place
         pointA.onMove = function(x, y) {
-            return !_.isEqual([x, y], pointB.coord);
+            return !kpoint.equal([x, y], pointB.coord);
         };
         pointB.onMove = function(x, y) {
-            return !_.isEqual([x, y], pointA.coord);
+            return !kpoint.equal([x, y], pointA.coord);
         };
 
         $([pointA, pointB]).on("move", function() {
@@ -986,7 +987,7 @@ var InteractiveGraph = React.createClass({
 
         point.onMove = function(x, y) {
             for (var j = 0; j < self.points.length; j++) {
-                if (i !== j && _.isEqual([x, y], self.points[j].coord)) {
+                if (i !== j && kpoint.equal([x, y], self.points[j].coord)) {
                     return false;
                 }
             }
