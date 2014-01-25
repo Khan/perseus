@@ -260,7 +260,7 @@ var InteractiveGraph = React.createClass({
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
         var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultEditorBoxSize);
+                   Util.getGridStep(range, step, defaultBoxSize);
         var snapStep = this.props.snapStep ||
                    Util.snapStepFromGridStep(gridStep);
         return {
