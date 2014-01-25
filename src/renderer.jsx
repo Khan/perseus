@@ -171,7 +171,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                     var widget = this.refs[id];
                     return widget.simpleValidate(props.options);
                 }, this)
-                .reduce(Util.combineScores, Perseus.Util.noScore)
+                .reduce(Util.combineScores, Util.noScore)
                 .value();
 
         return [totalGuess, totalScore];

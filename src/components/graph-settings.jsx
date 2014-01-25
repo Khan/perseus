@@ -36,7 +36,7 @@ var GraphSettings = React.createClass({
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
             gridStep: [1, 1],
-            snapStep: Perseus.Util.snapStepFromGridStep(
+            snapStep: Util.snapStepFromGridStep(
                 this.props.gridStep || [1, 1]),
             valid: true,
             backgroundImage: defaultBackgroundImage,
