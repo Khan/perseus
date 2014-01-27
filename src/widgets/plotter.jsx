@@ -145,7 +145,7 @@ var Plotter = React.createClass({
             for (var y = 0; y <= c.dimY; y += c.scaleY) {
                 graphie.label(
                     [0, y],
-                    KhanUtil.toFixedApprox(y, 2),
+                    KhanUtil.roundToApprox(y, 2),
                     "left",
                     /* isTeX */ true /* for the \approx symbol */
                 );
