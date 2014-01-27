@@ -19,6 +19,23 @@
 <script src="/lib/JSXTransformer.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 
+<script>
+    window.KhanUtil = {
+        debugLog: function() {}
+    };
+    window.Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        imageBase: "/ke/images/",
+        scratchpad: {
+            enable: function() {},
+            disable: function() {}
+        }
+    };
+    React.initializeTouchEvents(true);
+</script>
+
 <script src="/ke/local-only/jed.js"></script>
 <script src="/ke/local-only/i18n.js"></script>
 <script src="/ke/local-only/jquery.qtip.js"></script>
@@ -41,27 +58,7 @@
 
 <script src="/test/qunit-1.11.0.js"></script>
 
-
-<script type="text/jsx" src="./test.js"></script>
-
-<script>
-    window.KhanUtil = {
-        debugLog: function() {}
-    };
-    window.Khan = {
-        Util: KhanUtil,
-        error: function() {},
-        query: {debug: ""},
-        imageBase: "/ke/images/",
-        scratchpad: {
-            enable: function() {},
-            disable: function() {}
-        }
-    };
-    React.initializeTouchEvents(true);
-</script>
-
-
+<script src="/test/test.js"></script>
 
 </body>
 </html>

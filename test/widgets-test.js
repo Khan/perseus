@@ -133,8 +133,8 @@ asyncTest("widget input-number multiple", 42, function() {
     testMultipleAnswer(component, ["7", "3/2"], "right", "right answer is right");
     testMultipleAnswer(component, ["7", "1.5"], "right", "right answer is right");
     testMultipleAnswer(component, ["3/2", "7"], "wrong", "wrong answer is wrong");
-    testMultipleAnswer(component, ["7", ""], "wrong", "incomplete answer is wrong");
-    testMultipleAnswer(component, ["", "3/2"], "wrong", "incomplete answer is wrong");
+    testMultipleAnswer(component, ["7", ""], "empty", "incomplete answer gives empty");
+    testMultipleAnswer(component, ["", "3/2"], "empty", "incomplete answer gives empty");
     testMultipleAnswer(component, ["", ""], "empty", "empty answer is empty");
     testMultipleAnswer(component, ["7", "6/4"], "empty-message", "unsimplified right answer provides a message");
     testMultipleAnswer(component, ["14/2", "6/4"], "empty-message", "unsimplified right gives message");
@@ -143,7 +143,7 @@ asyncTest("widget input-number multiple", 42, function() {
     testMultipleAnswer(component, ["14/2", "7"], "wrong", "unsimplified right and wrong is wrong");
     testMultipleAnswer(component, ["3", "6/4"], "wrong", "unsimplified right and wrong is wrong");
     testMultipleAnswer(component, ["4/2", "4/2"], "wrong", "unsimplified wrong is wrong");
-    testMultipleAnswer(component, ["14/2", ""], "wrong", "unsimplified imcomplete answer is wrong");
+    testMultipleAnswer(component, ["14/2", ""], "empty", "unsimplified incomplete answer is empty");
 
     start();
 });
@@ -180,13 +180,13 @@ asyncTest("widget input-number multiple simplify-enforced", 33, function() {
     testMultipleAnswer(component, ["7", "3/2"], "right", "right answer is right");
     testMultipleAnswer(component, ["7", "1.5"], "right", "right answer is right");
     testMultipleAnswer(component, ["3/2", "7"], "wrong", "wrong answer is wrong");
-    testMultipleAnswer(component, ["7", ""], "wrong", "incomplete answer is wrong");
-    testMultipleAnswer(component, ["", "3/2"], "wrong", "incomplete answer is wrong");
+    testMultipleAnswer(component, ["7", ""], "empty", "incomplete answer is empty");
+    testMultipleAnswer(component, ["", "3/2"], "empty", "incomplete answer is empty");
     testMultipleAnswer(component, ["", ""], "empty", "empty answer is empty");
-    testMultipleAnswer(component, ["7", "6/4"], "wrong-message", "unsimplified right answer provides a message");
-    testMultipleAnswer(component, ["14/2", "6/4"], "wrong-message", "unsimplified right gives message");
-    testMultipleAnswer(component, ["14/2", "3/2"], "wrong-message", "unsimplified right gives message");
-    testMultipleAnswer(component, ["7", "6/4"], "wrong-message", "unsimplified right gives message");
+    testMultipleAnswer(component, ["7", "6/4"], "wrong", "unsimplified is wrong");
+    testMultipleAnswer(component, ["14/2", "6/4"], "wrong", "unsimplified is wrong");
+    testMultipleAnswer(component, ["14/2", "3/2"], "wrong", "unsimplified is wrong");
+    testMultipleAnswer(component, ["7", "6/4"], "wrong", "unsimplified is wrong");
     testMultipleAnswer(component, ["4/2", "4/2"], "wrong", "unsimplified wrong is wrong");
 
     start();
