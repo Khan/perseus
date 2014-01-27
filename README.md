@@ -5,11 +5,9 @@ you to create and display interactive questions.
 
 ## Getting started
 
-```
-$ git clone git@github.com:Khan/perseus.git
-$ git submodule init
-$ git submodule update
-```
+    git clone git@github.com:Khan/perseus.git
+    git submodule init
+    git submodule update
 
 After cloning the repo and initializing the submodule, you'll want to open
 test.html, which is the main page.
