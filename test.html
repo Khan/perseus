@@ -196,8 +196,15 @@ var question = {
 } ;
 
 Perseus.init({}).then(function() {
-    editor = React.renderComponent(Perseus.StatefulEditorPage(
-    question, null), document.getElementById("perseus-container"));
+    var editorProps = _.extend(question, {
+        problemNum: problemNum,
+        developerMode: true
+    });
+
+    editor = React.renderComponent(
+        Perseus.StatefulEditorPage(editorProps, null),
+        document.getElementById("perseus-container")
+    );
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {

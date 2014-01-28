@@ -5,27 +5,156 @@ require("./item-editor.jsx");
 require("./item-renderer.jsx");
 require("./hint-editor.jsx");
 
+var BlurInput = require("./components/blur-input.jsx");
+var PropCheckBox = require("./components/prop-check-box.jsx");
+
 var ItemEditor = Perseus.ItemEditor;
 var ItemRenderer = Perseus.ItemRenderer;
 var CombinedHintsEditor = Perseus.CombinedHintsEditor;
 
+var JsonEditor = React.createClass({
+
+    getInitialState: function() {
+        return {
+            currentValue: JSON.stringify(this.props.value, null, 4),
+            valid: true
+        };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        var shouldReplaceContent = !this.state.valid ||
+            !_.isEqual(
+                nextProps.value,
+                JSON.parse(this.state.currentValue)
+            );
+
+        if (shouldReplaceContent) {
+            this.setState(this.getInitialState());
+        }
+    },
+
+    render: function() {
+        var classes = "perseus-json-editor " +
+            (this.state.valid ? "valid" : "invalid");
+
+        return <textarea
+            className={classes}
+            value={this.state.currentValue}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur} />;
+    },
+
+    handleChange: function(e) {
+        var nextString = e.target.value;
+        try {
+            var json = JSON.parse(nextString);
+            // This callback unfortunately causes multiple renders,
+            // but seems to be necessary to avoid componentWillReceiveProps
+            // being called before setState has gone through
+            this.setState({
+                currentValue: nextString,
+                valid: true
+            }, function() {
+                this.props.onChange(json);
+            });
+        } catch (ex) {
+            this.setState({
+                currentValue: nextString,
+                valid: false
+            });
+        }
+    },
+
+    handleBlur: function(e) {
+        var nextString = e.target.value;
+        try {
+            var json = JSON.parse(nextString);
+            // This callback unfortunately causes multiple renders,
+            // but seems to be necessary to avoid componentWillReceiveProps
+            // being called before setState has gone through
+            this.setState({
+                currentValue: JSON.stringify(json, null, 4),
+                valid: true
+            }, function() {
+                this.props.onChange(json);
+            });
+        } catch (ex) {
+            this.setState({
+                currentValue: JSON.stringify(this.props.value, null, 4),
+                valid: true
+            });
+        }
+    }
+});
+
 Perseus.EditorPage = React.createClass({
+    getDefaultProps: function() {
+        return {
+            developerMode: false,
+            jsonMode: false
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            json: {
+                question: this.props.question,
+                answer: this.props.answerArea,
+                hints: this.props.hints
+            }
+        };
+    },
 
     render: function() {
 
         return <div id="perseus" className="framework-perseus">
-            <ItemEditor
+            {this.props.developerMode &&
+                <div>
+                    <label>
+                        Developer JSON Mode:
+                        <input type="checkbox"
+                            checked={this.props.jsonMode}
+                            onClick={this.toggleJsonMode} />
+                    </label>
+                </div>
+            }
+
+            {this.props.developerMode && this.props.jsonMode &&
+                <div>
+                    <JsonEditor
+                        multiLine={true}
+                        value={this.state.json}
+                        onChange={this.changeJSON} />
+                </div>
+            }
+
+            {!this.props.developerMode || !this.props.jsonMode &&
+                <ItemEditor
                     ref="itemEditor"
+                    rendererOnly={this.props.jsonMode}
                     question={this.props.question}
                     answerArea={this.props.answerArea}
                     onChange={this.handleChange} />
+            }
 
-            <CombinedHintsEditor
+            {!this.props.developerMode || !this.props.jsonMode &&
+                <CombinedHintsEditor
                     ref="hintsEditor"
                     hints={this.props.hints}
                     onChange={this.handleChange} />
+            }
         </div>;
 
+    },
+
+    toggleJsonMode: function() {
+        this.setState({
+            json: this.toJSON(true)
+        }, function() {
+            this.props.onChange({
+                jsonMode: !this.props.jsonMode
+            });
+        });
     },
 
     componentDidMount: function() {
@@ -38,6 +167,9 @@ Perseus.EditorPage = React.createClass({
     },
 
     updateRenderer: function(cb) {
+        if (this.props.jsonMode) {
+            return;
+        }
         var rendererConfig = _({
             item: this.toJSON(true),
             initialHintsVisible: 0  /* none; to be displayed below */
@@ -60,6 +192,13 @@ Perseus.EditorPage = React.createClass({
         this.props.onChange(newProps, cb);
     },
 
+    changeJSON: function(newJson) {
+        this.setState({
+            json: newJson,
+        });
+        this.props.onChange(newJson);
+    },
+
     scorePreview: function() {
         if (this.renderer) {
             return this.renderer.scoreInput();
@@ -69,9 +208,13 @@ Perseus.EditorPage = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        return _.extend(this.refs.itemEditor.toJSON(skipValidation), {
-            hints: this.refs.hintsEditor.toJSON()
-        });
+        if (this.props.jsonMode) {
+            return this.state.json;
+        } else {
+            return _.extend(this.refs.itemEditor.toJSON(skipValidation), {
+                hints: this.refs.hintsEditor.toJSON()
+            });
+        }
     }
 
 });
