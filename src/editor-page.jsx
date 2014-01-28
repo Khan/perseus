@@ -48,6 +48,10 @@ var JsonEditor = React.createClass({
         var nextString = e.target.value;
         try {
             var json = JSON.parse(nextString);
+            // Some extra handling to allow copy-pasting from /api/vi
+            if (_.isString(json)) {
+                json = JSON.parse(json);
+            }
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
@@ -69,6 +73,10 @@ var JsonEditor = React.createClass({
         var nextString = e.target.value;
         try {
             var json = JSON.parse(nextString);
+            // Some extra handling to allow copy-pasting from /api/vi
+            if (_.isString(json)) {
+                json = JSON.parse(json);
+            }
             // This callback unfortunately causes multiple renders,
             // but seems to be necessary to avoid componentWillReceiveProps
             // being called before setState has gone through
