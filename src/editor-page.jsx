@@ -136,7 +136,7 @@ Perseus.EditorPage = React.createClass({
                 </div>
             }
 
-            {!this.props.developerMode || !this.props.jsonMode &&
+            {(!this.props.developerMode || !this.props.jsonMode) &&
                 <ItemEditor
                     ref="itemEditor"
                     rendererOnly={this.props.jsonMode}
@@ -145,7 +145,7 @@ Perseus.EditorPage = React.createClass({
                     onChange={this.handleChange} />
             }
 
-            {!this.props.developerMode || !this.props.jsonMode &&
+            {(!this.props.developerMode || !this.props.jsonMode) &&
                 <CombinedHintsEditor
                     ref="hintsEditor"
                     hints={this.props.hints}
