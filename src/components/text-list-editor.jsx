@@ -97,6 +97,7 @@ var TextListEditor = React.createClass({
             var items = _.clone(this.state.items);
             items.splice(index, 1);
             this.setState({items: items});
+            this.props.onChange(_.compact(items));
 
         // Enter adds an option below the current one...
         } else if (which === 13 /* enter */) {
