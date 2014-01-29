@@ -279,6 +279,18 @@ var ExpressionEditor = React.createClass({
     },
 
     render: function() {
+        var simplifyWarning = null;
+        var shouldTryToParse = this.props.simplify && this.props.value !== "";
+        if (shouldTryToParse) {
+            var expression = KAS.parse(this.props.value);
+            if (expression.parsed && !expression.expr.isSimplified()) {
+                simplifyWarning = <p className="warning"><b>Warning</b>: You
+                    specified that the answer should be simplified but did not
+                    provide a simplified answer. Are you sure you want to
+                    require simplification?</p>;
+            }
+        }
+
         return <div>
             <div><label>
                 Correct answer:
@@ -294,6 +306,8 @@ var ExpressionEditor = React.createClass({
                         this.props.onChange(newProps);
                     }.bind(this)} />
             </label></div>
+
+            {simplifyWarning}
 
             {_.map(this.optionLabels, function(optionData, optionName) {
                 return <div><label key={optionName}>
