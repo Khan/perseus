@@ -5,6 +5,7 @@ require("../core.js");
 var Util = require("../util.js");
 
 var InfoTip = require("../components/info-tip.jsx");
+var TextListEditor = require("../components/text-list-editor.jsx");
 var Widgets = require("../widgets.js");
 
 var deepEq = Util.deepEq;
@@ -667,16 +668,12 @@ var PlotterEditor = React.createClass({
             </div>}
             <div>
                 <label>
-                    Categories (comma separated):
-                    <input
-                        type="text"
+                    Categories:
+                    <TextListEditor
                         ref="categories"
-                        className="plotter-categories"
-                        onChange={_.compose(this.changeCategories,
-                            function(e) {
-                                return e.target.value.split(/\s*,\s*/);
-                            })}
-                        defaultValue={this.props.categories.join(", ")} />
+                        layout="horizontal"
+                        options={this.props.categories}
+                        onChange={this.changeCategories} />
                 </label>
             </div>
             <div>
