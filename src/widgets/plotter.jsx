@@ -186,6 +186,18 @@ var Plotter = React.createClass({
             .addClass("rotate");
     },
 
+	labelCategory: function(x, category) {
+		var graphie = this.graphie;
+		category = category + "";
+		var isTeX = false;
+		var mathyCategory = category.match(/^\$(.*)\$$/);
+		if (mathyCategory) {
+			category = mathyCategory[1];
+			isTeX = true;
+		}
+		graphie.label([x, 0], category, "below", isTeX);
+	},
+
     setupCategories: function(config) {
         var self = this;
         var c = config;
@@ -203,8 +215,8 @@ var Plotter = React.createClass({
             // Label categories
             _.each(self.props.categories, function(category, i) {
                 var x = 0.5 + i * c.barWidth;
-                graphie.label([x, 0], category + "", "below", false);
 
+				self.labelCategory(x, category);
                 var tickHeight = 6 / c.scale[1];
                 graphie.style({
                     stroke: "#000", strokeWidth: 2, opacity: 1.0
@@ -225,7 +237,7 @@ var Plotter = React.createClass({
                     x = self.setupPic(i, startHeight, config);
                 }
 
-                graphie.label([x, 0], category + "", "below", false);
+				self.labelCategory(x, category);
 
                 var tickHeight = 6 / c.scale[1];
                 graphie.style({
