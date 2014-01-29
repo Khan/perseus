@@ -945,11 +945,14 @@ var ShapeTypes = {
             }));
 
             // Hide points on uneditable lines
-            if (type === "line" &&
-                    !_.isArray(points[0]) &&
-                    !options.editable) {
-                _.invoke(points, "remove");
-            }
+            // TODO(jack): This is disabled because translation currently
+            // uses these points. re-enable this code when translation uses
+            // a vector
+//            if (type === "line" &&
+//                    !_.isArray(points[0]) &&
+//                    !options.editable) {
+//                _.invoke(points, "remove");
+//            }
             return {
                 update: _.bind(line.transform, line, true),
                 remove: _.bind(line.remove, line)
