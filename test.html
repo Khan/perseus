@@ -44,8 +44,20 @@ add hint button ends up touching the bottom of the page). -->
 <script src="/ke/local-only/kas.js"></script>
 
 <script>
+    var icu = {
+        getDecimalFormatSymbols: function() {
+            return {
+                decimal_separator: ".",
+                grouping_separator: ",",
+                minus: "-"
+            };
+        }
+    };
     var KhanUtil = {
-        debugLog: function() {}
+        debugLog: function() {},
+        localeToFixed: function(num, precision) {
+            return num.toFixed(precision);
+        }
     };
     var Khan = {
         Util: KhanUtil,
