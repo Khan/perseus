@@ -24,9 +24,10 @@ var Util = {
         };
     },
 
-    // Shuffle an array using a given random seed. If `ensurePermuted` is true,
-    // the input and ouput are guaranteed to be distinct permutations.
-    shuffle: function(array, seed, ensurePermuted) {
+    // Shuffle an array using a given random seed or function.
+    // If `ensurePermuted` is true, the input and ouput are guaranteed to be
+    // distinct permutations.
+    shuffle: function(array, randomSeed, ensurePermuted) {
         // Always return a copy of the input array
         var shuffled = _.clone(array);
 
@@ -37,7 +38,12 @@ var Util = {
             return shuffled;
         }
 
-        var random = Util.seededRNG(seed);
+        var random;
+        if (_.isFunction(randomSeed)) {
+            random = randomSeed;
+        } else {
+            random = Util.seededRNG(randomSeed);
+        }
 
         do {
             // Fischer-Yates shuffle

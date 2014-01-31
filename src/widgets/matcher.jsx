@@ -6,6 +6,7 @@ require("../renderer.jsx");
 var Util = require("../util.js");
 
 var shuffle = Util.shuffle;
+var seededRNG = Util.seededRNG;
 
 var InfoTip        = require("../components/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
@@ -43,23 +44,18 @@ var Matcher = React.createClass({
     },
 
     render: function() {
+        // Use the same random() function to shuffle both columns sequentially
+        var rng = seededRNG(this.props.problemNum);
+
         var left;
         if (!this.props.orderMatters) {
             // If the order doesn't matter, don't shuffle the left column
             left = this.props.left;
         } else {
-            left = shuffle(
-                this.props.left,
-                this.props.problemNum,
-                /* ensurePermuted */ true
-            );
+            left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
         }
 
-        var right = shuffle(
-            this.props.right,
-            this.props.problemNum,
-            /* ensurePermuted */ true
-        );
+        var right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
 
         var showLabels = _.any(this.props.labels);
         var constraints = {height: _.max(this.state.heights)};
