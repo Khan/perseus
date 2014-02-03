@@ -48,3 +48,7 @@ please stop by our [public chat room](http://www.hipchat.com/gBuXeXUWH)!
     editor and the rest of the admin pages.
 * `stylesheets/exercise-content-package` has styles that are shared with
     exercises.
+
+## License
+
+[MIT License](http://opensource.org/licenses/MIT)
