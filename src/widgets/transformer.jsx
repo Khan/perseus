@@ -16,6 +16,7 @@ var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
 var RENDER_TRANSFORM_DELAY_IN_MS = 300;
 var ROTATE_HANDLE_DIST = 1.5;
+var REFLECT_ROTATE_HANDLE_DIST = 2;
 var REFLECT_BUTTON_SIZE = 1;
 
 var deepEq = Util.deepEq;
@@ -1732,6 +1733,40 @@ var Transformer = React.createClass({
         };
     },
 
+    // Snaps a coord to this.graphie()'s snap
+    snapCoord: function(coord) {
+        var graphie = this.graphie();
+        return _.map(coord, function (val, dim) {
+            return KhanUtil.roundToNearest(graphie.snap[dim], val);
+        });
+    },
+
+    // Normalize the coords into something that fits the new 45 degree
+    // reflection line.
+    normalizeReflectionCoords: function(messyCoords) {
+        var midpoint = this.snapCoord(kline.midpoint(messyCoords));
+        var origDirectionPolar = kvector.polarDegFromCart(
+            kvector.subtract(messyCoords[0], messyCoords[1])
+        );
+        var directionPolar = [
+            1,
+            KhanUtil.roundToNearest(45, origDirectionPolar[1])
+        ];
+        var direction = kvector.cartFromPolarDeg(directionPolar);
+        var coords = _.map([-1, 1], function(directionCoefficient) {
+            var coord = kvector.add(
+                midpoint,
+                kvector.scale(
+                    direction,
+                    directionCoefficient *
+                        this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST)
+                )
+            );
+            return this.snapCoord(coord);
+        }, this);
+        return coords;
+    },
+
     addReflectionTool: function() {
         var options = this.props.tools.reflection;
         if (!options.enabled) {
@@ -1746,9 +1781,11 @@ var Transformer = React.createClass({
             });
         };
 
+        var coords = this.normalizeReflectionCoords(options.coords);
+
         // The points defining the line of reflection; hidden from the
         // user.
-        var reflectPoints = _.map(options.coords, function(coord) {
+        var reflectPoints = _.map(coords, function(coord) {
             return graphie.addMovablePoint({
                 coord: coord,
                 visible: false
@@ -1835,7 +1872,7 @@ var Transformer = React.createClass({
             )[1] + 90; // 90 degrees off of the line
             reflectRotateHandle = graphie.addRotateHandle({
                 center: reflectButton,
-                radius: this.scaleToCurrentRange(2),
+                radius: this.scaleToCurrentRange(REFLECT_ROTATE_HANDLE_DIST),
                 angleDeg: initRotateHandleAngle,
                 width: this.scaleToCurrentRange(0.24),
                 hoverWidth: this.scaleToCurrentRange(0.4),
@@ -1859,10 +1896,9 @@ var Transformer = React.createClass({
         // rotated
         if (reflectRotateHandle) {
             $(reflectRotateHandle).on("move", function() {
-                var rotateHandleApprox = _.map(reflectRotateHandle.coord,
-                        function (val, dim) {
-                    return KhanUtil.roundToNearest(graphie.snap[dim], val);
-                });
+                var rotateHandleApprox = self.snapCoord(
+                    reflectRotateHandle.coord
+                );
 
                 var rotateVector = kvector.subtract(
                     rotateHandleApprox,
