@@ -31,6 +31,8 @@ var Graph = React.createClass({
             markings: "graph",
             backgroundImage: defaultBackgroundImage,
             showProtractor: false,
+            showRuler: false,
+            rulerTicks: 10,
             onNewGraphie: null,
             onClick: null
         };
@@ -74,7 +76,8 @@ var Graph = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         var potentialChanges = ["labels", "range", "step", "markings",
-            "showProtractor", "gridStep", "snapStep"];
+            "showProtractor", "showRuler", "rulerTicks", "gridStep",
+            "snapStep"];
         var self = this;
         _.each(potentialChanges, function(prop) {
             if (!_.isEqual(self.props[prop], nextProps[prop])) {
@@ -167,6 +170,7 @@ var Graph = React.createClass({
         });
 
         this._updateProtractor();
+        this._updateRuler();
 
         // We set this flag before jumping into our callback
         // to avoid recursing if our callback calls reset() itself
@@ -198,10 +202,27 @@ var Graph = React.createClass({
         }
     },
 
+    _updateRuler: function() {
+        if (this.ruler) {
+            this.ruler.remove();
+        }
+
+        if (this.props.showRuler) {
+            var coord = this.pointsFromNormalized([[0.50, 0.25]])[0];
+            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+            this.ruler = this._graphie.ruler({
+                center: coord,
+                pixelsPerUnit: this._graphie.scale[0],
+                ticksPerUnit: this.props.rulerTicks,
+                units: Math.round(0.8 * extent)
+            });
+        }
+    },
+
     toJSON: function() {
         return _.pick(this.props, 'range', 'step', 'markings', 'labels',
-                      'backgroundImage', 'showProtractor', 'gridStep',
-                      'snapStep');
+                      'backgroundImage', 'showProtractor', 'showRuler',
+                      'rulerTicks', 'gridStep', 'snapStep');
     }
 });
 

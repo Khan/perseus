@@ -41,7 +41,9 @@ var GraphSettings = React.createClass({
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
-            showProtractor: false
+            showProtractor: false,
+            showRuler: false,
+            rulerTicks: 10
         };
     },
 
@@ -164,12 +166,31 @@ var GraphSettings = React.createClass({
                 </div>}
             </div>
             <div className="misc-settings">
-                <label>
-                    Show protractor:
-                    <input type="checkbox"
-                        checked={this.props.showProtractor}
-                        onClick={this.toggleShowProtractor} />
-                </label>
+                <div>
+                    <label>
+                        Show protractor:
+                        <input type="checkbox"
+                            checked={this.props.showProtractor}
+                            onClick={this.toggleShowProtractor} />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Show ruler:
+                        <input type="checkbox"
+                            checked={this.props.showRuler}
+                            onClick={this.toggleShowRuler} />
+                    </label>
+                    {this.props.showRuler && <label>
+                        Ruler ticks:
+                        <select value={this.props.rulerTicks}
+                                onChange={this.changeRulerTicks}>
+                            {_.map([1, 2, 4, 8, 10, 16], function(n) {
+                                return <option value={n}>{n}</option>;
+                            })}
+                        </select>
+                    </label>}
+                </div>
             </div>
         </div>;
     },
@@ -407,8 +428,15 @@ var GraphSettings = React.createClass({
 
     toggleShowProtractor: function() {
         this.props.onChange({showProtractor: !this.props.showProtractor});
-    }
+    },
 
+    toggleShowRuler: function() {
+        this.props.onChange({showRuler: !this.props.showRuler});
+    },
+
+    changeRulerTicks: function(e) {
+        this.props.onChange({rulerTicks: +e.target.value});
+    }
 });
 
 module.exports = GraphSettings;

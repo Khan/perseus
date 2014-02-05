@@ -119,21 +119,70 @@ $('#problemNum').text(problemNum);
 
 var question = {
     "question": {
-        "content": "[[☃ expression 1]]",
+        "content": "[[☃ interactive-graph 1]]\n[[☃ measurer 1]]",
         "widgets": {
-            "expression 1": {
-                "type": "expression",
+            "interactive-graph 1": {
+                "type": "interactive-graph",
                 "graded": true,
                 "options": {
-                    "value": "6/3",
-                    "form": false,
-                    "simplify": true,
-                    "times": false,
-                    "functions": [
-                        "f",
-                        "g",
-                        "h"
-                    ]
+                    "step": [
+                        1,
+                        1
+                    ],
+                    "backgroundImage": {
+                        "url": "",
+                        "scale": 1,
+                        "bottom": 0,
+                        "left": 0,
+                        "width": 0,
+                        "height": 0
+                    },
+                    "markings": "none",
+                    "labels": [
+                        "x",
+                        "y"
+                    ],
+                    "showProtractor": false,
+                    "showRuler": true,
+                    "rulerTicks": 10,
+                    "range": [
+                        [
+                            -5,
+                            5
+                        ],
+                        [
+                            -5,
+                            5
+                        ]
+                    ],
+                    "gridStep": [
+                        1,
+                        1
+                    ],
+                    "snapStep": [
+                        0.5,
+                        0.5
+                    ],
+                    "graph": {
+                        "type": "segment"
+                    },
+                    "correct": {
+                        "type": "segment"
+                    }
+                }
+            },
+            "measurer 1": {
+                "type": "measurer",
+                "graded": true,
+                "options": {
+                    "imageUrl": "https://ka-perseus-graphie.s3.amazonaws.com/b9f5b3b8b6ed17e61f6612e7c0af679ac0853bf0.png",
+                    "imageTop": 0,
+                    "imageLeft": 0,
+                    "showProtractor": false,
+                    "showRuler": true,
+                    "rulerTicks": 8,
+                    "rulerPixels": 40,
+                    "rulerLength": 6
                 }
             }
         }
@@ -141,43 +190,13 @@ var question = {
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "This is an obtuse angle because its measure is [[☃ dropdown 1]] $90^\\circ$.",
-            "widgets": {
-                "dropdown 1": {
-                    "type": "dropdown",
-                    "graded": true,
-                    "options": {
-                        "choices": [
-                            {
-                                "content": "equal to",
-                                "correct": false
-                            },
-                            {
-                                "content": "greater than",
-                                "correct": true
-                            },
-                            {
-                                "content": "less than",
-                                "correct": false
-                            }
-                        ]
-                    }
-                }
-            }
+            "content": "",
+            "widgets": {}
         },
         "calculator": false
     },
-    "hints": [
-        {
-            "content": "Here's one way to make an angle with these points, but this angle is acute, not obtuse!  \n![](https://ka-perseus-images.s3.amazonaws.com/93fd1b71b55ca18f4a81ad0520df8c96e07125f4.png)",
-            "widgets": {}
-        },
-        {
-            "content": "Here is the way to make an obtuse angle in this situation. It's an obtuse angle because its measure is greater than $90$ degrees.  \n![](https://ka-perseus-images.s3.amazonaws.com/303cfd47cb758adc31af8f80d440827199c6bc63.png)",
-            "widgets": {}
-        }
-    ]
-} ;
+    "hints": []
+};
 
 Perseus.init({}).then(function() {
     var editorProps = _.extend(question, {

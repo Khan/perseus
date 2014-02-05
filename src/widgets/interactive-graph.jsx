@@ -273,6 +273,8 @@ var InteractiveGraph = React.createClass({
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
             showProtractor: false,
+            showRuler: false,
+            rulerTicks: 10,
             graph: {
                 type: "linear"
             }
@@ -570,6 +572,8 @@ var InteractiveGraph = React.createClass({
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
+                showRuler={this.props.showRuler}
+                rulerTicks={this.props.rulerTicks}
                 onClick={onClick}
                 onNewGraphie={this.setGraphie} />
             {typeSelect}{extraOptions}
@@ -1854,6 +1858,8 @@ var InteractiveGraphEditor = React.createClass({
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
             showProtractor: false,
+            showRuler: false,
+            rulerTicks: 10,
             correct: {
                 type: "linear",
                 coords: null
@@ -1881,6 +1887,8 @@ var InteractiveGraphEditor = React.createClass({
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
                 showProtractor={this.props.showProtractor}
+                showRuler={this.props.showRuler}
+                rulerTicks={this.props.rulerTicks}
                 flexibleType={true}
                 onChange={function(newProps) {
                     var correct = this.props.correct;
@@ -1918,6 +1926,8 @@ var InteractiveGraphEditor = React.createClass({
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}
                 showProtractor={this.props.showProtractor}
+                showRuler={this.props.showRuler}
+                rulerTicks={this.props.rulerTicks}
                 onChange={this.props.onChange} />
 
 
@@ -1997,8 +2007,8 @@ var InteractiveGraphEditor = React.createClass({
 
     toJSON: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
-                          "labels", "showProtractor", "range", "gridStep",
-                         "snapStep");
+            "labels", "showProtractor", "showRuler", "rulerTicks", "range",
+            "gridStep", "snapStep");
 
         var graph = this.refs.graph;
         if (graph) {

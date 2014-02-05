@@ -243,8 +243,8 @@ var Editor = Perseus.Editor = React.createClass({
                         Drop down</option>
                 <option value="orderer">
                         Orderer</option>
-                <option value="protractor">
-                        Protractor</option>
+                <option value="measurer">
+                        Measurer</option>
                 <option value="transformer">
                         Transformer</option>
                 <option value="matcher">
