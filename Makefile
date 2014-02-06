@@ -1,5 +1,5 @@
 .PHONY: help build debug server all put put-js put-css update clean
-PORT=8000
+PORT=9000
 
 help:
 	@echo "make server PORT=9000  # runs the perseus server"
@@ -21,6 +21,14 @@ debug:
 
 server: update
 	./node_modules/.bin/beefy src/editor-page.jsx test/test.js $(PORT) -- -t reactify -d
+
+demo:
+	git checkout gh-pages
+	git reset --hard origin/master
+	make build
+	git add -f build/perseus.js
+	git commit -nm 'demo update'
+	git checkout master
 
 all: clean update build put
 

@@ -1,6 +1,9 @@
 {
   "name": "perseus",
   "version": "0.0.1",
+  "scripts": {
+    "start": "./node_modules/.bin/beefy src/editor-page.jsx test/test.js 9000 -- -t reactify -d"
+  },
   "devDependencies": {
     "react-tools": "~0.5.1",
     "browserify": "~3.4.0",
