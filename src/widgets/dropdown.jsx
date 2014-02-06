@@ -111,7 +111,7 @@ var DropdownEditor = React.createClass({
                                 onInput={this.onContentChange.bind(this, i)}
                                 value={choice.content} />
                                 <a href="#" className="simple-button orange"
-                                        onClick={this.removeChoice.bind(this,i)}>
+                                        onClick={this.removeChoice.bind(this, i)}>
                                     <span className="icon-trash remove-choice" />
                                 </a>
                         </div>
@@ -156,7 +156,7 @@ var DropdownEditor = React.createClass({
         }, this.focus.bind(this, choices.length));
     },
 
-    removeChoice: function(choiceIndex,e) {
+    removeChoice: function(choiceIndex, e) {
         e.preventDefault();
         var choices = _(this.props.choices).clone();
         choices.splice(choiceIndex, 1);
