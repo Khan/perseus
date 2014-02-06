@@ -79,7 +79,7 @@ var DropdownEditor = React.createClass({
         return {
             choices: [{
                 content: "",
-                correct: true
+                correct: false
             }]
         };
     },
@@ -171,6 +171,10 @@ var DropdownEditor = React.createClass({
     },
 
     toJSON: function(skipValidation) {
+        if (!skipValidation &&
+                !_.some(_.pluck(this.props.choices, "correct"))) {
+            alert("Warning: No choice is marked as correct.");
+        }
         return _.pick(this.props, 'choices');
     }
 });
