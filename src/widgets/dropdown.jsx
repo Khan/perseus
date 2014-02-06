@@ -79,7 +79,7 @@ var DropdownEditor = React.createClass({
         return {
             choices: [{
                 content: "",
-                correct: true
+                correct: false
             }]
         };
     },
@@ -110,6 +110,10 @@ var DropdownEditor = React.createClass({
                                 ref={"editor" + i}
                                 onInput={this.onContentChange.bind(this, i)}
                                 value={choice.content} />
+                                <a href="#" className="simple-button orange"
+                                        onClick={this.removeChoice.bind(this, i)}>
+                                    <span className="icon-trash remove-choice" />
+                                </a>
                         </div>
                     </li>;
                 }, this)}
@@ -152,12 +156,25 @@ var DropdownEditor = React.createClass({
         }, this.focus.bind(this, choices.length));
     },
 
+    removeChoice: function(choiceIndex, e) {
+        e.preventDefault();
+        var choices = _(this.props.choices).clone();
+        choices.splice(choiceIndex, 1);
+        this.props.onChange({
+            choices: choices
+        });
+    },
+
     focus: function(i) {
         this.refs["editor" + i].getDOMNode().focus();
         return true;
     },
 
     toJSON: function(skipValidation) {
+        if (!skipValidation &&
+                !_.some(_.pluck(this.props.choices, "correct"))) {
+            alert("Warning: No choice is marked as correct.");
+        }
         return _.pick(this.props, 'choices');
     }
 });
