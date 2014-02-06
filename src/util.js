@@ -368,6 +368,27 @@ var Util = {
         } else {
             return Util.eq(x, y);
         }
+    },
+
+    /**
+     * Query String Parser
+     *
+     * Original from:
+     * http://stackoverflow.com/questions/901115/get-querystring-values-in-javascript/2880929#2880929
+     */
+    parseQueryString: function(query) {
+        query = query || window.location.search.substring(1);
+        var urlParams = {},
+            e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&=]+)=?([^&]*)/g,
+            d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
+
+        while ((e = r.exec(query))) {
+            urlParams[d(e[1])] = d(e[2]);
+        }
+
+        return urlParams;
     }
 };
 

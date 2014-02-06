@@ -21,6 +21,7 @@
 <div id="extras">
     <button id="toJSON">toJSON</button>
     <button id="scorePreview">Score</button>
+    <button id="permalink">permalink</button>
     <span>Seed:</span><span id="problemNum"></span>
 </div>
 
@@ -106,18 +107,7 @@ add hint button ends up touching the bottom of the page). -->
 <script>
 (function() {
 
-var editor;
-var problemNum = _.random(1, 99);
-
-$('#toJSON').on('click', function() {
-    console.log(JSON.stringify(editor, null, 4));
-});
-$('#scorePreview').on('click', function() {
-    console.log(editor.scorePreview());
-});
-$('#problemNum').text(problemNum);
-
-var question = {
+var defaultQuestion = {
     "question": {
         "content": "[[☃ interactive-graph 1]]\n[[☃ measurer 1]]",
         "widgets": {
@@ -195,10 +185,40 @@ var question = {
         },
         "calculator": false
     },
-    "hints": []
+    "hints": [
+        {
+            "content": "Here's one way to make an angle with these points, but this angle is acute, not obtuse!  \n![](https://ka-perseus-images.s3.amazonaws.com/93fd1b71b55ca18f4a81ad0520df8c96e07125f4.png)",
+            "widgets": {}
+        },
+        {
+            "content": "Here is the way to make an obtuse angle in this situation. It's an obtuse angle because its measure is greater than $90$ degrees.  \n![](https://ka-perseus-images.s3.amazonaws.com/303cfd47cb758adc31af8f80d440827199c6bc63.png)",
+            "widgets": {}
+        }
+    ]
 };
 
+var editor;
+var problemNum = _.random(1, 99);
+
+$('#toJSON').on('click', function() {
+    console.log(JSON.stringify(editor, null, 4));
+});
+$('#scorePreview').on('click', function() {
+    console.log(editor.scorePreview());
+});
+$('#permalink').on('click', function(e) {
+    window.location.hash = "content=" +
+        encodeURIComponent(JSON.stringify(editor));
+    e.preventDefault();
+});
+$('#problemNum').text(problemNum);
+
+var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
+var question = query.content ? JSON.parse(query.content) : defaultQuestion;
+
 Perseus.init({}).then(function() {
+    console.log("initializing editor");
+
     var editorProps = _.extend(question, {
         problemNum: problemNum,
         developerMode: true
