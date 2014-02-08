@@ -376,16 +376,21 @@ var InteractiveGraph = React.createClass({
                             key="polygon-select"
                             value={this.props.graph.numSides || 3}
                             onChange={function(e) {
-                                var num = +e.target.value;
+                                // Convert numbers, leave UNLIMITED intact:
+                                var num = +e.target.value || e.target.value;
                                 var graph = _.extend({}, this.props.graph, {
                                     numSides: num,
-                                    coords: null
+                                    coords: null,
+                                    snapTo: "grid" // reset the snap for
+                                                   // UNLIMITED, which only
+                                                   // supports "grid"
                                 });
                                 this.props.onChange({graph: graph});
                             }.bind(this)}>
                             {_.map(_.range(3, 13), function(n) {
                                 return <option value={n}>{n} sides</option>;
                             })}
+                            <option value={UNLIMITED}>unlimited sides</option>
                         </select>
                     </div>
                     <div>
@@ -403,8 +408,14 @@ var InteractiveGraph = React.createClass({
                                     this.props.onChange({graph: graph});
                                 }.bind(this)}>
                                 <option value="grid">grid</option>
-                                <option value="angles">interior angles</option>
-                                <option value="sides">side measures</option>
+                                {(this.props.graph.numSides !== UNLIMITED) && [
+                                    <option value="angles">
+                                        interior angles
+                                    </option>,
+                                    <option value="sides">
+                                        side measures
+                                    </option>
+                                ]}
                             </select>
                         </label>
                         <InfoTip>
@@ -593,10 +604,29 @@ var InteractiveGraph = React.createClass({
                 "when isClickToAddPoints() is false");
         }
         if (!this.isCoordInTrash(coord)) {
-            this.points.push(
-                this.createPointForPointsType(coord, this.points.length)
-            );
-            this.updateCoordsFromPoints();
+            var point;
+            if (this.props.graph.type === "point") {
+                point = this.createPointForPointsType(
+                    coord,
+                    this.points.length
+                );
+                this.updateCoordsFromPoints();
+            } else if (this.props.graph.type === "polygon") {
+                if (this.polygon.closed) {
+                    return;
+                }
+                point = this.createPointForPolygonType(
+                    coord,
+                    this.points.length
+                );
+                // We don't call updateCoordsFromPoints for
+                // polygons, since the polygon won't be
+                // closed yet.
+            }
+            this.points.push(point);
+            if (this.polygon) {
+                this.updatePolygon();
+            }
         }
     },
 
@@ -606,23 +636,36 @@ var InteractiveGraph = React.createClass({
     },
 
     setupGraphie: function() {
-        var graphie = this.graphie;
-
+        this.setTrashCanVisibility(0);
         if (this.isClickToAddPoints()) {
-            var lowerLeft = graphie.unscalePoint([graphie.xpixels - 40,
-                    graphie.ypixels]);
-            var widthHeight = graphie.unscaleVector([40, 40]);
-            graphie.raphael.image(TRASH_ICON_URI,
-                graphie.xpixels - 40,
-                graphie.ypixels - 40,
-                40,
-                40
-            );
-
+            this.setTrashCanVisibility(0.5);
         }
 
         var type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
+    },
+
+    setTrashCanVisibility: function(opacity) {
+        var graphie = this.graphie;
+
+        if (knumber.equal(opacity, 0)) {
+            if (this.trashCan) {
+                this.trashCan.remove();
+                this.trashCan = null;
+            }
+        } else {
+            if (!this.trashCan) {
+                this.trashCan = graphie.raphael.image(TRASH_ICON_URI,
+                    graphie.xpixels - 40,
+                    graphie.ypixels - 40,
+                    40,
+                    40
+                );
+            }
+            this.trashCan.attr({
+                opacity: opacity
+            });
+        }
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -633,8 +676,10 @@ var InteractiveGraph = React.createClass({
 
     isClickToAddPoints: function(props) {
         props = props || this.props;
-        return props.graph.type === "point" &&
-                props.graph.numPoints === UNLIMITED;
+        return (props.graph.type === "point" &&
+                props.graph.numPoints === UNLIMITED) ||
+               (props.graph.type === "polygon" &&
+                props.graph.numSides === UNLIMITED);
     },
 
     getEquationString: function() {
@@ -1022,9 +1067,314 @@ var InteractiveGraph = React.createClass({
                     // consistent throughout this method call
                     setTimeout(_.bind(point.remove, point), 0);
                 }
+                // In case we mouseup'd off the graphie and that
+                // stopped the move (in which case, we might not
+                // be in isCoordInTrash()
+                self.setTrashCanVisibility(0.5);
                 return true;
             };
         }
+
+        $(point.mouseTarget[0]).on("vmousedown", function() {
+            self.setTrashCanVisibility(1);
+        });
+
+        $(point.mouseTarget[0]).on("vmouseup", function() {
+            self.setTrashCanVisibility(0.5);
+        });
+
+
+        return point;
+    },
+
+    removePoint: function(point) {
+        var index = null;
+        this.points = _.filter(this.points, function(pt, i) {
+            if (pt === point) {
+                index = i;
+                return false;
+            } else {
+                return true;
+            }
+        });
+        return index;
+    },
+
+    createPointForPolygonType: function(coord, i) {
+        var self = this;
+        var graphie = this.graphie;
+
+        // TODO(alex): check against "grid" instead, use constants
+        var snapToGrid = !_.contains(["angles", "sides"],
+            this.props.graph.snapTo);
+
+        var point = graphie.addMovablePoint(_.extend({
+            coord: coord,
+            normalStyle: {
+                stroke: KhanUtil.BLUE,
+                fill: KhanUtil.BLUE
+            }
+        }, snapToGrid ? {
+            snapX: graphie.snap[0],
+            snapY: graphie.snap[1]
+        } : {}
+        ));
+
+        // Index relative to current point -> absolute index
+        // NOTE: This does not work when isClickToAddPoints() == true,
+        // as `i` can be changed by dragging a point to the trash
+        // Currently this function is only called when !isClickToAddPoints()
+        function rel(j) {
+            return (i + j + self.points.length) % self.points.length;
+        }
+
+        point.hasMoved = false;
+
+        point.onMove = function(x, y) {
+            var coords = _.pluck(this.points, "coord");
+            coords[i] = [x, y];
+            if (!kpoint.equal([x, y], point.coord)) {
+                point.hasMoved = true;
+            }
+
+            // Check for invalid positioning, but only if we aren't adding
+            // points one click at a time, since those added points could
+            // have already violated these constraints
+            if (!self.isClickToAddPoints()) {
+                // Polygons can't have consecutive collinear points
+                if (collinear(coords[rel(-2)], coords[rel(-1)], coords[i]) ||
+                    collinear(coords[rel(-1)], coords[i],  coords[rel(1)]) ||
+                    collinear(coords[i],  coords[rel(1)],  coords[rel(2)])) {
+                    return false;
+                }
+
+                var segments = _.zip(coords, rotate(coords));
+
+                if (self.points.length > 3) {
+                    // Constrain to simple (non self-intersecting) polygon by
+                    // testing whether adjacent segments intersect any others
+                    for (var j = -1; j <= 0; j++) {
+                        var segment = segments[rel(j)];
+                        var others = _.without(segments,
+                            segment, segments[rel(j-1)], segments[rel(j+1)]);
+
+                        for (var k = 0; k < others.length; k++) {
+                            var other = others[k];
+                            if (intersects(segment, other)) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (this.props.graph.snapTo === "angles" &&
+                    self.points.length > 2) {
+                // Snap to whole degree interior angles
+
+                var angles = _.map(angleMeasures(coords), function(rad) {
+                    return rad * 180 / Math.PI;
+                });
+
+                _.each([-1, 1], function(j) {
+                    angles[rel(j)] = Math.round(angles[rel(j)]);
+                });
+
+                var getAngle = function(a, vertex, b) {
+                    var angle = KhanUtil.findAngle(
+                        coords[rel(a)], coords[rel(b)], coords[rel(vertex)]
+                    );
+                    return (angle + 360) % 360;
+                };
+
+                var innerAngles = [
+                    angles[rel(-1)] - getAngle(-2, -1, 1),
+                    angles[rel(1)] - getAngle(-1, 1, 2)
+                ];
+                innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
+
+                // Avoid degenerate triangles
+                if (_.any(innerAngles, function(angle) {
+                            return leq(angle, 1);
+                        })) {
+                    return false;
+                }
+
+                var knownSide = magnitude(vector(coords[rel(-1)],
+                    coords[rel(1)]));
+
+                var onLeft = sign(ccw(
+                    coords[rel(-1)], coords[rel(1)], coords[i]
+                )) === 1;
+
+                // Solve for side by using the law of sines
+                var side = Math.sin(innerAngles[1] * Math.PI / 180) /
+                    Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
+
+                var outerAngle = KhanUtil.findAngle(coords[rel(1)],
+                    coords[rel(-1)]);
+
+                var offset = this.graphie.polar(
+                    side,
+                    outerAngle + (onLeft? 1 : -1) * innerAngles[0]
+                );
+
+                return this.graphie.addPoints(coords[rel(-1)], offset);
+
+
+            } else if (this.props.graph.snapTo === "sides" &&
+                    self.points.length > 1) {
+                // Snap to whole unit side measures
+
+                var sides = _.map([
+                    [coords[rel(-1)], coords[i]],
+                    [coords[i], coords[rel(1)]],
+                    [coords[rel(-1)], coords[rel(1)]]
+                ], function(coords) {
+                    return magnitude(vector.apply(null, coords));
+                });
+
+                _.each([0, 1], function(j) {
+                    sides[j] = Math.round(sides[j]);
+                });
+
+                // Avoid degenerate triangles
+                if (leq(sides[1] + sides[2], sides[0]) ||
+                        leq(sides[0] + sides[2], sides[1]) ||
+                        leq(sides[0] + sides[1], sides[2])) {
+                    return false;
+                }
+
+                // Solve for angle by using the law of cosines
+                var innerAngle = lawOfCosines(sides[0],
+                    sides[2], sides[1]);
+
+                var outerAngle = KhanUtil.findAngle(coords[rel(1)],
+                    coords[rel(-1)]);
+
+                var onLeft = sign(ccw(
+                    coords[rel(-1)], coords[rel(1)], coords[i]
+                )) === 1;
+
+                var offset = this.graphie.polar(
+                    sides[0],
+                    outerAngle + (onLeft ? 1 : -1) * innerAngle
+                );
+
+                return this.graphie.addPoints(coords[rel(-1)], offset);
+
+            } else {
+                // Snap to grid (already done)
+                return true;
+            }
+
+        }.bind(this);
+
+        if (self.isClickToAddPoints()) {
+            point.onMoveEnd = function(x, y) {
+                if (self.isCoordInTrash([x, y])) {
+                    // remove this point from points
+                    var index = self.removePoint(point);
+                    if (self.polygon.closed) {
+                        self.points = rotate(self.points, index);
+                        self.polygon.closed = false;
+                    }
+                    self.polygon.points = self.points;
+                    self.updatePolygon();
+                    // the polygon is now unclosed, so we need to
+                    // remove any points props
+                    self.clearCoords();
+
+                    // remove this movablePoint from graphie.
+                    // we wait to do this until we're not inside of
+                    // said point's onMoveEnd method so its state is
+                    // consistent throughout this method call
+                    setTimeout(_.bind(point.remove, point), 0);
+                } else if (self.points.length > 1 && ((
+                            point === self.points[0] &&
+                            kpoint.equal([x, y], _.last(self.points).coord)
+                        ) || (
+                            point === _.last(self.points) &&
+                            kpoint.equal([x, y], self.points[0].coord)
+                        ))) {
+                    // Join endpoints
+                    var pointToRemove = self.points.pop();
+                    if (self.points.length > 2) {
+                        self.polygon.closed = true;
+                        self.updateCoordsFromPoints();
+                    } else {
+                        self.polygon.closed = false;
+                        self.clearCoords();
+                    }
+                    self.updatePolygon();
+                    // remove this movablePoint from graphie.
+                    // we wait to do this until we're not inside of
+                    // said point's onMoveEnd method so its state is
+                    // consistent throughout this method call
+                    setTimeout(_.bind(pointToRemove.remove, pointToRemove), 0);
+                } else {
+                    var shouldRemove = _.any(self.points, function(pt) {
+                        return pt !== point && kpoint.equal(pt.coord, [x, y]);
+                    });
+                    if (shouldRemove) {
+                        self.removePoint(point);
+                        self.polygon.points = self.points;
+                        if (self.points.length < 3) {
+                            self.polygon.closed = false;
+                            self.clearCoords();
+                        } else if (self.polygon.closed) {
+                            self.updateCoordsFromPoints();
+                        }
+                        self.updatePolygon();
+                        // remove this movablePoint from graphie.
+                        // we wait to do this until we're not inside of
+                        // said point's onMoveEnd method so its state is
+                        // consistent throughout this method call
+                        setTimeout(_.bind(point.remove, point), 0);
+                    }
+                }
+                // In case we mouseup'd off the graphie and that
+                // stopped the move
+                self.setTrashCanVisibility(0.5);
+                return true;
+            };
+        }
+
+        point.isTouched = false;
+        $(point.mouseTarget[0]).on("vmousedown", function() {
+            self.setTrashCanVisibility(1);
+            point.isTouched = true;
+        });
+
+        $(point.mouseTarget[0]).on("vmouseup", function() {
+            self.setTrashCanVisibility(0.5);
+            // If this was
+            //  * a click on the first or last point
+            //  * and not a drag,
+            //  * and our polygon is not closed,
+            //  * and we can close it (we need at least 3 points),
+            // then close it
+            if ((point === this.points[0] || point === _.last(this.points)) &&
+                    point.isTouched &&
+                    !point.hasMoved &&
+                    !this.polygon.closed &&
+                    this.points.length > 2) {
+                this.polygon.closed = true;
+                this.updatePolygon();
+                // We finally have a closed polygon, so save our
+                // points to props
+                this.updateCoordsFromPoints();
+            }
+            point.isTouched = false;
+            point.hasMoved = false;
+        }.bind(this));
+
+        $(point).on("move", function() {
+            this.polygon.transform();
+            if (this.polygon.closed) {
+                this.updateCoordsFromPoints();
+            }
+        }.bind(this));
 
         return point;
     },
@@ -1032,6 +1382,13 @@ var InteractiveGraph = React.createClass({
     updateCoordsFromPoints: function() {
         var graph = _.extend({}, this.props.graph, {
             coords: _.pluck(this.points, "coord")
+        });
+        this.props.onChange({graph: graph});
+    },
+
+    clearCoords: function() {
+        var graph = _.extend({}, this.props.graph, {
+            coords: null
         });
         this.props.onChange({graph: graph});
     },
@@ -1154,175 +1511,31 @@ var InteractiveGraph = React.createClass({
     },
 
     addPolygonControls: function() {
-        var graphie = this.graphie;
-
+        this.polygon = null;
         var coords = InteractiveGraph.getPolygonCoords(this.props.graph, this);
-        var n = coords.length;
+        this.points = _.map(coords, this.createPointForPolygonType);
+        this.updatePolygon();
+    },
+
+    updatePolygon: function() {
+        var closed = this.polygon ?
+            this.polygon.closed :
+            !this.isClickToAddPoints();
+
+        if (this.polygon) {
+            this.polygon.remove();
+        }
+
+        var graphie = this.graphie;
+        var n = this.points.length;
 
         // TODO(alex): check against "grid" instead, use constants
         var snapToGrid = !_.contains(["angles", "sides"],
             this.props.graph.snapTo);
 
-        this.points = _.map(coords, function(coord, i) {
-            var point = graphie.addMovablePoint(_.extend({
-                coord: coord,
-                normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
-                }
-            }, snapToGrid ? {
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1]
-            } : {}
-            ));
-
-            // Index relative to current point -> absolute index
-            function rel(j) {
-                return (i + j + n) % n;
-            }
-
-            point.onMove = function(x, y) {
-                var coords = _.pluck(this.points, "coord");
-                coords[i] = [x, y];
-
-                // Polygons can't have consecutive collinear points
-                if (collinear(coords[rel(-2)], coords[rel(-1)], coords[i]) ||
-                    collinear(coords[rel(-1)], coords[i],  coords[rel(1)]) ||
-                    collinear(coords[i],  coords[rel(1)],  coords[rel(2)])) {
-                    return false;
-                }
-
-                var segments = _.zip(coords, rotate(coords));
-
-                if (n > 3) {
-                    // Constrain to simple (non self-intersecting) polygon by
-                    // testing whether adjacent segments intersect any others
-                    for (var j = -1; j <= 0; j++) {
-                        var segment = segments[rel(j)];
-                        var others = _.without(segments,
-                            segment, segments[rel(j-1)], segments[rel(j+1)]);
-
-                        for (var k = 0; k < others.length; k++) {
-                            var other = others[k];
-                            if (intersects(segment, other)) {
-                                return false;
-                            }
-                        }
-                    }
-                }
-
-                if (this.props.graph.snapTo === "angles") {
-                    // Snap to whole degree interior angles
-
-                    var angles = _.map(angleMeasures(coords), function(rad) {
-                        return rad * 180 / Math.PI;
-                    });
-
-                    _.each([-1, 1], function(j) {
-                        angles[rel(j)] = Math.round(angles[rel(j)]);
-                    });
-
-                    var getAngle = function(a, vertex, b) {
-                        var angle = KhanUtil.findAngle(
-                            coords[rel(a)], coords[rel(b)], coords[rel(vertex)]
-                        );
-                        return (angle + 360) % 360;
-                    };
-
-                    var innerAngles = [
-                        angles[rel(-1)] - getAngle(-2, -1, 1),
-                        angles[rel(1)] - getAngle(-1, 1, 2)
-                    ];
-                    innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
-
-                    // Avoid degenerate triangles
-                    if (_.any(innerAngles, function(angle) {
-                                return leq(angle, 1);
-                            })) {
-                        return false;
-                    }
-
-                    var knownSide = magnitude(vector(coords[rel(-1)],
-                        coords[rel(1)]));
-
-                    var onLeft = sign(ccw(
-                        coords[rel(-1)], coords[rel(1)], coords[i]
-                    )) === 1;
-
-                    // Solve for side by using the law of sines
-                    var side = Math.sin(innerAngles[1] * Math.PI / 180) /
-                        Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
-
-                    var outerAngle = KhanUtil.findAngle(coords[rel(1)],
-                        coords[rel(-1)]);
-
-                    var offset = this.graphie.polar(
-                        side,
-                        outerAngle + (onLeft? 1 : -1) * innerAngles[0]
-                    );
-
-                    return this.graphie.addPoints(coords[rel(-1)], offset);
-
-
-                } else if (this.props.graph.snapTo === "sides") {
-                    // Snap to whole unit side measures
-
-                    var sides = _.map([
-                        [coords[rel(-1)], coords[i]],
-                        [coords[i], coords[rel(1)]],
-                        [coords[rel(-1)], coords[rel(1)]]
-                    ], function(coords) {
-                        return magnitude(vector.apply(null, coords));
-                    });
-
-                    _.each([0, 1], function(j) {
-                        sides[j] = Math.round(sides[j]);
-                    });
-
-                    // Avoid degenerate triangles
-                    if (leq(sides[1] + sides[2], sides[0]) ||
-                            leq(sides[0] + sides[2], sides[1]) ||
-                            leq(sides[0] + sides[1], sides[2])) {
-                        return false;
-                    }
-
-                    // Solve for angle by using the law of cosines
-                    var innerAngle = lawOfCosines(sides[0],
-                        sides[2], sides[1]);
-
-                    var outerAngle = KhanUtil.findAngle(coords[rel(1)],
-                        coords[rel(-1)]);
-
-                    var onLeft = sign(ccw(
-                        coords[rel(-1)], coords[rel(1)], coords[i]
-                    )) === 1;
-
-                    var offset = this.graphie.polar(
-                        sides[0],
-                        outerAngle + (onLeft ? 1 : -1) * innerAngle
-                    );
-
-                    return this.graphie.addPoints(coords[rel(-1)], offset);
-
-                } else {
-                    // Snap to grid (already done)
-                    return true;
-                }
-
-            }.bind(this);
-
-            $(point).on("move", function() {
-                var graph = _.extend({}, this.props.graph, {
-                    coords: _.pluck(this.points, "coord")
-                });
-                this.props.onChange({graph: graph});
-            }.bind(this));
-
-            return point;
-        }, this);
-
-        var angleLabels = _.times(n, function() {
-            if (!this.props.graph.showAngles) {
+        var angleLabels = _.times(n, function(i) {
+            if (!this.props.graph.showAngles ||
+                    (!closed && (i === 0 || i === n - 1))) {
                 return "";
             } else if (this.props.graph.snapTo === "angles") {
                 return "$deg0";
@@ -1331,12 +1544,22 @@ var InteractiveGraph = React.createClass({
             }
         }, this);
 
-        var numArcs = _.times(n, function() {
-            return this.props.graph.showAngles ? 1 : 0;
+        var showRightAngleMarkers = _.times(n, function(i) {
+            return closed || (i !== 0 && i !== n - 1);
         }, this);
 
-        var sideLabels = _.times(n, function() {
-            if (!this.props.graph.showSides) {
+        var numArcs = _.times(n, function(i) {
+            if (this.props.graph.showAngles &&
+                    (closed || (i !== 0 && i !== n - 1))) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }, this);
+
+        var sideLabels = _.times(n, function(i) {
+            if (!this.props.graph.showSides ||
+                (!closed && i === n - 1)) {
                 return "";
             } else if (this.props.graph.snapTo === "sides") {
                 return "$len0";
@@ -1346,10 +1569,13 @@ var InteractiveGraph = React.createClass({
         }, this);
 
         this.polygon = graphie.addMovablePolygon(_.extend({
+            closed: closed,
             points: this.points,
             angleLabels: angleLabels,
+            showRightAngleMarkers: showRightAngleMarkers,
             numArcs: numArcs,
-            sideLabels: sideLabels
+            sideLabels: sideLabels,
+            updateOnPointMove: false
         }, snapToGrid ? {
             snapX: graphie.snap[0],
             snapY: graphie.snap[1]
@@ -1357,10 +1583,9 @@ var InteractiveGraph = React.createClass({
         ));
 
         $(this.polygon).on("move", function() {
-            var graph = _.extend({}, this.props.graph, {
-                coords: _.pluck(this.points, "coord")
-            });
-            this.props.onChange({graph: graph});
+            if (this.polygon.closed) {
+                this.updateCoordsFromPoints();
+            }
         }.bind(this));
     },
 
@@ -1551,20 +1776,25 @@ _.extend(InteractiveGraph, {
         }
 
         var n = graph.numSides || 3;
-        var angle = 2 * Math.PI / n;
-        var offset = (1 / n - 1 / 2) * Math.PI;
 
-        // TODO(alex): Generalize this to more than just triangles so that
-        // all polygons have whole number side lengths if snapping to sides
-        var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7: 4;
+        if (n === UNLIMITED) {
+            coords = [];
+        } else {
+            var angle = 2 * Math.PI / n;
+            var offset = (1 / n - 1 / 2) * Math.PI;
 
-        // Generate coords of a regular polygon with n sides
-        coords = _.times(n, function(i) {
-            return [
-                radius * Math.cos(i * angle + offset),
-                radius * Math.sin(i * angle + offset)
-            ];
-        });
+            // TODO(alex): Generalize this to more than just triangles so that
+            // all polygons have whole number side lengths if snapping to sides
+            var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7: 4;
+
+            // Generate coords of a regular polygon with n sides
+            coords = _.times(n, function(i) {
+                return [
+                    radius * Math.cos(i * angle + offset),
+                    radius * Math.sin(i * angle + offset)
+                ];
+            });
+        }
 
         var range = [[-10, 10], [-10, 10]];
         coords = InteractiveGraph.normalizeCoords(coords, range);
@@ -1820,7 +2050,7 @@ _.extend(InteractiveGraph, {
 
         // The input wasn't correct, so check if it's a blank input or if it's
         // actually just wrong
-        if (_.isEqual(state, rubric.graph)) {
+        if (!state.coords || _.isEqual(state, rubric.graph)) {
             // We're where we started.
             return {
                 type: "invalid",
