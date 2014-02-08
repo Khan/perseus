@@ -32,6 +32,7 @@ var Graph = React.createClass({
             backgroundImage: defaultBackgroundImage,
             showProtractor: false,
             showRuler: false,
+            rulerLabel: "",
             rulerTicks: 10,
             onNewGraphie: null,
             onClick: null
@@ -76,8 +77,8 @@ var Graph = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         var potentialChanges = ["labels", "range", "step", "markings",
-            "showProtractor", "showRuler", "rulerTicks", "gridStep",
-            "snapStep"];
+            "showProtractor", "showRuler", "rulerLabel", "rulerTicks",
+            "gridStep", "snapStep"];
         var self = this;
         _.each(potentialChanges, function(prop) {
             if (!_.isEqual(self.props[prop], nextProps[prop])) {
@@ -212,6 +213,7 @@ var Graph = React.createClass({
             var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
             this.ruler = this._graphie.ruler({
                 center: coord,
+                label: this.props.rulerLabel,
                 pixelsPerUnit: this._graphie.scale[0],
                 ticksPerUnit: this.props.rulerTicks,
                 units: Math.round(0.8 * extent)
@@ -222,7 +224,7 @@ var Graph = React.createClass({
     toJSON: function() {
         return _.pick(this.props, 'range', 'step', 'markings', 'labels',
                       'backgroundImage', 'showProtractor', 'showRuler',
-                      'rulerTicks', 'gridStep', 'snapStep');
+                      'rulerLabel', 'rulerTicks', 'gridStep', 'snapStep');
     }
 });
 

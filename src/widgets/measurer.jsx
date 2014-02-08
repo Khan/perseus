@@ -21,6 +21,7 @@ var Measurer = React.createClass({
             showRuler: false,
             rulerX: 6.0,
             rulerY: 6.0,
+            rulerLabel: "",
             rulerTicks: 10,
             rulerPixels: 40,
             rulerLength: 10
@@ -47,8 +48,8 @@ var Measurer = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         var shouldSetupGraphie = _.any([
-                "showProtractor", "showRuler", "rulerTicks", "rulerPixels",
-                "rulerLength"
+                "showProtractor", "showRuler", "rulerLabel", "rulerTicks",
+                "rulerPixels", "rulerLength"
             ],
             function(prop) {
                 return prevProps[prop] !== this.props[prop];
@@ -92,6 +93,7 @@ var Measurer = React.createClass({
                     this.props.rulerX,
                     this.props.rulerY
                 ],
+                label: this.props.rulerLabel,
                 pixelsPerUnit: this.props.rulerPixels,
                 ticksPerUnit: this.props.rulerTicks,
                 units: this.props.rulerLength
@@ -136,6 +138,7 @@ var MeasurerEditor = React.createClass({
             imageLeft: 0,
             showProtractor: true,
             showRuler: false,
+            rulerLabel: "",
             rulerTicks: 10,
             rulerPixels: 40,
             rulerLength: 10
@@ -190,6 +193,32 @@ var MeasurerEditor = React.createClass({
             {this.props.showRuler && <div>
             <div>
                 <label>
+                    Ruler label:
+                    <select
+                        onChange={this.changeRulerLabel}
+                        value={this.props.rulerLabel} >
+                            <option value="">None</option>
+                            <optgroup label="Metric">
+                                {this.renderLabelChoices([
+                                    ["milimeters", "mm"],
+                                    ["centimeters", "cm"],
+                                    ["meters", "m"],
+                                    ["kilometers", "km"]
+                                ])}
+                            </optgroup>
+                            <optgroup label="Imperial">
+                                {this.renderLabelChoices([
+                                    ["inches", "in"],
+                                    ["feet", "ft"],
+                                    ["yards", "yd"],
+                                    ["miles", "mi"]
+                                ])}
+                            </optgroup>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>
                     Ruler ticks:
                     <select
                         onChange={_.partial(this.changeSetting, "rulerTicks")}
@@ -222,6 +251,12 @@ var MeasurerEditor = React.createClass({
         </div>;
     },
 
+    renderLabelChoices: function(choices) {
+        return _.map(choices, function(nameAndValue) {
+            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+        });
+    },
+
     changeImageUrl: function(e) {
         // Only continue on blur or "enter"
         if (e.type === "keypress" && e.keyCode !== 13) {
@@ -231,6 +266,10 @@ var MeasurerEditor = React.createClass({
         this.props.onChange({
             imageUrl: this.refs["image-url"].getDOMNode().value
         });
+    },
+
+    changeRulerLabel: function(e) {
+        this.props.onChange({rulerLabel: e.target.value});
     },
 
     changeSetting: function(type, e) {
@@ -249,8 +288,8 @@ var MeasurerEditor = React.createClass({
 
     toJSON: function() {
         return _.pick(this.props, "imageUrl", "imageTop", "imageLeft",
-            "showProtractor", "showRuler", "rulerTicks", "rulerPixels",
-            "rulerLength");
+            "showProtractor", "showRuler", "rulerLabel", "rulerTicks",
+            "rulerPixels", "rulerLength");
     }
 });
 

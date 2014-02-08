@@ -274,6 +274,7 @@ var InteractiveGraph = React.createClass({
             markings: "graph",
             showProtractor: false,
             showRuler: false,
+            rulerLabel: "",
             rulerTicks: 10,
             graph: {
                 type: "linear"
@@ -584,6 +585,7 @@ var InteractiveGraph = React.createClass({
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
                 showRuler={this.props.showRuler}
+                rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onClick={onClick}
                 onNewGraphie={this.setGraphie} />
@@ -2089,6 +2091,7 @@ var InteractiveGraphEditor = React.createClass({
             markings: "graph",
             showProtractor: false,
             showRuler: false,
+            rulerLabel: "",
             rulerTicks: 10,
             correct: {
                 type: "linear",
@@ -2118,6 +2121,7 @@ var InteractiveGraphEditor = React.createClass({
                 markings={this.props.markings}
                 showProtractor={this.props.showProtractor}
                 showRuler={this.props.showRuler}
+                rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 flexibleType={true}
                 onChange={function(newProps) {
@@ -2157,6 +2161,7 @@ var InteractiveGraphEditor = React.createClass({
                 markings={this.props.markings}
                 showProtractor={this.props.showProtractor}
                 showRuler={this.props.showRuler}
+                rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onChange={this.props.onChange} />
 
@@ -2237,8 +2242,8 @@ var InteractiveGraphEditor = React.createClass({
 
     toJSON: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
-            "labels", "showProtractor", "showRuler", "rulerTicks", "range",
-            "gridStep", "snapStep");
+            "labels", "showProtractor", "showRuler", "rulerLabel",
+            "rulerTicks", "range", "gridStep", "snapStep");
 
         var graph = this.refs.graph;
         if (graph) {

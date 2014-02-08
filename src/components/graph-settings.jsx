@@ -43,6 +43,7 @@ var GraphSettings = React.createClass({
             markings: "graph",
             showProtractor: false,
             showRuler: false,
+            rulerLabel: "",
             rulerTicks: 10
         };
     },
@@ -181,18 +182,55 @@ var GraphSettings = React.createClass({
                             checked={this.props.showRuler}
                             onClick={this.toggleShowRuler} />
                     </label>
-                    {this.props.showRuler && <label>
-                        Ruler ticks:
-                        <select value={this.props.rulerTicks}
-                                onChange={this.changeRulerTicks}>
-                            {_.map([1, 2, 4, 8, 10, 16], function(n) {
-                                return <option value={n}>{n}</option>;
-                            })}
-                        </select>
-                    </label>}
                 </div>
+                {this.props.showRuler && <div>
+                    <div>
+                        <label>
+                            Ruler label:
+                            <select
+                                onChange={this.changeRulerLabel}
+                                value={this.props.rulerLabel} >
+                                    <option value="">None</option>
+                                    <optgroup label="Metric">
+                                        {this.renderLabelChoices([
+                                            ["milimeters", "mm"],
+                                            ["centimeters", "cm"],
+                                            ["meters", "m"],
+                                            ["kilometers", "km"]
+                                        ])}
+                                    </optgroup>
+                                    <optgroup label="Imperial">
+                                        {this.renderLabelChoices([
+                                            ["inches", "in"],
+                                            ["feet", "ft"],
+                                            ["yards", "yd"],
+                                            ["miles", "mi"]
+                                        ])}
+                                    </optgroup>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Ruler ticks:
+                            <select
+                                onChange={this.changeRulerTicks}
+                                value={this.props.rulerTicks} >
+                                    {_.map([1, 2, 4, 8, 10, 16], function(n) {
+                                        return <option value={n}>{n}</option>;
+                                    })}
+                            </select>
+                        </label>
+                    </div>
+                </div>}
             </div>
         </div>;
+    },
+
+    renderLabelChoices: function(choices) {
+        return _.map(choices, function(nameAndValue) {
+            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+        });
     },
 
     componentDidMount: function() {
@@ -432,6 +470,10 @@ var GraphSettings = React.createClass({
 
     toggleShowRuler: function() {
         this.props.onChange({showRuler: !this.props.showRuler});
+    },
+
+    changeRulerLabel: function(e) {
+        this.props.onChange({rulerLabel: e.target.value});
     },
 
     changeRulerTicks: function(e) {
