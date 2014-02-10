@@ -4,9 +4,10 @@
 require("../core.js");
 var Util = require("../util.js");
 
-var InfoTip = require("../components/info-tip.jsx");
-var TeX     = require("../tex.jsx");  // KaTeX and/or MathJax
-var Widgets = require("../widgets.js");
+var PropCheckBox = require("../components/prop-check-box.jsx");
+var InfoTip      = require("../components/info-tip.jsx");
+var TeX          = require("../tex.jsx");  // KaTeX and/or MathJax
+var Widgets      = require("../widgets.js");
 
 var Expression = React.createClass({
     getDefaultProps: function() {
@@ -268,29 +269,6 @@ var ExpressionEditor = React.createClass({
         };
     },
 
-    optionLabels: {
-        form: {
-            labelText: "Answer expression must have the same form.",
-            infoTip: "The student's answer must be in the same form. " +
-                    "Commutativity and excess negative signs are ignored."
-        },
-        simplify: {
-            labelText: "Answer expression must be fully expanded and " +
-                "simplified.",
-            infoTip: "The student's answer must be fully expanded and " +
-                " simplified. Answering this equation (x^2+2x+1) with this " +
-                " factored equation (x+1)^2 will render this response " +
-                "\"Your answer is not fully expanded and simplified.\""
-        },
-        times: {
-            labelText: "Use \u00d7 for rendering multiplication instead of " +
-                "a center dot.",
-            infoTip: "For pre-algebra problems this option displays " +
-                "multiplication as \\times instead of \\cdot in both the " +
-                "rendered output and the acceptable formats examples."
-        }
-    },
-
     render: function() {
         var simplifyWarning = null;
         var shouldTryToParse = this.props.simplify && this.props.value !== "";
@@ -320,20 +298,49 @@ var ExpressionEditor = React.createClass({
                     }.bind(this)} />
             </label></div>
 
+            <div>
+                <PropCheckBox
+                    form={this.props.form}
+                    onChange={this.props.onChange}
+                    labelAlignment="right"
+                    label="Answer expression must have the same form." />
+                <InfoTip>
+                    <p>The student's answer must be in the same form.
+                    Commutativity and excess negative signs are ignored.</p>
+                </InfoTip>
+            </div>
+
+            <div>
+                <PropCheckBox
+                    simplify={this.props.simplify}
+                    onChange={this.props.onChange}
+                    labelAlignment="right"
+                    label="Answer expression must be fully expanded and
+                        simplified." />
+                <InfoTip>
+                    <p>The student's answer must be fully expanded and
+                    simplified. Answering this equation (x^2+2x+1) with this
+                    factored equation (x+1)^2 will render this response
+                    "Your answer is not fully expanded and simplified."</p>
+                </InfoTip>
+            </div>
+
             {simplifyWarning}
 
-            {_.map(this.optionLabels, function(optionData, optionName) {
-                return <div><label key={optionName}>
-                    <input type="checkbox" name={optionName}
-                        checked={this.props[optionName]}
-                        onChange={this.handleCheck} />
-                    {optionData.labelText}
-                </label>
-                <InfoTip><p>
-                    {optionData.infoTip}
-                </p></InfoTip>
-                </div>;
-            }, this)}
+            <div>
+                <PropCheckBox
+                    times={this.props.times}
+                    onChange={this.props.onChange}
+                    labelAlignment="right"
+                    label="Use × for rendering multiplication instead of a
+                        center dot." />
+                <InfoTip>
+                    <p>For pre-algebra problems this option displays
+                    multiplication as \times instead of \cdot in both the
+                    rendered output and the acceptable formats examples.</p>
+                </InfoTip>
+            </div>
+
             <div>
                 <label>
                 {"Function variables: "}

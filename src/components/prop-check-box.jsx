@@ -7,9 +7,14 @@ require("../core.js");
  * dynamically from its props list
  */
 var PropCheckBox = React.createClass({
+    propTypes: {
+        labelAlignment: React.PropTypes.oneOf(["left", "right"])
+    },
+
     DEFAULT_PROPS: {
         label: null,
-        onChange: null
+        onChange: null,
+        labelAlignment: "left"
     },
 
     getDefaultProps: function() {
@@ -29,13 +34,18 @@ var PropCheckBox = React.createClass({
         return propName;
     },
 
+    _labelAlignLeft: function() {
+        return this.props.labelAlignment === "left";
+    },
+
     render: function() {
         var propName = this.propName();
         return <label>
-            {this.props.label}
+            {this._labelAlignLeft() && this.props.label}
             <input type="checkbox"
                     checked={this.props[propName]}
                     onClick={this.toggle} />
+            {!this._labelAlignLeft() && this.props.label}
         </label>;
     },
 
