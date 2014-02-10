@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Perseus render</title>
+
+<link rel="stylesheet" type="text/css" href="/ke/css/khan-site.css" />
+<link rel="stylesheet" type="text/css" href="/ke/css/khan-exercise.css" />
+<link rel="stylesheet" type="text/css" href="/lib/katex/fonts/fonts.css" />
+<link rel="stylesheet/less" type="text/css" href="/lib/katex/katex.less" />
+
+<link rel="stylesheet/less" type="text/css" href="/stylesheets/exercise-content-package/perseus.less" />
+<script src="/lib/less.js"></script>
+
+</head>
+<body>
+
+<div class="perseus-diff">
+    <div id="diff">
+    </div>
+</div>
+
+<script src="/lib/es5-shim.js"></script>
+<script src="/lib/jquery.js"></script>
+<script src="/lib/underscore.js"></script>
+<script src="/lib/marked.js"></script>
+<script src="/lib/react.js"></script>
+<script src="/lib/JSXTransformer.js"></script>
+<script src="/ke/third_party/MathJax/2.1/MathJax.js"></script>
+<script src="/lib/katex/katex.js"></script>
+<script src="/ke/local-only/kas.js"></script>
+
+<script>
+    var KhanUtil = {
+        debugLog: function() {}
+    };
+    var Khan = {
+        Util: KhanUtil,
+        error: function() {},
+        query: {debug: ""},
+        imageBase: "/ke/images/",
+        scratchpad: {
+            disable: function() {},
+            enable: function() {}
+        }
+    };
+    React.initializeTouchEvents(true);
+</script>
+
+<script src="/ke/local-only/jed.js"></script>
+<script src="/ke/local-only/i18n.js"></script>
+<script src="/ke/local-only/jquery.qtip.js"></script>
+<script src="/ke/utils/answer-types.js"></script>
+<script src="/ke/utils/knumber.js"></script>
+<script src="/ke/utils/kvector.js"></script>
+<script src="/ke/utils/kpoint.js"></script>
+<script src="/ke/utils/kray.js"></script>
+<script src="/ke/utils/kline.js"></script>
+<script src="/ke/utils/math.js"></script>
+
+<script src="/ke/utils/tmpl.js"></script>
+<script src="/ke/third_party/raphael.js"></script>
+<script src="/ke/utils/graphie.js"></script>
+<script src="/ke/third_party/jquery.mobile.vmouse.js"></script>
+<script src="/ke/utils/interactive.js"></script>
+<script src="/ke/exercises-stub.js"></script>
+<script src="/ke/utils/tex.js"></script>
+
+<!-- pre built (use for testing IE8) --><!--
+<script src="/build/perseus.js"></script>
+-->
+
+<!-- pre built with source maps--><!--
+<script src="/build/perseus.debug.js"></script>
+-->
+
+<!-- built in the browser -->
+<script src="/src/editor-page.jsx"></script>
+
+
+<script>
+(function() {
+
+var seedContent = {
+    "hints": [
+        {
+            "content": "The slice cuts through the prism horizontally, so the shape we'll see in the slice is the same as the shape of the base of the prism.",
+            "widgets": {}
+        },
+        {
+            "content": "The base of the figure has the shape of an equilateral triangle with side length $2$.",
+            "widgets": {}
+        },
+        {
+            "content": "Therefore, the shape of the horizontal slice through the prism will be an equilateral triangle with side length $2$:  \n![](https://ka-perseus-images.s3.amazonaws.com/f8d6ecceeaa6abcdead884e4f8edd48e735a5e80.png)",
+            "widgets": {}
+        }
+    ],
+    "question": {
+        "content": "The figure below shows a prism with a triangular base. The base of the prism has the shape of an equilateral triangle with side length $2$. The height of the prism is $3$.   \n\n**Draw the shape you will see if you take a horizontal slice through the prism.**\n\n![prism with a triangular base](https://ka-perseus-graphie.s3.amazonaws.com/21da0fa2f1b8ebc905f9314b45bdc9ef520cafa1.png)\n\n[[☃ interactive-graph 1]]",
+        "widgets": {
+            "interactive-graph 1": {
+                "type": "interactive-graph",
+                "options": {
+                    "showProtractor": false,
+                    "graph": {
+                        "numSides": 3,
+                        "showSides": true,
+                        "type": "polygon",
+                        "showAngles": false
+                    },
+                    "range": [
+                        [
+                            -1,
+                            4
+                        ],
+                        [
+                            -1,
+                            4
+                        ]
+                    ],
+                    "step": [
+                        1,
+                        1
+                    ],
+                    "markings": "grid",
+                    "backgroundImage": {
+                        "scale": 1,
+                        "bottom": 0,
+                        "url": "",
+                        "height": 0,
+                        "width": 0,
+                        "left": 0
+                    },
+                    "correct": {
+                        "numSides": 3,
+                        "coords": [
+                            [
+                                3,
+                                1
+                            ],
+                            [
+                                2,
+                                2.75
+                            ],
+                            [
+                                1,
+                                1
+                            ]
+                        ],
+                        "showSides": true,
+                        "type": "polygon",
+                        "showAngles": false,
+                        "match": "similar"
+                    }
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "calculator": false,
+        "type": "multiple",
+        "options": {
+            "content": "Move the points to draw the shape.",
+            "widgets": {}
+        }
+    }
+};
+
+var seedContent2 = {
+    "hints": [
+        {
+            "content": "The slice cuts through the prism horizontally, so the shape we'll see in the slice is the same as the shape of the base of the prism.",
+            "widgets": {}
+        },
+        {
+            "content": "The base of the prism has the shape of an equilateral triangle with side length $2$.",
+            "widgets": {}
+        },
+        {
+            "content": "Therefore, the shape of the horizontal slice through the prism will be an equilateral triangle with side length $2$:  \n![](https://ka-perseus-images.s3.amazonaws.com/f8d6ecceeaa6abcdead884e4f8edd48e735a5e80.png)",
+            "widgets": {}
+        }
+    ],
+    "question": {
+        "content": "The picture below shows a box with a rectangular base. The base of the prism has the shape of an equilateral triangle with side length $2x+3$. The height of the prism is $3$.   \n\n**Draw the shape if you take a perfectly horizontal slice through the prism.**\n\n![prism with a triangular base](https://ka-perseus-graphie.s3.amazonaws.com/21da0fa2f1b8ebc905f9314b45bdc9ef520cafa1.png)\n\n[[☃ interactive-graph 1]]",
+        "widgets": {
+            "interactive-graph 1": {
+                "type": "interactive-graph",
+                "options": {
+                    "showProtractor": false,
+                    "graph": {
+                        "numSides": 3,
+                        "showSides": true,
+                        "type": "polygon",
+                        "showAngles": false
+                    },
+                    "range": [
+                        [
+                            -1,
+                            4
+                        ],
+                        [
+                            -1,
+                            4
+                        ]
+                    ],
+                    "step": [
+                        1,
+                        1
+                    ],
+                    "markings": "grid",
+                    "backgroundImage": {
+                        "scale": 1,
+                        "bottom": 0,
+                        "url": "",
+                        "height": 0,
+                        "width": 0,
+                        "left": 0
+                    },
+                    "correct": {
+                        "numSides": 3,
+                        "coords": [
+                            [
+                                3,
+                                1
+                            ],
+                            [
+                                2,
+                                2.75
+                            ],
+                            [
+                                1,
+                                1
+                            ]
+                        ],
+                        "showSides": true,
+                        "type": "polygon",
+                        "showAngles": false,
+                        "match": "similar"
+                    }
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "calculator": false,
+        "type": "multiple",
+        "options": {
+            "content": "Move the points to draw this shape.",
+            "widgets": {}
+        }
+    }
+};
+
+
+Perseus.init({}).then(function() {
+    var itemMountNode = document.getElementById("diff");
+
+    zk = React.renderComponent(Perseus.DiffDisplayer({
+        beforeItem: seedContent,
+        afterItem: seedContent2
+    }, null), itemMountNode);
+}).then(function() {
+    console.log("all done.", +new Date/1000);
+}, function(err) {
+    console.error(err);
+});
+
+})();
+</script>
+
+</body>
+</html>
