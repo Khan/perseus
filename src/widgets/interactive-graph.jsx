@@ -1075,16 +1075,15 @@ var InteractiveGraph = React.createClass({
                 self.setTrashCanVisibility(0.5);
                 return true;
             };
+
+            $(point.mouseTarget[0]).on("vmousedown", function() {
+                self.setTrashCanVisibility(1);
+            });
+
+            $(point.mouseTarget[0]).on("vmouseup", function() {
+                self.setTrashCanVisibility(0.5);
+            });
         }
-
-        $(point.mouseTarget[0]).on("vmousedown", function() {
-            self.setTrashCanVisibility(1);
-        });
-
-        $(point.mouseTarget[0]).on("vmouseup", function() {
-            self.setTrashCanVisibility(0.5);
-        });
-
 
         return point;
     },
@@ -1344,12 +1343,16 @@ var InteractiveGraph = React.createClass({
 
         point.isTouched = false;
         $(point.mouseTarget[0]).on("vmousedown", function() {
-            self.setTrashCanVisibility(1);
+            if (self.isClickToAddPoints()) {
+                self.setTrashCanVisibility(1);
+            }
             point.isTouched = true;
         });
 
         $(point.mouseTarget[0]).on("vmouseup", function() {
-            self.setTrashCanVisibility(0.5);
+            if (self.isClickToAddPoints()) {
+                self.setTrashCanVisibility(0.5);
+            }
             // If this was
             //  * a click on the first or last point
             //  * and not a drag,
