@@ -612,6 +612,7 @@ var InteractiveGraph = React.createClass({
                     coord,
                     this.points.length
                 );
+                this.points.push(point);
                 this.updateCoordsFromPoints();
             } else if (this.props.graph.type === "polygon") {
                 if (this.polygon.closed) {
@@ -621,12 +622,10 @@ var InteractiveGraph = React.createClass({
                     coord,
                     this.points.length
                 );
+                this.points.push(point);
                 // We don't call updateCoordsFromPoints for
                 // polygons, since the polygon won't be
                 // closed yet.
-            }
-            this.points.push(point);
-            if (this.polygon) {
                 this.updatePolygon();
             }
         }
