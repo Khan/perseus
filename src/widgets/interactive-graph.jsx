@@ -285,7 +285,7 @@ var InteractiveGraph = React.createClass({
     mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
 
-    componentDidUpdate: function(prevProps, prevState, rootNode) {
+    componentDidUpdate: function(prevProps, prevState) {
         var oldType = prevProps.graph.type;
         var newType = this.props.graph.type;
         if (oldType !== newType ||

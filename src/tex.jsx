@@ -55,7 +55,7 @@ var TeX = (function() {
             </span>;
         },
 
-        componentDidMount: function(span) {
+        componentDidMount: function() {
             var text = this.props.children;
             var onRender = this.props.onRender;
 
@@ -78,7 +78,7 @@ var TeX = (function() {
             process(this.script, onRender);
         },
 
-        componentDidUpdate: function(prevProps, prevState, span) {
+        componentDidUpdate: function(prevProps, prevState) {
             var oldText = prevProps.children;
             var newText = this.props.children;
             var onRender = this.props.onRender;

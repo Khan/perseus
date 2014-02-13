@@ -139,7 +139,7 @@ var Editor = Perseus.Editor = React.createClass({
         };
     },
 
-    componentDidUpdate: function(prevProps, prevState, rootNode) {
+    componentDidUpdate: function(prevProps, prevState) {
         // TODO(alpert): Maybe fix React so this isn't necessary
         var textarea = this.refs.textarea.getDOMNode();
         textarea.value = this.props.content;

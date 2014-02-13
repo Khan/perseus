@@ -126,7 +126,7 @@ var FloatingCard = React.createClass({
         $(document).off("vmouseup", this.onVMouseUp);
     },
 
-    componentDidUpdate: function(prevProps, prevState, rootNode) {
+    componentDidUpdate: function(prevProps, prevState) {
         if (this.props.animating && !prevProps.animating) {
             // If we just were changed into animating, start the animation.
             // We pick the animation speed based on the distance that the card
