@@ -308,7 +308,7 @@ var Editor = Perseus.Editor = React.createClass({
                     {underlayPieces}
                 </div>,
                 <textarea ref="textarea"
-                          onInput={this.handleInput}
+                          onChange={this.handleChange}
                           value={this.props.content} />
             ];
         var textareaWrapper;
@@ -380,7 +380,7 @@ var Editor = Perseus.Editor = React.createClass({
             });
     },
 
-    handleInput: function() {
+    handleChange: function() {
         var textarea = this.refs.textarea.getDOMNode();
         this.props.onChange({content: textarea.value});
     },
