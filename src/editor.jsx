@@ -82,6 +82,58 @@ var DragTarget = React.createClass({
     }
 });
 
+var WidgetSelect = React.createClass({
+    handleChange: function(e) {
+        var widgetType = e.target.value;
+        if (widgetType === "") {
+            // TODO(alpert): Not sure if change will trigger here
+            // but might as well be safe
+            return;
+        }
+        e.target.value = "";
+        if (this.props.onChange) {
+            this.props.onChange(widgetType);
+        }
+    },
+    shouldComponentUpdate: function() {
+        return false;
+    },
+    render: function() {
+        return <select onChange={this.handleChange}>
+            <option value="">Add a widget{"\u2026"}</option>
+            <option disabled>--</option>
+            <option value="input-number">
+                    Text input (number)</option>
+            <option value="expression">
+                    Expression / Equation</option>
+            <option value="radio">
+                    Multiple choice</option>
+            <option value="interactive-graph">
+                    Interactive graph</option>
+            <option value="interactive-number-line">
+                    Interactive number line</option>
+            <option value="categorization">
+                    Categorization</option>
+            <option value="plotter">
+                    Plotter</option>
+            <option value="table">
+                    Table of values</option>
+            <option value="dropdown">
+                    Drop down</option>
+            <option value="orderer">
+                    Orderer</option>
+            <option value="measurer">
+                    Measurer</option>
+            <option value="transformer">
+                    Transformer</option>
+            <option value="matcher">
+                    Two column matcher</option>
+            <option value="sorter">
+                    Sorter</option>
+        </select>
+    }
+});
+
 
 var WidgetEditor = React.createClass({
     getDefaultProps: function() {
@@ -220,38 +272,7 @@ var Editor = Perseus.Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetsDropDown =  <select onChange={this.addWidget}>
-                <option value="">Add a widget{"\u2026"}</option>
-                <option disabled>--</option>
-                <option value="input-number">
-                        Text input (number)</option>
-                <option value="expression">
-                        Expression / Equation</option>
-                <option value="radio">
-                        Multiple choice</option>
-                <option value="interactive-graph">
-                        Interactive graph</option>
-                <option value="interactive-number-line">
-                        Interactive number line</option>
-                <option value="categorization">
-                        Categorization</option>
-                <option value="plotter">
-                        Plotter</option>
-                <option value="table">
-                        Table of values</option>
-                <option value="dropdown">
-                        Drop down</option>
-                <option value="orderer">
-                        Orderer</option>
-                <option value="measurer">
-                        Measurer</option>
-                <option value="transformer">
-                        Transformer</option>
-                <option value="matcher">
-                        Two column matcher</option>
-                <option value="sorter">
-                        Sorter</option>
-            </select>;
+            widgetsDropDown = <WidgetSelect onChange={this.addWidget} />;
 
             templatesDropDown = <select onChange={this.addTemplate}>
                 <option value="">Insert template{"\u2026"}</option>
@@ -364,15 +385,7 @@ var Editor = Perseus.Editor = React.createClass({
         this.props.onChange({content: textarea.value});
     },
 
-    addWidget: function(e) {
-        var widgetType = e.target.value;
-        if (widgetType === "") {
-            // TODO(alpert): Not sure if change will trigger here
-            // but might as well be safe
-            return;
-        }
-        e.target.value = "";
-
+    addWidget: function(widgetType) {
         var oldContent = this.props.content;
 
         // Add newlines before "big" widgets like graphs
