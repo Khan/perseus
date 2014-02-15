@@ -102,10 +102,7 @@ var Measurer = React.createClass({
     },
 
     toJSON: function() {
-        return {
-            center: this.protractor.centerPoint.coord,
-            angle: this.protractor.rotation
-        };
+        return {};
     },
 
     simpleValidate: function(rubric) {
