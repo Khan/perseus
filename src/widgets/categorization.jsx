@@ -531,7 +531,7 @@ var Category = React.createClass({
                 <input
                         ref="header"
                         type="text"
-                        onInput={onChangeHeader}
+                        onChange={onChangeHeader}
                         value={self.props.categoryHeader}
                         />
             </div>;
@@ -631,7 +631,7 @@ var CategoryItem = React.createClass({
                 <input
                         ref="editor"
                         type="text"
-                        onInput={onChange}
+                        onChange={onChange}
                         onMouseDown={mouseDownEditor}
                         value={content}
                         />

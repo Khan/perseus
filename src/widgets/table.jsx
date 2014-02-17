@@ -159,7 +159,7 @@ var TableEditor = React.createClass({
                         ref="numberOfColumns"
                         type="text"
                         value={this.props.numRawColumns}
-                        onInput={this.onSizeInput}
+                        onChange={this.onSizeInput}
                     />
                 </label>
             </div>
@@ -170,7 +170,7 @@ var TableEditor = React.createClass({
                         ref="numberOfRows"
                         type="text"
                         value={this.props.numRawRows}
-                        onInput={this.onSizeInput}
+                        onChange={this.onSizeInput}
                     />
                 </label>
             </div>
@@ -220,7 +220,7 @@ var TableEditor = React.createClass({
                                         <input
                                             ref={"answer" + r + "," + c}
                                             type="text"
-                                            onInput={self.onAnswerInput}
+                                            onChange={self.onAnswerInput}
                                             value={self.props.answers[r][c]}
                                         />
                                     </td>;

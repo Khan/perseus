@@ -54,45 +54,45 @@ var GraphSettings = React.createClass({
                 <div>x label:
                     <input  type="text"
                             ref="labels-0"
-                            onInput={_.bind(this.changeLabel, this, 0)}
+                            onChange={_.bind(this.changeLabel, this, 0)}
                             value={this.state.labelsTextbox[0]} />
                 </div>
                 <div>y label:
                     <input  type="text"
                             ref="labels-1"
-                            onInput={_.bind(this.changeLabel, this, 1)}
+                            onChange={_.bind(this.changeLabel, this, 1)}
                             value={this.state.labelsTextbox[1]} />
                 </div>
                 <div>x range:
                     <input  type="text"
                             ref="range-0-0"
-                            onInput={_.bind(this.changeRange, this, 0, 0)}
+                            onChange={_.bind(this.changeRange, this, 0, 0)}
                             value={this.state.rangeTextbox[0][0]} />
                     <input  type="text"
                             ref="range-0-1"
-                            onInput={_.bind(this.changeRange, this, 0, 1)}
+                            onChange={_.bind(this.changeRange, this, 0, 1)}
                             value={this.state.rangeTextbox[0][1]} />
                 </div>
                 <div>
                     y range:
                     <input  type="text"
                             ref="range-1-0"
-                            onInput={_.bind(this.changeRange, this, 1, 0)}
+                            onChange={_.bind(this.changeRange, this, 1, 0)}
                             value={this.state.rangeTextbox[1][0]} />
                     <input  type="text"
                             ref="range-1-1"
-                            onInput={_.bind(this.changeRange, this, 1, 1)}
+                            onChange={_.bind(this.changeRange, this, 1, 1)}
                             value={this.state.rangeTextbox[1][1]} />
                 </div>
                 <div>
                     Tick Step:
                     <input  type="text"
                             ref="step-0"
-                            onInput={_.bind(this.changeStep, this, 0)}
+                            onChange={_.bind(this.changeStep, this, 0)}
                             value={this.state.stepTextbox[0]} />
                     <input  type="text"
                             ref="step-1"
-                            onInput={_.bind(this.changeStep, this, 1)}
+                            onChange={_.bind(this.changeStep, this, 1)}
                             value={this.state.stepTextbox[1]} />
                 </div>
                 <div>
@@ -147,21 +147,21 @@ var GraphSettings = React.createClass({
                         <input type="text"
                                 ref="bg-left"
                                 value={this.props.backgroundImage.left}
-                                onInput={
+                                onChange={
                         _.partial(this.changeBackgroundSetting, "left")} />
                     </div>
                     <div>Pixels from bottom:
                         <input type="text"
                                 ref="bg-bottom"
                                 value={this.props.backgroundImage.bottom}
-                                onInput={
+                                onChange={
                         _.partial(this.changeBackgroundSetting, "bottom")} />
                     </div>
                     <div>Image scale:
                         <input type="text"
                                 ref="bg-scale"
                                 value={this.props.backgroundImage.scale}
-                                onInput={
+                                onChange={
                         _.partial(this.changeBackgroundSetting, "scale")} />
                     </div>
                 </div>}

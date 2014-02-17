@@ -108,7 +108,7 @@ var DropdownEditor = React.createClass({
                             <input
                                 type="text"
                                 ref={"editor" + i}
-                                onInput={this.onContentChange.bind(this, i)}
+                                onChange={this.onContentChange.bind(this, i)}
                                 value={choice.content} />
                                 <a href="#" className="simple-button orange"
                                         onClick={this.removeChoice.bind(this, i)}>
