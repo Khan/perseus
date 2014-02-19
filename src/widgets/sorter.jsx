@@ -92,7 +92,7 @@ var SorterEditor = React.createClass({
 
         return <div>
             <div>
-                Correct answer:
+                {' '}Correct answer:{' '}
                 <InfoTip><p>
                     Enter the correct answer (in the correct order) here. The
                     preview on the right will have the cards in a randomized
@@ -107,7 +107,7 @@ var SorterEditor = React.createClass({
                 layout={this.props.layout} />
             <div>
                 <label>
-                    Layout:
+                    {' '}Layout:{' '}
                     <select value={this.props.layout}
                             onChange={this.onLayoutChange}>
                         <option value={HORIZONTAL}>Horizontal</option>

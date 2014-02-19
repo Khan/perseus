@@ -85,7 +85,7 @@ var InteractiveNumberLine = React.createClass({
             <div style={{display: valid ? "" : "none"}}
                     className="graphie" ref="graphieDiv" />
             <div style={{display: valid ? "none" : ""}}>
-                invalid number line configuration
+                {' '}invalid number line configuration{' '}
             </div>
             {inequalityControls}
         </div>;
@@ -337,11 +337,11 @@ var InteractiveNumberLineEditor = React.createClass({
     render: function() {
         return <div>
             <label>
-                min x: <input defaultValue={'' + this.props.range[0]}
+                {' '}min x: <input defaultValue={'' + this.props.range[0]}
                     onBlur={this.onRangeBlur.bind(this, 0)} />
             </label><br />
             <label>
-                max x: <input defaultValue={'' + this.props.range[1]}
+                {' '}max x: <input defaultValue={'' + this.props.range[1]}
                     onBlur={this.onRangeBlur.bind(this, 1)} />
             </label>
             <InfoTip>
@@ -349,7 +349,7 @@ var InteractiveNumberLineEditor = React.createClass({
                 different number formats.</p>
             </InfoTip><br />
             <span>
-                correct:
+                {' '}correct:{' '}
                 <select value={this.props.correctRel}
                         onChange={this.onChange.bind(this, "correctRel")}>
                     <optgroup label="Equality">
@@ -366,7 +366,7 @@ var InteractiveNumberLineEditor = React.createClass({
                     onBlur={this.onNumBlur.bind(this, "correctX")} />
             </span><br /><br />
             <label>
-                label style:
+                {' '}label style:{' '}
                 <select value={this.props.labelStyle}
                         onChange={this.onChange.bind(this, "labelStyle")}>
                     <option value="decimal">Decimals</option>
@@ -379,7 +379,7 @@ var InteractiveNumberLineEditor = React.createClass({
                     onChange={this.props.onChange} />
             </label><br />
             <label>
-                tick step: <input defaultValue={'' + this.props.tickStep}
+                {' '}tick step: <input defaultValue={'' + this.props.tickStep}
                     onBlur={this.onNumBlur.bind(this, "tickStep")} />
             </label>
             <InfoTip>
@@ -387,7 +387,7 @@ var InteractiveNumberLineEditor = React.createClass({
                 indicated.</p>
             </InfoTip><br />
             <label>
-                snap increments per tick:
+                {' '}snap increments per tick:{' '}
                 <input defaultValue={'' + this.props.snapDivisions}
                     onBlur={this.onNumBlur.bind(this, "snapDivisions")} />
             </label>

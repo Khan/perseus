@@ -154,7 +154,7 @@ var TableEditor = React.createClass({
         return <div>
             <div>
                 <label>
-                    Number of columns:
+                    {' '}Number of columns:{' '}
                     <input
                         ref="numberOfColumns"
                         type="text"
@@ -165,7 +165,7 @@ var TableEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Number of rows:
+                    {' '}Number of rows:{' '}
                     <input
                         ref="numberOfRows"
                         type="text"
@@ -175,7 +175,7 @@ var TableEditor = React.createClass({
                 </label>
             </div>
             <div>
-                Table of answers type:
+                {' '}Table of answers type:{' '}
                 <ul>
                     <li>
                         <label>
@@ -183,7 +183,7 @@ var TableEditor = React.createClass({
                                 type="radio"
                                 checked="checked"
                             />
-                            Set of values (complete)
+                            {' '}Set of values (complete){' '}
                         </label>
                         <InfoTip>
                             <p>The student has to fill out all cells in the

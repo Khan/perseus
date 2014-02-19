@@ -488,7 +488,7 @@ var OrdererEditor = React.createClass({
 
         return <div className="perseus-widget-orderer">
             <div>
-                Correct answer:
+                {' '}Correct answer:{' '}
                 <InfoTip><p>
                     Place the cards in the correct order. The same card can be
                     used more than once in the answer but will only be 
@@ -501,7 +501,7 @@ var OrdererEditor = React.createClass({
                 layout={this.props.layout} />
 
             <div>
-                Other cards:
+                {' '}Other cards:{' '}
                 <InfoTip>
                     <p>Create cards that are not part of the answer.</p>
                 </InfoTip>
@@ -513,7 +513,7 @@ var OrdererEditor = React.createClass({
 
             <div>
                 <label>
-                    Layout:
+                    {' '}Layout:{' '}
                     <select value={this.props.layout}
                             onChange={this.onLayoutChange}>
                         <option value={HORIZONTAL}>Horizontal</option>
@@ -528,7 +528,7 @@ var OrdererEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Height:
+                    {' '}Height:{' '}
                     <select value={this.props.height}
                             onChange={this.onHeightChange}>
                         <option value={NORMAL}>Normal</option>

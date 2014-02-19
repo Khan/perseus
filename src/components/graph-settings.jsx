@@ -51,19 +51,19 @@ var GraphSettings = React.createClass({
     render: function() {
         return <div>
             <div className="graph-settings">
-                <div>x label:
+                <div>x label:{' '}
                     <input  type="text"
                             ref="labels-0"
                             onChange={_.bind(this.changeLabel, this, 0)}
                             value={this.state.labelsTextbox[0]} />
                 </div>
-                <div>y label:
+                <div>y label:{' '}
                     <input  type="text"
                             ref="labels-1"
                             onChange={_.bind(this.changeLabel, this, 1)}
                             value={this.state.labelsTextbox[1]} />
                 </div>
-                <div>x range:
+                <div>x range:{' '}
                     <input  type="text"
                             ref="range-0-0"
                             onChange={_.bind(this.changeRange, this, 0, 0)}
@@ -74,7 +74,7 @@ var GraphSettings = React.createClass({
                             value={this.state.rangeTextbox[0][1]} />
                 </div>
                 <div>
-                    y range:
+                    {' '}y range:{' '}
                     <input  type="text"
                             ref="range-1-0"
                             onChange={_.bind(this.changeRange, this, 1, 0)}
@@ -85,7 +85,7 @@ var GraphSettings = React.createClass({
                             value={this.state.rangeTextbox[1][1]} />
                 </div>
                 <div>
-                    Tick Step:
+                    {' '}Tick Step:{' '}
                     <input  type="text"
                             ref="step-0"
                             onChange={_.bind(this.changeStep, this, 0)}
@@ -96,7 +96,7 @@ var GraphSettings = React.createClass({
                             value={this.state.stepTextbox[1]} />
                 </div>
                 <div>
-                    Grid Step:
+                    {' '}Grid Step:{' '}
                     <NumberInput
                         ref="grid-step-0"
                         onChange={_.bind(this.changeGridStep, this, 0)}
@@ -107,7 +107,7 @@ var GraphSettings = React.createClass({
                         value={this.state.gridStepTextbox[1]} />
                 </div>
                 <div>
-                    Snap Step:
+                    {' '}Snap Step:{' '}
                     <NumberInput
                         ref="snap-step-0"
                         onChange={_.bind(this.changeSnapStep, this, 0)}
@@ -118,7 +118,7 @@ var GraphSettings = React.createClass({
                         value={this.state.snapStepTextbox[1]} />
                 </div>
                 <div>
-                    <label>Markings:
+                    <label>Markings:{' '}
                         <select value={this.props.markings}
                                 onChange={this.changeMarkings}>
                             <option value="graph">Graph (axes + grid)</option>
@@ -130,7 +130,7 @@ var GraphSettings = React.createClass({
             </div>
             <div className="image-settings">
                 <div>Background image:</div>
-                <div>Url:
+                <div>Url:{' '}
                     <input type="text"
                             className="graph-settings-background-url"
                             ref="bg-url"
@@ -143,21 +143,21 @@ var GraphSettings = React.createClass({
                     </InfoTip>
                 </div>
                 {this.props.backgroundImage.url && <div>
-                    <div>Pixels from left:
+                    <div>Pixels from left:{' '}
                         <input type="text"
                                 ref="bg-left"
                                 value={this.props.backgroundImage.left}
                                 onChange={
                         _.partial(this.changeBackgroundSetting, "left")} />
                     </div>
-                    <div>Pixels from bottom:
+                    <div>Pixels from bottom:{' '}
                         <input type="text"
                                 ref="bg-bottom"
                                 value={this.props.backgroundImage.bottom}
                                 onChange={
                         _.partial(this.changeBackgroundSetting, "bottom")} />
                     </div>
-                    <div>Image scale:
+                    <div>Image scale:{' '}
                         <input type="text"
                                 ref="bg-scale"
                                 value={this.props.backgroundImage.scale}
@@ -169,7 +169,7 @@ var GraphSettings = React.createClass({
             <div className="misc-settings">
                 <div>
                     <label>
-                        Show protractor:
+                        {' '}Show protractor:{' '}
                         <input type="checkbox"
                             checked={this.props.showProtractor}
                             onClick={this.toggleShowProtractor} />
@@ -177,7 +177,7 @@ var GraphSettings = React.createClass({
                 </div>
                 <div>
                     <label>
-                        Show ruler:
+                        {' '}Show ruler:{' '}
                         <input type="checkbox"
                             checked={this.props.showRuler}
                             onClick={this.toggleShowRuler} />
@@ -186,7 +186,7 @@ var GraphSettings = React.createClass({
                 {this.props.showRuler && <div>
                     <div>
                         <label>
-                            Ruler label:
+                            {' '}Ruler label:{' '}
                             <select
                                 onChange={this.changeRulerLabel}
                                 value={this.props.rulerLabel} >
@@ -212,7 +212,7 @@ var GraphSettings = React.createClass({
                     </div>
                     <div>
                         <label>
-                            Ruler ticks:
+                            {' '}Ruler ticks:{' '}
                             <select
                                 onChange={this.changeRulerTicks}
                                 value={this.props.rulerTicks} >

@@ -395,7 +395,7 @@ var InteractiveGraph = React.createClass({
                         </select>
                     </div>
                     <div>
-                        <label> Snap to
+                        <label> Snap to{' '}
                             <select
                                 key="polygon-snap"
                                 value={this.props.graph.snapTo}
@@ -411,10 +411,10 @@ var InteractiveGraph = React.createClass({
                                 <option value="grid">grid</option>
                                 {(this.props.graph.numSides !== UNLIMITED) && [
                                     <option value="angles">
-                                        interior angles
+                                        {' '}interior angles{' '}
                                     </option>,
                                     <option value="sides">
-                                        side measures
+                                        {' '}side measures{' '}
                                     </option>
                                 ]}
                             </select>
@@ -426,11 +426,11 @@ var InteractiveGraph = React.createClass({
 
                             <p>The interior angle and side measure options
                             guide the points to the nearest whole angle or
-                            side</p> measure respectively.
+                            side</p> measure respectively.{' '}
                         </InfoTip>
                     </div>
                     <div>
-                        <label>Show angle measures:
+                        <label>Show angle measures:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showAngles}
                                 onClick={this.toggleShowAngles} />
@@ -440,7 +440,7 @@ var InteractiveGraph = React.createClass({
                         </InfoTip>
                     </div>
                     <div>
-                        <label>Show side measures:
+                        <label>Show side measures:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showSides}
                                 onClick={this.toggleShowSides} />
@@ -477,14 +477,14 @@ var InteractiveGraph = React.createClass({
                 );
                 extraOptions = <div>
                     <div>
-                        <label>Show angle measure:
+                        <label>Show angle measure:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showAngles}
                                 onClick={this.toggleShowAngles} />
                         </label>
                     </div>
                     <div>
-                        <label>Allow reflex angles:
+                        <label>Allow reflex angles:{' '}
                             <input type="checkbox"
                                 checked={allowReflexAngles}
                                 onClick={function(newVal) {
@@ -508,7 +508,7 @@ var InteractiveGraph = React.createClass({
                         </InfoTip>
                     </div>
                     <div>
-                        <label>Snap to increments of
+                        <label>Snap to increments of{' '}
                             <NumberInput
                                 key="degree-snap"
                                 allowEmpty={false}
@@ -521,12 +521,12 @@ var InteractiveGraph = React.createClass({
                                         })
                                     });
                                 }.bind(this)} />
-                            degrees
+                            {' '}degrees{' '}
                         </label>
                     </div>
                     <div>
                         <label>
-                            With an offset of
+                            {' '}With an offset of{' '}
                             <NumberInput
                                 key="angle-offset"
                                 allowEmpty={false}
@@ -539,7 +539,7 @@ var InteractiveGraph = React.createClass({
                                         })
                                     });
                                 }.bind(this)} />
-                            degrees
+                            {' '}degrees{' '}
                         </label>
                     </div>
                 </div>;
@@ -2142,13 +2142,13 @@ var InteractiveGraphEditor = React.createClass({
         }
 
         return <div className="perseus-widget-interactive-graph">
-            <div>Correct answer
+            <div>Correct answer{' '}
                 <InfoTip>
                     <p>Graph the correct answer in the graph below and ensure
                     the equation or point coordinates displayed represent the
                     correct answer.</p>
                 </InfoTip>
-                : {equationString}</div>
+                {' '}: {equationString}</div>
 
 
             <GraphSettings
@@ -2171,13 +2171,14 @@ var InteractiveGraphEditor = React.createClass({
             {this.props.correct.type === "polygon" &&
             <div className="type-settings">
                 <label>
-                    Student answer must
+                    {' '}Student answer must{' '}
                     <select
                             value={this.props.correct.match}
                             onChange={this.changeMatchType}>
                         <option value="exact">match exactly</option>
                         <option value="congruent">be congruent</option>
-                        <option value="approx">be approximately congruent</option>
+                        <option value="approx">
+                            be approximately congruent</option>
                         <option value="similar">be similar</option>
                     </select>
                 </label>
@@ -2194,11 +2195,11 @@ var InteractiveGraphEditor = React.createClass({
                         </li>
                         <li>
                             <p>
-                                <b>Be Approximately Congruent:</b>
-                                Be exactly similar, and congruent in size and
-                                shape to within 0.1 units, but can be located
-                                anywhere on the grid. <em>Use this with
-                                snapping to angle measure.</em>
+                                <b>Be Approximately Congruent:</b> Be exactly
+                                similar, and congruent in size and shape to
+                                within 0.1 units, but can be located anywhere
+                                on the grid. <em>Use this with snapping to
+                                angle measure.</em>
                             </p>
                         </li>
                         <li>
@@ -2215,7 +2216,7 @@ var InteractiveGraphEditor = React.createClass({
             <div className="type-settings">
                 <div>
                     <label>
-                        Student answer must
+                        {' '}Student answer must{' '}
                         <select
                                 value={this.props.correct.match}
                                 onChange={this.changeMatchType}>

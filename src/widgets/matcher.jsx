@@ -145,7 +145,7 @@ var MatcherEditor = React.createClass({
     render: function() {
         return <div className="perseus-matcher-editor">
             <div>
-                Correct answer:
+                {' '}Correct answer:{' '}
                 <InfoTip>
                     <p>Enter the correct answers here. The preview on the right
                     will show the cards in a randomized order, which is how the
@@ -167,7 +167,7 @@ var MatcherEditor = React.createClass({
                     layout="vertical" />
             </div>
             <span>
-                Labels:
+                {' '}Labels:{' '}
                 <InfoTip>
                     <p>These are entirely optional.</p>
                 </InfoTip>
@@ -191,8 +191,8 @@ var MatcherEditor = React.createClass({
                     significant, such as in the context of a proof.</p>
                     <p>If disabled, pairwise matching is sufficient. To make
                     this clear, the left column becomes fixed in the provided
-                    order and only the cards in the right column can be moved.
-                    </p>
+                    order and only the cards in the right column can be
+                    moved.</p>
                 </InfoTip>
             </div>
             <div>

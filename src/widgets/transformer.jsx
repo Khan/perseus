@@ -384,7 +384,7 @@ var Transformations = {
         Input: React.createClass({
             render: function() {
                 return <div>
-                    Translation by
+                    {' '}Translation by{' '}
                     <TeX>\langle</TeX>
                     <NumberInput
                         ref="x"
@@ -455,7 +455,7 @@ var Transformations = {
         Input: React.createClass({
             render: function() {
                 return <div>
-                    Rotation about <TeX>(</TeX>
+                    {' '}Rotation about <TeX>(</TeX>
                     <NumberInput
                         ref="centerX"
                         placeholder={0}
@@ -467,7 +467,7 @@ var Transformations = {
                         placeholder={0}
                         value={this.props.center[1]}
                         onChange={this.props.onChange} />
-                    <TeX>)</TeX> by
+                    <TeX>)</TeX> by{' '}
                     <NumberInput
                         ref="angleDeg"
                         placeholder={0}
@@ -535,7 +535,7 @@ var Transformations = {
         Input: React.createClass({
             render: function() {
                 return <div>
-                    Reflection over the line from
+                    {' '}Reflection over the line from{' '}
                     <TeX>(</TeX>
                     <NumberInput
                         ref="x1"
@@ -621,7 +621,7 @@ var Transformations = {
         Input: React.createClass({
             render: function() {
                 return <div>
-                    Dilation about
+                    {' '}Dilation about{' '}
                     <TeX>(</TeX>
                     <NumberInput
                         ref="x"
@@ -634,7 +634,7 @@ var Transformations = {
                         placeholder={0}
                         value={this.props.center[1]}
                         onChange={this.props.onChange} />
-                    <TeX>)</TeX> by scale
+                    <TeX>)</TeX> by scale{' '}
                     <NumberInput
                         ref="scale"
                         placeholder={1}
@@ -1095,7 +1095,7 @@ var ToolSettings = React.createClass({
 
     render: function() {
         return <div>
-            {this.props.name}:
+            {this.props.name}:{' '}
             {" "}
             <PropCheckBox
                 label="enabled:"
@@ -1145,38 +1145,38 @@ var TransformationExplorerSettings = React.createClass({
 
         return <div className="transformer-settings">
             <div>
-                Mode:
+                {' '}Mode:{' '}
                 <select value={this.getMode()}
                         onChange={this.changeMode}>
                     <option value="interactive,dynamic">
-                        Exploration with text
+                        {' '}Exploration with text{' '}
                     </option>
                     <option value="interactive,static">
-                        Exploration without text
+                        {' '}Exploration without text{' '}
                     </option>
                     <option value="dynamic,interactive">
-                        Formal with movement
+                        {' '}Formal with movement{' '}
                     </option>
                     <option value="static,interactive">
-                        Formal without movement
+                        {' '}Formal without movement{' '}
                     </option>
                 </select>
                 <InfoTip>
                     <ul>
                         <li>
                             <b>Exploration:</b> Students create
-                            transformations with tools on the graph.
+                            transformations with tools on the graph.{' '}
                         </li>
                         <li>
                             <b>Formal with movement:</b> Students specify
                             transformations mathematically in the
                             transformation list. Graph shows the results of
-                            these transformations.
+                            these transformations.{' '}
                         </li>
                         <li>
                             <b>Formal without movement:</b> Students specify
                             transformations mathematically in the
-                            transformation list. Graph does not update.
+                            transformation list. Graph does not update.{' '}
                         </li>
                     </ul>
                 </InfoTip>
@@ -1258,7 +1258,7 @@ var TransformationsShapeEditor = React.createClass({
                 <option value="line,line">2 lines</option>
                 <option value="lineSegment">Line segment</option>
                 <option value="lineSegment,lineSegment">
-                    2 line segments
+                    {' '}2 line segments{' '}
                 </option>
                 <option value="angle">Angle</option>
                 <option value="circle">Circle</option>
@@ -1414,7 +1414,7 @@ var ToolsBar = React.createClass({
                     onClick={this.props.onUndoClick}>
                 <span className="icon-undo" />
                 {" "}
-                Undo
+                {' '}Undo{' '}
             </button>
             <div className="clear"></div>
         </div>;
@@ -1459,7 +1459,7 @@ var AddTransformBar = React.createClass({
                     onClick={this.props.onUndoClick}>
                 <span className="icon-undo" />
                 {" "}
-                Undo
+                {' '}Undo{' '}
             </button>
             <div className="clear"></div>
         </div>;
@@ -1531,7 +1531,7 @@ var Transformer = React.createClass({
             {this.props.graphMode === "static" && [
                 <br key="static-br" />,
                 <em key="static-nomove">
-                    Note: For this question, the shape will not move.
+                    {' '}Note: For this question, the shape will not move.{' '}
                 </em>
             ]}
 

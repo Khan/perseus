@@ -145,7 +145,7 @@ var MeasurerEditor = React.createClass({
     render: function() {
         return <div className="perseus-widget-measurer">
             <div>Image displayed under protractor and/or ruler:</div>
-            <div>URL:
+            <div>URL:{' '}
                 <input type="text"
                         className="perseus-widget-measurer-url"
                         ref="image-url"
@@ -158,13 +158,13 @@ var MeasurerEditor = React.createClass({
             </InfoTip>
             </div>
             {this.props.imageUrl && <div>
-                <div>Pixels from top:
+                <div>Pixels from top:{' '}
                     <NumberInput
                         allowEmpty={false}
                         onChange={_.partial(this.changeSetting, "imageTop")}
                         value={this.props.imageTop} />
                 </div>
-                <div>Pixels from left:
+                <div>Pixels from left:{' '}
                     <NumberInput
                         allowEmpty={false}
                         onChange={_.partial(this.changeSetting, "imageLeft")}
@@ -173,7 +173,7 @@ var MeasurerEditor = React.createClass({
             </div>}
             <div>
                 <label>
-                    Show protractor:
+                    {' '}Show protractor:{' '}
                     <input type="checkbox"
                         checked={this.props.showProtractor}
                         onClick={this.toggleShowProtractor} />
@@ -181,7 +181,7 @@ var MeasurerEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Show ruler:
+                    {' '}Show ruler:{' '}
                     <input type="checkbox"
                         checked={this.props.showRuler}
                         onClick={this.toggleShowRuler} />
@@ -190,7 +190,7 @@ var MeasurerEditor = React.createClass({
             {this.props.showRuler && <div>
             <div>
                 <label>
-                    Ruler label:
+                    {' '}Ruler label:{' '}
                     <select
                         onChange={this.changeRulerLabel}
                         value={this.props.rulerLabel} >
@@ -216,7 +216,7 @@ var MeasurerEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Ruler ticks:
+                    {' '}Ruler ticks:{' '}
                     <select
                         onChange={_.partial(this.changeSetting, "rulerTicks")}
                         value={this.props.rulerTicks} >
@@ -228,7 +228,7 @@ var MeasurerEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Ruler pixels per unit:
+                    {' '}Ruler pixels per unit:{' '}
                     <NumberInput
                         allowEmpty={false}
                         onChange={_.partial(this.changeSetting, "rulerPixels")}
@@ -237,7 +237,7 @@ var MeasurerEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Ruler length in units:
+                    {' '}Ruler length in units:{' '}
                     <NumberInput
                         allowEmpty={false}
                         onChange={_.partial(this.changeSetting, "rulerLength")}

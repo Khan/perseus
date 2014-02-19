@@ -282,7 +282,7 @@ var ExpressionEditor = React.createClass({
 
         return <div>
             <div><label>
-                Correct answer:
+                {' '}Correct answer:{' '}
                 <Expression ref="expression"
                     currentValue={this.props.value}
                     times={this.props.times}
@@ -347,9 +347,9 @@ var ExpressionEditor = React.createClass({
                     onChange={this.handleFunctions} />
                 </label>
                 <InfoTip><p>
-                    Single-letter variables listed here will be interpreted as
-                    functions. This let us know that f(x) means "f of x" and
-                    not "f times x".
+                    {' '}Single-letter variables listed here will be
+                    interpreted as functions. This let us know that f(x) means
+                    "f of x" and not "f times x".{' '}
                 </p></InfoTip>
             </div>
         </div>;

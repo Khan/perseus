@@ -103,34 +103,34 @@ var WidgetSelect = React.createClass({
             <option value="">Add a widget{"\u2026"}</option>
             <option disabled>--</option>
             <option value="input-number">
-                    Text input (number)</option>
+                    {' '}Text input (number)</option>
             <option value="expression">
-                    Expression / Equation</option>
+                    {' '}Expression / Equation</option>
             <option value="radio">
-                    Multiple choice</option>
+                    {' '}Multiple choice</option>
             <option value="interactive-graph">
-                    Interactive graph</option>
+                    {' '}Interactive graph</option>
             <option value="interactive-number-line">
-                    Interactive number line</option>
+                    {' '}Interactive number line</option>
             <option value="categorization">
-                    Categorization</option>
+                    {' '}Categorization</option>
             <option value="plotter">
-                    Plotter</option>
+                    {' '}Plotter</option>
             <option value="table">
-                    Table of values</option>
+                    {' '}Table of values</option>
             <option value="dropdown">
-                    Drop down</option>
+                    {' '}Drop down</option>
             <option value="orderer">
-                    Orderer</option>
+                    {' '}Orderer</option>
             <option value="measurer">
-                    Measurer</option>
+                    {' '}Measurer</option>
             <option value="transformer">
-                    Transformer</option>
+                    {' '}Transformer</option>
             <option value="matcher">
-                    Two column matcher</option>
+                    {' '}Two column matcher</option>
             <option value="sorter">
-                    Sorter</option>
-        </select>
+                    {' '}Sorter</option>
+        </select>;
     }
 });
 

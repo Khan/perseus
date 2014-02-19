@@ -110,10 +110,10 @@ var DropdownEditor = React.createClass({
                                 ref={"editor" + i}
                                 onChange={this.onContentChange.bind(this, i)}
                                 value={choice.content} />
-                                <a href="#" className="simple-button orange"
-                                        onClick={this.removeChoice.bind(this, i)}>
-                                    <span className="icon-trash remove-choice" />
-                                </a>
+                            <a href="#" className="simple-button orange"
+                                    onClick={this.removeChoice.bind(this, i)}>
+                                <span className="icon-trash remove-choice" />
+                            </a>
                         </div>
                     </li>;
                 }, this)}
@@ -123,7 +123,7 @@ var DropdownEditor = React.createClass({
                 <a href="#" className="simple-button orange"
                         onClick={this.addChoice}>
                     <span className="icon-plus" />
-                    Add a choice
+                    {' '}Add a choice{' '}
                 </a>
             </div>
         </div>;

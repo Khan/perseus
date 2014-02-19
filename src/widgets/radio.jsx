@@ -214,7 +214,7 @@ var RadioEditor = React.createClass({
                 <a href="#" className="simple-button orange"
                         onClick={this.addChoice}>
                     <span className="icon-plus" />
-                    Add a choice
+                    {' '}Add a choice{' '}
                 </a>
             </div>
 
@@ -225,7 +225,7 @@ var RadioEditor = React.createClass({
                     onChange={function(e) {
                         this.props.onChange({randomize: e.target.checked});
                     }.bind(this)} />
-                Randomize answer order
+                {' '}Randomize answer order{' '}
             </label>
             <InfoTip>
                 <p>For this option to work, don’t label choices or have "None
@@ -240,7 +240,7 @@ var RadioEditor = React.createClass({
                     type="checkbox"
                     checked={this.props.multipleSelect}
                     onChange={this.onMultipleSelectChange} />
-                Allow multiple selections
+                {' '}Allow multiple selections{' '}
             </label></div>
         </div>;
     },

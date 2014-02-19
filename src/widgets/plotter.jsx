@@ -600,7 +600,7 @@ var PlotterEditor = React.createClass({
                            this.props.type === HISTOGRAM;
         return <div className="perseus-widget-plotter-editor">
             <div>
-                Chart type:
+                {' '}Chart type:{' '}
                 {_.map([BAR, LINE, PIC, HISTOGRAM], function(type) {
                     return <label key={type}>
                         <input
@@ -613,7 +613,7 @@ var PlotterEditor = React.createClass({
                 }, this)}
             </div>
             <div>
-                Labels:
+                {' '}Labels:{' '}
                 {_.map(["x", "y"], function(axis, i) {
                     return <label key={axis}>
                         {axis + ":"}
@@ -627,7 +627,7 @@ var PlotterEditor = React.createClass({
             {setFromScale && <div>
                 <div>
                     <label>
-                        Scale (x):
+                        {' '}Scale (x):{' '}
                         <input
                             type="text"
                             ref="scaleX" />
@@ -635,7 +635,7 @@ var PlotterEditor = React.createClass({
                 </div>
                 <div>
                     <label>
-                        Max x:
+                        {' '}Max x:{' '}
                         <input
                             type="text"
                             ref="maxX" />
@@ -643,7 +643,7 @@ var PlotterEditor = React.createClass({
                 </div>
                 <div>
                     <button onClick={this.setCategoriesFromScale}>
-                        Set categories from scale
+                        {' '}Set categories from scale{' '}
                     </button>
                     <InfoTip>
                       <p>Automatically sets categories according to the x-axis
@@ -653,7 +653,7 @@ var PlotterEditor = React.createClass({
             </div>}
             {this.props.type === PIC && <div>
                 <label>
-                    Picture:
+                    {' '}Picture:{' '}
                     <input
                         type="text"
                         className="pic-url"
@@ -668,7 +668,7 @@ var PlotterEditor = React.createClass({
             </div>}
             <div>
                 <label>
-                    Categories:
+                    {' '}Categories:{' '}
                     <TextListEditor
                         ref="categories"
                         layout="horizontal"
@@ -678,7 +678,7 @@ var PlotterEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Scale (y):
+                    {' '}Scale (y):{' '}
                     <input
                         type="text"
                         onChange={this.changeScale}
@@ -687,7 +687,7 @@ var PlotterEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Max y:
+                    {' '}Max y:{' '}
                     <input
                         type="text"
                         ref="maxY"
@@ -697,7 +697,7 @@ var PlotterEditor = React.createClass({
             </div>
             {this.props.type !== PIC && <div>
                 <label>
-                    Snaps per line:
+                    {' '}Snaps per line:{' '}
                     <input
                         type="text"
                         onChange={this.changeSnaps}
@@ -710,7 +710,7 @@ var PlotterEditor = React.createClass({
                 </InfoTip>
             </div>}
             <div>
-                Editing values:
+                {' '}Editing values:{' '}
                 {_.map(["correct", "starting"], function(editing) {
                     return <label key={editing}>
                         <input

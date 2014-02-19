@@ -120,7 +120,7 @@ Perseus.EditorPage = React.createClass({
             {this.props.developerMode &&
                 <div>
                     <label>
-                        Developer JSON Mode:
+                        {' '}Developer JSON Mode:{' '}
                         <input type="checkbox"
                             checked={this.props.jsonMode}
                             onClick={this.toggleJsonMode} />

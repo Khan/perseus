@@ -160,7 +160,7 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
             <div><label>
-                Show calculator:
+                {' '}Show calculator:{' '}
                 <input type="checkbox" checked={this.props.calculator}
                     onChange={function(e) {
                         this.props.onChange({calculator: e.target.checked});
@@ -174,7 +174,7 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
             </InfoTip>
             </div>
             <div><label>
-                Answer type:
+                {' '}Answer type:{' '}
                 <select value={this.props.type}
                         onChange={function(e) {
                             this.props.onChange({

@@ -73,7 +73,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
                             this.props.onRemove();
                             return false;
                         }.bind(this)}>
-                    <span className="icon-trash" /> Remove this hint
+                    <span className="icon-trash" /> Remove this hint{' '}
                 </a>
             </div>
         </div>;
@@ -177,7 +177,7 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
 
         return <div className="perseus-hints-container perseus-editor-table">
             <LeftColumnHintsTableCell className="perseus-hints-title">
-                Hints:
+                {' '}Hints:{' '}
             </LeftColumnHintsTableCell>
 
             {hintElems}
@@ -186,7 +186,7 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
                 <a href="#" className="simple-button orange"
                         onClick={this.addHint}>
                     <span className="icon-plus" />
-                    Add a hint
+                    {' '}Add a hint{' '}
                 </a>
             </LeftColumnHintsTableCell>
         </div>;

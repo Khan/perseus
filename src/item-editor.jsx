@@ -64,7 +64,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                 <div className="perseus-editor-right-cell">
                     <div id="answer_area">
                         <span id="examples-show" style={{display: "none"}}>
-                            Acceptable formats
+                            {' '}Acceptable formats{' '}
                         </span>
                         <div id="solutionarea" className="solutionarea" />
                         <div className="answer-buttons">

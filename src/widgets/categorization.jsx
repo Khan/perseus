@@ -682,12 +682,12 @@ var CategorizationEditor = React.createClass({
             <div className="categorization-editor-area">
                 <div className="add-item">
                     <button onClick={self.addItem}>
-                        Add an item
+                        {' '}Add an item{' '}
                     </button>
                 </div>
                 <div className="add-category">
                     <button onClick={self.onAddCategory}>
-                        Add a category
+                        {' '}Add a category{' '}
                     </button>
                 </div>
             </div>
