@@ -356,14 +356,11 @@
 }
 
 .perseus-widget-radio {
-    input[type=radio] + div {
-        padding-left: 8px;
+    .choice-editor.correct textarea {
+        background: #ddffdd;
     }
-    input[type=radio]:checked + div > textarea {
-        background: #80ff80;
-    }
-    input[type=radio]:not(:checked) + div > textarea {
-        background: #ff8080;
+    .choice-editor.incorrect textarea {
+        background: #ffdddd;
     }
 }
 

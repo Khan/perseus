@@ -24,12 +24,14 @@ var BaseRadio = React.createClass({
             {this.props.choices.map(function(choice, i) {
 
                 var content = <div>
-                        <input
-                            ref={"radio" + i}
-                            type={inputType}
-                            name={radioGroupName}
-                            checked={choice.checked}
-                            onChange={this.onChange.bind(this, i)} />
+                        <span className="checkbox">
+                            <input
+                                ref={"radio" + i}
+                                type={inputType}
+                                name={radioGroupName}
+                                checked={choice.checked}
+                                onChange={this.onChange.bind(this, i)} />
+                        </span>
                         {choice.content}
                     </div>;
 
@@ -200,8 +202,12 @@ var RadioEditor = React.createClass({
                             onClick={this.onDelete.bind(this, i)}>
                         <span className="icon-trash" />
                     </a>;
+                    var checkedClass = choice.correct ?
+                        "correct" :
+                        "incorrect";
                     return {
-                        content: <div className="choice-editor">
+                        content: <div
+                                className={"choice-editor " + checkedClass}>
                             {editor}
                             {this.props.choices.length >= 2 && deleteLink}
                         </div>,
