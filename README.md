@@ -41,6 +41,19 @@ components: a renderer (NumberInput), and an editor (NumberInputEditor).
 These are defined in src/widgets/number-input.jsx, and registered at the
 bottom of that file. That file is then require'd by src/all-widgets.js.
 
+## Mini-Projects
+
+Want to help out? Here are some well-scoped problems for you:
+- **Allow validation of user input for the renderer:** At the moment, we have
+  a file, test.html, which has an editor on the left and a renderer on the right.
+  On the top-left is a "Score" button which allows you to see in the console what
+  is returned `{correct: true, empty: false, message: "hi"}` given the input on the
+  renderer. Essentially you'd be moving the logic behind that "Score" button to the
+  big, currently disabled, green "Check Answer" button. On checking, it should show
+  the smiley (if correct), shake (if wrong) and show a message (if there is one, 
+  whether it is right, wrong, or ungraded). Then rather than go to the next problem,
+  if clicked again, it should reset the page to what it originally was before user input.
+
 ## Questions?
 
 This was written rather hastily, and is probably not in-depth enough to
