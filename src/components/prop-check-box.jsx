@@ -44,7 +44,7 @@ var PropCheckBox = React.createClass({
             {this._labelAlignLeft() && this.props.label}
             <input type="checkbox"
                     checked={this.props[propName]}
-                    onClick={this.toggle} />
+                    onChange={this.toggle} />
             {!this._labelAlignLeft() && this.props.label}
         </label>;
     },

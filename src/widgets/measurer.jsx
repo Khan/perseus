@@ -176,7 +176,7 @@ var MeasurerEditor = React.createClass({
                     {' '}Show protractor:{' '}
                     <input type="checkbox"
                         checked={this.props.showProtractor}
-                        onClick={this.toggleShowProtractor} />
+                        onChange={this.toggleShowProtractor} />
                 </label>
             </div>
             <div>
@@ -184,7 +184,7 @@ var MeasurerEditor = React.createClass({
                     {' '}Show ruler:{' '}
                     <input type="checkbox"
                         checked={this.props.showRuler}
-                        onClick={this.toggleShowRuler} />
+                        onChange={this.toggleShowRuler} />
                 </label>
             </div>
             {this.props.showRuler && <div>

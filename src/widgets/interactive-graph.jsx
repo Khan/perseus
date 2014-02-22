@@ -433,7 +433,7 @@ var InteractiveGraph = React.createClass({
                         <label>Show angle measures:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showAngles}
-                                onClick={this.toggleShowAngles} />
+                                onChange={this.toggleShowAngles} />
                         </label>
                         <InfoTip>
                             <p>Displays the interior angle measures.</p>
@@ -443,7 +443,7 @@ var InteractiveGraph = React.createClass({
                         <label>Show side measures:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showSides}
-                                onClick={this.toggleShowSides} />
+                                onChange={this.toggleShowSides} />
                         </label>
                         <InfoTip>
                             <p>Displays the side lengths.</p>
@@ -480,14 +480,14 @@ var InteractiveGraph = React.createClass({
                         <label>Show angle measure:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showAngles}
-                                onClick={this.toggleShowAngles} />
+                                onChange={this.toggleShowAngles} />
                         </label>
                     </div>
                     <div>
                         <label>Allow reflex angles:{' '}
                             <input type="checkbox"
                                 checked={allowReflexAngles}
-                                onClick={function(newVal) {
+                                onChange={function(newVal) {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             allowReflexAngles:
