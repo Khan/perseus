@@ -43,8 +43,8 @@ bottom of that file. That file is then require'd by src/all-widgets.js.
 
 ## Mini-Projects
 
-Want to help out? Here are some well-scoped problems for you:
-- **Allow validation of user input for the renderer:** At the moment, we have
+Want to help out? Here are some well-scoped improvements we could use:
+- **Allow validation of user input for the item-renderer in test.html:** At the moment, we have
   a file, test.html, which has an editor on the left and a renderer on the right.
   On the top-left is a "Score" button which allows you to see in the console what
   is returned `{correct: true, empty: false, message: "hi"}` given the input on the
@@ -53,6 +53,16 @@ Want to help out? Here are some well-scoped problems for you:
   the smiley (if correct), shake (if wrong) and show a message (if there is one, 
   whether it is right, wrong, or ungraded). Then rather than go to the next problem,
   if clicked again, it should reset the page to what it originally was before user input.
+- **Add angle-snapping to rays in src/widgets/interactive-graph:** Both points on a ray
+  currently snap to the graphie grid. However, for many questions, we care about the angle
+  of the ray, and would rather snap to degree multiples, say 5, 10, 15, degrees....
+  To change this, take a look at how angle snapping works in the interactive-graph
+  angle. Specifically, we would probably want to add a new dropdown for snap mode, set
+  to maybe "grid" or "angle", and when set to angle, there would be additional
+  snapDegrees and snapOffset props (the same ones used by the angle shape).
+- **Add a coefficient type:** Add a type to input-number for use as a coeffient in
+  polynomials. It would accept "" to mean 1 (an empty box in front of `x` means `1x`),
+  and "-" as "-1", in addition to decimals and fractions.
 
 ## Questions?
 
