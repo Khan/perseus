@@ -63,11 +63,11 @@ Want to help out? Here are some well-scoped improvements we could use:
 - **Add a coefficient type:** Add a type to input-number for use as a coeffient in
   polynomials. It would accept "" to mean 1 (an empty box in front of `x` means `1x`),
   and "-" as "-1", in addition to decimals and fractions.
- - **Fix the width of the renderer:**
-   When making an item that's too wide, the perseus editor just expands the question
-   area horizontally instead of making it obvious that you're making something too wide.
-   We'd like to fix the width so that it doesn't expand based on the width of the content
-   inside it.
+- **Fix the width of the renderer:**
+  When making an item that's too wide, the perseus editor just expands the question
+  area horizontally instead of making it obvious that you're making something too wide.
+  We'd like to fix the width so that it doesn't expand based on the width of the content
+  inside it.
 
 ## Questions?
 
