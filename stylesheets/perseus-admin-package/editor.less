@@ -1,7 +1,46 @@
+// Variables
+// Should be consistent with webapp's variables.less
+
+// Additional (not in webapp variables.less) variables
+
+@podBorderRadius:       5px;
+
+// Mixins
+// Should be consistent with webapp's mixins.less
+
+// Border Radius
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+.border-radiuses (@topleft: 0, @bottomleft: 0, @topright: 0, @bottomright: 0 ) {
+  -webkit-border-top-right-radius:    @topright;
+  -webkit-border-bottom-right-radius: @bottomright;
+  -webkit-border-bottom-left-radius:  @bottomleft;
+  -webkit-border-top-left-radius:     @topleft;
+
+  -moz-border-radius-topright:        @topright;
+  -moz-border-radius-bottomright:     @bottomright;
+  -moz-border-radius-bottomleft:      @bottomleft;
+  -moz-border-radius-topleft:         @topleft;
+
+  border-top-right-radius:            @topright;
+  border-bottom-right-radius:         @bottomright;
+  border-bottom-left-radius:          @bottomleft;
+  border-top-left-radius:             @topleft;
+
+  -moz-background-clip:    padding;
+  -webkit-background-clip: padding-box;
+  background-clip:         padding-box;
+}
+
 .pod-title {
     background-color: #eee;
     border: 1px solid #999;
     border-bottom: 0;
+    .border-radiuses(@podBorderRadius, 0, @podBorderRadius, 0);
     font-size: 1.25em;
     padding: 4px 10px;
 }
