@@ -32,6 +32,7 @@ var HintRenderer = Perseus.HintRenderer = React.createClass({
 /* Renders a hint editor box
  *
  * This includes:
+ *  ~ A "Hint" title
  *  ~ the textarea for the hint
  *  ~ the "remove this hint" box
  *  ~ the move hint up/down arrows
@@ -45,6 +46,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
 
     render: function() {
         return <div className="perseus-hint-editor perseus-editor-left-cell">
+            <div>Hint</div>
             <Editor ref="editor" content={this.props.content}
                     onChange={this.props.onChange} widgetEnabled={false} />
 
@@ -148,7 +150,6 @@ var LeftColumnHintsTableCell = React.createClass({
 /* The entire hints editing/preview area
  *
  * Includes:
- *  ~ The "Hints:" prompt
  *  ~ All the hint edit boxes, move and remove buttons
  *  ~ All the hint previews
  *  ~ The "add a hint" button
@@ -176,10 +177,6 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
         }, this);
 
         return <div className="perseus-hints-container perseus-editor-table">
-            <LeftColumnHintsTableCell className="perseus-hints-title">
-                {' '}Hints:{' '}
-            </LeftColumnHintsTableCell>
-
             {hintElems}
 
             <LeftColumnHintsTableCell className="add-hint-container">
