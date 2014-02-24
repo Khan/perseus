@@ -36,7 +36,8 @@ var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 var DragTarget = React.createClass({
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
-        component: React.PropTypes.func
+        component: React.PropTypes.func,
+        shouldDragHighlight: React.PropTypes.func
     },
     render: function() {
         // This is the only property of the returned component we need to
@@ -60,7 +61,10 @@ var DragTarget = React.createClass({
         return { dragHover: false };
     },
     getDefaultProps: function() {
-        return { component: React.DOM.div };
+        return {
+            component: React.DOM.div,
+            shouldDragHighlight: _.constant(true)
+        };
     },
     handleDrop: function(e) {
         e.stopPropagation();
@@ -77,8 +81,8 @@ var DragTarget = React.createClass({
     handleDragLeave: function() {
         this.setState({ dragHover: false });
     },
-    handleDragEnter: function() {
-        this.setState({ dragHover: true });
+    handleDragEnter: function(e) {
+        this.setState({ dragHover: this.props.shouldDragHighlight(e) });
     }
 });
 
@@ -299,10 +303,6 @@ var Editor = Perseus.Editor = React.createClass({
         // with a newline.
         underlayPieces.push(<br />);
 
-        // If an image uploader was supplied in the config, make the editor a
-        // drag target, otherwise it's just a div.
-        var container = Perseus.imageUploader ? DragTarget : React.DOM.div;
-
         var completeTextarea = [
                 <div className="perseus-textarea-underlay" ref="underlay">
                     {underlayPieces}
@@ -313,8 +313,10 @@ var Editor = Perseus.Editor = React.createClass({
             ];
         var textareaWrapper;
         if (Perseus.imageUploader) {
-            textareaWrapper = <DragTarget onDrop={this.handleDrop}
-                                     className="perseus-textarea-pair">
+            textareaWrapper = <DragTarget
+                    onDrop={this.handleDrop}
+                    shouldDragHighlight={this.shouldDragHighlight}
+                    className="perseus-textarea-pair">
                 {completeTextarea}
             </DragTarget>;
         } else {
@@ -328,6 +330,11 @@ var Editor = Perseus.Editor = React.createClass({
             {textareaWrapper}
             {widgetsAndTemplates}
         </div>;
+    },
+
+    shouldDragHighlight: function(e) {
+        var files = e.nativeEvent.dataTransfer.files;
+        return files.length > 0;
     },
 
     handleDrop: function(e) {
