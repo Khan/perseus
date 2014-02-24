@@ -1,7 +1,20 @@
 // Variables
 // Should be consistent with webapp's variables.less
 
-// Additional (not in webapp variables.less) variables
+// Grays
+@grayDarker:            #333;
+@gray:                  #999;
+@grayExtraLight:        #eee;
+@white:                 #fff;
+
+
+// Dimensions
+
+@leftCellWidth:         360px;
+@middleCellWidth:       30px;
+@rightCellWidth:        510px;
+
+@cellPadding:           30px;
 
 @podBorderRadius:       5px;
 
@@ -37,8 +50,8 @@
 }
 
 .pod-title {
-    background-color: #eee;
-    border: 1px solid #999;
+    background-color: @grayExtraLight;
+    border: 1px solid @gray;
     border-bottom: 0;
     .border-radiuses(@podBorderRadius, 0, @podBorderRadius, 0);
     font-size: 1.25em;
@@ -51,11 +64,11 @@
 
 .perseus-single-editor {
     box-sizing: border-box;
-    width: 360px;
+    width: @leftCellWidth;
 }
 
 .perseus-json-editor {
-    width: 360px;
+    width: @leftCellWidth;
     height: 500px;
 }
 
@@ -64,7 +77,7 @@
 }
 
 .perseus-textarea-pair {
-    border: 1px solid #999;
+    border: 1px solid @gray;
     font-size: 14px;
     line-height: 1.6;
     position: relative;
@@ -112,7 +125,7 @@
 }
 
 .perseus-editor-border {
-    border: 1px solid #999;
+    border: 1px solid @gray;
     padding: 10px;
 }
 
@@ -148,12 +161,6 @@
 .MathJax .math {
     // override athena silliness
     color: inherit;
-}
-
-.ai-live-qtip {
-    max-width: 360px;
-    min-width: 360px;
-    width: 360px;
 }
 
 //
@@ -234,15 +241,14 @@
 .perseus-editor-left-cell {
     display: table-cell;
     vertical-align: top;
-    width: 360px;
-    padding-right: 30px;
+    width: @leftCellWidth;
 }
 
 .perseus-editor-right-cell {
     background-color: #f7f7f7;
     display: table-cell;
     vertical-align: top;
-    width: 510px;
+    width: @rightCellWidth;
 }
 
 //
@@ -332,7 +338,7 @@
 
 .perseus-info-tip-triangle:after {
     border-bottom: 9px solid transparent;
-    border-right: 9px solid #fff;
+    border-right: 9px solid @white;
     border-top: 9px solid transparent;
     content: " ";
     display: block;
@@ -345,7 +351,7 @@
 
 .perseus-info-tip-content-container {
     display: block;
-    background: #fff;
+    background: @white;
     padding: 5px 10px;
     width: 240px;
 }
@@ -476,7 +482,7 @@
             padding: 2px;
             color: #666;
             &:hover {
-                color: #333;
+                color: @grayDarker;
             }
             cursor: pointer;
         }
@@ -492,7 +498,7 @@
         color: #888;
         &.target {
             border-color: black;
-            color: #333;
+            color: @grayDarker;
         }
         text-align: center;
         font-size: 20px;
