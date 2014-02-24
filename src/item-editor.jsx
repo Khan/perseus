@@ -28,7 +28,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
-                    <div>Question</div>
+                    <div className="pod-title">Question</div>
                     {Editor(_.extend({
                         ref: "questionEditor",
                         className: "perseus-question-editor",
@@ -52,7 +52,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
 
             <div className="perseus-editor-row perseus-answer-container">
                 <div className="perseus-editor-left-cell">
-                    <div>Answer</div>
+                    <div className="pod-title">Answer</div>
                     {AnswerAreaEditor(_.extend({
                         ref: "answerAreaEditor",
                         onChange: function(newProps, cb) {
