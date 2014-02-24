@@ -33,13 +33,6 @@
   -webkit-border-bottom-left-radius:  @bottomleft;
   -webkit-border-top-left-radius:     @topleft;
 
-.border-box-sizing() {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-}
-
   -moz-border-radius-topright:        @topright;
   -moz-border-radius-bottomright:     @bottomright;
   -moz-border-radius-bottomleft:      @bottomleft;
@@ -53,6 +46,13 @@
   -moz-background-clip:    padding;
   -webkit-background-clip: padding-box;
   background-clip:         padding-box;
+}
+
+.border-box-sizing() {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
 }
 
 .pod-title {
