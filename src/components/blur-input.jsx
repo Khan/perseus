@@ -9,8 +9,8 @@
  *
  * This is the solution.
  *
- * Enough melodrama. Its an imput that only sends changes to its parent on
- * blur.
+ * Enough melodrama. Its an input that only sends changes
+ * to its parent on blur.
  */
 var BlurInput = React.createClass({
     propTypes: {
@@ -21,11 +21,11 @@ var BlurInput = React.createClass({
         return { value: this.props.value };
     },
     render: function() {
-        return <input
+        return this.transferPropsTo(<input
             type="text"
             value={this.state.value}
             onChange={this.handleChange}
-            onBlur={this.handleBlur} />;
+            onBlur={this.handleBlur} />);
     },
     componentWillReceiveProps: function(nextProps) {
         this.setState({ value: nextProps.value });
