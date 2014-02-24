@@ -46,7 +46,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
 
     render: function() {
         return <div className="perseus-hint-editor perseus-editor-left-cell">
-            <div>Hint</div>
+            <div className="pod-title">Hint</div>
             <Editor ref="editor" content={this.props.content}
                     onChange={this.props.onChange} widgetEnabled={false} />
 
@@ -123,30 +123,6 @@ var CombinedHintEditor = React.createClass({
 });
 
 
-/* A cell in the hints table with content appearing in the left column
- *
- * Simplifies having to set up the table rows and cells manually
- * Used for the "Hints:" prompt and "Add a hint" button
- */
-var LeftColumnHintsTableCell = React.createClass({
-    getDefaultProps: function() {
-        return {
-            className: ""
-        };
-    },
-
-    render: function() {
-        return <div className="perseus-editor-row">
-            <div className={this.props.className +
-                    " perseus-editor-left-cell"}>
-                {this.props.children}
-            </div>
-            <div className="perseus-editor-right-cell" />
-        </div>;
-    }
-});
-
-
 /* The entire hints editing/preview area
  *
  * Includes:
@@ -178,14 +154,16 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
 
         return <div className="perseus-hints-container perseus-editor-table">
             {hintElems}
-
-            <LeftColumnHintsTableCell className="add-hint-container">
+            <div className="perseus-editor-row">
+                <div className="add-hint-container perseus-editor-left-cell">
                 <a href="#" className="simple-button orange"
                         onClick={this.addHint}>
                     <span className="icon-plus" />
                     {' '}Add a hint{' '}
                 </a>
-            </LeftColumnHintsTableCell>
+                </div>
+                <div className="perseus-editor-right-cell" />
+            </div>
         </div>;
     },
 
