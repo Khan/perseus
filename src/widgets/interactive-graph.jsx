@@ -2,18 +2,21 @@
 (function(Perseus) {
 
 require("../core.js");
-var Util = require("../util.js");
+
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var InfoTip       = require("../components/info-tip.jsx");
+var Interactive2  = require("../interactive2.js");
 var NumberInput   = require("../components/number-input.jsx");
+var Util          = require("../util.js");
 var Widgets       = require("../widgets.js");
-var kpoint        = KhanUtil.kpoint;
+
+var knumber = KhanUtil.knumber;
+var kpoint  = KhanUtil.kpoint;
 
 var DeprecationMixin = Util.DeprecationMixin;
 
-var knumber = KhanUtil.knumber;
 
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
@@ -1031,58 +1034,53 @@ var InteractiveGraph = React.createClass({
     createPointForPointsType: function(coord, i) {
         var self = this;
         var graphie = self.graphie;
-        var point = graphie.addMovablePoint({
+        var point = Interactive2.addMovablePoint(graphie, {
             coord: coord,
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                Interactive2.MovablePoint.constraints.snap(),
+                function(coord) {
+                    return _.all(self.points, function(pt) {
+                        return point === pt ||
+                            !kpoint.equal(coord, pt.coord());
+                    });
+                }
+            ],
+            onMoveStart: function() {
+                if (self.isClickToAddPoints()) {
+                    self.setTrashCanVisibility(1);
+                }
+            },
+            onMove: self.updateCoordsFromPoints,
+            onMoveEnd: function(coord) {
+                if (self.isClickToAddPoints()) {
+                    if (self.isCoordInTrash(coord)) {
+                        // remove this point from points
+                        self.points = _.filter(self.points, function(pt) {
+                            return pt !== point;
+                        });
+                        // update the correct answer box
+                        self.updateCoordsFromPoints();
+
+                        // remove this movablePoint from graphie.
+                        // we wait to do this until we're not inside of
+                        // said point's onMoveEnd method so its state is
+                        // consistent throughout this method call
+                        setTimeout(_.bind(point.remove, point), 0);
+                    }
+                    // In case we mouseup'd off the graphie and that
+                    // stopped the move (in which case, we might not
+                    // be in isCoordInTrash()
+                    self.setTrashCanVisibility(0.5);
+                }
+            },
             normalStyle: {
                 stroke: KhanUtil.BLUE,
                 fill: KhanUtil.BLUE
             }
         });
-
-        point.onMove = function(x, y) {
-            for (var j = 0; j < self.points.length; j++) {
-                if (i !== j && kpoint.equal([x, y], self.points[j].coord)) {
-                    return false;
-                }
-            }
-            return true;
-        };
-
-        $(point).on("move", this.updateCoordsFromPoints);
-
-        if (self.isClickToAddPoints()) {
-            point.onMoveEnd = function(x, y) {
-                if (self.isCoordInTrash([x, y])) {
-                    // remove this point from points
-                    self.points = _.filter(self.points, function(pt) {
-                        return pt !== point;
-                    });
-                    // update the correct answer box
-                    self.updateCoordsFromPoints();
-
-                    // remove this movablePoint from graphie.
-                    // we wait to do this until we're not inside of
-                    // said point's onMoveEnd method so its state is
-                    // consistent throughout this method call
-                    setTimeout(_.bind(point.remove, point), 0);
-                }
-                // In case we mouseup'd off the graphie and that
-                // stopped the move (in which case, we might not
-                // be in isCoordInTrash()
-                self.setTrashCanVisibility(0.5);
-                return true;
-            };
-
-            $(point.mouseTarget[0]).on("vmousedown", function() {
-                self.setTrashCanVisibility(1);
-            });
-
-            $(point.mouseTarget[0]).on("vmouseup", function() {
-                self.setTrashCanVisibility(0.5);
-            });
-        }
 
         return point;
     },
@@ -1385,7 +1383,11 @@ var InteractiveGraph = React.createClass({
 
     updateCoordsFromPoints: function() {
         var graph = _.extend({}, this.props.graph, {
-            coords: _.pluck(this.points, "coord")
+            // Handle old movable points with .coord, or
+            // Interactive2.MovablePoint's with .coord()
+            coords: _.map(this.points, function(point) {
+                return _.result(point, "coord");
+            })
         });
         this.props.onChange({graph: graph});
     },
@@ -1399,6 +1401,16 @@ var InteractiveGraph = React.createClass({
 
     addPointControls: function() {
         var coords = InteractiveGraph.getPointCoords(this.props.graph, this);
+        // Clear out our old points so that newly added points don't
+        // "collide" with them and reposition when being added
+        // Without this, when added, each point checks whether it is on top
+        // of a point in this.points, which (a) shouldn't matter since
+        // we're clearing out this.points anyways, and (b) can cause problems
+        // if each of this.points is a MovablePoint instead of an
+        // Interactive2.MovablePoint, since one has a .coord and the other
+        // has .coord()
+        // TODO(jack): Figure out a better way to do this
+        this.points = [];
         this.points = _.map(coords, this.createPointForPointsType, this);
     },
 
