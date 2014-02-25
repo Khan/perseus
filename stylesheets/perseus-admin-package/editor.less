@@ -10,10 +10,10 @@
 
 // Dimensions
 
+@questionWidth:         480px;
 @leftCellWidth:         360px;
-@rightCellWidth:        540px;
-
 @cellPadding:           30px;
+@rightCellWidth:        @questionWidth + 2 * @cellPadding;
 
 // Added variables
 
@@ -188,7 +188,11 @@
         if it means it aligns better with the editor. */
         min-height: 0;
 
-        width: 100%;
+        // Make too-wide items visually overflow, to indicate
+        // that there is a problem to content creators
+        width: @questionWidth;
+        max-width: @questionWidth;
+        overflow-x: visible;
 
         #workarea {
             margin: 0; // override ke
@@ -218,6 +222,9 @@
             margin-left: 0; // override ke
             margin-top: 20px;
             outline: 1px solid #ccc;
+            // Make too-wide items visually overflow, to indicate
+            // that there is a problem to content creators
+            overflow-x: visible;
         }
     }
 
@@ -299,6 +306,12 @@
         margin: 0px 0px 22px 0px;
     }
     outline: 1px solid #ccc;
+
+    // Make too-wide items visually overflow, to indicate
+    // that there is a problem to content creators
+    width: @questionWidth;
+    max-width: @questionWidth;
+    overflow-x: visible;
 }
 
 //
