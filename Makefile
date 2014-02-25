@@ -11,16 +11,16 @@ build:
 	mkdir -p build
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > build/perseus.js
 	echo "// commit `git rev-parse HEAD`" >> build/perseus.js
-	./node_modules/.bin/browserify -t reactify src/editor-page.jsx >> build/perseus.js
+	./node_modules/.bin/browserify -t reactiscriptsixify src/editor-page.jsx >> build/perseus.js
 
 debug:
 	mkdir -p build
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > build/perseus.debug.js
 	echo "// commit `git rev-parse HEAD`" >> build/perseus.debug.js
-	./node_modules/.bin/browserify -t reactify -d src/editor-page.jsx >> build/perseus.debug.js
+	./node_modules/.bin/browserify -t reactiscriptsixify -d src/editor-page.jsx >> build/perseus.debug.js
 
 server: update
-	./node_modules/.bin/beefy src/editor-page.jsx test/test.js $(PORT) -- -t reactify -d
+	./node_modules/.bin/beefy src/editor-page.jsx test/test.js $(PORT) -- -t reactiscriptsixify -d
 
 demo:
 	git checkout gh-pages
