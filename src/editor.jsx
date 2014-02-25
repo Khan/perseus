@@ -63,7 +63,7 @@ var DragTarget = React.createClass({
     getDefaultProps: function() {
         return {
             component: React.DOM.div,
-            shouldDragHighlight: _.constant(true)
+            shouldDragHighlight: function() { return true; }
         };
     },
     handleDrop: function(e) {
