@@ -24,6 +24,16 @@
     }
 }
 
+// Override the float: left on input[type=radio]s in the
+// #answer_area from khan-exercise.css, because it breaks our
+// margin-left: -20px positioning
+.perseus-widget-radio,
+#answer_area .perseus-widget-radio {
+    li span.checkbox input[type=radio] {
+        float: none;
+    }
+}
+
 .perseus-widget-radio {
     div,
     div > p {
