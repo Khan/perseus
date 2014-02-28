@@ -474,7 +474,7 @@ var Category = React.createClass({
         });
     },
 
-    render: function(categoryHeader, c) {
+    render: function() {
         var self = this;
         var category = self.props.category;
         var items = self.categoryItems();
