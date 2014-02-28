@@ -216,7 +216,6 @@ var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
 var question = query.content ? JSON.parse(query.content) : defaultQuestion;
 
 Perseus.init({}).then(function() {
-    console.log("initializing editor");
 
     var editorProps = _.extend(question, {
         problemNum: problemNum,
@@ -228,7 +227,6 @@ Perseus.init({}).then(function() {
         document.getElementById("perseus-container")
     );
 }).then(function() {
-    console.log("all done.", +new Date/1000);
 }, function(err) {
     console.error(err);
 });
