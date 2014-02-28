@@ -312,6 +312,49 @@
 }
 
 //
+//
+//
+
+.perseus-button-group {
+    display: inline-block;
+
+    & > button {
+        background-color: white;
+        border: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-left: 0;
+        cursor: pointer;
+        margin: 0;
+        padding: 5px 10px;
+        position: relative; // for hover
+
+        &.selected {
+            background-color: #ddd;
+        }
+
+        &:first-child {
+            border-left: 1px solid #ccc;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        &:last-child {
+            border-right: 1px solid #ccc;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        &:hover {
+            background-color: #ccc;
+        }
+
+        &:focus {
+            z-index: 2;
+        }
+    }
+}
+
+//
 // Info tips
 //
 
