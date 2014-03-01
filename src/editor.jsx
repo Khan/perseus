@@ -36,7 +36,7 @@ var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 var DragTarget = React.createClass({
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
-        component: React.PropTypes.func,
+        component: React.PropTypes.component,
         shouldDragHighlight: React.PropTypes.func
     },
     render: function() {
