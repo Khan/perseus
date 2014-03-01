@@ -338,7 +338,7 @@
 }
 
 //
-//
+// Button Group
 //
 
 .perseus-button-group {
@@ -379,6 +379,34 @@
         }
     }
 }
+
+//
+// More Options
+//
+.more-options-container {
+    display: block;
+    text-align: center;
+    position: relative;
+    padding-bottom: 24px;
+
+    .more-options-title {
+        position: absolute;
+        padding: 5px 0;
+        font-weight: bold;
+        font-size: 14px;
+        left: -1 * @editorPadding;
+        right: 0;
+        bottom: -1 * @editorPadding;
+        height: 20px;
+        width: @leftCellWidth - 2;
+
+        &:hover {
+            background-color: #ddd;
+            cursor: pointer;
+        }
+    }
+}
+
 
 //
 // Info tips

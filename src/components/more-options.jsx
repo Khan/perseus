@@ -2,19 +2,14 @@
 
 require("../core.js");
 
-/* A div with  "More Options" that css-transitions in/out on click.
- * (works with children <MoreOptions>{this.props.children</MoreOptions>)
- *
- *
- *
+/* A div that shows/hides its children.
+ * (meant for use with editor widgets)
  */
-var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var MoreOptions = React.createClass({
     getDefaultProps: function() {
         return {
-            show: false,
-            arrow: true
+            show: false
         }
     },
 
@@ -26,9 +21,7 @@ var MoreOptions = React.createClass({
 
     render: function() {
         return <div className="more-options-container">
-            <CSSTransitionGroup transitionName="more-options">
             {this.state.show && this.props.children}
-            </CSSTransitionGroup>
             <div className="more-options-title" onClick={this.toggle}>
                 {this.state.show ? "Less" : "More"} options...
             </div>
@@ -36,9 +29,8 @@ var MoreOptions = React.createClass({
     },
 
     toggle: function() {
-        this.setState({show: !this.state.show})
+        this.setState({show: !this.state.show});
     }
 })
 
-
- module.exports = MoreOptions
+module.exports = MoreOptions

@@ -342,8 +342,9 @@ var Editor = Perseus.Editor = React.createClass({
             </div>;
         }
 
+
         return <div className={"perseus-single-editor " +
-                (this.props.className || "")}>
+                (this.props.className || "")} >
             {textareaWrapper}
             {widgetsAndTemplates}
         </div>;
