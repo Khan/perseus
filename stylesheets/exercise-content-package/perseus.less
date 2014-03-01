@@ -128,6 +128,31 @@
             }
         }
     }
+    
+    // place on the input
+    .validated-number-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0; // override
+        padding: 5px 0; // override
+        text-align: center;
+        width: 40px;
+
+        &.invalid-input {
+            background-color: #ffbaba;
+            outline-color: red;
+        }
+
+        &.mini {
+            width: 40px;
+        }
+        &.small {
+            width: 60px;
+        }
+        &.normal {
+            width: 80px;
+        }
+    }
 
     .number-input {
         width: 50px;
