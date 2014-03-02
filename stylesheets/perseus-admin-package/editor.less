@@ -7,6 +7,8 @@
 @grayExtraLight:        #eee;
 @white:                 #fff;
 
+// Padding
+@editorPadding:         10px;
 
 // Dimensions
 
@@ -96,7 +98,7 @@
 .perseus-textarea-pair > .perseus-textarea-underlay {
     color: transparent;
     margin-bottom: 12px;
-    padding: 2px;
+    padding: @editorPadding;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
@@ -123,7 +125,7 @@
     font: inherit;
     height: 100%;
     left: 0;
-    padding: 2px;
+    padding: @editorPadding;
     position: absolute;
     resize: none;
     top: 0;
@@ -135,9 +137,15 @@
     margin: 0;
 }
 
+.perseus-widget-radio .perseus-textarea-pair {
+    & > textarea, > .perseus-textarea-underlay {
+        padding: 5px;
+    }
+}
+
 .perseus-editor-border {
     border: 1px solid @gray;
-    padding: 10px;
+    padding: @editorPadding;
 }
 
 .perseus-answer-options {
