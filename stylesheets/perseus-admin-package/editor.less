@@ -7,8 +7,11 @@
 @grayExtraLight:        #eee;
 @white:                 #fff;
 
-// Padding
+// Editor Style
+@editorBorder:          1px solid @gray;
+@editorBorderRadius:    5px;
 @editorPadding:         10px;
+
 
 // Dimensions
 
@@ -16,43 +19,6 @@
 @leftCellWidth:         360px;
 @cellPadding:           30px;
 @rightCellWidth:        @questionWidth + 2 * @cellPadding;
-
-// Added variables
-
-@podBorderRadius:       5px;
-
-// Mixins
-// Should be consistent with webapp's mixins.less
-
-// Border Radius
-.border-radius(@radius: 5px) {
-  -webkit-border-radius: @radius;
-     -moz-border-radius: @radius;
-          border-radius: @radius;
-}
-
-.border-radiuses (@topleft: 0, @bottomleft: 0, @topright: 0, @bottomright: 0 ) {
-  -webkit-border-top-right-radius:    @topright;
-  -webkit-border-bottom-right-radius: @bottomright;
-  -webkit-border-bottom-left-radius:  @bottomleft;
-  -webkit-border-top-left-radius:     @topleft;
-
-  -moz-border-radius-topright:        @topright;
-  -moz-border-radius-bottomright:     @bottomright;
-  -moz-border-radius-bottomleft:      @bottomleft;
-  -moz-border-radius-topleft:         @topleft;
-
-  border-top-right-radius:            @topright;
-  border-bottom-right-radius:         @bottomright;
-  border-bottom-left-radius:          @bottomleft;
-  border-top-left-radius:             @topleft;
-
-  -moz-background-clip:    padding;
-  -webkit-background-clip: padding-box;
-  background-clip:         padding-box;
-}
-
-// Added mixins
 
 .border-box-sizing() {
     -webkit-box-sizing: border-box;
@@ -65,7 +31,7 @@
     background-color: @grayExtraLight;
     border: 1px solid @gray;
     border-bottom: 0;
-    .border-radiuses(@podBorderRadius, 0, @podBorderRadius, 0);
+    border-radius: @editorBorderRadius @editorBorderRadius 0 0;
     font-size: 1.25em;
     padding: 4px 10px;
 }
@@ -143,25 +109,40 @@
     }
 }
 
-.perseus-editor-border {
-    border: 1px solid @gray;
+
+.perseus-answer-options {
+    border: @editorBorder;
+    border-bottom: 0;
     padding: @editorPadding;
 }
 
-.perseus-answer-options {
-    .perseus-editor-border;
-
-    border-bottom: 0;
-}
-
 .perseus-answer-widget {
-    .perseus-editor-border;
+    border: @editorBorder;
+    border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
+    padding: @editorPadding;
 }
 
-.perseus-editor-widgets > div {
-    .perseus-editor-border;
+.perseus-widget-editor {
+    border-radius: 5px;
+    margin-top: 10px;
 
+    .perseus-widget-editor-title {
+        .pod-title;
+    }
+
+    .perseus-widget-editor-content {
+        border: @editorBorder;
+        border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
+        padding: @editorPadding;
+    }
+}
+
+.perseus-editor-widgets-selectors {
+    background-color: @grayExtraLight;
+    border: 1px solid @gray;
     border-top: 0;
+    border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
+    padding: 5px @editorPadding;
 }
 
 .perseus-editor-widgets > div.selected > strong {

@@ -151,22 +151,22 @@ var WidgetEditor = React.createClass({
 
         var isUngradedEnabled = (this.props.type === "transformer");
 
-        return <div>
-            <div>
-                <strong>{this.props.id}</strong>
+        return <div className="perseus-widget-editor">
+            <div className="perseus-widget-editor-title">
+                {this.props.id}
             </div>
-            <div>
-                {isUngradedEnabled &&
+            <div>{isUngradedEnabled &&
                     <PropCheckBox
                         label="Graded:"
                         graded={this.props.graded}
-                        onChange={this.props.onChange} />
-                }
+                        onChange={this.props.onChange} />}
             </div>
-            {cls(_.extend({
-                ref: "widget",
-                onChange: this._handleWidgetChange
-            }, this.props.options))}
+            <div className="perseus-widget-editor-content">
+                {cls(_.extend({
+                    ref: "widget",
+                    onChange: this._handleWidgetChange
+                }, this.props.options))}
+            </div>
         </div>;
     },
 
@@ -288,7 +288,7 @@ var Editor = Perseus.Editor = React.createClass({
 
             if (!this.props.immutableWidgets) {
                 widgetsAndTemplates = <div className="perseus-editor-widgets">
-                    <div>
+                    <div className="perseus-editor-widgets-selectors">
                         {widgetsDropDown}
                         {templatesDropDown}
                     </div>
