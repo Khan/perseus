@@ -179,7 +179,8 @@ var WidgetEditor = React.createClass({
         </div>;
     },
 
-    toggleWidget: function() {
+    toggleWidget: function(e) {
+        e.preventDefault();
         this.setState({showWidget: !this.state.showWidget})
     },
 
