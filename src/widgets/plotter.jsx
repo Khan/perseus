@@ -839,6 +839,11 @@ var PlotterEditor = React.createClass({
         } else {
             categories = _.range(scale, max + scale, scale);
         }
+
+        categories = _.map(categories, num => {
+            return "$" + KhanUtil.knumber.round(num, 2) + "$"
+        });
+
         this.changeCategories(categories);
 
         this.refs.categories.getDOMNode().value = categories.join(", ");
