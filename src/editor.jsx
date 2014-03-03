@@ -163,11 +163,11 @@ var WidgetEditor = React.createClass({
                                 onChange={this.props.onChange} />;
 
         return <div className="perseus-widget-editor">
-            <div className="perseus-widget-editor-title"
+            <a href="#" className="perseus-widget-editor-title"
                  onClick={this.toggleWidget}>
                 {this.props.id}
                 <i className={"icon-chevron-" + direction} />
-            </div>
+            </a>
             <div className={"perseus-widget-editor-content " +
                 (this.state.showWidget ? "enter" : "leave")} >
                 {isUngradedEnabled && gradedPropBox}
