@@ -123,18 +123,38 @@
 }
 
 .perseus-widget-editor {
+    border: @editorBorder;
     border-radius: 5px;
+    overflow: hidden;
     margin-top: 10px;
 
     .perseus-widget-editor-title {
         .pod-title;
+        border: 0;
+        cursor: pointer;
+
+        > i {
+            float: left;
+            font-size: 14px;
+            margin-right: 10px;
+        }
     }
 
     .perseus-widget-editor-content {
-        border: @editorBorder;
         border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
+        border-top: @editorBorder;
         padding: @editorPadding;
+        transition: all 0s;
+        overflow: hidden;
+
+        // TODO(merlob) Make accordion
+        &.enter {}
+
+        &.leave {
+            display: none;
+        }
     }
+
 }
 
 .perseus-editor-widgets-selectors {
