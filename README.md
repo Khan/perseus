@@ -59,7 +59,7 @@ Want to help out? Here are some well-scoped improvements we could use:
   the score button or (if the above mini-project is done) the green button, there should be
   a message that appears. This is becoming more important as these little clues are now going
   mainstream, with content creators able to add their own custom-tailored hints.
-- **Improve the way ^ clues are shown for in-line widgets **: It depends on the widget, but
+- **Improve the way the above clues are shown for in-line widgets**: It depends on the widget, but
   for non-answer-area widgets, it would be nice if they showed up somewhere close to the
   widget in some obvious and perhaps playful way (I'm thinking error-buddy). That way, the
   user knows which part they got wrong in a multi-part question, and potentially why too!
