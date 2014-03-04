@@ -7,6 +7,21 @@ var Util = require("./util.js");
 var TeX = require("./tex.jsx");
 var Widgets = require("./widgets.js");
 
+
+var specialChars = {
+    // escaped: original
+    "\\a": "\u0007", // \a isn't valid javascript
+    "\\b": "\b",
+    "\\t": "\t",
+    "\\n": "\n",
+    "\\v": "\v",
+    "\\f": "\f",
+    "\\r": "\r",
+    "\\\\": "\\"
+};
+
+var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g; 
+ 
 // When using crowdin's jipt (Just in place translation), we need to keep a
 // registry of crowdinId's to component so that we can update the component's
 // state as the translator enters their translation.
@@ -163,15 +178,16 @@ var Renderer = Perseus.Renderer = React.createClass({
             // When using Crowdin's jipt (Just in place translation), we need
             // to keep this registry of components that will need to be
             // updated as translators enter in new translations.  Furthermore 
-            // we need to track the compoenents current html, as jipt changes 
+            // we need to track the compoenents children dom, as jipt changes 
             // the contents of the div and we need to change it back before 
             // updating to avoid Invariant violations.
-            // TODO(james): remove previousHTML once crowdin implements its
-            // beforeUpdate handler which should hopefully allow us to cancel
-            // its' writing to the DOM and let us have React do it instead.
+            // TODO(james): remove previousChildren once crowdin implements 
+            // its beforeUpdate handler which should hopefully allow us to 
+            // cancel its' writing to the DOM and let us have React do it 
+            // instead.
             Perseus.TranslationComponents[this.crowdinId] = {
                 component: this,
-                previousHTML: $(this.getDOMNode()).html()
+                previousChildren: $(this.getDOMNode()).children()
             };
         }
 
@@ -240,12 +256,23 @@ var Renderer = Perseus.Renderer = React.createClass({
                         // safely ignore them.
                         return;
                     }
-                    // Revert the html of the component to what it was
+
+                    // Crowdin jipt sets the new content of the div without 
+                    // unescaping \\t to \t among other charachters, so we 
+                    // need to do it here.
+                    unescapedTranslation = newTranslation.replace(
+                        rEscapedChars,
+                        function(ch) {
+                            return specialChars[ch];
+                        });
+
+                    // Revert the children dom of the component to what it was
                     // beforehand so that we don't get an Invariant 
                     // error stating that a div React created 
                     // disappeared.
                     $(translationData.component.getDOMNode())
-                        .html(translationData.previousHTML)
+                        .empty()
+                        .append(translationData.previousChildren)
                         .promise().done(function() {
                             // Once the html is reverted to what React
                             // expects we can tell React the new
@@ -253,9 +280,9 @@ var Renderer = Perseus.Renderer = React.createClass({
                             // tags have been replaced, so that it may 
                             // render the new content's markdown.
                             translationData.component.setState({
-                                jiptContent: newTranslation
+                                jiptContent: unescapedTranslation
                             });
-                        }); 
+                        });
                 });
             });
 
