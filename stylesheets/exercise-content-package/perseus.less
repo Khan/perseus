@@ -810,7 +810,12 @@
 .perseus-diff {
     .diff-header {
         font-size: 200%;
-        margin: 30px;
+        padding: 10px;
+        &.collapsed {
+            background-color: #EEE;
+            font-size: 14px;
+            padding: 0px;
+        }
     }
 
     .diff-row {
@@ -818,6 +823,7 @@
         white-space: pre-wrap;
         box-sizing: border-box;
         font-size: 14px;
+        padding-right: 20px;
         &.collapsed {
             background-color: #EEE;
             color: #888;
@@ -834,12 +840,10 @@
 
     .before {
         float: left;
-        padding-right: 20px;
     }
 
     .after {
         float: right;
-        padding-left: 20px;
     }
 
     .inner-value {

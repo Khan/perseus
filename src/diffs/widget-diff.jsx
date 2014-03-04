@@ -175,8 +175,8 @@ var WidgetDiff = React.createClass({
                                this.props.after,
                                ROOT_KEY_NAME);
         return <div>
-            <div className="diff-header">{this.props.title}</div>
             <div className="ui-helper-clearfix">
+                <div className="diff-header">{this.props.title}</div>
                 <DiffEntry entry={diff} />
             </div>
         </div>;
