@@ -4,7 +4,7 @@ require("./core.js");
 require("./item-editor.jsx");
 require("./item-renderer.jsx");
 require("./hint-editor.jsx");
-require("./diff-displayer.jsx");
+require("./diffs/revision-diff.jsx");
 
 var BlurInput = require("./components/blur-input.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
