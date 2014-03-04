@@ -31,9 +31,12 @@
     background-color: @grayExtraLight;
     border: 1px solid @gray;
     border-bottom: 0;
-    border-radius: @editorBorderRadius @editorBorderRadius 0 0;
     font-size: 1.25em;
     padding: 4px 10px;
+    border-radius: @editorBorderRadius @editorBorderRadius 0 0;
+    &.closed {
+        border-radius: @editorBorderRadius;
+    }
 }
 
 //

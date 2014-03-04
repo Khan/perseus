@@ -149,7 +149,7 @@ var WidgetEditor = React.createClass({
     getInitialState: function() {
         return {
             showWidget: true
-        }
+        };
     },
 
     render: function() {
@@ -163,13 +163,14 @@ var WidgetEditor = React.createClass({
                                 onChange={this.props.onChange} />;
 
         return <div className="perseus-widget-editor">
-            <a href="#" className="perseus-widget-editor-title"
-                 onClick={this.toggleWidget}>
+            <a href="#" className={"perseus-widget-editor-title " +
+                    (this.state.showWidget ? "open" : "closed")}
+                    onClick={this.toggleWidget}>
                 {this.props.id}
                 <i className={"icon-chevron-" + direction} />
             </a>
             <div className={"perseus-widget-editor-content " +
-                (this.state.showWidget ? "enter" : "leave")} >
+                    (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
                 {cls(_.extend({
                     ref: "widget",
@@ -181,7 +182,7 @@ var WidgetEditor = React.createClass({
 
     toggleWidget: function(e) {
         e.preventDefault();
-        this.setState({showWidget: !this.state.showWidget})
+        this.setState({showWidget: !this.state.showWidget});
     },
 
     _handleWidgetChange: function(newProps, cb) {
