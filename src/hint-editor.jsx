@@ -48,6 +48,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
         return <div className="perseus-hint-editor perseus-editor-left-cell">
             <div className="pod-title">Hint</div>
             <Editor ref="editor" content={this.props.content}
+                    placeholder="Type your hint here..."
                     onChange={this.props.onChange} widgetEnabled={false} />
 
             <div className="hint-controls-container clearfix">

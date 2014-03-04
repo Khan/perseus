@@ -203,6 +203,7 @@ var Editor = Perseus.Editor = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
+            placeholder: "",
             widgets: {},
             widgetEnabled: true,
             immutableWidgets: false
@@ -323,6 +324,7 @@ var Editor = Perseus.Editor = React.createClass({
                 </div>,
                 <textarea ref="textarea"
                           onChange={this.handleChange}
+                          placeholder={this.props.placeholder}
                           value={this.props.content} />
             ];
         var textareaWrapper;

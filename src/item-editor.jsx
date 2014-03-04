@@ -31,6 +31,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                     <div className="pod-title">Question</div>
                     {Editor(_.extend({
                         ref: "questionEditor",
+                        placeholder: "Type your question here...",
                         className: "perseus-question-editor",
                         onChange: function(newProps, cb) {
                             var question = _.extend({},

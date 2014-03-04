@@ -151,6 +151,8 @@ var AnswerAreaEditor = Perseus.AnswerAreaEditor = React.createClass({
 
         var editor = cls(_.extend({
             ref: "editor",
+            placeholder: "This answer area is being deprecated. " +
+            "Please use the widgets in the question area for your answer.",
             onChange: function(newProps, cb) {
                 var options = _.extend({}, this.props.options, newProps);
                 this.props.onChange({options: options}, cb);
