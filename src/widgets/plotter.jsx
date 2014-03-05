@@ -15,7 +15,7 @@ var BAR = "bar",
     PIC = "pic",
     HISTOGRAM = "histogram";
 
-var formatNumber = num => "$" + KhanUtil.knumber.round(num, 2) + "$"
+var formatNumber = (num) => "$" + KhanUtil.knumber.round(num, 2) + "$";
 
 var Plotter = React.createClass({
     propTypes: {
