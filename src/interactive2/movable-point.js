@@ -1,8 +1,8 @@
 /**
- * Add a point to the graph that can be dragged around.
- * It allows constraints on its movement and draws when moves happen
+ * Creates and adds a point to the graph that can be dragged around.
+ * It allows constraints on its movement and draws when moves happen.
  *
- * Options can be set to control how the point behaves:
+ * Options can be passed to the constructor to control how the point behaves:
  *   coord: [x, y]
  *     The initial position of the point
  *   pointSize:
@@ -39,7 +39,7 @@
  *     the raphael/graphie style of the point when hovering, if
  *     MovablePoint.draw.highlight is used
  *
- * returned is a nice MovablePoint object with some useful functions:
+ * This creates a MovablePoint object with the following methods:
  *   setCoord: [x, y]
  *     changes the point's coordinate
  *   draw:
@@ -51,6 +51,7 @@
  */
 
 var Movable = require("./movable.js");
+var MovablePointOptions = require("./movable-point-options.js");
 var InteractiveUtil = require("./interactive-util.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -60,16 +61,7 @@ var kpoint = KhanUtil.kpoint;
 
 // state parameters that should be converted into an array of
 // functions
-var FUNCTION_ARRAY_OPTIONS = [
-    "add",
-    "draw",
-    "remove",
-    "onMoveStart",
-    "constraints",
-    "onMove",
-    "onMoveEnd",
-    "onClick"
-];
+var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
 
 // default state. these properties are added to this.state and
 // receive magic getter methods (this.coord() etc)
@@ -88,34 +80,23 @@ var DEFAULT_PROPERTIES = {
 var MovablePoint = function(graphie, options) {
     _.extend(this, {
         graphie: graphie,
-        state: {
+        state: _.extend({
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movablePoint"),
-            // Set here because:
-            //  - these defaults don't exist at file execution time
-            //  - these don't need getters created for them
-            add: [
-                MovablePoint.add.draw,
-                MovablePoint.add.constrain
-            ],
-            draw: [
-                MovablePoint.draw.basic,
-                MovablePoint.draw.highlight
-            ],
-            remove: [
-                MovablePoint.remove.basic
-            ],
-            onMoveStart: [],
-            constraints: [],
-            onMove: [],
-            onMoveEnd: [],
-            onClick: []
-        }
+            id: _.uniqueId("movablePoint")
+        }, normalizeOptions(
+            // These defaults are set here instead of DEFAULT_PROPERTIES
+            // they don't need getters created for them
+            // TODO(jack) We really ough to normalize once, in this.modify()
+            // TODO(jack): Consider "default" once we es3ify perseus
+            FUNCTION_ARRAY_OPTIONS,
+            InteractiveUtil.pluck(MovablePointOptions, "standard")
+        ))
     });
 
     this.modify(options);
 };
 
+_.extend(MovablePoint, MovablePointOptions);
 InteractiveUtil.createGettersFor(MovablePoint, DEFAULT_PROPERTIES);
 InteractiveUtil.addMovableHelperMethodsTo(MovablePoint);
 
@@ -256,118 +237,6 @@ _.extend(MovablePoint.prototype, {
 
     mouseTarget: function() {
         return this.movable.mouseTarget();
-    }
-});
-
-/**
- * Library of options to pass to add/draw/remove/constraints
- */
-_.extend(MovablePoint, {
-    add: {
-        constrain: function() {
-            var result = this._applyConstraints(this.coord(), this.coord());
-            if (kpoint.is(result)) {
-                this.setCoord(result);
-            }
-        },
-
-        draw: function() {
-            this.draw();
-        }
-    },
-
-    draw: {
-        basic: function() {
-            var graphie = this.graphie;
-            if (!this.state.visibleShape) {
-                this.state.visibleShape = graphie.ellipse(
-                    this.coord(),
-                    [
-                        this.pointSize() / graphie.scale[0],
-                        this.pointSize() / graphie.scale[1]
-                    ],
-                    _.omit(this.normalStyle(), "scale")
-                );
-            }
-            var scaledPoint = graphie.scalePoint(this.coord());
-            this.state.visibleShape.attr({cx: scaledPoint[0]});
-            this.state.visibleShape.attr({cy: scaledPoint[1]});
-            if (this.mouseTarget()) {
-                this.mouseTarget().attr({ cx: scaledPoint[0] });
-                this.mouseTarget().attr({ cy: scaledPoint[1] });
-            }
-        },
-
-        highlight: function(state, prevState) {
-            if (state.isHovering && !prevState.isHovering) {
-                state.visibleShape.animate(
-                    state.highlightStyle,
-                    50
-                );
-            } else if (!state.isHovering && prevState.isHovering) {
-                state.visibleShape.animate(
-                    state.normalStyle,
-                    50
-                );
-            }
-        }
-    },
-
-    remove: {
-        basic: function() {
-            if (this.state.visibleShape) {
-                this.state.visibleShape.remove();
-            }
-        }
-    },
-
-    constraints: {
-        fixed: function() {
-            return function() { return false; };
-        },
-
-        snap: function(snap) {
-            return function(coord) {
-                if (snap === null) {
-                    return true;
-                }
-                snap = snap || this.graphie.snap;
-                return kpoint.roundTo(coord, snap);
-            };
-        },
-
-        bound: function(range, snap, paddingPx) {
-            if (paddingPx === undefined) {
-                if (range === undefined) {
-                    paddingPx = 10;
-                } else {
-                    paddingPx = 0;
-                }
-            }
-            return function(coord) {
-                var graphie = this.graphie;
-                range = range || graphie.range;
-                if (snap === undefined) {
-                    snap = graphie.snap;
-                }
-
-                var lower = graphie.unscalePoint([
-                    paddingPx,
-                    graphie.ypixels - paddingPx
-                ]);
-                var upper = graphie.unscalePoint([
-                    graphie.xpixels - paddingPx,
-                    paddingPx
-                ]);
-                if (snap) {
-                    lower = kpoint.ceilTo(lower, snap);
-                    upper = kpoint.floorTo(upper, snap);
-                }
-                var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-                var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
-                return [coordX, coordY];
-            };
-        }
     }
 });
 

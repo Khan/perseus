@@ -40,8 +40,8 @@ var InteractiveUtil = {
      * Turn a function or an array of functions into an array of functions
      */
     arrayify: function(funcOrArray) {
-        if (!funcOrArray) {
-            return undefined;
+        if (funcOrArray == null) {
+            return [];
         } else if (_.isArray(funcOrArray)) {
             return _.filter(_.flatten(funcOrArray), _.identity);
         } else {
@@ -53,14 +53,45 @@ var InteractiveUtil = {
      * Convert all function-or-array arguments to arrays of functions
      */
     normalizeOptions: function(arrayOptionNames, options) {
+        // TODO(jack): Having to clone here is annoying; this
+        // function should really just modify this.state in place
+        // (and maybe be a function on MovableHelperMethods to get access
+        // to this.state), which would also be nicer because we could
+        // normalizeOptions once in this.modify
         var result = _.clone(options);
         _.each(arrayOptionNames, function(eventName) {
-            var funcArray = InteractiveUtil.arrayify(options[eventName]);
-            if (funcArray) {
+            var funcOrArray = options[eventName];
+            // Only propagate values which were set; not present values
+            // shouldn't be added to options because we'd like them to
+            // fall through to defaults
+            if (funcOrArray !== undefined) {
+                var funcArray = InteractiveUtil.arrayify(funcOrArray);
                 result[eventName] = funcArray;
             }
         });
         return result;
+    },
+
+    /* Does a pluck on keys inside objects in an object
+     *
+     * Ex:
+     * tools = {
+     *     translation: {
+     *         enabled: true
+     *     },
+     *     rotation: {
+     *         enabled: false
+     *     }
+     * };
+     * pluckObject(tools, "enabled") returns {
+     *     translation: true
+     *     rotation: false
+     * }
+     */
+    pluck: function(table, subKey) {
+        return _.object(_.map(table, function(value, key) {
+            return [key, value[subKey]];
+        }));
     }
 };
 
