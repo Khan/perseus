@@ -30,7 +30,7 @@ var ButtonGroup = React.createClass({
         return {
             value: null,
             allowEmpty: true
-        }
+        };
     },
 
     render: function() {

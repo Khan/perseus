@@ -30,7 +30,7 @@ var ValidatedNumberInput = React.createClass({
         return {
             value: "",
             placeholder: null,
-            checkValidity: function(){return true}
+            checkValidity: function(){return true;}
         };
     },
 

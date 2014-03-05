@@ -100,7 +100,7 @@ var Renderer = Perseus.Renderer = React.createClass({
     },
 
     render: function() {
-        if (typeof(KA) != "undefined" && !this.crowdinId && 
+        if (typeof(KA) !== "undefined" && !this.crowdinId &&
                 KA.language === "en-PT") {
             // Crowdin's JIPT (Just in place translation) uses a fake language
             // with language tag "en-PT" where the value of the translations
