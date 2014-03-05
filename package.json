@@ -2,7 +2,7 @@
   "name": "perseus",
   "version": "0.0.1",
   "scripts": {
-    "start": "./node_modules/.bin/beefy src/editor-page.jsx test/test.js 9000 -- -t reactiscriptsixify -d"
+    "start": "./node_modules/.bin/beefy src/editor-page-shim.js test/test.js 9000 -- -t reactiscriptsixify -d"
   },
   "devDependencies": {
     "react-tools": "0.9.0",

@@ -20,7 +20,7 @@ debug:
 	./node_modules/.bin/browserify -t reactiscriptsixify -d src/editor-page.jsx >> build/perseus.debug.js
 
 server: update
-	./node_modules/.bin/beefy src/editor-page.jsx test/test.js $(PORT) -- -t reactiscriptsixify -d
+	./node_modules/.bin/beefy src/editor-page-shim.js test/test.js $(PORT) -- -t reactiscriptsixify -d
 
 demo:
 	git checkout gh-pages
