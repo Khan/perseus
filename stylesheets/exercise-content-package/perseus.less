@@ -154,6 +154,26 @@
         }
     }
 
+    // place on a div above the inputs
+    .range-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 0px 5px;
+
+        & > input {
+            border: 0;
+            display: inline;
+            text-align: center;
+            width: 30px;
+        }
+
+        & > span {
+            color: #999;
+            font-size: 14px;
+        }
+    }
+
     .number-input {
         width: 50px;
     }
