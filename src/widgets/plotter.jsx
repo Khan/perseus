@@ -15,6 +15,8 @@ var BAR = "bar",
     PIC = "pic",
     HISTOGRAM = "histogram";
 
+var formatNumber = num => "$" + KhanUtil.knumber.round(num, 2) + "$"
+
 var Plotter = React.createClass({
     propTypes: {
         type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM])
@@ -746,7 +748,7 @@ var PlotterEditor = React.createClass({
         var categories;
         if (type === HISTOGRAM) {
             // Switching to histogram, add a label (0) to the left
-            categories = ["0"].concat(this.props.categories);
+            categories = [formatNumber(0)].concat(this.props.categories);
             this.props.onChange({type: type, categories: categories});
         } else if (this.props.type === HISTOGRAM) {
             // Switching from histogram, remove a label from the left
@@ -840,9 +842,7 @@ var PlotterEditor = React.createClass({
             categories = _.range(scale, max + scale, scale);
         }
 
-        categories = _.map(categories, num => {
-            return "$" + KhanUtil.knumber.round(num, 2) + "$"
-        });
+        categories = _.map(categories, formatNumber);
 
         this.changeCategories(categories);
 
