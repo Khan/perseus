@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var diff = require("../../lib/jsdiff");
 var cx = React.addons.classSet;
 
@@ -70,7 +72,7 @@ var TextDiff = React.createClass({
                             {" "}[ show unmodified ]
                         </span>
                     </span>}
-                </div>
+                </div>;
             })}
         </div>;
     },
