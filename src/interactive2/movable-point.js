@@ -50,7 +50,6 @@
  *     removes the point from graphie
  */
 
-var Movable = require("./movable.js");
 var MovablePointOptions = require("./movable-point-options.js");
 var InteractiveUtil = require("./interactive-util.js");
 var assert = InteractiveUtil.assert;
@@ -77,9 +76,10 @@ var DEFAULT_PROPERTIES = {
     highlightStyle: {}
 };
 
-var MovablePoint = function(graphie, options) {
+var MovablePoint = function(graphie, movable, options) {
     _.extend(this, {
         graphie: graphie,
+        movable: movable,
         state: _.extend({
             // Set here because this must be unique for each instance
             id: _.uniqueId("movablePoint")
@@ -148,7 +148,7 @@ _.extend(MovablePoint.prototype, {
         // The Movable representing this movablePoint's representation
         // This handles mouse events for us, which we propagate in
         // onMove
-        self.movable = new Movable(graphie, _.extend({}, state, {
+        self.movable.modify(_.extend({}, state, {
             add: [],
             draw: _.bind(self.draw, self),
             remove: [],
