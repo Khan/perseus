@@ -16,6 +16,8 @@
 </head>
 <body>
 
+<input type="button" id="swap" value="Swap it!"></input>
+
 <div class="perseus-diff">
     <div id="diff">
     </div>
@@ -151,7 +153,7 @@ var seedContent2 = {
                 },
                 {
                     "content": "A ray  ",
-                    "correct": false
+                    "correct": true
                 }
             ],
             "randomize": true,
@@ -180,7 +182,7 @@ Perseus.init({}).then(function() {
 
     zk = React.renderComponent(Perseus.RevisionDiff({
         beforeItem: seedContent,
-        afterItem: seedContent2
+        afterItem: seedContent
     }, null), itemMountNode);
 }).then(function() {
     console.log("all done.", +new Date/1000);
@@ -188,7 +190,19 @@ Perseus.init({}).then(function() {
     console.error(err);
 });
 
+var swapped = false;
+
+$("#swap").click(function() {
+    var itemMountNode = document.getElementById("diff");
+    zk = React.renderComponent(Perseus.RevisionDiff({
+        beforeItem: seedContent,
+        afterItem: swapped ? seedContent : seedContent2
+    }, null), itemMountNode);
+    swapped = !swapped;
+});
+
 })();
+
 </script>
 
 </body>

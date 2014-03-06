@@ -22,11 +22,19 @@ var TextDiff = React.createClass({
         after: React.PropTypes.string.isRequired,
         title: React.PropTypes.string.isRequired
     },
+
     getInitialState: function() {
         return {
             collapsed: this.props.before === this.props.after
         };
     },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            collapsed: nextProps.before === nextProps.after
+        });
+    },
+
     render: function() {
         var diffed = diff.diffWords(this.props.before, this.props.after);
 
@@ -76,6 +84,7 @@ var TextDiff = React.createClass({
             })}
         </div>;
     },
+
     handleExpand: function() {
         this.setState({ collapsed: false });
     }
