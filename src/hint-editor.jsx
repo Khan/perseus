@@ -170,7 +170,7 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
 
     handleHintChange: function(i, newProps, cb) {
         var hints = _(this.props.hints).clone();
-        _(hints[i]).extend(newProps);
+        hints[i] = _.extend({}, hints[i], newProps);
         this.props.onChange({hints: hints}, cb);
     },
 
