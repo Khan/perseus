@@ -1,11 +1,14 @@
 // Variables
 // Should be consistent with webapp's variables.less
 
-// Grays
+// Colors
 @grayDarker:            #333;
 @gray:                  #999;
 @grayExtraLight:        #eee;
 @white:                 #fff;
+
+
+@clueColor: #007AFF;
 
 // Editor Style
 @editorBorder:          1px solid @gray;
@@ -453,36 +456,62 @@
 }
 
 //
-// Radio editor
+// Radio editor / renderer
 //
 
-.perseus-widget-radio .choice-editor {
-    display: inline-block;
-}
-
-.perseus-widget-radio .delete-choice {
-    padding: 5px;
-    margin-left: 5px;
-}
-
-.perseus-widget-radio .perseus-single-editor {
-    border: 0;
-    display: inline-block;
-    margin: 0 0 5px;
-    vertical-align: top;
-    width: 250px;
-}
-
-.perseus-widget-radio .perseus-single-editor p {
-    margin: 0;
-}
-
 .perseus-widget-radio {
-    .choice-editor.correct textarea {
-        background: #ddffdd;
+
+    .choice-editor {
+        .perseus-single-editor {
+            margin-bottom: 0;
+        }
+        &.correct textarea {
+            background: #ddffdd;
+        }
+        &.incorrect textarea {
+            background: #ffdddd;
+        }
     }
-    .choice-editor.incorrect textarea {
-        background: #ffdddd;
+
+    .clue-editor {
+        .perseus-textarea-pair {
+            border-top: 0;
+        }
+    }
+
+    .choice-clue-editors,
+    .choice-editor,
+    .clue-editor {
+        display: inline-block;
+    }
+
+    .delete-choice {
+        margin-left: 5px;
+        padding: 5px;
+    }
+
+    .perseus-single-editor {
+        border: 0;
+        display: inline-block;
+        margin: 0 0 5px;
+        vertical-align: top;
+        width: 280px;
+
+        p {margin: 0;}
+    }
+
+    .perseus-radio-clue {
+        color: @clueColor;
+        display: block;
+    }
+}
+
+.perseus-widget-editor-content {
+    .perseus-widget-radio {
+        .checkbox, .delete-choice {
+            position: relative;
+            top: -10px;
+        }
     }
 }
 

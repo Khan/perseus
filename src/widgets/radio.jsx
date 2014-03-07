@@ -33,6 +33,10 @@ var BaseRadio = React.createClass({
                                 onChange={this.onChange.bind(this, i)} />
                         </span>
                         {choice.content}
+                        {this.props.showClues && choice.checked &&
+                            <div className="perseus-radio-clue">
+                                {choice.clue}
+                            </div>}
                     </div>;
 
                 if (this.props.labelWrap) {
@@ -68,6 +72,12 @@ var Radio = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            showClues: false
+        };
+    },
+
     render: function() {
         var values = this.props.values || _.map(this.props.choices,
                 function() {
@@ -79,6 +89,7 @@ var Radio = React.createClass({
                 // We need to make a copy, which _.pick does
                 content: Perseus.Renderer(_.pick(choice, "content")),
                 checked: values[i],
+                clue: Perseus.Renderer({content: choice.clue}),
                 originalIndex: i
             };
         });
@@ -88,8 +99,9 @@ var Radio = React.createClass({
             ref="baseRadio"
             labelWrap={true}
             multipleSelect={this.props.multipleSelect}
+            showClues={this.state.showClues}
             choices={choices.map(function(choice) {
-                return _.pick(choice, "content", "checked");
+                return _.pick(choice, "content", "checked", "clue");
             })}
             onCheckedChange={this.onCheckedChange} />;
     },
@@ -99,6 +111,7 @@ var Radio = React.createClass({
     },
 
     onCheckedChange: function(checked) {
+        this.setState({showClues: false});
         this.props.onChange({
             values: this.derandomize(checked)
         });
@@ -121,6 +134,7 @@ var Radio = React.createClass({
     },
 
     simpleValidate: function(rubric) {
+        this.setState({showClues: true});
         return Radio.validate(this.toJSON(), rubric);
     },
 
@@ -173,7 +187,7 @@ _.extend(Radio, {
 var RadioEditor = React.createClass({
     getDefaultProps: function() {
         return {
-            choices: [{}],
+            choices: [{}, {}],
             randomize: false,
             multipleSelect: false
         };
@@ -186,15 +200,29 @@ var RadioEditor = React.createClass({
                 multipleSelect={this.props.multipleSelect}
                 labelWrap={false}
                 choices={this.props.choices.map(function(choice, i) {
+                    var checkedClass = choice.correct ?
+                        "correct" :
+                        "incorrect";
                     var editor = Perseus.Editor({
                         ref: "editor" + i,
                         content: choice.content || "",
                         widgetEnabled: false,
-                        onChange: function(newProps) {
+                        placeholder: "Type a choice here...",
+                        onChange: newProps => {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
-                            }
-                        }.bind(this)
+                            }}
+                    });
+                    var clueEditor = Perseus.Editor({
+                        ref: "clue-editor-" + i,
+                        content: choice.clue || "",
+                        widgetEnabled: false,
+                        placeholder: $._("Why is this choice " +
+                            checkedClass + "?"),
+                        onChange: newProps => {
+                            if ("content" in newProps) {
+                                this.onClueChange(i, newProps.content);
+                            }}
                     });
                     var deleteLink = <a href="#"
                             className="simple-button orange delete-choice"
@@ -202,13 +230,14 @@ var RadioEditor = React.createClass({
                             onClick={this.onDelete.bind(this, i)}>
                         <span className="icon-trash" />
                     </a>;
-                    var checkedClass = choice.correct ?
-                        "correct" :
-                        "incorrect";
                     return {
-                        content: <div
-                                className={"choice-editor " + checkedClass}>
-                            {editor}
+                        content: <div className="choice-clue-editors">
+                            <div className={"choice-editor " + checkedClass}>
+                                {editor}
+                            </div>
+                            <div className="clue-editor">
+                                {clueEditor}
+                            </div>
                             {this.props.choices.length >= 2 && deleteLink}
                         </div>,
                         checked: choice.correct
@@ -285,11 +314,22 @@ var RadioEditor = React.createClass({
         this.props.onChange({choices: choices});
     },
 
-    onContentChange: function(choiceIndex, newContent, e) {
+    onContentChange: function(choiceIndex, newContent) {
         var choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent
         });
+        this.props.onChange({choices: choices});
+    },
+
+    onClueChange: function(choiceIndex, newClue) {
+        var choices = this.props.choices.slice();
+        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+            clue: newClue
+        });
+        if (newClue === "") {
+            delete choices[choiceIndex].clue;
+        }
         this.props.onChange({choices: choices});
     },
 
