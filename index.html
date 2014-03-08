@@ -81,8 +81,12 @@ add hint button ends up touching the bottom of the page). -->
 <script>
 (function() {
 
+requirejs.config({
+    waitSeconds: 120
+});
+
 // Load khan-exercises modules, then perseus
-require(["ke-main.js"], function() {
+require(["ke-deps.js"], function() {
     // pre built
     require(["build/perseus.js"], initPerseus);
 

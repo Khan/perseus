@@ -4,8 +4,6 @@ define(function(require) {
 // executed immediately when the exercise content bundle is loaded, so we load
 // them all here.
 
-require("./ke/khan-exercise.js");
-
 require("./ke/utils/answer-types.js");
 require("./ke/utils/graphie.js");
 require("./ke/utils/interactive.js");
