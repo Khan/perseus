@@ -97,70 +97,90 @@ function initPerseus() {
 
 var defaultQuestion = {
     "question": {
-        "content": "[[☃ expression 1]]",
+        "content": "[[☃ plotter 1]]",
         "widgets": {
-            "interactive-graph 1": {
-                "type": "interactive-graph",
+            "plotter 1": {
+                "type": "plotter",
                 "graded": true,
                 "options": {
-                    "step": [
-                        1,
-                        1
+                    "correct": [
+                        0,
+                        4,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        3,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
                     ],
-                    "backgroundImage": {
-                        "url": "",
-                        "scale": 1,
-                        "bottom": 0,
-                        "left": 0,
-                        "width": 0,
-                        "height": 0
-                    },
-                    "markings": "none",
+                    "starting": [
+                        1,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "type": "dotplot",
                     "labels": [
-                        "x",
-                        "y"
+                        "",
+                        ""
                     ],
-                    "showProtractor": false,
-                    "showRuler": true,
-                    "rulerTicks": 10,
-                    "range": [
-                        [
-                            -5,
-                            5
-                        ],
-                        [
-                            -5,
-                            5
-                        ]
-                    ],
-                    "gridStep": [
+                    "categories": [
+                        0,
                         1,
-                        1
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20
                     ],
-                    "snapStep": [
-                        0.5,
-                        0.5
-                    ],
-                    "graph": {
-                        "type": "segment"
-                    },
-                    "correct": {
-                        "type": "segment"
-                    }
-                }
-            },
-            "measurer 1": {
-                "type": "measurer",
-                "graded": true,
-                "options": {
-                    "imageUrl": "https://ka-perseus-graphie.s3.amazonaws.com/b9f5b3b8b6ed17e61f6612e7c0af679ac0853bf0.png",
-                    "imageTop": 0,
-                    "imageLeft": 0,
-                    "showProtractor": false,
-                    "showRuler": true,
-                    "rulerTicks": 8,
-                    "rulerPixels": 40,
-                    "rulerLength": 6
+                    "scaleY": 1,
+                    "maxY": 10,
+                    "snapsPerLine": 2,
+                    "labelInterval": 4
                 }
             }
         }

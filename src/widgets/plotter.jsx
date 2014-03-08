@@ -4,6 +4,7 @@
 require("../core.js");
 var Util = require("../util.js");
 
+var NumberInput = require("../components/number-input.jsx");
 var InfoTip = require("../components/info-tip.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 var Widgets = require("../widgets.js");
@@ -13,14 +14,36 @@ var deepEq = Util.deepEq;
 var BAR = "bar",
     LINE = "line",
     PIC = "pic",
-    HISTOGRAM = "histogram";
+    HISTOGRAM = "histogram",
+    DOTPLOT = "dotplot";
+
+var DOT_PLOT_POINT_SIZE = 4;
+var DOT_PLOT_POINT_PADDING = 8;
+
+var widgetPropTypes = {
+    type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
+    labels: React.PropTypes.arrayOf(React.PropTypes.string),
+    categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
+        React.PropTypes.number,
+        React.PropTypes.string
+    ])),
+
+    scaleY: React.PropTypes.number,
+    maxY: React.PropTypes.number,
+    snapsPerLine: React.PropTypes.number,
+
+    picSize: React.PropTypes.number,
+    pixBoxHeight: React.PropTypes.number,
+    picUrl: React.PropTypes.string,
+
+    plotDimensions: React.PropTypes.arrayOf(React.PropTypes.number),
+    labelInterval: React.PropTypes.number
+};
 
 var formatNumber = (num) => "$" + KhanUtil.knumber.round(num, 2) + "$";
 
 var Plotter = React.createClass({
-    propTypes: {
-        type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM])
-    },
+    propTypes: widgetPropTypes,
 
     getDefaultProps: function () {
         return {
@@ -36,7 +59,8 @@ var Plotter = React.createClass({
             picBoxHeight: 48,
             picUrl: "",
 
-            plotDimensions: [380, 300]        
+            plotDimensions: [380, 300],
+            labelInterval: 1
         };
     },
 
@@ -50,19 +74,19 @@ var Plotter = React.createClass({
         return <div className="perseus-widget-plotter" ref="graphieDiv"></div>;
     },
 
-    componentDidUpdate: function() {
+    componentDidUpdate: function(prevProps, prevState) {
         if (this.shouldSetupGraphie) {
-            this.setupGraphie();
+            this.setupGraphie(prevState);
         }
     },
 
     componentDidMount: function() {
-        this.setupGraphie();
+        this.setupGraphie(this.state);
     },
 
     componentWillReceiveProps: function(nextProps) {
         var props = ["type", "labels", "categories", "scaleY", "maxY",
-            "snapsPerLine", "picUrl"];
+            "snapsPerLine", "picUrl", "labelInterval"];
 
         this.shouldSetupGraphie = _.any(props, function (prop) {
             return !_.isEqual(this.props[prop], nextProps[prop]);
@@ -75,7 +99,7 @@ var Plotter = React.createClass({
         }
     },
 
-    setupGraphie: function() {
+    setupGraphie: function(prevState) {
         var self = this;
         self.shouldSetupGraphie = false;
         var graphieDiv = self.refs.graphieDiv.getDOMNode();
@@ -92,7 +116,10 @@ var Plotter = React.createClass({
         var isBar = self.props.type === BAR,
             isLine = self.props.type === LINE,
             isPic = self.props.type === PIC,
-            isHistogram = self.props.type === HISTOGRAM;
+            isHistogram = self.props.type === HISTOGRAM,
+            isDotplot = self.props.type === DOTPLOT;
+
+        var isTiledPlot = isPic || isDotplot;
 
         var config = {};
         var c = config; // c for short
@@ -115,9 +142,9 @@ var Plotter = React.createClass({
             c.barPad = 0.15;
             c.barWidth = 1 - 2 * c.barPad;
             c.dimX += 2 * c.barPad;
-        } else if (isPic) {
+        } else if (isTiledPlot) {
             c.picBoxHeight = self.props.picBoxHeight;
-            c.picBoxWidthPx = c.picBoxHeight * 1.3;
+            c.picBoxWidthPx = plotDimensions[0] / self.props.categories.length;
             var picPadAllWidth = plotDimensions[0] - c.dimX * c.picBoxWidthPx;
             c.picPad = picPadAllWidth / (2 * c.dimX + 2);
             var picFullWidth = c.picBoxWidthPx + 2 * c.picPad;
@@ -127,11 +154,16 @@ var Plotter = React.createClass({
             c.picBoxWidth = c.picBoxWidthPx / picFullWidth;
             c.dimX += 2 * c.picPad;
         }
+
+        if (isDotplot) {
+            c.picBoxHeight = DOT_PLOT_POINT_SIZE * 2 + DOT_PLOT_POINT_PADDING;
+        }
+
         c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
         c.scale = _.map([c.dimX, c.dimY], function (dim, i) {
             return plotDimensions[i] / dim;
         });
-        if (isPic) {
+        if (isTiledPlot) {
             c.scale[1] = c.picBoxHeight / c.scaleY;
         }
 
@@ -144,7 +176,7 @@ var Plotter = React.createClass({
         });
         graphie.addMouseLayer();
 
-        if (!isPic) {
+        if (!isTiledPlot) {
             for (var y = 0; y <= c.dimY; y += c.scaleY) {
                 graphie.label(
                     [0, y],
@@ -162,19 +194,23 @@ var Plotter = React.createClass({
 
         self.setupCategories(config);
 
-        if (isPic) {
+        if (isTiledPlot) {
             self.mousedownPic = false;
             $(document).on("mouseup.plotterPic", function() {
                 self.mousedownPic = false;
             });
-            self.drawPicHeights(self.state.values);
+            self.drawPicHeights(self.state.values, prevState.values);
         }
 
         graphie.style(
             {stroke: "#000", strokeWidth: 2, opacity: 1.0},
             function() {
-                graphie.line([0, 0], [c.dimX, 0]);
-                graphie.line([0, 0], [0, c.dimY]);
+                if (isDotplot) {
+                    graphie.line([0.5, 0], [c.dimX - 0.5, 0]);
+                } else {
+                    graphie.line([0, 0], [c.dimX, 0]);
+                    graphie.line([0, 0], [0, c.dimY]);
+                }
             });
 
         graphie.label([c.dimX / 2, -35 / c.scale[1]],
@@ -219,7 +255,7 @@ var Plotter = React.createClass({
             _.each(self.props.categories, function(category, i) {
                 var x = 0.5 + i * c.barWidth;
 
-				self.labelCategory(x, category);
+                self.labelCategory(x, category);
                 var tickHeight = 6 / c.scale[1];
                 graphie.style({
                     stroke: "#000", strokeWidth: 2, opacity: 1.0
@@ -237,16 +273,36 @@ var Plotter = React.createClass({
                 } else if (self.props.type === LINE) {
                     x = self.setupLine(i, startHeight, config);
                 } else if (self.props.type === PIC) {
-                    x = self.setupPic(i, startHeight, config);
+                    x = self.setupPic(i, config);
+                } else if (self.props.type === DOTPLOT) {
+                    x = self.setupDotplot(i, config);
                 }
 
-				self.labelCategory(x, category);
+                var tickStart = 0;
+                var tickEnd = -6 / c.scale[1];
 
-                var tickHeight = 6 / c.scale[1];
+                if (self.props.type === DOTPLOT) {
+                    tickStart = -tickEnd;
+                }
+
+                if (self.props.type === DOTPLOT) {
+                    // Dotplot lets you specify to only show labels every 'n'
+                    // ticks. It also looks nicer if it makes the labelled
+                    // ticks a bit bigger.
+                    if (i % self.props.labelInterval === 0 ||
+                            i === self.props.categories.length - 1) {
+                        self.labelCategory(x, category);
+                        tickStart *= 1.5;
+                        tickEnd *= 1.5;
+                    }
+                } else {
+                    self.labelCategory(x, category);
+                }
+
                 graphie.style({
                     stroke: "#000", strokeWidth: 2, opacity: 1.0
                 }, function() {
-                    graphie.line([x, -tickHeight], [x, 0]);
+                    graphie.line([x, tickStart], [x, tickEnd]);
                 });
             });
         }
@@ -257,7 +313,7 @@ var Plotter = React.createClass({
         var c = config;
         var graphie = self.graphie;
         var barHalfWidth = c.barWidth / 2;
-        var x = 0.5 + i * c.barWidth + barHalfWidth;        
+        var x = 0.5 + i * c.barWidth + barHalfWidth;
 
         var scaleBar = function(i, height) {
             var center = graphie.scalePoint(0);
@@ -458,7 +514,36 @@ var Plotter = React.createClass({
         return x;
     },
 
-    setupPic: function(i, startHeight, config) {
+    setupDotplot: function(i, config) {
+        var graphie = this.graphie;
+        return this.setupTiledPlot(i, 1, config, (x, y) => {
+            return graphie.ellipse([x, y],
+                 [
+                     DOT_PLOT_POINT_SIZE / graphie.scale[0],
+                     DOT_PLOT_POINT_SIZE / graphie.scale[1]
+                 ],
+                 {
+                    fill: KhanUtil.BLUE,
+                    stroke: KhanUtil.BLUE
+                 });
+        });
+    },
+
+    setupPic: function(i, config) {
+        var graphie = this.graphie;
+        return this.setupTiledPlot(i, 0, config, (x, y) => {
+            var scaledCenter = graphie.scalePoint([x, y]);
+            var size = this.props.picSize;
+            return graphie.raphael.image(
+                    this.props.picUrl,
+                    scaledCenter[0] - size / 2,
+                    scaledCenter[1] - size / 2,
+                    size,
+                    size);
+        });
+    },
+
+    setupTiledPlot: function(i, bottomMargin, config, createImage) {
         var self = this;
         var c = config;
         var graphie = self.graphie;
@@ -472,7 +557,7 @@ var Plotter = React.createClass({
             var midY = (j + 0.5) * c.scaleY;
             var leftX = x - c.picBoxWidth / 2;
             var topY = midY + 0.5 * c.scaleY;
-            var coord = graphie.scalePoint([leftX, topY]);
+            var coord = graphie.scalePoint([leftX, topY + bottomMargin]);
             var mouseRect = graphie.mouselayer.rect(
                     coord[0], coord[1], c.picBoxWidthPx, c.picBoxHeight);
             $(mouseRect[0])
@@ -492,14 +577,7 @@ var Plotter = React.createClass({
                 // Don't show a pic underneath the axis!
                 return;
             }
-            var scaledCenter = graphie.scalePoint([x, midY]);
-            var size = self.props.picSize;
-            pics[i][j] = graphie.raphael.image(
-                    self.props.picUrl,
-                    scaledCenter[0] - size / 2,
-                    scaledCenter[1] - size / 2,
-                    size,
-                    size);
+            pics[i][j] = createImage(x, midY + bottomMargin);
         });
         return x;
     },
@@ -507,12 +585,12 @@ var Plotter = React.createClass({
     setPicHeight: function(i, y) {
         var values = _.clone(this.state.values);
         values[i] = y;
+        this.drawPicHeights(values, this.state.values);
         this.setState({values: values});
         this.props.onChange({ values: values });
-        this.drawPicHeights(values);
     },
 
-    drawPicHeights: function(values) {
+    drawPicHeights: function(values, prevValues) {
         var self = this;
         var graphie = self.graphie;
         var pics = graphie.pics;
@@ -520,6 +598,17 @@ var Plotter = React.createClass({
             _.each(ps, function(pic, j) {
                 var y = (j + 1) * self.props.scaleY;
                 var show = y <= values[i];
+                if (self.props.type === DOTPLOT) {
+                    var wasShown = y <= prevValues[i];
+                    var wasJustShown = show && !wasShown;
+                    if (wasJustShown) {
+                        pic.animate({
+                            "stroke-width": 8
+                        }, 75, () => pic.animate({
+                                "stroke-width": 2
+                            }, 75));
+                    }
+                }
                 $(pic[0]).css({opacity: show ? 1.0 : 0.0});
             });
         });
@@ -570,9 +659,7 @@ var editorDefaults = {
 };
 
 var PlotterEditor = React.createClass({
-    propTypes: {
-        type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM])
-    },
+    propTypes: widgetPropTypes,
 
     getDefaultProps: function () {
         return _.extend({}, editorDefaults, {
@@ -587,7 +674,8 @@ var PlotterEditor = React.createClass({
             picBoxHeight: 36,
             picUrl: Khan.imageBase + "badges/earth-small.png",
 
-            plotDimensions: [275, 200]
+            plotDimensions: [275, 200],
+            labelInterval: 1
         });
     },
 
@@ -598,12 +686,13 @@ var PlotterEditor = React.createClass({
     },
 
     render: function() {
-        var setFromScale = this.props.type === LINE ||
-                           this.props.type === HISTOGRAM;
+        var setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
+                                      this.props.type);
+        var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
         return <div className="perseus-widget-plotter-editor">
             <div>
-                {' '}Chart type:{' '}
-                {_.map([BAR, LINE, PIC, HISTOGRAM], function(type) {
+                Chart type:{' '}
+                {_.map([BAR, LINE, PIC, HISTOGRAM, DOTPLOT], function(type) {
                     return <label key={type}>
                         <input
                             type="radio"
@@ -615,7 +704,7 @@ var PlotterEditor = React.createClass({
                 }, this)}
             </div>
             <div>
-                {' '}Labels:{' '}
+                Labels:{' '}
                 {_.map(["x", "y"], function(axis, i) {
                     return <label key={axis}>
                         {axis + ":"}
@@ -629,7 +718,7 @@ var PlotterEditor = React.createClass({
             {setFromScale && <div>
                 <div>
                     <label>
-                        {' '}Scale (x):{' '}
+                        Scale (x):{' '}
                         <input
                             type="text"
                             ref="scaleX" />
@@ -637,15 +726,23 @@ var PlotterEditor = React.createClass({
                 </div>
                 <div>
                     <label>
-                        {' '}Max x:{' '}
+                        Max x:{' '}
                         <input
                             type="text"
                             ref="maxX" />
                     </label>
                 </div>
                 <div>
+                    <label>
+                        Label Interval:{' '}
+                        <NumberInput
+                            value={this.props.labelInterval}
+                            onChange={this.changeLabelInterval} />
+                    </label>
+                </div>
+                <div>
                     <button onClick={this.setCategoriesFromScale}>
-                        {' '}Set categories from scale{' '}
+                        Set categories from scale{' '}
                     </button>
                     <InfoTip>
                       <p>Automatically sets categories according to the x-axis
@@ -655,7 +752,7 @@ var PlotterEditor = React.createClass({
             </div>}
             {this.props.type === PIC && <div>
                 <label>
-                    {' '}Picture:{' '}
+                    Picture:{' '}
                     <input
                         type="text"
                         className="pic-url"
@@ -670,7 +767,7 @@ var PlotterEditor = React.createClass({
             </div>}
             <div>
                 <label>
-                    {' '}Categories:{' '}
+                    Categories:{' '}
                     <TextListEditor
                         ref="categories"
                         layout="horizontal"
@@ -680,7 +777,7 @@ var PlotterEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    {' '}Scale (y):{' '}
+                    Scale (y):{' '}
                     <input
                         type="text"
                         onChange={this.changeScale}
@@ -689,7 +786,7 @@ var PlotterEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    {' '}Max y:{' '}
+                    Max y:{' '}
                     <input
                         type="text"
                         ref="maxY"
@@ -697,9 +794,9 @@ var PlotterEditor = React.createClass({
                         defaultValue={this.props.maxY} />
                 </label>
             </div>
-            {this.props.type !== PIC && <div>
+            {canChangeSnaps && <div>
                 <label>
-                    {' '}Snaps per line:{' '}
+                    Snaps per line:{' '}
                     <input
                         type="text"
                         onChange={this.changeSnaps}
@@ -712,7 +809,7 @@ var PlotterEditor = React.createClass({
                 </InfoTip>
             </div>}
             <div>
-                {' '}Editing values:{' '}
+                Editing values:{' '}
                 {_.map(["correct", "starting"], function(editing) {
                     return <label key={editing}>
                         <input
@@ -736,6 +833,12 @@ var PlotterEditor = React.createClass({
                     onChange={this.handlePlotterChange} />
             )}
         </div>;
+    },
+
+    changeLabelInterval: function(value) {
+        this.props.onChange({
+            labelInterval: value
+        });
     },
 
     handlePlotterChange: function(newProps) {
@@ -835,8 +938,8 @@ var PlotterEditor = React.createClass({
         max = Math.ceil(max / scale) * scale;
 
         var categories;
-        if (this.props.type === HISTOGRAM) {
-            // Ranges for histogram labels should start at zero
+        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
+            // Ranges for histogram and dotplot labels should start at zero
             categories = _.range(0, max + scale, scale);
         } else {
             categories = _.range(scale, max + scale, scale);
@@ -851,7 +954,7 @@ var PlotterEditor = React.createClass({
 
     toJSON: function(skipValidation) {
         var json = _.pick(this.props, "correct", "starting", "type", "labels",
-            "categories", "scaleY", "maxY", "snapsPerLine");
+            "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
 
         if (this.props.type === PIC) {
             json.picUrl = this.props.picUrl;

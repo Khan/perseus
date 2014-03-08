@@ -32,6 +32,12 @@ var TextListEditor = React.createClass({
         };
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            items: nextProps.options.concat("")
+        });
+    },
+
     render: function() {
         var className = [
             "perseus-text-list-editor",
