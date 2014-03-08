@@ -5,6 +5,7 @@ define(function(require) {
 // them all here.
 
 require("./ke/utils/answer-types.js");
+require("./ke/utils/tex.js"); // needed by graphie.label
 require("./ke/utils/graphie.js");
 require("./ke/utils/interactive.js");
 require("./ke/utils/kline.js");
