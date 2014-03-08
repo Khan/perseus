@@ -90,7 +90,7 @@ var MovablePoint = function(graphie, movable, options) {
             // TODO(jack): Consider "default" once we es3ify perseus
             FUNCTION_ARRAY_OPTIONS,
             InteractiveUtil.pluck(MovablePointOptions, "standard")
-        ))
+        ), DEFAULT_PROPERTIES)
     });
 
     this.modify(options);
@@ -110,8 +110,8 @@ _.extend(MovablePoint.prototype, {
         this.remove();
         var self = this;
         var graphie = this.graphie;
-        var state = _.extend(self.state, DEFAULT_PROPERTIES,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options));
+        var state = _.extend(self.state,
+                normalizeOptions(FUNCTION_ARRAY_OPTIONS, options));
 
         // Default things inside the state.normalStyle object, because
         // _.extend is not deep
