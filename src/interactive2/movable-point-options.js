@@ -65,6 +65,7 @@ var remove = {
     basic: function() {
         if (this.state.visibleShape) {
             this.state.visibleShape.remove();
+            this.state.visibleShape = null;
         }
     }
 };

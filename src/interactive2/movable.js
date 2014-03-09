@@ -162,6 +162,7 @@ _.extend(Movable.prototype, {
         if (this.state.mouseTarget) {
             $(this.state.mouseTarget).off();
             this.state.mouseTarget.remove();
+            this.state.mouseTarget = null;
         }
     },
 

@@ -200,6 +200,9 @@ _.extend(MovablePoint.prototype, {
         if (this.movable) {
             this.movable.remove();
         }
+        // TODO(jack): This should really be moved off of
+        // movablePoint.state and only kept on movable.state
+        this.state.mouseTarget = null;
     },
 
     setCoord: function(coord) {
