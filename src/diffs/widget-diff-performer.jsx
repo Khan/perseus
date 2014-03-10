@@ -57,7 +57,7 @@ var objectEntry = function(before, after, key) {
     };
 };
 
-var performDiff = function(before, after, key) {
+var performDiff = function(before, after, /* optional */ key) {
     if (typeof before === "object" || typeof after === "object") {
         return objectEntry(before, after, key);
     } else {

@@ -4,7 +4,7 @@ var cx = React.addons.classSet;
 var performDiff = require("./widget-diff-performer.jsx");
 
 var indentationFromDepth = function(depth) {
-    return depth * 20;
+    return (depth - 1) * 20;
 };
 
 var BEFORE = "before";
@@ -60,7 +60,7 @@ var CollapsedRow = React.createClass({
                     style={{
                         paddingLeft: indentationFromDepth(self.props.depth)
                     }}>
-                    <span>[ show unmodified ]</span>
+                    <span> [ show unmodified ] </span>
                 </div>;
             })}
         </div>;
@@ -127,6 +127,7 @@ var DiffEntry = React.createClass({
         var collapsed = shownChildren.length < entry.children.length;
         var self = this;
         return <div>
+            {entry.key && <div>
             <DiffSide
                 side={BEFORE}
                 className={leftClass}
@@ -141,6 +142,7 @@ var DiffEntry = React.createClass({
                 propKey={entry.key}
                 showKey={!propertyDeleted}
                 value={entry.after} />
+            </div>}
             {_.map(shownChildren, function(child) {
                 return <DiffEntry
                     key={child.key}
@@ -160,7 +162,6 @@ var DiffEntry = React.createClass({
     }
 });
 
-var ROOT_KEY_NAME = "options";
 var WidgetDiff = React.createClass({
     propTypes: {
         before: React.PropTypes.shape({
@@ -174,8 +175,7 @@ var WidgetDiff = React.createClass({
 
     render: function() {
         var diff = performDiff(this.props.before,
-                               this.props.after,
-                               ROOT_KEY_NAME);
+                               this.props.after);
         return <div>
             <div className="ui-helper-clearfix">
                 <div className="diff-header">{this.props.title}</div>
