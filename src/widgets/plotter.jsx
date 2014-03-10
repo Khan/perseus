@@ -170,6 +170,12 @@ var Plotter = React.createClass({
         var padX = 25 / c.scale[0];
         var padY = 25 / c.scale[1];
 
+        // Since dotplot doesn't have an axis along the left it looks weird
+        // with the same padding as the others
+        if (isDotplot) {
+            padX /= 2;
+        }
+
         graphie.init({
             range: [[-3 * padX, c.dimX + padX], [-3 * padY, c.dimY + padY]],
             scale: c.scale
