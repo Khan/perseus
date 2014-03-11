@@ -36,11 +36,13 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
         return this.state.cls(_.extend({
             ref: "widget",
             problemNum: this.props.problemNum,
-            onChange: function(newProps, cb) {
-                var widget = _.extend({}, this.state.widget, newProps);
-                this.setState({widget: widget}, cb);
-            }.bind(this)
+            onChange: this.handleChangeRenderer
         }, this.props.options, this.state.widget));
+    },
+
+    handleChangeRenderer: function(newProps, cb) {
+        var widget = _.extend({}, this.state.widget, newProps);
+        this.setState({widget: widget}, cb);
     },
 
     componentDidMount: function() {

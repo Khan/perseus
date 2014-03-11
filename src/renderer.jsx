@@ -30,12 +30,8 @@ Perseus.TranslationComponents = {};
 var Renderer = Perseus.Renderer = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(this.props, nextProps)) {
-            // TODO(jack): Investigate why this is happening when
-            // a hint is taken, and stop resetting the widgets in
-            // that circumstance, either by making this check more
-            // lenient, or by not modifying the answer area's
-            // renderer props when that happens.
+        if (!_.isEqual(_.omit(this.props, "onChange"),
+                       _.omit(nextProps, "onChange"))) {
             this.setState({widgets: {}});
         }
     },
