@@ -114,8 +114,8 @@ var WidgetSelect = React.createClass({
                     Multiple choice</option>
             <option value="interactive-graph">
                     Interactive graph</option>
-            <option value="interactive-number-line">
-                    Interactive number line</option>
+            <option value="number-line">
+                    Number line</option>
             <option value="categorization">
                     Categorization</option>
             <option value="plotter">

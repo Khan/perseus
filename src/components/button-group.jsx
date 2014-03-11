@@ -60,6 +60,8 @@ var ButtonGroup = React.createClass({
         if (this.props.allowEmpty) {
             // Select the new button or unselect if it's already selected
             this.props.onChange(value !== newValue ? newValue : null);
+        } else {
+            this.props.onChange(newValue);
         }
     }
 });

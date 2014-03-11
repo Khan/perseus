@@ -14,7 +14,7 @@ var RangeInput = React.createClass({
 
     render: function() {
         var value = this.props.value;
-        var checkValidity = this.props.checkValidity;
+        var checkValidity = this.props.checkValidity || (() => true);
 
         return <div className="range-input">
             [

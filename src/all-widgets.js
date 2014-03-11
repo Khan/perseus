@@ -5,6 +5,7 @@ require("./widgets/dropdown.jsx");
 require("./widgets/expression.jsx");
 require("./widgets/input-number.jsx");
 require("./widgets/interactive-graph.jsx");
+require("./widgets/number-line.jsx");
 require("./widgets/interactive-number-line.jsx");
 require("./widgets/matcher.jsx");
 require("./widgets/measurer.jsx");
