@@ -82,15 +82,19 @@ var Renderer = Perseus.Renderer = React.createClass({
                 widgetIds.push(id);
                 var cls = Widgets.get(type);
 
-                return cls(_.extend({
-                    ref: id,
-                    onChange: function(newProps, cb) {
-                        var widgets = _.clone(this.state.widgets);
-                        widgets[id] = _.extend({}, widgets[id], newProps);
-                        this.setState({widgets: widgets}, cb);
-                    }.bind(this)
-                }, (widgetInfo || {}).options, this.state.widgets[id],
-                _.pick(this.props, "problemNum")));
+                return cls(_.extend({},
+                    (widgetInfo || {}).options,
+                    this.state.widgets[id],
+                    _.pick(this.props, "problemNum"),
+                    {
+                        ref: id,
+                        onChange: (newProps, cb) => {
+                            var widgets = _.clone(this.state.widgets);
+                            widgets[id] = _.extend({}, widgets[id], newProps);
+                            this.setState({widgets: widgets}, cb);
+                        }
+                    }
+                ));
             }
         }
     },
