@@ -42,7 +42,25 @@ var JsonEditor = React.createClass({
             className={classes}
             value={this.state.currentValue}
             onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
             onBlur={this.handleBlur} />;
+    },
+
+    handleKeyDown: function(e) {
+        // This handler allows the tab character to be entered by pressing
+        // tab, instead of jumping to the next (non-existant) field
+        if (e.key === "Tab") {
+            var cursorPos = e.target.selectionStart;
+            var v = e.target.value;
+            var textBefore = v.substring(0, cursorPos);
+            var textAfter = v.substring(cursorPos, v.length);
+            e.target.value = textBefore+ "    " +textAfter;
+            e.target.selectionStart = textBefore.length + 4;
+            e.target.selectionEnd = textBefore.length + 4;
+
+            e.preventDefault();
+            this.handleChange(e);
+        }
     },
 
     handleChange: function(e) {
