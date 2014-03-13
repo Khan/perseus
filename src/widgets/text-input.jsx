@@ -5,7 +5,7 @@ var Util = require("../util.js");
 var Widgets = require("../widgets.js");
 
 var InfoTip = require("../components/info-tip.jsx");
-var BlurInput = require("../components/blur-input.jsx");
+var NumberInput = require("../components/number-input.jsx");
 
 var answerTypes = {
     number: {
@@ -164,12 +164,12 @@ var TextInputEditor = React.createClass({
         return <div className="perseus-input-number-editor">
             <div><label>
                 {' '}Correct answer:{' '}
-                <BlurInput value={this.props.value}
+                <NumberInput value={this.props.value}
                            onChange={this.handleAnswerChange}
                            ref="input" />
                 </label>
                 {' '} &plusmn; {' '}
-                <BlurInput className="max-error"
+                <NumberInput className="max-error"
                     value = {this.props.maxError}
                     onChange={(maxError) => {
                         inexact = maxError != null && maxError !== 0;
