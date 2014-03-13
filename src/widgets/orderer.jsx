@@ -10,6 +10,11 @@ var TextListEditor = require("../components/text-list-editor.jsx");
 var Widgets        = require("../widgets.js");
 
 var PlaceholderCard = React.createClass({
+    propTypes: {
+        width: React.PropTypes.number.isRequired,
+        height: React.PropTypes.number.isRequired
+    },
+
     render: function() {
         return <div className="card-wrap" style={{width: this.props.width}}>
             <div
@@ -28,6 +33,12 @@ var DragHintCard = React.createClass({
 });
 
 var DraggableCard = React.createClass({
+    propTypes: {
+        width: React.PropTypes.number,
+        stack: React.PropTypes.bool,
+        onMouseDown: React.PropTypes.func.isRequired
+    },
+
     getDefaultProps: function() {
         return {
             stack: false
@@ -77,7 +88,26 @@ var DraggableCard = React.createClass({
 
 });
 
+var PropTypes = {
+    position: React.PropTypes.shape({
+        left: React.PropTypes.number,
+        top: React.PropTypes.number
+    })
+};
+
 var FloatingCard = React.createClass({
+    propTypes: {
+        startMouse: PropTypes.position,
+        startOffset: PropTypes.position.isRequired,
+        width: React.PropTypes.number.isRequired,
+        animating: React.PropTypes.bool,
+        animateTo: PropTypes.position,
+        onAnimationEnd: React.PropTypes.func,
+        floating: React.PropTypes.bool.isRequired,
+        onMouseMove: React.PropTypes.func,
+        onMouseUp: React.PropTypes.func
+    },
+
     getDefaultProps: function() {
         return {
             animating: false
@@ -171,6 +201,14 @@ var NORMAL = "normal",
     VERTICAL = "vertical";
 
 var Orderer = React.createClass({
+    propTypes: {
+        current: React.PropTypes.array,
+        options: React.PropTypes.array,
+        correctOptions: React.PropTypes.array,
+        height: React.PropTypes.oneOf([NORMAL, AUTO]),
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL])
+    },
+
     getDefaultProps: function() {
         return {
             current: [],
@@ -470,6 +508,14 @@ _.extend(Orderer, {
 
 
 var OrdererEditor = React.createClass({
+    propTypes: {
+        correctOptions: React.PropTypes.array,
+        otherOptions: React.PropTypes.array,
+        height: React.PropTypes.oneOf([NORMAL, AUTO]),
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+        onChange: React.PropTypes.func.isRequired
+    },
+
     getDefaultProps: function() {
         return {
             correctOptions: [
