@@ -696,30 +696,29 @@ var InteractiveGraph = React.createClass({
         var graphie = self.graphie;
         var coords = InteractiveGraph.getLineCoords(self.props.graph, self);
 
-        var pointA = self.pointA = graphie.addMovablePoint({
-            coord: coords[0],
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
-            normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
-            }
-        });
-
-        var pointB = self.pointB = graphie.addMovablePoint({
-            coord: coords[1],
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
-            normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
-            }
+        var points = self.points = _.map(coords, (coord) => {
+            return Interactive2.addMovablePoint(graphie, {
+                coord: coord,
+                constraints: [
+                    Interactive2.MovablePoint.constraints.bound(),
+                    Interactive2.MovablePoint.constraints.snap()
+                ],
+                onMove: () => {
+                    var graph = _.extend({}, self.props.graph, {
+                        coords: _.invoke(points, "coord")
+                    });
+                    self.props.onChange({graph: graph});
+                },
+                normalStyle: {
+                    stroke: KhanUtil.BLUE,
+                    fill: KhanUtil.BLUE
+                }
+            });
         });
 
         var lineConfig = {
-            pointA: pointA,
-            pointZ: pointB,
-            fixed: true
+            points: points,
+            static: true
         };
 
         if (type === "line") {
@@ -728,27 +727,22 @@ var InteractiveGraph = React.createClass({
             lineConfig.extendRay = true;
         }
 
-        var line = self.line = graphie.addMovableLineSegment(lineConfig);
+        var line = self.line = Interactive2.addMovableLine(
+            graphie,
+            lineConfig
+        );
 
         // A and B can't be in the same place
-        pointA.onMove = function(x, y) {
-            return !kpoint.equal([x, y], pointB.coord);
-        };
-        pointB.onMove = function(x, y) {
-            return !kpoint.equal([x, y], pointA.coord);
-        };
-
-        $([pointA, pointB]).on("move", function() {
-            var graph = _.extend({}, self.props.graph, {
-                coords: [pointA.coord, pointB.coord]
-            });
-            self.props.onChange({graph: graph});
+        points[0].listen("constraints", "isLine", (coord) => {
+            return !kpoint.equal(coord, points[1].coord());
+        });
+        points[1].listen("constraints", "isLine", (coord) => {
+            return !kpoint.equal(coord, points[0].coord());
         });
     },
 
     removeLine: function() {
-        this.pointA.remove();
-        this.pointB.remove();
+        _.invoke(this.points, "remove");
         this.line.remove();
     },
 
@@ -921,89 +915,56 @@ var InteractiveGraph = React.createClass({
         var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
             this);
 
-        var firstPoints = this.firstPoints = [
-            graphie.addMovablePoint({
-                coord: coords[0][0],
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
-                }
-            }),
-            graphie.addMovablePoint({
-                coord: coords[0][1],
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
-                }
-            })
-        ];
-
-        var secondPoints = this.secondPoints = [
-            graphie.addMovablePoint({
-                coord: coords[1][0],
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.GREEN,
-                    fill: KhanUtil.GREEN
-                }
-            }),
-            graphie.addMovablePoint({
-                coord: coords[1][1],
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.GREEN,
-                    fill: KhanUtil.GREEN
-                }
-            })
-        ];
-
-        var firstLine = this.firstLine = graphie.addMovableLineSegment({
-            pointA: firstPoints[0],
-            pointZ: firstPoints[1],
-            fixed: true,
-            extendLine: true,
-            normalStyle: {
-                stroke: KhanUtil.BLUE,
-                "stroke-width": 2
-            }
-        });
-
-        var secondLine = this.secondLine = graphie.addMovableLineSegment({
-            pointA: secondPoints[0],
-            pointZ: secondPoints[1],
-            fixed: true,
-            extendLine: true,
-            normalStyle: {
-                stroke: KhanUtil.GREEN,
-                "stroke-width": 2
-            }
-        });
-
-        _.each([firstPoints, secondPoints], function(points) {
-            points[0].onMove = function(x, y) {
-                return !_.isEqual([x, y], points[1].coord);
-            };
-
-            points[1].onMove = function(x, y) {
-                return !_.isEqual([x, y], points[0].coord);
-            };
-        });
-
-        $(firstPoints.concat(secondPoints)).on("move", function() {
-            var graph = _.extend({}, this.props.graph, {
-                coords: [
-                    [firstPoints[0].coord, firstPoints[1].coord],
-                    [secondPoints[0].coord, secondPoints[1].coord]
-                ]
+        var segmentColors = [KhanUtil.BLUE, KhanUtil.GREEN];
+        var points = this.points = _.map(coords,
+                (segmentCoords, segmentIndex) => {
+            var segmentPoints = _.map(segmentCoords, (coord, i) => {
+                return Interactive2.addMovablePoint(graphie, {
+                    coord: coord,
+                    constraints: [
+                        Interactive2.MovablePoint.constraints.bound(),
+                        Interactive2.MovablePoint.constraints.snap(),
+                        (coord) => {
+                            if (!segmentPoints) {
+                                // points hasn't been defined yet because
+                                // we're still creating them
+                                return;
+                            }
+                            return !kpoint.equal(
+                                coord,
+                                segmentPoints[1 - i].coord()
+                            );
+                        }
+                    ],
+                    onMove: () => {
+                        var graph = _.extend({}, this.props.graph, {
+                            coords: _.map(
+                                this.points,
+                                (segment) => _.invoke(segment, "coord")
+                            )
+                        });
+                        this.props.onChange({graph: graph});
+                    },
+                    normalStyle: {
+                        stroke: segmentColors[segmentIndex],
+                        fill: segmentColors[segmentIndex]
+                    }
+                });
             });
-            this.props.onChange({graph: graph});
-        }.bind(this));
+            return segmentPoints;
+        });
+
+        var lines = this.lines = _.map(points,
+                (segmentPoints, segmentIndex) => {
+            return Interactive2.addMovableLine(graphie, {
+                points: segmentPoints,
+                static: true,
+                extendLine: true,
+                normalStyle: {
+                    stroke: segmentColors[segmentIndex]
+                }
+            });
+        });
     },
 
     getLinearSystemEquationString: function() {
@@ -1018,10 +979,8 @@ var InteractiveGraph = React.createClass({
     },
 
     removeLinearSystemControls: function() {
-        _.chain(this.firstPoints)
-         .concat(this.secondPoints)
-         .concat([this.firstLine, this.secondLine])
-         .invoke("remove");
+        _.invoke(this.lines, "remove");
+        _.map(this.points, (segment) => _.invoke(segment, "remove"));
     },
 
     isCoordInTrash: function(coord) {
@@ -1042,6 +1001,9 @@ var InteractiveGraph = React.createClass({
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
                 function(coord) {
+                    // TODO(jack): There ought to be a
+                    // MovablePoint.constraints.avoid
+                    // default that lets you do things like this
                     return _.all(self.points, function(pt) {
                         return point === pt ||
                             !kpoint.equal(coord, pt.coord());
@@ -1426,57 +1388,61 @@ var InteractiveGraph = React.createClass({
     },
 
     addSegmentControls: function() {
+        var self = this;
         var graphie = this.graphie;
 
         var coords = InteractiveGraph.getSegmentCoords(this.props.graph, this);
 
         this.points = [];
         this.lines = _.map(coords, function(segment, i) {
-            var pointA = graphie.addMovablePoint({
-                coord: segment[0],
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
-                }
-            });
-            this.points.push(pointA);
-
-            var pointB = graphie.addMovablePoint({
-                coord: segment[1],
-                snapX: graphie.snap[0],
-                snapY: graphie.snap[1],
-                normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
-                }
-            });
-            this.points.push(pointB);
-
-            var line = graphie.addMovableLineSegment({
-                pointA: pointA,
-                pointZ: pointB,
-                fixed: true
-            });
-
-            // A and B can't be in the same place
-            pointA.onMove = function(x, y) {
-                return !_.isEqual([x, y], pointB.coord);
-            };
-            pointB.onMove = function(x, y) {
-                return !_.isEqual([x, y], pointA.coord);
+            var updateCoordProps = function() {
+                var graph = _.extend({}, self.props.graph, {
+                    coords: _.invoke(self.lines, "coords")
+                });
+                self.props.onChange({graph: graph});
             };
 
-            $([pointA, pointB]).on("move", function() {
-                var segments = _.map(this.lines, function(line) {
-                    return [line.pointA.coord, line.pointZ.coord];
+            var points = _.map(segment, function(coord, i) {
+                return Interactive2.addMovablePoint(graphie, {
+                    coord: coord,
+                    normalStyle: {
+                        stroke: KhanUtil.BLUE,
+                        fill: KhanUtil.BLUE
+                    },
+                    constraints: [
+                        Interactive2.MovablePoint.constraints.bound(),
+                        Interactive2.MovablePoint.constraints.snap(),
+                        (coord) => {
+                            if (!points) {
+                                // points hasn't been defined yet because
+                                // we're still creating them
+                                return;
+                            }
+                            return !kpoint.equal(coord, points[1 - i].coord());
+                        }
+                    ],
+                    onMove: updateCoordProps
                 });
-                var graph = _.extend({}, this.props.graph, {
-                    coords: segments
-                });
-                this.props.onChange({graph: graph});
-            }.bind(this));
+            });
+
+            self.points = self.points.concat(points);
+            var line = Interactive2.addMovableLine(graphie, {
+                points: points,
+                static: false,
+                updatePoints: true,
+                constraints: [
+                    Interactive2.MovableLine.constraints.bound(),
+                    Interactive2.MovableLine.constraints.snap()
+                ],
+                onMove: updateCoordProps,
+                normalStyle: {
+                    stroke: KhanUtil.BLUE
+                },
+                highlightStyle: {
+                    stroke: KhanUtil.ORANGE
+                }
+            });
+            _.invoke(points, "toFront");
 
             return line;
         }, this);
