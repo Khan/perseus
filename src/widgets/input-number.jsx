@@ -74,10 +74,26 @@ var formExamples = {
 };
 
 var InputNumber = React.createClass({
+    propTypes: {
+        currentValue: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {
+            currentValue: "",
+            size: "normal"
+        };
+    },
+
     render: function() {
-        // TODO(jack): Probably make this sync up with its props
-        return <input type="text" className=
-            {"perseus-input-size-" + (this.props.size || "normal")} />;
+        return <input type="text"
+            value={this.props.currentValue}
+            onChange={this.handleChange}
+            className={"perseus-input-size-" + this.props.size} />;
+    },
+
+    handleChange: function(e) {
+        this.props.onChange({ currentValue: e.target.value });
     },
 
     focus: function() {
@@ -87,7 +103,7 @@ var InputNumber = React.createClass({
 
     toJSON: function(skipValidation) {
         return {
-            value: this.getDOMNode().value
+            currentValue: this.props.currentValue
         };
     },
 
@@ -120,7 +136,7 @@ _.extend(InputNumber, {
                 forms: answerTypes[rubric.answerType].forms
             });
 
-        var result = val(state.value);
+        var result = val(state.currentValue);
 
         // TODO(eater): Seems silly to translate result to this invalid/points
         // thing and immediately translate it back in ItemRenderer.scoreInput()
