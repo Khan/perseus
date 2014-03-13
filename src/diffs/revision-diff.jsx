@@ -22,6 +22,12 @@ var getPath = function(obj, path, defaultValue) {
     return result;
 };
 
+var widgetsIn = function(item) {
+    var question = item.question || {};
+    var widgets = question.widgets || {};
+    return _.keys(widgets);
+};
+
 var isWidget = obj => _.isObject(obj) && !("content" in obj);
 
 var RevisionDiff = React.createClass({
@@ -37,8 +43,7 @@ var RevisionDiff = React.createClass({
         // that's pretty complicated to handle nicely.
         // This will do for now.
         var hintCount = Math.max(before.hints.length, after.hints.length);
-        var widgets = _.union(_.keys(before.question.widgets),
-                              _.keys(after.question.widgets));
+        var widgets = _.union(widgetsIn(before), widgetsIn(after));
         var sections = [
             {
                 title: "Question Area",
