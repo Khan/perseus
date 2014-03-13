@@ -233,7 +233,12 @@ _.extend(MovableLine.prototype, {
         if (this.points) {
             _.invoke(this.points, "unlisten", "onMove", this.state.id);
         }
-        this.movable.remove();
+
+        if (this.movable) {
+            // We need this to be guarded because it is called on the initial
+            // constructor/modify call, before this.movable is created
+            this.movable.remove();
+        }
     },
 
     // Change z-order to back
