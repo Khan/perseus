@@ -4,79 +4,70 @@ require("../core.js");
 var Util = require("../util.js");
 var Widgets = require("../widgets.js");
 
-var InfoTip = require("../components/info-tip.jsx");
-var NumberInput = require("../components/number-input.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 
-var answerTypes = {
-    number: {
-        name: "Numbers",
-        forms: "integer, decimal, proper, improper, mixed"
-    },
-    decimal: {
-        name: "Decimals",
-        forms: "decimal"
-    },
-    integer: {
-        name: "Integers",
-        forms: "integer"
-    },
-    rational: {
-        name: "Fractions and mixed numbers",
-        forms: "integer, proper, improper, mixed"
-    },
-    improper: {
-        name: "Improper numbers (no mixed)",
-        forms: "integer, proper, improper"
-    },
-    mixed: {
-        name: "Mixed numbers (no improper)",
-        forms: "integer, proper, mixed"
-    },
-    percent: {
-        name: "Numbers or percents",
-        forms: "integer, decimal, proper, improper, mixed, percent"
-    },
-    pi: {
-        name: "Numbers with pi", forms: "pi"
-    }
-};
+var InfoTip = require("../components/info-tip.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
+var NumberInput = require("../components/number-input.jsx");
+var MultiButtonGroup = require("../components/multi-button-group.jsx");
+
+var answerFormButtons = [
+    {title: "Integers", value: "integer", text: "6", selected: true},
+    {title: "Decimals", value: "decimal", text: "0.75", selected: true},
+    {title: "Proper fractions", value: "proper", text: "\u2157",
+        selected: true},
+    {title: "Improper fractions", value: "improper",
+        text: "\u2077\u2044\u2084", selected: true},
+    {title: "Mixed numbers", value: "mixed", text: "1\u00BE", selected: true},
+    {title: "Percentages", value: "percent", text: "%"},
+    {title: "Numbers with pi", value: "pi", text: "\u03C0"}
+];
 
 var formExamples = {
-    "integer": function(options) { return $._("an integer, like $6$"); },
-    "proper": function(options) {
+    "integer": (options) => $._("an integer, like $6$"),
+    "proper": (options) => {
         if (options.simplify === "optional") {
             return $._("a *proper* fraction, like $1/2$ or $6/10$");
         } else {
             return $._("a *simplified proper* fraction, like $3/5$");
         }
     },
-    "improper": function(options) {
+    "improper": (options) => {
         if (options.simplify === "optional") {
             return $._("an *improper* fraction, like $10/7$ or $14/8$");
         } else {
             return $._("a *simplified improper* fraction, like $7/4$");
         }
     },
-    "mixed": function(options) {
-        return $._("a mixed number, like $1\\ 3/4$");
-    },
-    "decimal": function(options) {
-        return $._("an *exact* decimal, like $0.75$");
-    },
-    "percent": function(options) {
-        return $._("a percent, like $12.34\\%$");
-    },
-    "pi": function(options) {
-        return $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$");
-    }
+    "mixed": () => $._("a mixed number, like $1\\ 3/4$"),
+    "decimal": () => $._("an *exact* decimal, like $0.75$"),
+    "percent": () => $._("a percent, like $12.34\\%$"),
+    "pi": () => $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+                "$2/3\\ \\text{pi}$")
 };
 
 var TextInput = React.createClass({
+    propTypes: {
+        currentValue: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {
+            currentValue: "",
+            size: "normal"
+        };
+    },
+
     render: function() {
-        // TODO(jack): Probably make this sync up with its props
-        return <input type="text" className={"interactive-component" +
-                "perseus-input-size-" + (this.props.size || "normal")} />;
+        return <input type="text"
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    className={"perseus-input-size-" + this.props.size} />;
+    },
+
+    handleChange: function(e) {
+        this.props.onChange({ currentValue: e.target.value });
     },
 
     focus: function() {
@@ -86,7 +77,7 @@ var TextInput = React.createClass({
 
     toJSON: function(skipValidation) {
         return {
-            value: this.getDOMNode().value
+            currentValue: this.props.currentValue
         };
     },
 
@@ -95,31 +86,31 @@ var TextInput = React.createClass({
     },
 
     examples: function() {
-        var type = this.props.answerType || "number";
-        var forms = answerTypes[type].forms.split(/\s*,\s*/);
-
-        var examples = _.map(forms, function(form) {
+        return _.map(this.props.answerForms, function(form) {
             return formExamples[form](this.props);
         }, this);
-
-        return examples;
     }
 });
 
 _.extend(TextInput, {
     validate: function(state, rubric) {
-        if (rubric.answerType == null) {
-            rubric.answerType = "number";
-        }
+        // TODO(merlob) hook up skipValidation for answerForms === [] case
+        // especially when strict; then there are no answers :P
+
+        // TODO(merlob) make answerForms autofill-in in a semi-intelligent
+        // but also not annoying way.
+
+        var allAnswerForms = _.pluck(answerFormButtons, "value");
+
         var val = Khan.answerTypes.number.createValidatorFunctional(
             rubric.value, {
                 simplify: rubric.simplify,
-                inexact: rubric.inexact || undefined,
+                inexact: true,
                 maxError: rubric.maxError,
-                forms: answerTypes[rubric.answerType].forms
+                forms: rubric.strict ? rubric.answerForms : allAnswerForms
             });
 
-        var result = val(state.value);
+        var result = val(state.currentValue);
 
         // TODO(eater): Seems silly to translate result to this invalid/points
         // thing and immediately translate it back in ItemRenderer.scoreInput()
@@ -140,14 +131,16 @@ _.extend(TextInput, {
 });
 
 var TextInputEditor = React.createClass({
+    mixins: [JsonifyProps, Changeable],
+
     getDefaultProps: function() {
         return {
             value: null,
             simplify: "required",
             size: "normal",
-            inexact: false,
             maxError: null,
-            answerType: "number"
+            answerForms: [],
+            strict: false
         };
     },
 
@@ -157,10 +150,6 @@ var TextInputEditor = React.createClass({
     },
 
     render: function() {
-        var answerTypeOptions = _.map(answerTypes, function(v, k) {
-            return <option value={k}>{v.name}</option>;
-        }, this);
-
         return <div className="perseus-input-number-editor">
             <div><label>
                 {' '}Correct answer:{' '}
@@ -170,14 +159,8 @@ var TextInputEditor = React.createClass({
                 </label>
                 {' '} &plusmn; {' '}
                 <NumberInput className="max-error"
-                    value = {this.props.maxError}
-                    onChange={(maxError) => {
-                        inexact = maxError != null && maxError !== 0;
-                        this.props.onChange({
-                            inexact: inexact,
-                            maxError: maxError
-                        });
-                    }}
+                    value={this.props.maxError}
+                    onChange={this.change("maxError")}
                     placeholder="0"
                     ref="input" />
             </div>
@@ -210,19 +193,20 @@ var TextInputEditor = React.createClass({
             </div>
 
             <div>
-            {' '}Answer type:{' '}
-            <select
-                value={this.props.answerType}
-                onChange={function(e) {
-                    this.props.onChange({answerType: e.target.value});
-                }.bind(this)}>
-                {answerTypeOptions}
-            </select>
-            <InfoTip>
-                <p>Use the default "Numbers" unless the answer must be in a
-                specific form (e.g., question is about converting decimals to
-                fractions).</p>
-            </InfoTip>
+            Answer format:
+            <MultiButtonGroup values={this.props.answerForms}
+                buttons={answerFormButtons}
+                onChange={this.change("answerForms")} />
+            <InfoTip><p>
+                These answer formats are the <i>suggested</i> formats that
+                show up in "Acceptable Formats" field. They do not restrict
+                the answer accepted unless you select "strict" below.
+            </p></InfoTip>
+            </div>
+            <div>
+            <PropCheckBox label="Strictly accept only these answer formats"
+                strict={this.props.strict}
+                onChange={this.change("strict")} />
             </div>
 
             <div>
@@ -248,11 +232,6 @@ var TextInputEditor = React.createClass({
     focus: function() {
         this.refs.input.getDOMNode().focus();
         return true;
-    },
-
-    toJSON: function() {
-        return _.pick(this.props, "value", "simplify", "size",
-            "inexact", "maxError", "answerType");
     }
 });
 
