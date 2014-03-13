@@ -142,11 +142,11 @@ _.extend(TextInput, {
 var TextInputEditor = React.createClass({
     getDefaultProps: function() {
         return {
-            value: "0",
+            value: null,
             simplify: "required",
             size: "normal",
             inexact: false,
-            maxError: 0.1,
+            maxError: null,
             answerType: "number"
         };
     },
@@ -161,13 +161,26 @@ var TextInputEditor = React.createClass({
             return <option value={k}>{v.name}</option>;
         }, this);
 
-        return <div>
+        return <div className="perseus-input-number-editor">
             <div><label>
                 {' '}Correct answer:{' '}
-                <BlurInput value={"" + this.props.value}
+                <BlurInput value={this.props.value}
                            onChange={this.handleAnswerChange}
                            ref="input" />
-            </label></div>
+                </label>
+                {' '} &plusmn; {' '}
+                <BlurInput className="max-error"
+                    value = {this.props.maxError}
+                    onChange={(maxError) => {
+                        inexact = maxError != null && maxError !== 0;
+                        this.props.onChange({
+                            inexact: inexact,
+                            maxError: maxError
+                        });
+                    }}
+                    placeholder="0"
+                    ref="input" />
+            </div>
 
             <div>
                 <label>
@@ -195,29 +208,6 @@ var TextInputEditor = React.createClass({
                     specifically assessing the ability to simplify.</p>
                 </InfoTip>
             </div>
-
-            <div><label>
-                <input type="checkbox"
-                    checked={this.props.inexact}
-                    onChange={function(e) {
-                        this.props.onChange({inexact: e.target.checked});
-                    }.bind(this)} />
-                {' '}Allow inexact answers{' '}
-            </label>
-
-            <label>
-            <input /* TODO(emily): don't use a hidden checkbox for alignment */
-                type="checkbox" style={{visibility: "hidden"}} />
-            {' '}Max error:{' '}
-            <input type="text" disabled={!this.props.inexact}
-                defaultValue={this.props.maxError}
-                onBlur={function(e) {
-                    var ans = "" + (Util.firstNumericalParse(
-                            e.target.value) || 0);
-                    e.target.value = ans;
-                    this.props.onChange({maxError: ans});
-                }.bind(this)} />
-            </label></div>
 
             <div>
             {' '}Answer type:{' '}
@@ -261,9 +251,8 @@ var TextInputEditor = React.createClass({
     },
 
     toJSON: function() {
-        return _.pick(this.props,
-                "value", "simplify", "size", "inexact", "maxError",
-                "answerType");
+        return _.pick(this.props, "value", "simplify", "size",
+            "inexact", "maxError", "answerType");
     }
 });
 
