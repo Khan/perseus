@@ -75,19 +75,25 @@ var RevisionDiff = React.createClass({
             var path = section.path;
             var beforeValue = getPath(before, path, "");
             var afterValue = getPath(after, path, "");
+            var displayedDiff;
             if (isWidget(beforeValue) && isWidget(afterValue)) {
-                result.push(<WidgetDiff 
+                displayedDiff = <WidgetDiff
                     key={section.title}
                     title={section.title}
                     before={beforeValue}
-                    after={afterValue} />);
+                    after={afterValue} />;
             } else {
-                result.push(<TextDiff
+                displayedDiff = <TextDiff
                     key={section.title}
                     title={section.title}
                     before={beforeValue.content}
-                    after={afterValue.content} />);
+                    after={afterValue.content} />;
             }
+            result.push(<div>
+                <div className="diff-header">{section.title}</div>
+                <div className="diff-header">{section.title}</div>
+                {displayedDiff}
+            </div>);
         });
 
         return <div>{result}</div>;
