@@ -7,6 +7,8 @@ var Util = require("./util.js");
 var TeX = require("./tex.jsx");
 var Widgets = require("./widgets.js");
 
+var QuestionParagraph = require("./question-paragraph.jsx");
+
 
 var specialChars = {
     // escaped: original
@@ -92,6 +94,7 @@ var Renderer = Perseus.Renderer = React.createClass({
                             var widgets = _.clone(this.state.widgets);
                             widgets[id] = _.extend({}, widgets[id], newProps);
                             this.setState({widgets: widgets}, cb);
+                            this.props.onInteractWithWidget(id);
                         }
                     }
                 ));
@@ -151,7 +154,10 @@ var Renderer = Perseus.Renderer = React.createClass({
                     pieces[i] = self.getPiece(savedMath[pieces[i]], widgetIds);
                 }
             }
-            return pieces;
+            return <QuestionParagraph
+                usedWidgets={self.props.usedWidgets} >
+                {pieces}
+            </QuestionParagraph>;
         };
 
         try {

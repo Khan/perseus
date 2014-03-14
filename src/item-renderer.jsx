@@ -45,7 +45,8 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
 
     getInitialState: function() {
         return {
-            hintsVisible: this.props.initialHintsVisible
+            hintsVisible: this.props.initialHintsVisible,
+            questionAreaUsedWidgets: []
         };
     },
 
@@ -64,7 +65,9 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = React.renderComponent(
                 Perseus.Renderer(_.extend({
-                    problemNum: this.props.problemNum
+                    problemNum: this.props.problemNum,
+                    onInteractWithWidget: this.handleInteractWithWidget,
+                    usedWidgets: this.state.questionAreaUsedWidgets
                 }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
@@ -91,6 +94,15 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                 Khan.scratchpad.disable();
             }
         }
+    },
+
+    handleInteractWithWidget: function(id) {
+        this.setState({
+            questionAreaUsedWidgets: _.union(
+                    [id],
+                    this.state.questionAreaUsedWidgets
+            )
+        });
     },
 
     render: function() {
