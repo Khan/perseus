@@ -17,6 +17,7 @@
 <script src="/lib/marked.js"></script>
 <script src="/lib/react-with-addons.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+<script src="/ke/local-only/require.js"></script>
 
 <script>
     window.KhanUtil = {
@@ -33,6 +34,26 @@
         }
     };
     React.initializeTouchEvents(true);
+
+    (function() {
+
+    requirejs.config({
+        waitSeconds: 120
+    });
+
+    // Load khan-exercises modules, then perseus
+    require(["/ke-deps.js"], function() {
+        // pre built
+        // require(["build/perseus.js"], initPerseus);
+
+        // pre built with source maps
+        // require(["build/perseus.debug.js"], initPerseus);
+
+        // built on demand
+        require(["/src/editor-page-shim.js"]);
+    });
+
+    })();
 </script>
 
 <script src="../ke/local-only/jed.js"></script>
