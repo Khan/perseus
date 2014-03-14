@@ -206,12 +206,12 @@ var InteractiveNumberLine = React.createClass({
             pointSize = 5;
             pointStyle = {
                 stroke: KhanUtil.ORANGE,
-                fill: KhanUtil.BACKGROUND,
+                fill: KhanUtil._BACKGROUND,
                 "stroke-width": 3
             };
             highlightStyle = {
                 stroke: KhanUtil.ORANGE,
-                fill: KhanUtil.BACKGROUND,
+                fill: KhanUtil._BACKGROUND,
                 "stroke-width": 4
             };
         } else {
