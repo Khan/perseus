@@ -374,7 +374,7 @@ var Categorization = React.createClass({
         var containerName = "draggy-boxy-thing categorization-container" +
                             " clearfix";
         if (isEditor) {
-            containerName += " categorization-container-editor";
+            containerName += " editor";
         }
         if (dragging) {
             containerName += " currently-dragging";
