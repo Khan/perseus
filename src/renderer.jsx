@@ -29,11 +29,13 @@ var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 // state as the translator enters their translation.
 Perseus.TranslationComponents = {};
 
+var CLEAR_WIDGETS_BLACKLIST = ["onChange", "usedWidgets"];
+
 var Renderer = Perseus.Renderer = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(_.omit(this.props, "onChange"),
-                       _.omit(nextProps, "onChange"))) {
+        if (!_.isEqual(_.omit(this.props, CLEAR_WIDGETS_BLACKLIST),
+                       _.omit(nextProps, CLEAR_WIDGETS_BLACKLIST))) {
             this.setState({widgets: {}});
         }
     },
