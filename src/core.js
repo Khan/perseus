@@ -20,7 +20,10 @@ Perseus.init = function(options) {
     var deferred = $.Deferred();
 
     markedReact.setOptions({
-        sanitize: true
+        sanitize: true,
+        paragraphFn: function(text) {
+            return React.DOM.div({className: 'paragraph'}, text);
+        }
     });
 
     if (options.skipMathJax) {
