@@ -355,8 +355,8 @@ var NumberLine = React.createClass({
 
         // Render the text labels
         this.graphie.style({color: KhanUtil.BLUE}, () => {
-            this._label(leftLabel);
-            this._label(rightLabel);
+            this.tickOrLabels.push(this._label(leftLabel));
+            this.tickOrLabels.push(this._label(rightLabel));
         });
 
         // Render the labels' lines
@@ -392,6 +392,8 @@ var NumberLine = React.createClass({
             this.inequalityLine.toFront();
         }
 
+        this.renderLabels();
+
         // The point doesn't exist yet if the props recently changed
         // because the snapX of the point depends on the tickStep, but
         // if this is occuring as a result of the onMove of the tickCtrl
@@ -400,8 +402,6 @@ var NumberLine = React.createClass({
         if (this.point) {
             this.point.toFront();
         }
-
-        this.renderLabels();
     },
 
     initGraphie: function() {
