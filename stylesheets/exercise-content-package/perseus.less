@@ -1,5 +1,6 @@
 //
 // Edit this file in the *perseus* repo!
+// (All changes outside the perseus repo will be overwritten)
 //
 
 // Steal from webapp/stylesheets/shared-package/variables.less
@@ -24,65 +25,6 @@
 
     &.perseus-input-size-small {
         width: 40px;
-    }
-}
-
-// Override the float: left on input[type=radio]s in the
-// #answer_area from khan-exercise.css, because it breaks our
-// margin-left: -20px positioning
-.perseus-widget-radio,
-#answer_area .perseus-widget-radio {
-    li span.checkbox input[type=radio] {
-        float: none;
-    }
-}
-
-.perseus-widget-radio {
-    div,
-    div > p {
-        /* TODO(alpert): Find a better way of doing inline renderers */
-        display: inline;
-    }
-
-    div.instructions {
-        display: block;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-
-    li {
-        padding: 7px 0;
-        margin-left: 20px;
-
-        label {
-            display: block;
-        }
-
-        span.checkbox {
-            width: 20px;
-            margin-left: -21px;
-            margin-right: 0px;
-        }
-
-        .value {
-            display: block;
-            margin-left: 18px;
-            min-height: 22px;
-        }
-
-        img {
-            vertical-align: middle;
-        }
-    }
-
-   .perseus-radio-clue {
-        color: @clueColor;
-        display: block;
-    }
-
-    .perseus-textarea-pair,
-    .perseus-textarea-underlay {
-        display: block;
     }
 }
 
@@ -190,6 +132,71 @@
 
     .number-input {
         width: 50px;
+    }
+}
+
+/* Widget CSS */
+
+//
+// Radio
+//
+
+// Override the float: left on input[type=radio]s in the
+// #answer_area from khan-exercise.css, because it breaks our
+// margin-left: -20px positioning
+.perseus-widget-radio,
+#answer_area .perseus-widget-radio {
+    li span.checkbox input[type=radio] {
+        float: none;
+    }
+}
+
+.perseus-widget-radio {
+    div,
+    div > p {
+        /* TODO(alpert): Find a better way of doing inline renderers */
+        display: inline;
+    }
+
+    div.instructions {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    li {
+        padding: 7px 0;
+        margin-left: 20px;
+
+        label {
+            display: block;
+        }
+
+        span.checkbox {
+            width: 20px;
+            margin-left: -21px;
+            margin-right: 0px;
+        }
+
+        .value {
+            display: block;
+            margin-left: 18px;
+            min-height: 22px;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+    }
+
+   .perseus-radio-clue {
+        color: @clueColor;
+        display: block;
+    }
+
+    .perseus-textarea-pair,
+    .perseus-textarea-underlay {
+        display: block;
     }
 }
 
@@ -910,25 +917,5 @@
         &.dark {
             background-color: #FFAAAA;
         }
-    }
-}
-
-// place on a div above the inputs
-.range-input {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
-    padding: 0px 5px;
-
-    & > input {
-        border: 0;
-        display: inline;
-        text-align: center;
-        width: 30px;
-    }
-
-    & > span {
-        color: #999;
-        font-size: 14px;
     }
 }
