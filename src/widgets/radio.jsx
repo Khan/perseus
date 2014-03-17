@@ -195,6 +195,31 @@ var RadioEditor = React.createClass({
 
     render: function() {
         return <div>
+            <div className="perseus-widget-row">
+
+                <div className="perseus-widget-left-col"><label>
+                    <input type="checkbox"
+                           checked={this.props.multipleSelect}
+                           onChange={this.onMultipleSelectChange} />
+                    {' '}Multiple selections{' '}
+                </label></div>
+
+                <div className="perseus-widget-right-col"><label>
+                    <input type="checkbox"
+                           checked={this.props.randomize}
+                           onChange={(e) => this.props.onChange(
+                            {randomize: e.target.checked})} />
+                    {' '}Randomize order{' '}
+                </label>
+                <InfoTip>
+                    <p>For this option to work, don’t label choices or have
+                    "None of the above" as an option. For true/false questions,
+                    make the first choice True and the second choice False,
+                    and do NOT select randomize answer order.</p>
+                </InfoTip>
+                </div>
+            </div>
+
             <BaseRadio
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
@@ -257,30 +282,6 @@ var RadioEditor = React.createClass({
                 </a>
             </div>
 
-            <div><label>
-                <input
-                    type="checkbox"
-                    checked={this.props.randomize}
-                    onChange={function(e) {
-                        this.props.onChange({randomize: e.target.checked});
-                    }.bind(this)} />
-                {' '}Randomize answer order{' '}
-            </label>
-            <InfoTip>
-                <p>For this option to work, don’t label choices or have "None
-                of the above" as an option. For true/false questions, make the
-                first choice True and the second choice False, and do NOT
-                select randomize answer order.</p>
-            </InfoTip>
-            </div>
-
-            <div><label>
-                <input
-                    type="checkbox"
-                    checked={this.props.multipleSelect}
-                    onChange={this.onMultipleSelectChange} />
-                {' '}Allow multiple selections{' '}
-            </label></div>
         </div>;
     },
 
