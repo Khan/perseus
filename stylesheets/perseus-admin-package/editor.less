@@ -9,10 +9,12 @@
 @grayDarker:            #333;
 @gray:                  #999;
 @grayExtraLight:        #eee;
+@grayLighter:           #ddd;
 @white:                 #fff;
 
 // Editor Style
-@editorBorder:          1px solid @gray;
+@editorBorderWidth:     1px;
+@editorBorder:          @editorBorderWidth solid @gray;
 @editorBorderRadius:    5px;
 @editorPadding:         10px;
 
@@ -385,23 +387,26 @@
 //
 .more-options-container {
     display: block;
-    text-align: center;
-    position: relative;
     padding-bottom: 24px;
+    position: relative;
 
     .more-options-title {
-        position: absolute;
-        padding: 5px 0;
-        font-weight: bold;
+        border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
+        color: @gray;
+        height: 20px;
         font-size: 14px;
+        padding: 5px 0;
+        width: @leftCellWidth - 2 * @editorBorderWidth;
+
+        position: absolute;
         left: -1 * @editorPadding;
         right: 0;
         bottom: -1 * @editorPadding;
-        height: 20px;
-        width: @leftCellWidth - 2;
+
+        text-align: center;
 
         &:hover {
-            background-color: #ddd;
+            background-color: @grayLighter;
             cursor: pointer;
         }
     }

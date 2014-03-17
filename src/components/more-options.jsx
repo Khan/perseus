@@ -23,7 +23,10 @@ var MoreOptions = React.createClass({
         return <div className="more-options-container">
             {this.state.show && this.props.children}
             <div className="more-options-title" onClick={this.toggle}>
-                {this.state.show ? "Less" : "More"} options...
+                {this.state.show ?
+                    <span><i className="icon-chevron-up"   /> Less</span> :
+                    <span><i className="icon-chevron-down" /> More</span>
+                } Options...
             </div>
         </div>
     },
