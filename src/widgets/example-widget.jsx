@@ -11,6 +11,7 @@
 
 var Widgets = require("../widgets.js");
 var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var knumber = KhanUtil.knumber;
 
@@ -50,7 +51,13 @@ var ExampleWidget = React.createClass({
         };
     },
 
-    mixins: [Changeable],
+    /**
+     * Changeling creates this.change() to tell our parent to update our props
+     *
+     * JsonifyProps creates this.toJSON() which returns the state of the widget
+     * for checking the answer in simpleValidate
+     */
+    mixins: [Changeable, JsonifyProps],
 
     render: function() {
         return <TextInput
@@ -67,14 +74,6 @@ var ExampleWidget = React.createClass({
     focus: function() {
         this.refs.input.focus();
         return true;
-    },
-
-    /**
-     * toJSON returns the state of the widget for checking it's answer in
-     * simpleValidate
-     */
-    toJSON: function(skipValidation) {
-        return _.pick(this.props, "value");
     },
 
     /**
@@ -136,7 +135,7 @@ _.extend(ExampleWidget, {
  * of the screen in test.html. Only the question writer sees this.
  */
 var ExampleWidgetEditor = React.createClass({
-    mixins: [Changeable],
+    mixins: [Changeable, JsonifyProps],
 
     getDefaultProps: function() {
         return {
@@ -167,10 +166,6 @@ var ExampleWidgetEditor = React.createClass({
     focus: function() {
         this.refs.input.focus();
         return true;
-    },
-
-    toJSON: function() {
-        return _.pick(this.props, "correct");
     }
 });
 
