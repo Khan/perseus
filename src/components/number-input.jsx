@@ -3,6 +3,7 @@
 require("../core.js");
 var Util = require("../util.js");
 var knumber = KhanUtil.knumber;
+var toNumericString = KhanUtil.toNumericString;
 
 /* If str represents a valid number, return that number.
  * Otherwise, if str is empty and allowEmpty is true, return
@@ -31,12 +32,6 @@ var isNumericString = (function() {
     };
 })();
 
-// TODO (jack): It would be nice if this did more of the inverse of
-// numberFromString, handling fractions and such.
-function stringFromNumber(num) {
-    return num != null ? String(num) : "";
-}
-
 /* An input box that accepts only numbers
  *
  * Calls onChange when a valid number is entered.
@@ -49,7 +44,8 @@ var NumberInput = React.createClass({
         return {
             allowEmpty: false,
             value: null,
-            placeholder: null
+            placeholder: null,
+            format: null
         };
     },
 
@@ -68,7 +64,7 @@ var NumberInput = React.createClass({
             onChange: this._handleChange,
             onBlur: this._handleBlur,
             onKeyPress: this._handleBlur,
-            defaultValue: stringFromNumber(this.props.value),
+            defaultValue: toNumericString(this.props.value, this.props.format),
             value: undefined
         }));
 
@@ -81,7 +77,7 @@ var NumberInput = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         if (!knumber.equal(this.getValue(), this.props.value)) {
-            this._setValue(this.props.value);
+            this._setValue(this.props.value, this.props.format);
         }
     },
 
@@ -138,11 +134,11 @@ var NumberInput = React.createClass({
 
         var text = this.refs.input.getDOMNode().value;
         if (!isNumericString(text, this._allowEmpty())) {
-            this._setValue(this.props.value);
+            this._setValue(this.props.value, this.props.format);
         }
     },
 
-    _setValue: function(val) {
+    _setValue: function(val, format) {
         $(this.refs.input.getDOMNode()).val(stringFromNumber(val));
     }
 });
