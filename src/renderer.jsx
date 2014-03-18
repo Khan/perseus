@@ -23,7 +23,7 @@ var specialChars = {
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g; 
- 
+
 // When using crowdin's jipt (Just in place translation), we need to keep a
 // registry of crowdinId's to component so that we can update the component's
 // state as the translator enters their translation.
@@ -89,9 +89,9 @@ var Renderer = Perseus.Renderer = React.createClass({
                 return cls(_.extend({},
                     (widgetInfo || {}).options,
                     this.state.widgets[id],
-                    _.pick(this.props, "problemNum"),
                     {
                         ref: id,
+                        problemNum: this.props.problemNum,
                         onChange: (newProps, cb) => {
                             var widgets = _.clone(this.state.widgets);
                             widgets[id] = _.extend({}, widgets[id], newProps);
