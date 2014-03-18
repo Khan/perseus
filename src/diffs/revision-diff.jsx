@@ -92,7 +92,9 @@ var RevisionDiff = React.createClass({
             result.push(<div>
                 <div className="diff-header">{section.title}</div>
                 <div className="diff-header">{section.title}</div>
-                {displayedDiff}
+                <div className="diff-body ui-helper-clearfix">
+                    {displayedDiff}
+                </div>
             </div>);
         });
 

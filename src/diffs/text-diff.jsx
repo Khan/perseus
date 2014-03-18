@@ -55,7 +55,6 @@ var TextDiff = React.createClass({
         });
 
         var className = cx({
-            "diff-header": true,
             "diff-row": true,
             "collapsed": this.state.collapsed
         });
@@ -65,7 +64,7 @@ var TextDiff = React.createClass({
                 {_.map([BEFORE, AFTER], side => {
                     return <div className={"diff-row " + side} >
                         {!this.state.collapsed && contents[side]}
-                        </div>;
+                    </div>;
                 })}
             </div>
             {_.map([BEFORE, AFTER], side => {

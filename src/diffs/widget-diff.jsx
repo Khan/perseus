@@ -28,13 +28,15 @@ var DiffSide = React.createClass({
             before: this.props.side === BEFORE,
             after: this.props.side === AFTER
         });
-        return <div
-            className={className}
-            style={{ paddingLeft: indentationFromDepth(this.props.depth) }}>
-            {this.props.showKey && this.props.propKey + ": "}
-            <span className={"inner-value dark " + this.props.className}>
-                {this.props.value}
-            </span>
+        return <div className={className} >
+            <div style={{
+                paddingLeft: indentationFromDepth(this.props.depth)
+            }} >
+                {this.props.showKey && this.props.propKey + ": "}
+                <span className={"inner-value dark " + this.props.className} >
+                    {this.props.value}
+                </span>
+            </div>
         </div>;
     }
 });
@@ -56,11 +58,12 @@ var CollapsedRow = React.createClass({
         return <div onClick={self.props.onClick}>
             {_.map([BEFORE, AFTER], function(side) {
                 return <div className={"diff-row collapsed " + side}
-                    key={side}
-                    style={{
-                        paddingLeft: indentationFromDepth(self.props.depth)
-                    }}>
-                    <span> [ show unmodified ] </span>
+                    key={side} >
+                        <div style={{
+                            paddingLeft: indentationFromDepth(self.props.depth)
+                        }}>
+                        <span> [ show unmodified ] </span>
+                    </div>
                 </div>;
             })}
         </div>;

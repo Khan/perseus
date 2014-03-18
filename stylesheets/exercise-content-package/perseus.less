@@ -849,6 +849,7 @@
 }
 
 .perseus-diff {
+    @borderColor: #E4E4E4;
     margin: 0 10px;
 
     .diff-header {
@@ -857,20 +858,26 @@
         width: 50%;
         display: inline-block;
         &.collapsed {
-            background-color: #EEE;
             font-size: 14px;
             padding: 0px;
         }
+    }
+
+    .diff-body {
+        border-top: 1px solid @borderColor;
+        border-bottom: 1px solid @borderColor;
     }
 
     .diff-row {
         width: 50%;
         white-space: pre-wrap;
         box-sizing: border-box;
+        -moz-box-sizing: border-box;
         font-size: 14px;
         padding-right: 20px;
+        padding-left: 10px;
+        overflow: hidden;
         &.collapsed {
-            background-color: #EEE;
             color: #888;
             cursor: pointer;
             &:hover {
@@ -885,10 +892,13 @@
 
     .before {
         float: left;
+        border-left: 1px solid @borderColor;
     }
 
     .after {
         float: right;
+        border-right: 1px solid @borderColor;
+        border-left: 1px solid @borderColor;
     }
 
     .inner-value {
