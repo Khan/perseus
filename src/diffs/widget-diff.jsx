@@ -117,10 +117,7 @@ var DiffEntry = React.createClass({
 
         var shownChildren;
         if (this.state.expanded) {
-            // _.sortBy is stable, so let's put the changed children first
-            shownChildren = _(entry.children).sortBy(function(child) {
-                return child.status !== UNCHANGED ? -1 : 1;
-            });
+            shownChildren = entry.children;
         } else {
             shownChildren = _(entry.children).select(function(child) {
                 return child.status !== UNCHANGED;
@@ -128,6 +125,13 @@ var DiffEntry = React.createClass({
         }
 
         var collapsed = shownChildren.length < entry.children.length;
+
+        // don't hide just one entry
+        if (entry.children.length === shownChildren.length + 1) {
+            shownChildren = entry.children;
+            collapsed = false;
+        }
+
         var self = this;
         return <div>
             {entry.key && <div>
