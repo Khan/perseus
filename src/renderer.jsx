@@ -23,11 +23,45 @@ var specialChars = {
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g; 
+ 
+if (typeof KA !== "undefined" && KA.language === "en-PT") {
+    // When using crowdin's jipt (Just in place translation), we need to keep a
+    // registry of crowdinId's to component so that we can update the
+    // component's state as the translator enters their translation.
+    Perseus.TranslationComponents = [];
 
-// When using crowdin's jipt (Just in place translation), we need to keep a
-// registry of crowdinId's to component so that we can update the component's
-// state as the translator enters their translation.
-Perseus.TranslationComponents = {};
+    if (!KA.jipt_dom_insert_checks) {
+        KA.jipt_dom_insert_checks = [];
+    }
+
+    // We add a function that will get called whenever jipt says the dom needs
+    // to be updated
+    KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
+        var index = $(node).data("perseus-component-index");
+        // We only update if we had added an index onto the node's data. 
+        if (node && typeof index !== "undefined") {
+            var component = Perseus.TranslationComponents[index];
+            // Jipt sends down the escaped translation, so we need to
+            // unescape \\t to \t among other charachters here
+            text = text.replace(
+                rEscapedChars,
+                function(ch) {
+                    return specialChars[ch];
+                });
+
+            component.setState({
+                jiptContent: text
+            });
+
+            // Return false to tell jipt not to insert anything into the DOM
+            // itself, otherwise it will mess up what React expects there to be
+            return false;
+        }
+        // The string updated wasn't part of perseus, so we tell jipt to just
+        // insert the translation as-is.
+        return text;
+    });
+}
 
 var CLEAR_WIDGETS_BLACKLIST = ["onChange", "usedWidgets"];
 
@@ -55,9 +89,7 @@ var Renderer = Perseus.Renderer = React.createClass({
         // TODO(alpert): Move up to parent props?
         return {
             widgets: {},
-            jiptContent: "",
-            crowdinId: null,
-            contentHasJiptTags: false
+            jiptContent: null
         };
     },
 
@@ -105,36 +137,42 @@ var Renderer = Perseus.Renderer = React.createClass({
     },
 
     render: function() {
-        if (typeof(KA) !== "undefined" && !this.crowdinId &&
-                KA.language === "en-PT") {
+        var content = this.state.jiptContent || this.props.content;
+
+        if (typeof KA !== "undefined" && KA.language === "en-PT" && 
+                this.state.jiptContent == null &&
+                this.props.content.indexOf('crwdns') !== -1) {
             // Crowdin's JIPT (Just in place translation) uses a fake language
             // with language tag "en-PT" where the value of the translations
             // look like: {crwdns2657085:0}{crwdne2657085:0} where it keeps the
             // {crowdinId:ngettext variant}. We detect whether the current
             // content matches this, so we can take over rendering of
             // the perseus content as the translators interact with jipt.
-            content = this.props.content;
-            // this is the same re with the same name stolen from
-            // https://cdn.crowdin.net/jipt/jipt.js
-            var globalPhrase = /{crwdns(\d+):(\d)}([\s\S]*?){crwdne\1:\2}/g;
-            var match = globalPhrase.exec(content);
-            if (match) {
-                // We have found a translation that looks like a crowdin tag,
-                // so we cache the crowdinId
-                this.crowdinId = match[1];
-                // We now need to output this tag, as jipt looks for it to be
-                // able to replace it with a translation that it runs an ajax 
-                // call to get.  We add a data attribute with the crowdinId
-                // to the div so thatwhen crowdin replaces the div contents 
-                // with a translation, we can lookup this component by 
-                // crowdinId in a registry we create and render it with 
-                // markdown.
-                return <div data-crowdin-id={this.crowdinId}>
-                    {this.props.content}
-                </div>;
+            // We search for only part of the tag that crowdin uses to guard 
+            // against them changing the format on us. The full tag it looks 
+            // for can be found in https://cdn.crowdin.net/jipt/jipt.js 
+            // globalPhrase var.
+
+            // If we haven't already added this component to the registry do so
+            // now. showHints() may cause this component to be rerendered 
+            // before jipt has a chance to replace its contents, so this check 
+            // will keep us from adding the component to the registry a second 
+            // time.
+            if (!this.translationIndex) {
+                this.translationIndex = 
+                    Perseus.TranslationComponents.push(this) - 1;
             }
+            // We now need to output this tag, as jipt looks for it to be
+            // able to replace it with a translation that it runs an ajax 
+            // call to get.  We add a data attribute with the index to the
+            // Persues.TranslationComponent registry so that when jipt 
+            // calls its before_dom_insert we can lookup this component by 
+            // this attribute and render the text with markdown.
+            return <div 
+                    data-perseus-component-index={this.translationIndex}>
+                {content}
+            </div>;
         }
-        var content = this.state.jiptContent || this.props.content;
         var self = this;
         var extracted = extractMathAndWidgets(content);
         var markdown = extracted[0];
@@ -163,15 +201,6 @@ var Renderer = Perseus.Renderer = React.createClass({
         };
 
         try {
-            if (this.crowdinId) {
-                // If we are using jipt (Crowdin's just in place translation,
-                // we need to be sure to add the crowdinId attribute to the div
-                // so that we can look up the component in our registry as the
-                // translators update that div.
-                return <div data-crowdin-id={this.crowdinId}>
-                    {markedReact(markdown)}
-                </div>;
-            }
             return <div>{markedReact(markdown)}</div>;
         } catch (e) {
             // IE8 requires `catch` in order to use `finally`
@@ -182,23 +211,6 @@ var Renderer = Perseus.Renderer = React.createClass({
     },
 
     handleRender: function() {
-        if (this.crowdinId) {
-            // When using Crowdin's jipt (Just in place translation), we need
-            // to keep this registry of components that will need to be
-            // updated as translators enter in new translations.  Furthermore 
-            // we need to track the compoenents children dom, as jipt changes 
-            // the contents of the div and we need to change it back before 
-            // updating to avoid Invariant violations.
-            // TODO(james): remove previousChildren once crowdin implements 
-            // its beforeUpdate handler which should hopefully allow us to 
-            // cancel its' writing to the DOM and let us have React do it 
-            // instead.
-            Perseus.TranslationComponents[this.crowdinId] = {
-                component: this,
-                previousChildren: $(this.getDOMNode()).children()
-            };
-        }
-
         var onRender = this.props.onRender;
 
         // Fire callback on image load...
@@ -210,97 +222,7 @@ var Renderer = Perseus.Renderer = React.createClass({
 
     componentDidMount: function() {
         this.handleRender();
-
-        if (this.crowdinId) {
-            // TODO(james): Once crowdin implements passing in a beforeUpdate
-            // handler we should be able to do that instead.  Until then we 
-            // set up this mutation observer on the DOMNode, where we capture 
-            // the value of the new translation only after jipt already 
-            // replaces the contents of the DOM node with the new translation.
-            var MutationObserverObject = window.MutationObserver ||
-                    window.WebKitMutationObserver ||
-                    window.MozMutationObserver;
-            if (!MutationObserverObject) {
-                return;
-            }
-            var observer = new MutationObserverObject(function (records) { 
-                records.forEach(function (record) {
-                    var crowdinId;
-                    var newTranslation;
-                    var targetElement;
-                    if (record.target &&
-                        record.target.parentElement &&
-                        record.type === "characterData" &&
-                        record.target.parentElement.dataset["crowdinId"]) {
-                           // The first time there is just a text element 
-                           // with the crowdin tag. So the mutation event 
-                           // is just on the text node itself and we need
-                           // to get the parent
-                            crowdinId = record.target.parentElement
-                                .dataset["crowdinId"];
-                            newTranslation = record.target.nodeValue;
-                    } else if (
-                        record.target &&
-                        record.target.dataset &&
-                        record.target.dataset["crowdinId"] &&
-                        !record.target.children.length) {
-                            // Following changes it will be an update to 
-                            // the childList of the components' DOMNode
-                            // and the target will be the node itself
-                            crowdinId = record.target.dataset["crowdinId"];
-                            newTranslation = record.target.textContent;
-                    } else {
-                        // When react updates the div, the target will have 
-                        // children, we return here to avoid an infinite loop 
-                        // of updating the DOM.
-                        return;
-                    }
-                    var translationData = 
-                        Perseus.TranslationComponents[crowdinId];
-                    if (!translationData) {
-                        // If we ever get data-crowdin-id on other non-perseus
-                        // elements then they won't be in our 
-                        // Perseus.TranslationComponents registry and we can 
-                        // safely ignore them.
-                        return;
-                    }
-
-                    // Crowdin jipt sets the new content of the div without 
-                    // unescaping \\t to \t among other charachters, so we 
-                    // need to do it here.
-                    unescapedTranslation = newTranslation.replace(
-                        rEscapedChars,
-                        function(ch) {
-                            return specialChars[ch];
-                        });
-
-                    // Revert the children dom of the component to what it was
-                    // beforehand so that we don't get an Invariant 
-                    // error stating that a div React created 
-                    // disappeared.
-                    $(translationData.component.getDOMNode())
-                        .empty()
-                        .append(translationData.previousChildren)
-                        .promise().done(function() {
-                            // Once the html is reverted to what React
-                            // expects we can tell React the new
-                            // translation, and that the crowdin jipt 
-                            // tags have been replaced, so that it may 
-                            // render the new content's markdown.
-                            translationData.component.setState({
-                                jiptContent: unescapedTranslation
-                            });
-                        });
-                });
-            });
-
-            observer.observe(this.getDOMNode(), {
-                childList: true,
-                characterData: true,
-                subtree: true
-            });
-        }
-    },
+     },
 
     componentDidUpdate: function() {
         this.handleRender();
