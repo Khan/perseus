@@ -2,11 +2,12 @@
 
 var QuestionParagraph = React.createClass({
     propTypes: {
+        totalWidgets: React.PropTypes.array,
         usedWidgets: React.PropTypes.array
     },
 
     render: function() {
-        return <div>{this.props.children}</div>;
+        return <div className="paragraph">{this.props.children}</div>;
     }
 });
 

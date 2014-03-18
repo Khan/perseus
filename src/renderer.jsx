@@ -179,6 +179,8 @@ var Renderer = Perseus.Renderer = React.createClass({
         var savedMath = extracted[1];
         var widgetIds = this.widgetIds = [];
 
+        var oldWidgetIds = [];
+
         // XXX(alpert): smartypants gets called on each text node before it's
         // added to the DOM tree, so we override it to insert the math and
         // widgets.
@@ -194,14 +196,25 @@ var Renderer = Perseus.Renderer = React.createClass({
                     pieces[i] = self.getPiece(savedMath[pieces[i]], widgetIds);
                 }
             }
-            return <QuestionParagraph
-                usedWidgets={self.props.usedWidgets} >
-                {pieces}
-            </QuestionParagraph>;
+            return pieces;
+        };
+
+        // We want to set the paragraph function so we can keep track of which
+        // widgets were added in which paragraph
+        var markedOptions = {
+            paragraphFn: function(text) {
+                var newWidgets = _.difference(widgetIds, oldWidgetIds);
+                oldWidgetIds = _.clone(widgetIds);
+                return <QuestionParagraph
+                    totalWidgets={newWidgets}
+                    usedWidgets={self.props.usedWidgets}>
+                    {text}
+                </QuestionParagraph>;
+            }
         };
 
         try {
-            return <div>{markedReact(markdown)}</div>;
+            return <div>{markedReact(markdown, markedOptions)}</div>;
         } catch (e) {
             // IE8 requires `catch` in order to use `finally`
             throw e;
