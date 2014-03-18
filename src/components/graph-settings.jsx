@@ -3,6 +3,7 @@
 require("../core.js");
 var Util = require("../util.js");
 
+var Changeable  = require("../mixins/changeable.jsx");
 var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 
@@ -19,6 +20,9 @@ function numSteps(range, step) {
 }
 
 var GraphSettings = React.createClass({
+
+    mixins: [Changeable],
+
     getInitialState: function() {
         return {
             labelsTextbox: this.props.labels,
@@ -396,7 +400,7 @@ var GraphSettings = React.createClass({
     },
 
     changeMarkings: function(e) {
-        this.props.onChange({markings: e.target.value});
+        this.change("markings", e.target.value);
     },
 
     changeGraph: function() {
@@ -407,10 +411,17 @@ var GraphSettings = React.createClass({
         var step = _.map(this.state.stepTextbox, Number);
         var gridStep = this.state.gridStepTextbox;
         var snapStep = this.state.snapStepTextbox;
-        var valid = this.validateGraphSettings(range, step, gridStep,
-                                                   snapStep);
-        if (valid === true) {
-            this.props.onChange({
+
+        // validationResult is either:
+        //   true -> the settings are valid
+        //   a string -> the settings are invalid, and the explanation
+        //               is contained in the string
+        // TODO(jack): Refactor this to not be confusing
+        var validationResult = this.validateGraphSettings(range, step,
+                gridStep, snapStep);
+
+        if (validationResult === true) {  // either true or a string
+            this.change({
                 valid: true,
                 labels: labels,
                 range: range,
@@ -419,8 +430,8 @@ var GraphSettings = React.createClass({
                 snapStep: snapStep
             });
         } else {
-            this.props.onChange({
-                valid: valid
+            this.change({
+                valid: validationResult  // a string message, not false
             });
         }
     },
@@ -461,23 +472,26 @@ var GraphSettings = React.createClass({
     changeBackgroundSetting: function(type, e) {
         var image = _.clone(this.props.backgroundImage);
         image[type] = e.target.value;
-        this.props.onChange({ backgroundImage: image });
+        this.change({ backgroundImage: image });
     },
 
+    // TODO(jack): Make these PropCheckboxes or something
     toggleShowProtractor: function() {
-        this.props.onChange({showProtractor: !this.props.showProtractor});
+        this.change({showProtractor: !this.props.showProtractor});
     },
 
     toggleShowRuler: function() {
-        this.props.onChange({showRuler: !this.props.showRuler});
+        this.change({showRuler: !this.props.showRuler});
     },
 
+    // TODO(jack): Make either a wrapper for standard events to work
+    // with this.change, or make these use some TextInput/NumberInput box
     changeRulerLabel: function(e) {
-        this.props.onChange({rulerLabel: e.target.value});
+        this.change({rulerLabel: e.target.value});
     },
 
     changeRulerTicks: function(e) {
-        this.props.onChange({rulerTicks: +e.target.value});
+        this.change({rulerTicks: +e.target.value});
     }
 });
 
