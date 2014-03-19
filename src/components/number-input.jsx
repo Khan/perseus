@@ -54,8 +54,15 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        return React.DOM.input(_.extend({}, this.props, {
-            className: "number-input",
+        cx = React.addons.classSet;
+
+        var classes = cx({
+            "number-input": true,
+            "number-input-label": this.props.label != null
+        });
+
+        var input = React.DOM.input(_.extend({}, this.props, {
+            className: classes,
             type: "text",
             onChange: this._handleChange,
             onBlur: this._handleBlur,
@@ -63,6 +70,12 @@ var NumberInput = React.createClass({
             defaultValue: stringFromNumber(this.props.value),
             value: undefined
         }));
+
+        if (this.props.label) {
+            return <label>{this.props.label}{input}</label>;
+        } else {
+            return input;
+        }
     },
 
     componentDidUpdate: function(prevProps) {

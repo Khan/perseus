@@ -563,7 +563,7 @@ var NumberLineEditor = React.createClass({
                 </p></InfoTip>
             </div>
 
-            <div className="perseus-widget-row"> position {' '}
+            <div className="perseus-widget-row">
                 <NumberInput label="position"
                     value={this.props.initialX}
                     onChange={this.onNumChange.bind(this, "initialX")}
@@ -623,7 +623,7 @@ var NumberLineEditor = React.createClass({
                         onChange={this.props.onChange} />
                 </div>
             </div>
-            <div className="perseus-widget-row"> num divisions {' '}
+            <div className="perseus-widget-row">
                 <NumberInput label="num divisions"
                     value={this.props.numDivisions || ""}
                     onChange={this.onNumDivisionsChange}
@@ -641,7 +641,7 @@ var NumberLineEditor = React.createClass({
                     coordinate with the tick marks, which may be confusing for
                     users if the blue labels and black ticks are off-step.
                     </p></InfoTip></span>}
-                {!isTickCtrl && <span> or tick step {' '}
+                {!isTickCtrl && <span>
                     <NumberInput label=" or tick step"
                         value={this.props.tickStep || ""}
                         onChange={this.onTickStepChange}
@@ -658,7 +658,7 @@ var NumberLineEditor = React.createClass({
                     users if the blue labels and black ticks are off-step.
                     </p></InfoTip></span>}
             </div>
-            <div className="perseus-widget-row"> snap increments per tick {' '}
+            <div className="perseus-widget-row">
                 <NumberInput label="snap increments per tick"
                     value={snapDivisions} minExc={0}
                     onChange={this.onNumChange.bind(this, "snapDivisions")} />
