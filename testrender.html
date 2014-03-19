@@ -67,40 +67,29 @@
 <script src="/ke/local-only/jed.js"></script>
 <script src="/ke/local-only/i18n.js"></script>
 <script src="/ke/local-only/jquery.qtip.js"></script>
-<script src="/ke/utils/answer-types.js"></script>
-<script src="/ke/utils/knumber.js"></script>
-<script src="/ke/utils/kvector.js"></script>
-<script src="/ke/utils/kpoint.js"></script>
-<script src="/ke/utils/kray.js"></script>
-<script src="/ke/utils/kline.js"></script>
-<script src="/ke/utils/math.js"></script>
-
-<script src="/ke/utils/tmpl.js"></script>
-<script src="/ke/third_party/raphael.js"></script>
-<script src="/ke/utils/graphie.js"></script>
-<script src="/ke/third_party/jquery.mobile.vmouse.js"></script>
-<script src="/ke/utils/interactive.js"></script>
 <script src="/ke/exercises-stub.js"></script>
-<script src="/ke/utils/tex.js"></script>
-
-<!-- pre built (use for testing IE8) --><!--
-<script src="/build/perseus.js"></script>
--->
-
-<!-- pre built with source maps--><!--
-<script src="/build/perseus.debug.js"></script>
--->
-
-<!-- built in the browser -->
-<script src="/src/editor-page.jsx"></script>
-
+<script src="ke/local-only/require.js"></script>
 
 <script>
 (function() {
 
+// Load khan-exercises modules, then perseus
+require(["ke-main.js"], function() {
+    // pre built
+    // require(["build/perseus.js"], initPerseus);
+
+    // pre built with source maps
+    // require(["build/perseus.debug.js"], initPerseus);
+
+    // built on demand
+    require(["src/editor-page-shim.js"], initPerseus);
+});
+
 $('#score').on('click', function() {
     console.log(zk.scoreInput());
 });
+
+function initPerseus() {
 
 var seedContent = {
     "hints": [
@@ -202,6 +191,8 @@ Perseus.init({}).then(function() {
 }, function(err) {
     console.error(err);
 });
+
+}
 
 })();
 </script>
