@@ -139,6 +139,13 @@ var WidgetSelect = React.createClass({
 
 
 var WidgetEditor = React.createClass({
+    propTypes: {
+        type: React.PropTypes.string,
+        id: React.PropTypes.string,
+        graded: React.PropTypes.bool,
+        onChange: React.PropTypes.func
+    },
+
     getDefaultProps: function() {
         return {
             graded: true
