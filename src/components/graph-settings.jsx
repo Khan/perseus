@@ -8,6 +8,7 @@ var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var ButtonGroup = require("../components/button-group.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -154,21 +155,17 @@ var GraphSettings = React.createClass({
                 </div>}
             </div>
             <div className="misc-settings">
-                <div>
-                    <label>
-                        {' '}Show protractor:{' '}
-                        <input type="checkbox"
-                            checked={this.props.showProtractor}
-                            onChange={this.toggleShowProtractor} />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        {' '}Show ruler:{' '}
-                        <input type="checkbox"
-                            checked={this.props.showRuler}
-                            onChange={this.toggleShowRuler} />
-                    </label>
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        <PropCheckBox label="Show ruler"
+                            showRuler={this.props.showRuler}
+                            onChange={this.props.onChange} />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        <PropCheckBox label="Show protractor"
+                            showProtractor={this.props.showProtractor}
+                            onChange={this.props.onChange} />
+                    </div>
                 </div>
                 {this.props.showRuler && <div>
                     <div>
@@ -441,15 +438,6 @@ var GraphSettings = React.createClass({
         var image = _.clone(this.props.backgroundImage);
         image[type] = e.target.value;
         this.change({ backgroundImage: image });
-    },
-
-    // TODO(jack): Make these PropCheckboxes or something
-    toggleShowProtractor: function() {
-        this.change({showProtractor: !this.props.showProtractor});
-    },
-
-    toggleShowRuler: function() {
-        this.change({showRuler: !this.props.showRuler});
     },
 
     // TODO(jack): Make either a wrapper for standard events to work
