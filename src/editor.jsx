@@ -43,11 +43,10 @@ var DragTarget = React.createClass({
         // This is the only property of the returned component we need to
         // calculate here because it will be overwritten by transferPropsTo.
         var opacity = this.state.dragHover ? { "opacity": 0.3 } : {};
-        var style = _(opacity).extend(this.props.style);
 
         var component = this.props.component;
         return this.transferPropsTo(
-            <component style={style}
+            <component style={opacity}
                        onDrop={this.handleDrop}
                        onDragEnd={this.handleDragEnd}
                        onDragOver={this.handleDragOver}
@@ -332,7 +331,6 @@ var Editor = Perseus.Editor = React.createClass({
         if (Perseus.imageUploader) {
             textareaWrapper = <DragTarget
                     onDrop={this.handleDrop}
-                    shouldDragHighlight={this.shouldDragHighlight}
                     className="perseus-textarea-pair">
                 {completeTextarea}
             </DragTarget>;
@@ -350,15 +348,9 @@ var Editor = Perseus.Editor = React.createClass({
         </div>;
     },
 
-    shouldDragHighlight: function(e) {
-        var files = e.nativeEvent.dataTransfer.files;
-        return files.length > 0;
-    },
-
     handleDrop: function(e) {
         var files = e.nativeEvent.dataTransfer.files;
         var content = this.props.content;
-        var self = this;
 
         /* For each file we make sure it's an image, then create a sentinel -
          * snowman + identifier to insert into the current text. The sentinel
@@ -392,13 +384,11 @@ var Editor = Perseus.Editor = React.createClass({
                 return { file: file, sentinel: sentinel };
             })
             .reject(_.isNull)
-            .tap(function() {
-                self.props.onChange({ content: content });
-            })
-            .each(function(fileAndSentinel) {
-                Perseus.imageUploader(fileAndSentinel.file, function(url) {
-                    self.props.onChange({
-                        content: self.props.content.replace(
+            .tap(() => { this.props.onChange({ content: content }); })
+            .each(fileAndSentinel => {
+                Perseus.imageUploader(fileAndSentinel.file, url => {
+                    this.props.onChange({
+                        content: this.props.content.replace(
                             fileAndSentinel.sentinel, url)
                     });
                 });
