@@ -26,11 +26,12 @@ var Table = React.createClass({
             <tbody>{
                 _(this.props.rows).times(function(r) {
                     return <tr>{
-                        _(this.props.columns).times(function(c) {
+                        _(this.props.columns).times((c) => {
                             return <td>
                                 <input
                                     ref={"answer" + r + "," + c}
                                     type="text"
+                                    onChange={this.handleChange}
                                 />
                             </td>;
                         })
@@ -48,6 +49,12 @@ var Table = React.createClass({
                 return self.refs["answer" + r + "," + c].getDOMNode().value;
             });
         });
+    },
+
+    handleChange: function() {
+        // HACK: We need to know *that* the widget changed, but currently it's
+        // not set up in a nice way to tell us *how* it changed
+        this.props.onChange({});
     },
 
     simpleValidate: function(rubric) {
