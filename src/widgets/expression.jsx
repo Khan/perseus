@@ -356,7 +356,11 @@ var ExpressionEditor = React.createClass({
             </div>
 
         <MoreOptions>
-            <div style={{height: 100, width: "100%", "background-color": "red"}}></div>
+            <div style={{
+                height: 100,
+                width: "100%",
+                "background-color": "red"
+            }} />
         </MoreOptions>
 
         </div>;
