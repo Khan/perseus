@@ -212,7 +212,8 @@ var Sortable = React.createClass({
         disabled: React.PropTypes.bool,
         constraints: React.PropTypes.object,
         onMeasure: React.PropTypes.func,
-        margin: React.PropTypes.number
+        margin: React.PropTypes.number,
+        onChange: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -222,7 +223,8 @@ var Sortable = React.createClass({
             disabled: false,
             constraints: {},
             onMeasure: function() {},
-            margin: 5
+            margin: 5,
+            onChange: function() {}
         };
     },
 
@@ -459,6 +461,10 @@ var Sortable = React.createClass({
         }, this);
 
         this.setState({items: items});
+        // HACK: We need to know *that* the widget changed, but currently it's
+        // not set up in a nice way to tell us *how* it changed, since the
+        // permutation of the items is stored in state.
+        this.props.onChange({});
     },
 
     onAnimationEnd: function(key) {

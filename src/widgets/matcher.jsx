@@ -23,7 +23,8 @@ var Matcher = React.createClass({
         labels: React.PropTypes.array,
         orderMatters: React.PropTypes.bool,
         padding: React.PropTypes.bool,
-        problemNum: React.PropTypes.number
+        problemNum: React.PropTypes.number,
+        onChange: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -33,7 +34,8 @@ var Matcher = React.createClass({
             labels: ["", ""],
             orderMatters: true,
             padding: true,
-            problemNum: 0
+            problemNum: 0,
+            onChange: function() {}
         };
     },
 
@@ -72,6 +74,7 @@ var Matcher = React.createClass({
                     disabled={!this.props.orderMatters}
                     constraints={constraints}
                     onMeasure={_.partial(this.onMeasure, "left")}
+                    onChange={this.props.onChange}
                     ref="left" />
             </div>
             <div className="column">
@@ -84,6 +87,7 @@ var Matcher = React.createClass({
                     padding={this.props.padding}
                     constraints={constraints}
                     onMeasure={_.partial(this.onMeasure, "right")}
+                    onChange={this.props.onChange}
                     ref="right" />
             </div>
         </div>;

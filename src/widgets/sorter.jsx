@@ -20,7 +20,8 @@ var Sorter = React.createClass({
         correct: React.PropTypes.array,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         padding: React.PropTypes.bool,
-        problemNum: React.PropTypes.number
+        problemNum: React.PropTypes.number,
+        onChange: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -28,7 +29,8 @@ var Sorter = React.createClass({
             correct: [],
             layout: HORIZONTAL,
             padding: true,
-            problemNum: 0
+            problemNum: 0,
+            onChange: function() {}
         };
     },
 
@@ -44,6 +46,7 @@ var Sorter = React.createClass({
                 options={options}
                 layout={this.props.layout}
                 padding={this.props.padding}
+                onChange={this.props.onChange}
                 ref="sortable" />
         </div>;
     },
