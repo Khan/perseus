@@ -214,6 +214,7 @@ var Expression = React.createClass({
             mult,
             $._("For $3y$, enter **3y** or **3*y**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),
+            $._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"),
             $._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"),
             $._("For $x^{y}$, enter **x^y**"),
             $._("For $x^{2/3}$, enter **x^(2/3)**"),
