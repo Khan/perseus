@@ -83,7 +83,7 @@ var InteractiveNumberLine = React.createClass({
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
             <div style={{display: valid ? "" : "none"}}
-                    className="graphie" ref="graphieDiv" />
+                    className="graphie above-scratchpad" ref="graphieDiv" />
             <div style={{display: valid ? "none" : ""}}>
                 {' '}invalid number line configuration{' '}
             </div>
@@ -149,7 +149,9 @@ var InteractiveNumberLine = React.createClass({
                     [-1, 1]],
             scale: [scale, 40]
         });
-        graphie.addMouseLayer();
+        graphie.addMouseLayer({
+            allowScratchpad: true
+        });
 
         // Line
 

@@ -75,8 +75,8 @@ var formExamples = {
 var TextInput = React.createClass({
     render: function() {
         // TODO(jack): Probably make this sync up with its props
-        return <input type="text" className=
-            {"perseus-input-size-" + (this.props.size || "normal")} />;
+        return <input type="text" className={"interactive-component" +
+                "perseus-input-size-" + (this.props.size || "normal")} />;
     },
 
     focus: function() {

@@ -51,6 +51,9 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
     },
 
     componentDidMount: function() {
+        if (Khan.scratchpad) {
+            Khan.scratchpad.enable();
+        }
         this.update();
     },
 
@@ -86,14 +89,6 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                     hintsVisible: this.state.hintsVisible
                 }),
                 document.querySelector(this.props.hintsAreaSelector));
-
-        if (Khan.scratchpad) {
-            if (_.isEmpty(this.props.item.question.widgets)) {
-                Khan.scratchpad.enable();
-            } else {
-                Khan.scratchpad.disable();
-            }
-        }
     },
 
     handleInteractWithWidget: function(id) {

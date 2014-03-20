@@ -16,7 +16,7 @@ var BaseRadio = React.createClass({
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
-        return <ul className="perseus-widget-radio">
+        return <ul className="perseus-widget-radio above-scratchpad">
             {this.props.multipleSelect &&
                 <div className="instructions">
                     <$_>Select all that apply.</$_>
@@ -40,7 +40,11 @@ var BaseRadio = React.createClass({
                     </div>;
 
                 if (this.props.labelWrap) {
-                    return <li><label>{content}</label></li>;
+                    return <li>
+                        <label className="interactive-component">
+                            {content}
+                        </label>
+                    </li>;
                 } else {
                     return <li>{content}</li>;
                 }

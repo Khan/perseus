@@ -55,7 +55,12 @@ var Graph = React.createClass({
             image = null;
         }
 
-        return <div className="graphie-container">
+        return <div
+                className="graphie-container above-scratchpad"
+                style={{
+                    width: this.props.box[0],
+                    height: this.props.box[1]
+                }}>
             {image}
             <div className="graphie" ref="graphieDiv" />
         </div>;
@@ -167,7 +172,8 @@ var Graph = React.createClass({
         }
 
         graphie.addMouseLayer({
-            onClick: this.props.onClick
+            onClick: this.props.onClick,
+            allowScratchpad: true
         });
 
         this._updateProtractor();

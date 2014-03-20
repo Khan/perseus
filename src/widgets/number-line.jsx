@@ -116,7 +116,7 @@ var NumberLine = React.createClass({
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
             {!this.isValid() ? <div>invalid number line configuration</div> :
-                <div className="graphie" ref="graphieDiv" />}
+                <div className="graphie above-scratchpad" ref="graphieDiv" />}
             {this.props.isInequality && inequalityControls}
         </div>;
     },
@@ -124,7 +124,7 @@ var NumberLine = React.createClass({
     handleReverse: function() {
         var newRel = reverseRel[this.props.rel];
         this.props.onChange({rel: newRel}, () => {
-            this.updateInequality(this.props.numLinePosition, 0)});
+            this.updateInequality(this.props.numLinePosition, 0);});
     },
 
     handleToggleStrict: function() {
@@ -208,7 +208,7 @@ var NumberLine = React.createClass({
                 arrows: "->",
                 stroke: KhanUtil.BLUE,
                 strokeWidth: 3.5
-            }
+            };
 
             this.inequalityLine = this.graphie.line([px, py], end, style);
             this.inequalityLine.toFront();
@@ -424,7 +424,9 @@ var NumberLine = React.createClass({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40]
         });
-        this.graphie.addMouseLayer();
+        this.graphie.addMouseLayer({
+            allowScratchpad: true
+        });
 
         // Draw the number line
         var center = (range[0] + range[1]) / 2;

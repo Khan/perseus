@@ -71,7 +71,9 @@ var Plotter = React.createClass({
     },
 
     render: function() {
-        return <div className="perseus-widget-plotter" ref="graphieDiv"></div>;
+        return <div
+            className="perseus-widget-plotter graphie above-scratchpad"
+            ref="graphieDiv" />;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -180,7 +182,9 @@ var Plotter = React.createClass({
             range: [[-3 * padX, c.dimX + padX], [-3 * padY, c.dimY + padY]],
             scale: c.scale
         });
-        graphie.addMouseLayer();
+        graphie.addMouseLayer({
+            allowScratchpad: true
+        });
 
         if (!isTiledPlot) {
             for (var y = 0; y <= c.dimY; y += c.scaleY) {

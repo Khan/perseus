@@ -33,13 +33,22 @@ var Measurer = React.createClass({
     },
 
     render: function() {
-        return <div className={"perseus-widget perseus-widget-measurer"}
+        return <div
+                className={
+                    "perseus-widget perseus-widget-measurer " +
+                    "graphie-container above-scratchpad"
+                }
                 style={{width: this.props.width, height: this.props.height}}>
-                    {this.props.imageUrl && <img src={this.props.imageUrl}
-                        style={{top: this.props.imageTop + "px",
-                        left: this.props.imageLeft + "px"}} />}
-                    <div className="graphie" ref="graphieDiv" />
-                </div>;
+            {this.props.imageUrl &&
+                <img
+                    src={this.props.imageUrl}
+                    style={{
+                        top: this.props.imageTop + "px",
+                        left: this.props.imageLeft + "px"
+                    }} />
+            }
+            <div className="graphie" ref="graphieDiv" />
+        </div>;
     },
 
     componentDidMount: function() {
@@ -70,7 +79,9 @@ var Measurer = React.createClass({
         graphie.init({
             range: [[0, this.props.width / 40], [0, this.props.height / 40]]
         });
-        graphie.addMouseLayer();
+        graphie.addMouseLayer({
+            allowScratchpad: true
+        });
 
         if (this.protractor) {
             this.protractor.remove();

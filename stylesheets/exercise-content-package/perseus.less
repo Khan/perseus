@@ -9,8 +9,42 @@
 // Perseus-related variables
 @clueColor: #007AFF;
 
+// Layer variables
+@zIndexScratchPad: 1;
+@zIndexAboveScratchpad: @zIndexScratchPad + 1;
+@zIndexInteractiveComponent: @zIndexAboveScratchpad + 1;
+@zIndexCurrentlyDragging: @zIndexInteractiveComponent + 1;
+
 #perseus {
     position: relative;
+}
+
+// .blank-background is used to prevent drawing under transparent widgets.
+// drawing under transparent widgets is particularly annoying because if
+// you lift up your pen and put it down again, you can't continue drawing,
+// because you're now clicking on the widget. This is very
+// counterintuitive, so we simply don't let you see anything you draw under
+// a widget.
+.blank-background {
+    background-color: #FDFDFD;  // Keep in sync with KhanUtil._BACKGROUND
+}
+
+.above-scratchpad {
+    position: relative;
+    z-index: @zIndexAboveScratchpad;
+}
+
+// All graphie components placed above the scratchpad should have their
+// background wiped out.
+.graphie.above-scratchpad,
+.graphie-container.above-scratchpad {
+    .blank-background;
+}
+
+.interactive-component,
+.interactive-component.above-scratchpad {
+    position: relative;
+    z-index: @zIndexInteractiveComponent;
 }
 
 &,  // and moar specificity...
@@ -18,6 +52,8 @@
 #answer_area input[type=number],
 .framework-perseus input[type=text],
 .framework-perseus input[type=number] {
+    .interactive-component;
+
     &.perseus-input-size-normal,
     {
         width: 80px;
@@ -135,6 +171,15 @@
 /* Widget CSS */
 
 //
+// Dropdown
+//
+
+.perseus-widget-dropdown {
+    .interactive-component;
+}
+
+
+//
 // Radio
 //
 
@@ -149,6 +194,8 @@
 }
 
 .perseus-widget-radio {
+    .blank-background;
+
     div,
     div > p {
         /* TODO(alpert): Find a better way of doing inline renderers */
@@ -170,6 +217,7 @@
         }
 
         span.checkbox {
+            .interactive-component;
             width: 20px;
             margin-left: -21px;
             margin-right: 0px;
@@ -382,7 +430,16 @@
         -webkit-box-shadow: 0 1px 2px #ccc;
     }
 
+    // TODO(jack): Make this work for the orderer too.
+    // Right now don't do this for the orderer because it uses
+    // more complicated positioning that this would break
+    .cards-area {
+        .above-scratchpad;
+    }
+
     .card {
+        .interactive-component;
+
         background-color: #fff;
         border: 1px solid #b9b9b9;
         border-bottom-color: #939393;
@@ -418,6 +475,7 @@
         }
 
         &.stack {
+            z-index: auto;
             &:after {
                 content: " ";
                 background-color: #fff;
@@ -487,8 +545,7 @@
     }
 
     .card-wrap {
-        z-index: 0;
-        position: relative;
+        .interactive-component;
         margin-right: 4px;
         width: auto;
         float: left;
@@ -629,12 +686,13 @@
 
     .card-hidden {
         visibility: hidden;
+        z-index: 0;
     }
 
     .card.dragging {
         position: absolute;
         display: none;
-        z-index: 1;
+        z-index: @zIndexCurrentlyDragging;
         .draggy-boxy-thing-hover();
     }
 
@@ -680,8 +738,7 @@
 
 .perseus-widget-transformer {
     button {
-        z-index: 1;
-        position: relative;
+        .interactive-component;
     }
     .highlighted-tool-button {
         text-shadow: 1px 1px rgba(0, 0, 0, 0.25);
@@ -703,6 +760,10 @@
 
 
 .perseus-sortable {
+    // This should really be applied to individual items, but applying
+    // it here makes positioning simple
+    .interactive-component;
+
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     float: left;

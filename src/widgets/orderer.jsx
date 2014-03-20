@@ -293,7 +293,9 @@ var Orderer = React.createClass({
 
         return <div className={"draggy-boxy-thing orderer " +
                         "height-" + this.props.height + " " +
-                        "layout-" + this.props.layout + " ui-helper-clearfix"}
+                        "layout-" + this.props.layout + " " +
+                        "above-scratchpad blank-background " +
+                        "ui-helper-clearfix"}
                     ref="orderer">
                    {bank}
                    {sortable}
