@@ -205,12 +205,14 @@ var Renderer = Perseus.Renderer = React.createClass({
         // widgets were added in which paragraph
         var markedOptions = {
             paragraphFn: function(text) {
-                var newWidgets = _.difference(widgetIds, oldWidgetIds);
+                var newWidgetIds = _.difference(widgetIds, oldWidgetIds);
+                newWidgetIds = _.filter(newWidgetIds, (widgetId) =>
+                    Util.widgetShouldHighlight(self.props.widgets[widgetId]));
                 oldWidgetIds = _.clone(widgetIds);
-                var relevantUsedWidgets = _.intersection(newWidgets,
+                var relevantUsedWidgets = _.intersection(newWidgetIds,
                                                      self.props.usedWidgets);
                 return <QuestionParagraph
-                    totalWidgets={newWidgets}
+                    totalWidgets={newWidgetIds}
                     usedWidgets={relevantUsedWidgets}
                     shouldIndicate={self.props.shouldIndicate} >
                     {text}

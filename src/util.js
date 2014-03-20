@@ -389,6 +389,17 @@ var Util = {
         }
 
         return urlParams;
+    },
+
+    // There are certain widgets where we don't want to provide the "answered"
+    // highlight indicator.
+    // The issue with just using the `graded` flag on questions is that showing
+    // that a certain widget is ungraded can sometimes reveal the answer to a
+    // question ("is this transformation possible? if so, do it")
+    // This is kind of a hack to get around this.
+    widgetShouldHighlight: function(widget) {
+        var HIGHLIGHT_BAR_BLACKLIST = ["measurer", "protractor"];
+        return !_.contains(HIGHLIGHT_BAR_BLACKLIST, widget.type);
     }
 };
 

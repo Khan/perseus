@@ -30,6 +30,9 @@ var HintsRenderer = React.createClass({
     }
 });
 
+var highlightedWidgets = (widgetList) =>
+    _.filter(widgetList, Util.widgetShouldHighlight);
+
 var ItemRenderer = Perseus.ItemRenderer = React.createClass({
     getDefaultProps: function() {
         return {
@@ -78,12 +81,14 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
 
     numWidgets: function() {
         var amountInAnswerArea = this.numAnswerAreaWidgets();
-        return _.size(this.props.item.question.widgets) + amountInAnswerArea;
+        var widgets = this.props.item.question.widgets;
+        return _.size(highlightedWidgets(widgets)) + amountInAnswerArea;
     },
 
     numAnswerAreaWidgets: function() {
         if (this.props.item.answerArea.type === "multiple") {
-            return _.size(this.props.item.answerArea.options.widgets);
+            var widgets = this.props.item.answerArea.options.widgets;
+            return _.size(highlightedWidgets(widgets));
         } else {
             return 1;
         }
