@@ -78,6 +78,7 @@ var Renderer = Perseus.Renderer = React.createClass({
         return {
             content: "",
             ignoreMissingWidgets: false,
+            shouldIndicate: false,
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -186,6 +187,7 @@ var Renderer = Perseus.Renderer = React.createClass({
         // widgets.
         var smartypants = markedReact.InlineLexer.prototype.smartypants;
         markedReact.InlineLexer.prototype.smartypants = function(text) {
+            var startingWidgets = _.clone(widgetIds);
             var pieces = Util.split(text, /@@(\d+)@@/g);
             for (var i = 0; i < pieces.length; i++) {
                 var type = i % 2;
@@ -205,9 +207,12 @@ var Renderer = Perseus.Renderer = React.createClass({
             paragraphFn: function(text) {
                 var newWidgets = _.difference(widgetIds, oldWidgetIds);
                 oldWidgetIds = _.clone(widgetIds);
+                var relevantUsedWidgets = _.intersection(newWidgets,
+                                                     self.props.usedWidgets);
                 return <QuestionParagraph
                     totalWidgets={newWidgets}
-                    usedWidgets={self.props.usedWidgets}>
+                    usedWidgets={relevantUsedWidgets}
+                    shouldIndicate={self.props.shouldIndicate} >
                     {text}
                 </QuestionParagraph>;
             }

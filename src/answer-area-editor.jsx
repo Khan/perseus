@@ -7,11 +7,18 @@ require("./editor.jsx");
 var Util = require("./util.js");
 
 var InfoTip = require("./components/info-tip.jsx");
+var QuestionParagraph = require("./question-paragraph.jsx");
 var Widgets = require("./widgets.js");
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
 
 var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
+    propTypes: {
+        onInteractWithWidget: React.PropTypes.func.isRequired,
+        shouldIndicate: React.PropTypes.bool.isRequired,
+        usedWidgets: React.PropTypes.array.isRequired
+    },
+
     getInitialState: function() {
         // TODO(alpert): Move up to parent props?
         return {
@@ -32,15 +39,42 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
         }
     },
 
-    render: function(rootNode) {
+    render: function() {
+        if (this.props.type === "multiple") {
+            return this.renderMultiple();
+        } else {
+            return this.renderSingle();
+        }
+    },
+
+    renderMultiple: function() {
         return this.state.cls(_.extend({
             ref: "widget",
             problemNum: this.props.problemNum,
-            onChange: this.handleChangeRenderer
+            onChange: this.handleChangeRenderer,
+            onInteractWithWidget: this.props.onInteractWithWidget,
+            usedWidgets: this.props.usedWidgets,
+            shouldIndicate: this.props.shouldIndicate
         }, this.props.options, this.state.widget));
     },
 
+    renderSingle: function() {
+        return <QuestionParagraph
+            totalWidgets={["answer-area"]}
+            usedWidgets={this.props.usedWidgets}
+            shouldIndicate={this.props.shouldIndicate} >
+            {this.state.cls(_.extend({
+                ref: "widget",
+                problemNum: this.props.problemNum,
+                onChange: this.handleChangeRenderer,
+            }, this.props.options, this.state.widget))}
+        </QuestionParagraph>;
+    },
+
     handleChangeRenderer: function(newProps, cb) {
+        if (this.props.type !== "multiple") {
+            this.props.onInteractWithWidget("answer-area");
+        }
         var widget = _.extend({}, this.state.widget, newProps);
         this.setState({widget: widget}, cb);
     },

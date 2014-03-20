@@ -39,15 +39,24 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
             // something half reasonable.
             workAreaSelector: "#workarea",
             solutionAreaSelector: "#solutionarea",
-            hintsAreaSelector: "#hintsarea"
+            hintsAreaSelector: "#hintsarea",
+            shouldIndicate: false
         };
     },
 
     getInitialState: function() {
         return {
             hintsVisible: this.props.initialHintsVisible,
-            questionAreaUsedWidgets: []
+            questionAreaUsedWidgets: [],
+            answerAreaUsedWidgets: []
         };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            questionAreaUsedWidgets: [],
+            answerAreaUsedWidgets: []
+        });
     },
 
     componentDidMount: function() {
@@ -61,17 +70,44 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         this.update();
     },
 
+    numWidgetsRemaining: function() {
+        return this.numWidgets() -
+            (this.state.questionAreaUsedWidgets.length +
+             this.state.answerAreaUsedWidgets.length);
+    },
+
+    numWidgets: function() {
+        var amountInAnswerArea = this.numAnswerAreaWidgets();
+        return _.size(this.props.item.question.widgets) + amountInAnswerArea;
+    },
+
+    numAnswerAreaWidgets: function() {
+        if (this.props.item.answerArea.type === "multiple") {
+            return _.size(this.props.item.answerArea.options.widgets);
+        } else {
+            return 1;
+        }
+    },
+
     update: function() {
         // Since the item renderer works by rendering things into three divs
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = React.renderComponent(
-                Perseus.Renderer(_.extend({
+            <div>
+                {this.props.shouldIndicate && <div className="remaining-parts">
+                    {this.numWidgetsRemaining()} /{' '}
+                    {this.numWidgets()}
+                    {' '}remaining parts of this question
+                </div>}
+                {Perseus.Renderer(_.extend({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithWidget,
-                    usedWidgets: this.state.questionAreaUsedWidgets
-                }, this.props.item.question)),
+                    usedWidgets: this.state.questionAreaUsedWidgets,
+                    shouldIndicate: this.props.shouldIndicate
+                }, this.props.item.question))}
+            </div>,
                 document.querySelector(this.props.workAreaSelector));
 
         this.answerAreaRenderer = React.renderComponent(
@@ -79,7 +115,10 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                     type: this.props.item.answerArea.type,
                     options: this.props.item.answerArea.options,
                     calculator: this.props.item.answerArea.calculator || false,
-                    problemNum: this.props.problemNum
+                    problemNum: this.props.problemNum,
+                    onInteractWithWidget: this.handleInteractWithAnswerWidget,
+                    usedWidgets: this.state.answerAreaUsedWidgets,
+                    shouldIndicate: this.props.shouldIndicate
                 }),
                 document.querySelector(this.props.solutionAreaSelector));
 
@@ -91,13 +130,16 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
-    handleInteractWithWidget: function(id) {
-        this.setState({
-            questionAreaUsedWidgets: _.union(
-                    [id],
-                    this.state.questionAreaUsedWidgets
-            )
-        });
+    addWidgetIdTo: function(set, widgetId) {
+        this.setState(_.object([[set, _.union(this.state[set], [widgetId])]]));
+    },
+
+    handleInteractWithWidget: function(widgetId) {
+        this.addWidgetIdTo("questionAreaUsedWidgets", widgetId);
+    },
+
+    handleInteractWithAnswerWidget: function(widgetId) {
+        this.addWidgetIdTo("answerAreaUsedWidgets", widgetId);
     },
 
     render: function() {
