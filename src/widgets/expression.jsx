@@ -5,7 +5,6 @@ var InfoTip      = require("../components/info-tip.jsx");
 var TeX          = require("../tex.jsx");  // KaTeX and/or MathJax
 var Util         = require("../util.js");
 var Widgets      = require("../widgets.js");
-var MoreOptions = require("../components/more-options.jsx");
 
 var Expression = React.createClass({
     getDefaultProps: function() {
@@ -355,14 +354,6 @@ var ExpressionEditor = React.createClass({
                     "f of x" and not "f times x".{' '}
                 </p></InfoTip>
             </div>
-
-        <MoreOptions>
-            <div style={{
-                height: 100,
-                width: "100%",
-                "background-color": "red"
-            }} />
-        </MoreOptions>
 
         </div>;
     },
