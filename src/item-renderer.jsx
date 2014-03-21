@@ -100,19 +100,12 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = React.renderComponent(
-            <div>
-                {this.props.shouldIndicate && <div className="remaining-parts">
-                    {this.numWidgetsRemaining()} /{' '}
-                    {this.numWidgets()}
-                    {' '}remaining parts of this question
-                </div>}
-                {Perseus.Renderer(_.extend({
+                Perseus.Renderer(_.extend({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithWidget,
                     usedWidgets: this.state.questionAreaUsedWidgets,
                     shouldIndicate: this.props.shouldIndicate
-                }, this.props.item.question))}
-            </div>,
+                }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
         this.answerAreaRenderer = React.renderComponent(
@@ -123,7 +116,9 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithAnswerWidget,
                     usedWidgets: this.state.answerAreaUsedWidgets,
-                    shouldIndicate: this.props.shouldIndicate
+                    shouldIndicate: this.props.shouldIndicate,
+                    numWidgetsRemaining: this.numWidgetsRemaining(),
+                    numWidgets: this.numWidgets()
                 }),
                 document.querySelector(this.props.solutionAreaSelector));
 

@@ -16,7 +16,9 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
     propTypes: {
         onInteractWithWidget: React.PropTypes.func.isRequired,
         shouldIndicate: React.PropTypes.bool.isRequired,
-        usedWidgets: React.PropTypes.array.isRequired
+        usedWidgets: React.PropTypes.array.isRequired,
+        numWidgetsRemaining: React.PropTypes.number,
+        numWidgets: React.PropTypes.number
     },
 
     getInitialState: function() {
@@ -40,11 +42,20 @@ var AnswerAreaRenderer = Perseus.AnswerAreaRenderer = React.createClass({
     },
 
     render: function() {
+        var body;
         if (this.props.type === "multiple") {
-            return this.renderMultiple();
+            body = this.renderMultiple();
         } else {
-            return this.renderSingle();
+            body = this.renderSingle();
         }
+        return <div>
+            {this.props.shouldIndicate && <div className="remaining-parts">
+                {this.props.numWidgetsRemaining} /{' '}
+                {this.props.numWidgets}
+                {' '}remaining parts of this question
+            </div>}
+            {body}
+        </div>;
     },
 
     renderMultiple: function() {
