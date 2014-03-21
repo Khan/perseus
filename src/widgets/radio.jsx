@@ -16,7 +16,8 @@ var BaseRadio = React.createClass({
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
 
-        return <ul className="perseus-widget-radio above-scratchpad">
+        return <ul className={"perseus-widget-radio " +
+                "above-scratchpad blank-background"}>
             {this.props.multipleSelect &&
                 <div className="instructions">
                     <$_>Select all that apply.</$_>

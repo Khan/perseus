@@ -28,6 +28,11 @@
 .blank-background {
     background-color: #FDFDFD;  // Keep in sync with KhanUtil._BACKGROUND
 }
+// There is no scratchpad in the answer_area, and it has a different color
+// background, so just make it transparent
+#answer_area .blank-background {
+    background-color: transparent;
+}
 
 .above-scratchpad {
     position: relative;
@@ -194,8 +199,6 @@
 }
 
 .perseus-widget-radio {
-    .blank-background;
-
     div,
     div > p {
         /* TODO(alpert): Find a better way of doing inline renderers */
