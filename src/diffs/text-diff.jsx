@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 
 var diff = require("../../lib/jsdiff");
+var splitDiff = require("./split-diff.jsx");
+
 var cx = React.addons.classSet;
 
 var BEFORE = "before";
@@ -38,20 +40,25 @@ var TextDiff = React.createClass({
     render: function() {
         var diffed = diff.diffWords(this.props.before, this.props.after);
 
-        var contents = {};
+        var lines = splitDiff(diffed);
 
-        contents.before = _(diffed).map(function(entry, i) {
-            var className = classFor(entry, "not-present", "removed dark");
-            return <span
-                key={i}
-                className={className}>{entry.value}</span>;
-        });
+        var renderedLines = _.map(lines, (line) => {
+            var contents = {};
 
-        contents.after = _(diffed).map(function(entry, i) {
-            var className = classFor(entry, "added dark", "not-present");
-            return <span
-                key={i}
-                className={className}>{entry.value}</span>;
+            contents.before = _(line).map(function(entry, i) {
+                var className = classFor(entry, "not-present", "removed dark");
+                return <span
+                    key={i}
+                    className={className}>{entry.value}</span>;
+            });
+
+            contents.after = _(line).map(function(entry, i) {
+                var className = classFor(entry, "added dark", "not-present");
+                return <span
+                    key={i}
+                    className={className}>{entry.value}</span>;
+            });
+            return contents;
         });
 
         var className = cx({
@@ -63,7 +70,18 @@ var TextDiff = React.createClass({
             <div className="ui-helper-clearfix">
                 {_.map([BEFORE, AFTER], side => {
                     return <div className={"diff-row " + side} >
-                        {!this.state.collapsed && contents[side]}
+                        {!this.state.collapsed &&
+                            _.map(renderedLines, (line) => {
+                                var changed = line[side].length > 1;
+                                var lineClass = cx({
+                                    "diff-line": true,
+                                    "added": side === AFTER && changed,
+                                    "removed": side === BEFORE && changed
+                                });
+                                return <div className={lineClass} >
+                                    {line[side]}
+                                </div>;
+                            })}
                     </div>;
                 })}
             </div>
