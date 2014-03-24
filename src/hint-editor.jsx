@@ -8,6 +8,7 @@
 require("./core.js");
 require("./renderer.jsx");
 require("./editor.jsx");
+var InfoTip = require("./components/info-tip.jsx");
 
 var Renderer = Perseus.Renderer;
 var Editor = Perseus.Editor;
@@ -70,6 +71,11 @@ var HintEditor = Perseus.HintEditor = React.createClass({
                         }.bind(this)}>
                         <span className="icon-circle-arrow-up" />
                     </a>
+                    {' '}
+                    {this.props.isLast &&
+                    <InfoTip>
+                        <p>The last hint is automatically bolded.</p>
+                    </InfoTip>}
                 </span>
                 <a href="#" className="remove-hint simple-button orange"
                         onClick={function() {
