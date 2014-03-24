@@ -31,6 +31,7 @@ demo:
 	git add -f build/perseus.js
 	git commit -nm 'demo update'
 	git checkout master
+	git push -f origin gh-pages:gh-pages
 
 all: clean update build put
 
