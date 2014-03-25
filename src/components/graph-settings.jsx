@@ -7,6 +7,7 @@ var Changeable  = require("../mixins/changeable.jsx");
 var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var RangeInput = require("../components/range-input.jsx");
+var ButtonGroup = require("../components/button-group.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -56,53 +57,62 @@ var GraphSettings = React.createClass({
     render: function() {
         return <div>
             <div className="graph-settings">
-                <div>x label:{' '}
-                    <input  type="text"
-                            ref="labels-0"
-                            onChange={_.bind(this.changeLabel, this, 0)}
-                            value={this.state.labelsTextbox[0]} />
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col"> x Label
+                        <input  type="text"
+                                className="graph-settings-axis-label"
+                                ref="labels-0"
+                                onChange={_.bind(this.changeLabel, this, 0)}
+                                value={this.state.labelsTextbox[0]} />
+                    </div>
+                    <div className="perseus-widget-right-col">y Label
+                        <input  type="text"
+                                className="graph-settings-axis-label"
+                                ref="labels-1"
+                                onChange={_.bind(this.changeLabel, this, 1)}
+                                value={this.state.labelsTextbox[1]} />
+                    </div>
                 </div>
-                <div>y label:{' '}
-                    <input  type="text"
-                            ref="labels-1"
-                            onChange={_.bind(this.changeLabel, this, 1)}
-                            value={this.state.labelsTextbox[1]} />
+
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        x Range
+                        <RangeInput value= {this.state.rangeTextbox[0]}
+                            onChange = {_.bind(this.changeRange, this, 0)} />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        y Range
+                        <RangeInput value= {this.state.rangeTextbox[1]}
+                            onChange = {_.bind(this.changeRange, this, 1)} />
+                    </div>
                 </div>
-                <div>x range:{' '}
-                    <RangeInput
-                            value= {this.state.rangeTextbox[0]}
-                            onChange={_.bind(this.changeRange, this, 0)} />
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Tick Step
+                        <RangeInput value= {this.state.stepTextbox}
+                                    onChange = {this.changeStep} />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        Grid Step
+                        <RangeInput value= {this.state.gridStepTextbox}
+                                    onChange = {this.changeGridStep} />
+                    </div>
                 </div>
-                <div>
-                    {' '}y range:{' '}
-                    <RangeInput
-                            value= {this.state.rangeTextbox[1]}
-                            onChange={_.bind(this.changeRange, this, 1)} />
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Snap Step
+                        <RangeInput value= {this.state.snapStepTextbox}
+                                    onChange = {this.changeSnapStep} />
+                    </div>
                 </div>
-                <div>
-                    {' '}Tick Step:{' '}
-                    <RangeInput value= {this.state.stepTextbox}
-                            onChange={this.changeStep} />
-                </div>
-                <div>
-                    {' '}Grid Step:{' '}
-                    <RangeInput value= {this.state.gridStepTextbox}
-                            onChange={this.changeGridStep} />
-                </div>
-                <div>
-                    {' '}Snap Step:{' '}
-                    <RangeInput value= {this.state.snapStepTextbox}
-                            onChange={this.changeSnapStep} />
-                </div>
-                <div>
-                    <label>Markings:{' '}
-                        <select value={this.props.markings}
-                                onChange={this.changeMarkings}>
-                            <option value="graph">Graph (axes + grid)</option>
-                            <option value="grid">Grid only</option>
-                            <option value="none">None</option>
-                        </select>
-                    </label>
+                <div className="perseus-widget-row">
+                    <label>Markings:{' '} </label>
+                    <ButtonGroup value={this.props.markings}
+                        buttons={[
+                            {value: "graph", text: "Graph"},
+                            {value: "grid", text: "Grid"},
+                            {value: "none", text: "None"}]}
+                        onChange={this.change("markings")} />
                 </div>
             </div>
             <div className="image-settings">
@@ -359,10 +369,6 @@ var GraphSettings = React.createClass({
                 return step / 2;
             })
         }, this.changeGraph);
-    },
-
-    changeMarkings: function(e) {
-        this.change("markings", e.target.value);
     },
 
     changeGraph: function() {

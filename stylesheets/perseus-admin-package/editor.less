@@ -120,6 +120,11 @@
     .perseus-widget-right-col {
         display: inline-block;
         width: 50%;
+
+        .range-input {
+            float: right;
+            margin-right: 5px;
+        }
     }
 }
 
@@ -680,11 +685,17 @@
     display: block;
 
     .graph-settings {
-        input[type=text] {
-            width: 50px;
-            &.graph-settings-background-url {
-                width: 250px;
-            }
+        .graph-settings-axis-label {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 5px 5px;
+            width: 70px;
+            float: right;
+            margin: 0 5px;
+        }
+        .graph-settings-background-url {
+            width: 250px;
         }
     }
 
