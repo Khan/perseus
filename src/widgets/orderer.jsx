@@ -229,7 +229,7 @@ var Orderer = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         if (!_.isEqual(this.props.current, nextProps.current)) {
-            this.setState({current: []});
+            this.setState({current: nextProps.current});
         }
     },
 
