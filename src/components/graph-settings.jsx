@@ -6,6 +6,7 @@ var Util = require("../util.js");
 var Changeable  = require("../mixins/changeable.jsx");
 var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
+var RangeInput = require("../components/range-input.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -68,58 +69,30 @@ var GraphSettings = React.createClass({
                             value={this.state.labelsTextbox[1]} />
                 </div>
                 <div>x range:{' '}
-                    <input  type="text"
-                            ref="range-0-0"
-                            onChange={_.bind(this.changeRange, this, 0, 0)}
-                            value={this.state.rangeTextbox[0][0]} />
-                    <input  type="text"
-                            ref="range-0-1"
-                            onChange={_.bind(this.changeRange, this, 0, 1)}
-                            value={this.state.rangeTextbox[0][1]} />
+                    <RangeInput
+                            value= {this.state.rangeTextbox[0]}
+                            onChange={_.bind(this.changeRange, this, 0)} />
                 </div>
                 <div>
                     {' '}y range:{' '}
-                    <input  type="text"
-                            ref="range-1-0"
-                            onChange={_.bind(this.changeRange, this, 1, 0)}
-                            value={this.state.rangeTextbox[1][0]} />
-                    <input  type="text"
-                            ref="range-1-1"
-                            onChange={_.bind(this.changeRange, this, 1, 1)}
-                            value={this.state.rangeTextbox[1][1]} />
+                    <RangeInput
+                            value= {this.state.rangeTextbox[1]}
+                            onChange={_.bind(this.changeRange, this, 1)} />
                 </div>
                 <div>
                     {' '}Tick Step:{' '}
-                    <input  type="text"
-                            ref="step-0"
-                            onChange={_.bind(this.changeStep, this, 0)}
-                            value={this.state.stepTextbox[0]} />
-                    <input  type="text"
-                            ref="step-1"
-                            onChange={_.bind(this.changeStep, this, 1)}
-                            value={this.state.stepTextbox[1]} />
+                    <RangeInput value= {this.state.stepTextbox}
+                            onChange={this.changeStep} />
                 </div>
                 <div>
                     {' '}Grid Step:{' '}
-                    <NumberInput
-                        ref="grid-step-0"
-                        onChange={_.bind(this.changeGridStep, this, 0)}
-                        value={this.state.gridStepTextbox[0]} />
-                    <NumberInput
-                        ref="grid-step-1"
-                        onChange={_.bind(this.changeGridStep, this, 1)}
-                        value={this.state.gridStepTextbox[1]} />
+                    <RangeInput value= {this.state.gridStepTextbox}
+                            onChange={this.changeGridStep} />
                 </div>
                 <div>
                     {' '}Snap Step:{' '}
-                    <NumberInput
-                        ref="snap-step-0"
-                        onChange={_.bind(this.changeSnapStep, this, 0)}
-                        value={this.state.snapStepTextbox[0]} />
-                    <NumberInput
-                        ref="snap-step-1"
-                        onChange={_.bind(this.changeSnapStep, this, 1)}
-                        value={this.state.snapStepTextbox[1]} />
+                    <RangeInput value= {this.state.snapStepTextbox}
+                            onChange={this.changeSnapStep} />
                 </div>
                 <div>
                     <label>Markings:{' '}
@@ -349,18 +322,16 @@ var GraphSettings = React.createClass({
         this.setState({ labelsTextbox: labels }, this.changeGraph);
     },
 
-    changeRange: function(i, j, e) {
-        var val = this.refs["range-" + i + "-" + j].getDOMNode().value;
+    changeRange: function(i, values) {
         var ranges = this.state.rangeTextbox.slice();
-        var range = ranges[i] = ranges[i].slice();
-        range[j] = val;
+        ranges[i] = values;
         var step = this.state.stepTextbox.slice();
         var gridStep = this.state.gridStepTextbox.slice();
         var snapStep = this.state.snapStepTextbox.slice();
-        var scale = Util.scaleFromExtent(range, this.props.box[i]);
-        if (this.validRange(range) === true) {
+        var scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
+        if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(
-                    range, this.props.box[i]);
+                    ranges[i], this.props.box[i]);
             gridStep[i] = Util.gridStepFromTickStep(step[i], scale);
             snapStep[i] = gridStep[i] / 2;
         }
@@ -372,25 +343,16 @@ var GraphSettings = React.createClass({
         }, this.changeGraph);
     },
 
-    changeStep: function(i, e) {
-        var val = this.refs["step-" + i].getDOMNode().value;
-        var step = this.state.stepTextbox.slice();
-        step[i] = val;
+    changeStep: function(step) {
         this.setState({ stepTextbox: step }, this.changeGraph);
     },
 
-    changeSnapStep: function(i, e) {
-        var val = this.refs["snap-step-" + i].getValue();
-        var snapStep = this.state.snapStepTextbox.slice();
-        snapStep[i] = val;
+    changeSnapStep: function(snapStep) {
         this.setState({ snapStepTextbox: snapStep },
                 this.changeGraph);
     },
 
-    changeGridStep: function(i, e) {
-        var val = this.refs["grid-step-" + i].getValue();
-        var gridStep = this.state.gridStepTextbox.slice();
-        gridStep[i] = val;
+    changeGridStep: function(gridStep) {
         this.setState({
             gridStepTextbox: gridStep,
             snapStepTextbox: _.map(gridStep, function(step) {
