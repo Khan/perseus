@@ -10,6 +10,7 @@ var NumberInput = require("../components/number-input.jsx");
 var RangeInput   = require("../components/range-input.jsx");
 var ButtonGroup  = require("../components/button-group.jsx");
 var Interactive2 = require("../interactive2.js");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var eq = KhanUtil.knumber.equal;
 var deepEq = Util.deepEq;
@@ -513,6 +514,8 @@ var NumberLineEditor = React.createClass({
         };
     },
 
+    mixins: [JsonifyProps],
+
     render: function() {
         var range = this.props.range;
         var labelRange = this.props.labelRange;
@@ -754,10 +757,6 @@ var NumberLineEditor = React.createClass({
         this.props.onChange({
             labelStyle: labelStyle
         });
-    },
-
-    toJSON: function() {
-        return _(this.props).omit("onChange", "ref");
     }
 });
 
