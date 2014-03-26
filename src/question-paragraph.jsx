@@ -17,7 +17,7 @@ var QuestionParagraph = React.createClass({
 
     render: function() {
         if (!this.props.shouldIndicate || _.isEmpty(this.props.totalWidgets)) {
-            return <div>{this.props.children}</div>;
+            return <div className="paragraph">{this.props.children}</div>;
         }
         var answered = this.isAnswered();
         var className = cx({
@@ -25,7 +25,8 @@ var QuestionParagraph = React.createClass({
             "answered": answered,
             "unanswered": !answered,
             "ui-helper-clearfix": true,
-            "wrapper": true
+            "wrapper": true,
+            "paragraph": true
         });
 
         return <div className={className}>
