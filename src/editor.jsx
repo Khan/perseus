@@ -356,8 +356,25 @@ var Editor = Perseus.Editor = React.createClass({
     },
 
     handleDrop: function(e) {
-        var files = e.nativeEvent.dataTransfer.files;
         var content = this.props.content;
+        var dataTransfer = e.nativeEvent.dataTransfer;
+
+        // files will hold something if the drag was from the desktop or a file
+        // located on the user's computer.
+        var files = dataTransfer.files;
+
+        // ... but we only get a url if the drag originated in another window
+        if (files.length === 0) {
+            var imageUrl = dataTransfer.getData("URL");
+
+            if (imageUrl) {
+                // TODO(joel) - relocate when the image upload dialog lands
+                var newContent = content + "\n\n![](" + imageUrl + ")";
+                this.props.onChange({ content: newContent });
+            }
+
+            return;
+        }
 
         /* For each file we make sure it's an image, then create a sentinel -
          * snowman + identifier to insert into the current text. The sentinel
