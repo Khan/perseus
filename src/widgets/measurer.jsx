@@ -5,13 +5,13 @@ require("../core.js");
 
 var InfoTip =       require("../components/info-tip.jsx");
 var NumberInput =   require("../components/number-input.jsx");
+var RangeInput =    require("../components/range-input.jsx");
 var Widgets =       require("../widgets.js");
 
 var Measurer = React.createClass({
     getDefaultProps: function() {
         return {
-            width: 480,
-            height: 480,
+            box: [480, 480],
             imageUrl: null,
             imageTop: 0,
             imageLeft: 0,
@@ -36,7 +36,7 @@ var Measurer = React.createClass({
                     "perseus-widget perseus-widget-measurer " +
                     "graphie-container above-scratchpad"
                 }
-                style={{width: this.props.width, height: this.props.height}}>
+                style={{width: this.props.box[0], height: this.props.box[1]}}>
             {this.props.imageUrl &&
                 <img
                     src={this.props.imageUrl}
@@ -55,7 +55,7 @@ var Measurer = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         var shouldSetupGraphie = _.any([
-                "width", "height", "showProtractor", "showRuler", "rulerLabel",
+                "box", "showProtractor", "showRuler", "rulerLabel",
                 "rulerTicks", "rulerPixels", "rulerLength"
             ],
             function(prop) {
@@ -76,8 +76,8 @@ var Measurer = React.createClass({
 
         var scale = [40, 40];
         var range = [
-            [0, this.props.width / scale[0]],
-            [0, this.props.height / scale[1]]
+            [0, this.props.box[0] / scale[0]],
+            [0, this.props.box[1] / scale[1]]
         ];
         graphie.init({
             range: range,
@@ -148,8 +148,7 @@ var MeasurerEditor = React.createClass({
             imageUrl: null,
             imageTop: 0,
             imageLeft: 0,
-            width: 480,
-            height: 480,
+            box: [480, 480],
             showProtractor: true,
             showRuler: false,
             rulerLabel: "",
@@ -188,17 +187,10 @@ var MeasurerEditor = React.createClass({
                         value={this.props.imageLeft} />
                 </div>
             </div>}
-            <div>Containing area width:{' '}
-                <NumberInput
-                    allowEmpty={false}
-                    onChange={_.partial(this.changeSetting, "width")}
-                    value={this.props.width} />
-            </div>
-            <div>Containing area height:{' '}
-                <NumberInput
-                    allowEmpty={false}
-                    onChange={_.partial(this.changeSetting, "height")}
-                    value={this.props.height} />
+            <div>Containing area [width, height]:{' '}
+                <RangeInput
+                    onChange={_.partial(this.changeSetting, "box")}
+                    value={this.props.box} />
             </div>
             <div>
                 <label>
@@ -314,7 +306,7 @@ var MeasurerEditor = React.createClass({
 
     toJSON: function() {
         return _.pick(this.props, "imageUrl", "imageTop", "imageLeft",
-            "width", "height", "showProtractor", "showRuler", "rulerLabel",
+            "box", "showProtractor", "showRuler", "rulerLabel",
             "rulerTicks", "rulerPixels", "rulerLength");
     }
 });
