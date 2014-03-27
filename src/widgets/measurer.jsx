@@ -19,8 +19,6 @@ var Measurer = React.createClass({
             protractorX: 7.5,
             protractorY: 0.5,
             showRuler: false,
-            rulerX: 6.0,
-            rulerY: 6.0,
             rulerLabel: "",
             rulerTicks: 10,
             rulerPixels: 40,
@@ -57,8 +55,8 @@ var Measurer = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         var shouldSetupGraphie = _.any([
-                "showProtractor", "showRuler", "rulerLabel", "rulerTicks",
-                "rulerPixels", "rulerLength"
+                "width", "height", "showProtractor", "showRuler", "rulerLabel",
+                "rulerTicks", "rulerPixels", "rulerLength"
             ],
             function(prop) {
                 return prevProps[prop] !== this.props[prop];
@@ -76,8 +74,14 @@ var Measurer = React.createClass({
         $(graphieDiv).empty();
         var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
 
+        var scale = [40, 40];
+        var range = [
+            [0, this.props.width / scale[0]],
+            [0, this.props.height / scale[1]]
+        ];
         graphie.init({
-            range: [[0, this.props.width / 40], [0, this.props.height / 40]]
+            range: range,
+            scale: scale
         });
         graphie.addMouseLayer({
             allowScratchpad: true
@@ -101,8 +105,8 @@ var Measurer = React.createClass({
         if (this.props.showRuler) {
             this.ruler = graphie.ruler({
                 center: [
-                    this.props.rulerX,
-                    this.props.rulerY
+                    (range[0][0] + range[0][1]) / 2,
+                    (range[1][0] + range[1][1]) / 2
                 ],
                 label: this.props.rulerLabel,
                 pixelsPerUnit: this.props.rulerPixels,
@@ -144,6 +148,8 @@ var MeasurerEditor = React.createClass({
             imageUrl: null,
             imageTop: 0,
             imageLeft: 0,
+            width: 480,
+            height: 480,
             showProtractor: true,
             showRuler: false,
             rulerLabel: "",
@@ -182,6 +188,18 @@ var MeasurerEditor = React.createClass({
                         value={this.props.imageLeft} />
                 </div>
             </div>}
+            <div>Containing area width:{' '}
+                <NumberInput
+                    allowEmpty={false}
+                    onChange={_.partial(this.changeSetting, "width")}
+                    value={this.props.width} />
+            </div>
+            <div>Containing area height:{' '}
+                <NumberInput
+                    allowEmpty={false}
+                    onChange={_.partial(this.changeSetting, "height")}
+                    value={this.props.height} />
+            </div>
             <div>
                 <label>
                     {' '}Show protractor:{' '}
@@ -296,8 +314,8 @@ var MeasurerEditor = React.createClass({
 
     toJSON: function() {
         return _.pick(this.props, "imageUrl", "imageTop", "imageLeft",
-            "showProtractor", "showRuler", "rulerLabel", "rulerTicks",
-            "rulerPixels", "rulerLength");
+            "width", "height", "showProtractor", "showRuler", "rulerLabel",
+            "rulerTicks", "rulerPixels", "rulerLength");
     }
 });
 
