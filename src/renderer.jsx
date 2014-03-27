@@ -23,7 +23,7 @@ var specialChars = {
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g; 
- 
+
 if (typeof KA !== "undefined" && KA.language === "en-PT") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
     // registry of crowdinId's to component so that we can update the
@@ -203,30 +203,44 @@ var Renderer = Perseus.Renderer = React.createClass({
 
         // We want to set the paragraph function so we can keep track of which
         // widgets were added in which paragraph
-        var markedOptions = {
-            paragraphFn: function(text) {
-                var newWidgetIds = _.difference(widgetIds, oldWidgetIds);
-                newWidgetIds = _.filter(newWidgetIds, (widgetId) =>
-                    Util.widgetShouldHighlight(self.props.widgets[widgetId]));
-                oldWidgetIds = _.clone(widgetIds);
-                var relevantUsedWidgets = _.intersection(newWidgetIds,
-                                                     self.props.usedWidgets);
-                return <QuestionParagraph
-                    totalWidgets={newWidgetIds}
-                    usedWidgets={relevantUsedWidgets}
-                    shouldIndicate={self.props.shouldIndicate} >
-                    {text}
-                </QuestionParagraph>;
+        var wrap = function(text) {
+            var newWidgetIds = _.difference(widgetIds, oldWidgetIds);
+            newWidgetIds = _.filter(newWidgetIds, (widgetId) =>
+                Util.widgetShouldHighlight(self.props.widgets[widgetId]));
+            oldWidgetIds = _.clone(widgetIds);
+            var relevantUsedWidgets = _.intersection(newWidgetIds,
+                                                 self.props.usedWidgets);
+            return <QuestionParagraph
+                totalWidgets={newWidgetIds}
+                usedWidgets={relevantUsedWidgets}
+                shouldIndicate={self.props.shouldIndicate} >
+                {text}
+            </QuestionParagraph>;
+        };
+
+        var tok = markedReact.Parser.prototype.tok;
+        var tokLevelCount = 0;
+        markedReact.Parser.prototype.tok = function() {
+            tokLevelCount++;
+            var result;
+            var text = tok.call(this);
+            if (tokLevelCount === 1 && (!_.isArray(text) || text.length)) {
+                result = wrap(text);
+            } else {
+                result = text;
             }
+            tokLevelCount--;
+            return result;
         };
 
         try {
-            return <div>{markedReact(markdown, markedOptions)}</div>;
+            return <div>{markedReact(markdown)}</div>;
         } catch (e) {
             // IE8 requires `catch` in order to use `finally`
             throw e;
         } finally {
             markedReact.InlineLexer.prototype.smartypants = smartypants;
+            markedReact.Parser.prototype.tok = tok;
         }
     },
 

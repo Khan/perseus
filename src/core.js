@@ -22,7 +22,7 @@ Perseus.init = function(options) {
     markedReact.setOptions({
         sanitize: true,
         paragraphFn: function(text) {
-            return React.DOM.div({className: 'paragraph'}, text);
+            return React.DOM.div(null, text);
         }
     });
 
