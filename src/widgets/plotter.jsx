@@ -691,8 +691,31 @@ var PlotterEditor = React.createClass({
 
     getInitialState: function() {
         return {
-            editing: "correct"
+            editing: "correct",
+            pic: null,
+            loadedUrl: null
         };
+    },
+
+    componentWillMount: function() {
+        this.fetchPic(this.props.picUrl);
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.fetchPic(nextProps.picUrl);
+    },
+
+    fetchPic: function(url) {
+        if (this.state.loadedUrl !== url) {
+            var pic = new Image();
+            pic.src = url;
+            pic.onload = () => {
+                this.setState({
+                    pic: pic,
+                    loadedUrl: url
+                });
+            };
+        }
     },
 
     render: function() {
@@ -774,6 +797,13 @@ var PlotterEditor = React.createClass({
                     a different picture using the "Add image" function.</p>
                 </InfoTip>
                 </label>
+                {this.state.pic &&
+                    this.state.pic.width !== this.state.pic.height &&
+                    <p className="warning">
+                        <b>Warning</b>: You are using a picture which is not
+                        square.  This means the image will get distorted. You
+                        should probably crop it to be square.
+                    </p>}
             </div>}
             <div>
                 <label>
