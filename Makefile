@@ -1,4 +1,4 @@
-.PHONY: help build debug server all put put-js put-css update clean
+.PHONY: help build debug server all put put-js put-css update clean lint
 PORT=9000
 
 help:
@@ -48,3 +48,7 @@ update:
 
 clean:
 	-rm -rf build/*
+
+lint:
+	~/Khan/devtools/khan-linter/runlint.py
+
