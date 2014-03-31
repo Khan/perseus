@@ -64,6 +64,7 @@ var NumberInput = React.createClass({
         var input = React.DOM.input(_.extend({}, this.props, {
             className: classes,
             type: "text",
+            ref: "input",
             onChange: this._handleChange,
             onBlur: this._handleBlur,
             onKeyPress: this._handleBlur,
@@ -101,7 +102,7 @@ var NumberInput = React.createClass({
      * which will be returned in the case of an empty string otherwise.
      */
     getValue: function() {
-        var text = this.getDOMNode().value;
+        var text = this.refs.input.getDOMNode().value;
         var num = numberFromString(text, this.props.value, true);
         if (num !== null) {
             return num;
@@ -116,7 +117,7 @@ var NumberInput = React.createClass({
 
     /* Set text input focus to this input */
     focus: function() {
-        this.getDOMNode().focus();
+        this.refs.input.getDOMNode().focus();
     },
 
     _handleChange: function(e) {
@@ -135,14 +136,14 @@ var NumberInput = React.createClass({
             return;
         }
 
-        var text = this.getDOMNode().value;
+        var text = this.refs.input.getDOMNode().value;
         if (!isNumericString(text, this._allowEmpty())) {
             this._setValue(this.props.value);
         }
     },
 
     _setValue: function(val) {
-        $(this.getDOMNode()).val(stringFromNumber(val));
+        $(this.refs.input.getDOMNode()).val(stringFromNumber(val));
     }
 });
 
