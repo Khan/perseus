@@ -34,7 +34,8 @@ var BaseRadio = React.createClass({
                                 onChange={this.onChange.bind(this, i)} />
                         </span>
                         {choice.content}
-                        {this.props.showClues && choice.checked &&
+                        {Exercises.cluesEnabled === "cluesEnabled" &&
+                            this.props.showClues && choice.checked &&
                             <div className="perseus-radio-clue">
                                 {choice.clue}
                             </div>}
