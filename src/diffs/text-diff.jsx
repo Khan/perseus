@@ -2,11 +2,23 @@
 
 var diff = require("../../lib/jsdiff");
 var splitDiff = require("./split-diff.jsx");
+var stringArrayDiff = require("./string-array-diff.jsx");
 
 var cx = React.addons.classSet;
 
 var BEFORE = "before";
 var AFTER = "after";
+
+var IMAGE_REGEX = /http.*?\.png/g;
+
+var imagesInString = function(str) {
+    return str.match(IMAGE_REGEX) || [];
+};
+
+var COLORS = {
+  "before": "#FFAAAA",
+  "after": "#AAFFAA"
+};
 
 var classFor = function(entry, ifAdded, ifRemoved) {
     if (entry.added) {
@@ -17,6 +29,33 @@ var classFor = function(entry, ifAdded, ifRemoved) {
         return "";
     }
 };
+
+var ImageDiffSide = React.createClass({
+    propTypes: {
+        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
+        images: React.PropTypes.array.isRequired
+    },
+
+    render: function() {
+        return <div>
+            {this.props.images.length > 0 &&
+                <div className="diff-header">Images</div>}
+            {_.map(this.props.images, (entry) => {
+                var className = cx({
+                    "image": true,
+                    "image-unchanged": entry.status === "unchanged",
+                    "image-added": entry.status === "added",
+                    "image-removed": entry.status === "removed"
+                });
+                return <div>
+                    <img src={entry.value}
+                        title={entry.value}
+                        className={className} />
+                </div>;
+            })}
+        </div>;
+    }
+});
 
 var TextDiff = React.createClass({
     propTypes: {
@@ -41,6 +80,11 @@ var TextDiff = React.createClass({
         var diffed = diff.diffWords(this.props.before, this.props.after);
 
         var lines = splitDiff(diffed);
+
+        beforeImages = imagesInString(this.props.before);
+        afterImages = imagesInString(this.props.after);
+
+        var images = stringArrayDiff(beforeImages, afterImages);
 
         var renderedLines = _.map(lines, (line) => {
             var contents = {};
@@ -82,6 +126,10 @@ var TextDiff = React.createClass({
                                     {line[side]}
                                 </div>;
                             })}
+                         {!this.state.collapsed &&
+                             <ImageDiffSide
+                                 side={side}
+                                 images={images[side]} />}
                     </div>;
                 })}
             </div>
