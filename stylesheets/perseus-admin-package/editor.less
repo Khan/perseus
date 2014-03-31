@@ -18,6 +18,10 @@
 @editorBorderRadius:    3px;
 @editorPadding:         10px;
 
+@widgetBorderWidth:     1px;
+@widgetBorderColor:     #ccc;
+@widgetBorder:          @widgetBorderWidth solid @widgetBorderColor;
+@widgetBorderRadius:    3px;
 
 // Dimensions
 @questionWidth:         480px;
@@ -25,11 +29,38 @@
 @cellPadding:           30px;
 @rightCellWidth:        @questionWidth + 2 * @cellPadding;
 
+// Colors
+@wrongRed:              #f2dede;
+@correctGreen:          #dff0d8;
+@ungradedBlue:          #d9edf7;
+
 .border-box-sizing() {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
 
+}
+
+.size(@width: auto, @height: auto) {
+    height: @height;
+    width: @width;
+}
+
+.position(@position: static, @top: auto, @right: auto, @bottom: auto, @left: auto) {
+    position: @position;
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left: @left;
+}
+
+.user-select (@select) {
+  -webkit-user-select: @select;
+  -khtml-user-drag: @select;
+  -khtml-user-select: @select;
+  -moz-user-select: @select;
+  -ms-user-select: @select;
+  user-select: @select;
 }
 
 .pod-title {
@@ -65,7 +96,7 @@
 
 .perseus-textarea-pair {
     border: 1px solid @grayLighter;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.6;
     position: relative;
 }
@@ -496,6 +527,176 @@
 //
 .perseus-widget-dropdown .remove-choice {
     margin-bottom:10px;
+}
+//
+// Input Number / Text Input
+//
+.perseus-input-number-editor {
+    font-size: 14px;
+
+    .ui-title, .msg-title {
+        display: inline-block;
+        text-align: center;
+    }
+
+    .ui-title {
+        width: 100px;
+    }
+
+    .msg-title {
+        margin-left: 5px;
+        width: 230px;
+    }
+
+    .options-container {
+        padding-left: 30px;
+    }
+
+    .input-answer-editor-value,
+    .input-answer-editor-message {
+        display: inline-block;
+    }
+
+    .input-answer-editor-value-container {
+        border: @widgetBorder;
+        border-radius: @widgetBorderRadius;
+        float: left;
+        .size(100px, 53px);
+        overflow: hidden;
+        position: relative;
+
+        // TODO(merlob) fix NumberInput so this can
+        // be replaced with a class name.
+        .number-input:first-of-type {
+            border: 0;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        &.with-max-error {
+            .number-input:first-of-type {
+                width: 60%;
+            }
+        }
+
+        .max-error-container {
+            display: inline-block;
+            width: 40%;
+            .max-error-plusmn {
+                cursor: default;
+                display: inline-block;
+                width: 20%;
+            }
+            .number-input {
+                border: 0;
+                font-size: 13px;
+                width: 80%;
+            }
+        }
+    }
+
+    .options-toggle,
+    .answer-status {
+        height: 26px;
+        line-height: 26px;
+        vertical-align: middle;
+    }
+
+    .value-divider {
+        border-top: @widgetBorder;
+    }
+
+    .options-toggle {
+        background-color: #eee;
+        border-left: @widgetBorder;
+        .border-box-sizing();
+        color: #444;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        width: 25%;
+        &:hover {
+            background-color: #ccc;
+        }
+    }
+
+    .is-strict-indicator {
+        background-color: @ungradedBlue;
+        border-bottom: @widgetBorder;
+        border-right: @widgetBorder;
+        cursor: default;
+        font-size: 16px;
+        line-height: 12px;
+        .size(12px, 12px);
+        text-align: center;
+        .position(absolute, 0, auto, auto, 0);
+        .user-select(none);
+    }
+
+    .simplify-indicator {
+        border-top: @widgetBorder;
+        border-right: @widgetBorder;
+        cursor: default;
+        font-size: 10px;
+        line-height: 13px;
+        .size(12px, 13px);
+        text-align: center;
+        .position(absolute, 12px, auto, auto, 0);
+        .user-select(none);
+
+        &.optional {
+            background-color: @correctGreen;
+        }
+        &.enforced {
+             background-color: @wrongRed;
+        }
+    }
+
+    .answer-status {
+        color: inherit;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        width: 75%;
+        .user-select(none);
+
+        &.wrong {
+            background-color: @wrongRed;
+        }
+
+        &.correct {
+            background-color: @correctGreen;
+        }
+
+        &.ungraded {
+            background-color: @ungradedBlue;
+        }
+    }
+
+    .input-answer-editor-message {
+        margin-left: 5px;
+
+        .perseus-single-editor{
+            font-family: 'Lucida Grande';
+            width: 230px;
+
+            .perseus-textarea-pair > textarea,
+            .perseus-textarea-underlay {
+                padding: 5px;
+            }
+
+            .perseus-textarea-pair {
+                border-color: @widgetBorderColor;
+                border-radius: @editorBorderRadius;
+                min-height: 53px;
+            }
+
+            .perseus-textarea-underlay {
+                margin-bottom: 0; //override
+            }
+        }
+    }
 }
 
 //

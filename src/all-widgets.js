@@ -10,12 +10,12 @@ require("./widgets/interactive-number-line.jsx");
 require("./widgets/matcher.jsx");
 require("./widgets/measurer.jsx");
 require("./widgets/number-line.jsx");
+require("./widgets/numeric-input.jsx");
 require("./widgets/orderer.jsx");
 require("./widgets/plotter.jsx");
 require("./widgets/radio.jsx");
 require("./widgets/sorter.jsx");
 require("./widgets/table.jsx");
-require("./widgets/text-input.jsx");
 require("./widgets/transformer.jsx");
 
 })(Perseus);
