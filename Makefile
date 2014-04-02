@@ -1,4 +1,4 @@
-.PHONY: help build debug server all put put-js put-css update clean lint
+.PHONY: help build debug server all subperseus put put-js put-css update clean lint
 PORT=9000
 
 help:
@@ -33,7 +33,9 @@ demo:
 	git checkout master
 	git push -f origin gh-pages:gh-pages
 
-all: clean update build put
+all: subperseus
+
+subperseus: clean update build put
 
 put: put-js put-css
 
