@@ -4,6 +4,8 @@ require("../core.js");
 var Util = require("../util.js");
 var knumber = KhanUtil.knumber;
 
+var toNumericString = KhanUtil.toNumericString;
+
 /* Your go-to input box for numbers and number-like strings
  *
  * Features:
@@ -24,13 +26,15 @@ var ValidatedNumberInput = React.createClass({
         placeholder: React.PropTypes.any,
         onChange: React.PropTypes.func.isRequired,
         checkValidity: React.PropTypes.func,
+        format: React.PropTypes.string
     },
 
     getDefaultProps: function() {
         return {
             value: "",
             placeholder: null,
-            checkValidity: function(){return true;}
+            checkValidity: function(){return true;},
+            format: null
         };
     },
 
@@ -56,7 +60,7 @@ var ValidatedNumberInput = React.createClass({
             onKeyPress: this._handleBlur,
             onKeyDown: this._onKeyDown,
             onInvalid: this._onInvalid,
-            defaultValue: String(value),
+            defaultValue: toNumericString(value, this.props.format),
             value: undefined
         }));
 

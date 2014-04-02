@@ -558,6 +558,7 @@ var NumberLineEditor = React.createClass({
                     <option value="ge"> &ge; </option>
                 </select>
                 <NumberInput value={this.props.correctX}
+                    format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "correctX")}
                     min={range[0]} max={range[1]} step={step}
                     placeholder="answer" size="normal" />
@@ -571,11 +572,14 @@ var NumberLineEditor = React.createClass({
             <div className="perseus-widget-row">
                 <NumberInput label="position"
                     value={this.props.initialX}
+                    format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "initialX")}
                     placeholder={range[0]}
                     min={range[0]} max={range[1]} />
                 <span> &isin; {' '} </span>
-                <RangeInput value={range} onChange={this.onRangeChange} />
+                <RangeInput value={range}
+                    onChange={this.onRangeChange}
+                    format={this.props.labelStyle} />
                 <InfoTip><p>
                     This controls the initial position of the point along the
                     number line and the <strong>range</strong>, the position
@@ -588,11 +592,13 @@ var NumberLineEditor = React.createClass({
                     <span>labels </span>
                     <NumberInput
                         value={labelRange[0]} placeholder={range[0]}
+                        format={this.props.labelStyle}
                         min={range[0]} max={range[1]}
                         onChange={this.onLabelRangeChange.bind(this, 0)} />
                     <span> &amp; </span>
                     <NumberInput
                         value={labelRange[1]} placeholder={range[1]}
+                        format={this.props.labelStyle}
                         min={range[0]} max={range[1]}
                         onChange={this.onLabelRangeChange.bind(this, 1)} />
                     <InfoTip><p>
@@ -631,11 +637,13 @@ var NumberLineEditor = React.createClass({
             <div className="perseus-widget-row">
                 <NumberInput label="num divisions"
                     value={this.props.numDivisions || ""}
+                    format={"decimal"}
                     onChange={this.onNumDivisionsChange}
                     min={+divisionRange[0]} max={+divisionRange[1]}
                     placeholder={width / this.props.tickStep} />
                 {isTickCtrl && <span> &isin; {' '}
                     <RangeInput value={divisionRange}
+                        format={this.props.labelStyle}
                         min={1} enforceInequality={true}
                         onChange={this.onDivisionRangeChange} />
                     <InfoTip><p>
@@ -649,6 +657,7 @@ var NumberLineEditor = React.createClass({
                 {!isTickCtrl && <span>
                     <NumberInput label=" or tick step"
                         value={this.props.tickStep || ""}
+                        format={this.props.labelStyle}
                         onChange={this.onTickStepChange}
                         minExc={0} max={width}
                         placeholder={width / this.props.numDivisions} />
@@ -666,6 +675,7 @@ var NumberLineEditor = React.createClass({
             <div className="perseus-widget-row">
                 <NumberInput label="snap increments per tick"
                     value={snapDivisions} minExc={0}
+                    format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "snapDivisions")} />
                 <InfoTip><p>
                     This determines the number of different places the point

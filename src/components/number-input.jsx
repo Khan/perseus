@@ -139,7 +139,7 @@ var NumberInput = React.createClass({
     },
 
     _setValue: function(val, format) {
-        $(this.refs.input.getDOMNode()).val(stringFromNumber(val));
+        $(this.refs.input.getDOMNode()).val(toNumericString(val, format));
     }
 });
 
