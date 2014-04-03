@@ -32,8 +32,8 @@ var isWidget = obj => _.isObject(obj) && !("content" in obj);
 
 var RevisionDiff = React.createClass({
     propTypes: {
-        beforeItem: React.PropTypes.object,
-        afterItem: React.PropTypes.object
+        beforeItem: React.PropTypes.object.isRequired,
+        afterItem: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -76,7 +76,13 @@ var RevisionDiff = React.createClass({
             var beforeValue = getPath(before, path, "");
             var afterValue = getPath(after, path, "");
             var displayedDiff;
-            if (isWidget(beforeValue) && isWidget(afterValue)) {
+            if (isWidget(beforeValue) || isWidget(afterValue)) {
+                if (!isWidget(beforeValue)) {
+                    beforeValue = {};
+                }
+                if (!isWidget(afterValue)) {
+                    afterValue = {};
+                }
                 displayedDiff = <WidgetDiff
                     key={section.title}
                     title={section.title}
