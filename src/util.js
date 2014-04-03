@@ -398,6 +398,9 @@ var Util = {
     // question ("is this transformation possible? if so, do it")
     // This is kind of a hack to get around this.
     widgetShouldHighlight: function(widget) {
+        if (!widget) {
+            return false;
+        }
         var HIGHLIGHT_BAR_BLACKLIST = ["measurer", "protractor"];
         return !_.contains(HIGHLIGHT_BAR_BLACKLIST, widget.type);
     }

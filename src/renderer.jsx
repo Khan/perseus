@@ -206,7 +206,8 @@ var Renderer = Perseus.Renderer = React.createClass({
         var wrap = function(text) {
             var newWidgetIds = _.difference(widgetIds, oldWidgetIds);
             newWidgetIds = _.filter(newWidgetIds, (widgetId) =>
-                Util.widgetShouldHighlight(self.props.widgets[widgetId]));
+                Util.widgetShouldHighlight(
+                    (self.props.widgets || {})[widgetId]));
             oldWidgetIds = _.clone(widgetIds);
             var relevantUsedWidgets = _.intersection(newWidgetIds,
                                                  self.props.usedWidgets);
@@ -235,9 +236,6 @@ var Renderer = Perseus.Renderer = React.createClass({
 
         try {
             return <div>{markedReact(markdown)}</div>;
-        } catch (e) {
-            // IE8 requires `catch` in order to use `finally`
-            throw e;
         } finally {
             markedReact.InlineLexer.prototype.smartypants = smartypants;
             markedReact.Parser.prototype.tok = tok;
