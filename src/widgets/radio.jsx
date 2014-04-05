@@ -97,6 +97,7 @@ var Radio = React.createClass({
             choices = this.addNoneOfAbove(choices);
         }
         var values = this.props.values || _.map(choices, () => false);
+        choices = this.enforceOrdering(this.props.choices);
         choices = _.map(choices, function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
@@ -159,6 +160,15 @@ var Radio = React.createClass({
             }
         }
         return Radio.validate(this.toJSON(), rubric);
+    },
+
+    enforceOrdering: function(choices) {
+        var content = _.pluck(choices, "content");
+        if (_.isEqual(content, [$._("False"), $._("True")]) ||
+            _.isEqual(content, [$._("No"), $._("Yes")])) {
+            return ([choices[1]]).concat([choices[0]]);
+        }
+        return choices;
     },
 
     randomize: function(array) {
