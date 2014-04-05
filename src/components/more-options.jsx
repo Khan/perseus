@@ -10,13 +10,13 @@ var MoreOptions = React.createClass({
     getDefaultProps: function() {
         return {
             show: false
-        }
+        };
     },
 
     getInitialState: function() {
         return {
             show: this.props.show
-        }
+        };
     },
 
     render: function() {
@@ -28,12 +28,12 @@ var MoreOptions = React.createClass({
                     <span><i className="icon-chevron-down" /> More</span>
                 } Options...
             </div>
-        </div>
+        </div>;
     },
 
     toggle: function() {
         this.setState({show: !this.state.show});
     }
-})
+});
 
-module.exports = MoreOptions
+module.exports = MoreOptions;
