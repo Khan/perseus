@@ -20,7 +20,7 @@
 
 var ButtonGroup = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
+        value: React.PropTypes.any,
         buttons: React.PropTypes.array.isRequired,
         onChange: React.PropTypes.func.isRequired,
         allowEmpty: React.PropTypes.bool,

@@ -3,11 +3,13 @@
 
 require("../core.js");
 var Util = require("../util.js");
+var Changeable = require("../mixins/changeable.jsx");
 require("../renderer.jsx");
 require("../editor.jsx");
 
-var InfoTip = require("../components/info-tip.jsx");
 var Widgets = require("../widgets.js");
+var ButtonGroup = require("../components/button-group.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var shuffle = Util.shuffle;
 
@@ -73,33 +75,40 @@ var Radio = React.createClass({
     getDefaultProps: function() {
         return {
             choices: [{}],
+            displayCount: null,
             randomize: false,
-            multipleSelect: false
+            multipleSelect: false,
+            noneOfTheAbove: false
         };
     },
 
     getInitialState: function() {
         return {
-            showClues: false
+            showClues: false,
+            revealCorrectAnswer: false
         };
     },
 
     render: function() {
-        var values = this.props.values || _.map(this.props.choices,
-                function() {
-            return false;
-        });
-
-        var choices = this.props.choices.map(function(choice, i) {
+        var choices = this.props.choices;
+        if (this.props.randomize) {
+            choices = this.randomize(choices);
+            choices = this.applyDisplayCount(choices);
+            choices = this.addNoneOfAbove(choices);
+        }
+        var values = this.props.values || _.map(choices, () => false);
+        choices = _.map(choices, function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
                 content: Perseus.Renderer(_.pick(choice, "content")),
+                correct: choice.correct,
                 checked: values[i],
                 clue: Perseus.Renderer({content: choice.clue}),
                 originalIndex: i
             };
         });
-        choices = this.randomize(choices);
+        this.derandomizer = _.pluck(choices, "originalIndex");
+        this.choicesDisplayed = choices;
 
         return <BaseRadio
             ref="baseRadio"
@@ -132,15 +141,23 @@ var Radio = React.createClass({
         } else {
             // Nothing checked
             return {
-                values: _.map(this.props.choices, function() {
-                    return false;
-                })
+                values: _.map(this.props.choices, () => false)
             };
         }
     },
 
     simpleValidate: function(rubric) {
         this.setState({showClues: true});
+        rubric = _.clone(rubric);
+        rubric.choices = this.choicesDisplayed;
+        if (this.props.noneOfTheAbove) {
+            var nota = _.last(rubric.choices);
+            var values = (this.toJSON()).values;
+            var othersChecked = _.any(_.initial(values));
+            if (nota.correct && nota.checked && !othersChecked) {
+                this.setState({revealCorrectAnswer: true});
+            }
+        }
         return Radio.validate(this.toJSON(), rubric);
     },
 
@@ -154,15 +171,51 @@ var Radio = React.createClass({
 
     derandomize: function(array) {
         if (this.props.randomize && this.props.problemNum) {
-            var map = shuffle(_.range(array.length), this.props.problemNum);
-            var derandomized = new Array(array.length);
-            _.each(map, function(shuffledIndex, originalIndex) {
-                derandomized[shuffledIndex] = array[originalIndex];
+            var derandomized = new Array(this.derandomizer.length);
+            _.each(this.derandomizer, function(originalIndex, i) {
+                derandomized[originalIndex] = array[i];
             });
             return derandomized;
         } else {
             return array;
         }
+    },
+
+    applyDisplayCount: function(array) {
+        if (this.props.displayCount) {
+            var newArray = array.slice(0, this.props.displayCount);
+            // If any of the new choices are correct, ...
+            if(_.any(newArray, choice => choice.correct) ||
+              // or all the original choices are incorrect, ...
+              _.every(this.props.choices, choice => !choice.correct) ||
+              // or none of the above is an option, ...
+              this.props.noneOfTheAbove) {
+                return newArray;
+            } else {
+                // Otherwise try again (in a random way that's not infinite)
+                return this.applyDisplayCount(this.randomize(array.slice(1)));
+            }
+        }
+        return array;
+    },
+
+    addNoneOfAbove: function(array) {
+        if (this.props.noneOfTheAbove) {
+            if (this.state.revealCorrectAnswer) {
+                var answer = _(this.props.choices).where({correct: true});
+                if (!_.isEmpty(answer)) {
+                    return array.concat(answer);
+                }
+            }
+            var values = this.props.values || [false];
+            return array.concat([{
+                content: $._("None of the above"),
+                checked: values[values.length - 1],
+                correct: !_.any(array, choice => choice.correct),
+                originalIndex: array.length
+            }]);
+        }
+        return array;
     }
 });
 
@@ -173,6 +226,14 @@ _.extend(Radio, {
                 type: "invalid",
                 message: null
             };
+        // If NOTA and some other answer are checked, ...
+        } else if (rubric.noneOfTheAbove && _.last(state.values) &&
+                    _.any(_.initial(state.values))) {
+            return {
+                type: "invalid",
+                message: $._("'None of the above' may not be selected " +
+                                    "when other answers are selected.")
+             };
         } else {
             /* jshint -W018 */
             var correct = _.all(state.values, function(selected, i) {
@@ -191,9 +252,12 @@ _.extend(Radio, {
 });
 
 var RadioEditor = React.createClass({
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             choices: [{}, {}],
+            displayCount: null,
             randomize: false,
             multipleSelect: false
         };
@@ -203,28 +267,37 @@ var RadioEditor = React.createClass({
         return <div>
             <div className="perseus-widget-row">
 
-                <div className="perseus-widget-left-col"><label>
-                    <input type="checkbox"
-                           checked={this.props.multipleSelect}
-                           onChange={this.onMultipleSelectChange} />
-                    {' '}Multiple selections{' '}
-                </label></div>
+                <div className="perseus-widget-left-col">
+                    <PropCheckBox label="Multiple selections"
+                                  labelAlignment="right"
+                                  multipleSelect={this.props.multipleSelect}
+                                  onChange={this.onMultipleSelectChange} />
+                </div>
 
-                <div className="perseus-widget-right-col"><label>
-                    <input type="checkbox"
-                           checked={this.props.randomize}
-                           onChange={(e) => this.props.onChange(
-                            {randomize: e.target.checked})} />
-                    {' '}Randomize order{' '}
-                </label>
-                <InfoTip>
-                    <p>For this option to work, don’t label choices or have
-                    "None of the above" as an option. For true/false questions,
-                    make the first choice True and the second choice False,
-                    and do NOT select randomize answer order.</p>
-                </InfoTip>
+                <div className="perseus-widget-right-col">
+                    <PropCheckBox label="Randomize order"
+                                  labelAlignment="right"
+                                  randomize={this.props.randomize}
+                                  onChange={this.props.onChange} />
                 </div>
             </div>
+            {this.props.randomize && <div className="perseus-widget-row">
+                <div className="perseus-widget-left-col">
+                    <PropCheckBox label="None of the above"
+                           labelAlignment="right"
+                           noneOfTheAbove={this.props.noneOfTheAbove}
+                           onChange={this.props.onChange} />
+                </div>
+                <div className="perseus-widget-right-col">
+                    # Displayed {' '}
+                    <ButtonGroup value={this.props.displayCount}
+                        buttons={[
+                            {text: "3", value: 3},
+                            {text: "4", value: 4},
+                            {text: "5", value: 5}]}
+                        onChange={this.setDisplayCount}/>
+                </div>
+            </div>}
 
             <BaseRadio
                 ref="baseRadio"
@@ -291,9 +364,8 @@ var RadioEditor = React.createClass({
         </div>;
     },
 
-    onMultipleSelectChange: function(e) {
-
-        var allowMultiple = e.target.checked;
+    onMultipleSelectChange: function(allowMultiple) {
+        allowMultiple = allowMultiple.multipleSelect;
 
         var numSelected = _.reduce(this.props.choices,
                 function(memo, choice) {
@@ -360,18 +432,23 @@ var RadioEditor = React.createClass({
         }.bind(this));
     },
 
+    setDisplayCount: function(num){
+        this.props.onChange({displayCount: num});
+    },
+
     focus: function() {
         this.refs.editor0.focus();
         return true;
     },
 
     toJSON: function(skipValidation) {
-        if (!skipValidation &&
+        if (!skipValidation && !this.props.noneOfTheAbove &&
                 !_.some(_.pluck(this.props.choices, "correct"))) {
             alert("Warning: No choice is marked as correct.");
         }
 
-        return _.pick(this.props, "choices", "randomize", "multipleSelect");
+        return _.pick(this.props, "choices", "randomize",
+            "multipleSelect", "displayCount", "noneOfTheAbove");
     }
 });
 
