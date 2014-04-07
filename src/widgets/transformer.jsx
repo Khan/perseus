@@ -60,6 +60,7 @@ function pluckObject(object, subKey) {
     }));
 }
 
+
 var defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
     var labels = setProps.labels || ["x", "y"];
@@ -157,6 +158,7 @@ function dilatePointFromCenter(point, dilationCenter, scale) {
     return transformedPoint;
 }
 
+// TODO(jack): i18nize this
 function stringFromDecimal(number) {
     return String(KhanUtil.roundTo(9, number));
 }
@@ -352,8 +354,10 @@ var TransformOps = {
 
 var Transformations = {
     translation: {
-        verbName: "Translate",
-        nounName: "Translation",
+        // I18N: As in the command, "Translate the polygon"
+        verbName: $._("Translate"),
+        nounName: $._("Translation"),
+        lowerNounName: $._("translation"),
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kvector.add(coord, transform.vector);
@@ -379,25 +383,32 @@ var Transformations = {
             };
         },
         toTeX: function(transform) {
-            return ["Translation by ", texFromVector(transform.vector)];
+            // I18N: As in the command, "Translation by <3, 1>"
+            return <$_ vector={texFromVector(transform.vector)}>
+                Translation by %(vector)s
+            </$_>;
         },
         Input: React.createClass({
             render: function() {
-                return <div>
-                    {' '}Translation by{' '}
-                    <TeX>\langle</TeX>
+                var vector = [
+                    <TeX>\langle</TeX>,
                     <NumberInput
                         ref="x"
                         placeholder={0}
                         value={this.props.vector[0]}
-                        onChange={this.props.onChange} />
-                    <TeX>{", {}"}</TeX>
+                        onChange={this.props.onChange} />,
+                    <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y"
                         placeholder={0}
                         value={this.props.vector[1]}
-                        onChange={this.props.onChange} />
+                        onChange={this.props.onChange} />,
                     <TeX>\rangle</TeX>
+                ];
+                return <div>
+                    <$_ vector={vector}>
+                        Translation by %(vector)s
+                    </$_>
                 </div>;
             },
             value: function() {
@@ -414,8 +425,10 @@ var Transformations = {
     },
 
     rotation: {
-        verbName: "Rotate",
-        nounName: "Rotation",
+        // I18N: As in the command, "Rotate the polygon"
+        verbName: $._("Rotate"),
+        nounName: $._("Rotation"),
+        lowerNounName: $._("rotation"),
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kpoint.rotateDeg(coord, transform.angleDeg,
@@ -445,36 +458,42 @@ var Transformations = {
             };
         },
         toTeX: function(transform) {
-            return [
-                "Rotation by ",
-                texFromAngleDeg(transform.angleDeg),
-                " about ",
-                texFromPoint(transform.center)
-            ];
+            return <$_ degrees={texFromAngleDeg(transform.angleDeg)}
+                       point={texFromPoint(transform.center)}>
+                Rotation by %(degrees)s about %(point)s
+            </$_>;
         },
         Input: React.createClass({
             render: function() {
-                return <div>
-                    {' '}Rotation about <TeX>(</TeX>
+                var point = [
+                    <TeX>(</TeX>,
                     <NumberInput
                         ref="centerX"
                         placeholder={0}
                         value={this.props.center[0]}
-                        onChange={this.props.onChange} />
-                    <TeX>{", {}"}</TeX>
+                        onChange={this.props.onChange} />,
+                    <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="centerY"
                         placeholder={0}
                         value={this.props.center[1]}
-                        onChange={this.props.onChange} />
-                    <TeX>)</TeX> by{' '}
+                        onChange={this.props.onChange} />,
+                    <TeX>)</TeX>
+                ];
+                var degrees = [
                     <NumberInput
                         ref="angleDeg"
                         placeholder={0}
                         value={this.props.angleDeg}
-                        onChange={this.props.onChange} />
-                    {DEGREE_SIGN}
-                </div>;
+                        onChange={this.props.onChange} />,
+                    DEGREE_SIGN
+                ];
+                // I18N: %(point)s must come before %(degrees)s in this phrase
+                var text = <$_ point={point} degrees={degrees}>
+                    Rotation about %(point)s by %(degrees)s
+                </$_>;
+
+                return <div>{text}</div>;
             },
             value: function() {
                 var angleDeg = this.refs.angleDeg.getValue();
@@ -492,8 +511,10 @@ var Transformations = {
     },
 
     reflection: {
-        verbName: "Reflect",
-        nounName: "Reflection",
+        // I18N: As in the command, "Reflect the polygon"
+        verbName: $._("Reflect"),
+        nounName: $._("Reflection"),
+        lowerNounName: $._("reflection"),
         apply: function(transform) {
             return function(coord) {
                 return KhanUtil.kpoint.reflectOverLine(
@@ -525,42 +546,45 @@ var Transformations = {
         toTeX: function(transform) {
             var point1 = transform.line[0];
             var point2 = transform.line[1];
-            return [
-                "Reflection over the line from ",
-                texFromPoint(point1),
-                " to ",
-                texFromPoint(point2)
-            ];
+            return <$_ point1={texFromPoint(point1)}
+                       point2={texFromPoint(point2)}>
+                Reflection over the line from %(point1)s to %(point2)s
+            </$_>;
         },
         Input: React.createClass({
             render: function() {
-                return <div>
-                    {' '}Reflection over the line from{' '}
-                    <TeX>(</TeX>
+                var point1 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x1"
                         allowEmpty={true}
                         value={this.props.line[0][0]}
-                        onChange={this.props.onChange} />
-                    <TeX>{", {}"}</TeX>
+                        onChange={this.props.onChange} />,
+                    <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y1"
                         allowEmpty={true}
                         value={this.props.line[0][1]}
-                        onChange={this.props.onChange} />
-                    <TeX>)</TeX> to <TeX>(</TeX>
+                        onChange={this.props.onChange} />,
+                    <TeX>)</TeX>
+                ];
+                var point2 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x2"
                         allowEmpty={true}
                         value={this.props.line[1][0]}
-                        onChange={this.props.onChange} />
-                    <TeX>{", {}"}</TeX>
+                        onChange={this.props.onChange} />,
+                    <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y2"
                         allowEmpty={true}
                         value={this.props.line[1][1]}
-                        onChange={this.props.onChange} />
+                        onChange={this.props.onChange} />,
                     <TeX>)</TeX>
+                ];
+                return <div>
+                    <$_ point1={point1} point2={point2}>
+                        Reflection over the line from %(point1)s to %(point2)s
+                    </$_>
                 </div>;
             },
             value: function() {
@@ -579,8 +603,10 @@ var Transformations = {
     },
 
     dilation: {
-        verbName: "Dilate",
-        nounName: "Dilation",
+        // I18N: As in the command, "Dilate the polygon"
+        verbName: $._("Dilate"),
+        nounName: $._("Dilation"),
+        lowerNounName: $._("dilation"),
         apply: function(transform) {
             return function(coord) {
                 return dilatePointFromCenter(coord, transform.center,
@@ -611,35 +637,36 @@ var Transformations = {
         },
         toTeX: function(transform) {
             var scaleString = stringFromFraction(transform.scale);
-            return [
-                "Dilation of scale ",
-                scaleString,
-                " about ",
-                texFromPoint(transform.center)
-            ];
+            return <$_ scale={scaleString}
+                       point={texFromPoint(transform.center)}>
+                Dilation of scale %(scale)s about %(point)s
+            </$_>;
         },
         Input: React.createClass({
             render: function() {
-                return <div>
-                    {' '}Dilation about{' '}
-                    <TeX>(</TeX>
+                var point = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x"
                         placeholder={0}
                         value={this.props.center[0]}
-                        onChange={this.props.onChange} />
-                    <TeX>{", {}"}</TeX>
+                        onChange={this.props.onChange} />,
+                    <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y"
                         placeholder={0}
                         value={this.props.center[1]}
-                        onChange={this.props.onChange} />
-                    <TeX>)</TeX> by scale{' '}
-                    <NumberInput
-                        ref="scale"
-                        placeholder={1}
-                        value={this.props.scale}
-                        onChange={this.props.onChange} />
+                        onChange={this.props.onChange} />,
+                    <TeX>)</TeX>
+                ];
+                var scale = <NumberInput
+                    ref="scale"
+                    placeholder={1}
+                    value={this.props.scale}
+                    onChange={this.props.onChange} />;
+                return <div>
+                    <$_ point={point} scale={scale}>
+                        Dilation about %(point)s by %(scale)s
+                    </$_>
                 </div>;
             },
             value: function() {
@@ -2213,7 +2240,10 @@ _.extend(Transformer, {
                 if (!isUsed) {
                     return {
                         type: "invalid",
-                        message: "Your transformation must use a " + type + "."
+                        message: $._("Your transformation must use a " +
+                                "%(type)s.", {
+                            type: Transformations[type].lowerNounName
+                        })
                     };
                 }
             }
@@ -2234,8 +2264,8 @@ _.extend(Transformer, {
                 )) {
             return {
                 type: "invalid",
-                message: "Use the interactive graph to define a correct " +
-                    "transformation."
+                message: $._("Use the interactive graph to define a " +
+                    "correct transformation.")
             };
         } else {
             return {
