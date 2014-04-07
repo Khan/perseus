@@ -403,6 +403,14 @@ var Util = {
         }
         var HIGHLIGHT_BAR_BLACKLIST = ["measurer", "protractor"];
         return !_.contains(HIGHLIGHT_BAR_BLACKLIST, widget.type);
+    },
+
+    /**
+     * If a widget says that it is empty once it is graded.
+     * Trying to encapsulate references to the score format.
+     */
+    scoreIsEmpty: function(score) {
+        return score.type === "invalid";
     }
 };
 

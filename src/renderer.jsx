@@ -7,6 +7,7 @@ var Util = require("./util.js");
 var TeX = require("./tex.jsx");
 var Widgets = require("./widgets.js");
 
+var WidgetContainer = require("./widget-container.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
 
 
@@ -63,9 +64,13 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
     });
 }
 
-var CLEAR_WIDGETS_BLACKLIST = ["onChange", "usedWidgets"];
+var CLEAR_WIDGETS_BLACKLIST = ["onChange", "highlightedWidgets"];
 
 var Renderer = Perseus.Renderer = React.createClass({
+    propTypes: {
+        highlightedWidgets: React.PropTypes.array,
+        enableHighlight: React.PropTypes.bool
+    },
 
     componentWillReceiveProps: function(nextProps) {
         if (!_.isEqual(_.omit(this.props, CLEAR_WIDGETS_BLACKLIST),
@@ -78,7 +83,7 @@ var Renderer = Perseus.Renderer = React.createClass({
         return {
             content: "",
             ignoreMissingWidgets: false,
-            shouldIndicate: false,
+            enableHighlight: false,
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -119,20 +124,26 @@ var Renderer = Perseus.Renderer = React.createClass({
                 widgetIds.push(id);
                 var cls = Widgets.get(type);
 
-                return cls(_.extend({},
-                    (widgetInfo || {}).options,
-                    this.state.widgets[id],
-                    {
-                        ref: id,
-                        problemNum: this.props.problemNum,
-                        onChange: (newProps, cb) => {
-                            var widgets = _.clone(this.state.widgets);
-                            widgets[id] = _.extend({}, widgets[id], newProps);
-                            this.setState({widgets: widgets}, cb);
-                            this.props.onInteractWithWidget(id);
+                return <WidgetContainer
+                    enableHighlight={this.props.enableHighlight}
+                    shouldHighlight={_.contains(
+                        this.props.highlightedWidgets, id)}>
+                    {cls(_.extend({},
+                        (widgetInfo || {}).options,
+                        this.state.widgets[id],
+                        {
+                            ref: id,
+                            problemNum: this.props.problemNum,
+                            onChange: (newProps, cb) => {
+                                var widgets = _.clone(this.state.widgets);
+                                widgets[id] = _.extend({}, widgets[id],
+                                                       newProps);
+                                this.setState({widgets: widgets}, cb);
+                                this.props.onInteractWithWidget(id);
+                            }
                         }
-                    }
-                ));
+                    ))}
+                </WidgetContainer>;
             }
         }
     },
@@ -201,20 +212,8 @@ var Renderer = Perseus.Renderer = React.createClass({
             return pieces;
         };
 
-        // We want to set the paragraph function so we can keep track of which
-        // widgets were added in which paragraph
         var wrap = function(text) {
-            var newWidgetIds = _.difference(widgetIds, oldWidgetIds);
-            newWidgetIds = _.filter(newWidgetIds, (widgetId) =>
-                Util.widgetShouldHighlight(
-                    (self.props.widgets || {})[widgetId]));
-            oldWidgetIds = _.clone(widgetIds);
-            var relevantUsedWidgets = _.intersection(newWidgetIds,
-                                                 self.props.usedWidgets);
-            return <QuestionParagraph
-                totalWidgets={newWidgetIds}
-                usedWidgets={relevantUsedWidgets}
-                shouldIndicate={self.props.shouldIndicate} >
+            return <QuestionParagraph>
                 {text}
             </QuestionParagraph>;
         };
@@ -282,6 +281,14 @@ var Renderer = Perseus.Renderer = React.createClass({
             }
         }, this);
         return state;
+    },
+
+    emptyWidgets: function () {
+        return _.filter(this.widgetIds, (id) => {
+            var widgetProps = this.props.widgets[id];
+            var score = this.refs[id].simpleValidate(widgetProps.options);
+            return Util.scoreIsEmpty(score);
+        });
     },
 
     guessAndScore: function() {

@@ -43,22 +43,22 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
             workAreaSelector: "#workarea",
             solutionAreaSelector: "#solutionarea",
             hintsAreaSelector: "#hintsarea",
-            shouldIndicate: false
+            enableHighlight: false
         };
     },
 
     getInitialState: function() {
         return {
             hintsVisible: this.props.initialHintsVisible,
-            questionAreaUsedWidgets: [],
-            answerAreaUsedWidgets: []
+            questionHighlightedWidgets: [],
+            answerHighlightedWidgets: []
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            questionAreaUsedWidgets: [],
-            answerAreaUsedWidgets: []
+            questionHighlightedWidgets: [],
+            answerHighlightedWidgets: []
         });
     },
 
@@ -73,27 +73,6 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         this.update();
     },
 
-    numWidgetsRemaining: function() {
-        return this.numWidgets() -
-            (this.state.questionAreaUsedWidgets.length +
-             this.state.answerAreaUsedWidgets.length);
-    },
-
-    numWidgets: function() {
-        var amountInAnswerArea = this.numAnswerAreaWidgets();
-        var widgets = this.props.item.question.widgets;
-        return _.size(highlightedWidgets(widgets)) + amountInAnswerArea;
-    },
-
-    numAnswerAreaWidgets: function() {
-        if (this.props.item.answerArea.type === "multiple") {
-            var widgets = this.props.item.answerArea.options.widgets;
-            return _.size(highlightedWidgets(widgets));
-        } else {
-            return 1;
-        }
-    },
-
     update: function() {
         // Since the item renderer works by rendering things into three divs
         // that have completely different places in the DOM, we have to do this
@@ -103,8 +82,8 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                 Perseus.Renderer(_.extend({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithWidget,
-                    usedWidgets: this.state.questionAreaUsedWidgets,
-                    shouldIndicate: this.props.shouldIndicate
+                    highlightedWidgets: this.state.questionHighlightedWidgets,
+                    enableHighlight: this.props.enableHighlight
                 }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
@@ -115,10 +94,8 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                     calculator: this.props.item.answerArea.calculator || false,
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithAnswerWidget,
-                    usedWidgets: this.state.answerAreaUsedWidgets,
-                    shouldIndicate: this.props.shouldIndicate,
-                    numWidgetsRemaining: this.numWidgetsRemaining(),
-                    numWidgets: this.numWidgets()
+                    highlightedWidgets: this.state.answerHighlightedWidgets,
+                    enableHighlight: this.props.enableHighlight
                 }),
                 document.querySelector(this.props.solutionAreaSelector));
 
@@ -130,16 +107,20 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
-    addWidgetIdTo: function(set, widgetId) {
-        this.setState(_.object([[set, _.union(this.state[set], [widgetId])]]));
-    },
-
     handleInteractWithWidget: function(widgetId) {
-        this.addWidgetIdTo("questionAreaUsedWidgets", widgetId);
+        var withRemoved = _.difference(this.state.questionHighlightedWidgets,
+                                       [widgetId]);
+        this.setState({
+            questionHighlightedWidgets: withRemoved
+        });
     },
 
     handleInteractWithAnswerWidget: function(widgetId) {
-        this.addWidgetIdTo("answerAreaUsedWidgets", widgetId);
+        var withRemoved = _.difference(this.state.answerHighlightedWidgets,
+                                       [widgetId]);
+        this.setState({
+            answerHighlightedWidgets: withRemoved
+        });
     },
 
     render: function() {
@@ -178,6 +159,13 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
 
         var qGuess = qGuessAndScore[0], qScore = qGuessAndScore[1];
         var aGuess = aGuessAndScore[0], aScore = aGuessAndScore[1];
+
+        var emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
+        var emptyAnswerAreaWidgets = this.answerAreaRenderer.emptyWidgets();
+        this.setState({
+            questionHighlightedWidgets: emptyQuestionAreaWidgets,
+            answerHighlightedWidgets: emptyAnswerAreaWidgets
+        });
 
         var guess, score;
         if (qGuess.length === 0) {

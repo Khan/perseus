@@ -57,6 +57,7 @@
 #answercontent input[type=number],
 .framework-perseus input[type=text],
 .framework-perseus input[type=number] {
+    height: 18px;
     &.perseus-input-size-normal,
     {
         width: 80px;
@@ -1015,18 +1016,18 @@
     }
 }
 
-.perseus-indicator {
-    &.wrapper {
-        border-right: solid 5px;
-        margin-bottom: 10px;
+.perseus-widget-container {
+    display: inline-block;
+
+    &.nohighlight {
+        transition: all 0.15s;
     }
 
-    &.answered {
-        border-color: gray;
-        transition: all 0.25s;
-    }
-
-    &.unanswered {
-        border-color: #FFA500;
+    &.highlight {
+        @highlight: 0px 0px 9px 2px rgba(255, 165, 0, 1);
+        -webkit-box-shadow: @highlight;
+        -moz-box-shadow:    @highlight;
+        box-shadow:         @highlight;
+        transition: all 0.15s;
     }
 }
