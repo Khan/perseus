@@ -14,8 +14,8 @@ var WidgetContainer = React.createClass({
                 this.props.shouldHighlight;
         var className = cx({
             "perseus-widget-container": true,
-            "highlight": shouldHighlight,
-            "nohighlight": !shouldHighlight,
+            "widget-highlight": shouldHighlight,
+            "widget-nohighlight": !shouldHighlight,
         });
 
         return <div className={className}>
