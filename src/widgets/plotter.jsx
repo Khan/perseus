@@ -631,6 +631,10 @@ var Plotter = React.createClass({
     simpleValidate: function(rubric) {
         return Plotter.validate(this.toJSON(), rubric);
     },
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 _.extend(Plotter, {

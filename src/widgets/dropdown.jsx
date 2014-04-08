@@ -52,6 +52,10 @@ var Dropdown = React.createClass({
     simpleValidate: function(rubric) {
         return Dropdown.validate(this.toJSON(), rubric);
     },
+
+    statics: {
+        displayMode: "inline-block"
+    }
 });
 
 _.extend(Dropdown, {

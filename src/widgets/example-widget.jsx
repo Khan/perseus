@@ -32,6 +32,10 @@ var TextInput = React.createClass({
         // Translating from the js event e to the value
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
+    },
+
+    statics: {
+        displayMode: "inline-block"
     }
 });
 

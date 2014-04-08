@@ -120,6 +120,10 @@ var InputNumber = React.createClass({
         }, this);
 
         return examples;
+    },
+
+    statics: {
+        displayMode: "inline-block"
     }
 });
 

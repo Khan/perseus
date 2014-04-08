@@ -407,6 +407,10 @@ var Categorization = React.createClass({
         var category = this.props.categoryHeaders.length;
         this.refs["category-" + category].focus();
     },
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 _.extend(Categorization, {

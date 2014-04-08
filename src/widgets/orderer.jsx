@@ -483,6 +483,10 @@ var Orderer = React.createClass({
     simpleValidate: function(rubric) {
         return Orderer.validate(this.toJSON(), rubric);
     },
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 _.extend(Orderer, {

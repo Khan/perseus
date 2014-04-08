@@ -1654,7 +1654,11 @@ var InteractiveGraph = React.createClass({
         return InteractiveGraph.validate(this.toJSON(), rubric, this);
     },
 
-    focus: $.noop
+    focus: $.noop,
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 

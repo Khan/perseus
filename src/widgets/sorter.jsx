@@ -58,6 +58,10 @@ var Sorter = React.createClass({
     simpleValidate: function(rubric) {
         return Sorter.validate(this.toJSON(), rubric);
     },
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 

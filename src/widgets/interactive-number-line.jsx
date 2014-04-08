@@ -286,7 +286,11 @@ var InteractiveNumberLine = React.createClass({
         return InteractiveNumberLine.validate(this.toJSON(), rubric);
     },
 
-    focus: $.noop
+    focus: $.noop,
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 

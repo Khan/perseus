@@ -64,6 +64,10 @@ var Table = React.createClass({
     focus: function() {
         this.refs["answer0,0"].getDOMNode().focus();
         return true;
+    },
+
+    statics: {
+        displayMode: "block"
     }
 });
 

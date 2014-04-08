@@ -348,6 +348,10 @@ var TransformOps = {
         }, RENDER_TRANSFORM_DELAY_IN_MS),
         focus: function() {
             this.refs.transform.focus();
+        },
+
+        statics: {
+            displayMode: "block"
         }
     })
 };

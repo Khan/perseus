@@ -226,6 +226,10 @@ var Radio = React.createClass({
             }]);
         }
         return array;
+    },
+
+    statics: {
+        displayMode: "block"
     }
 });
 

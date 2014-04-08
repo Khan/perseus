@@ -124,7 +124,11 @@ var Measurer = React.createClass({
         return Measurer.validate(this.toJSON(), rubric);
     },
 
-    focus: $.noop
+    focus: $.noop,
+
+    statics: {
+        displayMode: "block"
+    }
 });
 
 

@@ -223,6 +223,10 @@ var Expression = React.createClass({
             $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
             $._("For $\\neq$, enter **=/=**")
         ];
+    },
+
+    statics: {
+        displayMode: "block"
     }
 });
 

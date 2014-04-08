@@ -89,6 +89,10 @@ var TextInput = React.createClass({
         return _.map(this.props.answerForms, function(form) {
             return formExamples[form](this.props);
         }, this);
+    },
+
+    statics: {
+        displayMode: "block"
     }
 });
 
