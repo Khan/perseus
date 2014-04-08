@@ -463,17 +463,11 @@ var Orderer = React.createClass({
             bankWidth = $bank.outerWidth(true),
             dragList = this.refs.dragList.getDOMNode(),
             dragListWidth = $(dragList).width(),
-            draggableWidth = $draggable.outerWidth(true),
-            currentWidth =
-                _.reduce(this.state.current, function(sum, opt, i) {
-                    var card = this.refs["sortable" + i].getDOMNode();
-                    return sum + $(card).outerWidth(true);
-                }, 0, this);
+            draggableWidth = $draggable.outerWidth(true);
 
         if (isHorizontal) {
             return (draggableOffset.top + draggableHeight / 2 <
-                    bankOffset.top + bankHeight) ||
-                   (currentWidth + draggableWidth > dragListWidth);
+                    bankOffset.top + bankHeight);
         } else {
             return (draggableOffset.left + draggableWidth / 2 <
                     bankOffset.left + bankWidth);

@@ -9,6 +9,9 @@
 // Perseus-related variables
 @clueColor: #007AFF;
 
+// Dimensions
+@questionWidth: 480px;
+
 // Layer variables
 @zIndexScratchPad: 1;
 @zIndexAboveScratchpad: @zIndexScratchPad + 1;
@@ -511,6 +514,11 @@
 
 .orderer {
     position: relative;
+	// HACK (jack): The highlight inline-div around a horizontal
+	// orderer will squash this together unless we set a min-width.
+	// Ideally we'd like to let the width expand based on the size
+	// of it's container (maybe?)
+	min-width: @questionWidth;
 
     .draggable-box {
         padding: 13px;

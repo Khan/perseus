@@ -199,6 +199,7 @@ Perseus.EditorPage = React.createClass({
         }
         var rendererConfig = _({
             item: this.toJSON(true),
+            enableHighlight: true,
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
