@@ -223,7 +223,7 @@ var IMAGE_REGEX = /!\[[^\]]*\]\(([^\s\)]+)[^\)]*\)/g;
  * have a /g modifier.
  *
  * Note: Returns an array of the capture objects, whereas String::match
- * ingores captures. If you don't need captures, use String::match
+ * ignores captures. If you don't need captures, use String::match
  */
 var allMatches = function(regex, str) {
     var result = [];
