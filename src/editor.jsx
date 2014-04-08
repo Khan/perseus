@@ -206,21 +206,71 @@ var WidgetEditor = React.createClass({
     }
 });
 
+// This is more general than the actual markdown image parsing regex,
+// which is fine for correctness since it should only mean we could
+// store extra image dimensions, unless the question is insanely
+// formatted.
+// A simplified regex here should hopefully be easier to keep in
+// sync if the markdown parsing changes, though if it becomes
+// easy to hook into the actual markdown regex without copy-pasting
+// it, we should do that.
+var IMAGE_REGEX = /!\[[^\]]*\]\(([^\s\)]+)[^\)]*\)/g;
+
+/**
+ * Find all the matches to a /g regex.
+ *
+ * Returns an array of the regex matches. Infinite loops if `regex` does not
+ * have a /g modifier.
+ *
+ * Note: Returns an array of the capture objects, whereas String::match
+ * ingores captures. If you don't need captures, use String::match
+ */
+var allMatches = function(regex, str) {
+    var result = [];
+    while (true) {
+        var match = regex.exec(str);
+        if (!match) {
+            break;
+        }
+        result.push(match);
+    }
+    return result;
+};
+
+/**
+ * Return an array of URLs of all the images in the given renderer
+ * markdown.
+ */
+var imageUrlsFromContent = function(content) {
+    return _.map(
+        allMatches(IMAGE_REGEX, content),
+        (capture) => capture[1]
+    );
+};
+
+/**
+ * Sends the dimensions of the image located at the given url to `callback`
+ */
+var sizeImage = function(url, callback) {
+    var image = new Image();
+    image.onload = () => {
+        var width = image.naturalWidth || image.width;
+        var height = image.naturalHeight || image.height;
+        callback(width, height);
+    };
+    image.src = url;
+};
+
 var Editor = Perseus.Editor = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
             placeholder: "",
             widgets: {},
+            images: {},
             widgetEnabled: true,
             immutableWidgets: false
         };
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-        // TODO(alpert): Maybe fix React so this isn't necessary
-        var textarea = this.refs.textarea.getDOMNode();
-        textarea.value = this.props.content;
     },
 
     getWidgetEditor: function(id, type) {
@@ -239,6 +289,45 @@ var Editor = Perseus.Editor = React.createClass({
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
         this.props.onChange({widgets: widgets}, cb);
+    },
+
+    /**
+     * Calculate the size of all the images in props.content, and send
+     * those sizes to this.props.images using props.onChange.
+     */
+    _sizeImages: function(props) {
+        var imageUrls = imageUrlsFromContent(props.content);
+
+        // Discard any images in our dimension table that no
+        // longer exist in content.
+        var images = _.pick(props.images, imageUrls);
+
+        // Only calculate sizes for images that were not present previously.
+        // Most content edits shouldn't have new images.
+        // This could get weird in the case of multiple images with the same
+        // URL, if you've changed the backing image size, but given graphie
+        // hashes it's probably an edge case.
+        var newImageUrls = _.filter(imageUrls, (url) => !images[url]);
+
+        // TODO(jack): Q promises would make this nicer and only
+        // fire once.
+        _.each(newImageUrls, (url) => {
+            sizeImage(url, (width, height) => {
+                // We keep modifying the same image object rather than a new
+                // copy from this.props because all changes here are additive.
+                // Maintaining old changes isn't strictly necessary if
+                // props.onChange calls are not batched, but would be if they
+                // were, so this is nice from that anti-race-condition
+                // perspective as well.
+                images[url] = {
+                    width: width,
+                    height: height
+                };
+                props.onChange({
+                    images: _.clone(images)
+                });
+            });
+        });
     },
 
     render: function() {
@@ -347,12 +436,31 @@ var Editor = Perseus.Editor = React.createClass({
             </div>;
         }
 
-
         return <div className={"perseus-single-editor " +
                 (this.props.className || "")} >
             {textareaWrapper}
             {widgetsAndTemplates}
         </div>;
+    },
+
+    componentDidMount: function() {
+        // This can't be in componentWillMount because that's happening during
+        // the middle of our parent's render, so we can't call
+        // this.props.onChange during that, since it calls our parent's
+        // setState
+        this._sizeImages(this.props);
+    },
+
+    componentDidUpdate: function(prevProps) {
+        // TODO(alpert): Maybe fix React so this isn't necessary
+        var textarea = this.refs.textarea.getDOMNode();
+        textarea.value = this.props.content;
+
+        // This can't be in componentWillReceiveProps because that's happening
+        // during the middle of our parent's render.
+        if (this.props.content !== prevProps.content) {
+            this._sizeImages(this.props);
+        }
     },
 
     handleDrop: function(e) {
@@ -498,6 +606,7 @@ var Editor = Perseus.Editor = React.createClass({
 
         return {
             content: this.props.content,
+            images: this.props.images,
             widgets: widgets
         };
     },

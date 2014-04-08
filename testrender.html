@@ -74,7 +74,7 @@
 (function() {
 
 // Load khan-exercises modules, then perseus
-require(["ke-main.js"], function() {
+require(["ke-deps.js"], function() {
     // pre built
     // require(["build/perseus.js"], initPerseus);
 
@@ -92,89 +92,26 @@ $('#score').on('click', function() {
 function initPerseus() {
 
 var seedContent = {
-    "hints": [
-        {
-            "content": "The slice cuts through the prism horizontally, so the shape we'll see in the slice is the same as the shape of the base of the prism.",
-            "widgets": {}
-        },
-        {
-            "content": "The base of the prism has the shape of an equilateral triangle with side length $2$.",
-            "widgets": {}
-        },
-        {
-            "content": "Therefore, the shape of the horizontal slice through the prism will be an equilateral triangle with side length $2$:  \n![](https://ka-perseus-images.s3.amazonaws.com/f8d6ecceeaa6abcdead884e4f8edd48e735a5e80.png)",
-            "widgets": {}
-        }
-    ],
     "question": {
-        "content": "The figure below shows a prism with a triangular base. The base of the prism has the shape of an equilateral triangle with side length $2$. The height of the prism is $3$.   \n\n**Draw the shape you will see if you take a horizontal slice through the prism.**\n\n![prism with a triangular base](https://ka-perseus-graphie.s3.amazonaws.com/21da0fa2f1b8ebc905f9314b45bdc9ef520cafa1.png)\n\n[[☃ interactive-graph 1]]",
-        "widgets": {
-            "interactive-graph 1": {
-                "type": "interactive-graph",
-                "options": {
-                    "showProtractor": false,
-                    "graph": {
-                        "numSides": 3,
-                        "showSides": true,
-                        "type": "polygon",
-                        "showAngles": false
-                    },
-                    "range": [
-                        [
-                            -1,
-                            4
-                        ],
-                        [
-                            -1,
-                            4
-                        ]
-                    ],
-                    "step": [
-                        1,
-                        1
-                    ],
-                    "markings": "grid",
-                    "backgroundImage": {
-                        "scale": 1,
-                        "bottom": 0,
-                        "url": "",
-                        "height": 0,
-                        "width": 0,
-                        "left": 0
-                    },
-                    "correct": {
-                        "numSides": 3,
-                        "coords": [
-                            [
-                                3,
-                                1
-                            ],
-                            [
-                                2,
-                                2.75
-                            ],
-                            [
-                                1,
-                                1
-                            ]
-                        ],
-                        "showSides": true,
-                        "type": "polygon",
-                        "showAngles": false,
-                        "match": "similar"
-                    }
-                }
+        "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/1bb4dc66b1542f1dbd388245d2471da5e8d59b05.png)",
+        "images": {
+            "https://ka-perseus-graphie.s3.amazonaws.com/1bb4dc66b1542f1dbd388245d2471da5e8d59b05.png": {
+                "width": 400,
+                "height": 400
             }
-        }
+        },
+        "widgets": {}
     },
     "answerArea": {
-        "calculator": false,
         "type": "multiple",
         "options": {
-            "content": "Move the points to draw the shape.",
+            "content": "",
+            "images": {},
             "widgets": {}
-        }
-    }
+        },
+        "calculator": false
+    },
+    "hints": []
 };
 
 

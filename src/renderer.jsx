@@ -244,8 +244,25 @@ var Renderer = Perseus.Renderer = React.createClass({
     handleRender: function() {
         var onRender = this.props.onRender;
 
+        var $images = $(this.getDOMNode()).find("img");
+        var imageAttrs = this.props.images || {};
+
+        // TODO(jack): Weave this into the rendering in markedReact by passing
+        // a function for how to render images, which reads this data
+        // (probably part of a larger marked refactor to take all rendering
+        // methods via parameters)
+        _.map(_.toArray($images), (image, i) => {
+            var $image = $(image);
+            var src = $image.attr('src');
+            var attrs = imageAttrs[src];
+            if (attrs) {
+                $image.attr(attrs);
+            }
+        });
+
         // Fire callback on image load...
-        $(this.getDOMNode()).find("img").on("load", onRender);
+        // TODO (jack): make this call happen exactly once through promises!
+        $images.on("load", onRender);
 
         // ...as well as right now (non-image, non-TeX or image from cache)
         onRender();

@@ -25,7 +25,9 @@ var HintRenderer = Perseus.HintRenderer = React.createClass({
             classNames = "perseus-hint-renderer";
         }
         return <div className={classNames}>
-            <Renderer content={this.props.hint.content || ""} />
+            <Renderer
+                content={this.props.hint.content || ""}
+                images={this.props.hint.images} />
         </div>;
     }
 });
@@ -48,7 +50,9 @@ var HintEditor = Perseus.HintEditor = React.createClass({
     render: function() {
         return <div className="perseus-hint-editor perseus-editor-left-cell">
             <div className="pod-title">Hint</div>
-            <Editor ref="editor" content={this.props.content}
+            <Editor ref="editor"
+                    content={this.props.content}
+                    images={this.props.images}
                     placeholder="Type your hint here..."
                     onChange={this.props.onChange} widgetEnabled={false} />
 
@@ -110,6 +114,7 @@ var CombinedHintEditor = React.createClass({
                 isFirst={this.props.isFirst}
                 isLast={this.props.isLast}
                 content={this.props.hint.content}
+                images={this.props.hint.images}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
                 onMove={this.props.onMove} />
