@@ -23,7 +23,7 @@ var ButtonGroup = React.createClass({
         value: React.PropTypes.any,
         buttons: React.PropTypes.array.isRequired,
         onChange: React.PropTypes.func.isRequired,
-        allowEmpty: React.PropTypes.bool,
+        allowEmpty: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -34,18 +34,19 @@ var ButtonGroup = React.createClass({
     },
 
     render: function() {
-        var buttons = this.props.buttons;
         var value = this.props.value;
+        var buttons = _(this.props.buttons).map((button, i) =>
+                <button title={button.title}
+                        id={"" + i}
+                        key={"" + i}
+                        className={button.value === value ? "selected" : ""}
+                        onClick={this.toggleSelect.bind(this, button.value)}>
+                    {button.text}
+                </button>
+            );
 
         return <div className="perseus-button-group">
-            {_.map(buttons, function(button, i) {
-                return <button title={button.title}
-                    id={"" + i} key = {"" + i}
-                    className={button.value === value ? "selected" : ""}
-                    onClick={this.toggleSelect.bind(this, button.value)}>
-                        {button.text}
-                </button>;
-            }, this)}
+            {buttons}
         </div>;
     },
 
