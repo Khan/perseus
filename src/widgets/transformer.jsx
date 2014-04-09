@@ -2224,6 +2224,10 @@ var Transformer = React.createClass({
                             // when we realize that I wrote
                             // a horrible json spec for this widget
         return json;
+    },
+
+    statics: {
+        displayMode: "block"
     }
 });
 
