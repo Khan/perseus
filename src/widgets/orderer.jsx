@@ -9,6 +9,50 @@ var InfoTip        = require("../components/info-tip.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 var Widgets        = require("../widgets.js");
 
+var pointerDown = false;
+var currentTouchIdentifier = null;
+function extractPointerLocation(event) {
+    var touchOrEvent;
+
+    if (pointerDown) {
+        // Look for the touch matching the one we're tracking; ignore others
+        if (currentTouchIdentifier != null) {
+            var len = event.changedTouches ? event.changedTouches.length : 0;
+            for (var i = 0; i < len; i++) {
+                if (event.changedTouches[i].identifier ===
+                        currentTouchIdentifier) {
+                    touchOrEvent = event.changedTouches[i];
+                }
+            }
+        } else {
+            touchOrEvent = event;
+        }
+
+        var isEndish =
+                event.type === "touchend" || event.type === "touchcancel";
+        if (touchOrEvent && isEndish) {
+            pointerDown = false;
+            currentTouchIdentifier = null;
+        }
+    } else {
+        // touchstart or mousedown
+        pointerDown = true;
+        if (event.touches) {
+            touchOrEvent = event.touches[0];
+            currentTouchIdentifier = touchOrEvent.identifier;
+        } else {
+            touchOrEvent = event;
+        }
+    }
+
+    if (touchOrEvent) {
+        return {
+            left: touchOrEvent.pageX,
+            top: touchOrEvent.pageY
+        };
+    }
+}
+
 var PlaceholderCard = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
@@ -32,21 +76,49 @@ var DragHintCard = React.createClass({
     }
 });
 
-var DraggableCard = React.createClass({
+var PropTypes = {
+    position: React.PropTypes.shape({
+        left: React.PropTypes.number,
+        top: React.PropTypes.number
+    })
+};
+
+var Card = React.createClass({
     propTypes: {
+        floating: React.PropTypes.bool.isRequired,
+        animating: React.PropTypes.bool,
         width: React.PropTypes.number,
         stack: React.PropTypes.bool,
-        onMouseDown: React.PropTypes.func.isRequired
+
+        onMouseDown: React.PropTypes.func,
+        onMouseMove: React.PropTypes.func,
+        onMouseUp: React.PropTypes.func,
+
+        // Used only for floating/animating cards
+        startMouse: PropTypes.position,
+        startOffset: PropTypes.position,
+        animateTo: PropTypes.position,
+        onAnimationEnd: React.PropTypes.func
     },
 
     getDefaultProps: function() {
         return {
-            stack: false
+            stack: false,
+            animating: false
         };
     },
 
     render: function() {
         var style = {};
+
+        if (this.props.floating) {
+            style = {
+                position: "absolute",
+                left: this.props.startOffset.left,
+                top: this.props.startOffset.top,
+            };
+        }
+
         if (this.props.width) {
             style.width = this.props.width;
         }
@@ -55,105 +127,41 @@ var DraggableCard = React.createClass({
         if (this.props.stack) {
             className.push("stack");
         }
-
-        // Pull out the content to get rendered
-        var rendererProps = _.pick(this.props, "content");
-
-        return <div className="card-wrap"
-                    style={style}>
-                <div className={className.join(" ")}
-                       onMouseDown={this.onMouseDown}
-                       onTouchStart={this.onMouseDown}>
-                    {Perseus.Renderer(rendererProps)}
-                </div>
-            </div>;
-    },
-
-    onMouseDown: function(event) {
-        if (!(event.button === 0 ||
-                (event.touches != null && event.touches.length === 1))) {
-            return;
-        }
-
-        event.preventDefault();
-        if (event.touches != null) {
-            this.props.onMouseDown(this, {
-                    pageX: event.touches[0].pageX,
-                    pageY: event.touches[0].pageY
-                });
-        } else {
-            this.props.onMouseDown(this, event);
-        }
-    }
-
-});
-
-var PropTypes = {
-    position: React.PropTypes.shape({
-        left: React.PropTypes.number,
-        top: React.PropTypes.number
-    })
-};
-
-var FloatingCard = React.createClass({
-    propTypes: {
-        startMouse: PropTypes.position,
-        startOffset: PropTypes.position.isRequired,
-        width: React.PropTypes.number.isRequired,
-        animating: React.PropTypes.bool,
-        animateTo: PropTypes.position,
-        onAnimationEnd: React.PropTypes.func,
-        floating: React.PropTypes.bool.isRequired,
-        onMouseMove: React.PropTypes.func,
-        onMouseUp: React.PropTypes.func
-    },
-
-    getDefaultProps: function() {
-        return {
-            animating: false
-        };
-    },
-
-    getInitialState: function() {
-        return {
-            mouse: this.props.startMouse
-        };
-    },
-
-    render: function() {
-        var style = {
-            position: "absolute",
-            left: this.props.startOffset.left,
-            top: this.props.startOffset.top,
-            width: this.props.width
-        };
-
-        var className = ["card"];
-        if (!this.props.animating) {
+        if (this.props.floating && !this.props.animating) {
             className.push("dragging");
-            style.left += this.state.mouse.left - this.props.startMouse.left;
-            style.top += this.state.mouse.top - this.props.startMouse.top;
+            style.left += this.props.mouse.left - this.props.startMouse.left;
+            style.top += this.props.mouse.top - this.props.startMouse.top;
         }
 
         // Pull out the content to get rendered
         var rendererProps = _.pick(this.props, "content");
 
-        return <div className="card-wrap"
-                    style={style}>
+        return <div className="card-wrap" style={style}
+                    onMouseDown={this.onMouseDown}
+                    onTouchStart={this.onMouseDown}
+                    onTouchMove={this.onMouseMove}
+                    onTouchEnd={this.onMouseUp}
+                    onTouchCancel={this.onMouseUp}>
                 <div className={className.join(" ")}>
                     {Perseus.Renderer(rendererProps)}
                 </div>
             </div>;
     },
 
-    componentDidMount: function() {
-        $(document).on("vmousemove", this.onVMouseMove);
-        $(document).on("vmouseup", this.onVMouseUp);
+    shouldComponentUpdate: function(nextProps, nextState) {
+        // Cards in the bank or drag list don't usually change -- they only
+        // reorder themselves -- so we want to skip the update to things a
+        // little faster. We also need to re-render if the content changes,
+        // which happens only in the editor. (We do want to update the floating
+        // card on mouse move to update its position.)
+        return this.props.floating || nextProps.floating ||
+            this.props.content !== nextProps.content ||
+            // TODO(alpert): Remove ref here after fixing facebook/react#1392.
+            this.props.ref !== nextProps.ref;
     },
 
-    componentWillUnmount: function() {
-        $(document).off("vmousemove", this.onVMouseMove);
-        $(document).off("vmouseup", this.onVMouseUp);
+    componentDidMount: function() {
+        this.mouseMoveUpBound = false;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -177,20 +185,49 @@ var FloatingCard = React.createClass({
         }
     },
 
-    onVMouseMove: function(event) {
-        if (this.props.floating) {
-            event.preventDefault();
-            this.setState({
-                mouse: {left: event.pageX, top: event.pageY}
-            });
-            this.props.onMouseMove(this);
+    componentWillUnmount: function() {
+        // Event handlers should be unbound before component unmounting, but
+        // just in case...
+        if (this.mouseMoveUpBound) {
+            this.unbindMouseMoveUp();
         }
     },
 
-    onVMouseUp: function(event) {
-        if (this.props.floating) {
-            event.preventDefault();
-            this.props.onMouseUp(this, event);
+    bindMouseMoveUp: function() {
+        this.mouseMoveUpBound = true;
+        $(document).on("mousemove", this.onMouseMove);
+        $(document).on("mouseup", this.onMouseUp);
+    },
+
+    unbindMouseMoveUp: function() {
+        this.mouseMoveUpBound = false;
+        $(document).off("mousemove", this.onMouseMove);
+        $(document).off("mouseup", this.onMouseUp);
+    },
+
+    onMouseDown: function(event) {
+        event.preventDefault();
+        var loc = extractPointerLocation(event);
+        if (loc) {
+            this.bindMouseMoveUp();
+            this.props.onMouseDown && this.props.onMouseDown(loc, this);
+        }
+    },
+
+    onMouseMove: function(event) {
+        event.preventDefault();
+        var loc = extractPointerLocation(event);
+        if (loc) {
+            this.props.onMouseMove && this.props.onMouseMove(loc);
+        }
+    },
+
+    onMouseUp: function(event) {
+        event.preventDefault();
+        var loc = extractPointerLocation(event);
+        if (loc) {
+            this.unbindMouseMoveUp();
+            this.props.onMouseUp && this.props.onMouseUp(loc);
         }
     }
 });
@@ -223,7 +260,7 @@ var Orderer = React.createClass({
         return {
             current: [],
             dragging: false,
-            placeholderIndex: null
+            placeholderIndex: null,
         };
     },
 
@@ -234,41 +271,42 @@ var Orderer = React.createClass({
     },
 
     render: function() {
-        var orderer = this;
-
         // This is the card we are currently dragging
         var dragging = this.state.dragging &&
-            <FloatingCard floating={true}
+            <Card ref="dragging"
+                       floating={true}
                        content={this.state.dragContent}
                        startOffset={this.state.offsetPos}
                        startMouse={this.state.grabPos}
+                       mouse={this.state.mousePos}
                        width={this.state.dragWidth}
                        onMouseUp={this.onRelease}
                        onMouseMove={this.onMouseMove}
-                       key="draggingCard"
+                       key={this.state.dragKey || "draggingCard"}
                        />;
 
         // This is the card that is currently animating
         var animating = this.state.animating &&
-            <FloatingCard floating={false}
+            <Card floating={true}
                        animating={true}
                        content={this.state.dragContent}
                        startOffset={this.state.offsetPos}
                        width={this.state.dragWidth}
                        animateTo={this.state.animateTo}
                        onAnimationEnd={this.state.onAnimationEnd}
-                       key="draggingCard"
+                       key={this.state.dragKey || "draggingCard"}
                        />;
 
         // This is the list of draggable, rearrangable cards
         var sortableCards = _.map(this.state.current, function(opt, i) {
-            return <DraggableCard
+            return <Card
                 ref={"sortable" + i}
+                floating={false}
                 content={opt.content}
                 width={opt.width}
                 key={opt.key}
-                onMouseDown={orderer.onClick.bind(orderer, "current", i)} />;
-        });
+                onMouseDown={this.onClick.bind(null, "current", i)} />;
+        }, this);
 
         if (this.state.placeholderIndex != null) {
             var placeholder = <PlaceholderCard
@@ -279,22 +317,28 @@ var Orderer = React.createClass({
             sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
         }
 
+        var anySortableCards = sortableCards.length > 0;
+        sortableCards.push(dragging, animating);
+
         // If there are no cards in the list, then add a "hint" card
         var sortable = <div className="ui-helper-clearfix draggable-box">
-            {!sortableCards.length && <DragHintCard />}
+            {!anySortableCards && <DragHintCard />}
             <div ref="dragList">{sortableCards}</div>
         </div>;
 
         // This is the bank of stacks of cards
         var bank = <div ref="bank" className="bank ui-helper-clearfix">
             {_.map(this.props.options, function(opt, i) {
-                return <DraggableCard
+                return <Card
                     ref={"bank" + i}
+                    floating={false}
                     content={opt.content}
                     stack={true}
                     key={i}
-                    onMouseDown={orderer.onClick.bind(orderer, "bank", i)} />;
-            })}
+                    onMouseDown={this.onClick.bind(null, "bank", i)}
+                    onMouseMove={this.onMouseMove}
+                    onMouseUp={this.onRelease} />;
+            }, this)}
         </div>;
 
         return <div className={"draggy-boxy-thing orderer " +
@@ -305,12 +349,10 @@ var Orderer = React.createClass({
                     ref="orderer">
                    {bank}
                    {sortable}
-                   {dragging}
-                   {animating}
                </div>;
     },
 
-    onClick: function(type, index, draggable,  event) {
+    onClick: function(type, index, loc, draggable) {
         var $draggable = $(draggable.getDOMNode());
         var list = this.state.current.slice();
 
@@ -331,18 +373,18 @@ var Orderer = React.createClass({
             current: list,
             dragging: true,
             placeholderIndex: placeholderIndex,
+            dragKey: opt.key,
             dragContent: opt.content,
             dragWidth: $draggable.width(),
             dragHeight: $draggable.height(),
-            grabPos: {
-                left: event.pageX,
-                top: event.pageY
-            },
+            grabPos: loc,
+            mousePos: loc,
             offsetPos: $draggable.position()
         });
     },
 
-    onRelease: function(draggable, event) {
+    onRelease: function(loc) {
+        var draggable = this.refs.dragging;
         var inCardBank = this.isCardInBank(draggable);
         var index = this.state.placeholderIndex;
 
@@ -374,6 +416,7 @@ var Orderer = React.createClass({
         }.bind(this);
 
         // Find the position of the card we should animate to
+        // TODO(alpert): Update mouse position once more before animating?
         var offset = $(draggable.getDOMNode()).position();
         var finalOffset = null;
         if (inCardBank) {
@@ -406,7 +449,8 @@ var Orderer = React.createClass({
         }
     },
 
-    onMouseMove: function(draggable) {
+    onMouseMove: function(loc) {
+        var draggable = this.refs.dragging;
         var index;
         if (this.isCardInBank(draggable)) {
             index = null;
@@ -414,7 +458,10 @@ var Orderer = React.createClass({
             index = this.findCorrectIndex(draggable, this.state.current);
         }
 
-        this.setState({placeholderIndex: index});
+        this.setState({
+            mousePos: loc,
+            placeholderIndex: index
+        });
     },
 
     findCorrectIndex: function(draggable, list) {
