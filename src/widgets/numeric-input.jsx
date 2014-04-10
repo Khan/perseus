@@ -82,7 +82,7 @@ var NumericInput = React.createClass({
     },
 
     statics: {
-        displayMode: "block"
+        displayMode: "inline-block"
     }
 });
 
