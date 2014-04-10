@@ -1,0 +1,61 @@
+// Override the float: left on input[type=radio]s in the
+// #answer_area from khan-exercise.css, because it breaks our
+// margin-left: -20px positioning
+.perseus-widget-radio,
+#answer_area .perseus-widget-radio {
+    li span.checkbox input[type=radio] {
+        float: none;
+        margin: 3px;
+    }
+}
+
+.perseus-widget-radio {
+    div,
+    div > p {
+        /* TODO(alpert): Find a better way of doing inline renderers */
+        display: inline;
+    }
+
+    div.instructions {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    li {
+        padding: 7px 0;
+        margin-left: 20px;
+
+        label {
+            display: block;
+        }
+
+        span.checkbox {
+            .interactive-component;
+            display: inline-block;
+            width: 20px;
+            margin-left: -20px;
+            margin-right: 0px;
+        }
+
+        .value {
+            display: block;
+            margin-left: 18px;
+            min-height: 22px;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+    }
+
+   .perseus-radio-clue {
+        color: @clueColor;
+        display: block;
+    }
+
+    .perseus-textarea-pair,
+    .perseus-textarea-underlay {
+        display: block;
+    }
+}

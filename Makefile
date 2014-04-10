@@ -3,7 +3,7 @@ PORT=9000
 
 help:
 	@echo "make server PORT=9000  # runs the perseus server"
-	@echo "make build             # compiles into build/perseus.js"
+	@echo "make build             # compiles into build/perseus.js and build/perseus.css"
 	@echo "make debug             # compiles into build/perseus.debug.js"
 	@echo "make all               # build perseus into webapp"
 
@@ -13,6 +13,7 @@ build:
 	echo "// commit `git rev-parse HEAD`" >> build/perseus.js
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> build/perseus.js
 	./node_modules/.bin/browserify -t reactiscriptsixify src/editor-page.jsx >> build/perseus.js
+	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less build/perseus.css
 
 debug:
 	mkdir -p build

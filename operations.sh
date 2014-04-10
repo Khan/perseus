@@ -29,7 +29,6 @@ case $1 in
         pap="stylesheets/perseus-admin-package"
         files=$(find $pap -maxdepth 1 -type f)
         cp $files "$webapp/$pap"
-        files=$(find stylesheets/exercise-content-package -maxdepth 1 -type f)
-        cp $files "$webapp/stylesheets/exercise-content-package"
+        cp build/perseus.css "$webapp/stylesheets/exercise-content-package"
         ;;
 esac
