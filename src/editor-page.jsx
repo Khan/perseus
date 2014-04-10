@@ -13,6 +13,10 @@ var ItemEditor = Perseus.ItemEditor;
 var ItemRenderer = Perseus.ItemRenderer;
 var CombinedHintsEditor = Perseus.CombinedHintsEditor;
 
+// We can't do this in core.js because fixupJSON requires ItemEditor,
+// which needs Perseus to already be defined.
+Perseus.fixupJSON = require("./fixup-json.jsx");
+
 var JsonEditor = React.createClass({
 
     getInitialState: function() {
