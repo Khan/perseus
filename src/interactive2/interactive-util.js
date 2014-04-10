@@ -70,28 +70,6 @@ var InteractiveUtil = {
             }
         });
         return result;
-    },
-
-    /* Does a pluck on keys inside objects in an object
-     *
-     * Ex:
-     * tools = {
-     *     translation: {
-     *         enabled: true
-     *     },
-     *     rotation: {
-     *         enabled: false
-     *     }
-     * };
-     * pluckObject(tools, "enabled") returns {
-     *     translation: true
-     *     rotation: false
-     * }
-     */
-    pluck: function(table, subKey) {
-        return _.object(_.map(table, function(value, key) {
-            return [key, value[subKey]];
-        }));
     }
 };
 

@@ -32,8 +32,8 @@ var DEFAULT_PROPERTIES = {
     cursor: "move",
     mouseTarget: null,
     visibleShape: null,
-    normalStyle: {},
-    highlightStyle: {},
+    normalStyle: null,     // turned into an object in this.modify
+    highlightStyle: null,  // likewise
     extendLine: false,
     extendRay: false
 };
@@ -126,15 +126,20 @@ _.extend(MovableLine.prototype, {
         var state = _.extend(self.state, DEFAULT_PROPERTIES,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options));
 
-        _.defaults(state.normalStyle, {
+        // Default things inside the state.normalStyle object, because
+        // _.extend is not deep.
+        // We use _.extend instead of _.defaults because we don't want
+        // to modify the passed-in copy (especially if it's from
+        // DEFAULT_PROPERTIES!)
+        state.normalStyle = _.extend({
             stroke: KhanUtil.BLUE,
             "stroke-width": 2
-        });
+        }, state.normalStyle);
 
-        _.defaults(state.highlightStyle, {
+        state.highlightStyle = _.extend({
             stroke: KhanUtil.ORANGE,
             "stroke-width": 3
-        });
+        }, state.highlightStyle);
 
         if (!state.static) {
             // the invisible shape in front of the point that gets mouse events

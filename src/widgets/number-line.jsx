@@ -137,11 +137,11 @@ var NumberLine = React.createClass({
             fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.ORANGE,
             "stroke-width": isOpen ? 3 : 1
         };
-        this.point.modify({
-            pointSize: 6,   // why does this not stay as it is?
+        this.point.update({
             coord: [this.props.numLinePosition, 0],
             normalStyle: style,
-            highlightStyle: style});
+            highlightStyle: style
+        });
     },
 
     componentWillMount: function() {

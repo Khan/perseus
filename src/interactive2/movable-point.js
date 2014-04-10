@@ -52,6 +52,7 @@
 
 var MovablePointOptions = require("./movable-point-options.js");
 var InteractiveUtil = require("./interactive-util.js");
+var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -72,25 +73,18 @@ var DEFAULT_PROPERTIES = {
     cursor: "move",
     mouseTarget: null,
     visibleShape: null,
-    normalStyle: {},
-    highlightStyle: {}
+    normalStyle: null,    // turned into an object in this.modify
+    highlightStyle: null  // likewise
 };
 
 var MovablePoint = function(graphie, movable, options) {
     _.extend(this, {
         graphie: graphie,
         movable: movable,
-        state: _.extend({
+        state: {
             // Set here because this must be unique for each instance
             id: _.uniqueId("movablePoint")
-        }, normalizeOptions(
-            // These defaults are set here instead of DEFAULT_PROPERTIES
-            // they don't need getters created for them
-            // TODO(jack) We really ough to normalize once, in this.modify()
-            // TODO(jack): Consider "default" once we es3ify perseus
-            FUNCTION_ARRAY_OPTIONS,
-            InteractiveUtil.pluck(MovablePointOptions, "standard")
-        ), DEFAULT_PROPERTIES)
+        }
     });
 
     this.modify(options);
@@ -106,23 +100,57 @@ _.extend(MovablePoint.prototype, {
         return _.extend(this.movable.cloneState(), this.state);
     },
 
+    _createDefaultState: function() {
+        return _.extend({
+            id: this.state.id,
+        }, normalizeOptions(
+            FUNCTION_ARRAY_OPTIONS,
+            // Defaults are copied from MovablePointOptions.*.standard
+            // These defaults are set here instead of DEFAULT_PROPERTIES
+            // because they:
+            //    - are objects, not primitives (and need a deeper copy)
+            //    - they don't need getters created for them
+            // TODO(jack): Consider "default" once we es3ify perseus
+            objective_.pluck(MovablePointOptions, "standard")
+        ), DEFAULT_PROPERTIES);
+    },
+
+    /**
+     * Adjusts constructor parameters without changing previous settings
+     * for any option not specified
+     */
+    update: function(options) {
+        this.remove();  // Must be called here to modify this.state
+                        // *before* we pass this.state into this.modify
+                        // Otherwise, we'd end up re-adding the removed
+                        // raphael elements :(.
+        this.modify(_.extend({}, this.state, options));
+    },
+
+    /**
+     * Resets the object to its state as if it were constructed with
+     * `options` originally. The only state maintained is `state.id`
+     */
     modify: function(options) {
         this.remove();
         var self = this;
-        var graphie = this.graphie;
-        var state = _.extend(self.state,
-                normalizeOptions(FUNCTION_ARRAY_OPTIONS, options));
+        var graphie = self.graphie;
+        var state = self.state = _.extend(
+            self._createDefaultState(),
+            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
+        );
 
         // Default things inside the state.normalStyle object, because
-        // _.extend is not deep
+        // _.extend is not deep.
+        // We use _.extend instead of _.defaults because we don't want
+        // to modify the passed-in copy (especially if it's from
+        // DEFAULT_PROPERTIES!)
         state.normalStyle = _.extend({
             fill: KhanUtil.ORANGE,
             stroke: KhanUtil.ORANGE,
             scale: 1
         }, state.normalStyle);
 
-        // Default things inside the state.highlightStyle object, because
-        // _.extend is not deep
         state.highlightStyle = _.extend({
             fill: KhanUtil.ORANGE,
             stroke: KhanUtil.ORANGE,

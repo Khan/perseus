@@ -42,14 +42,8 @@ var Movable = function(graphie, options) {
     _.extend(this, {
         graphie: graphie,
         state: {
-            id: _.uniqueId("movable"),
-            add: [],
-            draw: [],
-            remove: [],
-            onMoveStart: [],
-            onMove: [],
-            onMoveEnd: [],
-            onClick: []
+            // Set here because this must be unique for each instance
+            id: _.uniqueId("movable")
         }
     });
 
@@ -65,14 +59,45 @@ _.extend(Movable.prototype, {
         return _.clone(this.state);
     },
 
+    _createDefaultState: function() {
+        return _.extend({
+            id: this.state.id,
+            add: [],
+            draw: [],
+            remove: [],
+            onMoveStart: [],
+            onMove: [],
+            onMoveEnd: [],
+            onClick: []
+        }, DEFAULT_PROPERTIES);
+    },
+
+    /**
+     * Adjusts constructor parameters without changing previous settings
+     * for any option not specified
+     */
+    update: function(options) {
+        this.remove();  // Must be called here to modify this.state
+                        // *before* we pass this.state into this.modify
+                        // Otherwise, we'd end up re-adding the removed
+                        // raphael elements :(.
+        this.modify(_.extend({}, this.state, options));
+    },
+
+    /**
+     * Resets the object to its state as if it were constructed with
+     * `options` originally. The only state maintained is `state.id`
+     */
     modify: function(options) {
         var self = this;
         var graphie = self.graphie;
 
         self.remove();
 
-        var state = _.extend(self.state, DEFAULT_PROPERTIES,
-            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options));
+        var state = self.state = _.extend(
+            self._createDefaultState(),
+            normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
+        );
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget) {

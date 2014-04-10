@@ -18,11 +18,58 @@ var createPoint = function(options) {
     }));
     return {
         movable: movable,
-        point: point
+        point: point,
+
+        /**
+         * Convenience function to fill in the no-drawing defaults
+         * for a modify call
+         */
+        modify: function(options) {
+            point.modify(_.extend({
+                static: true,
+                draw: null
+            }, options));
+        }
     };
 };
 
 describe("MovablePoint", function() {
+    describe("modify", function() {
+        it("should reset the point's size", function() {
+            var defaultPointSize = createPoint({
+                coord: [1, 1]  // uses the default pointSize
+            }).point.pointSize();
+
+            // verify that 10 was not, in fact, the default, or we should
+            // change 10 to something else
+            assert.notEqual(defaultPointSize, 10);
+
+            var handle = createPoint({
+                coord: [0, 0],
+                pointSize: 10  // arbitrary size larger than the default
+            });
+            assert.strictEqual(handle.point.pointSize(), 10);
+
+            handle.modify({
+                coord: [0, 0]  // reset to the default pointSize
+            });
+            assert.strictEqual(handle.point.pointSize(), defaultPointSize);
+        });
+
+        it("should allow you to change the point's size", function() {
+            var handle = createPoint({
+                coord: [0, 0],
+                pointSize: 5
+            });
+            assert.strictEqual(handle.point.pointSize(), 5);
+
+            handle.modify({
+                pointSize: 6
+            });
+            assert.strictEqual(handle.point.pointSize(), 6);
+        });
+    });
+
     describe("onMove", function() {
         it("should be called when movable is moved", function() {
             var movedToCoord;
