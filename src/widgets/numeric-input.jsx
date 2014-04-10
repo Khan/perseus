@@ -81,6 +81,9 @@ var NumericInput = React.createClass({
         }, this);
     },
 
+    statics: {
+        displayMode: "block"
+    }
 });
 
 _.extend(NumericInput, {
