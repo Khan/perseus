@@ -505,7 +505,7 @@ var NumberLineEditor = React.createClass({
     getDefaultProps: function() {
         return {
             range: [0, 10],
-            labelRange: ["", ""],
+            labelRange: [null, null],
             divisionRange: [1, 10],
             labelStyle: "decimal",
             labelTicks: true,
