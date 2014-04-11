@@ -7,7 +7,7 @@ var ItemEditor = Perseus.ItemEditor;
 
 var StatefulItemEditor = React.createClass({
     getInitialState: function() {
-        return {};
+        return _.extend({}, this.props.initState);
     },
 
     render: function() {
@@ -39,7 +39,7 @@ var fixupJSON = function(jsonProps) {
     var result = $.Deferred();
 
     React.renderComponent(
-        <StatefulItemEditor />,
+        <StatefulItemEditor initState={jsonProps} />,
         $hidden.get(0),
         function() {
             var json = this.toJSON();  // `this` is the editor
