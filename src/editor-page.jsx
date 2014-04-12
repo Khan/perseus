@@ -6,7 +6,6 @@ require("./item-renderer.jsx");
 require("./hint-editor.jsx");
 require("./diffs/revision-diff.jsx");
 
-var BlurInput = require("./components/blur-input.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 
 var ItemEditor = Perseus.ItemEditor;
