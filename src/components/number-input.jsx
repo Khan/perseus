@@ -38,11 +38,25 @@ var isNumericString = (function() {
  * if no numeric placeholder is set.
  */
 var NumberInput = React.createClass({
+    propTypes: {
+        value: React.PropTypes.number,
+        placeholder: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ]),
+        onChange: React.PropTypes.func.isRequired,
+        checkValidity: React.PropTypes.func,
+        format: React.PropTypes.string,
+        size: React.PropTypes.string
+    },
+
     getDefaultProps: function() {
         return {
             value: null,
             placeholder: null,
-            format: null
+            format: null,
+            checkValidity: () => true,
+            useArrowKeys: false
         };
     },
 
@@ -57,7 +71,11 @@ var NumberInput = React.createClass({
 
         var classes = cx({
             "number-input": true,
-            "number-input-label": this.props.label != null
+            "number-input-label": this.props.label != null,
+            "invalid-input": !this._checkValidity(this.props.value),
+            "mini": this.props.size === "mini",
+            "small": this.props.size === "small",
+            "normal": this.props.size === "normal"
         });
 
         var input = React.DOM.input(_.extend({}, this.props, {
@@ -67,6 +85,7 @@ var NumberInput = React.createClass({
             onChange: this._handleChange,
             onBlur: this._handleBlur,
             onKeyPress: this._handleBlur,
+            onKeyDown: this._onKeyDown,
             defaultValue: toNumericString(this.props.value, this.state.format),
             value: undefined
         }));
@@ -104,6 +123,17 @@ var NumberInput = React.createClass({
         this.refs.input.getDOMNode().focus();
     },
 
+    _checkValidity: function(value) {
+        if(value == null) {
+            return true;
+        }
+
+        var val = Util.firstNumericalParse(value);
+        var checkValidity = this.props.checkValidity;
+
+        return checkValidity(val) && _.isFinite(val);
+    },
+
     _handleChange: function(e) {
         var text = e.target.value;
         if (isNumericString(text)) {
@@ -123,6 +153,28 @@ var NumberInput = React.createClass({
         var text = this.refs.input.getDOMNode().value;
         if (!isNumericString(text)) {
             this._setValue(this.props.value, this.state.format);
+        }
+    },
+
+    _onKeyDown: function(e) {
+        if (!this.props.useArrowKeys ||
+            !_.contains(["ArrowUp", "ArrowDown"], e.key)) {
+            return;
+        }
+
+        var val = this.getValue();
+        if (val !== Math.floor(val)) {
+            return; // bail if not an integer
+        }
+
+        if (e.key === "ArrowUp") {
+            val = val + 1;
+        } else if (e.key === "ArrowDown") {
+            val = val - 1;
+        }
+
+        if (this._checkValidity(val)) {
+            this.props.onChange(val);
         }
     },
 
