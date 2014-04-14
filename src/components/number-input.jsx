@@ -77,6 +77,9 @@ var NumberInput = React.createClass({
             "small": this.props.size === "small",
             "normal": this.props.size === "normal"
         });
+        if (this.props.className != null) {
+            classes = [classes, this.props.className].join(" ");
+        }
 
         var input = React.DOM.input(_.extend({}, this.props, {
             className: classes,

@@ -260,8 +260,6 @@ var NumericInputEditor = React.createClass({
         };
 
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
-            // TODO(merlob) fix the "0" case in NumberInput and delete this
-            var isMaxError = !_([null, 0, "0"]).contains(answer.maxError);
             var editor = Perseus.Editor({
                 content: answer.message || "",
                 placeholder: "Why is this answer " + answer.status + "?\t" +
@@ -275,10 +273,10 @@ var NumericInputEditor = React.createClass({
             });
             return <div className="perseus-widget-row">
                 <div className={"input-answer-editor-value-container" +
-                    (isMaxError ? " with-max-error" : "")}>
+                    (answer.maxError ? " with-max-error" : "")}>
                     <NumberInput value={answer.value}
+                        className="numeric-input-value"
                         placeholder="answer"
-                        //TODO(merlob) ref={"input_" + i}
                         format={_.last(answer.answerForms)}
                         onChange={(newValue) => {
                             this.updateAnswer(i, {
@@ -291,13 +289,13 @@ var NumericInputEditor = React.createClass({
                      answer.status === "correct" &&
                       <div className={"simplify-indicator " + answer.simplify}
                         title="accepts unsimplified answers">&permil;</div>}
-                    {isMaxError && <div className="max-error-container">
+                    {answer.maxError ? <div className="max-error-container">
                         <div className="max-error-plusmn">&plusmn;</div>
                         <NumberInput placeholder={0}
                             value={answers[i]["maxError"]}
                             format={_.last(answer.answerForms)}
                             onChange={this.updateAnswer(i, "maxError")} />
-                    </div>}
+                    </div> : null}
                     <div className="value-divider" />
                     <a href="javascript:void(0)"
                       className={"answer-status " + answer.status}

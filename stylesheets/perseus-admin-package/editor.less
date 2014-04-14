@@ -202,9 +202,7 @@
         padding: @editorPadding;
         transition: all 0s;
 
-        // TODO(merlob) Make accordion
         &.enter {}
-
         &.leave {
             display: none;
         }
@@ -567,14 +565,14 @@
 
         // TODO(merlob) fix NumberInput so this can
         // be replaced with a class name.
-        .number-input:first-of-type {
+        .numeric-input-value {
             border: 0;
             font-size: 13px;
             width: 100%;
         }
 
         &.with-max-error {
-            .number-input:first-of-type {
+            .numeric-input-value {
                 width: 60%;
             }
         }
