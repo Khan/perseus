@@ -287,7 +287,7 @@ var NumericInputEditor = React.createClass({
                         onChange={(newValue, format) => {
                             var fractions = ["mixed", "proper", "improper"];
                             var forms;
-                            if (_(["pi", "percent"]).contains(format)) {
+                            if (format === "pi") {
                                 forms = ["pi"];
                             } else if (_(fractions).contains(format)) {
                                 forms = _.union(["proper"], [format]);
