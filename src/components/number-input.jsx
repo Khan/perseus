@@ -6,37 +6,18 @@ var knumber = KhanUtil.knumber;
 var toNumericString = KhanUtil.toNumericString;
 var getFormat = KhanUtil.getFormat;
 
-/* If str represents a valid number, return that number.
- * Otherwise, if str is empty, return null.
- * Otherwise, return defaultValue
- */
-function numberFromString(str, defaultValue) {
-    if (str === "") {
-        return null;
-    } else {
-        var result = Util.firstNumericalParse(str);
-        return _.isFinite(result) ? result : defaultValue;
-    }
-}
-
-var isNumericString = (function() {
-    // Specify a result that could only be returned by
-    // numberFromString if it was specified as the default
-    // null and undefined are less nice because numberFromString
-    // could return null, and we want that case to return true here.
-    var defaultResult = {};
-    return function isNumericString(str) {
-        var result = numberFromString(str, defaultResult);
-        return result !== defaultResult;
-    };
-})();
-
 /* An input box that accepts only numeric strings
  *
- * Calls onChange when a valid number is entered.
- * Reverts to the current value onBlur or on [ENTER]
+ * Calls onChange(value, format) for valid numbers.
+ * Reverts to the current value onBlur or on [ENTER],
+ *   but maintains the format (i.e. 3/2, 1 1/2, 150%)
  * Accepts empty input and sends it to onChange as null
- * if no numeric placeholder is set.
+ *   if no numeric placeholder is set.
+ * If given a checkValidity function, will turn
+ *   the background/outline red when invalid
+ * If useArrowKeys is set to true, up/down arrows will
+ *   increment/decrement integers
+ * Optionally takes a size ("mini", "small", "normal")
  */
 var NumberInput = React.createClass({
     propTypes: {
@@ -140,10 +121,10 @@ var NumberInput = React.createClass({
 
     _handleChange: function(e) {
         var text = e.target.value;
-        if (isNumericString(text)) {
+        if (getFormat(text)) {
             this.props.onChange(this.getValue(), getFormat(text));
+            this.setState({format: getFormat(text)});
         }
-        this.setState({format: getFormat(text)});
     },
 
     _handleBlur: function(e) {
@@ -152,10 +133,7 @@ var NumberInput = React.createClass({
             return;
         }
 
-        var text = this.refs.input.getDOMNode().value;
-        if (!isNumericString(text)) {
-            this._setValue(this.props.value, this.state.format);
-        }
+        this._setValue(this.props.value, this.state.format);
     },
 
     _onKeyDown: function(e) {
