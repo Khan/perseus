@@ -279,13 +279,6 @@ var MeasurerEditor = React.createClass({
         return _.map(choices, function(nameAndValue) {
             return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
         });
-    },
-
-    changeImageUrl: function(e) {
-        // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.keyCode !== 13) {
-            return;
-        }
     }
 });
 
