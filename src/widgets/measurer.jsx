@@ -6,6 +6,7 @@ require("../core.js");
 var InfoTip =       require("../components/info-tip.jsx");
 var NumberInput =   require("../components/number-input.jsx");
 var RangeInput =    require("../components/range-input.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
 var Widgets =       require("../widgets.js");
 
 var Measurer = React.createClass({
@@ -177,18 +178,20 @@ var MeasurerEditor = React.createClass({
                 to create a background.</p>
             </InfoTip>
             </div>
-            {this.props.imageUrl && <div>
-                <div>Pixels from top:{' '}
-                    <NumberInput
+            {this.props.imageUrl && <div className="perseus-widget-row">
+                <div className="perseus-widget-left-col">
+                    <NumberInput label="Pixels from top:"
                         placeholder={0}
                         onChange={_.partial(this.changeSetting, "imageTop")}
-                        value={this.props.imageTop} />
+                        value={this.props.imageTop}
+                        useArrowKeys={true} />
                 </div>
-                <div>Pixels from left:{' '}
-                    <NumberInput
+                <div className="perseus-widget-right-col">
+                    <NumberInput label="Pixels from left:"
                         placeholder={0}
                         onChange={_.partial(this.changeSetting, "imageLeft")}
-                        value={this.props.imageLeft} />
+                        value={this.props.imageLeft}
+                        useArrowKeys={true} />
                 </div>
             </div>}
             <div>Containing area [width, height]:{' '}
@@ -196,21 +199,17 @@ var MeasurerEditor = React.createClass({
                     onChange={_.partial(this.changeSetting, "box")}
                     value={this.props.box} />
             </div>
-            <div>
-                <label>
-                    {' '}Show protractor:{' '}
-                    <input type="checkbox"
-                        checked={this.props.showProtractor}
-                        onChange={this.toggleShowProtractor} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    {' '}Show ruler:{' '}
-                    <input type="checkbox"
-                        checked={this.props.showRuler}
-                        onChange={this.toggleShowRuler} />
-                </label>
+            <div className="perseus-widget-row">
+                <div className="perseus-widget-left-col">
+                    <PropCheckBox label="Show ruler"
+                        showRuler={this.props.showRuler}
+                        onChange={this.props.onChange} />
+                </div>
+                <div className="perseus-widget-right-col">
+                    <PropCheckBox label="Show protractor"
+                        showProtractor={this.props.showProtractor}
+                        onChange={this.props.onChange} />
+                </div>
             </div>
             {this.props.showRuler && <div>
             <div>
@@ -253,17 +252,16 @@ var MeasurerEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    {' '}Ruler pixels per unit:{' '}
-                    <NumberInput
+                    <NumberInput label="Ruler pixels per unit:"
                         placeholder={40}
                         onChange={_.partial(this.changeSetting, "rulerPixels")}
-                        value={this.props.rulerPixels} />
+                        value={this.props.rulerPixels}
+                        useArrowKeys={true} />
                 </label>
             </div>
             <div>
                 <label>
-                    {' '}Ruler length in units:{' '}
-                    <NumberInput
+                    <NumberInput label="Ruler length in units:"
                         placeholder={10}
                         onChange={_.partial(this.changeSetting, "rulerLength")}
                         value={this.props.rulerLength} />
@@ -298,14 +296,6 @@ var MeasurerEditor = React.createClass({
         var newProps = {};
         newProps[type] = e.target ? +e.target.value : e;
         this.props.onChange(newProps);
-    },
-
-    toggleShowProtractor: function() {
-        this.props.onChange({showProtractor: !this.props.showProtractor});
-    },
-
-    toggleShowRuler: function() {
-        this.props.onChange({showRuler: !this.props.showRuler});
     },
 
     toJSON: function() {
