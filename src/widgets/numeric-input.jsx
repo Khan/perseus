@@ -210,17 +210,23 @@ var NumericInputEditor = React.createClass({
                     values={answers[i]["answerForms"]}
                     onChange={this.updateAnswer(i, "answerForms")} />
                 <InfoTip>
-                    <p>By default, nothing is selected. Only select an option
-                    if you want to show a suggested answer format, or restrict
-                    the answer to a specific format.</p>
-                    {/* TODO(merlob) <p>Values with &pi; will autoselect the
-                        "&pi;" type for you</p> */}
-                    <p>Unless you are testing that specific skill, please
-                    do not restrict the answer format.</p>
+                    <p>Formats will be autoselected for you based on the
+                        given answer; to show no suggested formats and
+                        accept all types, simply have a decimal/integer be
+                        the answer. Values with &pi; will have format "pi",
+                        and values that are fractions will have some subset
+                        (mixed will be "mixed" and "proper"; improper/proper
+                        will both be "improper" and "proper"). If you would
+                        like to specify that it is only a proper fraction
+                        (or only a mixed/improper fraction), deselect the
+                        other format. Except for specific cases, you should
+                        not need to change the autoselected formats.</p>
                     <p>To restrict the answer to <em>only</em> an improper
                         fraction (i.e. 7/4), select the
                         improper fraction and toggle "strict" to true.
                         This <b>will not</b> accept 1.75 as an answer. </p>
+                    <p>Unless you are testing that specific skill, please
+                        do not restrict the answer format.</p>
                 </InfoTip>
             </div>
             <div className="perseus-widget-row">
@@ -278,9 +284,17 @@ var NumericInputEditor = React.createClass({
                         className="numeric-input-value"
                         placeholder="answer"
                         format={_.last(answer.answerForms)}
-                        onChange={(newValue) => {
+                        onChange={(newValue, format) => {
+                            var fractions = ["mixed", "proper", "improper"];
+                            var forms;
+                            if (_(["pi", "percent"]).contains(format)) {
+                                forms = ["pi"];
+                            } else if (_(fractions).contains(format)) {
+                                forms = _.union(["proper"], [format]);
+                            }
                             this.updateAnswer(i, {
-                                value: numericParse(newValue)
+                                value: numericParse(newValue),
+                                answerForms: forms
                             });
                         }} />
                     {answer.strict && <div className="is-strict-indicator"

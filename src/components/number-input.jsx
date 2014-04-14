@@ -4,6 +4,7 @@ require("../core.js");
 var Util = require("../util.js");
 var knumber = KhanUtil.knumber;
 var toNumericString = KhanUtil.toNumericString;
+var getFormat = KhanUtil.getFormat;
 
 /* If str represents a valid number, return that number.
  * Otherwise, if str is empty, return null.
@@ -140,11 +141,9 @@ var NumberInput = React.createClass({
     _handleChange: function(e) {
         var text = e.target.value;
         if (isNumericString(text)) {
-            this.props.onChange(this.getValue());
+            this.props.onChange(this.getValue(), getFormat(text));
         }
-        if (this.props.format == null && KhanUtil.getFormat(text) != null) {
-            this.setState({format: KhanUtil.getFormat(text)});
-        }
+        this.setState({format: getFormat(text)});
     },
 
     _handleBlur: function(e) {
@@ -177,7 +176,7 @@ var NumberInput = React.createClass({
         }
 
         if (this._checkValidity(val)) {
-            this.props.onChange(val);
+            this.props.onChange(val, "integer");
         }
     },
 
