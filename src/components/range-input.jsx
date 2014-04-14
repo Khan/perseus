@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var ValidatedNumberInput = require("../components/validated-number-input.jsx");
+var NumberInput = require("../components/number-input.jsx");
 
 /* A minor abstraction on top of NumberInput for ranges
  *
@@ -18,14 +18,14 @@ var RangeInput = React.createClass({
 
         return <div className="range-input">
             [
-            {this.transferPropsTo(<ValidatedNumberInput
+            {this.transferPropsTo(<NumberInput
                 value={value[0]}
-                checkValidity={(val) => checkValidity([val, value[1]])}
+                checkValidity={val => checkValidity([val, value[1]])}
                 onChange={this.onChange.bind(this, 0)} />)}
             ,
-            {this.transferPropsTo(<ValidatedNumberInput
+            {this.transferPropsTo(<NumberInput
                 value={value[1]}
-                checkValidity={(val) => checkValidity([value[0], val])}
+                checkValidity={val => checkValidity([value[0], val])}
                 onChange={this.onChange.bind(this, 1)} />)}
             ]
         </div>;
