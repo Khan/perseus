@@ -46,7 +46,7 @@ function formatMixed(n, d) {
     if (w === 0) {
         return formatImproper(n, d);
     } else if (n - w * d === 0) {
-        return w;
+        return "" + w;
     } else {
         return w + "\\:" + formatImproper(n - w * d, d);
     }
