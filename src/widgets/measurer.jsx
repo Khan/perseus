@@ -6,8 +6,11 @@ require("../core.js");
 var InfoTip =       require("../components/info-tip.jsx");
 var NumberInput =   require("../components/number-input.jsx");
 var RangeInput =    require("../components/range-input.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
+var PropCheckBox =  require("../components/prop-check-box.jsx");
+
 var Widgets =       require("../widgets.js");
+var JsonifyProps =  require("../mixins/jsonify-props.jsx");
+var Changeable =    require("../mixins/changeable.jsx");
 
 var Measurer = React.createClass({
     getDefaultProps: function() {
@@ -146,6 +149,7 @@ _.extend(Measurer, {
 
 
 var MeasurerEditor = React.createClass({
+    mixins: [Changeable, JsonifyProps],
     className: "perseus-widget-measurer",
 
     getDefaultProps: function() {
@@ -171,8 +175,8 @@ var MeasurerEditor = React.createClass({
                         className="perseus-widget-measurer-url"
                         ref="image-url"
                         defaultValue={this.props.imageUrl}
-                        onKeyPress={this.changeImageUrl}
-                        onBlur={this.changeImageUrl} />
+                        onChange={() => this.change("imageUrl",
+                            this.refs["image-url"].getDOMNode().value)} />
             <InfoTip>
                 <p>Create an image in graphie, or use the "Add image" function
                 to create a background.</p>
@@ -182,22 +186,23 @@ var MeasurerEditor = React.createClass({
                 <div className="perseus-widget-left-col">
                     <NumberInput label="Pixels from top:"
                         placeholder={0}
-                        onChange={_.partial(this.changeSetting, "imageTop")}
+                        onChange={this.change("imageTop")}
                         value={this.props.imageTop}
                         useArrowKeys={true} />
                 </div>
                 <div className="perseus-widget-right-col">
                     <NumberInput label="Pixels from left:"
                         placeholder={0}
-                        onChange={_.partial(this.changeSetting, "imageLeft")}
+                        onChange={this.change("imageLeft")}
                         value={this.props.imageLeft}
                         useArrowKeys={true} />
                 </div>
             </div>}
             <div>Containing area [width, height]:{' '}
                 <RangeInput
-                    onChange={_.partial(this.changeSetting, "box")}
-                    value={this.props.box} />
+                    onChange={this.change("box")}
+                    value={this.props.box}
+                    useArrowKeys={true} />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
@@ -216,7 +221,8 @@ var MeasurerEditor = React.createClass({
                 <label>
                     {' '}Ruler label:{' '}
                     <select
-                        onChange={this.changeRulerLabel}
+                        onChange={(e) =>
+                            this.change("rulerLabel", e.target.value)}
                         value={this.props.rulerLabel} >
                             <option value="">None</option>
                             <optgroup label="Metric">
@@ -242,7 +248,8 @@ var MeasurerEditor = React.createClass({
                 <label>
                     {' '}Ruler ticks:{' '}
                     <select
-                        onChange={_.partial(this.changeSetting, "rulerTicks")}
+                        onChange={(e) =>
+                            this.change("rulerTicks", +e.target.value)}
                         value={this.props.rulerTicks} >
                             {_.map([1, 2, 4, 8, 10, 16], function(n) {
                                 return <option value={n}>{n}</option>;
@@ -251,21 +258,18 @@ var MeasurerEditor = React.createClass({
                 </label>
             </div>
             <div>
-                <label>
-                    <NumberInput label="Ruler pixels per unit:"
-                        placeholder={40}
-                        onChange={_.partial(this.changeSetting, "rulerPixels")}
-                        value={this.props.rulerPixels}
-                        useArrowKeys={true} />
-                </label>
+                <NumberInput label="Ruler pixels per unit:"
+                    placeholder={40}
+                    onChange={this.change("rulerPixels")}
+                    value={this.props.rulerPixels}
+                    useArrowKeys={true} />
             </div>
             <div>
-                <label>
-                    <NumberInput label="Ruler length in units:"
-                        placeholder={10}
-                        onChange={_.partial(this.changeSetting, "rulerLength")}
-                        value={this.props.rulerLength} />
-                </label>
+                <NumberInput label="Ruler length in units:"
+                    placeholder={10}
+                    onChange={this.change("rulerLength")}
+                    value={this.props.rulerLength}
+                    useArrowKeys={true} />
             </div>
             </div>}
         </div>;
@@ -282,26 +286,6 @@ var MeasurerEditor = React.createClass({
         if (e.type === "keypress" && e.keyCode !== 13) {
             return;
         }
-
-        this.props.onChange({
-            imageUrl: this.refs["image-url"].getDOMNode().value
-        });
-    },
-
-    changeRulerLabel: function(e) {
-        this.props.onChange({rulerLabel: e.target.value});
-    },
-
-    changeSetting: function(type, e) {
-        var newProps = {};
-        newProps[type] = e.target ? +e.target.value : e;
-        this.props.onChange(newProps);
-    },
-
-    toJSON: function() {
-        return _.pick(this.props, "imageUrl", "imageTop", "imageLeft",
-            "box", "showProtractor", "showRuler", "rulerLabel",
-            "rulerTicks", "rulerPixels", "rulerLength");
     }
 });
 
