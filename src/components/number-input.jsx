@@ -46,6 +46,12 @@ var NumberInput = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            format: this.props.format
+        };
+    },
+
     render: function() {
         cx = React.addons.classSet;
 
@@ -61,7 +67,7 @@ var NumberInput = React.createClass({
             onChange: this._handleChange,
             onBlur: this._handleBlur,
             onKeyPress: this._handleBlur,
-            defaultValue: toNumericString(this.props.value, this.props.format),
+            defaultValue: toNumericString(this.props.value, this.state.format),
             value: undefined
         }));
 
@@ -74,7 +80,7 @@ var NumberInput = React.createClass({
 
     componentDidUpdate: function(prevProps) {
         if (!knumber.equal(this.getValue(), this.props.value)) {
-            this._setValue(this.props.value, this.props.format);
+            this._setValue(this.props.value, this.state.format);
         }
     },
 
@@ -103,11 +109,11 @@ var NumberInput = React.createClass({
         if (isNumericString(text)) {
             this.props.onChange(this.getValue());
         }
+        if (this.props.format == null && KhanUtil.getFormat(text) != null) {
+            this.setState({format: KhanUtil.getFormat(text)});
+        }
     },
 
-    // TODO (jack): This should revert to the last valid string
-    // rather than the string of the number, to avoid situations
-    // like "2/3a" turning into "0.66666666666..."
     _handleBlur: function(e) {
         // Only continue on blur or "enter"
         if (e.type === "keypress" && e.keyCode !== 13) {
@@ -116,7 +122,7 @@ var NumberInput = React.createClass({
 
         var text = this.refs.input.getDOMNode().value;
         if (!isNumericString(text)) {
-            this._setValue(this.props.value, this.props.format);
+            this._setValue(this.props.value, this.state.format);
         }
     },
 
