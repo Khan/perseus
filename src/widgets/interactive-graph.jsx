@@ -497,8 +497,8 @@ var InteractiveGraph = React.createClass({
                         <label>Snap to increments of{' '}
                             <NumberInput
                                 key="degree-snap"
-                                allowEmpty={false}
-                                value={this.props.graph.snapDegrees || 1}
+                                placeholder={1}
+                                value={this.props.graph.snapDegrees}
                                 onChange={function(newVal) {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {
@@ -515,8 +515,8 @@ var InteractiveGraph = React.createClass({
                             {' '}With an offset of{' '}
                             <NumberInput
                                 key="angle-offset"
-                                allowEmpty={false}
-                                value={this.props.graph.angleOffsetDeg || 0}
+                                placeholder={0}
+                                value={this.props.graph.angleOffsetDeg}
                                 onChange={function(newVal) {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {

@@ -560,13 +560,11 @@ var Transformations = {
                 var point1 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x1"
-                        allowEmpty={true}
                         value={this.props.line[0][0]}
                         onChange={this.props.onChange} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y1"
-                        allowEmpty={true}
                         value={this.props.line[0][1]}
                         onChange={this.props.onChange} />,
                     <TeX>)</TeX>
@@ -574,13 +572,11 @@ var Transformations = {
                 var point2 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x2"
-                        allowEmpty={true}
                         value={this.props.line[1][0]}
                         onChange={this.props.onChange} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y2"
-                        allowEmpty={true}
                         value={this.props.line[1][1]}
                         onChange={this.props.onChange} />,
                     <TeX>)</TeX>

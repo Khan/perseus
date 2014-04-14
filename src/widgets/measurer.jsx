@@ -180,13 +180,13 @@ var MeasurerEditor = React.createClass({
             {this.props.imageUrl && <div>
                 <div>Pixels from top:{' '}
                     <NumberInput
-                        allowEmpty={false}
+                        placeholder={0}
                         onChange={_.partial(this.changeSetting, "imageTop")}
                         value={this.props.imageTop} />
                 </div>
                 <div>Pixels from left:{' '}
                     <NumberInput
-                        allowEmpty={false}
+                        placeholder={0}
                         onChange={_.partial(this.changeSetting, "imageLeft")}
                         value={this.props.imageLeft} />
                 </div>
@@ -255,7 +255,7 @@ var MeasurerEditor = React.createClass({
                 <label>
                     {' '}Ruler pixels per unit:{' '}
                     <NumberInput
-                        allowEmpty={false}
+                        placeholder={40}
                         onChange={_.partial(this.changeSetting, "rulerPixels")}
                         value={this.props.rulerPixels} />
                 </label>
@@ -264,7 +264,7 @@ var MeasurerEditor = React.createClass({
                 <label>
                     {' '}Ruler length in units:{' '}
                     <NumberInput
-                        allowEmpty={false}
+                        placeholder={10}
                         onChange={_.partial(this.changeSetting, "rulerLength")}
                         value={this.props.rulerLength} />
                 </label>
