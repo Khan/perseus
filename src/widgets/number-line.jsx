@@ -353,8 +353,8 @@ var NumberLine = React.createClass({
     renderLabels: function() {
         var labelRange = this.props.labelRange;
         var range = this.props.range;
-        var leftLabel = labelRange[0] === "" ? range[0] : labelRange[0];
-        var rightLabel = labelRange[1] === "" ? range[1] : labelRange[1];
+        var leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
+        var rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
         // Render the text labels
         this.graphie.style({color: KhanUtil.BLUE}, () => {
@@ -566,8 +566,11 @@ var NumberLineEditor = React.createClass({
                 <NumberInput value={this.props.correctX}
                     format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "correctX")}
-                    min={range[0]} max={range[1]} step={step}
-                    placeholder="answer" size="normal" />
+                    checkValidity={val =>
+                        val >= range[0] && val <= range[1] &&
+                        (!step || Math.abs(val - range[0]) % step === 0)}
+                    placeholder="answer" size="normal"
+                    useArrowKeys={true} />
                 <InfoTip><p>
                     This is the correct answer. The answer is validated
                     (as right or wrong) by using only the end position of the
@@ -581,11 +584,13 @@ var NumberLineEditor = React.createClass({
                     format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "initialX")}
                     placeholder={range[0]}
-                    min={range[0]} max={range[1]} />
+                    checkValidity={val => val >= range[0] && val <= range[1]}
+                    useArrowKeys={true} />
                 <span> &isin; {' '} </span>
                 <RangeInput value={range}
                     onChange={this.onRangeChange}
-                    format={this.props.labelStyle} />
+                    format={this.props.labelStyle}
+                    useArrowKeys={true} />
                 <InfoTip><p>
                     This controls the initial position of the point along the
                     number line and the <strong>range</strong>, the position
@@ -599,14 +604,18 @@ var NumberLineEditor = React.createClass({
                     <NumberInput
                         value={labelRange[0]} placeholder={range[0]}
                         format={this.props.labelStyle}
-                        min={range[0]} max={range[1]}
-                        onChange={this.onLabelRangeChange.bind(this, 0)} />
+                        checkValidity={val =>
+                            val >= range[0] && val <= range[1]}
+                        onChange={this.onLabelRangeChange.bind(this, 0)}
+                        useArrowKeys={true} />
                     <span> &amp; </span>
                     <NumberInput
                         value={labelRange[1]} placeholder={range[1]}
                         format={this.props.labelStyle}
-                        min={range[0]} max={range[1]}
-                        onChange={this.onLabelRangeChange.bind(this, 1)} />
+                        checkValidity={val =>
+                            val >= range[0] && val <= range[1]}
+                        onChange={this.onLabelRangeChange.bind(this, 1)}
+                        useArrowKeys={true} />
                     <InfoTip><p>
                         This controls the position of the left / right labels.
                         By default, the labels are set by the range <br />
@@ -642,16 +651,20 @@ var NumberLineEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 <NumberInput label="num divisions"
-                    value={this.props.numDivisions || ""}
+                    value={this.props.numDivisions || null}
                     format={"decimal"}
                     onChange={this.onNumDivisionsChange}
-                    min={+divisionRange[0]} max={+divisionRange[1]}
-                    placeholder={width / this.props.tickStep} />
+                    checkValidity={val =>
+                        val >= divisionRange[0] && val <= divisionRange[1]}
+                    placeholder={width / this.props.tickStep}
+                    useArrowKeys={true} />
                 {isTickCtrl && <span> &isin; {' '}
                     <RangeInput value={divisionRange}
                         format={this.props.labelStyle}
-                        min={1} enforceInequality={true}
-                        onChange={this.onDivisionRangeChange} />
+                        checkValidity={val => val[0] >= 1 && val[1] > val[0]}
+                        enforceInequality={true}
+                        onChange={this.onDivisionRangeChange}
+                        useArrowKeys={true} />
                     <InfoTip><p>
                     This controls the number (and position) of the tick marks.
                     The range dictates the minimum and maximum number of ticks
@@ -662,11 +675,12 @@ var NumberLineEditor = React.createClass({
                     </p></InfoTip></span>}
                 {!isTickCtrl && <span>
                     <NumberInput label=" or tick step"
-                        value={this.props.tickStep || ""}
+                        value={this.props.tickStep || null}
                         format={this.props.labelStyle}
                         onChange={this.onTickStepChange}
-                        minExc={0} max={width}
-                        placeholder={width / this.props.numDivisions} />
+                        checkValidity={val => val > 0 && val <= width}
+                        placeholder={width / this.props.numDivisions}
+                        useArrowKeys={true} />
                     <InfoTip><p>
                     This controls the number (and position) of the tick marks;
                     you can either set the number of divisions (2 divisions
@@ -680,9 +694,11 @@ var NumberLineEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 <NumberInput label="snap increments per tick"
-                    value={snapDivisions} minExc={0}
+                    value={snapDivisions}
+                    checkValidity={val => val > 0}
                     format={this.props.labelStyle}
-                    onChange={this.onNumChange.bind(this, "snapDivisions")} />
+                    onChange={this.onNumChange.bind(this, "snapDivisions")}
+                    useArrowKeys={true} />
                 <InfoTip><p>
                     This determines the number of different places the point
                     will snap between two adjacent tick marks. <br />
@@ -708,7 +724,7 @@ var NumberLineEditor = React.createClass({
             labelRange = this.props.labelRange.slice(),
             otherNum = labelRange[1-i];
 
-        if (num === "" || otherNum === "") {
+        if (num == null || otherNum == null) {
             labelRange[i] = num;
         } else {
             // If both labels have values, this updates the "appropriate" one.
