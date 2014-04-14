@@ -619,7 +619,7 @@ var Plotter = React.createClass({
                             }, 75));
                     }
                 }
-                $(pic[0]).css({opacity: show ? 1.0 : 0.0});
+                $(pic[0]).css({display: show ? "inline" : "none"});
             });
         });
     },
