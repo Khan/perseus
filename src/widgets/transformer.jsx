@@ -393,20 +393,36 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            getInitialState: function() {
+                return {
+                    vector: [null, null]
+                };
+            },
+
             render: function() {
                 var vector = [
                     <TeX>\langle</TeX>,
                     <NumberInput
                         ref="x"
                         placeholder={0}
-                        value={this.props.vector[0]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.vector[0]}
+                        useArrowKeys={true}
+                        onChange={(val0) => {
+                            var val1 = this.state.vector[1];
+                            this.setState({vector: [val0, val1]});
+                            this.props.onChange();
+                        }} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y"
                         placeholder={0}
-                        value={this.props.vector[1]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.vector[1]}
+                        useArrowKeys={true}
+                        onChange={(val1) => {
+                            var val0 = this.state.vector[0];
+                            this.setState({vector: [val0, val1]});
+                            this.props.onChange();
+                        }} />,
                     <TeX>\rangle</TeX>
                 ];
                 return <div>
@@ -468,28 +484,49 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            getInitialState: function() {
+                return {
+                    center: [null, null],
+                    angleDeg: null
+                };
+            },
+
             render: function() {
                 var point = [
                     <TeX>(</TeX>,
                     <NumberInput
                         ref="centerX"
                         placeholder={0}
-                        value={this.props.center[0]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.center[0]}
+                        useArrowKeys={true}
+                        onChange={(val0) => {
+                            var val1 = this.state.center[1];
+                            this.setState({center: [val0, val1]});
+                            this.props.onChange();
+                        }} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="centerY"
                         placeholder={0}
-                        value={this.props.center[1]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.center[1]}
+                        useArrowKeys={true}
+                        onChange={(val1) => {
+                            var val0 = this.state.center[0];
+                            this.setState({center: [val0, val1]});
+                            this.props.onChange();
+                        }} />,
                     <TeX>)</TeX>
                 ];
                 var degrees = [
                     <NumberInput
                         ref="angleDeg"
                         placeholder={0}
-                        value={this.props.angleDeg}
-                        onChange={this.props.onChange} />,
+                        value={this.state.angleDeg}
+                        useArrowKeys={true}
+                        onChange={(val) => {
+                            this.setState({angleDeg: val});
+                            this.props.onChange();
+                        }} />,
                     DEGREE_SIGN
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
@@ -556,29 +593,59 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            getInitialState: function() {
+                return {
+                    line: [[null, null], [null, null]]
+                };
+            },
+
             render: function() {
                 var point1 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x1"
-                        value={this.props.line[0][0]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.line[0][0]}
+                        useArrowKeys={true}
+                        onChange={(val) => {
+                            var line = _.clone(this.state.line);
+                            line[0][0] = val;
+                            this.setState({line: line});
+                            this.props.onChange();
+                        }} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y1"
-                        value={this.props.line[0][1]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.line[0][1]}
+                        useArrowKeys={true}
+                        onChange={(val) => {
+                            var line = _.clone(this.state.line);
+                            line[0][1] = val;
+                            this.setState({line: line});
+                            this.props.onChange();
+                        }} />,
                     <TeX>)</TeX>
                 ];
                 var point2 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x2"
-                        value={this.props.line[1][0]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.line[1][0]}
+                        useArrowKeys={true}
+                        onChange={(val) => {
+                            var line = _.clone(this.state.line);
+                            line[1][0] = val;
+                            this.setState({line: line});
+                            this.props.onChange();
+                        }} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y2"
-                        value={this.props.line[1][1]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.line[1][1]}
+                        useArrowKeys={true}
+                        onChange={(val) => {
+                            var line = _.clone(this.state.line);
+                            line[1][1] = val;
+                            this.setState({line: line});
+                            this.props.onChange();
+                        }} />,
                     <TeX>)</TeX>
                 ];
                 return <div>
@@ -643,26 +710,47 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            getInitialState: function() {
+                return {
+                    center: [null, null],
+                    scale: null
+                };
+            },
+
             render: function() {
                 var point = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x"
                         placeholder={0}
-                        value={this.props.center[0]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.center[0]}
+                        useArrowKeys={true}
+                        onChange={(val0) => {
+                            var val1 = this.state.center[1];
+                            this.setState({center: [val0, val1]});
+                            this.props.onChange();
+                        }} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y"
                         placeholder={0}
-                        value={this.props.center[1]}
-                        onChange={this.props.onChange} />,
+                        value={this.state.center[1]}
+                        useArrowKeys={true}
+                        onChange={(val1) => {
+                            var val0 = this.state.center[0];
+                            this.setState({center: [val0, val1]});
+                            this.props.onChange();
+                        }} />,
                     <TeX>)</TeX>
                 ];
                 var scale = <NumberInput
                     ref="scale"
                     placeholder={1}
-                    value={this.props.scale}
-                    onChange={this.props.onChange} />;
+                    value={this.state.scale}
+                    useArrowKeys={true}
+                    onChange={(val) => {
+                            this.setState({scale: val});
+                            this.props.onChange();
+                        }} />;
                 return <div>
                     <$_ point={point} scale={scale}>
                         Dilation about %(point)s by %(scale)s
@@ -2308,7 +2396,7 @@ var TransformerEditor = React.createClass({
                     onChange={this.props.onChange} />
                 <InfoTip>
                     <p>
-                        We generally don't grade empty answers. This usually
+                        We generally do not grade empty answers. This usually
                         works well, but sometimes can result in giving away
                         part of an answer in a multi-part question.
                     </p>
