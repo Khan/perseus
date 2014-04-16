@@ -164,7 +164,8 @@ Perseus.EditorPage = React.createClass({
                     rendererOnly={this.props.jsonMode}
                     question={this.props.question}
                     answerArea={this.props.answerArea}
-                    onChange={this.handleChange} />
+                    onChange={this.handleChange}
+                    onCheckAnswer={() => console.log(this.scorePreview())} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&

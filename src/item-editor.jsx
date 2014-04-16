@@ -73,7 +73,8 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         <div className="answer-buttons">
                             <input
                                 type="button"
-                                className="simple-button disabled green"
+                                className="simple-button green"
+                                onClick={this.props.onCheckAnswer}
                                 value="Check Answer" />
                         </div>
                     </div>
