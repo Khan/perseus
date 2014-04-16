@@ -91,13 +91,7 @@ var Radio = React.createClass({
 
     render: function() {
         var choices = this.props.choices;
-        if (this.props.randomize) {
-            choices = this.randomize(choices);
-            choices = this.applyDisplayCount(choices);
-            choices = this.addNoneOfAbove(choices);
-        }
         var values = this.props.values || _.map(choices, () => false);
-        choices = this.enforceOrdering(choices);
         choices = _.map(choices, function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
@@ -108,8 +102,13 @@ var Radio = React.createClass({
                 originalIndex: i
             };
         });
+        if (this.props.randomize) {
+            choices = this.randomize(choices);
+            //choices = this.applyDisplayCount(choices); // :(
+            //choices = this.addNoneOfAbove(choices);
+        }
+        //choices = this.enforceOrdering(choices);
         this.derandomizer = _.pluck(choices, "originalIndex");
-        this.choicesDisplayed = choices;
 
         return <BaseRadio
             ref="baseRadio"
@@ -150,8 +149,7 @@ var Radio = React.createClass({
     simpleValidate: function(rubric) {
         this.setState({showClues: true});
         rubric = _.clone(rubric);
-        rubric.choices = this.choicesDisplayed;
-        if (this.props.noneOfTheAbove) {
+        if (false && this.props.noneOfTheAbove) {
             var nota = _.last(rubric.choices);
             var values = (this.toJSON()).values;
             var othersChecked = _.any(_.initial(values));
@@ -241,7 +239,7 @@ _.extend(Radio, {
                 message: null
             };
         // If NOTA and some other answer are checked, ...
-        } else if (rubric.noneOfTheAbove && _.last(state.values) &&
+        } else if (false && rubric.noneOfTheAbove && _.last(state.values) &&
                     _.any(_.initial(state.values))) {
             return {
                 type: "invalid",
@@ -295,7 +293,7 @@ var RadioEditor = React.createClass({
                                   onChange={this.props.onChange} />
                 </div>
             </div>
-            {this.props.randomize && <div className="perseus-widget-row">
+            {false && <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="None of the above"
                            labelAlignment="right"
