@@ -121,8 +121,8 @@ var NumberInput = React.createClass({
 
     _handleChange: function(e) {
         var text = e.target.value;
+        this.props.onChange(this.getValue(), getFormat(text));
         if (getFormat(text)) {
-            this.props.onChange(this.getValue(), getFormat(text));
             this.setState({format: getFormat(text)});
         }
     },
