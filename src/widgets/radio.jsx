@@ -97,7 +97,7 @@ var Radio = React.createClass({
             choices = this.addNoneOfAbove(choices);
         }
         var values = this.props.values || _.map(choices, () => false);
-        choices = this.enforceOrdering(this.props.choices);
+        choices = this.enforceOrdering(choices);
         choices = _.map(choices, function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
