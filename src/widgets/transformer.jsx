@@ -1,8 +1,4 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-var Util = require("../util.js");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
@@ -10,7 +6,6 @@ var InfoTip       = require("../components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var TeX           = require("../tex.jsx");
-var Widgets       = require("../widgets.js");
 
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
@@ -19,7 +14,8 @@ var ROTATE_HANDLE_DIST = 1.5;
 var REFLECT_ROTATE_HANDLE_DIST = 2;
 var REFLECT_BUTTON_SIZE = 1;
 
-var deepEq = Util.deepEq;
+var deepEq = require("../util.js").deepEq;
+var getGridStep = require("../util.js").getGridStep;
 var knumber = KhanUtil.knumber;
 var kvector = KhanUtil.kvector;
 var kpoint = KhanUtil.kpoint;
@@ -67,7 +63,7 @@ var defaultGraphProps = function(setProps, boxSize) {
     var range = setProps.range || [[-10, 10], [-10, 10]];
     var step = setProps.step || [1, 1];
     var gridStep = setProps.gridStep ||
-               Util.getGridStep(range, step, boxSize);
+               getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
         labels: labels,
@@ -2490,7 +2486,9 @@ var TransformerEditor = React.createClass({
 });
 
 
-Widgets.register("transformer", Transformer);
-Widgets.register("transformer-editor", TransformerEditor);
-
-})(Perseus);
+module.exports = {
+    name: "transformer",
+    displayName: "Transformer",
+    widget: Transformer,
+    editor: TransformerEditor
+};

@@ -1,12 +1,8 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-var Util = require("../util.js");
-require("../widgets.js");
 
 var InfoTip      = require("../components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
+var Util         = require("../util.js");
 
 function eq(x, y) {
     return Math.abs(x - y) < 1e-9;
@@ -444,8 +440,10 @@ var InteractiveNumberLineEditor = React.createClass({
     }
 });
 
-Perseus.Widgets.register("interactive-number-line", InteractiveNumberLine);
-Perseus.Widgets
-    .register("interactive-number-line-editor", InteractiveNumberLineEditor);
-
-})(Perseus);
+module.exports = {
+    name: "interactive-number-line",
+    displayName: "Number line 2",
+    hidden: true,
+    widget: InteractiveNumberLine,
+    editor: InteractiveNumberLineEditor
+};

@@ -1,10 +1,6 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
 
 var InfoTip = require("../components/info-tip.jsx");
-var Widgets = require("../widgets.js");
 
 var Dropdown = React.createClass({
     getDefaultProps: function() {
@@ -183,7 +179,9 @@ var DropdownEditor = React.createClass({
     }
 });
 
-Widgets.register("dropdown", Dropdown);
-Widgets.register("dropdown-editor", DropdownEditor);
-
-})(Perseus);
+module.exports = {
+    name: "dropdown",
+    displayName: "Drop down",
+    widget: Dropdown,
+    editor: DropdownEditor
+};

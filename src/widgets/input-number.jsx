@@ -1,12 +1,8 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("../core.js");
-var Util = require("../util.js");
-
-var InfoTip = require("../components/info-tip.jsx");
-var Widgets = require("../widgets.js");
 var BlurInput = require("../components/blur-input.jsx");
+var InfoTip = require("../components/info-tip.jsx");
+var Util = require("../util.js");
 
 var answerTypes = {
     number: {
@@ -288,7 +284,9 @@ var InputNumberEditor = React.createClass({
     }
 });
 
-Widgets.register("input-number", InputNumber);
-Widgets.register("input-number-editor", InputNumberEditor);
-
-})(Perseus);
+module.exports = {
+    name: "input-number",
+    displayName: "Text input (number)",
+    widget: InputNumber,
+    editor: InputNumberEditor
+};

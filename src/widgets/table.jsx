@@ -1,15 +1,9 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("../core.js");
-var Util = require("../util.js");
-require("../editor.jsx");
-require("../renderer.jsx");
+var Editor = require("../editor.jsx");
 var InfoTip = require("../components/info-tip.jsx");
-
-var Widgets = require("../widgets.js");
-var Editor  = Perseus.Editor;
-
+var Renderer = require("../renderer.jsx");
+var Util = require("../util.js");
 
 var Table = React.createClass({
     render: function() {
@@ -18,7 +12,7 @@ var Table = React.createClass({
             <thead>
                 <tr>{
                     _.map(headers, function(header) {
-                        return <th>{Perseus.Renderer({content: header})}</th>;
+                        return <th>{Renderer({content: header})}</th>;
                     })
                 }
                 </tr>
@@ -315,7 +309,9 @@ var TableEditor = React.createClass({
     }
 });
 
-Widgets.register("table", Table);
-Widgets.register("table-editor", TableEditor);
-
-})(Perseus);
+module.exports = {
+    name: "table",
+    displayName: "Table of values",
+    widget: Table,
+    editor: TableEditor
+};

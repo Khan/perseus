@@ -1,16 +1,9 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("./core.js");
-require("./answer-area-editor.jsx");
-require("./hint-editor.jsx");
-require("./renderer.jsx");
-require("./all-widgets.js");
+var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
+var HintRenderer = require("./hint-renderer.jsx");
+var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
-
-var AnswerAreaRenderer = Perseus.AnswerAreaRenderer;
-
-var HintRenderer = Perseus.HintRenderer;
 
 var HintsRenderer = React.createClass({
     render: function() {
@@ -33,7 +26,7 @@ var HintsRenderer = React.createClass({
 var highlightedWidgets = (widgetList) =>
     _.filter(widgetList, Util.widgetShouldHighlight);
 
-var ItemRenderer = Perseus.ItemRenderer = React.createClass({
+var ItemRenderer = React.createClass({
     getDefaultProps: function() {
         return {
             initialHintsVisible: 0,
@@ -79,7 +72,7 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
         this.questionRenderer = React.renderComponent(
-                Perseus.Renderer(_.extend({
+                Renderer(_.extend({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithWidget,
                     highlightedWidgets: this.state.questionHighlightedWidgets,
@@ -196,4 +189,4 @@ var ItemRenderer = Perseus.ItemRenderer = React.createClass({
     }
 });
 
-})(Perseus);
+module.exports = ItemRenderer;

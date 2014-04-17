@@ -1,16 +1,12 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("../core.js");
-
-var InfoTip =       require("../components/info-tip.jsx");
-var NumberInput =   require("../components/number-input.jsx");
-var RangeInput =    require("../components/range-input.jsx");
-var PropCheckBox =  require("../components/prop-check-box.jsx");
-
-var Widgets =       require("../widgets.js");
-var JsonifyProps =  require("../mixins/jsonify-props.jsx");
 var Changeable =    require("../mixins/changeable.jsx");
+var JsonifyProps =  require("../mixins/jsonify-props.jsx");
+
+var InfoTip       = require("../components/info-tip.jsx");
+var NumberInput   = require("../components/number-input.jsx");
+var PropCheckBox =  require("../components/prop-check-box.jsx");
+var RangeInput    = require("../components/range-input.jsx");
 
 var Measurer = React.createClass({
     getDefaultProps: function() {
@@ -282,11 +278,9 @@ var MeasurerEditor = React.createClass({
     }
 });
 
-Widgets.register("measurer", Measurer);
-Widgets.register("measurer-editor", MeasurerEditor);
-
-// This widget was originally called "Protractor"
-Widgets.register("protractor", Measurer);
-Widgets.register("protractor-editor", MeasurerEditor);
-
-})(Perseus);
+module.exports = {
+    name: "measurer",
+    displayName: "Measurer",
+    widget: Measurer,
+    editor: MeasurerEditor
+};

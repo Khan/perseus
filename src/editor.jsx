@@ -1,11 +1,8 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("./core.js");
-var Util = require("./util.js");
-
-var Widgets = require("./widgets.js");
 var PropCheckBox = require("./components/prop-check-box.jsx");
+var Util = require("./util.js");
+var Widgets = require("./widgets.js");
 
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
@@ -102,37 +99,19 @@ var WidgetSelect = React.createClass({
         return false;
     },
     render: function() {
+        var widgets = Widgets.getPublicWidgets();
+        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
+            return widgets[name].displayName;
+        });
+
         return <select onChange={this.handleChange}>
             <option value="">Add a widget{"\u2026"}</option>
             <option disabled>--</option>
-            <option value="input-number">
-                    Text input (number)</option>
-            <option value="expression">
-                    Expression / Equation</option>
-            <option value="radio">
-                    Multiple choice</option>
-            <option value="interactive-graph">
-                    Interactive graph</option>
-            <option value="number-line">
-                    Number line</option>
-            <option value="categorization">
-                    Categorization</option>
-            <option value="plotter">
-                    Plotter</option>
-            <option value="table">
-                    Table of values</option>
-            <option value="dropdown">
-                    Drop down</option>
-            <option value="orderer">
-                    Orderer</option>
-            <option value="measurer">
-                    Measurer</option>
-            <option value="transformer">
-                    Transformer</option>
-            <option value="matcher">
-                    Two column matcher</option>
-            <option value="sorter">
-                    Sorter</option>
+            {_.map(orderedWidgetNames, (name) => {
+                return <option value={name}>
+                    {widgets[name].displayName}
+                </option>;
+            })}
         </select>;
     }
 });
@@ -159,7 +138,7 @@ var WidgetEditor = React.createClass({
     },
 
     render: function() {
-        var cls = Widgets.get(this.props.type + "-editor");
+        var cls = Widgets.getEditor(this.props.type);
 
         var isUngradedEnabled = (this.props.type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
@@ -261,7 +240,11 @@ var sizeImage = function(url, callback) {
     image.src = url;
 };
 
-var Editor = Perseus.Editor = React.createClass({
+var Editor = React.createClass({
+    propTypes: {
+        imageUploader: React.PropTypes.func
+    },
+
     getDefaultProps: function() {
         return {
             content: "",
@@ -274,7 +257,7 @@ var Editor = Perseus.Editor = React.createClass({
     },
 
     getWidgetEditor: function(id, type) {
-        if (!Widgets.get(type + "-editor")) {
+        if (!Widgets.getEditor(type)) {
             return;
         }
         return WidgetEditor(_.extend({
@@ -424,7 +407,7 @@ var Editor = Perseus.Editor = React.createClass({
                           value={this.props.content} />
             ];
         var textareaWrapper;
-        if (Perseus.imageUploader) {
+        if (this.props.imageUploader) {
             textareaWrapper = <DragTarget
                     onDrop={this.handleDrop}
                     className="perseus-textarea-pair">
@@ -518,7 +501,7 @@ var Editor = Perseus.Editor = React.createClass({
             .reject(_.isNull)
             .tap(() => { this.props.onChange({ content: content }); })
             .each(fileAndSentinel => {
-                Perseus.imageUploader(fileAndSentinel.file, url => {
+                this.props.imageUploader(fileAndSentinel.file, url => {
                     this.props.onChange({
                         content: this.props.content.replace(
                             fileAndSentinel.sentinel, url)
@@ -622,4 +605,5 @@ var Editor = Perseus.Editor = React.createClass({
         textarea.selectionEnd = textarea.value.length;
     }
 });
-})(Perseus);
+
+module.exports = Editor;

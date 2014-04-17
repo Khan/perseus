@@ -1,20 +1,17 @@
 /** @jsx React.DOM */
 
-require("../core.js");
-var Util         = require("../util.js");
-var Widgets      = require("../widgets.js");
-
-var InfoTip      = require("../components/info-tip.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var NumberInput = require("../components/number-input.jsx");
-var RangeInput   = require("../components/range-input.jsx");
-var ButtonGroup  = require("../components/button-group.jsx");
-var Interactive2 = require("../interactive2.js");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var eq = KhanUtil.knumber.equal;
-var deepEq = Util.deepEq;
+var ButtonGroup  = require("../components/button-group.jsx");
+var InfoTip      = require("../components/info-tip.jsx");
+var Interactive2 = require("../interactive2.js");
+var NumberInput = require("../components/number-input.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
+var RangeInput   = require("../components/range-input.jsx");
+
 var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
+var deepEq = require("../util.js").deepEq;
+var eq = KhanUtil.knumber.equal;
 
 var reverseRel = {
     ge: "le",
@@ -792,5 +789,9 @@ var NumberLineEditor = React.createClass({
     }
 });
 
-Widgets.register("number-line", NumberLine);
-Widgets.register("number-line-editor", NumberLineEditor);
+module.exports = {
+    name: "number-line",
+    displayName: "Number line",
+    widget: NumberLine,
+    editor: NumberLineEditor
+};

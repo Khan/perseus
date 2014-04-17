@@ -417,4 +417,3 @@ var Util = {
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);
 
 module.exports = Util;
-

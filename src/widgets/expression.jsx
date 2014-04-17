@@ -3,8 +3,6 @@
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var InfoTip      = require("../components/info-tip.jsx");
 var TeX          = require("../tex.jsx");  // KaTeX and/or MathJax
-var Util         = require("../util.js");
-var Widgets      = require("../widgets.js");
 
 var Expression = React.createClass({
     getDefaultProps: function() {
@@ -395,6 +393,9 @@ var ExpressionEditor = React.createClass({
     }
 });
 
-Widgets.register("expression", Expression);
-Widgets.register("expression-editor", ExpressionEditor);
-
+module.exports = {
+    name: "expression",
+    displayName: "Expression / Equation",
+    widget: Expression,
+    editor: ExpressionEditor
+};

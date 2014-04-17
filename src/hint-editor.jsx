@@ -1,36 +1,12 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
 
-require("./core.js");
-require("./renderer.jsx");
-require("./editor.jsx");
+var Editor = require("./editor.jsx");
+var HintRenderer = require("./hint-renderer.jsx");
 var InfoTip = require("./components/info-tip.jsx");
-
-var Renderer = Perseus.Renderer;
-var Editor = Perseus.Editor;
-
-/* Renders just a hint preview */
-var HintRenderer = Perseus.HintRenderer = React.createClass({
-    render: function() {
-        var shouldBold = this.props.bold;
-        var hint = this.props.hint;
-        var classNames;
-        if (shouldBold) {
-            classNames = "perseus-hint-renderer last-hint";
-        } else {
-            classNames = "perseus-hint-renderer";
-        }
-        return <div className={classNames}>
-            <Renderer
-                content={this.props.hint.content || ""}
-                images={this.props.hint.images} />
-        </div>;
-    }
-});
 
 /* Renders a hint editor box
  *
@@ -40,7 +16,11 @@ var HintRenderer = Perseus.HintRenderer = React.createClass({
  *  ~ the "remove this hint" box
  *  ~ the move hint up/down arrows
  */
-var HintEditor = Perseus.HintEditor = React.createClass({
+var HintEditor = React.createClass({
+    propTypes: {
+        imageUploader: React.PropTypes.func
+    },
+
     getDefaultProps: function() {
         return {
             content: ""
@@ -54,6 +34,7 @@ var HintEditor = Perseus.HintEditor = React.createClass({
                     content={this.props.content}
                     images={this.props.images}
                     placeholder="Type your hint here..."
+                    imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange} widgetEnabled={false} />
 
             <div className="hint-controls-container clearfix">
@@ -104,6 +85,10 @@ var HintEditor = Perseus.HintEditor = React.createClass({
 
 /* A single hint-row containing a hint editor and preview */
 var CombinedHintEditor = React.createClass({
+    propTypes: {
+        imageUploader: React.PropTypes.func
+    },
+
     render: function() {
         var shouldBold = this.props.isLast &&
                          !(/\*\*/).test(this.props.hint.content);
@@ -115,6 +100,7 @@ var CombinedHintEditor = React.createClass({
                 isLast={this.props.isLast}
                 content={this.props.hint.content}
                 images={this.props.hint.images}
+                imageUploader={this.props.imageUploader}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
                 onMove={this.props.onMove} />
@@ -142,10 +128,14 @@ var CombinedHintEditor = React.createClass({
  *  ~ All the hint previews
  *  ~ The "add a hint" button
  */
-var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
+var CombinedHintsEditor = React.createClass({
+    propTypes: {
+        imageUploader: React.PropTypes.func
+    },
+
     getDefaultProps: function() {
         return {
-            onChange: function() {},
+            onChange: () => {},
             hints: []
         };
     },
@@ -159,6 +149,7 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
                         isFirst={i === 0}
                         isLast={i + 1 === hints.length}
                         hint={hint}
+                        imageUploader={this.props.imageUploader}
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
                         onMove={this.handleHintMove.bind(this, i)} />;
@@ -218,4 +209,4 @@ var CombinedHintsEditor = Perseus.CombinedHintsEditor = React.createClass({
     }
 });
 
-})(Perseus);
+module.exports = CombinedHintsEditor;

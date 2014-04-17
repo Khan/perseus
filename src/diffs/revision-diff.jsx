@@ -3,10 +3,8 @@
 // Responsible for combining the text diffs from text-diff and the widget
 // diffs from widget-differ.
 
-(function(Perseus) {
-
-var WidgetDiff = require("./widget-diff.jsx");
 var TextDiff = require("./text-diff.jsx");
+var WidgetDiff = require("./widget-diff.jsx");
 
 // Deeply look up a property in an object,
 // -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
@@ -108,6 +106,4 @@ var RevisionDiff = React.createClass({
     }
 });
 
-Perseus.RevisionDiff = RevisionDiff;
-
-})(Perseus);
+module.exports = RevisionDiff;

@@ -70,10 +70,10 @@ require(["ke-deps.js"], function() {
     // require(["build/perseus.debug.js"], initPerseus);
 
     // built on demand
-    require(["src/editor-page-shim.js"], initPerseus);
+    require(["src/perseus.js"], initPerseus);
 });
 
-function initPerseus() {
+function initPerseus(Perseus) {
 
 var seedContent = {
     "question": {

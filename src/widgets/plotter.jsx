@@ -1,15 +1,10 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("../core.js");
-var Util = require("../util.js");
-
-var NumberInput = require("../components/number-input.jsx");
 var InfoTip = require("../components/info-tip.jsx");
+var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-var Widgets = require("../widgets.js");
 
-var deepEq = Util.deepEq;
+var deepEq = require("../util.js").deepEq;
 
 var BAR = "bar",
     LINE = "line",
@@ -1008,7 +1003,9 @@ var PlotterEditor = React.createClass({
     }
 });
 
-Widgets.register("plotter", Plotter);
-Widgets.register("plotter-editor", PlotterEditor);
-
-})(Perseus);
+module.exports = {
+    name: "plotter",
+    displayName: "Plotter",
+    widget: Plotter,
+    editor: PlotterEditor
+};

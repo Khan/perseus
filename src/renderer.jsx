@@ -1,15 +1,10 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("./core.js");
-var Util = require("./util.js");
 
 var TeX = require("./tex.jsx");
-var Widgets = require("./widgets.js");
-
+var Util = require("./util.js");
 var WidgetContainer = require("./widget-container.jsx");
+var Widgets = require("./widgets.js");
 var QuestionParagraph = require("./question-paragraph.jsx");
-
 
 var specialChars = {
     // escaped: original
@@ -29,7 +24,7 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
     // registry of crowdinId's to component so that we can update the
     // component's state as the translator enters their translation.
-    Perseus.TranslationComponents = [];
+    window.PerseusTranslationComponents = [];
 
     if (!KA.jipt_dom_insert_checks) {
         KA.jipt_dom_insert_checks = [];
@@ -41,7 +36,7 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
         var index = $(node).data("perseus-component-index");
         // We only update if we had added an index onto the node's data. 
         if (node && typeof index !== "undefined") {
-            var component = Perseus.TranslationComponents[index];
+            var component = window.PerseusTranslationComponents[index];
             // Jipt sends down the escaped translation, so we need to
             // unescape \\t to \t among other charachters here
             text = text.replace(
@@ -66,7 +61,7 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
 
 var CLEAR_WIDGETS_BLACKLIST = ["onChange", "highlightedWidgets"];
 
-var Renderer = Perseus.Renderer = React.createClass({
+var Renderer = React.createClass({
     propTypes: {
         highlightedWidgets: React.PropTypes.array,
         enableHighlight: React.PropTypes.bool
@@ -122,7 +117,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             var widgetInfo = (this.props.widgets || {})[id];
             if (widgetInfo || this.props.ignoreMissingWidgets) {
                 widgetIds.push(id);
-                var cls = Widgets.get(type);
+                var cls = Widgets.getWidget(type);
 
                 return <WidgetContainer
                     enableHighlight={this.props.enableHighlight}
@@ -172,7 +167,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             // time.
             if (!this.translationIndex) {
                 this.translationIndex = 
-                    Perseus.TranslationComponents.push(this) - 1;
+                    window.PerseusTranslationComponents.push(this) - 1;
             }
             // We now need to output this tag, as jipt looks for it to be
             // able to replace it with a translation that it runs an ajax 
@@ -186,7 +181,7 @@ var Renderer = Perseus.Renderer = React.createClass({
             </div>;
         }
         var self = this;
-        var extracted = extractMathAndWidgets(content);
+        var extracted = Renderer.extractMathAndWidgets(content);
         var markdown = extracted[0];
         var savedMath = extracted[1];
         var widgetIds = this.widgetIds = [];
@@ -354,6 +349,10 @@ var Renderer = Perseus.Renderer = React.createClass({
         }
 
         return examples[0];
+    },
+
+    statics: {
+        extractMathAndWidgets: extractMathAndWidgets
     }
 });
 
@@ -415,6 +414,4 @@ function extractMathAndWidgets(text) {
     }
 }
 
-Renderer.extractMathAndWidgets = extractMathAndWidgets;
-
-})(Perseus);
+module.exports = Renderer;

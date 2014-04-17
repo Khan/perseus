@@ -25,4 +25,3 @@ var pluck = exports.pluck = function(table, subKey) {
         return [key, value[subKey]];
     }));
 };
-

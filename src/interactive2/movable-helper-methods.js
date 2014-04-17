@@ -99,4 +99,3 @@ var MovableHelperMethods = {
 };
 
 module.exports = MovableHelperMethods;
-

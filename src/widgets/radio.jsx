@@ -1,17 +1,13 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("../core.js");
-var Util = require("../util.js");
 var Changeable = require("../mixins/changeable.jsx");
-require("../renderer.jsx");
-require("../editor.jsx");
 
-var Widgets = require("../widgets.js");
 var ButtonGroup = require("../components/button-group.jsx");
+var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
+var Renderer = require("../renderer.jsx");
 
-var shuffle = Util.shuffle;
+var shuffle = require("../util.js").shuffle;
 
 var BaseRadio = React.createClass({
     render: function() {
@@ -95,10 +91,10 @@ var Radio = React.createClass({
         choices = _.map(choices, function(choice, i) {
             return {
                 // We need to make a copy, which _.pick does
-                content: Perseus.Renderer(_.pick(choice, "content")),
+                content: Renderer(_.pick(choice, "content")),
                 correct: choice.correct,
                 checked: values[i],
-                clue: Perseus.Renderer({content: choice.clue}),
+                clue: Renderer({content: choice.clue}),
                 originalIndex: i
             };
         });
@@ -319,7 +315,7 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
-                    var editor = Perseus.Editor({
+                    var editor = Editor({
                         ref: "editor" + i,
                         content: choice.content || "",
                         widgetEnabled: false,
@@ -329,7 +325,7 @@ var RadioEditor = React.createClass({
                                 this.onContentChange(i, newProps.content);
                             }}
                     });
-                    var clueEditor = Perseus.Editor({
+                    var clueEditor = Editor({
                         ref: "clue-editor-" + i,
                         content: choice.clue || "",
                         widgetEnabled: false,
@@ -464,7 +460,9 @@ var RadioEditor = React.createClass({
     }
 });
 
-Widgets.register("radio", Radio);
-Widgets.register("radio-editor", RadioEditor);
-
-})(Perseus);
+module.exports = {
+    name: "radio",
+    displayName: "Multiple choice",
+    widget: Radio,
+    editor: RadioEditor
+};

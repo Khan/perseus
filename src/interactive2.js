@@ -1,4 +1,3 @@
-
 var Movable = require("./interactive2/movable.js");
 var MovablePoint = require("./interactive2/movable-point.js");
 var MovableLine = require("./interactive2/movable-line.js");

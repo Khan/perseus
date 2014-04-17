@@ -82,14 +82,14 @@ require(["ke-deps.js"], function() {
     // require(["build/perseus.debug.js"], initPerseus);
 
     // built on demand
-    require(["src/editor-page-shim.js"], initPerseus);
+    require(["src/perseus.js"], initPerseus);
 });
 
 $('#score').on('click', function() {
     console.log(zk.scoreInput());
 });
 
-function initPerseus() {
+function initPerseus(Perseus) {
 
 var seedContent = {
     "question": {

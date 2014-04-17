@@ -1,9 +1,6 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-// TODO(jack): Fix up all this requireness
-require("./item-editor.jsx");
-var ItemEditor = Perseus.ItemEditor;
+var ItemEditor = require("./item-editor.jsx");
 
 var StatefulItemEditor = React.createClass({
     getInitialState: function() {
@@ -53,5 +50,3 @@ var fixupJSON = function(jsonProps) {
 };
 
 module.exports = fixupJSON;
-
-})(Perseus);

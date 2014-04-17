@@ -1,6 +1,5 @@
 /** @jsx React.DOM */
 
-require("../core.js");
 var Util = require("../util.js");
 
 var defaultBoxSize = 400;
@@ -235,4 +234,3 @@ var Graph = React.createClass({
 });
 
 module.exports = Graph;
-

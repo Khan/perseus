@@ -1,20 +1,13 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-require("../renderer.jsx");
-var Util = require("../util.js");
-
-var shuffle = Util.shuffle;
-var seededRNG = Util.seededRNG;
 
 var InfoTip        = require("../components/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
-var Renderer       = Perseus.Renderer;
+var Renderer       = require("../renderer.jsx");
 var Sortable       = require("../components/sortable.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-var Widgets        = require("../widgets.js");
 
+var shuffle = require("../util.js").shuffle;
+var seededRNG = require("../util.js").seededRNG;
 
 var Matcher = React.createClass({
     propTypes: {
@@ -235,7 +228,9 @@ var MatcherEditor = React.createClass({
     }
 });
 
-Widgets.register("matcher", Matcher);
-Widgets.register("matcher-editor", MatcherEditor);
-
-})(Perseus);
+module.exports = {
+    name: "matcher",
+    displayName: "Two column matcher",
+    widget: Matcher,
+    editor: MatcherEditor
+};

@@ -1,14 +1,13 @@
 /** @jsx React.DOM */
 
-require("../core.js");
-var Util = require("../util.js");
-
 var Changeable  = require("../mixins/changeable.jsx");
+
+var ButtonGroup = require("../components/button-group.jsx");
 var InfoTip     = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
-var RangeInput = require("../components/range-input.jsx");
-var ButtonGroup = require("../components/button-group.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
+var RangeInput = require("../components/range-input.jsx");
+var Util = require("../util.js");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -452,4 +451,3 @@ var GraphSettings = React.createClass({
 });
 
 module.exports = GraphSettings;
-

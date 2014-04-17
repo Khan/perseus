@@ -1,3 +1,5 @@
+var Perseus = require("../src/perseus.js");
+
 asyncTest("extractMath", 10, function() {
     var extract = Perseus.Renderer.extractMathAndWidgets;
 

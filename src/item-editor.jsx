@@ -1,18 +1,16 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("./core.js");
-require("./editor.jsx");
-require("./answer-area-editor.jsx");
+var AnswerAreaEditor = require("./answer-area-editor.jsx");
+var Editor = require("./editor.jsx");
 
-var Editor = Perseus.Editor;
+var ItemEditor = React.createClass({
+    propTypes: {
+        imageUploader: React.PropTypes.func
+    },
 
-var AnswerAreaEditor = Perseus.AnswerAreaEditor;
-
-var ItemEditor = Perseus.ItemEditor = React.createClass({
     getDefaultProps: function() {
         return {
-            onChange: function() {},
+            onChange: () => {},
             question: {},
             answerArea: {}
         };
@@ -33,6 +31,7 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
                         ref: "questionEditor",
                         placeholder: "Type your question here...",
                         className: "perseus-question-editor",
+                        imageUploader: this.props.imageUploader,
                         onChange: function(newProps, cb) {
                             var question = _.extend({},
                                     this.props.question, newProps);
@@ -95,4 +94,4 @@ var ItemEditor = Perseus.ItemEditor = React.createClass({
     }
 });
 
-})(Perseus);
+module.exports = ItemEditor;

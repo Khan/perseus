@@ -1,11 +1,7 @@
 /** @jsx React.DOM */
 
-require("../core.js");
-var Util = require("../util.js");
-var Widgets = require("../widgets.js");
-
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var Changeable = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var InfoTip = require("../components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -13,7 +9,7 @@ var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("../components/button-group.jsx");
 var MultiButtonGroup = require("../components/multi-button-group.jsx");
 
-var numericParse = Util.firstNumericalParse;
+var numericParse = require("../util.js").firstNumericalParse;
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", text: "6"},
@@ -266,7 +262,7 @@ var NumericInputEditor = React.createClass({
         };
 
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
-            var editor = Perseus.Editor({
+            var editor = Editor({
                 content: answer.message || "",
                 placeholder: "Why is this answer " + answer.status + "?\t" +
                     instructions[answer.status],
@@ -404,5 +400,10 @@ var NumericInputEditor = React.createClass({
     }
 });
 
-Widgets.register("numeric-input", NumericInput);
-Widgets.register("numeric-input-editor", NumericInputEditor);
+module.exports = {
+    name: "numeric-input",
+    displayName: "Text input (number) 2",
+    hidden: true,
+    widget: NumericInput,
+    editor: NumericInputEditor
+};

@@ -1,16 +1,11 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-var Util = require("../util.js");
-
-var shuffle = Util.shuffle;
 
 var InfoTip        = require("../components/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
 var Sortable       = require("../components/sortable.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-var Widgets        = require("../widgets.js");
+
+var shuffle = require("../util.js").shuffle;
 
 var HORIZONTAL = "horizontal",
     VERTICAL = "vertical";
@@ -148,7 +143,9 @@ var SorterEditor = React.createClass({
     }
 });
 
-Widgets.register("sorter", Sorter);
-Widgets.register("sorter-editor", SorterEditor);
-
-})(Perseus);
+module.exports = {
+    name: "sorter",
+    displayName: "Sorter",
+    widget: Sorter,
+    editor: SorterEditor
+};

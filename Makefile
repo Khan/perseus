@@ -12,7 +12,7 @@ build:
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > build/perseus.js
 	echo "// commit `git rev-parse HEAD`" >> build/perseus.js
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> build/perseus.js
-	./node_modules/.bin/browserify -t reactiscriptsixify src/editor-page.jsx >> build/perseus.js
+	./node_modules/.bin/browserify src/perseus.js -s Perseus -t reactiscriptsixify >> build/perseus.js
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less build/perseus.css
 
 debug:
@@ -20,10 +20,10 @@ debug:
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > build/perseus.debug.js
 	echo "// commit `git rev-parse HEAD`" >> build/perseus.debug.js
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> build/perseus.debug.js
-	./node_modules/.bin/browserify -t reactiscriptsixify -d src/editor-page.jsx >> build/perseus.debug.js
+	./node_modules/.bin/browserify src/perseus.js -s Perseus -t reactiscriptsixify -d  >> build/perseus.debug.js
 
 server: update
-	./node_modules/.bin/beefy src/editor-page-shim.js test/test.js $(PORT) -- -t reactiscriptsixify -d
+	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t reactiscriptsixify -d
 
 demo:
 	git checkout gh-pages

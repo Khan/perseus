@@ -1,10 +1,6 @@
 /** @jsx React.DOM */
-(function(Perseus) {
 
-require("../core.js");
-require("../renderer.jsx");
-
-var Renderer = Perseus.Renderer;
+var Renderer = require("../renderer.jsx");
 
 var PREFIX = "perseus-sortable";
 
@@ -485,5 +481,3 @@ var Sortable = React.createClass({
 });
 
 module.exports = Sortable;
-
-})(Perseus);

@@ -1,20 +1,9 @@
 /** @jsx React.DOM */
 
-require("./core.js");
-require("./item-editor.jsx");
-require("./item-renderer.jsx");
-require("./hint-editor.jsx");
-require("./diffs/revision-diff.jsx");
-
+var CombinedHintsEditor = require("./hint-editor.jsx");
+var ItemEditor = require("./item-editor.jsx");
+var ItemRenderer = require("./item-renderer.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
-
-var ItemEditor = Perseus.ItemEditor;
-var ItemRenderer = Perseus.ItemRenderer;
-var CombinedHintsEditor = Perseus.CombinedHintsEditor;
-
-// We can't do this in core.js because fixupJSON requires ItemEditor,
-// which needs Perseus to already be defined.
-Perseus.fixupJSON = require("./fixup-json.jsx");
 
 var JsonEditor = React.createClass({
 
@@ -117,7 +106,15 @@ var JsonEditor = React.createClass({
     }
 });
 
-Perseus.EditorPage = React.createClass({
+var EditorPage = React.createClass({
+    propTypes: {
+        // A function which takes a file object (guaranteed to be an image) and
+        // a callback, then calls the callback with the url where the image
+        // will be hosted. Image drag and drop is disabled when imageUploader
+        // is null.
+        imageUploader: React.PropTypes.func
+    },
+
     getDefaultProps: function() {
         return {
             developerMode: false,
@@ -164,14 +161,16 @@ Perseus.EditorPage = React.createClass({
                     rendererOnly={this.props.jsonMode}
                     question={this.props.question}
                     answerArea={this.props.answerArea}
-                    onChange={this.handleChange}
-                    onCheckAnswer={() => console.log(this.scorePreview())} />
+                    imageUploader={this.props.imageUploader}
+                    onCheckAnswer={() => console.log(this.scorePreview())}
+                    onChange={this.handleChange} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
                 <CombinedHintsEditor
                     ref="hintsEditor"
                     hints={this.props.hints}
+                    imageUploader={this.props.imageUploader}
                     onChange={this.handleChange} />
             }
         </div>;
@@ -213,7 +212,7 @@ Perseus.EditorPage = React.createClass({
         );
 
         this.renderer = React.renderComponent(
-            Perseus.ItemRenderer(rendererConfig),
+            ItemRenderer(rendererConfig),
             this.rendererMountNode,
             cb);
     },
@@ -251,39 +250,4 @@ Perseus.EditorPage = React.createClass({
 
 });
 
-/* Renders an EditorPage as a non-controlled component.
- *
- * Normally the parent of EditorPage must pass it an onChange callback and then
- * respond to any changes by modifying the EditorPage props to reflect those
- * changes. With StatefulEditorPage changes are stored in state so you can
- * query them with toJSON.
- */
-Perseus.StatefulEditorPage = React.createClass({
-    render: function() {
-        return Perseus.EditorPage(this.state);
-    },
-    getInitialState: function() {
-        return _({}).extend(this.props, {
-            onChange: this.handleChange,
-            ref: "editor"
-        });
-    },
-    // getInitialState isn't called if the react component is re-rendered
-    // in-place on the dom, in which case this is called instead, so we
-    // need to update the state here.
-    // (This component is currently re-rendered by the "Add image" button.)
-    componentWillReceiveProps: function(nextProps) {
-        this.setState(nextProps);
-    },
-    toJSON: function() {
-        return this.refs.editor.toJSON();
-    },
-    handleChange: function(newState, cb) {
-        this.setState(newState, cb);
-    },
-    scorePreview: function() {
-        return this.refs.editor.scorePreview();
-    }
-});
-
-
+module.exports = EditorPage;

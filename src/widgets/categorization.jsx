@@ -1,13 +1,7 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-require("../renderer.jsx");
 
 var InfoTip = require("../components/info-tip.jsx");
-var Widgets = require("../widgets.js");
-
-var defaultNumCategories = 2;
+var Renderer = require("../renderer.jsx");
 
 function removeFromArray(array, item) {
     var index = _.indexOf(array, item);
@@ -540,7 +534,7 @@ var Category = React.createClass({
                         />
             </div>;
         } else {
-            header = Perseus.Renderer({
+            header = Renderer({
                 content: self.props.categoryHeader
             });
         }
@@ -567,7 +561,7 @@ var PlaceholderItem = React.createClass({
     render: function() {
         return <li className="card-container">
             <div className="card placeholder">
-                {Perseus.Renderer({content: this.props.item.content})}
+                {Renderer({content: this.props.item.content})}
             </div>
         </li>;
     }
@@ -645,7 +639,7 @@ var CategoryItem = React.createClass({
                 className={className}
                 onMouseDown={onMouseDown}
                 onTouchStart={onMouseDown}
-            >{Perseus.Renderer({content: content})}</div>;
+            >{Renderer({content: content})}</div>;
         }
 
         if (self.props.isDragItem) {
@@ -803,7 +797,9 @@ var CategorizationEditor = React.createClass({
     }
 });
 
-Widgets.register("categorization", Categorization);
-Widgets.register("categorization-editor", CategorizationEditor);
-
-})(Perseus);
+module.exports = {
+    name: "categorization",
+    displayName: "Categorization",
+    widget: Categorization,
+    editor: CategorizationEditor
+};

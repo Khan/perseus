@@ -9,7 +9,6 @@
  * TODO(jack): Add more comments
  */
 
-var Widgets = require("../widgets.js");
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
@@ -175,13 +174,12 @@ var ExampleWidgetEditor = React.createClass({
 
 
 /**
- * For this widget to work, we must register it.
- * We also must require() this file in src/all-widgets.js
- *
- * TODO(jack): Eventually make all-widgets.js do the
- * registration, and use module.exports to save the
- * renderer and editor.
+ * For this widget to work, we must require() this file in src/all-widgets.js
  */
-Widgets.register("example-widget", ExampleWidget);
-Widgets.register("example-widget-editor", ExampleWidgetEditor);
-
+module.exports = {
+    name: "example-widget",
+    displayName: "Example Widget",
+    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    widget: ExampleWidget,
+    editor: ExampleWidgetEditor
+};

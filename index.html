@@ -94,10 +94,10 @@ require(["ke-deps.js"], function() {
     // require(["build/perseus.debug.js"], initPerseus);
 
     // built on demand
-    // require(["src/editor-page-shim.js"], initPerseus);
+    // require(["src/perseus.js"], initPerseus);
 });
 
-function initPerseus() {
+function initPerseus(Perseus) {
 
 var defaultQuestion = {
     "question": {
@@ -213,7 +213,8 @@ Perseus.init({}).then(function() {
 
     var editorProps = _.extend(question, {
         problemNum: problemNum,
-        developerMode: true
+        developerMode: true,
+        imageUploader: function(image, callback) { _.delay(callback, 1000, "http://fake.image.url"); }
     });
 
     editor = React.renderComponent(

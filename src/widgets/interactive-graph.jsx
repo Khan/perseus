@@ -1,8 +1,4 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
@@ -10,7 +6,6 @@ var InfoTip       = require("../components/info-tip.jsx");
 var Interactive2  = require("../interactive2.js");
 var NumberInput   = require("../components/number-input.jsx");
 var Util          = require("../util.js");
-var Widgets       = require("../widgets.js");
 
 var knumber = KhanUtil.knumber;
 var kpoint  = KhanUtil.kpoint;
@@ -2287,7 +2282,9 @@ var InteractiveGraphEditor = React.createClass({
     }
 });
 
-Widgets.register("interactive-graph", InteractiveGraph);
-Widgets.register("interactive-graph-editor", InteractiveGraphEditor);
-
-})(Perseus);
+module.exports = {
+    name: "interactive-graph",
+    displayName: "Interactive graph",
+    widget: InteractiveGraph,
+    editor: InteractiveGraphEditor
+};

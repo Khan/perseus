@@ -1,16 +1,12 @@
 /** @jsx React.DOM */
-(function(Perseus) {
-
-require("../core.js");
-var Util = require("../util.js");
-require("../renderer.jsx");
 
 var InfoTip        = require("../components/info-tip.jsx");
+var Renderer       = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-var Widgets        = require("../widgets.js");
 
 var pointerDown = false;
 var currentTouchIdentifier = null;
+
 function extractPointerLocation(event) {
     var touchOrEvent;
 
@@ -143,7 +139,7 @@ var Card = React.createClass({
                     onTouchEnd={this.onMouseUp}
                     onTouchCancel={this.onMouseUp}>
                 <div className={className.join(" ")}>
-                    {Perseus.Renderer(rendererProps)}
+                    {Renderer(rendererProps)}
                 </div>
             </div>;
     },
@@ -691,8 +687,9 @@ var OrdererEditor = React.createClass({
     }
 });
 
-Widgets.register("orderer", Orderer);
-Widgets.register("orderer-editor", OrdererEditor);
-
-})(Perseus);
-
+module.exports = {
+    name: "orderer",
+    displayName: "Orderer",
+    widget: Orderer,
+    editor: OrdererEditor
+};

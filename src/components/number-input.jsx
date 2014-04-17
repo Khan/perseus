@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
-require("../core.js");
-var Util = require("../util.js");
+var firstNumericalParse = require("../util.js").firstNumericalParse;
 var knumber = KhanUtil.knumber;
 var toNumericString = KhanUtil.toNumericString;
 var getFormat = KhanUtil.getFormat;
@@ -98,7 +97,7 @@ var NumberInput = React.createClass({
             placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         } else {
-            var result = Util.firstNumericalParse(value);
+            var result = firstNumericalParse(value);
             return _.isFinite(result) ? result : this.props.value;
         }
     },
@@ -113,7 +112,7 @@ var NumberInput = React.createClass({
             return true;
         }
 
-        var val = Util.firstNumericalParse(value);
+        var val = firstNumericalParse(value);
         var checkValidity = this.props.checkValidity;
 
         return checkValidity(val) && _.isFinite(val);
@@ -164,4 +163,3 @@ var NumberInput = React.createClass({
 });
 
 module.exports = NumberInput;
-
