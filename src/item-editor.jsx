@@ -5,7 +5,9 @@ var Editor = require("./editor.jsx");
 
 var ItemEditor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        wasAnswered: React.PropTypes.bool,
+        gradeMessage: React.PropTypes.string
     },
 
     getDefaultProps: function() {
@@ -75,6 +77,11 @@ var ItemEditor = React.createClass({
                                 className="simple-button green"
                                 onClick={this.props.onCheckAnswer}
                                 value="Check Answer" />
+                            {this.props.wasAnswered &&
+                                <img src="/images/face-smiley.png"
+                                    className="smiley" />}
+                            {this.props.gradeMessage &&
+                                <span>{this.props.gradeMessage}</span>}
                         </div>
                     </div>
                 </div>

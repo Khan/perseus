@@ -128,7 +128,9 @@ var EditorPage = React.createClass({
                 question: this.props.question,
                 answer: this.props.answerArea,
                 hints: this.props.hints
-            }
+            },
+            gradeMessage: "",
+            wasAnswered: false
         };
     },
 
@@ -162,8 +164,10 @@ var EditorPage = React.createClass({
                     question={this.props.question}
                     answerArea={this.props.answerArea}
                     imageUploader={this.props.imageUploader}
-                    onCheckAnswer={() => console.log(this.scorePreview())}
-                    onChange={this.handleChange} />
+                    onChange={this.handleChange}
+                    wasAnswered={this.state.wasAnswered}
+                    gradeMessage={this.state.gradeMessage}
+                    onCheckAnswer={this.handleCheckAnswer} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -175,6 +179,14 @@ var EditorPage = React.createClass({
             }
         </div>;
 
+    },
+
+    handleCheckAnswer: function() {
+        var result = this.scorePreview();
+        this.setState({
+            gradeMessage: result.message,
+            wasAnswered: result.correct
+        });
     },
 
     toggleJsonMode: function() {
