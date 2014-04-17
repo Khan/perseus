@@ -9,6 +9,8 @@ var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("../components/button-group.jsx");
 var MultiButtonGroup = require("../components/multi-button-group.jsx");
 
+var Editor = require("../editor.jsx");
+
 var numericParse = require("../util.js").firstNumericalParse;
 
 var answerFormButtons = [
