@@ -3,6 +3,7 @@
 var InfoTip = require("../components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
+var RangeInput = require("../components/range-input.jsx");
 
 var deepEq = require("../util.js").deepEq;
 
@@ -692,7 +693,10 @@ var PlotterEditor = React.createClass({
         return {
             editing: "correct",
             pic: null,
-            loadedUrl: null
+            loadedUrl: null,
+            minX: null,
+            maxX: null,
+            tickStep: null
         };
     },
 
@@ -747,41 +751,54 @@ var PlotterEditor = React.createClass({
                     </label>;
                 }, this)}
             </div>
-            {setFromScale && <div>
+
+            {setFromScale && <div className="set-from-scale-box">
+                <span className="categories-title">
+                    Set Categories From Scale
+                </span>
                 <div>
                     <label>
-                        Scale (x):{' '}
-                        <input
-                            type="text"
-                            ref="scaleX" />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Max x:{' '}
-                        <input
-                            type="text"
-                            ref="maxX" />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Label Interval:{' '}
+                        Tick Step:{' '}
                         <NumberInput
-                            value={this.props.labelInterval}
-                            onChange={this.changeLabelInterval} />
+                            placeholder={1}
+                            useArrowKeys={true}
+                            value={this.state.tickStep}
+                            onChange={this.handleChangeTickStep} />
+                    </label>
+                    <InfoTip>
+                        <p>The difference between adjacent ticks.</p>
+                    </InfoTip>
+                </div>
+                <div>
+                    <label>
+                        Range:{' '}
+                        <RangeInput
+                            placeholder={[0, 10]}
+                            useArrowKeys={true}
+                            value={[this.state.minX, this.state.maxX]}
+                            onChange={this.handleChangeRange} />
                     </label>
                 </div>
                 <div>
                     <button onClick={this.setCategoriesFromScale}>
-                        Set categories from scale{' '}
+                        Set Categories{' '}
                     </button>
-                    <InfoTip>
-                      <p>Automatically sets categories according to the x-axis
-                      scale and max values.</p>
-                    </InfoTip>
                 </div>
             </div>}
+            <div>
+                <label>
+                    Label Interval:{' '}
+                    <NumberInput
+                        useArrowKeys={true}
+                        value={this.props.labelInterval}
+                        onChange={this.changeLabelInterval} />
+                </label>
+                <InfoTip>
+                    <p>Which ticks to display the labels for. For instance,
+                    setting this to "4" will only show every 4th label (plus
+                    the last one)</p>
+                </InfoTip>
+            </div>
             {this.props.type === PIC && <div>
                 <label>
                     Picture:{' '}
@@ -872,6 +889,19 @@ var PlotterEditor = React.createClass({
                     onChange={this.handlePlotterChange} />
             )}
         </div>;
+    },
+
+    handleChangeTickStep: function(value) {
+        this.setState({
+            tickStep: value
+        });
+    },
+
+    handleChangeRange: function(newValue) {
+        this.setState({
+            minX: newValue[0],
+            maxX: newValue[1]
+        });
     },
 
     changeLabelInterval: function(value) {
@@ -972,18 +1002,20 @@ var PlotterEditor = React.createClass({
     },
 
     setCategoriesFromScale: function() {
-        var scale = +this.refs["scaleX"].getDOMNode().value;
-        var max = +this.refs["maxX"].getDOMNode().value;
-        max = Math.ceil(max / scale) * scale;
+        var scale = this.state.tickStep || 1;
+        var min = this.state.minX || 0;
+        var max = this.state.maxX || 0;
+        var length = Math.floor((max - min) / scale) * scale;
 
         var categories;
         if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
             // Ranges for histogram and dotplot labels should start at zero
-            categories = _.range(0, max + scale, scale);
+            categories = _.range(0, length + scale, scale);
         } else {
-            categories = _.range(scale, max + scale, scale);
+            categories = _.range(scale, length + scale, scale);
         }
 
+        categories = _.map(categories, (num) => num + min);
         categories = _.map(categories, formatNumber);
 
         this.changeCategories(categories);
