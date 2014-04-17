@@ -391,10 +391,14 @@ var Transformations = {
         Input: React.createClass({
             getInitialState: function() {
                 return {
-                    vector: [null, null]
+                    vector: this.props.vector || [null, null]
                 };
             },
-
+            componentDidUpdate: function(prevProps) {
+                if (!deepEq(this.props, prevProps)) {
+                    this.setState({vector: this.props.vector});
+                }
+            },
             render: function() {
                 var vector = [
                     <TeX>\langle</TeX>,
@@ -482,11 +486,18 @@ var Transformations = {
         Input: React.createClass({
             getInitialState: function() {
                 return {
-                    center: [null, null],
-                    angleDeg: null
+                    center: this.props.center || [null, null],
+                    angleDeg: this.props.angleDeg || null
                 };
             },
-
+            componentDidUpdate: function(prevProps) {
+                if (!deepEq(this.props, prevProps)) {
+                    this.setState({
+                        center: this.props.center,
+                        angleDeg: this.props.angleDeg
+                    });
+                }
+            },
             render: function() {
                 var point = [
                     <TeX>(</TeX>,
@@ -591,33 +602,27 @@ var Transformations = {
         Input: React.createClass({
             getInitialState: function() {
                 return {
-                    line: [[null, null], [null, null]]
+                    line: this.props.line || [[null, null], [null, null]]
                 };
             },
-
+            componentDidUpdate: function(prevProps) {
+                if (!deepEq(this.props, prevProps)) {
+                    this.setState({line: this.props.line});
+                }
+            },
             render: function() {
                 var point1 = [<TeX>(</TeX>,
                     <NumberInput
                         ref="x1"
                         value={this.state.line[0][0]}
                         useArrowKeys={true}
-                        onChange={(val) => {
-                            var line = _.clone(this.state.line);
-                            line[0][0] = val;
-                            this.setState({line: line});
-                            this.props.onChange();
-                        }} />,
+                        onChange={this.changePoint.bind(this, 0, 0)} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y1"
                         value={this.state.line[0][1]}
                         useArrowKeys={true}
-                        onChange={(val) => {
-                            var line = _.clone(this.state.line);
-                            line[0][1] = val;
-                            this.setState({line: line});
-                            this.props.onChange();
-                        }} />,
+                        onChange={this.changePoint.bind(this, 0, 1)} />,
                     <TeX>)</TeX>
                 ];
                 var point2 = [<TeX>(</TeX>,
@@ -625,23 +630,13 @@ var Transformations = {
                         ref="x2"
                         value={this.state.line[1][0]}
                         useArrowKeys={true}
-                        onChange={(val) => {
-                            var line = _.clone(this.state.line);
-                            line[1][0] = val;
-                            this.setState({line: line});
-                            this.props.onChange();
-                        }} />,
+                        onChange={this.changePoint.bind(this, 1, 0)} />,
                     <TeX>{", {}"}</TeX>,
                     <NumberInput
                         ref="y2"
                         value={this.state.line[1][1]}
                         useArrowKeys={true}
-                        onChange={(val) => {
-                            var line = _.clone(this.state.line);
-                            line[1][1] = val;
-                            this.setState({line: line});
-                            this.props.onChange();
-                        }} />,
+                        onChange={this.changePoint.bind(this, 1, 1)} />,
                     <TeX>)</TeX>
                 ];
                 return <div>
@@ -649,6 +644,12 @@ var Transformations = {
                         Reflection over the line from %(point1)s to %(point2)s
                     </$_>
                 </div>;
+            },
+            changePoint: function(i, j, val) {
+                var line = _.map(this.state.line, _.clone);
+                line[i][j] = val;
+                this.setState({line: line});
+                this.props.onChange();
             },
             value: function() {
                 var x1 = this.refs.x1.getValue();
@@ -708,11 +709,18 @@ var Transformations = {
         Input: React.createClass({
             getInitialState: function() {
                 return {
-                    center: [null, null],
-                    scale: null
+                    center: this.props.center || [null, null],
+                    scale: this.props.scale || null
                 };
             },
-
+            componentDidUpdate: function(prevProps) {
+                if (!deepEq(this.props, prevProps)) {
+                    this.setState({
+                        center: this.props.center,
+                        scale: this.props.scale
+                    });
+                }
+            },
             render: function() {
                 var point = [<TeX>(</TeX>,
                     <NumberInput
