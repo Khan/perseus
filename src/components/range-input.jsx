@@ -7,7 +7,8 @@ var NumberInput = require("../components/number-input.jsx");
  */
 var RangeInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.array,
+        value: React.PropTypes.array.isRequired,
+        onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.array,
         checkValidity: React.PropTypes.func
     },
@@ -21,12 +22,14 @@ var RangeInput = React.createClass({
             {this.transferPropsTo(<NumberInput
                 value={value[0]}
                 checkValidity={val => checkValidity([val, value[1]])}
-                onChange={this.onChange.bind(this, 0)} />)}
+                onChange={this.onChange.bind(this, 0)}
+                placeholder={this.props.placeholder[0]} />)}
             ,
             {this.transferPropsTo(<NumberInput
                 value={value[1]}
                 checkValidity={val => checkValidity([value[0], val])}
-                onChange={this.onChange.bind(this, 1)} />)}
+                onChange={this.onChange.bind(this, 1)}
+                placeholder={this.props.placeholder[1]} />)}
             ]
         </div>;
     },
