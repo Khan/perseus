@@ -108,6 +108,7 @@ var GraphSettings = React.createClass({
                 <div className="perseus-widget-row">
                     <label>Markings:{' '} </label>
                     <ButtonGroup value={this.props.markings}
+                        allowEmpty={false}
                         buttons={[
                             {value: "graph", text: "Graph"},
                             {value: "grid", text: "Grid"},

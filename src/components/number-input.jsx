@@ -3,7 +3,7 @@
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var knumber = KhanUtil.knumber;
 var toNumericString = KhanUtil.toNumericString;
-var getFormat = KhanUtil.getFormat;
+var getNumericFormat = KhanUtil.getNumericFormat;
 
 /* An input box that accepts only numeric strings
  *
@@ -21,13 +21,14 @@ var getFormat = KhanUtil.getFormat;
 var NumberInput = React.createClass({
     propTypes: {
         value: React.PropTypes.number,
+        format: React.PropTypes.string,
         placeholder: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.number
         ]),
         onChange: React.PropTypes.func.isRequired,
+        onFormatChange: React.PropTypes.func,
         checkValidity: React.PropTypes.func,
-        format: React.PropTypes.string,
         size: React.PropTypes.string
     },
 
@@ -36,6 +37,7 @@ var NumberInput = React.createClass({
             value: null,
             placeholder: null,
             format: null,
+            onFormatChange: () => null,
             checkValidity: () => true,
             useArrowKeys: false
         };
@@ -117,14 +119,18 @@ var NumberInput = React.createClass({
         var val = firstNumericalParse(value);
         var checkValidity = this.props.checkValidity;
 
-        return checkValidity(val) && _.isFinite(val);
+        return _.isFinite(val) && checkValidity(val);
     },
 
     _handleChange: function(e) {
         var text = e.target.value;
-        this.props.onChange(this.parseInputValue(text), getFormat(text));
-        if (getFormat(text)) {
-            this.setState({format: getFormat(text)});
+        var value = this.getValue();
+        var format = getNumericFormat(text);
+
+        this.props.onChange(value);
+        if (format) {
+            this.props.onFormatChange(value, format);
+            this.setState({format: format});
         }
     },
 
@@ -155,7 +161,7 @@ var NumberInput = React.createClass({
         }
 
         if (this._checkValidity(val)) {
-            this.props.onChange(val, "integer");
+            this.props.onChange(val);
         }
     },
 

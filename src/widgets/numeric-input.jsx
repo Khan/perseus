@@ -11,7 +11,7 @@ var MultiButtonGroup = require("../components/multi-button-group.jsx");
 
 var Editor = require("../editor.jsx");
 
-var numericParse = require("../util.js").firstNumericalParse;
+var firstNumericalParse = require("../util.js").firstNumericalParse;
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", text: "6"},
@@ -282,18 +282,24 @@ var NumericInputEditor = React.createClass({
                         className="numeric-input-value"
                         placeholder="answer"
                         format={_.last(answer.answerForms)}
-                        onChange={(newValue, format) => {
-                            var fractions = ["mixed", "proper", "improper"];
+                        onFormatChange={(newValue, format) => {
                             var forms;
                             if (format === "pi") {
                                 forms = ["pi"];
-                            } else if (_(fractions).contains(format)) {
-                                forms = _.union(["proper"], [format]);
+                            } else if (format === "mixed") {
+                                forms = ["proper", "mixed"];
+                            } else if (format === "proper" ||
+                                       format === "improper") {
+                                forms = ["proper", "improper"];
                             }
                             this.updateAnswer(i, {
-                                value: numericParse(newValue),
+                                value: firstNumericalParse(newValue),
                                 answerForms: forms
                             });
+                        }}
+                        onChange={(newValue) => {
+                            this.updateAnswer(i, {
+                                value: firstNumericalParse(newValue)});
                         }} />
                     {answer.strict && <div className="is-strict-indicator"
                         title="strictly equivalent to">&equiv;</div>}
