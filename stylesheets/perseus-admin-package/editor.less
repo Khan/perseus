@@ -412,11 +412,9 @@
             border-bottom-right-radius: 3px;
         }
 
-        &:hover {
-            background-color: #ccc;
-        }
-
-        &:focus {
+        &:hover, &:focus {
+            outline: 2px solid #999;
+            outline-offset: -1px;
             z-index: 2;
         }
     }

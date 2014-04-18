@@ -21,7 +21,11 @@
 var ButtonGroup = React.createClass({
     propTypes: {
         value: React.PropTypes.any,
-        buttons: React.PropTypes.array.isRequired,
+        buttons: React.PropTypes.arrayOf(React.PropTypes.shape({
+            value: React.PropTypes.string.isRequired,
+            text: React.PropTypes.string,
+            title: React.PropTypes.string
+        })).isRequired,
         onChange: React.PropTypes.func.isRequired,
         allowEmpty: React.PropTypes.bool
     },
@@ -41,7 +45,7 @@ var ButtonGroup = React.createClass({
                         key={"" + i}
                         className={button.value === value ? "selected" : ""}
                         onClick={this.toggleSelect.bind(this, button.value)}>
-                    {button.text}
+                    {button.text || "" + button.value}
                 </button>
             );
 
