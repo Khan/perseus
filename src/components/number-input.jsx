@@ -91,8 +91,10 @@ var NumberInput = React.createClass({
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: function() {
-        var value = this.refs.input.getDOMNode().value;
+        return this.parseInputValue(this.refs.input.getDOMNode().value);
+    },
 
+    parseInputValue: function(value) {
         if (value === "") {
             placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
@@ -120,7 +122,7 @@ var NumberInput = React.createClass({
 
     _handleChange: function(e) {
         var text = e.target.value;
-        this.props.onChange(this.getValue(), getFormat(text));
+        this.props.onChange(this.parseInputValue(text), getFormat(text));
         if (getFormat(text)) {
             this.setState({format: getFormat(text)});
         }
