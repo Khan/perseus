@@ -13,6 +13,12 @@ var RangeInput = React.createClass({
         checkValidity: React.PropTypes.func
     },
 
+    getDefaultProps: function() {
+        return {
+            placeholder: [null, null]
+        };
+    },
+
     render: function() {
         var value = this.props.value;
         var checkValidity = this.props.checkValidity || (() => true);
