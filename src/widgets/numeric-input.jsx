@@ -317,12 +317,20 @@ var NumericInputEditor = React.createClass({
                     <div className="value-divider" />
                     <a href="javascript:void(0)"
                       className={"answer-status " + answer.status}
-                      onClick={this.onStatusChange.bind(this, i)}>
+                      onClick={this.onStatusChange.bind(this, i)}
+                      onKeyDown={(e) => {if (e.key === " ") {
+                        e.preventDefault(); // prevent page shifting
+                        this.onStatusChange(i);
+                      }}}>
                         {answer.status}
                     </a>
                     <a href="javascript:void(0)"
                        className="options-toggle"
-                       onClick={this.onToggleOptions.bind(this, i)}>
+                       onClick={this.onToggleOptions.bind(this, i)}
+                       onKeyDown={(e) => {if (e.key === " ") {
+                        e.preventDefault(); // prevent page shifting
+                        this.onToggleOptions(i);
+                      }}}>
                        <i className="icon-gear" />
                     </a>
                 </div>
