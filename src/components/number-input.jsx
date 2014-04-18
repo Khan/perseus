@@ -124,7 +124,7 @@ var NumberInput = React.createClass({
 
     _handleChange: function(e) {
         var text = e.target.value;
-        var value = this.getValue();
+        var value = this.parseInputValue(text);
         var format = getNumericFormat(text);
 
         this.props.onChange(value);
