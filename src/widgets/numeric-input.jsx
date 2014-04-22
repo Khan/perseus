@@ -74,9 +74,9 @@ var NumericInput = React.createClass({
     },
 
     examples: function() {
-        return _.map(this.props.answerForms, function(form) {
+        return _.map(this.props.answerForms, (form) => {
             return formExamples[form](this.props);
-        }, this);
+        });
     },
 
     statics: {
@@ -171,13 +171,14 @@ var NumericInputEditor = React.createClass({
 
     getInitialState: function() {
         return {
-            answers: this.props.answers,
+            lastStatus: "wrong",
             showOptions: _.map(this.props.answers, () => false)
         };
     },
 
     render: function() {
-        var answers = this.state.answers;
+        var lastStatus = this.state.lastStatus; // for a phantom last answer
+        var answers = this.props.answers.concat(initAnswer(lastStatus));
 
         var unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
             <label>Unsimplified answers are</label>
@@ -353,11 +354,6 @@ var NumericInputEditor = React.createClass({
 
     },
 
-    focus: function() {
-        this.refs["input_0"].getDOMNode().focus();
-        return true;
-    },
-
     onToggleOptions: function(choiceIndex) {
         var showOptions = this.state.showOptions.slice();
         showOptions[choiceIndex] = !showOptions[choiceIndex];
@@ -366,47 +362,42 @@ var NumericInputEditor = React.createClass({
 
     onStatusChange: function(choiceIndex) {
         var statuses = ["wrong", "ungraded", "correct"];
-        var answers = this.state.answers.slice();
+        var lastAnswer = initAnswer(this.state.lastStatus);
+        var answers = this.props.answers.concat(lastAnswer);
         var i = _.indexOf(statuses, answers[choiceIndex].status);
         var newStatus = statuses[(i + 1) % 3];
 
-        this.updateAnswer(choiceIndex, {
-            status: newStatus,
-            simplify: newStatus === "correct" ? "required" : "accepted"
-        });
-    },
-
-    // Replicates the behavior of the Changeable mixin
-    updateAnswerPartial: function(choiceIndex, key, value) {
-        if (typeof value === "undefined") {
-            return _.partial(this.updateAnswerPartial, choiceIndex, key);
+        // If we change the status of the new (phantom) answer
+        if (choiceIndex === answers.length - 1) {
+            this.setState({lastStatus: newStatus});
+        } else {
+            this.updateAnswer(choiceIndex, {
+                status: newStatus,
+                simplify: newStatus === "correct" ? "required" : "accepted"
+            });
         }
-        var update = {};
-        update[key] = value;
-        this.updateAnswer(choiceIndex, update);
     },
 
     updateAnswer: function(choiceIndex, update) {
         if (!_.isObject(update)) {
-            return this.updateAnswerPartial(choiceIndex, update);
+            return _.partial((choiceIndex, key, value) => {
+                var update = {};
+                update[key] = value;
+                this.updateAnswer(choiceIndex, update);
+            }, choiceIndex, update);
         }
-        var answers = this.state.answers.slice();
+        var lastAnswer = initAnswer(this.state.lastStatus);
+        var answers = this.props.answers.concat(lastAnswer);
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
         this.updateAllAnswers(answers);
     },
 
     updateAllAnswers: function(newAnswers) {
         // Filter out all the empty answers
-        var answers = _.filter(newAnswers, (c) => c.value != null ||
-                    (c.message != null && c.message !== ""));
+        var answers = _.filter(newAnswers, (c) => {
+            return c.value != null || (c.message != null && c.message !== "");
+        });
 
-        var lastStatus = answers.length !== newAnswers.length ?
-            // If the user just changed the status of the last clue, save it
-            newAnswers[newAnswers.length - 1].status :
-            // Otherwise, newly generated clues will default to wrong
-            lastStatus = "wrong";
-
-        this.setState({answers: answers.concat([initAnswer(lastStatus)])});
         var sortedAnswers = ([]).concat(
             _.where(answers, {status: "correct"}),
             _.where(answers, {status: "ungraded"}),
@@ -418,7 +409,7 @@ var NumericInputEditor = React.createClass({
 
 module.exports = {
     name: "numeric-input",
-    displayName: "Text input (number) 2",
+    displayName: "Numeric Input",
     hidden: true,
     widget: NumericInput,
     editor: NumericInputEditor
