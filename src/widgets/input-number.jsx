@@ -284,9 +284,14 @@ var InputNumberEditor = React.createClass({
     }
 });
 
+var propTransform = (editorProps) => {
+    return _.pick(editorProps, "simplify", "size", "answerType");
+};
+
 module.exports = {
     name: "input-number",
     displayName: "Text input (number)",
     widget: InputNumber,
-    editor: InputNumberEditor
+    editor: InputNumberEditor,
+    transform: propTransform
 };

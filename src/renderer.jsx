@@ -118,15 +118,19 @@ var Renderer = React.createClass({
             if (widgetInfo || this.props.ignoreMissingWidgets) {
                 widgetIds.push(id);
                 var cls = Widgets.getWidget(type);
+                var transform = Widgets.getTransform(type);
+
+                var editorProps = _.extend({}, (widgetInfo || {}).options);
+                var widgetProps = _.extend(
+                    transform(editorProps),
+                    this.state.widgets[id]
+                );
 
                 return <WidgetContainer
                     enableHighlight={this.props.enableHighlight}
                     shouldHighlight={_.contains(
                         this.props.highlightedWidgets, id)}>
-                    {cls(_.extend({},
-                        (widgetInfo || {}).options,
-                        this.state.widgets[id],
-                        {
+                    {cls(_.extend(widgetProps, {
                             ref: id,
                             problemNum: this.props.problemNum,
                             onChange: (newProps, cb) => {
@@ -136,8 +140,8 @@ var Renderer = React.createClass({
                                 this.setState({widgets: widgets}, cb);
                                 this.props.onInteractWithWidget(id);
                             }
-                        }
-                    ))}
+                        })
+                    )}
                 </WidgetContainer>;
             }
         }
