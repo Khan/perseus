@@ -570,12 +570,13 @@ var Plotter = React.createClass({
                 .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
                 .on("mousedown", function(e) {
                     self.mousedownPic = true;
+                    self.whichPicClicked = i;
                     self.setPicHeight(i, topY);
                     e.preventDefault();
                 })
                 .on("mouseover", function() {
                     if (self.mousedownPic) {
-                        self.setPicHeight(i, topY);
+                        self.setPicHeight(self.whichPicClicked, topY);
                     }
                 });
 
