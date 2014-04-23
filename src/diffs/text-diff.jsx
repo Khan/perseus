@@ -59,9 +59,17 @@ var ImageDiffSide = React.createClass({
 
 var TextDiff = React.createClass({
     propTypes: {
-        before: React.PropTypes.string.isRequired,
-        after: React.PropTypes.string.isRequired,
-        title: React.PropTypes.string.isRequired
+        before: React.PropTypes.string,
+        after: React.PropTypes.string,
+        title: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {
+            before: "",
+            after: "",
+            title: ""
+        };
     },
 
     getInitialState: function() {
