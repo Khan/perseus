@@ -7,9 +7,27 @@ var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
 
+var InfoTip = require("../components/info-tip.jsx");
+
 var shuffle = require("../util.js").shuffle;
 
+var cx = React.addons.classSet;
+
 var BaseRadio = React.createClass({
+    propTypes: {
+        labelWrap: React.PropTypes.bool,
+        multipleSelect: React.PropTypes.bool,
+        onCheckedChange: React.PropTypes.func,
+        showClues: React.PropTypes.bool,
+        onePerLine: React.PropTypes.bool
+    },
+
+    getDefaultProps: function() {
+        return {
+            onePerLine: true
+        };
+    },
+
     render: function() {
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
@@ -39,14 +57,18 @@ var BaseRadio = React.createClass({
                             </div>}
                     </div>;
 
+                var className = cx({
+                    "inline": !this.props.onePerLine
+                });
+
                 if (this.props.labelWrap) {
-                    return <li>
+                    return <li className={className}>
                         <label className="interactive-component">
                             {content}
                         </label>
                     </li>;
                 } else {
-                    return <li>{content}</li>;
+                    return <li className={className}>{content}</li>;
                 }
 
             }, this)}
@@ -109,6 +131,7 @@ var Radio = React.createClass({
         return <BaseRadio
             ref="baseRadio"
             labelWrap={true}
+            onePerLine={this.props.onePerLine}
             multipleSelect={this.props.multipleSelect}
             showClues={this.state.showClues}
             choices={choices.map(function(choice) {
@@ -267,13 +290,30 @@ var RadioEditor = React.createClass({
             choices: [{}, {}],
             displayCount: null,
             randomize: false,
-            multipleSelect: false
+            multipleSelect: false,
+            onePerLine: true
         };
     },
 
     render: function() {
         return <div>
             <div className="perseus-widget-row">
+
+                <div>
+                    <div className="perseus-widget-left-col">
+                        <PropCheckBox label="One Answer Per Line"
+                                      labelAlignment="right"
+                                      onePerLine={this.props.onePerLine}
+                                      onChange={this.props.onChange} />
+                    </div>
+                    <InfoTip>
+                        <p>
+                            Use One Answer Per Line unless your question has
+                            images that might cause the answers to go off the
+                            page.
+                        </p>
+                    </InfoTip>
+                </div>
 
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="Multiple selections"
@@ -310,6 +350,7 @@ var RadioEditor = React.createClass({
             <BaseRadio
                 ref="baseRadio"
                 multipleSelect={this.props.multipleSelect}
+                onePerLine={true}
                 labelWrap={false}
                 choices={this.props.choices.map(function(choice, i) {
                     var checkedClass = choice.correct ?
@@ -456,7 +497,7 @@ var RadioEditor = React.createClass({
         }
 
         return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "noneOfTheAbove");
+            "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
     }
 });
 
