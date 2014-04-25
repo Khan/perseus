@@ -250,12 +250,14 @@ var Plotter = React.createClass({
 
         if (self.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
-            var scale = _.times(self.props.categories.length - 1, function(i) {
-                return self.setupHistogram(i, self.state.values[i], config);
+            _.times(self.props.categories.length - 1, function(i) {
+                self.setupBar({
+                    index: i,
+                    startHeight: self.state.values[i],
+                    config: config,
+                    isHistogram: true
+                });
             });
-
-            // Scale buckets (bars) and dividers
-            _.invoke(scale, "call");
 
             // Label categories
             _.each(self.props.categories, function(category, i) {
@@ -275,7 +277,12 @@ var Plotter = React.createClass({
                 var x;
 
                 if (self.props.type === BAR) {
-                    x = self.setupBar(i, startHeight, config);
+                    x = self.setupBar({
+                        index: i,
+                        startHeight: startHeight,
+                        config: config,
+                        isHistogram: false
+                    });
                 } else if (self.props.type === LINE) {
                     x = self.setupLine(i, startHeight, config);
                 } else if (self.props.type === PIC) {
@@ -314,76 +321,87 @@ var Plotter = React.createClass({
         }
     },
 
-    setupHistogram: function(i, startHeight, config) {
+    setupBar: function(args) {
+        var i = args.index;
+        var startHeight = args.startHeight;
+        var config = args.config;
+        var isHistogram = args.isHistogram;
+
         var self = this;
-        var c = config;
         var graphie = self.graphie;
-        var barHalfWidth = c.barWidth / 2;
-        var x = 0.5 + i * c.barWidth + barHalfWidth;
+        var barHalfWidth = config.barWidth / 2;
+        var x;
+        if (isHistogram) {
+            x = 0.5 + i * config.barWidth + barHalfWidth;
+        } else {
+            x = 0.5 + i + config.barPad;
+        }
 
         var scaleBar = function(i, height) {
             var center = graphie.scalePoint(0);
 
             // Scale filled bucket (bar)
-            c.graph.bars[i].scale(
-                1, Math.max(0.01, height / c.scaleY),
-                center[0], center[1]
-            );
+            config.graph.bars[i].scale(
+                    1, Math.max(0.01, height / config.scaleY),
+                    center[0], center[1]);
 
-            // Scale dividers between buckets
-            var leftDivider = c.graph.dividers[i - 1],
-                rightDivider = c.graph.dividers[i];
+            if (isHistogram) {
+                // Scale dividers between buckets
+                var leftDivider = config.graph.dividers[i - 1],
+                    rightDivider = config.graph.dividers[i];
 
-            if (leftDivider) {
-                var divHeight = Math.min(self.state.values[i - 1], height);
-                leftDivider.scale(
-                    1, Math.max(0.01, divHeight / c.scaleY),
-                    center[0], center[1]
-                );
-            }
+                if (leftDivider) {
+                    var divHeight = Math.min(self.state.values[i - 1], height);
+                    leftDivider.scale(
+                        1, Math.max(0.01, divHeight / config.scaleY),
+                        center[0], center[1]);
+                }
 
-            if (rightDivider) {
-                var divHeight = Math.min(height, self.state.values[i + 1]);
-                rightDivider.scale(
-                    1, Math.max(0.01, divHeight / c.scaleY),
-                    center[0], center[1]
-                );
+                if (rightDivider) {
+                    var divHeight = Math.min(self.state.values[i + 1], height);
+                    rightDivider.scale(
+                        1, Math.max(0.01, divHeight / config.scaleY),
+                        center[0], center[1]
+                    );
+                }
             }
 
             // Align top of bar to edge unless at bottom
             if (height) {
-                c.graph.lines[i].visibleLine.translate(0, 2);
+                config.graph.lines[i].visibleLine.translate(0, 2);
             }
         };
 
         graphie.style({
             stroke: "none", fill: "#9ab8ed", opacity: 1.0
         }, function() {
-            c.graph.bars[i] = graphie.path([
+            config.graph.bars[i] = graphie.path([
                 [x - barHalfWidth, 0],
-                [x - barHalfWidth, c.scaleY],
-                [x + barHalfWidth, c.scaleY],
+                [x - barHalfWidth, config.scaleY],
+                [x + barHalfWidth, config.scaleY],
                 [x + barHalfWidth, 0],
                 [x - barHalfWidth, 0]
             ]);
         });
 
-        if (i) {
-            // Don't draw a divider to the left of the first bucket
-            graphie.style({
-                stroke: "#000", strokeWidth: 1, opacity: 0.3
-            }, function() {
-                c.graph.dividers.push(graphie.path([
-                    [x - barHalfWidth, 0],
-                    [x - barHalfWidth, c.scaleY]
-                ]));
-            });
+        if (isHistogram) {
+            if (i > 0) {
+                // Don't draw a divider to the left of the first bucket
+                graphie.style({
+                    stroke: "#000", strokeWidth: 1, opacity: 0.3
+                }, function() {
+                    config.graph.dividers.push(graphie.path([
+                        [x - barHalfWidth, 0],
+                        [x - barHalfWidth, config.scaleY]
+                    ]));
+                });
+            }
         }
 
-        c.graph.lines[i] = graphie.addMovableLineSegment({
+        config.graph.lines[i] = graphie.addMovableLineSegment({
             coordA: [x - barHalfWidth, startHeight],
             coordZ: [x + barHalfWidth, startHeight],
-            snapY: c.scaleY / self.props.snapsPerLine,
+            snapY: config.scaleY / self.props.snapsPerLine,
             constraints: {
                 constrainX: true
             },
@@ -393,75 +411,10 @@ var Plotter = React.createClass({
             }
         });
 
-        c.graph.lines[i].onMove = function(dx, dy) {
+        config.graph.lines[i].onMove = function(dx, dy) {
             var y = this.coordA[1];
-            if (y < 0 || y > c.dimY) {
-                y = Math.min(Math.max(y, 0), c.dimY);
-                this.coordA[1] = this.coordZ[1] = y;
-
-                // Snap the line back into range.
-                this.transform();
-            }
-
-            var values = _.clone(self.state.values);
-            values[i] = y;
-            self.setState({values: values});
-            self.props.onChange({ values: values });
-
-            scaleBar(i, y);
-        };
-
-        return _.bind(scaleBar, this, i, startHeight);
-    },
-
-    setupBar: function(i, startHeight, config) {
-        var self = this;
-        var c = config;
-        var graphie = self.graphie;
-        var x = i + 0.5 + c.barPad;
-        var barHalfWidth = c.barWidth / 2;
-
-        var scaleBar = function(i, height) {
-            var center = graphie.scalePoint(0);
-            c.graph.bars[i].scale(
-                    1, Math.max(0.01, height / c.scaleY),
-                    center[0], center[1]);
-
-            // Align top of bar to edge unless at bottom
-            if (height) {
-                c.graph.lines[i].visibleLine.translate(0, 2);
-            }
-        };
-
-        graphie.style(
-            {stroke: "none", fill: "#9ab8ed", opacity: 1.0},
-            function() {
-                c.graph.bars[i] = graphie.path([
-                    [x - barHalfWidth, 0],
-                    [x - barHalfWidth, c.scaleY],
-                    [x + barHalfWidth, c.scaleY],
-                    [x + barHalfWidth, 0],
-                    [x - barHalfWidth, 0]
-                ]);
-            });
-
-        c.graph.lines[i] = graphie.addMovableLineSegment({
-            coordA: [x - barHalfWidth, startHeight],
-            coordZ: [x + barHalfWidth, startHeight],
-            snapY: c.scaleY / self.props.snapsPerLine,
-            constraints: {
-                constrainX: true
-            },
-            normalStyle: {
-                "stroke": KhanUtil.BLUE,
-                "stroke-width": 4
-            }
-        });
-
-        c.graph.lines[i].onMove = function(dx, dy) {
-            var y = this.coordA[1];
-            if (y < 0 || y > c.dimY) {
-                y = Math.min(Math.max(y, 0), c.dimY);
+            if (y < 0 || y > config.dimY) {
+                y = Math.min(Math.max(y, 0), config.dimY);
                 this.coordA[1] = this.coordZ[1] = y;
 
                 // Snap the line back into range.
