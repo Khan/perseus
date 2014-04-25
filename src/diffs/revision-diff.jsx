@@ -40,7 +40,11 @@ var RevisionDiff = React.createClass({
         // Not going to handle inserting hints in the middle so well, but
         // that's pretty complicated to handle nicely.
         // This will do for now.
-        var hintCount = Math.max(before.hints.length, after.hints.length);
+        var hintCount = 0;
+        if (_(before).has("hints") && _(after).has("hints")) {
+            hintCount = Math.max(before.hints.length, after.hints.length);
+        }
+
         var widgets = _.union(widgetsIn(before), widgetsIn(after));
         var sections = [
             {
