@@ -409,8 +409,7 @@ var NumericInputEditor = React.createClass({
 
 module.exports = {
     name: "numeric-input",
-    displayName: "Numeric Input",
-    hidden: true,
+    displayName: "Number text box (new)",
     widget: NumericInput,
     editor: NumericInputEditor
 };
