@@ -64,7 +64,10 @@ var CLEAR_WIDGETS_BLACKLIST = ["onChange", "highlightedWidgets"];
 var Renderer = React.createClass({
     propTypes: {
         highlightedWidgets: React.PropTypes.array,
-        enableHighlight: React.PropTypes.bool
+        enabledFeatures: React.PropTypes.shape({
+            highlight: React.PropTypes.bool.isRequired,
+            toolTipFormats: React.PropTypes.bool.isRequired
+        }).isRequired
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -78,7 +81,10 @@ var Renderer = React.createClass({
         return {
             content: "",
             ignoreMissingWidgets: false,
-            enableHighlight: false,
+            enabledFeatures: {
+                highlight: false,
+                toolTipFormats: false
+            },
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -127,7 +133,7 @@ var Renderer = React.createClass({
                 );
 
                 return <WidgetContainer
-                    enableHighlight={this.props.enableHighlight}
+                    enableHighlight={this.props.enabledFeatures.highlight}
                     shouldHighlight={_.contains(
                         this.props.highlightedWidgets, id)}>
                     {cls(_.extend(widgetProps, {

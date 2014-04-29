@@ -36,7 +36,8 @@ var ItemRenderer = React.createClass({
             workAreaSelector: "#workarea",
             solutionAreaSelector: "#solutionarea",
             hintsAreaSelector: "#hintsarea",
-            enableHighlight: false
+
+            enabledFeatures: {}  // a deep default is done in `this.update()`
         };
     },
 
@@ -67,6 +68,13 @@ var ItemRenderer = React.createClass({
     },
 
     update: function() {
+        var enabledFeatures = _.extend({
+            // for temporary backcompat:
+            // TODO(jack): Remove once enabledFeatures is specified from webapp
+            highlight: this.props.enableHighlight || false,
+            toolTipFormats: false
+        }, this.props.enabledFeatures);
+
         // Since the item renderer works by rendering things into three divs
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
@@ -76,7 +84,7 @@ var ItemRenderer = React.createClass({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithWidget,
                     highlightedWidgets: this.state.questionHighlightedWidgets,
-                    enableHighlight: this.props.enableHighlight
+                    enabledFeatures: enabledFeatures
                 }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
@@ -88,7 +96,7 @@ var ItemRenderer = React.createClass({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithAnswerWidget,
                     highlightedWidgets: this.state.answerHighlightedWidgets,
-                    enableHighlight: this.props.enableHighlight
+                    enabledFeatures: enabledFeatures
                 }),
                 document.querySelector(this.props.solutionAreaSelector));
 

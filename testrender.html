@@ -93,14 +93,22 @@ function initPerseus(Perseus) {
 
 var seedContent = {
     "question": {
-        "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/1bb4dc66b1542f1dbd388245d2471da5e8d59b05.png)",
-        "images": {
-            "https://ka-perseus-graphie.s3.amazonaws.com/1bb4dc66b1542f1dbd388245d2471da5e8d59b05.png": {
-                "width": 400,
-                "height": 400
+        "content": "[[☃ input-number 1]]",
+        "images": {},
+        "widgets": {
+            "input-number 1": {
+                "type": "input-number",
+                "graded": true,
+                "options": {
+                    "value": 5,
+                    "simplify": "required",
+                    "size": "normal",
+                    "inexact": false,
+                    "maxError": 0.1,
+                    "answerType": "number"
+                }
             }
-        },
-        "widgets": {}
+        }
     },
     "answerArea": {
         "type": "multiple",
@@ -114,13 +122,16 @@ var seedContent = {
     "hints": []
 };
 
-
 Perseus.init({}).then(function() {
     var itemMountNode = document.createElement("div");
     zk = React.renderComponent(Perseus.ItemRenderer({
         item: seedContent,
         problemNum: Math.floor(Math.random() * 50) + 1,
-        initialHintsVisible: seedContent.hints.length
+        initialHintsVisible: seedContent.hints.length,
+        enabledFeatures: {
+            highlight: true,
+            toolTipFormats: true
+        }
     }, null), itemMountNode);
     zk.focus();
 }).then(function() {

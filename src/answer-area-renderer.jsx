@@ -11,7 +11,10 @@ var SINGLE_ITEM_WIDGET_ID = "answer-area";
 var AnswerAreaRenderer = React.createClass({
     propTypes: {
         onInteractWithWidget: React.PropTypes.func.isRequired,
-        enableHighlight: React.PropTypes.bool.isRequired,
+        enabledFeatures: React.PropTypes.shape({
+            highlight: React.PropTypes.bool.isRequired,
+            toolTipFormats: React.PropTypes.bool.isRequired
+        }).isRequired,
         highlightedWidgets: React.PropTypes.array.isRequired
     },
 
@@ -60,7 +63,7 @@ var AnswerAreaRenderer = React.createClass({
             onChange: this.handleChangeRenderer,
             onInteractWithWidget: this.props.onInteractWithWidget,
             highlightedWidgets: this.props.highlightedWidgets,
-            enableHighlight: this.props.enableHighlight
+            enabledFeatures: this.props.enabledFeatures
         }, this.props.options, this.state.widget));
     },
 
@@ -70,7 +73,7 @@ var AnswerAreaRenderer = React.createClass({
 
         return <QuestionParagraph>
             <WidgetContainer
-                enableHighlight={this.props.enableHighlight}
+                enableHighlight={this.props.enabledFeatures.highlight}
                 shouldHighlight={shouldHighlight} >
                 {this.state.cls(_.extend({
                     ref: "widget",
