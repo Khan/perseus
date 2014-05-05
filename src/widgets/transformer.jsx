@@ -1449,7 +1449,7 @@ var TransformationList = React.createClass({
             return <span />;  // don't render anything
         }
 
-        this.transformationList = _.map(
+        var transformationList = _.map(
             this.props.transformations,
             function(transform, i) {
                 return <TransformationListItem
@@ -1463,14 +1463,18 @@ var TransformationList = React.createClass({
         );
 
         return <div className="perseus-transformation-list">
-            {this.transformationList}
+            {transformationList}
         </div>;
     },
 
+    _transformationRefs: function() {
+        return _.times(this.props.transformations.length, (i) => {
+            return this.refs["transformation" + i];
+        });
+    },
+
     value: function() {
-        return _.times(this.props.transformations.length, function(i) {
-            return this.refs["transformation" + i].value();
-        }, this);
+        return _.invoke(this._transformationRefs(), "value");
     },
 
     handleChange: function() {
@@ -1478,8 +1482,9 @@ var TransformationList = React.createClass({
     },
 
     focusLast: function() {
-        if (this.transformationList.length) {
-            _.last(this.transformationList).focus();
+        var transformationRefs = this._transformationRefs();
+        if (transformationRefs.length !== 0) {
+            _.last(transformationRefs).focus();
         }
     }
 });
@@ -2240,7 +2245,7 @@ var Transformer = React.createClass({
         this.shape.update();
     },
 
-    // Remove the last transfromation
+    // Remove the last transformation
     handleUndoClick: function() {
         this.refs.toolsBar.changeSelected(null);
         if (this.props.transformations.length) {
