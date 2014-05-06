@@ -11,17 +11,17 @@ var Table = React.createClass({
         return <table className="perseus-widget-table-of-values non-markdown">
             <thead>
                 <tr>{
-                    _.map(headers, function(header) {
-                        return <th>{Renderer({content: header})}</th>;
+                    _.map(headers, function(header, i) {
+                        return <th key={i}>{Renderer({content: header})}</th>;
                     })
                 }
                 </tr>
             </thead>
             <tbody>{
                 _(this.props.rows).times(function(r) {
-                    return <tr>{
+                    return <tr key={r}>{
                         _(this.props.columns).times((c) => {
-                            return <td>
+                            return <td key={c}>
                                 <input
                                     ref={"answer" + r + "," + c}
                                     type="text"
@@ -187,8 +187,8 @@ var TableEditor = React.createClass({
                             <input
                                 type="radio"
                                 checked="checked"
-                            />
-                            {' '}Set of values (complete){' '}
+                                readOnly={true} />
+                            Set of values (complete)
                         </label>
                         <InfoTip>
                             <p>The student has to fill out all cells in the
@@ -204,7 +204,7 @@ var TableEditor = React.createClass({
                     <thead>
                         <tr>{
                             _(cols).times(function(i) {
-                                return <th>
+                                return <th key={i}>
                                     <Editor
                                         ref={"columnHeader" + i}
                                         content={self.props.headers[i]}
@@ -219,9 +219,9 @@ var TableEditor = React.createClass({
                     </thead>
                     <tbody>{
                         _(rows).times(function(r) {
-                            return <tr>{
+                            return <tr key={r}>{
                                 _(cols).times(function(c) {
-                                    return <td>
+                                    return <td key={c}>
                                         <input
                                             ref={"answer" + r + "," + c}
                                             type="text"

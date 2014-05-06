@@ -280,7 +280,7 @@ var NumericInputEditor = React.createClass({
                     }
                 }
             });
-            return <div className="perseus-widget-row">
+            return <div className="perseus-widget-row" key={i}>
                 <div className={"input-answer-editor-value-container" +
                     (answer.maxError ? " with-max-error" : "")}>
                     <NumberInput value={answer.value}

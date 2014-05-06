@@ -62,13 +62,13 @@ var BaseRadio = React.createClass({
                 });
 
                 if (this.props.labelWrap) {
-                    return <li className={className}>
+                    return <li className={className} key={i}>
                         <label className="interactive-component">
                             {content}
                         </label>
                     </li>;
                 } else {
-                    return <li className={className}>{content}</li>;
+                    return <li className={className} key={i}>{content}</li>;
                 }
 
             }, this)}

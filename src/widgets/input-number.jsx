@@ -175,7 +175,7 @@ var InputNumberEditor = React.createClass({
 
     render: function() {
         var answerTypeOptions = _.map(answerTypes, function(v, k) {
-            return <option value={k}>{v.name}</option>;
+            return <option value={k} key={k}>{v.name}</option>;
         }, this);
 
         return <div>

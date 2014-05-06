@@ -108,7 +108,7 @@ var WidgetSelect = React.createClass({
             <option value="">Add a widget{"\u2026"}</option>
             <option disabled>--</option>
             {_.map(orderedWidgetNames, (name) => {
-                return <option value={name}>
+                return <option value={name} key={name}>
                     {widgets[name].displayName}
                 </option>;
             })}
