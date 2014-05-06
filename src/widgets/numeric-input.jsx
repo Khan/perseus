@@ -74,7 +74,10 @@ var NumericInput = React.createClass({
     },
 
     examples: function() {
-        return _.map(this.props.answerForms, (form) => {
+        // if the set of specified forms are empty, allow all forms
+        var forms = this.props.answerForms.length !== 0 ?
+                this.props.answerForms : _.keys(formExamples);
+        return _.map(forms, (form) => {
             return formExamples[form](this.props);
         });
     },
@@ -96,7 +99,8 @@ _.extend(NumericInput, {
                         answer.simplify : "optional",
                     inexact: true, // TODO(merlob) backfill / delete
                     maxError: answer.maxError,
-                    forms: answer.strict ? answer.answerForms : allAnswerForms
+                    forms: (answer.strict && answer.answerForms.length !== 0) ?
+                            answer.answerForms : allAnswerForms
             });
 
         // Look through all correct answers for one that matches either
@@ -407,9 +411,33 @@ var NumericInputEditor = React.createClass({
     }
 });
 
+var unionAnswerForms = function(answerFormsList) {
+    var set = {};
+    _.each(answerFormsList, (answerForms) => {
+        _.each(answerForms, (form) => {
+            set[form] = true
+        });
+    });
+    // Make sure to keep the order of forms in formExamples
+    return _.filter(_.keys(formExamples), (form) => set[form] === true);
+};
+
+var propsTransform = function(editorProps) {
+    var rendererProps = _.extend(
+        _.omit(editorProps, "answers"),
+        {
+            answerForms: unionAnswerForms(
+                _.pluck(editorProps.answers, "answerForms")
+            )
+        }
+    );
+    return rendererProps;
+};
+
 module.exports = {
     name: "numeric-input",
     displayName: "Number text box (new)",
     widget: NumericInput,
-    editor: NumericInputEditor
+    editor: NumericInputEditor,
+    transform: propsTransform
 };
