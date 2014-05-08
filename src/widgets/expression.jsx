@@ -54,6 +54,7 @@ var Expression = React.createClass({
 
         return <span className="perseus-widget-expression">
             <InputWithExamples
+                    ref="input"
                     value={this.props.currentValue}
                     onKeyDown={this.handleKeyDown}
                     onKeyPress={this.handleKeyPress}
@@ -195,7 +196,7 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.getDOMNode().focus();
+        this.refs.input.focus();
         return true;
     },
 

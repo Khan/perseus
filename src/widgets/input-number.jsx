@@ -97,6 +97,7 @@ var InputNumber = React.createClass({
 
     render: function() {
         return <InputWithExamples
+                ref="input"
                 value={this.props.currentValue}
                 onChange={this.handleChange}
                 className={"perseus-input-size-" + this.props.size}
@@ -109,7 +110,7 @@ var InputNumber = React.createClass({
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        this.refs.input.focus();
         return true;
     },
 

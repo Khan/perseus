@@ -42,6 +42,7 @@ var InputWithExamples = React.createClass({
                 borderColor="#ccc"
                 show={showExamples}>
             <input type="text"
+                ref="input"
                 className={this.props.className}
                 value={this.props.value}
                 onChange={this.handleChange}
@@ -49,6 +50,10 @@ var InputWithExamples = React.createClass({
                 onBlur={this.hide} />
             <Renderer content={examplesContent} />
         </Tooltip>;
+    },
+
+    focus: function() {
+        this.refs.input.getDOMNode().focus()
     },
 
     show: function() {
