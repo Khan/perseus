@@ -59,22 +59,29 @@ var normalizeOptions = InteractiveUtil.normalizeOptions;
 var knumber = KhanUtil.knumber;
 var kpoint = KhanUtil.kpoint;
 
-// state parameters that should be converted into an array of
+// State parameters that should be converted into an array of
 // functions
 var FUNCTION_ARRAY_OPTIONS = _.keys(MovablePointOptions);
 
-// default state. these properties are added to this.state and
-// receive magic getter methods (this.coord() etc)
-var DEFAULT_PROPERTIES = {
+// Default "props" and "state". Both are added to this.state and
+// receive magic getter methods (this.coord() etc).
+// However, properties in DEFAULT_PROPS are updated on `modify()`,
+// while those in DEFAULT_STATE persist and are not updated.
+// Things that the user might want to change should be on "props",
+// while things used to render the point should be on "state".
+var DEFAULT_PROPS = {
     coord: [0, 0],
     pointSize: 4,
-    hasMoved: false,
     static: false,
     cursor: "move",
-    mouseTarget: null,
-    visibleShape: null,
     normalStyle: null,    // turned into an object in this.modify
     highlightStyle: null  // likewise
+};
+var DEFAULT_STATE = {
+    added: false,
+    hasMoved: false,
+    visibleShape: null,
+    mouseTarget: null
 };
 
 var MovablePoint = function(graphie, movable, options) {
@@ -87,11 +94,15 @@ var MovablePoint = function(graphie, movable, options) {
         }
     });
 
-    this.modify(options);
+    // We only set DEFAULT_STATE once, here
+    this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 
 _.extend(MovablePoint, MovablePointOptions);
-InteractiveUtil.createGettersFor(MovablePoint, DEFAULT_PROPERTIES);
+InteractiveUtil.createGettersFor(MovablePoint, _.extend({},
+    DEFAULT_PROPS,
+    DEFAULT_STATE
+));
 InteractiveUtil.addMovableHelperMethodsTo(MovablePoint);
 
 _.extend(MovablePoint.prototype, {
@@ -106,37 +117,39 @@ _.extend(MovablePoint.prototype, {
         }, normalizeOptions(
             FUNCTION_ARRAY_OPTIONS,
             // Defaults are copied from MovablePointOptions.*.standard
-            // These defaults are set here instead of DEFAULT_PROPERTIES
+            // These defaults are set here instead of DEFAULT_PROPS/STATE
             // because they:
             //    - are objects, not primitives (and need a deeper copy)
             //    - they don't need getters created for them
             // TODO(jack): Consider "default" once we es3ify perseus
             objective_.pluck(MovablePointOptions, "standard")
-        ), DEFAULT_PROPERTIES);
-    },
 
-    /**
-     * Adjusts constructor parameters without changing previous settings
-     * for any option not specified
-     */
-    update: function(options) {
-        this.remove();  // Must be called here to modify this.state
-                        // *before* we pass this.state into this.modify
-                        // Otherwise, we'd end up re-adding the removed
-                        // raphael elements :(.
-        this.modify(_.extend({}, this.state, options));
+        // We only update props here, because we want things on state to
+        // be persistent, and updated appropriately in modify()
+        ), DEFAULT_PROPS);
     },
 
     /**
      * Resets the object to its state as if it were constructed with
      * `options` originally. The only state maintained is `state.id`
+     *
+     * Analogous to React.js's replaceProps
      */
     modify: function(options) {
-        this.remove();
+        this.update(_.extend(this._createDefaultState(), options));
+    },
+
+    /**
+     * Adjusts constructor parameters without changing previous settings
+     * for any option not specified
+     *
+     * Analogous to React.js's setProps
+     */
+    update: function(options) {
         var self = this;
         var graphie = self.graphie;
-        var state = self.state = _.extend(
-            self._createDefaultState(),
+        var state = _.extend(
+            self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
 
@@ -144,7 +157,7 @@ _.extend(MovablePoint.prototype, {
         // _.extend is not deep.
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
-        // DEFAULT_PROPERTIES!)
+        // DEFAULT_PROPS/STATE!)
         state.normalStyle = _.extend({
             fill: KhanUtil.ORANGE,
             stroke: KhanUtil.ORANGE,
@@ -177,9 +190,10 @@ _.extend(MovablePoint.prototype, {
         // This handles mouse events for us, which we propagate in
         // onMove
         self.movable.modify(_.extend({}, state, {
-            add: [],
+            add: null,
+            modify: null,
             draw: _.bind(self.draw, self),
-            remove: [],
+            remove: null,
             onMoveStart: function() {
                 state.hasMoved = false;
                 startCoord = state.coord;
@@ -218,12 +232,24 @@ _.extend(MovablePoint.prototype, {
         }));
 
         self.prevState = self.cloneState();
-        self._fireEvent(state.add, self.prevState);
-        // Update the state if add() changed it
+        // Trigger an add event if this hasn't been added before
+        if (!state.added) {
+            self._fireEvent(state.modify, self.prevState);
+            state.added = true;
+
+            // Update the state for `added` and in case the add event
+            // changed it
+            self.prevState = self.cloneState();
+        }
+
+        // Trigger a modify event
+        self._fireEvent(state.modify, self.prevState);
+        // Update the state if the modify event changed it
         self.prevState = self.cloneState();
     },
 
     remove: function() {
+        this.state.added = false;
         this._fireEvent(this.state.remove);
         if (this.movable) {
             this.movable.remove();

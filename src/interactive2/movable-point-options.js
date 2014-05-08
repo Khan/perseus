@@ -5,7 +5,7 @@
 var knumber = KhanUtil.knumber;
 var kpoint = KhanUtil.kpoint;
 
-var add = {
+var modify = {
     constrain: function() {
         var result = this._applyConstraints(this.coord(), this.coord());
         if (kpoint.is(result)) {
@@ -18,7 +18,7 @@ var add = {
     }
 };
 
-add.standard = [add.constrain, add.draw];
+modify.standard = [modify.constrain, modify.draw];
 
 
 var draw = {
@@ -125,7 +125,8 @@ var constraints = {
 constraints.standard = null;
 
 module.exports = {
-    add: add,
+    add: {standard: null},
+    modify: modify,
     draw: draw,
     remove: remove,
 
