@@ -1,10 +1,12 @@
 /** @jsx React.DOM */
 
 var TeX = require("./tex.jsx");
-var Util = require("./util.js");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var QuestionParagraph = require("./question-paragraph.jsx");
+
+var Util = require("./util.js");
+var EnabledFeatures = require("./enabled-features.jsx");
 
 var specialChars = {
     // escaped: original
@@ -64,10 +66,7 @@ var CLEAR_WIDGETS_BLACKLIST = ["onChange", "highlightedWidgets"];
 var Renderer = React.createClass({
     propTypes: {
         highlightedWidgets: React.PropTypes.array,
-        enabledFeatures: React.PropTypes.shape({
-            highlight: React.PropTypes.bool.isRequired,
-            toolTipFormats: React.PropTypes.bool.isRequired
-        }).isRequired
+        enabledFeatures: EnabledFeatures.propTypes
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -81,10 +80,7 @@ var Renderer = React.createClass({
         return {
             content: "",
             ignoreMissingWidgets: false,
-            enabledFeatures: {
-                highlight: false,
-                toolTipFormats: false
-            },
+            enabledFeatures: EnabledFeatures.defaults,
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -139,6 +135,7 @@ var Renderer = React.createClass({
                     {cls(_.extend(widgetProps, {
                             ref: id,
                             problemNum: this.props.problemNum,
+                            enabledFeatures: this.props.enabledFeatures,
                             onChange: (newProps, cb) => {
                                 var widgets = _.clone(this.state.widgets);
                                 widgets[id] = _.extend({}, widgets[id],

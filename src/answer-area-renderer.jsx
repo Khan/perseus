@@ -4,17 +4,16 @@ var Renderer = require("./renderer.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
+
 var Util = require("./util.js");
+var EnabledFeatures = require("./enabled-features.jsx");
 
 var SINGLE_ITEM_WIDGET_ID = "answer-area";
 
 var AnswerAreaRenderer = React.createClass({
     propTypes: {
         onInteractWithWidget: React.PropTypes.func.isRequired,
-        enabledFeatures: React.PropTypes.shape({
-            highlight: React.PropTypes.bool.isRequired,
-            toolTipFormats: React.PropTypes.bool.isRequired
-        }).isRequired,
+        enabledFeatures: EnabledFeatures.propTypes,
         highlightedWidgets: React.PropTypes.array.isRequired
     },
 
@@ -63,7 +62,11 @@ var AnswerAreaRenderer = React.createClass({
             onChange: this.handleChangeRenderer,
             onInteractWithWidget: this.props.onInteractWithWidget,
             highlightedWidgets: this.props.highlightedWidgets,
-            enabledFeatures: this.props.enabledFeatures
+            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+                // Hide answer area tooltip formats,
+                // the "Acceptable formats" box already works
+                toolTipFormats: false
+            })
         }, this.props.options, this.state.widget));
     },
 
@@ -79,6 +82,11 @@ var AnswerAreaRenderer = React.createClass({
                     ref: "widget",
                     problemNum: this.props.problemNum,
                     onChange: this.handleChangeRenderer,
+                    enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+                        // Hide answer area tooltip formats,
+                        // the "Acceptable formats" box already works
+                        toolTipFormats: false
+                    })
                 }, this.props.options, this.state.widget))}
             </WidgetContainer>
         </QuestionParagraph>;

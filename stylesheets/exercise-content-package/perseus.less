@@ -307,3 +307,22 @@
         transition: all 0.15s;
     }
 }
+
+.perseus-tooltip {
+    background: #fff;
+    padding: 5px 10px;
+    width: 240px;
+}
+
+// CSS is evil; let's overwrite some styles. T_T
+.perseus-formats-tooltip {
+    .perseus-tooltip;
+    color: #777;
+}
+.framework-perseus .perseus-formats-tooltip .paragraph > ul {
+    padding: 0;
+    margin: -20px 0 -16px 0;
+    > li {
+        list-style-type: none;
+    }
+}

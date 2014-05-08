@@ -8,6 +8,7 @@ var PropCheckBox = require("../components/prop-check-box.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("../components/button-group.jsx");
 var MultiButtonGroup = require("../components/multi-button-group.jsx");
+var InputWithExamples = require("../components/input-with-examples.jsx");
 
 var Editor = require("../editor.jsx");
 
@@ -50,14 +51,16 @@ var NumericInput = React.createClass({
     },
 
     render: function() {
-        return <input type="text"
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    className={"perseus-input-size-" + this.props.size} />;
+        return <InputWithExamples
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                className={"perseus-input-size-" + this.props.size}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()} />;
     },
 
     handleChange: function(e) {
-        this.props.onChange({ currentValue: e.target.value });
+        this.props.onChange({ currentValue: newValue });
     },
 
     focus: function() {
@@ -71,6 +74,14 @@ var NumericInput = React.createClass({
 
     simpleValidate: function(rubric) {
         return NumericInput.validate(this.toJSON(), rubric);
+    },
+
+    shouldShowExamples: function() {
+        var noFormsAccepted = this.props.answerForms.length === 0;
+        var allFormsAccepted = this.props.answerForms.length >=
+                _.size(formExamples);
+        return this.props.enabledFeatures.toolTipFormats &&
+                !noFormsAccepted && !allFormsAccepted;
     },
 
     examples: function() {

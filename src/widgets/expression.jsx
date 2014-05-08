@@ -3,13 +3,24 @@
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var InfoTip      = require("../components/info-tip.jsx");
 var TeX          = require("../tex.jsx");  // KaTeX and/or MathJax
+var InputWithExamples = require("../components/input-with-examples.jsx");
+
+var EnabledFeatures = require("../enabled-features.jsx");
 
 var Expression = React.createClass({
+    propTypes: {
+        currentValue: React.PropTypes.string,
+        times: React.PropTypes.bool,
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        enabledFeatures: EnabledFeatures.propTypes
+    },
+
     getDefaultProps: function() {
         return {
             currentValue: "",
             times: false,
-            functions: []
+            functions: [],
+            enabledFeatures: EnabledFeatures.defaults
         };
     },
 
@@ -39,13 +50,16 @@ var Expression = React.createClass({
 
     render: function() {
         var result = this.parse(this.props.currentValue);
+        var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
 
         return <span className="perseus-widget-expression">
-            <input ref="input" type="text"
-                value={this.props.currentValue}
-                onKeyDown={this.handleKeyDown}
-                onKeyPress={this.handleKeyPress}
-                onChange={this.handleChange} />
+            <InputWithExamples
+                    value={this.props.currentValue}
+                    onKeyDown={this.handleKeyDown}
+                    onKeyPress={this.handleKeyPress}
+                    onChange={this.handleChange}
+                    examples={this.examples()}
+                    shouldShowExamples={shouldShowExamples} />
             <span className="output">
                 <span className="tex"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
@@ -176,8 +190,8 @@ var Expression = React.createClass({
         }
     },
 
-    handleChange: function(event) {
-        this.props.onChange({currentValue: event.target.value});
+    handleChange: function(newValue) {
+        this.props.onChange({currentValue: newValue});
     },
 
     focus: function() {
@@ -208,6 +222,7 @@ var Expression = React.createClass({
         }
 
         return [
+            $._("**Acceptable Formats**"),
             mult,
             $._("For $3y$, enter **3y** or **3*y**"),
             $._("For $\\dfrac{1}{x}$, enter **1/x**"),

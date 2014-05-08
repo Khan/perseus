@@ -10,7 +10,8 @@ var JsonifyProps = {
             "ref",
             // added by src/renderer.jsx
             "onChange",
-            "problemNum"
+            "problemNum",
+            "enabledFeatures"
         );
     }
 };

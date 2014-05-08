@@ -2,7 +2,13 @@
 
 var BlurInput = require("../components/blur-input.jsx");
 var InfoTip = require("../components/info-tip.jsx");
+var Renderer = require("../renderer.jsx");
+var InputWithExamples = require("../components/input-with-examples.jsx");
+
 var Util = require("../util.js");
+var EnabledFeatures = require("../enabled-features.jsx");
+
+var toNumericString = KhanUtil.toNumericString;
 
 var answerTypes = {
     number: {
@@ -71,25 +77,35 @@ var formExamples = {
 
 var InputNumber = React.createClass({
     propTypes: {
-        currentValue: React.PropTypes.string
+        currentValue: React.PropTypes.string,
+        enabledFeatures: EnabledFeatures.propTypes,
     },
 
     getDefaultProps: function() {
         return {
             currentValue: "",
-            size: "normal"
+            size: "normal",
+            answerType: "number",
+            enabledFeatures: EnabledFeatures.defaults
         };
     },
 
-    render: function() {
-        return <input type="text"
-            value={this.props.currentValue}
-            onChange={this.handleChange}
-            className={"perseus-input-size-" + this.props.size} />;
+    shouldShowExamples: function() {
+        return this.props.enabledFeatures.toolTipFormats &&
+                this.props.answerType !== "number";
     },
 
-    handleChange: function(e) {
-        this.props.onChange({ currentValue: e.target.value });
+    render: function() {
+        return <InputWithExamples
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                className={"perseus-input-size-" + this.props.size}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()} />;
+    },
+
+    handleChange: function(newValue) {
+        this.props.onChange({ currentValue: newValue });
     },
 
     focus: function() {
@@ -108,14 +124,14 @@ var InputNumber = React.createClass({
     },
 
     examples: function() {
-        var type = this.props.answerType || "number";
+        var type = this.props.answerType;
         var forms = answerTypes[type].forms.split(/\s*,\s*/);
 
         var examples = _.map(forms, function(form) {
             return formExamples[form](this.props);
         }, this);
 
-        return examples;
+        return [$._("**Acceptable Formats**")].concat(examples);
     },
 
     statics: {
