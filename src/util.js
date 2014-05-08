@@ -1,4 +1,16 @@
+var nestedMap = function(children, func, context) {
+    if (_.isArray(children)) {
+        return _.map(children, function(child) {
+            return nestedMap(child, func);
+        });
+    } else {
+        return func.call(context, children);
+    }
+};
+
 var Util = {
+    nestedMap: nestedMap,
+
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
 
     noScore: {

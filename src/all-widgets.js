@@ -4,6 +4,7 @@ _.each([
     require("./widgets/categorization.jsx"),
     require("./widgets/dropdown.jsx"),
     require("./widgets/example-widget.jsx"),
+    require("./widgets/example-graphie-widget.jsx"),
     require("./widgets/expression.jsx"),
     require("./widgets/input-number.jsx"),
     require("./widgets/interactive-graph.jsx"),
