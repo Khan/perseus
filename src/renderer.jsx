@@ -61,7 +61,11 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
     });
 }
 
-var CLEAR_WIDGETS_BLACKLIST = ["onChange", "highlightedWidgets"];
+var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
+    "content",
+    "problemNum",
+    "widgets"
+];
 
 var Renderer = React.createClass({
     propTypes: {
@@ -70,8 +74,8 @@ var Renderer = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(_.omit(this.props, CLEAR_WIDGETS_BLACKLIST),
-                       _.omit(nextProps, CLEAR_WIDGETS_BLACKLIST))) {
+        if (!_.isEqual(_.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
+                       _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST))) {
             this.setState({widgets: {}});
         }
     },
