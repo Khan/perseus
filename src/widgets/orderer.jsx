@@ -386,7 +386,7 @@ var Orderer = React.createClass({
 
         // Here, we build a callback function for the card to call when it is
         // done animating
-        var onAnimationEnd = function() {
+        var onAnimationEnd = () => {
             var list = this.state.current.slice();
 
             if (!inCardBank) {
@@ -409,7 +409,7 @@ var Orderer = React.createClass({
                 placeholderIndex: null,
                 animating: false
             });
-        }.bind(this);
+        };
 
         // Find the position of the card we should animate to
         // TODO(alpert): Update mouse position once more before animating?

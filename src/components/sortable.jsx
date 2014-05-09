@@ -324,9 +324,9 @@ var Sortable = React.createClass({
             return item;
         });
 
-        this.setState({items: items}, function() {
+        this.setState({items: items}, () => {
             this.props.onMeasure({widths: widths, heights: heights});
-        }.bind(this));
+        });
     },
 
     remeasureItems: _.debounce(function() {
@@ -364,10 +364,10 @@ var Sortable = React.createClass({
                     margin={isLast && isStatic ? 0 : margin}
                     endPosition={item.endPosition}
                     onRender={this.remeasureItems}
-                    onMouseDown={_.bind(this.onMouseDown, this, item.key)}
-                    onMouseMove={_.bind(this.onMouseMove, this, item.key)}
-                    onMouseUp={_.bind(this.onMouseUp, this, item.key)}
-                    onAnimationEnd={_.bind(this.onAnimationEnd, this, 
+                    onMouseDown={this.onMouseDown.bind(this, item.key)}
+                    onMouseMove={this.onMouseMove.bind(this, item.key)}
+                    onMouseUp={this.onMouseUp.bind(this, item.key)}
+                    onAnimationEnd={this.onAnimationEnd.bind(this,
                         item.key)} />
             );
 

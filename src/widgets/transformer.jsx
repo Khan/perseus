@@ -1050,8 +1050,8 @@ var ShapeTypes = {
                 constrainToGraph: false
             }));
             return {
-                update: _.bind(polygon.transform, polygon),
-                remove: _.bind(polygon.remove, polygon)
+                update: polygon.transform.bind(polygon),
+                remove: polygon.remove.bind(polygon)
             };
         } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
@@ -1069,8 +1069,8 @@ var ShapeTypes = {
             // We can't just remove the points yet, because they are the
             // translation handle for the line.
             return {
-                update: _.bind(line.transform, line, true),
-                remove: _.bind(line.remove, line)
+                update: line.transform.bind(line, true),
+                remove: line.remove.bind(line)
             };
         } else if (type === "angle") {
             // If this angle is editable, we want to be able to make angles
@@ -1094,8 +1094,8 @@ var ShapeTypes = {
                 points[2].remove();
             }
             return {
-                update: _.bind(angle.update, angle, shouldChangeReflexivity),
-                remove: _.bind(angle.remove, angle),
+                update: angle.update.bind(angle, shouldChangeReflexivity),
+                remove: angle.remove.bind(angle),
                 getOptions: function() {
                     return {
                         reflex: angle.isReflex()
@@ -1334,7 +1334,7 @@ var TransformationExplorerSettings = React.createClass({
     },
 
     changeHandlerFor: function(toolName) {
-        return _.bind(function(change) {
+        return change => {
             var newTools = _.clone(this.props.tools);
             newTools[toolName] = _.extend({}, this.props.tools[toolName],
                     change);
@@ -1342,7 +1342,7 @@ var TransformationExplorerSettings = React.createClass({
             this.props.onChange({
                 tools: newTools
             });
-        }, this);
+        };
     }
 });
 
@@ -1517,7 +1517,7 @@ var ToolsBar = React.createClass({
                 return <ToolButton
                         key={type}
                         toggled={this.state.selected === type}
-                        onClick={_.bind(this.changeSelected, this, type)}>
+                        onClick={this.changeSelected.bind(this, type)}>
                     {tool.verbName}
                 </ToolButton>;
             }
@@ -1562,7 +1562,7 @@ var AddTransformBar = React.createClass({
                 return <ToolButton
                         key={type}
                         toggled={false}
-                        onClick={_.bind(this.changeSelected, this, type)}>
+                        onClick={this.changeSelected.bind(this, type)}>
                     <span className="icon-plus" />
                     {" "}
                     {tool.nounName}

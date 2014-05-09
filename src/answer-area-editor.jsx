@@ -25,10 +25,10 @@ var AnswerAreaEditor = React.createClass({
             ref: "editor",
             placeholder: "This answer area is being deprecated. " +
             "Please use the widgets in the question area for your answer.",
-            onChange: function(newProps, cb) {
+            onChange: (newProps, cb) => {
                 var options = _.extend({}, this.props.options, newProps);
                 this.props.onChange({options: options}, cb);
-            }.bind(this)
+            }
         }, this.props.options));
 
         return <div className="perseus-answer-editor">
@@ -36,9 +36,9 @@ var AnswerAreaEditor = React.createClass({
             <div><label>
                 {' '}Show calculator:{' '}
                 <input type="checkbox" checked={this.props.calculator}
-                    onChange={function(e) {
+                    onChange={e => {
                         this.props.onChange({calculator: e.target.checked});
-                    }.bind(this)} />
+                    }} />
             </label>
             <InfoTip>
                 <p>Use the calculator when completing difficult calculations is
@@ -50,14 +50,14 @@ var AnswerAreaEditor = React.createClass({
             <div><label>
                 {' '}Answer type:{' '}
                 <select value={this.props.type}
-                        onChange={function(e) {
+                        onChange={e => {
                             this.props.onChange({
                                 type: e.target.value,
                                 options: {}
-                            }, function() {
+                            }, () => {
                                 this.refs.editor.focus();
-                            }.bind(this));
-                        }.bind(this)}>
+                            });
+                        }}>
                     <option value="radio">Multiple choice</option>
                     <option value="table">Table of values</option>
                     <option value="input-number">Text input (number)</option>

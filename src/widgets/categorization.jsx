@@ -167,7 +167,7 @@ var Categorization = React.createClass({
                 itemIndex: itemIndex,
                 offset: offset
             }
-        }, _.bind(self.updateDrag, self, coords));
+        }, self.updateDrag.bind(self, coords));
 
         $(document)
         .on("vmousemove.categorization", function(e) {
@@ -273,7 +273,7 @@ var Categorization = React.createClass({
                 c.topLeft, dims.topLeft);
         $drag.animate(topLeft, {
             duration: animationTime,
-            complete: _.bind(self.updateLocation, self, targetCategory)
+            complete: self.updateLocation.bind(self, targetCategory)
         });
     },
 

@@ -476,9 +476,9 @@ var RadioEditor = React.createClass({
         e.preventDefault();
 
         var choices = this.props.choices;
-        this.props.onChange({choices: choices.concat([{}])}, function() {
+        this.props.onChange({choices: choices.concat([{}])}, () => {
             this.refs["editor" + choices.length].focus();
-        }.bind(this));
+        });
     },
 
     setDisplayCount: function(num){

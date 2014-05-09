@@ -41,19 +41,19 @@ var HintEditor = React.createClass({
                 <span className="reorder-hints">
                     <a href="#"
                         className={this.props.isLast && "hidden"}
-                        onClick={function() {
+                        onClick={() => {
                             this.props.onMove(1);
                             return false;
-                        }.bind(this)}>
+                        }}>
                         <span className="icon-circle-arrow-down" />
                     </a>
                     {' '}
                     <a href="#"
                         className={this.props.isFirst && "hidden"}
-                        onClick={function() {
+                        onClick={() => {
                             this.props.onMove(-1);
                             return false;
-                        }.bind(this)}>
+                        }}>
                         <span className="icon-circle-arrow-up" />
                     </a>
                     {' '}
@@ -63,10 +63,10 @@ var HintEditor = React.createClass({
                     </InfoTip>}
                 </span>
                 <a href="#" className="remove-hint simple-button orange"
-                        onClick={function() {
+                        onClick={() => {
                             this.props.onRemove();
                             return false;
-                        }.bind(this)}>
+                        }}>
                     <span className="icon-trash" /> Remove this hint{' '}
                 </a>
             </div>
@@ -186,17 +186,17 @@ var CombinedHintsEditor = React.createClass({
         var hints = _(this.props.hints).clone();
         var hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
-        this.props.onChange({hints: hints}, function() {
+        this.props.onChange({hints: hints}, () => {
             this.refs["hintEditor" + (i + dir)].focus();
-        }.bind(this));
+        });
     },
 
     addHint: function() {
         var hints = _(this.props.hints).clone().concat([{ content: "" }]);
-        this.props.onChange({hints: hints}, function() {
+        this.props.onChange({hints: hints}, () => {
             var i = hints.length - 1;
             this.refs["hintEditor" + i].focus();
-        }.bind(this));
+        });
 
         // TODO(joel) - is this doing anything?
         return false;

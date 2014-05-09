@@ -306,13 +306,13 @@ var ExpressionEditor = React.createClass({
                     currentValue={this.props.value}
                     times={this.props.times}
                     functions={this.props.functions}
-                    onChange={function(newProps) {
+                    onChange={newProps => {
                         if ("currentValue" in newProps) {
                             newProps.value = newProps.currentValue;
                             delete newProps.currentValue;
                         }
                         this.props.onChange(newProps);
-                    }.bind(this)} />
+                    }} />
             </label></div>
 
             <div>

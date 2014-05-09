@@ -18,7 +18,7 @@ var Table = React.createClass({
                 </tr>
             </thead>
             <tbody>{
-                _(this.props.rows).times(function(r) {
+                _(this.props.rows).times(r => {
                     return <tr key={r}>{
                         _(this.props.columns).times((c) => {
                             return <td key={c}>
@@ -30,7 +30,7 @@ var Table = React.createClass({
                             </td>;
                         })
                     }</tr>;
-                }.bind(this))
+                })
             }
             </tbody>
         </table>;

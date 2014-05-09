@@ -238,9 +238,9 @@ var InteractiveNumberLine = React.createClass({
             updateInequality(x, y);
             return [x, y];
         };
-        point.onMoveEnd = function(x, y) {
+        point.onMoveEnd = (x, y) => {
             this.props.onChange({pointX: x});
-        }.bind(this);
+        };
 
         // Inequality line
 

@@ -156,15 +156,15 @@ var MatcherEditor = React.createClass({
             <div className="ui-helper-clearfix">
                 <TextListEditor
                     options={this.props.left}
-                    onChange={function(options, cb) {
+                    onChange={(options, cb) => {
                         this.props.onChange({left: options}, cb);
-                    }.bind(this)}
+                    }}
                     layout="vertical" />
                 <TextListEditor
                     options={this.props.right}
-                    onChange={function(options, cb) {
+                    onChange={(options, cb) => {
                         this.props.onChange({right: options}, cb);
-                    }.bind(this)}
+                    }}
                     layout="vertical" />
             </div>
             <span>
@@ -176,10 +176,10 @@ var MatcherEditor = React.createClass({
             <div>
                 <input type="text"
                     defaultValue={this.props.labels[0]}
-                    onChange={_.bind(this.onLabelChange, this, 0)} />
+                    onChange={this.onLabelChange.bind(this, 0)} />
                 <input type="text"
                     defaultValue={this.props.labels[1]}
-                    onChange={_.bind(this.onLabelChange, this, 1)} />
+                    onChange={this.onLabelChange.bind(this, 1)} />
             </div>
             <div>
                 <PropCheckBox

@@ -312,12 +312,12 @@ var InteractiveGraph = React.createClass({
         if (this.props.flexibleType) {
             typeSelect = <select
                     value={this.props.graph.type}
-                    onChange={function(e) {
+                    onChange={e => {
                         var type = e.target.value;
                         this.props.onChange({
                             graph: {type: type}
                         });
-                    }.bind(this)}>
+                    }}>
                 <option value="linear">Linear function</option>
                 <option value="quadratic">Quadratic function</option>
                 <option value="circle">Circle</option>
@@ -333,7 +333,7 @@ var InteractiveGraph = React.createClass({
                 extraOptions = <select
                         key="point-select"
                         value={this.props.graph.numPoints || 1}
-                        onChange={function(e) {
+                        onChange={e => {
                             // Convert numbers, leave UNLIMITED intact:
                             var num = +e.target.value || e.target.value;
                             this.props.onChange({
@@ -343,7 +343,7 @@ var InteractiveGraph = React.createClass({
                                     coords: null
                                 }
                             });
-                        }.bind(this)}>
+                        }}>
                     {_.map(_.range(1, 7), function(n) {
                         return <option value={n}>
                             {n} point{n > 1 && "s"}
@@ -357,7 +357,7 @@ var InteractiveGraph = React.createClass({
                         <select
                             key="polygon-select"
                             value={this.props.graph.numSides || 3}
-                            onChange={function(e) {
+                            onChange={e => {
                                 // Convert numbers, leave UNLIMITED intact:
                                 var num = +e.target.value || e.target.value;
                                 var graph = _.extend({}, this.props.graph, {
@@ -368,7 +368,7 @@ var InteractiveGraph = React.createClass({
                                                    // supports "grid"
                                 });
                                 this.props.onChange({graph: graph});
-                            }.bind(this)}>
+                            }}>
                             {_.map(_.range(3, 13), function(n) {
                                 return <option value={n}>{n} sides</option>;
                             })}
@@ -380,7 +380,7 @@ var InteractiveGraph = React.createClass({
                             <select
                                 key="polygon-snap"
                                 value={this.props.graph.snapTo}
-                                onChange={function(e) {
+                                onChange={e => {
                                     var graph = _.extend({}, 
                                         this.props.graph,
                                         {
@@ -388,7 +388,7 @@ var InteractiveGraph = React.createClass({
                                             coords: null
                                         });
                                     this.props.onChange({graph: graph});
-                                }.bind(this)}>
+                                }}>
                                 <option value="grid">grid</option>
                                 {(this.props.graph.numSides !== UNLIMITED) && [
                                     <option value="angles">
@@ -435,7 +435,7 @@ var InteractiveGraph = React.createClass({
                 extraOptions = <select
                         key="segment-select"
                         value={this.props.graph.numSegments || 1}
-                        onChange={function(e) {
+                        onChange={e => {
                             var num = +e.target.value;
                             this.props.onChange({
                                 graph: {
@@ -444,7 +444,7 @@ var InteractiveGraph = React.createClass({
                                     coords: null
                                 }
                             });
-                        }.bind(this)}>
+                        }}>
                     {_.map(_.range(1, 7), function(n) {
                         return <option value={n}>
                             {n} segment{n > 1 && "s"}
@@ -468,7 +468,7 @@ var InteractiveGraph = React.createClass({
                         <label>Allow reflex angles:{' '}
                             <input type="checkbox"
                                 checked={allowReflexAngles}
-                                onChange={function(newVal) {
+                                onChange={newVal => {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             allowReflexAngles:
@@ -476,7 +476,7 @@ var InteractiveGraph = React.createClass({
                                             coords: null
                                         })
                                     });
-                                }.bind(this)} />
+                                }} />
                         </label>
                         <InfoTip>
                             <p>
@@ -494,14 +494,14 @@ var InteractiveGraph = React.createClass({
                                 key="degree-snap"
                                 placeholder={1}
                                 value={this.props.graph.snapDegrees}
-                                onChange={function(newVal) {
+                                onChange={newVal => {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             snapDegrees: Math.abs(newVal),
                                             coords: null
                                         })
                                     });
-                                }.bind(this)} />
+                                }} />
                             {' '}degrees{' '}
                         </label>
                     </div>
@@ -512,14 +512,14 @@ var InteractiveGraph = React.createClass({
                                 key="angle-offset"
                                 placeholder={0}
                                 value={this.props.graph.angleOffsetDeg}
-                                onChange={function(newVal) {
+                                onChange={newVal => {
                                     this.props.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             angleOffsetDeg: newVal,
                                             coords: null
                                         })
                                     });
-                                }.bind(this)} />
+                                }} />
                             {' '}degrees{' '}
                         </label>
                     </div>
@@ -782,13 +782,13 @@ var InteractiveGraph = React.createClass({
 
         this.updateQuadratic();
 
-        $([pointA, pointB, pointC]).on("move", function() {
+        $([pointA, pointB, pointC]).on("move", () => {
             var graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord, pointB.coord, pointC.coord]
             });
             this.props.onChange({graph: graph});
             this.updateQuadratic();
-        }.bind(this));
+        });
     },
 
     updateQuadratic: function() {
@@ -833,13 +833,13 @@ var InteractiveGraph = React.createClass({
             snapRadius: minSnap
         });
 
-        $(circle).on("move", function() {
+        $(circle).on("move", () => {
             var graph = _.extend({}, this.props.graph, {
                 center: circle.center,
                 radius: circle.radius
             });
             this.props.onChange({graph: graph});
-        }.bind(this));
+        });
     },
 
     removeCircleControls: function() {
@@ -955,7 +955,7 @@ var InteractiveGraph = React.createClass({
                         // we wait to do this until we're not inside of
                         // said point's onMoveEnd method so its state is
                         // consistent throughout this method call
-                        setTimeout(_.bind(point.remove, point), 0);
+                        setTimeout(point.remove.bind(point), 0);
                     }
                     // In case we mouseup'd off the graphie and that
                     // stopped the move (in which case, we might not
@@ -1015,7 +1015,7 @@ var InteractiveGraph = React.createClass({
 
         point.hasMoved = false;
 
-        point.onMove = function(x, y) {
+        point.onMove = (x, y) => {
             var coords = _.pluck(this.points, "coord");
             coords[i] = [x, y];
             if (!kpoint.equal([x, y], point.coord)) {
@@ -1153,7 +1153,7 @@ var InteractiveGraph = React.createClass({
                 return true;
             }
 
-        }.bind(this);
+        };
 
         if (self.isClickToAddPoints()) {
             point.onMoveEnd = function(x, y) {
@@ -1174,7 +1174,7 @@ var InteractiveGraph = React.createClass({
                     // we wait to do this until we're not inside of
                     // said point's onMoveEnd method so its state is
                     // consistent throughout this method call
-                    setTimeout(_.bind(point.remove, point), 0);
+                    setTimeout(point.remove.bind(point), 0);
                 } else if (self.points.length > 1 && ((
                             point === self.points[0] &&
                             kpoint.equal([x, y], _.last(self.points).coord)
@@ -1196,7 +1196,7 @@ var InteractiveGraph = React.createClass({
                     // we wait to do this until we're not inside of
                     // said point's onMoveEnd method so its state is
                     // consistent throughout this method call
-                    setTimeout(_.bind(pointToRemove.remove, pointToRemove), 0);
+                    setTimeout(pointToRemove.remove.bind(pointToRemove), 0);
                 } else {
                     var shouldRemove = _.any(self.points, function(pt) {
                         return pt !== point && kpoint.equal(pt.coord, [x, y]);
@@ -1215,7 +1215,7 @@ var InteractiveGraph = React.createClass({
                         // we wait to do this until we're not inside of
                         // said point's onMoveEnd method so its state is
                         // consistent throughout this method call
-                        setTimeout(_.bind(point.remove, point), 0);
+                        setTimeout(point.remove.bind(point), 0);
                     }
                 }
                 // In case we mouseup'd off the graphie and that
@@ -1233,7 +1233,7 @@ var InteractiveGraph = React.createClass({
             point.isTouched = true;
         });
 
-        $(point.mouseTarget[0]).on("vmouseup", function() {
+        $(point.mouseTarget[0]).on("vmouseup", () => {
             if (self.isClickToAddPoints()) {
                 self.setTrashCanVisibility(0.5);
             }
@@ -1256,14 +1256,14 @@ var InteractiveGraph = React.createClass({
             }
             point.isTouched = false;
             point.hasMoved = false;
-        }.bind(this));
+        });
 
-        $(point).on("move", function() {
+        $(point).on("move", () => {
             this.polygon.transform();
             if (this.polygon.closed) {
                 this.updateCoordsFromPoints();
             }
-        }.bind(this));
+        });
 
         return point;
     },
@@ -1460,11 +1460,11 @@ var InteractiveGraph = React.createClass({
         } : {}
         ));
 
-        $(this.polygon).on("move", function() {
+        $(this.polygon).on("move", () => {
             if (this.polygon.closed) {
                 this.updateCoordsFromPoints();
             }
-        }.bind(this));
+        });
     },
 
     removePolygonControls: function() {
@@ -1504,12 +1504,12 @@ var InteractiveGraph = React.createClass({
             allowReflex: defaultVal(this.props.graph.allowReflexAngles, true)
         });
 
-        $(this.angle).on("move", function() {
+        $(this.angle).on("move", () => {
             var graph = _.extend({}, this.props.graph, {
                 coords: this.angle.getClockwiseCoords()
             });
             this.props.onChange({graph: graph});
-        }.bind(this));
+        });
     },
 
     removeAngleControls: function() {

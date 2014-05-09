@@ -206,10 +206,10 @@ var InputNumberEditor = React.createClass({
                 <label>
                     {' '}Unsimplified answers{' '}
                     <select value={this.props.simplify}
-                            onChange={function(e) {
+                            onChange={e => {
                                 this.props.onChange({simplify:
                                 e.target.value});
-                            }.bind(this)}>
+                            }}>
                         <option value="required">will not be graded</option>
                         <option value="optional">will be accepted</option>
                         <option value="enforced">will be marked wrong</option>
@@ -232,9 +232,9 @@ var InputNumberEditor = React.createClass({
             <div><label>
                 <input type="checkbox"
                     checked={this.props.inexact}
-                    onChange={function(e) {
+                    onChange={e => {
                         this.props.onChange({inexact: e.target.checked});
-                    }.bind(this)} />
+                    }} />
                 {' '}Allow inexact answers{' '}
             </label>
 
@@ -244,21 +244,21 @@ var InputNumberEditor = React.createClass({
             {' '}Max error:{' '}
             <input type="text" disabled={!this.props.inexact}
                 defaultValue={this.props.maxError}
-                onBlur={function(e) {
+                onBlur={e => {
                     var ans = "" + (Util.firstNumericalParse(
                             e.target.value) || 0);
                     e.target.value = ans;
                     this.props.onChange({maxError: ans});
-                }.bind(this)} />
+                }} />
             </label></div>
 
             <div>
             {' '}Answer type:{' '}
             <select
                 value={this.props.answerType}
-                onChange={function(e) {
+                onChange={e => {
                     this.props.onChange({answerType: e.target.value});
-                }.bind(this)}>
+                }}>
                 {answerTypeOptions}
             </select>
             <InfoTip>
@@ -272,9 +272,9 @@ var InputNumberEditor = React.createClass({
                 <label>
                     {' '}Width{' '}
                     <select value={this.props.size}
-                            onChange={function(e) {
+                            onChange={e => {
                                 this.props.onChange({size: e.target.value});
-                            }.bind(this)}>
+                            }}>
                         <option value="normal">Normal (80px)</option>
                         <option value="small">Small (40px)</option>
                     </select>

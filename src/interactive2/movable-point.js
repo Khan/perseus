@@ -192,7 +192,7 @@ _.extend(MovablePoint.prototype, {
         self.movable.modify(_.extend({}, state, {
             add: null,
             modify: null,
-            draw: _.bind(self.draw, self),
+            draw: self.draw.bind(self),
             remove: null,
             onMoveStart: function() {
                 state.hasMoved = false;

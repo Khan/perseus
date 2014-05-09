@@ -167,7 +167,7 @@ _.extend(MovableLine.prototype, {
             mouseTarget: state.mouseTarget,
 
             add: [],
-            draw: _.bind(self.draw, self),
+            draw: self.draw.bind(self),
             remove: [],
 
             onMoveStart: function() {
@@ -216,7 +216,7 @@ _.extend(MovableLine.prototype, {
 
         // Update the line with the points' movement
         _.invoke(state.points, "listen", "onMove", state.id,
-                _.bind(self.draw, self));
+                self.draw.bind(self));
 
         self.prevState = self.cloneState();
         self._fireEvent(state.add, self.prevState);

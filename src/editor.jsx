@@ -264,7 +264,7 @@ var Editor = React.createClass({
             ref: id,
             id: id,
             type: type,
-            onChange: _.bind(this._handleWidgetEditorChange, this, id)
+            onChange: this._handleWidgetEditorChange.bind(this, id)
         }, this.props.widgets[id]));
     },
 
