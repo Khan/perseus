@@ -60,7 +60,7 @@ var NumericInput = React.createClass({
                 shouldShowExamples={this.shouldShowExamples()} />;
     },
 
-    handleChange: function(e) {
+    handleChange: function(newValue) {
         this.props.onChange({ currentValue: newValue });
     },
 
