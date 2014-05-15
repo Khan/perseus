@@ -52,6 +52,8 @@ parts of the code (and aren't necessary to understand to work with Perseus code)
    React.js
  * We use [jQuery](http://jquery.com/) for low-level dom manipulation for things
    that are not possible with React.js
+ * We use [Browserify](http://browserify.org/) to provide Node.js style `require`
+   dependencies.
 
 ## Adding widgets
 
@@ -60,24 +62,38 @@ as number-input or transformer. To add more interaction to questions,
 you probably want to create a new widget or modify an existing widget.
 
 Widgets are all defined in the `src/widgets/` directory, and loaded in src/all-widgets.js.
-Each 
+
+Each widget consists of the following parts:
+ * A `name` which is a unique id slug, such as `number-input` or `example-widget`
+    * *Note: This id should only contain lowercase alphabetic characters and dashes.*
+ * A `displayName` which is shown to the user in the "Add widget" menu
+ * A `widget` or "widget renderer", such as NumberInput or ExampleWidget
+ * An `editor` or "widget editor", such as NumberInputEditor or ExampleWidgetEditor
+ * An options `transform` transformation function, which converts the result of
+   `widgetEditor.toJSON()` (generally the editor's props) to the widget renderer's
+   props
+ * An options `hidden` flag, which, if `true`, will prevent the widget from being
+   available in the widget menu
+
+These are exported in an object at the bottom of every widget file:
+
 Widgets are a combination of two [React](http://facebook.github.io/react/)
 components: a renderer (i.e. ExampleWidget), and an editor (i.e ExampleWidgetEditor).
-These are defined in `src/widgets/number-input.jsx`, and registered at the
-bottom of that file. 
-```
-// Include these on the bottom of the widget (say in file my-awesome-widget.jsx)
-Widgets.register("my-new-widget", myNewWidget);              // I’m the renderer
-Widgets.register("my-new-widget-editor", myNewWidgetEditor); // I’m the editor
-```
-And in `src/all-widgets.js` you'll notify the framework of that widget's existence:
-```
-... {content: "My New Widget", value: "my-new-widget"} ...
-...
-require("./widgets/my-awesome-widget.jsx");
-```
+These are defined in `src/widgets/example-widget.jsx`, and registered at the
+bottom of that file.
 
-While the `myNewWidgetEditor` part is just convention; the `"my-new-widget-editor"` part is how Perseus knows to associate that widget editor with that widget render. Generally, the filename (here `my-awesome-widget.jsx`) and widget renderer (here `my-new-widget`) will have the same name; we're just naming them differently here to illustrate how everything works. Also, within your editor, write the function 
+    module.exports = {
+        name: "example-widget",
+        displayName: "Example Widget",
+        hidden: true,   // Hides this widget from the Perseus.Editor widget select
+        widget: ExampleWidget,
+        editor: ExampleWidgetEditor
+    };
+
+
+Then `src/all-widgets.js` `require`s this widget to register it:
+
+Also, within your editor, write the function 
 ```
 toJSON: function() => {return _(this.props).omit("onChange");}
 ```
@@ -105,15 +121,6 @@ Also, FYI, there is nothing particularly special about the function name `onChan
 ## Mini-Projects
 
 Want to help out? Here are some well-scoped improvements we could use:
-- **Allow validation of user input for the item-renderer in test.html:** At the moment, we have
-  a file, test.html, which has an editor on the left and a renderer on the right.
-  On the top-left is a "Score" button which allows you to see in the console what
-  is returned `{correct: true, empty: false, message: "hi"}` given the input on the
-  renderer. Essentially you'd be moving the logic behind that "Score" button to the
-  big, currently disabled, green "Check Answer" button. On checking, it should show
-  the smiley (if correct), shake (if wrong) and show a message (if there is one, 
-  whether it is right, wrong, or ungraded). Then rather than go to the next problem,
-  if clicked again, it should reset the page to what it originally was before user input.
 - **Show messages on user input in test.html**: In production, there is a message box
   that shows various clues to the user ("You didn't simplify" or "You used x instead of *").
   But those clues don't show up in Perseus for whatever reason. Essentially onClick of 
