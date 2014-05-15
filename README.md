@@ -29,15 +29,40 @@ Now if you open your browser to `http://localhost:9000/test.html`
 (or `http://127.0.0.1:9000/test.html`) you should see the Perseus
 question editor.
 
+## Fundamental technologies
+Here are some technologies that will be important to be familiar with to work with
+the Perseus source code:
+ * We create all Perseus components, including widgets, with
+   [React.js](http://facebook.github.io/react/).
+ * We use [underscore](http://underscorejs.org/) for various collection utility
+   functions.
+ * We compile our CSS with [Less](http://lesscss.org/).
+ * Some parts of question rendering, answer checking, and hint display are handled
+   by [khan-excercises](https://github.com/Khan/khan-exercises), our legacy
+   exercise framework. We also make heavy use of
+   [Graphie](https://github.com/Khan/khan-exercises/blob/master/utils/graphie.js),
+   which exists within khan-exercises.
+
+And here are some other technologies we use, which are only used by specific
+parts of the code (and aren't necessary to understand to work with Perseus code):
+ * We render math text with [KaTeX](https://github.com/Khan/KaTeX) and
+   [MathJax](http://www.mathjax.org/).
+ * We render Markdown with [marked-react](https://github.com/spicyj/marked-react),
+   a port of the [marked](https://github.com/chjj/marked) Markdown renderer to
+   React.js
+ * We use [jQuery](http://jquery.com/) for low-level dom manipulation for things
+   that are not possible with React.js
+
 ## Adding widgets
 
 Most of the interactive parts of perseus questions are widgets, such
 as number-input or transformer. To add more interaction to questions,
 you probably want to create a new widget or modify an existing widget.
 
-Widgets are all defined in src/widgets, and loaded in src/all-widgets.js.
+Widgets are all defined in the `src/widgets/` directory, and loaded in src/all-widgets.js.
+Each 
 Widgets are a combination of two [React](http://facebook.github.io/react/)
-components: a renderer (i.e. NumberInput), and an editor (i.e NumberInputEditor).
+components: a renderer (i.e. ExampleWidget), and an editor (i.e ExampleWidgetEditor).
 These are defined in `src/widgets/number-input.jsx`, and registered at the
 bottom of that file. 
 ```
