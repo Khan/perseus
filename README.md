@@ -30,12 +30,16 @@ Now if you open your browser to `http://localhost:9000/test.html`
 question editor.
 
 ## Fundamental technologies
+
 Here are some technologies that will be important to be familiar with to work with
 the Perseus source code:
  * We create all Perseus components, including widgets, with
    [React.js](http://facebook.github.io/react/).
  * We use [underscore](http://underscorejs.org/) for various collection utility
    functions.
+ * We are using several features of ECMAScript 6; most notably
+   [arrow functions](http://www.nczonline.net/blog/2013/09/10/understanding-ecmascript-6-arrow-functions/).
+   (All es6 features are compiled to es5 when building Perseus using `make`.)
  * We compile our CSS with [Less](http://lesscss.org/).
  * Some parts of question rendering, answer checking, and hint display are handled
    by [khan-excercises](https://github.com/Khan/khan-exercises), our legacy
@@ -93,13 +97,135 @@ bottom of that file.
 
 Then `src/all-widgets.js` `require`s this widget to register it:
 
-Also, within your editor, write the function 
-```
-toJSON: function() => {return _(this.props).omit("onChange");}
-```
-This is the function that Perseus uses to communicate the editor’s information to the renderer. Thus, `this.props` should be a fully accurate and minimal representation of that editor. Note that we’re only communicating the information in `this.props` (as opposed to those within `this.state`), so try to remain `state`-less or use as little state as possible. One appropriate way to use state is to achieve some transient effect (i.e. TextListEditor uses state to prevent the immediate removal of an empty input text box, but if the editor was rerendered, the empty input boxes would be gone). (Also, if you’re wondering why we omit the onChange function, it's complicted, but if interested, keep reading below).
+### The relationship between Editors and Widgets
 
-If you're confused by what this `_(notation).is()`, see [underscorejs.org](http://underscorejs.org). We also have some features of ecmascript 6 enabled, so if you see `x => x * this.multiplier`, that's an [arrow function](http://www.nczonline.net/blog/2013/09/10/understanding-ecmascript-6-arrow-functions/). We also have [rest parameters](http://ariya.ofilabs.com/2013/03/es6-and-rest-parameter.html) and [templates](http://www.nczonline.net/blog/2012/08/01/a-critical-review-of-ecmascript-6-quasi-literals/), only in .jsx files.
+In order to write a functioning widget, it will be important to manage the relationship between the widget's editor, the widget's renderer (aka the widget), and the datastore.
+
+The datastore is the canonical representation of the question. Here's an example of what a simple question looks like:
+
+    item = {
+        "question": {
+            "content": "What is $1 + 1$? [[☃ input-number 1]]",
+            "images": {},
+            "widgets": {
+                "input-number 1": {
+                    "type": "input-number",
+                    "graded": true,
+                    "options": {
+                        "value": 2,
+                        "simplify": "required",
+                        "size": "small",
+                        "inexact": false,
+                        "maxError": 0.1,
+                        "answerType": "number"
+                    }
+                }
+            }
+        },
+        "answerArea": {
+            "type": "multiple",
+            "options": {
+                "content": "Enter the answer in the blank to the left.",
+                "images": {},
+                "widgets": {}
+            },
+            "calculator": false
+        },
+        "hints": []
+    }
+
+The relevant portion of this for a widget is inside `item.question.widgets["input-number 1"]`,
+which is the JSON representation of an `input-number` widget:
+
+    "input-number 1": {
+        "type": "input-number",
+        "graded": true,
+        "options": {
+            "value": 2,
+            "simplify": "required",
+            "size": "small",
+            "inexact": false,
+            "maxError": 0.1,
+            "answerType": "number"
+        }
+    }
+
+This is the representation of an `input-number` that is stored in the datastore.
+The `options` field represents the props that are sent to the editor for
+`input-number` (`InputNumberEditor`).
+**The JSON in the datastore is sent as the props to the widget editor.**
+
+However, this is not the end of the story of the editor's props. This json
+version of the props may end up being modified by the editor itself. The most
+common way this happens is through `getDefaultProps()`, where a widget editor
+might expand upon the props sent to it from the datastore with other values
+that it considers to be missing from these.
+
+As the widget editor is modified (for example, the question writer changes
+the correct value of the input number to 3), the widget editor will call
+
+    this.props.onChange({
+        value: 3
+    });
+
+The `props.onChange` function is passed into the widget editor by the Perseus
+`Editor` component, and allows a widget editor to tell the `Editor` to send it
+different props. This pattern is so common that it has been made into a
+mixin, `Changeable`, which provides `this.change`:
+
+    var Changeable = require("../mixins/changeable");
+    
+    var ExampleWidgetEditor = React.createClass({
+        // ...
+        mixins: [Changeable]
+        
+        // ...
+        handleAnswerChange(event) {
+            this.change({
+                correct: event.target.value
+            })
+        }
+        // ...
+    });
+    
+After this change, the following props will be sent down to the
+`ExampleWidgetEditor` by the `Editor`:
+
+    "options": {
+        "value": 3,
+        "simplify": "required",
+        "size": "small",
+        "inexact": false,
+        "maxError": 0.1,
+        "answerType": "number"
+    }
+    
+At this point, the question writer probably would like to save the item.
+When they save the item, the widget editor's `toJSON()` function is called,
+and the result is set as the `options` field for that widget and stored in
+the datastore. **The result of `toJSON()` is stored in the datastore.**
+It is important to note that when the question is loaded again, that
+result of `toJSON()` that has been stored in the datastore will be sent
+as the props of the widget editor. For that reason,
+**it is important for toJSON to return an object compatible with the editor's props**.
+
+While it is possible to return things other than the editor's props from
+`toJSON()`, this is not recommended, and all future widgets should return a
+strict subset of their editor's props in `toJSON()`. Since this pattern is
+quite common, we have a mixin to create a correct `toJSON()` function:
+`JsonifyProps`. Adding `JsonifyProps` to the mixins of the widget editor
+gives the widget editor a `toJSON()` function that returns the widget
+editor's props minus special props used by React or Perseus.
+
+From here, it is important to understand how these editor props relate to
+the widget renderer's props. The widget renderer's props are created by
+calling the `transform` function exported by the widget on the result
+of the widget editor's `toJSON()` function (or equivalently on the props
+from the datastore). If no `transform` function is registered, the
+identity function is used in its place. For this reason, many legacy
+widgets have the same format for their editor props and renderer props,
+however, this conflation is no longer necessary, and in most cases
+an explicit `transform` function can make prop logic clearer.
 
 
 ### Behind the Curtains
