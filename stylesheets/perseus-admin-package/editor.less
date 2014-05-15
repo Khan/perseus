@@ -712,10 +712,28 @@
             margin-bottom: 0;
         }
         &.correct textarea {
-            background: #ddffdd;
+            background: #aaffaa;
         }
         &.incorrect textarea {
-            background: #ffdddd;
+            background: #ffcccc;
+        }
+    }
+
+    textarea {
+        // http://stackoverflow.com/questions/2610497/change-an-inputs-html5-placeholder-color-with-css
+        &::-webkit-input-placeholder {
+            color: #777;
+        }
+        &:-moz-placeholder {
+            color: #777;
+            opacity: 1;
+        }
+        &::-moz-placeholder {
+            color: #777;
+            opacity: 1;
+        }
+        &:-ms-input-placeholder {
+            color: #777;
         }
     }
 
