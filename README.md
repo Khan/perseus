@@ -3,10 +3,12 @@
 Perseus is Khan Academy's new exercise question editor and renderer. It allows
 you to create and display interactive questions.
 
+
 ## Live demo
 
 Our test page isn't much yet, but you can check out a
 [live demo of it here](http://khan.github.io/perseus/)!
+
 
 ## Getting started locally
 
@@ -28,6 +30,7 @@ We recommend installing `npm` and `make`, and running 'make server'
 Now if you open your browser to `http://localhost:9000/test.html`
 (or `http://127.0.0.1:9000/test.html`) you should see the Perseus
 question editor.
+
 
 ## Fundamental technologies
 
@@ -58,6 +61,7 @@ parts of the code (and aren't necessary to understand to work with Perseus code)
    that are not possible with React.js
  * We use [Browserify](http://browserify.org/) to provide Node.js style `require`
    dependencies.
+
 
 ## Adding widgets
 
@@ -96,6 +100,7 @@ bottom of that file.
 
 
 Then `src/all-widgets.js` `require`s this widget to register it:
+
 
 ### The relationship between Editors and Widgets
 
@@ -228,20 +233,24 @@ however, this conflation is no longer necessary, and in most cases
 an explicit `transform` function can make prop logic clearer.
 
 
-### Behind the Curtains
+### Between the widgets
+
 In order to get the information from the editor to the renderer, there is big chain of calls of `toJSON` calls with the following hierarchy: 
-```
-TOP: StatefulEditorPage -> EditorPage -> ItemEditor -> Editor -> WidgetEditor -> (widget’s editor) : BOTTOM
-```
+
+    TOP: StatefulEditorPage -> EditorPage -> ItemEditor -> Editor -> WidgetEditor -> (widget’s editor) : BOTTOM
+
 It’s at the `EditorPage` level that `updateRenderer` takes `EditorPage.toJSON` and passes it to `ItemRenderer`, which (on mounting) passes that information to three additional components: `Renderer`, `AnswerAreaRenderer`, and `HintsRenderer`. Each of those in turn identifies the widget type and inserts the information. (In the future, we may streamline this process, delete the toJSON function at the widget’s editor level, and simply extract the props of the widget directly.)
 
 But you might be wondering, "how does it know to update?" That's why we use a heirarchical paradigm of calling 
-```
-this.props.onChange({updatedParam: newValue}, callbackFunction)
-```
-for every update-worthy instance. Similar to toJSON, it goes all the way up the hierarchy above and then comes all the way back down, rerendering everything. And this happens on: every. single. user. interaction. Good thing Javascript is fast.
 
-Also, FYI, there is nothing particularly special about the function name `onChange`; it’s just the one we’re using (it could just as equally be `onUpdate` or `propogateChangesUpwards`). We’re mentioning that expliciting because syntax highlighting may think that it’s the `onChange` event, which its not.
+    this.props.onChange({updatedParam: newValue}, callbackFunction)
+
+for every update-worthy instance. Similar to toJSON, it goes all the way up the hierarchy above and then comes all the way back down, rerendering everything. The results of these renders are then diffed by React, preventing them from causing unnecessary DOM manipulation (and keeping this whole process fast).
+
+Note that there is nothing special about the function `onChange`--that name
+is just a convention, and not related to the DOM's `onChange` event, except
+in as much as the default React objects use onChange in a way similarly to
+ours because of the DOM event.
 
 
 ## Mini-Projects
@@ -267,6 +276,7 @@ Want to help out? Here are some well-scoped improvements we could use:
 - **Add a coefficient type:** Add a type to input-number for use as a coeffient in
   polynomials. It would accept "" to mean 1 (an empty box in front of `x` means `1x`),
   and "-" as "-1", in addition to decimals and fractions.
+
 
 ## Questions?
 
