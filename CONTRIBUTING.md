@@ -1,15 +1,3 @@
-# Perseus
-
-Perseus is Khan Academy's new exercise question editor and renderer. It allows
-you to create and display interactive questions.
-
-
-## Live demo
-
-Our test page isn't much yet, but you can check out a
-[live demo of it here](http://khan.github.io/perseus/)!
-
-
 ## Getting started locally
 
     git clone git@github.com:Khan/perseus.git
@@ -257,7 +245,7 @@ ours because of the DOM event.
 
 Want to help out? Here are some well-scoped improvements we could use:
 - **Show messages on user input in test.html**: In production, there is a message box
-  that shows various clues to the user ("You didn't simplify" or "You used x instead of *").
+  that shows various clues to the user ("You didn't simplify" or "You used x instead of \*").
   But those clues don't show up in Perseus for whatever reason. Essentially onClick of 
   the score button or (if the above mini-project is done) the green button, there should be
   a message that appears. This is becoming more important as these little clues are now going
