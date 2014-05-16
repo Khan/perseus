@@ -146,12 +146,10 @@ var ExampleWidgetEditor = React.createClass({
         };
     },
 
-    handleAnswerChange: function(e) {
-        this.change("correct", e.target.value);
-        // Could also write:
-        // this.change({
-        //     correct: e.target.value
-        // });
+    handleAnswerChange: function(event) {
+        this.change({
+            correct: event.target.value
+        });
     },
 
     render: function() {
