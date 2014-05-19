@@ -9,12 +9,17 @@ var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 
 var SINGLE_ITEM_WIDGET_ID = "answer-area";
+var PT = React.PropTypes;
 
 var AnswerAreaRenderer = React.createClass({
     propTypes: {
-        onInteractWithWidget: React.PropTypes.func.isRequired,
+        type: PT.string,
+        options: PT.object,
+        calculator: PT.bool,
+        problemNum: PT.number,
+        onInteractWithWidget: PT.func.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
-        highlightedWidgets: React.PropTypes.array.isRequired
+        highlightedWidgets: PT.array.isRequired
     },
 
     getInitialState: function() {
