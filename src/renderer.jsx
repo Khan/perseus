@@ -70,7 +70,8 @@ var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
 var Renderer = React.createClass({
     propTypes: {
         highlightedWidgets: React.PropTypes.array,
-        enabledFeatures: EnabledFeatures.propTypes
+        enabledFeatures: EnabledFeatures.propTypes,
+        onInteractWithWidget: React.PropTypes.func
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -84,11 +85,13 @@ var Renderer = React.createClass({
         return {
             content: "",
             ignoreMissingWidgets: false,
+            highlightedWidgets: [],
             enabledFeatures: EnabledFeatures.defaults,
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
-            onRender: function() {}
+            onRender: function() {},
+            onInteractWithWidget: function() {}
         };
     },
 
