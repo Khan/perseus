@@ -207,7 +207,6 @@ var Renderer = React.createClass({
         // widgets.
         var smartypants = markedReact.InlineLexer.prototype.smartypants;
         markedReact.InlineLexer.prototype.smartypants = function(text) {
-            var startingWidgets = _.clone(widgetIds);
             var pieces = Util.split(text, /@@(\d+)@@/g);
             for (var i = 0; i < pieces.length; i++) {
                 var type = i % 2;
