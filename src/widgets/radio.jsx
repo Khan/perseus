@@ -301,14 +301,14 @@ var RadioEditor = React.createClass({
 
                 <div>
                     <div className="perseus-widget-left-col">
-                        <PropCheckBox label="One Answer Per Line"
+                        <PropCheckBox label="One answer per line"
                                       labelAlignment="right"
                                       onePerLine={this.props.onePerLine}
                                       onChange={this.props.onChange} />
                     </div>
                     <InfoTip>
                         <p>
-                            Use One Answer Per Line unless your question has
+                            Use one answer per line unless your question has
                             images that might cause the answers to go off the
                             page.
                         </p>
