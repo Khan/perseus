@@ -1,30 +1,31 @@
 /** @jsx React.DOM */
 
 var InfoTip = require("../components/info-tip.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var Dropdown = React.createClass({
     getDefaultProps: function() {
         return {
             choices: [{}],
-            selected: 0
+            selected: 0,
+            placeholder: ""
         };
     },
 
     render: function() {
         var choices = this.props.choices.slice();
-        choices.unshift({
-            content: ""
-        });
 
-        // TODO(jack): This should base the selected
-        // item on its props
         return <select
                     onChange={this.onChange}
-                    className="perseus-widget-dropdown">
+                    className="perseus-widget-dropdown"
+                    value={this.props.selected}>
+            <option value={0} disabled>
+                {this.props.placeholder}
+            </option>
             {choices.map(function(choice, i) {
                 return <option
-                        key={"" + i}
-                        value={i}>
+                        key={"" + (i + 1)}
+                        value={i + 1}>
                     {choice.content}
                 </option>;
             }, this)}
@@ -37,12 +38,12 @@ var Dropdown = React.createClass({
     },
 
     onChange: function(e) {
-        var selected = this.getDOMNode().selectedIndex;
+        var selected = e.target.value;
         this.props.onChange({selected: selected});
     },
 
     toJSON: function(skipValidation) {
-        return {value: this.getDOMNode().selectedIndex};
+        return {value: this.props.selected};
     },
 
     simpleValidate: function(rubric) {
@@ -75,8 +76,11 @@ _.extend(Dropdown, {
 });
 
 var DropdownEditor = React.createClass({
+    mixins: [JsonifyProps],
+
     getDefaultProps: function() {
         return {
+            placeholder: "",
             choices: [{
                 content: "",
                 correct: false
@@ -87,12 +91,24 @@ var DropdownEditor = React.createClass({
     render: function() {
         var dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return <div className="perseus-widget-dropdown">
+            <div>Dropdown
+                <InfoTip>
+                    <p>The drop down is useful for making inequalities in a
+                    custom format. We normally use the symbols {"<"}, {">"},
+                    ≤, ≥ (in that order) which you can copy into the
+                    choices. When possible, use the "multiple choice" answer
+                    type instead.</p>
+                </InfoTip>
+            </div>
+            <input
+                type="text"
+                placeholder="Placeholder value"
+                value={this.props.placeholder}
+                onChange={this.onPlaceholderChange} />
             <InfoTip>
-                <p>The drop down is useful for making inequalities in a custom
-                format. We normally use the symbols {"<"}, {">"}, ≤, ≥ (in
-                that order) which you can copy into the choices.  When
-                possible, use the "multiple choice" answer type
-                instead.</p>
+                <p>This value will appear as the drop down default. It should
+                give the user some indication of the values available in the
+                drop down itself, e.g., Yes/No/Maybe.</p>
             </InfoTip>
             <ul>
                 {this.props.choices.map(function(choice, i) {
@@ -127,6 +143,11 @@ var DropdownEditor = React.createClass({
                 </a>
             </div>
         </div>;
+    },
+
+    onPlaceholderChange: function(e) {
+        var placeholder = e.target.value;
+        this.props.onChange({placeholder: placeholder});
     },
 
     onCorrectChange: function(choiceIndex) {
@@ -168,14 +189,6 @@ var DropdownEditor = React.createClass({
     focus: function(i) {
         this.refs["editor" + i].getDOMNode().focus();
         return true;
-    },
-
-    toJSON: function(skipValidation) {
-        if (!skipValidation &&
-                !_.some(_.pluck(this.props.choices, "correct"))) {
-            alert("Warning: No choice is marked as correct.");
-        }
-        return _.pick(this.props, 'choices');
     }
 });
 
