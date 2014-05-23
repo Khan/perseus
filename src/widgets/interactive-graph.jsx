@@ -45,7 +45,7 @@ function sign(val) {
         return 0;
     } else {
         return val > 0 ? 1 : -1;
-    }    
+    }
 }
 
 // default to defaultValue if actual is null or undefined
@@ -381,7 +381,7 @@ var InteractiveGraph = React.createClass({
                                 key="polygon-snap"
                                 value={this.props.graph.snapTo}
                                 onChange={e => {
-                                    var graph = _.extend({}, 
+                                    var graph = _.extend({},
                                         this.props.graph,
                                         {
                                             snapTo: e.target.value,
@@ -544,6 +544,19 @@ var InteractiveGraph = React.createClass({
             image = null;
         }
 
+        var instructions;
+        if (this.isClickToAddPoints()) {
+            var instructionsText;
+            if  (this.props.graph.type === "point") {
+                instructionsText = <$_>Click to add points.</$_>;
+            } else if (this.props.graph.type === "polygon") {
+                instructionsText = <$_>Click to add vertices.</$_>;
+            }
+            instructions = <div className="instructions">
+                {instructionsText}
+            </div>;
+        }
+
         var onClick = this.isClickToAddPoints() ?
             this.handleAddPointsClick :
             null;
@@ -554,6 +567,7 @@ var InteractiveGraph = React.createClass({
                         width: box[0],
                         height: this.props.flexibleType ? "auto" : box[1]
                     }}>
+            {instructions}
             <Graph
                 ref="graph"
                 box={this.props.box}
@@ -1998,7 +2012,7 @@ _.extend(InteractiveGraph, {
                     guess.sort();
                     correct.sort();
                     match = deepEq(guess, correct);
-                } 
+                }
 
                 if (match) {
                     return {
@@ -2024,7 +2038,7 @@ _.extend(InteractiveGraph, {
             } else if (state.type === "ray") {
                 var guess = state.coords;
                 var correct = rubric.correct.coords;
-                if (deepEq(guess[0], correct[0]) && 
+                if (deepEq(guess[0], correct[0]) &&
                         collinear(correct[0], correct[1], guess[1])) {
                     return {
                         type: "points",
@@ -2046,7 +2060,7 @@ _.extend(InteractiveGraph, {
                     });
                     match = eq.apply(null, angles);
                 } else { /* exact */
-                    match = deepEq(guess[1], correct[1]) && 
+                    match = deepEq(guess[1], correct[1]) &&
                             collinear(correct[1], correct[0], guess[0]) &&
                             collinear(correct[1], correct[2], guess[2]);
                 }
