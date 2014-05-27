@@ -1,4 +1,3 @@
-jest.dontMock("../widget-diff-performer.jsx");
 
 describe("widget-diff-performer", function() {
     var diff;

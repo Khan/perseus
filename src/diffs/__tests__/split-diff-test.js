@@ -1,4 +1,3 @@
-jest.dontMock("../split-diff.jsx");
 
 describe("split diff", function() {
     var splitDiff;

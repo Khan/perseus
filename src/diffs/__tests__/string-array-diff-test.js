@@ -1,4 +1,3 @@
-jest.dontMock("../string-array-diff.jsx");
 
 var stringArrayDiff = require("../string-array-diff.jsx");
 

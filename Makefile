@@ -1,4 +1,4 @@
-.PHONY: help build debug server all subperseus put put-js put-css update clean lint
+.PHONY: help build debug server all subperseus put put-js put-css install clean lint test jest
 PORT=9000
 
 help:
@@ -22,7 +22,7 @@ debug:
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> build/perseus.debug.js
 	./node_modules/.bin/browserify src/perseus.js -s Perseus -t reactiscriptsixify -d  >> build/perseus.debug.js
 
-server: update
+server: install
 	./node_modules/.bin/beefy src/perseus.js test/test.js $(PORT) -- -s Perseus -t reactiscriptsixify -d
 
 demo:
@@ -36,7 +36,7 @@ demo:
 
 all: subperseus
 
-subperseus: clean update build put
+subperseus: clean install build put
 
 put: put-js put-css
 
@@ -46,7 +46,7 @@ put-js:
 put-css:
 	./operations.sh put-css
 
-update:
+install:
 	npm install
 
 clean:
@@ -54,4 +54,13 @@ clean:
 
 lint:
 	~/Khan/devtools/khan-linter/runlint.py
+
+test:
+	./node_modules/.bin/mocha --reporter spec -r mocha/environment.js src/**/__tests__/*
+
+build/ke.js:
+	(cd ke && ../node_modules/.bin/r.js -o requirejs.config.js out=../build/ke.js)
+
+jest: build/ke.js
+	./node_modules/.bin/jest
 

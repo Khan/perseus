@@ -1,6 +1,3 @@
-jest.dontMock("../renderer.jsx");
-jest.dontMock("../util.js");
-
 describe("Renderer", function() {
     var Renderer;
 

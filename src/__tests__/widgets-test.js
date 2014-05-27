@@ -1,4 +1,3 @@
-jest.autoMockOff();
 
 var fixture;
 
