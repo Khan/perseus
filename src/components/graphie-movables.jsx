@@ -24,6 +24,21 @@ var MovablePoint = GraphieClasses.createClass({
 // Include helper methods, such as MovablePoint.constrain.snap()
 _.extend(MovablePoint, Interactive2.MovablePoint);
 
+var Line = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.line(props.start, props.end, props.style);
+});
+
+var Label = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.label(
+        props.coord,
+        props.text,
+        props.direction,
+        props.tex
+    );
+});
+
 module.exports = {
+    Line: Line,
+    Label: Label,
     MovablePoint: MovablePoint
 };

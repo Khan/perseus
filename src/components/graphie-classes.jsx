@@ -85,15 +85,15 @@ var createSimpleClass = function(addFunction) {
         displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
         movableProps: ["children"],
 
-        add: function() {
-            this._elements = addFunction(this.props);
+        add: function(graphie) {
+            this._elements = addFunction(graphie, this.props);
             this._prevProps = this.props;
         },
 
-        modify: function() {
+        modify: function(graphie) {
             if (!deepEq(this.props, this._prevProps)) {
                 this.remove();
-                this.add();
+                this.add(graphie);
             }
             this._prevProps = this.props;
         },
