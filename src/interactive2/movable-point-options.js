@@ -23,7 +23,7 @@ modify.standard = [modify.draw];
 
 
 var draw = {
-    basic: function() {
+    basic: function(state, prevState) {
         var graphie = this.graphie;
         if (!this.state.visibleShape) {
             this.state.visibleShape = graphie.ellipse(
@@ -34,6 +34,10 @@ var draw = {
                 ],
                 _.omit(this.normalStyle(), "scale")
             );
+        }
+        if (state.normalStyle !== prevState.normalStyle &&
+                !_.isEqual(state.normalStyle, prevState.normalStyle)) {
+            this.state.visibleShape.attr(this.normalStyle());
         }
         var scaledPoint = graphie.scalePoint(this.coord());
         this.state.visibleShape.attr({cx: scaledPoint[0]});
@@ -47,12 +51,12 @@ var draw = {
     highlight: function(state, prevState) {
         if (state.isHovering && !prevState.isHovering) {
             state.visibleShape.animate(
-                state.highlightStyle,
+                this.highlightStyle(),
                 50
             );
         } else if (!state.isHovering && prevState.isHovering) {
             state.visibleShape.animate(
-                state.normalStyle,
+                this.normalStyle(),
                 50
             );
         }

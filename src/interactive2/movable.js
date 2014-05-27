@@ -192,10 +192,9 @@ _.extend(Movable.prototype, {
         }
 
 
-        self.prevState = self.cloneState();
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
-            self._fireEvent(state.modify, self.prevState);
+            self._fireEvent(state.modify, self.cloneState(), {});
             state.added = true;
 
             // Update the state for `added` and in case the add event
@@ -204,9 +203,7 @@ _.extend(Movable.prototype, {
         }
 
         // Trigger a modify event
-        self._fireEvent(state.modify, self.prevState);
-        // Update the state if the modify event changed it
-        self.prevState = self.cloneState();
+        self._fireEvent(state.modify, self.cloneState(), self.prevState);
     },
 
     remove: function() {

@@ -153,6 +153,8 @@ _.extend(MovablePoint.prototype, {
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
 
+        assert(kpoint.is(state.coord));
+
         // Default things inside the state.normalStyle object, because
         // _.extend is not deep.
         // We use _.extend instead of _.defaults because we don't want
@@ -231,10 +233,9 @@ _.extend(MovablePoint.prototype, {
             }
         }));
 
-        self.prevState = self.cloneState();
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
-            self._fireEvent(state.modify, self.prevState);
+            self._fireEvent(state.add, self.cloneState(), {});
             state.added = true;
 
             // Update the state for `added` and in case the add event
@@ -243,9 +244,7 @@ _.extend(MovablePoint.prototype, {
         }
 
         // Trigger a modify event
-        self._fireEvent(state.modify, self.prevState);
-        // Update the state if the modify event changed it
-        self.prevState = self.cloneState();
+        self._fireEvent(state.modify, self.cloneState(), self.prevState);
     },
 
     remove: function() {
@@ -270,6 +269,16 @@ _.extend(MovablePoint.prototype, {
         assert(kpoint.is(coord, 2));
         this.state.coord = _.clone(coord);
         this.draw();
+    },
+
+    // Clone these for use with raphael, which modifies the input
+    // style parameters
+    normalStyle: function() {
+        return _.clone(this.state.normalStyle);
+    },
+
+    highlightStyle: function() {
+        return _.clone(this.state.highlightStyle);
     },
 
     // Change z-order to back
