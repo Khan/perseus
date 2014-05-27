@@ -1,6 +1,7 @@
 var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
 var InteractiveUtil = require("../interactive2/interactive-util.js");
+
 var assert = InteractiveUtil.assert;
 
 var MovablePoint = GraphieClasses.createClass({
@@ -18,6 +19,10 @@ var MovablePoint = GraphieClasses.createClass({
 
     remove: function() {
         this.point.remove();
+    },
+
+    toFront: function() {
+        this.point.toFront();
     }
 });
 

@@ -24,7 +24,8 @@ _.extend(GraphieMovable.prototype, {
     },
     add: abstractMethod,
     modify: abstractMethod,
-    remove: abstractMethod
+    remove: abstractMethod,
+    toFront: function() { /* no op */ }
 });
 
 
@@ -94,8 +95,9 @@ var createSimpleClass = function(addFunction) {
             if (!deepEq(this.props, this._prevProps)) {
                 this.remove();
                 this.add(graphie);
+                this._prevProps = this.props;
+                return "reordered";
             }
-            this._prevProps = this.props;
         },
 
         remove: function() {
@@ -106,6 +108,14 @@ var createSimpleClass = function(addFunction) {
             });
             this._elements = null;
             this._prevProps = null;
+        },
+
+        toFront: function() {
+            nestedMap(this._elements, (elem) => {
+                if (_.isFunction(elem.toFront)) {
+                    elem.toFront();
+                }
+            });
         }
     });
 };

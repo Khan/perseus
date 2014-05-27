@@ -163,6 +163,12 @@ var Graphie = React.createClass({
         };
 
         // Add/modify movables
+
+        // We want to keep track of whether we have added a new svg element,
+        // because if we have, then we need to call .toFront() on any svg
+        // elements occurring afterwards. If this happens, we set
+        // `areMovablesOutOfOrder` to true:
+        var areMovablesOutOfOrder = false;
         return nestedMap(children, (child) => {
             if (!child) {
                 // Still increment the key to avoid cascading key changes
@@ -190,12 +196,18 @@ var Graphie = React.createClass({
             if (!prevMovable) {
                 // We're creating a new child
                 child.add(graphie);
+                areMovablesOutOfOrder = true;
+
                 newMovables[key] = child;
 
             } else if (child.constructor === prevMovable.constructor) {
                 // We're updating an old child
                 prevMovable.props = child.props;
-                prevMovable.modify();
+                var modifyResult = prevMovable.modify(graphie);
+                if (modifyResult === "reordered") {
+                    areMovablesOutOfOrder = true;
+                }
+
                 newMovables[key] = prevMovable;
 
             } else {
@@ -214,7 +226,13 @@ var Graphie = React.createClass({
 
                 prevMovable.remove();
                 child.add(graphie);
+                areMovablesOutOfOrder = true;
+
                 newMovables[key] = child;
+            }
+
+            if (areMovablesOutOfOrder) {
+                newMovables[key].toFront();
             }
 
             return newMovables[key];
