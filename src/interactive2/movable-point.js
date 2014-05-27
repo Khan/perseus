@@ -259,6 +259,13 @@ _.extend(MovablePoint.prototype, {
         this.state.mouseTarget = null;
     },
 
+    constrain: function() {
+        var result = this._applyConstraints(this.coord(), this.coord());
+        if (kpoint.is(result)) {
+            this.setCoord(result);
+        }
+    },
+
     setCoord: function(coord) {
         assert(kpoint.is(coord, 2));
         this.state.coord = _.clone(coord);

@@ -5,20 +5,21 @@
 var knumber = KhanUtil.knumber;
 var kpoint = KhanUtil.kpoint;
 
-var modify = {
+var add = {
     constrain: function() {
-        var result = this._applyConstraints(this.coord(), this.coord());
-        if (kpoint.is(result)) {
-            this.setCoord(result);
-        }
-    },
+        this.constrain();
+    }
+};
 
+add.standard = [add.constrain];
+
+var modify = {
     draw: function() {
         this.draw();
     }
 };
 
-modify.standard = [modify.constrain, modify.draw];
+modify.standard = [modify.draw];
 
 
 var draw = {
