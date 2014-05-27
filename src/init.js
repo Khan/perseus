@@ -1,3 +1,5 @@
+var React = require('react');
+
 var init = function(options) {
     _.defaults(options, {
         // Pass skipMathJax: true if MathJax is already loaded and configured.

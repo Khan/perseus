@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var Editor = require("./editor.jsx");
-var InfoTip = require("./components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip");
 var Widgets = require("./widgets.js");
 
 var AnswerAreaEditor = React.createClass({

@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var cx = React.addons.classSet;
 
 var WidgetContainer = React.createClass({

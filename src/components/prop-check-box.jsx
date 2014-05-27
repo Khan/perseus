@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+var React = require('react');
+
 /* A checkbox that syncs its value to props using the
  * renderer's onChange method, and gets the prop name
  * dynamically from its props list

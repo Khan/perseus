@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var EditorPage = require("./editor-page.jsx");
 
 /* Renders an EditorPage as a non-controlled component.

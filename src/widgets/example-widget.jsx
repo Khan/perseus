@@ -9,6 +9,7 @@
  * TODO(jack): Add more comments
  */
 
+var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 

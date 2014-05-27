@@ -1,12 +1,13 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var InfoTip = require("../components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var NumberInput = require("../components/number-input.jsx");
-var ButtonGroup = require("../components/button-group.jsx");
+var ButtonGroup = require("react-components/button-group");
 var MultiButtonGroup = require("../components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 
@@ -427,7 +428,7 @@ var unionAnswerForms = function(answerFormsList) {
     var set = {};
     _.each(answerFormsList, (answerForms) => {
         _.each(answerForms, (form) => {
-            set[form] = true
+            set[form] = true;
         });
     });
     // Make sure to keep the order of forms in formExamples

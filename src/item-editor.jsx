@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var AnswerAreaEditor = require("./answer-area-editor.jsx");
 var Editor = require("./editor.jsx");
 

@@ -1,12 +1,14 @@
 /** @jsx React.DOM */
 
-var Changeable = require("../mixins/changeable.jsx");
+var React = require('react');
+
+var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var ButtonGroup  = require("../components/button-group.jsx");
-var InfoTip      = require("../components/info-tip.jsx");
+var ButtonGroup  = require("react-components/button-group");
+var InfoTip      = require("react-components/info-tip");
 var Interactive2 = require("../interactive2.js");
-var NumberInput = require("../components/number-input.jsx");
+var NumberInput  = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput   = require("../components/range-input.jsx");
 

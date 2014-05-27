@@ -3,9 +3,11 @@
  * For math rendered using MathJax. Use me like <TeX>2x + 3</TeX>.
  */
 
- var pendingScripts = [];
- var needsProcess = false;
- var timeout = null;
+var React = require('react');
+
+var pendingScripts = [];
+var needsProcess = false;
+var timeout = null;
 
 function process(script, callback) {
     pendingScripts.push(script);

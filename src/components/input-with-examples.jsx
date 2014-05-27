@@ -1,9 +1,11 @@
 /** @jsx React.DOM */
 
+var React = require('react');
+var Tooltip = require("react-components/tooltip");
+
 var MathInput = require("./math-input.jsx");
 var Renderer  = require("../renderer.jsx");
 var TextInput = require("./text-input.jsx");
-var Tooltip   = require("./tooltip.jsx");
 
 var MATH = "math";
 var TEXT = "text";
@@ -46,7 +48,7 @@ var InputWithExamples = React.createClass({
             onChange: this.props.onChange,
             onFocus: this.show,
             onBlur: this.hide,
-            ref: "input" 
+            ref: "input"
         };
 
         var input = this.props.type === MATH ?

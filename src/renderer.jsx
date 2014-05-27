@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var TeX = require("./tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
@@ -20,7 +21,7 @@ var specialChars = {
     "\\\\": "\\"
 };
 
-var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g; 
+var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 
 if (typeof KA !== "undefined" && KA.language === "en-PT") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
@@ -36,7 +37,7 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
     // to be updated
     KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
         var index = $(node).data("perseus-component-index");
-        // We only update if we had added an index onto the node's data. 
+        // We only update if we had added an index onto the node's data.
         if (node && typeof index !== "undefined") {
             var component = window.PerseusTranslationComponents[index];
 
@@ -166,7 +167,7 @@ var Renderer = React.createClass({
     render: function() {
         var content = this.state.jiptContent || this.props.content;
 
-        if (typeof KA !== "undefined" && KA.language === "en-PT" && 
+        if (typeof KA !== "undefined" && KA.language === "en-PT" &&
                 this.state.jiptContent == null &&
                 this.props.content.indexOf('crwdns') !== -1) {
             // Crowdin's JIPT (Just in place translation) uses a fake language
@@ -175,27 +176,27 @@ var Renderer = React.createClass({
             // {crowdinId:ngettext variant}. We detect whether the current
             // content matches this, so we can take over rendering of
             // the perseus content as the translators interact with jipt.
-            // We search for only part of the tag that crowdin uses to guard 
-            // against them changing the format on us. The full tag it looks 
-            // for can be found in https://cdn.crowdin.net/jipt/jipt.js 
+            // We search for only part of the tag that crowdin uses to guard
+            // against them changing the format on us. The full tag it looks
+            // for can be found in https://cdn.crowdin.net/jipt/jipt.js
             // globalPhrase var.
 
             // If we haven't already added this component to the registry do so
-            // now. showHints() may cause this component to be rerendered 
-            // before jipt has a chance to replace its contents, so this check 
-            // will keep us from adding the component to the registry a second 
+            // now. showHints() may cause this component to be rerendered
+            // before jipt has a chance to replace its contents, so this check
+            // will keep us from adding the component to the registry a second
             // time.
             if (!this.translationIndex) {
-                this.translationIndex = 
+                this.translationIndex =
                     window.PerseusTranslationComponents.push(this) - 1;
             }
             // We now need to output this tag, as jipt looks for it to be
-            // able to replace it with a translation that it runs an ajax 
+            // able to replace it with a translation that it runs an ajax
             // call to get.  We add a data attribute with the index to the
-            // Persues.TranslationComponent registry so that when jipt 
-            // calls its before_dom_insert we can lookup this component by 
+            // Persues.TranslationComponent registry so that when jipt
+            // calls its before_dom_insert we can lookup this component by
             // this attribute and render the text with markdown.
-            return <div 
+            return <div
                     data-perseus-component-index={this.translationIndex}>
                 {content}
             </div>;

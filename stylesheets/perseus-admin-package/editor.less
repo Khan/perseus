@@ -457,79 +457,6 @@
 
 
 //
-// Info tips
-//
-
-.perseus-info-tip {
-    margin-left: 5px;
-    position: relative;
-}
-
-.perseus-info-tip > i {
-    cursor: pointer;
-}
-
-.perseus-info-tip-container {
-    position: absolute;
-    top: -12px;
-    left: 22px;
-    z-index: 1000;
-}
-
-.perseus-info-tip-triangle {
-    display: block;
-    height: 10px;
-    left: 0;
-    position: absolute;
-    top: 8px;
-    width: 0;
-    z-index: 1;
-}
-
-.perseus-info-tip-triangle:before {
-    border-bottom: 9px solid transparent;
-    border-right: 9px solid #bbb;
-    border-top: 9px solid transparent;
-    content: " ";
-    display: block;
-    height: 0;
-    right: 0;
-    position: absolute;
-    top: 0;
-    width: 0;
-}
-
-.perseus-info-tip-triangle:after {
-    border-bottom: 9px solid transparent;
-    border-right: 9px solid @white;
-    border-top: 9px solid transparent;
-    content: " ";
-    display: block;
-    height: 0;
-    right: -1px;
-    position: absolute;
-    top: 0;
-    width: 0;
-}
-
-.perseus-info-tip-content-container {
-    display: block;
-    background: @white;
-    padding: 5px 10px;
-    width: 240px;
-}
-
-.perseus-info-tip-content-container p {
-    font-size: 12px;
-    line-height: 1.4;
-    margin: 0;
-}
-
-.perseus-info-tip-content-container p + p {
-    margin-top: 22px;
-}
-
-//
 // Dropdown editor
 //
 .perseus-widget-dropdown .remove-choice {
@@ -954,4 +881,15 @@
     input[type=text] + input[type=text] {
         margin-left: 2%;
     }
+}
+
+// Info-tip lives in react-components but these styles are perseus-specific.
+.info-tip-content-container p {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.info-tip-content-container p + p {
+    margin-top: 22px;
 }

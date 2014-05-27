@@ -1,11 +1,12 @@
 /** @jsx React.DOM */
 
-var Changeable =    require("../mixins/changeable.jsx");
-var JsonifyProps =  require("../mixins/jsonify-props.jsx");
+var React        = require('react');
+var Changeable   = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var InfoTip       = require("../components/info-tip.jsx");
+var InfoTip       = require("react-components/info-tip");
 var NumberInput   = require("../components/number-input.jsx");
-var PropCheckBox =  require("../components/prop-check-box.jsx");
+var PropCheckBox  = require("../components/prop-check-box.jsx");
 var RangeInput    = require("../components/range-input.jsx");
 
 var Measurer = React.createClass({

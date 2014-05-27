@@ -15,7 +15,9 @@
     "node-jsx": "^0.10.0",
     "react-tools": "0.10.0",
     "reactiscriptsixify": "~0.8.2",
-    "requirejs": "^2.1.11"
+    "requirejs": "^2.1.11",
+    "less": "~1.7.0",
+    "react-components": ">=0.0.3"
   },
   "repository": {
     "type": "git",

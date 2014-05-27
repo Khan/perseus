@@ -4,6 +4,7 @@
  * Disclaimer: Definitely not thorough enough
  */
 
+var React = require('react');
 var TestUtils = React.addons.TestUtils;
 var InputNumber = require("../input-number.jsx");
 

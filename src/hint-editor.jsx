@@ -4,9 +4,10 @@
  * hint editor boxes, and hint previews
  */
 
+var React = require('react');
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
-var InfoTip = require("./components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip");
 
 /* Renders a hint editor box
  *

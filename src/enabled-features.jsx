@@ -1,3 +1,5 @@
+var React = require('react');
+
 module.exports = {
     propTypes: React.PropTypes.shape({
         highlight: React.PropTypes.bool.isRequired,

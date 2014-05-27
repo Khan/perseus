@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var NumberInput = require("../components/number-input.jsx");
 
 /* A minor abstraction on top of NumberInput for ranges

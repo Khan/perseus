@@ -1,14 +1,16 @@
 /** @jsx React.DOM */
 
+var React   = require("react");
+var InfoTip = require("react-components/info-tip");
+var Tooltip = require("react-components/tooltip");
+
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var EnabledFeatures   = require("../enabled-features.jsx");
-var InfoTip           = require("../components/info-tip.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var PropCheckBox      = require("../components/prop-check-box.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
-var Tooltip           = require("../components/tooltip.jsx");
 
 var cx = React.addons.classSet;
 

@@ -1,6 +1,8 @@
 /** @jsx React.DOM */
 
-var InfoTip = require("../components/info-tip.jsx");
+var React = require('react');
+var InfoTip = require("react-components/info-tip");
+
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var Dropdown = React.createClass({

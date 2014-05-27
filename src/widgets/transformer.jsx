@@ -1,8 +1,9 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
-var InfoTip       = require("../components/info-tip.jsx");
+var InfoTip       = require("react-components/info-tip");
 var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var TeX           = require("../tex.jsx");

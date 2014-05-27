@@ -1,12 +1,13 @@
 /** @jsx React.DOM */
 
+var BlurInput    = require("react-components/blur-input");
+var InfoTip      = require("react-components/info-tip");
+
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
-var BlurInput = require("../components/blur-input.jsx");
-var InfoTip      = require("../components/info-tip.jsx");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];

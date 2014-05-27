@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var React = require('react');
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var knumber = KhanUtil.knumber;
 var toNumericString = KhanUtil.toNumericString;
