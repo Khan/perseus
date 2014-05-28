@@ -1,53 +1,9 @@
 /** @jsx React.DOM */
 
+var Util           = require("../util.js");
 var InfoTip        = require("../components/info-tip.jsx");
 var Renderer       = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-
-var pointerDown = false;
-var currentTouchIdentifier = null;
-
-function extractPointerLocation(event) {
-    var touchOrEvent;
-
-    if (pointerDown) {
-        // Look for the touch matching the one we're tracking; ignore others
-        if (currentTouchIdentifier != null) {
-            var len = event.changedTouches ? event.changedTouches.length : 0;
-            for (var i = 0; i < len; i++) {
-                if (event.changedTouches[i].identifier ===
-                        currentTouchIdentifier) {
-                    touchOrEvent = event.changedTouches[i];
-                }
-            }
-        } else {
-            touchOrEvent = event;
-        }
-
-        var isEndish =
-                event.type === "touchend" || event.type === "touchcancel";
-        if (touchOrEvent && isEndish) {
-            pointerDown = false;
-            currentTouchIdentifier = null;
-        }
-    } else {
-        // touchstart or mousedown
-        pointerDown = true;
-        if (event.touches) {
-            touchOrEvent = event.touches[0];
-            currentTouchIdentifier = touchOrEvent.identifier;
-        } else {
-            touchOrEvent = event;
-        }
-    }
-
-    if (touchOrEvent) {
-        return {
-            left: touchOrEvent.pageX,
-            top: touchOrEvent.pageY
-        };
-    }
-}
 
 var PlaceholderCard = React.createClass({
     propTypes: {
@@ -203,7 +159,7 @@ var Card = React.createClass({
 
     onMouseDown: function(event) {
         event.preventDefault();
-        var loc = extractPointerLocation(event);
+        var loc = Util.extractPointerLocation(event);
         if (loc) {
             this.bindMouseMoveUp();
             this.props.onMouseDown && this.props.onMouseDown(loc, this);
@@ -212,7 +168,7 @@ var Card = React.createClass({
 
     onMouseMove: function(event) {
         event.preventDefault();
-        var loc = extractPointerLocation(event);
+        var loc = Util.extractPointerLocation(event);
         if (loc) {
             this.props.onMouseMove && this.props.onMouseMove(loc);
         }
@@ -220,7 +176,7 @@ var Card = React.createClass({
 
     onMouseUp: function(event) {
         event.preventDefault();
-        var loc = extractPointerLocation(event);
+        var loc = Util.extractPointerLocation(event);
         if (loc) {
             this.unbindMouseMoveUp();
             this.props.onMouseUp && this.props.onMouseUp(loc);
@@ -586,7 +542,7 @@ var OrdererEditor = React.createClass({
                 {' '}Correct answer:{' '}
                 <InfoTip><p>
                     Place the cards in the correct order. The same card can be
-                    used more than once in the answer but will only be 
+                    used more than once in the answer but will only be
                     displayed once at the top of a stack of identical cards.
                 </p></InfoTip>
             </div>

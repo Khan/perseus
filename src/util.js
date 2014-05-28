@@ -309,7 +309,7 @@ var Util = {
     /**
      * Transparently update deprecated props so that the code to deal
      * with them only lives in one place: (Widget).deprecatedProps
-     * 
+     *
      * For example, if a boolean `foo` was deprecated in favor of a
      * number 'bar':
      *      deprecatedProps: {
@@ -337,7 +337,7 @@ var Util = {
 
                 // ...when we propagate the new props upwards and they come
                 // back down again.
-                setTimeout(this.props.onChange, 0, newProps);    
+                setTimeout(this.props.onChange, 0, newProps);
             }
         }
     },
@@ -351,7 +351,7 @@ var Util = {
         } else {
             return x === y;
         }
-    }, 
+    },
 
     /**
      * Deep approximate equality on primitives, numbers, arrays, and objects.
@@ -423,7 +423,65 @@ var Util = {
      */
     scoreIsEmpty: function(score) {
         return score.type === "invalid";
-    }
+    },
+
+    /**
+     * Extracts the location of a touch or mouse event, allowing you to pass
+     * in a "mouseup", "mousedown", or "mousemove" event and receive the
+     * correct coordinates. Shouldn't be used with "vmouse" events.
+     *
+     * The Util.touchHandlers are used to track the current state of the touch
+     * event, such as whether or not the user is currently pressed down (either
+     * through touch or mouse) on the screen.
+     */
+
+     touchHandlers: {
+        pointerDown: false,
+        currentTouchIdentifier: null
+     },
+
+     extractPointerLocation: function(event) {
+         var touchOrEvent;
+
+         if (Util.touchHandlers.pointerDown) {
+             // Look for the touch matching the one we're tracking; ignore others
+             if (Util.touchHandlers.currentTouchIdentifier != null) {
+                 var len = event.changedTouches ? event.changedTouches.length : 0;
+                 for (var i = 0; i < len; i++) {
+                     if (event.changedTouches[i].identifier ===
+                             Util.touchHandlers.currentTouchIdentifier) {
+                         touchOrEvent = event.changedTouches[i];
+                     }
+                 }
+             } else {
+                 touchOrEvent = event;
+             }
+
+             var isEndish =
+                     event.type === "touchend" || event.type === "touchcancel";
+             if (touchOrEvent && isEndish) {
+                 Util.touchHandlers.pointerDown = false;
+                 Util.touchHandlers.currentTouchIdentifier = null;
+             }
+         } else {
+             // touchstart or mousedown
+             Util.touchHandlers.pointerDown = true;
+             if (event.touches) {
+                 touchOrEvent = event.touches[0];
+                 Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
+             } else {
+                 touchOrEvent = event;
+             }
+         }
+
+         if (touchOrEvent) {
+             return {
+                 left: touchOrEvent.pageX,
+                 top: touchOrEvent.pageY
+             };
+         }
+     }
+
 };
 
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);

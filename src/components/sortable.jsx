@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var Util     = require("../util.js");
 var Renderer = require("../renderer.jsx");
 
 var PREFIX = "perseus-sortable";
@@ -64,6 +65,18 @@ var Draggable = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this.isMouseMoveUpBound = false;
+    },
+
+    componentWillUnmount: function() {
+        // Event handlers should be unbound before component unmounting, but
+        // just in case...
+        if (this.isMouseMoveUpBound) {
+            this.unbindMouseMoveUp();
+        }
+    },
+
     getCurrentPosition: function() {
         return {
             left: this.state.startPosition.left +
@@ -104,7 +117,10 @@ var Draggable = React.createClass({
                     className={className}
                     style={style}
                     onMouseDown={this.onMouseDown}
-                    onTouchStart={this.onMouseDown} >
+                    onTouchStart={this.onMouseDown}
+                    onTouchMove={this.onMouseMove}
+                    onTouchEnd={this.onMouseUp}
+                    onTouchCancel={this.onMouseUp} >
             <Renderer
                 content={this.props.content}
                 onRender={this.props.onRender} />
@@ -137,6 +153,19 @@ var Draggable = React.createClass({
         }
     },
 
+    bindMouseMoveUp: function() {
+        this.isMouseMoveUpBound = true;
+        $(document).on("mousemove", this.onMouseMove);
+        $(document).on("mouseup", this.onMouseUp);
+    },
+
+    unbindMouseMoveUp: function() {
+        this.isMouseMoveUpBound = false;
+        $(document).off("mousemove", this.onMouseMove);
+        $(document).off("mouseup", this.onMouseUp);
+    },
+
+
     onMouseDown: function(event) {
         if (this.props.type !== STATIC) {
             return;
@@ -148,23 +177,19 @@ var Draggable = React.createClass({
         }
 
         event.preventDefault();
-        var normalizedEvent = event.touches != null ? event.touches[0] : event;
-        var mouse = {
-            left: normalizedEvent.pageX,
-            top: normalizedEvent.pageY
-        };
+        var loc = Util.extractPointerLocation(event);
+        if (loc) {
+            this.setState({
+                startPosition: $(this.getDOMNode()).position(),
+                startMouse: loc,
+                mouse: loc
+            }, function() {
+                this.bindMouseMoveUp();
 
-        this.setState({
-            startPosition: $(this.getDOMNode()).position(),
-            startMouse: mouse,
-            mouse: mouse
-        }, function() {
-            $(document).on("vmousemove", this.onMouseMove);
-            $(document).on("vmouseup", this.onMouseUp);
-
-            // Static -> Dragging
-            this.props.onMouseDown();
-        });
+                // Static -> Dragging
+                this.props.onMouseDown();
+            });
+        }
     },
 
     onMouseMove: function(event) {
@@ -173,12 +198,12 @@ var Draggable = React.createClass({
         }
 
         event.preventDefault();
-        this.setState({
-            mouse: {
-                left: event.pageX,
-                top: event.pageY
-            }
-        }, this.props.onMouseMove);
+        var loc = Util.extractPointerLocation(event);
+        if (loc) {
+            this.setState({
+                mouse: loc,
+            }, this.props.onMouseMove);
+        }
     },
 
     onMouseUp: function(event) {
@@ -187,11 +212,13 @@ var Draggable = React.createClass({
         }
 
         event.preventDefault();
-        $(document).off("vmousemove", this.onMouseMove);
-        $(document).off("vmouseup", this.onMouseUp);
+        var loc = Util.extractPointerLocation(event);
+        if (loc) {
+            this.unbindMouseMoveUp();
 
-        // Dragging -> Animating
-        this.props.onMouseUp();
+            // Dragging -> Animating
+            this.props.onMouseUp();
+        }
     }
 });
 
@@ -240,7 +267,7 @@ var Sortable = React.createClass({
                 items: this.itemsFromProps(nextProps)
             });
 
-        } else if (nextProps.layout !== prevProps.layout || 
+        } else if (nextProps.layout !== prevProps.layout ||
                    nextProps.padding !== prevProps.padding ||
                    nextProps.disabled !== prevProps.disabled ||
                    !_.isEqual(nextProps.constraints, prevProps.constraints)) {
@@ -367,6 +394,9 @@ var Sortable = React.createClass({
                     onMouseDown={this.onMouseDown.bind(this, item.key)}
                     onMouseMove={this.onMouseMove.bind(this, item.key)}
                     onMouseUp={this.onMouseUp.bind(this, item.key)}
+                    onTouchMove={this.onMouseMove.bind(this, item.key)}
+                    onTouchEnd={this.onMouseUp.bind(this, item.key)}
+                    onTouchCancel={this.onMouseUp.bind(this, item.key)}
                     onAnimationEnd={this.onAnimationEnd.bind(this,
                         item.key)} />
             );
