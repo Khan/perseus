@@ -39,8 +39,14 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
         // We only update if we had added an index onto the node's data. 
         if (node && typeof index !== "undefined") {
             var component = window.PerseusTranslationComponents[index];
+
+            if (!component.isMounted()) {
+                // The component has disappeared, so we tell jipt not to try
+                // and insert anything
+                return false;
+            }
             // Jipt sends down the escaped translation, so we need to
-            // unescape \\t to \t among other charachters here
+            // unescape \\t to \t among other characters here
             text = text.replace(
                 rEscapedChars,
                 function(ch) {
