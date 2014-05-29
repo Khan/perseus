@@ -34,6 +34,17 @@ var createPoint = function(options) {
 };
 
 describe("MovablePoint", function() {
+    describe("add", function() {
+        it("should snap to the grid when a snap is specified", function() {
+            var point = createPoint({
+                coord: [1.1, 1.1],
+                constraints: MovablePoint.constraints.snap([1, 1])
+            }).point;
+
+            assert.deepEqual(point.coord(), [1, 1]);
+        });
+    });
+
     describe("modify", function() {
         it("should reset the point's size", function() {
             var defaultPointSize = createPoint({
