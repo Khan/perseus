@@ -800,6 +800,7 @@ var CategorizationEditor = React.createClass({
 module.exports = {
     name: "categorization",
     displayName: "Categorization",
+    hidden: true,
     widget: Categorization,
     editor: CategorizationEditor
 };

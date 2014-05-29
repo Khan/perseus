@@ -150,7 +150,6 @@ var CategorizerEditor = React.createClass({
 module.exports = {
     name: "categorizer",
     displayName: "Categorizer",
-    hidden: true,
     widget: Categorizer,
     editor: CategorizerEditor,
     transform: (editorProps) => {
