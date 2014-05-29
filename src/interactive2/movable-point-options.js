@@ -130,7 +130,7 @@ var constraints = {
 constraints.standard = null;
 
 module.exports = {
-    add: {standard: null},
+    add: add,
     modify: modify,
     draw: draw,
     remove: remove,

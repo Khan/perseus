@@ -235,7 +235,8 @@ _.extend(MovablePoint.prototype, {
 
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
-            self._fireEvent(state.add, self.cloneState(), {});
+            self.prevState = {};
+            self._fireEvent(state.add, self.cloneState(), self.prevState);
             state.added = true;
 
             // Update the state for `added` and in case the add event
