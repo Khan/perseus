@@ -118,21 +118,25 @@ _.extend(Movable.prototype, {
         if (state.mouseTarget && !prevState.mouseTarget) {
             var $mouseTarget = $(state.mouseTarget[0]);
 
-            $mouseTarget.on("vmouseover", function() {
-                state.isMouseOver = true;
-                if (!graphie.isDragging) {
-                    state.isHovering = true;
-                }
-                self.draw();
-            });
+            var isMouse = !('ontouchstart' in window);
 
-            $mouseTarget.on("vmouseout", function() {
-                state.isMouseOver = false;
-                if (!state.isDragging) {
-                    state.isHovering = false;
-                }
-                self.draw();
-            });
+            if (isMouse) {
+                $mouseTarget.on("mouseover", function(e) {
+                    state.isMouseOver = true;
+                    if (!graphie.isDragging) {
+                        state.isHovering = true;
+                    }
+                    self.draw();
+                });
+
+                $mouseTarget.on("mouseout", function(e) {
+                    state.isMouseOver = false;
+                    if (!state.isDragging) {
+                        state.isHovering = false;
+                    }
+                    self.draw();
+                });
+            }
 
             $mouseTarget.on("vmousedown", function(e) {
                 if (e.which !== 0 && e.which !== 1) {
@@ -147,6 +151,7 @@ _.extend(Movable.prototype, {
                     startMouseCoord,
                     startMouseCoord
                 );
+                state.isHovering = true;
 
                 $(document).bind("vmousemove", function(e) {
                     e.preventDefault();
