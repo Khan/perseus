@@ -207,12 +207,16 @@
         border-top: @editorBorder;
         padding: @editorPadding;
         transition: all 0s;
-        overflow-x: scroll;
 
         &.enter {}
         &.leave {
             display: none;
         }
+    }
+
+    // Are any widgets capable of overflowing in the editor interface?
+    .categorizer-container {
+        overflow-x: scroll;
     }
 
 }
