@@ -1,6 +1,8 @@
 require("./all-widgets.js");
 
 module.exports = {
+    apiVersion:         require("./version.json").apiVersion,
+    itemDataVersion:    require("./version.json").itemDataVersion,
     init:               require("./init.js"),
     AnswerAreaRenderer: require("./answer-area-renderer.jsx"),
     Editor:             require("./editor.jsx"),
