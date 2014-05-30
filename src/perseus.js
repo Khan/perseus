@@ -1,7 +1,6 @@
 require("./all-widgets.js");
 
 module.exports = {
-    fixupJSON:          require("./fixup-json.jsx"),
     init:               require("./init.js"),
     AnswerAreaRenderer: require("./answer-area-renderer.jsx"),
     Editor:             require("./editor.jsx"),
