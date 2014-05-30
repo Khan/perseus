@@ -440,6 +440,13 @@ var Util = {
         currentTouchIdentifier: null
      },
 
+     resetTouchHandlers: function() {
+        _.extend(Util.touchHandlers, {
+            pointerDown: false,
+            currentTouchIdentifier: null
+        });
+     },
+
      extractPointerLocation: function(event) {
          var touchOrEvent;
 

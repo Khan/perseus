@@ -141,7 +141,14 @@ var Card = React.createClass({
         // Event handlers should be unbound before component unmounting, but
         // just in case...
         if (this.mouseMoveUpBound) {
+            console.warn("Removing an element with bound event handlers.");
+
             this.unbindMouseMoveUp();
+
+            // Sometimes, we get an onRelease, but because the card is deleted
+            // there's no onMouseUp. In this case, we should unbind our touch
+            // handlers just to be safe
+            Util.resetTouchHandlers();
         }
     },
 
@@ -257,7 +264,9 @@ var Orderer = React.createClass({
                 content={opt.content}
                 width={opt.width}
                 key={opt.key}
-                onMouseDown={this.onClick.bind(null, "current", i)} />;
+                onMouseDown={(this.state.animating) ?
+                    $.noop :
+                    this.onClick.bind(null, "current", i)} />;
         }, this);
 
         if (this.state.placeholderIndex != null) {
@@ -287,7 +296,9 @@ var Orderer = React.createClass({
                     content={opt.content}
                     stack={true}
                     key={i}
-                    onMouseDown={this.onClick.bind(null, "bank", i)}
+                    onMouseDown={(this.state.animating) ?
+                        $.noop :
+                        this.onClick.bind(null, "bank", i)}
                     onMouseMove={this.onMouseMove}
                     onMouseUp={this.onRelease} />;
             }, this)}
