@@ -24,6 +24,7 @@
     <button id="scorePreview">Score</button>
     <button id="permalink">permalink</button>
     <span>Seed:</span><span id="problemNum"></span>
+    <span>Features:</span><span id="enabledFeatures"></span>
 </div>
 
 <!-- Begin Perseus HTML -->
@@ -161,6 +162,10 @@ var defaultQuestion = {
 
 var editor;
 var problemNum = _.random(1, 99);
+var enabledFeatures = {
+    highlight: true,
+    toolTipFormats: true
+};
 
 $('#toJSON').on('click', function() {
     console.log(JSON.stringify(editor, null, 4));
@@ -174,6 +179,10 @@ $('#permalink').on('click', function(e) {
     e.preventDefault();
 });
 $('#problemNum').text(problemNum);
+$('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
+    return '<span style="margin-left: 5px; background: ' +
+            (enabled ? "#aaffaa" : "#ffcccc") + ';">' + feature + '</span>';
+}).join(''));
 
 var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
 var question = query.content ? JSON.parse(query.content) : defaultQuestion;
@@ -182,8 +191,11 @@ Perseus.init({}).then(function() {
 
     var editorProps = _.extend(question, {
         problemNum: problemNum,
+        enabledFeatures: enabledFeatures,
         developerMode: true,
-        imageUploader: function(image, callback) { _.delay(callback, 1000, "http://fake.image.url"); }
+        imageUploader: function(image, callback) {
+            _.delay(callback, 1000, "http://fake.image.url");
+        }
     });
 
     editor = React.renderComponent(

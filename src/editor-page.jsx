@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var CombinedHintsEditor = require("./hint-editor.jsx");
+var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
@@ -112,13 +113,18 @@ var EditorPage = React.createClass({
         // a callback, then calls the callback with the url where the image
         // will be hosted. Image drag and drop is disabled when imageUploader
         // is null.
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        enabledFeatures: EnabledFeatures.propTypes 
     },
 
     getDefaultProps: function() {
         return {
             developerMode: false,
-            jsonMode: false
+            jsonMode: false,
+            enabledFeatures: {
+                highlight: true,
+                toolTipFormats: true
+            }
         };
     },
 
@@ -214,16 +220,13 @@ var EditorPage = React.createClass({
         }
         var rendererConfig = _({
             item: this.toJSON(true),
-            enabledFeatures: {
-                highlight: true,
-                toolTipFormats: true
-            },
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
                                "solutionAreaSelector",
                                "hintsAreaSelector",
-                               "problemNum")
+                               "problemNum",
+                               "enabledFeatures")
         );
 
         this.renderer = React.renderComponent(
