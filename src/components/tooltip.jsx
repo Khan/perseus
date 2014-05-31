@@ -38,6 +38,8 @@
 //    `-''`''
 // Here be dragons.
 
+var zIndex = 10;
+
 var TooltipArrow = (() => {
 
     // Scoped to only be used by TooltipArrow
@@ -132,7 +134,7 @@ var TooltipArrow = (() => {
                     height: this.props.height + 1,
                     marginTop: -1,
                     marginBottom: -2,
-                    zIndex: 1
+                    zIndex: zIndex
                 }}>
                 {/* The background triangle used to create the effect of a
                     border around the foreground triangle*/}
@@ -272,7 +274,7 @@ var Tooltip = React.createClass({
                 top={-this.props.arrowSize + 2}
                 width={this.props.arrowSize}
                 height={this.props.arrowSize}
-                zIndex={1} />;
+                zIndex={zIndex} />;
 
             // And we use a visibility: hidden arrow below to shift up the
             // content by the correct amount
@@ -286,7 +288,7 @@ var Tooltip = React.createClass({
                 top={-1}
                 width={this.props.arrowSize}
                 height={this.props.arrowSize}
-                zIndex={1} />;
+                zIndex={zIndex} />;
         } else {
             arrowAbove = <TooltipArrow
                 verticalDirection="bottom"
@@ -297,7 +299,7 @@ var Tooltip = React.createClass({
                 top={-1}
                 width={this.props.arrowSize}
                 height={this.props.arrowSize}
-                zIndex={1} />;
+                zIndex={zIndex} />;
 
             arrowBelow = null;
         }
@@ -334,7 +336,7 @@ var Tooltip = React.createClass({
                                     this.props.borderColor,
                             boxShadow: "0 1px 3px " +
                                     this.props.borderColor,
-                            zIndex: 0
+                            zIndex: zIndex - 1
                         }}>
                     {_.rest(this.props.children)}
                 </div>
