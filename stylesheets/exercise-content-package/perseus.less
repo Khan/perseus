@@ -9,6 +9,17 @@
     position: relative;
 }
 
+
+// .no-select is used to prevent selection of certain widgets.
+// often, allowing selection makes for an awkward mobile experience
+// where you constantly highlight elements unintentionally.
+.no-select {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 // .blank-background is used to prevent drawing under transparent widgets.
 // drawing under transparent widgets is particularly annoying because if
 // you lift up your pen and put it down again, you can't continue drawing,
@@ -34,6 +45,11 @@
 .graphie.above-scratchpad,
 .graphie-container.above-scratchpad {
     .blank-background;
+}
+
+// Selectable graphie components make for awkward touch experiences
+.graphie {
+    .no-select;
 }
 
 .interactive-component,
