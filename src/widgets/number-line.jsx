@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var ButtonGroup  = require("../components/button-group.jsx");
@@ -9,9 +10,17 @@ var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput   = require("../components/range-input.jsx");
 
+var Graphie = require("../components/graphie.jsx");
+var MovablePoint = Graphie.MovablePoint;
+var Line = Graphie.Line;
+var Label = Graphie.Label;
+
+var knumber = KhanUtil.knumber;
+var kpoint = KhanUtil.kpoint;
+
 var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var deepEq = require("../util.js").deepEq;
-var eq = KhanUtil.knumber.equal;
+var assert = require("../interactive2/interactive-util.js").assert;
 
 var reverseRel = {
     ge: "le",
@@ -49,32 +58,92 @@ function formatMixed(n, d) {
     }
 }
 
+_label = (graphie, labelStyle, pos, value) => {
+    value = value || pos;
+
+    // TODO(jack): Find out if any exercises have "decimal ticks" set,
+    // and if so, re-save them and remove this check.
+    if (labelStyle === "decimal" || labelStyle === "decimal ticks") {
+        return graphie.label([pos, -0.53],
+            Math.round(value * 100) / 100, "center");
+    } else if (labelStyle === "improper") {
+        var frac = KhanUtil.toFraction(value);
+        return graphie.label([pos, -0.53],
+                formatImproper(frac[0], frac[1]), "center");
+    } else if (labelStyle === "mixed") {
+        var frac = KhanUtil.toFraction(value);
+        return graphie.label([pos, -0.53],
+                formatMixed(frac[0], frac[1]), "center");
+    }
+};
+
+TickMarks = Graphie.createSimpleClass((graphie, props) => {
+    // Avoid infinite loop
+    if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
+        return []; // this has screwed me for the last time!
+    }
+
+    var results = [];
+
+    // Draw and save the tick marks and tick labels
+    var range = props.range;
+    for (var x = range[0]; x <= range[1]; x += props.tickStep) {
+        results.push(graphie.line([x, -0.2], [x, 0.2]));
+
+        var labelTicks = props.labelTicks; // for lint :^(
+        if (labelTicks || props.labelStyle === "decimal ticks") {
+            results.push(_label(graphie, props.labelStyle, x));
+        }
+    }
+
+    // Render labels
+    var labelRange = props.labelRange;
+    var range = props.range;
+    var leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
+    var rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
+
+    // Render the text labels
+    graphie.style({color: KhanUtil.BLUE}, () => {
+        results.push(_label(graphie, props.labelStyle, leftLabel));
+        results.push(_label(graphie, props.labelStyle, rightLabel));
+    });
+
+    // Render the labels' lines
+    graphie.style({stroke: KhanUtil.BLUE, strokeWidth: 3.5}, () => {
+        results.push(graphie.line([leftLabel, -0.2], [leftLabel, 0.2]));
+        results.push(graphie.line([rightLabel, -0.2], [rightLabel, 0.2]));
+    });
+
+    return results;
+});
+
+
 var NumberLine = React.createClass({
+    mixins: [Changeable],
+
     propTypes: {
-        correctX: React.PropTypes.number,
-        correctRel: React.PropTypes.string,
-        initialX: React.PropTypes.number,
-        range: React.PropTypes.array,
+        range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
-        labelsRange: React.PropTypes.array,
-        labelStyle: React.PropTypes.string,
-        labelTicks: React.PropTypes.bool,
+        labelRange: React.PropTypes.array.isRequired,
+        labelStyle: React.PropTypes.string.isRequired,
+        labelTicks: React.PropTypes.bool.isRequired,
 
-        divisionRange: React.PropTypes.array,
-        numDivisions: React.PropTypes.number,
-        tickStep: React.PropTypes.number,
-        snapDivisions: React.PropTypes.number,
+        divisionRange: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        ).isRequired,
+        numDivisions: React.PropTypes.number.isRequired,
+        snapDivisions: React.PropTypes.number.isRequired,
 
-        isTickCtrl: React.PropTypes.bool,
-        isInequality: React.PropTypes.bool,
+        isTickCtrl: React.PropTypes.bool.isRequired,
+        isInequality: React.PropTypes.bool.isRequired,
 
-        numLinePosition: React.PropTypes.number,
+        numLinePosition: React.PropTypes.number.isRequired,
+        rel: React.PropTypes.oneOf(["lt", "gt", "le", "ge"])
     },
 
     getDefaultProps: function() {
         return {
             range: [0, 10],
-            initialX: 0,
             labelStyle: "decimal",
             labelRange: [null, null],
             divisionRange: [1, 10],
@@ -89,7 +158,7 @@ var NumberLine = React.createClass({
 
     isValid: function() {
         var range = this.props.range;
-        var initialX = this.props.initialX;
+        var initialX = this.props.numLinePosition;
         var divisionRange = this.props.divisionRange;
 
         initialX = initialX == null ? range[0] : initialX;
@@ -98,15 +167,20 @@ var NumberLine = React.createClass({
                initialX >= range[0] &&
                initialX <= range[1] &&
                divisionRange[0] < divisionRange[1] &&
-               (0 < this.props.numDivisions || 0 < this.props.tickStep) &&
+               0 < this.props.numDivisions &&
                0 < this.props.snapDivisions;
     },
 
     render: function() {
         var inequalityControls = <div>
-            <input type="button" className="simple-button"
-                value="Switch direction" onClick={this.handleReverse} />
-            <input type="button" className="simple-button"
+            <input
+                type="button"
+                className="simple-button"
+                value="Switch direction"
+                onClick={this.handleReverse} />
+            <input
+                type="button"
+                className="simple-button"
                 value={_(["le", "ge"]).contains(this.props.rel) ?
                         "Make circle open" :
                         "Make circle filled"}
@@ -116,336 +190,251 @@ var NumberLine = React.createClass({
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
             {!this.isValid() ? <div>invalid number line configuration</div> :
-                <div className="graphie above-scratchpad" ref="graphieDiv" />}
+                this._renderGraphie()}
             {this.props.isInequality && inequalityControls}
         </div>;
     },
 
-    handleReverse: function() {
-        var newRel = reverseRel[this.props.rel];
-        this.props.onChange({rel: newRel}, () => {
-            this.updateInequality(this.props.numLinePosition, 0);});
+    _renderGraphie: function() {
+        // Position variables
+        var widthInPixels = 400;
+        var range = this.props.range;
+        var width = range[1] - range[0];
+        var scale = width / widthInPixels;
+        var buffer = 30 * scale;
+
+        // Initiate the graphie without actually drawing anything
+        var left = range[0] - buffer, right = range[1] + buffer;
+        var bottom = -1, top = 1 + (this.props.isTickCtrl ? 1 : 0);
+
+        var options = _.pick(this.props, [
+            "range",
+            "isTickCtrl",
+        ]);
+
+        // TODO(aria): Maybe save this as `this.calculatedProps`?
+        var props = _.extend({}, this.props, {
+            tickCtrlPosition: this.calculateTickControlPosition(
+                this.props.numDivisions
+            ),
+            tickStep: width / this.props.numDivisions
+        });
+
+        return <Graphie
+                ref="graphie"
+                box={[460, (this.props.isTickCtrl ? 120 : 80)]}
+                options={options}
+                setup={this._setupGraphie}>
+            {this._renderTickControl(props)}
+            {TickMarks(_.pick(props, [
+                "range",
+                "labelTicks",
+                "labelStyle",
+                "labelRange",
+                "tickStep"
+            ]))}
+            {this._renderInequality(props)}
+            {this._renderNumberLinePoint(props)}
+        </Graphie>;
     },
 
-    handleToggleStrict: function() {
-        var newRel = toggleStrictRel[this.props.rel];
-        this.props.onChange({rel: newRel});
-        var isOpen = _(["lt", "gt"]).contains(newRel);
+    snapNumLinePosition: function(props, numLinePosition) {
+        var left = props.range[0];
+        var right = props.range[1];
+        var snapX = props.tickStep / props.snapDivisions;
+
+        x = bound(numLinePosition, left, right);
+        x = left + knumber.roundTo(x - left, snapX);
+        assert(_.isFinite(x));
+        return x;
+    },
+
+    _renderNumberLinePoint: function(props) {
+        var isOpen = _(["lt", "gt"]).contains(props.rel);
         var style = {
             stroke: KhanUtil.ORANGE,
             fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.ORANGE,
             "stroke-width": isOpen ? 3 : 1
         };
-        this.point.update({
-            coord: [this.props.numLinePosition, 0],
-            normalStyle: style,
-            highlightStyle: style
-        });
+
+        return <MovablePoint
+            pointSize={6}
+            coord={[props.numLinePosition, 0]}
+            constraints={[
+                (coord, prevCoord) => {  // constrain-y
+                    return [coord[0], prevCoord[1]];
+                },
+                (coord, prevCoord) => {  // snap X
+                    var x = this.snapNumLinePosition(props, coord[0]);
+                    return [x, coord[1]];
+                }
+            ]}
+            normalStyle={style}
+            highlightStyle={style}
+            onMove={(coord) => {
+                this.change({numLinePosition: coord[0]});
+            }}
+        />;
     },
 
-    componentWillMount: function() {
-        this.tickOrLabels = [];
-    },
-
-    componentDidMount: function() {
-        this.initGraphie();
-    },
-
-    componentDidUpdate: function(prevProps) {
-        // Will only update on editor change, not renderer change
-        prevProps = _(prevProps).omit("rel", "numLinePosition");
-        var newProps = _(this.props).omit("rel", "numLinePosition");
-        if (this.isValid() && !deepEq(prevProps, newProps)) {
-            var node = this.refs.graphieDiv.getDOMNode();
-            // Use jQuery to remove so event handlers don't leak
-            $(node).children().remove();
-
-            var numLinePosition = this.props.initialX != null ?
-                this.props.initialX :
-                this.props.range[0];
-
-            this.props.onChange({
-                rel: "ge",
-                numLinePosition: numLinePosition
-            }, this.initGraphie);
+    _renderTickControl: function(props) {
+        if (!this.props.isTickCtrl) {
+            return null;
         }
+
+        var width = props.range[1] - props.range[0];
+        var tickCtrlWidth = (1/3) * width;
+        var tickCtrlLeft = props.range[0] + (1/3) * width;
+        var tickCtrlRight = props.range[0] + (2/3) * width;
+        var scale = width / 400;
+        var textBuffer = 50 * scale;
+        var textLeft = tickCtrlLeft - textBuffer;
+        var textRight = tickCtrlRight + textBuffer;
+        var divSpan= props.divisionRange[1] - props.divisionRange[0];
+
+        return [
+            <Line start={[tickCtrlLeft, 1.5]} end={[tickCtrlRight, 1.5]} />,
+            <Label
+                coord={[textLeft, 1.5]}
+                text="fewer ticks"
+                direction="center"
+                tex={false} />,
+            <Label
+                coord={[textRight, 1.5]}
+                text="more ticks"
+                direction="center"
+                tex={false} />,
+            <MovablePoint
+                key="tickControl"
+                pointSize={5}
+                coord={[props.tickCtrlPosition, 1.5]}
+                constraints={[
+                    (coord, prevCoord) => {  // constrain-y
+                        return [coord[0], prevCoord[1]];
+                    },
+                    (coord, prevCoord) => {  // snap & bound
+                        var snapX = tickCtrlWidth / (divSpan);
+                        x = bound(coord[0], tickCtrlLeft, tickCtrlRight);
+                        x = tickCtrlLeft +
+                            Math.round((x - tickCtrlLeft) / (snapX)) * snapX;
+                        assert(_.isFinite(x));
+                        return [x, coord[1]];
+                    }
+                ]}
+                onMove={(coord) => {
+                    var numDivisions = this.calculateNumDivisions(coord[0]);
+                    this.change({numDivisions: numDivisions});
+                }}
+                onMoveEnd={(coord) => {
+                    // Snap point to a tick step
+                    var numDivisions = this.calculateNumDivisions(coord[0]);
+
+                    var nextProps = _.extend({}, props, {
+                        numDivisions: numDivisions,
+                        tickStep: width / numDivisions
+                    });
+                    var newNumLinePosition = this.snapNumLinePosition(
+                        nextProps,
+                        props.numLinePosition
+                    );
+                    this.change({numLinePosition: newNumLinePosition});
+                }}
+            />
+        ];
     },
 
-    _label: function(pos, value) {
-        value = value || pos;
-        var labelStyle = this.props.labelStyle;
-
-        // TODO(jack): Find out if any exercises have "decimal ticks" set,
-        // and if so, re-save them and remove this check.
-        if (labelStyle === "decimal" || labelStyle === "decimal ticks") {
-            return this.graphie.label([pos, -0.53],
-                Math.round(value * 100) / 100, "center");
-        } else if (labelStyle === "improper") {
-            var frac = KhanUtil.toFraction(value);
-            return this.graphie.label([pos, -0.53],
-                    formatImproper(frac[0], frac[1]), "center");
-        } else if (labelStyle === "mixed") {
-            var frac = KhanUtil.toFraction(value);
-            return this.graphie.label([pos, -0.53],
-                    formatMixed(frac[0], frac[1]), "center");
-        }
+    handleReverse: function() {
+        var newRel = reverseRel[this.props.rel];
+        this.props.onChange({rel: newRel});
     },
 
-    updateInequality: function(px, py) {
-        if (this.inequalityLine) {
-            this.inequalityLine.remove();
-            this.inequalityLine = null;
-        }
-        if (this.props.isInequality) {
-            var isGreater = _(["ge","gt"]).contains(this.props.rel);
-            var widthInPixels = 400;
-            var range = this.props.range;
-            var scale = (range[1] - range[0])/ widthInPixels;
-            var buffer = 30 * scale;
-            var left = range[0] - buffer, right = range[1] + buffer;
-            var end = isGreater ? [right, py] : [left, py];
+    handleToggleStrict: function() {
+        var newRel = toggleStrictRel[this.props.rel];
+        this.props.onChange({rel: newRel});
+    },
+
+    _getInequalityEndpoint: function(props) {
+        var isGreater = _(["ge","gt"]).contains(props.rel);
+        var widthInPixels = 400;
+        var range = props.range;
+        var scale = (range[1] - range[0]) / widthInPixels;
+        var buffer = 30 * scale;
+        var left = range[0] - buffer;
+        var right = range[1] + buffer;
+        var end = isGreater ? [right, 0] : [left, 0];
+        return end;
+    },
+
+    _renderInequality: function(props) {
+        if (props.isInequality) {
+            var end = this._getInequalityEndpoint(props);
             var style = {
                 arrows: "->",
                 stroke: KhanUtil.BLUE,
                 strokeWidth: 3.5
             };
 
-            this.inequalityLine = this.graphie.line([px, py], end, style);
-            this.inequalityLine.toFront();
-            if(this.point) {
-                this.point.toFront();
-            }
+            return <Line
+                start={[props.numLinePosition, 0]}
+                end={end}
+                style={style} />;
+        } else {
+            return null;
         }
-        return this.inequalityLine;
     },
 
-    addNumberLinePoint: function(numLinePosition, tickStep) {
-        var isOpen = _(["lt", "gt"]).contains(this.props.rel);
-        var style = {
-            stroke: KhanUtil.ORANGE,
-            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.ORANGE,
-            "stroke-width": isOpen ? 3 : 1
-        };
-
-        if (this.point) {
-            this.point.remove();
-        }
-
-        var left = this.props.range[0], right = this.props.range[1];
-        this.point = Interactive2.addMovablePoint(this.graphie, {
-            pointSize: 6,
-            coord: [numLinePosition, 0],
-            constraints: [
-                (coord, prevCoord) => {  // constrain-y
-                    return [coord[0], prevCoord[1]];
-                },
-                (coord, prevCoord) => {  // snap & bound
-                    // In non-TickCtrl number lines, legal prevCoords should
-                    // still be legal; in TickCtrl number lines, we don't want
-                    // the point to jump after the ticks have changed
-                    if (coord[0] === prevCoord[0]) {
-                        return coord;
-                    }
-                    var x = coord[0];
-                    var snapX = tickStep / this.props.snapDivisions;
-                    x = bound(x, left, right);
-                    x = left + Math.round((x - left) / (snapX)) * snapX;
-                    return [x, coord[1]];
-                }
-            ],
-            normalStyle: style,
-            highlightStyle: style,
-            onMove: (coord) => {
-                this.updateInequality(coord[0], coord[1]);
-            },
-            onMoveEnd: (coord) => {
-                if (coord[0] !== this.props.numLinePosition) {
-                    this.props.onChange({numLinePosition: coord[0]});
-                }
-            }
-        });
-    },
-
-    addTickControl: function(tickCtrlPosition, scale) {
+    calculateTickControlPosition: function(numDivisions) {
         var width = this.props.range[1] - this.props.range[0];
-        var tickCtrlWidth = (1/3) * width;
         var tickCtrlLeft = this.props.range[0] + (1/3) * width;
-        var tickCtrlRight = this.props.range[0] + (2/3) * width;
-        var textBuffer = 50 * scale;
-        var textLeft = tickCtrlLeft - textBuffer;
-        var textRight = tickCtrlRight + textBuffer;
-        var divSpan= this.props.divisionRange[1] - this.props.divisionRange[0];
-
-        this.graphie.line([tickCtrlLeft, 1.5], [tickCtrlRight, 1.5], {});
-        this.graphie.label([textLeft, 1.5], "fewer ticks", "center", false);
-        this.graphie.label([textRight, 1.5], "more ticks", "center", false);
-
-        this.tickCtrl = Interactive2.addMovablePoint(this.graphie, {
-            pointSize: 5,
-            coord: [tickCtrlPosition, 1.5],
-            constraints: [
-                (coord, prevCoord) => {  // constrain-y
-                    return [coord[0], prevCoord[1]];
-                },
-                (coord, prevCoord) => {  // snap & bound
-                    var snapX = tickCtrlWidth / (divSpan);
-                    x = bound(coord[0], tickCtrlLeft, tickCtrlRight);
-                    x = tickCtrlLeft +
-                        Math.round((x - tickCtrlLeft) / (snapX)) * snapX;
-                    return [x, coord[1]];
-                }
-            ],
-            onMove: (coord) => {
-                var opts = this.computeTickStep({tickCtrlPosition: coord[0]});
-                this.drawTickMarks(opts.tickStep);
-            },
-
-            onMoveEnd: (coord) => {
-                var opts, tickCtrlPosition;
-                if (coord[0] !== tickCtrlPosition) {
-                    opts = this.computeTickStep({tickCtrlPosition: coord[0]});
-                    this.addNumberLinePoint(this.props.numLinePosition,
-                        opts.tickStep);
-                    this.updateInequality(this.props.numLinePosition, 0);
-                }
-            }
-        });
-    },
-
-    computeTickStep: function(options) {
-        // Sets tickStep and draws the ticks/labels.
-
-        var width = this.props.range[1] - this.props.range[0];
         var tickCtrlWidth = (1/3) * width;
-        var tickCtrlLeft = this.props.range[0] + (1/3) * width;
-        var tickCtrlRight = this.props.range[0] + (2/3) * width;
         var minDivs = this.props.divisionRange[0];
         var maxDivs = this.props.divisionRange[1];
 
-        // If the user has changed the point, it's obviously the priority
-        if (options.tickCtrlPosition) {
-            tickCtrlPosition = bound(options.tickCtrlPosition,
-                           tickCtrlLeft, tickCtrlRight);
-            numDivs = minDivs + Math.round((maxDivs - minDivs) *
-                    ((tickCtrlPosition - tickCtrlLeft) / tickCtrlWidth), 1);
+        var tickCtrlPosition = tickCtrlLeft + tickCtrlWidth *
+                ((numDivisions - minDivs) / (maxDivs - minDivs));
 
-        // Otherwise, if it still has the value provided by the editor
-        } else if (options.numDivs || options.tickStep) {
-            numDivs = options.numDivs || width / options.tickStep;
-            tickCtrlPosition = tickCtrlLeft + tickCtrlWidth *
-                        ((numDivs - minDivs) / (maxDivs - minDivs));
-
-        // And if the editor failed to provide a value
-        } else {
-            tickCtrlPosition = tickCtrlLeft;
-            numDivs = minDivs;
-        }
-
-        return {
-            tickStep: width / numDivs,
-            tickCtrlPosition: tickCtrlPosition
-        };
+        return tickCtrlPosition;
     },
 
-    renderLabels: function() {
-        var labelRange = this.props.labelRange;
-        var range = this.props.range;
-        var leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
-        var rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
+    calculateNumDivisions: function(tickCtrlPosition) {
+        var width = this.props.range[1] - this.props.range[0];
+        var tickCtrlLeft = this.props.range[0] + (1/3) * width;
+        var tickCtrlRight = this.props.range[0] + (2/3) * width;
+        var tickCtrlWidth = (1/3) * width;
+        var minDivs = this.props.divisionRange[0];
+        var maxDivs = this.props.divisionRange[1];
 
-        // Render the text labels
-        this.graphie.style({color: KhanUtil.BLUE}, () => {
-            this.tickOrLabels.push(this._label(leftLabel));
-            this.tickOrLabels.push(this._label(rightLabel));
-        });
+        var tickCtrlPosition = bound(tickCtrlPosition,
+                       tickCtrlLeft, tickCtrlRight);
+        var numDivs = minDivs + Math.round((maxDivs - minDivs) *
+                ((tickCtrlPosition - tickCtrlLeft) / tickCtrlWidth));
 
-        // Render the labels' lines
-        this.graphie.style({stroke: KhanUtil.BLUE, strokeWidth: 3.5}, () => {
-            this.graphie.line([leftLabel, -0.2], [leftLabel, 0.2]);
-            this.graphie.line([rightLabel, -0.2], [rightLabel, 0.2]);
-        });
+        assert(_.isFinite(numDivs));
+        return numDivs;
     },
 
-    drawTickMarks: function(tickStep) {
-        // Avoid infinite loop
-        if (!_.isFinite(tickStep) || tickStep <= 0) {
-            return; // this has screwed me for the last time!
-        }
-
-        // Get rid of the previous ticks, if there are any
-        _.each(this.tickOrLabels, function(tickOrLabel){
-            tickOrLabel.remove();
-        });
-
-        // Draw and save the tick marks and tick labels
-        var range = this.props.range;
-        for (var x = range[0]; x <= range[1]; x += tickStep) {
-            this.tickOrLabels.push(this.graphie.line([x, -0.2], [x, 0.2]));
-
-            var labelTicks = this.props.labelTicks; // for lint :^(
-            if (labelTicks || this.props.labelStyle === "decimal ticks") {
-                this.tickOrLabels.push(this._label(x));
-            }
-        }
-
-        if (this.inequalityLine) {
-            this.inequalityLine.toFront();
-        }
-
-        this.renderLabels();
-
-        // The point doesn't exist yet if the props recently changed
-        // because the snapX of the point depends on the tickStep, but
-        // if this is occuring as a result of the onMove of the tickCtrl
-        // then the point remains stationary in what may become an invalid
-        // place for it to snap (but it's great for comparisons!)
-        if (this.point) {
-            this.point.toFront();
-        }
-    },
-
-    initGraphie: function() {
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
-        this.graphie = KhanUtil.createGraphie(graphieDiv);
-
+    _setupGraphie: function(graphie, options) {
         // Ensure a sane configuration to avoid infinite loops
         if (!this.isValid()) {return;}
 
         // Position variables
         var widthInPixels = 400;
-        var range = this.props.range;
+        var range = options.range;
         var scale = (range[1] - range[0]) / widthInPixels;
         var buffer = 30 * scale;
 
         // Initiate the graphie without actually drawing anything
         var left = range[0] - buffer, right = range[1] + buffer;
-        var bottom = -1, top = 1 + (this.props.isTickCtrl ? 1 : 0);
-        this.graphie.init({
+        var bottom = -1, top = 1 + (options.isTickCtrl ? 1 : 0);
+        graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40]
-        });
-        this.graphie.addMouseLayer({
-            allowScratchpad: true
         });
 
         // Draw the number line
         var center = (range[0] + range[1]) / 2;
-        this.graphie.line([center, 0], [right, 0], {arrows: "->"});
-        this.graphie.line([center, 0], [left, 0], {arrows: "->"});
-
-        // Compute tickStep/tickCtrlPosition from props
-        var opts = this.computeTickStep({
-            numDivs: this.props.numDivisions,
-            tickStep: this.props.tickStep
-        });
-
-        this.drawTickMarks(opts.tickStep);
-        this.updateInequality(this.props.numLinePosition, 0);
-        this.addNumberLinePoint(this.props.numLinePosition, opts.tickStep);
-
-        if (this.props.isTickCtrl) {
-            this.addTickControl(opts.tickCtrlPosition, scale);
-        }
+        graphie.line([center, 0], [right, 0], {arrows: "->"});
+        graphie.line([center, 0], [left, 0], {arrows: "->"});
     },
 
     toJSON: function() {
@@ -474,7 +463,7 @@ _.extend(NumberLine, {
         var startRel = rubric.isInequality ? "ge" : "eq";
         var correctRel = rubric.correctRel || "eq";
 
-        if (eq(state.numLinePosition, rubric.correctX || 0) &&
+        if (knumber.equal(state.numLinePosition, rubric.correctX || 0) &&
                 correctRel === state.rel) {
             return {
                 type: "points",
@@ -789,9 +778,48 @@ var NumberLineEditor = React.createClass({
     }
 });
 
+var NumberLineTransform = (editorProps) => {
+    var props = _.pick(editorProps, [
+        "range",
+
+        "labelRange",
+        "labelStyle",
+        "labelTicks",
+
+        "divisionRange",
+        "snapDivisions",
+
+        "isTickCtrl",
+        "isInequality"
+    ]);
+
+    var numLinePosition = (editorProps.initialX != null) ?
+            editorProps.initialX :
+            editorProps.range[0];
+
+    var width = editorProps.range[1] - editorProps.range[0];
+
+    var numDivisions;
+    if (editorProps.numDivisions != null) {
+        numDivisions = editorProps.numDivisions;
+    } else if (editorProps.tickStep != null) {
+        numDivisions = width / editorProps.tickStep;
+    } else {
+        numDivisions = undefined; // send to getDefaultProps()
+    }
+
+    _.extend(props, {
+        numLinePosition: numLinePosition,
+        numDivisions: numDivisions
+    });
+
+    return props;
+};
+
 module.exports = {
     name: "number-line",
     displayName: "Number line",
     widget: NumberLine,
-    editor: NumberLineEditor
+    editor: NumberLineEditor,
+    transform: NumberLineTransform
 };
