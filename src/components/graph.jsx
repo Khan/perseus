@@ -58,7 +58,8 @@ var Graph = React.createClass({
                 className="graphie-container above-scratchpad"
                 style={{
                     width: this.props.box[0],
-                    height: this.props.box[1]
+                    height: this.props.box[1],
+                    marginTop: 30
                 }}>
             {image}
             <div className="graphie" ref="graphieDiv" />
