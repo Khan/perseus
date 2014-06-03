@@ -12,7 +12,7 @@ API_VERSION_MAJOR:=$(shell node -e 'console.log(require("./src/version.json").ap
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 
-build:
+build: install
 	mkdir -p build
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > build/perseus.js
 	echo "// commit `git rev-parse HEAD`" >> build/perseus.js
