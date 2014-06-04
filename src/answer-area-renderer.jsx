@@ -79,6 +79,9 @@ var AnswerAreaRenderer = React.createClass({
         var shouldHighlight = _.contains(this.props.highlightedWidgets,
                                     SINGLE_ITEM_WIDGET_ID);
 
+        var editorProps = this.props.options;
+        var transform = Widgets.getTransform(this.props.type);
+
         return <QuestionParagraph>
             <WidgetContainer
                 enableHighlight={this.props.enabledFeatures.highlight}
@@ -92,21 +95,24 @@ var AnswerAreaRenderer = React.createClass({
                         // the "Acceptable formats" box already works
                         toolTipFormats: false
                     })
-                }, this.props.options, this.state.widget))}
+                }, transform(editorProps), this.state.widget))}
             </WidgetContainer>
         </QuestionParagraph>;
     },
 
     handleChangeRenderer: function(newProps, cb) {
+        var widget = _.extend({}, this.state.widget, newProps);
+        this.setState({widget: widget}, cb);
         if (this.props.type !== "multiple") {
             this.props.onInteractWithWidget(SINGLE_ITEM_WIDGET_ID);
         }
-        var widget = _.extend({}, this.state.widget, newProps);
-        this.setState({widget: widget}, cb);
     },
 
     componentDidMount: function() {
+        // Storing things directly on components should be avoided!
+        this.examples = [];
         this.$examples = $("<div id='examples'></div>");
+
         this.update();
     },
 
@@ -117,13 +123,20 @@ var AnswerAreaRenderer = React.createClass({
     update: function() {
         $("#calculator").toggle(this.props.calculator);
 
+        var widget = this.refs.widget;
+        var examples = widget.examples ? widget.examples() : null;
+
+        if (_.isEqual(examples, this.examples)) {
+            // Only destroy (and maybe recreate) qtip if examples have changed
+            return;
+        }
+
+        this.examples = examples;
+
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
             $("#examples-show").qtip("destroy", /* immediate */ true);
         }
-
-        var widget = this.refs.widget;
-        var examples = widget.examples ? widget.examples() : null;
 
         if (examples && $("#examples-show").length) {
             $("#examples-show").append(this.$examples);
