@@ -349,3 +349,40 @@
         list-style-type: none;
     }
 }
+
+.perseus-math-input {
+    // Mimic native text input
+    background: #fff;
+
+    // If the font-size is too small, super/subscripts become hard to input
+    font-size: 18px;
+
+    // Make the click target easier to hit
+    min-width: 100px;
+
+    & > .mq-root-block {
+        // Mimic native text input w/o using -moz/-webkit-apperance: textfield
+        border-color: #a4a4a4;
+
+        // A bit of extra whitespace here greatly improves legibility
+        padding: 4px;
+    }
+
+    // Fixes for strange default MathQuill styles:
+
+    // Cursor shouldn't actually be touching left border
+    .mq-cursor {
+        padding-left: 0;
+    }
+
+    // Don't gray out implicitly created closing parens
+    .mq-paren.mq-ghost {
+        color: inherit;
+    }
+
+    // Don't put vertical margins on an expression wrapped in parens
+    // because it messes up baseline alignment, e.g. h(x)
+    .mq-paren + span {
+        margin: 0;
+    }
+}

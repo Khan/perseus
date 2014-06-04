@@ -1,15 +1,23 @@
 /** @jsx React.DOM */
 
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var InfoTip      = require("../components/info-tip.jsx");
-var TeX          = require("../tex.jsx");  // KaTeX and/or MathJax
+var Changeable   = require("../mixins/changeable.jsx");
+var JsonifyProps = require("../mixins/jsonify-props.jsx");
+
+var EnabledFeatures   = require("../enabled-features.jsx");
+var InfoTip           = require("../components/info-tip.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
+var PropCheckBox      = require("../components/prop-check-box.jsx");
+var TeX               = require("../tex.jsx"); // OldExpression only
+var Tooltip           = require("../components/tooltip.jsx");
 
-var EnabledFeatures = require("../enabled-features.jsx");
+var cx = React.addons.classSet;
 
+// The new, MathQuill input expression widget
 var Expression = React.createClass({
+    mixins: [Changeable, JsonifyProps],
+
     propTypes: {
-        currentValue: React.PropTypes.string,
+        value: React.PropTypes.string,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         enabledFeatures: EnabledFeatures.propTypes
@@ -17,7 +25,183 @@ var Expression = React.createClass({
 
     getDefaultProps: function() {
         return {
-            currentValue: "",
+            value: "",
+            times: false,
+            functions: [],
+            enabledFeatures: EnabledFeatures.defaults
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            showErrorTooltip: false,
+            showErrorText: false
+        };
+    },
+
+    parse: function(value, props) {
+        // TODO(jack): Disable icu for content creators here, or
+        // make it so that solution answers with ','s or '.'s work
+        var options = _.pick(props || this.props, "functions");
+        if (icu && icu.getDecimalFormatSymbols) {
+            _.extend(options, icu.getDecimalFormatSymbols());
+        }
+        return KAS.parse(value, options);
+    },
+
+    render: function() {
+        var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
+
+        // TODO(alex): Style this tooltip to be more consistent with other
+        // tooltips on the site; align to left middle (once possible)
+        var errorTooltip = <span className="error-tooltip">
+            <Tooltip
+                    horizontalPosition="right"
+                    horizontalAlign="left"
+                    verticalPosition="top"
+                    arrowSize={10}
+                    borderColor="#fcc335"
+                    show={this.state.showErrorText} >
+                <i
+                    className="icon-exclamation-sign error-icon"
+                    onMouseEnter={() => {
+                        this.setState({showErrorText: true});
+                    }}
+                    onMouseLeave={() => {
+                        this.setState({showErrorText: false});
+                    }}
+                    onClick={() => {
+                        // TODO(alex): Better error feedback for mobile
+                        this.setState({
+                            showErrorText: !this.state.showErrorText
+                        });
+                    }} />
+                <div className="error-text">
+                    <$_>I'm sorry, I don't understand that!</$_>
+                </div>
+            </Tooltip>
+        </span>;
+
+        var className = cx({
+            "perseus-widget-expression": true,
+            "show-error-tooltip": this.state.showErrorTooltip
+        });
+
+        return <span className={className}>
+            <InputWithExamples
+                type="math"
+                value={this.props.value}
+                onChange={(value) => this.change("value", value)}
+                examples={this.examples()}
+                shouldShowExamples={shouldShowExamples}
+                convertDotToTimes={this.props.times}
+                ref="input" />
+            {this.state.showErrorTooltip && errorTooltip}
+        </span>;
+    },
+
+    errorTimeout: null,
+
+    componentWillReceiveProps: function(nextProps) {
+        if (!_.isEqual(this.props.value, nextProps.value) ||
+            !_.isEqual(this.props.functions, nextProps.functions)) {
+
+            clearTimeout(this.errorTimeout);
+
+            if (this.parse(nextProps.value, nextProps).parsed) {
+                this.setState({showErrorTooltip: false});
+            } else {
+                // Store timeout ID so that we can clear it above
+                this.errorTimeout = setTimeout(() => {
+                    this.setState({showErrorTooltip: true});
+                }, 500);
+            }
+        }
+    },
+
+    componentWillUnmount: function() {
+        clearTimeout(this.errorTimeout);
+    },
+
+    focus: function() {
+        this.refs.input.focus();
+        return true;
+    },
+
+    simpleValidate: function(rubric) {
+        return Expression.validate(this.toJSON(), rubric);
+    },
+
+    examples: function() {
+        var mult = $._("For $2\\cdot2$, enter **2*2**");
+        if (this.props.times) {
+            mult = mult.replace(/\\cdot/g, "\\times");
+        }
+
+        return [
+            mult,
+            $._("For $\\dfrac{1}{2}x$, enter **1/2 x**"),
+            $._("For $x^{y}+z$, enter **x^y +z**"),
+            $._("For $\\sqrt{x}$, enter **sqrtx**"),
+            $._("For $\\pi$, enter **pi**"),
+            $._("For $\\sin (\\theta)$, enter **sin(theta)**"),
+            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
+            $._("For $\\neq$, enter **<>**"),
+            $._("Move around with arrow keys"),
+            $._("Use spacebar to exit fractions")
+        ];
+    },
+
+    statics: {
+        displayMode: "inline-block"
+    }
+});
+
+_.extend(Expression, {
+    validate: function(state, rubric) {
+        var options = _.clone(rubric);
+        if (icu && icu.getDecimalFormatSymbols) {
+            _.extend(options, icu.getDecimalFormatSymbols());
+        }
+        // We don't give options to KAS.parse here because that is parsing
+        // the solution answer, not the student answer, and we don't
+        // want a solution to work if the student is using a different
+        // language but not in english.
+        var val = Khan.answerTypes.expression.createValidatorFunctional(
+            KAS.parse(rubric.value, rubric).expr, options);
+
+        var result = val(state.value);
+
+        // TODO(eater): Seems silly to translate result to this invalid/points
+        // thing and immediately translate it back in ItemRenderer.scoreInput()
+        if (result.empty) {
+            return {
+                type: "invalid",
+                message: result.message
+            };
+        } else {
+            return {
+                type: "points",
+                earned: result.correct ? 1 : 0,
+                total: 1,
+                message: result.message
+            };
+        }
+    }
+});
+
+// The old, plain-text input expression widget
+var OldExpression = React.createClass({
+    propTypes: {
+        value: React.PropTypes.string,
+        times: React.PropTypes.bool,
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        enabledFeatures: EnabledFeatures.propTypes
+    },
+
+    getDefaultProps: function() {
+        return {
+            value: "",
             times: false,
             functions: [],
             enabledFeatures: EnabledFeatures.defaults
@@ -41,21 +225,21 @@ var Expression = React.createClass({
     },
 
     componentWillMount: function() {
-        this.updateParsedTex(this.props.currentValue);
+        this.updateParsedTex(this.props.value);
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this.updateParsedTex(nextProps.currentValue, nextProps);
+        this.updateParsedTex(nextProps.value, nextProps);
     },
 
     render: function() {
-        var result = this.parse(this.props.currentValue);
+        var result = this.parse(this.props.value);
         var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
 
-        return <span className="perseus-widget-expression">
+        return <span className="perseus-widget-expression-old">
             <InputWithExamples
                     ref="input"
-                    value={this.props.currentValue}
+                    value={this.props.value}
                     onKeyDown={this.handleKeyDown}
                     onKeyPress={this.handleKeyPress}
                     onChange={this.handleChange}
@@ -87,7 +271,7 @@ var Expression = React.createClass({
 
     componentDidUpdate: function() {
         clearTimeout(this.errorTimeout);
-        if (this.parse(this.props.currentValue).parsed) {
+        if (this.parse(this.props.value).parsed) {
             this.hideError();
         } else {
             this.errorTimeout = setTimeout(this.showError, 2000);
@@ -117,7 +301,7 @@ var Expression = React.createClass({
 
     /**
      * The keydown handler handles clearing the error timeout, telling
-     * props.currentValue to update, and intercepting the backspace key when
+     * props.value to update, and intercepting the backspace key when
      * appropriate...
      */
     handleKeyDown: function(event) {
@@ -141,7 +325,7 @@ var Expression = React.createClass({
                 input.value = val;
                 input.selectionStart = start - 1;
                 input.selectionEnd = end - 1;
-                this.props.onChange({currentValue: val});
+                this.props.onChange({value: val});
             }
         }
     },
@@ -180,7 +364,7 @@ var Expression = React.createClass({
             input.value = val;
             input.selectionStart = start + 1;
             input.selectionEnd = end + 1;
-            this.props.onChange({currentValue: val});
+            this.props.onChange({value: val});
 
         } else if (supported && which === 41 /* right paren */) {
             if (start === end && text.charAt(start) === ")") {
@@ -192,7 +376,7 @@ var Expression = React.createClass({
     },
 
     handleChange: function(newValue) {
-        this.props.onChange({currentValue: newValue});
+        this.props.onChange({value: newValue});
     },
 
     focus: function() {
@@ -201,7 +385,7 @@ var Expression = React.createClass({
     },
 
     toJSON: function(skipValidation) {
-        return {currentValue: this.props.currentValue};
+        return {value: this.props.value};
     },
 
     updateParsedTex: function(value, props) {
@@ -244,46 +428,36 @@ var Expression = React.createClass({
     }
 });
 
-_.extend(Expression, {
-    validate: function(state, rubric) {
-        var options = _.clone(rubric);
-        if (icu && icu.getDecimalFormatSymbols) {
-            _.extend(options, icu.getDecimalFormatSymbols());
-        }
-        // We don't give options to KAS.parse here because that is parsing
-        // the solution answer, not the student answer, and we don't
-        // want a solution to work if the student is using a different
-        // language but not in english.
-        var val = Khan.answerTypes.expression.createValidatorFunctional(
-            KAS.parse(rubric.value, rubric).expr, options);
-
-        var result = val(state.currentValue);
-
-        // TODO(eater): Seems silly to translate result to this invalid/points
-        // thing and immediately translate it back in ItemRenderer.scoreInput()
-        if (result.empty) {
-            return {
-                type: "invalid",
-                message: result.message
-            };
-        } else {
-            return {
-                type: "points",
-                earned: result.correct ? 1 : 0,
-                total: 1,
-                message: result.message
-            };
-        }
-    }
-});
-
 var ExpressionEditor = React.createClass({
+    mixins: [Changeable, JsonifyProps],
+
+    propTypes: {
+        value: React.PropTypes.string,
+        form: React.PropTypes.bool,
+        simplify: React.PropTypes.bool,
+        times: React.PropTypes.bool,
+        functions: React.PropTypes.arrayOf(React.PropTypes.string)
+    },
+
     getDefaultProps: function() {
         return {
+            value: "",
             form: false,
             simplify: false,
             times: false,
             functions: ["f", "g", "h"]
+        };
+    },
+
+    getInitialState: function() {
+        var value = this.props.value;
+
+        return {
+            // Is the format of `value` TeX or plain text?
+            // TODO(alex): Remove after backfilling everything to TeX
+            isTex: value === "" ||                  // default to TeX if new;
+                _.indexOf(value, "\\") !== -1 ||    // only TeX has backslashes
+                _.indexOf(value, "{") !== -1        // and curly braces
         };
     },
 
@@ -300,20 +474,22 @@ var ExpressionEditor = React.createClass({
             }
         }
 
+        // TODO(alex): Consider adding more warnings (like the above) here
+
+        var expressionProps = {
+            ref: "expression",
+            value: this.props.value,
+            times: this.props.times,
+            functions: this.props.functions,
+            onChange: (newProps) => this.change(newProps)
+        };
+
+        var expression = this.state.isTex ? Expression : OldExpression;
+
         return <div>
             <div><label>
-                {' '}Correct answer:{' '}
-                <Expression ref="expression"
-                    currentValue={this.props.value}
-                    times={this.props.times}
-                    functions={this.props.functions}
-                    onChange={newProps => {
-                        if ("currentValue" in newProps) {
-                            newProps.value = newProps.currentValue;
-                            delete newProps.currentValue;
-                        }
-                        this.props.onChange(newProps);
-                    }} />
+                Correct answer:{' '}
+                {expression(expressionProps)}
             </label></div>
 
             <div>
@@ -367,19 +543,13 @@ var ExpressionEditor = React.createClass({
                     onChange={this.handleFunctions} />
                 </label>
                 <InfoTip><p>
-                    {' '}Single-letter variables listed here will be
+                    Single-letter variables listed here will be
                     interpreted as functions. This let us know that f(x) means
-                    "f of x" and not "f times x".{' '}
+                    "f of x" and not "f times x".
                 </p></InfoTip>
             </div>
 
         </div>;
-    },
-
-    handleCheck: function(e) {
-        var newProps = {};
-        newProps[e.target.name] = e.target.checked;
-        this.props.onChange(newProps);
     },
 
     handleFunctions: function(e) {
@@ -391,27 +561,18 @@ var ExpressionEditor = React.createClass({
     focus: function() {
         this.refs.expression.focus();
         return true;
-    },
-
-    toJSON: function(skipValidation) {
-        var value = this.props.value;
-
-        if (!skipValidation) {
-            if (value === "") {
-                alert("Warning: No expression has been entered.");
-            } else if (!this.refs.expression.parse(value).parsed) {
-                alert("Warning: Entered expression didn't parse.");
-            }
-        }
-
-        return _.pick(this.props, "value", "form", "simplify",
-            "times", "functions");
     }
 });
 
 module.exports = {
     name: "expression",
     displayName: "Expression / Equation",
-    widget: Expression,
-    editor: ExpressionEditor
+    getWidget: (enabledFeatures) => {
+        // Allow toggling between the two versions of the widget
+        return enabledFeatures.useMathQuill ? Expression : OldExpression;
+    },
+    editor: ExpressionEditor,
+    transform: (editorProps) => {
+        return _.pick(editorProps, "times", "functions");
+    }
 };

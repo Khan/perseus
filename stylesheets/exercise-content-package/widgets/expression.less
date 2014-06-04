@@ -1,4 +1,40 @@
 .perseus-widget-expression {
+    & > span, .error-tooltip {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    position: relative;
+
+    .error-tooltip {
+        position: absolute;
+        right: 6px;
+        top: -2px;
+    }
+
+    .error-icon {
+        color: #fcc335;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .error-text {
+        background-color: #fff;
+        padding: 5px;
+        width: 210px;
+    }
+
+    &.show-error-tooltip .mq-root-block {
+        padding-right: 25px;
+    }
+
+    .perseus-formats-tooltip {
+        width: 190px;
+    }
+}
+
+// Old expression widget
+.perseus-widget-expression-old {
     &,
     > .output,
     > .output > .tex,
@@ -7,8 +43,8 @@
     }
 }
 
-.perseus-widget-expression > input,
-#answer_area .perseus-widget-expression > input {
+.perseus-widget-expression-old > input,
+#answer_area .perseus-widget-expression-old > input {
     font-size: 14px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -19,17 +55,17 @@
     width: 100%;
 }
 
-.perseus-widget-expression > .output > .tex {
+.perseus-widget-expression-old > .output > .tex {
     overflow-x: auto;
 }
 
-.perseus-widget-expression > .output > .placeholder {
+.perseus-widget-expression-old > .output > .placeholder {
     position: relative;
     height: 40px;
     overflow-y: hidden;
 }
 
-.perseus-widget-expression > .output > .placeholder  > .error {
+.perseus-widget-expression-old > .output > .placeholder  > .error {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -47,7 +83,7 @@
     margin: auto;
 }
 
-.perseus-widget-expression > .output > .placeholder > .error > .buddy {
+.perseus-widget-expression-old > .output > .placeholder > .error > .buddy {
     background-image: url(/images/perseus/error-buddy.png);
     background-size: 100%;
     height: 36px;
@@ -57,7 +93,7 @@
     left: -42px;
 }
 
-.perseus-widget-expression > .output > .placeholder > .error > .message {
+.perseus-widget-expression-old > .output > .placeholder > .error > .message {
     font: 12px @baseFontFamily;
     line-height: 1.4em;
     margin: 0px 4px;

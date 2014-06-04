@@ -38,7 +38,7 @@ var AnswerAreaRenderer = React.createClass({
         if (type === "multiple") {
             return Renderer;
         } else {
-            return Widgets.getWidget(type);
+            return Widgets.getWidget(type, this.props.enabledFeatures);
         }
     },
 

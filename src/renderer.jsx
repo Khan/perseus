@@ -132,7 +132,7 @@ var Renderer = React.createClass({
             var widgetInfo = (this.props.widgets || {})[id];
             if (widgetInfo || this.props.ignoreMissingWidgets) {
                 widgetIds.push(id);
-                var cls = Widgets.getWidget(type);
+                var cls = Widgets.getWidget(type, this.props.enabledFeatures);
                 var transform = Widgets.getTransform(type);
 
                 var editorProps = _.extend({}, (widgetInfo || {}).options);

@@ -7,10 +7,19 @@ var Widgets = {
         widgets[name] = data;
     },
 
-    getWidget: function(name) {
+    getWidget: function(name, enabledFeatures) {
         // TODO(alex): Consider referring to these as renderers to avoid
-        // overloading "widget"/
-        return _.has(widgets, name) ? widgets[name].widget : null;
+        // overloading "widget"
+        if (!_.has(widgets, name)) {
+            return null;
+        }
+
+        // Allow widgets to specify a widget directly or via a function
+        if (widgets[name].getWidget) {
+            return widgets[name].getWidget(enabledFeatures);
+        } else {
+            return widgets[name].widget;
+        }
     },
 
     getEditor: function(name) {

@@ -1,19 +1,27 @@
 /** @jsx React.DOM */
 
-Tooltip = require("./tooltip.jsx");
-Renderer = require("../renderer.jsx");
+var MathInput = require("./math-input.jsx");
+var Renderer  = require("../renderer.jsx");
+var TextInput = require("./text-input.jsx");
+var Tooltip   = require("./tooltip.jsx");
+
+var MATH = "math";
+var TEXT = "text";
 
 var InputWithExamples = React.createClass({
     propTypes: {
+        type: React.PropTypes.oneOf([MATH, TEXT]),
+        value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
         className: React.PropTypes.string,
-        value: React.PropTypes.string,
         examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-        shouldShowExamples: React.PropTypes.bool
+        shouldShowExamples: React.PropTypes.bool,
+        convertDotToTimes: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
         return {
+            type: TEXT,
             shouldShowExamples: true
         };
     },
@@ -32,6 +40,21 @@ var InputWithExamples = React.createClass({
         var showExamples = this.props.shouldShowExamples &&
                 this.state.showExamples;
 
+        var inputProps = {
+            className: this.props.className,
+            value: this.props.value,
+            onChange: this.props.onChange,
+            onFocus: this.show,
+            onBlur: this.hide,
+            ref: "input" 
+        };
+
+        var input = this.props.type === MATH ?
+            MathInput(_.extend({
+                convertDotToTimes: this.props.convertDotToTimes,
+            }, inputProps)) :
+            TextInput(inputProps);
+
         return <Tooltip
                 ref="tooltip"
                 className="perseus-formats-tooltip"
@@ -41,19 +64,9 @@ var InputWithExamples = React.createClass({
                 arrowSize={10}
                 borderColor="#ccc"
                 show={showExamples}>
-            <input type="text"
-                ref="input"
-                className={this.props.className}
-                value={this.props.value}
-                onChange={this.handleChange}
-                onFocus={this.show}
-                onBlur={this.hide} />
+            {input}
             <Renderer content={examplesContent} />
         </Tooltip>;
-    },
-
-    focus: function() {
-        this.refs.input.getDOMNode().focus()
     },
 
     show: function() {
@@ -64,8 +77,8 @@ var InputWithExamples = React.createClass({
         this.setState({showExamples: false});
     },
 
-    handleChange: function(e) {
-        this.props.onChange(e.target.value);
+    focus: function() {
+        this.refs.input.focus();
     }
 });
 

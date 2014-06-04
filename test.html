@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="lib/katex/fonts/fonts.css" />
 <link rel="stylesheet/less" type="text/css" href="lib/katex/katex.less" />
 <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
 
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
@@ -43,7 +44,8 @@ add hint button ends up touching the bottom of the page). -->
 <script src="lib/react-with-addons.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
 <script src="lib/katex/katex.js"></script>
-<script src="ke/local-only/kas.js"></script>
+<script src="lib/mathquill/mathquill.js"></script>
+<script src="lib/kas.js"></script>
 
 <script>
     var icu = {
@@ -164,7 +166,8 @@ var editor;
 var problemNum = _.random(1, 99);
 var enabledFeatures = {
     highlight: true,
-    toolTipFormats: true
+    toolTipFormats: true,
+    useMathQuill: true
 };
 
 $('#toJSON').on('click', function() {
@@ -187,7 +190,7 @@ $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
 var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
 var question = query.content ? JSON.parse(query.content) : defaultQuestion;
 
-Perseus.init({}).then(function() {
+Perseus.init({skipMathJax: false}).then(function() {
 
     var editorProps = _.extend(question, {
         problemNum: problemNum,

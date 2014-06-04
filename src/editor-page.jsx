@@ -123,7 +123,8 @@ var EditorPage = React.createClass({
             jsonMode: false,
             enabledFeatures: {
                 highlight: true,
-                toolTipFormats: true
+                toolTipFormats: true,
+                useMathQuill: true
             }
         };
     },
