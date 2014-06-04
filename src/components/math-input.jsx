@@ -76,9 +76,6 @@ var MathInput = React.createClass({
                     // value), so we have to guard against that below.
                     var value = mathField.latex();
 
-                    // TODO(alex): Consider stripping standalone backslashes
-                    // here to prevent the insertion of arbitrary TeX
-
                     // Provide a MathQuill-compatible way to generate the
                     // not-equals sign without pasting unicode or typing TeX
                     value = value.replace(/<>/g, "\\ne");
