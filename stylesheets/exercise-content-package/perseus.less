@@ -183,6 +183,30 @@
             width: 80px;
         }
     }
+
+    .graph-settings {
+        .graph-settings-axis-label {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 5px 5px;
+            width: 70px;
+            float: right;
+            margin: 0 5px;
+        }
+        .graph-settings-background-url {
+            width: 250px;
+        }
+    }
+
+    .graph-settings, .image-settings, .misc-settings {
+        padding-bottom: 5px;
+    }
+
+    .image-settings, .misc-settings, .type-settings {
+        border-top: 1px solid black;
+        padding-top: 5px;
+    }
 }
 
 .framework-perseus table.non-markdown {
@@ -213,6 +237,7 @@
 @import "widgets/transformer.less";
 @import "widgets/matcher.less";
 @import "widgets/sortable.less";
+@import "widgets/image.less";
 
 .perseus-diff {
     @borderColor: #E4E4E4;

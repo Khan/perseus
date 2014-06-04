@@ -19,7 +19,8 @@ _.each([
     require("./widgets/radio.jsx"),
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
-    require("./widgets/transformer.jsx")
+    require("./widgets/transformer.jsx"),
+    require("./widgets/image.jsx")
 ], function(widget) {
     Widgets.register(widget.name, _.omit(widget, "name"));
 });
