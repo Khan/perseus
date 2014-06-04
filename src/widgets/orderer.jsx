@@ -88,9 +88,11 @@ var Card = React.createClass({
         // Pull out the content to get rendered
         var rendererProps = _.pick(this.props, "content");
 
+        var onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
+
         return <div className="card-wrap" style={style}
-                    onMouseDown={this.onMouseDown}
-                    onTouchStart={this.onMouseDown}
+                    onMouseDown={onMouseDown}
+                    onTouchStart={onMouseDown}
                     onTouchMove={this.onMouseMove}
                     onTouchEnd={this.onMouseUp}
                     onTouchCancel={this.onMouseUp}>
@@ -144,10 +146,6 @@ var Card = React.createClass({
             console.warn("Removing an element with bound event handlers.");
 
             this.unbindMouseMoveUp();
-
-            // Sometimes, we get an onRelease, but because the card is deleted
-            // there's no onMouseUp. In this case, we should unbind our touch
-            // handlers just to be safe
             Util.resetTouchHandlers();
         }
     },
@@ -289,7 +287,7 @@ var Orderer = React.createClass({
 
         // This is the bank of stacks of cards
         var bank = <div ref="bank" className="bank ui-helper-clearfix">
-            {_.map(this.props.options, function(opt, i) {
+            {_.map(this.props.options, (opt, i) => {
                 return <Card
                     ref={"bank" + i}
                     floating={false}
@@ -348,6 +346,9 @@ var Orderer = React.createClass({
 
     onRelease: function(loc) {
         var draggable = this.refs.dragging;
+        if (draggable == null) {
+            return;
+        }
         var inCardBank = this.isCardInBank(draggable);
         var index = this.state.placeholderIndex;
 
@@ -414,6 +415,10 @@ var Orderer = React.createClass({
 
     onMouseMove: function(loc) {
         var draggable = this.refs.dragging;
+        if (draggable == null) {
+            return;
+        }
+
         var index;
         if (this.isCardInBank(draggable)) {
             index = null;
@@ -463,6 +468,10 @@ var Orderer = React.createClass({
     },
 
     isCardInBank: function(draggable) {
+        if (draggable == null) {
+            return false;
+        }
+
         var isHorizontal = this.props.layout === HORIZONTAL,
             $draggable = $(draggable.getDOMNode()),
             $bank = $(this.refs.bank.getDOMNode()),
