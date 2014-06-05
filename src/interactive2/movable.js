@@ -126,7 +126,10 @@ _.extend(Movable.prototype, {
                     if (!graphie.isDragging) {
                         state.isHovering = true;
                     }
-                    self.draw();
+                    if (self.state.added) {
+                        // Avoid drawing if the point has been removed
+                        self.draw();
+                    }
                 });
 
                 $mouseTarget.on("vmouseout", function() {
@@ -134,7 +137,10 @@ _.extend(Movable.prototype, {
                     if (!state.isDragging) {
                         state.isHovering = false;
                     }
-                    self.draw();
+                    if (self.state.added) {
+                        // Avoid drawing if the point has been removed
+                        self.draw();
+                    }
                 });
             }
 
