@@ -121,7 +121,7 @@ _.extend(Movable.prototype, {
             var isMouse = !('ontouchstart' in window);
 
             if (isMouse) {
-                $mouseTarget.on("mouseover", function(e) {
+                $mouseTarget.on("vmouseover", function() {
                     state.isMouseOver = true;
                     if (!graphie.isDragging) {
                         state.isHovering = true;
@@ -129,7 +129,7 @@ _.extend(Movable.prototype, {
                     self.draw();
                 });
 
-                $mouseTarget.on("mouseout", function(e) {
+                $mouseTarget.on("vmouseout", function() {
                     state.isMouseOver = false;
                     if (!state.isDragging) {
                         state.isHovering = false;
