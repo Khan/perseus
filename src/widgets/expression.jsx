@@ -58,6 +58,7 @@ var Expression = React.createClass({
         // tooltips on the site; align to left middle (once possible)
         var errorTooltip = <span className="error-tooltip">
             <Tooltip
+                    className="error-text-container"
                     horizontalPosition="right"
                     horizontalAlign="left"
                     verticalPosition="top"

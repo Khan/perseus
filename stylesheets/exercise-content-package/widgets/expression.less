@@ -24,12 +24,45 @@
         width: 210px;
     }
 
-    &.show-error-tooltip .mq-root-block {
+    &.show-error-tooltip .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
         padding-right: 25px;
     }
 
     .perseus-formats-tooltip {
         width: 190px;
+    }
+}
+
+#answer_area .perseus-widget-expression {
+    // Super hacky overrides to make the error tooltip fit into the answer area
+    // by putting it on top of the MathQuill input.
+
+    // TODO(alex): Implement arrows coming from the middle of the tooltip side,
+    // then use some of those here; e.g. align to left middle
+
+    .perseus-math-input.mq-editable-field.mq-math-mode {
+        // Make the input wider so that error message never scrolls left
+        min-width: 130px;
+    }
+
+    .error-tooltip {
+        .error-text-container {
+            // Move the tooltip to the left of the error icon
+            left: -125px !important;
+            top: -17px !important;
+        }
+
+        .error-text {
+            // Make the error message much smaller
+            font-size: 12px;
+            width: 90px;
+        }
+
+        .tooltipContainer > div:first-child {
+            // Hide the little triangle "arrow" created by the tooltip
+            // (If it weren't in a corner, we wouldn't have to hide it)
+            visibility: hidden !important;
+        }
     }
 }
 
