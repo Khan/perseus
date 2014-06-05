@@ -16,12 +16,10 @@ var TextInput = React.createClass({
     },
 
     render: function() {
-        return <input type="text"
-                    className={this.props.className}
-                    value={this.props.value}
-                    onChange={(e) => this.props.onChange(e.target.value)}
-                    onFocus={this.props.onFocus}
-                    onBlur={this.props.onBlur} />;
+        return React.DOM.input(_.extend({}, this.props, {
+            type: "text",
+            onChange: (e) => this.props.onChange(e.target.value)
+        }));
     },
 
     focus: function() {

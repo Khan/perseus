@@ -48,6 +48,10 @@ var InputWithExamples = React.createClass({
             onChange: this.props.onChange,
             onFocus: this.show,
             onBlur: this.hide,
+            autoCapitalize: "off",
+            autoComplete: "off",
+            autoCorrect: "off",
+            spellCheck: "false",
             ref: "input"
         };
 
