@@ -374,7 +374,7 @@ var Plotter = React.createClass({
         };
 
         graphie.style({
-            stroke: "none", fill: "#9ab8ed", opacity: 1.0
+            stroke: "none", fill: KhanUtil.LIGHT_BLUE, opacity: 1.0
         }, function() {
             config.graph.bars[i] = graphie.path([
                 [x - barHalfWidth, 0],
