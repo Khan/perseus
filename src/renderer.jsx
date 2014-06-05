@@ -41,7 +41,7 @@ if (typeof KA !== "undefined" && KA.language === "en-PT") {
         if (node && typeof index !== "undefined") {
             var component = window.PerseusTranslationComponents[index];
 
-            if (!component.isMounted()) {
+            if (!component) {
                 // The component has disappeared, so we tell jipt not to try
                 // and insert anything
                 return false;
@@ -289,6 +289,12 @@ var Renderer = React.createClass({
 
     componentDidUpdate: function() {
         this.handleRender();
+    },
+
+    componentWillUnmount: function() {
+        if (this.translationIndex != null) {
+            window.PerseusTranslationComponents[this.translationIndex] = null;
+        }
     },
 
     focus: function() {

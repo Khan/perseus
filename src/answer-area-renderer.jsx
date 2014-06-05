@@ -136,6 +136,11 @@ var AnswerAreaRenderer = React.createClass({
 
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
+            // This will warn about Jquery removing a node owned by React, 
+            // however React no longer owns that node. We created that node 
+            // using React, copied its html, passed it to qtip, and then 
+            // unmounted it from React. So it React thinks it is it's code 
+            // because it has a data-reactid, but qtip created it.      
             $("#examples-show").qtip("destroy", /* immediate */ true);
         }
 
@@ -152,7 +157,7 @@ var AnswerAreaRenderer = React.createClass({
 
             $("#examples-show").qtip({
                 content: {
-                    text: this.$examples.remove()
+                    text: this.$examples.html()
                 },
                 style: {classes: "qtip-light leaf-tooltip"},
                 position: {
@@ -168,6 +173,11 @@ var AnswerAreaRenderer = React.createClass({
                 hide: {delay: 0}
             });
 
+            // Now that qtip has been created with a copy of the react 
+            // component's html, we no longer need to keep the react component.
+            React.unmountComponentAtNode(this.$examples[0]);
+            this.$examples.remove();
+    
             $("#examples-show").show();
         }
     },
