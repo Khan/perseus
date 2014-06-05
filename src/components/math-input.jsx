@@ -91,6 +91,12 @@ var MathInput = React.createClass({
                         this.props.onChange(value);
                     }
                 },
+                enter: () => {
+                    // This handler is called when the user presses the enter
+                    // key. Since this isn't an actual <input> element, we have
+                    // to manually trigger the usually automatic form submit.
+                    $(this.getDOMNode()).submit();
+                },
                 upOutOf: (mathField) => {
                     // This handler is called when the user presses the up
                     // arrow key, but there is nowhere in the expression to go
@@ -101,11 +107,11 @@ var MathInput = React.createClass({
             }
         });
 
-        initialized = true;
-
         // Ideally, we would be able to pass an initial value directly into
         // the constructor above
         this.mathField().latex(this.props.value);
+
+        initialized = true;
     },
 
     componentDidUpdate: function() {
