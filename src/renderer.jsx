@@ -155,11 +155,7 @@ var Renderer = React.createClass({
                             enabledFeatures: this.props.enabledFeatures,
                             apiOptions: apiOptions,
                             onChange: (newProps, cb) => {
-                                var widgets = _.clone(this.state.widgets);
-                                widgets[id] = _.extend({}, widgets[id],
-                                                       newProps);
-                                this.setState({widgets: widgets}, cb);
-                                this.props.onInteractWithWidget(id);
+                                this._setWidgetValue(id, newProps, cb);
                             }
                         })
                     )}
@@ -343,6 +339,25 @@ var Renderer = React.createClass({
                 null
             );
             return Util.scoreIsEmpty(score);
+        });
+    },
+
+    _setWidgetValue: function(id, newProps, cb) {
+        var widgets = _.clone(this.state.widgets);
+        widgets[id] = _.extend({}, widgets[id], newProps);
+        this.setState({widgets: widgets}, () => {
+            var cbResult = cb && cb();
+            if (cbResult !== false) {
+                this.props.onInteractWithWidget(id);
+            }
+        });
+    },
+
+    setInputValue: function(inputWidgetId, newValue) {
+        // TODO(jack): change this to value: when we change input-number/
+        // expression's prop to be value
+        this._setWidgetValue(inputWidgetId, {
+            currentValue: String(newValue)
         });
     },
 

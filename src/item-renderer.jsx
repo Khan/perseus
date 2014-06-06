@@ -123,6 +123,33 @@ var ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
+    /**
+     * Accepts a question area widgetId, or an answer area widgetId of
+     * the form "answer-input-number 1", or the string "answer-area"
+     * for the whole answer area (if the answer area is a single widget).
+     */
+    _setWidgetValue: function(widgetId, newProps) {
+        var maybeAnswerAreaWidget = widgetId.match(/^answer-(.*)$/);
+
+        if (maybeAnswerAreaWidget) {
+            var answerAreaWidgetId = maybeAnswerAreaWidget[1];
+            this.answerAreaRenderer._setWidgetValue(
+                answerAreaWidgetId,
+                newProps
+            );
+        } else {
+            this.questionRenderer._setWidgetValue(widgetId, newProps);
+        }
+    },
+
+    setInputValue: function(inputWidgetId, newValue) {
+        // TODO(jack): change this to value: when we change input-number/
+        // expression's prop to be value
+        this._setWidgetValue(inputWidgetId, {
+            currentValue: String(newValue)
+        });
+    },
+
     handleInteractWithWidget: function(widgetId) {
         var withRemoved = _.difference(this.state.questionHighlightedWidgets,
                                        [widgetId]);

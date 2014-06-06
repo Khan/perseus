@@ -104,6 +104,8 @@ require(["ke-deps.js"], function() {
 
 function initPerseus(Perseus) {
 
+window.Perseus = Perseus;
+
 var defaultQuestion = {
     "question": {
         "content": "[[☃ example-graphie-widget 1]]",
@@ -213,6 +215,10 @@ Perseus.init({skipMathJax: false}).then(function() {
         Perseus.StatefulEditorPage(editorProps, null),
         document.getElementById("perseus-container")
     );
+
+    // Some hacks to make debugging nicer
+    window.editorPage = editor.refs.editor;
+    window.itemRenderer = window.editorPage.renderer;
 }).then(function() {
 }, function(err) {
     console.error(err);

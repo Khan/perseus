@@ -101,6 +101,23 @@ var AnswerAreaRenderer = React.createClass({
         </QuestionParagraph>;
     },
 
+    _setWidgetValue: function(widgetId, newProps, cb) {
+        // "area" -> global id "answer-area" ;)
+        if (widgetId === "area" && this.props.type !== "multiple") {
+            // We have a single widget
+            this.handleChangeRenderer(newProps, cb);
+        } else if (this.props.type === "multiple") {
+            // We have a `Renderer`
+            this.refs.widget._setWidgetValue(widgetId, newProps, cb);
+        } else if ((typeof console) !== "undefined" && console.error) {
+            // We have a widget id other than area in a non-renderer area
+            console.error(
+                "Sent invalid widget id `answer-" + widgetId +
+                "` to an answerArea of type `" + this.props.type + "`."
+            );
+        }
+    },
+
     handleChangeRenderer: function(newProps, cb) {
         var widget = _.extend({}, this.state.widget, newProps);
         this.setState({widget: widget}, cb);
