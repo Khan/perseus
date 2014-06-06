@@ -8,7 +8,7 @@ var QuestionParagraph = require("./question-paragraph.jsx");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
-var ApiOptions = require("./api-options.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 var specialChars = {
     // escaped: original

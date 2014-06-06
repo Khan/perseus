@@ -6,7 +6,7 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
-var ApiOptions = require("./api-options.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 var JsonEditor = React.createClass({
 

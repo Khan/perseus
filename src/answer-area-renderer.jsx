@@ -8,7 +8,7 @@ var Widgets = require("./widgets.js");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
-var ApiOptions = require("./api-options.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 var SINGLE_ITEM_WIDGET_ID = "answer-area";
 var PT = React.PropTypes;

@@ -5,7 +5,7 @@ var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
-var ApiOptions = require("./api-options.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 var HintsRenderer = React.createClass({
     render: function() {

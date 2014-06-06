@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Tooltip = require("react-components/tooltip");
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 var MathInput = require("./math-input.jsx");
 var Renderer  = require("../renderer.jsx");
@@ -31,8 +32,21 @@ var InputWithExamples = React.createClass({
 
     getInitialState: function() {
         return {
+            focused: false,
             showExamples: false
         };
+    },
+
+    _getInputClassName: function() {
+        // confining mutability!
+        var className = ApiClassNames.INPUT;
+        if (this.state.focused) {
+            className += " " + ApiClassNames.FOCUSED;
+        }
+        if (this.props.className) {
+            className += " " + this.props.className;
+        }
+        return className;
     },
 
     render: function() {
@@ -44,11 +58,11 @@ var InputWithExamples = React.createClass({
                 this.state.showExamples;
 
         var inputProps = {
-            className: this.props.className,
+            className: this._getInputClassName(),
             value: this.props.value,
             onChange: this.props.onChange,
-            onFocus: this.onFocus,
-            onBlur: this.onBlur,
+            onFocus: this._onFocus,
+            onBlur: this._onBlur,
             autoCapitalize: "off",
             autoComplete: "off",
             autoCorrect: "off",
@@ -81,18 +95,18 @@ var InputWithExamples = React.createClass({
         </Tooltip>;
     },
 
-    onFocus: function() {
+    _onFocus: function() {
+        var showExamples = true;
         if (this.props.interceptFocus) {
             var interceptResult = this.props.interceptFocus();
             if (interceptResult === false) {
-                return;
+                showExamples = false;
             }
         }
-        this.show();
-    },
-
-    onBlur: function() {
-        this.hide();
+        this.setState({
+            focused: true,
+            showExamples: showExamples
+        });
     },
 
     show: function() {
@@ -101,6 +115,13 @@ var InputWithExamples = React.createClass({
 
     hide: function() {
         this.setState({showExamples: false});
+    },
+
+    _onBlur: function() {
+        this.setState({
+            focused: false,
+            showExamples: false
+        });
     },
 
     focus: function() {

@@ -6,7 +6,7 @@ var Tooltip = require("react-components/tooltip");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
-var ApiOptions = require("../api-options.jsx");
+var ApiOptions = require("../perseus-api.jsx").Options;
 
 var EnabledFeatures   = require("../enabled-features.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
@@ -15,7 +15,6 @@ var TeX               = require("../tex.jsx"); // OldExpression only
 
 var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
-var ApiOptions = require("../api-options.jsx");
 
 var ERROR_MESSAGE = $._("I'm sorry; I don't understand that!");
 
