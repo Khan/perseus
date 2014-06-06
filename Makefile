@@ -1,22 +1,21 @@
-.PHONY: help build debug server all subperseus put put-js put-css install clean lint test jest
+.PHONY: help build server all subperseus put put-js put-css install clean lint test jest
 PORT=9000
 WEBAPP=../webapp
-
-help:
-	@echo "make server PORT=9000  # runs the perseus server"
-	@echo "make build             # compiles into build/perseus.js and build/perseus.css"
-	@echo "make debug             # compiles into build/perseus.debug.js"
-	@echo "make all               # build perseus into webapp"
 
 API_VERSION_MAJOR:=$(shell node -e 'console.log(require("./src/version.json").apiVersion.major);')
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 
+help:
+	@echo "make server PORT=9000  # runs the perseus server"
+	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make all               # build perseus into webapp"
+
 build: install
 	mkdir -p build
-	echo '/*! Perseus | http://github.com/Khan/perseus */' > build/perseus.js
-	echo "// commit `git rev-parse HEAD`" >> build/perseus.js
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> build/perseus.js
+	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
+	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/browserify src/perseus.js -s Perseus -t reactiscriptsixify >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
