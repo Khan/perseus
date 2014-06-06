@@ -151,6 +151,7 @@ var Renderer = React.createClass({
                         this.props.highlightedWidgets, id)}>
                     {cls(_.extend(widgetProps, {
                             ref: id,
+                            widgetId: id,
                             problemNum: this.props.problemNum,
                             enabledFeatures: this.props.enabledFeatures,
                             apiOptions: apiOptions,

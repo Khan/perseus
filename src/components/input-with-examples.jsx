@@ -18,7 +18,8 @@ var InputWithExamples = React.createClass({
         className: React.PropTypes.string,
         examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         shouldShowExamples: React.PropTypes.bool,
-        convertDotToTimes: React.PropTypes.bool
+        convertDotToTimes: React.PropTypes.bool,
+        interceptFocus: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -46,12 +47,17 @@ var InputWithExamples = React.createClass({
             className: this.props.className,
             value: this.props.value,
             onChange: this.props.onChange,
-            onFocus: this.show,
-            onBlur: this.hide,
+            onFocus: this.onFocus,
+            onBlur: this.onBlur,
             autoCapitalize: "off",
             autoComplete: "off",
             autoCorrect: "off",
             spellCheck: "false",
+            // HACK(aria): We make the input read-only if there is a
+            // this.props.interceptFocus function, so that the focus can be
+            // intercepted pre-focus for mobile, which doesn't want a
+            // keyboard to pop up. Hacky, I know
+            readOnly: this.props.interceptFocus != null,
             ref: "input"
         };
 
@@ -75,6 +81,20 @@ var InputWithExamples = React.createClass({
         </Tooltip>;
     },
 
+    onFocus: function() {
+        if (this.props.interceptFocus) {
+            var interceptResult = this.props.interceptFocus();
+            if (interceptResult === false) {
+                return;
+            }
+        }
+        this.show();
+    },
+
+    onBlur: function() {
+        this.hide();
+    },
+
     show: function() {
         this.setState({showExamples: true});
     },
@@ -85,6 +105,14 @@ var InputWithExamples = React.createClass({
 
     focus: function() {
         this.refs.input.focus();
+    },
+
+    handleChange: function(e) {
+        this.props.onChange(e.target.value);
+    },
+
+    getInputDOMNode: function() {
+        return this.refs.input.getDOMNode();
     }
 });
 

@@ -8,6 +8,7 @@ var Widgets = require("./widgets.js");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
+var ApiOptions = require("./api-options.jsx");
 
 var SINGLE_ITEM_WIDGET_ID = "answer-area";
 var PT = React.PropTypes;
@@ -20,7 +21,8 @@ var AnswerAreaRenderer = React.createClass({
         problemNum: PT.number,
         onInteractWithWidget: PT.func.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
-        highlightedWidgets: PT.array.isRequired
+        highlightedWidgets: PT.array.isRequired,
+        apiOptions: ApiOptions.propTypes
     },
 
     getInitialState: function() {
@@ -62,6 +64,24 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     renderMultiple: function() {
+        var parentInterceptInputFocus =
+                this.props.apiOptions.interceptInputFocus;
+        var apiOptions = _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions,
+            {
+                // Rewrite widgetIds sent to interceptInputFocus on the way
+                // up to include an "answer-" prefix
+                interceptInputFocus: function(widgetId) {
+                    var args = _.toArray(arguments);
+                    var fullWidgetId = "answer-" + widgetId;
+                    args[0] = fullWidgetId;
+                    return parentInterceptInputFocus.apply(null, args);
+                }
+            }
+        );
+
         return this.state.cls(_.extend({
             ref: "widget",
             problemNum: this.props.problemNum,
@@ -72,7 +92,8 @@ var AnswerAreaRenderer = React.createClass({
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
                 toolTipFormats: false
-            })
+            }),
+            apiOptions: apiOptions
         }, this.props.options, this.state.widget));
     },
 
@@ -82,6 +103,11 @@ var AnswerAreaRenderer = React.createClass({
 
         var editorProps = this.props.options;
         var transform = Widgets.getTransform(this.props.type);
+        var apiOptions = _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions
+        );
 
         return <QuestionParagraph>
             <WidgetContainer
@@ -89,13 +115,15 @@ var AnswerAreaRenderer = React.createClass({
                 shouldHighlight={shouldHighlight} >
                 {this.state.cls(_.extend({
                     ref: "widget",
+                    widgetId: SINGLE_ITEM_WIDGET_ID,
                     problemNum: this.props.problemNum,
                     onChange: this.handleChangeRenderer,
                     enabledFeatures: _.extend({}, this.props.enabledFeatures, {
                         // Hide answer area tooltip formats,
                         // the "Acceptable formats" box already works
                         toolTipFormats: false
-                    })
+                    }),
+                    apiOptions: apiOptions
                 }, transform(editorProps), this.state.widget))}
             </WidgetContainer>
         </QuestionParagraph>;
@@ -194,7 +222,7 @@ var AnswerAreaRenderer = React.createClass({
             // component's html, we no longer need to keep the react component.
             React.unmountComponentAtNode(this.$examples[0]);
             this.$examples.remove();
-    
+
             $("#examples-show").show();
         }
     },

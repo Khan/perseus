@@ -8,6 +8,8 @@
  * this.props.onChange with the modified props.
  */
 
+var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
+
 var USAGE = "Usage:\n" +
             "  this.change({propName: 5}, callback);\n" +
             "  this.change(\"propName\", 5, callback);\n" +
@@ -25,7 +27,7 @@ var _changeMultiple = function(component, newProps, callback) {
     //   the conceptual state of our component
     // onChange comes from our parent to allow this modification,
     //   and doesn't conceptually represent the state of our component
-    var currProps = _.omit(component.props, "onChange", "ref", "key");
+    var currProps = _.omit(component.props, WIDGET_PROP_BLACKLIST);
     var nextProps = _.extend(currProps, newProps);
     component.props.onChange(nextProps, callback);
 };

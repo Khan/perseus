@@ -14,6 +14,8 @@ var PropCheckBox      = require("../components/prop-check-box.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 
 var cx = React.addons.classSet;
+var EnabledFeatures = require("../enabled-features.jsx");
+var ApiOptions = require("../api-options.jsx");
 
 var ERROR_MESSAGE = $._("I'm sorry; I don't understand that!");
 
@@ -25,7 +27,8 @@ var Expression = React.createClass({
         value: React.PropTypes.string,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        enabledFeatures: EnabledFeatures.propTypes
+        enabledFeatures: EnabledFeatures.propTypes,
+        apiOptions: ApiOptions.propTypes
     },
 
     getDefaultProps: function() {
@@ -265,7 +268,8 @@ var OldExpression = React.createClass({
                     onKeyPress={this.handleKeyPress}
                     onChange={this.handleChange}
                     examples={this.examples()}
-                    shouldShowExamples={shouldShowExamples} />
+                    shouldShowExamples={shouldShowExamples}
+                    interceptFocus={this._getInterceptFocus()} />
             <span className="output">
                 <span className="tex"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
@@ -282,6 +286,21 @@ var OldExpression = React.createClass({
                 </span>
             </span>
         </span>;
+    },
+
+    _getInterceptFocus: function() {
+        return this.props.apiOptions.interceptInputFocus ?
+                this._interceptFocus : null;
+    },
+
+    _interceptFocus: function() {
+        var interceptProp = this.props.apiOptions.interceptInputFocus;
+        if (interceptProp) {
+            return interceptProp(
+                this.props.widgetId,
+                this.refs.input.getInputDOMNode()
+            );
+        }
     },
 
     errorTimeout: null,

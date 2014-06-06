@@ -1,11 +1,11 @@
 module.exports = {
     propTypes: React.PropTypes.shape({
-        preWidgetFocus: React.PropTypes.func.isRequired,
+        interceptInputFocus: React.PropTypes.func,
         onInputError: React.PropTypes.func.isRequired
     }).isRequired,
 
     defaults: {
-        preWidgetFocus: function() { },
+        interceptInputFocus: null,
         onInputError: function() { }
     }
 };

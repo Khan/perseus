@@ -103,7 +103,23 @@ var InputNumber = React.createClass({
                 onChange={this.handleChange}
                 className={"perseus-input-size-" + this.props.size}
                 examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()} />;
+                shouldShowExamples={this.shouldShowExamples()}
+                interceptFocus={this._getInterceptFocus()} />;
+    },
+
+    _getInterceptFocus: function() {
+        return this.props.apiOptions.interceptInputFocus &&
+                this._interceptFocus;
+    },
+
+    _interceptFocus: function() {
+        var interceptProp = this.props.apiOptions.interceptInputFocus;
+        if (interceptProp) {
+            return interceptProp(
+                this.props.widgetId,
+                this.refs.input.getInputDOMNode()
+            );
+        }
     },
 
     handleChange: function(newValue) {
