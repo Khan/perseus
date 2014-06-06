@@ -6,3 +6,6 @@ require("../lib/jquery.js");
 
 require("../mocha/i18n-shim.js");
 require("../build/ke.js");
+
+window.katex = require("../lib/katex/katex.js");
+require("../ke/local-only/kas.js");

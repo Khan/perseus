@@ -8,7 +8,7 @@
   "devDependencies": {
     "beefy": "~0.6.0",
     "browserify": "~3.4.0",
-    "jest-cli": "~0.1.9",
+    "jest-cli": "~0.1.15",
     "jsdom": "^0.10.5",
     "less": "~1.7.0",
     "mocha": "^1.19.0",

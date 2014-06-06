@@ -205,10 +205,10 @@ Perseus.init({skipMathJax: false}).then(function() {
         apiOptions: {
             onInputError: function() {
                 var args = _.toArray(arguments);
-                alert(args);
+                console.log.apply(console, ["onInputError:"].concat(args));
                 return false;
             },
-            interceptInputFocus: function() {
+            __interceptInputFocus: function() {
                 var args = _.toArray(arguments);
                 console.log.apply(console, ["interceptInputFocus:"].concat(args));
                 return;

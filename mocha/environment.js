@@ -15,12 +15,12 @@ require('node-jsx').install({
   harmony: true
 });
 
-var _ = require("../lib/underscore.js");
-global._ = _;
-
 // Fake being a web browser
 global.document = jsdom.jsdom();
 global.window = document.parentWindow;
+
+var _ = require("../lib/underscore.js");
+global._ = global.window._ = _;
 
 // Create a function to copy globals from `window` to `global`
 var jsdomWindowProps = _.clone(global.window);
@@ -37,7 +37,7 @@ var updateGlobals = function() {
 };
 
 // Third-party global dependencies
-global.React = withNavigator(function() {
+global.React = window.React = withNavigator(function() {
     // react-with-addons requires global.navigator to be defined,
     // but some other deps (including requirejs) require it to be
     // undefined to detect that we are running in Node.
@@ -53,6 +53,10 @@ require("./i18n-shim.js");
 updateGlobals();
 require("./ke-deps-shim.js");
 updateGlobals();
+global.katex = window.katex = require("../lib/katex/katex.js");
+global.KAS = {};
+require("../ke/local-only/kas.js");
+window.KAS = global.KAS; // don't ask--check out the KAS source.
 
 // Hacky assertion functions for jest compatibility
 // TODO(jack): Change tests to not use these, or choose jest vs mocha
