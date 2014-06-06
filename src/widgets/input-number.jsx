@@ -121,8 +121,13 @@ var InputNumber = React.createClass({
         };
     },
 
-    simpleValidate: function(rubric) {
-        return InputNumber.validate(this.toJSON(), rubric);
+    simpleValidate: function(rubric, onInputError) {
+        onInputError = onInputError || function() { };
+        return InputNumber.validate(
+            this.toJSON(),
+            rubric,
+            onInputError
+        );
     },
 
     examples: function() {
@@ -142,7 +147,7 @@ var InputNumber = React.createClass({
 });
 
 _.extend(InputNumber, {
-    validate: function(state, rubric) {
+    validate: function(state, rubric, onInputError) {
         if (rubric.answerType == null) {
             rubric.answerType = "number";
         }
@@ -159,9 +164,14 @@ _.extend(InputNumber, {
         // TODO(eater): Seems silly to translate result to this invalid/points
         // thing and immediately translate it back in ItemRenderer.scoreInput()
         if (result.empty) {
+            var apiResult = onInputError(
+                null, // reserved for some widget identifier
+                state.currentValue,
+                result.message
+            );
             return {
                 type: "invalid",
-                message: result.message
+                message: (apiResult === false) ? null : result.message
             };
         } else {
             return {

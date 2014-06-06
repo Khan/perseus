@@ -8,6 +8,7 @@ var QuestionParagraph = require("./question-paragraph.jsx");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
+var ApiOptions = require("./api-options.jsx");
 
 var specialChars = {
     // escaped: original
@@ -78,6 +79,7 @@ var Renderer = React.createClass({
     propTypes: {
         highlightedWidgets: React.PropTypes.array,
         enabledFeatures: EnabledFeatures.propTypes,
+        apiOptions: React.PropTypes.object,
         onInteractWithWidget: React.PropTypes.func
     },
 
@@ -94,6 +96,7 @@ var Renderer = React.createClass({
             ignoreMissingWidgets: false,
             highlightedWidgets: [],
             enabledFeatures: EnabledFeatures.defaults,
+            apiOptions: {},  // we'll do a deep defaults in render()
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
@@ -116,7 +119,7 @@ var Renderer = React.createClass({
         return propsChanged || stateChanged;
     },
 
-    getPiece: function(saved, widgetIds) {
+    getPiece: function(saved, widgetIds, apiOptions) {
         if (saved.charAt(0) === "@") {
             // Just text
             return saved;
@@ -150,6 +153,7 @@ var Renderer = React.createClass({
                             ref: id,
                             problemNum: this.props.problemNum,
                             enabledFeatures: this.props.enabledFeatures,
+                            apiOptions: apiOptions,
                             onChange: (newProps, cb) => {
                                 var widgets = _.clone(this.state.widgets);
                                 widgets[id] = _.extend({}, widgets[id],
@@ -207,6 +211,12 @@ var Renderer = React.createClass({
         var savedMath = extracted[1];
         var widgetIds = this.widgetIds = [];
 
+        var apiOptions = _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions
+        );
+
         var oldWidgetIds = [];
 
         // XXX(alpert): smartypants gets called on each text node before it's
@@ -221,7 +231,11 @@ var Renderer = React.createClass({
                     pieces[i] = smartypants.call(this, pieces[i]);
                 } else if (type === 1) {
                     // A saved math-or-widget number
-                    pieces[i] = self.getPiece(savedMath[pieces[i]], widgetIds);
+                    pieces[i] = self.getPiece(
+                        savedMath[pieces[i]],
+                        widgetIds,
+                        apiOptions
+                    );
                 }
             }
             return pieces;
@@ -324,13 +338,18 @@ var Renderer = React.createClass({
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
             var widgetProps = this.props.widgets[id];
-            var score = this.refs[id].simpleValidate(widgetProps.options);
+            var score = this.refs[id].simpleValidate(
+                widgetProps.options,
+                null
+            );
             return Util.scoreIsEmpty(score);
         });
     },
 
     guessAndScore: function() {
         var widgetProps = this.props.widgets;
+        var onInputError = this.props.apiOptions.onInputError ||
+                function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
             return this.refs[id].toJSON();
@@ -345,7 +364,7 @@ var Renderer = React.createClass({
                 .map(function(id) {
                     var props = widgetProps[id];
                     var widget = this.refs[id];
-                    return widget.simpleValidate(props.options);
+                    return widget.simpleValidate(props.options, onInputError);
                 }, this)
                 .reduce(Util.combineScores, Util.noScore)
                 .value();

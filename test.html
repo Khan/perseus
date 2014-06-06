@@ -199,6 +199,13 @@ Perseus.init({skipMathJax: false}).then(function() {
         developerMode: true,
         imageUploader: function(image, callback) {
             _.delay(callback, 1000, "http://fake.image.url");
+        },
+        apiOptions: {
+            onInputError: function() {
+                var args = _.toArray(arguments);
+                alert(args);
+                return false;
+            }
         }
     });
 

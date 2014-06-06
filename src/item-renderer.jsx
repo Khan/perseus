@@ -5,6 +5,7 @@ var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
+var ApiOptions = require("./api-options.jsx");
 
 var HintsRenderer = React.createClass({
     render: function() {
@@ -17,7 +18,9 @@ var HintsRenderer = React.createClass({
                 return <HintRenderer
                             bold={shouldBold}
                             hint={hint}
-                            key={"hintRenderer" + i} />;
+                            key={"hintRenderer" + i}
+                            enabledFeatures={this.props.enabledFeatures}
+                            apiOptions={this.props.apiOptions} />;
             }, this);
 
         return <div>{hints}</div>;
@@ -38,7 +41,8 @@ var ItemRenderer = React.createClass({
             solutionAreaSelector: "#solutionarea",
             hintsAreaSelector: "#hintsarea",
 
-            enabledFeatures: {}  // a deep default is done in `this.update()`
+            enabledFeatures: {},  // a deep default is done in `this.update()`
+            apiOptions: {}  // likewise ^
         };
     },
 
@@ -76,6 +80,12 @@ var ItemRenderer = React.createClass({
             toolTipFormats: false
         }, this.props.enabledFeatures);
 
+        var apiOptions = _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions
+        );
+
         // Since the item renderer works by rendering things into three divs
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
@@ -85,7 +95,8 @@ var ItemRenderer = React.createClass({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithWidget,
                     highlightedWidgets: this.state.questionHighlightedWidgets,
-                    enabledFeatures: enabledFeatures
+                    enabledFeatures: enabledFeatures,
+                    apiOptions: apiOptions
                 }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
@@ -97,14 +108,17 @@ var ItemRenderer = React.createClass({
                     problemNum: this.props.problemNum,
                     onInteractWithWidget: this.handleInteractWithAnswerWidget,
                     highlightedWidgets: this.state.answerHighlightedWidgets,
-                    enabledFeatures: enabledFeatures
+                    enabledFeatures: enabledFeatures,
+                    apiOptions: apiOptions
                 }),
                 document.querySelector(this.props.solutionAreaSelector));
 
         this.hintsRenderer = React.renderComponent(
                 HintsRenderer({
                     hints: this.props.item.hints,
-                    hintsVisible: this.state.hintsVisible
+                    hintsVisible: this.state.hintsVisible,
+                    enabledFeatures: enabledFeatures,
+                    apiOptions: apiOptions
                 }),
                 document.querySelector(this.props.hintsAreaSelector));
     },

@@ -6,6 +6,7 @@ var Tooltip = require("react-components/tooltip");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var ApiOptions = require("../api-options.jsx");
 
 var EnabledFeatures   = require("../enabled-features.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
@@ -13,6 +14,8 @@ var PropCheckBox      = require("../components/prop-check-box.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 
 var cx = React.addons.classSet;
+
+var ERROR_MESSAGE = $._("I'm sorry; I don't understand that!");
 
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
@@ -30,7 +33,8 @@ var Expression = React.createClass({
             value: "",
             times: false,
             functions: [],
-            enabledFeatures: EnabledFeatures.defaults
+            enabledFeatures: EnabledFeatures.defaults,
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -80,7 +84,7 @@ var Expression = React.createClass({
                         });
                     }} />
                 <div className="error-text">
-                    <$_>I'm sorry, I don't understand that!</$_>
+                    {ERROR_MESSAGE}
                 </div>
             </Tooltip>
         </span>;
@@ -116,7 +120,14 @@ var Expression = React.createClass({
             } else {
                 // Store timeout ID so that we can clear it above
                 this.errorTimeout = setTimeout(() => {
-                    this.setState({showErrorTooltip: true});
+                    var apiResult = this.props.apiOptions.onInputError(
+                        null, // reserved for some widget identifier
+                        this.props.currentValue,
+                        ERROR_MESSAGE
+                    );
+                    if (apiResult !== false) {
+                        this.setState({showErrorTooltip: true});
+                    }
                 }, 500);
             }
         }
@@ -131,8 +142,9 @@ var Expression = React.createClass({
         return true;
     },
 
-    simpleValidate: function(rubric) {
-        return Expression.validate(this.toJSON(), rubric);
+    simpleValidate: function(rubric, onInputError) {
+        onInputError = onInputError || function() { };
+        return Expression.validate(this.toJSON(), rubric, onInputError);
     },
 
     examples: function() {
@@ -161,7 +173,7 @@ var Expression = React.createClass({
 });
 
 _.extend(Expression, {
-    validate: function(state, rubric) {
+    validate: function(state, rubric, onInputError) {
         var options = _.clone(rubric);
         if (icu && icu.getDecimalFormatSymbols) {
             _.extend(options, icu.getDecimalFormatSymbols());
@@ -178,9 +190,14 @@ _.extend(Expression, {
         // TODO(eater): Seems silly to translate result to this invalid/points
         // thing and immediately translate it back in ItemRenderer.scoreInput()
         if (result.empty) {
+            var apiResult = onInputError(
+                null, // reserved for some widget identifier
+                state.currentValue,
+                result.message
+            );
             return {
                 type: "invalid",
-                message: result.message
+                message: (apiResult === false) ? null : result.message
             };
         } else {
             return {
@@ -207,7 +224,8 @@ var OldExpression = React.createClass({
             value: "",
             times: false,
             functions: [],
-            enabledFeatures: EnabledFeatures.defaults
+            enabledFeatures: EnabledFeatures.defaults,
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -258,7 +276,7 @@ var OldExpression = React.createClass({
                             style={{display: "none"}}>
                         <span className="buddy" />
                         <span className="message"><span>
-                            {"Sorry, I don't understand that!"}
+                            {ERROR_MESSAGE}
                         </span></span>
                     </span>
                 </span>
@@ -286,10 +304,19 @@ var OldExpression = React.createClass({
     },
 
     showError: function() {
-        var $error = $(this.refs.error.getDOMNode());
-        if (!$error.is(":visible")) {
-            $error.css({ top: 50, opacity: 0.1 }).show()
-                .animate({ top: 0, opacity: 1.0 }, 300);
+        var apiResult = this.props.apiOptions.onInputError(
+            null, // reserved for some widget identifier
+            this.props.currentValue,
+            ERROR_MESSAGE
+        );
+        if (apiResult !== false) {
+            var $error = $(this.refs.error.getDOMNode());
+            if (!$error.is(":visible")) {
+                $error.css({ top: 50, opacity: 0.1 }).show()
+                    .animate({ top: 0, opacity: 1.0 }, 300);
+            }
+        } else {
+            this.hideError();
         }
     },
 
@@ -399,8 +426,9 @@ var OldExpression = React.createClass({
         }
     },
 
-    simpleValidate: function(rubric) {
-        return Expression.validate(this.toJSON(), rubric);
+    simpleValidate: function(rubric, onInputError) {
+        onInputError = onInputError || function() { };
+        return Expression.validate(this.toJSON(), rubric, onInputError);
     },
 
     examples: function() {
@@ -441,7 +469,6 @@ var ExpressionEditor = React.createClass({
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string)
     },
-
     getDefaultProps: function() {
         return {
             value: "",

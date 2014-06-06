@@ -6,6 +6,7 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
+var ApiOptions = require("./api-options.jsx");
 
 var JsonEditor = React.createClass({
 
@@ -126,7 +127,8 @@ var EditorPage = React.createClass({
                 highlight: true,
                 toolTipFormats: true,
                 useMathQuill: true
-            }
+            },
+            apiOptions: {} // deep defaults on updateRenderer
         };
     },
 
@@ -222,6 +224,15 @@ var EditorPage = React.createClass({
         }
         var rendererConfig = _({
             item: this.toJSON(true),
+            enabledFeatures: {
+                highlight: true,
+                toolTipFormats: true
+            },
+            apiOptions: _.extend(
+                {},
+                ApiOptions.defaults,
+                this.props.apiOptions
+            ),
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
