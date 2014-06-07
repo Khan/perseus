@@ -545,19 +545,6 @@ var InteractiveGraph = React.createClass({
             image = null;
         }
 
-        var instructions;
-        if (this.isClickToAddPoints()) {
-            var instructionsText;
-            if  (this.props.graph.type === "point") {
-                instructionsText = <$_>Click to add points.</$_>;
-            } else if (this.props.graph.type === "polygon") {
-                instructionsText = <$_>Click to add vertices.</$_>;
-            }
-            instructions = <div className="instructions">
-                {instructionsText}
-            </div>;
-        }
-
         var onClick = this.isClickToAddPoints() ?
             this.handleAddPointsClick :
             null;
@@ -568,7 +555,6 @@ var InteractiveGraph = React.createClass({
                         width: box[0],
                         height: this.props.flexibleType ? "auto" : box[1]
                     }}>
-            {instructions}
             <Graph
                 ref="graph"
                 box={this.props.box}
