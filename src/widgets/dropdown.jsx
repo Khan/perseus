@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var React = require('react');
+var React   = require('react');
 var InfoTip = require("react-components/info-tip");
 
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
@@ -9,9 +9,15 @@ var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
 var Dropdown = React.createClass({
+    propTypes: {
+        choices: React.PropTypes.arrayOf(React.PropTypes.string),
+        selected: React.PropTypes.number,
+        placeholder: React.PropTypes.string
+    },
+
     getDefaultProps: function() {
         return {
-            choices: [{}],
+            choices: [],
             selected: 0,
             placeholder: ""
         };
@@ -32,7 +38,7 @@ var Dropdown = React.createClass({
                 return <option
                         key={"" + (i + 1)}
                         value={i + 1}>
-                    {choice.content}
+                    {choice}
                 </option>;
             }, this)}
         </select>;
@@ -44,7 +50,7 @@ var Dropdown = React.createClass({
     },
 
     onChange: function(e) {
-        var selected = e.target.value;
+        var selected = parseInt(e.target.value);
         this.props.onChange({selected: selected});
     },
 
@@ -83,6 +89,14 @@ _.extend(Dropdown, {
 
 var DropdownEditor = React.createClass({
     mixins: [JsonifyProps],
+
+    propTypes: {
+        choices: React.PropTypes.arrayOf(React.PropTypes.shape({
+            content: React.PropTypes.string,
+            correct: React.PropTypes.bool
+        })),
+        placeholder: React.PropTypes.string
+    },
 
     getDefaultProps: function() {
         return {
@@ -198,9 +212,17 @@ var DropdownEditor = React.createClass({
     }
 });
 
+var propTransform = (editorProps) => {
+    return {
+        placeholder: editorProps.placeholder,
+        choices: _.map(editorProps.choices, (choice) => choice.content)
+    };
+};
+
 module.exports = {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
-    editor: DropdownEditor
+    editor: DropdownEditor,
+    transform: propTransform
 };

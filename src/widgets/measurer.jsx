@@ -10,6 +10,21 @@ var PropCheckBox  = require("../components/prop-check-box.jsx");
 var RangeInput    = require("../components/range-input.jsx");
 
 var Measurer = React.createClass({
+    propTypes: {
+        box: React.PropTypes.arrayOf(React.PropTypes.number),
+        imageUrl: React.PropTypes.string,
+        imageTop: React.PropTypes.number,
+        imageLeft: React.PropTypes.number,
+        showProtractor: React.PropTypes.bool,
+        protractorX: React.PropTypes.number,
+        protractorY: React.PropTypes.number,
+        showRuler: React.PropTypes.bool,
+        rulerLabel: React.PropTypes.string,
+        rulerTicks: React.PropTypes.number,
+        rulerPixels: React.PropTypes.number,
+        rulerLength: React.PropTypes.number
+    },
+
     getDefaultProps: function() {
         return {
             box: [480, 480],
@@ -149,12 +164,25 @@ var MeasurerEditor = React.createClass({
     mixins: [Changeable, JsonifyProps],
     className: "perseus-widget-measurer",
 
+    propTypes: {
+        box: React.PropTypes.arrayOf(React.PropTypes.number),
+        imageUrl: React.PropTypes.string,
+        imageTop: React.PropTypes.number,
+        imageLeft: React.PropTypes.number,
+        showProtractor: React.PropTypes.bool,
+        showRuler: React.PropTypes.bool,
+        rulerLabel: React.PropTypes.string,
+        rulerTicks: React.PropTypes.number,
+        rulerPixels: React.PropTypes.number,
+        rulerLength: React.PropTypes.number
+    },
+
     getDefaultProps: function() {
         return {
+            box: [480, 480],
             imageUrl: null,
             imageTop: 0,
             imageLeft: 0,
-            box: [480, 480],
             showProtractor: true,
             showRuler: false,
             rulerLabel: "",
