@@ -11,6 +11,8 @@ var Renderer = require("../renderer.jsx");
 var InfoTip = require("react-components/info-tip");
 
 var shuffle = require("../util.js").shuffle;
+var captureScratchpadTouchStart =
+        require("../util.js").captureScratchpadTouchStart;
 
 var cx = React.addons.classSet;
 
@@ -64,7 +66,9 @@ var BaseRadio = React.createClass({
 
                 if (this.props.labelWrap) {
                     return <li className={className} key={i}>
-                        <label className="interactive-component">
+                        <label
+                                className="interactive-component"
+                                onTouchStart={captureScratchpadTouchStart}>
                             {content}
                         </label>
                     </li>;

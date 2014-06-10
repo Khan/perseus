@@ -435,60 +435,67 @@ var Util = {
      * through touch or mouse) on the screen.
      */
 
-     touchHandlers: {
+    touchHandlers: {
         pointerDown: false,
         currentTouchIdentifier: null
-     },
+    },
 
-     resetTouchHandlers: function() {
+    resetTouchHandlers: function() {
         _.extend(Util.touchHandlers, {
             pointerDown: false,
             currentTouchIdentifier: null
         });
-     },
+    },
 
-     extractPointerLocation: function(event) {
-         var touchOrEvent;
+    extractPointerLocation: function(event) {
+        var touchOrEvent;
 
-         if (Util.touchHandlers.pointerDown) {
-             // Look for the touch matching the one we're tracking; ignore others
-             if (Util.touchHandlers.currentTouchIdentifier != null) {
-                 var len = event.changedTouches ? event.changedTouches.length : 0;
-                 for (var i = 0; i < len; i++) {
-                     if (event.changedTouches[i].identifier ===
-                             Util.touchHandlers.currentTouchIdentifier) {
-                         touchOrEvent = event.changedTouches[i];
-                     }
-                 }
-             } else {
-                 touchOrEvent = event;
-             }
+        if (Util.touchHandlers.pointerDown) {
+            // Look for the touch matching the one we're tracking; ignore others
+            if (Util.touchHandlers.currentTouchIdentifier != null) {
+                var len = event.changedTouches ? event.changedTouches.length : 0;
+                for (var i = 0; i < len; i++) {
+                    if (event.changedTouches[i].identifier ===
+                            Util.touchHandlers.currentTouchIdentifier) {
+                        touchOrEvent = event.changedTouches[i];
+                    }
+                }
+            } else {
+                touchOrEvent = event;
+            }
 
-             var isEndish =
-                     event.type === "touchend" || event.type === "touchcancel";
-             if (touchOrEvent && isEndish) {
-                 Util.touchHandlers.pointerDown = false;
-                 Util.touchHandlers.currentTouchIdentifier = null;
-             }
-         } else {
-             // touchstart or mousedown
-             Util.touchHandlers.pointerDown = true;
-             if (event.touches) {
-                 touchOrEvent = event.touches[0];
-                 Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
-             } else {
-                 touchOrEvent = event;
-             }
-         }
+            var isEndish =
+                    event.type === "touchend" || event.type === "touchcancel";
+            if (touchOrEvent && isEndish) {
+                Util.touchHandlers.pointerDown = false;
+                Util.touchHandlers.currentTouchIdentifier = null;
+            }
+        } else {
+            // touchstart or mousedown
+            Util.touchHandlers.pointerDown = true;
+            if (event.touches) {
+                touchOrEvent = event.touches[0];
+                Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
+            } else {
+                touchOrEvent = event;
+            }
+        }
 
-         if (touchOrEvent) {
-             return {
-                 left: touchOrEvent.pageX,
-                 top: touchOrEvent.pageY
-             };
-         }
-     }
+        if (touchOrEvent) {
+            return {
+                left: touchOrEvent.pageX,
+                top: touchOrEvent.pageY
+            };
+        }
+    },
 
+    /**
+     * Pass this function as the touchstart for an element to
+     * avoid sending the touch to the mobile scratchpad
+     */
+    captureScratchpadTouchStart: function(e) {
+        e.preventDefault();
+    }
 };
 
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);

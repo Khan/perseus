@@ -17,6 +17,8 @@ var REFLECT_BUTTON_SIZE = 1;
 
 var deepEq = require("../util.js").deepEq;
 var getGridStep = require("../util.js").getGridStep;
+var captureScratchpadTouchStart =
+        require("../util.js").captureScratchpadTouchStart;
 var knumber = KhanUtil.knumber;
 var kvector = KhanUtil.kvector;
 var kpoint = KhanUtil.kpoint;
@@ -1499,7 +1501,8 @@ var ToolButton = React.createClass({
         return <button
                 type="button"
                 className={classes}
-                onClick={this.props.onClick}>
+                onClick={this.props.onClick}
+                onTouchStart={captureScratchpadTouchStart}>
             {this.props.children}
         </button>;
     }
@@ -1531,10 +1534,11 @@ var ToolsBar = React.createClass({
             <button
                     className="transformer-undo-button simple-button"
                     type="button"
-                    onClick={this.props.onUndoClick}>
+                    onClick={this.props.onUndoClick}
+                    onTouchStart={captureScratchpadTouchStart}>
                 <span className="icon-undo" />
                 {" "}
-                {' '}Undo{' '}
+                Undo
             </button>
             <div className="clear"></div>
         </div>;
@@ -1576,10 +1580,11 @@ var AddTransformBar = React.createClass({
             <button
                     className="transformer-undo-button simple-button"
                     type="button"
-                    onClick={this.props.onUndoClick}>
+                    onClick={this.props.onUndoClick}
+                    onTouchStart={captureScratchpadTouchStart}>
                 <span className="icon-undo" />
                 {" "}
-                {' '}Undo{' '}
+                Undo
             </button>
             <div className="clear"></div>
         </div>;

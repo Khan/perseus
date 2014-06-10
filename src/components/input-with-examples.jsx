@@ -8,6 +8,9 @@ var MathInput = require("./math-input.jsx");
 var Renderer  = require("../renderer.jsx");
 var TextInput = require("./text-input.jsx");
 
+var captureScratchpadTouchStart =
+        require("../util.js").captureScratchpadTouchStart;
+
 var MATH = "math";
 var TEXT = "text";
 
@@ -66,15 +69,7 @@ var InputWithExamples = React.createClass({
             // not getting focus events when clicked on mobile:
             onClick: this.props.interceptFocus != null ? this.focus : null,
             onBlur: this._onBlur,
-            autoCapitalize: "off",
-            autoComplete: "off",
-            autoCorrect: "off",
-            spellCheck: "false",
-            // HACK(aria): We make the input read-only if there is a
-            // this.props.interceptFocus function, so that the focus can be
-            // intercepted pre-focus for mobile, which doesn't want a
-            // keyboard to pop up. Hacky, I know
-            readOnly: this.props.interceptFocus != null,
+            onTouchStart: captureScratchpadTouchStart,
             ref: "input"
         };
 
@@ -82,7 +77,17 @@ var InputWithExamples = React.createClass({
             MathInput(_.extend({
                 convertDotToTimes: this.props.convertDotToTimes,
             }, inputProps)) :
-            TextInput(inputProps);
+            TextInput(_.extend({
+                autoCapitalize: "off",
+                autoComplete: "off",
+                autoCorrect: "off",
+                spellCheck: "false",
+                // HACK(jack): We make the input read-only if there is a
+                // this.props.interceptFocus function, so that the focus can
+                // be intercepted pre-focus for mobile, which doesn't want a
+                // keyboard to pop up. Hacky, I know
+                readOnly: this.props.interceptFocus != null,
+            }, inputProps));
 
         return <Tooltip
                 ref="tooltip"

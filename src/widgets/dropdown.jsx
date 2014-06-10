@@ -5,6 +5,9 @@ var InfoTip = require("react-components/info-tip");
 
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
+var captureScratchpadTouchStart =
+        require("../util.js").captureScratchpadTouchStart;
+
 var Dropdown = React.createClass({
     getDefaultProps: function() {
         return {
@@ -19,6 +22,7 @@ var Dropdown = React.createClass({
 
         return <select
                     onChange={this.onChange}
+                    onTouchStart={captureScratchpadTouchStart}
                     className="perseus-widget-dropdown"
                     value={this.props.selected}>
             <option value={0} disabled>
