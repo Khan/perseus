@@ -162,6 +162,8 @@ var Expression = React.createClass({
             $._("For $\\sqrt{x}$, enter **sqrtx**"),
             $._("For $\\pi$, enter **pi**"),
             $._("For $\\sin (\\theta)$, enter **sin(theta)**"),
+            $._("For $\\log_{10}(x)$, enter **log(x)**"),
+            $._("For $\\log_{2}(x)$, enter **log\_2 (x)**"),
             $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
             $._("For $\\neq$, enter **<>**"),
             $._("Move around with arrow keys"),
