@@ -62,6 +62,9 @@ var InputWithExamples = React.createClass({
             value: this.props.value,
             onChange: this.props.onChange,
             onFocus: this._onFocus,
+            // HACK (jack): This fixes readonly inputs (from interceptFocus)
+            // not getting focus events when clicked on mobile:
+            onClick: this.props.interceptFocus != null ? this.focus : null,
             onBlur: this._onBlur,
             autoCapitalize: "off",
             autoComplete: "off",
