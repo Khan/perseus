@@ -134,7 +134,10 @@ var CategorizerEditor = React.createClass({
             Items:
             <TextListEditor
                 options={this.props.items}
-                onChange={(items) => {this.change("items", items);}}
+                onChange={(items) => {this.change({
+                        items: items,
+                        values: _.first(this.props.values, items.length)
+                    });}}
                 layout="vertical" />
 
             <Categorizer
