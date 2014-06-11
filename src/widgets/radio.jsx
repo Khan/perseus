@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 var ButtonGroup = require("react-components/button-group");
 var Editor = require("../editor.jsx");
@@ -60,19 +61,30 @@ var BaseRadio = React.createClass({
                             </div>}
                     </div>;
 
-                var className = cx({
+                var classSet = {
                     "inline": !this.props.onePerLine
-                });
+                };
+                classSet[ApiClassNames.RADIO.OPTION] = true;
+                classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
+                var className = cx(classSet);
 
                 if (this.props.labelWrap) {
                     return <li className={className} key={i}>
                         <label
-                                className="interactive-component"
+                                className={
+                                    "interactive-component " +
+                                    ApiClassNames.RADIO.OPTION_CONTENT
+                                }
                                 onTouchStart={captureScratchpadTouchStart}>
                             {content}
                         </label>
                     </li>;
                 } else {
+                    // Note: Only used in the editor right now. This has
+                    // diverged enough from the normal radio with labels, that
+                    // if you want to use this from the answer area, you
+                    // should probably adopt some of the conventions above
+                    // first (classnames on content, onTouchStart, et al.).
                     return <li className={className} key={i}>{content}</li>;
                 }
 

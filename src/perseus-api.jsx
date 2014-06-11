@@ -12,7 +12,12 @@ module.exports = {
     },
     ClassNames: {
         INPUT: "perseus-input",
-        FOCUSED: "perseus-focused"
+        FOCUSED: "perseus-focused",
+        RADIO: {
+            OPTION: "perseus-radio-option",
+            SELECTED: "perseus-radio-selected",
+            OPTION_CONTENT: "perseus-radio-option-content"
+        }
     }
 };
 
