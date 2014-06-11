@@ -255,6 +255,13 @@ var deprecatedProps = {
 
 
 var InteractiveGraph = React.createClass({
+
+    getInitialState: function() {
+        return {
+            shouldShowInstructions: true
+        };
+    },
+
     getDefaultProps: function() {
         var range = this.props.range || [[-10, 10], [-10, 10]];
         var step = this.props.step || [1, 1];
@@ -546,16 +553,14 @@ var InteractiveGraph = React.createClass({
         }
 
         var instructions;
-        if (this.isClickToAddPoints()) {
-            var instructionsText;
+        if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if  (this.props.graph.type === "point") {
-                instructionsText = <$_>Click to add points.</$_>;
+                instructions = $._("Click to add points");
             } else if (this.props.graph.type === "polygon") {
-                instructionsText = <$_>Click to add vertices.</$_>;
+                instructions = $._("Click to add vertices");
             }
-            instructions = <div className="instructions">
-                {instructionsText}
-            </div>;
+        } else {
+            instructions = undefined;
         }
 
         var onMouseDown = this.isClickToAddPoints() ?
@@ -569,6 +574,7 @@ var InteractiveGraph = React.createClass({
                         height: this.props.flexibleType ? "auto" : box[1]
                     }}>
             <Graph
+                instructions={instructions}
                 ref="graph"
                 box={this.props.box}
                 labels={this.props.labels}
@@ -632,6 +638,10 @@ var InteractiveGraph = React.createClass({
                 // closed yet.
                 this.updatePolygon();
             }
+
+            this.setState({
+                shouldShowInstructions: false
+            });
         }
     },
 
@@ -678,6 +688,9 @@ var InteractiveGraph = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
             this.shouldResetGraphie = true;
+            this.setState({
+                shouldShowInstructions: true
+            });
         }
     },
 

@@ -17,7 +17,37 @@ function numSteps(range, step) {
 
 var Graph = React.createClass({
     propTypes: {
-        box: React.PropTypes.array.isRequired
+        box: React.PropTypes.array.isRequired,
+        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(
+                React.PropTypes.number
+            )
+        ),
+        step: React.PropTypes.arrayOf(React.PropTypes.number),
+        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        markings: React.PropTypes.string,
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+            scale: React.PropTypes.number,
+            bottom: React.PropTypes.number,
+            left: React.PropTypes.number
+        }),
+        showProtractor: React.PropTypes.bool,
+        showRuler: React.PropTypes.bool,
+        rulerLabel: React.PropTypes.string,
+        rulerTicks: React.PropTypes.number,
+        onNewGraphie: React.PropTypes.func,
+        instructions: React.PropTypes.string,
+        onClick: React.PropTypes.func
+    },
+
+    getInitialState: function() {
+        return {
+            isHovering: false,
+            shouldShowInstructions: true
+        };
     },
 
     getDefaultProps: function() {
@@ -34,9 +64,10 @@ var Graph = React.createClass({
             showRuler: false,
             rulerLabel: "",
             rulerTicks: 10,
+            instructions: null,
             onNewGraphie: null,
             onClick: null,
-            onMouseDown: null
+            onMouseDown: null,
         };
     },
 
@@ -56,15 +87,41 @@ var Graph = React.createClass({
             image = null;
         }
 
+        var instructions;
+        if (this.props.instructions) {
+            var style = { opacity: (this.state.isHovering) ? 0.0 : 0.5 };
+            instructions = <div className="graph-instructions" style={style}>
+                <span>{this.props.instructions}</span>
+            </div>;
+        } else {
+            instructions = undefined;
+        }
+
         return <div
-                className="graphie-container above-scratchpad"
-                style={{
-                    width: this.props.box[0],
-                    height: this.props.box[1]
-                }}>
+                    className="graphie-container above-scratchpad"
+                    style={{
+                        width: this.props.box[0],
+                        height: this.props.box[1]
+                    }}
+                    onMouseOut={this.onMouseOut}
+                    onMouseOver={this.onMouseOver}
+                    onClick={this.onClick} >
+            {instructions}
             {image}
-            <div className="graphie" ref="graphieDiv" />
+        <div className="graphie" ref="graphieDiv" />
         </div>;
+    },
+
+    onMouseOver: function(e) {
+        this.setState({
+            isHovering: true
+        });
+    },
+
+    onMouseOut: function(e) {
+        this.setState({
+            isHovering: false
+        });
     },
 
     componentDidMount: function() {
