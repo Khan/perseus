@@ -10,8 +10,12 @@ var Categorizer = React.createClass({
     mixins: [JsonifyProps, Changeable],
 
     propTypes: {
+        // List of items that are being categorized (along the left side)
         items: React.PropTypes.arrayOf(React.PropTypes.string),
+        // List of categories (across the top)
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
+        // Ordered list of correct answers, mapping items to categories thusly:
+        //   values[<items_index>] == <categories_index>
         values: React.PropTypes.arrayOf(React.PropTypes.number)
     },
 
@@ -136,6 +140,13 @@ var CategorizerEditor = React.createClass({
                 options={this.props.items}
                 onChange={(items) => {this.change({
                         items: items,
+                        // TODO(eater): This truncates props.values so there
+                        // are never more correct answers than items, ensuring
+                        // the widget is possible to answer correctly.
+                        // It doesn't necessarly keep each answer with
+                        // its corresponding item if an item is deleted from
+                        // the middle. Inconvenient, but it's at least possible
+                        // for content creators to catch and fix.
                         values: _.first(this.props.values, items.length)
                     });}}
                 layout="vertical" />
