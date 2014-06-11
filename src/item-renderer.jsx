@@ -6,6 +6,7 @@ var HintRenderer = require("./hint-renderer.jsx");
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
 var ApiOptions = require("./perseus-api.jsx").Options;
+var EnabledFeatures = require("./enabled-features.jsx");
 
 var HintsRenderer = React.createClass({
     render: function() {
@@ -73,11 +74,10 @@ var ItemRenderer = React.createClass({
     },
 
     update: function() {
-        var enabledFeatures = _.extend({
+        var enabledFeatures = _.extend({}, EnabledFeatures.defaults, {
             // for temporary backcompat:
             // TODO(jack): Remove once enabledFeatures is specified from webapp
             highlight: this.props.enableHighlight || false,
-            toolTipFormats: false
         }, this.props.enabledFeatures);
 
         var apiOptions = _.extend(
