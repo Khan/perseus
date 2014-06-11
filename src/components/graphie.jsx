@@ -19,7 +19,10 @@ var Graphie = React.createClass({
         ),
         options: React.PropTypes.object,
         setup: React.PropTypes.func.isRequired,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        onMouseDown: React.PropTypes.func,
+        onMouseUp: React.PropTypes.func,
+        onMouseMove: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -119,7 +122,10 @@ var Graphie = React.createClass({
             scale: this._scale()
         });
         graphie.addMouseLayer({
-            onClick: this.props.onClick
+            onClick: this.props.onClick,
+            onMouseDown: this.props.onMouseDown,
+            onMouseUp: this.props.onMouseUp,
+            onMouseMove: this.props.onMouseMove
         });
         graphie.snap = this.props.options.snapStep || [1, 1];
         this.props.setup(graphie, this.props.options);

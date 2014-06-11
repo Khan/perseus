@@ -35,7 +35,8 @@ var Graph = React.createClass({
             rulerLabel: "",
             rulerTicks: 10,
             onNewGraphie: null,
-            onClick: null
+            onClick: null,
+            onMouseDown: null
         };
     },
 
@@ -173,6 +174,9 @@ var Graph = React.createClass({
 
         graphie.addMouseLayer({
             onClick: this.props.onClick,
+            onMouseDown: this.props.onMouseDown,
+            onMouseUp: this.props.onMouseUp,
+            onMouseMove: this.props.onMouseMove,
             allowScratchpad: true
         });
 

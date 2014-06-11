@@ -272,6 +272,13 @@ _.extend(MovablePoint.prototype, {
         this.draw();
     },
 
+    setCoordConstrainted: function(coord) {
+        assert(kpoint.is(coord, 2));
+        var result = this._applyConstraints(coord, coord);
+        this.state.coord = _.clone(result);
+        this.draw();
+    },
+
     // Clone these for use with raphael, which modifies the input
     // style parameters
     normalStyle: function() {
@@ -311,6 +318,10 @@ _.extend(MovablePoint.prototype, {
 
     mouseTarget: function() {
         return this.movable.mouseTarget();
+    },
+
+    grab: function() {
+        this.movable.grab();
     }
 });
 

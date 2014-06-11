@@ -99,6 +99,60 @@ _.extend(Movable.prototype, {
     },
 
     /**
+     * Simulates a mouse grab event on the movable object.
+     */
+    grab: function(coord) {
+        var self = this;
+        var graphie = self.graphie;
+        var state = self.state;
+
+        state.isHovering = true;
+        state.isDragging = true;
+        graphie.isDragging = true;
+
+        var startMouseCoord = coord;
+        var prevMouseCoord = startMouseCoord;
+        self._fireEvent(
+            state.onMoveStart,
+            startMouseCoord,
+            startMouseCoord
+        );
+
+        $(document).bind("vmousemove", function(e) {
+            e.preventDefault();
+
+            var mouseCoord = graphie.getMouseCoord(e);
+            self._fireEvent(
+                state.onMove,
+                mouseCoord,
+                prevMouseCoord
+            );
+            self.draw();
+            prevMouseCoord = mouseCoord;
+        });
+
+        $(document).bind("vmouseup", function(e) {
+            $(document).unbind("vmousemove vmouseup");
+            if (state.isHovering) {
+                self._fireEvent(
+                    state.onClick,
+                    prevMouseCoord,
+                    startMouseCoord
+                );
+            }
+            state.isHovering = self.state.isMouseOver;
+            state.isDragging = false;
+            graphie.isDragging = false;
+            self._fireEvent(
+                state.onMoveEnd,
+                prevMouseCoord,
+                startMouseCoord
+            );
+            self.draw();
+        });
+    },
+
+    /**
      * Adjusts constructor parameters without changing previous settings
      * for any option not specified
      *
@@ -150,50 +204,7 @@ _.extend(Movable.prototype, {
                 }
                 e.preventDefault();
 
-                var startMouseCoord = graphie.getMouseCoord(e);
-                var prevMouseCoord = startMouseCoord;
-                self._fireEvent(
-                    state.onMoveStart,
-                    startMouseCoord,
-                    startMouseCoord
-                );
-                state.isHovering = true;
-
-                $(document).bind("vmousemove", function(e) {
-                    e.preventDefault();
-
-                    state.isDragging = true;
-                    graphie.isDragging = true;
-
-                    var mouseCoord = graphie.getMouseCoord(e);
-                    self._fireEvent(
-                        state.onMove,
-                        mouseCoord,
-                        prevMouseCoord
-                    );
-                    self.draw();
-                    prevMouseCoord = mouseCoord;
-                });
-
-                $(document).bind("vmouseup", function(e) {
-                    $(document).unbind("vmousemove vmouseup");
-                    if (state.isHovering) {
-                        self._fireEvent(
-                            state.onClick,
-                            prevMouseCoord,
-                            startMouseCoord
-                        );
-                    }
-                    state.isHovering = self.state.isMouseOver;
-                    state.isDragging = false;
-                    graphie.isDragging = false;
-                    self._fireEvent(
-                        state.onMoveEnd,
-                        prevMouseCoord,
-                        startMouseCoord
-                    );
-                    self.draw();
-                });
+                self.grab();
             });
         }
 

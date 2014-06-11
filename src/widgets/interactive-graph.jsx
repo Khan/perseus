@@ -545,8 +545,21 @@ var InteractiveGraph = React.createClass({
             image = null;
         }
 
-        var onClick = this.isClickToAddPoints() ?
-            this.handleAddPointsClick :
+        var instructions;
+        if (this.isClickToAddPoints()) {
+            var instructionsText;
+            if  (this.props.graph.type === "point") {
+                instructionsText = <$_>Click to add points.</$_>;
+            } else if (this.props.graph.type === "polygon") {
+                instructionsText = <$_>Click to add vertices.</$_>;
+            }
+            instructions = <div className="instructions">
+                {instructionsText}
+            </div>;
+        }
+
+        var onMouseDown = this.isClickToAddPoints() ?
+            this.handleAddPointsMouseDown :
             null;
 
         return <div className={"perseus-widget " +
@@ -569,7 +582,7 @@ var InteractiveGraph = React.createClass({
                 showRuler={this.props.showRuler}
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
-                onClick={onClick}
+                onMouseDown={onMouseDown}
                 onNewGraphie={this.setGraphie} />
             {typeSelect}{extraOptions}
         </div>;
@@ -580,7 +593,7 @@ var InteractiveGraph = React.createClass({
         this.setupGraphie();
     },
 
-    handleAddPointsClick: function(coord) {
+    handleAddPointsMouseDown: function(coord) {
         // This function should only be called when this.isClickToAddPoints()
         // is true
         if (!this.isClickToAddPoints()) {
@@ -595,6 +608,11 @@ var InteractiveGraph = React.createClass({
                     this.points.length
                 );
                 this.points.push(point);
+
+                // interactive2 allows us to grab the point
+                var idx = this.points.length - 1;
+                this.points[idx].grab(coord);
+
                 this.updateCoordsFromPoints();
             } else if (this.props.graph.type === "polygon") {
                 if (this.polygon.closed) {
@@ -605,6 +623,10 @@ var InteractiveGraph = React.createClass({
                     this.points.length
                 );
                 this.points.push(point);
+
+                var idx = this.points.length - 1;
+                this.points[idx].grab();
+
                 // We don't call updateCoordsFromPoints for
                 // polygons, since the polygon won't be
                 // closed yet.
