@@ -258,7 +258,7 @@ var InteractiveGraph = React.createClass({
 
     getInitialState: function() {
         return {
-            shouldShowInstructions: true
+            shouldShowInstructions: this._getShouldShowInstructions()
         };
     },
 
@@ -290,6 +290,13 @@ var InteractiveGraph = React.createClass({
 
     mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
+
+    _getShouldShowInstructions: function(props) {
+        props = props || this.props;
+        return this.isClickToAddPoints(props) && (
+            props.graph.coords == null || props.graph.coords.length === 0
+        );
+    },
 
     componentDidUpdate: function(prevProps, prevState) {
         var oldType = prevProps.graph.type;
@@ -689,7 +696,8 @@ var InteractiveGraph = React.createClass({
         if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
             this.shouldResetGraphie = true;
             this.setState({
-                shouldShowInstructions: true
+                shouldShowInstructions:
+                        this._getShouldShowInstructions(nextProps)
             });
         }
     },
