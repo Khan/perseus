@@ -2,6 +2,8 @@
 
 var React = require('react');
 var firstNumericalParse = require("../util.js").firstNumericalParse;
+var captureScratchpadTouchStart =
+        require("../util.js").captureScratchpadTouchStart;
 var knumber = KhanUtil.knumber;
 var toNumericString = KhanUtil.toNumericString;
 var getNumericFormat = KhanUtil.getNumericFormat;
@@ -73,6 +75,7 @@ var NumberInput = React.createClass({
             onBlur: this._handleBlur,
             onKeyPress: this._handleBlur,
             onKeyDown: this._onKeyDown,
+            onTouchStart: captureScratchpadTouchStart,
             defaultValue: toNumericString(this.props.value, this.state.format),
             value: undefined
         }));
