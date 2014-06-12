@@ -1432,9 +1432,16 @@ var InteractiveGraph = React.createClass({
     },
 
     updatePolygon: function() {
-        var closed = this.polygon ?
-            this.polygon.closed :
-            !this.isClickToAddPoints();
+        var closed;
+        if (this.polygon) {
+            closed = this.polygon.closed;
+        } else if (this.points.length >= 3) {
+            closed = true;
+        } else {
+            // There will only be fewer than 3 points in click-to-add-vertices
+            // mode, so we don't need to explicitly check for that here.
+            closed = false;
+        }
 
         if (this.polygon) {
             this.polygon.remove();
