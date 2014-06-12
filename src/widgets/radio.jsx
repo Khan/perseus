@@ -51,7 +51,9 @@ var BaseRadio = React.createClass({
                                 type={inputType}
                                 name={radioGroupName}
                                 checked={choice.checked}
-                                onChange={this.onChange.bind(this, i)} />
+                                onChange={(e) => {
+                                    this.checkOption(i, e.target.checked);
+                                }} />
                         </span>
                         {choice.content}
                         {Exercises.cluesEnabled === "cluesEnabled" &&
@@ -70,14 +72,31 @@ var BaseRadio = React.createClass({
 
                 if (this.props.labelWrap) {
                     return <li className={className} key={i}>
-                        <label
+                        {/* A pseudo-label. <label> is slightly broken on iOS,
+                            so this works around that. Unfortunately, it is
+                            simplest to just work around that everywhere. */}
+                        <span
                                 className={
                                     "interactive-component " +
                                     ApiClassNames.RADIO.OPTION_CONTENT
                                 }
-                                onTouchStart={captureScratchpadTouchStart}>
+                                style={{
+                                    cursor: "default",
+                                    display: "block"
+                                }}
+                                onTouchStart={captureScratchpadTouchStart}
+                                onClick={(e) => {
+                                    // Don't send this to the scratchpad
+                                    e.preventDefault();
+                                    this.checkOption(i,
+                                        (this.props.multipleSelect ?
+                                            !choice.checked :
+                                            true
+                                        )
+                                    );
+                                }}>
                             {content}
-                        </label>
+                        </span>
                     </li>;
                 } else {
                     // Note: Only used in the editor right now. This has
@@ -92,11 +111,25 @@ var BaseRadio = React.createClass({
         </ul>;
     },
 
-    onChange: function(radioIndex, e) {
-        var newChecked = _.map(this.props.choices, function(choice, i) {
-            return this.refs["radio" + i].getDOMNode().checked;
-        }, this);
+    checkOption: function(radioIndex, shouldBeChecked) {
+        var newChecked;
+        if (this.props.multipleSelect) {
+            // When multipleSelect is on, clicking an index toggles the
+            // selection of just that index.
+            newChecked = _.map(this.props.choices, (choice, i) => {
+                return (i === radioIndex) ? shouldBeChecked : choice.checked;
+            });
+        } else {
+            // When multipleSelect is turned off, we always select the
+            // clicked index, and unselect everything else.
+            newChecked = _.map(this.props.choices, (choice, i) => {
+                return i === radioIndex;
+            });
+        }
 
+        // We send just the array of [true/false] checked values here;
+        // onCheckedChange reconstructs the new choices to send to
+        // this.props.onChange
         this.props.onCheckedChange(newChecked);
     },
 
