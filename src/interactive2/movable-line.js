@@ -2,7 +2,6 @@
  * MovableLine
  */
 
-var Movable = require("./movable.js");
 var MovableLineOptions = require("./movable-line-options.js");
 var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
@@ -23,60 +22,49 @@ var FUNCTION_ARRAY_OPTIONS = [
     "onMoveEnd"
 ];
 
-// create getters for:
-//   points: () => this.state.points
-//   static: () => this.state.static
-// etc...
-var DEFAULT_PROPERTIES = {
+// Default "props" and "state". Both are added to this.state and
+// receive magic getter methods (this.cursor() etc).
+// However, properties in DEFAULT_PROPS are updated on `modify()`,
+// while those in DEFAULT_STATE persist and are not updated.
+// Things that the user might want to change should be on "props",
+// while things used to render the point should be on "state".
+var DEFAULT_PROPS = {
     points: [[0, 0], [4, 4]],
     updatePoints: false,
     static: false,
     cursor: "move",
-    mouseTarget: null,
-    visibleShape: null,
     normalStyle: null,     // turned into an object in this.modify
     highlightStyle: null,  // likewise
     extendLine: false,
     extendRay: false
 };
+var DEFAULT_STATE = {
+    visibleShape: null,
+    mouseTarget: null
+};
 
-var MovableLine = function(graphie, options) {
+var MovableLine = function(graphie, movable, options) {
     assert(graphie != null);
     assert(options != null);
 
     _.extend(this, {
         graphie: graphie,
+        movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movableLine"),
-            // Set here because:
-            //  - these defaults don't exist at file execution time
-            //  - these don't need getters created for them
-            add: [
-                MovableLine.add.draw,
-                MovableLine.add.pointsToFront
-            ],
-            draw: [
-                MovableLine.draw.basic,
-                MovableLine.draw.arrows,
-                MovableLine.draw.highlight
-            ],
-            remove: [
-                MovableLine.remove.basic,
-                MovableLine.remove.arrows
-            ],
-            onMoveStart: [],
-            constraints: [],
-            onMove: [],
-            onMoveEnd: []
+            id: _.uniqueId("movableLine")
         }
     });
 
-    this.modify(options);
+    // We only set DEFAULT_STATE once, here
+    this.modify(_.extend({}, DEFAULT_STATE, options));
 };
 
 _.extend(MovableLine, MovableLineOptions);
-InteractiveUtil.createGettersFor(MovableLine, DEFAULT_PROPERTIES);
+InteractiveUtil.createGettersFor(MovableLine, _.extend({},
+    DEFAULT_PROPS,
+    DEFAULT_STATE
+));
 InteractiveUtil.addMovableHelperMethodsTo(MovableLine);
 
 _.extend(MovableLine.prototype, {
@@ -93,39 +81,36 @@ _.extend(MovableLine.prototype, {
         }, normalizeOptions(
             FUNCTION_ARRAY_OPTIONS,
             // Defaults are copied from MovableLineOptions.*.standard
-            // These defaults are set here instead of DEFAULT_PROPERTIES
+            // These defaults are set here instead of DEFAULT_PROPS/STATE
             // because they:
             //    - are objects, not primitives (and need a deeper copy)
             //    - they don't need getters created for them
             // TODO(jack): Consider "default" once we es3ify perseus
             objective_.pluck(MovableLineOptions, "standard")
-        ), DEFAULT_PROPERTIES);
+        ), DEFAULT_PROPS);
+    },
+
+    /**
+     * Resets the object to its state as if it were constructed with
+     * `options` originally. state not on DEFAULT_PROPS is maintained.
+     *
+     * Analogous to React.js's replaceProps
+     */
+    modify: function(options) {
+        this.update(_.extend(this._createDefaultState(), options));
     },
 
     /**
      * Adjusts constructor parameters without changing previous settings
      * for any option not specified
+     *
+     * Analogous to React.js's setProps
      */
     update: function(options) {
-        this.remove();  // Must be called here to modify this.state
-                        // *before* we pass this.state into this.modify
-                        // Otherwise, we'd end up re-adding the removed
-                        // raphael elements :(.
-        this.modify(_.extend({}, this.state, options));
-    },
-
-    /**
-     * Resets the object to its state as if it were constructed with
-     * `options` originally. The only state maintained is `state.id`
-     */
-    modify: function(options) {
         var self = this;
         var graphie = this.graphie;
-
-        this.remove();
-
         var state = self.state = _.extend(
-            self._createDefaultState(),
+            self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
 
@@ -133,7 +118,7 @@ _.extend(MovableLine.prototype, {
         // _.extend is not deep.
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
-        // DEFAULT_PROPERTIES!)
+        // DEFAULT_PROPS/STATE!)
         state.normalStyle = _.extend({
             stroke: KhanUtil.BLUE,
             "stroke-width": 2
@@ -163,12 +148,18 @@ _.extend(MovableLine.prototype, {
         var prevRefCoord;
         var totalDelta;
 
-        self.movable = new Movable(graphie, _.extend({}, state, {
+        // The movable that handles mouse events for us
+        self.movable.modify(_.extend({}, state, {
             mouseTarget: state.mouseTarget,
 
-            add: [],
+            // We null out the add/modify/remove to avoid propagating our
+            // state.add... to the movable, so that we can fire those
+            // events ourselves, rather than letting the movable handle
+            // them
+            add: null,
+            modify: null,
             draw: self.draw.bind(self),
-            remove: [],
+            remove: null,
 
             onMoveStart: function() {
                 initialRefCoord = self.coord(0);
@@ -218,10 +209,19 @@ _.extend(MovableLine.prototype, {
         _.invoke(state.points, "listen", "onMove", state.id,
                 self.draw.bind(self));
 
-        self.prevState = self.cloneState();
-        self._fireEvent(state.add, self.prevState);
-        // Update the state if add() changed it
-        self.prevState = self.cloneState();
+        // Trigger an add event if this hasn't been added before
+        if (!state.added) {
+            self.prevState = {};
+            self._fireEvent(state.add, self.cloneState(), self.prevState);
+            state.added = true;
+
+            // Update the state for `added` and in case the add event
+            // changed it
+            self.prevState = self.cloneState();
+        }
+
+        // Trigger a modify event
+        self._fireEvent(state.modify, self.cloneState(), self.prevState);
     },
 
     coords: function() {

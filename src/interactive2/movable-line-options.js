@@ -63,6 +63,8 @@ var drawArrowAtClipPoint = function(graph, coord, angle, style) {
  * MovableLine option functions
  */
 var add = {
+    // We do this in add as well as in standard so that we can call
+    // pointsToFront after the first draw (which adds `this.visibleShape`)
     draw: function() {
         this.draw();
     },
@@ -74,6 +76,13 @@ var add = {
 
 add.standard = [add.draw, add.pointsToFront];
 
+var modify = {
+    draw: function() {
+        this.draw();
+    }
+};
+
+modify.standard = [modify.draw];
 
 var draw = {
     basic: function(state) {
@@ -261,6 +270,7 @@ constraints.standard = null;
 
 module.exports = {
     add: add,
+    modify: modify,
     draw: draw,
     remove: remove,
 

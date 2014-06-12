@@ -131,7 +131,7 @@ _.extend(MovablePoint.prototype, {
 
     /**
      * Resets the object to its state as if it were constructed with
-     * `options` originally. The only state maintained is `state.id`
+     * `options` originally. state not on DEFAULT_PROPS is maintained.
      *
      * Analogous to React.js's replaceProps
      */

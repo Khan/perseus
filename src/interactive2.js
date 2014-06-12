@@ -10,7 +10,8 @@ var Interactive2 = {
     },
     MovableLine: MovableLine,
     addMovableLine: function(graphie, options) {
-        return new MovableLine(graphie, options);
+        var movable = new Movable(graphie, {});
+        return new MovableLine(graphie, movable, options);
     }
 };
 
