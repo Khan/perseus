@@ -6,15 +6,15 @@
 
 A `MathInput` or `TextInput` that has an acceptable formats popover.
 
-Used in three widgets - `Expression`, `NumericInput`, and `InputNumber` (all of the widgets in this doc less `OldExpression`).
+Used in three widgets - `Expression`, `NumericInput`, and `InputNumber`.
 
 #### `MathInput`
 
-A mathquill react component. *Only* used in `InputWithExamples`.
+A [MathQuill](https://github.com/Khan/mathquill) React component. *Only* used in `InputWithExamples`.
 
 #### `TextInput`
 
-Pretty much just an input. *Only* used in `InputWithExamples` (and `ExampleWidget`). This component is honestly confusing to me since as far as I can tell it only differs from `<input type="text">` by calling `onChange` with the new value rather than an event and by providing a `focus` method.
+An `<input type="text">` with better semantics. Calls `onChange` directly with the new value (instead of the event) and provides a `.focus()` method. Used in `InputWithExamples` and `ExampleWidget`.
 
 ### `NumberInput`
 
@@ -40,17 +40,16 @@ Optionally takes a size ("mini", "small", "normal")
 
 ## Widgets
 
-### `Expression`
+### `Expression` (and `OldExpression`)
 
-Widget called "Expression / equation" that displays a mathquill box (`InputWithExamples`).
+Widget called "Expression / equation" that is in the process of being upgraded.
 
-This expression is also an example of `InputWithExamples` and `MathInput`.
+The newer version is composed of a React component called `Expression` that uses MathQuill for WYSIWYG expression input (it wraps `InputWithExamples`, which in turn wraps `MathInput`). This version is now the default for most browsers.
 
 ![expression](./images/expression.png)
 
-### `OldExpression`
+The older version is composed of a React component called `OldExpression` that uses a plain text input, and displays a live render of the last parsed TeX immediately below. This version is now only served to mobile web browsers, since MathQuill's mobile support is still rough around the edges. Eventually, this version will be deprecated entirely.
 
-Also called "Expression / equation". The expression widget seen on mobile. It's unclear to the author how the input works as it appears to be using a mathquill input but also displaying the latest parsed TeX.
 
 ### `InputNumber`
 
