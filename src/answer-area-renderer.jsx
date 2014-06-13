@@ -70,7 +70,7 @@ var AnswerAreaRenderer = React.createClass({
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
-            {
+            parentInterceptInputFocus && {
                 // Rewrite widgetIds sent to interceptInputFocus on the way
                 // up to include an "answer-" prefix
                 interceptInputFocus: function(widgetId) {
