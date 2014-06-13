@@ -272,7 +272,7 @@ _.extend(MovablePoint.prototype, {
         this.draw();
     },
 
-    setCoordConstrainted: function(coord) {
+    setCoordConstrained: function(coord) {
         assert(kpoint.is(coord, 2));
         var result = this._applyConstraints(coord, coord);
         this.state.coord = _.clone(result);
