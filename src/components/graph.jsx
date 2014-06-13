@@ -11,6 +11,28 @@ var defaultBackgroundImage = {
     left: 0,
 };
 
+/* Style objects */
+var defaultInstructionsStyle = {
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    fontSize: '32px',
+    width: '100%',
+    height: '100%',
+    textAlign: 'center',
+    backgroundColor: 'white',
+    pointerEvents: 'none',
+    position: 'absolute',
+    zIndex: 10,
+    transition: 'opacity .25s ease-in-out',
+    '-moz-transition': 'opacity .25s ease-in-out',
+    '-webkit-transition': 'opacity .25s ease-in-out'
+};
+
+var instructionsTextStyle = {
+    position: 'relative',
+    top: '25%'
+};
+
 function numSteps(range, step) {
     return Math.floor((range[1] - range[0]) / step);
 }
@@ -89,9 +111,14 @@ var Graph = React.createClass({
 
         var instructions;
         if (this.props.instructions) {
-            var style = { opacity: (this.state.isHovering) ? 0.0 : 0.5 };
-            instructions = <div className="graph-instructions" style={style}>
-                <span>{this.props.instructions}</span>
+            var instructionsStyle = _.extend({}, defaultInstructionsStyle, {
+                opacity: (this.state.isHovering) ? 0.0 : 0.5
+            });
+
+            instructions = <div style={instructionsStyle}>
+                <span style={instructionsTextStyle}>
+                    {this.props.instructions}
+                </span>
             </div>;
         } else {
             instructions = undefined;
