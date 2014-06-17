@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var React   = require('react');
+var React = require('react');
 var InfoTip = require("react-components/info-tip");
 
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
