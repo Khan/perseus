@@ -33,12 +33,7 @@ demo:
 
 all: subperseus
 
-#subperseus: clean install build put
-subperseus:
-	@echo ""
-	@echo "jack/aria owns the subperseus lock until we fix all the bugs."
-	@echo "talk to them to release it!"
-	@echo ""
+subperseus: clean install build put
 
 put: put-js put-css
 
