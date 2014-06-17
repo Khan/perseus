@@ -45,20 +45,7 @@ var BaseRadio = React.createClass({
             {this.props.choices.map(function(choice, i) {
 
                 var content = <div>
-                        <span className="checkbox">
-                            <input
-                                ref={"radio" + i}
-                                type={inputType}
-                                name={radioGroupName}
-                                checked={choice.checked}
-                                onChange={this.onChange.bind(this, i)} />
-                        </span>
                         {choice.content}
-                        {Exercises.cluesEnabled === "cluesEnabled" &&
-                            this.props.showClues && choice.checked &&
-                            <div className="perseus-radio-clue">
-                                {choice.clue}
-                            </div>}
                     </div>;
 
                 var classSet = {
@@ -68,35 +55,73 @@ var BaseRadio = React.createClass({
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
                 var className = cx(classSet);
 
-                if (this.props.labelWrap) {
-                    return <li className={className} key={i}>
-                        <label
-                                className={
-                                    "interactive-component " +
-                                    ApiClassNames.RADIO.OPTION_CONTENT
-                                }
-                                onTouchStart={captureScratchpadTouchStart}>
-                            {content}
-                        </label>
-                    </li>;
-                } else {
-                    // Note: Only used in the editor right now. This has
-                    // diverged enough from the normal radio with labels, that
-                    // if you want to use this from the answer area, you
-                    // should probably adopt some of the conventions above
-                    // first (classnames on content, onTouchStart, et al.).
-                    return <li className={className} key={i}>{content}</li>;
-                }
+                return <li className={className} key={i}><div>
+                    <span className="checkbox">
+                        <input
+                            ref={"radio" + i}
+                            type={inputType}
+                            name={radioGroupName}
+                            checked={choice.checked}
+                            onChange={(e) => {
+                                this.checkOption(i, e.target.checked);
+                            }} />
+                    </span>
+                    {/* A pseudo-label. <label> is slightly broken on iOS,
+                        so this works around that. Unfortunately, it is
+                        simplest to just work around that everywhere. */}
+                    <span
+                            className={
+                                "interactive-component " +
+                                ApiClassNames.RADIO.OPTION_CONTENT
+                            }
+                            style={{
+                                cursor: "default",
+                            }}
+                            onTouchStart={!this.props.labelWrap ?
+                                null : captureScratchpadTouchStart
+                            }
+                            onClick={!this.props.labelWrap ? null : (e) => {
+                                // Don't send this to the scratchpad
+                                e.preventDefault();
+                                this.checkOption(i,
+                                    (this.props.multipleSelect ?
+                                        !choice.checked :
+                                        true
+                                    )
+                                );
+                            }}>
+                        {content}
+                    </span>
+                    {Exercises.cluesEnabled === "cluesEnabled" &&
+                        this.props.showClues && choice.checked &&
+                        <div className="perseus-radio-clue">
+                            {choice.clue}
+                        </div>}
+                </div></li>;
 
             }, this)}
         </ul>;
     },
 
-    onChange: function(radioIndex, e) {
-        var newChecked = _.map(this.props.choices, function(choice, i) {
-            return this.refs["radio" + i].getDOMNode().checked;
-        }, this);
+    checkOption: function(radioIndex, shouldBeChecked) {
+        var newChecked;
+        if (this.props.multipleSelect) {
+            // When multipleSelect is on, clicking an index toggles the
+            // selection of just that index.
+            newChecked = _.map(this.props.choices, (choice, i) => {
+                return (i === radioIndex) ? shouldBeChecked : choice.checked;
+            });
+        } else {
+            // When multipleSelect is turned off, we always select the
+            // clicked index, and unselect everything else.
+            newChecked = _.map(this.props.choices, (choice, i) => {
+                return i === radioIndex;
+            });
+        }
 
+        // We send just the array of [true/false] checked values here;
+        // onCheckedChange reconstructs the new choices to send to
+        // this.props.onChange
         this.props.onCheckedChange(newChecked);
     },
 
