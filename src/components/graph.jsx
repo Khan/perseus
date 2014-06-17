@@ -20,9 +20,8 @@ var defaultInstructionsStyle = {
     height: '100%',
     textAlign: 'center',
     backgroundColor: 'white',
-    pointerEvents: 'none',
     position: 'absolute',
-    zIndex: 10,
+    zIndex: 1,
     transition: 'opacity .25s ease-in-out',
     '-moz-transition': 'opacity .25s ease-in-out',
     '-webkit-transition': 'opacity .25s ease-in-out'
@@ -65,13 +64,6 @@ var Graph = React.createClass({
         onClick: React.PropTypes.func
     },
 
-    getInitialState: function() {
-        return {
-            isHovering: false,
-            shouldShowInstructions: true
-        };
-    },
-
     getDefaultProps: function() {
         return {
             box: [defaultBoxSize, defaultBoxSize],
@@ -109,21 +101,6 @@ var Graph = React.createClass({
             image = null;
         }
 
-        var instructions;
-        if (this.props.instructions) {
-            var instructionsStyle = _.extend({}, defaultInstructionsStyle, {
-                opacity: (this.state.isHovering) ? 0.0 : 0.5
-            });
-
-            instructions = <div style={instructionsStyle}>
-                <span style={instructionsTextStyle}>
-                    {this.props.instructions}
-                </span>
-            </div>;
-        } else {
-            instructions = undefined;
-        }
-
         return <div
                     className="graphie-container above-scratchpad"
                     style={{
@@ -133,22 +110,9 @@ var Graph = React.createClass({
                     onMouseOut={this.onMouseOut}
                     onMouseOver={this.onMouseOver}
                     onClick={this.onClick} >
-            {instructions}
             {image}
         <div className="graphie" ref="graphieDiv" />
         </div>;
-    },
-
-    onMouseOver: function(e) {
-        this.setState({
-            isHovering: true
-        });
-    },
-
-    onMouseOut: function(e) {
-        this.setState({
-            isHovering: false
-        });
     },
 
     componentDidMount: function() {
@@ -256,9 +220,57 @@ var Graph = React.createClass({
             });
         }
 
+        // Add instructions just before mouse layer
+        var visible = 0.5;
+        var invisible = 0.0;
+        var $instructionsWrapper;
+        if (this.props.instructions) {
+            var $instructionsWrapper = $("<div/>");
+            _.each(defaultInstructionsStyle, function(value, key) {
+                $instructionsWrapper.css(key, value);
+            });
+            $instructionsWrapper.css("opacity", visible);
+
+            var $instructions = $("<span/>", {
+                text: this.props.instructions
+            });
+            _.each(instructionsTextStyle, function(value, key) {
+                $instructions.css(key, value);
+            });
+
+            $instructionsWrapper.append($instructions);
+            $(graphieDiv).append($instructionsWrapper);
+        } else {
+            $instructionsWrapper = undefined;
+        }
+
+        // Add some handlers for instructions text (if necessary)
+        var onMouseDown = ($instructionsWrapper || this.props.onMouseDown) ?
+            _.bind(function(coord) {
+                if ($instructionsWrapper) {
+                    $instructionsWrapper.remove();
+                    $instructionsWrapper = null;
+                }
+                this.props.onMouseDown(coord);
+            }, this) : null;
+
+        var onMouseOver = ($instructionsWrapper) ?
+            function() {
+                $instructionsWrapper &&
+                    $instructionsWrapper.css("opacity", invisible);
+            } : null;
+
+        var onMouseOut = ($instructionsWrapper) ?
+            function() {
+                $instructionsWrapper &&
+                    $instructionsWrapper.css("opacity", visible);
+            } : null;
+
         graphie.addMouseLayer({
             onClick: this.props.onClick,
-            onMouseDown: this.props.onMouseDown,
+            onMouseDown: onMouseDown,
+            onMouseOver: onMouseOver,
+            onMouseOut: onMouseOut,
             onMouseUp: this.props.onMouseUp,
             onMouseMove: this.props.onMouseMove,
             allowScratchpad: true
