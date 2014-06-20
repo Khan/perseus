@@ -35,7 +35,8 @@ var Matcher = React.createClass({
 
     getInitialState: function() {
         return {
-            heights: {left: 0, right: 0}
+            leftHeight: 0,
+            rightHeight: 0
         };
     },
 
@@ -54,7 +55,8 @@ var Matcher = React.createClass({
         var right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
 
         var showLabels = _.any(this.props.labels);
-        var constraints = {height: _.max(this.state.heights)};
+        var constraints = {height: _.max([this.state.leftHeight,
+            this.state.rightHeight])};
 
         return <div className="perseus-widget-matcher ui-helper-clearfix">
             <div className="column">
@@ -67,7 +69,7 @@ var Matcher = React.createClass({
                     padding={this.props.padding}
                     disabled={!this.props.orderMatters}
                     constraints={constraints}
-                    onMeasure={_.partial(this.onMeasure, "left")}
+                    onMeasure={this.onMeasureLeft}
                     onChange={this.props.onChange}
                     ref="left" />
             </div>
@@ -80,17 +82,21 @@ var Matcher = React.createClass({
                     layout="vertical"
                     padding={this.props.padding}
                     constraints={constraints}
-                    onMeasure={_.partial(this.onMeasure, "right")}
+                    onMeasure={this.onMeasureRight}
                     onChange={this.props.onChange}
                     ref="right" />
             </div>
         </div>;
     },
 
-    onMeasure: function(side, dimensions) {
-        var heights = _.clone(this.state.heights);
-        heights[side] = _.max(dimensions.heights);
-        this.setState({heights: heights});
+    onMeasureLeft: function(dimensions) {
+        var height = _.max(dimensions.heights);
+        this.setState({leftHeight: height});
+    },
+
+    onMeasureRight: function(dimensions) {
+        var height = _.max(dimensions.heights);
+        this.setState({rightHeight: height});
     },
 
     toJSON: function(skipValidation) {
