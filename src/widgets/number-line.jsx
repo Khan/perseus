@@ -60,7 +60,12 @@ function formatMixed(n, d) {
     }
 }
 
-_label = (graphie, labelStyle, pos, value) => {
+function formatNonReduced(n, d, base) {
+    var factor = Math.floor(base / d);
+    return formatImproper(n * factor, base);
+}
+
+_label = (graphie, labelStyle, pos, value, base) => {
     value = value || pos;
 
     // TODO(jack): Find out if any exercises have "decimal ticks" set,
@@ -76,6 +81,10 @@ _label = (graphie, labelStyle, pos, value) => {
         var frac = KhanUtil.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatMixed(frac[0], frac[1]), "center");
+    } else if (labelStyle === "non-reduced") {
+        var frac = KhanUtil.toFraction(value);
+        return graphie.label([pos, -0.53],
+                formatNonReduced(frac[0], frac[1], base), "center");
     }
 };
 
@@ -87,27 +96,45 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
 
     var results = [];
 
-    // Draw and save the tick marks and tick labels
+    // For convenience, extract some props into separate variables
     var range = props.range;
-    for (var x = range[0]; x <= range[1]; x += props.tickStep) {
-        results.push(graphie.line([x, -0.2], [x, 0.2]));
-
-        var labelTicks = props.labelTicks; // for lint :^(
-        if (labelTicks || props.labelStyle === "decimal ticks") {
-            results.push(_label(graphie, props.labelStyle, x));
-        }
-    }
-
-    // Render labels
     var labelRange = props.labelRange;
     var range = props.range;
     var leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
     var rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
+    // Find base via GCD for non-reduced fractions
+    var base;
+    if (props.labelStyle === "non-reduced") {
+        var fractions = [leftLabel, rightLabel];
+        for (var i = 0; i < props.numDivisions; i++) {
+            var x = range[0] + i * props.tickStep;
+            fractions.push(x);
+        }
+        var getDenom = (x) => KhanUtil.knumber.toFraction(x)[1];
+        var denoms = _.map(fractions, getDenom);
+        base = _.reduce(denoms, (x, y) => KhanUtil.getLCM(x, y));
+    } else {
+        base = undefined;
+    }
+
+    // Draw and save the tick marks and tick labels
+    for (var i = 0; i < props.numDivisions; i++) {
+        var x = range[0] + i * props.tickStep;
+        results.push(graphie.line([x, -0.2], [x, 0.2]));
+
+        var labelTicks = props.labelTicks;
+        if (labelTicks || props.labelStyle === "decimal ticks") {
+            results.push(_label(graphie, props.labelStyle, x, x, base));
+        }
+    }
+
     // Render the text labels
     graphie.style({color: KhanUtil.BLUE}, () => {
-        results.push(_label(graphie, props.labelStyle, leftLabel));
-        results.push(_label(graphie, props.labelStyle, rightLabel));
+        results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel,
+            base));
+        results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel,
+            base));
     });
 
     // Render the labels' lines
@@ -230,6 +257,7 @@ var NumberLine = React.createClass({
             {this._renderTickControl(props)}
             {TickMarks(_.pick(props, [
                 "range",
+                "numDivisions",
                 "labelTicks",
                 "labelStyle",
                 "labelRange",
@@ -538,7 +566,9 @@ var NumberLineEditor = React.createClass({
               {value: "improper", text: "\u2077\u2044\u2084",
                 title: "Improper fractions"},
               {value: "mixed", text: "1\u00BE",
-                title: "Mixed numbers"}];
+                title: "Mixed numbers"},
+              {value: "non-reduced", text: "\u2078\u2044\u2084",
+                title: "Non-reduced"}];
 
         return <div className="perseus-widget-number-line-editor">
             <div className="perseus-widget-row">
@@ -611,8 +641,10 @@ var NumberLineEditor = React.createClass({
                         with the tick marks, or it may be confusing for users.
                     </p></InfoTip>
                 </div>
-                <div className="perseus-widget-right-col">
-                    <label>style </label>
+            </div>
+            <div className="perseus-widget-row">
+                <div className="perseus-widget-left-col">
+                    <label>style</label>
                     <ButtonGroup allowEmpty={false}
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
@@ -621,7 +653,8 @@ var NumberLineEditor = React.createClass({
                         This controls the styling of the labels for the two
                         main labels as well as all the tick mark labels,
                         if applicable. Your choices are decimal,
-                        improper fractions, and mixed fractions.
+                        improper fractions, mixed fractions, and non-reduced
+                        fractions.
                     </p></InfoTip>
                 </div>
             </div>
