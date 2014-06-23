@@ -373,7 +373,8 @@
     }
 }
 
-.framework-perseus .perseus-hint-renderer {
+// Only apply borders to hints if they immediately follow a hint-editor
+.perseus-hint-editor + div .perseus-hint-renderer {
     div.paragraph {
         margin: 0px 0px 22px 0px;
     }
