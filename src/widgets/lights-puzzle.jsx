@@ -32,6 +32,16 @@ var BASE_TILE_STYLE = {
     cursor: "pointer"
 };
 
+var MOVE_COUNT_STYLE = {
+    padding: CELL_PADDING,
+    display: "inline-block"
+};
+
+var RESET_BUTTON_STYLE = {
+    "float": "right",
+    paddingRight: CELL_PADDING
+};
+
 var MAIN_TILE_SIZE = 50;
 
 var mapCells = (cells, func) => {
@@ -159,6 +169,9 @@ var LightsPuzzle = React.createClass({
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
+        startCells: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.bool)
+        ),
         flipPattern: React.PropTypes.string.isRequired
     },
 
@@ -169,15 +182,50 @@ var LightsPuzzle = React.createClass({
                 [false, false, false],
                 [false, false, false]
             ],
+            startCells: [
+                [false, false, false],
+                [false, false, false],
+                [false, false, false]
+            ],
             flipPattern: "plus"
         };
     },
 
+    componentWillMount: function() {
+        this._moveCount = 0;
+    },
+
     render: function() {
-        return <TileGrid
-            cells={this.props.cells}
-            size={50}
-            onChange={this._flipTile} />;
+        var width = this._width();
+        var tileSize = MAIN_TILE_SIZE;
+        var pxWidth = width * (tileSize + 2 * CELL_PADDING);
+        return <div>
+            <TileGrid
+                cells={this.props.cells}
+                size={tileSize}
+                onChange={this._flipTile} />
+            <div style={{width: pxWidth}}>
+                <div style={MOVE_COUNT_STYLE}>
+                    Moves: {this._moveCount}
+                </div>
+                <div style={RESET_BUTTON_STYLE}>
+                <input
+                    type="button"
+                    value="Reset"
+                    onClick={this._reset}
+                    className="simple-button" />
+                </div>
+            </div>
+            <div className="clearfix" />
+        </div>;
+    },
+
+    _width: function() {
+        if (this.props.cells.length !== 0) {
+            return this.props.cells[0].length;
+        } else {
+            return 0; // default to 0
+        }
     },
 
     componentDidMount: function() {
@@ -212,8 +260,14 @@ var LightsPuzzle = React.createClass({
             this._currPattern
         );
         this._shiftPatterns();
+        this._moveCount++;
 
         this.change({cells: newCells});
+    },
+
+    _reset: function() {
+        this._moveCount = 0;
+        this.change({cells: this.props.startCells});
     },
 
     simpleValidate: function(rubric) {
@@ -389,6 +443,7 @@ var validate = function(rubric, state) {
 var transformProps = function(editorProps) {
     return {
         cells: editorProps.startCells,
+        startCells: editorProps.startCells,
         flipPattern: editorProps.flipPattern
     };
 };
