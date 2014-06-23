@@ -28,21 +28,44 @@ var CELL_STYLE = {
 };
 
 var BASE_TILE_STYLE = {
-    width: 50,
-    height: 50,
     borderRadius: 10,
     cursor: "pointer"
 };
 
-var TILE_STYLES = {
-    off: _.extend({}, BASE_TILE_STYLE, {
-        backgroundColor: "#115511"
-    }),
+var MAIN_TILE_SIZE = 50;
 
-    on: _.extend({}, BASE_TILE_STYLE, {
-        backgroundColor: "#44ff44"
-    })
+var mapCells = (cells, func) => {
+    return _.map(cells, (row, y) => {
+        return _.map(row, (value, x) => {
+            return func(value, y, x);
+        });
+    });
 };
+
+var genCells = (height, width, func) => {
+    return _.times(height, (y) => {
+        return _.times(width, (x) => {
+            return func(y, x);
+        });
+    });
+};
+
+var PATTERNS = {
+    plus: () => [
+        [false, true, false],
+        [true,  true, true ],
+        [false, true, false]
+    ],
+    x: () => [
+        [true,  false, true ],
+        [false, true,  false],
+        [true,  false, true ]
+    ],
+    "plus/x": (iter) => {
+        return (iter % 2) ? PATTERNS.x() : PATTERNS.plus();
+    }
+};
+
 
 /**
  * Clamps value to an integer in the range [min, max]
@@ -57,13 +80,19 @@ var clampToInt = function(value, min, max) {
 // A single glowy cell
 var Tile = React.createClass({
     propTypes: {
-        value: React.PropTypes.bool.isRequired
+        value: React.PropTypes.bool.isRequired,
+        size: React.PropTypes.number.isRequired
     },
 
     render: function() {
-        var styleName = this.props.value ? 'on' : 'off';
+        var color = this.props.value ? "#55dd55" : "#115511";
+        var style = _.extend({}, BASE_TILE_STYLE, {
+            width: this.props.size,
+            height: this.props.size,
+            backgroundColor: color
+        });
         return <div
-            style={TILE_STYLES[styleName]}
+            style={style}
             onClick={this._flip} />;
     },
 
@@ -77,7 +106,8 @@ var TileGrid = React.createClass({
     propTypes: {
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
-        ).isRequired
+        ).isRequired,
+        size: React.PropTypes.number.isRequired
     },
 
     render: function() {
@@ -88,6 +118,7 @@ var TileGrid = React.createClass({
                         return <div key={x} style={CELL_STYLE}>
                             <Tile
                                 value={cell}
+                                size={this.props.size}
                                 onChange={_.partial(this.props.onChange, y, x)}
                                 />
                         </div>;
@@ -100,11 +131,23 @@ var TileGrid = React.createClass({
 
 // Returns a copy of the tiles, with tiles flipped according to
 // whether or not their y, x position satisfies the predicate
-var flipTiles = function(oldCells, predicate) {
+var flipTilesPredicate = (oldCells, predicate) => {
     return _.map(oldCells, (row, y) => {
         return _.map(row, (cell, x) => {
             return predicate(y, x) ? !cell : cell;
         });
+    });
+};
+
+var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
+    return flipTilesPredicate(oldCells, (y, x) => {
+        var offsetY = y - tileY;
+        var offsetX = x - tileX;
+        if (Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1) {
+            return pattern[offsetY + 1][offsetX + 1];
+        } else {
+            return false;
+        }
     });
 };
 
@@ -115,7 +158,8 @@ var LightsPuzzle = React.createClass({
     propTypes: {
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
-        )
+        ),
+        flipPattern: React.PropTypes.string.isRequired
     },
 
     getDefaultProps: function() {
@@ -124,24 +168,50 @@ var LightsPuzzle = React.createClass({
                 [false, false, false],
                 [false, false, false],
                 [false, false, false]
-            ]
+            ],
+            flipPattern: "plus"
         };
     },
 
     render: function() {
         return <TileGrid
             cells={this.props.cells}
+            size={50}
             onChange={this._flipTile} />;
     },
 
+    componentDidMount: function() {
+        this._initNextPatterns();
+    },
+
+    componentDidUpdate: function(prevProps) {
+        if (prevProps.flipPattern !== this.props.flipPattern) {
+            this._initNextPatterns();
+        }
+    },
+
+    _initNextPatterns: function() {
+        this._currPattern = PATTERNS[this.props.flipPattern](0);
+        this._nextPattern = PATTERNS[this.props.flipPattern](1);
+        this._patternIndex = 2;
+    },
+
+    _shiftPatterns: function() {
+        this._currPattern = this._nextPattern;
+        this._nextPattern = PATTERNS[this.props.flipPattern](
+            this._patternIndex
+        );
+        this._patternIndex++;
+    },
+
     _flipTile: function(tileY, tileX) {
-        var newCells = flipTiles(this.props.cells, (y, x) => {
-            var isVerticallyAdjacent =
-                    (x === tileX && Math.abs(y - tileY) <= 1);
-            var isHorizontallyAdjacent =
-                    (y === tileY && Math.abs(x - tileX) <= 1);
-            return isVerticallyAdjacent || isHorizontallyAdjacent;
-        });
+        var newCells = flipTilesPattern(
+            this.props.cells,
+            tileY,
+            tileX,
+            this._currPattern
+        );
+        this._shiftPatterns();
 
         this.change({cells: newCells});
     },
@@ -163,7 +233,8 @@ var LightsPuzzleEditor = React.createClass({
         startCells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
-        gradeIncompleteAsWrong: React.PropTypes.bool
+        flipPattern: React.PropTypes.string.isRequired,
+        gradeIncompleteAsWrong: React.PropTypes.bool.isRequired
     },
 
     getDefaultProps: function() {
@@ -173,6 +244,7 @@ var LightsPuzzleEditor = React.createClass({
                 [false, false, false],
                 [false, false, false]
             ],
+            flipPattern: "plus",
             gradeIncompleteAsWrong: false
         };
     },
@@ -205,24 +277,39 @@ var LightsPuzzleEditor = React.createClass({
                     onChange={this._changeHeight} />
             </div>
             <div>
-            Grade incomplete puzzles as wrong:
-            {" "}
-            <PropCheckBox
-                gradeIncompleteAsWrong={this.props.gradeIncompleteAsWrong}
-                onChange={this.props.onChange} />
-                <InfoTip>
-                    By default, incomplete puzzles are graded as empty.
-                </InfoTip>
+                Flip pattern:
+                <select
+                        value={this.props.flipPattern}
+                        onChange={this._handlePatternChange}>
+                    {_.map(_.keys(PATTERNS), (pattern) => {
+                        return <option value={pattern}>{pattern}</option>;
+                    })}
+                </select>
             </div>
+            <div>
+                Grade incomplete puzzles as wrong:
+                {" "}
+                <PropCheckBox
+                    gradeIncompleteAsWrong={this.props.gradeIncompleteAsWrong}
+                    onChange={this.props.onChange} />
+                    <InfoTip>
+                        By default, incomplete puzzles are graded as empty.
+                    </InfoTip>
+                </div>
             <div>
                 Starting configuration:
             </div>
             <div style={{overflowX: "auto"}}>
                 <TileGrid
                     cells={this.props.startCells}
+                    size={50}
                     onChange={this._switchTile} />
             </div>
         </div>;
+    },
+
+    _handlePatternChange: function(e) {
+        this.change("flipPattern", e.target.value);
     },
 
     _changeWidth: function(newWidth) {
@@ -248,7 +335,7 @@ var LightsPuzzleEditor = React.createClass({
     },
 
     _switchTile: function(tileY, tileX) {
-        var newCells = flipTiles(this.props.startCells, (y, x) => {
+        var newCells = flipTilesPredicate(this.props.startCells, (y, x) => {
             return y === tileY && x === tileX;
         });
 
@@ -301,7 +388,8 @@ var validate = function(rubric, state) {
 // The function run on the editor props to create the widget props
 var transformProps = function(editorProps) {
     return {
-        cells: editorProps.startCells
+        cells: editorProps.startCells,
+        flipPattern: editorProps.flipPattern
     };
 };
 
