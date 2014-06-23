@@ -172,7 +172,8 @@ var LightsPuzzle = React.createClass({
         startCells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
-        flipPattern: React.PropTypes.string.isRequired
+        flipPattern: React.PropTypes.string.isRequired,
+        moveCount: React.PropTypes.number.isRequired
     },
 
     getDefaultProps: function() {
@@ -187,12 +188,9 @@ var LightsPuzzle = React.createClass({
                 [false, false, false],
                 [false, false, false]
             ],
-            flipPattern: "plus"
+            flipPattern: "plus",
+            moveCount: 0
         };
-    },
-
-    componentWillMount: function() {
-        this._moveCount = 0;
     },
 
     render: function() {
@@ -206,7 +204,7 @@ var LightsPuzzle = React.createClass({
                 onChange={this._flipTile} />
             <div style={{width: pxWidth}}>
                 <div style={MOVE_COUNT_STYLE}>
-                    Moves: {this._moveCount}
+                    Moves: {this.props.moveCount}
                 </div>
                 <div style={RESET_BUTTON_STYLE}>
                 <input
@@ -260,14 +258,18 @@ var LightsPuzzle = React.createClass({
             this._currPattern
         );
         this._shiftPatterns();
-        this._moveCount++;
 
-        this.change({cells: newCells});
+        this.change({
+            cells: newCells,
+            moveCount: this.props.moveCount + 1
+        });
     },
 
     _reset: function() {
-        this._moveCount = 0;
-        this.change({cells: this.props.startCells});
+        this.change({
+            cells: this.props.startCells,
+            moveCount: 0
+        });
     },
 
     simpleValidate: function(rubric) {
