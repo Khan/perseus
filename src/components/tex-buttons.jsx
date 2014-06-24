@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React     = require("react");
-var RCSS      = require("rcss");
 var TeX       = require("react-components/tex");
 var clone     = React.addons.cloneWithProps;
 
@@ -62,37 +61,6 @@ var buttons = [
 
 ];
 
-// Math domain color
-var borderColor = "#1c758a";
-
-var buttonStyle = {
-    display: "block",
-    "float": "left",
-    width: "35px",
-    height: "35px",
-    margin: "2px",
-    border: `1px solid ${borderColor}`,
-    backgroundColor: "white",
-    borderRadius: "5px",
-
-    ":hover": {
-        cursor: "pointer",
-        backgroundColor: "#f0f0f0"
-    },
-
-    ":focus": {
-        border: `2px solid ${borderColor}`,
-        outline: "none"
-    }
-};
-
-var buttonRowStyle = {
-    margin: "5px 0"
-};
-
-RCSS.createClass(buttonStyle);
-RCSS.createClass(buttonRowStyle);
-
 var TexButtons = React.createClass({
     propTypes: {
         onInsert: React.PropTypes.func.isRequired
@@ -102,21 +70,14 @@ var TexButtons = React.createClass({
             // create a (component, thing we should send to mathquill) pair
             var symbol = symbGen(this.props);
             return <button onClick={() => this.props.onInsert(symbol[1])}
-                           className={buttonStyle.className}
+                           className="tex-button"
                            tabIndex={-1}>
                 {symbol[0]}
             </button>;
         }));
 
         var buttonPopup = _(buttonRows).map((row, i) => {
-            var style = {};
-            if (i > 0 && i < buttonRows.length-1) {
-                style = { margin: "5px 0" };
-            }
-
-            return <div className="clearfix" style={style}>
-                {row}
-            </div>;
+            return <div className="clearfix tex-button-row">{row}</div>;
         });
 
         return <div className={this.props.className}>

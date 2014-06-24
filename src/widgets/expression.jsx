@@ -523,6 +523,8 @@ var ExpressionEditor = React.createClass({
 
         var expression = this.state.isTex ? Expression : OldExpression;
 
+        // TODO(joel) - move buttons outside of the label so they don't weirdly
+        // focus
         return <div>
             <div><label>
                 Correct answer:{' '}

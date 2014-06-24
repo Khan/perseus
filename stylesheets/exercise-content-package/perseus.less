@@ -443,3 +443,35 @@
         z-index: @zIndexCalculator;
     }
 };
+
+// Math domain color
+@borderColor: #1c758a;
+
+.tex-button {
+    display: block;
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin: 2px;
+    border: 1px solid @borderColor;
+    background-color: white;
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+
+    &:focus {
+        border: 2px solid @borderColor;
+        outline: none;
+    }
+}
+
+.tex-button-row {
+    margin: 5px 0;
+
+    &:first-child, &:last-child {
+        margin: 0;
+    }
+}

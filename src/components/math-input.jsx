@@ -7,25 +7,7 @@ var _         = require("underscore");
 var cx        = React.addons.classSet;
 var PT = React.PropTypes;
 var TexButtons = require("./tex-buttons.jsx");
-
-// HACK(joel)
-//
-// http://stackoverflow.com/a/7668761/2121468
-//
-// All these selectors are definitely overkill but better safe than sorry.
-var focusable = [
-    'a[href]',
-    'area[href]',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    'button:not([disabled])',
-    'iframe',
-    'object',
-    'embed',
-    '*[tabindex]',
-    '*[contenteditable]'
-    ].join(', ');
+var FocusedZone = require("./focused-zone.jsx");
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 var MathInput = React.createClass({
@@ -61,12 +43,14 @@ var MathInput = React.createClass({
                 onInsert={this.insert} />;
         }
 
-        return <div style={{display: 'inline-block'}}>
-            <span className={className}
-                  ref="mathinput"
-                  onFocus={this.handleFocus} />
-            {buttons}
-        </div>;
+        return <FocusedZone handleLoseFocus={this.handleLoseFocus}>
+            <div style={{display: 'inline-block'}}>
+                <span className={className}
+                      ref="mathinput"
+                      onFocus={this.handleFocus} />
+                {buttons}
+            </div>
+        </FocusedZone>;
     },
 
     _shouldShowButtons: function() {
@@ -91,12 +75,6 @@ var MathInput = React.createClass({
         return { focused: false };
     },
 
-    handlePageEvent: function(event) {
-        if (!this.getDOMNode().contains(event.target)) {
-            this.setState({ focused: false });
-        }
-    },
-
     insert: function(value) {
         if (value[0] === '\\') {
             this.mathField().cmd(value).focus();
@@ -113,6 +91,10 @@ var MathInput = React.createClass({
         return MathQuill.MathField(this.refs.mathinput.getDOMNode(), options);
     },
 
+    handleLoseFocus: function() {
+        this.setState({ focused: false });
+    },
+
     handleFocus: function() {
         this.setState({ focused: true });
         // TODO(joel) fix properly - we should probably allow onFocus handlers
@@ -123,9 +105,6 @@ var MathInput = React.createClass({
     },
 
     componentDidMount: function() {
-        window.addEventListener("click", this.handlePageEvent);
-        $(focusable).on("focus", this.handlePageEvent);
-
         // These options can currently only be set globally. (Hopefully this
         // will change at some point.) They appear safe to set multiple times.
 
@@ -205,11 +184,6 @@ var MathInput = React.createClass({
         this.mathField().latex(this.props.value);
 
         initialized = true;
-    },
-
-    componentWillUnmount: function() {
-        window.removeEventListener("click", this.handlePageEvent);
-        $(focusable).off("focus", this.handlePageEvent);
     },
 
     componentDidUpdate: function() {
