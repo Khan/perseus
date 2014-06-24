@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "beefy": "~0.6.0",
-    "browserify": "~3.4.0",
+    "browserify": "~3.4.1",
     "jest-cli": "~0.1.15",
     "jsdom": "^0.10.5",
     "less": "~1.7.0",
@@ -15,9 +15,9 @@
     "node-jsx": "^0.10.0",
     "react-tools": "0.10.0",
     "reactiscriptsixify": "~0.8.2",
-    "requirejs": "^2.1.11",
+    "requirejs": "~2.1.11",
     "less": "~1.7.0",
-    "react-components": ">=0.0.3"
+    "react-components": "0.0.8"
   },
   "repository": {
     "type": "git",
