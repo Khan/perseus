@@ -312,7 +312,7 @@ var ImageEditor = React.createClass({
 });
 
 module.exports = {
-    name: "image-widget",
+    name: "image",
     displayName: "Image",
     widget: ImageWidget,
     editor: ImageEditor
