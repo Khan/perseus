@@ -264,6 +264,7 @@ _.extend(MovablePoint.prototype, {
         if (kpoint.is(result)) {
             this.setCoord(result);
         }
+        return result !== false;
     },
 
     setCoord: function(coord) {

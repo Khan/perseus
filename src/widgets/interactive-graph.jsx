@@ -620,6 +620,10 @@ var InteractiveGraph = React.createClass({
                     coord,
                     this.points.length
                 );
+                if (!point.constrain()) {
+                    point.remove();
+                    return;
+                }
                 this.points.push(point);
 
                 // interactive2 allows us to grab the point
