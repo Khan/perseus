@@ -19,6 +19,7 @@
     li {
         padding: 7px 0;
         margin-left: 20px;
+        cursor: pointer;
 
         &.inline {
             display: inline-block;
@@ -30,7 +31,7 @@
             display: inline-block;
             width: 20px;
             margin-left: -20px;
-            margin-right: 0px;
+            margin-right: 0;
         }
 
         div.instructions {
@@ -56,5 +57,90 @@
     .perseus-textarea-pair,
     .perseus-textarea-underlay {
         display: block;
+    }
+}
+
+
+// Styles specifically for mobile
+body.mobile {
+    .framework-perseus #problemarea input[type=radio],
+    .framework-perseus #problemarea input[type=checkbox] {
+        float: left;
+        margin-right: 7px;
+    }
+    .perseus-widget-radio {
+        color: @gray;
+        margin-left: 0;
+        .perseus-radio-option {
+            margin-left: 0;
+            padding: 0;
+        }
+
+        span.checkbox {
+            .interactive-component;
+            margin-right: 26px;
+            display: block;
+            margin: 0;
+            width: auto;
+        }
+
+        // General styles for the li
+        .perseus-radio-option {
+            border: 2px solid @gray;
+            border-radius: 28px;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
+            margin-bottom: 10px;
+            overflow: hidden;
+            padding: 8px 10px;
+
+            &.perseus-radio-selected {
+                border-color: @blue;
+                color: @blue;
+                font-weight: bold;
+            }
+        }
+
+        input[type=radio],
+        input[type=checkbox] {
+            -webkit-appearance: none;
+            appearance: none;
+            border: 2px solid @gray;
+            border-radius: 25px;
+            float: left;
+        }
+
+        input[type=radio] {
+            height: 25px;
+            margin-right: 10px;
+            outline: none;
+            width: 25px;
+            &:checked {
+                background: @blue;
+                border: 2px solid @blue;
+            }
+        }
+
+        input[type=checkbox] {
+            position: absolute;
+            outline: none;
+
+            &:before {
+                color: @gray;
+                content: "\f00c";
+                font: 15pt "FontAwesome";
+                left: 0;
+                position: relative;
+                top: 1px;
+            }
+            &:checked {
+                border-color: @blue;
+                &:before {
+                    color: @blue;
+                }
+            }
+        }
     }
 }
