@@ -43,10 +43,8 @@ var FocusZone = React.createClass({
     },
 
     handlePageEvent: function(event) {
-        var wasFocused = this.state.focused;
+        var wasFocused = this.props.focused;
         var nowFocused = this.getDOMNode().contains(event.target);
-
-        this.setState({ focused: nowFocused });
 
         if (nowFocused && !wasFocused && this.props.handleGainFocus) {
             this.props.handleGainFocus(event);
@@ -63,10 +61,6 @@ var FocusZone = React.createClass({
     componentWillUnmount: function() {
         window.removeEventListener("click", this.handlePageEvent);
         $(focusable).off("focus", this.handlePageEvent);
-    },
-
-    getInitialState: function() {
-        return { focused: false };
     },
 
     getDefaultProps: function() {

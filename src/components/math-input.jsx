@@ -38,7 +38,8 @@ var MathInput = React.createClass({
                 onInsert={this.insert} />;
         }
 
-        return <FocusedZone handleLoseFocus={this.handleLoseFocus}>
+        return <FocusedZone handleLoseFocus={this.handleLoseFocus}
+                            focused={this.state.focused}>
             <div style={{display: 'inline-block'}}>
                 <span className={className}
                       ref="mathinput"
