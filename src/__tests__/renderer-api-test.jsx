@@ -36,6 +36,68 @@ var inputNumber1Item = {
     "hints": []
 };
 
+var inputNumber2Item = {
+    "question": {
+        "content": "[[☃ input-number 1]] [[☃ input-number 2]]",
+        "images": {},
+        "widgets": {
+            "input-number 1": {
+                "type": "input-number",
+                "graded": true,
+                "options": {
+                    "value": 5,
+                    "simplify": "required",
+                    "size": "normal",
+                    "inexact": false,
+                    "maxError": 0.1,
+                    "answerType": "number"
+                }
+            },
+            "input-number 2": {
+                "type": "input-number",
+                "graded": true,
+                "options": {
+                    "value": 6,
+                    "simplify": "required",
+                    "size": "normal",
+                    "inexact": false,
+                    "maxError": 0.1,
+                    "answerType": "number"
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "hints": []
+};
+
+// Returns a promise that will resolve shortly after the end of this
+// browser tick (roughly a `setTimeout(0)`)
+var delayedPromise = (value) => {
+    var deferred = $.Deferred();
+    _.defer(() => {
+        deferred.resolve(value);
+    });
+    if (typeof jest !== "undefined") {
+        jest.runAllTimers();
+    }
+    return deferred.promise();
+};
+
+// Jasmine requires us to use `pit` to support promises;
+// mocha supports this already with `it`.
+// This seemed to be the best compromise to support
+// async tests in both frameworks.
+var pit = window.pit || window.it || global.pit || global.it;
+
 var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
     var renderer = TestUtils.renderIntoDocument(
         <Renderer
@@ -184,6 +246,89 @@ describe("Perseus API", function() {
                     $(input).hasClass(Perseus.ClassNames.FOCUSED),
                     false
                 );
+            });
+        });
+    });
+
+    describe("onChangeFocus", function() {
+        pit("should be called from focused to blurred to back on one input",
+                function() {
+            var callCount = 0;
+            var newFocusResult;
+            var oldFocusResult;
+            var renderer = renderQuestionArea(inputNumber1Item, {
+                onFocusChange: function(newFocus, oldFocus) {
+                    callCount++;
+                    newFocusResult = newFocus;
+                    oldFocusResult = oldFocus;
+                }
+            });
+
+            var input = renderer.getDOMNode().querySelector('input');
+
+            callCount = 0;
+            TestUtils.Simulate.focus(input);
+            // Technically, this is probably synchronous, but we do want
+            // to make sure that this hasn't been called a second time
+            // asynchronously, so we check after waiting for an async
+            // result here. This also means that this test should
+            // continue to pass if we decide it makes more sense for
+            // this callback to be async, which could reasonably happen
+            return delayedPromise().then(() => {
+                assert.strictEqual(callCount, 1,
+                        "onFocusChange was not called during onFocus");
+                assert.strictEqual(oldFocusResult.path, null);
+                assert.strictEqual(oldFocusResult.element, null);
+                assert.deepEqual(newFocusResult.path, ["input-number 1"]);
+                assert.deepEqual(newFocusResult.element, input);
+
+                callCount = 0;
+                TestUtils.Simulate.blur(input);
+                return delayedPromise();
+            }).then(() => {
+                assert.strictEqual(callCount, 1,
+                        "onFocusChange was not called during onBlur");
+                assert.deepEqual(oldFocusResult.path, ["input-number 1"]);
+                assert.deepEqual(oldFocusResult.element, input);
+                assert.strictEqual(newFocusResult.path, null);
+                assert.strictEqual(newFocusResult.element, null);
+            });
+        });
+
+        pit("should be called focusing between two inputs",
+                function() {
+            var callCount = 0;
+            var newFocusResult;
+            var oldFocusResult;
+            var renderer = renderQuestionArea(inputNumber2Item, {
+                onFocusChange: function(newFocus, oldFocus) {
+                    callCount++;
+                    newFocusResult = newFocus;
+                    oldFocusResult = oldFocus;
+                }
+            });
+
+            var inputs = renderer.getDOMNode().querySelectorAll('input');
+            var input1 = inputs[0];
+            var input2 = inputs[1];
+            TestUtils.Simulate.focus(input1);
+
+            callCount = 0;
+            TestUtils.Simulate.focus(input2);
+            // Technically, this is probably synchronous, but we do want
+            // to make sure that this hasn't been called a second time
+            // asynchronously, so we check after waiting for an async
+            // result here. This also means that this test should
+            // continue to pass if we decide it makes more sense for
+            // this callback to be async, which could reasonably happen
+            return delayedPromise().then(() => {
+                assert.strictEqual(callCount, 1,
+                        "onFocusChange was called the wrong number of" +
+                        "times while switching between input-numbers");
+                assert.deepEqual(oldFocusResult.path, ["input-number 1"]);
+                assert.deepEqual(oldFocusResult.element, input1);
+                assert.deepEqual(newFocusResult.path, ["input-number 2"]);
+                assert.deepEqual(newFocusResult.element, input2);
             });
         });
     });
