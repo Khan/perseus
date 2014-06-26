@@ -66,6 +66,10 @@ var ItemRenderer = React.createClass({
         if (Khan.scratchpad) {
             Khan.scratchpad.enable();
         }
+        this._currentFocus = {
+            path: null,
+            element: null
+        };
         this.update();
     },
 
@@ -83,7 +87,10 @@ var ItemRenderer = React.createClass({
         var apiOptions = _.extend(
             {},
             ApiOptions.defaults,
-            this.props.apiOptions
+            this.props.apiOptions,
+            {
+                onFocusChange: this._handleFocusChange
+            }
         );
 
         // Since the item renderer works by rendering things into three divs
@@ -123,31 +130,78 @@ var ItemRenderer = React.createClass({
                 document.querySelector(this.props.hintsAreaSelector));
     },
 
+    _handleFocusChange: function(newFocus, oldFocus) {
+        if (newFocus.path != null) {
+            this._setCurrentFocus(newFocus);
+        } else {
+            this._onRendererBlur(oldFocus);
+        }
+    },
+
+    // Sets the current focus path and element and
+    // send an onChangeFocus event back to our parent.
+    _setCurrentFocus: function(newFocus) {
+        // By the time this happens, newFocus.path cannot be a prefix of
+        // prevFocused.path, since we must have either been called from
+        // an onFocusChange within a renderer, which is only called when
+        // this is not a prefix, or between the question and answer areas,
+        // which can never prefix each other.
+        var prevFocus = this._currentFocus;
+        this._currentFocus = newFocus;
+        if (this.props.apiOptions.onFocusChange != null) {
+            this.props.apiOptions.onFocusChange(this._currentFocus, prevFocus);
+        }
+    },
+
+    _onRendererBlur: function(oldFocus) {
+        // Wait until after any new focus events fire this tick before
+        // declaring that nothing is focused.
+        // If a different widget was focused, we'll see an onBlur event
+        // now, but then an onFocus event on a different element before
+        // this callback is executed
+        _.defer(() => {
+            if (_.isEqual(this._currentFocus.path, oldFocus.path)) {
+                this._setCurrentFocus({path: null, element: null});
+            }
+        });
+    },
+
     /**
      * Accepts a question area widgetId, or an answer area widgetId of
      * the form "answer-input-number 1", or the string "answer-area"
      * for the whole answer area (if the answer area is a single widget).
      */
-    _setWidgetValue: function(widgetId, newProps) {
+    _setWidgetValue: function(widgetId, newProps, callback) {
         var maybeAnswerAreaWidget = widgetId.match(/^answer-(.*)$/);
 
         if (maybeAnswerAreaWidget) {
             var answerAreaWidgetId = maybeAnswerAreaWidget[1];
             this.answerAreaRenderer._setWidgetValue(
                 answerAreaWidgetId,
-                newProps
+                newProps,
+                callback
             );
         } else {
-            this.questionRenderer._setWidgetValue(widgetId, newProps);
+            this.questionRenderer._setWidgetValue(
+                widgetId,
+                newProps,
+                callback
+            );
         }
     },
 
-    setInputValue: function(inputWidgetId, newValue) {
+    setInputValue: function(inputWidgetId, newValue, focus) {
+        // TODO(jack): This is a hack to allow for a consistent format
+        // between this and onFocusChange. Remove when we're no longer
+        // using widget ids in our api
+        if (_.isArray(inputWidgetId)) {
+            inputWidgetId = inputWidgetId[0];
+        }
         // TODO(jack): change this to value: when we change input-number/
         // expression's prop to be value
         this._setWidgetValue(inputWidgetId, {
             currentValue: String(newValue)
-        });
+        }, () => focus);
     },
 
     handleInteractWithWidget: function(widgetId) {

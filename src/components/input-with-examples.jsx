@@ -25,13 +25,17 @@ var InputWithExamples = React.createClass({
         convertDotToTimes: React.PropTypes.bool,
         interceptFocus: React.PropTypes.func,
         buttonSet: React.PropTypes.string,
-        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused'])
+        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
+        onFocus: React.PropTypes.func,
+        onBlur: React.PropTypes.func
     },
 
     getDefaultProps: function() {
         return {
             type: TEXT,
-            shouldShowExamples: true
+            shouldShowExamples: true,
+            onFocus: function() { },
+            onBlur: function() { }
         };
     },
 
@@ -68,11 +72,11 @@ var InputWithExamples = React.createClass({
             buttonSet: this.props.buttonSet,
             buttonsVisible: this.props.buttonsVisible,
             onChange: this.props.onChange,
-            onFocus: this._onFocus,
+            onFocus: this._handleFocus,
             // HACK (jack): This fixes readonly inputs (from interceptFocus)
             // not getting focus events when clicked on mobile:
             onClick: this.props.interceptFocus != null ? this.focus : null,
-            onBlur: this._onBlur,
+            onBlur: this._handleBlur,
             onTouchStart: captureScratchpadTouchStart,
             ref: "input"
         };
@@ -107,7 +111,7 @@ var InputWithExamples = React.createClass({
         </Tooltip>;
     },
 
-    _onFocus: function() {
+    _handleFocus: function() {
         var showExamples = true;
         if (this.props.interceptFocus) {
             var interceptResult = this.props.interceptFocus();
@@ -115,6 +119,7 @@ var InputWithExamples = React.createClass({
                 showExamples = false;
             }
         }
+        this.props.onFocus();
         this.setState({
             focused: true,
             showExamples: showExamples
@@ -129,7 +134,8 @@ var InputWithExamples = React.createClass({
         this.setState({showExamples: false});
     },
 
-    _onBlur: function() {
+    _handleBlur: function() {
+        this.props.onBlur();
         this.setState({
             focused: false,
             showExamples: false

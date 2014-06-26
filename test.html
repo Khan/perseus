@@ -212,6 +212,9 @@ Perseus.init({skipMathJax: false}).then(function() {
                 var args = _.toArray(arguments);
                 console.log.apply(console, ["interceptInputFocus:"].concat(args));
                 return;
+            },
+            onFocusChange: function(newObj, oldObj) {
+                console.log("onFocusChange", newObj.path, oldObj.path);
             }
         }
     });

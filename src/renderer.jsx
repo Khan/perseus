@@ -75,6 +75,21 @@ var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
     "widgets"
 ];
 
+// Check if one focus path / id path is a prefix of another
+// The focus path null will never be a prefix of any non-null
+// path, since it represents no focus.
+// Otherwise, prefix is calculated by whether every array
+// element in the prefix is present in the same position in the
+// wholeArray path.
+var isIdPathPrefix = function(prefixArray, wholeArray) {
+    if (prefixArray === null || wholeArray === null) {
+        return prefixArray === wholeArray;
+    }
+    return _.every(prefixArray, (elem, i) => {
+        return _.isEqual(elem, wholeArray[i]);
+    });
+};
+
 var Renderer = React.createClass({
     propTypes: {
         highlightedWidgets: React.PropTypes.array,
@@ -155,6 +170,8 @@ var Renderer = React.createClass({
                             problemNum: this.props.problemNum,
                             enabledFeatures: this.props.enabledFeatures,
                             apiOptions: apiOptions,
+                            onFocus: _.partial(this._onWidgetFocus, id),
+                            onBlur: _.partial(this._onWidgetBlur, id),
                             onChange: (newProps, cb) => {
                                 this._setWidgetValue(id, newProps, cb);
                             }
@@ -163,6 +180,41 @@ var Renderer = React.createClass({
                 </WidgetContainer>;
             }
         }
+    },
+
+    _onWidgetFocus: function(id, focusPath, element) {
+        if (focusPath === undefined && element === undefined) {
+            focusPath = [];
+            element = this.refs[id].getDOMNode();
+        } else {
+            if (!_.isArray(focusPath)) {
+                throw new Error(
+                    "widget props.onFocus focusPath must be an Array, " +
+                    "but was" + JSON.stringify(focusPath)
+                );
+            }
+            if (element == null) {
+                throw new Error(
+                    "widget props.onFocus element was " +
+                    element
+                );
+            }
+        }
+        this._setCurrentFocus([id].concat(focusPath), element);
+    },
+
+    _onWidgetBlur: function(id) {
+        var blurringFocus = this._currentFocus;
+        // Wait until after any new focus events fire this tick before
+        // declaring that nothing is focused.
+        // If a different widget was focused, we'll see an onBlur event
+        // now, but then an onFocus event on a different element before
+        // this callback is executed
+        _.defer(() => {
+            if (_.isEqual(this._currentFocus.path, blurringFocus.path)) {
+                this._setCurrentFocus(null, null);
+            }
+        });
     },
 
     render: function() {
@@ -296,7 +348,11 @@ var Renderer = React.createClass({
 
     componentDidMount: function() {
         this.handleRender();
-     },
+        this._currentFocus = {
+            path: null,
+            element: null
+        };
+    },
 
     componentDidUpdate: function() {
         this.handleRender();
@@ -308,14 +364,62 @@ var Renderer = React.createClass({
         }
     },
 
-    focus: function() {
-        // Use _.some to break if any widget gets focused
-        var focused = _.some(this.widgetIds, function(id) {
-            var widget = this.refs[id];
-            return widget.focus && widget.focus();
-        }, this);
+    // Sets the current focus path and element
+    // If the new focus path is not a prefix of the old focus path,
+    // we send an onChangeFocus event back to our parent.
+    _setCurrentFocus: function(path, element) {
+        // We don't do this when the new path is a prefix because
+        // that prefix is already focused (we're just in a more specific
+        // area of it). This makes it safe to call _setCurrentFocus
+        // whenever a widget is interacted with--we won't wipe out
+        // our focus state if we are already focused on a subpart
+        // of that widget (i.e. a transformation NumberInput inside
+        // of a transformer widget).
+        if (!isIdPathPrefix(path, this._currentFocus.path)) {
+            var prevFocus = this._currentFocus;
+            this._currentFocus = {
+                path: path,
+                element: element
+            };
+            if (this.props.apiOptions.onFocusChange != null) {
+                this.props.apiOptions.onFocusChange(
+                    this._currentFocus,
+                    prevFocus
+                );
+            }
+        }
+    },
 
-        if (focused) {
+    focus: function() {
+        var id;
+        var focusResult;
+        for (var i = 0; i < this.widgetIds.length; i++) {
+            var widgetId = this.widgetIds[i];
+            var widget = this.refs[widgetId];
+            var widgetFocusResult = widget.focus && widget.focus();
+            if (widgetFocusResult) {
+                id = widgetId;
+                focusResult = widgetFocusResult;
+                break;
+            }
+        }
+
+        if (id) {
+            // reconstruct a {path, element} focus object
+            var path;
+            var element;
+            if (_.isObject(focusResult)) {
+                // The result of focus was a {path, id} object itself
+                path = [id].concat(focusResult.path || []);
+                element = focusResult.element || this.refs[id].getDOMNode();
+            } else {
+                // The result of focus was true or the like; just
+                // construct a root focus object
+                path = [id];
+                element = this.refs[id].getDOMNode();
+            }
+
+            this._setCurrentFocus(path, element);
             return true;
         }
     },
@@ -348,18 +452,19 @@ var Renderer = React.createClass({
         widgets[id] = _.extend({}, widgets[id], newProps);
         this.setState({widgets: widgets}, () => {
             var cbResult = cb && cb();
+            this.props.onInteractWithWidget(id);
             if (cbResult !== false) {
-                this.props.onInteractWithWidget(id);
+                this._setCurrentFocus([id], this.refs[id].getDOMNode());
             }
         });
     },
 
-    setInputValue: function(inputWidgetId, newValue) {
+    setInputValue: function(inputWidgetId, newValue, focus) {
         // TODO(jack): change this to value: when we change input-number/
         // expression's prop to be value
         this._setWidgetValue(inputWidgetId, {
             currentValue: String(newValue)
-        });
+        }, () => focus);
     },
 
     guessAndScore: function() {

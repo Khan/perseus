@@ -63,9 +63,29 @@ var AnswerAreaRenderer = React.createClass({
         }
     },
 
+    // Gets a focus object fixed up with an "answer-" prefix for
+    // onFocusChange when type === "multiple"
+    _getAnswerAreaFocusObj: function(rendererFocusObj) {
+        if (rendererFocusObj.path == null) {
+            return rendererFocusObj;
+        }
+        // TODO(jack): make "answer" the first element of the prefix
+        // array, rather than modifying the widgetId, once we have
+        // expunged widgetIds from the rest of the api calls in
+        // favor of focus paths
+        var answerPath = ["answer-" + rendererFocusObj.path[0]];
+        answerPath = answerPath.concat(_.rest(rendererFocusObj.path));
+        return {
+            path: answerPath,
+            element: rendererFocusObj.element
+        };
+    },
+
     renderMultiple: function() {
         var parentInterceptInputFocus =
                 this.props.apiOptions.interceptInputFocus;
+        var parentOnFocusChange = this.props.apiOptions.onFocusChange;
+
         var apiOptions = _.extend(
             {},
             ApiOptions.defaults,
@@ -73,11 +93,21 @@ var AnswerAreaRenderer = React.createClass({
             parentInterceptInputFocus && {
                 // Rewrite widgetIds sent to interceptInputFocus on the way
                 // up to include an "answer-" prefix
-                interceptInputFocus: function(widgetId) {
+                interceptInputFocus: (widgetId) => {
                     var args = _.toArray(arguments);
                     var fullWidgetId = "answer-" + widgetId;
                     args[0] = fullWidgetId;
                     return parentInterceptInputFocus.apply(null, args);
+                }
+            },
+            parentOnFocusChange && {
+                onFocusChange: (newFocus, oldFocus) => {
+                    // If we have an apiOptions.onFocusChange, call
+                    // it with an "answer-" prefix on our widget id
+                    parentOnFocusChange(
+                        this._getAnswerAreaFocusObj(newFocus),
+                        this._getAnswerAreaFocusObj(oldFocus)
+                    );
                 }
             }
         );
@@ -109,6 +139,38 @@ var AnswerAreaRenderer = React.createClass({
             this.props.apiOptions
         );
 
+        // Pass onFocus/onBlur handlers to each widget, so they
+        // can trigger `onFocusChange`s if/when those happen.
+        // Since we're just a single widget, any focusing has
+        // to be from nothing (path: null), and any blurring has
+        // to be to nothing. Our parent ItemRenderer will handle
+        // connecting the dots between these events and any
+        // focusing/blurring between elements in the question
+        // area to combine this event with those into a single
+        // onChangeFocus at the ItemRenderer level.
+        var onFocus = (path, elem) => {
+            this._isFocused = true;
+            apiOptions.onFocusChange({
+                path: [SINGLE_ITEM_WIDGET_ID].concat(path),
+                element: elem || this.refs.widget.getDOMNode()
+            }, {
+                // we're pretending we're a renderer, so if we got
+                // focus, we must not have had it before
+                path: null,
+                element: null
+            });
+        };
+        var onBlur = (path, elem) => {
+            this._isFocused = false;
+            apiOptions.onFocusChange({
+                path: null,
+                element: null
+            }, {
+                path: [SINGLE_ITEM_WIDGET_ID].concat(path),
+                element: elem || this.refs.widget.getDOMNode()
+            });
+        };
+
         return <QuestionParagraph>
             <WidgetContainer
                 enableHighlight={this.props.enabledFeatures.highlight}
@@ -123,7 +185,9 @@ var AnswerAreaRenderer = React.createClass({
                         // the "Acceptable formats" box already works
                         toolTipFormats: false
                     }),
-                    apiOptions: apiOptions
+                    apiOptions: apiOptions,
+                    onFocus: onFocus,
+                    onBlur: onBlur
                 }, transform(editorProps), this.state.widget))}
             </WidgetContainer>
         </QuestionParagraph>;
@@ -148,16 +212,40 @@ var AnswerAreaRenderer = React.createClass({
 
     handleChangeRenderer: function(newProps, cb) {
         var widget = _.extend({}, this.state.widget, newProps);
-        this.setState({widget: widget}, cb);
-        if (this.props.type !== "multiple") {
-            this.props.onInteractWithWidget(SINGLE_ITEM_WIDGET_ID);
-        }
+        this.setState({widget: widget}, () => {
+            if (this.props.type !== "multiple") {
+                var cbResult = cb && cb();
+                this.props.onInteractWithWidget(SINGLE_ITEM_WIDGET_ID);
+                // If we're not type === "multiple", send an onFocusChange
+                // event to focus to this widget if we aren't already focused.
+                // For type "multiple" these events are handled in the
+                // multiple's Renderer
+
+                if (cbResult !== false &&
+                        this.props.apiOptions.onFocusChange &&
+                        !this._isFocused) {
+                    this._isFocused = true;
+                    this.props.apiOptions.onFocusChange({
+                        path: [SINGLE_ITEM_WIDGET_ID],
+                        // TODO(jack): Make this less hacky (call some magic
+                        // getElement function or something):
+                        element: this.refs.widget.getDOMNode()
+                    }, {
+                        // we're pretending we're a renderer, so if we got
+                        // focus, we must not have had it before
+                        path: null,
+                        element: null
+                    });
+                }
+            }
+        });
     },
 
     componentDidMount: function() {
         // Storing things directly on components should be avoided!
         this.examples = [];
         this.$examples = $("<div id='examples'></div>");
+        this._isFocused = false;
 
         this.update();
     },
