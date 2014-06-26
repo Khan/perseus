@@ -518,7 +518,7 @@ var ExpressionEditor = React.createClass({
             times: this.props.times,
             functions: this.props.functions,
             onChange: (newProps) => this.change(newProps),
-            buttonsVisible: "always"
+            buttonsVisible: "never"
         };
 
         var expression = this.state.isTex ? Expression : OldExpression;
@@ -530,6 +530,10 @@ var ExpressionEditor = React.createClass({
                 Correct answer:{' '}
                 {expression(expressionProps)}
             </label></div>
+            <TexButtons
+                className="math-input-buttons"
+                convertDotToTimes={this.props.times}
+                onInsert={this.handleTexInsert} />
 
             <div>
                 <PropCheckBox
@@ -589,6 +593,10 @@ var ExpressionEditor = React.createClass({
             </div>
 
         </div>;
+    },
+
+    handleTexInsert: function(str) {
+        this.refs.expression.insert(str);
     },
 
     handleFunctions: function(e) {
