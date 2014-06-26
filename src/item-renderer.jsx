@@ -199,9 +199,25 @@ var ItemRenderer = React.createClass({
         }
         // TODO(jack): change this to value: when we change input-number/
         // expression's prop to be value
-        this._setWidgetValue(inputWidgetId, {
-            currentValue: String(newValue)
-        }, () => focus);
+        // TODO(jack): As the code below demonstrates, this whole
+        // implementation is a horrible, horrible hack, and should be
+        // changed so that the widget can handle setting this "value"
+        // itself
+        var newProps;
+        if (/expression /.test(inputWidgetId)) {
+            newProps = {value: newValue};
+        } else if (inputWidgetId === "answer-area") {
+            // If it's the answer area, do both! #yolo
+            // (maybe it's an input-number, maybe it's an expression)
+            // TODO(jack): Fix this.
+            newProps = {
+                currentValue: newValue,
+                value: newValue
+            };
+        } else {
+            newProps = {currentValue: newValue};
+        }
+        this._setWidgetValue(inputWidgetId, newProps, () => focus);
     },
 
     handleInteractWithWidget: function(widgetId) {
