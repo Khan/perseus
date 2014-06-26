@@ -4,84 +4,10 @@ var React = require('react');
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
+var DragTarget = require("react-components/drag-target");
 
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
-
-/* This component makes its children a drag target. Example:
- *
- *     <DragTarget onDrop={this.handleDrop}>Drag to me</DragTarget>
- *
- *     ...
- *
- *     handleDrop: function(e) {
- *         this.addImages(e.nativeEvent.dataTransfer.files);
- *     }
- *
- * Now "Drag to me" will be a drag target - when something is dragged over it,
- * the element will become partially transparent as a visual indicator that
- * it's a target.
- */
-// TODO(joel) - indicate before the hover is over the target that it's possible
-// to drag into the target. This would (I think) require a high level handler -
-// like on Perseus itself, waiting for onDragEnter, then passing down the
-// event. Sounds like a pain. Possible workaround - create a div covering the
-// entire page...
-//
-// Other extensions:
-// * custom styles for global drag and dragOver
-// * only respond to certain types of drags (only images for instance)!
-var DragTarget = React.createClass({
-    propTypes: {
-        onDrop: React.PropTypes.func.isRequired,
-        component: React.PropTypes.component,
-        shouldDragHighlight: React.PropTypes.func
-    },
-    render: function() {
-        // This is the only property of the returned component we need to
-        // calculate here because it will be overwritten by transferPropsTo.
-        var opacity = this.state.dragHover ? { "opacity": 0.3 } : {};
-
-        var component = this.props.component;
-        return this.transferPropsTo(
-            <component style={opacity}
-                       onDrop={this.handleDrop}
-                       onDragEnd={this.handleDragEnd}
-                       onDragOver={this.handleDragOver}
-                       onDragEnter={this.handleDragEnter}
-                       onDragLeave={this.handleDragLeave}>
-                {this.props.children}
-            </component>
-        );
-    },
-    getInitialState: function() {
-        return { dragHover: false };
-    },
-    getDefaultProps: function() {
-        return {
-            component: React.DOM.div,
-            shouldDragHighlight: function() { return true; }
-        };
-    },
-    handleDrop: function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        this.setState({ dragHover: false });
-        this.props.onDrop(e);
-    },
-    handleDragEnd: function() {
-        this.setState({ dragHover: false });
-    },
-    handleDragOver: function(e) {
-        e.preventDefault();
-    },
-    handleDragLeave: function() {
-        this.setState({ dragHover: false });
-    },
-    handleDragEnter: function(e) {
-        this.setState({ dragHover: this.props.shouldDragHighlight(e) });
-    }
-});
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
