@@ -10,7 +10,6 @@
     "browserify": "~3.4.1",
     "jest-cli": "~0.1.15",
     "jsdom": "^0.10.5",
-    "less": "~1.7.0",
     "mocha": "^1.19.0",
     "node-jsx": "^0.10.0",
     "react-tools": "0.10.0",

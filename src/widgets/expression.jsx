@@ -9,14 +9,15 @@ var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var ApiOptions = require("../perseus-api.jsx").Options;
 
 var EnabledFeatures   = require("../enabled-features.jsx");
-var InputWithExamples = require("../components/input-with-examples.jsx");
 var PropCheckBox      = require("../components/prop-check-box.jsx");
+var MathInput         = require("../components/math-input.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
+var TexButtons        = require("../components/tex-buttons.jsx");
 
 var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
 
-var ERROR_MESSAGE = $._("I'm sorry; I don't understand that!");
+var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
@@ -26,6 +27,7 @@ var Expression = React.createClass({
         value: React.PropTypes.string,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes
     },
@@ -58,8 +60,6 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
-
         // TODO(alex): Style this tooltip to be more consistent with other
         // tooltips on the site; align to left middle (once possible)
         var errorTooltip = <span className="error-tooltip">
@@ -97,13 +97,11 @@ var Expression = React.createClass({
         });
 
         return <span className={className}>
-            <InputWithExamples
-                type="math"
+            <MathInput
                 value={this.props.value}
-                onChange={(value) => this.change("value", value)}
-                examples={this.examples()}
-                shouldShowExamples={shouldShowExamples}
+                onChange={this.change("value")}
                 convertDotToTimes={this.props.times}
+                buttonsVisible={this.props.buttonsVisible || "focused"}
                 ref="input" />
             {this.state.showErrorTooltip && errorTooltip}
         </span>;
@@ -111,6 +109,10 @@ var Expression = React.createClass({
 
     errorTimeout: null,
 
+    // Whenever the input value changes, attempt to parse it.
+    //
+    // Clear any errors if this parse succeeds, show an error within a second
+    // if it fails.
     componentWillReceiveProps: function(nextProps) {
         if (!_.isEqual(this.props.value, nextProps.value) ||
             !_.isEqual(this.props.functions, nextProps.functions)) {
@@ -144,31 +146,14 @@ var Expression = React.createClass({
         return true;
     },
 
+    // HACK(joel)
+    insert: function(text) {
+        this.refs.input.insert(text);
+    },
+
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.toJSON(), rubric, onInputError);
-    },
-
-    examples: function() {
-        var mult = $._("For $2\\cdot2$, enter **2*2**");
-        if (this.props.times) {
-            mult = mult.replace(/\\cdot/g, "\\times");
-        }
-
-        return [
-            mult,
-            $._("For $\\dfrac{1}{2}x$, enter **1/2 x**"),
-            $._("For $x^{y}+z$, enter **x^y +z**"),
-            $._("For $\\sqrt{x}$, enter **sqrtx**"),
-            $._("For $\\pi$, enter **pi**"),
-            $._("For $\\sin (\\theta)$, enter **sin(theta)**"),
-            $._("For $\\log_{10}(x)$, enter **log(x)**"),
-            $._("For $\\log_{2}(x)$, enter **log\_2 (x)**"),
-            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            $._("For $\\neq$, enter **<>**"),
-            $._("Move around with arrow keys"),
-            $._("Use spacebar to exit fractions")
-        ];
     },
 
     statics: {
@@ -489,6 +474,7 @@ var ExpressionEditor = React.createClass({
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string)
     },
+
     getDefaultProps: function() {
         return {
             value: "",
@@ -531,7 +517,8 @@ var ExpressionEditor = React.createClass({
             value: this.props.value,
             times: this.props.times,
             functions: this.props.functions,
-            onChange: (newProps) => this.change(newProps)
+            onChange: (newProps) => this.change(newProps),
+            buttonsVisible: "always"
         };
 
         var expression = this.state.isTex ? Expression : OldExpression;

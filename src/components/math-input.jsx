@@ -2,22 +2,107 @@
 
 // TODO(alex): Package MathQuill
 var MathQuill = window.MathQuill;
+var React     = require("react");
+var _         = require("underscore");
+var cx        = React.addons.classSet;
+var PT = React.PropTypes;
+var TexButtons = require("./tex-buttons.jsx");
+
+// HACK(joel)
+//
+// http://stackoverflow.com/a/7668761/2121468
+//
+// All these selectors are definitely overkill but better safe than sorry.
+var focusable = [
+    'a[href]',
+    'area[href]',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    'button:not([disabled])',
+    'iframe',
+    'object',
+    'embed',
+    '*[tabindex]',
+    '*[contenteditable]'
+    ].join(', ');
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 var MathInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
-        convertDotToTimes: React.PropTypes.bool,
-        onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        value: PT.string,
+        onChange: PT.func.isRequired,
+        convertDotToTimes: PT.bool,
+        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
+        onFocus: PT.func,
+        onBlur: PT.func
+    },
+
+    render: function() {
+        var className = cx({
+            "perseus-math-input": true,
+
+            // mathquill usually adds these itself but react removes them when
+            // updating the component.
+            "mq-editable-field": true,
+            "mq-math-mode": true
+        });
+
+        var buttons = null;
+        if (this._shouldShowButtons()) {
+            var buttonsClass = "math-input-buttons";
+            if (this.props.buttonsVisible === 'focused') {
+                buttonsClass += " absolute";
+            }
+
+            buttons = <TexButtons
+                className={buttonsClass}
+                convertDotToTimes={this.props.convertDotToTimes}
+                onInsert={this.insert} />;
+        }
+
+        return <div style={{display: 'inline-block'}}>
+            <span className={className}
+                  ref="mathinput"
+                  onFocus={this.handleFocus} />
+            {buttons}
+        </div>;
+    },
+
+    _shouldShowButtons: function() {
+        if (this.props.buttonsVisible === 'always') {
+            return true;
+        } else if (this.props.buttonsVisible === 'never') {
+            return false;
+        } else {
+            return this.state.focused;
+        }
     },
 
     getDefaultProps: function() {
         return {
             value: "",
-            convertDotToTimes: false
+            convertDotToTimes: false,
+            buttonsVisible: 'focused'
         };
+    },
+
+    getInitialState: function() {
+        return { focused: false };
+    },
+
+    handlePageEvent: function(event) {
+        if (!this.getDOMNode().contains(event.target)) {
+            this.setState({ focused: false });
+        }
+    },
+
+    insert: function(value) {
+        if (value[0] === '\\') {
+            this.mathField().cmd(value).focus();
+        } else {
+            this.mathField().write(value).focus();
+        }
     },
 
     mathField: function(options) {
@@ -25,16 +110,22 @@ var MathInput = React.createClass({
         // seeing that node for the first time, then returns the associated
         // MathQuill object for that node. It is stable - will always return
         // the same object when called on the same DOM node.
-        return MathQuill.MathField(this.getDOMNode(), options);
+        return MathQuill.MathField(this.refs.mathinput.getDOMNode(), options);
     },
 
-    render: function() {
-        return <span className="perseus-math-input"
-                     onFocus={this.props.onFocus}
-                     onBlur={this.props.onBlur} />;
+    handleFocus: function() {
+        this.setState({ focused: true });
+        // TODO(joel) fix properly - we should probably allow onFocus handlers
+        // to this property, but we need to work correctly with them.
+        // if (this.props.onFocus) {
+        //     this.props.onFocus();
+        // }
     },
 
     componentDidMount: function() {
+        window.addEventListener("click", this.handlePageEvent);
+        $(focusable).on("focus", this.handlePageEvent);
+
         // These options can currently only be set globally. (Hopefully this
         // will change at some point.) They appear safe to set multiple times.
 
@@ -60,7 +151,7 @@ var MathInput = React.createClass({
             // if you're in one, but moves focus to the next input if you're
             // not. Spaces (with this option enabled) are just ignored in the
             // latter case.
-            // 
+            //
             // TODO(alex): In order to allow inputting mixed numbers, we will
             // have to accept spaces in certain cases. The desired behavior is
             // still to escape nested contexts if currently in one, but to
@@ -72,7 +163,7 @@ var MathInput = React.createClass({
                 edited: (mathField) => {
                     // This handler is guaranteed to be called on change, but
                     // unlike React it sometimes generates false positives.
-                    // One of these is on initialization (with an empty string 
+                    // One of these is on initialization (with an empty string
                     // value), so we have to guard against that below.
                     var value = mathField.latex();
 
@@ -85,6 +176,8 @@ var MathInput = React.createClass({
                     // which case 'x' should get converted to '\\times'
                     if (this.props.convertDotToTimes) {
                         value = value.replace(/\\cdot/g, "\\times");
+                    } else {
+                        value = value.replace(/\\times/g, "\\cdot");
                     }
 
                     if (initialized && this.props.value !== value) {
@@ -95,7 +188,7 @@ var MathInput = React.createClass({
                     // This handler is called when the user presses the enter
                     // key. Since this isn't an actual <input> element, we have
                     // to manually trigger the usually automatic form submit.
-                    $(this.getDOMNode()).submit();
+                    $(this.refs.mathinput.getDOMNode()).submit();
                 },
                 upOutOf: (mathField) => {
                     // This handler is called when the user presses the up
@@ -112,6 +205,11 @@ var MathInput = React.createClass({
         this.mathField().latex(this.props.value);
 
         initialized = true;
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("click", this.handlePageEvent);
+        $(focusable).off("focus", this.handlePageEvent);
     },
 
     componentDidUpdate: function() {

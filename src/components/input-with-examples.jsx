@@ -23,7 +23,9 @@ var InputWithExamples = React.createClass({
         examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         shouldShowExamples: React.PropTypes.bool,
         convertDotToTimes: React.PropTypes.bool,
-        interceptFocus: React.PropTypes.func
+        interceptFocus: React.PropTypes.func,
+        buttonSet: React.PropTypes.string,
+        buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused'])
     },
 
     getDefaultProps: function() {
@@ -63,6 +65,8 @@ var InputWithExamples = React.createClass({
         var inputProps = {
             className: this._getInputClassName(),
             value: this.props.value,
+            buttonSet: this.props.buttonSet,
+            buttonsVisible: this.props.buttonsVisible,
             onChange: this.props.onChange,
             onFocus: this._onFocus,
             // HACK (jack): This fixes readonly inputs (from interceptFocus)

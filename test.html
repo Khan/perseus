@@ -206,7 +206,7 @@ Perseus.init({skipMathJax: false}).then(function() {
             __onInputError: function() {
                 var args = _.toArray(arguments);
                 console.log.apply(console, ["onInputError:"].concat(args));
-                return false;
+                return true;
             },
             __interceptInputFocus: function() {
                 var args = _.toArray(arguments);

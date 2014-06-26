@@ -376,6 +376,14 @@
     }
 }
 
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+          box-shadow: @shadow;
+       -o-box-shadow: @shadow;
+      -ms-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+}
+
 .perseus-math-input.mq-editable-field.mq-math-mode {
     // Mimic native text input
     background: #fff;
@@ -388,7 +396,10 @@
 
     & > .mq-root-block {
         // Mimic native text input w/o using -moz/-webkit-apperance: textfield
+        // border-color: rgb(78, 187, 212);
         border-color: #a4a4a4;
+
+        border-radius: 5px;
 
         // A bit of extra whitespace here greatly improves legibility
         padding: 4px;
@@ -412,3 +423,23 @@
         margin: 0;
     }
 }
+
+// This style looks a little off in the expression editor. Luckily users don't
+// use the expression editor.
+.math-input-buttons {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 2px;
+    // each button is 35 + 4 px, plus 4 padding, plus 2 border
+    width: 39px*5 + 4px + 2px; // (201)
+
+    &.absolute {
+        left: -2px;
+        position: absolute;
+        top: 25px;
+        z-index: @zIndexCalculator;
+    }
+};
