@@ -71,7 +71,8 @@ var TexButtons = React.createClass({
             var symbol = symbGen(this.props);
             return <button onClick={() => this.props.onInsert(symbol[1])}
                            className="tex-button"
-                           tabIndex={-1}>
+                           tabIndex={-1}
+                           type="button">
                 {symbol[0]}
             </button>;
         }));

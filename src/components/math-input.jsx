@@ -180,6 +180,16 @@ var MathInput = React.createClass({
         this.mathField().latex(this.props.value);
 
         initialized = true;
+
+        // This shouldn't really be necessary, since this form is supposed to
+        // start focused. Unfortunately, it is immediately unfocused when you
+        // move to the next item in an exercise. Joel believes this happens
+        // because you click for the next question, triggering a jQuery click
+        // event, which ends up swapping in the new instance of this form,
+        // which *is* focused, but then the jQuery event finishes and the React
+        // click event fires, which the FocusZone picks up on, sees it's
+        // outside of this component, and unfocuses.
+        _.defer(this.focus);
     },
 
     componentDidUpdate: function() {
@@ -190,6 +200,7 @@ var MathInput = React.createClass({
 
     focus: function() {
         this.mathField().focus();
+        this.setState({ focused: true });
     }
 });
 
