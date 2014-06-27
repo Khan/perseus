@@ -266,12 +266,6 @@ Want to help out? Here are some well-scoped improvements we could use:
   and "-" as "-1", in addition to decimals and fractions.
 
 
-## Questions?
-
-This was written rather hastily, and is probably not in-depth enough to
-be super useful (yet). If you have questions or would like to contribute,
-please stop by our [public chat room](http://www.hipchat.com/gBuXeXUWH)!
-
 ## Styles
 
 * `stylesheets/perseus-admin-package` has the styles for the Perseus item
