@@ -72,11 +72,15 @@ var MathInput = React.createClass({
     },
 
     insert: function(value) {
-        if (value[0] === '\\') {
-            this.mathField().cmd(value).focus();
+        var input = this.mathField();
+        if (_(value).isFunction()) {
+            value(input);
+        } else if (value[0] === '\\') {
+            input.cmd(value).focus();
         } else {
-            this.mathField().write(value).focus();
+            input.write(value).focus();
         }
+        input.focus();
     },
 
     mathField: function(options) {

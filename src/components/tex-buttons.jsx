@@ -28,7 +28,20 @@ var buttons = [
                 return [<TeX style={prettyBig}>\cdot</TeX>, "\\cdot"];
             }
         },
-        () => [<TeX style={prettyBig}>{"\\frac{□}{□}"}</TeX>, "\\frac"]
+        () => [
+            <TeX style={prettyBig}>{"\\frac{□}{□}"}</TeX>,
+
+            // If there's something in the input that can become part of a
+            // fraction, typing "/" puts it in the numerator. If not, typing
+            // "/" does nothing. In that case, enter a \frac.
+            input => {
+                var contents = input.latex();
+                input.typedText("/");
+                if (input.latex() === contents) {
+                    input.cmd("\\frac");
+                }
+            }
+        ]
     ],
 
     // relations
@@ -55,7 +68,16 @@ var buttons = [
         () => [<TeX>{"\\sqrt{x}"}</TeX>, "\\sqrt"],
         // TODO(joel) - how does desmos do this?
         // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
-        () => [<TeX style={slightlyBig}>□^a</TeX>, "^a"],
+        () => [
+            <TeX style={slightlyBig}>□^a</TeX>,
+            input => {
+                var contents = input.latex();
+                input.keystroke("Up");
+                if (input.latex() === contents) {
+                    input.typedText("a^b");
+                }
+            }
+        ],
         () => [<TeX style={slightlyBig}>\pi</TeX>, "\\pi"]
     ]
 
