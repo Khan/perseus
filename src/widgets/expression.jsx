@@ -10,6 +10,8 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 
 var EnabledFeatures   = require("../enabled-features.jsx");
 var PropCheckBox      = require("../components/prop-check-box.jsx");
+
+var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput         = require("../components/math-input.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 var TexButtons        = require("../components/tex-buttons.jsx");
@@ -555,10 +557,10 @@ var ExpressionEditor = React.createClass({
                 Correct answer:{' '}
                 {expression(expressionProps)}
             </label></div>
-            <TexButtons
+            {this.state.isTex && <TexButtons
                 className="math-input-buttons"
                 convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert} />
+                onInsert={this.handleTexInsert} />}
 
             <div>
                 <PropCheckBox
