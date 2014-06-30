@@ -103,6 +103,7 @@ var Renderer = React.createClass({
         highlightedWidgets: React.PropTypes.array,
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: React.PropTypes.object,
+        questionCompleted: React.PropTypes.bool,
         onInteractWithWidget: React.PropTypes.func
     },
 
@@ -124,6 +125,7 @@ var Renderer = React.createClass({
             // onRender may be called multiple times per render, for example
             // if there are multiple images or TeX pieces within `content`.
             // It is a good idea to debounce any functions passed here.
+            questionCompleted: false,
             onRender: function() {},
             onInteractWithWidget: function() {}
         };
@@ -198,6 +200,7 @@ var Renderer = React.createClass({
                             problemNum: this.props.problemNum,
                             enabledFeatures: this.props.enabledFeatures,
                             apiOptions: apiOptions,
+                            questionCompleted: this.props.questionCompleted,
                             onFocus: _.partial(this._onWidgetFocus, id),
                             onBlur: _.partial(this._onWidgetBlur, id),
                             onChange: (newProps, cb) => {

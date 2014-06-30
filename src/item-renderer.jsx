@@ -50,6 +50,7 @@ var ItemRenderer = React.createClass({
     getInitialState: function() {
         return {
             hintsVisible: this.props.initialHintsVisible,
+            questionCompleted: false,
             questionHighlightedWidgets: [],
             answerHighlightedWidgets: []
         };
@@ -103,7 +104,8 @@ var ItemRenderer = React.createClass({
                     onInteractWithWidget: this.handleInteractWithWidget,
                     highlightedWidgets: this.state.questionHighlightedWidgets,
                     enabledFeatures: enabledFeatures,
-                    apiOptions: apiOptions
+                    apiOptions: apiOptions,
+                    questionCompleted: this.state.questionCompleted
                 }, this.props.item.question)),
                 document.querySelector(this.props.workAreaSelector));
 
@@ -224,6 +226,7 @@ var ItemRenderer = React.createClass({
         var withRemoved = _.difference(this.state.questionHighlightedWidgets,
                                        [widgetId]);
         this.setState({
+            questionCompleted: false,
             questionHighlightedWidgets: withRemoved
         });
     },
@@ -292,13 +295,16 @@ var ItemRenderer = React.createClass({
         }
 
         if (score.type === "points") {
+            var correct = score.earned >= score.total;
+            this.setState({ questionCompleted: correct });
             return {
                 empty: false,
-                correct: score.earned >= score.total,
+                correct: correct,
                 message: score.message,
                 guess: guess
             };
         } else if (score.type === "invalid") {
+            this.setState({ questionCompleted: false });
             return {
                 empty: true,
                 correct: false,
