@@ -97,8 +97,7 @@ var Expression = React.createClass({
 
         var className = cx({
             "perseus-widget-expression": true,
-            "show-error-tooltip": this.state.showErrorTooltip,
-            "clearfix": true
+            "show-error-tooltip": this.state.showErrorTooltip
         });
 
         return <span className={className}>
