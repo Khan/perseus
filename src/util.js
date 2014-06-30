@@ -494,7 +494,7 @@ var Util = {
      * avoid sending the touch to the mobile scratchpad
      */
     captureScratchpadTouchStart: function(e) {
-        e.preventDefault();
+        e.stopPropagation();
     }
 };
 
