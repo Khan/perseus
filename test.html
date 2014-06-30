@@ -108,48 +108,19 @@ window.Perseus = Perseus;
 
 var defaultQuestion = {
     "question": {
-        "content": "[[☃ example-graphie-widget 1]]",
+        "content": "[[☃ input-number 1]]",
+        "images": {},
         "widgets": {
-            "example-graphie-widget 1": {
-                "type": "example-graphie-widget",
+            "input-number 1": {
+                "type": "input-number",
                 "graded": true,
                 "options": {
-                    "correct": [
-                        -1,
-                        -3
-                    ],
-                    "graph": {
-                        "box": [
-                            340,
-                            340
-                        ],
-                        "labels": [
-                            "x",
-                            "y"
-                        ],
-                        "range": [
-                            [
-                                -10,
-                                10
-                            ],
-                            [
-                                -10,
-                                10
-                            ]
-                        ],
-                        "step": [
-                            1,
-                            1
-                        ],
-                        "gridStep": [
-                            1,
-                            1
-                        ],
-                        "valid": true,
-                        "backgroundImage": null,
-                        "markings": "grid",
-                        "showProtractor": false
-                    }
+                    "value": "0",
+                    "simplify": "required",
+                    "size": "normal",
+                    "inexact": false,
+                    "maxError": 0.1,
+                    "answerType": "number"
                 }
             }
         }
@@ -158,6 +129,7 @@ var defaultQuestion = {
         "type": "multiple",
         "options": {
             "content": "",
+            "images": {},
             "widgets": {}
         },
         "calculator": false
@@ -213,7 +185,7 @@ Perseus.init({skipMathJax: false}).then(function() {
                 console.log.apply(console, ["interceptInputFocus:"].concat(args));
                 return;
             },
-            onFocusChange: function(newObj, oldObj) {
+            __onFocusChange: function(newObj, oldObj) {
                 console.log("onFocusChange", newObj.path, oldObj.path);
             }
         }

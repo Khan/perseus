@@ -54,7 +54,8 @@ var WidgetEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            graded: true
+            graded: true,
+            options: {}
         };
     },
 
@@ -65,13 +66,24 @@ var WidgetEditor = React.createClass({
     },
 
     render: function() {
-        var cls = Widgets.getEditor(this.props.type);
+        // We can't call our widget's `toJSON` here, because on
+        // first render that ref hasn't mounted yet.
+        // This means that on first render we'll send in
+        // `options: {}` to `upgradeWidgetInfoToLatestVersion`, but
+        // `upgradeWidgetInfoToLatestVersion` accounts for that
+        // before sending {} to any of our prop upgrade functions.
+        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
+            this.props
+        );
+        var type = upgradedWidgetInfo.type;
 
-        var isUngradedEnabled = (this.props.type === "transformer");
+        var cls = Widgets.getEditor(type);
+
+        var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
 
         var gradedPropBox = <PropCheckBox label="Graded:"
-                                graded={this.props.graded}
+                                graded={upgradedWidgetInfo.graded}
                                 onChange={this.props.onChange} />;
 
         return <div className="perseus-widget-editor">
@@ -87,7 +99,7 @@ var WidgetEditor = React.createClass({
                 {cls(_.extend({
                     ref: "widget",
                     onChange: this._handleWidgetChange
-                }, this.props.options))}
+                }, upgradedWidgetInfo.options))}
             </div>
         </div>;
     },
@@ -98,16 +110,28 @@ var WidgetEditor = React.createClass({
     },
 
     _handleWidgetChange: function(newProps, cb) {
-        this.props.onChange({
-            options: _.extend({}, this.props.options, newProps)
-        }, cb);
+        // TODO(jack): It is unfortunate to call toJSON here, but is
+        // important so that the widgetInfo we pass to our upgrade
+        // functions is always complete. If we just sent this.props in,
+        // we could run into situations where we would send things like
+        // { answerType: "decimal" } to our upgrade functions, without
+        // the rest of the props representing the widget.
+        var currentWidgetInfo = _.extend({}, this.props, {
+            options: this.refs.widget.toJSON(true)
+        });
+        var newWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
+            currentWidgetInfo
+        );
+        newWidgetInfo.options = _.extend(newWidgetInfo.options, newProps);
+        this.props.onChange(newWidgetInfo, cb);
     },
 
     toJSON: function(skipValidation) {
         return {
             type: this.props.type,
             graded: this.props.graded,
-            options: this.refs.widget.toJSON(skipValidation)
+            options: this.refs.widget.toJSON(skipValidation),
+            version: Widgets.getVersion(this.props.type)
         };
     }
 });
