@@ -34,12 +34,22 @@ var focusable = [
 var FocusZone = React.createClass({
     propTypes: {
         handleLoseFocus: React.PropTypes.func,
-        handleGainFocus: React.PropTypes.func
+        handleGainFocus: React.PropTypes.func,
+        tag: React.PropTypes.func,
+        style: React.PropTypes.object
     },
+
+    getDefaultProps: function() {
+        return {
+            tag: React.DOM.div,
+            style: {}
+        };
+    },
+
     render: function() {
         var tag = this.props.tag;
 
-        return <tag>{this.props.children}</tag>;
+        return <tag style={this.props.style}>{this.props.children}</tag>;
     },
 
     handlePageEvent: function(event) {
@@ -61,10 +71,6 @@ var FocusZone = React.createClass({
     componentWillUnmount: function() {
         window.removeEventListener("click", this.handlePageEvent);
         $(focusable).off("focus", this.handlePageEvent);
-    },
-
-    getDefaultProps: function() {
-        return { tag: React.DOM.div };
     }
 });
 
