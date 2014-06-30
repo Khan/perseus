@@ -32,12 +32,12 @@ var HintEditor = React.createClass({
         return <div className="perseus-hint-editor perseus-editor-left-cell">
             <div className="pod-title">Hint</div>
             <Editor ref="editor"
+                    widgets={this.props.widgets}
                     content={this.props.content}
                     images={this.props.images}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
-                    onChange={this.props.onChange} widgetEnabled={false} />
-
+                    onChange={this.props.onChange} />
             <div className="hint-controls-container clearfix">
                 <span className="reorder-hints">
                     <a href="#"
@@ -99,6 +99,7 @@ var CombinedHintEditor = React.createClass({
                 ref="editor"
                 isFirst={this.props.isFirst}
                 isLast={this.props.isLast}
+                widgets={this.props.hint.widgets}
                 content={this.props.hint.content}
                 images={this.props.hint.images}
                 imageUploader={this.props.imageUploader}

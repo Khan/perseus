@@ -16,6 +16,7 @@ var HintRenderer = React.createClass({
         }
         return <div className={classNames}>
             <Renderer
+                widgets={this.props.hint.widgets}
                 content={this.props.hint.content || ""}
                 images={this.props.hint.images} />
         </div>;

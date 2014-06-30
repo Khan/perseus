@@ -116,7 +116,7 @@ var EditorPage = React.createClass({
         // will be hosted. Image drag and drop is disabled when imageUploader
         // is null.
         imageUploader: React.PropTypes.func,
-        enabledFeatures: EnabledFeatures.propTypes 
+        enabledFeatures: EnabledFeatures.propTypes
     },
 
     getDefaultProps: function() {
@@ -274,7 +274,7 @@ var EditorPage = React.createClass({
             return this.state.json;
         } else {
             return _.extend(this.refs.itemEditor.toJSON(skipValidation), {
-                hints: this.refs.hintsEditor.toJSON()
+                hints: this.refs.hintsEditor.toJSON(skipValidation)
             });
         }
     }
