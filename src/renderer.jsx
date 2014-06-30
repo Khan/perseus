@@ -10,6 +10,14 @@ var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 
+var mapObject = function(obj, lambda) {
+    var result = {};
+    _.each(_.keys(obj), function(key) {
+        result[key] = lambda(obj[key]);
+    });
+    return result;
+};
+
 var specialChars = {
     // escaped: original
     "\\a": "\u0007", // \a isn't valid javascript
@@ -101,13 +109,14 @@ var Renderer = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         if (!_.isEqual(_.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
                        _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST))) {
-            this.setState({widgets: {}});
+            this.setState(this._getInitialWidgetState(nextProps));
         }
     },
 
     getDefaultProps: function() {
         return {
             content: "",
+            widgets: {},
             ignoreMissingWidgets: false,
             highlightedWidgets: [],
             enabledFeatures: EnabledFeatures.defaults,
@@ -121,11 +130,28 @@ var Renderer = React.createClass({
     },
 
     getInitialState: function() {
-        // TODO(alpert): Move up to parent props?
-        return {
-            widgets: {},
+        return _.extend({
             jiptContent: null
+        }, this._getInitialWidgetState());
+    },
+
+    _getInitialWidgetState: function(props) {
+        props = props || this.props;
+        var allWidgetInfo = this._getAllWidgetsInfo(props);
+        return {
+            widgetInfo: allWidgetInfo,
+            widgetProps: this._getAllWidgetsStartProps(allWidgetInfo),
         };
+    },
+
+    _getAllWidgetsInfo: function(props) {
+        props = props || this.props;
+        // TODO(jack): Insert the widgetInfo upgrade logic here
+        return props.widgets;
+    },
+
+    _getAllWidgetsStartProps: function(allWidgetInfo) {
+        return mapObject(allWidgetInfo, Widgets.getRendererPropsForWidgetInfo);
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -134,7 +160,7 @@ var Renderer = React.createClass({
         return propsChanged || stateChanged;
     },
 
-    getPiece: function(saved, widgetIds, apiOptions) {
+    getPiece: function(saved, /* output */ widgetIds, apiOptions) {
         if (saved.charAt(0) === "@") {
             // Just text
             return saved;
@@ -146,25 +172,25 @@ var Renderer = React.createClass({
             // Widget
             var match = Util.rWidgetParts.exec(saved);
             var id = match[1];
-            var type = match[2];
+            var implied_type = match[2];
 
-            var widgetInfo = (this.props.widgets || {})[id];
+            var widgetInfo = this.state.widgetInfo[id];
             if (widgetInfo || this.props.ignoreMissingWidgets) {
+                // TODO(jack): Remove this input/output parameter
                 widgetIds.push(id);
-                var cls = Widgets.getWidget(type, this.props.enabledFeatures);
-                var transform = Widgets.getTransform(type);
 
-                var editorProps = _.extend({}, (widgetInfo || {}).options);
-                var widgetProps = _.extend(
-                    transform(editorProps),
-                    this.state.widgets[id]
+                var type = (widgetInfo || {}).type || implied_type;
+                var cls = Widgets.getWidget(type, this.props.enabledFeatures);
+                var widgetProps = this.state.widgetProps[id] || {};
+                var shouldHighlight = _.contains(
+                    this.props.highlightedWidgets,
+                    id
                 );
 
                 return <WidgetContainer
                     enableHighlight={this.props.enabledFeatures.highlight}
-                    shouldHighlight={_.contains(
-                        this.props.highlightedWidgets, id)}>
-                    {cls(_.extend(widgetProps, {
+                    shouldHighlight={shouldHighlight}>
+                    {cls(_.extend({}, widgetProps, {
                             ref: id,
                             widgetId: id,
                             problemNum: this.props.problemNum,
@@ -173,7 +199,7 @@ var Renderer = React.createClass({
                             onFocus: _.partial(this._onWidgetFocus, id),
                             onBlur: _.partial(this._onWidgetBlur, id),
                             onChange: (newProps, cb) => {
-                                this._setWidgetValue(id, newProps, cb);
+                                this._setWidgetProps(id, newProps, cb);
                             }
                         })
                     )}
@@ -447,10 +473,10 @@ var Renderer = React.createClass({
         });
     },
 
-    _setWidgetValue: function(id, newProps, cb) {
-        var widgets = _.clone(this.state.widgets);
-        widgets[id] = _.extend({}, widgets[id], newProps);
-        this.setState({widgets: widgets}, () => {
+    _setWidgetProps: function(id, newProps, cb) {
+        var widgetProps = _.clone(this.state.widgetProps);
+        widgetProps[id] = _.extend({}, widgetProps[id], newProps);
+        this.setState({widgetProps: widgetProps}, () => {
             var cbResult = cb && cb();
             this.props.onInteractWithWidget(id);
             if (cbResult !== false) {
@@ -462,7 +488,7 @@ var Renderer = React.createClass({
     setInputValue: function(inputWidgetId, newValue, focus) {
         // TODO(jack): change this to value: when we change input-number/
         // expression's prop to be value
-        this._setWidgetValue(inputWidgetId, {
+        this._setWidgetProps(inputWidgetId, {
             currentValue: String(newValue)
         }, () => focus);
     },

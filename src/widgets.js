@@ -37,6 +37,14 @@ var Widgets = {
         return _.pick(widgets, _.reject(_.keys(widgets), function(name) {
             return widgets[name].hidden;
         }));
+    },
+
+    getRendererPropsForWidgetInfo: function(widgetInfo) {
+        var type = widgetInfo.type;
+        var widgetExports = widgets[type];
+        var transform = widgetExports.transform || _.identity;
+        // widgetInfo.options are the widgetEditor's props:
+        return transform(widgetInfo.options);
     }
 };
 

@@ -171,18 +171,18 @@ var ItemRenderer = React.createClass({
      * the form "answer-input-number 1", or the string "answer-area"
      * for the whole answer area (if the answer area is a single widget).
      */
-    _setWidgetValue: function(widgetId, newProps, callback) {
+    _setWidgetProps: function(widgetId, newProps, callback) {
         var maybeAnswerAreaWidget = widgetId.match(/^answer-(.*)$/);
 
         if (maybeAnswerAreaWidget) {
             var answerAreaWidgetId = maybeAnswerAreaWidget[1];
-            this.answerAreaRenderer._setWidgetValue(
+            this.answerAreaRenderer._setWidgetProps(
                 answerAreaWidgetId,
                 newProps,
                 callback
             );
         } else {
-            this.questionRenderer._setWidgetValue(
+            this.questionRenderer._setWidgetProps(
                 widgetId,
                 newProps,
                 callback
@@ -217,7 +217,7 @@ var ItemRenderer = React.createClass({
         } else {
             newProps = {currentValue: newValue};
         }
-        this._setWidgetValue(inputWidgetId, newProps, () => focus);
+        this._setWidgetProps(inputWidgetId, newProps, () => focus);
     },
 
     handleInteractWithWidget: function(widgetId) {
