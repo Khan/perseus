@@ -39,6 +39,61 @@ var Widgets = {
         }));
     },
 
+    upgradeWidgetInfoToLatestVersion: function(oldWidgetInfo) {
+        var type = oldWidgetInfo.type;
+        var widgetExports = widgets[type];
+
+        // Unversioned widgets (pre-July 2014) are all implicitly 0.0
+        var initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
+        var latestVersion = widgetExports.version || {major: 0, minor: 0};
+
+        // We do a clone here so that it's safe to mutate the input parameter
+        // in propUpgrades functions (which I will probably accidentally do at
+        // some point, and we would like to not break when that happens).
+        var newEditorProps = _.clone(oldWidgetInfo.options);
+
+        var upgradePropsMap = widgetExports.propUpgrades || {};
+
+        // We loop through all the versions after the current version of the
+        // loaded widget, up to and including the latest version of the loaded
+        // widget, and run the upgrade function to bring our loaded widget's
+        // props up to that version.
+        // There is a little subtlety here in that we call
+        // upgradePropsMap[1] to upgrade *to* version 1, (not from version 1).
+        for (var nextVersion = initialVersion.major + 1;
+                nextVersion <= latestVersion.major;
+                nextVersion++) {
+
+            if (upgradePropsMap[nextVersion]) {
+                newEditorProps = upgradePropsMap[nextVersion](newEditorProps);
+            
+            } else if ((typeof console !== 'undefined') && console.warn) {
+                // This is a warning because it is unlikely to be hit in
+                // local testing, and a warning is slightly less scary in
+                // prod than a `throw new Error`
+                console.warn(
+                    "No upgrade found for widget `" + type + "` from " +
+                    "major version `" + (nextVersion - 1) + "` to " +
+                    "major version `" + nextVersion + "` found. This " +
+                    "is necessary to render this `" + type + "` correctly."
+                );
+                // But try to keep going anyways (yolo!)
+                // (throwing an error here would just break the page silently
+                // anyways, so that doesn't seem much better than a halfhearted
+                // attempt to continue, however shallow...)
+            }
+        }
+
+        return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
+            version: latestVersion,
+            // Default graded to true (so null/undefined becomes true):
+            graded: (
+                (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
+            ),
+            options: newEditorProps
+        });
+    },
+
     getRendererPropsForWidgetInfo: function(widgetInfo) {
         var type = widgetInfo.type;
         var widgetExports = widgets[type];

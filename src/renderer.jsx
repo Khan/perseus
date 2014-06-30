@@ -146,8 +146,10 @@ var Renderer = React.createClass({
 
     _getAllWidgetsInfo: function(props) {
         props = props || this.props;
-        // TODO(jack): Insert the widgetInfo upgrade logic here
-        return props.widgets;
+        return mapObject(
+            props.widgets,
+            Widgets.upgradeWidgetInfoToLatestVersion
+        );
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo) {
