@@ -489,7 +489,7 @@ var NumberLine = React.createClass({
 _.extend(NumberLine, {
     validate: function(state, rubric) {
         var range = rubric.range;
-        var start = rubric.initialX || 0;
+        var start = rubric.initialX != null ? rubric.initialX : range[0];
         var startRel = rubric.isInequality ? "ge" : "eq";
         var correctRel = rubric.correctRel || "eq";
 
