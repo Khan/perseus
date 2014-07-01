@@ -2,7 +2,7 @@
 PORT=9000
 WEBAPP=../webapp
 
-API_VERSION_MAJOR:=$(shell node -e 'console.log(require("./src/version.json").apiVersion.major);')
+API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 
