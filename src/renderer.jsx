@@ -13,7 +13,7 @@ var ApiOptions = require("./perseus-api.jsx").Options;
 var mapObject = function(obj, lambda) {
     var result = {};
     _.each(_.keys(obj), function(key) {
-        result[key] = lambda(obj[key]);
+        result[key] = lambda(obj[key], key);
     });
     return result;
 };
@@ -148,10 +148,15 @@ var Renderer = React.createClass({
 
     _getAllWidgetsInfo: function(props) {
         props = props || this.props;
-        return mapObject(
-            props.widgets,
-            Widgets.upgradeWidgetInfoToLatestVersion
-        );
+        return mapObject(props.widgets, (widgetInfo, widgetId) => {
+            if (!widgetInfo.type) {
+                var type = widgetId.split(" ")[0];
+                widgetInfo = _.extend({}, widgetInfo, {
+                    type: type
+                });
+            }
+            return Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+        });
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo) {

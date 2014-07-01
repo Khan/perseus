@@ -45,7 +45,16 @@ var Widgets = {
 
     upgradeWidgetInfoToLatestVersion: function(oldWidgetInfo) {
         var type = oldWidgetInfo.type;
+        if (!_.isString(type)) {
+            throw new Error("widget type must be a string, but was: " + type);
+        }
         var widgetExports = widgets[type];
+
+        if (widgetExports == null) {
+            // If we have a widget that isn't registered, we can't upgrade it
+            // TODO(jack): Figure out what the best thing to do here would be
+            return oldWidgetInfo;
+        }
 
         // Unversioned widgets (pre-July 2014) are all implicitly 0.0
         var initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};

@@ -94,20 +94,31 @@ $('#score').on('click', function() {
 function initPerseus(Perseus) {
 
 var seedContent = {
+    "hints": [
+        {
+            "content": "$\\blue4 \\times \\pink3$ equals $\\blue4$ groups of $\\pink3$:  \n![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png) "
+        }
+    ],
     "question": {
-        "content": "[[☃ input-number 1]]",
-        "images": {},
+        "content": " **Which image shows $4\\times3$?**\n\n[[☃ radio 1]]",
         "widgets": {
-            "input-number 1": {
-                "type": "input-number",
-                "graded": true,
+            "radio 1": {
                 "options": {
-                    "value": 5,
-                    "simplify": "required",
-                    "size": "normal",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "decimal"
+                    "randomize": true,
+                    "choices": [
+                        {
+                            "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png) ",
+                            "correct": true
+                        },
+                        {
+                            "correct": false,
+                            "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)  \n![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)"
+                        },
+                        {
+                            "correct": false,
+                            "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/53df5380b35bbd5e43530ad3211e83454ed530b6.png)"
+                        }
+                    ]
                 }
             }
         }
@@ -115,13 +126,9 @@ var seedContent = {
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
-        "calculator": false
-    },
-    "hints": []
+            "content": "Select the correct answer."
+        }
+    }
 };
 
 Perseus.init({}).then(function() {
