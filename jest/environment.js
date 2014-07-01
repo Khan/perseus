@@ -4,7 +4,7 @@ markedReact = require("../lib/marked.js");
 
 require("../lib/jquery.js");
 
-require("../mocha/i18n-shim.js");
+require("../node/i18n-shim.js");
 require("../build/ke.js");
 
 window.katex = require("../lib/katex/katex.js");
