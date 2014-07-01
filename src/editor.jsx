@@ -303,7 +303,7 @@ var Editor = React.createClass({
                     var classes = (duplicate || !widgets[id] ? "error " : "") +
                             (selected ? "selected " : "");
                     underlayPieces.push(
-                            <b className={classes}>{pieces[i]}</b>);
+                            <b className={classes} key={id}>{pieces[i]}</b>);
                 }
             }
 
@@ -346,13 +346,16 @@ var Editor = React.createClass({
 
         // Without this, the underlay isn't the proper size when the text ends
         // with a newline.
-        underlayPieces.push(<br />);
+        underlayPieces.push(<br key="end"/>);
 
         var completeTextarea = [
-                <div className="perseus-textarea-underlay" ref="underlay">
+                <div className="perseus-textarea-underlay"
+                     ref="underlay"
+                     key="underlay">
                     {underlayPieces}
                 </div>,
                 <textarea ref="textarea"
+                          key="textarea"
                           onChange={this.handleChange}
                           placeholder={this.props.placeholder}
                           value={this.props.content} />
