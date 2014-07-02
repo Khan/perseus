@@ -195,6 +195,41 @@ function lawOfCosines(a, b, c) {
     return Math.acos((a * a + b * b - c * c) / (2 * a * b)) * 180 / Math.PI;
 }
 
+function canonicalSineCoefficients(coeffs) {
+    // For a curve of the form f(x) = a * Sin(b * x - c) + d,
+    // this function ensures that a, b > 0, and c is its
+    // smallest possible positive value.
+    var amplitude = coeffs[0];
+    var angularFrequency = coeffs[1];
+    var phase = coeffs[2];
+    var verticalOffset = coeffs[3];
+
+    // Guarantee a > 0
+    if (amplitude < 0) {
+        amplitude *= -1;
+        angularFrequency *= -1;
+        phase *= -1;
+    }
+
+    var period = 2 * Math.PI;
+    // Guarantee b > 0
+    if (angularFrequency < 0) {
+        angularFrequency *= -1;
+        phase *= -1;
+        phase += period / 2;
+    }
+
+    // Guarantee c is smallest possible positive value
+    while (phase > 0) {
+        phase -= period;
+    }
+    while (phase < 0) {
+        phase += period;
+    }
+
+    return [amplitude, angularFrequency, phase, verticalOffset];
+};
+
 // e.g. rotate([1, 2, 3]) -> [2, 3, 1]
 function rotate(array, n) {
     n = (typeof n === "undefined") ? 1 : (n % array.length);
@@ -335,6 +370,7 @@ var InteractiveGraph = React.createClass({
                     }}>
                 <option value="linear">Linear function</option>
                 <option value="quadratic">Quadratic function</option>
+                <option value="sinusoid">Sinusoid function</option>
                 <option value="circle">Circle</option>
                 <option value="point">Point(s)</option>
                 <option value="linear-system">Linear System</option>
@@ -865,6 +901,88 @@ var InteractiveGraph = React.createClass({
         this.pointC.remove();
         if (this.parabola) {
             this.parabola.remove();
+        }
+    },
+
+    addSinusoidControls: function() {
+        var graphie = this.graphie;
+        var coords = this.props.graph.coords;
+        if (!coords) {
+            coords = InteractiveGraph.defaultSinusoidCoords(this.props);
+        }
+
+        var pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+            coord: coords[0],
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                Interactive2.MovablePoint.constraints.snap(),
+                (coord) => {
+                    return !pointA || coord[0] !== pointB.coord()[0];
+                }
+            ],
+            onMove: () => {
+                var graph = _.extend({}, this.props.graph, {
+                    coords: [pointA.coord(), pointB.coord()]
+                });
+                this.props.onChange({graph: graph});
+                this.updateSinusoid();
+            },
+            normalStyle: {
+                stroke: KhanUtil.BLUE,
+                fill: KhanUtil.BLUE
+            }
+        });
+
+        var pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+            coord: coords[1],
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                Interactive2.MovablePoint.constraints.snap(),
+                (coord) => {
+                    return !pointA || coord[0] !== pointA.coord()[0];
+                }
+            ],
+            onMove: () => {
+                var graph = _.extend({}, this.props.graph, {
+                    coords: [pointA.coord(), pointB.coord()]
+                });
+                this.props.onChange({graph: graph});
+                this.updateSinusoid();
+            },
+            normalStyle: {
+                stroke: KhanUtil.BLUE,
+                fill: KhanUtil.BLUE
+            }
+        });
+
+        this.updateSinusoid();
+    },
+
+    updateSinusoid: function() {
+        if (this.sinusoid) {
+            this.sinusoid.remove();
+        }
+
+        var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
+                this.props);
+        if (!coeffs) {
+            return;
+        }
+
+        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        this.sinusoid = this.graphie.plot(function(x) {
+            return a * Math.sin(b * x - c) + d;
+        }, this.props.range[0]).attr({
+            stroke: KhanUtil.BLUE
+        });
+        this.sinusoid.toBack();
+    },
+
+    removeSinusoidControls: function() {
+        this.pointA.remove();
+        this.pointB.remove();
+        if (this.sinusoid) {
+            this.sinusoid.remove();
         }
     },
 
@@ -1624,6 +1742,21 @@ _.extend(InteractiveGraph, {
         return [a, b, c];
     },
 
+    getSinusoidCoefficients: function(coords) {
+        // It's assumed that p1 is the root and p2 is the first peak
+        var p1 = coords[0];
+        var p2 = coords[1];
+
+        // Resulting coefficients are canonical for this sine curve
+        var amplitude = (p2[1] - p1[1]);
+        var angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
+        var phase = p1[0] * angularFrequency;
+        var verticalOffset = p1[1];
+
+        return [amplitude, angularFrequency, phase, verticalOffset];
+    },
+
+
     /**
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
@@ -1839,7 +1972,6 @@ _.extend(InteractiveGraph, {
         });
     },
 
-
     getLinearEquationString: function(props) {
         var coords = InteractiveGraph.getLineCoords(props.graph, props);
         if (eq(coords[0][0], coords[1][0])) {
@@ -1874,6 +2006,26 @@ _.extend(InteractiveGraph, {
         return "y = " + coeffs[0].toFixed(3) + "x^2 + " +
                         coeffs[1].toFixed(3) + "x + " +
                         coeffs[2].toFixed(3);
+    },
+
+    getCurrentSinusoidCoefficients: function(props) {
+        var coords = props.graph.coords ||
+                InteractiveGraph.defaultSinusoidCoords(props);
+        return InteractiveGraph.getSinusoidCoefficients(coords);
+    },
+
+    defaultSinusoidCoords: function(props) {
+        var coords = [[0.5, 0.5], [0.65, 0.60]];
+        return InteractiveGraph.pointsFromNormalized(props, coords);
+    },
+
+    getSinusoidEquationString: function(props) {
+        var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
+                props);
+        return "y = " + coeffs[0].toFixed(3) + "sin(" +
+                        coeffs[1].toFixed(3) + "x - " +
+                        coeffs[2].toFixed(3) + ") + " +
+                        coeffs[3].toFixed(3);
     },
 
     getCircleEquationString: function(props) {
@@ -2001,6 +2153,25 @@ _.extend(InteractiveGraph, {
                 var correctCoeffs = this.getQuadraticCoefficients(
                         rubric.correct.coords);
                 if (deepEq(guessCoeffs, correctCoeffs)) {
+                    return {
+                        type: "points",
+                        earned: 1,
+                        total: 1,
+                        message: null
+                    };
+                }
+            } else if (state.type === "sinusoid") {
+                var guessCoeffs = this.getSinusoidCoefficients(
+                    state.coords);
+                var correctCoeffs = this.getSinusoidCoefficients(
+                        rubric.correct.coords);
+
+                var canonicalGuessCoeffs = canonicalSineCoefficients(
+                                                guessCoeffs);
+                var canonicalCorrectCoeffs = canonicalSineCoefficients(
+                                                correctCoeffs);
+                // If the canonical coefficients match, it's correct.
+                if (deepEq(canonicalGuessCoeffs, canonicalCorrectCoeffs)) {
                     return {
                         type: "points",
                         earned: 1,
