@@ -490,7 +490,17 @@ var Renderer = React.createClass({
             var cbResult = cb && cb();
             this.props.onInteractWithWidget(id);
             if (cbResult !== false) {
-                this._setCurrentFocus([id], this.refs[id].getDOMNode());
+                // TODO(jack): For some reason, some widgets don't always end
+                // up in refs here, which is repro-able if you make an
+                // [[ orderer 1 ]] and copy-paste this, then change it to be
+                // an [[ orderer 2 ]]. The resulting Renderer ends up with
+                // an "orderer 2" ref but not an "orderer 1" ref. @_@??
+                // TODO(jack): Figure out why this is happening and fix it
+                // As far as I can tell, this is only an issue in the
+                // editor-page, so doing this shouldn't break clients hopefully
+                var element = this.refs[id] ?
+                        this.refs[id].getDOMNode() : null;
+                this._setCurrentFocus([id], element);
             }
         });
     },
