@@ -772,8 +772,8 @@ var InteractiveGraph = React.createClass({
                     self.props.onChange({graph: graph});
                 },
                 normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
+                    stroke: KhanUtil.INTERACTIVE,
+                    fill: KhanUtil.INTERACTIVE
                 }
             });
         });
@@ -828,8 +828,8 @@ var InteractiveGraph = React.createClass({
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
             normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
+                stroke: KhanUtil.INTERACTIVE,
+                fill: KhanUtil.INTERACTIVE
             }
         });
 
@@ -838,8 +838,8 @@ var InteractiveGraph = React.createClass({
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
             normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
+                stroke: KhanUtil.INTERACTIVE,
+                fill: KhanUtil.INTERACTIVE
             }
         });
 
@@ -848,8 +848,8 @@ var InteractiveGraph = React.createClass({
             snapX: graphie.snap[0],
             snapY: graphie.snap[1],
             normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
+                stroke: KhanUtil.INTERACTIVE,
+                fill: KhanUtil.INTERACTIVE
             }
         });
 
@@ -890,7 +890,7 @@ var InteractiveGraph = React.createClass({
         this.parabola = this.graphie.plot(function(x) {
             return (a * x + b) * x + c;
         }, this.props.range[0]).attr({
-            stroke: KhanUtil.BLUE
+            stroke: KhanUtil.INTERACTIVE
         });
         this.parabola.toBack();
     },
@@ -1017,7 +1017,7 @@ var InteractiveGraph = React.createClass({
         var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
             this.props);
 
-        var segmentColors = [KhanUtil.BLUE, KhanUtil.GREEN];
+        var segmentColors = [KhanUtil.INTERACTIVE, KhanUtil.GREEN];
         var points = this.points = _.map(coords,
                 (segmentCoords, segmentIndex) => {
             var segmentPoints = _.map(segmentCoords, (coord, i) => {
@@ -1130,8 +1130,8 @@ var InteractiveGraph = React.createClass({
                 }
             },
             normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
+                stroke: KhanUtil.INTERACTIVE,
+                fill: KhanUtil.INTERACTIVE
             }
         });
 
@@ -1162,8 +1162,8 @@ var InteractiveGraph = React.createClass({
         var point = graphie.addMovablePoint(_.extend({
             coord: coord,
             normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
+                stroke: KhanUtil.INTERACTIVE,
+                fill: KhanUtil.INTERACTIVE
             }
         }, snapToGrid ? {
             snapX: graphie.snap[0],
@@ -1496,8 +1496,8 @@ var InteractiveGraph = React.createClass({
                 return Interactive2.addMovablePoint(graphie, {
                     coord: coord,
                     normalStyle: {
-                        stroke: KhanUtil.BLUE,
-                        fill: KhanUtil.BLUE
+                        stroke: KhanUtil.INTERACTIVE,
+                        fill: KhanUtil.INTERACTIVE
                     },
                     constraints: [
                         Interactive2.MovablePoint.constraints.bound(),
@@ -1526,10 +1526,10 @@ var InteractiveGraph = React.createClass({
                 ],
                 onMove: updateCoordProps,
                 normalStyle: {
-                    stroke: KhanUtil.BLUE
+                    stroke: KhanUtil.INTERACTIVE
                 },
                 highlightStyle: {
-                    stroke: KhanUtil.ORANGE
+                    stroke: KhanUtil.INTERACTING
                 }
             });
             _.invoke(points, "toFront");
@@ -1658,8 +1658,8 @@ var InteractiveGraph = React.createClass({
             return graphie.addMovablePoint(_.extend({
                 coord: coord,
                 normalStyle: {
-                    stroke: KhanUtil.BLUE,
-                    fill: KhanUtil.BLUE
+                    stroke: KhanUtil.INTERACTIVE,
+                    fill: KhanUtil.INTERACTIVE
                 }
             }, i === 1 ? {
                 snapX: graphie.snap[0],

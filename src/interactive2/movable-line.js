@@ -118,14 +118,16 @@ _.extend(MovableLine.prototype, {
         // _.extend is not deep.
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
-        // DEFAULT_PROPS/STATE!)
+        // DEFAULT_PROPERTIES!)
+        var normalColor = (state.static) ? KhanUtil.DYNAMIC :
+                                           KhanUtil.INTERACTIVE;
         state.normalStyle = _.extend({
-            stroke: KhanUtil.BLUE,
+            stroke: normalColor,
             "stroke-width": 2
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
-            stroke: KhanUtil.ORANGE,
+            stroke: KhanUtil.INTERACTING,
             "stroke-width": 3
         }, state.highlightStyle);
 

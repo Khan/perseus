@@ -160,15 +160,17 @@ _.extend(MovablePoint.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
+        var normalColor = (state.static) ? KhanUtil.DYNAMIC
+                                         : KhanUtil.INTERACTIVE;
         state.normalStyle = _.extend({
-            fill: KhanUtil.ORANGE,
-            stroke: KhanUtil.ORANGE,
+            fill: normalColor,
+            stroke: normalColor,
             scale: 1
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
-            fill: KhanUtil.ORANGE,
-            stroke: KhanUtil.ORANGE,
+            fill: KhanUtil.INTERACTING,
+            stroke: KhanUtil.INTERACTING,
             scale: 2
         }, state.highlightStyle);
 

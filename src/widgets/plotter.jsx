@@ -407,7 +407,7 @@ var Plotter = React.createClass({
                 constrainX: true
             },
             normalStyle: {
-                "stroke": KhanUtil.BLUE,
+                "stroke": KhanUtil.INTERACTIVE,
                 "stroke-width": 4
             }
         });
@@ -445,8 +445,8 @@ var Plotter = React.createClass({
                 constrainX: true
             },
             normalStyle: {
-                fill: KhanUtil.BLUE,
-                stroke: KhanUtil.BLUE
+                fill: KhanUtil.INTERACTIVE,
+                stroke: KhanUtil.INTERACTIVE
             },
             snapY: c.scaleY / self.props.snapsPerLine,
         });
@@ -483,8 +483,8 @@ var Plotter = React.createClass({
                      DOT_PLOT_POINT_SIZE / graphie.scale[1]
                  ],
                  {
-                    fill: KhanUtil.BLUE,
-                    stroke: KhanUtil.BLUE
+                    fill: KhanUtil.INTERACTIVE,
+                    stroke: KhanUtil.INTERACTIVE
                  });
         });
     },

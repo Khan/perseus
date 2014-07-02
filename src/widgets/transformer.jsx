@@ -133,7 +133,8 @@ var defaultTransformerProps = {
 };
 
 function colorForTool(tool) {
-    return tool.constraints.fixed ? KhanUtil.GRAY : KhanUtil.ORANGE;
+    return tool.constraints.fixed ? KhanUtil.DYNAMIC
+                                  : KhanUtil.INTERACTIVE;
 }
 
 
@@ -888,8 +889,8 @@ var ShapeTypes = {
 
             currentPoint = graphie.addMovablePoint({
                 coord: coord,
-                normalStyle: options.pointStyle,
-                highlightStyle: options.pointStyle,
+                normalStyle: options.normalPointStyle,
+                highlightStyle: options.highlightPointStyle,
                 constraints: {
                     fixed: !options.translatable && !options.editable
                 },
@@ -1116,8 +1117,8 @@ var ShapeTypes = {
                 var radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
                 perimeter = graphie.circle(coord0, radius, _.extend({
-                    stroke: KhanUtil.BLUE,
-                    "stroke-width": 2
+                    stroke: KhanUtil.DYNAMIC,
+                    "stroke-width": 2,
                 }, options.normalStyle));
             };
 
@@ -1778,9 +1779,15 @@ var Transformer = React.createClass({
                 });
                 return [dX, dY];
             },
-            pointStyle: {
-                fill: (translatable ? KhanUtil.ORANGE : KhanUtil.BLUE),
-                stroke: (translatable ? KhanUtil.ORANGE : KhanUtil.BLUE)
+            normalPointStyle: {
+                fill: (translatable ? KhanUtil.INTERACTIVE
+                                    : KhanUtil.DYNAMIC),
+                stroke: (translatable ? KhanUtil.INTERACTIVE
+                                      : KhanUtil.DYNAMIC)
+            },
+            highlightPointStyle: {
+                fill: KhanUtil.INTERACTING,
+                stroke: KhanUtil.INTERACTING
             }
         });
     },
@@ -1922,6 +1929,7 @@ var Transformer = React.createClass({
         // style from leaking into the rest of the shapes. Remove when
         // graphie.addMovableLineSegment doesn't leak styles anymore.
         var reflectLine;
+        var normalColor = colorForTool(options);
         graphie.style({}, function() {
             reflectLine = graphie.addMovableLineSegment({
                 fixed: options.constraints.fixed,
@@ -1932,15 +1940,12 @@ var Transformer = React.createClass({
                 snapY: graphie.snap[1],
                 extendLine: true,
                 normalStyle: {
-                    "stroke": (options.constraints.fixed ?
-                            KhanUtil.GRAY :
-                            KhanUtil.ORANGE
-                    ),
+                    "stroke": normalColor,
                     "stroke-width": 2,
                     "stroke-dasharray": "- "
                 },
                 highlightStyle: {
-                    "stroke": KhanUtil.ORANGE,
+                    "stroke": KhanUtil.INTERACTING,
                     "stroke-width": 2,
                     "stroke-dasharray": "- " // TODO(jack) solid doesn't
                                              // work here, but would be
@@ -1974,14 +1979,14 @@ var Transformer = React.createClass({
                 }
             },
             normalStyle: {
-                stroke: KhanUtil.ORANGE,
+                stroke: normalColor,
                 "stroke-width": 2,
-                fill: KhanUtil.ORANGE
+                fill: normalColor
             },
             highlightStyle: {
-                stroke: KhanUtil.ORANGE,
+                stroke: KhanUtil.INTERACTING,
                 "stroke-width": 3,
-                fill: KhanUtil.ORANGE
+                fill: KhanUtil.INTERACTING
             },
             onMoveEnd: updateReflectionTool
         });
@@ -2091,8 +2096,8 @@ var Transformer = React.createClass({
             },
             highlightStyle: {
                 "stroke-dasharray": "",
-                stroke: pointColor,
-                fill: pointColor
+                stroke: KhanUtil.INTERACTING,
+                fill: KhanUtil.INTERACTING
             }
         });
 
@@ -2158,16 +2163,16 @@ var Transformer = React.createClass({
                 });
             },
             circleNormalStyle: {
-                "stroke": KhanUtil.ORANGE,
+                "stroke": pointColor,
                 "stroke-width": 2,
                 "stroke-dasharray": "- ",
                 "fill-opacity": 0
             },
             circleHighlightStyle: {
-                "stroke": KhanUtil.ORANGE,
+                "stroke": KhanUtil.INTERACTING,
                 "stroke-width": 2,
                 "stroke-dasharray": "",
-                "fill": KhanUtil.ORANGE,
+                "fill": KhanUtil.INTERACTING,
                 "fill-opacity": 0.05
             },
             centerNormalStyle: {

@@ -176,7 +176,7 @@ var InteractiveNumberLine = React.createClass({
         }
 
         graphie.style({
-            stroke: KhanUtil.BLUE,
+            stroke: KhanUtil.INTERACTIVE,
             strokeWidth: 3.5
         }, function() {
             graphie.line([range[0], -0.2], [range[0], 0.2]);
@@ -186,7 +186,7 @@ var InteractiveNumberLine = React.createClass({
             }
         });
 
-        graphie.style({color: KhanUtil.BLUE}, function() {
+        graphie.style({color: KhanUtil.INTERACTIVE}, function() {
             self._label(range[0]);
             self._label(range[1]);
             if (range[0] < 0 && 0 < range[1] && !self.props.labelTicks) {
@@ -205,20 +205,20 @@ var InteractiveNumberLine = React.createClass({
         if (isInequality && (rel === "lt" || rel === "gt")) {
             pointSize = 5;
             pointStyle = {
-                stroke: KhanUtil.ORANGE,
+                stroke: KhanUtil.INTERACTING,
                 fill: KhanUtil._BACKGROUND,
                 "stroke-width": 3
             };
             highlightStyle = {
-                stroke: KhanUtil.ORANGE,
+                stroke: KhanUtil.INTERACTING,
                 fill: KhanUtil._BACKGROUND,
                 "stroke-width": 4
             };
         } else {
             pointSize = 4;
             pointStyle = highlightStyle = {
-                stroke: KhanUtil.ORANGE,
-                fill: KhanUtil.ORANGE
+                stroke: KhanUtil.INTERACTING,
+                fill: KhanUtil.INTERACTING
             };
         }
 
@@ -264,7 +264,7 @@ var InteractiveNumberLine = React.createClass({
                     end,
                     {
                         arrows: "->",
-                        stroke: KhanUtil.BLUE,
+                        stroke: KhanUtil.INTERACTIVE,
                         strokeWidth: 3.5
                     }
                 );

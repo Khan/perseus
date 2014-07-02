@@ -130,7 +130,7 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
     }
 
     // Render the text labels
-    graphie.style({color: KhanUtil.BLUE}, () => {
+    graphie.style({color: KhanUtil.DYNAMIC}, () => {
         results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel,
             base));
         results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel,
@@ -138,10 +138,16 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
     });
 
     // Render the labels' lines
-    graphie.style({stroke: KhanUtil.BLUE, strokeWidth: 3.5}, () => {
-        results.push(graphie.line([leftLabel, -0.2], [leftLabel, 0.2]));
-        results.push(graphie.line([rightLabel, -0.2], [rightLabel, 0.2]));
-    });
+    graphie.style(
+        {
+            stroke: KhanUtil.DYNAMIC,
+            strokeWidth: 3.5
+        },
+        () => {
+            results.push(graphie.line([leftLabel, -0.2], [leftLabel, 0.2]));
+            results.push(graphie.line([rightLabel, -0.2], [rightLabel, 0.2]));
+        }
+    );
 
     return results;
 });
@@ -281,9 +287,12 @@ var NumberLine = React.createClass({
 
     _renderNumberLinePoint: function(props) {
         var isOpen = _(["lt", "gt"]).contains(props.rel);
-        var style = {
-            stroke: KhanUtil.ORANGE,
-            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.ORANGE,
+        var normalStyle = {
+            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTIVE,
+            "stroke-width": isOpen ? 3 : 1
+        };
+        var highlightStyle = {
+            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTING,
             "stroke-width": isOpen ? 3 : 1
         };
 
@@ -299,8 +308,8 @@ var NumberLine = React.createClass({
                     return [x, coord[1]];
                 }
             ]}
-            normalStyle={style}
-            highlightStyle={style}
+            normalStyle={normalStyle}
+            highlightStyle={highlightStyle}
             onMove={(coord) => {
                 this.change({numLinePosition: coord[0]});
             }}
@@ -400,7 +409,7 @@ var NumberLine = React.createClass({
             var end = this._getInequalityEndpoint(props);
             var style = {
                 arrows: "->",
-                stroke: KhanUtil.BLUE,
+                stroke: KhanUtil.DYNAMIC,
                 strokeWidth: 3.5
             };
 
