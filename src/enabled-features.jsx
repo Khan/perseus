@@ -8,8 +8,8 @@ module.exports = {
     }).isRequired,
 
     defaults: {
-        highlight: false,
-        toolTipFormats: false,
+        highlight: true,
+        toolTipFormats: true,
         useMathQuill: false
     }
 };
