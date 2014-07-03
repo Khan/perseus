@@ -173,7 +173,6 @@ var AnswerAreaRenderer = React.createClass({
 
         return <QuestionParagraph>
             <WidgetContainer
-                enableHighlight={this.props.enabledFeatures.highlight}
                 shouldHighlight={shouldHighlight} >
                 {this.state.cls(_.extend({
                     ref: "widget",

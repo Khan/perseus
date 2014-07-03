@@ -197,7 +197,6 @@ var Renderer = React.createClass({
                 );
 
                 return <WidgetContainer
-                    enableHighlight={this.props.enabledFeatures.highlight}
                     shouldHighlight={shouldHighlight}>
                     {cls(_.extend({}, widgetProps, {
                             ref: id,

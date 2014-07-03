@@ -124,7 +124,6 @@ var EditorPage = React.createClass({
             developerMode: false,
             jsonMode: false,
             enabledFeatures: {
-                highlight: true,
                 toolTipFormats: true,
                 useMathQuill: true
             },
@@ -225,7 +224,6 @@ var EditorPage = React.createClass({
         var rendererConfig = _({
             item: this.toJSON(true),
             enabledFeatures: {
-                highlight: true,
                 toolTipFormats: true
             },
             apiOptions: _.extend(

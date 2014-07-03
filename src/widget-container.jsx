@@ -6,17 +6,13 @@ var cx = React.addons.classSet;
 var WidgetContainer = React.createClass({
     propTypes: {
         shouldHighlight: React.PropTypes.bool,
-        // Whether the feature is enabled:
-        enableHighlight: React.PropTypes.bool
     },
 
     render: function() {
-        var shouldHighlight = this.props.enableHighlight &&
-                this.props.shouldHighlight;
         var className = cx({
             "perseus-widget-container": true,
-            "widget-highlight": shouldHighlight,
-            "widget-nohighlight": !shouldHighlight,
+            "widget-highlight": this.props.shouldHighlight,
+            "widget-nohighlight": !this.props.shouldHighlight,
         });
 
         if (_.flatten([this.props.children.constructor]).length !== 1) {
