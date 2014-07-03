@@ -7,7 +7,6 @@ var _         = require("underscore");
 var cx        = React.addons.classSet;
 var PT = React.PropTypes;
 var TexButtons = require("./tex-buttons.jsx");
-var FocusedZone = require("./focused-zone.jsx");
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 var MathInput = React.createClass({
@@ -38,19 +37,56 @@ var MathInput = React.createClass({
                 onInsert={this.insert} />;
         }
 
-        return <FocusedZone handleLoseFocus={this.handleLoseFocus}
-                            focused={this.state.focused}
-                            tag={React.DOM.div}
-                            style={{display: "inline-block"}}>
+        return <div handleLoseFocus={this.handleLoseFocus}
+                    style={{display: "inline-block"}}>
             <div style={{display: 'inline-block'}}>
                 <span className={className}
                       ref="mathinput"
-                      onFocus={this.handleFocus} />
+                      onFocus={this.handleFocus}
+                      onBlur={this.handleBlur} />
             </div>
             <div style={{position: "relative"}}>
                 {buttons}
             </div>
-        </FocusedZone>;
+        </div>;
+    },
+
+    // handlers:
+    // keep track of two related bits of state:
+    // * this.state.focused - whether the buttons are currently shown
+    // * this.mouseDown - whether a mouse click is active that started in the
+    //   buttons div
+
+    handleFocus: function() {
+        this.setState({ focused: true });
+        // TODO(joel) fix properly - we should probably allow onFocus handlers
+        // to this property, but we need to work correctly with them.
+        // if (this.props.onFocus) {
+        //     this.props.onFocus();
+        // }
+    },
+
+    handleMouseDown: function(event) {
+        var focused = this.getDOMNode().contains(event.target);
+        this.mouseDown = focused;
+        if (!focused) {
+            this.setState({ focused: false });
+        }
+    },
+
+    handleMouseUp: function() {
+        // this mouse click started in the buttons div so we should focus the
+        // input
+        if (this.mouseDown) {
+            this.focus();
+        }
+        this.mouseDown = false;
+    },
+
+    handleBlur: function() {
+        if (!this.mouseDown) {
+            this.setState({ focused: false });
+        }
     },
 
     _shouldShowButtons: function() {
@@ -99,16 +135,15 @@ var MathInput = React.createClass({
         this.setState({ focused: false });
     },
 
-    handleFocus: function() {
-        this.setState({ focused: true });
-        // TODO(joel) fix properly - we should probably allow onFocus handlers
-        // to this property, but we need to work correctly with them.
-        // if (this.props.onFocus) {
-        //     this.props.onFocus();
-        // }
+    componentWillUnmount: function() {
+        window.removeEventListener("mousedown", this.handleMouseDown);
+        window.removeEventListener("mouseup", this.handleMouseUp);
     },
 
     componentDidMount: function() {
+        window.addEventListener("mousedown", this.handleMouseDown);
+        window.addEventListener("mouseup", this.handleMouseUp);
+
         // These options can currently only be set globally. (Hopefully this
         // will change at some point.) They appear safe to set multiple times.
 
