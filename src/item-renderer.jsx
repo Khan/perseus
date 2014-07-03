@@ -79,11 +79,11 @@ var ItemRenderer = React.createClass({
     },
 
     update: function() {
-        var enabledFeatures = _.extend({}, EnabledFeatures.defaults, {
-            // for temporary backcompat:
-            // TODO(jack): Remove once enabledFeatures is specified from webapp
-            highlight: this.props.enableHighlight || false,
-        }, this.props.enabledFeatures);
+        var enabledFeatures = _.extend(
+            {},
+            EnabledFeatures.defaults,
+            this.props.enabledFeatures
+        );
 
         var apiOptions = _.extend(
             {},

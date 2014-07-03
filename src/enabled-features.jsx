@@ -8,6 +8,7 @@ module.exports = {
     }).isRequired,
 
     defaults: {
+        // TODO(jack): Remove these two options
         highlight: true,
         toolTipFormats: true,
         useMathQuill: false
