@@ -3,6 +3,7 @@
 var React = require('react');
 var AnswerAreaEditor = require("./answer-area-editor.jsx");
 var Editor = require("./editor.jsx");
+var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
 var ItemEditor = React.createClass({
     propTypes: {
@@ -93,7 +94,8 @@ var ItemEditor = React.createClass({
     toJSON: function(skipValidation) {
         return {
             question: this.refs.questionEditor.toJSON(skipValidation),
-            answerArea: this.refs.answerAreaEditor.toJSON(skipValidation)
+            answerArea: this.refs.answerAreaEditor.toJSON(skipValidation),
+            itemDataVersion: ITEM_DATA_VERSION
         };
     },
 

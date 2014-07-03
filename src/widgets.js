@@ -36,6 +36,14 @@ var Widgets = {
         return widgets[name].version || {major: 0, minor: 0};
     },
 
+    getVersionVector: function() {
+        var version = {};
+        _.each(_.keys(widgets), function(name) {
+            version[name] = Widgets.getVersion(name);
+        });
+        return version;
+    },
+
     getPublicWidgets: function() {
         // TODO(alex): Update underscore.js so that _.pick can take a function.
         return _.pick(widgets, _.reject(_.keys(widgets), function(name) {
