@@ -187,7 +187,8 @@ Perseus.init({skipMathJax: false}).then(function() {
             },
             __onFocusChange: function(newObj, oldObj) {
                 console.log("onFocusChange", newObj.path, oldObj.path);
-            }
+            },
+            __staticRender: true
         }
     });
 

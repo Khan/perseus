@@ -64,57 +64,75 @@ var Expression = React.createClass({
     },
 
     render: function() {
-        // TODO(alex): Style this tooltip to be more consistent with other
-        // tooltips on the site; align to left middle (once possible)
-        var errorTooltip = <span className="error-tooltip">
-            <Tooltip
-                    className="error-text-container"
-                    horizontalPosition="right"
-                    horizontalAlign="left"
-                    verticalPosition="top"
-                    arrowSize={10}
-                    borderColor="#fcc335"
-                    show={this.state.showErrorText} >
-                <i
-                    className="icon-exclamation-sign error-icon"
-                    onMouseEnter={() => {
-                        this.setState({showErrorText: true});
-                    }}
-                    onMouseLeave={() => {
-                        this.setState({showErrorText: false});
-                    }}
-                    onClick={() => {
-                        // TODO(alex): Better error feedback for mobile
-                        this.setState({
-                            showErrorText: !this.state.showErrorText
-                        });
-                    }} />
-                <div className="error-text">
-                    {ERROR_MESSAGE}
-                </div>
-            </Tooltip>
-        </span>;
+        if (this.props.apiOptions.staticRender) {
+            var style = {
+                borderRadius: "5px",
+                padding: "4px",
+                background: "white",
+                border: "1px solid #a4a4a4"
+            };
+            return <span style={style}>
+                <TeX ref="input" onClick={this._handleFocus}>
+                    {this.props.value}
+                </TeX>
+            </span>;
+        } else {
+            // TODO(alex): Style this tooltip to be more consistent with other
+            // tooltips on the site; align to left middle (once possible)
+            var errorTooltip = <span className="error-tooltip">
+                <Tooltip
+                        className="error-text-container"
+                        horizontalPosition="right"
+                        horizontalAlign="left"
+                        verticalPosition="top"
+                        arrowSize={10}
+                        borderColor="#fcc335"
+                        show={this.state.showErrorText} >
+                    <i
+                        className="icon-exclamation-sign error-icon"
+                        onMouseEnter={() => {
+                            this.setState({showErrorText: true});
+                        }}
+                        onMouseLeave={() => {
+                            this.setState({showErrorText: false});
+                        }}
+                        onClick={() => {
+                            // TODO(alex): Better error feedback for mobile
+                            this.setState({
+                                showErrorText: !this.state.showErrorText
+                            });
+                        }} />
+                    <div className="error-text">
+                        {ERROR_MESSAGE}
+                    </div>
+                </Tooltip>
+            </span>;
 
-        var className = cx({
-            "perseus-widget-expression": true,
-            "show-error-tooltip": this.state.showErrorTooltip
-        });
+            var className = cx({
+                "perseus-widget-expression": true,
+                "show-error-tooltip": this.state.showErrorTooltip
+            });
 
-        return <span className={className}>
-            <MathInput
-                ref="input"
-                value={this.props.value}
-                onChange={this.change("value")}
-                convertDotToTimes={this.props.times}
-                buttonsVisible={this.props.buttonsVisible || "focused"}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur} />
-            {this.state.showErrorTooltip && errorTooltip}
-        </span>;
+            return <span className={className}>
+                <MathInput
+                    ref="input"
+                    value={this.props.value}
+                    onChange={this.change("value")}
+                    convertDotToTimes={this.props.times}
+                    buttonsVisible={this.props.buttonsVisible || "focused"}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur} />
+                {this.state.showErrorTooltip && errorTooltip}
+            </span>;
+        }
     },
 
     _handleFocus: function() {
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
+        if (this.props.apiOptions.staticRender) {
+            this.props.onFocus([], this.refs.input.getDOMNode());
+        } else {
+            this.props.onFocus([], this.refs.input.getInputDOMNode());
+        }
     },
 
     _handleBlur: function() {
@@ -140,7 +158,7 @@ var Expression = React.createClass({
                 this.errorTimeout = setTimeout(() => {
                     var apiResult = this.props.apiOptions.onInputError(
                         null, // reserved for some widget identifier
-                        this.props.currentValue,
+                        this.props.value,
                         ERROR_MESSAGE
                     );
                     if (apiResult !== false) {
@@ -195,7 +213,7 @@ _.extend(Expression, {
         if (result.empty) {
             var apiResult = onInputError(
                 null, // reserved for some widget identifier
-                state.currentValue,
+                state.value,
                 result.message
             );
             return {
@@ -337,7 +355,7 @@ var OldExpression = React.createClass({
     showError: function() {
         var apiResult = this.props.apiOptions.onInputError(
             null, // reserved for some widget identifier
-            this.props.currentValue,
+            this.props.value,
             ERROR_MESSAGE
         );
         if (apiResult !== false) {

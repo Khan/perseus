@@ -4,8 +4,10 @@ var React             = require('react');
 var BlurInput         = require("react-components/blur-input");
 var InfoTip           = require("react-components/info-tip");
 var Renderer          = require("../renderer.jsx");
+var TeX               = require("../tex.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 
+var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");
 var EnabledFeatures = require("../enabled-features.jsx");
 
@@ -87,7 +89,8 @@ var InputNumber = React.createClass({
             currentValue: "",
             size: "normal",
             answerType: "number",
-            enabledFeatures: EnabledFeatures.defaults
+            enabledFeatures: EnabledFeatures.defaults,
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -97,20 +100,38 @@ var InputNumber = React.createClass({
     },
 
     render: function() {
-        return <InputWithExamples
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                className={"perseus-input-size-" + this.props.size}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()}
-                interceptFocus={this._getInterceptFocus()}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur} />;
+        if (this.props.apiOptions.staticRender) {
+            var style = {
+                borderRadius: "5px",
+                padding: "4px",
+                background: "white",
+                border: "1px solid #a4a4a4"
+            };
+            return <span style={style}>
+                <TeX ref="input" onClick={this._handleFocus}>
+                    {this.props.currentValue}
+                </TeX>
+            </span>;
+        } else {
+            return <InputWithExamples
+                    ref="input"
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    className={"perseus-input-size-" + this.props.size}
+                    examples={this.examples()}
+                    shouldShowExamples={this.shouldShowExamples()}
+                    interceptFocus={this._getInterceptFocus()}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur} />;
+        }
     },
 
     _handleFocus: function() {
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
+        if (this.props.apiOptions.staticRender) {
+            this.props.onFocus([], this.refs.input.getDOMNode());
+        } else {
+            this.props.onFocus([], this.refs.input.getInputDOMNode());
+        }
     },
 
     _handleBlur: function() {

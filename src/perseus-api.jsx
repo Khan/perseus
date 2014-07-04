@@ -31,13 +31,15 @@ module.exports = {
         propTypes: React.PropTypes.shape({
             interceptInputFocus: React.PropTypes.func,
             onInputError: React.PropTypes.func.isRequired,
-            onFocusChange: React.PropTypes.func.isRequired
+            onFocusChange: React.PropTypes.func.isRequired,
+            staticRender: React.PropTypes.bool.isRequired
         }).isRequired,
 
         defaults: {
             interceptInputFocus: null,
             onInputError: function() { },
-            onFocusChange: function() { }
+            onFocusChange: function() { },
+            staticRender: false
         }
     },
     ClassNames: {

@@ -42,12 +42,13 @@ var TeX = React.createClass({
     getDefaultProps: function() {
         return {
             // Called after math is rendered or re-rendered
-            onRender: function() {}
+            onRender: function() {},
+            onClick: null
         };
     },
 
     render: function() {
-        return <span>
+        return <span onClick={this.props.onClick}>
             <span ref="mathjax" />
             <span ref="katex" />
         </span>;
