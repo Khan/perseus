@@ -118,7 +118,7 @@ _.extend(Movable.prototype, {
             startMouseCoord
         );
 
-        $(document).bind("vmousemove", function(e) {
+        var moveHandler = function(e) {
             e.preventDefault();
 
             var mouseCoord = graphie.getMouseCoord(e);
@@ -129,10 +129,11 @@ _.extend(Movable.prototype, {
             );
             self.draw();
             prevMouseCoord = mouseCoord;
-        });
+        };
 
-        $(document).bind("vmouseup", function(e) {
-            $(document).unbind("vmousemove vmouseup");
+        var upHandler = function(e) {
+            $(document).unbind("vmousemove", moveHandler);
+            $(document).unbind("vmouseup", upHandler);
             if (state.isHovering) {
                 self._fireEvent(
                     state.onClick,
@@ -149,7 +150,10 @@ _.extend(Movable.prototype, {
                 startMouseCoord
             );
             self.draw();
-        });
+        };
+
+        $(document).bind("vmousemove", moveHandler);
+        $(document).bind("vmouseup", upHandler);
     },
 
     /**
