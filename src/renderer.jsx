@@ -160,7 +160,11 @@ var Renderer = React.createClass({
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo) {
-        return mapObject(allWidgetInfo, Widgets.getRendererPropsForWidgetInfo);
+        return mapObject(allWidgetInfo, (editorProps) => {
+            return Widgets.getRendererPropsForWidgetInfo(_.extend({
+                problemNum: this.props.problemNum
+            }, editorProps));
+        });
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
