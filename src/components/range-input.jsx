@@ -3,6 +3,8 @@
 var React = require('react');
 var NumberInput = require("../components/number-input.jsx");
 
+var truth = () => true;
+
 /* A minor abstraction on top of NumberInput for ranges
  *
  */
@@ -22,7 +24,7 @@ var RangeInput = React.createClass({
 
     render: function() {
         var value = this.props.value;
-        var checkValidity = this.props.checkValidity || (() => true);
+        var checkValidity = this.props.checkValidity || truth;
 
         return <div className="range-input">
             [

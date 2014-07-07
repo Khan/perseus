@@ -29,7 +29,7 @@ var MultiButtonGroup = React.createClass({
     getDefaultProps: function() {
         return {
             values: []
-        }
+        };
     },
 
     render: function() {
