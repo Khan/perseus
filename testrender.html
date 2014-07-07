@@ -96,27 +96,38 @@ function initPerseus(Perseus) {
 var seedContent = {
     "hints": [
         {
-            "content": "$\\blue4 \\times \\pink3$ equals $\\blue4$ groups of $\\pink3$:  \n![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png) "
+            "content": "**Spain would fight against Britain, but only as an ally of France. The federal government would not have the power to regulate interstate commerce or to raise money through taxes until a new system of government was implemented under the Constitution in 1787.**\n\n"
+        },
+        {
+            "content": "By 1776, fighting between the British and the Continental Army commanded by George Washington was well underway. Congress was responsible for arming, equipping and paying the troops under Washington's command. \n\n[Watch this video to review these ideas] https://www.khanacademy.org/humanities/history/1600s-1800s/declaration-of-independence/v/background-and-introduction-to-the-united-states-declaration-of-independence"
         }
     ],
     "question": {
-        "content": " **Which image shows $4\\times3$?**\n\n[[☃ radio 1]]",
+        "content": "**Which of the following was a task that faced the Second Continental Congress in 1776?**\n",
         "widgets": {
+            "input-number 1": {
+                "type": "input-number"
+            },
             "radio 1": {
+                "type": "radio",
                 "options": {
                     "randomize": true,
                     "choices": [
                         {
-                            "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10288dbcc7102f77d51534712a2e0b18e15adca.png) ",
+                            "content": "Congress had to design a system of taxation for the nation.",
+                            "correct": false
+                        },
+                        {
+                            "content": "Congress had to determine the terms of a treaty with Spain. ",
+                            "correct": false
+                        },
+                        {
+                            "content": "Congress was responsible with providing aid and support for the army commanded by George Washington.",
                             "correct": true
                         },
                         {
                             "correct": false,
-                            "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)  \n![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)![](https://ka-perseus-graphie.s3.amazonaws.com/b6af737890f3a417b083e9e3179828aafdf98e45.png)"
-                        },
-                        {
-                            "correct": false,
-                            "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/53df5380b35bbd5e43530ad3211e83454ed530b6.png)"
+                            "content": "Congress had to determine trade agreements between the states. "
                         }
                     ]
                 }
@@ -124,9 +135,27 @@ var seedContent = {
         }
     },
     "answerArea": {
-        "type": "multiple",
+        "type": "radio",
         "options": {
-            "content": "Select the correct answer."
+            "choices": [
+                {
+                    "content": "Congress had to design a system of taxation for the nation.",
+                    "correct": false
+                },
+                {
+                    "content": "Congress had to determine the terms of a treaty with Spain. ",
+                    "correct": false
+                },
+                {
+                    "content": "Congress was responsible for providing aid and support for the army commanded by George Washington.",
+                    "correct": true
+                },
+                {
+                    "content": "Congress had to determine trade agreements between the states. ",
+                    "correct": false
+                }
+            ],
+            "randomize": true
         }
     }
 };

@@ -71,7 +71,7 @@ var Widgets = {
         // We do a clone here so that it's safe to mutate the input parameter
         // in propUpgrades functions (which I will probably accidentally do at
         // some point, and we would like to not break when that happens).
-        var newEditorProps = _.clone(oldWidgetInfo.options);
+        var newEditorProps = _.clone(oldWidgetInfo.options) || {};
 
         var upgradePropsMap = widgetExports.propUpgrades || {};
 
