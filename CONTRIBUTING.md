@@ -1,5 +1,7 @@
 ## Getting started locally
 
+Note: if you're a Khan employee and have the webapp repo checked out, you should check perseus out next to webapp, in your Khan folder.
+
     git clone git@github.com:Khan/perseus.git
     git submodule init
     git submodule update
