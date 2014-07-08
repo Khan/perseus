@@ -14,6 +14,7 @@
 
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
+
 <script>less = {env: 'development', logLevel: 1};</script>
 <script src="lib/less.js"></script>
 
@@ -108,19 +109,90 @@ window.Perseus = Perseus;
 
 var defaultQuestion = {
     "question": {
-        "content": "[[☃ input-number 1]]",
-        "images": {},
+        "content": "This is a rectangle.   \n![](https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png)\n\nLet's measure the $\\green{\\text{green line}}$ below using both rectangles and a centimeter ruler:\n\n![](https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png)\n\n**The line is [[☃ input-number 1]] rectangle(s) long. **  \n  \n**The line is [[☃ input-number 2]] centimeters long.**    \n\n**The length of each rectangle is [[☃ dropdown 1]] than a centimeter.**\n\n**So, it takes [[☃ dropdown 2]] rectangles than centimeters to measure the line.**",
+        "images": {
+            "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
+                "width": 400,
+                "height": 70
+            },
+            "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
+                "width": 425,
+                "height": 150
+            }
+        },
         "widgets": {
             "input-number 1": {
                 "type": "input-number",
                 "graded": true,
                 "options": {
-                    "value": "0",
+                    "value": 1,
                     "simplify": "required",
-                    "size": "normal",
+                    "size": "small",
                     "inexact": false,
                     "maxError": 0.1,
                     "answerType": "number"
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "input-number 2": {
+                "type": "input-number",
+                "graded": true,
+                "options": {
+                    "value": 2,
+                    "simplify": "required",
+                    "size": "small",
+                    "inexact": false,
+                    "maxError": 0.1,
+                    "answerType": "number"
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "dropdown 1": {
+                "type": "dropdown",
+                "graded": true,
+                "options": {
+                    "choices": [
+                        {
+                            "content": "shorter",
+                            "correct": false
+                        },
+                        {
+                            "content": "longer",
+                            "correct": true
+                        }
+                    ],
+                    "placeholder": ""
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "dropdown 2": {
+                "type": "dropdown",
+                "graded": true,
+                "options": {
+                    "choices": [
+                        {
+                            "content": "fewer",
+                            "correct": true
+                        },
+                        {
+                            "content": "more",
+                            "correct": false
+                        }
+                    ],
+                    "placeholder": ""
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
                 }
             }
         }
@@ -128,13 +200,23 @@ var defaultQuestion = {
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "",
+            "content": "Fill in the blanks and select the correct answers.  ",
             "images": {},
             "widgets": {}
         },
         "calculator": false
     },
-    "hints": []
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": [
+        {
+            "content": "The line is $\\red1$ rectangle long.  \nThe line is $\\blue2$ centimeters long.\n   \n**The length of each rectangle is *longer* than a centimeter.**\n\n**So, it takes *fewer* rectangles than centimeters to measure the line.**",
+            "images": {},
+            "widgets": {}
+        }
+    ]
 };
 
 var editor;
@@ -175,6 +257,7 @@ Perseus.init({skipMathJax: false}).then(function() {
             _.delay(callback, 1000, "http://fake.image.url");
         },
         apiOptions: {
+            fancyDropdowns: true,
             __onInputError: function() {
                 var args = _.toArray(arguments);
                 console.log.apply(console, ["onInputError:"].concat(args));

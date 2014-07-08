@@ -29,6 +29,7 @@
 module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
+            fancyDropdowns: React.PropTypes.bool.isRequired,
             interceptInputFocus: React.PropTypes.func,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
@@ -36,6 +37,7 @@ module.exports = {
         }).isRequired,
 
         defaults: {
+            fancyDropdowns: false,
             interceptInputFocus: null,
             onInputError: function() { },
             onFocusChange: function() { },

@@ -1,3 +1,120 @@
+@fancyDropdownColor: rgb(53, 143, 164);
+@fancyDropdownOptionHiddenMargin: -70px;
+@fancyDropdownOptionVisibleMargin: 6px;
+
 .perseus-widget-dropdown {
-    .interactive-component;
+    position: relative;
+
+    .fancy-select {
+        // Put some placeholder content hidden but always in the dropdown
+        // so that its text-baseline vertical positioning doesn't change
+        // when content is added
+        &:before {
+            font-size: 0; // to prevent it from moving the actual content
+            visibility: hidden;
+            content: "_";
+        }
+
+        border: 3px	solid @fancyDropdownColor;
+        border-radius: 40px;
+        color: @fancyDropdownColor;
+        font: 700 23pt avenir, sans-serif;
+        z-index: @zIndexInteractiveComponent;
+        padding: 0 60px 0 35px;
+        min-width: 40px;
+        min-height: 40px;
+        cursor: pointer;
+        white-space: nowrap;
+        user-select: none;
+        -webkit-user-select: none;
+
+        > .placeholder {
+            opacity: 0.5;
+        }
+
+        &.active {
+            opacity: 0.5;
+        }
+
+        &:after {
+            color: @fancyDropdownColor;
+            content: "\f0dd";
+            font: 24pt "FontAwesome";
+            position: absolute;
+            top: 0px;
+            right: 17px;
+        }
+    }
+
+    .fancy-select-options {
+        color: @fancyDropdownColor;
+        position: absolute;
+        z-index: @zIndexCurrentlyDragging;
+        min-width: 100%;
+        // For animating them downwards
+        overflow-y: hidden;
+    }
+
+    .fancy-option {
+        &:before {
+            content: "";
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            border: 3px solid @fancyDropdownColor;
+            margin-top: 4px;
+            margin-left: -30px;
+            border-radius: 25px;
+        }
+
+        cursor: pointer;
+        padding: 3px 20px 3px 38px;
+        font-size: 17pt;
+        line-height: 22pt;
+        background: rgba(255, 255, 255, 0.95);
+        border: 3px solid @fancyDropdownColor;
+        display: block;
+        border-radius: 20px;
+        min-width: 40px;
+        min-height: 30px;
+        margin-top: @fancyDropdownOptionHiddenMargin;
+
+        &.selected {
+            &:before {
+                background: @fancyDropdownColor;
+            }
+        }
+
+        &.active {
+            margin-top: @fancyDropdownOptionVisibleMargin;
+            -webkit-animation-name: perseus-fancy-dropdown-slideout;
+            -webkit-animation-duration: 0.35s;
+            -webkit-animation-timing-function: ease-out;
+        }
+
+        &.closed {
+            margin-top: @fancyDropdownOptionHiddenMargin;
+            -webkit-animation-name: perseus-fancy-dropdown-slidein;
+            -webkit-animation-duration: 0.2s;
+            -webkit-animation-timing-function: ease-in;
+        }
+    }
+}
+
+@-webkit-keyframes perseus-fancy-dropdown-slideout {
+    0% {
+        margin-top: @fancyDropdownOptionHiddenMargin;
+    }
+    100% {
+        margin-top: @fancyDropdownOptionVisibleMargin;
+    }
+}
+
+@-webkit-keyframes perseus-fancy-dropdown-slidein {
+    0% {
+        margin-top: @fancyDropdownOptionVisibleMargin;
+    }
+    100% {
+        margin-top: @fancyDropdownOptionHiddenMargin;
+    }
 }

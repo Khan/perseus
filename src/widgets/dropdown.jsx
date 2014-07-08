@@ -2,8 +2,11 @@
 
 var React = require('react');
 var InfoTip = require("react-components/info-tip");
+var FancySelect = require("../components/fancy-select.jsx");
+var FancyOption = FancySelect.Option;
 
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var ApiOptions = require("../perseus-api.jsx").Options;
 
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
@@ -12,36 +15,58 @@ var Dropdown = React.createClass({
     propTypes: {
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
         selected: React.PropTypes.number,
-        placeholder: React.PropTypes.string
+        placeholder: React.PropTypes.string,
+        apiOptions: ApiOptions.propTypes
     },
 
     getDefaultProps: function() {
         return {
             choices: [],
             selected: 0,
-            placeholder: ""
+            placeholder: "",
+            apiOptions: ApiOptions.defaults
         };
     },
 
     render: function() {
         var choices = this.props.choices.slice();
 
-        return <select
-                    onChange={this.onChange}
-                    onTouchStart={captureScratchpadTouchStart}
+        if (this.props.apiOptions.fancyDropdowns) {
+            return <FancySelect
+                    onChange={this._handleChange}
                     className="perseus-widget-dropdown"
                     value={this.props.selected}>
-            <option value={0} disabled>
-                {this.props.placeholder}
-            </option>
-            {choices.map(function(choice, i) {
-                return <option
-                        key={"" + (i + 1)}
-                        value={i + 1}>
-                    {choice}
-                </option>;
-            }, this)}
-        </select>;
+                <FancyOption value={0} visible={false}>
+                    <span className="placeholder">
+                        {this.props.placeholder}
+                    </span>
+                </FancyOption>
+                {choices.map((choice, i) => {
+                    // Always visible so we can animate them with css
+                    return <FancyOption value={i + 1} visible>
+                        {choice}
+                    </FancyOption>;
+                })}
+            </FancySelect>;
+
+        } else {
+            return <select
+                        onChange={this._handleChangeEvent}
+                        onTouchStart={captureScratchpadTouchStart}
+                        className="perseus-widget-dropdown"
+                        value={this.props.selected}>
+                <option value={0} disabled>
+                    {this.props.placeholder}
+                </option>
+                {choices.map((choice, i) => {
+                    return <option
+                            key={"" + (i + 1)}
+                            value={i + 1}>
+                        {choice}
+                    </option>;
+                })}
+            </select>;
+        }
     },
 
     focus: function() {
@@ -49,8 +74,11 @@ var Dropdown = React.createClass({
         return true;
     },
 
-    onChange: function(e) {
-        var selected = parseInt(e.target.value);
+    _handleChangeEvent: function(e) {
+        this._handleChange(parseInt(e.target.value));
+    },
+
+    _handleChange: function(selected) {
         this.props.onChange({selected: selected});
     },
 
