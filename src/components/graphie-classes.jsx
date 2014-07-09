@@ -58,6 +58,7 @@ var createClass = function(spec) {
     GraphieClass.displayName = spec.displayName;
 
     GraphieClass.prototype = new GraphieMovable(spec);
+    GraphieClass.prototype.constructor = GraphieClass;
 
     return function(props) {
         return new GraphieClass(props, _.rest(arguments));
