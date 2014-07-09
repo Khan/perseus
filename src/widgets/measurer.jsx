@@ -9,12 +9,20 @@ var NumberInput   = require("../components/number-input.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var RangeInput    = require("../components/range-input.jsx");
 
+var defaultImage = {
+    url: null,
+    top: 0,
+    left: 0
+};
+
 var Measurer = React.createClass({
     propTypes: {
         box: React.PropTypes.arrayOf(React.PropTypes.number),
-        imageUrl: React.PropTypes.string,
-        imageTop: React.PropTypes.number,
-        imageLeft: React.PropTypes.number,
+        image: React.PropTypes.shape({
+            url: React.PropTypes.string,
+            top: React.PropTypes.number,
+            left: React.PropTypes.number
+        }),
         showProtractor: React.PropTypes.bool,
         protractorX: React.PropTypes.number,
         protractorY: React.PropTypes.number,
@@ -28,9 +36,7 @@ var Measurer = React.createClass({
     getDefaultProps: function() {
         return {
             box: [480, 480],
-            imageUrl: null,
-            imageTop: 0,
-            imageLeft: 0,
+            image: {},
             showProtractor: true,
             protractorX: 7.5,
             protractorY: 0.5,
@@ -47,18 +53,19 @@ var Measurer = React.createClass({
     },
 
     render: function() {
+        var image = _.extend({}, defaultImage, this.props.image);
         return <div
                 className={
                     "perseus-widget perseus-widget-measurer " +
                     "graphie-container above-scratchpad"
                 }
                 style={{width: this.props.box[0], height: this.props.box[1]}}>
-            {this.props.imageUrl &&
+            {image.url &&
                 <img
-                    src={this.props.imageUrl}
+                    src={image.url}
                     style={{
-                        top: this.props.imageTop + "px",
-                        left: this.props.imageLeft + "px"
+                        top: image.top,
+                        left: image.left
                     }} />
             }
             <div className="graphie" ref="graphieDiv" />
@@ -166,9 +173,11 @@ var MeasurerEditor = React.createClass({
 
     propTypes: {
         box: React.PropTypes.arrayOf(React.PropTypes.number),
-        imageUrl: React.PropTypes.string,
-        imageTop: React.PropTypes.number,
-        imageLeft: React.PropTypes.number,
+        image: React.PropTypes.shape({
+            url: React.PropTypes.string,
+            top: React.PropTypes.number,
+            left: React.PropTypes.number
+        }),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
@@ -180,9 +189,7 @@ var MeasurerEditor = React.createClass({
     getDefaultProps: function() {
         return {
             box: [480, 480],
-            imageUrl: null,
-            imageTop: 0,
-            imageLeft: 0,
+            image: {},
             showProtractor: true,
             showRuler: false,
             rulerLabel: "",
@@ -193,33 +200,34 @@ var MeasurerEditor = React.createClass({
     },
 
     render: function() {
+        var image = _.extend({}, defaultImage, this.props.image);
+
         return <div className="perseus-widget-measurer">
             <div>Image displayed under protractor and/or ruler:</div>
             <div>URL:{' '}
                 <input type="text"
                         className="perseus-widget-measurer-url"
                         ref="image-url"
-                        defaultValue={this.props.imageUrl}
-                        onChange={() => this.change("imageUrl",
-                            this.refs["image-url"].getDOMNode().value)} />
+                        defaultValue={image.url}
+                        onChange={this._changeUrl} />
             <InfoTip>
                 <p>Create an image in graphie, or use the "Add image" function
                 to create a background.</p>
             </InfoTip>
             </div>
-            {this.props.imageUrl && <div className="perseus-widget-row">
+            {image.url && <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     <NumberInput label="Pixels from top:"
                         placeholder={0}
-                        onChange={this.change("imageTop")}
-                        value={this.props.imageTop}
+                        onChange={this._changeTop}
+                        value={image.top}
                         useArrowKeys={true} />
                 </div>
                 <div className="perseus-widget-right-col">
                     <NumberInput label="Pixels from left:"
                         placeholder={0}
-                        onChange={this.change("imageLeft")}
-                        value={this.props.imageLeft}
+                        onChange={this._changeLeft}
+                        value={image.left}
                         useArrowKeys={true} />
                 </div>
             </div>}
@@ -300,6 +308,24 @@ var MeasurerEditor = React.createClass({
         </div>;
     },
 
+    _changeUrl: function(e) {
+        this._changeImage("url", e.target.value);
+    },
+
+    _changeTop: function(newTop) {
+        this._changeImage("top", newTop);
+    },
+
+    _changeLeft: function(newLeft) {
+        this._changeImage("left", newLeft);
+    },
+
+    _changeImage: function(subProp, newValue) {
+        var image = _.clone(this.props.image);
+        image[subProp] = newValue;
+        this.change("image", image);
+    },
+
     renderLabelChoices: function(choices) {
         return _.map(choices, function(nameAndValue) {
             return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
@@ -307,9 +333,27 @@ var MeasurerEditor = React.createClass({
     }
 });
 
+propUpgrades = {
+    1: (v0props) => {
+        var v1props = _(v0props).chain()
+            .omit("imageUrl", "imageTop", "imageLeft")
+            .extend({
+                image: {
+                    url: v0props.imageUrl,
+                    top: v0props.imageTop,
+                    left: v0props.imageLeft
+                }
+            })
+            .value();
+        return v1props;
+    }
+};
+
 module.exports = {
     name: "measurer",
     displayName: "Measurer",
     widget: Measurer,
-    editor: MeasurerEditor
+    editor: MeasurerEditor,
+    version: {major: 1, minor: 0},
+    propUpgrades: propUpgrades
 };
