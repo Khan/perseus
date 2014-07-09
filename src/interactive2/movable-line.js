@@ -146,10 +146,6 @@ _.extend(MovableLine.prototype, {
             state.mouseTarget = null;
         }
 
-        var initialRefCoord;
-        var prevRefCoord;
-        var totalDelta;
-
         // The movable that handles mouse events for us
         self.movable.modify(_.extend({}, state, {
             mouseTarget: state.mouseTarget,
@@ -164,9 +160,9 @@ _.extend(MovableLine.prototype, {
             remove: null,
 
             onMoveStart: function() {
-                initialRefCoord = self.coord(0);
-                prevRefCoord = initialRefCoord;
-                totalDelta = [0, 0];
+                self._initialRefCoord = self.coord(0);
+                self._prevRefCoord = self._initialRefCoord;
+                self._totalDelta = [0, 0];
 
                 self._fireEvent(self.state.onMoveStart,
                     self.coord(0),
@@ -176,15 +172,15 @@ _.extend(MovableLine.prototype, {
 
             onMove: function(mouseCoord, prevMouseCoord) {
                 var delta = kvector.subtract(mouseCoord, prevMouseCoord);
-                totalDelta = kvector.add(totalDelta, delta);
-                var refCoord = kvector.add(initialRefCoord, totalDelta);
+                self._totalDelta = kvector.add(self._totalDelta, delta);
+                var refCoord = kvector.add(self._initialRefCoord, self._totalDelta);
 
-                refCoord = self._applyConstraints(refCoord, prevRefCoord);
+                refCoord = self._applyConstraints(refCoord, self._prevRefCoord);
                 if (refCoord === false) {
                     return;
                 }
 
-                var actualDelta = kvector.subtract(refCoord, prevRefCoord);
+                var actualDelta = kvector.subtract(refCoord, self._prevRefCoord);
 
                 if (self.state.updatePoints) {
                     _.each(self.state.points, function(point) {
@@ -195,14 +191,14 @@ _.extend(MovableLine.prototype, {
                     });
                 }
 
-                self._fireEvent(self.state.onMove, refCoord, prevRefCoord);
-                prevRefCoord = refCoord;
+                self._fireEvent(self.state.onMove, refCoord, self._prevRefCoord);
+                self._prevRefCoord = refCoord;
             },
 
             onMoveEnd: function() {
                 self._fireEvent(self.state.onMoveEnd,
-                    prevRefCoord,
-                    initialRefCoord
+                    self._prevRefCoord,
+                    self._initialRefCoord
                 );
             },
         }));

@@ -13,6 +13,7 @@
 var InteractiveUtil = require("./interactive-util.js");
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
+var assert = InteractiveUtil.assert;
 var knumber = KhanUtil.knumber;
 var kpoint = KhanUtil.kpoint;
 
@@ -102,6 +103,7 @@ _.extend(Movable.prototype, {
      * Simulates a mouse grab event on the movable object.
      */
     grab: function(coord) {
+        assert(kpoint.is(coord));
         var self = this;
         var graphie = self.graphie;
         var state = self.state;
@@ -208,7 +210,8 @@ _.extend(Movable.prototype, {
                 }
                 e.preventDefault();
 
-                self.grab();
+                var mouseCoord = graphie.getMouseCoord(e);
+                self.grab(mouseCoord);
             });
         }
 
