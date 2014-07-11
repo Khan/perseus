@@ -403,7 +403,6 @@ var Util = {
         return urlParams;
     },
 
-
     /** 
      * Query string adder
      * Works for URLs without #.
@@ -421,6 +420,22 @@ var Util = {
         }
     },
 
+    /**
+     * A more strict encodeURIComponent that escapes `()'!`s
+     * Especially useful for creating URLs that are embeddable in markdown
+     *
+     * Adapted from
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
+     * This function and the above original available under the
+     * CC-BY-SA 2.5 license.
+     */
+    strongEncodeURIComponent: function(str) {
+        return encodeURIComponent(str).
+            // Note that although RFC3986 reserves "!", RFC5987 does not,
+            // so we do not need to escape it
+            replace(/['()!]/g, window.escape). // i.e., %27 %28 %29
+            replace(/\*/g, '%2A');
+    },
 
     // There are certain widgets where we don't want to provide the "answered"
     // highlight indicator.

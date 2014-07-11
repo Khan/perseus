@@ -235,7 +235,7 @@ $('#scorePreview').on('click', function() {
 });
 $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
-        encodeURIComponent(JSON.stringify(editor));
+        Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor));
     e.preventDefault();
 });
 $('#problemNum').text(problemNum);
