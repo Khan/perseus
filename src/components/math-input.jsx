@@ -37,8 +37,7 @@ var MathInput = React.createClass({
                 onInsert={this.insert} />;
         }
 
-        return <div handleLoseFocus={this.handleLoseFocus}
-                    style={{display: "inline-block"}}>
+        return <div style={{display: "inline-block"}}>
             <div style={{display: 'inline-block'}}>
                 <span className={className}
                       ref="mathinput"
@@ -129,10 +128,6 @@ var MathInput = React.createClass({
         // MathQuill object for that node. It is stable - will always return
         // the same object when called on the same DOM node.
         return MathQuill.MathField(this.refs.mathinput.getDOMNode(), options);
-    },
-
-    handleLoseFocus: function() {
-        this.setState({ focused: false });
     },
 
     componentWillUnmount: function() {
