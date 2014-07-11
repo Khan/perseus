@@ -13,8 +13,6 @@ var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var knumber = KhanUtil.knumber;
-
 var TextInput = React.createClass({
     render: function() {
         return <input

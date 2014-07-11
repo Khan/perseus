@@ -403,6 +403,25 @@ var Util = {
         return urlParams;
     },
 
+
+    /** 
+     * Query string adder
+     * Works for URLs without #.
+     * Original from:
+     * http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
+     */
+    updateQueryString: function(uri, key, value) {
+        value = encodeURIComponent(value);
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        } else {
+            return uri + separator + key + "=" + value;
+        }
+    },
+
+
     // There are certain widgets where we don't want to provide the "answered"
     // highlight indicator.
     // The issue with just using the `graded` flag on questions is that showing

@@ -6,6 +6,7 @@ _.each([
     require("./widgets/example-widget.jsx"),
     require("./widgets/example-graphie-widget.jsx"),
     require("./widgets/expression.jsx"),
+    require("./widgets/iframe.jsx"),
     require("./widgets/input-number.jsx"),
     require("./widgets/interactive-graph.jsx"),
     require("./widgets/interactive-number-line.jsx"),
