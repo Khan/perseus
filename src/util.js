@@ -430,11 +430,11 @@ var Util = {
      * CC-BY-SA 2.5 license.
      */
     strongEncodeURIComponent: function(str) {
-        return encodeURIComponent(str).
+        return encodeURIComponent(str)
             // Note that although RFC3986 reserves "!", RFC5987 does not,
             // so we do not need to escape it
-            replace(/['()!]/g, window.escape). // i.e., %27 %28 %29
-            replace(/\*/g, '%2A');
+            .replace(/['()!]/g, window.escape) // i.e., %27 %28 %29
+            .replace(/\*/g, '%2A');
     },
 
     // There are certain widgets where we don't want to provide the "answered"
