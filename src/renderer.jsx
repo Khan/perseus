@@ -305,8 +305,6 @@ var Renderer = React.createClass({
             this.props.apiOptions
         );
 
-        var oldWidgetIds = [];
-
         // XXX(alpert): smartypants gets called on each text node before it's
         // added to the DOM tree, so we override it to insert the math and
         // widgets.
