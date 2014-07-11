@@ -260,5 +260,7 @@ module.exports = {
     name: "iframe",
     displayName: "Iframe",
     widget: Iframe,
+    // Let's not expose it to all content creators yet
+    hidden: true,
     editor: IframeEditor
 };
