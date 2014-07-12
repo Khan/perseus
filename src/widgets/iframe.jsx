@@ -9,7 +9,7 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-var React = require('react');
+var React = require("react");
 
 var BlurInput    = require("react-components/blur-input");
 var Changeable = require("../mixins/changeable.jsx");
@@ -69,11 +69,11 @@ var Iframe = React.createClass({
         var url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
-        if (url.length && url.indexOf('http') !== 0) {
-            url = 'http://khanacademy.org/cs/program/' + url +
-                    '/embedded?buttons=no&embed=yes&editor=no&author=no';
+        if (url.length && url.indexOf("http") !== 0) {
+            url = "http://khanacademy.org/cs/program/" + url +
+                    "/embedded?buttons=no&embed=yes&editor=no&author=no";
             // Origin is used by output.js in deciding to send messages
-            updateQueryString('origin', window.location.origin);
+            url = updateQueryString(url, "origin", window.location.origin);
         }
 
         // Turn array of [{name: "", value: ""}] into object
@@ -85,7 +85,7 @@ var Iframe = React.createClass({
                 }
             });
             // This becomes available to programs as Program.settings()
-            url = updateQueryString(url, 'settings', JSON.stringify(settings));
+            url = updateQueryString(url, "settings", JSON.stringify(settings));
         }
 
         // We sandbox the iframe so that we whitelist only the functionality
@@ -216,10 +216,10 @@ var IframeEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            url: '',
+            url: "",
             settings: [{name: "", value: ""}],
-            width: '400',
-            height: '400'
+            width: 400,
+            height: 400
         };
     },
 
