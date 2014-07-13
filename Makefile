@@ -1,6 +1,7 @@
 .PHONY: help build server all subperseus put put-js put-css install clean lint test jest
 PORT=9000
 WEBAPP=../webapp
+IOS=../iOS
 
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
@@ -33,9 +34,14 @@ demo:
 
 all: subperseus
 
+subperseus-ios: clean install build put-js-ios
+
 subperseus: clean install build put
 
 put: put-js put-css
+
+put-js-ios: build
+	cp $(PERSEUS_BUILD_JS) "$(IOS)/Resources/webview/javascript/perseus-package/perseus.js"
 
 put-js: build
 	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
