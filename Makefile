@@ -26,7 +26,7 @@ demo:
 	git checkout gh-pages
 	git reset --hard origin/master
 	make build
-	git add -f build/perseus.js
+	git add -f $(PERSEUS_BUILD_JS)
 	git commit -nm 'demo update'
 	git checkout master
 	git push -f origin gh-pages:gh-pages
