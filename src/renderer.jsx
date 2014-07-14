@@ -258,6 +258,7 @@ var Renderer = React.createClass({
 
     render: function() {
         var content = this.state.jiptContent || this.props.content;
+        var widgetIds = this.widgetIds = [];
 
         if (typeof KA !== "undefined" && KA.language === "en-PT" &&
                 this.state.jiptContent == null &&
@@ -297,7 +298,6 @@ var Renderer = React.createClass({
         var extracted = Renderer.extractMathAndWidgets(content);
         var markdown = extracted[0];
         var savedMath = extracted[1];
-        var widgetIds = this.widgetIds = [];
 
         var apiOptions = _.extend(
             {},
