@@ -15,6 +15,7 @@ var MathInput = React.createClass({
         onChange: PT.func.isRequired,
         convertDotToTimes: PT.bool,
         buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
+        buttonSets: TexButtons.buttonSetsType.isRequired,
         onFocus: PT.func,
         onBlur: PT.func
     },
@@ -32,6 +33,7 @@ var MathInput = React.createClass({
         var buttons = null;
         if (this._shouldShowButtons()) {
             buttons = <TexButtons
+                sets={this.props.buttonSets}
                 className="math-input-buttons absolute"
                 convertDotToTimes={this.props.convertDotToTimes}
                 onInsert={this.insert} />;

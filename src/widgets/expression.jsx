@@ -29,6 +29,7 @@ var Expression = React.createClass({
         value: React.PropTypes.string,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        buttonSets: TexButtons.buttonSetsType,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes
@@ -39,6 +40,7 @@ var Expression = React.createClass({
             value: "",
             times: false,
             functions: [],
+            buttonSets: ["basic"],
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
@@ -120,6 +122,7 @@ var Expression = React.createClass({
                     onChange={this.change("value")}
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
+                    buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur} />
                 {this.state.showErrorTooltip && errorTooltip}
@@ -516,6 +519,7 @@ var ExpressionEditor = React.createClass({
         form: React.PropTypes.bool,
         simplify: React.PropTypes.bool,
         times: React.PropTypes.bool,
+        buttonSets: TexButtons.buttonSetsType,
         functions: React.PropTypes.arrayOf(React.PropTypes.string)
     },
 
@@ -525,6 +529,7 @@ var ExpressionEditor = React.createClass({
             form: false,
             simplify: false,
             times: false,
+            buttonSets: ["basic"],
             functions: ["f", "g", "h"]
         };
     },
@@ -562,13 +567,23 @@ var ExpressionEditor = React.createClass({
             times: this.props.times,
             functions: this.props.functions,
             onChange: (newProps) => this.change(newProps),
-            buttonsVisible: "never"
+            buttonsVisible: "never",
+            buttonSets: this.props.buttonSets
         };
 
         var expression = this.state.isTex ? Expression : OldExpression;
 
-        // TODO(joel) - move buttons outside of the label so they don't weirdly
-        // focus
+        // checkboxes to choose which sets of input buttons are shown
+        var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
+            return <label>
+                <input type="checkbox"
+                       checked={_.contains(this.props.buttonSets, name)}
+                       disabled={name === "basic"}
+                       onChange={() => this.handleButtonSet(name)} />
+                {name}
+            </label>;
+        });
+
         return <div>
             <div><label>
                 Correct answer:{' '}
@@ -576,8 +591,14 @@ var ExpressionEditor = React.createClass({
             </label></div>
             {this.state.isTex && <TexButtons
                 className="math-input-buttons"
+                sets={this.props.buttonSets}
                 convertDotToTimes={this.props.times}
                 onInsert={this.handleTexInsert} />}
+
+            <div>
+                Button sets:
+                {buttonSetChoices}
+            </div>
 
             <div>
                 <PropCheckBox
@@ -639,6 +660,19 @@ var ExpressionEditor = React.createClass({
         </div>;
     },
 
+    handleButtonSet: function(changingName) {
+        var buttonSetNames = _(TexButtons.buttonSets).keys();
+
+        // Filter to preserve order - using .union and .difference would always
+        // move the last added button set to the end.
+        var buttonSets = _(buttonSetNames).filter(set => {
+            return _(this.props.buttonSets).contains(set) !==
+                   (set === changingName);
+        });
+
+        this.props.onChange({ buttonSets });
+    },
+
     handleTexInsert: function(str) {
         this.refs.expression.insert(str);
     },
@@ -664,6 +698,6 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions");
+        return _.pick(editorProps, "times", "functions", "buttonSets");
     }
 };
