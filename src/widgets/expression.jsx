@@ -699,5 +699,6 @@ module.exports = {
     editor: ExpressionEditor,
     transform: (editorProps) => {
         return _.pick(editorProps, "times", "functions", "buttonSets");
-    }
+    },
+    version: { major: 0, minor: 1 }
 };
