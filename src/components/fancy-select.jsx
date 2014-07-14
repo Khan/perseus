@@ -71,7 +71,9 @@ var FancySelect = React.createClass({
             // when closing/opening, and not on page load
             // If we just use active, we get a closing animation
             // when the element loads :(.
-            closed: false
+            closed: false,
+            // Used to namespace $(document) event handlers
+            selectorNamespace: _.uniqueId("fancy")
         };
     },
 
@@ -147,6 +149,7 @@ var FancySelect = React.createClass({
                     key={i}
                     style={option.style}
                     onClick={() => {
+                        this._unbindClickHandler();
                         this.props.onChange(option.value, option);
                         this.setState({
                             active: false,
@@ -174,11 +177,39 @@ var FancySelect = React.createClass({
     _swapActive: function() {
         var active = !this.state.active;
         var closed = !active;
+
+        // Prepare to detect clicks outside of the dropdown
+        if (active) {
+            this._bindClickHandler();
+        } else {
+            this._unbindClickHandler();
+        }
+
         this.setState({
             active: active,
             closed: closed
         });
-    }
+    },
+
+    _bindClickHandler: function() {
+        // Close the dropdown when the user clicks elsewhere
+        $(document).on("vclick." + this.state.selectorNamespace, (e) => {
+            // Detect whether the target has our React DOM node as a parent
+            var $this = $(this.getDOMNode());
+            var $closestWidget = $(e.target).closest($this);
+            if (!$closestWidget.length) {
+                this._swapActive();
+            }
+        });
+    },
+
+    _unbindClickHandler: function() {
+        $(document).off("." + this.state.selectorNamespace);
+    },
+
+    componentWillUnmount: function() {
+        this._unbindClickHandler();
+    },
 });
 
 FancySelect.Option = FancyOption;
