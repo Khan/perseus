@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var React = require("react");
+var React = require('react');
 var InfoTip = require("react-components/info-tip");
 var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
@@ -110,6 +110,7 @@ var Plotter = React.createClass({
         // is outside React, it makes it easier to do this.
         self.graphie = graphie;
         self.graphie.pics = [];
+        self.mousedownPic = false;
 
         var isBar = self.props.type === BAR,
             isLine = self.props.type === LINE,
@@ -201,6 +202,10 @@ var Plotter = React.createClass({
         self.setupCategories(config);
 
         if (isTiledPlot) {
+            self.mousedownPic = false;
+            $(document).on("mouseup.plotterPic", function() {
+                self.mousedownPic = false;
+            });
             self.drawPicHeights(self.state.values, prevState.values);
         }
 
@@ -517,18 +522,16 @@ var Plotter = React.createClass({
                     coord[0], coord[1], c.picBoxWidthPx, c.picBoxHeight);
             $(mouseRect[0])
                 .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
-                .on("vmousedown", function(e) {
-                    e.preventDefault();
+                .on("mousedown", function(e) {
+                    self.mousedownPic = true;
                     self.whichPicClicked = i;
                     self.setPicHeight(i, topY);
-                    $(document).on("vmousemove.plotTile", function(e) {
-                        e.preventDefault();
-                        var newTopY = graphie.getMouseCoord(e)[1];
-                        self.setPicHeight(self.whichPicClicked, newTopY);
-                        $(document).on("vmouseup.plotTile", function(e) {
-                            $(document).unbind(".plotTile");
-                        });
-                    });
+                    e.preventDefault();
+                })
+                .on("mouseover", function() {
+                    if (self.mousedownPic) {
+                        self.setPicHeight(self.whichPicClicked, topY);
+                    }
                 });
 
             if (j < 0) {
