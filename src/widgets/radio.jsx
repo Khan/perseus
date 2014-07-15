@@ -56,28 +56,7 @@ var BaseRadio = React.createClass({
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
                 var className = cx(classSet);
 
-                return <li className={className} key={i}><div>
-                    <span className="checkbox">
-                        <input
-                            ref={"radio" + i}
-                            type={inputType}
-                            name={radioGroupName}
-                            checked={choice.checked}
-                            onChange={(e) => {
-                                this.checkOption(i, e.target.checked);
-                            }} />
-                    </span>
-                    {/* A pseudo-label. <label> is slightly broken on iOS,
-                        so this works around that. Unfortunately, it is
-                        simplest to just work around that everywhere. */}
-                    <span
-                            className={
-                                "interactive-component " +
-                                ApiClassNames.RADIO.OPTION_CONTENT
-                            }
-                            style={{
-                                cursor: "default",
-                            }}
+                return <li className={className} key={i}
                             onTouchStart={!this.props.labelWrap ?
                                 null : captureScratchpadTouchStart
                             }
@@ -91,14 +70,41 @@ var BaseRadio = React.createClass({
                                     )
                                 );
                             }}>
-                        {content}
-                    </span>
-                    {Exercises.cluesEnabled === "cluesEnabled" &&
-                        this.props.showClues && choice.checked &&
-                        <div className="perseus-radio-clue">
-                            {choice.clue}
-                        </div>}
-                </div></li>;
+                    <div>
+                        <span className="checkbox">
+                            <input
+                                ref={"radio" + i}
+                                type={inputType}
+                                name={radioGroupName}
+                                checked={choice.checked}
+                                onClick={(e) => {
+                                    // Avoid sending this to the parent
+                                    e.stopPropagation();
+                                }}
+                                onChange={(e) => {
+                                    this.checkOption(i, e.target.checked);
+                                }} />
+                        </span>
+                        {/* A pseudo-label. <label> is slightly broken on iOS,
+                            so this works around that. Unfortunately, it is
+                            simplest to just work around that everywhere. */}
+                        <span
+                                className={
+                                    "interactive-component " +
+                                    ApiClassNames.RADIO.OPTION_CONTENT
+                                }
+                                style={{
+                                    cursor: "default",
+                                }}>
+                            {content}
+                        </span>
+                        {Exercises.cluesEnabled === "cluesEnabled" &&
+                            this.props.showClues && choice.checked &&
+                            <div className="perseus-radio-clue">
+                                {choice.clue}
+                            </div>}
+                    </div>
+                </li>;
 
             }, this)}
         </ul>;
