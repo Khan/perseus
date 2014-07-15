@@ -84,6 +84,7 @@ var defaultTransformerProps = {
     gradeEmpty: false,
     graphMode: "interactive",
     listMode: "dynamic",
+    graph: {},
     tools: {
         translation: {
             enabled: true,
@@ -1599,11 +1600,8 @@ var AddTransformBar = React.createClass({
 });
 
 var Transformer = React.createClass({
-    // TODO (jack): These should be refactored into a nice object at the top
-    // so that we don't have all this duplication
     getDefaultProps: function() {
         return _.defaults({
-            graph: {},
             transformations: []
         }, defaultTransformerProps);
     },
@@ -2394,9 +2392,7 @@ var TransformerEditor = React.createClass({
     // TODO (jack): These should be refactored into a nice object at the top
     // so that we don't have all this duplication
     getDefaultProps: function() {
-        return _.defaults({
-            graph: defaultGraphProps(this.props.graph, 340)
-        }, defaultTransformerProps);
+        return defaultTransformerProps;
     },
 
     render: function() {

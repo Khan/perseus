@@ -298,19 +298,11 @@ var InteractiveGraph = React.createClass({
     },
 
     getDefaultProps: function() {
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
-        var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultBoxSize);
-        var snapStep = this.props.snapStep ||
-                   Util.snapStepFromGridStep(gridStep);
         return {
             labels: ["x", "y"],
-            range: range,
+            range: [[-10, 10], [-10, 10]],
             box: [defaultBoxSize, defaultBoxSize],
-            step: step,
-            gridStep: gridStep,
-            snapStep: snapStep,
+            step: [1, 1],
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
             showProtractor: false,
@@ -610,6 +602,15 @@ var InteractiveGraph = React.createClass({
             this.handleAddPointsMouseDown :
             null;
 
+        var gridStep = this.props.gridStep || Util.getGridStep(
+                this.props.range,
+                this.props.step,
+                defaultBoxSize
+        );
+        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
+            gridStep
+        );
+
         return <div className={"perseus-widget " +
                     "perseus-widget-interactive-graph"}
                     style={{
@@ -623,8 +624,8 @@ var InteractiveGraph = React.createClass({
                 labels={this.props.labels}
                 range={this.props.range}
                 step={this.props.step}
-                gridStep={this.props.gridStep}
-                snapStep={this.props.snapStep}
+                gridStep={gridStep}
+                snapStep={snapStep}
                 markings={this.props.markings}
                 backgroundImage={this.props.backgroundImage}
                 showProtractor={this.props.showProtractor}
@@ -2311,19 +2312,11 @@ var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
     getDefaultProps: function() {
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
-        var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultEditorBoxSize);
-        var snapStep = this.props.snapStep ||
-                   Util.snapStepFromGridStep(gridStep);
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: ["x", "y"],
-            range: range,
-            step: step,
-            gridStep: gridStep,
-            snapStep: snapStep,
+            range: [[-10, 10], [-10, 10]],
+            step: [1, 1],
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -2338,12 +2331,22 @@ var InteractiveGraphEditor = React.createClass({
         };
     },
 
+    // TODO(jack): Use versioning instead of DeprecationMixin
     mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
 
     render: function() {
         var graph;
         var equationString;
+
+        var gridStep = this.props.gridStep || Util.getGridStep(
+                this.props.range,
+                this.props.step,
+                defaultBoxSize
+        );
+        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
+            gridStep
+        );
 
         if (this.props.valid === true) {
             // TODO(jack): send these down all at once
@@ -2353,8 +2356,8 @@ var InteractiveGraphEditor = React.createClass({
                 range: this.props.range,
                 labels: this.props.labels,
                 step: this.props.step,
-                gridStep: this.props.gridStep,
-                snapStep: this.props.snapStep,
+                gridStep: gridStep,
+                snapStep: snapStep,
                 graph: this.props.correct,
                 backgroundImage: this.props.backgroundImage,
                 markings: this.props.markings,
@@ -2395,8 +2398,8 @@ var InteractiveGraphEditor = React.createClass({
                 range={this.props.range}
                 labels={this.props.labels}
                 step={this.props.step}
-                gridStep={this.props.gridStep}
-                snapStep={this.props.snapStep}
+                gridStep={gridStep}
+                snapStep={snapStep}
                 valid={this.props.valid}
                 backgroundImage={this.props.backgroundImage}
                 markings={this.props.markings}

@@ -43,8 +43,7 @@ var GraphSettings = React.createClass({
             range: [[-10, 10], [-10, 10]],
             step: [1, 1],
             gridStep: [1, 1],
-            snapStep: Util.snapStepFromGridStep(
-                this.props.gridStep || [1, 1]),
+            snapStep: [1, 1],
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",

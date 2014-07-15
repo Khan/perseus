@@ -109,7 +109,7 @@ window.Perseus = Perseus;
 
 var defaultQuestion = {
     "question": {
-        "content": "This is a rectangle.   \n![](https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png)\n\nLet's measure the $\\green{\\text{green line}}$ below using both rectangles and a centimeter ruler:\n\n![](https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png)\n\n**The line is [[☃ input-number 1]] rectangle(s) long. **  \n  \n**The line is [[☃ input-number 2]] centimeters long.**    \n\n**The length of each rectangle is [[☃ dropdown 1]] than a centimeter.**\n\n**So, it takes [[☃ dropdown 2]] rectangles than centimeters to measure the line.**",
+        "content": "[[☃ interactive-graph 2]]",
         "images": {
             "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
                 "width": 400,
@@ -121,74 +121,55 @@ var defaultQuestion = {
             }
         },
         "widgets": {
-            "input-number 1": {
-                "type": "input-number",
+            "interactive-graph 2": {
+                "type": "interactive-graph",
                 "graded": true,
                 "options": {
-                    "value": 1,
-                    "simplify": "required",
-                    "size": "small",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "number"
-                },
-                "version": {
-                    "major": 0,
-                    "minor": 0
-                }
-            },
-            "input-number 2": {
-                "type": "input-number",
-                "graded": true,
-                "options": {
-                    "value": 2,
-                    "simplify": "required",
-                    "size": "small",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "number"
-                },
-                "version": {
-                    "major": 0,
-                    "minor": 0
-                }
-            },
-            "dropdown 1": {
-                "type": "dropdown",
-                "graded": true,
-                "options": {
-                    "choices": [
-                        {
-                            "content": "shorter",
-                            "correct": false
-                        },
-                        {
-                            "content": "longer",
-                            "correct": true
-                        }
+                    "step": [
+                        2,
+                        2
                     ],
-                    "placeholder": ""
-                },
-                "version": {
-                    "major": 0,
-                    "minor": 0
-                }
-            },
-            "dropdown 2": {
-                "type": "dropdown",
-                "graded": true,
-                "options": {
-                    "choices": [
-                        {
-                            "content": "fewer",
-                            "correct": true
-                        },
-                        {
-                            "content": "more",
-                            "correct": false
-                        }
+                    "backgroundImage": {
+                        "url": null,
+                        "scale": 1,
+                        "bottom": 0,
+                        "left": 0
+                    },
+                    "markings": "graph",
+                    "labels": [
+                        "x",
+                        "y"
                     ],
-                    "placeholder": ""
+                    "showProtractor": false,
+                    "showRuler": false,
+                    "rulerLabel": "",
+                    "rulerTicks": 10,
+                    "range": [
+                        [
+                            -20,
+                            20
+                        ],
+                        [
+                            -20,
+                            20
+                        ]
+                    ],
+                    "graph": {
+                        "type": "linear"
+                    },
+                    "correct": {
+                        "type": "linear",
+                        "coords": [
+                            [
+                                0,
+                                0
+                            ],
+                            [
+                                5,
+                                5
+                            ]
+                        ]
+                    }
                 },
                 "version": {
                     "major": 0,
@@ -200,7 +181,7 @@ var defaultQuestion = {
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "Fill in the blanks and select the correct answers.  ",
+            "content": "",
             "images": {},
             "widgets": {}
         },
@@ -210,13 +191,7 @@ var defaultQuestion = {
         "major": 0,
         "minor": 1
     },
-    "hints": [
-        {
-            "content": "The line is $\\red1$ rectangle long.  \nThe line is $\\blue2$ centimeters long.\n   \n**The length of each rectangle is *longer* than a centimeter.**\n\n**So, it takes *fewer* rectangles than centimeters to measure the line.**",
-            "images": {},
-            "widgets": {}
-        }
-    ]
+    "hints": []
 };
 
 var editor;
