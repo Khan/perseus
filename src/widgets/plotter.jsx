@@ -521,13 +521,24 @@ var Plotter = React.createClass({
                     e.preventDefault();
                     self.whichPicClicked = i;
                     self.setPicHeight(i, topY);
+
+                    $(document).on("vmouseup.plotTile", function(e) {
+                        $(document).unbind(".plotTile");
+                    });
+
                     $(document).on("vmousemove.plotTile", function(e) {
                         e.preventDefault();
-                        var newTopY = graphie.getMouseCoord(e)[1];
+
+                        // Reverse-engineer the initial calculation
+                        var yCoord = graphie.getMouseCoord(e)[1];
+                        var adjustedCoord = Math.floor(yCoord - bottomMargin);
+
+                        // Calculate top coord from j value
+                        var newJ = Math.floor(adjustedCoord / c.scaleY);
+                        var newMidY = (newJ + 0.5) * c.scaleY;
+                        var newTopY = newMidY + 0.5 * c.scaleY;
+
                         self.setPicHeight(self.whichPicClicked, newTopY);
-                        $(document).on("vmouseup.plotTile", function(e) {
-                            $(document).unbind(".plotTile");
-                        });
                     });
                 });
 
