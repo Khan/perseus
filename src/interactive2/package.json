@@ -1,9 +1,0 @@
-{
-  "name": "Interactive2",
-  "version": "0.0.1",
-  "devDependencies": {
-    "underscore": "1.4.4",
-    "requirejs": "2.1.11",
-    "mocha": "~1.17"
-  }
-}

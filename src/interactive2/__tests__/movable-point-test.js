@@ -1,10 +1,6 @@
 // System requires
 var assert = require("assert");
 
-// Interactive2 global dependencies
-global._ = require("underscore");
-global.KhanUtil = require("./kmath-shim.js");
-
 // Interactive2 requires
 var _createMockMovable = require("./movable-mock.js");
 var MovablePoint = require("../movable-point.js");
