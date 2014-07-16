@@ -510,7 +510,7 @@ var Renderer = React.createClass({
         // TODO(jack): change this to value: when we change input-number/
         // expression's prop to be value
         this._setWidgetProps(inputWidgetId, {
-            currentValue: String(newValue)
+            currentValue: newValue
         }, () => focus);
     },
 

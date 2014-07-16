@@ -4,8 +4,9 @@ var React             = require('react');
 var BlurInput         = require("react-components/blur-input");
 var InfoTip           = require("react-components/info-tip");
 var Renderer          = require("../renderer.jsx");
-var TeX               = require("../tex.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
+var MathOutput        = require("../components/math-output.jsx");
+var ParseTex          = require("../parse-tex.js");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");
@@ -101,17 +102,10 @@ var InputNumber = React.createClass({
 
     render: function() {
         if (this.props.apiOptions.staticRender) {
-            var style = {
-                borderRadius: "5px",
-                padding: "4px",
-                background: "white",
-                border: "1px solid #a4a4a4"
-            };
-            return <span style={style}>
-                <TeX ref="input" onClick={this._handleFocus}>
-                    {this.props.currentValue}
-                </TeX>
-            </span>;
+            return <MathOutput
+                    ref="input"
+                    value={this.props.currentValue}
+                    onClick={this._handleFocus} />;
         } else {
             return <InputWithExamples
                     ref="input"
@@ -127,11 +121,7 @@ var InputNumber = React.createClass({
     },
 
     _handleFocus: function() {
-        if (this.props.apiOptions.staticRender) {
-            this.props.onFocus([], this.refs.input.getDOMNode());
-        } else {
-            this.props.onFocus([], this.refs.input.getInputDOMNode());
-        }
+        this.props.onFocus([], this.refs.input.getInputDOMNode());
     },
 
     _handleBlur: function() {
@@ -144,6 +134,9 @@ var InputNumber = React.createClass({
     },
 
     _interceptFocus: function() {
+        if (this.props.apiOptions.staticRender) {
+            return;
+        }
         this.props.onFocus([], this.refs.input.getInputDOMNode());
         var interceptProp = this.props.apiOptions.interceptInputFocus;
         if (interceptProp) {
@@ -159,7 +152,9 @@ var InputNumber = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        if (!this.props.apiOptions.staticRender) {
+            this.refs.input.getInputDOMNode().focus();
+        }
         return true;
     },
 
@@ -207,7 +202,11 @@ _.extend(InputNumber, {
                 forms: answerTypes[rubric.answerType].forms
             });
 
-        var result = val(state.currentValue);
+        // We may have received TeX; try to parse it before grading.
+        // If `currentValue` is not TeX, this should be a no-op.
+        var currentValue = ParseTex(state.currentValue);
+
+        var result = val(currentValue);
 
         // TODO(eater): Seems silly to translate result to this invalid/points
         // thing and immediately translate it back in ItemRenderer.scoreInput()

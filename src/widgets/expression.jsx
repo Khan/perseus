@@ -12,6 +12,7 @@ var EnabledFeatures   = require("../enabled-features.jsx");
 var PropCheckBox      = require("../components/prop-check-box.jsx");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
+var MathOutput        = require("../components/math-output.jsx");
 var MathInput         = require("../components/math-input.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 var TexButtons        = require("../components/tex-buttons.jsx");
@@ -67,17 +68,10 @@ var Expression = React.createClass({
 
     render: function() {
         if (this.props.apiOptions.staticRender) {
-            var style = {
-                borderRadius: "5px",
-                padding: "4px",
-                background: "white",
-                border: "1px solid #a4a4a4"
-            };
-            return <span style={style}>
-                <TeX ref="input" onClick={this._handleFocus}>
-                    {this.props.value}
-                </TeX>
-            </span>;
+            return <MathOutput
+                        ref="input"
+                        value={this.props.value}
+                        onClick={this._handleFocus} />;
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other
             // tooltips on the site; align to left middle (once possible)
@@ -131,11 +125,7 @@ var Expression = React.createClass({
     },
 
     _handleFocus: function() {
-        if (this.props.apiOptions.staticRender) {
-            this.props.onFocus([], this.refs.input.getDOMNode());
-        } else {
-            this.props.onFocus([], this.refs.input.getInputDOMNode());
-        }
+        this.props.onFocus([], this.refs.input.getInputDOMNode());
     },
 
     _handleBlur: function() {
@@ -177,13 +167,17 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        if (!this.props.apiOptions.staticRender) {
+            this.refs.input.focus();
+        }
         return true;
     },
 
     // HACK(joel)
     insert: function(text) {
-        this.refs.input.insert(text);
+        if (!this.props.apiOptions.staticRender) {
+            this.refs.input.insert(text);
+        }
     },
 
     simpleValidate: function(rubric, onInputError) {

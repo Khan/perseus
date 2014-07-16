@@ -207,6 +207,7 @@ var ItemRenderer = React.createClass({
         // itself
         var newProps;
         if (/expression /.test(inputWidgetId)) {
+            // Expression uses TeX both as its rendered output and solution
             newProps = {value: newValue};
         } else if (inputWidgetId === "answer-area") {
             // If it's the answer area, do both! #yolo
@@ -217,6 +218,7 @@ var ItemRenderer = React.createClass({
                 value: newValue
             };
         } else {
+            // input-number displays the TeX, but parses it before grading
             newProps = {currentValue: newValue};
         }
         this._setWidgetProps(inputWidgetId, newProps, () => focus);
