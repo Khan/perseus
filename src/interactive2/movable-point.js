@@ -323,8 +323,8 @@ _.extend(MovablePoint.prototype, {
         return this.movable.mouseTarget();
     },
 
-    grab: function() {
-        this.movable.grab();
+    grab: function(coord) {
+        this.movable.grab(coord);
     }
 });
 
