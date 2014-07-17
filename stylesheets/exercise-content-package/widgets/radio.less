@@ -71,35 +71,39 @@ body.mobile {
     .perseus-widget-radio {
         color: @gray;
         margin-left: 0;
-        .perseus-radio-option {
-            margin-left: 0;
-            padding: 0;
-        }
 
         span.checkbox {
             .interactive-component;
+            position: absolute;
             margin-right: 26px;
             display: block;
-            margin: 0;
+            top: 50%;
+            margin: -14px 0 0 0;
             width: auto;
         }
 
         // General styles for the li
         .perseus-radio-option {
+            position: relative;
             border: 2px solid @gray;
             border-radius: 28px;
             box-sizing: border-box;
             cursor: pointer;
             display: block;
             font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
+            margin-left: 0;
             margin-bottom: 10px;
             overflow: hidden;
-            padding: 8px 10px;
+            padding: 8px 10px !important; // Being overwritten by khan-exercises.css
 
             &.perseus-radio-selected {
                 border-color: @blue;
                 color: @blue;
                 font-weight: bold;
+            }
+
+            .perseus-radio-option-content {
+                margin-left: 40px;
             }
         }
 
