@@ -725,11 +725,9 @@ var InteractiveGraph = React.createClass({
                     40
                 );
             }
-            // TODO(jack): svg opacity is broken in chrome 34.
-            // Uncomment this once chrome 35 is out.
-            //this.trashCan.attr({
-            //    opacity: opacity
-            //});
+            this.trashCan.attr({
+                opacity: opacity
+            });
         }
     },
 
