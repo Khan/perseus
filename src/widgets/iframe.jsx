@@ -35,30 +35,33 @@ var Iframe = React.createClass({
             message: null
         };
     },
-
-    componentDidMount: function() {
+    handleMessageEvent: function(e) {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
-        $(window).bind("message", (e) => {
-            var data = {};
-            try {
-                data = JSON.parse(e.originalEvent.data);
-            } catch (err) {
-                return;
-            }
+        var data = {};
+        try {
+            data = JSON.parse(e.originalEvent.data);
+        } catch (err) {
+            return;
+        }
 
-            if (_.isUndefined(data.testsPassed)) {
-                return;
-            }
+        if (_.isUndefined(data.testsPassed)) {
+            return;
+        }
 
-            var status = (data.testsPassed ? "correct" : "incorrect");
-            this.change({
-                status: status,
-                message: data.message
-            });
-
+        var status = (data.testsPassed ? "correct" : "incorrect");
+        this.change({
+            status: status,
+            message: data.message
         });
+    },
+    componentDidMount: function() {
+        $(window).on("message", this.handleMessageEvent);
+    },
+
+    componentWillUnmount: function() {
+        $(window).off("message", this.handleMessageEvent);
     },
 
     render: function() {
