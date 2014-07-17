@@ -1,43 +1,87 @@
 /** @jsx React.DOM */
 
-var React = require("react");
-var TeX   = require("../tex.jsx");
+var React         = require("react");
+var TeX           = require("../tex.jsx");
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 var MathOutput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
-        onClick: React.PropTypes.func.isRequired
+        onFocus: React.PropTypes.func,
+        onBlur: React.PropTypes.func
     },
 
     getDefaultProps: function () {
         return {
-            onClick: null,
-            value: ""
+            value: "",
+            onFocus: function () { },
+            onBlur: function () { }
         };
     },
 
-    render: function () {
-        var spanStyle = {
-            display: "inline-block",
-            minWidth: 80,
-            minHeight: 36,
-            borderRadius: 5,
-            padding: "3px 5px",
-            background: "white",
-            border: "1px solid #a4a4a4"
+    getInitialState: function () {
+        return {
+            focused: false,
+            selectorNamespace: _.uniqueId("math-output")
         };
+    },
+
+    _getInputClassName: function() {
+        var className = "math-output " + ApiClassNames.INPUT;
+        if (this.state.focused) {
+            className += " " + ApiClassNames.FOCUSED;
+        }
+        return className;
+    },
+
+    render: function () {
         var divStyle = {
             textAlign: "center"
         };
         return <span ref="input"
-                style={spanStyle}
-                onClick={this.props.onClick}>
+                className={this._getInputClassName()}
+                onMouseDown={this.focus}
+                onTouchStart={this.focus}>
             <div style={divStyle}>
                 <TeX>
                     {this.props.value}
                 </TeX>
             </div>
         </span>;
+    },
+
+    focus: function() {
+        this.props.onFocus();
+        this._bindBlurHandler();
+        this.setState({
+            focused: true
+        });
+    },
+
+    blur: function() {
+        this.props.onBlur();
+        this._unbindBlurHandler();
+        this.setState({
+            focused: false
+        });
+    },
+
+    _bindBlurHandler: function() {
+        $(document).bind("vmousedown." + this.state.selectorNamespace, (e) => {
+            // Detect whether the target has our React DOM node as a parent
+            var $closestWidget = $(e.target).closest(this.getDOMNode());
+            if (!$closestWidget.length) {
+                this.blur();
+            }
+        });
+    },
+
+    _unbindBlurHandler: function() {
+        $(document).unbind("." + this.state.selectorNamespace);
+    },
+
+    componentWillUnmount: function() {
+        this._unbindBlurHandler();
     },
 
     // For consistency with the API that Expression and NumericInput use to

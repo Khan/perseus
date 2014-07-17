@@ -105,7 +105,8 @@ var InputNumber = React.createClass({
             return <MathOutput
                     ref="input"
                     value={this.props.currentValue}
-                    onClick={this._handleFocus} />;
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur} />;
         } else {
             return <InputWithExamples
                     ref="input"
@@ -152,7 +153,9 @@ var InputNumber = React.createClass({
     },
 
     focus: function() {
-        if (!this.props.apiOptions.staticRender) {
+        if (this.props.apiOptions.staticRender) {
+            this.refs.input.focus();
+        } else {
             this.refs.input.getInputDOMNode().focus();
         }
         return true;

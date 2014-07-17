@@ -71,7 +71,8 @@ var Expression = React.createClass({
             return <MathOutput
                         ref="input"
                         value={this.props.value}
-                        onClick={this._handleFocus} />;
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur} />;
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other
             // tooltips on the site; align to left middle (once possible)
@@ -167,9 +168,7 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        if (!this.props.apiOptions.staticRender) {
-            this.refs.input.focus();
-        }
+        this.refs.input.focus();
         return true;
     },
 
