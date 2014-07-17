@@ -10,7 +10,9 @@ PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 help:
 	@echo "make server PORT=9000  # runs the perseus server"
 	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
-	@echo "make all               # build perseus into webapp"
+	@echo "make subperseus        # build perseus into webapp"
+	@echo "make clean             # delete all compilation artifacts"
+	@echo "make test              # run all tests"
 
 build: install
 	mkdir -p build
@@ -36,7 +38,7 @@ all: subperseus
 
 subperseus-ios: clean install build put-js-ios
 
-subperseus: clean install build put
+subperseus: shorttest clean install build put
 
 put: put-js put-css
 
@@ -61,6 +63,8 @@ lint:
 
 test:
 	find -E src -type f -regex '.*/__tests__/.*\.jsx?' | xargs ./node_modules/.bin/mocha --reporter spec -r node/environment.js
+shorttest:
+	find -E src -type f -regex '.*/__tests__/.*\.jsx?' | xargs ./node_modules/.bin/mocha --reporter dot -r node/environment.js
 
 build/ke.js:
 	(cd ke && ../node_modules/.bin/r.js -o requirejs.config.js out=../build/ke.js)
