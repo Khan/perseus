@@ -3,6 +3,7 @@
 Perseus is Khan Academy's new exercise question editor and renderer. It allows
 you to create and display interactive questions.
 
+![screenshot of Perseus](https://s3.amazonaws.com/uploads.hipchat.com/6574/26709/TfZBRXV0nmRH64g/upload.png)
 
 ## Live demo
 
