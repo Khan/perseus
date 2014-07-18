@@ -25,6 +25,14 @@ var AnswerAreaRenderer = React.createClass({
         apiOptions: ApiOptions.propTypes
     },
 
+    getDefaultProps: function() {
+        problemNum: 0,
+        onInteractWithWidget: function() {}
+        enabledFeatures: EnabledFeatures.defaults,
+        highlightedWidgets: [],
+        apiOptions: ApiOptions.defaults
+    },
+
     getInitialState: function() {
         // TODO(alpert): Move up to parent props?
         return {
