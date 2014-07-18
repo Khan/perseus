@@ -26,11 +26,13 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     getDefaultProps: function() {
-        problemNum: 0,
-        onInteractWithWidget: function() {}
-        enabledFeatures: EnabledFeatures.defaults,
-        highlightedWidgets: [],
-        apiOptions: ApiOptions.defaults
+        return {
+            problemNum: 0,
+            onInteractWithWidget: function() {},
+            enabledFeatures: EnabledFeatures.defaults,
+            highlightedWidgets: [],
+            apiOptions: ApiOptions.defaults
+        };
     },
 
     getInitialState: function() {
