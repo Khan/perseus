@@ -2,21 +2,22 @@
   "name": "perseus",
   "version": "0.0.1",
   "scripts": {
-    "start": "./node_modules/.bin/beefy src/editor-page-shim.js test/test.js 9000 -- -t reactiscriptsixify -d",
+    "start": "make server",
     "test": "jest"
   },
   "devDependencies": {
-    "beefy": "~0.6.0",
-    "browserify": "~3.4.1",
     "jest-cli": "~0.1.17",
     "jsdom": "^0.10.5",
-    "mocha": "^1.19.0",
-    "node-jsx": "^0.10.0",
-    "react-tools": "0.10.0",
-    "reactiscriptsixify": "~0.8.2",
-    "requirejs": "~2.1.11",
+    "json-loader": "~0.5.1",
+    "jsx-loader": "~0.11.0",
     "less": "~1.7.0",
-    "react-components": "0.1.1"
+    "mocha": "^1.19.0",
+    "node-jsx": "^0.11.0",
+    "react-components": "0.1.1",
+    "react-tools": "0.11.0",
+    "requirejs": "~2.1.11",
+    "webpack": "~1.3.2-beta1",
+    "webpack-dev-server": "~1.4.7"
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,15 @@
   "jest": {
     "scriptPreprocessor": "jest/preprocessor.js",
     "setupEnvScriptFile": "jest/environment.js",
-    "testFileExtensions": ["js", "jsx"],
-    "testPathDirs": ["src"],
-    "unmockedModulePathPatterns": [""]
+    "testFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "testPathDirs": [
+      "src"
+    ],
+    "unmockedModulePathPatterns": [
+      ""
+    ]
   }
 }
