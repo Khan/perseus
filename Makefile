@@ -25,7 +25,7 @@ build: install
 
 server: install
 	(sleep 1; echo; echo http://localhost:$(PORT)/test.html) &
-	./node_modules/.bin/webpack-dev-server --port $(PORT) --output-public-path live-build/ --quiet src/perseus.js
+	./node_modules/.bin/webpack-dev-server --port $(PORT) --output-public-path live-build/ src/perseus.js
 
 demo:
 	git checkout gh-pages
