@@ -190,7 +190,10 @@ var Graphie = React.createClass({
                 "movables");
 
             // Give each child a key
-            var key = child.key() || ("_no_id_" + options.nextKey);
+            var keyProp = child.key();
+            var key = (keyProp == null) ?
+                    ("_no_id_" + options.nextKey) :
+                    keyProp;
             options.nextKey++;
 
             // We render our children first. This allows us to replace any
@@ -222,7 +225,7 @@ var Graphie = React.createClass({
 
                 // This generally is a bad idea, so warn about it if this
                 // is being caused by implicit keys
-                if (!child.key()) {
+                if (keyProp == null) {
                     if (typeof console !== "undefined" && console.warn) {
                         console.warn("Replacing a <Graphie> child with a " +
                                 "child of a different type. Please add keys " +
