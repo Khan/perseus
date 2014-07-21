@@ -1,4 +1,4 @@
-.PHONY: help build server all subperseus put put-js put-css install clean lint test jest
+.PHONY: help build server all subperseus forcesubperseus put put-js put-css install clean lint test jest
 PORT=9000
 WEBAPP=../webapp
 IOS=../iOS
@@ -40,7 +40,9 @@ all: subperseus
 
 subperseus-ios: clean install build put-js-ios
 
-subperseus: shorttest clean install build put
+subperseus: clean install shorttest build put
+
+forcesubperseus: clean install build put
 
 put: put-js put-css
 
