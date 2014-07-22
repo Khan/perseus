@@ -533,11 +533,13 @@ var Plotter = React.createClass({
                         var yCoord = graphie.getMouseCoord(e)[1];
                         var adjustedCoord = Math.floor(yCoord - bottomMargin);
 
-                        // Calculate top coord from j value
-                        var newJ = Math.floor(adjustedCoord / c.scaleY);
+                        // Calculate top coord from j value, but don't let them
+                        // go below j = -1, which is equivalent to having '0'
+                        // on the dot plot (due to weird indexing).
+                        var newJ = Math.max(-1,
+                            Math.floor(adjustedCoord / c.scaleY));
                         var newMidY = (newJ + 0.5) * c.scaleY;
                         var newTopY = newMidY + 0.5 * c.scaleY;
-
                         self.setPicHeight(self.whichPicClicked, newTopY);
                     });
                 });
