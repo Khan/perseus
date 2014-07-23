@@ -173,7 +173,7 @@ var Renderer = React.createClass({
         return propsChanged || stateChanged;
     },
 
-    getPiece: function(saved, /* output */ widgetIds, apiOptions) {
+    getPiece: function(saved, /* output */ widgetIds) {
         if (saved.charAt(0) === "@") {
             // Just text
             return saved;
@@ -194,37 +194,54 @@ var Renderer = React.createClass({
 
                 var type = (widgetInfo || {}).type || implied_type;
                 var cls = Widgets.getWidget(type, this.props.enabledFeatures);
-                var widgetProps = this.state.widgetProps[id] || {};
                 var shouldHighlight = _.contains(
                     this.props.highlightedWidgets,
                     id
                 );
 
                 return <WidgetContainer
-                    shouldHighlight={shouldHighlight}>
-                    {cls(_.extend({}, widgetProps, {
-                            ref: id,
-                            widgetId: id,
-                            problemNum: this.props.problemNum,
-                            enabledFeatures: this.props.enabledFeatures,
-                            apiOptions: apiOptions,
-                            questionCompleted: this.props.questionCompleted,
-                            onFocus: _.partial(this._onWidgetFocus, id),
-                            onBlur: _.partial(this._onWidgetBlur, id),
-                            onChange: (newProps, cb) => {
-                                this._setWidgetProps(id, newProps, cb);
-                            }
-                        })
-                    )}
-                </WidgetContainer>;
+                        ref={"container:" + id}
+                        key={"container:" + id}
+                        type={cls}
+                        initialProps={this.getWidgetProps(id)}
+                        shouldHighlight={shouldHighlight} />;
             }
         }
+    },
+
+    getApiOptions: function(props) {
+        return _.extend(
+            {},
+            ApiOptions.defaults,
+            props.apiOptions
+        );
+    },
+
+    getWidgetProps: function(id) {
+        var widgetProps = this.state.widgetProps[id] || {};
+        return _.extend({}, widgetProps, {
+            ref: id,
+            widgetId: id,
+            problemNum: this.props.problemNum,
+            enabledFeatures: this.props.enabledFeatures,
+            apiOptions: this.getApiOptions(this.props),
+            questionCompleted: this.props.questionCompleted,
+            onFocus: _.partial(this._onWidgetFocus, id),
+            onBlur: _.partial(this._onWidgetBlur, id),
+            onChange: (newProps, cb) => {
+                this._setWidgetProps(id, newProps, cb);
+            }
+        });
+    },
+
+    getWidgetInstance: function(id) {
+        return this.refs["container:" + id].getWidget();
     },
 
     _onWidgetFocus: function(id, focusPath, element) {
         if (focusPath === undefined && element === undefined) {
             focusPath = [];
-            element = this.refs[id].getDOMNode();
+            element = this.getWidgetInstance(id).getDOMNode();
         } else {
             if (!_.isArray(focusPath)) {
                 throw new Error(
@@ -256,13 +273,45 @@ var Renderer = React.createClass({
         });
     },
 
+    componentWillUpdate: function(nextProps, nextState) {
+        var oldJipt = this.shouldRenderJiptPlaceholder(this.props, this.state);
+        var newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
+        var oldContent = this.getContent(this.props, this.state);
+        var newContent = this.getContent(nextProps, nextState);
+
+        this.reuseMarkdown = !oldJipt && !newJipt && oldContent === newContent;
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        if (this.reuseMarkdown) {
+            this.widgetIds.forEach(function(id) {
+                var container = this.refs["container:" + id];
+                container.replaceWidgetProps(
+                    this.getWidgetProps(id)
+                );
+            }, this);
+        }
+    },
+
+    getContent: function(props, state) {
+        return state.jiptContent || props.content;
+    },
+
+    shouldRenderJiptPlaceholder: function(props, state) {
+        return typeof KA !== "undefined" && KA.language === "en-PT" &&
+                    state.jiptContent == null &&
+                    props.content.indexOf('crwdns') !== -1;
+    },
+
     render: function() {
-        var content = this.state.jiptContent || this.props.content;
+        if (this.reuseMarkdown) {
+            return this.lastRenderedMarkdown;
+        }
+
+        var content = this.getContent(this.props, this.state);
         var widgetIds = this.widgetIds = [];
 
-        if (typeof KA !== "undefined" && KA.language === "en-PT" &&
-                this.state.jiptContent == null &&
-                this.props.content.indexOf('crwdns') !== -1) {
+        if (this.shouldRenderJiptPlaceholder(this.props, this.state)) {
             // Crowdin's JIPT (Just in place translation) uses a fake language
             // with language tag "en-PT" where the value of the translations
             // look like: {crwdns2657085:0}{crwdne2657085:0} where it keeps the
@@ -299,12 +348,6 @@ var Renderer = React.createClass({
         var markdown = extracted[0];
         var savedMath = extracted[1];
 
-        var apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions
-        );
-
         // XXX(alpert): smartypants gets called on each text node before it's
         // added to the DOM tree, so we override it to insert the math and
         // widgets.
@@ -319,8 +362,7 @@ var Renderer = React.createClass({
                     // A saved math-or-widget number
                     pieces[i] = self.getPiece(
                         savedMath[pieces[i]],
-                        widgetIds,
-                        apiOptions
+                        widgetIds
                     );
                 }
             }
@@ -349,7 +391,8 @@ var Renderer = React.createClass({
         };
 
         try {
-            return <div>{markedReact(markdown)}</div>;
+            this.lastRenderedMarkdown = <div>{markedReact(markdown)}</div>;
+            return this.lastRenderedMarkdown;
         } finally {
             markedReact.InlineLexer.prototype.smartypants = smartypants;
             markedReact.Parser.prototype.tok = tok;
@@ -432,7 +475,7 @@ var Renderer = React.createClass({
         var focusResult;
         for (var i = 0; i < this.widgetIds.length; i++) {
             var widgetId = this.widgetIds[i];
-            var widget = this.refs[widgetId];
+            var widget = this.getWidgetInstance(widgetId);
             var widgetFocusResult = widget.focus && widget.focus();
             if (widgetFocusResult) {
                 id = widgetId;
@@ -448,12 +491,13 @@ var Renderer = React.createClass({
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
-                element = focusResult.element || this.refs[id].getDOMNode();
+                element = focusResult.element ||
+                    this.getWidgetInstance(id).getDOMNode();
             } else {
                 // The result of focus was true or the like; just
                 // construct a root focus object
                 path = [id];
-                element = this.refs[id].getDOMNode();
+                element = this.getWidgetInstance(id).getDOMNode();
             }
 
             this._setCurrentFocus(path, element);
@@ -464,7 +508,7 @@ var Renderer = React.createClass({
     toJSON: function(skipValidation) {
         var state = {};
         _.each(this.props.widgets, function(props, id) {
-            var widget = this.refs[id];
+            var widget = this.getWidgetInstance(id);
             var s = widget.toJSON(skipValidation);
             if (!_.isEmpty(s)) {
                 state[id] = s;
@@ -476,7 +520,7 @@ var Renderer = React.createClass({
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
             var widgetProps = this.props.widgets[id];
-            var score = this.refs[id].simpleValidate(
+            var score = this.getWidgetInstance(id).simpleValidate(
                 widgetProps.options,
                 null
             );
@@ -499,8 +543,8 @@ var Renderer = React.createClass({
                 // TODO(jack): Figure out why this is happening and fix it
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
-                var element = this.refs[id] ?
-                        this.refs[id].getDOMNode() : null;
+                var element = this.getWidgetInstance(id) ?
+                        this.getWidgetInstance(id).getDOMNode() : null;
                 this._setCurrentFocus([id], element);
             }
         });
@@ -520,7 +564,7 @@ var Renderer = React.createClass({
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
-            return this.refs[id].toJSON();
+            return this.getWidgetInstance(id).toJSON();
         }, this);
 
         var totalScore = _.chain(this.widgetIds)
@@ -531,7 +575,7 @@ var Renderer = React.createClass({
                 })
                 .map(function(id) {
                     var props = widgetProps[id];
-                    var widget = this.refs[id];
+                    var widget = this.getWidgetInstance(id);
                     return widget.simpleValidate(props.options, onInputError);
                 }, this)
                 .reduce(Util.combineScores, Util.noScore)
@@ -541,7 +585,7 @@ var Renderer = React.createClass({
     },
 
     examples: function() {
-        var widgets = _.values(this.refs);
+        var widgets = this.widgetIds;
         var examples = _.compact(_.map(widgets, function(widget) {
             return widget.examples ? widget.examples() : null;
         }));

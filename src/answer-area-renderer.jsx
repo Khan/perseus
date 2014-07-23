@@ -47,6 +47,16 @@ var AnswerAreaRenderer = React.createClass({
         this.setState({cls: this.getClass(nextProps.type)});
     },
 
+    getWidgetInstance: function() {
+        // Half the time this is a Renderer; the other half of the time it's a
+        // real widget.
+        if (this.props.type === "multiple") {
+            return this.refs.widget;
+        } else {
+            return this.refs.container.getWidget();
+        }
+    },
+
     getClass: function(type) {
         if (type === "multiple") {
             return Renderer;
@@ -65,10 +75,10 @@ var AnswerAreaRenderer = React.createClass({
 
     emptyWidgets: function() {
         if (this.props.type === "multiple") {
-            return this.refs.widget.emptyWidgets();
+            return this.getWidgetInstance().emptyWidgets();
         } else {
             return Util.scoreIsEmpty(
-                this.refs.widget.simpleValidate(this.props.options)) ?
+                this.getWidgetInstance().simpleValidate(this.props.options)) ?
                 [SINGLE_ITEM_WIDGET_ID] : [];
         }
     },
@@ -141,6 +151,17 @@ var AnswerAreaRenderer = React.createClass({
         var shouldHighlight = _.contains(this.props.highlightedWidgets,
                                     SINGLE_ITEM_WIDGET_ID);
 
+        return <QuestionParagraph>
+            <WidgetContainer
+                ref="container"
+                key={this.props.type}
+                type={this.state.cls}
+                initialProps={this.getSingleWidgetProps()}
+                shouldHighlight={shouldHighlight} />
+        </QuestionParagraph>;
+    },
+
+    getSingleWidgetProps: function() {
         var editorProps = this.props.options;
         var transform = Widgets.getTransform(this.props.type);
         var apiOptions = _.extend(
@@ -162,7 +183,7 @@ var AnswerAreaRenderer = React.createClass({
             this._isFocused = true;
             apiOptions.onFocusChange({
                 path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.refs.widget.getDOMNode()
+                element: elem || this.getWidgetInstance().getDOMNode()
             }, {
                 // we're pretending we're a renderer, so if we got
                 // focus, we must not have had it before
@@ -177,29 +198,23 @@ var AnswerAreaRenderer = React.createClass({
                 element: null
             }, {
                 path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.refs.widget.getDOMNode()
+                element: elem || this.getWidgetInstance().getDOMNode()
             });
         };
 
-        return <QuestionParagraph>
-            <WidgetContainer
-                shouldHighlight={shouldHighlight} >
-                {this.state.cls(_.extend({
-                    ref: "widget",
-                    widgetId: SINGLE_ITEM_WIDGET_ID,
-                    problemNum: this.props.problemNum,
-                    onChange: this.handleChangeRenderer,
-                    enabledFeatures: _.extend({}, this.props.enabledFeatures, {
-                        // Hide answer area tooltip formats,
-                        // the "Acceptable formats" box already works
-                        toolTipFormats: false
-                    }),
-                    apiOptions: apiOptions,
-                    onFocus: onFocus,
-                    onBlur: onBlur
-                }, transform(editorProps), this.state.widget))}
-            </WidgetContainer>
-        </QuestionParagraph>;
+        return _.extend({
+            widgetId: SINGLE_ITEM_WIDGET_ID,
+            problemNum: this.props.problemNum,
+            onChange: this.handleChangeRenderer,
+            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+                // Hide answer area tooltip formats,
+                // the "Acceptable formats" box already works
+                toolTipFormats: false
+            }),
+            apiOptions: apiOptions,
+            onFocus: onFocus,
+            onBlur: onBlur
+        }, transform(editorProps), this.state.widget);
     },
 
     _setWidgetProps: function(widgetId, newProps, cb) {
@@ -209,7 +224,7 @@ var AnswerAreaRenderer = React.createClass({
             this.handleChangeRenderer(newProps, cb);
         } else if (this.props.type === "multiple") {
             // We have a `Renderer`
-            this.refs.widget._setWidgetProps(widgetId, newProps, cb);
+            this.getWidgetInstance()._setWidgetProps(widgetId, newProps, cb);
         } else if ((typeof console) !== "undefined" && console.error) {
             // We have a widget id other than area in a non-renderer area
             console.error(
@@ -238,7 +253,7 @@ var AnswerAreaRenderer = React.createClass({
                         path: [SINGLE_ITEM_WIDGET_ID],
                         // TODO(jack): Make this less hacky (call some magic
                         // getElement function or something):
-                        element: this.refs.widget.getDOMNode()
+                        element: this.getWidgetInstance().getDOMNode()
                     }, {
                         // we're pretending we're a renderer, so if we got
                         // focus, we must not have had it before
@@ -259,14 +274,20 @@ var AnswerAreaRenderer = React.createClass({
         this.update();
     },
 
-    componentDidUpdate: function() {
+    componentDidUpdate: function(prevProps) {
         this.update();
+
+        if (this.props.type !== "multiple" &&
+                prevProps.type === this.props.type) {
+            this.refs.container.replaceWidgetProps(
+                this.getSingleWidgetProps());
+        }
     },
 
     update: function() {
         $("#calculator").toggle(this.props.calculator);
 
-        var widget = this.refs.widget;
+        var widget = this.getWidgetInstance();
         var examples = widget.examples ? widget.examples() : null;
 
         if (_.isEqual(examples, this.examples)) {
@@ -336,21 +357,22 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     focus: function() {
-        this.refs.widget.focus();
+        this.getWidgetInstance().focus();
     },
 
     guessAndScore: function() {
         // TODO(alpert): These should probably have the same signature...
         if (this.props.type === "multiple") {
-            return this.refs.widget.guessAndScore();
+            return this.getWidgetInstance().guessAndScore();
         } else {
-            var guess = this.refs.widget.toJSON();
+            var guess = this.getWidgetInstance().toJSON();
 
             var score;
             if (this.props.graded == null || this.props.graded) {
                 // props.graded is unset or true
                 // TODO(alpert): Separate out the rubric
-                score = this.refs.widget.simpleValidate(this.props.options);
+                score = this.getWidgetInstance().simpleValidate(
+                    this.props.options);
             } else {
                 score = Util.noScore;
             }
