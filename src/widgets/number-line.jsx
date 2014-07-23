@@ -595,7 +595,8 @@ var NumberLineEditor = React.createClass({
                     onChange={this.onNumChange.bind(this, "correctX")}
                     checkValidity={val =>
                         val >= range[0] && val <= range[1] &&
-                        (!step || Math.abs(val - range[0]) % step === 0)}
+                        (!step || knumber.isInteger((val - range[0]) / step))
+                    }
                     placeholder="answer" size="normal"
                     useArrowKeys={true} />
                 <InfoTip><p>
