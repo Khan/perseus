@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
 var React   = require("react");
-var InfoTip = require("react-components/info-tip");
-var Tooltip = require("react-components/tooltip");
+var InfoTip = require("react-components/info-tip.jsx");
+var Tooltip = require("react-components/tooltip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");

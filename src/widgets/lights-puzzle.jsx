@@ -6,7 +6,7 @@ var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/info-tip.jsx");
 
 var MAX_SIZE = 8;
 

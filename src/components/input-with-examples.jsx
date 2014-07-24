@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Tooltip = require("react-components/tooltip");
+var Tooltip = require("react-components/tooltip.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 var MathInput = require("./math-input.jsx");

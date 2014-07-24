@@ -1,3 +1,6 @@
 [submodule "ke"]
 	path = ke
 	url = https://github.com/Khan/khan-exercises.git
+[submodule "react-components"]
+	path = react-components
+	url = https://github.com/Khan/react-components.git

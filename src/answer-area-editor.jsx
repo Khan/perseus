@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Editor = require("./editor.jsx");
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/info-tip.jsx");
 var Widgets = require("./widgets.js");
 
 var AnswerAreaEditor = React.createClass({

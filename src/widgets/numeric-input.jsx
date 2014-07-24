@@ -4,10 +4,10 @@ var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var NumberInput = require("../components/number-input.jsx");
-var ButtonGroup = require("react-components/button-group");
+var ButtonGroup = require("react-components/button-group.jsx");
 var MultiButtonGroup = require("../components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 

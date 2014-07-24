@@ -11,7 +11,7 @@
 
 var React = require("react");
 
-var BlurInput    = require("react-components/blur-input");
+var BlurInput    = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var updateQueryString = require("../util.js").updateQueryString;

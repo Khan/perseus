@@ -7,7 +7,7 @@
 var React = require('react');
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/info-tip.jsx");
 
 /* Renders a hint editor box
  *

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React          = require('react');
-var InfoTip        = require("react-components/info-tip");
+var InfoTip        = require("react-components/info-tip.jsx");
 
 var Util           = require("../util.js");
 var Renderer       = require("../renderer.jsx");

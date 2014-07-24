@@ -4,12 +4,12 @@ var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var ButtonGroup = require("react-components/button-group");
+var ButtonGroup = require("react-components/button-group.jsx");
 var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
 
-var InfoTip = require("react-components/info-tip");
+var InfoTip = require("react-components/info-tip.jsx");
 
 var shuffle = require("../util.js").shuffle;
 var seededRNG = require("../util.js").seededRNG;

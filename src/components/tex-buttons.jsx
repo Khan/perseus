@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React     = require("react");
-var TeX       = require("react-components/tex");
+var TeX       = require("react-components/tex.jsx");
 var clone     = React.addons.cloneWithProps;
 
 var prettyBig = { fontSize: "150%" };

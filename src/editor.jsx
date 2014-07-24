@@ -4,7 +4,7 @@ var React = require('react');
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
-var DragTarget = require("react-components/drag-target");
+var DragTarget = require("react-components/drag-target.jsx");
 
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;

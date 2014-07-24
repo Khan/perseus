@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
 
-var InfoTip          = require("react-components/info-tip");
+var InfoTip          = require("react-components/info-tip.jsx");
 var Interactive2     = require("../interactive2.js");
-var MultiButtonGroup = require("react-components/multi-button-group");
-var ButtonGroup      = require("react-components/button-group");
+var MultiButtonGroup = require("react-components/multi-button-group.jsx");
+var ButtonGroup      = require("react-components/button-group.jsx");
 var GraphSettings    = require("../components/graph-settings.jsx");
 var Util             = require("../util.js");
 var knumber          = KhanUtil.knumber;

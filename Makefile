@@ -58,6 +58,8 @@ put-css: build
 
 install:
 	npm install
+	rm -rf node_modules/react-components
+	ln -s ../react-components/js node_modules/react-components
 
 clean:
 	-rm -rf build/*

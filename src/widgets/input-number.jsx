@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
 var React             = require('react');
-var BlurInput         = require("react-components/blur-input");
-var InfoTip           = require("react-components/info-tip");
+var BlurInput         = require("react-components/blur-input.jsx");
+var InfoTip           = require("react-components/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathOutput        = require("../components/math-output.jsx");
