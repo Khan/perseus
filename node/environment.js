@@ -45,7 +45,8 @@ global.React = window.React = withNavigator(function() {
     return require("../lib/react-with-addons.js");
 });
 require("../lib/jquery.js");
-markedReact = require("../lib/marked.js");
+window.markedReact = require("../lib/marked.js");
+window.RCSS = require("../lib/rcss.js");
 updateGlobals();
 
 // First-party global dependencies
