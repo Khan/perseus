@@ -530,11 +530,11 @@ var RadioEditor = React.createClass({
     }
 });
 
-var choiceTransform = (editorProps) => {
+var choiceTransform = (editorProps, problemNum) => {
 
     var randomize = function(array) {
         if (editorProps.randomize) {
-            return shuffle(array, editorProps.problemNum);
+            return shuffle(array, problemNum);
         } else {
             return array;
         }
@@ -544,7 +544,7 @@ var choiceTransform = (editorProps) => {
         // Pick a random choice to replace with 'None of the above'
         if (!editorProps.randomize && editorProps.noneOfTheAbove) {
             // Seed RNG with problemNum
-            var rand = seededRNG(editorProps.problemNum)();
+            var rand = seededRNG(problemNum)();
             var randomIndex = Math.floor(rand * array.length);
             var itemToBeReplaced = array[randomIndex];
 

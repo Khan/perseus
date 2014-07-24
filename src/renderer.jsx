@@ -142,7 +142,7 @@ var Renderer = React.createClass({
         var allWidgetInfo = this._getAllWidgetsInfo(props);
         return {
             widgetInfo: allWidgetInfo,
-            widgetProps: this._getAllWidgetsStartProps(allWidgetInfo),
+            widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
         };
     },
 
@@ -159,11 +159,12 @@ var Renderer = React.createClass({
         });
     },
 
-    _getAllWidgetsStartProps: function(allWidgetInfo) {
+    _getAllWidgetsStartProps: function(allWidgetInfo, props) {
         return mapObject(allWidgetInfo, (editorProps) => {
-            return Widgets.getRendererPropsForWidgetInfo(_.extend({
-                problemNum: this.props.problemNum
-            }, editorProps));
+            return Widgets.getRendererPropsForWidgetInfo(
+                editorProps,
+                props.problemNum
+            );
         });
     },
 

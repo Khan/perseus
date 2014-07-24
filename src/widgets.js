@@ -126,12 +126,12 @@ var Widgets = {
         });
     },
 
-    getRendererPropsForWidgetInfo: function(widgetInfo) {
+    getRendererPropsForWidgetInfo: function(widgetInfo, problemNum) {
         var type = widgetInfo.type;
         var widgetExports = widgets[type];
         var transform = widgetExports.transform || _.identity;
         // widgetInfo.options are the widgetEditor's props:
-        return transform(widgetInfo.options);
+        return transform(widgetInfo.options, problemNum);
     }
 };
 
