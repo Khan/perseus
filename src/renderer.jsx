@@ -283,6 +283,7 @@ var Renderer = React.createClass({
     },
 
     componentDidUpdate: function(prevProps, prevState) {
+        this.handleRender();
         if (this.reuseMarkdown) {
             this.widgetIds.forEach(function(id) {
                 var container = this.refs["container:" + id];
@@ -432,10 +433,6 @@ var Renderer = React.createClass({
             path: null,
             element: null
         };
-    },
-
-    componentDidUpdate: function() {
-        this.handleRender();
     },
 
     componentWillUnmount: function() {
