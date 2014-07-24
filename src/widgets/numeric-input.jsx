@@ -8,7 +8,7 @@ var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("react-components/button-group.jsx");
-var MultiButtonGroup = require("../components/multi-button-group.jsx");
+var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 
 var Editor = require("../editor.jsx");
@@ -16,13 +16,13 @@ var Editor = require("../editor.jsx");
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 
 var answerFormButtons = [
-    {title: "Integers", value: "integer", text: "6"},
-    {title: "Decimals", value: "decimal", text: "0.75"},
-    {title: "Proper fractions", value: "proper", text: "\u2157"},
+    {title: "Integers", value: "integer", content: "6"},
+    {title: "Decimals", value: "decimal", content: "0.75"},
+    {title: "Proper fractions", value: "proper", content: "\u2157"},
     {title: "Improper fractions", value: "improper",
-        text: "\u2077\u2044\u2084"},
-    {title: "Mixed numbers", value: "mixed", text: "1\u00BE"},
-    {title: "Numbers with \u03C0", value: "pi", text: "\u03C0"}
+        content: "\u2077\u2044\u2084"},
+    {title: "Mixed numbers", value: "mixed", content: "1\u00BE"},
+    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"}
 ];
 
 var formExamples = {
@@ -202,9 +202,9 @@ var NumericInputEditor = React.createClass({
             <ButtonGroup value={answers[i]["simplify"]}
                          allowEmpty={false}
                          buttons={[
-                            {value: "required", text: "ungraded"},
-                            {value: "optional", text: "accepted"},
-                            {value: "enforced", text: "wrong"}]}
+                            {value: "required", content: "ungraded"},
+                            {value: "optional", content: "accepted"},
+                            {value: "enforced", content: "wrong"}]}
                          onChange={this.updateAnswer(i, "simplify")} />
             <InfoTip>
                 <p>Normally select "ungraded". This will give the
@@ -265,8 +265,8 @@ var NumericInputEditor = React.createClass({
                 <label>Width:{' '} </label>
                 <ButtonGroup value={this.props.size} allowEmpty={false}
                     buttons={[
-                        {value: "normal", text: "Normal (80px)"},
-                        {value: "small", text: "Small (40px)"}]}
+                        {value: "normal", content: "Normal (80px)"},
+                        {value: "small", content: "Small (40px)"}]}
                     onChange={this.change("size")} />
                 <InfoTip>
                     <p>Use size "Normal" for all text boxes, unless there are

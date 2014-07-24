@@ -110,9 +110,9 @@ var GraphSettings = React.createClass({
                     <ButtonGroup value={this.props.markings}
                         allowEmpty={false}
                         buttons={[
-                            {value: "graph", text: "Graph"},
-                            {value: "grid", text: "Grid"},
-                            {value: "none", text: "None"}]}
+                            {value: "graph", content: "Graph"},
+                            {value: "grid", content: "Grid"},
+                            {value: "none", content: "None"}]}
                         onChange={this.change("markings")} />
                 </div>
             </div>

@@ -571,12 +571,12 @@ var NumberLineEditor = React.createClass({
         }
 
         var labelStyleEditorButtons = [
-              {value: "decimal", text: "0.75", title: "Decimals",},
-              {value: "improper", text: "\u2077\u2044\u2084",
+              {value: "decimal", content: "0.75", title: "Decimals",},
+              {value: "improper", content: "\u2077\u2044\u2084",
                 title: "Improper fractions"},
-              {value: "mixed", text: "1\u00BE",
+              {value: "mixed", content: "1\u00BE",
                 title: "Mixed numbers"},
-              {value: "non-reduced", text: "\u2078\u2044\u2084",
+              {value: "non-reduced", content: "\u2078\u2044\u2084",
                 title: "Non-reduced"}];
 
         return <div className="perseus-widget-number-line-editor">
