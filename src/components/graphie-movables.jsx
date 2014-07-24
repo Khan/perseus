@@ -42,8 +42,13 @@ var Label = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
+var Plot = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.plot(props.fn, props.range, props.style);
+});
+
 module.exports = {
     Line: Line,
     Label: Label,
-    MovablePoint: MovablePoint
+    MovablePoint: MovablePoint,
+    Plot: Plot
 };

@@ -369,6 +369,10 @@ var Util = {
             return true;
         } else if (_.isArray(x) || _.isArray(y)) {
             return false;
+        } else if (_.isFunction(x) && _.isFunction(y)) {
+            return Util.eq(x, y);
+        } else if (_.isFunction(x) || _.isFunction(y)) {
+            return false;
         } else if (_.isObject(x) && _.isObject(y)) {
             return _.all(x, function(value, key) {
                 return Util.deepEq(y[key], value);
