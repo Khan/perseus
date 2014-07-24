@@ -283,7 +283,7 @@ var Renderer = React.createClass({
     },
 
     componentDidUpdate: function(prevProps, prevState) {
-        this.handleRender();
+        this.handleRender(prevProps);
         if (this.reuseMarkdown) {
             this.widgetIds.forEach(function(id) {
                 var container = this.refs["container:" + id];
@@ -400,8 +400,9 @@ var Renderer = React.createClass({
         }
     },
 
-    handleRender: function() {
+    handleRender: function(prevProps) {
         var onRender = this.props.onRender;
+        var oldOnRender = prevProps.onRender;
 
         var $images = $(this.getDOMNode()).find("img");
         var imageAttrs = this.props.images || {};
@@ -421,6 +422,9 @@ var Renderer = React.createClass({
 
         // Fire callback on image load...
         // TODO (jack): make this call happen exactly once through promises!
+        if (oldOnRender) {
+            $images.off("load", oldOnRender);
+        }
         $images.on("load", onRender);
 
         // ...as well as right now (non-image, non-TeX or image from cache)
@@ -428,7 +432,7 @@ var Renderer = React.createClass({
     },
 
     componentDidMount: function() {
-        this.handleRender();
+        this.handleRender({});
         this._currentFocus = {
             path: null,
             element: null
