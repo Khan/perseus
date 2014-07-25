@@ -244,6 +244,10 @@ var Graphie = React.createClass({
                 newMovables[key].toFront();
             }
 
+            if (newMovables[key].props.ref) {
+                this.movables[newMovables[key].props.ref] = newMovables[key];
+            }
+
             return newMovables[key];
         });
     },
@@ -255,6 +259,7 @@ var Graphie = React.createClass({
         var oldMovables = this._movables;
         var newMovables = {};
         this._movables = newMovables;
+        this.movables = {};
 
         this._renderMovables(this.props.children, {
             nextKey: 1,

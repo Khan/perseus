@@ -277,9 +277,11 @@ _.extend(MovablePoint.prototype, {
 
     setCoordConstrained: function(coord) {
         assert(kpoint.is(coord, 2));
-        var result = this._applyConstraints(coord, coord);
-        this.state.coord = _.clone(result);
-        this.draw();
+        var result = this._applyConstraints(coord, this.coord());
+        if (result !== false) {
+            this.state.coord = _.clone(result);
+            this.draw();
+        }
     },
 
     // Clone these for use with raphael, which modifies the input
@@ -325,6 +327,7 @@ _.extend(MovablePoint.prototype, {
 
     grab: function(coord) {
         this.movable.grab(coord);
+        this.setCoordConstrained(coord);
     }
 });
 

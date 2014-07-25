@@ -259,6 +259,9 @@ var NumberLine = React.createClass({
                 ref="graphie"
                 box={[460, (this.props.isTickCtrl ? 120 : 80)]}
                 options={options}
+                onMouseDown={(coord) => {
+                    this.refs.graphie.movables.numberLinePoint.grab(coord);
+                }}
                 setup={this._setupGraphie}>
             {this._renderTickControl(props)}
             {TickMarks(_.pick(props, [
@@ -297,6 +300,7 @@ var NumberLine = React.createClass({
         };
 
         return <MovablePoint
+            ref="numberLinePoint"
             pointSize={6}
             coord={[props.numLinePosition, 0]}
             constraints={[

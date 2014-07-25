@@ -23,6 +23,10 @@ var MovablePoint = GraphieClasses.createClass({
 
     toFront: function() {
         this.point.toFront();
+    },
+
+    grab: function(coord) {
+        this.point.grab(coord);
     }
 });
 
