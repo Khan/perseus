@@ -149,9 +149,9 @@ var MathInput = React.createClass({
         // trig functions; those are always interpreted as commands.
         MathQuill.addAutoCommands("pi theta phi sqrt");
 
-        // Pop the cursor out of super/subscripts on addition or (in)equalities
-        // Avoid popping on '-' to allow negative exponents
-        MathQuill.addCharsThatBreakOutOfSupSub("+=<>≠≤≥");
+        // Pop the cursor out of super/subscripts on arithmetic operators or
+        // (in)equalities.
+        MathQuill.addCharsThatBreakOutOfSupSub("+-*/=<>≠≤≥");
 
         // Prevent excessive super/subscripts or fractions from being created
         // without operands, e.g. when somebody holds down a key
