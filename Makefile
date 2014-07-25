@@ -56,7 +56,17 @@ put-css: build
 	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
 
+
+# just to make the upgrade process over switching from injected rcss to
+# real rcss smooth
+ifeq ("$(wildcard node_modules/rcss/package.json)","")
+CLEAN_RCSS := rm -rf node_modules/rcss
+else
+CLEAN_RCSS := echo "rcss already upgraded"
+endif
+
 install:
+	$(CLEAN_RCSS)
 	npm install
 	rm -rf node_modules/react-components
 	ln -s ../react-components/js node_modules/react-components
