@@ -17,7 +17,19 @@ require('node-jsx').install({
 
 // Fake being a web browser
 global.document = jsdom.jsdom();
-global.window = document.parentWindow;
+var window = global.window = document.parentWindow;
+
+// Mock out window.getSelection for react
+// TODO(jack): Remove this once
+// https://github.com/facebook/react/commit/2347abf75c2acb40b4b6ba10750f0461a5b837ad
+// makes it into our version of react
+if (!window.getSelection) {
+    window.getSelection = function() {
+        return {
+            rangeCount: 0
+        };
+    };
+}
 
 var _ = require("../lib/underscore.js");
 global._ = global.window._ = _;
@@ -45,6 +57,7 @@ global.React = window.React = withNavigator(function() {
     return require("../lib/react-with-addons.js");
 });
 require("../lib/jquery.js");
+require("../lib/mathquill/mathquill.js");
 window.markedReact = require("../lib/marked.js");
 updateGlobals();
 

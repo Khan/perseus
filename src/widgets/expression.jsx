@@ -59,8 +59,8 @@ var Expression = React.createClass({
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
         var options = _.pick(props || this.props, "functions");
-        if (icu && icu.getDecimalFormatSymbols) {
-            _.extend(options, icu.getDecimalFormatSymbols());
+        if (window.icu && window.icu.getDecimalFormatSymbols) {
+            _.extend(options, window.icu.getDecimalFormatSymbols());
         }
         return KAS.parse(value, options);
     },
@@ -218,8 +218,8 @@ var Expression = React.createClass({
 _.extend(Expression, {
     validate: function(state, rubric, onInputError) {
         var options = _.clone(rubric);
-        if (icu && icu.getDecimalFormatSymbols) {
-            _.extend(options, icu.getDecimalFormatSymbols());
+        if (window.icu && window.icu.getDecimalFormatSymbols) {
+            _.extend(options, window.icu.getDecimalFormatSymbols());
         }
         // We don't give options to KAS.parse here because that is parsing
         // the solution answer, not the student answer, and we don't
@@ -284,8 +284,8 @@ var OldExpression = React.createClass({
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
         var options = _.pick(props || this.props, "functions");
-        if (icu && icu.getDecimalFormatSymbols) {
-            _.extend(options, icu.getDecimalFormatSymbols());
+        if (window.icu && window.icu.getDecimalFormatSymbols) {
+            _.extend(options, window.icu.getDecimalFormatSymbols());
         }
         return KAS.parse(value, options);
     },

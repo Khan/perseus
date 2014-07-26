@@ -4,6 +4,7 @@ var Perseus = require("../perseus.js");
 var Renderer = Perseus.Renderer;
 
 var TestUtils = React.addons.TestUtils;
+var delayedPromise = require("../testutils/delayed-promise.jsx");
 
 var inputNumber1Item = {
     "question": {
@@ -77,19 +78,6 @@ var inputNumber2Item = {
         "calculator": false
     },
     "hints": []
-};
-
-// Returns a promise that will resolve shortly after the end of this
-// browser tick (roughly a `setTimeout(0)`)
-var delayedPromise = (value) => {
-    var deferred = $.Deferred();
-    _.defer(() => {
-        deferred.resolve(value);
-    });
-    if (typeof jest !== "undefined") {
-        jest.runAllTimers();
-    }
-    return deferred.promise();
 };
 
 // Jasmine requires us to use `pit` to support promises;
