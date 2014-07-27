@@ -12,7 +12,6 @@ var EnabledFeatures   = require("../enabled-features.jsx");
 var PropCheckBox      = require("../components/prop-check-box.jsx");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
-var MathOutput        = require("../components/math-output.jsx");
 var MathInput         = require("../components/math-input.jsx");
 var TeX               = require("../tex.jsx"); // OldExpression only
 var TexButtons        = require("../components/tex-buttons.jsx");
@@ -68,9 +67,16 @@ var Expression = React.createClass({
 
     render: function() {
         if (this.props.apiOptions.staticRender) {
-            return <MathOutput
+            // To make things slightly easier, we just use an InputWithExamples
+            // component to handle the static rendering, which is the same
+            // component used by InputNumber and NumericInput
+            return <InputWithExamples
                         ref="input"
                         value={this.props.value}
+                        type={"tex"}
+                        examples={[]}
+                        shouldShowExamples={false}
+                        onChange={this.change("value")}
                         onFocus={this._handleFocus}
                         onBlur={this._handleBlur} />;
         } else {
@@ -294,7 +300,6 @@ var OldExpression = React.createClass({
                     onChange={this.handleChange}
                     examples={this.examples()}
                     shouldShowExamples={shouldShowExamples}
-                    interceptFocus={this._getInterceptFocus()}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur} />
             <span className="output">
@@ -321,21 +326,6 @@ var OldExpression = React.createClass({
 
     _handleBlur: function() {
         this.props.onBlur([]);
-    },
-
-    _getInterceptFocus: function() {
-        return this.props.apiOptions.interceptInputFocus ?
-                this._interceptFocus : null;
-    },
-
-    _interceptFocus: function() {
-        var interceptProp = this.props.apiOptions.interceptInputFocus;
-        if (interceptProp) {
-            return interceptProp(
-                this.props.widgetId,
-                this.refs.input.getInputDOMNode()
-            );
-        }
     },
 
     errorTimeout: null,

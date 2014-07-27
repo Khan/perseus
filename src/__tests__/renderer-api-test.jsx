@@ -141,40 +141,6 @@ describe("Perseus API", function() {
         });
     });
 
-    describe("interceptInputFocus", function() {
-        it("should intercept a focus and get a widget id", function() {
-            var interceptedWidgetId;
-
-            var renderer = renderQuestionArea(inputNumber1Item, {
-                interceptInputFocus: function(widgetId) {
-                    interceptedWidgetId = widgetId;
-                }
-            });
-
-            var input = renderer.getDOMNode().querySelector('input');
-
-            TestUtils.Simulate.focus(input);
-
-            assert.strictEqual(interceptedWidgetId, "input-number 1");
-        });
-
-        it("should be able to inject the correct value and grade", function() {
-            var renderer = renderQuestionArea(inputNumber1Item, {
-                interceptInputFocus: function(widgetId) {
-                    renderer.setInputValue(widgetId, "5");
-                }
-            });
-
-            var input = renderer.getDOMNode().querySelector('input');
-
-            TestUtils.Simulate.focus(input);
-
-            var score = renderer.guessAndScore()[1];
-            assert.strictEqual(score.type, "points");
-            assert.strictEqual(score.earned, score.total);
-        });
-    });
-
     describe("onInputError", function() {
         it("should call a callback when grading an empty input-number",
                 function() {

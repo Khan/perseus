@@ -231,6 +231,11 @@ var MathInput = React.createClass({
     focus: function() {
         this.mathField().focus();
         this.setState({ focused: true });
+    },
+
+    blur: function() {
+        this.mathField().blur();
+        this.setState({ focused: false });
     }
 });
 

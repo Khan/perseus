@@ -8,9 +8,6 @@
  *  * nothing if it is purely a bug fix.
  *
  * Callbacks passed to Renderer/ItemRenderer:
- *  * interceptInputFocus:
- *    When non-null, inputs will not receive focus events,
- *    but instead this function will be called
  *  * onInputError:
  *    Called when there is an error grading a widget
  *  * onFocusChange: (newFocus, oldFocus)
@@ -30,7 +27,6 @@ module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
             fancyDropdowns: React.PropTypes.bool.isRequired,
-            interceptInputFocus: React.PropTypes.func,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
             staticRender: React.PropTypes.bool.isRequired
@@ -38,7 +34,6 @@ module.exports = {
 
         defaults: {
             fancyDropdowns: false,
-            interceptInputFocus: null,
             onInputError: function() { },
             onFocusChange: function() { },
             staticRender: false

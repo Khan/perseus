@@ -24,6 +24,10 @@ var TextInput = React.createClass({
 
     focus: function() {
         this.getDOMNode().focus();
+    },
+
+    blur: function() {
+        this.getDOMNode().blur();
     }
 });
 

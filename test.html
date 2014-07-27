@@ -242,8 +242,8 @@ Perseus.init({skipMathJax: false}).then(function() {
                 console.log.apply(console, ["interceptInputFocus:"].concat(args));
                 return;
             },
-            onFocusChange: function(newObj, oldObj) {
-                console.log("onFocusChange", newObj.path, oldObj.path);
+            onFocusChange: function(newPath, oldPath) {
+                console.log("onFocusChange", newPath, oldPath);
             },
             __staticRender: true
         }

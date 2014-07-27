@@ -99,24 +99,11 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     renderMultiple: function() {
-        var parentInterceptInputFocus =
-                this.props.apiOptions.interceptInputFocus;
         var parentOnFocusChange = this.props.apiOptions.onFocusChange;
-
         var apiOptions = _.extend(
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
-            parentInterceptInputFocus && {
-                // Rewrite widgetIds sent to interceptInputFocus on the way
-                // up to include an "answer-" prefix
-                interceptInputFocus: (widgetId) => {
-                    var args = _.toArray(arguments);
-                    var fullWidgetId = "answer-" + widgetId;
-                    args[0] = fullWidgetId;
-                    return parentInterceptInputFocus.apply(null, args);
-                }
-            },
             parentOnFocusChange && {
                 onFocusChange: (newFocus, oldFocus) => {
                     // If we have an apiOptions.onFocusChange, call

@@ -3,10 +3,12 @@
 var React         = require("react");
 var TeX           = require("../tex.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+var Tooltip       = require("react-components/tooltip.jsx");
 
 var MathOutput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
+        className: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func
     },
@@ -27,9 +29,9 @@ var MathOutput = React.createClass({
     },
 
     _getInputClassName: function() {
-        var className = "math-output " + ApiClassNames.INPUT;
-        if (this.state.focused) {
-            className += " " + ApiClassNames.FOCUSED;
+        var className = "math-output";
+        if (this.props.className) {
+            className += " " + this.props.className;
         }
         return className;
     },
@@ -51,19 +53,23 @@ var MathOutput = React.createClass({
     },
 
     focus: function() {
-        this.props.onFocus();
-        this._bindBlurHandler();
-        this.setState({
-            focused: true
-        });
+        if (!this.state.focused) {
+            this.props.onFocus();
+            this._bindBlurHandler();
+            this.setState({
+                focused: true
+            });
+        }
     },
 
     blur: function() {
-        this.props.onBlur();
-        this._unbindBlurHandler();
-        this.setState({
-            focused: false
-        });
+        if (this.state.focused) {
+            this.props.onBlur();
+            this._unbindBlurHandler();
+            this.setState({
+                focused: false
+            });
+        }
     },
 
     _bindBlurHandler: function() {
@@ -82,14 +88,6 @@ var MathOutput = React.createClass({
 
     componentWillUnmount: function() {
         this._unbindBlurHandler();
-    },
-
-    // For consistency with the API that Expression and NumericInput use to
-    // get their current input element. Perhaps this should have a different
-    // name, and those should explicitly use a different method when they need
-    // to get its DOM node?
-    getInputDOMNode: function() {
-        return this.refs.input.getDOMNode();
     }
 });
 

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
-var React = require('react');
-var Changeable = require("../mixins/changeable.jsx");
+var React        = require('react');
+var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var InfoTip = require("react-components/info-tip.jsx");
@@ -10,6 +10,10 @@ var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("react-components/button-group.jsx");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
+var ParseTex          = require("../parse-tex.js");
+
+var ApiOptions      = require("../perseus-api.jsx").Options;
+var EnabledFeatures = require("../enabled-features.jsx");
 
 var Editor = require("../editor.jsx");
 
@@ -41,33 +45,64 @@ var formExamples = {
 
 var NumericInput = React.createClass({
     propTypes: {
-        currentValue: React.PropTypes.string
+        currentValue: React.PropTypes.string,
+        enabledFeatures: EnabledFeatures.propTypes
     },
 
     getDefaultProps: function() {
         return {
             currentValue: "",
-            size: "normal"
+            size: "normal",
+            enabledFeatures: EnabledFeatures.defaults,
+            apiOptions: ApiOptions.defaults
         };
     },
 
     render: function() {
         return <InputWithExamples
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                className={"perseus-input-size-" + this.props.size}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()} />;
+                    ref="input"
+                    value={this.props.currentValue}
+                    onChange={this.handleChange}
+                    className={"perseus-input-size-" + this.props.size}
+                    type={this._getInputType()}
+                    examples={this.examples()}
+                    shouldShowExamples={this.shouldShowExamples()}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur} />;
     },
 
     handleChange: function(newValue) {
         this.props.onChange({ currentValue: newValue });
     },
 
+    _getInputType: function() {
+        if (this.props.apiOptions.staticRender) {
+            return "tex";
+        } else {
+            return "text";
+        }
+    },
+
+    _handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur([]);
+    },
+
     focus: function() {
         this.refs.input.focus();
         return true;
+    },
+
+    blur: function() {
+        this.refs.input.blur();
+        return true;
+    },
+
+    getInputPaths: function() {
+        return this;
     },
 
     toJSON: function(skipValidation) {
@@ -116,6 +151,10 @@ _.extend(NumericInput, {
                             answer.answerForms : allAnswerForms
             });
 
+        // We may have received TeX; try to parse it before grading.
+        // If `currentValue` is not TeX, this should be a no-op.
+        var currentValue = ParseTex(state.currentValue);
+
         // Look through all correct answers for one that matches either
         // precisely or approximately and return the appropriate message:
         // - if precise, return the message that the answer came with
@@ -123,7 +162,7 @@ _.extend(NumericInput, {
         var correctAnswers = _.where(rubric.answers, {status: "correct"});
         var result = _.find(_.map(correctAnswers, (answer) => {
             var validate = createValidator(answer);
-            return validate(state.currentValue);
+            return validate(currentValue);
         }), match => match.correct || match.empty);
 
         if (!result) { // Otherwise, if the guess is not correct
@@ -136,13 +175,13 @@ _.extend(NumericInput, {
             // precisely or approximately return the answer's message
             match = _.find(otherAnswers, (answer) => {
                  var validate = createValidator(answer);
-                 return validate(state.currentValue).correct;
+                 return validate(currentValue).correct;
              });
             result = {
                 empty: match ? match.status === "ungraded" : false,
                 correct: match ? match.status === "correct" : false,
                 message: match ? match.message : null,
-                guess: state.currentValue
+                guess: currentValue
             };
         }
 

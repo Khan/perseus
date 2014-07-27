@@ -4,26 +4,27 @@ var React = require('react');
 var Tooltip = require("react-components/tooltip.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var MathInput = require("./math-input.jsx");
-var Renderer  = require("../renderer.jsx");
-var TextInput = require("./text-input.jsx");
+var MathInput  = require("./math-input.jsx");
+var Renderer   = require("../renderer.jsx");
+var TextInput  = require("./text-input.jsx");
+var MathOutput = require("../components/math-output.jsx");
 
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
 var MATH = "math";
 var TEXT = "text";
+var TEX = "tex";
 
 var InputWithExamples = React.createClass({
     propTypes: {
-        type: React.PropTypes.oneOf([MATH, TEXT]),
+        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
         value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
         className: React.PropTypes.string,
         examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         shouldShowExamples: React.PropTypes.bool,
         convertDotToTimes: React.PropTypes.bool,
-        interceptFocus: React.PropTypes.func,
         buttonSet: React.PropTypes.string,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         onFocus: React.PropTypes.func,
@@ -58,44 +59,81 @@ var InputWithExamples = React.createClass({
         return className;
     },
 
+    _getPropsForInputType: function() {
+        // Minimal set of props, used by each input type
+        var inputProps = {
+            ref: "input",
+            className: this._getInputClassName(),
+            value: this.props.value,
+            onFocus: this._handleFocus,
+            onBlur: this._handleBlur
+        };
+
+        if (this.props.type === TEX) {
+            return inputProps;
+        }
+
+        // Add useful props required for MATH and TEXT modes
+        _.extend(inputProps, {
+            buttonSet: this.props.buttonSet,
+            buttonsVisible: this.props.buttonsVisible,
+            onChange: this.props.onChange,
+            onTouchStart: captureScratchpadTouchStart
+        });
+
+        // And add final props that are MATH- and TEXT-specific
+        if (this.props.type === MATH) {
+            return _.extend({
+                convertDotToTimes: this.props.convertDotToTimes,
+            }, inputProps);
+        } else if (this.props.type === TEXT) {
+            return _.extend({
+                autoCapitalize: "off",
+                autoComplete: "off",
+                autoCorrect: "off",
+                spellCheck: "false",
+            }, inputProps);
+        }
+    },
+
+    _getComponentForInputType: function() {
+        switch (this.props.type) {
+            case TEX:
+                return MathOutput;
+
+            case MATH:
+                return MathInput;
+
+            case TEXT:
+                return TextInput;
+
+            default:
+                return null;
+        }
+    },
+
+    _renderInput: function() {
+        var inputProps = this._getPropsForInputType();
+        var inputComponent = this._getComponentForInputType();
+        return inputComponent(inputProps);
+    },
+
     render: function() {
+        var input = this._renderInput();
+
+        // Static rendering, which doesn't include the 'tooltip' logic that the
+        // other types require, and is hence handled separately.
+        if (this.props.type === TEX) {
+            return input;
+        }
+
+        // Else, we need to be able to show examples
         var examplesContent = _.map(this.props.examples, (example) => {
             return "- " + example;
         }).join("\n");
 
         var showExamples = this.props.shouldShowExamples &&
                 this.state.showExamples;
-
-        var inputProps = {
-            className: this._getInputClassName(),
-            value: this.props.value,
-            buttonSet: this.props.buttonSet,
-            buttonsVisible: this.props.buttonsVisible,
-            onChange: this.props.onChange,
-            onFocus: this._handleFocus,
-            // HACK (jack): This fixes readonly inputs (from interceptFocus)
-            // not getting focus events when clicked on mobile:
-            onClick: this.props.interceptFocus != null ? this.focus : null,
-            onBlur: this._handleBlur,
-            onTouchStart: captureScratchpadTouchStart,
-            ref: "input"
-        };
-
-        var input = this.props.type === MATH ?
-            MathInput(_.extend({
-                convertDotToTimes: this.props.convertDotToTimes,
-            }, inputProps)) :
-            TextInput(_.extend({
-                autoCapitalize: "off",
-                autoComplete: "off",
-                autoCorrect: "off",
-                spellCheck: "false",
-                // HACK(jack): We make the input read-only if there is a
-                // this.props.interceptFocus function, so that the focus can
-                // be intercepted pre-focus for mobile, which doesn't want a
-                // keyboard to pop up. Hacky, I know
-                readOnly: this.props.interceptFocus != null,
-            }, inputProps));
 
         return <Tooltip
                 ref="tooltip"
@@ -112,17 +150,10 @@ var InputWithExamples = React.createClass({
     },
 
     _handleFocus: function() {
-        var showExamples = true;
-        if (this.props.interceptFocus) {
-            var interceptResult = this.props.interceptFocus();
-            if (interceptResult === false) {
-                showExamples = false;
-            }
-        }
         this.props.onFocus();
         this.setState({
             focused: true,
-            showExamples: showExamples
+            showExamples: true
         });
     },
 
@@ -146,12 +177,12 @@ var InputWithExamples = React.createClass({
         this.refs.input.focus();
     },
 
-    handleChange: function(e) {
-        this.props.onChange(e.target.value);
+    blur: function() {
+        this.refs.input.blur();
     },
 
-    getInputDOMNode: function() {
-        return this.refs.input.getDOMNode();
+    handleChange: function(e) {
+        this.props.onChange(e.target.value);
     }
 });
 

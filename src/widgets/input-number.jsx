@@ -5,7 +5,6 @@ var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
-var MathOutput        = require("../components/math-output.jsx");
 var ParseTex          = require("../parse-tex.js");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -97,27 +96,32 @@ var InputNumber = React.createClass({
 
     shouldShowExamples: function() {
         return this.props.enabledFeatures.toolTipFormats &&
-                this.props.answerType !== "number";
+                this.props.answerType !== "number" &&
+                !this.props.apiOptions.staticRender;
     },
 
     render: function() {
-        if (this.props.apiOptions.staticRender) {
-            return <MathOutput
-                    ref="input"
-                    value={this.props.currentValue}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />;
-        } else {
-            return <InputWithExamples
+        return <InputWithExamples
                     ref="input"
                     value={this.props.currentValue}
                     onChange={this.handleChange}
                     className={"perseus-input-size-" + this.props.size}
+                    type={this._getInputType()}
                     examples={this.examples()}
                     shouldShowExamples={this.shouldShowExamples()}
-                    interceptFocus={this._getInterceptFocus()}
                     onFocus={this._handleFocus}
                     onBlur={this._handleBlur} />;
+    },
+
+    handleChange: function(newValue) {
+        this.props.onChange({ currentValue: newValue });
+    },
+
+    _getInputType: function() {
+        if (this.props.apiOptions.staticRender) {
+            return "tex";
+        } else {
+            return "text";
         }
     },
 
@@ -129,44 +133,13 @@ var InputNumber = React.createClass({
         this.props.onBlur([]);
     },
 
-    _getInterceptFocus: function() {
-        return this.props.apiOptions.interceptInputFocus &&
-                this._interceptFocus;
-    },
-
-    _interceptFocus: function() {
-        if (this.props.apiOptions.staticRender) {
-            return;
-        }
-        this.props.onFocus([]);
-        var interceptProp = this.props.apiOptions.interceptInputFocus;
-        if (interceptProp) {
-            return interceptProp(
-                this.props.widgetId,
-                this.refs.input.getInputDOMNode()
-            );
-        }
-    },
-
-    handleChange: function(newValue) {
-        this.props.onChange({ currentValue: newValue });
-    },
-
     focus: function() {
-        if (this.props.apiOptions.staticRender) {
-            this.refs.input.focus();
-        } else {
-            this.refs.input.getInputDOMNode().focus();
-        }
+        this.refs.input.focus();
         return true;
     },
 
     blur: function() {
-        if (this.props.apiOptions.staticRender) {
-            this.refs.input.blur();
-        } else {
-            this.refs.input.getInputDOMNode().blur();
-        }
+        this.refs.input.blur();
         return true;
     },
 

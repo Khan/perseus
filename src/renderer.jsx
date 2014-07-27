@@ -517,10 +517,10 @@ var Renderer = React.createClass({
         var inputPaths = [];
         _.each(this.widgetIds, (widgetId) => {
             var widget = this.getWidgetInstance(widgetId);
-
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
                 var widgetInputPaths = widget.getInputPaths();
+
                 if (widgetInputPaths === widget) {
                     // Special case: we allow you to just return the widget
                     inputPaths.push([
