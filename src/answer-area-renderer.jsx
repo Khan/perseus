@@ -85,20 +85,17 @@ var AnswerAreaRenderer = React.createClass({
 
     // Gets a focus object fixed up with an "answer-" prefix for
     // onFocusChange when type === "multiple"
-    _getAnswerAreaFocusObj: function(rendererFocusObj) {
-        if (rendererFocusObj.path == null) {
-            return rendererFocusObj;
+    _getAnswerAreaFocusObj: function(rendererFocusPath) {
+        if (rendererFocusPath == null) {
+            return rendererFocusPath;
         }
         // TODO(jack): make "answer" the first element of the prefix
         // array, rather than modifying the widgetId, once we have
         // expunged widgetIds from the rest of the api calls in
         // favor of focus paths
-        var answerPath = ["answer-" + rendererFocusObj.path[0]];
-        answerPath = answerPath.concat(_.rest(rendererFocusObj.path));
-        return {
-            path: answerPath,
-            element: rendererFocusObj.element
-        };
+        var answerPath = ["answer-" + _.first(rendererFocusPath)].concat(
+            _.rest(rendererFocusPath));
+        return answerPath;
     },
 
     renderMultiple: function() {
@@ -181,25 +178,16 @@ var AnswerAreaRenderer = React.createClass({
         // onChangeFocus at the ItemRenderer level.
         var onFocus = (path, elem) => {
             this._isFocused = true;
-            apiOptions.onFocusChange({
-                path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.getWidgetInstance().getDOMNode()
-            }, {
+            apiOptions.onFocusChange(
+                [SINGLE_ITEM_WIDGET_ID].concat(path),
                 // we're pretending we're a renderer, so if we got
                 // focus, we must not have had it before
-                path: null,
-                element: null
-            });
+                null);
         };
         var onBlur = (path, elem) => {
             this._isFocused = false;
-            apiOptions.onFocusChange({
-                path: null,
-                element: null
-            }, {
-                path: [SINGLE_ITEM_WIDGET_ID].concat(path),
-                element: elem || this.getWidgetInstance().getDOMNode()
-            });
+            apiOptions.onFocusChange(null,
+                [SINGLE_ITEM_WIDGET_ID].concat(path));
         };
 
         return _.extend({
@@ -249,17 +237,11 @@ var AnswerAreaRenderer = React.createClass({
                         this.props.apiOptions.onFocusChange &&
                         !this._isFocused) {
                     this._isFocused = true;
-                    this.props.apiOptions.onFocusChange({
-                        path: [SINGLE_ITEM_WIDGET_ID],
-                        // TODO(jack): Make this less hacky (call some magic
-                        // getElement function or something):
-                        element: this.getWidgetInstance().getDOMNode()
-                    }, {
+                    this.props.apiOptions.onFocusChange(
+                        [SINGLE_ITEM_WIDGET_ID],
                         // we're pretending we're a renderer, so if we got
                         // focus, we must not have had it before
-                        path: null,
-                        element: null
-                    });
+                        null);
                 }
             }
         });
@@ -299,11 +281,11 @@ var AnswerAreaRenderer = React.createClass({
 
         $("#examples-show").hide();
         if ($("#examples-show").data("qtip")) {
-            // This will warn about Jquery removing a node owned by React, 
-            // however React no longer owns that node. We created that node 
-            // using React, copied its html, passed it to qtip, and then 
-            // unmounted it from React. So it React thinks it is it's code 
-            // because it has a data-reactid, but qtip created it.      
+            // This will warn about Jquery removing a node owned by React,
+            // however React no longer owns that node. We created that node
+            // using React, copied its html, passed it to qtip, and then
+            // unmounted it from React. So it React thinks it is it's code
+            // because it has a data-reactid, but qtip created it.
             $("#examples-show").qtip("destroy", /* immediate */ true);
         }
 
@@ -336,7 +318,7 @@ var AnswerAreaRenderer = React.createClass({
                 hide: {delay: 0}
             });
 
-            // Now that qtip has been created with a copy of the react 
+            // Now that qtip has been created with a copy of the react
             // component's html, we no longer need to keep the react component.
             React.unmountComponentAtNode(this.$examples[0]);
             this.$examples.remove();
@@ -358,6 +340,102 @@ var AnswerAreaRenderer = React.createClass({
 
     focus: function() {
         this.getWidgetInstance().focus();
+    },
+
+    getDOMNodeForPath: function(path) {
+        var prefixedWidgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        if (this.props.type === "multiple") {
+            var widgetId = prefixedWidgetId.replace('answer-', '');
+            var relativePath = [widgetId].concat(interWidgetPath);
+
+            // Answer-area is a renderer, so we can pass down the path
+            return this.getWidgetInstance().getDOMNodeForPath(relativePath);
+        } else {
+            // Answer-area is a widget, so we treat it like a widget, returning
+            // the outer node in the special-case that there is no remaining
+            // path.
+            var widget = this.getWidgetInstance();
+            var getNode = widget.getDOMNodeForPath;
+            if (getNode) {
+                return getNode(interWidgetPath);
+            } else if (interWidgetPath.length === 0) {
+                return widget.getDOMNode();
+            }
+        }
+    },
+
+    getInputPaths: function() {
+        if (this.props.type === "multiple") {
+            var inputPaths = this.getWidgetInstance().getInputPaths();
+            // We need to prefix our widgetIds with 'answer-' to preserve
+            // uniqueness when we return these to the item-renderer.
+            return _.map(inputPaths, (path) => {
+                var prefixedWidget = 'answer-' + _.first(path);
+                return [prefixedWidget].concat(_.rest(path));
+            });
+        } else {
+            var widgetId = "answer-area";
+            var inputPaths = [];
+            var widget = this.getWidgetInstance();
+            if (widget.getInputPaths) {
+                // Grab all input paths and add widgetID to the front
+                var widgetInputPaths = widget.getInputPaths();
+
+                if (widgetInputPaths === widget) {
+                    // Special case: we allow you to just return the widget
+                    inputPaths.push([
+                        widgetId
+                    ]);
+                } else {
+                    // Add to collective list of inputs
+                    _.each(widgetInputPaths, (inputPath) => {
+                        var relativeInputPath = [widgetId].concat(inputPath);
+                        inputPaths.push(relativeInputPath);
+                    });
+                }
+            }
+            return inputPaths;
+        }
+    },
+
+    focusPath: function(path) {
+        var prefixedWidgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        if (this.props.type === "multiple") {
+            var widgetId = prefixedWidgetId.replace('answer-', '');
+            var relativePath = [widgetId].concat(interWidgetPath);
+
+            // Answer-area is a renderer, so we can pass down the path
+            this.getWidgetInstance().focusPath(relativePath);
+        } else {
+            // Answer-area is a widget
+            var focusWidget = this.getWidgetInstance().focus;
+            focusWidget && focusWidget(interWidgetPath);
+        }
+    },
+
+    blurPath: function(path) {
+        var prefixedWidgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        if (this.props.type === "multiple") {
+            var widgetId = prefixedWidgetId.replace('answer-', '');
+            var relativePath = [widgetId].concat(interWidgetPath);
+
+            // Answer-area is a renderer, so we can pass down the path
+            this.getWidgetInstance().blurPath(relativePath);
+        } else {
+            // Answer-area is a widget
+            var blurWidget = this.getWidgetInstance().blur;
+            blurWidget && blurWidget(interWidgetPath);
+        }
+    },
+
+    blur: function() {
+        this.getWidgetInstance().blur();
     },
 
     guessAndScore: function() {

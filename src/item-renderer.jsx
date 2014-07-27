@@ -67,10 +67,7 @@ var ItemRenderer = React.createClass({
         if (Khan.scratchpad) {
             Khan.scratchpad.enable();
         }
-        this._currentFocus = {
-            path: null,
-            element: null
-        };
+        this._currentFocus = null;
         this.update();
     },
 
@@ -133,7 +130,7 @@ var ItemRenderer = React.createClass({
     },
 
     _handleFocusChange: function(newFocus, oldFocus) {
-        if (newFocus.path != null) {
+        if (newFocus != null) {
             this._setCurrentFocus(newFocus);
         } else {
             this._onRendererBlur(oldFocus);
@@ -143,8 +140,8 @@ var ItemRenderer = React.createClass({
     // Sets the current focus path and element and
     // send an onChangeFocus event back to our parent.
     _setCurrentFocus: function(newFocus) {
-        // By the time this happens, newFocus.path cannot be a prefix of
-        // prevFocused.path, since we must have either been called from
+        // By the time this happens, newFocus cannot be a prefix of
+        // prevFocused, since we must have either been called from
         // an onFocusChange within a renderer, which is only called when
         // this is not a prefix, or between the question and answer areas,
         // which can never prefix each other.
@@ -162,8 +159,8 @@ var ItemRenderer = React.createClass({
         // now, but then an onFocus event on a different element before
         // this callback is executed
         _.defer(() => {
-            if (_.isEqual(this._currentFocus.path, oldFocus.path)) {
-                this._setCurrentFocus({path: null, element: null});
+            if (_.isEqual(this._currentFocus, oldFocus)) {
+                this._setCurrentFocus(null);
             }
         });
     },
@@ -222,6 +219,46 @@ var ItemRenderer = React.createClass({
             newProps = {currentValue: newValue};
         }
         this._setWidgetProps(inputWidgetId, newProps, () => focus);
+    },
+
+    getDOMNodeForPath: function(path) {
+        var isAnswerArea = path[0].match(/^answer-(.*)$/);
+        if (isAnswerArea) {
+            return this.answerAreaRenderer.getDOMNodeForPath(path);
+        } else {
+            return this.questionRenderer.getDOMNodeForPath(path);
+        }
+    },
+
+    getInputPaths: function() {
+        var questionAreaInputPaths = this.questionRenderer.getInputPaths();
+        var answerAreaInputPaths = this.answerAreaRenderer.getInputPaths();
+        return questionAreaInputPaths.concat(answerAreaInputPaths);
+    },
+
+    focusPath: function(path) {
+        var isAnswerArea = path[0].match(/^answer-(.*)$/);
+        if (isAnswerArea) {
+            // answerAreaRenderer will handle burring of any inputs in its own
+            // domain, but it currently has no way to figure out if there's
+            // something selected in the question area (and vice versa); so,
+            // we blast the focused inputs in the untargeted domain with a
+            // `blur()` call.
+            this.questionRenderer.blur();
+            this.answerAreaRenderer.focusPath(path);
+        } else {
+            this.answerAreaRenderer.blur();
+            this.questionRenderer.focusPath(path);
+        }
+    },
+
+    blurPath: function(path) {
+        var isAnswerArea = path[0].match(/^answer-(.*)$/);
+        if (isAnswerArea) {
+            this.answerAreaRenderer.blurPath(path);
+        } else {
+            this.questionRenderer.blurPath(path);
+        }
     },
 
     handleInteractWithWidget: function(widgetId) {

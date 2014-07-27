@@ -122,11 +122,11 @@ var InputNumber = React.createClass({
     },
 
     _handleFocus: function() {
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
+        this.props.onFocus([]);
     },
 
     _handleBlur: function() {
-        this.props.onBlur([], this.refs.input.getInputDOMNode());
+        this.props.onBlur([]);
     },
 
     _getInterceptFocus: function() {
@@ -138,7 +138,7 @@ var InputNumber = React.createClass({
         if (this.props.apiOptions.staticRender) {
             return;
         }
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
+        this.props.onFocus([]);
         var interceptProp = this.props.apiOptions.interceptInputFocus;
         if (interceptProp) {
             return interceptProp(
@@ -159,6 +159,19 @@ var InputNumber = React.createClass({
             this.refs.input.getInputDOMNode().focus();
         }
         return true;
+    },
+
+    blur: function() {
+        if (this.props.apiOptions.staticRender) {
+            this.refs.input.blur();
+        } else {
+            this.refs.input.getInputDOMNode().blur();
+        }
+        return true;
+    },
+
+    getInputPaths: function() {
+        return this;
     },
 
     toJSON: function(skipValidation) {

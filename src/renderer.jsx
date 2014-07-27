@@ -239,10 +239,9 @@ var Renderer = React.createClass({
         return this.refs["container:" + id].getWidget();
     },
 
-    _onWidgetFocus: function(id, focusPath, element) {
-        if (focusPath === undefined && element === undefined) {
+    _onWidgetFocus: function(id, focusPath) {
+        if (focusPath === undefined) {
             focusPath = [];
-            element = this.getWidgetInstance(id).getDOMNode();
         } else {
             if (!_.isArray(focusPath)) {
                 throw new Error(
@@ -250,26 +249,27 @@ var Renderer = React.createClass({
                     "but was" + JSON.stringify(focusPath)
                 );
             }
-            if (element == null) {
-                throw new Error(
-                    "widget props.onFocus element was " +
-                    element
-                );
-            }
         }
-        this._setCurrentFocus([id].concat(focusPath), element);
+        this._setCurrentFocus([id].concat(focusPath));
     },
 
     _onWidgetBlur: function(id) {
-        var blurringFocus = this._currentFocus;
+        var blurringFocusId = this._currentFocus;
+
+        // Failsafe: abort if ID is different, because focus probably happened
+        // before blur
+        if (blurringFocusId[0] !== id) {
+            return;
+        }
+
         // Wait until after any new focus events fire this tick before
         // declaring that nothing is focused.
         // If a different widget was focused, we'll see an onBlur event
         // now, but then an onFocus event on a different element before
         // this callback is executed
         _.defer(() => {
-            if (_.isEqual(this._currentFocus.path, blurringFocus.path)) {
-                this._setCurrentFocus(null, null);
+            if (_.isEqual(this._currentFocus, blurringFocusId)) {
+                this._setCurrentFocus(null);
             }
         });
     },
@@ -434,10 +434,7 @@ var Renderer = React.createClass({
 
     componentDidMount: function() {
         this.handleRender({});
-        this._currentFocus = {
-            path: null,
-            element: null
-        };
+        this._currentFocus = null;
     },
 
     componentWillUnmount: function() {
@@ -446,10 +443,10 @@ var Renderer = React.createClass({
         }
     },
 
-    // Sets the current focus path and element
+    // Sets the current focus path
     // If the new focus path is not a prefix of the old focus path,
     // we send an onChangeFocus event back to our parent.
-    _setCurrentFocus: function(path, element) {
+    _setCurrentFocus: function(path) {
         // We don't do this when the new path is a prefix because
         // that prefix is already focused (we're just in a more specific
         // area of it). This makes it safe to call _setCurrentFocus
@@ -457,12 +454,9 @@ var Renderer = React.createClass({
         // our focus state if we are already focused on a subpart
         // of that widget (i.e. a transformation NumberInput inside
         // of a transformer widget).
-        if (!isIdPathPrefix(path, this._currentFocus.path)) {
+        if (!isIdPathPrefix(path, this._currentFocus)) {
             var prevFocus = this._currentFocus;
-            this._currentFocus = {
-                path: path,
-                element: element
-            };
+            this._currentFocus = path;
             if (this.props.apiOptions.onFocusChange != null) {
                 this.props.apiOptions.onFocusChange(
                     this._currentFocus,
@@ -489,21 +483,96 @@ var Renderer = React.createClass({
         if (id) {
             // reconstruct a {path, element} focus object
             var path;
-            var element;
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
-                element = focusResult.element ||
-                    this.getWidgetInstance(id).getDOMNode();
             } else {
                 // The result of focus was true or the like; just
                 // construct a root focus object
                 path = [id];
-                element = this.getWidgetInstance(id).getDOMNode();
             }
 
-            this._setCurrentFocus(path, element);
+            this._setCurrentFocus(path);
             return true;
+        }
+    },
+
+    getDOMNodeForPath: function(path) {
+        var widgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        // Widget handles parsing of the interWidgetPath. If the path is empty
+        // beyond the widgetID, as a special case we just return the widget's
+        // DOM node.
+        var widget = this.getWidgetInstance(widgetId);
+        var getNode = widget.getDOMNodeForPath;
+        if (getNode) {
+            return getNode(interWidgetPath);
+        } else if (interWidgetPath.length === 0) {
+            return widget.getDOMNode();
+        }
+    },
+
+    getInputPaths: function() {
+        var inputPaths = [];
+        _.each(this.widgetIds, (widgetId) => {
+            var widget = this.getWidgetInstance(widgetId);
+
+            if (widget.getInputPaths) {
+                // Grab all input paths and add widgetID to the front
+                var widgetInputPaths = widget.getInputPaths();
+                if (widgetInputPaths === widget) {
+                    // Special case: we allow you to just return the widget
+                    inputPaths.push([
+                        widgetId
+                    ]);
+                } else {
+                    // Prefix paths with their widgetID and add to collective
+                    // list of paths.
+                    _.each(widgetInputPaths, (inputPath) => {
+                        var relativeInputPath = [widgetId].concat(inputPath);
+                        inputPaths.push(relativeInputPath);
+                    });
+                }
+            }
+        });
+
+        return inputPaths;
+    },
+
+    focusPath: function(path) {
+        // No need to focus if it's already focused
+        if (_.isEqual(this._currentFocus, path)) {
+            return;
+        } else if (this._currentFocus) {
+            // Unfocus old path, if exists
+            this.blurPath(this._currentFocus);
+        }
+
+        var widgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        // Widget handles parsing of the interWidgetPath
+        var focusWidget = this.getWidgetInstance(widgetId).focus;
+        focusWidget && focusWidget(interWidgetPath);
+    },
+
+    blurPath: function(path) {
+        // No need to blur if it's not focused
+        if (!_.isEqual(this._currentFocus, path)) {
+            return;
+        }
+
+        var widgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+        // Widget handles parsing of the interWidgetPath
+        var blurWidget = this.getWidgetInstance(widgetId).blur;
+        blurWidget && blurWidget(interWidgetPath);
+    },
+
+    blur: function() {
+        if (this._currentFocus) {
+            this.blurPath(this._currentFocus);
         }
     },
 
@@ -545,9 +614,7 @@ var Renderer = React.createClass({
                 // TODO(jack): Figure out why this is happening and fix it
                 // As far as I can tell, this is only an issue in the
                 // editor-page, so doing this shouldn't break clients hopefully
-                var element = this.getWidgetInstance(id) ?
-                        this.getWidgetInstance(id).getDOMNode() : null;
-                this._setCurrentFocus([id], element);
+                this._setCurrentFocus([id]);
             }
         });
     },

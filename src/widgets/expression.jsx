@@ -126,11 +126,11 @@ var Expression = React.createClass({
     },
 
     _handleFocus: function() {
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
+        this.props.onFocus([]);
     },
 
     _handleBlur: function() {
-        this.props.onBlur([], this.refs.input.getInputDOMNode());
+        this.props.onBlur([]);
     },
 
     errorTimeout: null,
@@ -172,11 +172,20 @@ var Expression = React.createClass({
         return true;
     },
 
+    blur: function() {
+        this.refs.input.blur();
+        return true;
+    },
+
     // HACK(joel)
     insert: function(text) {
         if (!this.props.apiOptions.staticRender) {
             this.refs.input.insert(text);
         }
+    },
+
+    getInputPaths: function() {
+        return this;
     },
 
     simpleValidate: function(rubric, onInputError) {
@@ -307,11 +316,11 @@ var OldExpression = React.createClass({
     },
 
     _handleFocus: function() {
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
+        this.props.onFocus([]);
     },
 
     _handleBlur: function() {
-        this.props.onBlur([], this.refs.input.getInputDOMNode());
+        this.props.onBlur([]);
     },
 
     _getInterceptFocus: function() {
@@ -457,6 +466,15 @@ var OldExpression = React.createClass({
     focus: function() {
         this.refs.input.focus();
         return true;
+    },
+
+    blur: function() {
+        this.refs.input.blur();
+        return true;
+    },
+
+    getInputPaths: function() {
+        return this;
     },
 
     toJSON: function(skipValidation) {
