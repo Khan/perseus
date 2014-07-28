@@ -25,7 +25,8 @@ var StatefulEditorPage = React.createClass({
     // need to update the state here.
     // (This component is currently re-rendered by the "Add image" button.)
     componentWillReceiveProps: function(nextProps) {
-        this.setState(nextProps);
+        // be careful not to overwrite our onChange and ref
+        this.setState(_(nextProps).omit("onChange", "ref"));
     },
     toJSON: function() {
         return this.refs.editor.toJSON();
