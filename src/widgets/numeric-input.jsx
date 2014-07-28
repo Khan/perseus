@@ -111,6 +111,11 @@ var NumericInput = React.createClass({
         }, cb);
     },
 
+    getAcceptableFormatsForInputPath: function() {
+        // TODO(charlie): What format does the mobile team want this in?
+        return _.clone(this.props.answerForms);
+    },
+
     toJSON: function(skipValidation) {
         return {currentValue: this.props.currentValue};
     },

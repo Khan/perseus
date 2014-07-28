@@ -325,10 +325,6 @@ var AnswerAreaRenderer = React.createClass({
         }
     },
 
-    focus: function() {
-        this.getWidgetInstance().focus();
-    },
-
     getDOMNodeForPath: function(path) {
         var prefixedWidgetId = _.first(path);
         var interWidgetPath = _.rest(path);
@@ -352,6 +348,25 @@ var AnswerAreaRenderer = React.createClass({
             }
         }
     },
+
+    getAcceptableFormatsForInputPath: function(path) {
+            var prefixedWidgetId = _.first(path);
+            var interWidgetPath = _.rest(path);
+
+            var newPath;
+            if (this.props.type === "multiple") {
+                var widgetId = prefixedWidgetId.replace('answer-', '');
+                var relativePath = [widgetId].concat(interWidgetPath);
+                newPath = relativePath;
+            } else {
+                newPath = interWidgetPath;
+            }
+
+            // API is agnostic to `this.getWidgetInstance()` being a widget or
+            // renderer, so pass it down without concern for the actual type.
+            return this.getWidgetInstance().getAcceptableFormatsForInputPath(
+                newPath);
+        },
 
     getInputPaths: function() {
         if (this.props.type === "multiple") {
@@ -419,6 +434,10 @@ var AnswerAreaRenderer = React.createClass({
             var blurWidget = this.getWidgetInstance().blur;
             blurWidget && blurWidget(interWidgetPath);
         }
+    },
+
+    focus: function() {
+        this.getWidgetInstance().focus();
     },
 
     blur: function() {
@@ -441,102 +460,6 @@ var AnswerAreaRenderer = React.createClass({
         // Thankfully, the API is agnostic! So it doesn't matter if this is a
         // renderer or a widget.
         this.getWidgetInstance().setInputValue(newPath, newValue, () => focus);
-    },
-
-    getDOMNodeForPath: function(path) {
-        var prefixedWidgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
-
-        if (this.props.type === "multiple") {
-            var widgetId = prefixedWidgetId.replace('answer-', '');
-            var relativePath = [widgetId].concat(interWidgetPath);
-
-            // Answer-area is a renderer, so we can pass down the path
-            return this.getWidgetInstance().getDOMNodeForPath(relativePath);
-        } else {
-            // Answer-area is a widget, so we treat it like a widget, returning
-            // the outer node in the special-case that there is no remaining
-            // path.
-            var widget = this.getWidgetInstance();
-            var getNode = widget.getDOMNodeForPath;
-            if (getNode) {
-                return getNode(interWidgetPath);
-            } else if (interWidgetPath.length === 0) {
-                return widget.getDOMNode();
-            }
-        }
-    },
-
-    getInputPaths: function() {
-        if (this.props.type === "multiple") {
-            var inputPaths = this.getWidgetInstance().getInputPaths();
-            // We need to prefix our widgetIds with 'answer-' to preserve
-            // uniqueness when we return these to the item-renderer.
-            return _.map(inputPaths, (path) => {
-                var prefixedWidget = 'answer-' + _.first(path);
-                return [prefixedWidget].concat(_.rest(path));
-            });
-        } else {
-            var widgetId = "answer-area";
-            var inputPaths = [];
-            var widget = this.getWidgetInstance();
-            if (widget.getInputPaths) {
-                // Grab all input paths and add widgetID to the front
-                var widgetInputPaths = widget.getInputPaths();
-
-                if (widgetInputPaths === widget) {
-                    // Special case: we allow you to just return the widget
-                    inputPaths.push([
-                        widgetId
-                    ]);
-                } else {
-                    // Add to collective list of inputs
-                    _.each(widgetInputPaths, (inputPath) => {
-                        var relativeInputPath = [widgetId].concat(inputPath);
-                        inputPaths.push(relativeInputPath);
-                    });
-                }
-            }
-            return inputPaths;
-        }
-    },
-
-    focusPath: function(path) {
-        var prefixedWidgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
-
-        if (this.props.type === "multiple") {
-            var widgetId = prefixedWidgetId.replace('answer-', '');
-            var relativePath = [widgetId].concat(interWidgetPath);
-
-            // Answer-area is a renderer, so we can pass down the path
-            this.getWidgetInstance().focusPath(relativePath);
-        } else {
-            // Answer-area is a widget
-            var focusWidget = this.getWidgetInstance().focus;
-            focusWidget && focusWidget(interWidgetPath);
-        }
-    },
-
-    blurPath: function(path) {
-        var prefixedWidgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
-
-        if (this.props.type === "multiple") {
-            var widgetId = prefixedWidgetId.replace('answer-', '');
-            var relativePath = [widgetId].concat(interWidgetPath);
-
-            // Answer-area is a renderer, so we can pass down the path
-            this.getWidgetInstance().blurPath(relativePath);
-        } else {
-            // Answer-area is a widget
-            var blurWidget = this.getWidgetInstance().blur;
-            blurWidget && blurWidget(interWidgetPath);
-        }
-    },
-
-    blur: function() {
-        this.getWidgetInstance().blur();
     },
 
     guessAndScore: function() {

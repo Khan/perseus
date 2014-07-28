@@ -200,6 +200,11 @@ var Expression = React.createClass({
         }, cb);
     },
 
+    getAcceptableFormatsForInputPath: function() {
+        // TODO(charlie): What format does the mobile team want this in?
+        return null;
+    },
+
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.toJSON(), rubric, onInputError);

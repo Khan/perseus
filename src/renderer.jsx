@@ -253,12 +253,13 @@ var Renderer = React.createClass({
         this._setCurrentFocus([id].concat(focusPath));
     },
 
-    _onWidgetBlur: function(id) {
-        var blurringFocusId = this._currentFocus;
+    _onWidgetBlur: function(id, blurPath) {
+        var blurringFocusPath = this._currentFocus;
 
         // Failsafe: abort if ID is different, because focus probably happened
         // before blur
-        if (blurringFocusId[0] !== id) {
+        var fullPath = [id].concat(blurPath);
+        if (!_.isEqual(fullPath, blurringFocusPath)) {
             return;
         }
 
@@ -268,7 +269,7 @@ var Renderer = React.createClass({
         // now, but then an onFocus event on a different element before
         // this callback is executed
         _.defer(() => {
-            if (_.isEqual(this._currentFocus, blurringFocusId)) {
+            if (_.isEqual(this._currentFocus, blurringFocusPath)) {
                 this._setCurrentFocus(null);
             }
         });
@@ -513,6 +514,16 @@ var Renderer = React.createClass({
         }
     },
 
+    getAcceptableFormatsForInputPath: function(path) {
+        var widgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        // Widget handles parsing of the interWidgetPath.
+        var widget = this.getWidgetInstance(widgetId);
+        return widget.getAcceptableFormatsForInputPath(
+            interWidgetPath);
+    },
+
     getInputPaths: function() {
         var inputPaths = [];
         _.each(this.widgetIds, (widgetId) => {
@@ -520,7 +531,6 @@ var Renderer = React.createClass({
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
                 var widgetInputPaths = widget.getInputPaths();
-
                 if (widgetInputPaths === widget) {
                     // Special case: we allow you to just return the widget
                     inputPaths.push([

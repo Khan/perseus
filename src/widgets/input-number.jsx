@@ -153,6 +153,11 @@ var InputNumber = React.createClass({
         }, cb);
     },
 
+    getAcceptableFormatsForInputPath: function() {
+        // TODO(charlie): What format does the mobile team want this in?
+        return answerTypes[this.props.answerType].forms.split(', ');
+    },
+
     toJSON: function(skipValidation) {
         return {
             currentValue: this.props.currentValue

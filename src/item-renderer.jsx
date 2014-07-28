@@ -152,14 +152,22 @@ var ItemRenderer = React.createClass({
         }
     },
 
-    _onRendererBlur: function(oldFocus) {
+    _onRendererBlur: function(blurPath) {
+        var blurringFocusPath = this._currentFocus;
+
+        // Failsafe: abort if ID is different, because focus probably happened
+        // before blur
+        if (!_.isEqual(blurPath, blurringFocusPath)) {
+            return;
+        }
+
         // Wait until after any new focus events fire this tick before
         // declaring that nothing is focused.
         // If a different widget was focused, we'll see an onBlur event
         // now, but then an onFocus event on a different element before
         // this callback is executed
         _.defer(() => {
-            if (_.isEqual(this._currentFocus, oldFocus)) {
+            if (_.isEqual(this._currentFocus, blurringFocusPath)) {
                 this._setCurrentFocus(null);
             }
         });
@@ -189,61 +197,57 @@ var ItemRenderer = React.createClass({
         }
     },
 
-    setInputValue: function(path, newValue, focus) {
-        // TODO(charlie): Do we want to support this? It allows you to target
-        // a widget by simply passing in its ID, rather than wrapping it in
-        // an array. Makes this change backwards compatible...
-        if (!_.isArray(path)) {
-            path = [path];
-        }
+    _handleAPICall: function(functionName, path) {
+        // Get arguments to pass to function, including `path`
+        var functionArgs = _.rest(arguments);
 
+        // Decide on which caller should handle the API call
+        var caller;
         var isAnswerArea = path[0].match(/^answer-(.*)$/);
         if (isAnswerArea) {
-            return this.answerAreaRenderer.setInputValue(path, newValue,
-                focus);
+            caller = this.answerAreaRenderer;
         } else {
-            return this.questionRenderer.setInputValue(path, newValue, focus);
+            caller = this.questionRenderer;
         }
+
+        return caller[functionName].apply(caller, functionArgs);
+    },
+
+    setInputValue: function(path, newValue, focus) {
+        return this._handleAPICall('setInputValue', path, newValue, focus);
+    },
+
+    focusPath: function(path) {
+        // TODO(charlie): Find a better way to handle blurring between answer-
+        // and question-area.
+        if (path && path.length > 0) {
+            var focusAnswer = path[0].match(/^answer-(.*)$/);
+            if (focusAnswer) {
+                this.questionRenderer.blur();
+            } else {
+                this.answerAreaRenderer.blur();
+            }
+        }
+
+        return this._handleAPICall('focusPath', path);
+    },
+
+    blurPath: function(path) {
+        return this._handleAPICall('blurPath', path);
     },
 
     getDOMNodeForPath: function(path) {
-        var isAnswerArea = path[0].match(/^answer-(.*)$/);
-        if (isAnswerArea) {
-            return this.answerAreaRenderer.getDOMNodeForPath(path);
-        } else {
-            return this.questionRenderer.getDOMNodeForPath(path);
-        }
+        return this._handleAPICall('getDOMNodeForPath', path);
+    },
+
+    getAcceptableFormatsForInputPath: function(path) {
+        return this._handleAPICall('getAcceptableFormatsForInputPath', path);
     },
 
     getInputPaths: function() {
         var questionAreaInputPaths = this.questionRenderer.getInputPaths();
         var answerAreaInputPaths = this.answerAreaRenderer.getInputPaths();
         return questionAreaInputPaths.concat(answerAreaInputPaths);
-    },
-
-    focusPath: function(path) {
-        var isAnswerArea = path[0].match(/^answer-(.*)$/);
-        if (isAnswerArea) {
-            // answerAreaRenderer will handle burring of any inputs in its own
-            // domain, but it currently has no way to figure out if there's
-            // something selected in the question area (and vice versa); so,
-            // we blast the focused inputs in the untargeted domain with a
-            // `blur()` call.
-            this.questionRenderer.blur();
-            this.answerAreaRenderer.focusPath(path);
-        } else {
-            this.answerAreaRenderer.blur();
-            this.questionRenderer.focusPath(path);
-        }
-    },
-
-    blurPath: function(path) {
-        var isAnswerArea = path[0].match(/^answer-(.*)$/);
-        if (isAnswerArea) {
-            this.answerAreaRenderer.blurPath(path);
-        } else {
-            this.questionRenderer.blurPath(path);
-        }
     },
 
     handleInteractWithWidget: function(widgetId) {
