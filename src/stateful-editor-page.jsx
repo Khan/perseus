@@ -32,7 +32,9 @@ var StatefulEditorPage = React.createClass({
         return this.refs.editor.toJSON();
     },
     handleChange: function(newState, cb) {
-        this.setState(newState, cb);
+        if (this.isMounted()) {
+            this.setState(newState, cb);
+        }
     },
     scorePreview: function() {
         return this.refs.editor.scorePreview();
