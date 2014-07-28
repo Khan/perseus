@@ -394,6 +394,11 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            // TODO(charlie): Remove before landing!
+            setInputValue: function(value, cb) {
+                this.setState({vector: [value, value]}, cb);
+            },
+
             getInitialState: function() {
                 return {
                     vector: this.props.vector || [null, null]
@@ -2339,6 +2344,16 @@ var Transformer = React.createClass({
             return;
         }
         this.refs[path[0]].refs[path[1]].refs[path[2]].focus();
+    },
+
+    setInputValue: function(path, value, cb) {
+        // TODO(charlie): remove all of this logic before landing (i.e., this
+        // is only here for testing and verification of correctness).
+        if (path.length !== 3) {
+            return;
+        }
+        this.refs[path[0]].refs[path[1]].refs[path[2]].setInputValue(value,
+            cb);
     },
 
     getInputPaths: function() {

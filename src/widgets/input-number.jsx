@@ -147,6 +147,12 @@ var InputNumber = React.createClass({
         return this;
     },
 
+    setInputValue: function(path, currentValue, cb) {
+        this.props.onChange({
+            currentValue: currentValue
+        }, cb);
+    },
+
     toJSON: function(skipValidation) {
         return {
             currentValue: this.props.currentValue

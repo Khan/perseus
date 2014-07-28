@@ -189,36 +189,21 @@ var ItemRenderer = React.createClass({
         }
     },
 
-    setInputValue: function(inputWidgetId, newValue, focus) {
-        // TODO(jack): This is a hack to allow for a consistent format
-        // between this and onFocusChange. Remove when we're no longer
-        // using widget ids in our api
-        if (_.isArray(inputWidgetId)) {
-            inputWidgetId = inputWidgetId[0];
+    setInputValue: function(path, newValue, focus) {
+        // TODO(charlie): Do we want to support this? It allows you to target
+        // a widget by simply passing in its ID, rather than wrapping it in
+        // an array. Makes this change backwards compatible...
+        if (!_.isArray(path)) {
+            path = [path];
         }
-        // TODO(jack): change this to value: when we change input-number/
-        // expression's prop to be value
-        // TODO(jack): As the code below demonstrates, this whole
-        // implementation is a horrible, horrible hack, and should be
-        // changed so that the widget can handle setting this "value"
-        // itself
-        var newProps;
-        if (/expression /.test(inputWidgetId)) {
-            // Expression uses TeX both as its rendered output and solution
-            newProps = {value: newValue};
-        } else if (inputWidgetId === "answer-area") {
-            // If it's the answer area, do both! #yolo
-            // (maybe it's an input-number, maybe it's an expression)
-            // TODO(jack): Fix this.
-            newProps = {
-                currentValue: newValue,
-                value: newValue
-            };
+
+        var isAnswerArea = path[0].match(/^answer-(.*)$/);
+        if (isAnswerArea) {
+            return this.answerAreaRenderer.setInputValue(path, newValue,
+                focus);
         } else {
-            // input-number displays the TeX, but parses it before grading
-            newProps = {currentValue: newValue};
+            return this.questionRenderer.setInputValue(path, newValue, focus);
         }
-        this._setWidgetProps(inputWidgetId, newProps, () => focus);
     },
 
     getDOMNodeForPath: function(path) {

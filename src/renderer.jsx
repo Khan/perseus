@@ -619,12 +619,13 @@ var Renderer = React.createClass({
         });
     },
 
-    setInputValue: function(inputWidgetId, newValue, focus) {
-        // TODO(jack): change this to value: when we change input-number/
-        // expression's prop to be value
-        this._setWidgetProps(inputWidgetId, {
-            currentValue: newValue
-        }, () => focus);
+    setInputValue: function(path, newValue, focus) {
+        var widgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+        var widget = this.getWidgetInstance(widgetId);
+
+        // Widget handles parsing of the interWidgetPath.
+        widget.setInputValue(interWidgetPath, newValue, () => focus);
     },
 
     guessAndScore: function() {

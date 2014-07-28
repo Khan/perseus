@@ -194,6 +194,12 @@ var Expression = React.createClass({
         return this;
     },
 
+    setInputValue: function(path, value, cb) {
+        this.props.onChange({
+            value: value
+        }, cb);
+    },
+
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.toJSON(), rubric, onInputError);
