@@ -48,7 +48,13 @@ var InputWithExamples = React.createClass({
     },
 
     _getInputClassName: function() {
-        // confining mutability!
+        // <MathOutput> is a special component that manages its own class and
+        // state, as it's a <span> that wants to act like an <input>.
+        if (this.props.type === TEX) {
+            return this.props.className;
+        }
+
+        // Otherwise, we need to add these INPUT and FOCUSED tags here.
         var className = ApiClassNames.INPUT;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
