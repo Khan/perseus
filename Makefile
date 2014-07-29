@@ -82,9 +82,9 @@ lint:
 	~/Khan/devtools/khan-linter/runlint.py
 
 test:
-	find -E src -type f -regex '.*/__tests__/.*\.jsx?' | xargs ./node_modules/.bin/mocha --reporter spec -r node/environment.js
+	find src -type f -regex '.*/__tests__/.*\.jsx\{0,1\}' | xargs ./node_modules/.bin/mocha --reporter spec -r node/environment.js
 shorttest:
-	find -E src -type f -regex '.*/__tests__/.*\.jsx?' | xargs ./node_modules/.bin/mocha --reporter dot -r node/environment.js
+	find src -type f -regex '.*/__tests__/.*\.jsx\{0,1\}' | xargs ./node_modules/.bin/mocha --reporter dot -r node/environment.js
 
 build/ke.js:
 	(cd ke && ../node_modules/.bin/r.js -o requirejs.config.js out=../build/ke.js)
