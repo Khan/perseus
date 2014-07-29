@@ -216,7 +216,7 @@ describe("Perseus API", function() {
         });
     });
 
-    describe("onChangeFocus", function() {
+    describe("onFocusChange", function() {
         pit("should be called from focused to blurred to back on one input",
                 function() {
             var callCount = 0;
@@ -243,10 +243,8 @@ describe("Perseus API", function() {
             return delayedPromise().then(() => {
                 assert.strictEqual(callCount, 1,
                         "onFocusChange was not called during onFocus");
-                assert.strictEqual(oldFocusResult.path, null);
-                assert.strictEqual(oldFocusResult.element, null);
-                assert.deepEqual(newFocusResult.path, ["input-number 1"]);
-                assert.deepEqual(newFocusResult.element, input);
+                assert.strictEqual(oldFocusResult, null);
+                assert.deepEqual(newFocusResult, ["input-number 1"]);
 
                 callCount = 0;
                 TestUtils.Simulate.blur(input);
@@ -254,10 +252,8 @@ describe("Perseus API", function() {
             }).then(() => {
                 assert.strictEqual(callCount, 1,
                         "onFocusChange was not called during onBlur");
-                assert.deepEqual(oldFocusResult.path, ["input-number 1"]);
-                assert.deepEqual(oldFocusResult.element, input);
-                assert.strictEqual(newFocusResult.path, null);
-                assert.strictEqual(newFocusResult.element, null);
+                assert.deepEqual(oldFocusResult, ["input-number 1"]);
+                assert.strictEqual(newFocusResult, null);
             });
         });
 
@@ -291,10 +287,8 @@ describe("Perseus API", function() {
                 assert.strictEqual(callCount, 1,
                         "onFocusChange was called the wrong number of" +
                         "times while switching between input-numbers");
-                assert.deepEqual(oldFocusResult.path, ["input-number 1"]);
-                assert.deepEqual(oldFocusResult.element, input1);
-                assert.deepEqual(newFocusResult.path, ["input-number 2"]);
-                assert.deepEqual(newFocusResult.element, input2);
+                assert.deepEqual(oldFocusResult, ["input-number 1"]);
+                assert.deepEqual(newFocusResult, ["input-number 2"]);
             });
         });
     });
