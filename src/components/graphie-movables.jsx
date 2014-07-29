@@ -33,9 +33,40 @@ var MovablePoint = GraphieClasses.createClass({
 // Include helper methods, such as MovablePoint.constrain.snap()
 _.extend(MovablePoint, Interactive2.MovablePoint);
 
-var Line = GraphieClasses.createSimpleClass((graphie, props) => {
-    return graphie.line(props.start, props.end, props.style);
+var MovableLine = GraphieClasses.createClass({
+    displayName: "MovableLine",
+
+    movableProps: ["children"],
+
+    add: function(graphie) {
+        // Add MovablePoint children
+        var points = _.pluck(this.props.children, "point");
+        var props = _.extend({}, this.props, {
+            points: points
+        });
+        this.line = Interactive2.addMovableLine(graphie, props);
+    },
+
+    modify: function() {
+        // Add MovablePoint children
+        var points = _.pluck(this.props.children, "point");
+        var props = _.extend({}, this.props, {
+            points: points
+        });
+        this.line.modify(props);
+    },
+
+    remove: function() {
+        this.line.remove();
+    },
+
+    toFront: function() {
+        this.line.toFront();
+    }
 });
+
+// Include helper methods, such as MovableLine.constrain.snap()
+_.extend(MovableLine, Interactive2.MovableLine);
 
 var Label = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.label(
@@ -46,13 +77,31 @@ var Label = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
+var Line = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.line(props.start, props.end, props.style);
+});
+
 var Plot = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.plot(props.fn, props.range, props.style);
 });
 
+var PlotParametric = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.plotParametric(props.fn, props.range, props.style);
+});
+
+var Point = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
+        fill: props.color || KhanUtil.BLACK,
+        stroke: props.color || KhanUtil.BLACK,
+    });
+});
+
 module.exports = {
-    Line: Line,
     Label: Label,
+    Line: Line,
+    MovableLine: MovableLine,
     MovablePoint: MovablePoint,
-    Plot: Plot
+    Plot: Plot,
+    PlotParametric: PlotParametric,
+    Point: Point
 };

@@ -29,7 +29,7 @@ var FUNCTION_ARRAY_OPTIONS = [
 // Things that the user might want to change should be on "props",
 // while things used to render the point should be on "state".
 var DEFAULT_PROPS = {
-    points: [[0, 0], [4, 4]],
+    points: null,
     updatePoints: false,
     static: false,
     cursor: "move",
