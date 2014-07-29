@@ -115,7 +115,7 @@ describe("Perseus API", function() {
     describe("setInputValue", function() {
         it("should be able to produce a correctly graded value", function() {
             var renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue("input-number 1", "5");
+            renderer.setInputValue(["input-number 1"], "5");
             var score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "points");
             assert.strictEqual(score.earned, score.total);
@@ -123,7 +123,7 @@ describe("Perseus API", function() {
 
         it("should be able to produce a wrong value", function() {
             var renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue("input-number 1", "3");
+            renderer.setInputValue(["input-number 1"], "3");
             var score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "points");
             assert.strictEqual(score.earned, 0);
@@ -131,11 +131,11 @@ describe("Perseus API", function() {
 
         it("should be able to produce an empty score", function() {
             var renderer = renderQuestionArea(inputNumber1Item);
-            renderer.setInputValue("input-number 1", "3");
+            renderer.setInputValue(["input-number 1"], "3");
             var score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "points");
             assert.strictEqual(score.earned, 0);
-            renderer.setInputValue("input-number 1", "");
+            renderer.setInputValue(["input-number 1"], "");
             var score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "invalid");
         });
