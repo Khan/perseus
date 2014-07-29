@@ -62,7 +62,11 @@ put-css: build
 ifeq ("$(wildcard node_modules/rcss/package.json)","")
 CLEAN_RCSS := rm -rf node_modules/rcss
 else
+ifeq ("$(wildcard node_modules/rcss/index.js)","")
+CLEAN_RCSS := rm -rf node_modules/rcss
+else
 CLEAN_RCSS := echo "rcss already upgraded"
+endif
 endif
 
 install:
