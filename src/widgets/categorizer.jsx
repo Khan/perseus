@@ -1,13 +1,14 @@
 /** @jsx React.DOM */
 
-var Changeable   = require("../mixins/changeable.jsx");
+var React = require('react');
+var Changeable = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
+var InfoTip = require("react-components/info-tip.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-
-var captureScratchpadTouchStart =
-        require("../util.js").captureScratchpadTouchStart;
+var Util = require("../util.js");
 
 var Categorizer = React.createClass({
     mixins: [JsonifyProps, Changeable],
@@ -39,6 +40,11 @@ var Categorizer = React.createClass({
     render: function() {
         var self = this;
 
+        var indexedItems = _.map(this.props.items, (item, n) => [item, n]);
+        if (this.props.randomizeItems) {
+            indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
+        }
+
         return <div className="categorizer-container clearfix"><table>
             <thead><tr>
                 <th>&nbsp;</th>
@@ -48,13 +54,17 @@ var Categorizer = React.createClass({
                     </th>;
                 })}
             </tr></thead>
-            <tbody>{_.map(this.props.items, (item, itemNum) => {
+            <tbody>{_.map(indexedItems, (indexedItem) => {
+                var item = indexedItem[0];
+                var itemNum = indexedItem[1];
                 var uniqueId = self.state.uniqueId + "_" + itemNum;
                 return <tr>
                     <td><Renderer content={item}/></td>
                     {_.range(self.props.categories.length).map(catNum => {
                         return <td className="category">
-                            <label onTouchStart={captureScratchpadTouchStart}>
+                            <label onTouchStart={
+                                        Util.captureScratchpadTouchStart
+                                    }>
                                 <input
                                     type="radio"
                                     name={uniqueId}
@@ -126,19 +136,29 @@ var CategorizerEditor = React.createClass({
     propTypes: {
         items: React.PropTypes.arrayOf(React.PropTypes.string),
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
-        values: React.PropTypes.arrayOf(React.PropTypes.number)
+        values: React.PropTypes.arrayOf(React.PropTypes.number),
+        randomizeItems: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
         return {
             items: [],
             categories: [],
-            values: []
+            values: [],
+            randomizeItems: false
         };
     },
 
     render: function() {
         return <div>
+            <div className="perseus-widget-row">
+                <PropCheckBox
+                    label="Randomize item order"
+                    labelAlignment="right"
+                    randomizeItems={this.props.randomizeItems}
+                    onChange={this.props.onChange} />
+            </div>
+
             Categories:
             <TextListEditor
                 options={this.props.categories}
@@ -177,7 +197,7 @@ module.exports = {
     widget: Categorizer,
     editor: CategorizerEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "items", "categories");
+        return _.pick(editorProps, "items", "categories", "randomizeItems");
     }
 };
 
