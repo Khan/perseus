@@ -2340,7 +2340,7 @@ var Transformer = React.createClass({
     focus: function(path) {
         // TODO(charlie): remove all of this logic before landing (i.e., this
         // is only here for testing and verification of correctness).
-        if (path.length !== 3) {
+        if (!path || path.length !== 3) {
             return;
         }
         this.refs[path[0]].refs[path[1]].refs[path[2]].focus();
