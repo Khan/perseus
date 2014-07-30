@@ -10,6 +10,7 @@ _.each([
     require("./widgets/iframe.jsx"),
     require("./widgets/image.jsx"),
     require("./widgets/input-number.jsx"),
+    require("./widgets/interaction.jsx"),
     require("./widgets/interactive-graph.jsx"),
     require("./widgets/interactive-number-line.jsx"),
     require("./widgets/lights-puzzle.jsx"),

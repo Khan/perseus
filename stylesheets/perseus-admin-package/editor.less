@@ -163,6 +163,9 @@
             margin-right: 5px;
         }
     }
+    > .range-input {
+        margin-left: 10px;
+    }
 }
 
 .perseus-answer-editor {
@@ -893,4 +896,54 @@
 
 .info-tip-content-container p + p {
     margin-top: 22px;
+}
+
+
+//
+// Interaction Editor
+//
+
+.perseus-widget-interaction-editor {
+    .perseus-widget-interaction-editor-select-element {
+        background-color: #eee;
+        border: 1px solid #ddd;
+        border-top: 0;
+        border-radius: 0 0 3px 3px;
+        padding: 5px 10px;
+        margin: 20px -11px -11px -11px;
+    }
+}
+
+.perseus-interaction-element {
+    border: @editorBorder;
+    border-radius: @editorBorderRadius;
+
+    .perseus-interaction-element-title {
+        .pod-title;
+        border: 0;
+        color: inherit;
+        display: block;
+        text-decoration: none;
+        white-space: nowrap;
+        font-size: 1em;
+
+        overflow: hidden;
+
+        > i {
+            float: left;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+    }
+
+    .perseus-interaction-element-content {
+        border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
+        border-top: @editorBorder;
+        padding: @editorPadding;
+
+        &.enter {}
+        &.leave {
+            display: none;
+        }
+    }
 }

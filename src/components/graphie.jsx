@@ -62,7 +62,9 @@ var Graphie = React.createClass({
                     "the same setup function reference to <Graphie> on " +
                     "every render.");
         }
-        if (!deepEq(this.props.options, prevProps.options)) {
+        if (!deepEq(this.props.options, prevProps.options) ||
+                !deepEq(this.props.box, prevProps.box) ||
+                !deepEq(this.props.range, prevProps.range)) {
             this._setupGraphie();
         }
         this._updateMovables();
@@ -128,7 +130,13 @@ var Graphie = React.createClass({
             onMouseMove: this.props.onMouseMove
         });
         graphie.snap = this.props.options.snapStep || [1, 1];
-        this.props.setup(graphie, this.props.options);
+
+        this.props.options.range = this._range();
+        this.props.options.scale = this._scale();
+        this.props.setup(graphie, _.extend({}, this.props.options, {
+            range: this._range(),
+            scale: this._scale()
+        }));
     },
 
     _removeMovables: function() {
