@@ -70,7 +70,7 @@ var Interaction = React.createClass({
             {_.map(this.props.elements, function(element, n) {
                 if (element.type === "point") {
                     return <Point
-                        key={n}
+                        key={element.key}
                         coord={[this._eval(element.options.coordX),
                             this._eval(element.options.coordY)]}
                         color={element.options.color} />;
@@ -80,7 +80,7 @@ var Interaction = React.createClass({
                     var end = [this._eval(element.options.endX),
                                this._eval(element.options.endY)];
                     return <Line
-                        key={n}
+                        key={element.key}
                         start={start}
                         end={end}
                         style={{
@@ -279,6 +279,7 @@ var InteractionEditor = React.createClass({
         e.target.value = "";
         var newElement = {
             type: elementType,
+            key: elementType + "-" + (Math.random()*0xffffff<<0).toString(16),
             options: elementType === "point" ?
                         PointEditor.defaultProps :
                      elementType === "line" ?
@@ -289,9 +290,29 @@ var InteractionEditor = React.createClass({
         });
     },
 
+    _deleteElement: function(index) {
+        var element = this.props.elements[index];
+        this.change({elements: _.without(this.props.elements, element)});
+    },
+
+    _moveElementUp: function(index) {
+        var element = this.props.elements[index];
+        var newElements = _.without(this.props.elements, element);
+        newElements.splice(index - 1, 0, element);
+        this.change({elements: newElements});
+    },
+
+    _moveElementDown: function(index) {
+        var element = this.props.elements[index];
+        var newElements = _.without(this.props.elements, element);
+        newElements.splice(index + 1, 0, element);
+        this.change({elements: newElements});
+    },
+
     render: function() {
         return <div className="perseus-widget-interaction-editor">
-            <ElementContainer title="Grid settings">
+            <ElementContainer
+                    title="Grid settings">
                 <GraphSettings
                     editableSettings={["canvas", "graph"]}
                     box={this.props.graph.box}
@@ -313,7 +334,12 @@ var InteractionEditor = React.createClass({
                                     ", " + element.options.coordY +
                                     ")"}</TeX>
                                 </span>}
-                            key={n}>
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement.bind(this, n)}
+                            key={element.key}>
                         <PointEditor
                             coordX={element.options.coordX}
                             coordY={element.options.coordY}
@@ -335,7 +361,12 @@ var InteractionEditor = React.createClass({
                                     ", " + element.options.endY +
                                     ")"}</TeX>
                                 </span>}
-                            key={n}>
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement.bind(this, n)}
+                            key={element.key}>
                         <LineEditor
                             startX={element.options.startX}
                             startY={element.options.startY}

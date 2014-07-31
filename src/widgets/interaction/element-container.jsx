@@ -15,7 +15,11 @@ var ElementContainer = React.createClass({
 
     getInitialState: function() {
         return {
-            show: this.props.initiallyVisible
+            show: this.props.initiallyVisible,
+            title: "More",
+            onUp: null,
+            onDown: null,
+            onDelete: null
         };
     },
 
@@ -31,6 +35,24 @@ var ElementContainer = React.createClass({
             <div className={"perseus-interaction-element-content " +
                     (this.state.show ? "enter" : "leave")}>
                 {this.props.children}
+                {(this.props.onUp != null ||
+                    this.props.onDown != null ||
+                    this.props.onDelete != null) &&
+                    <div className={"edit-controls"}>
+                        {(this.props.onUp != null) && <button
+                            onClick={this.props.onUp}>
+                                <i className={"icon-circle-arrow-up"} />
+                            </button>}
+                        {(this.props.onDown != null) && <button
+                            onClick={this.props.onDown}>
+                                <i className={"icon-circle-arrow-down"} />
+                            </button>}
+                        {(this.props.onDelete != null) && <button
+                            onClick={this.props.onDelete}>
+                                <i className={"icon-trash"} />
+                            </button>}
+                    </div>
+                }
             </div>
         </div>;
     },

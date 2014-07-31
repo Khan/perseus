@@ -950,6 +950,20 @@
         border-top: @editorBorder;
         padding: @editorPadding;
 
+        .edit-controls {
+            text-align: right;
+            margin-top: -30px;
+            > button {
+                background: #fff;
+                border: 0;
+                cursor: pointer;
+                padding: 0;
+                margin-left: 7px;
+                font-size: 18px;
+                color: #555;
+            }
+        }
+
         &.enter {}
         &.leave {
             display: none;
