@@ -437,11 +437,13 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     focus: function() {
-        this.getWidgetInstance().focus();
+        var focusContents = this.getWidgetInstance().focus;
+        focusContents && focusContents();
     },
 
     blur: function() {
-        this.getWidgetInstance().blur();
+        var blurContents = this.getWidgetInstance().blur;
+        blurContents && blurContents();
     },
 
     setInputValue: function(path, newValue, focus) {
