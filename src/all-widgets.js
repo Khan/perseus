@@ -19,6 +19,7 @@ _.each([
     require("./widgets/number-line.jsx"),
     require("./widgets/numeric-input.jsx"),
     require("./widgets/orderer.jsx"),
+    require("./widgets/passage.jsx"),
     require("./widgets/plotter.jsx"),
     require("./widgets/radio.jsx"),
     require("./widgets/sorter.jsx"),

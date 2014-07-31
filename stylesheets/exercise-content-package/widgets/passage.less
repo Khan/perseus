@@ -1,0 +1,52 @@
+.perseus-widget-passage {
+    @line-height: 20px;
+
+    line-height: @line-height;
+    margin: 22px 0 22px 45px;
+    position: relative;
+    white-space: pre;
+    width: 420px;
+
+    div.paragraph {
+        font-family: Times, "Times New Roman", serif;
+        font-size: 17px;
+        margin: 0;
+        text-indent: 20px;
+    }
+
+    .line-numbers {
+        font-size: 12px;
+        left: -40px;
+        position: absolute;
+        text-align: right;
+        width: 25px;
+
+        // Make sure each line-number takes up a full line
+        span {
+            box-sizing: border-box;
+            display: block;
+            height: @line-height;
+            padding-top: 1px;
+        }
+
+        // The word "Line" needs to be pushed down closer to the "5" below it
+        .line-marker {
+            padding-top: 2px;
+        }
+    }
+}
+.perseus-widget-passage-editor {
+
+    .perseus-single-editor {
+        font-family: Times, "Times New Roman", serif;
+
+        // Give writers a bit more space by moving the textarea over to be
+        // flush with the left edge of the editor box.
+        margin-left: -11px;
+    }
+
+    .perseus-textarea-pair textarea {
+        font-size: 13px;
+        line-height: 17px;
+    }
+}
