@@ -3,7 +3,7 @@
 var ElementContainer = React.createClass({
     propTypes: {
         initiallVisible: React.PropTypes.bool,
-        title: React.PropTypes.string
+        title: React.PropTypes.renderable
     },
 
     getDefaultProps: function() {
