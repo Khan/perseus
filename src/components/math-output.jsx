@@ -76,7 +76,7 @@ var MathOutput = React.createClass({
     },
 
     _bindBlurHandler: function() {
-        $(document).bind("vmousedown." + this.state.selectorNamespace, (e) => {
+        $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
             var $closestWidget = $(e.target).closest(this.getDOMNode());
             if (!$closestWidget.length) {
