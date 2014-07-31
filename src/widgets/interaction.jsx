@@ -4,17 +4,23 @@ var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
+var ButtonGroup = require("react-components/button-group.jsx");
 var ColorPicker = require("./interaction/color-picker.jsx");
+var ConstraintEditor = require("./interaction/constraint-editor.jsx");
 var DashPicker = require("./interaction/dash-picker.jsx");
 var ElementContainer = require("./interaction/element-container.jsx");
-var ExpressionEditor = require("./interaction/expression-editor.jsx");
 var Graphie = require("../components/graphie.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
+var MathInput = require("../components/math-input.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var TeX = require("../tex.jsx");
 
 var Line = Graphie.Line;
+var MovablePoint = Graphie.MovablePoint;
+var MovableLine = Graphie.MovableLine;
 var Point = Graphie.Point;
+
+var kvector = KhanUtil.kvector;
 
 
 var Interaction = React.createClass({
@@ -28,6 +34,70 @@ var Interaction = React.createClass({
 
     getDefaultProps: function() {
         return {};
+    },
+
+    getInitialState: function() {
+        return {
+            variables: this._getInitialVariables(this.props.elements)
+        };
+    },
+
+    _getInitialVariables: function(elements) {
+        var variables = {};
+        // TODO(eater): look at all this copypasta! refactor this!
+        _.each(_.where(elements, {type: "movable-point"}), function(element) {
+            var subscript = element.options.varSubscript;
+            var startXExpr = KAS.parse(element.options.startX || "0").expr;
+            var startYExpr = KAS.parse(element.options.startY || "0").expr;
+            var startX = 0;
+            var starty = 0;
+            if (startXExpr) {
+                startX = startXExpr.eval({}) || 0;
+            }
+            if (startYExpr) {
+                startY = startYExpr.eval({}) || 0;
+            }
+            variables["x_" + subscript] = startX;
+            variables["y_" + subscript] = startY;
+        }, this);
+        _.each(_.where(elements, {type: "movable-line"}), function(element) {
+            var startSubscript = element.options.startSubscript;
+            var endSubscript = element.options.endSubscript;
+            var startXExpr = KAS.parse(element.options.startX || "0").expr;
+            var startYExpr = KAS.parse(element.options.startY || "0").expr;
+            var endXExpr = KAS.parse(element.options.endX || "0").expr;
+            var endYExpr = KAS.parse(element.options.endY || "0").expr;
+            var startX = 0;
+            var starty = 0;
+            var endX = 0;
+            var endy = 0;
+            if (startXExpr) {
+                startX = startXExpr.eval({}) || 0;
+            }
+            if (startYExpr) {
+                startY = startYExpr.eval({}) || 0;
+            }
+            if (endXExpr) {
+                endX = endXExpr.eval({}) || 0;
+            }
+            if (endYExpr) {
+                endY = endYExpr.eval({}) || 0;
+            }
+            variables["x_" + startSubscript] = startX;
+            variables["y_" + startSubscript] = startY;
+            variables["x_" + endSubscript] = endX;
+            variables["y_" + endSubscript] = endY;
+        }, this);
+        _.each(_.where(elements, {type: "function"}), function(element) {
+            variables[element.options.funcName] = element.options.value;
+        });
+        return variables;
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            variables: this._getInitialVariables(nextProps.elements)
+        });
     },
 
     _setupGraphie: function(graphie, options) {
@@ -49,13 +119,34 @@ var Interaction = React.createClass({
 
     },
 
+    _updatePointLocation: function(subscript, coord) {
+        var variables = _.clone(this.state.variables);
+        variables["x_" + subscript] = coord[0];
+        variables["y_" + subscript] = coord[1];
+        this.setState({variables: variables});
+    },
+
+    _updateLineLocation: function(options, startCoord) {
+        var xDiff = this._eval("(" + options.endX +
+            ")-(" + options.startX + ")");
+        var yDiff = this._eval("(" + options.endY +
+            ")-(" + options.startY + ")");
+        var endCoord = kvector.add(startCoord, [xDiff, yDiff]);
+        var variables = _.clone(this.state.variables);
+        variables["x_" + options.startSubscript] = startCoord[0];
+        variables["y_" + options.startSubscript] = startCoord[1];
+        variables["x_" + options.endSubscript] = endCoord[0];
+        variables["y_" + options.endSubscript] = endCoord[1];
+        this.setState({variables: variables});
+    },
+
     _eval: function(expression, variables) {
         var expr = KAS.parse(expression).expr;
         if (!expr) {
             // Default to 0 if the expression couldn't be parsed
             return 0;
         }
-        var val = expr.eval(variables);
+        var val = expr.eval(_.extend({}, this.state.variables, variables));
         // Default to 0 if the expression couldn't be evaluated (i.e., it
         // parsed correctly but referenced a variable that's not defined)
         return val || 0;
@@ -89,6 +180,90 @@ var Interaction = React.createClass({
                             strokeDasharray: element.options.strokeDasharray,
                             arrows: element.options.arrows
                         }} />;
+                } else if (element.type === "movable-point") {
+                    // TODO(eater): Would be nice if the constraint system
+                    // were more flexible.
+                    var constraints = null;
+                    if (element.options.constraint === "snap") {
+                        constraints = MovablePoint.constraints.snap(
+                            element.options.snap);
+                    } else if (element.options.constraint === "x") {
+                        constraints = (coord) => {
+                            return [this._eval(
+                                element.options.constraintFn,
+                                {y: coord[1]}), coord[1]];
+                        };
+                    } else if (element.options.constraint === "y") {
+                        constraints = (coord) => {
+                            return [coord[0], this._eval(
+                                element.options.constraintFn, {x: coord[0]})];
+                        };
+                    }
+                    // TODO(eater): foo_[xyz] are hacky non-props to get the
+                    // component to update when constraints change
+                    return <MovablePoint
+                        key={n + 1}
+                        coord={[
+                            this.state.variables["x_" +
+                            element.options.varSubscript],
+                            this.state.variables["y_" +
+                            element.options.varSubscript]]}
+                        constraints={constraints}
+                        foo_x={element.options.constraint}
+                        foo_y={element.options.constraintFn}
+                        foo_z={element.options.snap}
+                        onMove={_.partial(this._updatePointLocation,
+                            element.options.varSubscript)}
+                        />;
+                } else if (element.type === "movable-line") {
+                    // TODO(eater): Would be nice if the constraint system
+                    // were more flexible.
+                    // TODO(eater): Don't duplicate this code from
+                    // movable-point above
+                    var constraints = null;
+                    if (element.options.constraint === "snap") {
+                        constraints = MovablePoint.constraints.snap(
+                            element.options.snap);
+                    } else if (element.options.constraint === "x") {
+                        constraints = (coord) => {
+                            return [this._eval(
+                                element.options.constraintFn,
+                                {y: coord[1]}), coord[1]];
+                        };
+                    } else if (element.options.constraint === "y") {
+                        constraints = (coord) => {
+                            return [coord[0], this._eval(
+                                element.options.constraintFn,
+                                {x: coord[0]})];
+                        };
+                    }
+                    var start = [
+                            this.state.variables["x_" +
+                                element.options.startSubscript],
+                            this.state.variables["y_" +
+                                element.options.startSubscript]
+                        ];
+                    var end = [
+                            this.state.variables["x_" +
+                                element.options.endSubscript],
+                            this.state.variables["y_" +
+                                element.options.endSubscript]
+                        ];
+                    return <MovableLine
+                        key={n + 1}
+                        constraints={constraints}
+                        onMove={_.bind(this._updateLineLocation, this,
+                            element.options)}
+                        foo_x={element.options.constraint}
+                        foo_y={element.options.constraintFn}
+                        foo_z={element.options.snap}>
+                            <MovablePoint coord={start}
+                                static={true}
+                                normalStyle={{stroke: "none", fill: "none"}} />
+                            <MovablePoint coord={end}
+                                static={true}
+                                normalStyle={{stroke: "none", fill: "none"}} />
+                        </MovableLine>;
                 }
             }, this)}
         </Graphie>;
@@ -119,7 +294,7 @@ _.extend(Interaction, {
 //
 // Editor for non-interactive points
 //
-// TODO(eater): Factor this out maybe?
+// TODO(eater): Factor this out
 //
 var PointEditor = React.createClass({
     mixins: [JsonifyProps, Changeable],
@@ -141,10 +316,14 @@ var PointEditor = React.createClass({
     render: function() {
         return <div className="graph-settings">
             <div className="perseus-widget-row">
-                Coordinate: <TeX>\Large(</TeX><ExpressionEditor
+                Coordinate: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
                     value={this.props.coordX}
                     onChange={this.change("coordX")} />
-                <TeX>,</TeX> <ExpressionEditor
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
                     value={this.props.coordY}
                     onChange={this.change("coordY")} />
                 <TeX>\Large)</TeX>
@@ -162,7 +341,7 @@ var PointEditor = React.createClass({
 //
 // Editor for non-interactive line segments
 //
-// TODO(eater): Factor this out maybe?
+// TODO(eater): Factor this out
 //
 var LineEditor = React.createClass({
     mixins: [JsonifyProps, Changeable],
@@ -194,19 +373,27 @@ var LineEditor = React.createClass({
     render: function() {
         return <div className="graph-settings">
             <div className="perseus-widget-row">
-                Start: <TeX>\Large(</TeX><ExpressionEditor
+                Start: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
                     value={this.props.startX}
                     onChange={this.change("startX")} />
-                <TeX>,</TeX> <ExpressionEditor
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
                     value={this.props.startY}
                     onChange={this.change("startY")} />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
-                End: <TeX>\Large(</TeX><ExpressionEditor
+                End: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
                     value={this.props.endX}
                     onChange={this.change("endX")} />
-                <TeX>,</TeX> <ExpressionEditor
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
                     value={this.props.endY}
                     onChange={this.change("endY")} />
                 <TeX>\Large)</TeX>
@@ -238,6 +425,143 @@ var LineEditor = React.createClass({
 });
 
 
+//
+// Editor for interactive movable points
+//
+// TODO(eater): Factor this out
+// TODO(eater): Rethink how constraints are represented
+//
+var MovablePointEditor = React.createClass({
+    mixins: [JsonifyProps, Changeable],
+
+    propTypes: {
+        startX: React.PropTypes.string,
+        startY: React.PropTypes.string,
+        constraint: React.PropTypes.string,
+        snap: React.PropTypes.number,
+        constraintFn: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {
+            startX: "0",
+            startY: "0",
+            constraint: "none",
+            snap: 0.5,
+            constraintFn: "0",
+        };
+    },
+
+    render: function() {
+        return <div className="graph-settings">
+            <div className="perseus-widget-row">
+                Start: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.startX}
+                    onChange={this.change("startX")} />
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.startY}
+                    onChange={this.change("startY")} />
+                <TeX>\Large)</TeX>
+            </div>
+            <div className="perseus-widget-row">
+                Update <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX> <NumberInput
+                    value={this.props.varSubscript}
+                    placeholder={0}
+                    onChange={this.change("varSubscript")}/>
+            </div>
+            {this.transferPropsTo(<ConstraintEditor />)}
+        </div>;
+    }
+});
+
+
+//
+// Editor for interactive movable line segments
+//
+// TODO(eater): Factor this out
+// TODO(eater): Rethink how constraints are represented
+//
+var MovableLineEditor = React.createClass({
+    mixins: [JsonifyProps, Changeable],
+
+    propTypes: {
+        startX: React.PropTypes.string,
+        startY: React.PropTypes.string,
+        endX: React.PropTypes.string,
+        endY: React.PropTypes.string,
+        constraint: React.PropTypes.string,
+        snap: React.PropTypes.number,
+        constraintFn: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {
+            startX: "-5",
+            startY: "5",
+            endX: "5",
+            endY: "5",
+            constraint: "none",
+            snap: 0.5,
+            constraintFn: "0",
+        };
+    },
+
+    render: function() {
+        return <div className="graph-settings">
+            Initial position:
+            <div className="perseus-widget-row">
+                Start: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.startX}
+                    onChange={this.change("startX")} />
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.startY}
+                    onChange={this.change("startY")} />
+                <TeX>\Large)</TeX>
+            </div>
+            <div className="perseus-widget-row">
+                End: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.endX}
+                    onChange={this.change("endX")} />
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.endY}
+                    onChange={this.change("endY")} />
+                <TeX>\Large)</TeX>
+            </div>
+            <div className="perseus-widget-row">
+                Start updates <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>
+                    <NumberInput
+                        value={this.props.startSubscript}
+                        placeholder={0}
+                        onChange={this.change("startSubscript")}/>
+            </div>
+            <div className="perseus-widget-row">
+                End updates <TeX>(x_m, y_m)</TeX> for <TeX>m =</TeX>
+                    <NumberInput
+                        value={this.props.endSubscript}
+                        placeholder={0}
+                        onChange={this.change("endSubscript")}/>
+            </div>
+            <div className="perseus-widget-row">
+                Constraints are applied to the start point.
+            </div>
+            {this.transferPropsTo(<ConstraintEditor />)}
+        </div>;
+    }
+});
+
+
 var InteractionEditor = React.createClass({
     mixins: [JsonifyProps, Changeable],
 
@@ -261,6 +585,27 @@ var InteractionEditor = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            usedVarSubscripts: this._getAllVarSubscripts(this.props.elements)
+        };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            usedVarSubscripts: this._getAllVarSubscripts(nextProps.elements)
+        });
+    },
+
+    _getAllVarSubscripts: function(elements) {
+        return _.map(_.where(elements, {type: "movable-point"}),
+            (element) => element.options.varSubscript).concat(
+            _.map(_.where(elements, {type: "movable-line"}),
+            (element) => element.options.startSubscript)).concat(
+            _.map(_.where(elements, {type: "movable-line"}),
+            (element) => element.options.endSubscript));
+    },
+
     _updateGraphProps: function(newProps) {
         // TODO(eater): GraphSettings should name this tickStep instead
         // of step. Grr..
@@ -281,10 +626,24 @@ var InteractionEditor = React.createClass({
             type: elementType,
             key: elementType + "-" + (Math.random()*0xffffff<<0).toString(16),
             options: elementType === "point" ?
-                        PointEditor.defaultProps :
-                     elementType === "line" ?
-                        LineEditor.defaultProps : {}
+                        _.clone(PointEditor.defaultProps) :
+                        elementType === "line" ?
+                        _.clone(LineEditor.defaultProps) :
+                        elementType === "movable-point" ?
+                        _.clone(MovablePointEditor.defaultProps) :
+                        elementType === "movable-line" ?
+                        _.clone(MovableLineEditor.defaultProps) : {}
         };
+        if (elementType === "movable-point") {
+            var nextSubscript =
+                _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
+            newElement.options.varSubscript = nextSubscript;
+        } else if (elementType === "movable-line") {
+            var nextSubscript =
+                _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
+            newElement.options.startSubscript = nextSubscript;
+            newElement.options.endSubscript = nextSubscript + 1;
+        }
         this.change({
             elements: this.props.elements.concat(newElement)
         });
@@ -327,7 +686,54 @@ var InteractionEditor = React.createClass({
                 </div>}
             </ElementContainer>
             {_.map(this.props.elements, function(element, n) {
-                if (element.type === "point") {
+                if (element.type === "movable-point") {
+                    return <ElementContainer
+                            title={<span>Movable point <TeX>
+                                    {"(x_{" + element.options.varSubscript +
+                                    "}, y_{" + element.options.varSubscript +
+                                    "})"}</TeX>
+                                </span>}
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement.bind(this, n)}
+                            key={element.key}>
+                        {MovablePointEditor(_.extend({}, element.options, {
+                            onChange: (newProps) => {
+                                var elements = JSON.parse(JSON.stringify(
+                                    this.props.elements));
+                                _.extend(elements[n].options, newProps);
+                                this.change({elements: elements});
+                            }
+                        }))}
+                    </ElementContainer>;
+                } else if (element.type === "movable-line") {
+                    return <ElementContainer
+                            title={<span>Movable line <TeX>
+                                    {"(x_{" + element.options.startSubscript +
+                                    "}, y_{" + element.options.startSubscript +
+                                    "})"}</TeX> to <TeX>
+                                    {"(x_{" + element.options.endSubscript +
+                                    "}, y_{" + element.options.endSubscript +
+                                    "})"}</TeX>
+                                </span>}
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement.bind(this, n)}
+                            key={element.key}>
+                        {MovableLineEditor(_.extend({}, element.options, {
+                            onChange: (newProps) => {
+                                var elements = JSON.parse(JSON.stringify(
+                                    this.props.elements));
+                                _.extend(elements[n].options, newProps);
+                                this.change({elements: elements});
+                            }
+                        }))}
+                    </ElementContainer>;
+                } else if (element.type === "point") {
                     return <ElementContainer
                             title={<span>Point <TeX>
                                     {"(" + element.options.coordX +
@@ -340,16 +746,14 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
                             key={element.key}>
-                        <PointEditor
-                            coordX={element.options.coordX}
-                            coordY={element.options.coordY}
-                            color={element.options.color}
-                            onChange={(newProps) => {
+                        {PointEditor(_.extend({}, element.options, {
+                            onChange: (newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }} />
+                            }
+                        }))}
                     </ElementContainer>;
                 } else if (element.type === "line") {
                     return <ElementContainer
@@ -367,21 +771,14 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
                             key={element.key}>
-                        <LineEditor
-                            startX={element.options.startX}
-                            startY={element.options.startY}
-                            endX={element.options.endX}
-                            endY={element.options.endY}
-                            color={element.options.color}
-                            strokeDasharray={element.options.strokeDasharray}
-                            arrows={element.options.arrows}
-                            strokeWidth={element.options.strokeWidth}
-                            onChange={(newProps) => {
+                        {LineEditor(_.extend({}, element.options, {
+                            onChange: (newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }} />
+                            }
+                        }))}
                     </ElementContainer>;
                 }
             }, this)}
@@ -391,6 +788,10 @@ var InteractionEditor = React.createClass({
                     <option disabled>--</option>
                     <option value="point">Point</option>
                     <option value="line">Line segment</option>
+                    <option value="movable-point">
+                        &#x2605; Movable point</option>
+                    <option value="movable-line">
+                        &#x2605; Movable line segment</option>
                 </select>
             </div>
         </div>;
