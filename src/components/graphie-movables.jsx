@@ -69,8 +69,13 @@ var MovableLine = GraphieClasses.createClass({
 _.extend(MovableLine, Interactive2.MovableLine);
 
 var Label = GraphieClasses.createSimpleClass((graphie, props) => {
+    var coord = props.coord;
+    if (props.unscaled) {
+        coord = graphie.unscalePoint(coord);
+    }
+
     return graphie.label(
-        props.coord,
+        coord,
         props.text,
         props.direction,
         props.tex
@@ -96,11 +101,47 @@ var Point = GraphieClasses.createSimpleClass((graphie, props) => {
     });
 });
 
+var Path = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.path(
+        props.coords,
+        props.style
+    );
+});
+
+var Arc = GraphieClasses.createSimpleClass((graphie, props) => {
+    var center = props.center;
+    var radius = props.radius;
+    if (props.unscaled) {
+        center = graphie.unscalePoint(center);
+        radius = graphie.unscaleVector(radius);
+    }
+
+    return graphie.arc(
+        center,
+        radius,
+        props.startAngle,
+        props.endAngle,
+        props.sector,
+        props.style
+    );
+});
+
+var Circle = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.circle(
+        props.center,
+        props.radius,
+        props.style
+    );
+});
+
 module.exports = {
+    Arc: Arc,
+    Circle: Circle,
     Label: Label,
     Line: Line,
     MovableLine: MovableLine,
     MovablePoint: MovablePoint,
+    Path: Path,
     Plot: Plot,
     PlotParametric: PlotParametric,
     Point: Point

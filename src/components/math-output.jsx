@@ -7,7 +7,10 @@ var Tooltip       = require("react-components/tooltip.jsx");
 
 var MathOutput = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
+        value: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ]),
         className: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func
@@ -43,13 +46,22 @@ var MathOutput = React.createClass({
         var divStyle = {
             textAlign: "center"
         };
+
+        // Cast from potential number to string
+        var value;
+        if (this.props.value) {
+            value = "" + this.props.value;
+        } else {
+            value = "";
+        }
+
         return <span ref="input"
                 className={this._getInputClassName()}
                 onMouseDown={this.focus}
                 onTouchStart={this.focus}>
             <div style={divStyle}>
                 <TeX>
-                    {this.props.value}
+                    {value}
                 </TeX>
             </div>
         </span>;

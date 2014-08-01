@@ -22,6 +22,7 @@ _.each([
     require("./widgets/passage.jsx"),
     require("./widgets/plotter.jsx"),
     require("./widgets/radio.jsx"),
+    require("./widgets/simulator.jsx"),
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
     require("./widgets/transformer.jsx")

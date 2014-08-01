@@ -72,6 +72,7 @@ var NumberInput = React.createClass({
             type: "text",
             ref: "input",
             onChange: this._handleChange,
+            onFocus: this._handleFocus,
             onBlur: this._handleBlur,
             onKeyPress: this._handleBlur,
             onKeyDown: this._onKeyDown,
@@ -113,6 +114,12 @@ var NumberInput = React.createClass({
     /* Set text input focus to this input */
     focus: function() {
         this.refs.input.getDOMNode().focus();
+        this._handleFocus();
+    },
+
+    blur: function() {
+        this.refs.input.getDOMNode().blur();
+        this._handleBlur();
     },
 
     _checkValidity: function(value) {
@@ -138,6 +145,12 @@ var NumberInput = React.createClass({
         }
     },
 
+    _handleFocus: function() {
+        if (this.props.onFocus) {
+            this.props.onFocus();
+        }
+    },
+
     _handleBlur: function(e) {
         // Only continue on blur or "enter"
         if (e.type === "keypress" && e.keyCode !== 13) {
@@ -145,6 +158,9 @@ var NumberInput = React.createClass({
         }
 
         this._setValue(this.props.value, this.state.format);
+        if (this.props.onBlur) {
+            this.props.onBlur();
+        }
     },
 
     _onKeyDown: function(e) {

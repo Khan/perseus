@@ -108,67 +108,112 @@ window.Perseus = Perseus;
 
 var defaultQuestion = {
     "question": {
-        "content": "[[☃ interactive-graph 2]]",
-        "images": {
-            "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
-                "width": 400,
-                "height": 70
-            },
-            "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
-                "width": 425,
-                "height": 150
-            }
-        },
+        // "content": "[[☃ interactive-graph 2]]",
+        // "images": {
+        //     "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
+        //         "width": 400,
+        //         "height": 70
+        //     },
+        //     "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
+        //         "width": 425,
+        //         "height": 150
+        //     }
+        // },
+        // "widgets": {
+        //     "interactive-graph 2": {
+        //         "type": "interactive-graph",
+        //         "graded": true,
+        //         "options": {
+        //             "step": [
+        //                 2,
+        //                 2
+        //             ],
+        //             "backgroundImage": {
+        //                 "url": null,
+        //                 "scale": 1,
+        //                 "bottom": 0,
+        //                 "left": 0
+        //             },
+        //             "markings": "graph",
+        //             "labels": [
+        //                 "x",
+        //                 "y"
+        //             ],
+        //             "showProtractor": false,
+        //             "showRuler": false,
+        //             "rulerLabel": "",
+        //             "rulerTicks": 10,
+        //             "range": [
+        //                 [
+        //                     -20,
+        //                     20
+        //                 ],
+        //                 [
+        //                     -20,
+        //                     20
+        //                 ]
+        //             ],
+        //             "graph": {
+        //                 "type": "linear"
+        //             },
+        //             "correct": {
+        //                 "type": "linear",
+        //                 "coords": [
+        //                     [
+        //                         0,
+        //                         0
+        //                     ],
+        //                     [
+        //                         5,
+        //                         5
+        //                     ]
+        //                 ]
+        //             }
+        "content": "A survey was conducted in your local community to estimate the mayor's approval ratings. Out of 100 people sampled, 40% said they approved of the mayor. Use the simulator below in answering the following questions.\n\n\nWhat's the highest that the mayor's _true_ approval rating could be such that the survey of 100 people could return a 40% approval rating with > 5% probability?\n[[☃ radio 1]]\n\n[[☃ simulator 1]]",
+        "images": {},
         "widgets": {
-            "interactive-graph 2": {
-                "type": "interactive-graph",
+            "radio 1": {
+                "type": "radio",
                 "graded": true,
                 "options": {
-                    "step": [
-                        2,
-                        2
+                    "choices": [
+                        {
+                            "content": "~40%",
+                            "correct": false
+                        },
+                        {
+                            "content": "~50%",
+                            "correct": true,
+                            "clue": "60% and 70% are too high, but 40% is too low."
+                        },
+                        {
+                            "content": "~60%",
+                            "correct": false
+                        },
+                        {
+                            "content": "~70%",
+                            "correct": false
+                        }
                     ],
-                    "backgroundImage": {
-                        "url": null,
-                        "scale": 1,
-                        "bottom": 0,
-                        "left": 0
-                    },
-                    "markings": "graph",
-                    "labels": [
-                        "x",
-                        "y"
-                    ],
-                    "showProtractor": false,
-                    "showRuler": false,
-                    "rulerLabel": "",
-                    "rulerTicks": 10,
-                    "range": [
-                        [
-                            -20,
-                            20
-                        ],
-                        [
-                            -20,
-                            20
-                        ]
-                    ],
-                    "graph": {
-                        "type": "linear"
-                    },
-                    "correct": {
-                        "type": "linear",
-                        "coords": [
-                            [
-                                0,
-                                0
-                            ],
-                            [
-                                5,
-                                5
-                            ]
-                        ]
-                    }
+                    "randomize": false,
+                    "multipleSelect": false,
+                    "displayCount": null,
+                    "noneOfTheAbove": false,
+                    "onePerLine": true
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "simulator 1": {
+                "type": "simulator",
+                "graded": true,
+                "options": {
+                    "xAxisLabel": "Approval Rating (%)",
+                    "yAxisLabel": "Number of trials with that rating",
+                    "proportionLabel": "Simulated approval rating (%)",
+                    "proportionOrPercentage": "percentage"
                 },
                 "version": {
                     "major": 0,
