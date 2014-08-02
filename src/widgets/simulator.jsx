@@ -8,14 +8,16 @@ var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var ApiOptions = require("../perseus-api.jsx").Options;
 var assert = require("../interactive2/interactive-util.js").assert;
 
-var Graphie      = require("../components/graphie.jsx");
-var Path         = Graphie.Path;
-var Arc          = Graphie.Arc;
-var Circle       = Graphie.Circle;
-var Label        = Graphie.Label;
-var Line         = Graphie.Line;
-var MovablePoint = Graphie.MovablePoint;
-var MovableLine  = Graphie.MovableLine;
+var Graphie = require("../components/graphie.jsx");
+var {
+    Path,
+    Arc,
+    Circle,
+    Label,
+    Line,
+    MovablePoint,
+    MovableLine
+} = Graphie;
 var NumberInput  = require("../components/number-input.jsx");
 var MathOutput  = require("../components/math-output.jsx");
 var seededRNG    = require("../util.js").seededRNG;
