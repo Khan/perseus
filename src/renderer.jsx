@@ -457,6 +457,11 @@ var Renderer = React.createClass({
         // of a transformer widget).
         if (!isIdPathPrefix(path, this._currentFocus)) {
             var prevFocus = this._currentFocus;
+
+            if (prevFocus) {
+                this.blurPath(prevFocus);
+            }
+
             this._currentFocus = path;
             if (this.props.apiOptions.onFocusChange != null) {
                 this.props.apiOptions.onFocusChange(
