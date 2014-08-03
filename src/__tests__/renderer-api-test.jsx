@@ -127,6 +127,16 @@ describe("Perseus API", function() {
             var score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "invalid");
         });
+
+        it("should be able to accept a callback", function() {
+            var x = 3;
+            var renderer = renderQuestionArea(inputNumber1Item);
+            assert.strictEqual(x, 3);
+            renderer.setInputValue(["input-number 1"], "3", function() {
+                x = 5;
+            });
+            assert.strictEqual(x, 5);
+        });
     });
 
     describe("onInputError", function() {

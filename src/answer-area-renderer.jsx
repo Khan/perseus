@@ -461,7 +461,7 @@ var AnswerAreaRenderer = React.createClass({
 
         // Thankfully, the API is agnostic! So it doesn't matter if this is a
         // renderer or a widget.
-        this.getWidgetInstance().setInputValue(newPath, newValue, () => focus);
+        this.getWidgetInstance().setInputValue(newPath, newValue, focus);
     },
 
     guessAndScore: function() {

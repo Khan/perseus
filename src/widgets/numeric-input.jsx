@@ -105,9 +105,9 @@ var NumericInput = React.createClass({
         return this;
     },
 
-    setInputValue: function(path, currentValue, cb) {
+    setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            currentValue: currentValue
+            currentValue: newValue
         }, cb);
     },
 

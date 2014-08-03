@@ -207,13 +207,13 @@ var Table = React.createClass({
         return inputPaths;
     },
 
-    setInputValue: function(path, value, cb) {
+    setInputValue: function(path, newValue, cb) {
         // Extract row, column information
         var row = getRowFromPath(path);
         var column = getColumnFromPath(path);
 
         var answers = _.map(this.props.answers, _.clone);
-        answers[row][column] = value;
+        answers[row][column] = newValue;
         this.props.onChange({
             answers: answers
         }, cb);

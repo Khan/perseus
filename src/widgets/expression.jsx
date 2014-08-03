@@ -194,9 +194,9 @@ var Expression = React.createClass({
         return this;
     },
 
-    setInputValue: function(path, value, cb) {
+    setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            value: value
+            value: newValue
         }, cb);
     },
 

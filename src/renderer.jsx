@@ -635,7 +635,7 @@ var Renderer = React.createClass({
         var widget = this.getWidgetInstance(widgetId);
 
         // Widget handles parsing of the interWidgetPath.
-        widget.setInputValue(interWidgetPath, newValue, () => focus);
+        widget.setInputValue(interWidgetPath, newValue, focus);
     },
 
     guessAndScore: function() {
