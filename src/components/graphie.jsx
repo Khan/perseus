@@ -131,8 +131,6 @@ var Graphie = React.createClass({
         });
         graphie.snap = this.props.options.snapStep || [1, 1];
 
-        this.props.options.range = this._range();
-        this.props.options.scale = this._scale();
         this.props.setup(graphie, _.extend({}, this.props.options, {
             range: this._range(),
             scale: this._scale()
