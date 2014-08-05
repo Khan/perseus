@@ -190,6 +190,18 @@ var Renderer = React.createClass({
 
             var widgetInfo = this.state.widgetInfo[id];
             if (widgetInfo || this.props.ignoreMissingWidgets) {
+
+                // We don't want to render a duplicate widget key/ref,
+                // as this causes problems with react (for obvious reasons).
+                // Instead we just notify the hopefully-content-creator that
+                // they need to change the widget id.
+                var duplicate = _.contains(widgetIds, id);
+                if (duplicate) {
+                    return <span className="renderer-widget-error">
+                        Widget [[{'\u2603'} {id}]] already exists.
+                    </span>;
+                }
+
                 // TODO(jack): Remove this input/output parameter
                 widgetIds.push(id);
 
