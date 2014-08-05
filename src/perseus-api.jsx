@@ -46,7 +46,8 @@ module.exports = {
             OPTION: "perseus-radio-option",
             SELECTED: "perseus-radio-selected",
             OPTION_CONTENT: "perseus-radio-option-content"
-        }
+        },
+        INTERACTIVE: "perseus-interactive"
     }
 };
 

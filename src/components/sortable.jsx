@@ -5,6 +5,8 @@ var React = require('react');
 var Util     = require("../util.js");
 var Renderer = require("../renderer.jsx");
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+
 var PREFIX = "perseus-sortable";
 
 
@@ -94,7 +96,8 @@ var Draggable = React.createClass({
         var className = [
                 PREFIX + "-card",
                 PREFIX + "-draggable",
-                PREFIX + "-" + this.props.type
+                PREFIX + "-" + this.props.type,
+                ApiClassNames.INTERACTIVE
             ].join(" ");
 
         var style = {

@@ -6,6 +6,8 @@ var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 var RangeInput = require("../components/range-input.jsx");
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+
 var deepEq = require("../util.js").deepEq;
 
 var BAR = "bar",
@@ -69,7 +71,8 @@ var Plotter = React.createClass({
 
     render: function() {
         return <div
-            className="perseus-widget-plotter graphie above-scratchpad"
+            className={"perseus-widget-plotter graphie above-scratchpad " +
+                ApiClassNames.INTERACTIVE}
             ref="graphieDiv" />;
     },
 

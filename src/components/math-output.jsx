@@ -32,7 +32,8 @@ var MathOutput = React.createClass({
     },
 
     _getInputClassName: function() {
-        var className = "math-output " + ApiClassNames.INPUT;
+        var className = "math-output " + ApiClassNames.INPUT + " " +
+            ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }

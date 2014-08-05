@@ -6,6 +6,7 @@ var FancySelect = require("../components/fancy-select.jsx");
 var FancyOption = FancySelect.Option;
 
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 
 var captureScratchpadTouchStart =
@@ -34,7 +35,8 @@ var Dropdown = React.createClass({
         if (this.props.apiOptions.fancyDropdowns) {
             return <FancySelect
                     onChange={this._handleChange}
-                    className="perseus-widget-dropdown"
+                    className={"perseus-widget-dropdown " +
+                        ApiClassNames.INTERACTIVE}
                     value={this.props.selected}>
                 <FancyOption value={0} visible={false}>
                     <span className="placeholder">

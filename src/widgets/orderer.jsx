@@ -7,6 +7,8 @@ var Util           = require("../util.js");
 var Renderer       = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+
 var PlaceholderCard = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
@@ -14,7 +16,9 @@ var PlaceholderCard = React.createClass({
     },
 
     render: function() {
-        return <div className="card-wrap" style={{width: this.props.width}}>
+        return <div
+                className={"card-wrap " + ApiClassNames.INTERACTIVE}
+                style={{width: this.props.width}}>
             <div
                 className="card placeholder"
                 style={{height: this.props.height}} />
@@ -24,7 +28,7 @@ var PlaceholderCard = React.createClass({
 
 var DragHintCard = React.createClass({
     render: function() {
-        return <div className="card-wrap">
+        return <div className={"card-wrap " + ApiClassNames.INTERACTIVE}>
             <div className="card drag-hint" />
         </div>;
     }
@@ -92,7 +96,8 @@ var Card = React.createClass({
 
         var onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
 
-        return <div className="card-wrap" style={style}
+        return <div className={"card-wrap " + ApiClassNames.INTERACTIVE}
+                    style={style}
                     onMouseDown={onMouseDown}
                     onTouchStart={onMouseDown}
                     onTouchMove={this.onMouseMove}
@@ -308,7 +313,7 @@ var Orderer = React.createClass({
                         "height-" + this.props.height + " " +
                         "layout-" + this.props.layout + " " +
                         "above-scratchpad blank-background " +
-                        "ui-helper-clearfix"}
+                        "ui-helper-clearfix " + ApiClassNames.INTERACTIVE}
                     ref="orderer">
                    {bank}
                    {sortable}

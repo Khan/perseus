@@ -52,6 +52,7 @@ var BaseRadio = React.createClass({
                     "inline": !this.props.onePerLine
                 };
                 classSet[ApiClassNames.RADIO.OPTION] = true;
+                classSet[ApiClassNames.INTERACTIVE] = true;
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
                 var className = cx(classSet);
 
@@ -90,7 +91,8 @@ var BaseRadio = React.createClass({
                         <span
                                 className={
                                     "interactive-component " +
-                                    ApiClassNames.RADIO.OPTION_CONTENT
+                                    ApiClassNames.RADIO.OPTION_CONTENT + " " +
+                                    ApiClassNames.INTERACTIVE
                                 }
                                 style={{
                                     cursor: "default",
