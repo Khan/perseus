@@ -131,10 +131,10 @@ var Graphie = React.createClass({
         });
         graphie.snap = this.props.options.snapStep || [1, 1];
 
-        this.props.setup(graphie, _.extend({}, this.props.options, {
+        this.props.setup(graphie, _.extend({}, {
             range: this._range(),
             scale: this._scale()
-        }));
+        }, this.props.options));
     },
 
     _removeMovables: function() {
