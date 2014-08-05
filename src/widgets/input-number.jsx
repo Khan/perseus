@@ -5,7 +5,7 @@ var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
-var ParseTex          = require("../parse-tex.js");
+var ParseTex          = require("../tex-wrangler.js").parseTex;
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");

@@ -10,7 +10,7 @@
   * (rather than assuming that we start with a bracket character and wait for
   * bracket equality).
   */
-function findEndpoint (tex, currentIndex) {
+function findEndpoint(tex, currentIndex) {
     var bracketDepth = 0;
     var rightEndpoint;
 
@@ -36,7 +36,7 @@ function findEndpoint (tex, currentIndex) {
 /*
  * Parses an individual set of curly brackets into TeX.
  */
-function parseNextExpression (tex, currentIndex) {
+function parseNextExpression(tex, currentIndex, handler) {
     // Find the first '{' and grab subsequent TeX
     // Ex) tex: '{3}{7}', and we want the '3'
     var openBracketIndex = tex.indexOf('{', currentIndex);
@@ -45,7 +45,7 @@ function parseNextExpression (tex, currentIndex) {
     // Truncate to only contain remaining TeX
     var endpoint = findEndpoint(tex, nextExpIndex);
     var expressionTeX = tex.substring(nextExpIndex, endpoint);
-    var parsedExp = parseTex(expressionTeX);
+    var parsedExp = walkTex(expressionTeX, handler);
 
     return {
         endpoint: endpoint,
@@ -54,7 +54,7 @@ function parseNextExpression (tex, currentIndex) {
 }
 
 
-function getNextFracIndex (tex, currentIndex) {
+function getNextFracIndex(tex, currentIndex) {
     var dfrac = "\\dfrac";
     var frac = "\\frac";
 
@@ -73,14 +73,7 @@ function getNextFracIndex (tex, currentIndex) {
 }
 
 
-/*
- * Parse a TeX expression into something interpretable by input-number.
- * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
- * The basic algorithm splits on \dfracs and then recurs on the subsequent
- * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
- * allow for nested \dfrac elements.
- */
-function parseTex (tex, currentIndex) {
+function walkTex(tex, handler) {
     // Ex) tex: '2 \dfrac {3}{7}'
     var parsedString = "";
     var currentIndex = 0;
@@ -98,24 +91,25 @@ function parseTex (tex, currentIndex) {
         // Parse first expression and move index past it
         // Ex) firstParsedExpression.expression: '3'
         var firstParsedExpression = parseNextExpression(
-            tex, currentIndex
+            tex, currentIndex, handler
         );
         currentIndex = firstParsedExpression.endpoint + 1;
 
         // Parse second expression
         // Ex) secondParsedExpression.expression: '7'
         var secondParsedExpression = parseNextExpression(
-            tex, currentIndex
+            tex, currentIndex, handler
         );
         currentIndex = secondParsedExpression.endpoint + 1;
 
         // Add expressions to running total of parsed expressions
-        // Ex) parsedString: '2 3/7'
         if (parsedString.length) {
             parsedString += " ";
         }
-        parsedString += firstParsedExpression.expression + "/" +
-            secondParsedExpression.expression;
+
+        // Apply a custom handler based on the parsed subexpressions
+        parsedString += handler(firstParsedExpression.expression,
+            secondParsedExpression.expression);
 
         // Find next DFrac, relative to currentIndex
         nextFrac = getNextFracIndex(tex, currentIndex);
@@ -130,4 +124,42 @@ function parseTex (tex, currentIndex) {
     return parsedString;
 }
 
-module.exports = parseTex;
+/*
+ * Modify a TeX expression, returning another TeX expression. The resulting
+ * expression will have its innermost fractions stubbed out with \fracs
+ * (as opposed to \dfracs). All other content will remain untouched.
+ */
+function modifyTex(tex) {
+    function isNestedFraction(tex) {
+        return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
+    }
+    var handler = function(exp1, exp2) {
+        var prefix;
+        if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
+            prefix = "\\dfrac";
+        } else {
+            prefix = "\\frac";
+        }
+        return prefix + " {" + exp1 + "}{" + exp2 + "}";
+    };
+    return walkTex(tex, handler);
+}
+
+/*
+ * Parse a TeX expression into something interpretable by input-number.
+ * The process is exclusively concerned with parsing fractions, i.e., \dfracs.
+ * The basic algorithm splits on \dfracs and then recurs on the subsequent
+ * "expressions", i.e., the {} pairs that follow \dfrac. The recursion is to
+ * allow for nested \dfrac elements.
+ */
+function parseTex(tex) {
+    var handler = function(exp1, exp2) {
+        return exp1 + "/" + exp2;
+    };
+    return walkTex(tex, handler);
+}
+
+module.exports = {
+    parseTex: parseTex,
+    modifyTex: modifyTex
+};

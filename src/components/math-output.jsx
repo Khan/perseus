@@ -4,6 +4,7 @@ var React         = require("react");
 var TeX           = require("../tex.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var Tooltip       = require("react-components/tooltip.jsx");
+var ModifyTex     = require("../tex-wrangler.js").modifyTex;
 
 var MathOutput = React.createClass({
     propTypes: {
@@ -43,18 +44,21 @@ var MathOutput = React.createClass({
         return className;
     },
 
+    _getDisplayValue: function(value) {
+        // Cast from (potentially a) number to string
+        var displayText;
+        if (value != null) {
+            displayText = "" + value;
+        } else {
+            displayText = "";
+        }
+        return ModifyTex(displayText);
+    },
+
     render: function () {
         var divStyle = {
             textAlign: "center"
         };
-
-        // Cast from potential number to string
-        var value;
-        if (this.props.value) {
-            value = "" + this.props.value;
-        } else {
-            value = "";
-        }
 
         return <span ref="input"
                 className={this._getInputClassName()}
@@ -62,7 +66,7 @@ var MathOutput = React.createClass({
                 onTouchStart={this.focus}>
             <div style={divStyle}>
                 <TeX>
-                    {value}
+                    {this._getDisplayValue(this.props.value)}
                 </TeX>
             </div>
         </span>;

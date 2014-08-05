@@ -10,7 +10,7 @@ var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("react-components/button-group.jsx");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
-var ParseTex          = require("../parse-tex.js");
+var ParseTex = require("../tex-wrangler.js").parseTex;
 
 var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
