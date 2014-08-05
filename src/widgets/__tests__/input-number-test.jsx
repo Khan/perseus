@@ -13,7 +13,7 @@ var TestUtils = React.addons.TestUtils;
 var transform = InputNumber.transform;
 
 describe("input-number", function() {
-    it("'s transform should remove the `value` field", function() {
+    it("transform should remove the `value` field", function() {
         var editorProps = {
             value: 5,
             simplify: "required",
