@@ -172,12 +172,12 @@ var CombinedHintsEditor = React.createClass({
         </div>;
     },
 
-    handleHintChange: function(i, update, cb) {
+    handleHintChange: function(i, newProps, cb, silent) {
         // TODO(joel) - lens
         var hints = _(this.props.hints).clone();
-        hints[i] = _.extend({}, hints[i], update.newProps);
+        hints[i] = _.extend({}, hints[i], newProps);
 
-        this.props.onChange({ hints, silent: update.silent }, cb);
+        this.props.onChange({hints: hints}, cb, silent);
     },
 
     handleHintRemove: function(i) {

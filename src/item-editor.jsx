@@ -21,10 +21,10 @@ var ItemEditor = React.createClass({
     },
 
     // Notify the parent that the question or answer area has been updated.
-    updateProps: function(newProps, cb) {
+    updateProps: function(newProps, cb, silent) {
         var props = _(this.props).pick("question", "answerArea");
 
-        this.props.onChange(_(props).extend(newProps), cb);
+        this.props.onChange(_(props).extend(newProps), cb, silent);
     },
 
     render: function() {
@@ -84,14 +84,14 @@ var ItemEditor = React.createClass({
         </div>;
     },
 
-    handleEditorChange: function(newProps, cb) {
+    handleEditorChange: function(newProps, cb, silent) {
         var question = _.extend({}, this.props.question, newProps);
-        this.updateProps({ question }, cb);
+        this.updateProps({ question }, cb, silent);
     },
 
-    handleAnswerAreaChange: function(newProps, cb) {
+    handleAnswerAreaChange: function(newProps, cb, silent) {
         var answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({ answerArea }, cb);
+        this.updateProps({ answerArea }, cb, silent);
     },
 
     toJSON: function(skipValidation) {

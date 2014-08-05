@@ -246,10 +246,10 @@ var EditorPage = React.createClass({
             cb);
     },
 
-    handleChange: function(toChange, cb) {
+    handleChange: function(toChange, cb, silent) {
         var newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
-        this.props.onChange(newProps, cb);
+        this.props.onChange(newProps, cb, silent);
     },
 
     changeJSON: function(newJson) {
