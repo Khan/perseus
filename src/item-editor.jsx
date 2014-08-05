@@ -23,6 +23,7 @@ var ItemEditor = React.createClass({
     // Notify the parent that the question or answer area has been updated.
     updateProps: function(newProps, cb) {
         var props = _(this.props).pick("question", "answerArea");
+
         this.props.onChange(_(props).extend(newProps), cb);
     },
 
@@ -36,11 +37,7 @@ var ItemEditor = React.createClass({
                         placeholder: "Type your question here...",
                         className: "perseus-question-editor",
                         imageUploader: this.props.imageUploader,
-                        onChange: (newProps, cb) => {
-                            var question = _.extend({},
-                                    this.props.question, newProps);
-                            this.updateProps({question: question}, cb);
-                        }
+                        onChange: this.handleEditorChange
                     }, this.props.question))}
                 </div>
 
@@ -59,11 +56,7 @@ var ItemEditor = React.createClass({
                     <div className="pod-title">Answer</div>
                     {AnswerAreaEditor(_.extend({
                         ref: "answerAreaEditor",
-                        onChange: (newProps, cb) => {
-                            var answerArea = _.extend({},
-                                    this.props.answerArea, newProps);
-                            this.updateProps({answerArea: answerArea}, cb);
-                        }
+                        onChange: this.handleAnswerAreaChange
                     }, this.props.answerArea))}
                 </div>
 
@@ -89,6 +82,16 @@ var ItemEditor = React.createClass({
                 </div>
             </div>
         </div>;
+    },
+
+    handleEditorChange: function(newProps, cb) {
+        var question = _.extend({}, this.props.question, newProps);
+        this.updateProps({ question }, cb);
+    },
+
+    handleAnswerAreaChange: function(newProps, cb) {
+        var answerArea = _.extend({}, this.props.answerArea, newProps);
+        this.updateProps({ answerArea }, cb);
     },
 
     toJSON: function(skipValidation) {

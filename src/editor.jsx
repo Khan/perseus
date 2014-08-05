@@ -258,7 +258,8 @@ var Editor = React.createClass({
                     height: height
                 };
                 props.onChange({
-                    images: _.clone(images)
+                    newProps: { images: _.clone(images) },
+                    silent: true
                 });
             });
         });
