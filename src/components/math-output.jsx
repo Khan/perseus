@@ -17,15 +17,15 @@ var MathOutput = React.createClass({
         onBlur: React.PropTypes.func
     },
 
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return {
             value: "",
-            onFocus: function () { },
-            onBlur: function () { }
+            onFocus: function() { },
+            onBlur: function() { }
         };
     },
 
-    getInitialState: function () {
+    getInitialState: function() {
         return {
             focused: false,
             selectorNamespace: _.uniqueId("math-output")
@@ -55,7 +55,7 @@ var MathOutput = React.createClass({
         return ModifyTex(displayText);
     },
 
-    render: function () {
+    render: function() {
         var divStyle = {
             textAlign: "center"
         };
@@ -70,6 +70,10 @@ var MathOutput = React.createClass({
                 </TeX>
             </div>
         </span>;
+    },
+
+    getValue: function() {
+        return this.props.value;
     },
 
     focus: function() {

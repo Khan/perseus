@@ -5,8 +5,11 @@ var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var InfoTip       = require("react-components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
+var MathOutput    = require("../components/math-output.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var TeX           = require("../tex.jsx");
+
+var ApiOptions = require("../perseus-api.jsx").Options;
 
 var ROTATE_SNAP_DEGREES = 15;
 var DEGREE_SIGN = "\u00B0";
@@ -24,6 +27,8 @@ var kvector = KhanUtil.kvector;
 var kpoint = KhanUtil.kpoint;
 var kray = KhanUtil.kray;
 var kline = KhanUtil.kline;
+
+var assert = require("../interactive2/interactive-util.js").assert;
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
@@ -81,6 +86,7 @@ var defaultGraphProps = function(setProps, boxSize) {
 };
 
 var defaultTransformerProps = {
+    apiOptions: ApiOptions.defaults,
     gradeEmpty: false,
     graphMode: "interactive",
     listMode: "dynamic",
@@ -329,7 +335,10 @@ var TransformOps = {
                         Transformations[this.props.transform.type].Input;
                 return transformClass(_.extend({
                     ref: "transform",
-                    onChange: this.handleChange
+                    onChange: this.handleChange,
+                    onFocus: this.props.onFocus,
+                    onBlur: this.props.onBlur,
+                    apiOptions: this.props.apiOptions
                 }, this.props.transform));
             } else {
                 throw new Error("Invalid mode: " + this.props.mode);
@@ -344,11 +353,36 @@ var TransformOps = {
                 return this.props.transform;
             }
         },
-        handleChange: _.debounce(function() {
-            this.props.onChange(this.value());
+        handleChange: _.debounce(function(callback) {
+            this.props.onChange(this.value(), callback);
         }, RENDER_TRANSFORM_DELAY_IN_MS),
-        focus: function() {
-            this.refs.transform.focus();
+
+        /* InputPath API: depending on the API call, this could involve simply
+         * navigating to the right ref and calling the function on that
+         * component, or threading the call down and returning the result. */
+        _getComponentAtPath: function(path) {
+            var transform = this.refs.transform;
+            path = path || _.head(transform.getInputPaths());
+            var ref = _.head(path);
+            return transform.refs[ref];
+        },
+        focus: function(path) {
+            return this._getComponentAtPath(path).focus();
+        },
+        blur: function(path) {
+            return this._getComponentAtPath(path).blur();
+        },
+        getDOMNodeForPath: function(path) {
+            return this._getComponentAtPath(path).getDOMNode();
+        },
+        getAcceptableFormatsForInputPath: function(path) {
+            return null;
+        },
+        setInputValue: function(path, value, cb) {
+            this.refs.transform.setInputValue(path, value, cb);
+        },
+        getInputPaths: function() {
+            return this.refs.transform.getInputPaths();
         },
 
         statics: {
@@ -394,11 +428,6 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
-            // TODO(charlie): Remove before landing!
-            setInputValue: function(value, cb) {
-                this.setState({vector: [value, value]}, cb);
-            },
-
             getInitialState: function() {
                 return {
                     vector: this.props.vector || [null, null]
@@ -410,29 +439,38 @@ var Transformations = {
                 }
             },
             render: function() {
+                var inputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
                 var vector = [
                     <TeX>\langle</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="x"
                         placeholder={0}
                         value={this.state.vector[0]}
                         useArrowKeys={true}
                         onChange={(val0) => {
                             var val1 = this.state.vector[1];
-                            this.setState({vector: [val0, val1]});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({vector: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "x")}
+                        onBlur={_.partial(this.props.onBlur, "x")} />,
                     <TeX>{", {}"}</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="y"
                         placeholder={0}
                         value={this.state.vector[1]}
                         useArrowKeys={true}
                         onChange={(val1) => {
                             var val0 = this.state.vector[0];
-                            this.setState({vector: [val0, val1]});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({vector: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "y")}
+                        onBlur={_.partial(this.props.onBlur, "y")} />,
                     <TeX>\rangle</TeX>
                 ];
                 return <div>
@@ -448,8 +486,21 @@ var Transformations = {
                     vector: [x, y]
                 };
             },
-            focus: function() {
-                this.refs.x.focus();
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                var id = _.first(path);
+                var vector = _.clone(this.state.vector);
+                if (id === "x") {
+                    vector[0] = value;
+                } else if (id === "y") {
+                    vector[1] = value;
+                }
+                this.setState({vector: vector}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            getInputPaths: function() {
+                return [["x"], ["y"]];
             }
         })
     },
@@ -509,41 +560,53 @@ var Transformations = {
                 }
             },
             render: function() {
+                var inputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
                 var point = [
                     <TeX>(</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="centerX"
                         placeholder={0}
                         value={this.state.center[0]}
                         useArrowKeys={true}
                         onChange={(val0) => {
                             var val1 = this.state.center[1];
-                            this.setState({center: [val0, val1]});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "centerX")}
+                        onBlur={_.partial(this.props.onBlur, "centerX")} />,
                     <TeX>{", {}"}</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="centerY"
                         placeholder={0}
                         value={this.state.center[1]}
                         useArrowKeys={true}
                         onChange={(val1) => {
                             var val0 = this.state.center[0];
-                            this.setState({center: [val0, val1]});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "centerY")}
+                        onBlur={_.partial(this.props.onBlur, "centerY")} />,
                     <TeX>)</TeX>
                 ];
                 var degrees = [
-                    <NumberInput
+                    <inputComponent
                         ref="angleDeg"
                         placeholder={0}
                         value={this.state.angleDeg}
                         useArrowKeys={true}
                         onChange={(val) => {
-                            this.setState({angleDeg: val});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({angleDeg: val}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "angleDeg")}
+                        onBlur={_.partial(this.props.onBlur, "angleDeg")} />,
                     DEGREE_SIGN
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
@@ -562,8 +625,24 @@ var Transformations = {
                     center: [centerX, centerY]
                 };
             },
-            focus: function() {
-                this.refs.centerX.focus();
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                var id = _.first(path);
+                var angleDeg = _.clone(this.state.angleDeg);
+                var center = _.clone(this.state.center);
+                if (id === "angleDeg") {
+                    angleDeg = value;
+                } else if (id === "centerX") {
+                    center[0] = value;
+                } else if (id === "centerY") {
+                    center[1] = value;
+                }
+                this.setState({angleDeg: angleDeg, center: center}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            getInputPaths: function() {
+                return [["centerX"], ["centerY"], ["angleDeg"]];
             }
         })
     },
@@ -621,32 +700,47 @@ var Transformations = {
                 }
             },
             render: function() {
+                var inputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
                 var point1 = [<TeX>(</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="x1"
                         value={this.state.line[0][0]}
                         useArrowKeys={true}
-                        onChange={this.changePoint.bind(this, 0, 0)} />,
+                        onChange={this.changePoint.bind(this, 0, 0)}
+                        onFocus={_.partial(
+                            this.props.onFocus, "x1"
+                        )}
+                        onBlur={_.partial(
+                            this.props.onBlur, "x1"
+                        )}/>,
                     <TeX>{", {}"}</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="y1"
                         value={this.state.line[0][1]}
                         useArrowKeys={true}
-                        onChange={this.changePoint.bind(this, 0, 1)} />,
+                        onChange={this.changePoint.bind(this, 0, 1)}
+                        onFocus={_.partial(this.props.onFocus, "y1")}
+                        onBlur={_.partial(this.props.onBlur, "y1")}/>,
                     <TeX>)</TeX>
                 ];
                 var point2 = [<TeX>(</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="x2"
                         value={this.state.line[1][0]}
                         useArrowKeys={true}
-                        onChange={this.changePoint.bind(this, 1, 0)} />,
+                        onChange={this.changePoint.bind(this, 1, 0)}
+                        onFocus={_.partial(this.props.onFocus, "x2")}
+                        onBlur={_.partial(this.props.onBlur, "x2")} />,
                     <TeX>{", {}"}</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="y2"
                         value={this.state.line[1][1]}
                         useArrowKeys={true}
-                        onChange={this.changePoint.bind(this, 1, 1)} />,
+                        onChange={this.changePoint.bind(this, 1, 1)}
+                        onFocus={_.partial(this.props.onFocus, "y2")}
+                        onBlur={_.partial(this.props.onBlur, "y2")} />,
                     <TeX>)</TeX>
                 ];
                 return <div>
@@ -655,11 +749,12 @@ var Transformations = {
                     </$_>
                 </div>;
             },
-            changePoint: function(i, j, val) {
+            changePoint: function(i, j, val, cb) {
                 var line = _.map(this.state.line, _.clone);
                 line[i][j] = val;
-                this.setState({line: line});
-                this.props.onChange();
+                this.setState({line: line}, () => {
+                    this.props.onChange(cb);
+                });
             },
             value: function() {
                 var x1 = this.refs.x1.getValue();
@@ -670,8 +765,25 @@ var Transformations = {
                     line: [[x1, y1], [x2, y2]]
                 };
             },
-            focus: function() {
-                this.refs.x1.focus();
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                var id = _.first(path);
+                var j;
+                if (id[0] === "x") {
+                    j = 0;
+                } else if (id[0] === "y") {
+                    j = 1;
+                }
+                var i;
+                if (id[1] === "1") {
+                    i = 0;
+                } else if (id[1] === "2") {
+                    i = 1;
+                }
+                this.changePoint(i, j, value, cb);
+            },
+            getInputPaths: function() {
+                return [["x1"], ["y1"], ["x2"], ["y2"]];
             }
         })
     },
@@ -732,39 +844,51 @@ var Transformations = {
                 }
             },
             render: function() {
+                var inputComponent = (this.props.apiOptions.staticRender) ?
+                        MathOutput :
+                        NumberInput;
                 var point = [<TeX>(</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="x"
                         placeholder={0}
                         value={this.state.center[0]}
                         useArrowKeys={true}
                         onChange={(val0) => {
                             var val1 = this.state.center[1];
-                            this.setState({center: [val0, val1]});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "x")}
+                        onBlur={_.partial(this.props.onBlur, "x")} />,
                     <TeX>{", {}"}</TeX>,
-                    <NumberInput
+                    <inputComponent
                         ref="y"
                         placeholder={0}
                         value={this.state.center[1]}
                         useArrowKeys={true}
                         onChange={(val1) => {
                             var val0 = this.state.center[0];
-                            this.setState({center: [val0, val1]});
-                            this.props.onChange();
-                        }} />,
+                            this.setState({center: [val0, val1]}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                        onFocus={_.partial(this.props.onFocus, "y")}
+                        onBlur={_.partial(this.props.onBlur, "y")} />,
                     <TeX>)</TeX>
                 ];
-                var scale = <NumberInput
+                var scale = <inputComponent
                     ref="scale"
                     placeholder={1}
                     value={this.state.scale}
                     useArrowKeys={true}
                     onChange={(val) => {
-                            this.setState({scale: val});
-                            this.props.onChange();
-                        }} />;
+                            this.setState({scale: val}, () => {
+                                this.props.onChange();
+                            });
+                        }}
+                    onFocus={_.partial(this.props.onFocus, "scale")}
+                    onBlur={_.partial(this.props.onBlur, "scale")} />;
                 return <div>
                     <$_ point={point} scale={scale}>
                         Dilation about %(point)s by %(scale)s
@@ -780,8 +904,24 @@ var Transformations = {
                     center: [x, y]
                 };
             },
-            focus: function() {
-                this.refs.x.focus();
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                var id = _.first(path);
+                var scale = this.state.scale;
+                var center = _.clone(this.state.center);
+                if (id === "x") {
+                    center[0] = value;
+                } else if (id === "y") {
+                    center[1] = value;
+                } else if (id === "scale") {
+                    scale = value;
+                }
+                this.setState({scale: scale, center: center}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            getInputPaths: function() {
+                return [["x"], ["y"], ["scale"]];
             }
         })
     }
@@ -1467,7 +1607,10 @@ var TransformationList = React.createClass({
                             key={"transformation" + i}
                             transform={transform}
                             mode={this.props.mode}
-                            onChange={this.handleChange} />;
+                            onChange={this.handleChange}
+                            onFocus={_.partial(this.props.onFocus, "" + i)}
+                            onBlur={_.partial(this.props.onBlur, "" + i)}
+                            apiOptions={this.props.apiOptions} />;
             },
             this
         );
@@ -1487,8 +1630,8 @@ var TransformationList = React.createClass({
         return _.invoke(this._transformationRefs(), "value");
     },
 
-    handleChange: function() {
-        this.props.onChange(this.value());
+    handleChange: function(changed, callback) {
+        this.props.onChange(this.value(), callback);
     },
 
     focusLast: function() {
@@ -1670,7 +1813,10 @@ var Transformer = React.createClass({
                 ref="transformationList"
                 mode={this.props.listMode}
                 transformations={this.props.transformations}
-                onChange={this.setTransformationProps} />
+                onChange={this.setTransformationProps}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                apiOptions={this.props.apiOptions} />
 
             {!interactiveToolsMode && toolsBar}
 
@@ -2269,10 +2415,10 @@ var Transformer = React.createClass({
         }
     },
 
-    setTransformationProps: function(newTransfomationList) {
+    setTransformationProps: function(newTransfomationList, callback) {
         this.props.onChange({
             transformations: newTransfomationList
-        });
+        }, callback);
     },
 
     // add a transformation to our props list of transformation
@@ -2337,29 +2483,84 @@ var Transformer = React.createClass({
         displayMode: "block"
     },
 
-    focus: function(path) {
-        // TODO(charlie): remove all of this logic before landing (i.e., this
-        // is only here for testing and verification of correctness).
-        if (!path || path.length !== 3) {
-            return;
-        }
-        this.refs[path[0]].refs[path[1]].refs[path[2]].focus();
+    /* InputPath API */
+
+    _handleFocus: function() {
+        var path = Array.prototype.slice.call(arguments);
+        this.props.onFocus(path);
     },
 
-    setInputValue: function(path, value, cb) {
-        // TODO(charlie): remove all of this logic before landing (i.e., this
-        // is only here for testing and verification of correctness).
-        if (path.length !== 3) {
-            return;
-        }
-        this.refs[path[0]].refs[path[1]].refs[path[2]].setInputValue(value,
-            cb);
+    _handleBlur: function() {
+        var path = Array.prototype.slice.call(arguments);
+        this.props.onBlur(path);
+    },
+
+    _getTransformationForID: function(transformationID) {
+        // Returns the 'transformation' component corresponding to a given ID
+        var refPath = [
+            "transformationList",
+            "transformation" + transformationID
+        ];
+
+        // Follow the path of references
+        var component = this;
+        _.each(refPath, (ref) => {
+            component = component.refs[ref];
+        });
+        return component;
     },
 
     getInputPaths: function() {
-        return _.map(this.props.transformations, (transformation, i) => {
-            return ["transformationList", "transformation" + i, "transform"];
+        var inputPaths = [];
+        _.each(this.props.transformations, (transformation, i) => {
+            var transformation = this._getTransformationForID(i);
+            var innerPaths = transformation.getInputPaths();
+            var fullPaths = _.map(innerPaths, (innerPath) => {
+                return ["" + i].concat(innerPath);
+            });
+            inputPaths = inputPaths.concat(fullPaths);
         });
+        return inputPaths;
+    },
+
+    _passToInner: function(functionName, path) {
+        if (!path || !path.length) {
+            return;
+        }
+
+        // First argument tells us which transformation will receive the call;
+        // remaining arguments are used within that transformation to identify
+        // a specific input.
+        var innerPath = _.rest(path);
+        var args = [innerPath].concat(_.rest(arguments, 2));
+
+        // Pass arguments down to appropriate 'transformation' component
+        var transformationID = _.head(path);
+        var caller = this._getTransformationForID(transformationID);
+        return caller[functionName].apply(caller, args);
+    },
+
+    focus: function(path) {
+        return this._passToInner('focus', path);
+    },
+
+    blur: function(path) {
+        return this._passToInner('blur', path);
+    },
+
+    setInputValue: function(path, value, cb) {
+        assert(path.length >= 2);
+        return this._passToInner('setInputValue', path, value, cb);
+    },
+
+    getAcceptableFormatsForInputPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('getAcceptableFormatsForInputPath', path);
+    },
+
+    getDOMNodeForPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('getDOMNodeForPath', path);
     }
 });
 

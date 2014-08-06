@@ -153,7 +153,7 @@ var NumberInput = React.createClass({
 
     _handleBlur: function(e) {
         // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.keyCode !== 13) {
+        if (e && e.type === "keypress" && e.keyCode !== 13) {
             return;
         }
 
