@@ -16,6 +16,8 @@
 
 var React = require("react");
 
+var DROPDOWN_OFFSET = 76;
+
 // Hack to get around react descriptors not being renderable
 // in a new component after the first render. This is being
 // fixed in react 0.11 with the separation of descriptors,
@@ -144,10 +146,27 @@ var FancySelect = React.createClass({
                 className += " " + option.className;
             }
 
+            var translate;
+            var transition;
+            if (this.state.active) {
+                var offset = DROPDOWN_OFFSET * i;
+                translate = "translate3d(0, " + offset + "px, 0)";
+                transition = "0.35s ease-out";
+            } else {
+                translate = "translate3d(0, 0, 0)";
+                transition = "0.35s ease-in";
+            }
+            var style = _.extend({}, option.style, {
+                WebkitTransform: translate,
+                transform: translate,
+                WebkitTransition: transition,
+                transition: transition
+            });
+
             return <li
                     className={className}
                     key={i}
-                    style={option.style}
+                    style={style}
                     onClick={() => {
                         this._unbindClickHandler();
                         this.props.onChange(option.value, option);
@@ -166,9 +185,14 @@ var FancySelect = React.createClass({
             closed: this.state.closed
         });
 
+        var height = DROPDOWN_OFFSET * _.size(children);
+        var style = {
+            clip: "rect(0, auto, " + height + "px, 0)"
+        };
+
         return <div className={this.props.className}>
             {selectBox}
-            {<ul className={optionsBoxClassName}>
+            {<ul className={optionsBoxClassName} style={style}>
                 {options}
             </ul>}
         </div>;

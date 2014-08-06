@@ -51,8 +51,6 @@
         position: absolute;
         z-index: @zIndexCurrentlyDragging;
         min-width: 100%;
-        // For animating them downwards
-        overflow-y: hidden;
     }
 
     .fancy-option {
@@ -84,37 +82,5 @@
                 background: @fancyDropdownColor;
             }
         }
-
-        &.active {
-            margin-top: @fancyDropdownOptionVisibleMargin;
-            -webkit-animation-name: perseus-fancy-dropdown-slideout;
-            -webkit-animation-duration: 0.35s;
-            -webkit-animation-timing-function: ease-out;
-        }
-
-        &.closed {
-            margin-top: @fancyDropdownOptionHiddenMargin;
-            -webkit-animation-name: perseus-fancy-dropdown-slidein;
-            -webkit-animation-duration: 0.2s;
-            -webkit-animation-timing-function: ease-in;
-        }
-    }
-}
-
-@-webkit-keyframes perseus-fancy-dropdown-slideout {
-    0% {
-        margin-top: @fancyDropdownOptionHiddenMargin;
-    }
-    100% {
-        margin-top: @fancyDropdownOptionVisibleMargin;
-    }
-}
-
-@-webkit-keyframes perseus-fancy-dropdown-slidein {
-    0% {
-        margin-top: @fancyDropdownOptionVisibleMargin;
-    }
-    100% {
-        margin-top: @fancyDropdownOptionHiddenMargin;
     }
 }
