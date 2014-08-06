@@ -40,7 +40,7 @@ var Expression = React.createClass({
             value: "",
             times: false,
             functions: [],
-            buttonSets: ["basic"],
+            buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
