@@ -151,10 +151,10 @@ var FancySelect = React.createClass({
             if (this.state.active) {
                 var offset = DROPDOWN_OFFSET * i;
                 translate = "translate3d(0, " + offset + "px, 0)";
-                transition = "0.35s ease-out";
+                transition = "0.35s ease-in";
             } else {
                 translate = "translate3d(0, 0, 0)";
-                transition = "0.35s ease-in";
+                transition = "0.35s ease-out";
             }
             var style = _.extend({}, option.style, {
                 WebkitTransform: translate,
