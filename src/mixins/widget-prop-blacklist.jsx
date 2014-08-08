@@ -8,5 +8,6 @@ module.exports = [
     "onChange",
     "problemNum",
     "enabledFeatures",
-    "apiOptions"
+    "apiOptions",
+    "interWidgets"
 ];

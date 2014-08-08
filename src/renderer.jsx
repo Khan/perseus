@@ -241,10 +241,58 @@ var Renderer = React.createClass({
             questionCompleted: this.props.questionCompleted,
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
+            interWidgets: this.interWidgets,
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
             }
         });
+    },
+
+    /**
+     * Allows inter-widget communication.
+     *
+     * Each widget can access this function using `this.props.interWidgets`
+     * Takes a `filterCriterion` on which widgets to return.
+     * `filterCriterion` can be one of:
+     *  * A string widget id
+     *  * A string widget type
+     *  * a function from (id, widgetInfo, widgetComponent) to true or false
+     *
+     * Returns an array of the matching widget components.
+     *
+     * If you need to do logic with more than the components, it is possible
+     * to do such logic inside the filter, rather than on the result array.
+     *
+     * See the passage-ref widget for an example.
+     *
+     * "Remember: abilities are not inherently good or evil, it's how you use
+     * them." ~ Kyle Katarn
+     * Please use this one with caution.
+     */
+    interWidgets: function(filterCriterion) {
+        var filterFunc;
+        // Convenience filters:
+        // "interactive-graph 3" will give you [[interactive-graph 3]]
+        // "interactive-graph" will give you all interactive-graphs
+        if (typeof filterCriterion === "string") {
+            if (filterCriterion.indexOf(' ') !== -1) {
+                var widgetId = filterCriterion;
+                filterFunc = (id, widgetInfo) => id === widgetId;
+            } else {
+                var widgetType = filterCriterion;
+                filterFunc = (id, widgetInfo) => {
+                    return widgetInfo.type === widgetType;
+                };
+            }
+        } else {
+            filterFunc = filterCriterion;
+        }
+
+        return this.widgetIds.filter((id) => {
+            var widgetInfo = this.state.widgetInfo[id];
+            var widget = this.getWidgetInstance(id);
+            return filterFunc(id, widgetInfo, widget);
+        }).map(this.getWidgetInstance);
     },
 
     getWidgetInstance: function(id) {
