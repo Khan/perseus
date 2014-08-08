@@ -24,25 +24,51 @@ var Passage = React.createClass({
     },
 
     getInitialState: function() {
-        return {};
+        return {
+            nLines: null
+        };
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        return !_.isEqual(this.props, nextProps) ||
+            !_.isEqual(this.state, nextState);
     },
 
     render: function() {
-        var nLines = this.props.passageText.split('\n').filter(function(n) {
-                    return n.length;
-                }).length;
-        var lineNumbers = _.range(1, nLines + 1).map(function(lineN) {
-                    return lineN === 4 && nLines > 4 ?
-                        <span className="line-marker">Line</span> :
-                        (lineN % 5 === 0 ? lineN : "\n");
-                });
+        var lineNumbers;
+        var nLines = this.state.nLines;
+        if (this.props.showLineNumbers && nLines) {
+            lineNumbers = _.range(1, nLines + 1).map(function(lineN) {
+                return lineN === 4 && nLines > 4 ?
+                    <span className="line-marker">Line</span> :
+                    (lineN % 5 === 0 ? lineN : "\n");
+            });
+        }
 
         return <div className="perseus-widget-passage">
-            {this.props.showLineNumbers && <div className="line-numbers">
+            {lineNumbers && <div className="line-numbers">
                 {lineNumbers}
             </div>}
-            {Renderer({ content: this.props.passageText })}
+            {Renderer({ ref: "renderer", content: this.props.passageText })}
         </div>;
+    },
+
+    componentDidMount: function() {
+        this._measureLines();
+    },
+
+    componentDidUpdate: function() {
+        this._measureLines();
+    },
+
+    _measureLines: function() {
+        var $renderer = $(this.refs.renderer.getDOMNode());
+        var contentsHeight = $renderer.height();
+        var lineHeight = parseInt($renderer.css("line-height"));
+        var nLines = Math.round(contentsHeight / lineHeight);
+        this.setState({
+            nLines: nLines
+        });
     },
 
     simpleValidate: function(rubric) {
