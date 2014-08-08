@@ -12,6 +12,10 @@ var knumber          = KhanUtil.knumber;
 var Graphie      = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
 var Plot         = Graphie.Plot;
+var MovableLine  = Graphie.MovableLine;
+
+var kvector = KhanUtil.kvector;
+var kpoint = KhanUtil.kpoint;
 
 /* Mixins. */
 var Changeable   = require("../mixins/changeable.jsx");
@@ -34,6 +38,14 @@ function typeToButton(type) {
         title: capitalized,
         content: <img src={functionForType(type).url} alt={capitalized} />
     };
+}
+
+function isFlipped(newCoord, oldCoord, line) {
+    var CCW = (a, b, c) => {
+        return (b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]);
+    };
+    return (CCW(line[0], line[1], oldCoord) > 0) !==
+        (CCW(line[0], line[1], newCoord) > 0);
 }
 
 // TODO(charlie): These really need to go into a utility file as they're being
@@ -125,10 +137,21 @@ var FunctionGrapher = React.createClass({
         // Coords are usually based on props, but should fall back to the
         // model's default whenever they're not provided (if there's a model)
         props = props || this.props;
-        var defaultModelCoords = props.model &&
+        var defaultModelCoords = props.model && props.model.defaultCoords &&
             Grapher.pointsFromNormalized(props.graph.range, props.graph.step,
                 props.graph.snapStep, props.model.defaultCoords);
         return props.coords || defaultModelCoords || null;
+    },
+
+    _asymptote: function(props) {
+        // Coords are usually based on props, but should fall back to the
+        // model's default whenever they're not provided (if there's a model)
+        props = props || this.props;
+        var defaultModelAsymptote = props.model &&
+            props.model.defaultAsymptote &&
+            Grapher.pointsFromNormalized(props.graph.range, props.graph.step,
+                props.graph.snapStep, props.model.defaultAsymptote);
+        return props.asymptote || defaultModelAsymptote || null;
     },
 
     getDefaultProps: function() {
@@ -137,7 +160,8 @@ var FunctionGrapher = React.createClass({
                 range: [[-10, 10], [-10, 10]],
                 step: [1, 1]
             },
-            coords: null
+            coords: null,
+            asymptote: null
         };
     },
 
@@ -164,29 +188,46 @@ var FunctionGrapher = React.createClass({
 
                         // Specific functions have extra per-point constraints
                         if (this.props.model &&
-                                this.props.model.extraConstraints) {
+                                this.props.model.extraCoordConstraint) {
                             var extraConstraint =
-                                this.props.model.extraConstraints[i];
-                            if (extraConstraint) {
-                                return extraConstraint(coord);
-                            }
+                                this.props.model.extraCoordConstraint;
+                            // Calculat resulting coords and verify that
+                            // they're valid for this graph
+                            var proposedCoords = _.clone(this._coords());
+                            var oldCoord = _.clone(proposedCoords[i]);
+                            proposedCoords[i] = coord;
+                            return extraConstraint(coord, oldCoord,
+                                proposedCoords, this._asymptote(),
+                                this.props.graph);
                         }
 
                         return isFunction;
                     }
                 ]}
-                onMove={(coord) => {
-                    var coords = _.clone(this._coords());
-                    coords[i] = coord;
-                    this.props.onChange(coords);
+                onMove={(newCoord, oldCoord) => {
+                    var coords;
+                    // Reflect over asymptote, if allowed
+                    var asymptote = this._asymptote();
+                    if (asymptote &&
+                            this.props.model.allowReflectOverAsymptote &&
+                            isFlipped(newCoord, oldCoord, asymptote)) {
+                        coords = _.map(this._coords(), (coord) => {
+                            return kpoint.reflectOverLine(coord, asymptote);
+                        });
+                    } else {
+                        coords = _.clone(this._coords());
+                    }
+                    coords[i] = newCoord;
+                    this.props.onChange({
+                        coords: coords
+                    });
                 }} />;
         };
         var points = _.map(this._coords(), pointForCoord);
 
-        // Graphie gets all the props except the coords, which are used for
-        // graphing the movable points and the underlying plot.
         return Graphie(this.props.graph,
             this.props.model && this.renderPlot(),
+            this.props.model && this.renderAsymptote(),
             this.props.model && points
         );
     },
@@ -196,13 +237,55 @@ var FunctionGrapher = React.createClass({
         var xRange = this.props.graph.range[0];
         var style = { stroke: KhanUtil.DYNAMIC };
 
-        var coeffs = model.getCoefficients(this._coords());
+        var coeffs = model.getCoefficients(this._coords(), this._asymptote());
         if (!coeffs) {
             return;
         }
 
         var fn = _.partial(model.getFunctionForCoeffs, coeffs);
         return <Plot fn={fn} range={xRange} style={style} />;
+    },
+
+    renderAsymptote: function() {
+        var model = this.props.model;
+        var graph = this.props.graph;
+        var asymptote = this._asymptote();
+        var dashed = {
+            strokeDasharray: "- "
+        };
+        return asymptote &&
+            <MovableLine onMove={(newCoord, oldCoord) => {
+                // Calculate and apply displacement
+                var delta = kvector.subtract(newCoord, oldCoord);
+                var newAsymptote = _.map(this._asymptote(), (coord) =>
+                    kvector.add(coord, delta));
+                this.props.onChange({
+                    asymptote: newAsymptote
+                });
+            }} constraints={[
+                Interactive2.MovableLine.constraints.bound(),
+                Interactive2.MovableLine.constraints.snap(),
+                (newCoord, oldCoord) => {
+                    // Calculate and apply proposed displacement
+                    var delta = kvector.subtract(newCoord, oldCoord);
+                    var proposedAsymptote = _.map(this._asymptote(), (coord) =>
+                        kvector.add(coord, delta));
+                    // Verify that resulting asymptote is valid for graph
+                    if (model.extraAsymptoteConstraint) {
+                        return model.extraAsymptoteConstraint(newCoord,
+                            oldCoord, this._coords(), proposedAsymptote,
+                            graph);
+                    }
+                    return true;
+            }]} normalStyle={dashed}
+                highlightStyle={dashed}>
+                {_.map(asymptote, (coord) =>
+                    <MovablePoint coord={coord}
+                        static={true}
+                        draw={null}
+                        extendLine={true} />
+                )}
+        </MovableLine>;
     }
 });
 
@@ -352,31 +435,153 @@ var Tangent = _.extend({}, PlotDefaults, {
 var Exponential = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png",
 
-    extraConstraints: {
-        0: (coord) => coord[1] > 0,
-        1: (coord) => coord[1] > 0
-    },
-
     defaultCoords: [[0.5, 0.55], [0.75, 0.75]],
 
-    getCoefficients: function(coords) {
+    defaultAsymptote: [[0, 0.5], [1.0, 0.5]],
+
+    /**
+     * Add extra constraints for movement of the points or asymptote (below):
+     *   newCoord: [x, y]
+     *     The end position of the point or asymptote endpoint
+     *   oldCoord: [x, y]
+     *     The old position of the point or asymptote endpoint
+     *   coords:
+     *     An array of coordinates representing the proposed end configuration
+     *     of the plot coordinates.
+     *   asymptote:
+     *     An array of coordinates representing the proposed end configuration
+     *     of the asymptote.
+     *
+     * Return: either a coordinate (to be used as the resulting coordinate of
+     * the move) or a boolean, where `true` uses newCoord as the resulting
+     * coordinate, and `false` uses oldCoord as the resulting coordinate.
+     */
+    extraCoordConstraint: function(newCoord, oldCoord, coords, asymptote,
+            graph) {
+        var y = _.head(asymptote)[1];
+        return _.all(coords, (coord) => coord[1] !== y);
+    },
+
+    extraAsymptoteConstraint: function(newCoord, oldCoord, coords, asymptote,
+            graph) {
+        var y = newCoord[1];
+        var isValid = _.all(coords, (coord) => coord[1] > y) ||
+            _.all(coords, (coord) => coord[1] < y);
+
+        if (isValid) {
+            return [oldCoord[0], y];
+        } else {
+            // Snap the asymptote as close as possible, i.e., if the user moves
+            // the mouse really quickly into an invalid region
+            var oldY = oldCoord[1];
+            var wasBelow = _.all(coords, (coord) => coord[1] > oldY);
+            if (wasBelow) {
+                var bottomMost = _.min(_.map(coords, (coord) => coord[1]));
+                return [oldCoord[0], bottomMost - graph.snapStep[1]];
+            } else {
+                var topMost = _.max(_.map(coords, (coord) => coord[1]));
+                return [oldCoord[0], topMost + graph.snapStep[1]];
+            }
+        }
+    },
+
+    allowReflectOverAsymptote: true,
+
+    getCoefficients: function(coords, asymptote) {
         var p1 = coords[0];
         var p2 = coords[1];
 
-        var b = Math.log(p1[1] / p2[1]) / (p1[0] - p2[0]);
-        var a = p1[1] / Math.exp(b * p1[0]);
-        return [a, b];
+        var c = _.head(asymptote)[1];
+        var b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
+        var a = (p1[1] - c) / Math.exp(b * p1[0]);
+        return [a, b, c];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0], b = coeffs[1];
-        return a * Math.exp(b * x);
+        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        return a * Math.exp(b * x) + c;
     },
 
-    getEquationString: function(coords) {
-        var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0], b = coeffs[1];
-        return "y = " + a.toFixed(3) + "e^(" + b.toFixed(3) + "x)";
+    getEquationString: function(coords, asymptote) {
+        if (!asymptote) {
+            return null;
+        }
+        var coeffs = this.getCoefficients(coords, asymptote);
+        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        return "y = " + a.toFixed(3) + "e^(" + b.toFixed(3) + "x) + " +
+            c.toFixed(3);
+    }
+});
+
+var Logarithm = _.extend({}, PlotDefaults, {
+    url: "https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png",
+
+    defaultCoords: [[0.55, 0.5], [0.75, 0.75]],
+
+    defaultAsymptote: [[0.5, 0], [0.5, 1.0]],
+
+    extraCoordConstraint: function(newCoord, oldCoord, coords, asymptote,
+            graph) {
+        var x = _.head(asymptote)[0];
+        return _.all(coords, (coord) => coord[0] !== x) &&
+            coords[0][1] !== coords[1][1];
+    },
+
+    extraAsymptoteConstraint: function(newCoord, oldCoord, coords, asymptote,
+            graph) {
+        var x = newCoord[0];
+        var isValid = _.all(coords, (coord) => coord[0] > x) ||
+            _.all(coords, (coord) => coord[0] < x);
+
+        if (isValid) {
+            return [x, oldCoord[1]];
+        } else {
+            // Snap the asymptote as close as possible, i.e., if the user moves
+            // the mouse really quickly into an invalid region
+            var oldX = oldCoord[0];
+            var wasLeft = _.all(coords, (coord) => coord[0] > oldX);
+            if (wasLeft) {
+                var leftMost = _.min(_.map(coords, (coord) => coord[0]));
+                return [leftMost - graph.snapStep[0], oldCoord[1]];
+            } else {
+                var rightMost = _.max(_.map(coords, (coord) => coord[0]));
+                return [rightMost + graph.snapStep[0], oldCoord[1]];
+            }
+        }
+    },
+
+    allowReflectOverAsymptote: true,
+
+    getCoefficients: function(coords, asymptote) {
+        var p1 = coords[0];
+        var p2 = coords[1];
+
+        // It's easiest to calculate the logarithm's coefficients by thinking
+        // about it as the inverse of the exponential, so we flip x and y and
+        // perform some algebra on the coefficients. This also unifies the
+        // logic between the two 'models'.
+        var flip = (coord) => [coord[1], coord[0]];
+        var inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip),
+            _.map(asymptote, flip));
+        var c = - inverseCoeffs[2] / inverseCoeffs[0];
+        var b = 1 / inverseCoeffs[0];
+        var a = 1 / inverseCoeffs[1];
+        return [a, b, c];
+    },
+
+    getFunctionForCoeffs: function(coeffs, x, asymptote) {
+        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        return a * Math.log(b * x + c);
+    },
+
+    getEquationString: function(coords, asymptote) {
+        if (!asymptote) {
+            return null;
+        }
+        var coeffs = this.getCoefficients(coords, asymptote);
+        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        return "y = ln(" + a.toFixed(3) + "x + " + b.toFixed(3) + ") + " +
+            c.toFixed(3);
     }
 });
 
@@ -431,6 +636,7 @@ var functionTypeMapping = {
     "sinusoid": Sinusoid,
     "tangent": Tangent,
     "exponential": Exponential,
+    "logarithm": Logarithm,
     "absolute_value": AbsoluteValue
 };
 
@@ -446,7 +652,8 @@ var Grapher = React.createClass({
         return {
             plot: {
                 type: null,
-                coords: null
+                coords: null,
+                asymptote: null
             },
             graph: {
                 box: [defaultEditorBoxSize, defaultEditorBoxSize],
@@ -466,6 +673,7 @@ var Grapher = React.createClass({
     render: function() {
         var type = this.props.plot.type;
         var coords = this.props.plot.coords;
+        var asymptote = this.props.plot.asymptote;
 
         var typeSelector = <div style={typeSelectorStyle}
                 className="above-scratchpad">
@@ -484,6 +692,9 @@ var Grapher = React.createClass({
         // passed in to both FunctionGrapher and Graphie.
         var options = _.extend({}, this.props.graph,
             this._getGridAndSnapSteps(this.props.graph));
+        _.extend(options, {
+            gridConfig: this._getGridConfig(options)
+        });
 
         // The `graph` prop will eventually be passed to the <Graphie>
         // component. In fact, if model is `null`, this is functionalliy
@@ -498,9 +709,10 @@ var Grapher = React.createClass({
                 options: options,
                 setup: this._setupGraphie
             },
-            onChange: this.handleCoordsChange,
+            onChange: this.handlePlotChanges,
             model: type && functionForType(type),
-            coords: coords
+            coords: coords,
+            asymptote: asymptote
         };
 
         return <div>
@@ -509,10 +721,8 @@ var Grapher = React.createClass({
         </div>;
     },
 
-    handleCoordsChange: function(newCoords) {
-        var plot = _.extend({}, this.props.plot, {
-            coords: newCoords
-        });
+    handlePlotChanges: function(newPlot) {
+        var plot = _.extend({}, this.props.plot, newPlot);
         this.props.onChange({
             plot: plot
         });
@@ -521,7 +731,8 @@ var Grapher = React.createClass({
     handleActiveTypeChange: function(newType) {
         var plot = _.extend({}, this.props.plot, {
             type: newType,
-            coords: null
+            coords: null,
+            asymptote: null
         });
         this.props.onChange({
             plot: plot
@@ -550,18 +761,17 @@ var Grapher = React.createClass({
     },
 
     _setupGraphie: function(graphie, options) {
-        var gridConfig = this._getGridConfig(options);
         if (options.markings === "graph") {
             graphie.graphInit({
                 range: options.range,
-                scale: _.pluck(gridConfig, "scale"),
+                scale: _.pluck(options.gridConfig, "scale"),
                 axisArrows: "<->",
                 labelFormat: function(s) { return "\\small{" + s + "}"; },
                 gridStep: options.gridStep,
                 snapStep: options.snapStep,
-                tickStep: _.pluck(gridConfig, "tickStep"),
+                tickStep: _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(gridConfig, "unityLabel")
+                unityLabels: _.pluck(options.gridConfig, "unityLabel")
             });
             graphie.label([0, options.range[1][1]], options.labels[1],
                 "above");
@@ -570,7 +780,7 @@ var Grapher = React.createClass({
         } else if (options.markings === "grid") {
             graphie.graphInit({
                 range: options.range,
-                scale: _.pluck(gridConfig, "scale"),
+                scale: _.pluck(options.gridConfig, "scale"),
                 gridStep: options.gridStep,
                 axes: false,
                 ticks: false,
@@ -579,7 +789,7 @@ var Grapher = React.createClass({
         } else if (options.markings === "none") {
             graphie.init({
                 range: options.range,
-                scale: _.pluck(gridConfig, "scale")
+                scale: _.pluck(options.gridConfig, "scale")
             });
         }
     },
@@ -620,9 +830,10 @@ _.extend(Grapher, {
 
         // Get new function handler for grading
         var grader = functionForType(state.type);
-        var guessCoeffs = grader.getCoefficients(state.coords);
-        var correctCoeffs = grader.getCoefficients(rubric.correct.coords);
-
+        var guessCoeffs = grader.getCoefficients(state.coords,
+            state.asymptote);
+        var correctCoeffs = grader.getCoefficients(rubric.correct.coords,
+            rubric.correct.asymptote);
 
         if (guessCoeffs == null || correctCoeffs == null) {
             return {
@@ -651,7 +862,9 @@ _.extend(Grapher, {
         var plot = props.plot;
         if (plot.type && plot.coords) {
             var handler = functionForType(plot.type);
-            return handler.getEquationString(plot.coords);
+            var result =
+                handler.getEquationString(plot.coords, plot.asymptote);
+            return result || "";
         } else {
             return "";
         }
@@ -686,7 +899,8 @@ var GrapherEditor = React.createClass({
         return {
             correct: {
                 type: "linear",
-                coords: null
+                coords: null,
+                asymptote: null
             },
             graph: {
                 box: [defaultEditorBoxSize, defaultEditorBoxSize],
@@ -776,7 +990,8 @@ var GrapherEditor = React.createClass({
         if (!_.contains(newAvailableTypes, this.props.correct.type)) {
             var correct = {
                 type: _.first(newAvailableTypes),
-                coords: null
+                coords: null,
+                asymptote: null
             };
         }
         this.props.onChange({
@@ -798,7 +1013,8 @@ var propTransform = (editorProps) => {
     if (widgetProps.availableTypes.length === 1) {
         var plot = {
             type: _.first(widgetProps.availableTypes),
-            coords: null
+            coords: null,
+            asymptote: null
         };
         _.extend(widgetProps, { plot: plot });
     }
