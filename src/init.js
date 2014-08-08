@@ -8,13 +8,6 @@ var init = function(options) {
 
     var deferred = $.Deferred();
 
-    markedReact.setOptions({
-        sanitize: true,
-        paragraphFn: function(text) {
-            return React.DOM.div(null, text);
-        }
-    });
-
     if (options.skipMathJax) {
         deferred.resolve();
     } else {

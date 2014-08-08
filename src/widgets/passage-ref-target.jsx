@@ -2,6 +2,7 @@
 
 var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var Renderer = require("../renderer.jsx");
 
 var PassageRefTarget = React.createClass({
     mixins: [JsonifyProps, Changeable],
@@ -17,9 +18,12 @@ var PassageRefTarget = React.createClass({
     },
 
     render: function() {
-        return <span>
-            {this.props.content}
-        </span>;
+        return <Renderer
+            content={this.props.content}
+            inline={true}
+            enabledFeatures={this.props.enabledFeatures}
+            apiOptions={this.props.apiOptions}
+            />;
     },
 
     simpleValidate: function(rubric) {

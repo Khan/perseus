@@ -117,6 +117,7 @@ var Renderer = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
+            inline: false,
             widgets: {},
             ignoreMissingWidgets: false,
             highlightedWidgets: [],
@@ -371,6 +372,7 @@ var Renderer = React.createClass({
             return this.lastRenderedMarkdown;
         }
 
+        var self = this;
         var content = this.getContent(this.props, this.state);
         var widgetIds = this.widgetIds = [];
 
@@ -406,7 +408,6 @@ var Renderer = React.createClass({
                 {content}
             </div>;
         }
-        var self = this;
         var extracted = Renderer.extractMathAndWidgets(content);
         var markdown = extracted[0];
         var savedMath = extracted[1];
@@ -440,11 +441,24 @@ var Renderer = React.createClass({
 
         var tok = markedReact.Parser.prototype.tok;
         var tokLevelCount = 0;
+        var outerParagraphCount = 0;
         markedReact.Parser.prototype.tok = function() {
             tokLevelCount++;
-            var result;
+            outerParagraphCount++;
             var text = tok.call(this);
-            if (tokLevelCount === 1 && (!_.isArray(text) || text.length)) {
+
+            // We want to wrap all base-level elements in a div.paragraph
+            // This is so things like tables or other non-paragraphs get the
+            // appropriate margins. Super hacky.
+            var hasChildren = text && (!_.isArray(text) || text.length);
+            var isOuter = tokLevelCount === 1 && hasChildren;
+
+            // We also only do this if we're not an inline widget, or we
+            // are inline but not on the first paragraph of the inline-ness
+            var isFirst = outerParagraphCount === 1;
+
+            var result;
+            if (isOuter && (!self.props.inline || !isFirst)) {
                 result = wrap(text);
             } else {
                 result = text;
@@ -453,8 +467,19 @@ var Renderer = React.createClass({
             return result;
         };
 
+        var markedOptions = {
+            sanitize: true,
+            paragraphFn: (this.props.inline ?
+                (text) => <span>{text}</span> :
+                (text) => <div>{text}</div>
+            )
+        };
+
         try {
-            this.lastRenderedMarkdown = <div>{markedReact(markdown)}</div>;
+            var markdownContents = markedReact(markdown, markedOptions);
+            this.lastRenderedMarkdown = this.props.inline ?
+                <span>{markdownContents}</span> :
+                <div>{markdownContents}</div>;
             return this.lastRenderedMarkdown;
         } finally {
             markedReact.InlineLexer.prototype.smartypants = smartypants;
