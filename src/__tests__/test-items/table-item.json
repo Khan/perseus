@@ -1,0 +1,28 @@
+{
+    "question": {
+        "content": "[[☃ table 1]]",
+        "images": {},
+        "widgets": {
+            "table 1": {
+                "type": "table",
+                "graded": true,
+                "options": {
+                    "headers": ["", ""],
+                    "rows": 4,
+                    "columns": 2,
+                    "answers": [["", ""], ["", ""], ["", ""], ["", ""]]
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "hints": []
+}

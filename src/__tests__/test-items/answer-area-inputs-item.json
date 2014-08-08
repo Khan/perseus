@@ -1,0 +1,48 @@
+{
+    "question": {
+        "content": "",
+        "images": {},
+        "widgets": {}
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "[[☃ input-number 1]] [[☃ numeric-input 1]]",
+            "images": {},
+            "widgets": {
+                "input-number 1": {
+                    "type": "input-number",
+                    "graded": true,
+                    "options": {
+                        "value": "0",
+                        "simplify": "required",
+                        "size": "normal",
+                        "inexact": false,
+                        "maxError": 0.1,
+                        "answerType": "number"
+                    }
+                },
+                "numeric-input 1": {
+                    "type": "numeric-input",
+                    "graded": true,
+                    "options": {
+                        "answers": [
+                            {
+                                "value": null,
+                                "status": "correct",
+                                "message": "",
+                                "simplify": "required",
+                                "answerForms": [],
+                                "strict": false,
+                                "maxError": null
+                            }
+                        ],
+                        "size": "normal"
+                    }
+                }
+            }
+        },
+        "calculator": false
+    },
+    "hints": []
+}

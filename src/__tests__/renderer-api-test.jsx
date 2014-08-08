@@ -2,83 +2,18 @@
 var assert = require("assert");
 var Perseus = require("../perseus.js");
 var Renderer = Perseus.Renderer;
+var AnswerAreaRenderer = Perseus.AnswerAreaRenderer;
 
 var TestUtils = React.addons.TestUtils;
 var delayedPromise = require("../testutils/delayed-promise.jsx");
 
-var inputNumber1Item = {
-    "question": {
-        "content": "[[☃ input-number 1]]",
-        "images": {},
-        "widgets": {
-            "input-number 1": {
-                "type": "input-number",
-                "graded": true,
-                "options": {
-                    "value": 5,
-                    "simplify": "required",
-                    "size": "normal",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "number"
-                }
-            }
-        }
-    },
-    "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
-        "calculator": false
-    },
-    "hints": []
-};
-
-var inputNumber2Item = {
-    "question": {
-        "content": "[[☃ input-number 1]] [[☃ input-number 2]]",
-        "images": {},
-        "widgets": {
-            "input-number 1": {
-                "type": "input-number",
-                "graded": true,
-                "options": {
-                    "value": 5,
-                    "simplify": "required",
-                    "size": "normal",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "number"
-                }
-            },
-            "input-number 2": {
-                "type": "input-number",
-                "graded": true,
-                "options": {
-                    "value": 6,
-                    "simplify": "required",
-                    "size": "normal",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "number"
-                }
-            }
-        }
-    },
-    "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
-        "calculator": false
-    },
-    "hints": []
-};
+// Items for testing!
+var inputNumber1Item = require("./test-items/input-number-1-item.json");
+var inputNumber2Item = require("./test-items/input-number-2-item.json");
+var tableItem = require("./test-items/table-item.json");
+var answerAreaInputsItem = require(
+    "./test-items/answer-area-inputs-item.json"
+);
 
 // Jasmine requires us to use `pit` to support promises;
 // mocha supports this already with `it`.
@@ -97,6 +32,19 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
             enabledFeatures={enabledFeatures} />
     );
     return renderer;
+};
+
+var renderAnswerArea = function(item, apiOptions, enabledFeatures) {
+    var answerAreaRenderer = TestUtils.renderIntoDocument(
+        <AnswerAreaRenderer
+            type={item.answerArea.type}
+            options={item.answerArea.options}
+            calculator={item.answerArea.calculator}
+            problemNum={0}
+            apiOptions={apiOptions}
+            enabledFeatures={enabledFeatures} />
+    );
+    return answerAreaRenderer;
 };
 
 describe("Perseus API", function() {
@@ -136,6 +84,48 @@ describe("Perseus API", function() {
                 x = 5;
             });
             assert.strictEqual(x, 5);
+        });
+    });
+
+    describe("getInputPaths", function() {
+        it("should be able to find all the input widgets", function() {
+            var renderer = renderQuestionArea(inputNumber2Item);
+            var numPaths = renderer.getInputPaths().length;
+            assert.strictEqual(numPaths, 2);
+        });
+
+        it("should be able to find all inputs within widgets", function() {
+            var renderer = renderQuestionArea(tableItem);
+            var numPaths = renderer.getInputPaths().length;
+            assert.strictEqual(numPaths, 8);
+        });
+
+        it("should be able to find inputs in the answer-area", function() {
+            var answerAreaRenderer = renderAnswerArea(answerAreaInputsItem);
+            var numPaths = answerAreaRenderer.getInputPaths().length;
+            assert.strictEqual(numPaths, 2);
+        });
+    });
+
+    describe("getDOMNodeForPath", function() {
+        it("should find one DOM node per <input>", function() {
+            var renderer = renderQuestionArea(inputNumber2Item);
+            var inputPaths = renderer.getInputPaths();
+            var allInputs = TestUtils.scryRenderedDOMComponentsWithTag(
+                renderer, "input");
+            assert.strictEqual(inputPaths.length, allInputs.length);
+        });
+
+        it("should find the right DOM nodes for the <input>s", function() {
+            var renderer = renderQuestionArea(inputNumber2Item);
+            var inputPaths = renderer.getInputPaths();
+            var allInputs = TestUtils.scryRenderedDOMComponentsWithTag(
+                renderer, "input");
+            _.each(inputPaths, (inputPath, i) => {
+                var $node = $(renderer.getDOMNodeForPath(inputPath));
+                var $input = $(allInputs[i].getDOMNode());
+                assert.ok($input.closest($node).length);
+            });
         });
     });
 
