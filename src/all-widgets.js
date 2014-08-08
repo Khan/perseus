@@ -20,6 +20,8 @@ _.each([
     require("./widgets/numeric-input.jsx"),
     require("./widgets/orderer.jsx"),
     require("./widgets/passage.jsx"),
+    require("./widgets/passage-ref.jsx"),
+    require("./widgets/passage-ref-target.jsx"),
     require("./widgets/plotter.jsx"),
     require("./widgets/radio.jsx"),
     require("./widgets/simulator.jsx"),

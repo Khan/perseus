@@ -7,6 +7,11 @@ var Editor = require("../editor.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
+var PassageRefTarget = require("./passage-ref-target.jsx");
+
+var Util = require("../util.js");
+
+var REFTARGET_REGEX = /{{([\s\S]+?)}}/g;
 
 var Passage = React.createClass({
     mixins: [JsonifyProps, Changeable],
@@ -49,7 +54,7 @@ var Passage = React.createClass({
             {lineNumbers && <div className="line-numbers">
                 {lineNumbers}
             </div>}
-            {Renderer({ ref: "renderer", content: this.props.passageText })}
+            {this._renderContent()}
         </div>;
     },
 
@@ -69,6 +74,51 @@ var Passage = React.createClass({
         this.setState({
             nLines: nLines
         });
+    },
+
+    _renderContent: function() {
+        var rawContent = this.props.passageText;
+
+        var widgets = {};
+        var nextWidgetId = 1;
+        var content = rawContent.replace(REFTARGET_REGEX,
+                (allText, referencedText) => {
+            var id = PassageRefTarget.name + " " + nextWidgetId;
+            widgets[id] = {
+                type: PassageRefTarget.name,
+                graded: false,
+                options: {content: referencedText},
+                version: PassageRefTarget.version
+            };
+            nextWidgetId++;
+            return "[[" + Util.snowman + " " + id + "]]";
+        });
+
+        return Renderer({
+            ref: "renderer",
+            content: content,
+            widgets: widgets
+        });
+    },
+
+    getReference: function(referenceNumber) {
+        var id = PassageRefTarget.name + " " + referenceNumber;
+        var reference = this.refs.renderer.interWidgets(id)[0];
+        if (!reference) {
+            return null;
+        }
+
+        var $renderer = $(this.refs.renderer.getDOMNode());
+        var $reference = $(reference.getDOMNode());
+
+        var vPos = $reference.offset().top - $renderer.offset().top;
+        var height = $reference.height();
+        var lineHeight = parseInt($renderer.css("line-height"));
+
+        var firstLine = Math.round(vPos / lineHeight) + 1;
+        var numLines = Math.round(height / lineHeight);
+        var lastLine = firstLine + numLines - 1;
+        return [firstLine, lastLine];
     },
 
     simpleValidate: function(rubric) {
