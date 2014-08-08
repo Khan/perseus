@@ -4,6 +4,8 @@ var Changeable   = require("../mixins/changeable.jsx");
 var JsonifyProps = require("../mixins/jsonify-props.jsx");
 var NumberInput = require("../components/number-input.jsx");
 
+var EN_DASH = "\u2013";
+
 var PassageRef = React.createClass({
     mixins: [JsonifyProps, Changeable],
 
@@ -34,7 +36,7 @@ var PassageRef = React.createClass({
         var lineRange = this.state.lineRange;
         if (!lineRange) {
             return <span>
-                lines ?-?
+                lines ?{EN_DASH}?
             </span>;
         }
 
@@ -45,7 +47,7 @@ var PassageRef = React.createClass({
         }
 
         return <span>
-            lines {lineRange[0]}-{lineRange[1]}
+            lines {lineRange[0]}{EN_DASH}{lineRange[1]}
         </span>;
     },
 
