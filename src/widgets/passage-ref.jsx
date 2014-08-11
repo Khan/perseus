@@ -36,18 +36,24 @@ var PassageRef = React.createClass({
         var lineRange = this.state.lineRange;
         if (!lineRange) {
             return <span>
-                lines ?{EN_DASH}?
+                <$_ lineRange={"?" + EN_DASH + "?"}>
+                    lines %(lineRange)s
+                </$_>
             </span>;
         }
 
         if (lineRange[0] === lineRange[1]) {
             return <span>
-                line {lineRange[0]}
+                <$_ lineNumber={lineRange[0]}>
+                    line %(lineNumber)s
+                </$_>
             </span>;
         }
 
         return <span>
-            lines {lineRange[0]}{EN_DASH}{lineRange[1]}
+            <$_ lineRange={lineRange[0] + EN_DASH + lineRange[1]}>
+                lines %(lineRange)s
+            </$_>
         </span>;
     },
 
