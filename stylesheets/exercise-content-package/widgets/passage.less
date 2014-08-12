@@ -1,5 +1,5 @@
 .perseus-widget-passage {
-    @line-height: 20px;
+    @line-height: 22px;
 
     line-height: @line-height;
     margin: 22px 0 22px 45px;
@@ -8,13 +8,34 @@
 
     div.paragraph {
         font-family: Times, "Times New Roman", serif;
+    }
+    .katex {
+        line-height: @line-height - 2;
+    }
+    .passage-title div.paragraph {
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0 0 10px;
+    }
+    .passage-text div.paragraph {
         font-size: 17px;
         margin: 0;
         text-indent: 20px;
+        span {
+            text-indent: 0;
+        }
+    }
+    .footnotes {
+        margin-top: 22px;
+        div.paragraph {
+            font-size: 14px;
+            margin: 0;
+        }
     }
 
     .line-numbers {
         font-size: 12px;
+        font-weight: 600;
         left: -40px;
         position: absolute;
         text-align: right;
@@ -30,10 +51,11 @@
 
         // The word "Line" needs to be pushed down closer to the "5" below it
         .line-marker {
-            padding-top: 2px;
+            padding-top: 3px;
         }
     }
 }
+
 .perseus-widget-passage-editor {
 
     .perseus-single-editor {
