@@ -99,8 +99,8 @@ var BaseRadio = React.createClass({
                                 }}>
                             {content}
                         </span>
-                        {Exercises.cluesEnabled === "cluesEnabled" &&
-                            this.props.showClues && choice.checked &&
+                        {Exercises.cluesEnabled && this.props.showClues &&
+                            choice.checked &&
                             <div className="perseus-radio-clue">
                                 {choice.clue}
                             </div>}
