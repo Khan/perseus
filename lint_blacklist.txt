@@ -3,3 +3,5 @@ lib/
 node_modules/
 test/qunit-1.11.0.js
 src/interactive2/node_modules/
+react-components/
+node/environment.js
