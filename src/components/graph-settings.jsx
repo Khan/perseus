@@ -104,14 +104,14 @@ var GraphSettings = React.createClass({
                         <input  type="text"
                                 className="graph-settings-axis-label"
                                 ref="labels-0"
-                                onChange={this.changeLabel.bind(this, 0)}
+                                onChange={() => this.changeLabel(0)}
                                 value={this.state.labelsTextbox[0]} />
                     </div>
                     <div className="perseus-widget-right-col">y Label
                         <input  type="text"
                                 className="graph-settings-axis-label"
                                 ref="labels-1"
-                                onChange={this.changeLabel.bind(this, 1)}
+                                onChange={() => this.changeLabel(1)}
                                 value={this.state.labelsTextbox[1]} />
                     </div>
                 </div>
@@ -120,12 +120,12 @@ var GraphSettings = React.createClass({
                     <div className="perseus-widget-left-col">
                         x Range
                         <RangeInput value= {this.state.rangeTextbox[0]}
-                            onChange = {this.changeRange.bind(this, 0)} />
+                            onChange = {() => this.changeRange(0)} />
                     </div>
                     <div className="perseus-widget-right-col">
                         y Range
                         <RangeInput value= {this.state.rangeTextbox[1]}
-                            onChange = {this.changeRange.bind(this, 1)} />
+                            onChange = {() => this.changeRange(1)} />
                     </div>
                 </div>
                 <div className="perseus-widget-row">
@@ -265,8 +265,7 @@ var GraphSettings = React.createClass({
     },
 
     componentDidMount: function() {
-        var changeGraph = this.changeGraph;
-        this.changeGraph = _.debounce(changeGraph.bind(this), 300);
+        this.changeGraph = _.debounce(this.changeGraph, 300);
     },
 
 
@@ -284,11 +283,7 @@ var GraphSettings = React.createClass({
     },
 
     validateStepValue: function(settings) {
-        var step = settings.step;
-        var range = settings.range;
-        var name = settings.name;
-        var minTicks = settings.minTicks;
-        var maxTicks = settings.maxTicks;
+        var { step, range, name, minTicks, maxTicks } = settings;
 
         if (! _.isFinite(step)) {
             return name + " must be a valid number";

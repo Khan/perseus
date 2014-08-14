@@ -297,6 +297,7 @@ var ImageEditor = React.createClass({
     onUrlChange: function(url) {
         if (url) {
             var img = new Image();
+            // TODO(joel) make this silent
             img.onload = () => this.setUrl(url, img.width, img.height);
             img.src = url;
         } else {

@@ -552,6 +552,9 @@ var ExpressionEditor = React.createClass({
         return {
             // Is the format of `value` TeX or plain text?
             // TODO(alex): Remove after backfilling everything to TeX
+            // TODO(joel) - sucks if you edit some expression without
+            // backslashes or curly braces, then come back to the question and
+            // it's surprisingly not TeX anymore.
             isTex: value === "" ||                  // default to TeX if new;
                 _.indexOf(value, "\\") !== -1 ||    // only TeX has backslashes
                 _.indexOf(value, "{") !== -1        // and curly braces
