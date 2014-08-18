@@ -104,14 +104,14 @@ var GraphSettings = React.createClass({
                         <input  type="text"
                                 className="graph-settings-axis-label"
                                 ref="labels-0"
-                                onChange={() => this.changeLabel(0)}
+                                onChange={(e) => this.changeLabel(0, e)}
                                 value={this.state.labelsTextbox[0]} />
                     </div>
                     <div className="perseus-widget-right-col">y Label
                         <input  type="text"
                                 className="graph-settings-axis-label"
                                 ref="labels-1"
-                                onChange={() => this.changeLabel(1)}
+                                onChange={(e) => this.changeLabel(1, e)}
                                 value={this.state.labelsTextbox[1]} />
                     </div>
                 </div>
@@ -119,13 +119,15 @@ var GraphSettings = React.createClass({
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         x Range
-                        <RangeInput value= {this.state.rangeTextbox[0]}
-                            onChange = {() => this.changeRange(0)} />
+                        <RangeInput
+                            value={this.state.rangeTextbox[0]}
+                            onChange={(vals) => this.changeRange(0, vals)} />
                     </div>
                     <div className="perseus-widget-right-col">
                         y Range
-                        <RangeInput value= {this.state.rangeTextbox[1]}
-                            onChange = {() => this.changeRange(1)} />
+                        <RangeInput
+                            value={this.state.rangeTextbox[1]}
+                            onChange={(vals) => this.changeRange(1, vals)} />
                     </div>
                 </div>
                 <div className="perseus-widget-row">
