@@ -26,7 +26,7 @@ var Matcher = React.createClass({
             left: [],
             right: [],
             labels: ["", ""],
-            orderMatters: true,
+            orderMatters: false,
             padding: true,
             problemNum: 0,
             onChange: function() {}
@@ -145,7 +145,7 @@ var MatcherEditor = React.createClass({
             left: ["$x$", "$y$", "$z$"],
             right: ["$1$", "$2$", "$3$"],
             labels: ["test", "label"],
-            orderMatters: true,
+            orderMatters: false,
             padding: true
         };
     },
