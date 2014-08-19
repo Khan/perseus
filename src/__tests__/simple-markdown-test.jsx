@@ -240,5 +240,39 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should parse a single top-level code block", () => {
+            var parsed = defaultParse("    if (true) { code(); }\n\n");
+            validateParse(parsed, [{
+                type: "codeBlock",
+                content: "if (true) { code(); }"
+            }]);
+        });
+
+        it("should parse mixed paragraphs and code", () => {
+            var parsed = defaultParse(
+                "this is regular text\n\n" +
+                "    this is code\n\n" +
+                "this is more regular text\n\n");
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "this is regular text"
+                    }]
+                },
+                {
+                    type: "codeBlock",
+                    content: "this is code"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "this is more regular text"
+                    }]
+                },
+            ]);
+        });
     });
 });

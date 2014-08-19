@@ -68,6 +68,20 @@ var parseCapture = (capture, parse, state) => {
 var ignoreCapture = () => ({});
 
 var defaultRules = {
+    codeBlock: {
+        regex: /^(?:    [^\n]+\n*)+\n\n/,
+        parse: (capture, parse, state) => {
+            var content = capture[0]
+                .replace(/^    /gm, '')
+                .replace(/\n+$/, '');
+            return {
+                content: content
+            };
+        },
+        output: (node, output) => {
+            return <pre><code>{node.content}</code></pre>;
+        }
+    },
     paragraph: {
         regex: /^((?:[^\n]|\n[^\n])+)\n\n+/,
         parse: parseCapture,
