@@ -30,10 +30,6 @@ var TextInput = React.createClass({
         // Translating from the js event e to the value
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
-    },
-
-    statics: {
-        displayMode: "inline-block"
     }
 });
 
@@ -92,6 +88,14 @@ var ExampleWidget = React.createClass({
      */
     simpleValidate: function(rubric) {
         return ExampleWidget.validate(this.toJSON(), rubric);
+    },
+
+    statics: {
+        /**
+         * Tell the renderer what type of `display:` style we would like
+         * for the component wrapping this one.
+         */
+        displayMode: "inline-block"
     }
 });
 
