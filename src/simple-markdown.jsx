@@ -16,6 +16,9 @@ var _ = require("underscore");
  *     parsing, such as keeping track of how many levels deep
  *     some nesting is. For an example use-case, see passage-ref
  *     parsing in src/widgets/passage/passage-markdown.jsx
+ *
+ * Regexes adapted from marked.js:
+ * https://github.com/chjj/marked
  */
 var parserFor = (rules, ruleList) => {
     var nestedParse = (source, state) => {
@@ -149,6 +152,13 @@ var defaultRules = {
         },
         output: (node, output) => {
             return <em>{output(node.content)}</em>;
+        }
+    },
+    del: {
+        regex: /^~~(?=\S)([\s\S]*?\S)~~/,
+        parse: parseCapture,
+        output: (node, output) => {
+            return <del>{output(node.content)}</del>;
         }
     },
     newline: {

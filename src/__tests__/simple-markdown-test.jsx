@@ -54,6 +54,17 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should parse strikethrough", () => {
+            var parsed = defaultParse("~~hi~~");
+            validateParse(parsed, [{
+                type: "del",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+        });
+
         it("should parse underlines", () => {
             var parsed = defaultParse("__hi__");
             validateParse(parsed, [{
