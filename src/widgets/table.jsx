@@ -131,7 +131,7 @@ var Table = React.createClass({
         </table>;
     },
 
-    toJSON: function() {
+    getUserInput: function() {
         return _.map(this.props.answers, _.clone);
     },
 
@@ -152,7 +152,7 @@ var Table = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Table.validate(this.toJSON(), rubric);
+        return Table.validate(this.getUserInput(), rubric);
     },
 
     _handleFocus: function(inputPath) {
@@ -428,7 +428,7 @@ var TableEditor = React.createClass({
         });
     },
 
-    toJSON: function() {
+    serializeQuestion: function() {
         var json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {

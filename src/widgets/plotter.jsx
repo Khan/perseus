@@ -588,12 +588,12 @@ var Plotter = React.createClass({
         });
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return this.state.values;
     },
 
     simpleValidate: function(rubric) {
-        return Plotter.validate(this.toJSON(), rubric);
+        return Plotter.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -991,7 +991,7 @@ var PlotterEditor = React.createClass({
         this.refs.categories.getDOMNode().value = categories.join(", ");
     },
 
-    toJSON: function(skipValidation) {
+    serializeQuestion: function() {
         var json = _.pick(this.props, "correct", "starting", "type", "labels",
             "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
 

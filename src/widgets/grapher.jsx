@@ -19,7 +19,6 @@ var kpoint = KhanUtil.kpoint;
 
 /* Mixins. */
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
 
 /* Utility objects and functions. */
 var defaultBoxSize = 400;
@@ -795,10 +794,10 @@ var Grapher = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Grapher.validate(this.toJSON(), rubric);
+        return Grapher.validate(this.getUserInput(), rubric);
     },
 
-    toJSON: function() {
+    getUserInput: function() {
         return this.props.plot;
     },
 
@@ -1000,9 +999,8 @@ var GrapherEditor = React.createClass({
         });
     },
 
-    toJSON: function() {
-        var json = _.pick(this.props, "graph", "correct", "availableTypes");
-        return json;
+    serializeQuestion: function() {
+        return _.pick(this.props, "graph", "correct", "availableTypes");
     }
 });
 

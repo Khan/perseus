@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
 var ButtonGroup = require("react-components/button-group.jsx");
@@ -26,7 +27,7 @@ var kvector = KhanUtil.kvector;
 
 
 var Interaction = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     // TODO(eater): Make more better
     propTypes: {
@@ -360,7 +361,7 @@ var Interaction = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Interaction.validate(this.toJSON(), rubric);
+        return Interaction.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -387,7 +388,7 @@ _.extend(Interaction, {
 // TODO(eater): Factor this out
 //
 var PointEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         coordX: React.PropTypes.string,
@@ -434,7 +435,7 @@ var PointEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var LineEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         startX: React.PropTypes.string,
@@ -522,7 +523,7 @@ var LineEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 var MovablePointEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         startX: React.PropTypes.string,
@@ -576,7 +577,7 @@ var MovablePointEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 var MovableLineEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         startX: React.PropTypes.string,
@@ -658,7 +659,7 @@ var MovableLineEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var FunctionEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         value: React.PropTypes.string,
@@ -731,7 +732,7 @@ var FunctionEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 var ParametricEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         x: React.PropTypes.string,
@@ -808,7 +809,7 @@ var ParametricEditor = React.createClass({
 
 
 var InteractionEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     // TODO(eater): Make more better
     propTypes: {

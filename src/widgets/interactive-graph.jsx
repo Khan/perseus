@@ -1703,12 +1703,12 @@ var InteractiveGraph = React.createClass({
         this.props.onChange({graph: graph});
     },
 
-    toJSON: function() {
+    getUserInput: function() {
         return this.props.graph;
     },
 
     simpleValidate: function(rubric) {
-        return InteractiveGraph.validate(this.toJSON(), rubric, this);
+        return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     },
 
     focus: $.noop,
@@ -2483,14 +2483,14 @@ var InteractiveGraphEditor = React.createClass({
         this.props.onChange({correct: correct});
     },
 
-    toJSON: function() {
+    serializeQuestion: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
             "labels", "showProtractor", "showRuler", "rulerLabel",
             "rulerTicks", "range", "gridStep", "snapStep");
 
         var graph = this.refs.graph;
         if (graph) {
-            var correct = graph && graph.toJSON();
+            var correct = graph && graph.getUserInput();
             _.extend(json, {
                 // TODO(alpert): Allow specifying flexibleType (whether the
                 // graph type should be a choice or not)

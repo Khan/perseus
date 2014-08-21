@@ -676,11 +676,23 @@ var Renderer = React.createClass({
         }
     },
 
-    toJSON: function(skipValidation) {
+    getSaveWarnings: function() {
+        return _(this.props.widgets)
+            .chain()
+            .map((props, id) => {
+                var widget = this.getWidgetInstance(id);
+                var issuesFunc = widget.getSaveWarnings;
+                return issuesFunc ? issuesFunc() : [];
+            })
+            .flatten(true)
+            .value();
+    },
+
+    serializeQuestion: function() {
         var state = {};
         _.each(this.props.widgets, function(props, id) {
             var widget = this.getWidgetInstance(id);
-            var s = widget.toJSON(skipValidation);
+            var s = widget.serializeQuestion();
             if (!_.isEmpty(s)) {
                 state[id] = s;
             }
@@ -734,7 +746,7 @@ var Renderer = React.createClass({
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
-            return this.getWidgetInstance(id).toJSON();
+            return this.getWidgetInstance(id).getUserInput();
         }, this);
 
         var totalScore = _.chain(this.widgetIds)

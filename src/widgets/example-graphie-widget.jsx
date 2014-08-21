@@ -9,7 +9,8 @@
 var React = require('react');
 var Util = require("../util.js");
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
@@ -23,7 +24,7 @@ var kpoint = KhanUtil.kpoint;
  * users enter their answers.
  */
 var ExampleGraphieWidget = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
         graph: React.PropTypes.object.isRequired,
@@ -99,7 +100,7 @@ var ExampleGraphieWidget = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return ExampleGraphieWidget.validate(this.toJSON(), rubric);
+        return ExampleGraphieWidget.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -142,7 +143,7 @@ _.extend(ExampleGraphieWidget, {
  * of the screen in test.html. Only the question writer sees this.
  */
 var ExampleGraphieWidgetEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {

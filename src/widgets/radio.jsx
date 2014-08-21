@@ -210,7 +210,7 @@ var Radio = React.createClass({
         });
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         // Return checked inputs in the form {values: [bool]}. (Dear future
         // timeline implementers: this used to be {value: i} before multiple
         // select was added)
@@ -249,7 +249,7 @@ var Radio = React.createClass({
 
     simpleValidate: function(rubric) {
         this.setState({showClues: true});
-        return Radio.validate(this.toJSON(), rubric);
+        return Radio.validate(this.getUserInput(), rubric);
     },
 
     enforceOrdering: function(choices) {
@@ -520,12 +520,14 @@ var RadioEditor = React.createClass({
         return true;
     },
 
-    toJSON: function(skipValidation) {
-        if (!skipValidation &&
-                !_.some(_.pluck(this.props.choices, "correct"))) {
-            alert("Warning: No choice is marked as correct.");
+    getSaveWarnings: function() {
+        if (!_.some(_.pluck(this.props.choices, "correct"))) {
+            return ["Warning: No choice is marked as correct."];
         }
+        return [];
+    },
 
+    serializeQuestion: function() {
         return _.pick(this.props, "choices", "randomize",
             "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
     }

@@ -3,7 +3,7 @@
 var InfoTip      = require("react-components/info-tip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var assert = require("../interactive2/interactive-util.js").assert;
@@ -354,7 +354,7 @@ var Histogram = React.createClass({
 });
 
 var Simulator = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable],
 
     propTypes: {
         data: React.PropTypes.arrayOf(React.PropTypes.number),
@@ -654,8 +654,12 @@ var Simulator = React.createClass({
         this[functionName](newValue, cb);
     },
 
+    getUserInput: function() {
+        return null;
+    },
+
     simpleValidate: function(rubric) {
-        return Simulator.validate(this.toJSON(), rubric);
+        return Simulator.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -675,7 +679,7 @@ _.extend(Simulator, {
 });
 
 var SimulatorEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     propTypes: {
         xAxisLabel: React.PropTypes.string,

@@ -4,7 +4,8 @@ var BlurInput    = require("react-components/blur-input.jsx");
 var InfoTip      = require("react-components/info-tip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
@@ -41,7 +42,7 @@ function blankLabel() {
 }
 
 var ImageWidget = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
         range: React.PropTypes.arrayOf(
@@ -109,7 +110,7 @@ var ImageWidget = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return ImageWidget.validate(this.toJSON(), rubric);
+        return ImageWidget.validate(this.getUserInput(), rubric);
     },
 
     focus: $.noop,
@@ -131,7 +132,7 @@ _.extend(ImageWidget, {
 });
 
 var ImageEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     componentDidMount: function() {
         // If URL already provided on page load, should display image

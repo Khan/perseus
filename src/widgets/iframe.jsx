@@ -13,14 +13,15 @@ var React = require("react");
 
 var BlurInput    = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var updateQueryString = require("../util.js").updateQueryString;
 
 
 /* This renders the iframe and handles validation via window.postMessage */
 var Iframe = React.createClass({
 
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
         status: React.PropTypes.string,
@@ -100,7 +101,7 @@ var Iframe = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Iframe.validate(this.toJSON(), rubric);
+        return Iframe.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -145,7 +146,7 @@ _.extend(Iframe, {
  */
 var PairEditor = React.createClass({
 
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     propTypes: {
         name: React.PropTypes.string,
@@ -161,7 +162,7 @@ var PairEditor = React.createClass({
 
     render: function() {
         return <fieldset>
-                <label>Name: 
+                <label>Name:
                     <BlurInput value={this.props.name}
                            onChange={this.change("name")} />
                 </label>
@@ -178,7 +179,7 @@ var PairEditor = React.createClass({
  */
 var PairsEditor = React.createClass({
 
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     propTypes: {
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -201,7 +202,7 @@ var PairsEditor = React.createClass({
         // If they're both non empty, add a new one
         var pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
-        
+
         var lastPair = pairs[pairs.length-1];
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
@@ -215,7 +216,7 @@ var PairsEditor = React.createClass({
  */
 var IframeEditor = React.createClass({
 
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -240,12 +241,12 @@ var IframeEditor = React.createClass({
                            onChange={this.handleSettingsChange} />
             </label>
             <br/>
-            <label>Width: 
+            <label>Width:
                 <BlurInput name="width"
                            value={this.props.width}
                            onChange={this.change("width")} />
             </label>
-            <label>Height: 
+            <label>Height:
                 <BlurInput name="height"
                            value={this.props.height}
                            onChange={this.change("height")} />

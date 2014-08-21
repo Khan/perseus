@@ -11,7 +11,8 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var TextInput = React.createClass({
     render: function() {
@@ -50,12 +51,12 @@ var ExampleWidget = React.createClass({
     },
 
     /**
-     * Changeling creates this.change() to tell our parent to update our props
+     * Changeable creates this.change() to tell our parent to update our props
      *
-     * JsonifyProps creates this.toJSON() which returns the state of the widget
-     * for checking the answer in simpleValidate
+     * WidgetJsonifyDeprecated creates this.getUserInput() which returns the
+     * state of the widget for checking the answer in simpleValidate
      */
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     render: function() {
         return <TextInput
@@ -76,7 +77,7 @@ var ExampleWidget = React.createClass({
 
     /**
      * simpleValidate is called for grading. Rubric is the result of calling
-     * toJSON() on the editor that created this widget.
+     * getUserInput() on the editor that created this widget.
      *
      * Should return an object representing the grading result, such as
      * {
@@ -87,7 +88,7 @@ var ExampleWidget = React.createClass({
      * }
      */
     simpleValidate: function(rubric) {
-        return ExampleWidget.validate(this.toJSON(), rubric);
+        return ExampleWidget.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -107,8 +108,8 @@ _.extend(ExampleWidget, {
     /**
      * simpleValidate generally defers to this function
      *
-     * state is usually the result of toJSON on the widget
-     * rubric is the result of calling toJSON() on the editor
+     * state is usually the result of getUserInput on the widget
+     * rubric is the result of calling serializeQuestion() on the editor
      */
     validate: function(state, rubric) {
         if (state.value === "") {
@@ -141,7 +142,7 @@ _.extend(ExampleWidget, {
  * of the screen in test.html. Only the question writer sees this.
  */
 var ExampleWidgetEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {

@@ -273,7 +273,7 @@ var InteractiveNumberLine = React.createClass({
         }
     },
 
-    toJSON: function() {
+    getUserInput: function() {
         return {
             pointX: this.props.pointX,
             rel: this.props.isInequality ? this.props.rel : "eq"
@@ -281,7 +281,7 @@ var InteractiveNumberLine = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return InteractiveNumberLine.validate(this.toJSON(), rubric);
+        return InteractiveNumberLine.validate(this.getUserInput(), rubric);
     },
 
     focus: $.noop,
@@ -426,7 +426,7 @@ var InteractiveNumberLineEditor = React.createClass({
         this.props.onChange(opts);
     },
 
-    toJSON: function() {
+    serializeQuestion: function() {
         return {
             range: this.props.range,
             labelStyle: this.props.labelStyle,

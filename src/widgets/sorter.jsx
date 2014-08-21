@@ -47,12 +47,12 @@ var Sorter = React.createClass({
         </div>;
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {options: this.refs.sortable.getOptions()};
     },
 
     simpleValidate: function(rubric) {
-        return Sorter.validate(this.toJSON(), rubric);
+        return Sorter.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -139,7 +139,7 @@ var SorterEditor = React.createClass({
         this.props.onChange({layout: e.target.value});
     },
 
-    toJSON: function(skipValidation) {
+    serializeQuestion: function() {
         return _.pick(this.props, "correct", "layout", "padding");
     }
 });

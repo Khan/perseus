@@ -5,7 +5,7 @@ var InfoTip = require("react-components/info-tip.jsx");
 var FancySelect = require("../components/fancy-select.jsx");
 var FancyOption = FancySelect.Option;
 
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 
@@ -84,12 +84,12 @@ var Dropdown = React.createClass({
         this.props.onChange({selected: selected});
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {value: this.props.selected};
     },
 
     simpleValidate: function(rubric) {
-        return Dropdown.validate(this.toJSON(), rubric);
+        return Dropdown.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -118,7 +118,7 @@ _.extend(Dropdown, {
 });
 
 var DropdownEditor = React.createClass({
-    mixins: [JsonifyProps],
+    mixins: [EditorJsonify],
 
     propTypes: {
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({

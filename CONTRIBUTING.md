@@ -69,8 +69,8 @@ Each widget consists of the following parts:
  * A `widget` or "widget renderer", such as NumberInput or ExampleWidget
  * An `editor` or "widget editor", such as NumberInputEditor or ExampleWidgetEditor
  * An options `transform` transformation function, which converts the result of
-   `widgetEditor.toJSON()` (generally the editor's props) to the widget renderer's
-   props
+   `widgetEditor.serializeQuestion()` (generally the editor's props) to the
+   widget renderer's props
  * An options `hidden` flag, which, if `true`, will prevent the widget from being
    available in the widget menu
 
@@ -170,11 +170,11 @@ different props. This pattern is so common that it has been made into a
 mixin, `Changeable`, which provides `this.change`:
 
     var Changeable = require("../mixins/changeable");
-    
+
     var ExampleWidgetEditor = React.createClass({
         // ...
         mixins: [Changeable]
-        
+
         // ...
         handleAnswerChange(event) {
             this.change({
@@ -183,7 +183,7 @@ mixin, `Changeable`, which provides `this.change`:
         }
         // ...
     });
-    
+
 After this change, the following props will be sent down to the
 `ExampleWidgetEditor` by the `Editor`:
 
@@ -195,48 +195,49 @@ After this change, the following props will be sent down to the
         "maxError": 0.1,
         "answerType": "number"
     }
-    
-At this point, the question writer probably would like to save the item.
-When they save the item, the widget editor's `toJSON()` function is called,
-and the result is set as the `options` field for that widget and stored in
-the datastore. **The result of `toJSON()` is stored in the datastore.**
-It is important to note that when the question is loaded again, that
-result of `toJSON()` that has been stored in the datastore will be sent
-as the props of the widget editor. For that reason,
-**it is important for toJSON to return an object compatible with the editor's props**.
+
+At this point, the question writer probably would like to save the item.  When
+they save the item, the widget editor's `serializeQuestion()` function is
+called, and the result is set as the `options` field for that widget and stored
+in the datastore. **The result of `serializeQuestion()` is stored in the
+datastore.** It is important to note that when the question is loaded again,
+that result of `serializeQuestion()` that has been stored in the datastore will
+be sent as the props of the widget editor. For that reason, **it is important
+for serializeQuestion to return an object compatible with the editor's props**.
 
 While it is possible to return things other than the editor's props from
-`toJSON()`, this is not recommended, and all future widgets should return a
-strict subset of their editor's props in `toJSON()`. Since this pattern is
-quite common, we have a mixin to create a correct `toJSON()` function:
-`JsonifyProps`. Adding `JsonifyProps` to the mixins of the widget editor
-gives the widget editor a `toJSON()` function that returns the widget
-editor's props minus special props used by React or Perseus.
+`serializeQuestion()`, this is not recommended, and all future widgets should
+return a strict subset of their editor's props in `serializeQuestion()`. Since
+this pattern is quite common, we have a mixin to create a correct
+`serializeQuestion()` function: `EditorJsonify`. Adding `EditorJsonify` to the
+mixins of the widget editor gives the widget editor a `serializeQuestion()`
+function that returns the widget editor's props minus special props used by
+React or Perseus.
 
-From here, it is important to understand how these editor props relate to
-the widget renderer's props. The widget renderer's props are created by
-calling the `transform` function exported by the widget on the result
-of the widget editor's `toJSON()` function (or equivalently on the props
-from the datastore). If no `transform` function is registered, the
-identity function is used in its place. For this reason, many legacy
-widgets have the same format for their editor props and renderer props,
-however, this conflation is no longer necessary, and in most cases
-an explicit `transform` function can make prop logic clearer.
+From here, it is important to understand how these editor props relate to the
+widget renderer's props. The widget renderer's props are created by calling the
+`transform` function exported by the widget on the result of the widget
+editor's `serializeQuestion()` function (or equivalently on the props from the
+datastore). If no `transform` function is registered, the identity function is
+used in its place. For this reason, many legacy widgets have the same format
+for their editor props and renderer props, however, this conflation is no
+longer necessary, and in most cases an explicit `transform` function can make
+prop logic clearer.
 
 
 ### Between the widgets
 
-In order to get the information from the editor to the renderer, there is big chain of calls of `toJSON` calls with the following hierarchy: 
+In order to get the information from the editor to the renderer, there is big chain of calls of `serializeQuestion` calls with the following hierarchy:
 
     TOP: StatefulEditorPage -> EditorPage -> ItemEditor -> Editor -> WidgetEditor -> (widget’s editor) : BOTTOM
 
-It’s at the `EditorPage` level that `updateRenderer` takes `EditorPage.toJSON` and passes it to `ItemRenderer`, which (on mounting) passes that information to three additional components: `Renderer`, `AnswerAreaRenderer`, and `HintsRenderer`. Each of those in turn identifies the widget type and inserts the information. (In the future, we may streamline this process, delete the toJSON function at the widget’s editor level, and simply extract the props of the widget directly.)
+It’s at the `EditorPage` level that `updateRenderer` takes `EditorPage.serializeQuestion` and passes it to `ItemRenderer`, which (on mounting) passes that information to three additional components: `Renderer`, `AnswerAreaRenderer`, and `HintsRenderer`. Each of those in turn identifies the widget type and inserts the information. (In the future, we may streamline this process, delete the `serializeQuestion` function at the widget’s editor level, and simply extract the props of the widget directly.)
 
-But you might be wondering, "how does it know to update?" That's why we use a heirarchical paradigm of calling 
+But you might be wondering, "how does it know to update?" That's why we use a heirarchical paradigm of calling
 
     this.props.onChange({updatedParam: newValue}, callbackFunction)
 
-for every update-worthy instance. Similar to toJSON, it goes all the way up the hierarchy above and then comes all the way back down, rerendering everything. The results of these renders are then diffed by React, preventing them from causing unnecessary DOM manipulation (and keeping this whole process fast).
+for every update-worthy instance. Similar to `serializeQuestion`, it goes all the way up the hierarchy above and then comes all the way back down, rerendering everything. The results of these renders are then diffed by React, preventing them from causing unnecessary DOM manipulation (and keeping this whole process fast).
 
 Note that there is nothing special about the function `onChange`--that name
 is just a convention, and not related to the DOM's `onChange` event, except
@@ -249,7 +250,7 @@ ours because of the DOM event.
 Want to help out? Here are some well-scoped improvements we could use:
 - **Show messages on user input in test.html**: In production, there is a message box
   that shows various clues to the user ("You didn't simplify" or "You used x instead of \*").
-  But those clues don't show up in Perseus for whatever reason. Essentially onClick of 
+  But those clues don't show up in Perseus for whatever reason. Essentially onClick of
   the score button or (if the above mini-project is done) the green button, there should be
   a message that appears. This is becoming more important as these little clues are now going
   mainstream, with content creators able to add their own custom-tailored hints.

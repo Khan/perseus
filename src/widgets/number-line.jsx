@@ -3,7 +3,7 @@
 var React = require('react');
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var ButtonGroup  = require("react-components/button-group.jsx");
 var InfoTip      = require("react-components/info-tip.jsx");
@@ -480,7 +480,7 @@ var NumberLine = React.createClass({
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     },
 
-    toJSON: function() {
+    getUserInput: function() {
         return {
             numLinePosition: this.props.numLinePosition,
             rel: this.props.isInequality ? this.props.rel : "eq"
@@ -488,7 +488,7 @@ var NumberLine = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return NumberLine.validate(this.toJSON(), rubric);
+        return NumberLine.validate(this.getUserInput(), rubric);
     },
 
     focus: $.noop,
@@ -549,7 +549,7 @@ var NumberLineEditor = React.createClass({
         };
     },
 
-    mixins: [JsonifyProps],
+    mixins: [EditorJsonify],
 
     render: function() {
         var range = this.props.range;
