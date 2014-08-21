@@ -51,11 +51,13 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
 
 var priorities = [
     "paragraph",
+    "escape",
     "refStart",
     "refEnd",
     "strong",
     "u",
     "em",
+    "del",
     "newline",
     "text"
 ];

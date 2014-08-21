@@ -129,6 +129,15 @@ var defaultRules = {
             return <div className="paragraph">{output(node.content)}</div>;
         }
     },
+    escape: {
+        regex: /^\\([\\`*{}\[\]()#+\-.!_>~|])/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "text",
+                content: capture[1]
+            };
+        }
+    },
     strong: {
         regex: /^\*\*([\s\S]+?)\*\*(?!\*)/,
         parse: parseCapture,

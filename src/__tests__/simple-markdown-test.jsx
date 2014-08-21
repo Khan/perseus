@@ -177,6 +177,42 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should allow you to escape special characters with \\", () => {
+            var parsed = defaultParse(
+                "\\`hi\\` \\*bye\\*"
+            );
+            validateParse(parsed, [
+                {
+                    type: "text",
+                    content: "`"
+                },
+                {
+                    type: "text",
+                    content: "hi"
+                },
+                {
+                    type: "text",
+                    content: "`"
+                },
+                {
+                    type: "text",
+                    content: " "
+                },
+                {
+                    type: "text",
+                    content: "*"
+                },
+                {
+                    type: "text",
+                    content: "bye"
+                },
+                {
+                    type: "text",
+                    content: "*"
+                },
+            ]);
+        });
+
         it("should parse a single top-level paragraph", () => {
             var parsed = defaultParse("hi\n\n");
             validateParse(parsed, [{
