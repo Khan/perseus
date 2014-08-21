@@ -213,6 +213,74 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should parse basic []() links as links", () => {
+            var parsed = defaultParse("[hi](http://www.google.com)");
+            validateParse(parsed, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }],
+                target: "http://www.google.com"
+            }]);
+
+            var parsed2 = defaultParse("[secure](https://www.google.com)");
+            validateParse(parsed2, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "secure"
+                }],
+                target: "https://www.google.com"
+            }]);
+
+            var parsed3 = defaultParse(
+                "[local](http://localhost:9000/test.html)"
+            );
+            validateParse(parsed3, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "local"
+                }],
+                target: "http://localhost:9000/test.html"
+            }]);
+
+            var parsed4 = defaultParse(
+                "[params](http://localhost:9000/test.html" +
+                "?content=%7B%7D&format=pretty)"
+            );
+            validateParse(parsed4, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "params"
+                }],
+                target: "http://localhost:9000/test.html" +
+                        "?content=%7B%7D&format=pretty"
+            }]);
+
+            var parsed5 = defaultParse(
+                "[hash](http://localhost:9000/test.html#content=%7B%7D)"
+            );
+            validateParse(parsed5, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "hash"
+                }],
+                target: "http://localhost:9000/test.html#content=%7B%7D"
+            }]);
+        });
+
+        it("shouldn't parse \\[s as links", () => {
+            var parsed = defaultParse("\\[hi](http://www.google.com)");
+            validateParse(parsed, [
+                {type: "text", content: "["},
+                {type: "text", content: "hi](http://www.google.com)"},
+            ]);
+        });
+
         it("should parse a single top-level paragraph", () => {
             var parsed = defaultParse("hi\n\n");
             validateParse(parsed, [{

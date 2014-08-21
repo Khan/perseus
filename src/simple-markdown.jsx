@@ -70,6 +70,9 @@ var parseCapture = (capture, parse, state) => {
 };
 var ignoreCapture = () => ({});
 
+var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\]]|\\](?=[^\\[]*\\]))*";
+var LINK_HREF = "\\s*<?([^\\s]*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+
 var defaultRules = {
     heading: {
         regex: /^ *(#{1,6}) *([^\n]+?) *#* *\n+/,
@@ -136,6 +139,22 @@ var defaultRules = {
                 type: "text",
                 content: capture[1]
             };
+        }
+    },
+    link: {
+        regex: new RegExp(
+            "^!?\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF + "\\)"
+        ),
+        parse: (capture, parse, state) => {
+            return {
+                content: parse(capture[1]),
+                target: capture[2]
+            };
+        },
+        output: (node, output) => {
+            return <a href={node.target}>
+                {output(node.content)}
+            </a>;
         }
     },
     strong: {
