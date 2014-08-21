@@ -240,6 +240,62 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should parse a single heading", () => {
+            var parsed = defaultParse("### heading3\n\n");
+            validateParse(parsed, [{
+                type: "heading",
+                level: 3,
+                content: [{
+                    type: "text",
+                    content: "heading3"
+                }]
+            }]);
+        });
+
+        it("should parse a single lheading", () => {
+            var parsed = defaultParse("heading2\n-----\n\n");
+            validateParse(parsed, [{
+                type: "heading",
+                level: 2,
+                content: [{
+                    type: "text",
+                    content: "heading2"
+                }]
+            }]);
+        });
+
+        it("should parse a heading between paragraphs", () => {
+            var parsed = defaultParse(
+                "para 1\n\n" +
+                "#heading\n\n\n" +
+                "para 2\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "para 1"
+                    }]
+                },
+                {
+                    type: "heading",
+                    level: 1,
+                    content: [{
+                        type: "text",
+                        content: "heading"
+                    }]
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "para 2"
+                    }]
+                },
+            ]);
+        });
+
         it("should parse a single top-level code block", () => {
             var parsed = defaultParse("    if (true) { code(); }\n\n");
             validateParse(parsed, [{

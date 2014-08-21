@@ -68,6 +68,31 @@ var parseCapture = (capture, parse, state) => {
 var ignoreCapture = () => ({});
 
 var defaultRules = {
+    heading: {
+        regex: /^ *(#{1,6}) *([^\n]+?) *#* *\n+/,
+        parse: (capture, parse, state) => {
+            return {
+                level: capture[1].length,
+                content: parse(capture[2], state)
+            };
+        },
+        output: (node, output) => {
+            return React.DOM["h" + node.level](
+                null,
+                output(node.content)
+            );
+        }
+    },
+    lheading: {
+        regex: /^([^\n]+)\n *(=|-){3,} *\n+/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "heading",
+                level: capture[2] === '=' ? 1 : 2,
+                content: parse(capture[1], state)
+            };
+        }
+    },
     codeBlock: {
         regex: /^(?:    [^\n]+\n*)+\n\n/,
         parse: (capture, parse, state) => {
