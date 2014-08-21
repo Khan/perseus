@@ -2,7 +2,7 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var SimpleMarkdown = require("../simple-markdown.jsx");
 
@@ -109,7 +109,7 @@ _.extend(SimpleMarkdownTester, {
  * of the screen in test.html. Only the question writer sees this.
  */
 var SimpleMarkdownTesterEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
