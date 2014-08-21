@@ -161,6 +161,17 @@ var defaultRules = {
             return <del>{output(node.content)}</del>;
         }
     },
+    inlineCode: {
+        regex: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
+        parse: (capture, parse, state) => {
+            return {
+                content: capture[2]
+            };
+        },
+        output: (node, output) => {
+            return <code>{node.content}</code>;
+        }
+    },
     newline: {
         regex: /^\n+/,
         parse: ignoreCapture,

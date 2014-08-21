@@ -158,6 +158,24 @@ describe("simple markdown", () => {
                 }
             ]);
         });
+        
+        it("should parse inline code", () => {
+            var parsed = defaultParse("`hi`");
+            validateParse(parsed, [{
+                type: "inlineCode",
+                content: "hi"
+            }]);
+        });
+
+        it("should parse * and _ inside `` as code", () => {
+            var parsed = defaultParse(
+                "`const int * const * const p; // _hi_`"
+            );
+            validateParse(parsed, [{
+                type: "inlineCode",
+                content: "const int * const * const p; // _hi_"
+            }]);
+        });
 
         it("should parse a single top-level paragraph", () => {
             var parsed = defaultParse("hi\n\n");
