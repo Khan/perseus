@@ -99,6 +99,11 @@ var defaultRules = {
             };
         }
     },
+    hr: {
+        regex: /^( *[-*_]){3,} *\n+/,
+        parse: () => ({}),
+        output: () => <hr />
+    },
     codeBlock: {
         regex: /^(?:    [^\n]+\n*)+\n\n/,
         parse: (capture, parse, state) => {

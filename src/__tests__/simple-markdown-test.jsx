@@ -568,5 +568,48 @@ describe("simple markdown", () => {
                 },
             ]);
         });
+
+        it("should parse top-level horizontal rules", () => {
+            var parsed = defaultParse(
+                "---\n" +
+                "***\n" +
+                "___\n\n" +
+                " - - - - \n\n" +
+                "_ _ _\n\n" +
+                "  ***  \n\n"
+            );
+            validateParse(parsed, [
+                { type: "hr" },
+                { type: "hr" },
+                { type: "hr" },
+                { type: "hr" },
+                { type: "hr" },
+                { type: "hr" },
+            ]);
+        });
+
+        it("should parse hrs between paragraphs", () => {
+            var parsed = defaultParse(
+                "para 1\n\n" +
+                " * * * \n\n" +
+                "para 2\n\n");
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "para 1"
+                    }]
+                },
+                { type: "hr" },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "para 2"
+                    }]
+                },
+            ]);
+        });
     });
 });
