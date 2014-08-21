@@ -264,6 +264,52 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should not parse a single lheading with two -- or ==", () => {
+            var parsed = defaultParse("heading1\n==\n\n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "text",
+                        content: "heading1",
+                    },
+                    {type: "newline"},
+                    {
+                        type: "text",
+                        content: "==",
+                    },
+                ]
+            }]);
+
+            var parsed2 = defaultParse("heading2\n--\n\n");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "text",
+                        content: "heading2",
+                    },
+                    {type: "newline"},
+                    {
+                        type: "text",
+                        content: "--",
+                    },
+                ]
+            }]);
+        });
+
+        it("7 #s should not parse as an h7", () => {
+            var parsed = defaultParse("#######heading7\n\n");
+            validateParse(parsed, [{
+                type: "heading",
+                level: 6,
+                content: [{
+                    type: "text",
+                    content: "#heading7"
+                }]
+            }]);
+        });
+
         it("should parse a heading between paragraphs", () => {
             var parsed = defaultParse(
                 "para 1\n\n" +
