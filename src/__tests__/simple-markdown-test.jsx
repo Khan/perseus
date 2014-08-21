@@ -321,55 +321,20 @@ describe("simple markdown", () => {
 
         it("should not parse single newlines as paragraphs", () => {
             var parsed = defaultParse("hi\nbye\nthere\n");
-            validateParse(parsed, [
-                {
-                    type: "text",
-                    content: "hi"
-                },
-                {
-                    type: "newline",
-                },
-                {
-                    type: "text",
-                    content: "bye"
-                },
-                {
-                    type: "newline",
-                },
-                {
-                    type: "text",
-                    content: "there"
-                },
-                {
-                    type: "newline",
-                },
-            ]);
+            validateParse(parsed, [{
+                type: "text",
+                content: "hi\nbye\nthere\n"
+            }]);
         });
 
         it("should not parse a single newline as a new paragraph", () => {
             var parsed = defaultParse("hi\nbye\nthere\n\n");
             validateParse(parsed, [{
                 type: "paragraph",
-                content: [
-                    {
-                        type: "text",
-                        content: "hi"
-                    },
-                    {
-                        type: "newline",
-                    },
-                    {
-                        type: "text",
-                        content: "bye"
-                    },
-                    {
-                        type: "newline",
-                    },
-                    {
-                        type: "text",
-                        content: "there"
-                    },
-                ]
+                content: [{
+                    type: "text",
+                    content: "hi\nbye\nthere"
+                }]
             }]);
         });
 
@@ -401,33 +366,19 @@ describe("simple markdown", () => {
             var parsed = defaultParse("heading1\n==\n\n");
             validateParse(parsed, [{
                 type: "paragraph",
-                content: [
-                    {
-                        type: "text",
-                        content: "heading1",
-                    },
-                    {type: "newline"},
-                    {
-                        type: "text",
-                        content: "==",
-                    },
-                ]
+                content: [{
+                    type: "text",
+                    content: "heading1\n==",
+                }]
             }]);
 
             var parsed2 = defaultParse("heading2\n--\n\n");
             validateParse(parsed2, [{
                 type: "paragraph",
-                content: [
-                    {
-                        type: "text",
-                        content: "heading2",
-                    },
-                    {type: "newline"},
-                    {
-                        type: "text",
-                        content: "--",
-                    },
-                ]
+                content: [{
+                    type: "text",
+                    content: "heading2\n--",
+                }]
             }]);
         });
 
@@ -610,6 +561,244 @@ describe("simple markdown", () => {
                     }]
                 },
             ]);
+        });
+
+        it("should parse simple unordered lists", () => {
+            var parsed = defaultParse(
+                " * hi\n" +
+                " * bye\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "text",
+                        content: "hi\n",
+                    }],
+                    [{
+                        type: "text",
+                        content: "bye\n",
+                    }],
+                    [{
+                        type: "text",
+                        content: "there",
+                    }],
+                ]
+            }]);
+        });
+
+        it("should parse simple ordered lists", () => {
+            var parsed = defaultParse(
+                "1. first\n" +
+                "2. second\n" +
+                "3. third\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: true,
+                items: [
+                    [{
+                        type: "text",
+                        content: "first\n",
+                    }],
+                    [{
+                        type: "text",
+                        content: "second\n",
+                    }],
+                    [{
+                        type: "text",
+                        content: "third",
+                    }],
+                ]
+            }]);
+        });
+
+        it("should parse simple ordered lists with silly numbers", () => {
+            var parsed = defaultParse(
+                "1. first\n" +
+                "13. second\n" +
+                "9. third\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: true,
+                items: [
+                    [{
+                        type: "text",
+                        content: "first\n",
+                    }],
+                    [{
+                        type: "text",
+                        content: "second\n",
+                    }],
+                    [{
+                        type: "text",
+                        content: "third",
+                    }],
+                ]
+            }]);
+        });
+
+        it("should parse nested lists", () => {
+            var parsed = defaultParse(
+                "1. first\n" +
+                "2. second\n" +
+                "   * inner\n" +
+                "   * inner\n" +
+                "3. third\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: true,
+                items: [
+                    [{
+                        type: "text",
+                        content: "first\n",
+                    }],
+                    [
+                        {
+                            type: "text",
+                            content: "second\n",
+                        },
+                        {
+                            type: "list",
+                            ordered: false,
+                            items: [
+                                [{
+                                    type: "text",
+                                    content: "inner\n"
+                                }],
+                                [{
+                                    type: "text",
+                                    content: "inner"
+                                }]
+                            ]
+                        }
+                    ],
+                    [{
+                        type: "text",
+                        content: "third",
+                    }],
+                ]
+            }]);
+        });
+
+        it("should parse loose lists", () => {
+            var parsed = defaultParse(
+                " * hi\n\n" +
+                " * bye\n\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "hi"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "bye"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "there"
+                        }]
+                    }],
+                ]
+            }]);
+        });
+
+        it("should parse paragraphs within loose lists", () => {
+            var parsed = defaultParse(
+                " * hi\n\n" +
+                "   hello\n\n" +
+                " * bye\n\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "hi"
+                            }]
+                        },
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "hello"
+                            }]
+                        },
+                    ],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "bye"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "there"
+                        }]
+                    }],
+                ]
+            }]);
+        });
+
+        it("should allow line breaks+wrapping in tight lists", () => {
+            var parsed = defaultParse(
+                " * hi\n" +
+                "   hello\n\n" +
+                " * bye\n\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "hi\nhello"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "bye"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "there"
+                        }]
+                    }],
+                ]
+            }]);
         });
     });
 });
