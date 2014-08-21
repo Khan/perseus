@@ -107,6 +107,18 @@ var defaultRules = {
             return <pre><code>{node.content}</code></pre>;
         }
     },
+    blockQuote: {
+        regex: /^( *>[^\n]+(\n[^\n]+)*\n*)+/,
+        parse: (capture, parse, state) => {
+            content = capture[0].replace(/^ *> ?/gm, '');
+            return {
+                content: parse(content, state)
+            };
+        },
+        output: (node, output) => {
+            return <blockquote>{output(node.content)}</blockquote>;
+        }
+    },
     paragraph: {
         regex: /^((?:[^\n]|\n[^\n])+)\n\n+/,
         parse: parseCapture,

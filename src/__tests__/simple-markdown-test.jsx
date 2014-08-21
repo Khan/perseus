@@ -296,6 +296,65 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should parse a single top-level blockquote", () => {
+            var parsed = defaultParse("> blockquote\n\n");
+            validateParse(parsed, [{
+                type: "blockQuote",
+                content: [{
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "blockquote"
+                    }],
+                }]
+            }]);
+        });
+
+        it("should parse multiple blockquotes and paragraphs", () => {
+            var parsed = defaultParse(
+                "para 1\n\n" +
+                "> blockquote 1\n" +
+                ">\n" +
+                ">blockquote 2\n\n" +
+                "para 2\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "para 1"
+                    }],
+                },
+                {
+                    type: "blockQuote",
+                    content: [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "blockquote 1"
+                            }],
+                        },
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "blockquote 2"
+                            }],
+                        }
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "para 2"
+                    }],
+                },
+            ]);
+        });
+
         it("should parse a single top-level code block", () => {
             var parsed = defaultParse("    if (true) { code(); }\n\n");
             validateParse(parsed, [{
