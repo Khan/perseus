@@ -227,7 +227,7 @@ var defaultRules = {
         }
     },
     escape: {
-        regex: /^\\([\\`*{}\[\]()#+\-.!_>~|])/,
+        regex: /^\\([\\`*{}\[\]()#+\-.!_<>~|])/,
         parse: (capture, parse, state) => {
             return {
                 type: "text",

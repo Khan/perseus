@@ -190,37 +190,22 @@ describe("simple markdown", () => {
 
         it("should allow you to escape special characters with \\", () => {
             var parsed = defaultParse(
-                "\\`hi\\` \\*bye\\*"
+                "\\`hi\\` \\*bye\\* \\~\\|\\<\\[\\{"
             );
             validateParse(parsed, [
-                {
-                    type: "text",
-                    content: "`"
-                },
-                {
-                    type: "text",
-                    content: "hi"
-                },
-                {
-                    type: "text",
-                    content: "`"
-                },
-                {
-                    type: "text",
-                    content: " "
-                },
-                {
-                    type: "text",
-                    content: "*"
-                },
-                {
-                    type: "text",
-                    content: "bye"
-                },
-                {
-                    type: "text",
-                    content: "*"
-                },
+                { type: "text", content: "`" },
+                { type: "text", content: "hi" },
+                { type: "text", content: "`" },
+                { type: "text", content: " " },
+                { type: "text", content: "*" },
+                { type: "text", content: "bye" },
+                { type: "text", content: "*" },
+                { type: "text", content: " " },
+                { type: "text", content: "~" },
+                { type: "text", content: "|" },
+                { type: "text", content: "<" },
+                { type: "text", content: "[" },
+                { type: "text", content: "{" },
             ]);
         });
 
