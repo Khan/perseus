@@ -12,7 +12,6 @@
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var TextInput = React.createClass({
     render: function() {
@@ -52,17 +51,18 @@ var ExampleWidget = React.createClass({
 
     /**
      * Changeable creates this.change() to tell our parent to update our props
-     *
-     * WidgetJsonifyDeprecated creates this.getUserInput() which returns the
-     * state of the widget for checking the answer in simpleValidate
      */
-    mixins: [Changeable, WidgetJsonifyDeprecated],
+    mixins: [Changeable],
 
     render: function() {
         return <TextInput
             ref="input"
             value={this.props.value}
             onChange={this.change("value")} />;
+    },
+
+    getUserInput: function() {
+        return this.props.value;
     },
 
     /**
@@ -108,17 +108,17 @@ _.extend(ExampleWidget, {
     /**
      * simpleValidate generally defers to this function
      *
-     * state is usually the result of getUserInput on the widget
+     * value is usually the result of getUserInput on the widget
      * rubric is the result of calling serializeQuestion() on the editor
      */
-    validate: function(state, rubric) {
-        if (state.value === "") {
+    validate: function(value, rubric) {
+        if (value === "") {
             return {
                 type: "invalid",
                 message: "It looks like you haven't answered all of the " +
                     "question yet."
             };
-        } else if (state.value === rubric.correct) {
+        } else if (value === rubric.correct) {
             return {
                 type: "points",
                 earned: 1,
