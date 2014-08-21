@@ -63,6 +63,17 @@ describe("simple markdown", () => {
                     content: "hi"
                 }]
             }]);
+
+            // not super important that it parses this like this, but
+            // it should be a valid something...
+            var parsed2 = defaultParse("~~~~~");
+            validateParse(parsed2, [{
+                type: "del",
+                content: [{
+                    type: "text",
+                    content: "~"
+                }]
+            }]);
         });
 
         it("should parse underlines", () => {
