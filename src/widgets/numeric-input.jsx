@@ -172,8 +172,19 @@ _.extend(NumericInput, {
         // - if it needs to be simplified, etc., show that message
         var correctAnswers = _.where(rubric.answers, {status: "correct"});
         var result = _.find(_.map(correctAnswers, (answer) => {
+            // Should the coefficient be a widget wide attribute?
+            var localValue = currentValue;
+            if (answer.coefficient) {
+                if (localValue == "") {
+                    localValue = 1;
+                }
+                else if (localValue == "-") {
+                    localValue = -1;
+                }
+            }
+
             var validate = createValidator(answer);
-            return validate(currentValue);
+            return validate(localValue);
         }), match => match.correct || match.empty);
 
         if (!result) { // Otherwise, if the guess is not correct
@@ -222,6 +233,7 @@ var initAnswer = (status) => {
         simplify: "required",
         answerForms: [],
         strict: false,
+        coefficient: false,
         maxError: null
     };
 };
@@ -299,6 +311,17 @@ var NumericInputEditor = React.createClass({
                 <PropCheckBox label="Strictly match only these formats"
                     strict={answers[i]["strict"]}
                     onChange={this.updateAnswer.bind(this, i)} />
+            </div>
+        </div>;
+        
+        var coefficientType = (i) => <div>
+            <div className="perseus-widget-row">
+                <PropCheckBox label="Coefficient"
+                    coefficient={answers[i]["coefficient"]}
+                    onChange={this.updateAnswer.bind(this, i)} />
+                <InfoTip>
+                    <p>A coefficient style number allows the student to use - for -1 and an empty string to mean 1.</p>
+                </InfoTip>
             </div>
         </div>;
 
@@ -408,6 +431,7 @@ var NumericInputEditor = React.createClass({
                         {maxError(i)}
                         {answer.status === "correct" && unsimplifiedAnswers(i)}
                         {suggestedAnswerTypes(i)}
+                        {coefficientType(i)}
                     </div>}
             </div>;
         });
