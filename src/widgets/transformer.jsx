@@ -2442,7 +2442,7 @@ var Transformer = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Transformer.validate(this.toJSON(), rubric);
+        return Transformer.validate(this.getUserInput(), rubric);
     },
 
     /**
@@ -2458,11 +2458,20 @@ var Transformer = React.createClass({
         }, startCoords);
     },
 
-    toJSON: function() {
+    getEditorJSON: function() {
         var json = _.pick(this.props, "grading", "starting", "graphMode",
                 "listMode", "tools", "drawSolutionShape", "gradeEmpty");
         json.graph = this.refs.graph.toJSON();
-        json.answer = {
+        json.version = 1.2; // Give us some safety to change the format
+                            // when we realize that I wrote
+                            // a horrible json spec for this widget
+
+        json.answer = this.getUserInput();
+        return json;
+    },
+
+    getUserInput: function() {
+        return {
             transformations: this.props.transformations,
             // This doesn't call this.shape.toJSON() because that doesn't
             // handle coordinates in formal mode without movement, since
@@ -2473,10 +2482,6 @@ var Transformer = React.createClass({
                 options: this.shape.getOptions()
             }
         };
-        json.version = 1.2; // Give us some safety to change the format
-                            // when we realize that I wrote
-                            // a horrible json spec for this widget
-        return json;
     },
 
     statics: {
@@ -2569,7 +2574,7 @@ _.extend(Transformer, {
         // Check for any required transformations
         for (var type in Transformations) {
             if (rubric.tools[type].required) {
-                var isUsed = _.any(_.map(guess.answer.transformations,
+                var isUsed = _.any(_.map(guess.transformations,
                         function(transform) {
                     // Required transformations must appear in the
                     // transformation list, and must not be no-ops
@@ -2591,7 +2596,7 @@ _.extend(Transformer, {
         }
 
         // Compare shapes
-        if (ShapeTypes.equal(guess.answer.shape,
+        if (ShapeTypes.equal(guess.shape,
                 rubric.correct.shape)) {
             return {
                 type: "points",
@@ -2600,7 +2605,7 @@ _.extend(Transformer, {
                 message: null
             };
         } else if (!rubric.gradeEmpty && deepEq(
-                    guess.answer.shape.coords,
+                    guess.shape.coords,
                     rubric.starting.shape.coords
                 )) {
             return {
@@ -2728,8 +2733,8 @@ var TransformerEditor = React.createClass({
         this.props.onChange(changes, callback);
     },
 
-    toJSON: function() {
-        var json = this.refs.explorer.toJSON();
+    serializeQuestion: function() {
+        var json = this.refs.explorer.getEditorJSON();
         json.correct = json.answer;
         delete json.answer;
         return json;

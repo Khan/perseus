@@ -94,10 +94,16 @@ var ItemEditor = React.createClass({
         this.updateProps({ answerArea }, cb, silent);
     },
 
-    toJSON: function(skipValidation) {
+    getSaveWarnings: function() {
+        var issues1 = this.refs.questionEditor.getSaveWarnings();
+        var issues2 = this.refs.answerAreaEditor.getSaveWarnings();
+        return issues1.concat(issues2);
+    },
+
+    serializeQuestion: function() {
         return {
-            question: this.refs.questionEditor.toJSON(skipValidation),
-            answerArea: this.refs.answerAreaEditor.toJSON(skipValidation),
+            question: this.refs.questionEditor.serializeQuestion(),
+            answerArea: this.refs.answerAreaEditor.serializeQuestion(),
             itemDataVersion: ITEM_DATA_VERSION
         };
     },

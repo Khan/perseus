@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Editor = require("../editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
@@ -15,7 +16,7 @@ var Util = require("../util.js");
 var REFTARGET_REGEX = /{{([\s\S]+?)}}/g;
 
 var Passage = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
         passageTitle: React.PropTypes.string,
@@ -134,7 +135,7 @@ var Passage = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Passage.validate(this.toJSON(), rubric);
+        return Passage.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -154,7 +155,7 @@ _.extend(Passage, {
 });
 
 var PassageEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         passageTitle: React.PropTypes.string,

@@ -99,7 +99,7 @@ var Matcher = React.createClass({
         this.setState({rightHeight: height});
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {
             left: this.refs.left.getOptions(),
             right: this.refs.right.getOptions()
@@ -107,7 +107,7 @@ var Matcher = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Matcher.validate(this.toJSON(), rubric);
+        return Matcher.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -221,14 +221,16 @@ var MatcherEditor = React.createClass({
         this.props.onChange({labels: labels});
     },
 
-    toJSON: function(skipValidation) {
-        if (!skipValidation) {
-            if (this.props.left.length !== this.props.right.length) {
-                alert("Warning: The two halves of the matcher have different" +
-                    " numbers of cards.");
-            }
+    getSaveWarnings: function() {
+        if (this.props.left.length !== this.props.right.length) {
+            return [
+                "Warning: The two halves of the matcher have different" +
+                " numbers of cards."
+            ];
         }
+    },
 
+    serializeQuestion: function() {
         return _.pick(this.props,
             "left", "right", "labels", "orderMatters", "padding"
         );

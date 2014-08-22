@@ -21,7 +21,7 @@
 <body>
 
 <div id="extras">
-    <button id="toJSON">toJSON</button>
+    <button id="serializeQuestion">serializeQuestion</button>
     <button id="scorePreview">Score</button>
     <button id="permalink">permalink</button>
     <span>Seed:</span><span id="problemNum"></span>
@@ -172,8 +172,8 @@ var enabledFeatures = {
     useMathQuill: true
 };
 
-$('#toJSON').on('click', function() {
-    console.log(JSON.stringify(editor, null, 4));
+$('#serializeQuestion').on('click', function() {
+    console.log(JSON.stringify(editor.serializeQuestion(), null, 4));
 });
 $('#scorePreview').on('click', function() {
     console.log(editor.scorePreview());

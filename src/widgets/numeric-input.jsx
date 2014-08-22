@@ -2,7 +2,7 @@
 
 var React        = require('react');
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -116,12 +116,12 @@ var NumericInput = React.createClass({
         return _.clone(this.props.answerForms);
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {currentValue: this.props.currentValue};
     },
 
     simpleValidate: function(rubric) {
-        return NumericInput.validate(this.toJSON(), rubric);
+        return NumericInput.validate(this.getUserInput(), rubric);
     },
 
     shouldShowExamples: function() {
@@ -239,7 +239,7 @@ var initAnswer = (status) => {
 };
 
 var NumericInputEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {

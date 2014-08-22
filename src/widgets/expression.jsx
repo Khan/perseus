@@ -5,7 +5,8 @@ var InfoTip = require("react-components/info-tip.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var ApiOptions = require("../perseus-api.jsx").Options;
 
 var EnabledFeatures   = require("../enabled-features.jsx");
@@ -23,7 +24,7 @@ var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
         value: React.PropTypes.string,
@@ -207,7 +208,7 @@ var Expression = React.createClass({
 
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
-        return Expression.validate(this.toJSON(), rubric, onInputError);
+        return Expression.validate(this.getUserInput(), rubric, onInputError);
     },
 
     statics: {
@@ -478,7 +479,7 @@ var OldExpression = React.createClass({
         return this;
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {value: this.props.value};
     },
 
@@ -492,7 +493,7 @@ var OldExpression = React.createClass({
 
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
-        return Expression.validate(this.toJSON(), rubric, onInputError);
+        return Expression.validate(this.getUserInput(), rubric, onInputError);
     },
 
     examples: function() {
@@ -524,7 +525,7 @@ var OldExpression = React.createClass({
 });
 
 var ExpressionEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     propTypes: {
         value: React.PropTypes.string,

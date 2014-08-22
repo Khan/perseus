@@ -2,7 +2,8 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -11,7 +12,7 @@ var TextListEditor = require("../components/text-list-editor.jsx");
 var Util = require("../util.js");
 
 var Categorizer = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
         // List of items that are being categorized (along the left side)
@@ -93,7 +94,7 @@ var Categorizer = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return Categorizer.validate(this.toJSON(), rubric);
+        return Categorizer.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -131,7 +132,7 @@ _.extend(Categorizer, {
 
 
 var CategorizerEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         items: React.PropTypes.arrayOf(React.PropTypes.string),

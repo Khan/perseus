@@ -469,7 +469,7 @@ var AnswerAreaRenderer = React.createClass({
         if (this.props.type === "multiple") {
             return this.getWidgetInstance().guessAndScore();
         } else {
-            var guess = this.getWidgetInstance().toJSON();
+            var guess = this.getWidgetInstance().getUserInput();
 
             var score;
             if (this.props.graded == null || this.props.graded) {

@@ -77,11 +77,16 @@ var AnswerAreaEditor = React.createClass({
         </div>;
     },
 
-    toJSON: function(skipValidation) {
-        // Could be just _.pick(this.props, "type", "options"); but validation!
+    getSaveWarnings: function() {
+        var issuesFunc = this.refs.editor.getSaveWarnings();
+        return issuesFunc ? issuesFunc() : [];
+    },
+
+    serializeQuestion: function() {
+        // could be _.pick(this.props, "type", "options", "calculator");
         return {
             type: this.props.type,
-            options: this.refs.editor.toJSON(skipValidation),
+            options: this.refs.editor.serializeQuestion(),
             calculator: this.props.calculator
         };
     }

@@ -78,8 +78,12 @@ var HintEditor = React.createClass({
         this.refs.editor.focus();
     },
 
-    toJSON: function(skipValidation) {
-        return this.refs.editor.toJSON(skipValidation);
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serializeQuestion: function() {
+        return this.refs.editor.serializeQuestion();
     }
 });
 
@@ -113,8 +117,12 @@ var CombinedHintEditor = React.createClass({
         </div>;
     },
 
-    toJSON: function(skipValidation) {
-        return this.refs.editor.toJSON(skipValidation);
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serializeQuestion: function() {
+        return this.refs.editor.serializeQuestion();
     },
 
     focus: function() {
@@ -206,9 +214,15 @@ var CombinedHintsEditor = React.createClass({
         return false;
     },
 
-    toJSON: function(skipValidation) {
+    getSaveWarnings: function() {
         return this.props.hints.map(function(hint, i) {
-            return this.refs["hintEditor" + i].toJSON(skipValidation);
+            return this.refs["hintEditor" + i].getSaveWarnings();
+        }, this);
+    },
+
+    serializeQuestion: function() {
+        return this.props.hints.map(function(hint, i) {
+            return this.refs["hintEditor" + i].serializeQuestion();
         }, this);
     }
 });

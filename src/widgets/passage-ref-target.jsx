@@ -1,11 +1,12 @@
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var Renderer = require("../renderer.jsx");
 
 var PassageRefTarget = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
         content: React.PropTypes.string
@@ -27,7 +28,7 @@ var PassageRefTarget = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return PassageRefTarget.validate(this.toJSON(), rubric);
+        return PassageRefTarget.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -47,7 +48,7 @@ _.extend(PassageRefTarget, {
 });
 
 var PassageRefTargetEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         content: React.PropTypes.string

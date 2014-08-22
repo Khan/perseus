@@ -2,7 +2,8 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -163,7 +164,7 @@ var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
 
 // The lights puzzle widget
 var LightsPuzzle = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
         cells: React.PropTypes.arrayOf(
@@ -273,7 +274,7 @@ var LightsPuzzle = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return validate(rubric, this.toJSON());
+        return validate(rubric, this.getUserInput());
     },
 
     statics: {
@@ -283,7 +284,7 @@ var LightsPuzzle = React.createClass({
 
 // The widget editor
 var LightsPuzzleEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     propTypes: {
         startCells: React.PropTypes.arrayOf(

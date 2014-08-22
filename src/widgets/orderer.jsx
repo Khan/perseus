@@ -500,14 +500,14 @@ var Orderer = React.createClass({
         }
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {current: _.map(this.props.current, function(v) {
             return v.content;
         })};
     },
 
     simpleValidate: function(rubric) {
-        return Orderer.validate(this.toJSON(), rubric);
+        return Orderer.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -636,7 +636,7 @@ var OrdererEditor = React.createClass({
         this.props.onChange({height: e.target.value});
     },
 
-    toJSON: function(skipValidation) {
+    serializeQuestion: function(skipValidation) {
         // We combine the correct answer and the other cards by merging them,
         // removing duplicates and empty cards, and sorting them into
         // categories based on their content

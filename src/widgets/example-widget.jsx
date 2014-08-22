@@ -11,7 +11,7 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var TextInput = React.createClass({
     render: function() {
@@ -50,18 +50,19 @@ var ExampleWidget = React.createClass({
     },
 
     /**
-     * Changeling creates this.change() to tell our parent to update our props
-     *
-     * JsonifyProps creates this.toJSON() which returns the state of the widget
-     * for checking the answer in simpleValidate
+     * Changeable creates this.change() to tell our parent to update our props
      */
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable],
 
     render: function() {
         return <TextInput
             ref="input"
             value={this.props.value}
             onChange={this.change("value")} />;
+    },
+
+    getUserInput: function() {
+        return this.props.value;
     },
 
     /**
@@ -76,7 +77,7 @@ var ExampleWidget = React.createClass({
 
     /**
      * simpleValidate is called for grading. Rubric is the result of calling
-     * toJSON() on the editor that created this widget.
+     * getUserInput() on the editor that created this widget.
      *
      * Should return an object representing the grading result, such as
      * {
@@ -87,7 +88,7 @@ var ExampleWidget = React.createClass({
      * }
      */
     simpleValidate: function(rubric) {
-        return ExampleWidget.validate(this.toJSON(), rubric);
+        return ExampleWidget.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -107,17 +108,17 @@ _.extend(ExampleWidget, {
     /**
      * simpleValidate generally defers to this function
      *
-     * state is usually the result of toJSON on the widget
-     * rubric is the result of calling toJSON() on the editor
+     * value is usually the result of getUserInput on the widget
+     * rubric is the result of calling serializeQuestion() on the editor
      */
-    validate: function(state, rubric) {
-        if (state.value === "") {
+    validate: function(value, rubric) {
+        if (value === "") {
             return {
                 type: "invalid",
                 message: "It looks like you haven't answered all of the " +
                     "question yet."
             };
-        } else if (state.value === rubric.correct) {
+        } else if (value === rubric.correct) {
             return {
                 type: "points",
                 earned: 1,
@@ -141,7 +142,7 @@ _.extend(ExampleWidget, {
  * of the screen in test.html. Only the question writer sees this.
  */
 var ExampleWidgetEditor = React.createClass({
-    mixins: [Changeable, JsonifyProps],
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {

@@ -200,7 +200,7 @@ var EditorPage = React.createClass({
 
     toggleJsonMode: function() {
         this.setState({
-            json: this.toJSON(true)
+            json: this.serializeQuestion()
         }, function() {
             this.props.onChange({
                 jsonMode: !this.props.jsonMode
@@ -222,7 +222,7 @@ var EditorPage = React.createClass({
             return;
         }
         var rendererConfig = _({
-            item: this.toJSON(true),
+            item: this.serializeQuestion(),
             enabledFeatures: {
                 toolTipFormats: true
             },
@@ -267,12 +267,18 @@ var EditorPage = React.createClass({
         }
     },
 
-    toJSON: function(skipValidation) {
+    getSaveWarnings: function() {
+        var issues1 = this.refs.itemEditor.getSaveWarnings();
+        var issues2 = this.refs.hintsEditor.getSaveWarnings();
+        return issues1.concat(issues2);
+    },
+
+    serializeQuestion: function() {
         if (this.props.jsonMode) {
             return this.state.json;
         } else {
-            return _.extend(this.refs.itemEditor.toJSON(skipValidation), {
-                hints: this.refs.hintsEditor.toJSON(skipValidation)
+            return _.extend(this.refs.itemEditor.serializeQuestion(), {
+                hints: this.refs.hintsEditor.serializeQuestion()
             });
         }
     }

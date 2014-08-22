@@ -66,7 +66,7 @@ var WidgetEditor = React.createClass({
     },
 
     render: function() {
-        // We can't call our widget's `toJSON` here, because on
+        // We can't call our widget's `serializeQuestion` here, because on
         // first render that ref hasn't mounted yet.
         // This means that on first render we'll send in
         // `options: {}` to `upgradeWidgetInfoToLatestVersion`, but
@@ -110,14 +110,14 @@ var WidgetEditor = React.createClass({
     },
 
     _handleWidgetChange: function(newProps, cb) {
-        // TODO(jack): It is unfortunate to call toJSON here, but is
-        // important so that the widgetInfo we pass to our upgrade
-        // functions is always complete. If we just sent this.props in,
-        // we could run into situations where we would send things like
-        // { answerType: "decimal" } to our upgrade functions, without
-        // the rest of the props representing the widget.
+        // TODO(jack): It is unfortunate to call serializeQuestion here, but is
+        // important so that the widgetInfo we pass to our upgrade functions is
+        // always complete. If we just sent this.props in, we could run into
+        // situations where we would send things like { answerType: "decimal" }
+        // to our upgrade functions, without the rest of the props representing
+        // the widget.
         var currentWidgetInfo = _.extend({}, this.props, {
-            options: this.refs.widget.toJSON(true)
+            options: this.refs.widget.serializeQuestion()
         });
         var newWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
             currentWidgetInfo
@@ -126,11 +126,16 @@ var WidgetEditor = React.createClass({
         this.props.onChange(newWidgetInfo, cb);
     },
 
-    toJSON: function(skipValidation) {
+    getSaveWarnings: function() {
+        var issuesFunc = this.refs.widget.getSaveWarnings;
+        return issuesFunc ? issuesFunc() : [];
+    },
+
+    serializeQuestion: function() {
         return {
             type: this.props.type,
             graded: this.props.graded,
-            options: this.refs.widget.toJSON(skipValidation),
+            options: this.refs.widget.serializeQuestion(),
             version: Widgets.getVersion(this.props.type)
         };
     }
@@ -536,19 +541,32 @@ var Editor = React.createClass({
         this.props.onChange({content: newContent}, this.focusAndMoveToEnd);
     },
 
-    toJSON: function(skipValidation) {
-        // Could be _.pick(this.props, "content", "widgets"); but validation!
+    getSaveWarnings: function() {
+        var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        return _(widgetIds)
+            .chain()
+            .map(id => {
+                var issuesFunc = this.refs[id].getSaveWarnings;
+                return issuesFunc ? issuesFunc() : [];
+            })
+            .flatten(true)
+            .value();
+    },
+
+    serializeQuestion: function() {
+        // need to serialize the widgets since the state might not be
+        // completely represented in props. ahem //transformer// (and
+        // interactive-graph and plotter).
         var widgets = {};
         var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
-
-        _.each(widgetIds, function(id) {
-            widgets[id] = this.refs[id].toJSON(skipValidation);
-        }, this);
+        _.each(widgetIds, id => {
+            widgets[id] = this.refs[id].serializeQuestion();
+        });
 
         return {
             content: this.props.content,
             images: this.props.images,
-            widgets: widgets
+            widgets: widgets,
         };
     },
 

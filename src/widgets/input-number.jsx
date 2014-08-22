@@ -158,7 +158,7 @@ var InputNumber = React.createClass({
         return answerTypes[this.props.answerType].forms.split(', ');
     },
 
-    toJSON: function(skipValidation) {
+    getUserInput: function() {
         return {
             currentValue: this.props.currentValue
         };
@@ -167,7 +167,7 @@ var InputNumber = React.createClass({
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return InputNumber.validate(
-            this.toJSON(),
+            this.getUserInput(),
             rubric,
             onInputError
         );
@@ -352,7 +352,7 @@ var InputNumberEditor = React.createClass({
         return true;
     },
 
-    toJSON: function() {
+    serializeQuestion: function() {
         return _.pick(this.props,
                 "value", "simplify", "size", "inexact", "maxError",
                 "answerType");

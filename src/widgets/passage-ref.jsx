@@ -1,13 +1,14 @@
 /** @jsx React.DOM */
 
 var Changeable   = require("../mixins/changeable.jsx");
-var JsonifyProps = require("../mixins/jsonify-props.jsx");
+var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var NumberInput = require("../components/number-input.jsx");
 
 var EN_DASH = "\u2013";
 
 var PassageRef = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
         passageNumber: React.PropTypes.number,
@@ -80,7 +81,7 @@ var PassageRef = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        return PassageRef.validate(this.toJSON(), rubric);
+        return PassageRef.validate(this.getUserInput(), rubric);
     },
 
     statics: {
@@ -100,7 +101,7 @@ _.extend(PassageRef, {
 });
 
 var PassageRefEditor = React.createClass({
-    mixins: [JsonifyProps, Changeable],
+    mixins: [EditorJsonify, Changeable],
 
     propTypes: {
         passageNumber: React.PropTypes.number,
