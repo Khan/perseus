@@ -456,7 +456,7 @@ var NumericInputEditor = React.createClass({
         var lastAnswer = initAnswer(this.state.lastStatus);
         var answers = this.props.answers.concat(lastAnswer);
         var i = _.indexOf(statuses, answers[choiceIndex].status);
-        var newStatus = statuses[(i + 1) % 3];
+        var newStatus = statuses[(i + 1) % statuses.length];
 
         // If we change the status of the new (phantom) answer
         if (choiceIndex === answers.length - 1) {
@@ -477,18 +477,20 @@ var NumericInputEditor = React.createClass({
                 this.updateAnswer(choiceIndex, update);
             }, choiceIndex, update);
         }
-        var lastAnswer = initAnswer(this.state.lastStatus);
-        var answers = this.props.answers.concat(lastAnswer);
+
+        var answers = this.props.answers;
+        
+        // Don't bother to make a new answer box unless we are editing the last one
+        if (choiceIndex == answers.length) {
+            var lastAnswer = initAnswer(this.state.lastStatus);
+            var answers = answers.concat(lastAnswer);
+        }
+
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
         this.updateAllAnswers(answers);
     },
 
-    updateAllAnswers: function(newAnswers) {
-        // Filter out all the empty answers
-        var answers = _.filter(newAnswers, (c) => {
-            return c.value != null || (c.message != null && c.message !== "");
-        });
-
+    updateAllAnswers: function(answers) {
         var sortedAnswers = ([]).concat(
             _.where(answers, {status: "correct"}),
             _.where(answers, {status: "ungraded"}),
