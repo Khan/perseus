@@ -527,7 +527,7 @@ var RadioEditor = React.createClass({
         return [];
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return _.pick(this.props, "choices", "randomize",
             "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
     }

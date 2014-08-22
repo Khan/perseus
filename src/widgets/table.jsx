@@ -428,7 +428,7 @@ var TableEditor = React.createClass({
         });
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {

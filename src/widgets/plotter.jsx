@@ -991,7 +991,7 @@ var PlotterEditor = React.createClass({
         this.refs.categories.getDOMNode().value = categories.join(", ");
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var json = _.pick(this.props, "correct", "starting", "type", "labels",
             "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
 

@@ -688,11 +688,11 @@ var Renderer = React.createClass({
             .value();
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var state = {};
         _.each(this.props.widgets, function(props, id) {
             var widget = this.getWidgetInstance(id);
-            var s = widget.serializeQuestion();
+            var s = widget.serialize();
             if (!_.isEmpty(s)) {
                 state[id] = s;
             }

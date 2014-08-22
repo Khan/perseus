@@ -8,7 +8,7 @@ var EditorPage = require("./editor-page.jsx");
  * Normally the parent of EditorPage must pass it an onChange callback and then
  * respond to any changes by modifying the EditorPage props to reflect those
  * changes. With StatefulEditorPage changes are stored in state so you can
- * query them with serializeQuestion.
+ * query them with serialize.
  */
 var StatefulEditorPage = React.createClass({
     render: function() {
@@ -35,8 +35,8 @@ var StatefulEditorPage = React.createClass({
         return this.refs.editor.getSaveWarnings();
     },
 
-    serializeQuestion: function() {
-        return this.refs.editor.serializeQuestion();
+    serialize: function() {
+        return this.refs.editor.serialize();
     },
 
     handleChange: function(newState, cb) {

@@ -82,8 +82,8 @@ var HintEditor = React.createClass({
         return this.refs.editor.getSaveWarnings();
     },
 
-    serializeQuestion: function() {
-        return this.refs.editor.serializeQuestion();
+    serialize: function() {
+        return this.refs.editor.serialize();
     }
 });
 
@@ -121,8 +121,8 @@ var CombinedHintEditor = React.createClass({
         return this.refs.editor.getSaveWarnings();
     },
 
-    serializeQuestion: function() {
-        return this.refs.editor.serializeQuestion();
+    serialize: function() {
+        return this.refs.editor.serialize();
     },
 
     focus: function() {
@@ -220,9 +220,9 @@ var CombinedHintsEditor = React.createClass({
         }, this);
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return this.props.hints.map(function(hint, i) {
-            return this.refs["hintEditor" + i].serializeQuestion();
+            return this.refs["hintEditor" + i].serialize();
         }, this);
     }
 });

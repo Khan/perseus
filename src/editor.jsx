@@ -66,7 +66,7 @@ var WidgetEditor = React.createClass({
     },
 
     render: function() {
-        // We can't call our widget's `serializeQuestion` here, because on
+        // We can't call our widget's `serialize` here, because on
         // first render that ref hasn't mounted yet.
         // This means that on first render we'll send in
         // `options: {}` to `upgradeWidgetInfoToLatestVersion`, but
@@ -110,14 +110,14 @@ var WidgetEditor = React.createClass({
     },
 
     _handleWidgetChange: function(newProps, cb) {
-        // TODO(jack): It is unfortunate to call serializeQuestion here, but is
+        // TODO(jack): It is unfortunate to call serialize here, but is
         // important so that the widgetInfo we pass to our upgrade functions is
         // always complete. If we just sent this.props in, we could run into
         // situations where we would send things like { answerType: "decimal" }
         // to our upgrade functions, without the rest of the props representing
         // the widget.
         var currentWidgetInfo = _.extend({}, this.props, {
-            options: this.refs.widget.serializeQuestion()
+            options: this.refs.widget.serialize()
         });
         var newWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
             currentWidgetInfo
@@ -131,11 +131,11 @@ var WidgetEditor = React.createClass({
         return issuesFunc ? issuesFunc() : [];
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return {
             type: this.props.type,
             graded: this.props.graded,
-            options: this.refs.widget.serializeQuestion(),
+            options: this.refs.widget.serialize(),
             version: Widgets.getVersion(this.props.type)
         };
     }
@@ -553,14 +553,14 @@ var Editor = React.createClass({
             .value();
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
         var widgets = {};
         var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
         _.each(widgetIds, id => {
-            widgets[id] = this.refs[id].serializeQuestion();
+            widgets[id] = this.refs[id].serialize();
         });
 
         return {
