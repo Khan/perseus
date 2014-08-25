@@ -427,6 +427,309 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should parse [reflinks][and their targets]", () => {
+            var parsed = defaultParse(
+                "[Google][1]\n\n" +
+                "[1]: http://www.google.com\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://www.google.com"
+                },
+            ]);
+
+            var parsed2 = defaultParse(
+                "[1]: http://www.google.com\n\n" +
+                "[Google][1]\n\n"
+            );
+            validateParse(parsed2, [
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://www.google.com"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+            ]);
+        });
+
+        it("should parse reflink titles", () => {
+            var parsed = defaultParse(
+                "[Google][1]\n\n" +
+                "[1]: http://www.google.com (This is google!)\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com",
+                        title: "This is google!"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://www.google.com",
+                    title: "This is google!"
+                },
+            ]);
+
+            var parsed2 = defaultParse(
+                "[1]: http://www.google.com \"still Google\"\n\n" +
+                "[Google][1]\n\n"
+            );
+            validateParse(parsed2, [
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://www.google.com",
+                    title: "still Google"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com",
+                        title: "still Google"
+                    }]
+                },
+            ]);
+        });
+
+        it("should parse [reflinks][] with implicit targets", () => {
+            var parsed = defaultParse(
+                "[Google][]\n\n" +
+                "[Google]: http://www.google.com\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "google",
+                    target: "http://www.google.com"
+                },
+            ]);
+
+            var parsed2 = defaultParse(
+                "[Google]: http://www.google.com\n\n" +
+                "[Google][]\n\n"
+            );
+            validateParse(parsed2, [
+                {
+                    type: "def",
+                    def: "google",
+                    target: "http://www.google.com"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+            ]);
+        });
+
+        it("should handle multiple [reflinks][to the same target]", () => {
+            var parsed = defaultParse(
+                "[Google][1] [Yahoo][1]\n\n" +
+                "[1]: http://www.google.com\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "link",
+                            content: [{
+                                type: "text",
+                                content: "Google"
+                            }],
+                            target: "http://www.google.com"
+                        },
+                        {
+                            type: "text",
+                            content: " "
+                        },
+                        {
+                            type: "link",
+                            content: [{
+                                type: "text",
+                                content: "Yahoo"
+                            }],
+                            target: "http://www.google.com"
+                        },
+                    ]
+                },
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://www.google.com"
+                },
+            ]);
+
+            // This is sort of silly, but the last def overrides all previous
+            // links. This is just a test that things are continuing to work
+            // as we currently expect them to, but I seriously hope no one
+            // writes markdown like this!
+            var parsed2 = defaultParse(
+                "[test][1]\n\n" +
+                "[1]: http://google.com\n\n" +
+                "[test2][1]\n\n" +
+                "[1]: http://khanacademy.org\n\n"
+            );
+            validateParse(parsed2, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "test"
+                        }],
+                        target: "http://khanacademy.org"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://google.com"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "test2"
+                        }],
+                        target: "http://khanacademy.org"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://khanacademy.org"
+                },
+            ]);
+        });
+
+        it("should compare defs case- and whitespace-insensitively", () => {
+            var parsed = defaultParse(
+                "[Google][HiIiI]\n\n" +
+                "[HIiii]: http://www.google.com\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "hiiii",
+                    target: "http://www.google.com"
+                },
+            ]);
+            
+            var parsed2 = defaultParse(
+                "[Google][]\n\n" +
+                "[google]: http://www.google.com\n\n"
+            );
+            validateParse(parsed2, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "google",
+                    target: "http://www.google.com"
+                },
+            ]);
+
+            var parsed3 = defaultParse(
+                "[Google][ h    i ]\n\n" +
+                "[  h i   ]: http://www.google.com\n\n"
+            );
+            validateParse(parsed3, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Google"
+                        }],
+                        target: "http://www.google.com"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: " h i ",
+                    target: "http://www.google.com"
+                },
+            ]);
+        });
+
         it("should parse a single top-level paragraph", () => {
             var parsed = defaultParse("hi\n\n");
             validateParse(parsed, [{
