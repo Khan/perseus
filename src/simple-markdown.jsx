@@ -235,6 +235,41 @@ var defaultRules = {
             };
         }
     },
+    autolink: {
+        regex: /^<([^ >]+:\/[^ >]+)>/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: capture[1]
+                }],
+                // TODO: sanitize this
+                target: capture[1]
+            };
+        }
+    },
+    mailto: {
+        regex: /^<([^ >]+@[^ >]+)>/,
+        parse: (capture, parse, state) => {
+            var address;
+            // Check for a `mailto:` already existing in the link:
+            if (capture[1].substring(0, 7) === "mailto:") {
+                address = capture[1].substring(7);
+            } else {
+                address = capture[1];
+            }
+            return {
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: address
+                }],
+                // TODO: sanitize this
+                target: "mailto:" + address
+            };
+        }
+    },
     link: {
         regex: new RegExp(
             "^!?\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF + "\\)"

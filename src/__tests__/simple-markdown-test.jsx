@@ -269,12 +269,103 @@ describe("simple markdown", () => {
             }]);
         });
 
-        it("shouldn't parse \\[s as links", () => {
+        it("should not parse \\[s as links", () => {
             var parsed = defaultParse("\\[hi](http://www.google.com)");
             validateParse(parsed, [
                 {type: "text", content: "["},
                 {type: "text", content: "hi](http://www.google.com)"},
             ]);
+        });
+
+        it("should parse basic <autolinks>", () => {
+            var parsed = defaultParse("<http://www.google.com>");
+            validateParse(parsed, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://www.google.com"
+                }],
+                target: "http://www.google.com"
+            }]);
+
+            var parsed2 = defaultParse("<https://www.google.com>");
+            validateParse(parsed2, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "https://www.google.com"
+                }],
+                target: "https://www.google.com"
+            }]);
+
+            var parsed3 = defaultParse("<http://localhost:9000/test.html>");
+            validateParse(parsed3, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://localhost:9000/test.html"
+                }],
+                target: "http://localhost:9000/test.html"
+            }]);
+
+            var parsed4 = defaultParse(
+                "<http://localhost:9000/test.html" +
+                "?content=%7B%7D&format=pretty>"
+            );
+            validateParse(parsed4, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://localhost:9000/test.html" +
+                            "?content=%7B%7D&format=pretty"
+                }],
+                target: "http://localhost:9000/test.html" +
+                        "?content=%7B%7D&format=pretty"
+            }]);
+
+            var parsed5 = defaultParse(
+                "<http://localhost:9000/test.html#content=%7B%7D>"
+            );
+            validateParse(parsed5, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://localhost:9000/test.html#content=%7B%7D"
+                }],
+                target: "http://localhost:9000/test.html#content=%7B%7D"
+            }]);
+        });
+
+        it("should parse basic <mailto@autolinks>", () => {
+            var parsed = defaultParse("<test@example.com>");
+            validateParse(parsed, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "test@example.com"
+                }],
+                target: "mailto:test@example.com"
+            }]);
+
+            var parsed2 = defaultParse("<test+ext@example.com>");
+            validateParse(parsed2, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "test+ext@example.com"
+                }],
+                target: "mailto:test+ext@example.com"
+            }]);
+
+            var parsed3 = defaultParse("<mailto:test@example.com>");
+            validateParse(parsed3, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "test@example.com"
+                }],
+                target: "mailto:test@example.com"
+            }]);
         });
 
         it("should parse a single top-level paragraph", () => {
@@ -378,7 +469,7 @@ describe("simple markdown", () => {
             }]);
         });
 
-        it("7 #s should not parse as an h7", () => {
+        it("should not parse 7 #s as an h7", () => {
             var parsed = defaultParse("#######heading7\n\n");
             validateParse(parsed, [{
                 type: "heading",
