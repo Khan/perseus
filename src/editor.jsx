@@ -7,7 +7,8 @@ var Widgets = require("./widgets.js");
 var DragTarget = require("react-components/drag-target.jsx");
 
 // like [[snowman input-number 1]]
-var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
+var widgetPlaceholder = "[[\u2603 {id}]]";
+var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -87,12 +88,19 @@ var WidgetEditor = React.createClass({
                                 onChange={this.props.onChange} />;
 
         return <div className="perseus-widget-editor">
-            <a href="#" className={"perseus-widget-editor-title " +
-                    (this.state.showWidget ? "open" : "closed")}
-                    onClick={this.toggleWidget}>
-                {this.props.id}
-                <i className={"icon-chevron-" + direction} />
-            </a>
+            <div className={"perseus-widget-editor-title " + (this.state.showWidget ? "open" : "closed")}>
+                <a href="#" onClick={this.toggleWidget}>
+                    {this.props.id}
+                    <i className={"icon-chevron-" + direction} />
+                </a>
+                <a href="#" className="remove-widget simple-button simple-button--small orange"
+                        onClick={() => {
+                            this.props.onRemove();
+                            return false;
+                        }}>
+                    <span className="icon-trash" />
+                </a>    
+            </div>
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
@@ -220,7 +228,8 @@ var Editor = React.createClass({
             ref: id,
             id: id,
             type: type,
-            onChange: this._handleWidgetEditorChange.bind(this, id)
+            onChange: this._handleWidgetEditorChange.bind(this, id),
+            onRemove: this._handleWidgetEditorRemove.bind(this, id)
         }, this.props.widgets[id]));
     },
 
@@ -228,6 +237,13 @@ var Editor = React.createClass({
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
         this.props.onChange({widgets: widgets}, cb);
+    },
+
+    _handleWidgetEditorRemove: function(id) {
+        var re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
+        var textarea = this.refs.textarea.getDOMNode();
+
+        this.props.onChange({content: textarea.value.replace(re, '')});
     },
 
     /**
@@ -281,7 +297,9 @@ var Editor = React.createClass({
         var widgetsAndTemplates;
 
         if (this.props.widgetEnabled) {
-            pieces = Util.split(this.props.content, rWidgetSplit);
+            var re = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
+
+            pieces = Util.split(this.props.content, re);
             widgets = {};
             underlayPieces = [];
 
@@ -486,13 +504,12 @@ var Editor = React.createClass({
             oldContent = oldContent.replace(/\n*$/, "\n\n");
         }
 
-        for (var i = 1; oldContent.indexOf("[[\u2603 " + widgetType + " " + i +
-                "]]") > -1; i++) {
+        for (var i = 1; oldContent.indexOf(widgetPlaceholder.replace('{id}', widgetType + " " + i)) > -1; i++) {
             // pass
         }
 
         var id = widgetType + " " + i;
-        var newContent = oldContent + "[[\u2603 " + id + "]]";
+        var newContent = oldContent + widgetPlaceholder.replace('{id}', id);
 
         var widgets = _.clone(this.props.widgets);
         widgets[id] = {type: widgetType};
