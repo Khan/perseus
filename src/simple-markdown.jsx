@@ -270,6 +270,20 @@ var defaultRules = {
             };
         }
     },
+    url: {
+        regex: /^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: capture[1]
+                }],
+                // TODO: sanitize this
+                target: capture[1]
+            };
+        }
+    },
     link: {
         regex: new RegExp(
             "^!?\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF + "\\)"
@@ -277,6 +291,7 @@ var defaultRules = {
         parse: (capture, parse, state) => {
             return {
                 content: parse(capture[1]),
+                // TODO: sanitize this
                 target: capture[2]
             };
         },

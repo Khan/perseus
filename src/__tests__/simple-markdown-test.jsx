@@ -368,6 +368,65 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should parse basic freeform urls", () => {
+            var parsed = defaultParse("http://www.google.com");
+            validateParse(parsed, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://www.google.com"
+                }],
+                target: "http://www.google.com"
+            }]);
+
+            var parsed2 = defaultParse("https://www.google.com");
+            validateParse(parsed2, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "https://www.google.com"
+                }],
+                target: "https://www.google.com"
+            }]);
+
+            var parsed3 = defaultParse("http://example.com/test.html");
+            validateParse(parsed3, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://example.com/test.html"
+                }],
+                target: "http://example.com/test.html"
+            }]);
+
+            var parsed4 = defaultParse(
+                "http://example.com/test.html" +
+                "?content=%7B%7D&format=pretty"
+            );
+            validateParse(parsed4, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://example.com/test.html" +
+                            "?content=%7B%7D&format=pretty"
+                }],
+                target: "http://example.com/test.html" +
+                        "?content=%7B%7D&format=pretty"
+            }]);
+
+            var parsed5 = defaultParse(
+                "http://example.com/test.html#content=%7B%7D"
+            );
+            validateParse(parsed5, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "http://example.com/test.html#content=%7B%7D"
+                }],
+                target: "http://example.com/test.html#content=%7B%7D"
+            }]);
+        });
+
         it("should parse a single top-level paragraph", () => {
             var parsed = defaultParse("hi\n\n");
             validateParse(parsed, [{
