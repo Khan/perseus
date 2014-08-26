@@ -9,6 +9,7 @@ var DragTarget = require("react-components/drag-target.jsx");
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
+var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -297,9 +298,7 @@ var Editor = React.createClass({
         var widgetsAndTemplates;
 
         if (this.props.widgetEnabled) {
-            var re = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
-
-            pieces = Util.split(this.props.content, re);
+            pieces = Util.split(this.props.content, rWidgetSplit);
             widgets = {};
             underlayPieces = [];
 
