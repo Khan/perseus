@@ -563,7 +563,7 @@ var Renderer = React.createClass({
         for (var i = 0; i < this.widgetIds.length; i++) {
             var widgetId = this.widgetIds[i];
             var widget = this.getWidgetInstance(widgetId);
-            var widgetFocusResult = widget.focus && widget.focus();
+            var widgetFocusResult = widget && widget.focus && widget.focus();
             if (widgetFocusResult) {
                 id = widgetId;
                 focusResult = widgetFocusResult;
