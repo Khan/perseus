@@ -63,9 +63,15 @@ var Categorizer = React.createClass({
                     <td><Renderer content={item}/></td>
                     {_.range(self.props.categories.length).map(catNum => {
                         return <td className="category">
-                            <label onTouchStart={
-                                        Util.captureScratchpadTouchStart
-                                    }>
+                            {/* a pseudo-label: toggle the value of the
+                                checkbox when this div or the checkbox is
+                                clicked */}
+                            <div
+                                    onClick={this.onChange.bind(
+                                        this,
+                                        itemNum,
+                                        catNum
+                                    )}>
                                 <input
                                     type="radio"
                                     name={uniqueId}
@@ -77,9 +83,10 @@ var Categorizer = React.createClass({
                                         itemNum,
                                         catNum
                                     )}
+                                    onClick={(e) => e.stopPropagation()}
                                     />
                                 <span></span>
-                            </label>
+                            </div>
                         </td>;
                     })}
                 </tr>;
