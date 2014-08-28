@@ -2483,7 +2483,7 @@ var InteractiveGraphEditor = React.createClass({
         this.props.onChange({correct: correct});
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var json = _.pick(this.props, "step", "backgroundImage", "markings",
             "labels", "showProtractor", "showRuler", "rulerLabel",
             "rulerTicks", "range", "gridStep", "snapStep");

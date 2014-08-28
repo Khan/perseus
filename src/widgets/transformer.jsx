@@ -2733,7 +2733,7 @@ var TransformerEditor = React.createClass({
         this.props.onChange(changes, callback);
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var json = this.refs.explorer.getEditorJSON();
         json.correct = json.answer;
         delete json.answer;

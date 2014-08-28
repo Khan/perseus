@@ -32,10 +32,18 @@ var parserFor = (rules, ruleList) => {
                 var capture = rule.regex.exec(source);
                 if (capture) {
                     source = source.substring(capture[0].length);
-                    var parsed = _.extend(
-                        {type: ruleType},
-                        rule.parse(capture, nestedParse, state)
-                    );
+                    var parsed = rule.parse(capture, nestedParse, state);
+                    // We maintain the same object here so that rules can
+                    // store references to the objects they return and
+                    // modify them later. (oops sorry! but this adds a lot
+                    // of power--see reflinks.)
+                    // We also let rules override the default type of
+                    // their parsed node if they would like to, so that
+                    // there can be a single output function for all links,
+                    // even if there are several rules to parse them.
+                    if (parsed.type == null) {
+                        parsed.type = ruleType;
+                    }
                     result.push(parsed);
                     break;
                 }
@@ -61,6 +69,20 @@ var outputFor = (outputFunc) => {
         }
     };
     return nestedOutput;
+};
+
+// Like _.extend, but doesn't replace properties from the second object
+// that are `undefined`. This is so that we don't put extra `undefined`s
+// on our link AST nodes, mostly so that in testing _.isEqual works,
+// without us having to manually write `title: undefined` everywhere.
+var extendDefined = (object1, object2) => {
+    _.each(_.keys(object2), (key) => {
+        var value = object2[key];
+        if (value !== undefined) {
+            object1[key] = value;
+        }
+    });
+    return object1;
 };
 
 var parseCapture = (capture, parse, state) => {
@@ -219,6 +241,53 @@ var defaultRules = {
             </listWrapper>;
         }
     },
+    def: {
+        regex: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *\n+/,
+        parse: (capture, parse, state) => {
+            var def = capture[1]
+                .replace(/\s+/g, ' ')
+                .toLowerCase();
+            var target = capture[2];
+            var title = capture[3];
+            var defAttrs = {
+                target: target,
+                title: title
+            };
+
+            // Look for previous links/images using this def
+            // If any links/images using this def have already been declared,
+            // they will have added themselves to the state._refs[def] list
+            // (_ to deconflict with client-defined state). We look through
+            // that list of reflinks for this def, and modify those AST nodes
+            // with our newly found information now.
+            // Sorry :(.
+            if (state._refs && state._refs[def]) {
+                _.each(state._refs[def], (link) => {
+                    extendDefined(link, defAttrs);
+                });
+            }
+
+            // Add this def to our map of defs for any future links/images
+            // In case we haven't found any or all of the refs referring to
+            // this def yet, we add our def to the table of known defs, so
+            // that future reflinks can modify themselves appropriately with
+            // this information.
+            state._defs = state._defs || {};
+            state._defs[def] = defAttrs;
+
+            // return the relevant parsed information
+            // for debugging only.
+            return extendDefined({
+                def: def
+            }, defAttrs);
+        },
+        output: () => null
+    },
+    newline: {
+        regex: /^\n+/,
+        parse: ignoreCapture,
+        output: (node, output) => " "
+    },
     paragraph: {
         regex: /^((?:[^\n]|\n[^\n])+)\n\n+/,
         parse: parseCapture,
@@ -235,20 +304,108 @@ var defaultRules = {
             };
         }
     },
+    autolink: {
+        regex: /^<([^ >]+:\/[^ >]+)>/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: capture[1]
+                }],
+                // TODO: sanitize this
+                target: capture[1]
+            };
+        }
+    },
+    mailto: {
+        regex: /^<([^ >]+@[^ >]+)>/,
+        parse: (capture, parse, state) => {
+            var address;
+            // Check for a `mailto:` already existing in the link:
+            if (capture[1].substring(0, 7) === "mailto:") {
+                address = capture[1].substring(7);
+            } else {
+                address = capture[1];
+            }
+            return {
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: address
+                }],
+                // TODO: sanitize this
+                target: "mailto:" + address
+            };
+        }
+    },
+    url: {
+        regex: /^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: capture[1]
+                }],
+                // TODO: sanitize this
+                target: capture[1]
+            };
+        }
+    },
     link: {
+        // TODO: deal with images properly?
         regex: new RegExp(
             "^!?\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF + "\\)"
         ),
         parse: (capture, parse, state) => {
             return {
                 content: parse(capture[1]),
+                // TODO: sanitize this
                 target: capture[2]
             };
         },
         output: (node, output) => {
-            return <a href={node.target}>
-                {output(node.content)}
-            </a>;
+            return React.DOM.a({
+                href: node.target,
+                title: node.title
+            }, output(node.content));
+        }
+    },
+    reflink: {
+        regex: new RegExp(
+            // The first [part] of the link
+            "^!?\\[(" + LINK_INSIDE + ")\\]" +
+            // The [ref] target of the link
+            "\\s*\\[([^\\]]*)\\]"
+        ),
+        parse: (capture, parse, state) => {
+            var ref = (capture[2] || capture[1])
+                .replace(/\s+/g, ' ')
+                .toLowerCase();
+            var link = {
+                type: "link",
+                content: parse(capture[1], state)
+            };
+
+            // We store information about previously seen defs on
+            // state._defs (_ to deconflict with client-defined
+            // state). If the def for this reflink has already been
+            // seen, we can use its link target and title here:
+            if (state._defs && state._defs[ref]) {
+                extendDefined(link, state._defs[ref]);
+            }
+
+            // In case we haven't seen our def yet (or if someone
+            // overwrites that def later on), we add this link node
+            // to the list of link nodes for that def. Then, when
+            // we find the def, we can modify this link AST node :).
+            // I'm sorry.
+            state._refs = state._refs || {};
+            state._refs[ref] = state._refs[ref] || [];
+            state._refs[ref].push(link);
+
+            return link;
         }
     },
     strong: {
@@ -293,11 +450,6 @@ var defaultRules = {
         output: (node, output) => {
             return <code>{node.content}</code>;
         }
-    },
-    newline: {
-        regex: /^\n+/,
-        parse: ignoreCapture,
-        output: (node, output) => " "
     },
     text: {
         // This is finicky since it relies on not matching _ and *

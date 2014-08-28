@@ -109,7 +109,7 @@ _.extend(ExampleWidget, {
      * simpleValidate generally defers to this function
      *
      * value is usually the result of getUserInput on the widget
-     * rubric is the result of calling serializeQuestion() on the editor
+     * rubric is the result of calling serialize() on the editor
      */
     validate: function(value, rubric) {
         if (value === "") {

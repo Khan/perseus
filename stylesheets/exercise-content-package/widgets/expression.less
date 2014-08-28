@@ -76,20 +76,33 @@
     }
 }
 
-.perseus-widget-expression-old > input,
-#answer_area .perseus-widget-expression-old > input {
-    font-size: 14px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+.perseus-widget-expression-old input,
+#answer_area .perseus-widget-expression-old input {
     direction: ltr;
+    border: 1px solid #a4a4a4;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
     margin-bottom: 5px;
     max-width: 240px;
+    padding: 6px;
     width: 100%;
+}
+
+.perseus-widget-expression-old > .output {
+    background: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#answer_area .perseus-widget-expression-old > .output {
+    background: #f7f7f7;
 }
 
 .perseus-widget-expression-old > .output > .tex {
     overflow-x: auto;
+    padding: 5px;
 }
 
 .perseus-widget-expression-old > .output > .placeholder {

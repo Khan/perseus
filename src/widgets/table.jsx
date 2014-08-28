@@ -1,11 +1,13 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+
 var Editor = require("../editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
+var MathOutput = require("../components/math-output.jsx");
+var NumberInput  = require("../components/number-input.jsx");
 var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
-var MathOutput = require("../components/math-output.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 
@@ -56,7 +58,9 @@ var Table = React.createClass({
             editableHeaders: false,
             headers: [],
             answers: [[]],
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            onFocus: function() { },
+            onBlur: function() { }
         };
     },
 
@@ -329,62 +333,43 @@ var TableEditor = React.createClass({
         });
 
         return <div>
-            <div>
-                <label>
-                    {' '}Number of columns:{' '}
-                    <input
-                        ref="numberOfColumns"
-                        type="text"
-                        value={this.props.columns}
-                        onChange={this.onRawColumnsChange}
-                    />
-                </label>
+            <div className="perseus-widget-row">
+                <NumberInput
+                    label="Number of columns:"
+                    ref="numberOfColumns"
+                    value={this.props.columns}
+                    onChange={(val) => {
+                        if (val) {
+                            this.onSizeInput(this.props.rows, val);
+                        }
+                    }}
+                    useArrowKeys={true} />
+            </div>
+            <div className="perseus-widget-row">
+                <NumberInput
+                    label="Number of rows:"
+                    ref="numberOfRows"
+                    value={this.props.rows}
+                    onChange={(val) => {
+                        if (val) {
+                            this.onSizeInput(val, this.props.columns);
+                        }
+                    }}
+                    useArrowKeys={true} />
             </div>
             <div>
-                <label>
-                    {' '}Number of rows:{' '}
-                    <input
-                        ref="numberOfRows"
-                        type="text"
-                        value={this.props.rows}
-                        onChange={this.onRawRowsChange}
-                    />
-                </label>
-            </div>
-            <div>
-                {' '}Table of answers type:{' '}
-                <ul>
-                    <li>
-                        <label>
-                            <input
-                                type="radio"
-                                checked="checked"
-                                readOnly={true} />
-                            Set of values (complete)
-                        </label>
-                        <InfoTip>
-                            <p>The student has to fill out all cells in the
-                            table.  For partially filled tables create a table
-                            using the template, and insert text input boxes
-                            as desired.</p>
-                        </InfoTip>
-                    </li>
-                </ul>
+                {' '}Table of answers:{' '}
+                <InfoTip>
+                    <p>The student has to fill out all cells in the
+                    table.  For partially filled tables create a table
+                    using the template, and insert text input boxes
+                    as desired.</p>
+                </InfoTip>
             </div>
             <div>
                 {Table(tableProps)}
             </div>
         </div>;
-    },
-
-    onRawRowsChange: function(e) {
-        var numRawRows = +e.target.value || 0;
-        this.onSizeInput(numRawRows, this.props.columns);
-    },
-
-    onRawColumnsChange: function(e) {
-        var numRawColumns = +e.target.value || 0;
-        this.onSizeInput(this.props.rows, numRawColumns);
     },
 
     onSizeInput: function(numRawRows, numRawColumns) {
@@ -428,7 +413,7 @@ var TableEditor = React.createClass({
         });
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {

@@ -999,7 +999,7 @@ var GrapherEditor = React.createClass({
         });
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return _.pick(this.props, "graph", "correct", "availableTypes");
     }
 });

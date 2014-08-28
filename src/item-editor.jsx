@@ -100,10 +100,10 @@ var ItemEditor = React.createClass({
         return issues1.concat(issues2);
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return {
-            question: this.refs.questionEditor.serializeQuestion(),
-            answerArea: this.refs.answerAreaEditor.serializeQuestion(),
+            question: this.refs.questionEditor.serialize(),
+            answerArea: this.refs.answerAreaEditor.serialize(),
             itemDataVersion: ITEM_DATA_VERSION
         };
     },

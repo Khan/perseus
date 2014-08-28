@@ -426,7 +426,7 @@ var InteractiveNumberLineEditor = React.createClass({
         this.props.onChange(opts);
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return {
             range: this.props.range,
             labelStyle: this.props.labelStyle,
