@@ -1601,5 +1601,32 @@ describe("simple markdown", () => {
                 ["center", "left", "right"]
             );
         });
+
+        it("should be able to parse <br>s", () => {
+            // Inside a paragraph:
+            var parsed = defaultParse("hi  \nbye\n\n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi", type: "text" },
+                    { type: "br" },
+                    { content: "bye", type: "text" },
+                ]
+            }]);
+
+            // Outside a paragraph:
+            var parsed2 = defaultParse("hi  \nbye");
+            validateParse(parsed2, [
+                { content: "hi", type: "text" },
+                { type: "br" },
+                { content: "bye", type: "text" },
+            ]);
+
+            // But double spaces on the same line shouldn't count:
+            var parsed3 = defaultParse("hi  bye");
+            validateParse(parsed3, [
+                { content: "hi  bye", type: "text" },
+            ]);
+        });
     });
 });

@@ -617,6 +617,11 @@ var defaultRules = {
             return <code>{node.content}</code>;
         }
     },
+    br: {
+        regex: /^ {2,}\n/,
+        parse: () => ({}),
+        output: () => <br />
+    },
     text: {
         // Here we look for anything followed by non-symbols,
         // double newlines, or double-space-newlines
