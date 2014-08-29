@@ -53,5 +53,107 @@ describe("passage markdown", () => {
             }]);
         });
     });
+
+    describe("footnote parsing", () => {
+        it ("should handle a single footnote in plain text", () => {
+            var parsed = parse("this is a footnote^");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "text",
+                        content: "this is a footnote"
+                    },
+                    {
+                        type: "passageFootnote",
+                        id: 1,
+                        text: "*"
+                    },
+                ]
+            }]);
+        });
+
+        it ("should handle two footnotes in plain text", () => {
+            var parsed = parse("a^b^c");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "text",
+                        content: "a"
+                    },
+                    {
+                        type: "passageFootnote",
+                        id: 1,
+                        text: "1"
+                    },
+                    {
+                        type: "text",
+                        content: "b"
+                    },
+                    {
+                        type: "passageFootnote",
+                        id: 2,
+                        text: "2"
+                    },
+                    {
+                        type: "text",
+                        content: "c"
+                    },
+                ]
+            }]);
+        });
+
+        it ("should handle three footnotes in paragraphs", () => {
+            var parsed = parse(
+                "para 1 has this footnote^\n\n" +
+                "para 2 has two^ more^ footnotes\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "text",
+                            content: "para 1 has this footnote"
+                        },
+                        {
+                            type: "passageFootnote",
+                            id: 1,
+                            text: "1"
+                        },
+                    ]
+                },
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "text",
+                            content: "para 2 has two"
+                        },
+                        {
+                            type: "passageFootnote",
+                            id: 2,
+                            text: "2"
+                        },
+                        {
+                            type: "text",
+                            content: " more"
+                        },
+                        {
+                            type: "passageFootnote",
+                            id: 3,
+                            text: "3"
+                        },
+                        {
+                            type: "text",
+                            content: " footnotes"
+                        },
+                    ]
+                }
+            ]);
+        });
+
+    });
 });
 
