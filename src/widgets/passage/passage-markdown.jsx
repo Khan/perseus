@@ -38,15 +38,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 return <span />;
             }
         }
-    },
-    text: _.extend({}, SimpleMarkdown.defaultRules.text, {
-        // We need to add '{' and '}' to the list of characters
-        // to break text on, since we are using those to denote
-        // references. This should be the same regex as
-        // simple-markdown's test regex, plus '{' and '}' in
-        // the list of break characters.
-        regex: /^[\s\S]+?(?=[\\<!\[_*`\n{}]| {2,}\n|$)/
-    })
+    }
 });
 
 var priorities = [

@@ -445,7 +445,11 @@ var defaultRules = {
         }
     },
     escape: {
-        regex: /^\\([\\`*{}\[\]()#+\-.!_<>~|])/,
+        // We don't allow escaping numbers, letters, or spaces here so that
+        // backslashes used in plain text still get rendered. But allowing
+        // escaping anything else provides a very flexible escape mechanism,
+        // regardless of how this grammar is extended.
+        regex: /^\\([^0-9A-Za-z\s])/,
         parse: (capture, parse, state) => {
             return {
                 type: "text",
@@ -614,10 +618,11 @@ var defaultRules = {
         }
     },
     text: {
-        // This is finicky since it relies on not matching _ and *
-        // If people add other rules like {{refs}}, this will need
-        // to be changed/replaced.
-        regex: /^[\s\S]+?(?=[\\<!\[_*`]|\n\n| {2,}\n|$)/,
+        // Here we look for anything followed by non-symbols,
+        // double newlines, or double-space-newlines
+        // We break on any symbol characters so that this grammar
+        // is easy to extend without needing to modify this regex
+        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff]|\n\n| {2,}\n|$)/,
         parse: (capture, parse, state) => {
             return {
                 content: capture[0]

@@ -24,8 +24,6 @@ var validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
         var parsedStr = prettyPrintAST(parsed);
         var expectedStr = prettyPrintAST(expected);
-        console.error("Parsed:", parsedStr);
-        console.error("Expected:", expectedStr);
         assert.fail(
             parsedStr,
             expectedStr,
@@ -220,6 +218,15 @@ describe("simple markdown", () => {
                 { type: "text", content: "[" },
                 { type: "text", content: "{" },
             ]);
+
+            var parsed2 = defaultParse(
+                "hi\\^caret"
+            );
+            validateParse(parsed2, [
+                { type: "text", content: "hi" },
+                { type: "text", content: "^" },
+                { type: "text", content: "caret" },
+            ]);
         });
 
         it("should parse basic []() links as links", () => {
@@ -290,8 +297,16 @@ describe("simple markdown", () => {
         it("should not parse \\[s as links", () => {
             var parsed = defaultParse("\\[hi](http://www.google.com)");
             validateParse(parsed, [
-                {type: "text", content: "["},
-                {type: "text", content: "hi](http://www.google.com)"},
+                {content: "[", type: "text"},
+                {content: "hi", type: "text"},
+                {content: "]", type: "text"},
+                {content: "(http", type: "text"},
+                {content: ":", type: "text"},
+                {content: "/", type: "text"},
+                {content: "/www", type: "text"},
+                {content: ".google", type: "text"},
+                {content: ".com", type: "text"},
+                {content: ")", type: "text"},
             ]);
         });
 
@@ -1024,19 +1039,21 @@ describe("simple markdown", () => {
             var parsed = defaultParse("heading1\n==\n\n");
             validateParse(parsed, [{
                 type: "paragraph",
-                content: [{
-                    type: "text",
-                    content: "heading1\n==",
-                }]
+                content: [
+                    {type: "text", content: "heading1\n"},
+                    {type: "text", content: "="},
+                    {type: "text", content: "="},
+                ]
             }]);
 
             var parsed2 = defaultParse("heading2\n--\n\n");
             validateParse(parsed2, [{
                 type: "paragraph",
-                content: [{
-                    type: "text",
-                    content: "heading2\n--",
-                }]
+                content: [
+                    {type: "text", content: "heading2\n"},
+                    {type: "text", content: "-"},
+                    {type: "text", content: "-"},
+                ]
             }]);
         });
 
