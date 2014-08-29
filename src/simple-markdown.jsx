@@ -115,6 +115,105 @@ var LIST_ITEM_R = new RegExp(
 // two or more newlines at end end of the item
 var LIST_BLOCK_END_R = /\n{2,}$/;
 
+var TABLES = (() => {
+    // predefine regexes so we don't have to create them inside functions
+    // sure, regex literals should be fast, even inside functions, but they
+    // aren't in all browsers.
+    var TABLE_HEADER_TRIM = /^ *| *\| *$/g;
+    var TABLE_ALIGN_TRIM = /^ *|\| *$/g;
+
+    var TABLE_CELLS_TRIM = /(?: *\| *)?\n$/;
+    var NPTABLE_CELLS_TRIM = /\n$/;
+    var PLAIN_TABLE_ROW_TRIM = /^ *\| *| *\| *$/g;
+    var TABLE_ROW_SPLIT = / *\| */;
+
+    var TABLE_RIGHT_ALIGN = /^ *-+: *$/;
+    var TABLE_CENTER_ALIGN = /^ *:-+: *$/;
+    var TABLE_LEFT_ALIGN = /^ *:-+ *$/;
+
+    var parseTableAlignCapture = (alignCapture) => {
+        if (TABLE_RIGHT_ALIGN.test(alignCapture)) {
+            return "right";
+        } else if (TABLE_CENTER_ALIGN.test(alignCapture)) {
+            return "center";
+        } else if (TABLE_LEFT_ALIGN.test(alignCapture)) {
+            return "left";
+        } else {
+            return null;
+        }
+    };
+
+    var parseTableHeader = (capture, parse, state) => {
+        var headerText = capture[1]
+            .replace(TABLE_HEADER_TRIM, "")
+            .split(TABLE_ROW_SPLIT);
+        return _.map(headerText, (text) => parse(text, state));
+    };
+
+    var parseTableAlign = (capture, parse, state) => {
+        var alignText = capture[2]
+            .replace(TABLE_ALIGN_TRIM, "")
+            .split(TABLE_ROW_SPLIT);
+
+        return _.map(alignText, parseTableAlignCapture);
+    };
+
+    var parseTableCells = (capture, parse, state) => {
+        var rowsText = capture[3]
+            .replace(TABLE_CELLS_TRIM, "")
+            .split("\n");
+
+        return _.map(rowsText, (rowText) => {
+            var cellText = rowText
+                .replace(PLAIN_TABLE_ROW_TRIM, "")
+                .split(TABLE_ROW_SPLIT);
+            return _.map(cellText, (text) => parse(text, state));
+        });
+    };
+
+    var parseNpTableCells = (capture, parse, state) => {
+        var rowsText = capture[3]
+            .replace(NPTABLE_CELLS_TRIM, "")
+            .split("\n");
+
+        return _.map(rowsText, (rowText) => {
+            var cellText = rowText.split(TABLE_ROW_SPLIT);
+            return _.map(cellText, (text) => parse(text, state));
+        });
+    };
+
+    var parseTable = (capture, parse, state) => {
+        var header = parseTableHeader(capture, parse, state);
+        var align = parseTableAlign(capture, parse, state);
+        var cells = parseTableCells(capture, parse, state);
+
+        return {
+            type: "table",
+            header: header,
+            align: align,
+            cells: cells
+        };
+    };
+
+    var parseNpTable = (capture, parse, state) => {
+        var header = parseTableHeader(capture, parse, state);
+        var align = parseTableAlign(capture, parse, state);
+        var cells = parseNpTableCells(capture, parse, state);
+
+        return {
+            type: "table",
+            header: header,
+            align: align,
+            cells: cells
+        };
+    };
+
+    return {
+        parseTable: parseTable,
+        parseNpTable: parseNpTable
+    };
+})();
+
 var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\]]|\\](?=[^\\[]*\\]))*";
 var LINK_HREF = "\\s*<?([^\\s]*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
 
@@ -133,6 +232,10 @@ var defaultRules = {
                 output(node.content)
             );
         }
+    },
+    nptable: {
+        regex: /^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,
+        parse: TABLES.parseNpTable
     },
     lheading: {
         regex: /^([^\n]+)\n *(=|-){3,} *\n+/,
@@ -282,6 +385,38 @@ var defaultRules = {
             }, defAttrs);
         },
         output: () => null
+    },
+    table: {
+        regex: /^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/,
+        parse: TABLES.parseTable,
+        output: (node, output) => {
+            var getStyle = (colIndex) => {
+                return node.align[colIndex] == null ? {} : {
+                    textAlign: node.align[colIndex]
+                };
+            };
+
+            var headers = _.map(node.header, (content, i) => {
+                return <th style={getStyle(i)}>
+                    {output(content)}
+                </th>;
+            });
+
+            var rows = _.map(node.cells, (row, r) => {
+                return <tr>
+                    {_.map(row, (content, c) => {
+                        return <td style={getStyle(c)}>
+                            {output(content)}
+                        </td>;
+                    })}
+                </tr>;
+            });
+            
+            return <table>
+                {headers}
+                {rows}
+            </table>;
+        }
     },
     newline: {
         regex: /^\n+/,

@@ -169,7 +169,7 @@ describe("simple markdown", () => {
                 }
             ]);
         });
-        
+
         it("should parse inline code", () => {
             var parsed = defaultParse("`hi`");
             validateParse(parsed, [{
@@ -682,7 +682,7 @@ describe("simple markdown", () => {
                     target: "http://www.google.com"
                 },
             ]);
-            
+
             var parsed2 = defaultParse(
                 "[Google][]\n\n" +
                 "[google]: http://www.google.com\n\n"
@@ -1248,6 +1248,132 @@ describe("simple markdown", () => {
                     }],
                 ]
             }]);
+        });
+
+        it("should parse very simple tables", () => {
+            var expected = [{
+                type: "table",
+                header: [
+                    [{type: "text", content: "h1"}],
+                    [{type: "text", content: "h2"}],
+                    [{type: "text", content: "h3"}]
+                ],
+                align: [null, null, null],
+                cells: [
+                    [
+                        [{type: "text", content: "d1"}],
+                        [{type: "text", content: "d2"}],
+                        [{type: "text", content: "d3"}]
+                    ],
+                    [
+                        [{type: "text", content: "e1"}],
+                        [{type: "text", content: "e2"}],
+                        [{type: "text", content: "e3"}]
+                    ]
+                ]
+            }];
+
+            var parsedPiped = defaultParse(
+                "| h1 | h2 | h3 |\n" +
+                "| -- | -- | -- |\n" +
+                "| d1 | d2 | d3 |\n" +
+                "| e1 | e2 | e3 |\n" +
+                "\n"
+            );
+            validateParse(parsedPiped, expected);
+
+            var parsedNp = defaultParse(
+                "h1 | h2 | h3\n" +
+                "- | - | -\n" +
+                "d1 | d2 | d3\n" +
+                "e1 | e2 | e3\n" +
+                "\n"
+            );
+            validateParse(parsedNp, expected);
+        });
+
+        it("should parse inside table contents", () => {
+            var expected = [{
+                type: "table",
+                header: [
+                    [{type: "em", content: [{type: "text", content: "h1"}]}],
+                    [{type: "em", content: [{type: "text", content: "h2"}]}],
+                    [{type: "em", content: [{type: "text", content: "h3"}]}],
+                ],
+                align: [null, null, null],
+                cells: [[
+                    [{type: "em", content: [{type: "text", content: "d1"}]}],
+                    [{type: "em", content: [{type: "text", content: "d2"}]}],
+                    [{type: "em", content: [{type: "text", content: "d3"}]}],
+                ]]
+            }];
+
+            var parsedPiped = defaultParse(
+                "| *h1* | *h2* | *h3* |\n" +
+                "| ---- | ---- | ---- |\n" +
+                "| *d1* | *d2* | *d3* |\n" +
+                "\n"
+            );
+            validateParse(parsedPiped, expected);
+
+            var parsedNp = defaultParse(
+                "*h1* | *h2* | *h3*\n" +
+                "-|-|-\n" +
+                "*d1* | *d2* | *d3*\n" +
+                "\n"
+            );
+            validateParse(parsedNp, expected);
+        });
+
+        it("should parse table alignments", () => {
+            var validateAligns = (tableSrc, expectedAligns) => {
+                var parsed = defaultParse(tableSrc + "\n");
+                assert.strictEqual(parsed[0].type, "table");
+                var actualAligns = parsed[0].align;
+                validateParse(actualAligns, expectedAligns);
+            };
+
+            validateAligns(
+                "| h1 | h2 | h3 |\n" +
+                "| -- | -- | -- |\n" +
+                "| d1 | d2 | d3 |\n",
+                [null, null, null]
+            );
+
+            validateAligns(
+                "| h1 | h2 | h3 |\n" +
+                "|:--:|:-: | :-: |\n" +
+                "| d1 | d2 | d3 |\n",
+                ["center", "center", "center"]
+            );
+
+            validateAligns(
+                "| h1 | h2 | h3 |\n" +
+                "| :- |:---| :--|\n" +
+                "| d1 | d2 | d3 |\n",
+                ["left", "left", "left"]
+            );
+
+            validateAligns(
+                "| h1 | h2 | h3 |\n" +
+                "| -: |-:  |  -:|\n" +
+                "| d1 | d2 | d3 |\n",
+                ["right", "right", "right"]
+            );
+
+            validateAligns(
+                "h1 | h2 | h3\n" +
+                ":-|:-:|-:\n" +
+                "d1 | d2 | d3\n",
+                ["left", "center", "right"]
+            );
+
+            validateAligns(
+                "h1 | h2 | h3\n" +
+                " :---:  |:--|    --:\n" +
+                "d1 | d2 | d3\n",
+                ["center", "left", "right"]
+            );
         });
     });
 });
