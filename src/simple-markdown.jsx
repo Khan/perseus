@@ -1,5 +1,62 @@
 /** @jsx React.DOM */
-var _ = require("underscore");
+
+/**
+ * Simple-Markdown
+ * ===============
+ *
+ * Simple-Markdown's primary goal is to be easy to adapt. It aims
+ * to be compliant with John Gruber's [Markdown Syntax page][1],
+ * but compatiblity with other markdown implementations' edge-cases
+ * will be sacrificed where it conflicts with simplicity or
+ * extensibility.
+ *
+ * If your goal is to simply embed a standard markdown implementation
+ * in your website, simple-markdown is probably not the best library
+ * for you (although it should work). But if you have struggled to
+ * customize an existing library to meet your needs, simple-markdown
+ * might be able to help.
+ *
+ * Many of the regexes and original logic has been adapted from
+ * the wonderful [marked.js](https://github.com/chjj/marked)
+ *
+ * LICENSE (MIT):
+ * New code copyright (c) 2014 Khan Academy.
+ *
+ * Portions adapted from marked.js copyright (c) 2011-2014
+ * Christopher Jeffrey (https://github.com/chjj/).
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+// Load dependencies from the global namespace or require them
+var find = (globalName) => {
+    if (typeof window !== "undefined" && window[globalName]) {
+        return window[globalName];
+    } else if (typeof global !== "undefined" && global[globalName]) {
+        return global[globalName];
+    } else {
+        return undefined;
+    }
+};
+
+var _ = find("_") || require("underscore");
+var React = find("React") || require("react");
 
 /**
  * Creates a parser for a given set of rules, with the precedence
@@ -16,9 +73,6 @@ var _ = require("underscore");
  *     parsing, such as keeping track of how many levels deep
  *     some nesting is. For an example use-case, see passage-ref
  *     parsing in src/widgets/passage/passage-markdown.jsx
- *
- * Regexes adapted from marked.js:
- * https://github.com/chjj/marked
  */
 var parserFor = (rules, ruleList) => {
     var nestedParse = (source, state) => {
@@ -651,7 +705,7 @@ var ruleOutput = (rules) => {
 var defaultParse = parserFor(defaultRules, defaultPriorities);
 var defaultOutput = outputFor(ruleOutput(defaultRules));
 
-module.exports = {
+var SimpleMarkdown = {
     parserFor: parserFor,
     outputFor: outputFor,
     defaultRules: defaultRules,
@@ -660,3 +714,12 @@ module.exports = {
     defaultParse: defaultParse,
     defaultOutput: defaultOutput
 };
+
+if (typeof module !== "undefined" && module.exports) {
+    module.exports = SimpleMarkdown;
+} else if (typeof global !== "undefined") {
+    global.SimpleMarkdown = SimpleMarkdown;
+} else {
+    window.SimpleMarkdown = SimpleMarkdown;
+}
+
