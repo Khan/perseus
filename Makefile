@@ -1,4 +1,4 @@
-.PHONY: help build server all subperseus forcesubperseus put put-js put-css install clean lint test jest
+.PHONY: help build server server-offline all subperseus forcesubperseus put put-js put-css install clean lint test jest
 PORT=9000
 WEBAPP=../webapp
 IOS=../iOS
@@ -9,11 +9,12 @@ PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 
 help:
-	@echo "make server PORT=9000  # runs the perseus server"
-	@echo "make build             # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
-	@echo "make subperseus        # build perseus into webapp"
-	@echo "make clean             # delete all compilation artifacts"
-	@echo "make test              # run all tests"
+	@echo "make server PORT=9000         # runs the perseus server"
+	@echo "make server-offline PORT=9000 # runs the perseus server"
+	@echo "make build                    # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make subperseus               # build perseus into webapp"
+	@echo "make clean                    # delete all compilation artifacts"
+	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
 build: install
@@ -25,7 +26,9 @@ build: install
 	cat build/perseus.js >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
 
-server: install
+server: install server-offline
+
+server-offline:
 	(sleep 1; echo; echo http://localhost:$(PORT)/test.html) &
 	./node_modules/.bin/webpack-dev-server --port $(PORT) --output-public-path live-build/ --devtool inline-source-map src/perseus.js
 
