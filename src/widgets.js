@@ -129,6 +129,13 @@ var Widgets = {
     getRendererPropsForWidgetInfo: function(widgetInfo, problemNum) {
         var type = widgetInfo.type;
         var widgetExports = widgets[type];
+        if (widgetExports == null) {
+            // The widget is not a registered widget
+            // It shouldn't matter what we return here, but for consistency
+            // we return the untransformed options, as if the widget did
+            // not have a transform defined.
+            return widgetInfo.options;
+        }
         var transform = widgetExports.transform || _.identity;
         // widgetInfo.options are the widgetEditor's props:
         return transform(widgetInfo.options, problemNum);

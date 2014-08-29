@@ -22,7 +22,7 @@
 <body>
 
 <div id="extras">
-    <button id="serializeQuestion">serializeQuestion</button>
+    <button id="serialize">serialize</button>
     <button id="scorePreview">Score</button>
     <button id="permalink">permalink</button>
     <span>Seed:</span><span id="problemNum"></span>
@@ -201,15 +201,15 @@ var enabledFeatures = {
     useMathQuill: true
 };
 
-$('#serializeQuestion').on('click', function() {
-    console.log(JSON.stringify(editor.serializeQuestion(), null, 4));
+$('#serialize').on('click', function() {
+    console.log(JSON.stringify(editor.serialize(), null, 4));
 });
 $('#scorePreview').on('click', function() {
     console.log(editor.scorePreview());
 });
 $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
-        Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor.serializeQuestion()));
+        Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor.serialize()));
     e.preventDefault();
 });
 $('#problemNum').text(problemNum);

@@ -165,7 +165,7 @@ var Expression = React.createClass({
                     if (apiResult !== false) {
                         this.setState({showErrorTooltip: true});
                     }
-                }, 500);
+                }, 2000);
             }
         }
     },
@@ -304,16 +304,6 @@ var OldExpression = React.createClass({
         var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
 
         return <span className="perseus-widget-expression-old">
-            <InputWithExamples
-                    ref="input"
-                    value={this.props.value}
-                    onKeyDown={this.handleKeyDown}
-                    onKeyPress={this.handleKeyPress}
-                    onChange={this.handleChange}
-                    examples={this.examples()}
-                    shouldShowExamples={shouldShowExamples}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
             <span className="output">
                 <span className="tex"
                         style={{opacity: result.parsed ? 1.0 : 0.5}}>
@@ -329,6 +319,16 @@ var OldExpression = React.createClass({
                     </span>
                 </span>
             </span>
+            <InputWithExamples
+                    ref="input"
+                    value={this.props.value}
+                    onKeyDown={this.handleKeyDown}
+                    onKeyPress={this.handleKeyPress}
+                    onChange={this.handleChange}
+                    examples={this.examples()}
+                    shouldShowExamples={shouldShowExamples}
+                    onFocus={this._handleFocus}
+                    onBlur={this._handleBlur} />
         </span>;
     },
 

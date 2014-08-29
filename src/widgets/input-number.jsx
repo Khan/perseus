@@ -352,7 +352,7 @@ var InputNumberEditor = React.createClass({
         return true;
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return _.pick(this.props,
                 "value", "simplify", "size", "inexact", "maxError",
                 "answerType");

@@ -563,7 +563,7 @@ var Renderer = React.createClass({
         for (var i = 0; i < this.widgetIds.length; i++) {
             var widgetId = this.widgetIds[i];
             var widget = this.getWidgetInstance(widgetId);
-            var widgetFocusResult = widget.focus && widget.focus();
+            var widgetFocusResult = widget && widget.focus && widget.focus();
             if (widgetFocusResult) {
                 id = widgetId;
                 focusResult = widgetFocusResult;
@@ -688,11 +688,11 @@ var Renderer = React.createClass({
             .value();
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         var state = {};
         _.each(this.props.widgets, function(props, id) {
             var widget = this.getWidgetInstance(id);
-            var s = widget.serializeQuestion();
+            var s = widget.serialize();
             if (!_.isEmpty(s)) {
                 state[id] = s;
             }

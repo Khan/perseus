@@ -230,7 +230,7 @@ var MatcherEditor = React.createClass({
         }
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return _.pick(this.props,
             "left", "right", "labels", "orderMatters", "padding"
         );

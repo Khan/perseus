@@ -139,7 +139,7 @@ var SorterEditor = React.createClass({
         this.props.onChange({layout: e.target.value});
     },
 
-    serializeQuestion: function() {
+    serialize: function() {
         return _.pick(this.props, "correct", "layout", "padding");
     }
 });
