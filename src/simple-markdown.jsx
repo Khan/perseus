@@ -71,20 +71,6 @@ var outputFor = (outputFunc) => {
     return nestedOutput;
 };
 
-// Like _.extend, but doesn't replace properties from the second object
-// that are `undefined`. This is so that we don't put extra `undefined`s
-// on our link AST nodes, mostly so that in testing _.isEqual works,
-// without us having to manually write `title: undefined` everywhere.
-var extendDefined = (object1, object2) => {
-    _.each(_.keys(object2), (key) => {
-        var value = object2[key];
-        if (value !== undefined) {
-            object1[key] = value;
-        }
-    });
-    return object1;
-};
-
 var parseCapture = (capture, parse, state) => {
     return {
         content: parse(capture[1], state)
@@ -215,7 +201,35 @@ var TABLES = (() => {
 })();
 
 var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\]]|\\](?=[^\\[]*\\]))*";
-var LINK_HREF = "\\s*<?([^\\s]*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+var LINK_HREF_AND_TITLE =
+        "\\s*<?([^\\s]*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+
+var parseRef = (capture, state, refNode) => {
+    var ref = (capture[2] || capture[1])
+        .replace(/\s+/g, ' ')
+        .toLowerCase();
+
+    // We store information about previously seen defs on
+    // state._defs (_ to deconflict with client-defined
+    // state). If the def for this reflink/refimage has
+    // already been seen, we can use its target/source
+    // and title here:
+    if (state._defs && state._defs[ref]) {
+        _.extend(refNode, state._defs[ref]);
+    }
+
+    // In case we haven't seen our def yet (or if someone
+    // overwrites that def later on), we add this node
+    // to the list of ref nodes for that def. Then, when
+    // we find the def, we can modify this link/image AST
+    // node :).
+    // I'm sorry.
+    state._refs = state._refs || {};
+    state._refs[ref] = state._refs[ref] || [];
+    state._refs[ref].push(refNode);
+
+    return refNode;
+};
 
 var defaultRules = {
     heading: {
@@ -366,7 +380,7 @@ var defaultRules = {
             // Sorry :(.
             if (state._refs && state._refs[def]) {
                 _.each(state._refs[def], (link) => {
-                    extendDefined(link, defAttrs);
+                    _.extend(link, defAttrs);
                 });
             }
 
@@ -380,7 +394,7 @@ var defaultRules = {
 
             // return the relevant parsed information
             // for debugging only.
-            return extendDefined({
+            return _.extend({
                 def: def
             }, defAttrs);
         },
@@ -489,16 +503,17 @@ var defaultRules = {
         }
     },
     link: {
-        // TODO: deal with images properly?
         regex: new RegExp(
-            "^!?\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF + "\\)"
+            "^\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF_AND_TITLE + "\\)"
         ),
         parse: (capture, parse, state) => {
-            return {
+            var link ={
                 content: parse(capture[1]),
                 // TODO: sanitize this
-                target: capture[2]
+                target: capture[2],
+                title: capture[3]
             };
+            return link;
         },
         output: (node, output) => {
             return React.DOM.a({
@@ -507,40 +522,52 @@ var defaultRules = {
             }, output(node.content));
         }
     },
+    image: {
+        regex: new RegExp(
+            "^!\\[(" + LINK_INSIDE + ")\\]\\(" + LINK_HREF_AND_TITLE + "\\)"
+        ),
+        parse: (capture, parse, state) => {
+            var image = {
+                alt: capture[1],
+                // TODO: sanitize this
+                target: capture[2],
+                title: capture[3]
+            };
+            return image;
+        },
+        output: (node, output) => {
+            return <img
+                src={node.target}
+                alt={node.alt}
+                title={node.title}/>;
+        }
+    },
     reflink: {
         regex: new RegExp(
             // The first [part] of the link
-            "^!?\\[(" + LINK_INSIDE + ")\\]" +
+            "^\\[(" + LINK_INSIDE + ")\\]" +
             // The [ref] target of the link
             "\\s*\\[([^\\]]*)\\]"
         ),
         parse: (capture, parse, state) => {
-            var ref = (capture[2] || capture[1])
-                .replace(/\s+/g, ' ')
-                .toLowerCase();
-            var link = {
+            return parseRef(capture, state, {
                 type: "link",
                 content: parse(capture[1], state)
-            };
-
-            // We store information about previously seen defs on
-            // state._defs (_ to deconflict with client-defined
-            // state). If the def for this reflink has already been
-            // seen, we can use its link target and title here:
-            if (state._defs && state._defs[ref]) {
-                extendDefined(link, state._defs[ref]);
-            }
-
-            // In case we haven't seen our def yet (or if someone
-            // overwrites that def later on), we add this link node
-            // to the list of link nodes for that def. Then, when
-            // we find the def, we can modify this link AST node :).
-            // I'm sorry.
-            state._refs = state._refs || {};
-            state._refs[ref] = state._refs[ref] || [];
-            state._refs[ref].push(link);
-
-            return link;
+            });
+        }
+    },
+    refimage: {
+        regex: new RegExp(
+            // The first [part] of the link
+            "^!\\[(" + LINK_INSIDE + ")\\]" +
+            // The [ref] target of the link
+            "\\s*\\[([^\\]]*)\\]"
+        ),
+        parse: (capture, parse, state) => {
+            return parseRef(capture, state, {
+                type: "image",
+                alt: capture[1]
+            });
         }
     },
     strong: {

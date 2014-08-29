@@ -1,4 +1,5 @@
 var assert = require("assert");
+var nodeUtil = require("util");
 var _ = require("underscore");
 
 var SimpleMarkdown = require("../simple-markdown.jsx");
@@ -7,10 +8,22 @@ var {
     defaultOutput
 } = SimpleMarkdown;
 
+// A pretty-printer that handles `undefined` and functions better
+// than JSON.stringify
+// Important because some AST node fields can be undefined, and
+// if those don't show up in the assert output, it can be
+// very confusing to figure out how the actual and expected differ
+var prettyPrintAST = (ast) => {
+    return nodeUtil.inspect(ast, {
+        depth: null,
+        colors: false
+    });
+};
+
 var validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
-        var parsedStr = JSON.stringify(parsed, null, 4);
-        var expectedStr = JSON.stringify(expected, null, 4);
+        var parsedStr = prettyPrintAST(parsed);
+        var expectedStr = prettyPrintAST(expected);
         console.error("Parsed:", parsedStr);
         console.error("Expected:", expectedStr);
         assert.fail(
@@ -217,7 +230,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "hi"
                 }],
-                target: "http://www.google.com"
+                target: "http://www.google.com",
+                title: undefined
             }]);
 
             var parsed2 = defaultParse("[secure](https://www.google.com)");
@@ -227,7 +241,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "secure"
                 }],
-                target: "https://www.google.com"
+                target: "https://www.google.com",
+                title: undefined
             }]);
 
             var parsed3 = defaultParse(
@@ -239,7 +254,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "local"
                 }],
-                target: "http://localhost:9000/test.html"
+                target: "http://localhost:9000/test.html",
+                title: undefined
             }]);
 
             var parsed4 = defaultParse(
@@ -253,7 +269,8 @@ describe("simple markdown", () => {
                     content: "params"
                 }],
                 target: "http://localhost:9000/test.html" +
-                        "?content=%7B%7D&format=pretty"
+                        "?content=%7B%7D&format=pretty",
+                title: undefined
             }]);
 
             var parsed5 = defaultParse(
@@ -265,7 +282,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "hash"
                 }],
-                target: "http://localhost:9000/test.html#content=%7B%7D"
+                target: "http://localhost:9000/test.html#content=%7B%7D",
+                title: undefined
             }]);
         });
 
@@ -441,13 +459,15 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: "1",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
             ]);
 
@@ -459,7 +479,8 @@ describe("simple markdown", () => {
                 {
                     type: "def",
                     def: "1",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
                 {
                     type: "paragraph",
@@ -469,10 +490,39 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
             ]);
+        });
+
+        it("should parse inline link titles", () => {
+            var parsed = defaultParse(
+                "[Google](http://www.google.com \"This is google!\")"
+            );
+            validateParse(parsed, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "Google"
+                }],
+                target: "http://www.google.com",
+                title: "This is google!"
+            }]);
+
+            var parsed2 = defaultParse(
+                "[Google](http://www.google.com \"still Google\")"
+            );
+            validateParse(parsed2, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "Google"
+                }],
+                target: "http://www.google.com",
+                title: "still Google"
+            }]);
         });
 
         it("should parse reflink titles", () => {
@@ -541,13 +591,15 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: "google",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
             ]);
 
@@ -559,7 +611,8 @@ describe("simple markdown", () => {
                 {
                     type: "def",
                     def: "google",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
                 {
                     type: "paragraph",
@@ -569,7 +622,8 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
             ]);
@@ -590,7 +644,8 @@ describe("simple markdown", () => {
                                 type: "text",
                                 content: "Google"
                             }],
-                            target: "http://www.google.com"
+                            target: "http://www.google.com",
+                            title: undefined
                         },
                         {
                             type: "text",
@@ -602,14 +657,16 @@ describe("simple markdown", () => {
                                 type: "text",
                                 content: "Yahoo"
                             }],
-                            target: "http://www.google.com"
+                            target: "http://www.google.com",
+                            title: undefined
                         },
                     ]
                 },
                 {
                     type: "def",
                     def: "1",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
             ]);
 
@@ -632,13 +689,15 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "test"
                         }],
-                        target: "http://khanacademy.org"
+                        target: "http://khanacademy.org",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: "1",
-                    target: "http://google.com"
+                    target: "http://google.com",
+                    title: undefined
                 },
                 {
                     type: "paragraph",
@@ -648,16 +707,160 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "test2"
                         }],
-                        target: "http://khanacademy.org"
+                        target: "http://khanacademy.org",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: "1",
-                    target: "http://khanacademy.org"
+                    target: "http://khanacademy.org",
+                    title: undefined
                 },
             ]);
         });
+
+        it("should parse basic images", () => {
+            var parsed = defaultParse("![](http://example.com/test.png)");
+            validateParse(parsed, [{
+                type: "image",
+                alt: "",
+                target: "http://example.com/test.png",
+                title: undefined
+            }]);
+
+            var parsed2 = defaultParse("![aaalt](http://example.com/image)");
+            validateParse(parsed2, [{
+                type: "image",
+                alt: "aaalt",
+                target: "http://example.com/image",
+                title: undefined
+            }]);
+
+            var parsed3 = defaultParse(
+                "![](http://localhost:9000/test.html \"local\")"
+            );
+            validateParse(parsed3, [{
+                type: "image",
+                alt: "",
+                target: "http://localhost:9000/test.html",
+                title: "local"
+            }]);
+
+            var parsed4 = defaultParse(
+                "![p](http://localhost:9000/test" +
+                "?content=%7B%7D&format=pretty \"params\")"
+            );
+            validateParse(parsed4, [{
+                type: "image",
+                alt: "p",
+                target: "http://localhost:9000/test" +
+                        "?content=%7B%7D&format=pretty",
+                title: "params"
+            }]);
+
+            var parsed5 = defaultParse(
+                "![hash](http://localhost:9000/test.png#content=%7B%7D)"
+            );
+            validateParse(parsed5, [{
+                type: "image",
+                alt: "hash",
+                target: "http://localhost:9000/test.png#content=%7B%7D",
+                title: undefined
+            }]);
+        });
+
+        it("should parse [refimages][and their targets]", () => {
+            var parsed = defaultParse(
+                "![aaalt][1]\n\n" +
+                "[1]: http://example.com/test.gif\n\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "image",
+                        alt: "aaalt",
+                        target: "http://example.com/test.gif",
+                        title: undefined
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "1",
+                    target: "http://example.com/test.gif",
+                    title: undefined
+                },
+            ]);
+
+            var parsed2 = defaultParse(
+                "[image]: http://example.com/test.gif\n\n" +
+                "![image][]\n\n"
+            );
+            validateParse(parsed2, [
+                {
+                    type: "def",
+                    def: "image",
+                    target: "http://example.com/test.gif",
+                    title: undefined
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "image",
+                        alt: "image",
+                        target: "http://example.com/test.gif",
+                        title: undefined
+                    }]
+                },
+            ]);
+
+            var parsed3 = defaultParse(
+                "[image]: http://example.com/test.gif \"title!\"\n\n" +
+                "![image][]\n\n"
+            );
+            validateParse(parsed3, [
+                {
+                    type: "def",
+                    def: "image",
+                    target: "http://example.com/test.gif",
+                    title: "title!"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "image",
+                        alt: "image",
+                        target: "http://example.com/test.gif",
+                        title: "title!"
+                    }]
+                },
+            ]);
+
+            var parsed3 = defaultParse(
+                "[image]: http://example.com/test.gif (*title text*)\n\n" +
+                "![image][]\n\n"
+            );
+            validateParse(parsed3, [
+                {
+                    type: "def",
+                    def: "image",
+                    target: "http://example.com/test.gif",
+                    title: "*title text*"
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "image",
+                        alt: "image",
+                        target: "http://example.com/test.gif",
+                        title: "*title text*"
+                    }]
+                },
+            ]);
+        });
+
+
 
         it("should compare defs case- and whitespace-insensitively", () => {
             var parsed = defaultParse(
@@ -673,13 +876,15 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: "hiiii",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
             ]);
 
@@ -696,13 +901,15 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: "google",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
             ]);
 
@@ -719,13 +926,15 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "Google"
                         }],
-                        target: "http://www.google.com"
+                        target: "http://www.google.com",
+                        title: undefined
                     }]
                 },
                 {
                     type: "def",
                     def: " h i ",
-                    target: "http://www.google.com"
+                    target: "http://www.google.com",
+                    title: undefined
                 },
             ]);
         });
