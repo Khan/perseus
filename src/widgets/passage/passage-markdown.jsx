@@ -5,6 +5,11 @@ var SimpleMarkdown = require("../../simple-markdown.jsx");
 
 var START_REF_PREFIX = "start-ref-";
 var END_REF_PREFIX = "end-ref-";
+var REF_STYLE = {
+    display: "inline-block",
+    width: 0,
+    visibility: "hidden"
+};
 
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     passageFootnote: {
@@ -45,7 +50,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         output: (node, output) => {
-            return <span ref={START_REF_PREFIX + node.ref} />;
+            return <span
+                    ref={START_REF_PREFIX + node.ref}
+                    style={REF_STYLE}>
+                _
+            </span>;
         }
     },
     refEnd: {
@@ -58,11 +67,17 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         },
         output: (node, output) => {
             if (node.ref != null) {
-                return <span ref={END_REF_PREFIX + node.ref} />;
+                return <span
+                        ref={END_REF_PREFIX + node.ref}
+                        style={REF_STYLE}>
+                    _
+                </span>;
             } else {
                 // if we didn't have a matching start reference, don't output
                 // a ref
-                return <span />;
+                return <span style={REF_STYLE}>
+                    _
+                </span>;
             }
         }
     }

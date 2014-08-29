@@ -141,6 +141,21 @@
         }
     }
 
+    sup {
+        font-size: smaller;
+        vertical-align: super;
+
+        // by default, vertical-align: super changes the line height of
+        // the line this text is in, which repositions surrounding text
+        // and is sad. This is especially important for the passage
+        // widget, as changes to line-height there make the line numbers
+        // incorrect. This hack fixes that, and seems to not cause problems
+        // even if there is no other text on the line (it still gets the
+        // standard line-height of what non `vertical-align: super` text
+        // would be.
+        line-height: 0;
+    }
+
     // place on a div above the inputs
     .range-input {
         border: 1px solid #ccc;
