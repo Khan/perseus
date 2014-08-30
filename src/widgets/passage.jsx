@@ -5,15 +5,13 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Editor = require("../editor.jsx");
+var Renderer = require("../renderer.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
-var Renderer = require("../renderer.jsx");
+var PassageMarkdown = require("./passage/passage-markdown.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
-var PassageRefTarget = require("./passage-ref-target.jsx");
 
 var Util = require("../util.js");
-
-var REFTARGET_REGEX = /{{([\s\S]+?)}}/g;
 
 var Passage = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
@@ -80,7 +78,7 @@ var Passage = React.createClass({
     },
 
     _measureLines: function() {
-        var $renderer = $(this.refs.renderer.getDOMNode());
+        var $renderer = $(this.refs.content.getDOMNode());
         var contentsHeight = $renderer.height();
         var lineHeight = parseInt($renderer.css("line-height"));
         var nLines = Math.round(contentsHeight / lineHeight);
@@ -91,47 +89,83 @@ var Passage = React.createClass({
 
     _renderContent: function() {
         var rawContent = this.props.passageText;
-
-        var widgets = {};
-        var nextWidgetId = 1;
-        var content = rawContent.replace(REFTARGET_REGEX,
-                (allText, referencedText) => {
-            var id = PassageRefTarget.name + " " + nextWidgetId;
-            widgets[id] = {
-                type: PassageRefTarget.name,
-                graded: false,
-                options: {content: referencedText},
-                version: PassageRefTarget.version
-            };
-            nextWidgetId++;
-            return "[[" + Util.snowman + " " + id + "]]";
-        });
-
-        return Renderer({
-            ref: "renderer",
-            content: content,
-            widgets: widgets
-        });
+        var parsed = PassageMarkdown.parse(rawContent);
+        return <div ref="content">
+            {PassageMarkdown.output(parsed)}
+        </div>;
     },
 
-    getReference: function(referenceNumber) {
-        var id = PassageRefTarget.name + " " + referenceNumber;
-        var reference = this.refs.renderer.interWidgets(id)[0];
-        if (!reference) {
+    _getStartRefLineNumber: function(referenceNumber) {
+        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        var ref = this.refs[refRef];
+        if (!ref) {
             return null;
         }
 
-        var $renderer = $(this.refs.renderer.getDOMNode());
-        var $reference = $(reference.getDOMNode());
+        var $ref = $(ref.getDOMNode());
+        // We really care about the first text after the ref, not the
+        // ref element itself:
+        var $refText = $ref.next();
+        if ($refText.length === 0) {
+            // But if there are no elements after the ref, just
+            // use the ref itself.
+            $refText = $ref;
+        }
+        var vPos = $refText.offset().top;
 
-        var vPos = $reference.offset().top - $renderer.offset().top;
-        var height = $reference.height();
-        var lineHeight = parseInt($renderer.css("line-height"));
+        return this._convertPosToLineNumber(vPos) + 1;
+    },
 
-        var firstLine = Math.round(vPos / lineHeight) + 1;
-        var numLines = Math.round(height / lineHeight);
-        var lastLine = firstLine + numLines - 1;
-        return [firstLine, lastLine];
+    _getEndRefLineNumber: function(referenceNumber) {
+        var refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
+        var ref = this.refs[refRef];
+        if (!ref) {
+            return null;
+        }
+
+        var $ref = $(ref.getDOMNode());
+        // We really care about the last text before the ref, not the
+        // ref element itself:
+        var $refText = $ref.prev();
+        if ($refText.length === 0) {
+            // But if there are no elements after the ref, just
+            // use the ref itself.
+            $refText = $ref;
+        }
+        var height = $refText.height();
+        var vPos = $refText.offset().top;
+
+        var line = this._convertPosToLineNumber(vPos + height);
+        if (height === 0) {
+            // If the element before the end ref span was the start
+            // ref span, it might have 0 height. This is obviously not
+            // the intended use case, but we should handle it gracefully.
+            // If this is the case, then the "bottom" of our element is
+            // actually the top of the line we're on, so we need to add
+            // one to the line number.
+            line += 1;
+        }
+
+        return line;
+    },
+
+    _convertPosToLineNumber: function(absoluteVPos) {
+        var $content= $(this.refs.content.getDOMNode());
+        var relativeVPos = absoluteVPos - $content.offset().top;
+        var lineHeight = parseInt($content.css("line-height"));
+
+        var line = Math.round(relativeVPos / lineHeight);
+        return line;
+    },
+
+    getReference: function(referenceNumber) {
+        var refStartLine = this._getStartRefLineNumber(referenceNumber);
+        var refEndLine = this._getEndRefLineNumber(referenceNumber);
+        if (refStartLine == null || refEndLine == null) {
+            return null;
+        }
+
+        return [refStartLine, refEndLine];
     },
 
     simpleValidate: function(rubric) {

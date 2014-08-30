@@ -5,8 +5,40 @@ var SimpleMarkdown = require("../../simple-markdown.jsx");
 
 var START_REF_PREFIX = "start-ref-";
 var END_REF_PREFIX = "end-ref-";
+var REF_STYLE = {
+    display: "inline-block",
+    width: 0,
+    visibility: "hidden"
+};
 
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+    passageFootnote: {
+        regex: /^\^/,
+        parse: (capture, parse, state) => {
+            // if no footnotes have been seen, we're id 1. otherwise,
+            // we're the next subsequent id
+            var id = state.lastFootnote.id + 1;
+            var footnote = {
+                id: id,
+                // our text is what to output. if there is only one footnote,
+                // it's a *; otherwise it's a superscript number
+                text: id === 1 ? "*" : ("" + id)
+            };
+
+            // If the previous footnote was a *, we need to adjust it to be
+            // a number, since now we know there is more than one footnote
+            if (state.lastFootnote.text === "*") {
+                state.lastFootnote.text = "" + state.lastFootnote.id;
+            }
+
+            // and update our last footnote, + return.
+            state.lastFootnote = footnote;
+            return footnote;
+        },
+        output: (node, output) => {
+            return <sup>{node.text}</sup>;
+        }
+    },
     refStart: {
         regex: /^\{\{/,
         parse: (capture, parse, state) => {
@@ -18,7 +50,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         output: (node, output) => {
-            return <span ref={START_REF_PREFIX + node.ref} />;
+            return <span
+                    ref={START_REF_PREFIX + node.ref}
+                    style={REF_STYLE}>
+                _
+            </span>;
         }
     },
     refEnd: {
@@ -31,27 +67,26 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         },
         output: (node, output) => {
             if (node.ref != null) {
-                return <span ref={END_REF_PREFIX + node.ref} />;
+                return <span
+                        ref={END_REF_PREFIX + node.ref}
+                        style={REF_STYLE}>
+                    _
+                </span>;
             } else {
                 // if we didn't have a matching start reference, don't output
                 // a ref
-                return <span />;
+                return <span style={REF_STYLE}>
+                    _
+                </span>;
             }
         }
-    },
-    text: _.extend({}, SimpleMarkdown.defaultRules.text, {
-        // We need to add '{' and '}' to the list of characters
-        // to break text on, since we are using those to denote
-        // references. This should be the same regex as
-        // simple-markdown's test regex, plus '{' and '}' in
-        // the list of break characters.
-        regex: /^[\s\S]+?(?=[\\<!\[_*`\n{}]| {2,}\n|$)/
-    })
+    }
 });
 
 var priorities = [
     "paragraph",
     "escape",
+    "passageFootnote",
     "refStart",
     "refEnd",
     "strong",
@@ -65,7 +100,11 @@ var priorities = [
 var builtParser = SimpleMarkdown.parserFor(rules, priorities);
 var parse = (source) => {
     var paragraphedSource = source + "\n\n";
-    return builtParser(paragraphedSource, {currentRef: [], lastRef: 0});
+    return builtParser(paragraphedSource, {
+        currentRef: [],
+        lastRef: 0,
+        lastFootnote: {id: 0, text: ""}
+    });
 };
 
 module.exports = {
