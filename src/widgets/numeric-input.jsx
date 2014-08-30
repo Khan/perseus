@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
-var React        = require('react');
-var Changeable   = require("../mixins/changeable.jsx");
+var React         = require('react');
+var Changeable    = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var InfoTip = require("react-components/info-tip.jsx");
@@ -54,7 +54,8 @@ var NumericInput = React.createClass({
             currentValue: "",
             size: "normal",
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            coefficient: false
         };
     },
 
@@ -172,8 +173,19 @@ _.extend(NumericInput, {
         // - if it needs to be simplified, etc., show that message
         var correctAnswers = _.where(rubric.answers, {status: "correct"});
         var result = _.find(_.map(correctAnswers, (answer) => {
+            // The coefficient is an attribute of the widget
+            var localValue = currentValue;
+            if (rubric.coefficient) {
+                if (localValue == "") {
+                    localValue = 1;
+                }
+                else if (localValue == "-") {
+                    localValue = -1;
+                }
+            }
+
             var validate = createValidator(answer);
-            return validate(currentValue);
+            return validate(localValue);
         }), match => match.correct || match.empty);
 
         if (!result) { // Otherwise, if the guess is not correct
@@ -232,7 +244,8 @@ var NumericInputEditor = React.createClass({
     getDefaultProps: function() {
         return {
             answers: [initAnswer("correct")],
-            size: "normal"
+            size: "normal",
+            coefficient: false
         };
     },
 
@@ -310,7 +323,6 @@ var NumericInputEditor = React.createClass({
                 placeholder="0" />
         </div>;
 
-
         var inputSize = <div>
                 <label>Width:{' '} </label>
                 <ButtonGroup value={this.props.size} allowEmpty={false}
@@ -324,6 +336,17 @@ var NumericInputEditor = React.createClass({
                     narrow to fit them.</p>
                 </InfoTip>
             </div>;
+
+        var coefficientCheck = <div>
+            <div className="perseus-widget-row">
+                <PropCheckBox label="Coefficient"
+                    coefficient={this.props.coefficient}
+                    onChange={this.props.onChange} />
+                <InfoTip>
+                    <p>A coefficient style number allows the student to use - for -1 and an empty string to mean 1.</p>
+                </InfoTip>
+            </div>
+        </div>;
 
         var instructions = {
             "wrong":    "(address the mistake/misconception)",
@@ -417,6 +440,7 @@ var NumericInputEditor = React.createClass({
             <div className="msg-title">Message shown to user on attempt</div>
             {generateInputAnswerEditors()}
             {inputSize}
+            {coefficientCheck}
         </div>;
 
     },

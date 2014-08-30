@@ -264,10 +264,6 @@ Want to help out? Here are some well-scoped improvements we could use:
   angle. Specifically, we would probably want to add a new dropdown for snap mode, set
   to maybe "grid" or "angle", and when set to angle, there would be additional
   snapDegrees and snapOffset props (the same ones used by the angle shape).
-- **Add a coefficient type:** Add a type to input-number for use as a coeffient in
-  polynomials. It would accept "" to mean 1 (an empty box in front of `x` means `1x`),
-  and "-" as "-1", in addition to decimals and fractions.
-
 
 ## Styles
 

@@ -2,6 +2,7 @@
 PORT=9000
 WEBAPP=../webapp
 IOS=../iOS
+SUPRESSINSTALL=FALSE
 
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
@@ -14,6 +15,7 @@ help:
 	@echo "make subperseus               # build perseus into webapp"
 	@echo "make clean                    # delete all compilation artifacts"
 	@echo "make test                     # run all tests"
+	@echo "# NOTE: you can append SUPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
 build: install
 	mkdir -p build
@@ -73,10 +75,12 @@ endif
 endif
 
 install:
+ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	$(CLEAN_RCSS)
 	npm install
 	rm -rf node_modules/react-components
 	ln -s ../react-components/js node_modules/react-components
+endif
 
 clean:
 	-rm -rf build/*
