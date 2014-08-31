@@ -341,7 +341,7 @@ var NumericInputEditor = React.createClass({
             <div className="perseus-widget-row">
                 <PropCheckBox label="Coefficient"
                     coefficient={this.props.coefficient}
-                    onChange={this.change("coefficient")} />
+                    onChange={this.props.onChange} />
                 <InfoTip>
                     <p>A coefficient style number allows the student to use - for -1 and an empty string to mean 1.</p>
                 </InfoTip>
