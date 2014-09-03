@@ -875,8 +875,6 @@ describe("simple markdown", () => {
             ]);
         });
 
-
-
         it("should compare defs case- and whitespace-insensitively", () => {
             var parsed = defaultParse(
                 "[Google][HiIiI]\n\n" +
@@ -952,6 +950,19 @@ describe("simple markdown", () => {
                     title: undefined
                 },
             ]);
+        });
+
+        it("should not allow defs to break out of a paragraph", () => {
+            var parsed = defaultParse("hi [1]: there\n\n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "hi ", type: "text"},
+                    {content: "[1", type: "text"},
+                    {content: "]", type: "text"},
+                    {content: ": there", type: "text"},
+                ]
+            }]);
         });
 
         it("should parse a single top-level paragraph", () => {

@@ -424,7 +424,14 @@ var defaultRules = {
         }
     },
     def: {
-        regex: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *\n+/,
+        // TODO(aria): This is super hacky, and basically looks for a def
+        // either inline or block that is followed by two newlines OR a
+        // newline and another def. This isn't quite correct, since it
+        // doesn't work on things that look like two defs within a
+        // paragraph but separated by a newline.
+        // TODO(aria): fix this
+        // TODO(aria): fix 80 char line width
+        regex: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *\n(?=\n|\[[^\]]\]: )\n?/,
         parse: (capture, parse, state) => {
             var def = capture[1]
                 .replace(/\s+/g, ' ')
