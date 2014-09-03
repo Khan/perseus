@@ -5,11 +5,14 @@ var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 var DragTarget = require("react-components/drag-target.jsx");
+var InfoTip = require("react-components/info-tip.jsx");
 
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
+
+var shortcutBuffer = { string: '', regexp: /^[a-z]$/, confirmKey: 32, timeout: null, duration: 500 };
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -29,6 +32,7 @@ var WidgetSelect = React.createClass({
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
+        var shortcuts = [];
         var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
             return widgets[name].displayName;
         });
@@ -37,8 +41,17 @@ var WidgetSelect = React.createClass({
             <option value="">Add a widget{"\u2026"}</option>
             <option disabled>--</option>
             {_.map(orderedWidgetNames, (name) => {
-                return <option value={name} key={name}>
-                    {widgets[name].displayName}
+                var i = 0;
+                var shortcut = '';
+
+                do {
+                    shortcut += name.charAt(i++);
+                } while (shortcuts.indexOf(shortcut) > -1)
+
+                shortcuts.push(shortcut);
+
+                return <option value={name} key={name} data-shortcut={shortcut}>
+                    {widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'}
                 </option>;
             })}
         </select>;
@@ -347,7 +360,12 @@ var Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetsDropDown = <WidgetSelect onChange={this.addWidget} />;
+            widgetsDropDown = <WidgetSelect ref="widgetSelect" onChange={this.addWidget} />;
+            widgetsDropDownInfoTip = <div className="info-tip">
+                <InfoTip>
+                    <p>Tap <b>CTRL</b> and then type the <b>[shortcut]</b> to quickly add a widget.</p>
+                </InfoTip>
+            </div>
 
             templatesDropDown = <select onChange={this.addTemplate}>
                 <option value="">Insert template{"\u2026"}</option>
@@ -360,6 +378,7 @@ var Editor = React.createClass({
             if (!this.props.immutableWidgets) {
                 widgetsAndTemplates = <div className="perseus-editor-widgets">
                     <div className="perseus-editor-widgets-selectors">
+                        {widgetsDropDownInfoTip}
                         {widgetsDropDown}
                         {templatesDropDown}
                     </div>
@@ -383,6 +402,8 @@ var Editor = React.createClass({
                 <textarea ref="textarea"
                           key="textarea"
                           onChange={this.handleChange}
+                          onKeyUp={this.handleKeyUp}
+                          onKeyDown={this.handleKeyDown}
                           placeholder={this.props.placeholder}
                           value={this.props.content} />
             ];
@@ -493,6 +514,43 @@ var Editor = React.createClass({
     handleChange: function() {
         var textarea = this.refs.textarea.getDOMNode();
         this.props.onChange({content: textarea.value});
+    },
+
+    handleKeyDown: function(e) {
+        var event = e.nativeEvent;
+        var charPressed = String.fromCharCode(event.keyCode).toLowerCase();
+
+        if (shortcutBuffer.timeout && (event.keyCode === shortcutBuffer.confirmKey || shortcutBuffer.regexp.test(charPressed))) {
+            if (event.keyCode === shortcutBuffer.confirmKey) {
+                clearTimeout(shortcutBuffer.timeout);
+                this.triggerShortcut();
+            } else {
+                shortcutBuffer.string += charPressed;
+            }
+
+            e.preventDefault();
+        }
+    },
+
+    handleKeyUp: function(e) {
+        var event = e.nativeEvent;
+
+        if (event.keyCode === 17 && shortcutBuffer.timeout === null) {
+            shortcutBuffer.timeout = setTimeout(this.triggerShortcut, shortcutBuffer.duration);
+        }
+    },
+
+    triggerShortcut: function() {
+        var select = this.refs.widgetSelect.getDOMNode();
+        var widget = select.querySelector(`[data-shortcut="${shortcutBuffer.string}"]`);
+
+        if (widget) {
+            select.value = widget.getAttribute('value');
+            Util.simulateEvent('change', select);
+        }
+
+        shortcutBuffer.timeout = null;
+        shortcutBuffer.string = '';
     },
 
     addWidget: function(widgetType) {

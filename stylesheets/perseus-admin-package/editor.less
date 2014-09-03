@@ -243,7 +243,15 @@
     border: 1px solid @grayLighter;
     border-top: 0;
     border-radius: 0 0 @editorBorderRadius @editorBorderRadius;
-    padding: 5px @editorPadding;
+    padding: @editorPadding/2;
+
+    select {
+        margin: 2px;
+    }
+
+    .info-tip > div {
+        margin: 0 2px 0 0;
+    }
 }
 
 .perseus-editor-widgets > div.selected > strong {
@@ -902,6 +910,10 @@
 }
 
 // Info-tip lives in react-components but these styles are perseus-specific.
+.info-tip {
+    display: inline-block;
+}
+
 .info-tip-content-container p {
     font-size: 12px;
     line-height: 1.4;
