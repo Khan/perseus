@@ -239,7 +239,7 @@ var initAnswer = (status) => {
 };
 
 var NumericInputEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -247,6 +247,19 @@ var NumericInputEditor = React.createClass({
             size: "normal",
             coefficient: false
         };
+    },
+
+    getPropsOverride: function() {
+        var props = {
+            answers: this.props.answers,
+            size: this.props.size,
+            coefficient: this.props.coefficient
+        };
+        props.answers = _.filter(props.answers, (c) => {
+            return c.value != null || (c.message != null && c.message !== "");
+        });
+
+        return props;
     },
 
     getInitialState: function() {
@@ -415,14 +428,28 @@ var NumericInputEditor = React.createClass({
                       }}}>
                         {answer.status}
                     </a>
+                    <a
+                        href="javascript:void(0)"
+                        className="answer-trash"
+                        onClick={this.onTrashAnswer.bind(this, i)}
+                        onKeyDown={(e) => {
+                            if (e.key === " ") {
+                                e.preventDefault(); // prevent page shifting
+                                this.onTrashAnswer(i);
+                            }
+                        }}>
+                      <span className="icon-trash" />
+                    </a>
                     <a href="javascript:void(0)"
-                       className="options-toggle"
-                       onClick={this.onToggleOptions.bind(this, i)}
-                       onKeyDown={(e) => {if (e.key === " ") {
-                        e.preventDefault(); // prevent page shifting
-                        this.onToggleOptions(i);
-                      }}}>
-                       <i className="icon-gear" />
+                        className="options-toggle"
+                        onClick={this.onToggleOptions.bind(this, i)}
+                        onKeyDown={(e) => {
+                            if (e.key === " ") {
+                                e.preventDefault(); // prevent page shifting
+                                this.onToggleOptions(i);
+                            }
+                        }}>
+                      <i className="icon-gear" />
                     </a>
                 </div>
                 <div className="input-answer-editor-message">{editor}</div>
@@ -449,6 +476,14 @@ var NumericInputEditor = React.createClass({
         var showOptions = this.state.showOptions.slice();
         showOptions[choiceIndex] = !showOptions[choiceIndex];
         this.setState({showOptions: showOptions});
+    },
+
+    onTrashAnswer: function(choiceIndex) {
+        var answers = this.props.answers;
+        if (choiceIndex >= 0 && choiceIndex < answers.length) {
+            answers.splice(choiceIndex, 1);
+        }
+        this.props.onChange({answers: answers});
     },
 
     onStatusChange: function(choiceIndex) {
