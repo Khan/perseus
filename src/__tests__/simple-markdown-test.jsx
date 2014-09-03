@@ -1250,11 +1250,11 @@ describe("simple markdown", () => {
                 items: [
                     [{
                         type: "text",
-                        content: "hi\n",
+                        content: "hi",
                     }],
                     [{
                         type: "text",
-                        content: "bye\n",
+                        content: "bye",
                     }],
                     [{
                         type: "text",
@@ -1276,11 +1276,11 @@ describe("simple markdown", () => {
                 items: [
                     [{
                         type: "text",
-                        content: "first\n",
+                        content: "first",
                     }],
                     [{
                         type: "text",
-                        content: "second\n",
+                        content: "second",
                     }],
                     [{
                         type: "text",
@@ -1302,11 +1302,11 @@ describe("simple markdown", () => {
                 items: [
                     [{
                         type: "text",
-                        content: "first\n",
+                        content: "first",
                     }],
                     [{
                         type: "text",
-                        content: "second\n",
+                        content: "second",
                     }],
                     [{
                         type: "text",
@@ -1330,7 +1330,7 @@ describe("simple markdown", () => {
                 items: [
                     [{
                         type: "text",
-                        content: "first\n",
+                        content: "first",
                     }],
                     [
                         {
@@ -1343,7 +1343,7 @@ describe("simple markdown", () => {
                             items: [
                                 [{
                                     type: "text",
-                                    content: "inner\n"
+                                    content: "inner"
                                 }],
                                 [{
                                     type: "text",
@@ -1561,11 +1561,11 @@ describe("simple markdown", () => {
                         ordered: false,
                         items: [
                             [{
-                                content: "asterisk 1\n",
+                                content: "asterisk 1",
                                 type: "text",
                             }],
                             [{
-                                content: "asterisk 2\n",
+                                content: "asterisk 2",
                                 type: "text",
                             }],
                             [{

@@ -154,6 +154,7 @@ var LIST_ITEM_R = new RegExp(
 // recognize the end of a paragraph block inside a list item:
 // two or more newlines at end end of the item
 var LIST_BLOCK_END_R = /\n{2,}$/;
+var LIST_ITEM_END_R = /\n+$/;
 // check whether a list item has paragraphs: if it does,
 // we leave the newlines at the end
 var LIST_IS_MULTI_PARAGRAPH_R = /\n{2,}./;
@@ -361,7 +362,9 @@ var defaultRules = {
         parse: (capture, parse, state) => {
             var bullet = capture[2];
             var ordered = bullet.length > 1;
-            var items = capture[0].match(LIST_ITEM_R);
+            var items = capture[0]
+                .replace(LIST_BLOCK_END_R, "")
+                .match(LIST_ITEM_R);
 
             var lastItemWasAParagraph = false;
             var itemContent = _.map(items, (item, i) => {
@@ -385,22 +388,25 @@ var defaultRules = {
                 //  * as is this
                 //
                 //  * as is this
-                if (i === items.length - 2) {
-                    // We keep track of whether the second to last item is a
-                    // block based on whether it ends in two+ newlines...
-                    lastItemWasAParagraph =
-                            content.search(LIST_BLOCK_END_R) >= 0;
-                } else if (i === items.length - 1) {
-                    // ...and we consider the last element to be block or not
-                    // a block based on that state in the second-to-last item
-                    // (or if it has two newlines in its contents)
-                    if (!lastItemWasAParagraph &&
-                            content.search(LIST_IS_MULTI_PARAGRAPH_R) === -1) {
-                        content = content.replace(LIST_BLOCK_END_R, '');
-                    }
+                var isLastItem = (i === items.length - 1);
+                var containsBlocks = content.indexOf("\n\n") !== -1;
+                
+                // Any element in a list is a block if it contains multiple
+                // newlines. The last element in the list can also be a block
+                // if the previous item in the list was a block (this is
+                // because non-last items in the list can end with \n\n, but
+                // the last item can't, so we just "inherit" this property
+                // from our previous element).
+                var thisItemIsAParagraph = containsBlocks ||
+                        (isLastItem && lastItemWasAParagraph);
+                lastItemWasAParagraph = thisItemIsAParagraph;
+
+                var adjustedContent = content.replace(LIST_ITEM_END_R, "");
+                if (thisItemIsAParagraph) {
+                    adjustedContent += "\n\n";
                 }
 
-                return parse(content, state);
+                return parse(adjustedContent, state);
             });
 
             return {
