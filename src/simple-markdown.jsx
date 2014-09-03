@@ -339,7 +339,7 @@ var defaultRules = {
         }
     },
     blockQuote: {
-        regex: /^( *>[^\n]+(\n[^\n]+)*\n*)+/,
+        regex: /^( *>[^\n]+(\n[^\n]+)*\n*)+\n{2,}/,
         parse: (capture, parse, state) => {
             content = capture[0].replace(/^ *> ?/gm, '');
             return {

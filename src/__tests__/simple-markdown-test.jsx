@@ -1160,6 +1160,19 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should not let a > escape a paragraph as a blockquote", () => {
+            var parsed = defaultParse(
+                "para 1 > not a quote\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "para 1 ", type: "text"},
+                    {content: "> not a quote", type: "text"},
+                ]
+            }]);
+        });
+
         it("should parse a single top-level code block", () => {
             var parsed = defaultParse("    if (true) { code(); }\n\n");
             validateParse(parsed, [{
