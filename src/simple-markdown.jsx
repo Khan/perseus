@@ -136,7 +136,7 @@ var ignoreCapture = () => ({});
 var LIST_BULLET = "(?:[*+-]|\\d+\\.)";
 // recognize the start of a list item:
 // leading space plus a bullet plus a space (`   * `)
-var LIST_ITEM_PREFIX = "( *)(" + LIST_BULLET + ") ";
+var LIST_ITEM_PREFIX = "( *)(" + LIST_BULLET + ") +";
 var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 // recognize an individual list item:
 //  * hi

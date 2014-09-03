@@ -1535,6 +1535,83 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should allow lists inside blockquotes", () => {
+            // This list also has lots of trailing space after the *s
+            var parsed = defaultParse(
+                "> A list within a blockquote\n" +
+                ">\n" +
+                "> *    asterisk 1\n" +
+                "> *    asterisk 2\n" +
+                "> *    asterisk 3\n" +
+                "\n"
+            );
+            validateParse(parsed, [{
+                type: "blockQuote",
+                content: [
+                    {
+                        type: "paragraph",
+                        content: [{
+                            content: "A list within a blockquote",
+                            type: "text",
+                        }]
+                    },
+                    {
+
+                        type: "list",
+                        ordered: false,
+                        items: [
+                            [{
+                                content: "asterisk 1\n",
+                                type: "text",
+                            }],
+                            [{
+                                content: "asterisk 2\n",
+                                type: "text",
+                            }],
+                            [{
+                                content: "asterisk 3",
+                                type: "text",
+                            }],
+                        ]
+                    }
+                ]
+            }]);
+
+            var parsed2 = defaultParse(
+                " * this is a list\n\n" +
+                "       with code in it\n\n" +
+                " * second item\n" +
+                "\n"
+            );
+            validateParse(parsed2, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "this is a list"
+                            }]
+                        },
+                        {
+                            type: "codeBlock",
+                            content: "with code in it"
+                        }
+                    ],
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "second item"
+                            }]
+                        },
+                    ],
+                ]
+            }]);
+        });
 
         it("should parse very simple tables", () => {
             var expected = [{
