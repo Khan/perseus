@@ -1476,6 +1476,66 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should allow code inside list items", () => {
+            var parsed = defaultParse(
+                " * this is a list\n\n" +
+                "       with code in it\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [[
+                    {
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "this is a list"
+                        }]
+                    },
+                    {
+                        type: "codeBlock",
+                        content: "with code in it"
+                    }
+                ]]
+            }]);
+
+            var parsed2 = defaultParse(
+                " * this is a list\n\n" +
+                "       with code in it\n\n" +
+                " * second item\n" +
+                "\n"
+            );
+            validateParse(parsed2, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "this is a list"
+                            }]
+                        },
+                        {
+                            type: "codeBlock",
+                            content: "with code in it"
+                        }
+                    ],
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "second item"
+                            }]
+                        },
+                    ],
+                ]
+            }]);
+        });
+
+
         it("should parse very simple tables", () => {
             var expected = [{
                 type: "table",

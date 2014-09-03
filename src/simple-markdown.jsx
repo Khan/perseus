@@ -154,6 +154,9 @@ var LIST_ITEM_R = new RegExp(
 // recognize the end of a paragraph block inside a list item:
 // two or more newlines at end end of the item
 var LIST_BLOCK_END_R = /\n{2,}$/;
+// check whether a list item has paragraphs: if it does,
+// we leave the newlines at the end
+var LIST_IS_MULTI_PARAGRAPH_R = /\n{2,}./;
 
 var TABLES = (() => {
     // predefine regexes so we don't have to create them inside functions
@@ -321,7 +324,7 @@ var defaultRules = {
         output: () => <hr />
     },
     codeBlock: {
-        regex: /^(?:    [^\n]+\n*)+\n\n/,
+        regex: /^(?:    [^\n]+\n*)+\n{2,}/,
         parse: (capture, parse, state) => {
             var content = capture[0]
                 .replace(/^    /gm, '')
@@ -390,7 +393,9 @@ var defaultRules = {
                 } else if (i === items.length - 1) {
                     // ...and we consider the last element to be block or not
                     // a block based on that state in the second-to-last item
-                    if (!lastItemWasAParagraph) {
+                    // (or if it has two newlines in its contents)
+                    if (!lastItemWasAParagraph &&
+                            content.search(LIST_IS_MULTI_PARAGRAPH_R) === -1) {
                         content = content.replace(LIST_BLOCK_END_R, '');
                     }
                 }
