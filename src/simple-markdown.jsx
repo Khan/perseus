@@ -325,7 +325,7 @@ var defaultRules = {
         output: () => <hr />
     },
     codeBlock: {
-        regex: /^(?:    [^\n]+\n*)+\n{2,}/,
+        regex: /^(?:    [^\n]+\n*)+\n *\n+/,
         parse: (capture, parse, state) => {
             var content = capture[0]
                 .replace(/^    /gm, '')

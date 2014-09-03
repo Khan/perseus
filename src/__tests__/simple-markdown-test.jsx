@@ -1181,6 +1181,14 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should parse a code block with trailing spaces", () => {
+            var parsed = defaultParse("    if (true) { code(); }\n    \n\n");
+            validateParse(parsed, [{
+                type: "codeBlock",
+                content: "if (true) { code(); }"
+            }]);
+        });
+
         it("should parse mixed paragraphs and code", () => {
             var parsed = defaultParse(
                 "this is regular text\n\n" +
