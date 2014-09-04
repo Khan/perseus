@@ -191,6 +191,8 @@ var Graphie = React.createClass({
                 return child;
             }
 
+            // Instantiate the descriptor to turn it into a real Movable
+            var child = new child.type(child);
             assert(child instanceof GraphieMovable,
                 "All children of a Graphie component must be Graphie " +
                 "movables");

@@ -105,10 +105,10 @@ var WidgetEditor = React.createClass({
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
-                {cls(_.extend({
-                    ref: "widget",
-                    onChange: this._handleWidgetChange
-                }, upgradedWidgetInfo.options))}
+                <cls
+                    ref="widget"
+                    onChange={this._handleWidgetChange}
+                    {...upgradedWidgetInfo.options} />
             </div>
         </div>;
     },
@@ -225,13 +225,13 @@ var Editor = React.createClass({
         if (!Widgets.getEditor(type)) {
             return;
         }
-        return WidgetEditor(_.extend({
-            ref: id,
-            id: id,
-            type: type,
-            onChange: this._handleWidgetEditorChange.bind(this, id),
-            onRemove: this._handleWidgetEditorRemove.bind(this, id)
-        }, this.props.widgets[id]));
+        return <WidgetEditor
+            ref={id}
+            id={id}
+            type={type}
+            onChange={this._handleWidgetEditorChange.bind(this, id)}
+            onRemove={this._handleWidgetEditorRemove.bind(this, id)}
+            {...this.props.widgets[id]} />;
     },
 
     _handleWidgetEditorChange: function(id, newProps, cb) {

@@ -153,7 +153,7 @@ var ImageEditor = React.createClass({
         var imageSettings = <div className="image-settings">
             <div>Background image:</div>
             <div>Url:{' '}
-                <BlurInput value={this.props.backgroundImage.url}
+                <BlurInput value={this.props.backgroundImage.url || ''}
                            onChange={this.onUrlChange} />
                 <InfoTip>
                     <p>Create an image in graphie, or use the "Add image"

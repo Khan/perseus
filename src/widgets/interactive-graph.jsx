@@ -2375,7 +2375,7 @@ var InteractiveGraphEditor = React.createClass({
                     this.props.onChange({correct: correct});
                 }
             };
-            graph = InteractiveGraph(graphProps);
+            graph = <InteractiveGraph {...graphProps} />;
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
             graph = <div>{this.props.valid}</div>;

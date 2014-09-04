@@ -116,19 +116,21 @@ var AnswerAreaRenderer = React.createClass({
             }
         );
 
-        return this.state.cls(_.extend({
-            ref: "widget",
-            problemNum: this.props.problemNum,
-            onChange: this.handleChangeRenderer,
-            onInteractWithWidget: this.props.onInteractWithWidget,
-            highlightedWidgets: this.props.highlightedWidgets,
-            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+        return <this.state.cls
+            ref="widget"
+            problemNum={this.props.problemNum}
+            onChange={this.handleChangeRenderer}
+            onInteractWithWidget={this.props.onInteractWithWidget}
+            highlightedWidgets={this.props.highlightedWidgets}
+            enabledFeatures={_.extend({}, this.props.enabledFeatures, {
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
                 toolTipFormats: false
-            }),
-            apiOptions: apiOptions
-        }, this.props.options, this.state.widget));
+            })}
+            apiOptions={apiOptions}
+            {...this.props.options}
+            {...this.state.widget}
+        />;
     },
 
     renderSingle: function() {

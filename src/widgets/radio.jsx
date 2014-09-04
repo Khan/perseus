@@ -162,15 +162,15 @@ var Radio = React.createClass({
         choices = _.map(choices, (choice, i) => {
             var content;
             if (choice.isNoneOfTheAbove && !revealNoneOfTheAbove) {
-                content = { content: "None of the above" };
+                content = "None of the above";
             } else {
-                content = _.pick(choice, "content");
+                content = choice.content;
             }
             return {
                 // We need to make a copy, which _.pick does
-                content: Renderer(content),
+                content: <Renderer content={content} />,
                 checked: values[i],
-                clue: Renderer({content: choice.clue}),
+                clue: <Renderer content={choice.clue} />,
             };
         });
         choices = this.enforceOrdering(choices);
@@ -386,27 +386,29 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
-                    var editor = Editor({
-                        ref: "editor" + i,
-                        content: choice.content || "",
-                        widgetEnabled: false,
-                        placeholder: "Type a choice here...",
-                        onChange: newProps => {
+                    var editor = <Editor
+                        ref={"editor" + i}
+                        content={choice.content || ""}
+                        widgetEnabled={false}
+                        placeholder={"Type a choice here..."}
+                        onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
-                            }}
-                    });
-                    var clueEditor = Editor({
-                        ref: "clue-editor-" + i,
-                        content: choice.clue || "",
-                        widgetEnabled: false,
-                        placeholder: $._("Why is this choice " +
-                            checkedClass + "?"),
-                        onChange: newProps => {
+                            }
+                        }}
+                    />;
+                    var clueEditor = <Editor
+                        ref={"clue-editor-" + i}
+                        content={choice.clue || ""}
+                        widgetEnabled={false}
+                        placeholder={$._("Why is this choice " +
+                            checkedClass + "?")}
+                        onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onClueChange(i, newProps.content);
-                            }}
-                    });
+                            }
+                        }}
+                    />;
                     var deleteLink = <a href="#"
                             className="simple-button orange delete-choice"
                             title="Remove this choice"

@@ -409,13 +409,13 @@ var Simulator = React.createClass({
 
         var highlight = "0px 0px 9px 2px rgba(255, 165, 0, 1)";
         var highlightStyle = _.extend({}, inputStyle, {
-            "-webkit-box-shadow": highlight,
-            "-moz-box-shadow": highlight,
-            "box-shadow": highlight,
-            "transition": "all 0.15s"
+            WebkitBoxShadow: highlight,
+            MozBoxShadow: highlight,
+            boxShadow: highlight,
+            transition: "all 0.15s"
         });
         var unhighlightStyle = _.extend({}, inputStyle, {
-            "transition": "all 0.15s"
+            transition: "all 0.15s"
         });
         var style = (this.state.invalidInput) ? highlightStyle
                                               : unhighlightStyle;

@@ -101,7 +101,7 @@ var Table = React.createClass({
                             </th>;
                         } else {
                             return <th key={i}>
-                                {Renderer({content: header})}
+                                <Renderer content={header} />
                             </th>;
                         }
                     })
@@ -367,7 +367,7 @@ var TableEditor = React.createClass({
                 </InfoTip>
             </div>
             <div>
-                {Table(tableProps)}
+                <Table {...tableProps} />
             </div>
         </div>;
     },

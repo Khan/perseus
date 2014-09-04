@@ -264,14 +264,14 @@ var NumberLine = React.createClass({
                 }}
                 setup={this._setupGraphie}>
             {this._renderTickControl(props)}
-            {TickMarks(_.pick(props, [
-                "range",
-                "numDivisions",
-                "labelTicks",
-                "labelStyle",
-                "labelRange",
-                "tickStep"
-            ]))}
+            <TickMarks
+                range={props.range}
+                numDivisions={props.numDivisions}
+                labelTicks={props.labelTicks}
+                labelStyle={props.labelStyle}
+                labelRange={props.labelRange}
+                tickStep={props.tickStep}
+            />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
         </Graphie>;

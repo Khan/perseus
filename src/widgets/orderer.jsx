@@ -104,7 +104,7 @@ var Card = React.createClass({
                     onTouchEnd={this.onMouseUp}
                     onTouchCancel={this.onMouseUp}>
                 <div className={className.join(" ")}>
-                    {Renderer(rendererProps)}
+                    <Renderer {...rendererProps} />
                 </div>
             </div>;
     },

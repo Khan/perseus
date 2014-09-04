@@ -224,11 +224,11 @@ var FunctionGrapher = React.createClass({
         };
         var points = _.map(this._coords(), pointForCoord);
 
-        return Graphie(this.props.graph,
-            this.props.model && this.renderPlot(),
-            this.props.model && this.renderAsymptote(),
-            this.props.model && points
-        );
+        return <Graphie {...this.props.graph}>
+            {this.props.model && this.renderPlot()}
+            {this.props.model && this.renderAsymptote()}
+            {this.props.model && points}
+        </Graphie>;
     },
 
     renderPlot: function() {
@@ -715,7 +715,7 @@ var Grapher = React.createClass({
         };
 
         return <div>
-            {FunctionGrapher(grapherProps)}
+            <FunctionGrapher {...grapherProps} />
             {this.props.availableTypes.length > 1 && typeSelector}
         </div>;
     },
@@ -939,7 +939,7 @@ var GrapherEditor = React.createClass({
                 }
             };
 
-            graph = Grapher(graphProps);
+            graph = <Grapher {...graphProps} />;
             equationString = Grapher.getEquationString(graphProps);
         } else {
             graph = <div>{this.props.valid}</div>;

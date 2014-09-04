@@ -12,7 +12,7 @@ var EditorPage = require("./editor-page.jsx");
  */
 var StatefulEditorPage = React.createClass({
     render: function() {
-        return EditorPage(this.state);
+        return <EditorPage {...this.state} />;
     },
 
     getInitialState: function() {

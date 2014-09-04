@@ -603,7 +603,7 @@ var ExpressionEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:{' '}
-                {expression(expressionProps)}
+                <expression {...expressionProps} />
             </label></div>
             {this.state.isTex && <TexButtons
                 className="math-input-buttons"

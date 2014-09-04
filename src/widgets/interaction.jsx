@@ -564,7 +564,7 @@ var MovablePointEditor = React.createClass({
                     placeholder={0}
                     onChange={this.change("varSubscript")}/>
             </div>
-            {this.transferPropsTo(<ConstraintEditor />)}
+            <ConstraintEditor {...this.props} />
         </div>;
     }
 });
@@ -647,7 +647,7 @@ var MovableLineEditor = React.createClass({
             <div className="perseus-widget-row">
                 Constraints are applied to the start point.
             </div>
-            {this.transferPropsTo(<ConstraintEditor />)}
+            <ConstraintEditor {...this.props} />
         </div>;
     }
 });
@@ -964,14 +964,15 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
                             key={element.key}>
-                        {MovablePointEditor(_.extend({}, element.options, {
-                            onChange: (newProps) => {
+                        <MovablePointEditor
+                            {...element.options}
+                            onChange={(newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }
-                        }))}
+                            }}
+                        />
                     </ElementContainer>;
                 } else if (element.type === "movable-line") {
                     return <ElementContainer
@@ -989,14 +990,15 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
                             key={element.key}>
-                        {MovableLineEditor(_.extend({}, element.options, {
-                            onChange: (newProps) => {
+                        <MovableLineEditor
+                            {...element.options}
+                            onChange={(newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }
-                        }))}
+                            }}
+                        />
                     </ElementContainer>;
                 } else if (element.type === "point") {
                     return <ElementContainer
@@ -1011,14 +1013,15 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
                             key={element.key}>
-                        {PointEditor(_.extend({}, element.options, {
-                            onChange: (newProps) => {
+                        <PointEditor
+                            {...element.options}
+                            onChange={(newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }
-                        }))}
+                            }}
+                        />
                     </ElementContainer>;
                 } else if (element.type === "line") {
                     return <ElementContainer
@@ -1036,14 +1039,15 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
                             key={element.key}>
-                        {LineEditor(_.extend({}, element.options, {
-                            onChange: (newProps) => {
+                        <LineEditor
+                            {...element.options}
+                            onChange={(newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }
-                        }))}
+                            }}
+                        />
                     </ElementContainer>;
                 } else if (element.type === "function") {
                     return <ElementContainer
@@ -1057,14 +1061,15 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement}
                             key={element.key}>
-                        {FunctionEditor(_.extend({}, element.options, {
-                            onChange: (newProps) => {
+                        <FunctionEditor
+                            {...element.options}
+                            onChange={(newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }
-                        }))}
+                            }}
+                        />
                     </ElementContainer>;
                 } else if (element.type === "parametric") {
                     return <ElementContainer
@@ -1075,14 +1080,15 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement}
                             key={element.key}>
-                        {ParametricEditor(_.extend({}, element.options, {
-                            onChange: (newProps) => {
+                        <ParametricEditor
+                            {...element.options}
+                            onChange={(newProps) => {
                                 var elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }
-                        }))}
+                            }}
+                        />
                     </ElementContainer>;
                 }
             }, this)}

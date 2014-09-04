@@ -67,19 +67,19 @@ var NumberInput = React.createClass({
             classes = [classes, this.props.className].join(" ");
         }
 
-        var input = React.DOM.input(_.extend({}, this.props, {
-            className: classes,
-            type: "text",
-            ref: "input",
-            onChange: this._handleChange,
-            onFocus: this._handleFocus,
-            onBlur: this._handleBlur,
-            onKeyPress: this._handleBlur,
-            onKeyDown: this._onKeyDown,
-            onTouchStart: captureScratchpadTouchStart,
-            defaultValue: toNumericString(this.props.value, this.state.format),
-            value: undefined
-        }));
+        var input = <input
+            {...this.props}
+            className={classes}
+            type="text"
+            ref="input"
+            onChange={this._handleChange}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur}
+            onKeyPress={this._handleBlur}
+            onKeyDown={this._onKeyDown}
+            onTouchStart={captureScratchpadTouchStart}
+            defaultValue={toNumericString(this.props.value, this.state.format)}
+            value={undefined} />;
 
         if (this.props.label) {
             return <label>{this.props.label}{input}</label>;

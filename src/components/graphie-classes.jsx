@@ -20,7 +20,7 @@ var abstractMethod = function() {
 _.extend(GraphieMovable.prototype, {
     movableProps: [],
     key: function() {
-        return this.props.key;
+        return this._key;
     },
     add: abstractMethod,
     modify: abstractMethod,
@@ -46,8 +46,9 @@ var rewriteProps = function(props, childrenArray) {
  * Create a custom GraphieMovable class
  */
 var createClass = function(spec) {
-    var GraphieClass = function(props, childrenArray) {
-        this.props = rewriteProps(props, childrenArray);
+    var GraphieClass = function(descriptor) {
+        this._key = descriptor.key;
+        this.props = rewriteProps(descriptor.props, descriptor.props.children);
         return this;
     };
 
@@ -60,9 +61,18 @@ var createClass = function(spec) {
     GraphieClass.prototype = new GraphieMovable(spec);
     GraphieClass.prototype.constructor = GraphieClass;
 
-    return function(props) {
+    var factory = function(props) {
         return new GraphieClass(props, _.rest(arguments));
     };
+
+    // TODO(alpert): This is present to trick React.createElement into
+    // believing that graphie movable classes are valid React types. In React
+    // 0.13 (probably) createElement will probably just assume that its
+    // argument is a proper type and we'll be able to get rid of this.
+    factory.isReactLegacyFactory = true;
+    factory.type = GraphieClass;
+
+    return factory;
 };
 
 

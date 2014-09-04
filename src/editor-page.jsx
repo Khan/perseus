@@ -241,7 +241,7 @@ var EditorPage = React.createClass({
         );
 
         this.renderer = React.renderComponent(
-            ItemRenderer(rendererConfig),
+            <ItemRenderer {...rendererConfig} />,
             this.rendererMountNode,
             cb);
     },
