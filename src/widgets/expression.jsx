@@ -175,7 +175,8 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        // The buttons are often on top of text you're trying to read, so don't
+        // focus the editor automatically.
         return true;
     },
 
