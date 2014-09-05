@@ -164,6 +164,10 @@ var NumberInput = React.createClass({
     },
 
     _onKeyDown: function(e) {
+        if (this.props.onKeyDown) {
+            this.props.onKeyDown(e);
+        }
+
         if (!this.props.useArrowKeys ||
             !_.contains(["ArrowUp", "ArrowDown"], e.key)) {
             return;

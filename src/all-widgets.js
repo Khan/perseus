@@ -14,6 +14,7 @@ _.each([
     require("./widgets/interactive-graph.jsx"),
     require("./widgets/interactive-number-line.jsx"),
     require("./widgets/lights-puzzle.jsx"),
+    require("./widgets/matrix.jsx"),
     require("./widgets/matcher.jsx"),
     require("./widgets/measurer.jsx"),
     require("./widgets/number-line.jsx"),

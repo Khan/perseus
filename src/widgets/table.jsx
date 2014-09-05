@@ -27,13 +27,13 @@ var getDefaultPath = function() {
 var getRowFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
-    return path[0];
+    return +path[0];
 };
 
 var getColumnFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
-    return path[1];
+    return +path[1];
 };
 
 var getRefForPath = function(path) {
