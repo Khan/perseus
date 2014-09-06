@@ -12,7 +12,8 @@ var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
 
-var shortcutBuffer = { string: '', regexp: /^[a-z]$/, confirmKey: 32, timeout: null, duration: 500 };
+// like [[nu, [[int, etc
+var shortcutRegexp = /^\[\[([a-z]+)$/;
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -113,7 +114,7 @@ var WidgetEditor = React.createClass({
                             return false;
                         }}>
                     <span className="icon-trash" />
-                </a>    
+                </a>
             </div>
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
@@ -363,7 +364,7 @@ var Editor = React.createClass({
             widgetsDropDown = <WidgetSelect ref="widgetSelect" onChange={this.addWidget} />;
             widgetsDropDownInfoTip = <div className="info-tip">
                 <InfoTip>
-                    <p>Tap <b>CTRL</b> and then type the <b>[shortcut]</b> to quickly add a widget.</p>
+                    <p>Type <b>[[&lt;shortcut&gt;</b> followed by SPACE or ENTER to quickly add a widget.</p>
                 </InfoTip>
             </div>
 
@@ -402,7 +403,6 @@ var Editor = React.createClass({
                 <textarea ref="textarea"
                           key="textarea"
                           onChange={this.handleChange}
-                          onKeyUp={this.handleKeyUp}
                           onKeyDown={this.handleKeyDown}
                           placeholder={this.props.placeholder}
                           value={this.props.content} />
@@ -518,62 +518,62 @@ var Editor = React.createClass({
 
     handleKeyDown: function(e) {
         var event = e.nativeEvent;
-        var charPressed = String.fromCharCode(event.keyCode).toLowerCase();
 
-        if (shortcutBuffer.timeout && (event.keyCode === shortcutBuffer.confirmKey || shortcutBuffer.regexp.test(charPressed))) {
-            if (event.keyCode === shortcutBuffer.confirmKey) {
-                clearTimeout(shortcutBuffer.timeout);
-                this.triggerShortcut();
-            } else {
-                shortcutBuffer.string += charPressed;
+        if ([13, 32].indexOf(event.keyCode) !== -1) {
+            var textarea = this.refs.textarea.getDOMNode();
+            var word = Util.textarea.getWordBeforeCursor(textarea);
+            var matches = word.string.match(shortcutRegexp);
+
+            if (matches !== null) {
+                var newContent = Util.insertContent(textarea.value, '', [ word.pos.start, word.pos.end + 1 ]);
+
+                this.props.onChange({ content: newContent }, () => {
+                    Util.textarea.moveCursor(textarea, word.pos.start);
+                    this.triggerShortcut(matches[1]);
+                });
+
+                e.preventDefault();
             }
-
-            e.preventDefault();
         }
     },
 
-    handleKeyUp: function(e) {
-        var event = e.nativeEvent;
-
-        if (event.keyCode === 17 && shortcutBuffer.timeout === null) {
-            shortcutBuffer.timeout = setTimeout(this.triggerShortcut, shortcutBuffer.duration);
-        }
-    },
-
-    triggerShortcut: function() {
+    triggerShortcut: function(shortcut) {
         var select = this.refs.widgetSelect.getDOMNode();
-        var widget = select.querySelector(`[data-shortcut="${shortcutBuffer.string}"]`);
+        var widget = select.querySelector(`[data-shortcut="${shortcut}"]`);
 
         if (widget) {
             select.value = widget.getAttribute('value');
             Util.simulateEvent('change', select);
         }
-
-        shortcutBuffer.timeout = null;
-        shortcutBuffer.string = '';
     },
 
     addWidget: function(widgetType) {
         var oldContent = this.props.content;
-
-        // Add newlines before "big" widgets like graphs
-        if (widgetType !== "input-number" && widgetType !== "dropdown") {
-            oldContent = oldContent.replace(/\n*$/, "\n\n");
-        }
+        var textarea = this.refs.textarea.getDOMNode();
+        var cursorPos = textarea.selectionStart;
 
         for (var i = 1; oldContent.indexOf(widgetPlaceholder.replace('{id}', widgetType + " " + i)) > -1; i++) {
             // pass
         }
 
         var id = widgetType + " " + i;
-        var newContent = oldContent + widgetPlaceholder.replace('{id}', id);
+        var widgetContent = widgetPlaceholder.replace('{id}', id) + ' ';
 
+        // Add newlines before "big" widgets like graphs
+        if (widgetType !== "input-number" && widgetType !== "dropdown") {
+            widgetContent = "\n\n" + widgetContent;
+        }
+
+        var newContent = Util.insertContent(oldContent, widgetContent, [ textarea.selectionStart, textarea.selectionEnd ]);
         var widgets = _.clone(this.props.widgets);
+
         widgets[id] = {type: widgetType};
         this.props.onChange({
             content: newContent,
             widgets: widgets
-        }, this.focusAndMoveToEnd);
+        }, function() {
+            Util.textarea.moveCursor(textarea, cursorPos + widgetContent.length);
+        });
     },
 
     addTemplate: function(e) {
