@@ -547,6 +547,7 @@
     }
 
     .options-toggle,
+    .answer-trash,
     .answer-status {
         height: 26px;
         line-height: 26px;
@@ -558,18 +559,32 @@
         border-top: @widgetBorder;
     }
 
-    .options-toggle {
-        background-color: #eee;
+    .options-toggle,
+    .answer-trash {
         border-left: @widgetBorder;
         .border-box-sizing();
-        color: #444;
         cursor: pointer;
         display: inline-block;
         text-align: center;
         text-decoration: none;
-        width: 25%;
+        width: 20%;
+    }
+
+    .options-toggle {
+        background-color: #eee;
+        color: #444;
         &:hover {
             background-color: #ccc;
+        }
+    }
+
+    .answer-trash {
+        background-color: #C04F03;
+        background-image: linear-gradient(to bottom, #E35D04, #C04F03);
+        color: #FFF;
+        &:hover {
+            color: #FFF;
+            background-image: linear-gradient(to bottom, #F46E15, #D16014);
         }
     }
 
@@ -610,7 +625,7 @@
         display: inline-block;
         text-align: center;
         text-decoration: none;
-        width: 75%;
+        width: 60%;
         .user-select(none);
 
         &.wrong {
