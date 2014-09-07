@@ -522,7 +522,7 @@ var Editor = React.createClass({
         if ([13, 32].indexOf(event.keyCode) !== -1) {
             var textarea = this.refs.textarea.getDOMNode();
             var word = Util.textarea.getWordBeforeCursor(textarea);
-            var matches = word.string.match(shortcutRegexp);
+            var matches = word.string.toLowerCase().match(shortcutRegexp);
 
             if (matches !== null) {
                 var newContent = Util.insertContent(textarea.value, '', [ word.pos.start, word.pos.end + 1 ]);
