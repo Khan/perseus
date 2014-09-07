@@ -258,7 +258,7 @@ var NumericInputEditor = React.createClass({
 
     render: function() {
         var lastStatus = this.state.lastStatus; // for a phantom last answer
-        var answers = this.props.answers.concat(initAnswer(lastStatus));
+        var answers = this.props.answers;
 
         var unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
             <label>Unsimplified answers are</label>
@@ -323,7 +323,7 @@ var NumericInputEditor = React.createClass({
                 placeholder="0" />
         </div>;
 
-        var inputSize = <div>
+        var inputSize = <div className="perseus-widget-row">
                 <label>Width:{' '} </label>
                 <ButtonGroup value={this.props.size} allowEmpty={false}
                     buttons={[
@@ -346,6 +346,16 @@ var NumericInputEditor = React.createClass({
                     <p>A coefficient style number allows the student to use - for -1 and an empty string to mean 1.</p>
                 </InfoTip>
             </div>
+        </div>;
+
+        var addAnswerButton = <div>
+            <a
+                href="javascript:void(0)"
+                className="simple-button orange"
+                onClick={() => this.addAnswer()}
+                onKeyDown={(e) => this.onSpace(e, this.addAnswer)}>
+              <span>Add new answer</span>
+            </a>
         </div>;
 
         var instructions = {
@@ -407,22 +417,23 @@ var NumericInputEditor = React.createClass({
                     </div> : null}
                     <div className="value-divider" />
                     <a href="javascript:void(0)"
-                      className={"answer-status " + answer.status}
-                      onClick={this.onStatusChange.bind(this, i)}
-                      onKeyDown={(e) => {if (e.key === " ") {
-                        e.preventDefault(); // prevent page shifting
-                        this.onStatusChange(i);
-                      }}}>
+                        className={"answer-status " + answer.status}
+                        onClick={() => this.onStatusChange(i)}
+                        onKeyDown={(e) => this.onSpace(e, this.onStatusChange, i)}>
                         {answer.status}
                     </a>
+                    <a
+                        href="javascript:void(0)"
+                        className="answer-trash"
+                        onClick={() => this.onTrashAnswer(i)}
+                        onKeyDown={(e) => this.onSpace(e, this.onTrashAnswer, i)}>
+                      <span className="icon-trash" />
+                    </a>
                     <a href="javascript:void(0)"
-                       className="options-toggle"
-                       onClick={this.onToggleOptions.bind(this, i)}
-                       onKeyDown={(e) => {if (e.key === " ") {
-                        e.preventDefault(); // prevent page shifting
-                        this.onToggleOptions(i);
-                      }}}>
-                       <i className="icon-gear" />
+                        className="options-toggle"
+                        onClick={() => this.onToggleOptions(i)}
+                        onKeyDown={(e) => this.onSpace(e, this.onToggleOptions, i)}>
+                      <i className="icon-gear" />
                     </a>
                 </div>
                 <div className="input-answer-editor-message">{editor}</div>
@@ -439,6 +450,7 @@ var NumericInputEditor = React.createClass({
             <div className="ui-title">User input</div>
             <div className="msg-title">Message shown to user on attempt</div>
             {generateInputAnswerEditors()}
+            {addAnswerButton}
             {inputSize}
             {coefficientCheck}
         </div>;
@@ -451,22 +463,32 @@ var NumericInputEditor = React.createClass({
         this.setState({showOptions: showOptions});
     },
 
+    onTrashAnswer: function(choiceIndex) {
+        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
+            var answers = this.props.answers.slice(0);
+            answers.splice(choiceIndex, 1);
+            this.props.onChange({answers: answers});
+        }
+    },
+
+    onSpace: function(e, callback) {
+        if (e.key === " ") {
+            e.preventDefault(); // prevent page shifting
+            var args = _.toArray(arguments).slice(2);
+            callback.apply(this, args);
+        }
+    },
+
     onStatusChange: function(choiceIndex) {
         var statuses = ["wrong", "ungraded", "correct"];
-        var lastAnswer = initAnswer(this.state.lastStatus);
-        var answers = this.props.answers.concat(lastAnswer);
+        var answers = this.props.answers;
         var i = _.indexOf(statuses, answers[choiceIndex].status);
-        var newStatus = statuses[(i + 1) % 3];
+        var newStatus = statuses[(i + 1) % statuses.length];
 
-        // If we change the status of the new (phantom) answer
-        if (choiceIndex === answers.length - 1) {
-            this.setState({lastStatus: newStatus});
-        } else {
-            this.updateAnswer(choiceIndex, {
-                status: newStatus,
-                simplify: newStatus === "correct" ? "required" : "accepted"
-            });
-        }
+        this.updateAnswer(choiceIndex, {
+            status: newStatus,
+            simplify: newStatus === "correct" ? "required" : "accepted"
+        });
     },
 
     updateAnswer: function(choiceIndex, update) {
@@ -477,25 +499,32 @@ var NumericInputEditor = React.createClass({
                 this.updateAnswer(choiceIndex, update);
             }, choiceIndex, update);
         }
-        var lastAnswer = initAnswer(this.state.lastStatus);
-        var answers = this.props.answers.concat(lastAnswer);
+
+        var answers = this.props.answers;
+        
+        // Don't bother to make a new answer box unless we are editing the last one
+        if (choiceIndex == answers.length) {
+            var lastAnswer = initAnswer(this.state.lastStatus);
+            var answers = answers.concat(lastAnswer);
+        }
+
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        this.updateAllAnswers(answers);
+        this.props.onChange({answers: answers});
     },
 
-    updateAllAnswers: function(newAnswers) {
-        // Filter out all the empty answers
-        var answers = _.filter(newAnswers, (c) => {
-            return c.value != null || (c.message != null && c.message !== "");
-        });
+    addAnswer: function() {
+        var lastAnswer = initAnswer(this.state.lastStatus);
+        var answers = this.props.answers.concat(lastAnswer);
+        this.props.onChange({answers: answers});
+    },
 
-        var sortedAnswers = ([]).concat(
-            _.where(answers, {status: "correct"}),
-            _.where(answers, {status: "ungraded"}),
-            _.where(answers, {status: "wrong"})
-        );
-        this.props.onChange({answers: sortedAnswers});
-    }
+    getSaveWarnings: function() {
+        // Filter out all the empty answers
+        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
+            return ["Warning: one or more answers is empty."];
+        }
+        return [];
+    },
 });
 
 var unionAnswerForms = function(answerFormsList) {
