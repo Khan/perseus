@@ -17,6 +17,14 @@ var shortcuts = {
     list: []
 }
 
+var WidgetSelectOption = React.createClass({
+    render: function() {
+        return <option value={this.props.name}>
+            {this.props.displayName}
+        </option>;
+    }
+});
+
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
         var widgetType = e.target.value;
@@ -52,9 +60,13 @@ var WidgetSelect = React.createClass({
 
                 shortcuts.list.push(shortcut);
 
-                return <option value={name} key={name} data-shortcut={shortcut}>
-                    {widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'}
-                </option>;
+                return WidgetSelectOption({
+                    ref: shortcut,
+                    name: name,
+                    key: name,
+                    shortcut: shortcut,
+                    displayName: widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'
+                })
             })}
         </select>;
     }
@@ -537,12 +549,13 @@ var Editor = React.createClass({
     },
 
     triggerShortcut: function(shortcut) {
-        var select = this.refs.widgetSelect.getDOMNode();
-        var widget = select.querySelector(`[data-shortcut="${shortcut}"]`);
+        var select = this.refs.widgetSelect;
+        var selectNode = select.getDOMNode();
+        var widget = select.refs[shortcut].getDOMNode();
 
         if (widget) {
-            select.value = widget.getAttribute('value');
-            Util.simulateEvent('change', select);
+            selectNode.value = widget.getAttribute('value');
+            Util.simulateEvent('change', selectNode);
         }
     },
 
