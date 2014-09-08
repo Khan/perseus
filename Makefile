@@ -2,7 +2,7 @@
 PORT=9000
 WEBAPP=../webapp
 IOS=../iOS
-SUPRESSINSTALL=FALSE
+SUPPRESSINSTALL=FALSE
 
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
@@ -15,7 +15,7 @@ help:
 	@echo "make subperseus               # build perseus into webapp"
 	@echo "make clean                    # delete all compilation artifacts"
 	@echo "make test                     # run all tests"
-	@echo "# NOTE: you can append SUPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
+	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
 build: install
 	mkdir -p build
