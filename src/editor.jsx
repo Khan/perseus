@@ -12,8 +12,10 @@ var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
 
-// like [[nu, [[int, etc
-var shortcutRegexp = /^\[\[([a-z]+)$/;
+var shortcuts = {
+    regexp: /^\[\[([a-z]+)$/, // like [[nu, [[int, etc
+    list: []
+}
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -33,7 +35,6 @@ var WidgetSelect = React.createClass({
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var shortcuts = [];
         var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
             return widgets[name].displayName;
         });
@@ -47,9 +48,9 @@ var WidgetSelect = React.createClass({
 
                 do {
                     shortcut += name.charAt(i++);
-                } while (shortcuts.indexOf(shortcut) > -1)
+                } while (shortcuts.list.indexOf(shortcut) > -1)
 
-                shortcuts.push(shortcut);
+                shortcuts.list.push(shortcut);
 
                 return <option value={name} key={name} data-shortcut={shortcut}>
                     {widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'}
@@ -517,14 +518,12 @@ var Editor = React.createClass({
     },
 
     handleKeyDown: function(e) {
-        var event = e.nativeEvent;
-
-        if ([13, 32].indexOf(event.keyCode) !== -1) {
+        if ([13, 32].indexOf(e.keyCode) !== -1) {
             var textarea = this.refs.textarea.getDOMNode();
             var word = Util.textarea.getWordBeforeCursor(textarea);
-            var matches = word.string.toLowerCase().match(shortcutRegexp);
+            var matches = word.string.toLowerCase().match(shortcuts.regexp);
 
-            if (matches !== null) {
+            if (matches !== null && shortcuts.list.indexOf(matches[1]) !== -1) {
                 var newContent = Util.insertContent(textarea.value, '', [ word.pos.start, word.pos.end + 1 ]);
 
                 this.props.onChange({ content: newContent }, () => {
