@@ -582,7 +582,8 @@ var defaultRules = {
                     content: capture[1]
                 }],
                 // TODO: sanitize this
-                target: capture[1]
+                target: capture[1],
+                title: undefined
             };
         }
     },
@@ -707,7 +708,7 @@ var defaultRules = {
         // double newlines, or double-space-newlines
         // We break on any symbol characters so that this grammar
         // is easy to extend without needing to modify this regex
-        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff]|\n\n| {2,}\n|$)/,
+        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff]|\n\n| {2,}\n|http|$)/,
         parse: (capture, parse, state) => {
             return {
                 content: capture[0]

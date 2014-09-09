@@ -300,12 +300,16 @@ describe("simple markdown", () => {
                 {content: "[", type: "text"},
                 {content: "hi", type: "text"},
                 {content: "]", type: "text"},
-                {content: "(http", type: "text"},
-                {content: ":", type: "text"},
-                {content: "/", type: "text"},
-                {content: "/www", type: "text"},
-                {content: ".google", type: "text"},
-                {content: ".com", type: "text"},
+                {content: "(", type: "text"},
+                {
+                    type: "link",
+                    content: [{
+                        type: "text",
+                        content: "http://www.google.com"
+                    }],
+                    target: "http://www.google.com",
+                    title: undefined
+                },
                 {content: ")", type: "text"},
             ]);
         });
@@ -419,7 +423,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "http://www.google.com"
                 }],
-                target: "http://www.google.com"
+                target: "http://www.google.com",
+                title: undefined
             }]);
 
             var parsed2 = defaultParse("https://www.google.com");
@@ -429,7 +434,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "https://www.google.com"
                 }],
-                target: "https://www.google.com"
+                target: "https://www.google.com",
+                title: undefined
             }]);
 
             var parsed3 = defaultParse("http://example.com/test.html");
@@ -439,7 +445,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "http://example.com/test.html"
                 }],
-                target: "http://example.com/test.html"
+                target: "http://example.com/test.html",
+                title: undefined
             }]);
 
             var parsed4 = defaultParse(
@@ -454,7 +461,8 @@ describe("simple markdown", () => {
                             "?content=%7B%7D&format=pretty"
                 }],
                 target: "http://example.com/test.html" +
-                        "?content=%7B%7D&format=pretty"
+                        "?content=%7B%7D&format=pretty",
+                title: undefined
             }]);
 
             var parsed5 = defaultParse(
@@ -466,7 +474,32 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "http://example.com/test.html#content=%7B%7D"
                 }],
-                target: "http://example.com/test.html#content=%7B%7D"
+                target: "http://example.com/test.html#content=%7B%7D",
+                title: undefined
+            }]);
+        });
+
+        it("should parse freeform urls inside paragraphs", () => {
+            var parsed = defaultParse(
+                "hi this is a link http://www.google.com\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "text",
+                        content: "hi this is a link ",
+                    },
+                    {
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "http://www.google.com"
+                        }],
+                        target: "http://www.google.com",
+                        title: undefined
+                    }
+                ]
             }]);
         });
 
