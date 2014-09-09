@@ -12,10 +12,7 @@ var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
 
-var shortcuts = {
-    regexp: /^\[\[([a-z]+)$/, // like [[nu, [[int, etc
-    list: []
-}
+var shortcutRegexp = /^\[\[([a-z]+)$/; // like [[nu, [[int, etc
 
 var WidgetSelectOption = React.createClass({
     render: function() {
@@ -24,6 +21,26 @@ var WidgetSelectOption = React.createClass({
 });
 
 var WidgetSelect = React.createClass({
+    componentWillMount: function() {
+        this.widgets = Widgets.getPublicWidgets();
+        this.shortcuts = (() => {
+            var list = {};
+
+            _.map(_.keys(this.widgets), (name) => {
+                var i = 0;
+                var shortcut = '';
+
+                do {
+                    shortcut += name.charAt(i++);
+                } while (list[shortcut])
+
+                list[shortcut] = name;
+            });
+
+            return list;
+        })();
+        this.shortcutsByName = _.invert(this.shortcuts);
+    },
     handleChange: function(e) {
         var widgetType = e.target.value;
         if (widgetType === "") {
@@ -40,29 +57,21 @@ var WidgetSelect = React.createClass({
         return false;
     },
     render: function() {
-        var widgets = Widgets.getPublicWidgets();
-        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
-            return widgets[name].displayName;
+        var orderedWidgetNames = _.sortBy(_.keys(this.widgets), (name) => {
+            return this.widgets[name].displayName;
         });
 
         return <select onChange={this.handleChange}>
             <option value="">Add a widget{"\u2026"}</option>
             <option disabled>--</option>
             {_.map(orderedWidgetNames, (name) => {
-                var i = 0;
-                var shortcut = '';
-
-                do {
-                    shortcut += name.charAt(i++);
-                } while (shortcuts.list.indexOf(shortcut) > -1)
-
-                shortcuts.list.push(shortcut);
+                var shortcut = this.shortcutsByName[name];
 
                 return WidgetSelectOption({
                     ref: shortcut,
                     key: name,
                     name: name,
-                    displayName: widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'
+                    displayName: this.widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'
                 })
             })}
         </select>;
@@ -528,11 +537,13 @@ var Editor = React.createClass({
 
     handleKeyDown: function(e) {
         if ([13, 32].indexOf(e.keyCode) !== -1) {
+            var select = this.refs.widgetSelect;
             var textarea = this.refs.textarea.getDOMNode();
-            var word = Util.textarea.getWordBeforeCursor(textarea);
-            var matches = word.string.toLowerCase().match(shortcuts.regexp);
 
-            if (matches !== null && shortcuts.list.indexOf(matches[1]) !== -1) {
+            var word = Util.textarea.getWordBeforeCursor(textarea);
+            var matches = word.string.toLowerCase().match(shortcutRegexp);
+
+            if (matches !== null && select.shortcuts[matches[1]]) {
                 var newContent = Util.insertContent(textarea.value, '', [ word.pos.start, word.pos.end + 1 ]);
 
                 this.props.onChange({ content: newContent }, () => {
