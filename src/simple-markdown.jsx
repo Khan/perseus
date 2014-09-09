@@ -500,8 +500,14 @@ var defaultRules = {
             });
             
             return <table>
-                {headers}
-                {rows}
+                <thead>
+                    <tr>
+                        {headers}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows}
+                </tbody>
             </table>;
         }
     },
