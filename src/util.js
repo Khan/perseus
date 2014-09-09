@@ -537,23 +537,6 @@ var Util = {
     },
 
     /**
-     * Simulates an event via JS as if a user triggered it
-     *
-     * @param {string} eventName - The name of the event ("click", "change", etc)
-     * @param {Element} element - The DOM element on which to trigger the event
-     */
-    simulateEvent: function(eventName, element) {
-        if ("createEvent" in document) {
-            var evt = document.createEvent("HTMLEvents");
-
-            evt.initEvent(eventName, true, true);
-            element.dispatchEvent(evt);
-        } else {
-            element.fireEvent("onchange");
-        }
-    },
-
-    /**
      * Inserts new content in a text at the specified position
      *
      * @param {string} text - The text where the new content will be added

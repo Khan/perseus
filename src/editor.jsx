@@ -551,8 +551,7 @@ var Editor = React.createClass({
         var widget = select.refs[shortcut].getDOMNode();
 
         if (widget) {
-            selectNode.value = widget.getAttribute('value');
-            Util.simulateEvent('change', selectNode);
+            select.props.onChange(widget.getAttribute('value'));
         }
     },
 
