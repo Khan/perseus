@@ -19,9 +19,7 @@ var shortcuts = {
 
 var WidgetSelectOption = React.createClass({
     render: function() {
-        return <option value={this.props.name}>
-            {this.props.displayName}
-        </option>;
+        return <option value={this.props.name}>{this.props.displayName}</option>;
     }
 });
 
@@ -62,9 +60,8 @@ var WidgetSelect = React.createClass({
 
                 return WidgetSelectOption({
                     ref: shortcut,
-                    name: name,
                     key: name,
-                    shortcut: shortcut,
+                    name: name,
                     displayName: widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'
                 })
             })}
