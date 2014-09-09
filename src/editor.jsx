@@ -548,21 +548,16 @@ var Editor = React.createClass({
 
                 this.props.onChange({ content: newContent }, () => {
                     Util.textarea.moveCursor(textarea, word.pos.start);
-                    this.triggerShortcut(matches[1]);
+
+                    var widget = select.refs[matches[1]].getDOMNode();
+
+                    if (widget) {
+                        select.props.onChange(widget.getAttribute('value'));
+                    }
                 });
 
                 e.preventDefault();
             }
-        }
-    },
-
-    triggerShortcut: function(shortcut) {
-        var select = this.refs.widgetSelect;
-        var selectNode = select.getDOMNode();
-        var widget = select.refs[shortcut].getDOMNode();
-
-        if (widget) {
-            select.props.onChange(widget.getAttribute('value'));
         }
     },
 
