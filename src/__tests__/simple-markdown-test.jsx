@@ -1032,6 +1032,53 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should allow whitespace-only lines to end paragraphs", () => {
+            var parsed = defaultParse("hi\n \n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+
+            var parsed2 = defaultParse("hi\n  \n");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+
+            var parsed3 = defaultParse("hi\n\n  \n  \n");
+            validateParse(parsed3, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+
+            var parsed4 = defaultParse("hi\n  \n\n   \nbye\n\n");
+            validateParse(parsed4, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "hi"
+                    }]
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "bye"
+                    }]
+                },
+            ]);
+        });
+
         it("should parse a single heading", () => {
             var parsed = defaultParse("### heading3\n\n");
             validateParse(parsed, [{

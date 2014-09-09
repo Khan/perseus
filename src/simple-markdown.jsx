@@ -517,7 +517,7 @@ var defaultRules = {
         output: (node, output) => " "
     },
     paragraph: {
-        regex: /^((?:[^\n]|\n[^\n])+)\n\n+/,
+        regex: /^((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/,
         parse: parseCapture,
         output: (node, output) => {
             return <div className="paragraph">{output(node.content)}</div>;
