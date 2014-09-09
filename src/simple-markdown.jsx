@@ -261,6 +261,7 @@ var TABLES = (() => {
 var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\]]|\\](?=[^\\[]*\\]))*";
 var LINK_HREF_AND_TITLE =
         "\\s*<?([^\\s]*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
 
 var parseRef = (capture, state, refNode) => {
     var ref = (capture[2] || capture[1])
@@ -546,13 +547,14 @@ var defaultRules = {
     mailto: {
         regex: /^<([^ >]+@[^ >]+)>/,
         parse: (capture, parse, state) => {
-            var address;
+            var address = capture[1];
+            var target = capture[1];
+
             // Check for a `mailto:` already existing in the link:
-            if (capture[1].substring(0, 7) === "mailto:") {
-                address = capture[1].substring(7);
-            } else {
-                address = capture[1];
+            if (!AUTOLINK_MAILTO_CHECK_R.test(target)) {
+                target = "mailto:" + target;
             }
+
             return {
                 type: "link",
                 content: [{
@@ -560,7 +562,7 @@ var defaultRules = {
                     content: address
                 }],
                 // TODO: sanitize this
-                target: "mailto:" + address
+                target: target
             };
         }
     },

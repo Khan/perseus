@@ -395,9 +395,19 @@ describe("simple markdown", () => {
                 type: "link",
                 content: [{
                     type: "text",
-                    content: "test@example.com"
+                    content: "mailto:test@example.com"
                 }],
                 target: "mailto:test@example.com"
+            }]);
+
+            var parsed4 = defaultParse("<MAILTO:TEST@EXAMPLE.COM>");
+            validateParse(parsed4, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "MAILTO:TEST@EXAMPLE.COM"
+                }],
+                target: "MAILTO:TEST@EXAMPLE.COM"
             }]);
         });
 
