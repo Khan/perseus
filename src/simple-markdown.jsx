@@ -514,7 +514,7 @@ var defaultRules = {
     newline: {
         regex: /^\n+/,
         parse: ignoreCapture,
-        output: (node, output) => " "
+        output: (node, output) => "\n"
     },
     paragraph: {
         regex: /^((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/,
