@@ -71,7 +71,7 @@ var WidgetSelect = React.createClass({
                     ref: shortcut,
                     key: name,
                     name: name,
-                    displayName: this.widgets[name].displayName + ' [' + shortcut.toUpperCase() + ']'
+                    displayName: this.widgets[name].displayName + ' (' + shortcut.toUpperCase() + ')'
                 })
             })}
         </select>;
@@ -383,7 +383,7 @@ var Editor = React.createClass({
             widgetsDropDown = <WidgetSelect ref="widgetSelect" onChange={this.addWidget} />;
             widgetsDropDownInfoTip = <div className="info-tip">
                 <InfoTip>
-                    <p>Type <b>[[&lt;shortcut&gt;</b> followed by SPACE or ENTER to quickly add a widget.</p>
+                    <p>Type <b>[[&lt;shortcut&gt;</b> followed by SPACE, ENTER or TAB to quickly add a widget.</p>
                 </InfoTip>
             </div>
 
@@ -536,7 +536,7 @@ var Editor = React.createClass({
     },
 
     handleKeyDown: function(e) {
-        if ([13, 32].indexOf(e.keyCode) !== -1) {
+        if ([9, 13, 32].indexOf(e.keyCode) !== -1) {
             var select = this.refs.widgetSelect;
             var textarea = this.refs.textarea.getDOMNode();
 
