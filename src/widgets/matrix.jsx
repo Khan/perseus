@@ -284,7 +284,7 @@ _.extend(Matrix, {
         _(suppliedSize[0]).times((row) => {
             _(suppliedSize[1]).times((col) => {
                 if (supplied[row][col] == null ||
-                        matrixCol.toString().length === 0) {
+                        supplied[row][col].toString().length === 0) {
                     hasEmptyCell = true;
                 }
                 var validator = createValidator(
