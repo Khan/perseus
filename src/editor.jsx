@@ -26,15 +26,20 @@ var WidgetSelect = React.createClass({
         this.shortcuts = (() => {
             var list = {};
 
-            _.map(_.keys(this.widgets), (name) => {
-                var i = 0;
+            _.map(_.sortBy(this.widgets, 'shortcut'), (widget) => {
                 var shortcut = '';
 
-                do {
-                    shortcut += name.charAt(i++);
-                } while (list[shortcut])
+                if (widget.shortcut) {
+                    shortcut = widget.shortcut;
+                } else {
+                    var i = 0;
 
-                list[shortcut] = name;
+                    do {
+                        shortcut += widget.name.charAt(i++);
+                    } while (list[shortcut])
+                }
+
+                list[shortcut] = widget.name;
             });
 
             return list;
@@ -383,7 +388,7 @@ var Editor = React.createClass({
             widgetsDropDown = <WidgetSelect ref="widgetSelect" onChange={this.addWidget} />;
             widgetsDropDownInfoTip = <div className="info-tip">
                 <InfoTip>
-                    <p>Type <b>[[&lt;shortcut&gt;</b> followed by SPACE, ENTER or TAB to quickly add a widget.</p>
+                    <p>Type <b>[[&#123;shortcut&#125;</b> followed by SPACE, ENTER or TAB to quickly add a widget. ( Example: <b>[[n</b> )</p>
                 </InfoTip>
             </div>
 
