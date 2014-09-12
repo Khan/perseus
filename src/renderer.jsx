@@ -297,7 +297,11 @@ var Renderer = React.createClass({
     },
 
     getWidgetInstance: function(id) {
-        return this.refs["container:" + id].getWidget();
+        var ref = this.refs["container:" + id];
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
     },
 
     _onWidgetFocus: function(id, focusPath) {
@@ -665,9 +669,14 @@ var Renderer = React.createClass({
 
         var widgetId = _.first(path);
         var interWidgetPath = _.rest(path);
-        // Widget handles parsing of the interWidgetPath
-        var blurWidget = this.getWidgetInstance(widgetId).blur;
-        blurWidget && blurWidget(interWidgetPath);
+        var widget = this.getWidgetInstance(widgetId);
+        // We might be in the editor and blurring a widget that no
+        // longer exists, so only blur if we actually found the widget
+        if (widget) {
+            var blurWidget = this.getWidgetInstance(widgetId).blur;
+            // Widget handles parsing of the interWidgetPath
+            blurWidget && blurWidget(interWidgetPath);
+        }
     },
 
     blur: function() {
