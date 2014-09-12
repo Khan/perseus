@@ -181,28 +181,29 @@ var Graphie = React.createClass({
         // elements occurring afterwards. If this happens, we set
         // `areMovablesOutOfOrder` to true:
         var areMovablesOutOfOrder = false;
-        return nestedMap(children, (child) => {
-            if (!child) {
+        return nestedMap(children, (childDescriptor) => {
+            if (!childDescriptor) {
                 // Still increment the key to avoid cascading key changes
                 // on hiding/unhiding children, i.e. by using
                 // {someBoolean && <MovablePoint />}
                 options.nextKey++;
                 // preserve the null/undefined in the resulting array
-                return child;
+                return childDescriptor;
             }
 
             // Instantiate the descriptor to turn it into a real Movable
-            var child = new child.type(child);
+            var child = new childDescriptor.type(childDescriptor);
             assert(child instanceof GraphieMovable,
                 "All children of a Graphie component must be Graphie " +
                 "movables");
 
             // Give each child a key
-            var keyProp = child.key();
+            var keyProp = childDescriptor.key;
             var key = (keyProp == null) ?
                     ("_no_id_" + options.nextKey) :
                     keyProp;
             options.nextKey++;
+            var ref = childDescriptor.ref;
 
             // We render our children first. This allows us to replace any
             // `movableProps` on our child with the on-screen movables
@@ -252,8 +253,8 @@ var Graphie = React.createClass({
                 newMovables[key].toFront();
             }
 
-            if (newMovables[key].props.ref) {
-                this.movables[newMovables[key].props.ref] = newMovables[key];
+            if (ref) {
+                this.movables[ref] = newMovables[key];
             }
 
             return newMovables[key];

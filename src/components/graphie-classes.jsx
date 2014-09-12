@@ -19,9 +19,6 @@ var abstractMethod = function() {
 
 _.extend(GraphieMovable.prototype, {
     movableProps: [],
-    key: function() {
-        return this._key;
-    },
     add: abstractMethod,
     modify: abstractMethod,
     remove: abstractMethod,
@@ -47,7 +44,6 @@ var rewriteProps = function(props, childrenArray) {
  */
 var createClass = function(spec) {
     var GraphieClass = function(descriptor) {
-        this._key = descriptor.key;
         this.props = rewriteProps(descriptor.props, descriptor.props.children);
         return this;
     };
