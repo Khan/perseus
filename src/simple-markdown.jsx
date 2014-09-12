@@ -148,7 +148,7 @@ var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 var LIST_ITEM_R = new RegExp(
     LIST_ITEM_PREFIX +
     "[^\\n]*(?:\\n" +
-    "(?!\\1" + LIST_BULLET + " )[^\\n]*)*",
+    "(?!\\1" + LIST_BULLET + " )[^\\n]*)*\n",
     "gm"
 );
 // recognize the end of a paragraph block inside a list item:
@@ -358,13 +358,13 @@ var defaultRules = {
             "(?!\\1" + LIST_BULLET + " )\\n*" +
             // the \\s*$ here is so that we can parse the inside of nested
             // lists, where our content might end before we receive two `\n`s
-            "|\\s*$)"
+            "|\\s*\n$)"
         ),
         parse: (capture, parse, state) => {
             var bullet = capture[2];
             var ordered = bullet.length > 1;
             var items = capture[0]
-                .replace(LIST_BLOCK_END_R, "")
+                .replace(LIST_BLOCK_END_R, "\n")
                 .match(LIST_ITEM_R);
 
             var lastItemWasAParagraph = false;
@@ -376,7 +376,7 @@ var defaultRules = {
                 var spaceRegex = new RegExp("^ {1," + space + "}", "gm");
 
                 // Before processing the item, we need a couple things
-                var content = (item + "\n")
+                var content = item
                          // remove indents on trailing lines:
                         .replace(spaceRegex, '')
                          // remove the bullet:
@@ -402,9 +402,9 @@ var defaultRules = {
                         (isLastItem && lastItemWasAParagraph);
                 lastItemWasAParagraph = thisItemIsAParagraph;
 
-                var adjustedContent = content.replace(LIST_ITEM_END_R, "");
+                var adjustedContent = content.replace(LIST_ITEM_END_R, "\n");
                 if (thisItemIsAParagraph) {
-                    adjustedContent += "\n\n";
+                    adjustedContent += "\n";
                 }
 
                 return parse(adjustedContent, state);

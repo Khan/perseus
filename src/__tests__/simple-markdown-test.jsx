@@ -1367,22 +1367,22 @@ describe("simple markdown", () => {
                 " * there\n\n"
             );
             validateParse(parsed, [{
-                type: "list",
                 ordered: false,
                 items: [
                     [{
+                        content: "hi\n",
                         type: "text",
-                        content: "hi",
                     }],
                     [{
+                        content: "bye\n",
                         type: "text",
-                        content: "bye",
                     }],
                     [{
+                        content: "there\n",
                         type: "text",
-                        content: "there",
                     }],
-                ]
+                ],
+                type: "list",
             }]);
         });
 
@@ -1398,15 +1398,15 @@ describe("simple markdown", () => {
                 items: [
                     [{
                         type: "text",
-                        content: "first",
+                        content: "first\n",
                     }],
                     [{
                         type: "text",
-                        content: "second",
+                        content: "second\n",
                     }],
                     [{
                         type: "text",
-                        content: "third",
+                        content: "third\n",
                     }],
                 ]
             }]);
@@ -1424,15 +1424,15 @@ describe("simple markdown", () => {
                 items: [
                     [{
                         type: "text",
-                        content: "first",
+                        content: "first\n",
                     }],
                     [{
                         type: "text",
-                        content: "second",
+                        content: "second\n",
                     }],
                     [{
                         type: "text",
-                        content: "third",
+                        content: "third\n",
                     }],
                 ]
             }]);
@@ -1447,38 +1447,38 @@ describe("simple markdown", () => {
                 "3. third\n\n"
             );
             validateParse(parsed, [{
-                type: "list",
                 ordered: true,
                 items: [
                     [{
+                        content: "first\n",
                         type: "text",
-                        content: "first",
                     }],
                     [
                         {
-                            type: "text",
                             content: "second\n",
+                            type: "text",
                         },
                         {
-                            type: "list",
                             ordered: false,
                             items: [
                                 [{
+                                    content: "inner\n",
                                     type: "text",
-                                    content: "inner"
                                 }],
                                 [{
+                                    content: "inner\n",
                                     type: "text",
-                                    content: "inner"
                                 }]
-                            ]
+                            ],
+                            type: "list",
                         }
                     ],
                     [{
+                        content: "third\n",
                         type: "text",
-                        content: "third",
                     }],
-                ]
+                ],
+                type: "list",
             }]);
         });
 
@@ -1683,15 +1683,15 @@ describe("simple markdown", () => {
                         ordered: false,
                         items: [
                             [{
-                                content: "asterisk 1",
+                                content: "asterisk 1\n",
                                 type: "text",
                             }],
                             [{
-                                content: "asterisk 2",
+                                content: "asterisk 2\n",
                                 type: "text",
                             }],
                             [{
-                                content: "asterisk 3",
+                                content: "asterisk 3\n",
                                 type: "text",
                             }],
                         ]
@@ -1731,6 +1731,35 @@ describe("simple markdown", () => {
                             }]
                         },
                     ],
+                ]
+            }]);
+        });
+
+        it("symbols should not break a paragraph into a list", () => {
+            var parsed = defaultParse("hi - there\n\n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi ", type: "text" },
+                    { content: "- there", type: "text" },
+                ]
+            }]);
+
+            var parsed2 = defaultParse("hi * there\n\n");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi ", type: "text" },
+                    { content: "* there", type: "text" },
+                ]
+            }]);
+
+            var parsed3 = defaultParse("hi 1. there\n\n");
+            validateParse(parsed3, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi 1", type: "text" },
+                    { content: ". there", type: "text" },
                 ]
             }]);
         });
