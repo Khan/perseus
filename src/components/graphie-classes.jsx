@@ -61,8 +61,31 @@ var createClass = function(spec) {
     GraphieClass.prototype = new GraphieMovable(spec);
     GraphieClass.prototype.constructor = GraphieClass;
 
-    var factory = function(props) {
-        return new GraphieClass(props, _.rest(arguments));
+    var factory = function(config) {
+        // TODO(alpert): Remove after 0.12 -- adapted from 
+        // https://github.com/facebook/react/blob/af485d9/src/core/ReactDescriptor.js#L136-L188
+        var props = {};
+        var key = null;
+        var ref = null;
+        var propName;
+        if (config != null) {
+            key = config.key === undefined ? null : '' + config.key;
+            ref = config.ref === undefined ? null : config.ref;
+            for (propName in config) {
+                if (config.hasOwnProperty(propName) &&
+                        propName !== "key" &&
+                        propName !== "ref") {
+                    props[propName] = config[propName];
+                }
+            }
+        }
+        props.children = _.rest(arguments);
+        return {
+            type: GraphieClass,
+            key: key,
+            ref: ref,
+            props: props,
+        };
     };
 
     // TODO(alpert): This is present to trick React.createElement into
