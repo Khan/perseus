@@ -102,10 +102,25 @@ body.mobile {
             overflow: hidden;
             padding: 8px 10px !important; // Being overwritten by khan-exercises.css
 
+            &:active {
+                background-color: @blue;
+                border-color: @blue;
+                color: white;
+
+                input[type=radio] {
+                    border-color: @gray;
+                    background-color: white;
+                }
+            }
+
             &.perseus-radio-selected {
                 border-color: @blue;
                 color: @blue;
                 font-weight: bold;
+
+                &:active {
+                    color: white;
+                }
             }
 
             .perseus-radio-option-content {
