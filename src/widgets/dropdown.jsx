@@ -53,10 +53,11 @@ var Dropdown = React.createClass({
 
         } else {
             return <select
-                        onChange={this._handleChangeEvent}
-                        onTouchStart={captureScratchpadTouchStart}
-                        className="perseus-widget-dropdown"
-                        value={this.props.selected}>
+                    onChange={this._handleChangeEvent}
+                    onTouchStart={captureScratchpadTouchStart}
+                    className={"perseus-widget-dropdown " +
+                        ApiClassNames.INTERACTIVE}
+                    value={this.props.selected}>
                 <option value={0} disabled>
                     {this.props.placeholder}
                 </option>

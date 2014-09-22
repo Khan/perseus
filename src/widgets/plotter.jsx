@@ -71,7 +71,7 @@ var Plotter = React.createClass({
 
     render: function() {
         return <div
-            className={"perseus-widget-plotter graphie above-scratchpad " +
+            className={"perseus-widget-plotter graphie " +
                 ApiClassNames.INTERACTIVE}
             ref="graphieDiv" />;
     },

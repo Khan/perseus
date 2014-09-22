@@ -90,7 +90,6 @@ var BaseRadio = React.createClass({
                             simplest to just work around that everywhere. */}
                         <span
                                 className={
-                                    "interactive-component " +
                                     ApiClassNames.RADIO.OPTION_CONTENT + " " +
                                     ApiClassNames.INTERACTIVE
                                 }
