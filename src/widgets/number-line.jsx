@@ -24,6 +24,8 @@ var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var deepEq = require("../util.js").deepEq;
 var assert = require("../interactive2/interactive-util.js").assert;
 
+var EN_DASH = "\u2013";
+
 var reverseRel = {
     ge: "le",
     gt: "lt",
@@ -181,7 +183,7 @@ var NumberLine = React.createClass({
             range: [0, 10],
             labelStyle: "decimal",
             labelRange: [null, null],
-            divisionRange: [1, 10],
+            divisionRange: [1, 12],
             labelTicks: true,
             isTickCtrl: false,
             isInequality: false,
@@ -207,6 +209,13 @@ var NumberLine = React.createClass({
     },
 
     render: function() {
+        var range = this.props.range;
+        var width = range[1] - range[0];
+        var divisionRange = this.props.divisionRange;
+        var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+        var invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
+                this.props.numDivisions > divisionRange[1];
+
         var inequalityControls = <div>
             <input
                 type="button"
@@ -224,10 +233,55 @@ var NumberLine = React.createClass({
 
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
-            {!this.isValid() ? <div>invalid number line configuration</div> :
-                this._renderGraphie()}
+            {this.props.isTickCtrl && <NumberInput
+                label={$._("Number of divisions:")}
+                value={this.props.numDivisions || divisionRange[0]}
+                checkValidity={(val) =>
+                    val >= divisionRange[0] && val <= divisionRange[1]}
+                onChange={this.onNumDivisionsChange}
+                useArrowKeys={true} />}
+            {!this.isValid() ?
+                <div className="invalid-number-line">
+                    Invalid number line configuration.
+                </div> :
+                (invalidNumDivisions ?
+                    <div className="invalid-number-line">
+                        <$_ divRangeString={divRangeString}>
+                            Please make sure the number of divisions is in the
+                            range %(divRangeString)s.
+                        </$_>
+                    </div> : this._renderGraphie())}
             {this.props.isInequality && inequalityControls}
         </div>;
+    },
+
+    onNumDivisionsChange: function(numDivisions) {
+        var divRange = this.props.divisionRange.slice();
+        var width = this.props.range[1] - this.props.range[0];
+
+        // Don't allow a fraction for the number of divisions
+        numDivisions = Math.round(numDivisions);
+
+        // Don't allow negative numbers for the number of divisions
+        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
+
+        // If the number of divisions isn't blank, update the number line
+        if (numDivisions) {
+            var nextProps = _.extend({}, this.props, {
+                tickStep: width / numDivisions
+            });
+
+            var newNumLinePosition = this.snapNumLinePosition(
+                nextProps,
+                this.props.numLinePosition
+            );
+
+            this.props.onChange({
+                divisionRange: divRange,
+                numDivisions: numDivisions,
+                numLinePosition: newNumLinePosition
+            });
+        }
     },
 
     _renderGraphie: function() {
@@ -239,8 +293,10 @@ var NumberLine = React.createClass({
         var buffer = 30 * scale;
 
         // Initiate the graphie without actually drawing anything
-        var left = range[0] - buffer, right = range[1] + buffer;
-        var bottom = -1, top = 1 + (this.props.isTickCtrl ? 1 : 0);
+        var left = range[0] - buffer;
+        var right = range[1] + buffer;
+        var bottom = -1;
+        var top = 1;
 
         var options = _.pick(this.props, [
             "range",
@@ -249,29 +305,25 @@ var NumberLine = React.createClass({
 
         // TODO(aria): Maybe save this as `this.calculatedProps`?
         var props = _.extend({}, this.props, {
-            tickCtrlPosition: this.calculateTickControlPosition(
-                this.props.numDivisions
-            ),
             tickStep: width / this.props.numDivisions
         });
 
         return <Graphie
                 ref="graphie"
-                box={[460, (this.props.isTickCtrl ? 120 : 80)]}
+                box={[460, 80]}
                 options={options}
                 onMouseDown={(coord) => {
                     this.refs.graphie.movables.numberLinePoint.grab(coord);
                 }}
                 setup={this._setupGraphie}>
-            {this._renderTickControl(props)}
-            <TickMarks
-                range={props.range}
-                numDivisions={props.numDivisions}
-                labelTicks={props.labelTicks}
-                labelStyle={props.labelStyle}
-                labelRange={props.labelRange}
-                tickStep={props.tickStep}
-            />
+            {TickMarks(_.pick(props, [
+                "range",
+                "numDivisions",
+                "labelTicks",
+                "labelStyle",
+                "labelRange",
+                "tickStep"
+            ]))}
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
         </Graphie>;
@@ -316,74 +368,7 @@ var NumberLine = React.createClass({
             highlightStyle={highlightStyle}
             onMove={(coord) => {
                 this.change({numLinePosition: coord[0]});
-            }}
-        />;
-    },
-
-    _renderTickControl: function(props) {
-        if (!this.props.isTickCtrl) {
-            return null;
-        }
-
-        var width = props.range[1] - props.range[0];
-        var tickCtrlWidth = (1/3) * width;
-        var tickCtrlLeft = props.range[0] + (1/3) * width;
-        var tickCtrlRight = props.range[0] + (2/3) * width;
-        var scale = width / 400;
-        var textBuffer = 50 * scale;
-        var textLeft = tickCtrlLeft - textBuffer;
-        var textRight = tickCtrlRight + textBuffer;
-        var divSpan= props.divisionRange[1] - props.divisionRange[0];
-
-        return [
-            <Line start={[tickCtrlLeft, 1.5]} end={[tickCtrlRight, 1.5]} />,
-            <Label
-                coord={[textLeft, 1.5]}
-                text="fewer ticks"
-                direction="center"
-                tex={false} />,
-            <Label
-                coord={[textRight, 1.5]}
-                text="more ticks"
-                direction="center"
-                tex={false} />,
-            <MovablePoint
-                key="tickControl"
-                pointSize={5}
-                coord={[props.tickCtrlPosition, 1.5]}
-                constraints={[
-                    (coord, prevCoord) => {  // constrain-y
-                        return [coord[0], prevCoord[1]];
-                    },
-                    (coord, prevCoord) => {  // snap & bound
-                        var snapX = tickCtrlWidth / (divSpan);
-                        x = bound(coord[0], tickCtrlLeft, tickCtrlRight);
-                        x = tickCtrlLeft +
-                            Math.round((x - tickCtrlLeft) / (snapX)) * snapX;
-                        assert(_.isFinite(x));
-                        return [x, coord[1]];
-                    }
-                ]}
-                onMove={(coord) => {
-                    var numDivisions = this.calculateNumDivisions(coord[0]);
-                    this.change({numDivisions: numDivisions});
-                }}
-                onMoveEnd={(coord) => {
-                    // Snap point to a tick step
-                    var numDivisions = this.calculateNumDivisions(coord[0]);
-
-                    var nextProps = _.extend({}, props, {
-                        numDivisions: numDivisions,
-                        tickStep: width / numDivisions
-                    });
-                    var newNumLinePosition = this.snapNumLinePosition(
-                        nextProps,
-                        props.numLinePosition
-                    );
-                    this.change({numLinePosition: newNumLinePosition});
-                }}
-            />
-        ];
+            }} />;
     },
 
     handleReverse: function() {
@@ -426,36 +411,6 @@ var NumberLine = React.createClass({
         }
     },
 
-    calculateTickControlPosition: function(numDivisions) {
-        var width = this.props.range[1] - this.props.range[0];
-        var tickCtrlLeft = this.props.range[0] + (1/3) * width;
-        var tickCtrlWidth = (1/3) * width;
-        var minDivs = this.props.divisionRange[0];
-        var maxDivs = this.props.divisionRange[1];
-
-        var tickCtrlPosition = tickCtrlLeft + tickCtrlWidth *
-                ((numDivisions - minDivs) / (maxDivs - minDivs));
-
-        return tickCtrlPosition;
-    },
-
-    calculateNumDivisions: function(tickCtrlPosition) {
-        var width = this.props.range[1] - this.props.range[0];
-        var tickCtrlLeft = this.props.range[0] + (1/3) * width;
-        var tickCtrlRight = this.props.range[0] + (2/3) * width;
-        var tickCtrlWidth = (1/3) * width;
-        var minDivs = this.props.divisionRange[0];
-        var maxDivs = this.props.divisionRange[1];
-
-        var tickCtrlPosition = bound(tickCtrlPosition,
-                       tickCtrlLeft, tickCtrlRight);
-        var numDivs = minDivs + Math.round((maxDivs - minDivs) *
-                ((tickCtrlPosition - tickCtrlLeft) / tickCtrlWidth));
-
-        assert(_.isFinite(numDivs));
-        return numDivs;
-    },
-
     _setupGraphie: function(graphie, options) {
         // Ensure a sane configuration to avoid infinite loops
         if (!this.isValid()) {return;}
@@ -467,8 +422,10 @@ var NumberLine = React.createClass({
         var buffer = 30 * scale;
 
         // Initiate the graphie without actually drawing anything
-        var left = range[0] - buffer, right = range[1] + buffer;
-        var bottom = -1, top = 1 + (options.isTickCtrl ? 1 : 0);
+        var left = range[0] - buffer;
+        var right = range[1] + buffer;
+        var bottom = -1;
+        var top = 1;
         graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40]
@@ -483,7 +440,9 @@ var NumberLine = React.createClass({
     getUserInput: function() {
         return {
             numLinePosition: this.props.numLinePosition,
-            rel: this.props.isInequality ? this.props.rel : "eq"
+            rel: this.props.isInequality ? this.props.rel : "eq",
+            numDivisions: this.props.numDivisions,
+            divisionRange: this.props.divisionRange
         };
     },
 
@@ -502,12 +461,22 @@ var NumberLine = React.createClass({
 _.extend(NumberLine, {
     validate: function(state, rubric) {
         var range = rubric.range;
+        var divisionRange = state.divisionRange;
         var start = rubric.initialX != null ? rubric.initialX : range[0];
         var startRel = rubric.isInequality ? "ge" : "eq";
         var correctRel = rubric.correctRel || "eq";
+        var correctPos = knumber.equal(
+                state.numLinePosition,
+                rubric.correctX || 0);
+        var outsideAllowedRange = state.numDivisions > divisionRange[1] ||
+                state.numDivisions < divisionRange[0];
 
-        if (knumber.equal(state.numLinePosition, rubric.correctX || 0) &&
-                correctRel === state.rel) {
+        if (outsideAllowedRange) {
+            return {
+                type: "invalid",
+                message: "Number of divisions is outside the allowed range."
+            };
+        } else if (correctPos && correctRel === state.rel) {
             return {
                 type: "points",
                 earned: 1,
@@ -537,7 +506,7 @@ var NumberLineEditor = React.createClass({
         return {
             range: [0, 10],
             labelRange: [null, null],
-            divisionRange: [1, 10],
+            divisionRange: [1, 12],
             labelStyle: "decimal",
             labelTicks: true,
             numDivisions: 5,
@@ -594,7 +563,8 @@ var NumberLineEditor = React.createClass({
                     <option value="le"> &le; </option>
                     <option value="ge"> &ge; </option>
                 </select>
-                <NumberInput value={this.props.correctX}
+                <NumberInput
+                    value={this.props.correctX}
                     format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "correctX")}
                     checkValidity={val =>
@@ -611,7 +581,8 @@ var NumberLineEditor = React.createClass({
             </div>
 
             <div className="perseus-widget-row">
-                <NumberInput label="position"
+                <NumberInput
+                    label="position"
                     value={this.props.initialX}
                     format={this.props.labelStyle}
                     onChange={this.onNumChange.bind(this, "initialX")}
@@ -619,7 +590,8 @@ var NumberLineEditor = React.createClass({
                     checkValidity={val => val >= range[0] && val <= range[1]}
                     useArrowKeys={true} />
                 <span> &isin; {' '} </span>
-                <RangeInput value={range}
+                <RangeInput
+                    value={range}
                     onChange={this.onRangeChange}
                     format={this.props.labelStyle}
                     useArrowKeys={true} />
@@ -659,7 +631,8 @@ var NumberLineEditor = React.createClass({
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     <label>style</label>
-                    <ButtonGroup allowEmpty={false}
+                    <ButtonGroup
+                        allowEmpty={false}
                         value={this.props.labelStyle}
                         buttons={labelStyleEditorButtons}
                         onChange={this.onLabelStyleChange} />
@@ -674,42 +647,49 @@ var NumberLineEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
-                    <PropCheckBox label="show tick controller"
+                    <PropCheckBox
+                        label="show tick controller"
                         isTickCtrl={this.props.isTickCtrl}
                         onChange={this.props.onChange} />
                 </div>
                 <div className="perseus-widget-right-col">
-                    <PropCheckBox label="show label ticks"
+                    <PropCheckBox
+                        label="show label ticks"
                         labelTicks={this.props.labelTicks}
                         onChange={this.props.onChange} />
                 </div>
             </div>
             <div className="perseus-widget-row">
-                <NumberInput label="num divisions"
-                    value={this.props.numDivisions || null}
-                    format={"decimal"}
-                    onChange={this.onNumDivisionsChange}
-                    checkValidity={val =>
-                        val >= divisionRange[0] && val <= divisionRange[1]}
-                    placeholder={width / this.props.tickStep}
-                    useArrowKeys={true} />
-                {isTickCtrl && <span> &isin; {' '}
-                    <RangeInput value={divisionRange}
-                        format={this.props.labelStyle}
-                        checkValidity={val => val[0] >= 1 && val[1] > val[0]}
-                        enforceInequality={true}
-                        onChange={this.onDivisionRangeChange}
+                {isTickCtrl && <span>
+                    <NumberInput
+                        label="start num divisions at"
+                        value={this.props.numDivisions || null}
+                        format={"decimal"}
+                        onChange={this.onNumDivisionsChange}
+                        checkValidity={val =>
+                            val >= divisionRange[0] && val <= divisionRange[1]}
+                        placeholder={width / this.props.tickStep}
                         useArrowKeys={true} />
                     <InfoTip><p>
-                    This controls the number (and position) of the tick marks.
-                    The range dictates the minimum and maximum number of ticks
-                    that the user can make using the tick controller. <br />
-                    <strong>Note:</strong> There is no check to see if labels
-                    coordinate with the tick marks, which may be confusing for
-                    users if the blue labels and black ticks are off-step.
+                        This controls the number (and position) of the tick
+                        marks. The number of divisions is constrained to
+                        {" " + divisionRange[0] + EN_DASH + divisionRange[1]}.
+                        <br />
+                        <strong>Note:</strong> The user will be able to specify
+                        the number of divisions in a number input.
                     </p></InfoTip></span>}
                 {!isTickCtrl && <span>
-                    <NumberInput label=" or tick step"
+                    <NumberInput
+                        label="num divisions"
+                        value={this.props.numDivisions || null}
+                        format={"decimal"}
+                        onChange={this.onNumDivisionsChange}
+                        checkValidity={val =>
+                            val >= divisionRange[0] && val <= divisionRange[1]}
+                        placeholder={width / this.props.tickStep}
+                        useArrowKeys={true} />
+                    <NumberInput
+                        label=" or tick step"
                         value={this.props.tickStep || null}
                         format={this.props.labelStyle}
                         onChange={this.onTickStepChange}
@@ -717,18 +697,20 @@ var NumberLineEditor = React.createClass({
                         placeholder={width / this.props.numDivisions}
                         useArrowKeys={true} />
                     <InfoTip><p>
-                    This controls the number (and position) of the tick marks;
-                    you can either set the number of divisions (2 divisions
-                    would split the entire range in two halves), or the
-                    tick step (the distance between ticks) and the other
-                    value will be updated accordingly. <br />
-                    <strong>Note:</strong> There is no check to see if labels
-                    coordinate with the tick marks, which may be confusing for
-                    users if the blue labels and black ticks are off-step.
+                        This controls the number (and position) of the tick
+                        marks; you can either set the number of divisions (2
+                        divisions would split the entire range in two halves),
+                        or the tick step (the distance between ticks) and the
+                        other value will be updated accordingly. <br />
+                        <strong>Note:</strong> There is no check to see if
+                        labels coordinate with the tick marks, which may be
+                        confusing for users if the blue labels and black ticks
+                        are off-step.
                     </p></InfoTip></span>}
             </div>
             <div className="perseus-widget-row">
-                <NumberInput label="snap increments per tick"
+                <NumberInput
+                    label="snap increments per tick"
                     value={snapDivisions}
                     checkValidity={val => val > 0}
                     format={this.props.labelStyle}
@@ -792,17 +774,26 @@ var NumberLineEditor = React.createClass({
             numDivisions = null;
         }
 
-        // Auto-updates (constrains) the numDivisions to be within the range
-        // of appliable divisions (more important for when the tick controller
-        // isn't shown and otherwise shows as invalid for no apparent reason)
-        divRange[0] = Math.max(1, Math.min(divRange[0], numDivisions));
-        divRange[1] = Math.max(divRange[1], numDivisions);
+        // Don't allow a fraction for the number of divisions
+        numDivisions = Math.round(numDivisions);
 
-        this.props.onChange({
-            tickStep: null,
-            divisionRange: divRange,
-            numDivisions: numDivisions,
-        });
+        // Don't allow negative numbers for the number of divisions
+        numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
+
+        // If the number of divisions isn't blank, update the number line
+        if (numDivisions) {
+            // Constrain numDivisions to be within the allowed range
+            numDivisions = Math.min(
+                divRange[1],
+                Math.max(divRange[0], numDivisions)
+            );
+
+            this.props.onChange({
+                tickStep: null,
+                divisionRange: divRange,
+                numDivisions: numDivisions,
+            });
+        }
     },
 
     onTickStepChange: function(tickStep) {
