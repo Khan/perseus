@@ -1744,42 +1744,6 @@ describe("simple markdown", () => {
                     }
                 ]
             }]);
-
-            var parsed2 = defaultParse(
-                " * this is a list\n\n" +
-                "       with code in it\n\n" +
-                " * second item\n" +
-                "\n"
-            );
-            validateParse(parsed2, [{
-                type: "list",
-                ordered: false,
-                items: [
-                    [
-                        {
-                            type: "paragraph",
-                            content: [{
-                                type: "text",
-                                content: "this is a list"
-                            }]
-                        },
-                        {
-                            type: "codeBlock",
-                            lang: undefined,
-                            content: "with code in it"
-                        }
-                    ],
-                    [
-                        {
-                            type: "paragraph",
-                            content: [{
-                                type: "text",
-                                content: "second item"
-                            }]
-                        },
-                    ],
-                ]
-            }]);
         });
 
         it("symbols should not break a paragraph into a list", () => {
