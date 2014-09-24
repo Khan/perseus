@@ -315,7 +315,13 @@ describe("simple markdown", () => {
             }]);
         });
 
-        it("should not parse \\[s as links", () => {
+        it("should allow escaping `[` with `\\`", () => {
+            // Without the backslash, the following would be a
+            // link with the text "hi".
+            // With the backslash, it should ignore the '[hi]'
+            // portion, but will still detect that the inside
+            // of the parentheses contains a raw url, which it
+            // will turn into a url link.
             var parsed = defaultParse("\\[hi](http://www.google.com)");
             validateParse(parsed, [
                 {content: "[", type: "text"},
