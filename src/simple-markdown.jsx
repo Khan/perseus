@@ -332,11 +332,29 @@ var defaultRules = {
                 .replace(/^    /gm, '')
                 .replace(/\n+$/, '');
             return {
+                lang: undefined,
                 content: content
             };
         },
         output: (node, output) => {
-            return <pre><code>{node.content}</code></pre>;
+            var className = node.lang ?
+                "markdown-code-" + node.lang :
+                undefined;
+            return <pre>
+                <code className={className}>
+                    {node.content}
+                </code>
+            </pre>;
+        }
+    },
+    fence: {
+        regex: /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *\n+/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "codeBlock",
+                lang: capture[2] || undefined,
+                content: capture[3]
+            };
         }
     },
     blockQuote: {

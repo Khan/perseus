@@ -1278,6 +1278,7 @@ describe("simple markdown", () => {
             var parsed = defaultParse("    if (true) { code(); }\n\n");
             validateParse(parsed, [{
                 type: "codeBlock",
+                lang: undefined,
                 content: "if (true) { code(); }"
             }]);
         });
@@ -1286,7 +1287,28 @@ describe("simple markdown", () => {
             var parsed = defaultParse("    if (true) { code(); }\n    \n\n");
             validateParse(parsed, [{
                 type: "codeBlock",
+                lang: undefined,
                 content: "if (true) { code(); }"
+            }]);
+        });
+
+        it("should parse fence blocks", () => {
+            var parsed = defaultParse("```\ncode\n```\n\n");
+            validateParse(parsed, [{
+                type: "codeBlock",
+                lang: undefined,
+                content: "code"
+            }]);
+
+            var parsed2 = defaultParse(
+                "```aletheia\n" +
+                "if true [code()]\n" +
+                "```\n\n"
+            );
+            validateParse(parsed2, [{
+                type: "codeBlock",
+                lang: "aletheia",
+                content: "if true [code()]"
             }]);
         });
 
@@ -1305,6 +1327,7 @@ describe("simple markdown", () => {
                 },
                 {
                     type: "codeBlock",
+                    lang: undefined,
                     content: "this is code"
                 },
                 {
@@ -1616,6 +1639,7 @@ describe("simple markdown", () => {
                     },
                     {
                         type: "codeBlock",
+                        lang: undefined,
                         content: "with code in it"
                     }
                 ]]
@@ -1641,6 +1665,7 @@ describe("simple markdown", () => {
                         },
                         {
                             type: "codeBlock",
+                            lang: undefined,
                             content: "with code in it"
                         }
                     ],
@@ -1719,6 +1744,7 @@ describe("simple markdown", () => {
                         },
                         {
                             type: "codeBlock",
+                            lang: undefined,
                             content: "with code in it"
                         }
                     ],
