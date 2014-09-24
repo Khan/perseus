@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var assert = require("assert");
 var nodeUtil = require("util");
 var _ = require("underscore");
@@ -31,6 +33,25 @@ var validateParse = (parsed, expected) => {
             "<>"
         );
     }
+};
+
+var htmlThroughReact = (parsed) => {
+    var output = defaultOutput(parsed);
+    var rawHtml = React.renderComponentToStaticMarkup(
+        <div>{output}</div>
+    );
+    var innerHtml = rawHtml
+        .replace(/^<div>/, '')
+        .replace(/<\/div>$/, '');
+    var simplifiedHtml = innerHtml
+        .replace(/>\n*/g, '>')
+        .replace(/\n*</g, '<')
+        .replace(/\s+/g, ' ');
+    return simplifiedHtml;
+};
+
+var htmlFromMarkdown = (source) => {
+    return htmlThroughReact(defaultParse(source));
 };
 
 describe("simple markdown", () => {
@@ -1941,6 +1962,45 @@ describe("simple markdown", () => {
             validateParse(parsed3, [
                 { content: "hi  bye", type: "text" },
             ]);
+        });
+    });
+
+    describe("react output", () => {
+        it("should sanitize dangerous links", () => {
+            var html = htmlFromMarkdown(
+                "[link](javascript:alert%28%27hi%27%29)"
+            );
+            assert.strictEqual(html, "<a>link</a>");
+
+            var html2 = htmlFromMarkdown(
+                "[link][1]\n\n" +
+                "[1]: javascript:alert('hi');\n\n"
+            );
+            assert.strictEqual(
+                html2,
+                "<div class=\"paragraph\"><a>link</a></div>"
+            );
+        });
+
+        it("should not sanitize safe links", () => {
+            var html = htmlFromMarkdown(
+                "[link](https://www.google.com)"
+            );
+            assert.strictEqual(
+                html,
+                "<a href=\"https://www.google.com\">link</a>"
+            );
+
+            var html2 = htmlFromMarkdown(
+                "[link][1]\n\n" +
+                "[1]: https://www.google.com\n\n"
+            );
+            assert.strictEqual(
+                html2,
+                "<div class=\"paragraph\">" +
+                    "<a href=\"https://www.google.com\">link</a>" +
+                "</div>"
+            );
         });
     });
 });

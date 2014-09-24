@@ -125,6 +125,26 @@ var outputFor = (outputFunc) => {
     return nestedOutput;
 };
 
+var sanitizeUrl = (url) => {
+    if (url == null) {
+        return null;
+    }
+    try {
+        var prot = decodeURIComponent(url)
+            .replace(/[^A-Za-z0-9/:]/g, '')
+            .toLowerCase();
+        if (prot.indexOf('javascript:') === 0) {
+            return null;
+        }
+    } catch (e) {
+        // decodeURIComponent sometimes throws a URIError
+        // See `decodeURIComponent('a%AFc');`
+        // http://stackoverflow.com/questions/9064536/javascript-decodeuricomponent-malformed-uri-exception
+        return null;
+    }
+    return url;
+};
+
 var parseCapture = (capture, parse, state) => {
     return {
         content: parse(capture[1], state)
@@ -563,7 +583,6 @@ var defaultRules = {
                     type: "text",
                     content: capture[1]
                 }],
-                // TODO: sanitize this
                 target: capture[1]
             };
         }
@@ -585,7 +604,6 @@ var defaultRules = {
                     type: "text",
                     content: address
                 }],
-                // TODO: sanitize this
                 target: target
             };
         }
@@ -599,7 +617,6 @@ var defaultRules = {
                     type: "text",
                     content: capture[1]
                 }],
-                // TODO: sanitize this
                 target: capture[1],
                 title: undefined
             };
@@ -612,7 +629,6 @@ var defaultRules = {
         parse: (capture, parse, state) => {
             var link ={
                 content: parse(capture[1]),
-                // TODO: sanitize this
                 target: capture[2],
                 title: capture[3]
             };
@@ -620,7 +636,7 @@ var defaultRules = {
         },
         output: (node, output) => {
             return React.DOM.a({
-                href: node.target,
+                href: sanitizeUrl(node.target),
                 title: node.title
             }, output(node.content));
         }
@@ -632,7 +648,6 @@ var defaultRules = {
         parse: (capture, parse, state) => {
             var image = {
                 alt: capture[1],
-                // TODO: sanitize this
                 target: capture[2],
                 title: capture[3]
             };
@@ -640,7 +655,7 @@ var defaultRules = {
         },
         output: (node, output) => {
             return <img
-                src={node.target}
+                src={sanitizeUrl(node.target)}
                 alt={node.alt}
                 title={node.title}/>;
         }
@@ -757,7 +772,8 @@ var SimpleMarkdown = {
     defaultPriorities: defaultPriorities,
     ruleOutput: ruleOutput,
     defaultParse: defaultParse,
-    defaultOutput: defaultOutput
+    defaultOutput: defaultOutput,
+    sanitizeUrl: sanitizeUrl
 };
 
 if (typeof module !== "undefined" && module.exports) {
