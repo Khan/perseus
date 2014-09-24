@@ -1811,6 +1811,18 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should ignore double spaces at the end of lists", () => {
+            var parsed = defaultParse(" * hi  \n * there\n\n");
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{type: "text", content: "hi\n"}],
+                    [{type: "text", content: "there\n"}],
+                ]
+            }]);
+        });
+
         it("should parse very simple tables", () => {
             var expected = [{
                 type: "table",

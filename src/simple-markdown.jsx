@@ -174,7 +174,7 @@ var LIST_ITEM_R = new RegExp(
 // recognize the end of a paragraph block inside a list item:
 // two or more newlines at end end of the item
 var LIST_BLOCK_END_R = /\n{2,}$/;
-var LIST_ITEM_END_R = /\n+$/;
+var LIST_ITEM_END_R = / *\n+$/;
 // check whether a list item has paragraphs: if it does,
 // we leave the newlines at the end
 var LIST_IS_MULTI_PARAGRAPH_R = /\n{2,}./;
