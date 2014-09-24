@@ -1561,6 +1561,67 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should have defined behaviour for semi-loose lists", () => {
+            // we mostly care that this does something vaguely reasonable.
+            // if you write markdown like this the results are your own fault.
+            var parsed = defaultParse(
+                " * hi\n" +
+                " * bye\n\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "text",
+                        content: "hi\n"
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "bye"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "there"
+                        }]
+                    }],
+                ]
+            }]);
+
+            var parsed2 = defaultParse(
+                " * hi\n\n" +
+                " * bye\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed2, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "hi"
+                        }]
+                    }],
+                    [{
+                        type: "text",
+                        content: "bye\n"
+                    }],
+                    [{
+                        type: "text",
+                        content: "there\n"
+                    }],
+                ]
+            }]);
+        });
+
         it("should parse paragraphs within loose lists", () => {
             var parsed = defaultParse(
                 " * hi\n\n" +
