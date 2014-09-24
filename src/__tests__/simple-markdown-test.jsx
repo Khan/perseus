@@ -1229,6 +1229,37 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should not allow headings mid-paragraph", () => {
+            var parsed = defaultParse(
+                "paragraph # text\n" +
+                "more paragraph\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "paragraph ", type: "text"},
+                    {content: "# text\nmore paragraph", type: "text"},
+                ]
+            }]);
+
+            var parsed2 = defaultParse(
+                "paragraph\n" +
+                "text\n" +
+                "----\n" +
+                "more paragraph\n\n"
+            );
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    {content: "paragraph\ntext\n", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-\nmore paragraph", type: "text"},
+                ]
+            }]);
+        });
+
         it("should parse a single top-level blockquote", () => {
             var parsed = defaultParse("> blockquote\n\n");
             validateParse(parsed, [{
@@ -1369,8 +1400,8 @@ describe("simple markdown", () => {
 
         it("should parse top-level horizontal rules", () => {
             var parsed = defaultParse(
-                "---\n" +
-                "***\n" +
+                "---\n\n" +
+                "***\n\n" +
                 "___\n\n" +
                 " - - - - \n\n" +
                 "_ _ _\n\n" +
@@ -1408,6 +1439,23 @@ describe("simple markdown", () => {
                     }]
                 },
             ]);
+        });
+
+        it("should not allow hrs within a paragraph", () => {
+            var parsed = defaultParse(
+                "paragraph ----\n" +
+                "more paragraph\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "paragraph ", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-\nmore paragraph", type: "text"},
+                ]
+            }]);
         });
 
         it("should parse simple unordered lists", () => {

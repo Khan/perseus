@@ -312,7 +312,7 @@ var parseRef = (capture, state, refNode) => {
 
 var defaultRules = {
     heading: {
-        regex: /^ *(#{1,6}) *([^\n]+?) *#* *\n+/,
+        regex: /^ *(#{1,6}) *([^\n]+?) *#* *(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             return {
                 level: capture[1].length,
@@ -331,7 +331,7 @@ var defaultRules = {
         parse: TABLES.parseNpTable
     },
     lheading: {
-        regex: /^([^\n]+)\n *(=|-){3,} *\n+/,
+        regex: /^([^\n]+)\n *(=|-){3,} *(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             return {
                 type: "heading",
@@ -341,12 +341,12 @@ var defaultRules = {
         }
     },
     hr: {
-        regex: /^( *[-*_]){3,} *\n+/,
+        regex: /^( *[-*_]){3,} *(?:\n *)+\n/,
         parse: () => ({}),
         output: () => <hr />
     },
     codeBlock: {
-        regex: /^(?:    [^\n]+\n*)+\n *\n+/,
+        regex: /^(?:    [^\n]+\n*)+(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             var content = capture[0]
                 .replace(/^    /gm, '')
@@ -368,7 +368,7 @@ var defaultRules = {
         }
     },
     fence: {
-        regex: /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *\n+/,
+        regex: /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             return {
                 type: "codeBlock",
@@ -550,7 +550,7 @@ var defaultRules = {
         }
     },
     newline: {
-        regex: /^\n+/,
+        regex: /^(?:\n *)*\n/,
         parse: ignoreCapture,
         output: (node, output) => "\n"
     },
