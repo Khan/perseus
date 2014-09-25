@@ -208,12 +208,12 @@ var GraphSettings = React.createClass({
                     <div className="perseus-widget-left-col">
                         <PropCheckBox label="Show ruler"
                             showRuler={this.props.showRuler}
-                            onChange={this.props.onChange} />
+                            onChange={this.change} />
                     </div>
                     <div className="perseus-widget-right-col">
                         <PropCheckBox label="Show protractor"
                             showProtractor={this.props.showProtractor}
-                            onChange={this.props.onChange} />
+                            onChange={this.change} />
                     </div>
                 </div>
                 {this.props.showRuler && <div>
@@ -459,7 +459,7 @@ var GraphSettings = React.createClass({
             image.url = url;
             image.width = img.width;
             image.height = img.height;
-            self.props.onChange({
+            self.change({
                 backgroundImage: image,
                 markings: url ? "none" : "graph"
             });
