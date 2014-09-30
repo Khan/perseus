@@ -95,6 +95,25 @@ var fakeMathRegex = {
 };
 
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+    columns: {
+        regex: /^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/,
+        parse: (capture, parse, state) => {
+            return {
+                col1: parse(capture[1], state),
+                col2: parse(capture[2], state)
+            }
+        },
+        output: (node, output) => {
+            return <div className="perseus-two-columns">
+                <div className="perseus-column">
+                    {output(node.col1)}
+                </div>
+                <div className="perseus-column">
+                    {output(node.col2)}
+                </div>
+            </div>;
+        }
+    },
     widget: {
         regex: Util.rWidgetRule,
         parse: (capture, parse, state) => {
@@ -137,6 +156,7 @@ if (linkRuleIndex < 0) {
 }
 
 var priorities = _.clone(SimpleMarkdown.defaultPriorities);
+priorities.unshift("columns");
 priorities.splice(
     linkRuleIndex,
     0,
