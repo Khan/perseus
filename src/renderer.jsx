@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var TeX = require("./tex.jsx");
+var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var QuestionParagraph = require("./question-paragraph.jsx");

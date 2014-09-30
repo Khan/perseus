@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React         = require("react");
-var TeX           = require("../tex.jsx");
+var TeX           = require("react-components/tex.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var Tooltip       = require("react-components/tooltip.jsx");
 var ModifyTex     = require("../tex-wrangler.js").modifyTex;

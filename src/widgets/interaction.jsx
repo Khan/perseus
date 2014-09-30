@@ -14,7 +14,7 @@ var Graphie = require("../components/graphie.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var MathInput = require("../components/math-input.jsx");
 var NumberInput = require("../components/number-input.jsx");
-var TeX = require("../tex.jsx");
+var TeX = require("react-components/tex.jsx");
 
 var Line = Graphie.Line;
 var MovablePoint = Graphie.MovablePoint;
