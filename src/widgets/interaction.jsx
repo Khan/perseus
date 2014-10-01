@@ -25,6 +25,42 @@ var Point = Graphie.Point;
 
 var kvector = KhanUtil.kvector;
 
+// Memoize KAS parsing
+var KAShashFunc = (expr, options) => {
+    options = options || {};
+    var result = expr + "||" + options.decimal_separatpr + "||";
+    var functions = options.functions;
+    var functionsLength = functions ? functions.length : 0;
+    for (var i = 0; i < functionsLength; i++) {
+        result += functions[i] + "|";
+    }
+    return result;
+};
+
+var _parseCache = Object.create(null);
+var KASparse = (expr, options) => {
+    var hash = KAShashFunc(expr, options);
+    var cached = _parseCache[hash];
+    if (cached) {
+        return cached;
+    }
+    cached = KAS.parse(expr, options);
+    _parseCache[hash] = cached;
+    return cached;
+};
+
+_compileCache = Object.create(null);
+var KAScompile = (expr, options) => {
+    var hash = KAShashFunc(expr, options);
+    var cached = _compileCache[hash];
+    if (cached) {
+        return cached;
+    }
+    var parsed = KAS.parse(expr, options).expr;
+    cached = parsed ? parsed.compile() : function() { return 0; };
+    _compileCache[hash] = cached;
+    return cached;
+};
 
 var Interaction = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
@@ -51,8 +87,8 @@ var Interaction = React.createClass({
         // TODO(eater): look at all this copypasta! refactor this!
         _.each(_.where(elements, {type: "movable-point"}), function(element) {
             var subscript = element.options.varSubscript;
-            var startXExpr = KAS.parse(element.options.startX || "0").expr;
-            var startYExpr = KAS.parse(element.options.startY || "0").expr;
+            var startXExpr = KASparse(element.options.startX || "0").expr;
+            var startYExpr = KASparse(element.options.startY || "0").expr;
             var startX = 0;
             var starty = 0;
             if (startXExpr) {
@@ -67,10 +103,10 @@ var Interaction = React.createClass({
         _.each(_.where(elements, {type: "movable-line"}), function(element) {
             var startSubscript = element.options.startSubscript;
             var endSubscript = element.options.endSubscript;
-            var startXExpr = KAS.parse(element.options.startX || "0").expr;
-            var startYExpr = KAS.parse(element.options.startY || "0").expr;
-            var endXExpr = KAS.parse(element.options.endX || "0").expr;
-            var endYExpr = KAS.parse(element.options.endY || "0").expr;
+            var startXExpr = KASparse(element.options.startX || "0").expr;
+            var startYExpr = KASparse(element.options.startY || "0").expr;
+            var endXExpr = KASparse(element.options.endX || "0").expr;
+            var endYExpr = KASparse(element.options.endY || "0").expr;
             var startX = 0;
             var starty = 0;
             var endX = 0;
@@ -151,15 +187,23 @@ var Interaction = React.createClass({
     },
 
     _eval: function(expression, variables) {
-        var expr = KAS.parse(expression,
-            {functions: this.state.functions}).expr;
-        if (!expr) {
-            // Default to 0 if the expression couldn't be parsed
-            return 0;
-        }
-        var val = expr.eval(_.extend({}, this.state.variables, variables));
-        // Default to 0 if the expression couldn't be evaluated (i.e., it
-        // parsed correctly but referenced a variable that's not defined)
+        var func = KAScompile(expression,
+            {functions: this.state.functions});
+        var compiledVars = _.extend({}, this.state.variables, variables);
+        _.each(_.keys(compiledVars), (name) => {
+            if (_.isString(compiledVars[name])) {
+                var func = KAScompile(compiledVars[name], {
+                    functions: this.state.functions
+                });
+                compiledVars[name] = function(x) {
+                    return func(_.extend({}, compiledVars, {
+                        x: x
+                    }));
+                };
+            }
+        });
+        val = func(compiledVars);
+        // Default to 0 if the expression couldn't be parsed
         return val || 0;
     },
 
@@ -300,7 +344,7 @@ var Interaction = React.createClass({
                     };
                     // find all the variables referenced by this function
                     var vars = _.without(this._extractVars(
-                        KAS.parse(element.options.value).expr), "x");
+                        KASparse(element.options.value).expr), "x");
                     // and find their values, so we redraw if any change
                     var varValues = _.object(vars,
                         _.map(vars, (v) => this.state.variables[v]));
@@ -330,9 +374,9 @@ var Interaction = React.createClass({
                     };
                     // find all the variables referenced by this function
                     var vars = _.without(this._extractVars(
-                        KAS.parse(element.options.x).expr).concat(
+                        KASparse(element.options.x).expr).concat(
                         this._extractVars(
-                        KAS.parse(element.options.y).expr)), "t");
+                        KASparse(element.options.y).expr)), "t");
                     // and find their values, so we redraw if any change
                     var varValues = _.object(vars,
                         _.map(vars, (v) => this.state.variables[v]));
