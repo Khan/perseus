@@ -58,7 +58,6 @@ global.React = window.React = withNavigator(function() {
 });
 require("../lib/jquery.js");
 require("../lib/mathquill/mathquill-basic.js");
-window.markedReact = require("../lib/marked.js");
 updateGlobals();
 
 // First-party global dependencies
