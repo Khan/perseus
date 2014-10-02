@@ -741,7 +741,18 @@ var defaultRules = {
         // double newlines, or double-space-newlines
         // We break on any symbol characters so that this grammar
         // is easy to extend without needing to modify this regex
-        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff]|\n\n| {2,}\n|\w+:|$)/,
+        // HACK: the `-` is included in the list of text characters
+        // so that you can't start a list inside a list without a
+        // newline preceding the hyphen (that is, so '- a - b' is
+        // parsed as a single list item instead of a second list
+        // inside a list item). The `-\S` rule is so that we break
+        // dashes that couldn't initialize lists, so that headings
+        // with `------` underlines are not parsed as one text
+        // blob.
+        // TODO(aria): add block vs inline regexes so that we
+        // can define lists as block and not consider them for
+        // inline text.
+        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff\-]|-\S|\n\n| {2,}\n|\w+:|$)/,
         parse: (capture, parse, state) => {
             return {
                 content: capture[0]

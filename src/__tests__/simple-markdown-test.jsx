@@ -1179,8 +1179,7 @@ describe("simple markdown", () => {
                 type: "paragraph",
                 content: [
                     {type: "text", content: "heading2\n"},
-                    {type: "text", content: "-"},
-                    {type: "text", content: "-"},
+                    {type: "text", content: "--"},
                 ]
             }]);
         });
@@ -1254,8 +1253,7 @@ describe("simple markdown", () => {
                     {content: "paragraph\ntext\n", type: "text"},
                     {content: "-", type: "text"},
                     {content: "-", type: "text"},
-                    {content: "-", type: "text"},
-                    {content: "-\nmore paragraph", type: "text"},
+                    {content: "--\nmore paragraph", type: "text"},
                 ]
             }]);
         });
@@ -1452,8 +1450,7 @@ describe("simple markdown", () => {
                     {content: "paragraph ", type: "text"},
                     {content: "-", type: "text"},
                     {content: "-", type: "text"},
-                    {content: "-", type: "text"},
-                    {content: "-\nmore paragraph", type: "text"},
+                    {content: "--\nmore paragraph", type: "text"},
                 ]
             }]);
         });
@@ -1866,8 +1863,7 @@ describe("simple markdown", () => {
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
-                    { content: "hi ", type: "text" },
-                    { content: "- there", type: "text" },
+                    { content: "hi - there", type: "text" },
                 ]
             }]);
 
@@ -1887,6 +1883,40 @@ describe("simple markdown", () => {
                     { content: "hi 1", type: "text" },
                     { content: ". there", type: "text" },
                 ]
+            }]);
+        });
+
+        it("dashes or numbers should not break a list item into a list", () => {
+            var parsed = defaultParse("- hi - there\n\n");
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [[
+                    { content: "hi - there\n", type: "text" },
+                ]]
+            }]);
+
+            // NOTE: This doesn't work right now because we need `*`s for
+            // emphasis, so we have to split text on them.
+            // TODO(aria): split block vs inline parsing so we can handle
+            // this case
+//            var parsed2 = defaultParse("* hi * there\n\n");
+//            validateParse(parsed2, [{
+//                type: "list",
+//                ordered: false,
+//                items: [[
+//                    { content: "hi * there\n", type: "text" },
+//                ]]
+//            }]);
+
+            var parsed3 = defaultParse("1. hi 1. there\n\n");
+            validateParse(parsed3, [{
+                type: "list",
+                ordered: true,
+                items: [[
+                    { content: "hi 1", type: "text" },
+                    { content: ". there\n", type: "text" },
+                ]]
             }]);
         });
 
