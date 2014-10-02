@@ -104,7 +104,8 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         output: (node, output) => {
-            // The actual output is handled in the renderer. This is
+            // The actual output is handled in the renderer, where
+            // we know the current widget props/state. This is
             // just a stub for testing.
             return <em>[Widget: {node.id}]</em>;
         }
@@ -117,6 +118,9 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         output: (node, output) => {
+            // The actual output is handled in the renderer, because
+            // it needs to pass in an `onRender` callback prop. This
+            // is just a stub for testing.
             return <TeX>{node.content}</TeX>;
         }
     }
