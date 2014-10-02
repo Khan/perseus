@@ -53,7 +53,7 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        cx = React.addons.classSet;
+        var cx = React.addons.classSet;
 
         var classes = cx({
             "number-input": true,
@@ -82,6 +82,8 @@ var NumberInput = React.createClass({
             value={undefined} />;
 
         if (this.props.label) {
+            // TODO(aria): Remove this prop and option. Put your labels
+            // outside your inputs
             return <label>{this.props.label}{input}</label>;
         } else {
             return input;
