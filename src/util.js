@@ -12,6 +12,7 @@ var Util = {
     nestedMap: nestedMap,
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
+    rWidgetRule:  /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/,
     snowman: "\u2603",
 
     noScore: {

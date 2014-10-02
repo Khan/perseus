@@ -170,5 +170,96 @@ describe("perseus markdown", () => {
             }]);
 
         });
+
+        it("should parse widget types and ids", () => {
+            var parsed = parse("[[☃ test 1]]");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [{
+                    type: "widget",
+                    widgetType: "test",
+                    id: "test 1"
+                }]
+            }]);
+
+            var parsed2 = parse("[[☃ test 1]]+[[☃ input-number 2]]");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "widget",
+                        widgetType: "test",
+                        id: "test 1"
+                    },
+                    {
+                        type: "text",
+                        content: "+"
+                    },
+                    {
+                        type: "widget",
+                        widgetType: "input-number",
+                        id: "input-number 2"
+                    },
+                ]
+            }]);
+
+            var parsed3 = parse("*[[☃ test 2]]* [[☃ input-number 1]]");
+            validateParse(parsed3, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "em",
+                        content: [{
+                            type: "widget",
+                            widgetType: "test",
+                            id: "test 2"
+                        }]
+                    },
+                    {
+                        type: "text",
+                        content: " "
+                    },
+                    {
+                        type: "widget",
+                        widgetType: "input-number",
+                        id: "input-number 1"
+                    },
+                ]
+            }]);
+        });
+
+        it("should allow escaping widget identifiers", () => {
+            var parsed = parse("\\[[☃ test 1]]");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "[", type: "text"},
+                    {content: "[☃ test 1", type: "text"},
+                    {content: "]", type: "text"},
+                    {content: "]", type: "text"},
+                ]
+            }]);
+        });
+
+        it("should parse widgets next to each other as widgets", () => {
+            var parsed = parse("[[☃ test 1]][[☃ test 2]]");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {type: "widget", widgetType: "test", id: "test 1"},
+                    {type: "widget", widgetType: "test", id: "test 2"},
+                ]
+            }]);
+
+            var parsed = parse("[[☃ test 1]] [[☃ test 2]]");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {type: "widget", widgetType: "test", id: "test 1"},
+                    {type: "text", content: " "},
+                    {type: "widget", widgetType: "test", id: "test 2"},
+                ]
+            }]);
+        });
     });
 });

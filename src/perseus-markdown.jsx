@@ -3,6 +3,7 @@ var _ = require("underscore");
 
 var SimpleMarkdown = require("./simple-markdown.jsx");
 var TeX = require("react-components/tex.jsx");
+var Util = require("./util.js");
 
 /**
  * This "regex" matches math in `$`s, such as:
@@ -94,6 +95,20 @@ var fakeMathRegex = {
 };
 
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+    widget: {
+        regex: Util.rWidgetRule,
+        parse: (capture, parse, state) => {
+            return {
+                id: capture[1],
+                widgetType: capture[2]
+            };
+        },
+        output: (node, output) => {
+            // The actual output is handled in the renderer. This is
+            // just a stub for testing.
+            return <em>[Widget: {node.id}]</em>;
+        }
+    },
     math: {
         regex: fakeMathRegex,
         parse: (capture, parse, state) => {
@@ -107,20 +122,23 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     }
 });
 
-// Naively inject the 'math' rule as the second-to-last rule before
-// the 'text' rule of the default priorities.
-if (_.last(SimpleMarkdown.defaultPriorities) !== "text") {
+// Naively inject our rules before links so that our `[[`s take precedence
+var linkRuleIndex = SimpleMarkdown.defaultPriorities.indexOf("link");
+if (linkRuleIndex < 0) {
     // assert that 'text' is the last rule
     throw new Error(
-        "if simple-markdown's last rule is no longer " +
-        "'text', then perseus-markdown needs to be updated " +
-        "to add the 'math' rule in the correct place."
+        "could not find link rule in simple-markdown to place " +
+        "widget and math rules before"
     );
 }
-var priorities = _.initial(SimpleMarkdown.defaultPriorities).concat([
-    "math",
-    "text"
-]);
+
+var priorities = _.clone(SimpleMarkdown.defaultPriorities);
+priorities.splice(
+    linkRuleIndex,
+    0,
+    "widget",
+    "math"
+);
 
 var builtParser = SimpleMarkdown.parserFor(rules, priorities);
 var parse = (source) => {
