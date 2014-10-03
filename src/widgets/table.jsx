@@ -54,13 +54,18 @@ var Table = React.createClass({
     },
 
     getDefaultProps: function() {
+        var defaultRows = 4;
+        var defaultColumns = 1;
+        var blankAnswers = _(defaultRows).times(function() {
+            return Util.stringArrayOfSize(defaultColumns);
+        });
         return {
-            editableHeaders: false,
-            headers: [],
-            answers: [[]],
             apiOptions: ApiOptions.defaults,
-            onFocus: function() { },
-            onBlur: function() { }
+            headers: [""],
+            editableHeaders: false,
+            rows: defaultRows,
+            columns: defaultColumns,
+            answers: blankAnswers,
         };
     },
 

@@ -510,11 +510,8 @@ var Editor = React.createClass({
         var id = widgetType + " " + i;
         var newContent = oldContent + widgetPlaceholder.replace('{id}', id);
 
-        var widgets = _.clone(this.props.widgets);
-        widgets[id] = {type: widgetType};
         this.props.onChange({
-            content: newContent,
-            widgets: widgets
+            content: newContent
         }, this.focusAndMoveToEnd);
     },
 

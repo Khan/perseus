@@ -119,7 +119,9 @@ var Renderer = React.createClass({
         return {
             content: "",
             widgets: {},
-            ignoreMissingWidgets: false,
+            // TODO(aria): Remove this now that it is true everywhere
+            // (here and in perseus-i18n)
+            ignoreMissingWidgets: true,
             highlightedWidgets: [],
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: {},  // we'll do a deep defaults in render()

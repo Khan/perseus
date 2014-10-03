@@ -183,7 +183,7 @@ var CombinedHintsEditor = React.createClass({
     handleHintChange: function(i, newProps, cb, silent) {
         // TODO(joel) - lens
         var hints = _(this.props.hints).clone();
-        hints[i] = _.extend({}, hints[i], newProps);
+        hints[i] = _.extend({}, this.serializeHint(i), newProps);
 
         this.props.onChange({hints: hints}, cb, silent);
     },
@@ -221,9 +221,11 @@ var CombinedHintsEditor = React.createClass({
     },
 
     serialize: function() {
-        return this.props.hints.map(function(hint, i) {
-            return this.refs["hintEditor" + i].serialize();
-        }, this);
+        return _.times(this.props.hints.length, this.serializeHint);
+    },
+
+    serializeHint: function(index) {
+        return this.refs["hintEditor" + index].serialize();
     }
 });
 
