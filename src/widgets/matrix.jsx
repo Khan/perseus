@@ -267,14 +267,6 @@ _.extend(Matrix, {
 
         var incorrectSize = solutionSize[0] !== suppliedSize[0] ||
                 solutionSize[1] !== suppliedSize[1];
-        if (incorrectSize) {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1,
-                message: null
-            };
-        }
 
         var createValidator = Khan.answerTypes
                                   .number.createValidatorFunctional;
@@ -305,6 +297,15 @@ _.extend(Matrix, {
             return {
                 type: "invalid",
                 message: $._("Make sure you fill in all cells in the matrix.")
+            };
+        }
+
+        if (incorrectSize) {
+            return {
+                type: "points",
+                earned: 0,
+                total: 1,
+                message: null
             };
         }
 
