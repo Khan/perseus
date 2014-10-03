@@ -244,7 +244,7 @@ var NumberLine = React.createClass({
                 <div className="invalid-number-line">
                     Invalid number line configuration.
                 </div> :
-                (invalidNumDivisions ?
+                (this.props.isTickCtrl && invalidNumDivisions ?
                     <div className="invalid-number-line">
                         <$_ divRangeString={divRangeString}>
                             Please make sure the number of divisions is in the
@@ -471,7 +471,7 @@ _.extend(NumberLine, {
         var outsideAllowedRange = state.numDivisions > divisionRange[1] ||
                 state.numDivisions < divisionRange[0];
 
-        if (outsideAllowedRange) {
+        if (state.isTickCrtl && outsideAllowedRange) {
             return {
                 type: "invalid",
                 message: "Number of divisions is outside the allowed range."
