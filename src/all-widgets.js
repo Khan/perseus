@@ -12,7 +12,6 @@ _.each([
     require("./widgets/input-number.jsx"),
     require("./widgets/interaction.jsx"),
     require("./widgets/interactive-graph.jsx"),
-    require("./widgets/interactive-number-line.jsx"),
     require("./widgets/lights-puzzle.jsx"),
     require("./widgets/matrix.jsx"),
     require("./widgets/matcher.jsx"),
