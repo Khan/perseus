@@ -343,14 +343,18 @@ var Renderer = React.createClass({
 
     componentDidUpdate: function(prevProps, prevState) {
         this.handleRender(prevProps);
-        if (this.reuseMarkdown) {
-            this.widgetIds.forEach(function(id) {
-                var container = this.refs["container:" + id];
-                container.replaceWidgetProps(
-                    this.getWidgetProps(id)
-                );
-            }, this);
-        }
+        // We even do this if we did reuse the markdown because
+        // we might need to update the widget props on this render,
+        // even though we have the same widgets.
+        // WidgetContainers don't update their widgets props when
+        // they are re-rendered, so even if they've been
+        // re-rendered we need to call these methods on them.
+        _.each(this.widgetIds, (id) => {
+            var container = this.refs["container:" + id];
+            container.replaceWidgetProps(
+                this.getWidgetProps(id)
+            );
+        });
     },
 
     getContent: function(props, state) {
