@@ -324,8 +324,21 @@ var Renderer = React.createClass({
         var newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
         var oldContent = this.getContent(this.props, this.state);
         var newContent = this.getContent(nextProps, nextState);
+        var oldHighlightedWidgets = this.props.highlightedWidgets;
+        var newHighlightedWidgets = nextProps.highlightedWidgets;
 
-        this.reuseMarkdown = !oldJipt && !newJipt && oldContent === newContent;
+        this.reuseMarkdown = !oldJipt && !newJipt &&
+            oldContent === newContent &&
+            // yes, this is identity array comparison, but these are passed
+            // in from state in the item-renderer, so they should be
+            // identity equal unless something changed, and it's expensive
+            // to loop through them to look for differences.
+            // Technically, we could reuse the markdown when this changes, but
+            // to do that we'd have to do more expensive checking of whether
+            // a widget should be highlighted in the common case where
+            // this array hasn't changed, so we just redo the whole
+            // render if this changed
+            oldHighlightedWidgets === newHighlightedWidgets;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
