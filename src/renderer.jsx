@@ -650,9 +650,9 @@ var Renderer = React.createClass({
     },
 
     getSaveWarnings: function() {
-        return _(this.props.widgets)
+        return _(this.state.widgetInfo)
             .chain()
-            .map((props, id) => {
+            .map((info, id) => {
                 var widget = this.getWidgetInstance(id);
                 var issuesFunc = widget.getSaveWarnings;
                 return issuesFunc ? issuesFunc() : [];
@@ -663,7 +663,7 @@ var Renderer = React.createClass({
 
     serialize: function() {
         var state = {};
-        _.each(this.props.widgets, function(props, id) {
+        _.each(this.state.widgetInfo, function(info, id) {
             var widget = this.getWidgetInstance(id);
             var s = widget.serialize();
             if (!_.isEmpty(s)) {
@@ -675,9 +675,9 @@ var Renderer = React.createClass({
 
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
-            var widgetProps = this.props.widgets[id];
+            var widgetInfo = this.state.widgetInfo[id];
             var score = this.getWidgetInstance(id).simpleValidate(
-                widgetProps.options,
+                widgetInfo.options,
                 null
             );
             return Util.scoreIsEmpty(score);
@@ -714,7 +714,7 @@ var Renderer = React.createClass({
     },
 
     guessAndScore: function() {
-        var widgetProps = this.props.widgets;
+        var widgetProps = this.state.widgetInfo;
         var onInputError = this.props.apiOptions.onInputError ||
                 function() { };
 
