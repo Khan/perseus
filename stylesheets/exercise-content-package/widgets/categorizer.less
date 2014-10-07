@@ -48,3 +48,24 @@
     }
 
 }
+
+
+
+// Styles specifically for mobile
+body.mobile {
+    .categorizer-container {
+        td.category {
+            input[type="radio"] {
+                &:checked + span:before {
+                    color: @blue;
+                }
+
+                & + span:active:before {
+                    color: #666;
+                    content: "\f111";  // fa-circle
+                }
+            }
+        }
+
+    }
+}

@@ -4,7 +4,9 @@ var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var SimpleMarkdown = require("../simple-markdown.jsx");
+var PerseusMarkdown = require("../perseus-markdown.jsx");
+var mdParse = PerseusMarkdown.parse;
+var mdOutput = PerseusMarkdown.testOutput;
 
 var TextArea = React.createClass({
     render: function() {
@@ -44,8 +46,8 @@ var SimpleMarkdownTester = React.createClass({
     },
 
     render: function() {
-        var parsed = SimpleMarkdown.defaultParse(this.props.value + "\n\n");
-        var output = SimpleMarkdown.defaultOutput(parsed);
+        var parsed = mdParse(this.props.value);
+        var output = mdOutput(parsed);
         return <div>
             {output}
         </div>;
@@ -95,7 +97,7 @@ _.extend(SimpleMarkdownTester, {
      */
     validate: function(state, rubric) {
         return {
-            type: "pints",
+            type: "points",
             earned: 0,
             total: 0,
             message: null

@@ -7,7 +7,7 @@ var InfoTip       = require("react-components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var MathOutput    = require("../components/math-output.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
-var TeX           = require("../tex.jsx");
+var TeX           = require("react-components/tex.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 

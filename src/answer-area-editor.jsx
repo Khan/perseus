@@ -22,15 +22,15 @@ var AnswerAreaEditor = React.createClass({
             cls = Widgets.getEditor(this.props.type);
         }
 
-        var editor = cls(_.extend({
-            ref: "editor",
-            placeholder: "This answer area is being deprecated. " +
-            "Please use the widgets in the question area for your answer.",
-            onChange: (newProps, cb) => {
+        var editor = <cls
+            ref="editor"
+            placeholder={"This answer area is being deprecated. " +
+            "Please use the widgets in the question area for your answer."}
+            onChange={(newProps, cb) => {
                 var options = _.extend({}, this.props.options, newProps);
                 this.props.onChange({options: options}, cb);
-            }
-        }, this.props.options));
+            }}
+            {...this.props.options} />;
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">

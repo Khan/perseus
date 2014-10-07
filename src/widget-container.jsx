@@ -36,7 +36,7 @@ var WidgetContainer = React.createClass({
             style={{
                 display: widgetType.displayMode
             }}>
-            {widgetType(_.extend({}, this.state.widgetProps, {ref: "widget"}))}
+            <widgetType {...this.state.widgetProps} ref="widget" />
         </div>;
     },
 

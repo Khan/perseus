@@ -32,13 +32,13 @@ var ItemEditor = React.createClass({
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
                     <div className="pod-title">Question</div>
-                    {Editor(_.extend({
-                        ref: "questionEditor",
-                        placeholder: "Type your question here...",
-                        className: "perseus-question-editor",
-                        imageUploader: this.props.imageUploader,
-                        onChange: this.handleEditorChange
-                    }, this.props.question))}
+                    <Editor
+                        ref="questionEditor"
+                        placeholder="Type your question here..."
+                        className="perseus-question-editor"
+                        imageUploader={this.props.imageUploader}
+                        onChange={this.handleEditorChange}
+                        {...this.props.question} />
                 </div>
 
                 <div className="perseus-editor-right-cell">
@@ -54,10 +54,10 @@ var ItemEditor = React.createClass({
             <div className="perseus-editor-row perseus-answer-container">
                 <div className="perseus-editor-left-cell">
                     <div className="pod-title">Answer</div>
-                    {AnswerAreaEditor(_.extend({
-                        ref: "answerAreaEditor",
-                        onChange: this.handleAnswerAreaChange
-                    }, this.props.answerArea))}
+                    <AnswerAreaEditor
+                        ref="answerAreaEditor"
+                        onChange={this.handleAnswerAreaChange}
+                        {...this.props.answerArea} />
                 </div>
 
                 <div className="perseus-editor-right-cell">

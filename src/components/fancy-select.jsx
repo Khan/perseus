@@ -44,12 +44,11 @@ var cloneRenderables = (children) => {
 };
 // END TODO
 
-var FancyOption = (props /*, children... */) => {
-    var children = _.rest(arguments);
-    return _.extend(props, {
-        children: children
-    });
-};
+var FancyOption = React.createClass({
+    render: function() {
+        throw new Error("FancyOption shouldn't ever be actually rendered");
+    }
+});
 
 var FancySelect = React.createClass({
 
@@ -97,14 +96,15 @@ var FancySelect = React.createClass({
             {_.map(children, (option) => {
                 return <div className="fancy-select-value-hidden"
                             style={{height: 0}}>
-                    {cloneRenderables(option.children)}
+                    {cloneRenderables(option.props.children)}
                 </div>;
             })}
         </span>;
 
-        var selectedOption = _.findWhere(children, {
-            value: this.props.value
-        });
+        var selectedOption = _.find(
+            children,
+            (c) => c.props.value === this.props.value
+        );
 
         var selectBoxClassName = React.addons.classSet({
             "fancy-select": true,
@@ -120,7 +120,7 @@ var FancySelect = React.createClass({
                 <span
                         className="fancy-select-value"
                         style={{position: "absolute"}}>
-                    {cloneRenderables(selectedOption.children)}
+                    {cloneRenderables(selectedOption.props.children)}
                 </span>
         </div>;
 
@@ -129,8 +129,8 @@ var FancySelect = React.createClass({
             // control whether they are displayed always, never, or when
             // active (the default). `true` is useful if you want to manage
             // visibility manually via css.
-            var visible = option.visible != null ?
-                    option.visible :
+            var visible = option.props.visible != null ?
+                    option.props.visible :
                     this.state.active;
             if (!visible) {
                 return null;
@@ -140,10 +140,10 @@ var FancySelect = React.createClass({
                 "fancy-option": true,
                 active: this.state.active,
                 closed: this.state.closed,
-                selected: option.value === this.props.value
+                selected: option.props.value === this.props.value
             });
-            if (option.className) {
-                className += " " + option.className;
+            if (option.props.className) {
+                className += " " + option.props.className;
             }
 
             var translate;
@@ -156,7 +156,7 @@ var FancySelect = React.createClass({
                 translate = "translate3d(0, 0, 0)";
                 transition = "0.35s ease-out";
             }
-            var style = _.extend({}, option.style, {
+            var style = _.extend({}, option.props.style, {
                 WebkitTransform: translate,
                 transform: translate,
                 WebkitTransition: transition,
@@ -169,13 +169,13 @@ var FancySelect = React.createClass({
                     style={style}
                     onClick={() => {
                         this._unbindClickHandler();
-                        this.props.onChange(option.value, option);
+                        this.props.onChange(option.props.value, option);
                         this.setState({
                             active: false,
                             closed: true
                         });
                     }}>
-                {cloneRenderables(option.children)}
+                {cloneRenderables(option.props.children)}
             </li>;
         });
 

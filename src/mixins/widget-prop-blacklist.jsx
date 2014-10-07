@@ -9,5 +9,6 @@ module.exports = [
     "problemNum",
     "enabledFeatures",
     "apiOptions",
+    "questionCompleted",
     "interWidgets"
 ];

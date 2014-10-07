@@ -125,6 +125,26 @@ var outputFor = (outputFunc) => {
     return nestedOutput;
 };
 
+var sanitizeUrl = (url) => {
+    if (url == null) {
+        return null;
+    }
+    try {
+        var prot = decodeURIComponent(url)
+            .replace(/[^A-Za-z0-9/:]/g, '')
+            .toLowerCase();
+        if (prot.indexOf('javascript:') === 0) {
+            return null;
+        }
+    } catch (e) {
+        // decodeURIComponent sometimes throws a URIError
+        // See `decodeURIComponent('a%AFc');`
+        // http://stackoverflow.com/questions/9064536/javascript-decodeuricomponent-malformed-uri-exception
+        return null;
+    }
+    return url;
+};
+
 var parseCapture = (capture, parse, state) => {
     return {
         content: parse(capture[1], state)
@@ -136,7 +156,7 @@ var ignoreCapture = () => ({});
 var LIST_BULLET = "(?:[*+-]|\\d+\\.)";
 // recognize the start of a list item:
 // leading space plus a bullet plus a space (`   * `)
-var LIST_ITEM_PREFIX = "( *)(" + LIST_BULLET + ") ";
+var LIST_ITEM_PREFIX = "( *)(" + LIST_BULLET + ") +";
 var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 // recognize an individual list item:
 //  * hi
@@ -148,12 +168,16 @@ var LIST_ITEM_PREFIX_R = new RegExp("^" + LIST_ITEM_PREFIX);
 var LIST_ITEM_R = new RegExp(
     LIST_ITEM_PREFIX +
     "[^\\n]*(?:\\n" +
-    "(?!\\1" + LIST_BULLET + " )[^\\n]*)*",
+    "(?!\\1" + LIST_BULLET + " )[^\\n]*)*\n",
     "gm"
 );
 // recognize the end of a paragraph block inside a list item:
 // two or more newlines at end end of the item
 var LIST_BLOCK_END_R = /\n{2,}$/;
+var LIST_ITEM_END_R = / *\n+$/;
+// check whether a list item has paragraphs: if it does,
+// we leave the newlines at the end
+var LIST_IS_MULTI_PARAGRAPH_R = /\n{2,}./;
 
 var TABLES = (() => {
     // predefine regexes so we don't have to create them inside functions
@@ -257,6 +281,7 @@ var TABLES = (() => {
 var LINK_INSIDE = "(?:\\[[^\\]]*\\]|[^\\]]|\\](?=[^\\[]*\\]))*";
 var LINK_HREF_AND_TITLE =
         "\\s*<?([^\\s]*?)>?(?:\\s+['\"]([\\s\\S]*?)['\"])?\\s*";
+var AUTOLINK_MAILTO_CHECK_R = /mailto:/i;
 
 var parseRef = (capture, state, refNode) => {
     var ref = (capture[2] || capture[1])
@@ -287,7 +312,7 @@ var parseRef = (capture, state, refNode) => {
 
 var defaultRules = {
     heading: {
-        regex: /^ *(#{1,6}) *([^\n]+?) *#* *\n+/,
+        regex: /^ *(#{1,6}) *([^\n]+?) *#* *(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             return {
                 level: capture[1].length,
@@ -306,7 +331,7 @@ var defaultRules = {
         parse: TABLES.parseNpTable
     },
     lheading: {
-        regex: /^([^\n]+)\n *(=|-){3,} *\n+/,
+        regex: /^([^\n]+)\n *(=|-){3,} *(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             return {
                 type: "heading",
@@ -316,26 +341,44 @@ var defaultRules = {
         }
     },
     hr: {
-        regex: /^( *[-*_]){3,} *\n+/,
+        regex: /^( *[-*_]){3,} *(?:\n *)+\n/,
         parse: () => ({}),
         output: () => <hr />
     },
     codeBlock: {
-        regex: /^(?:    [^\n]+\n*)+\n\n/,
+        regex: /^(?:    [^\n]+\n*)+(?:\n *)+\n/,
         parse: (capture, parse, state) => {
             var content = capture[0]
                 .replace(/^    /gm, '')
                 .replace(/\n+$/, '');
             return {
+                lang: undefined,
                 content: content
             };
         },
         output: (node, output) => {
-            return <pre><code>{node.content}</code></pre>;
+            var className = node.lang ?
+                "markdown-code-" + node.lang :
+                undefined;
+            return <pre>
+                <code className={className}>
+                    {node.content}
+                </code>
+            </pre>;
+        }
+    },
+    fence: {
+        regex: /^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n *)+\n/,
+        parse: (capture, parse, state) => {
+            return {
+                type: "codeBlock",
+                lang: capture[2] || undefined,
+                content: capture[3]
+            };
         }
     },
     blockQuote: {
-        regex: /^( *>[^\n]+(\n[^\n]+)*\n*)+/,
+        regex: /^( *>[^\n]+(\n[^\n]+)*\n*)+\n{2,}/,
         parse: (capture, parse, state) => {
             content = capture[0].replace(/^ *> ?/gm, '');
             return {
@@ -353,12 +396,14 @@ var defaultRules = {
             "(?!\\1" + LIST_BULLET + " )\\n*" +
             // the \\s*$ here is so that we can parse the inside of nested
             // lists, where our content might end before we receive two `\n`s
-            "|\\s*$)"
+            "|\\s*\n$)"
         ),
         parse: (capture, parse, state) => {
             var bullet = capture[2];
             var ordered = bullet.length > 1;
-            var items = capture[0].match(LIST_ITEM_R);
+            var items = capture[0]
+                .replace(LIST_BLOCK_END_R, "\n")
+                .match(LIST_ITEM_R);
 
             var lastItemWasAParagraph = false;
             var itemContent = _.map(items, (item, i) => {
@@ -369,7 +414,7 @@ var defaultRules = {
                 var spaceRegex = new RegExp("^ {1," + space + "}", "gm");
 
                 // Before processing the item, we need a couple things
-                var content = (item + "\n")
+                var content = item
                          // remove indents on trailing lines:
                         .replace(spaceRegex, '')
                          // remove the bullet:
@@ -382,20 +427,25 @@ var defaultRules = {
                 //  * as is this
                 //
                 //  * as is this
-                if (i === items.length - 2) {
-                    // We keep track of whether the second to last item is a
-                    // block based on whether it ends in two+ newlines...
-                    lastItemWasAParagraph =
-                            content.search(LIST_BLOCK_END_R) >= 0;
-                } else if (i === items.length - 1) {
-                    // ...and we consider the last element to be block or not
-                    // a block based on that state in the second-to-last item
-                    if (!lastItemWasAParagraph) {
-                        content = content.replace(LIST_BLOCK_END_R, '');
-                    }
+                var isLastItem = (i === items.length - 1);
+                var containsBlocks = content.indexOf("\n\n") !== -1;
+                
+                // Any element in a list is a block if it contains multiple
+                // newlines. The last element in the list can also be a block
+                // if the previous item in the list was a block (this is
+                // because non-last items in the list can end with \n\n, but
+                // the last item can't, so we just "inherit" this property
+                // from our previous element).
+                var thisItemIsAParagraph = containsBlocks ||
+                        (isLastItem && lastItemWasAParagraph);
+                lastItemWasAParagraph = thisItemIsAParagraph;
+
+                var adjustedContent = content.replace(LIST_ITEM_END_R, "\n");
+                if (thisItemIsAParagraph) {
+                    adjustedContent += "\n";
                 }
 
-                return parse(content, state);
+                return parse(adjustedContent, state);
             });
 
             return {
@@ -413,7 +463,14 @@ var defaultRules = {
         }
     },
     def: {
-        regex: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *\n+/,
+        // TODO(aria): This is super hacky, and basically looks for a def
+        // either inline or block that is followed by two newlines OR a
+        // newline and another def. This isn't quite correct, since it
+        // doesn't work on things that look like two defs within a
+        // paragraph but separated by a newline.
+        // TODO(aria): fix this
+        // TODO(aria): fix 80 char line width
+        regex: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *\n(?=\n|\[[^\]]\]: )\n?/,
         parse: (capture, parse, state) => {
             var def = capture[1]
                 .replace(/\s+/g, ' ')
@@ -481,18 +538,24 @@ var defaultRules = {
             });
             
             return <table>
-                {headers}
-                {rows}
+                <thead>
+                    <tr>
+                        {headers}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows}
+                </tbody>
             </table>;
         }
     },
     newline: {
-        regex: /^\n+/,
+        regex: /^(?:\n *)*\n/,
         parse: ignoreCapture,
-        output: (node, output) => " "
+        output: (node, output) => "\n"
     },
     paragraph: {
-        regex: /^((?:[^\n]|\n[^\n])+)\n\n+/,
+        regex: /^((?:[^\n]|\n(?! *\n))+)(?:\n *)+\n/,
         parse: parseCapture,
         output: (node, output) => {
             return <div className="paragraph">{output(node.content)}</div>;
@@ -520,7 +583,6 @@ var defaultRules = {
                     type: "text",
                     content: capture[1]
                 }],
-                // TODO: sanitize this
                 target: capture[1]
             };
         }
@@ -528,21 +590,21 @@ var defaultRules = {
     mailto: {
         regex: /^<([^ >]+@[^ >]+)>/,
         parse: (capture, parse, state) => {
-            var address;
+            var address = capture[1];
+            var target = capture[1];
+
             // Check for a `mailto:` already existing in the link:
-            if (capture[1].substring(0, 7) === "mailto:") {
-                address = capture[1].substring(7);
-            } else {
-                address = capture[1];
+            if (!AUTOLINK_MAILTO_CHECK_R.test(target)) {
+                target = "mailto:" + target;
             }
+
             return {
                 type: "link",
                 content: [{
                     type: "text",
                     content: address
                 }],
-                // TODO: sanitize this
-                target: "mailto:" + address
+                target: target
             };
         }
     },
@@ -555,8 +617,8 @@ var defaultRules = {
                     type: "text",
                     content: capture[1]
                 }],
-                // TODO: sanitize this
-                target: capture[1]
+                target: capture[1],
+                title: undefined
             };
         }
     },
@@ -567,7 +629,6 @@ var defaultRules = {
         parse: (capture, parse, state) => {
             var link ={
                 content: parse(capture[1]),
-                // TODO: sanitize this
                 target: capture[2],
                 title: capture[3]
             };
@@ -575,7 +636,7 @@ var defaultRules = {
         },
         output: (node, output) => {
             return React.DOM.a({
-                href: node.target,
+                href: sanitizeUrl(node.target),
                 title: node.title
             }, output(node.content));
         }
@@ -587,7 +648,6 @@ var defaultRules = {
         parse: (capture, parse, state) => {
             var image = {
                 alt: capture[1],
-                // TODO: sanitize this
                 target: capture[2],
                 title: capture[3]
             };
@@ -595,7 +655,7 @@ var defaultRules = {
         },
         output: (node, output) => {
             return <img
-                src={node.target}
+                src={sanitizeUrl(node.target)}
                 alt={node.alt}
                 title={node.title}/>;
         }
@@ -681,7 +741,18 @@ var defaultRules = {
         // double newlines, or double-space-newlines
         // We break on any symbol characters so that this grammar
         // is easy to extend without needing to modify this regex
-        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff]|\n\n| {2,}\n|$)/,
+        // HACK: the `-` is included in the list of text characters
+        // so that you can't start a list inside a list without a
+        // newline preceding the hyphen (that is, so '- a - b' is
+        // parsed as a single list item instead of a second list
+        // inside a list item). The `-\S` rule is so that we break
+        // dashes that couldn't initialize lists, so that headings
+        // with `------` underlines are not parsed as one text
+        // blob.
+        // TODO(aria): add block vs inline regexes so that we
+        // can define lists as block and not consider them for
+        // inline text.
+        regex: /^[\s\S]+?(?=[^0-9A-Za-z\s\u00ff-\uffff\-]|-\S|\n\n| {2,}\n|\w+:|$)/,
         parse: (capture, parse, state) => {
             return {
                 content: capture[0]
@@ -712,7 +783,8 @@ var SimpleMarkdown = {
     defaultPriorities: defaultPriorities,
     ruleOutput: ruleOutput,
     defaultParse: defaultParse,
-    defaultOutput: defaultOutput
+    defaultOutput: defaultOutput,
+    sanitizeUrl: sanitizeUrl
 };
 
 if (typeof module !== "undefined" && module.exports) {

@@ -1,0 +1,94 @@
+.perseus-matrix {
+    @bracketColor: #666;
+    @inputHeight: 30px;
+    @margin: 5px;
+    @padding: 3px;
+
+    .matrix-prefix, .matrix-suffix {
+        display: inline-block;
+        height: @inputHeight;
+        line-height: @inputHeight;
+        margin: 2*@margin @margin 0 2*@margin;
+        vertical-align: top;
+    }
+    .matrix-suffix {
+        margin: 2*@margin 2*@margin 0 @margin;
+    }
+
+    div.paragraph {
+        margin: 0;
+    }
+
+    .matrix-input {
+        background: #e2e2e2;
+        display: inline-block;
+        margin: @margin;
+        padding: @padding;
+        position: relative;
+    }
+
+    .matrix-row {
+        white-space: nowrap;
+    }
+
+    .matrix-bracket {
+        @borderWidth: 2px;
+        border-color: @bracketColor;
+        border-style: solid;
+        border-bottom-width: @borderWidth;
+        border-top-width: @borderWidth;
+        margin-top: -@borderWidth;
+        position: absolute;
+        width: 6px;
+
+        &.bracket-left {
+            border-color: @bracketColor;
+            border-left-width: @borderWidth;
+            left: 3px;
+        }
+
+        &.bracket-right {
+            border-color: @bracketColor;
+            border-right-width: @borderWidth;
+            margin-left: (1px - 2 * @borderWidth);
+        }
+    }
+    input, .number-input {
+        border: none;
+        border-radius: 0;
+        box-sizing: border-box;
+        height: @inputHeight;
+        margin: @padding;
+        padding: 0;
+        text-align: center;
+        &.outside {
+            background: #f3f3f3;
+        }
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+    &.the-matrix {
+        .matrix-bracket, .matrix-left, .matrix-right {
+            border-color: #29F139;
+        }
+        .matrix-input {
+            background: #222;
+        }
+        input, .number-input {
+            background: #666;
+            color: #29F139;
+            font-weight: bold;
+            &.outside {
+                background: #444;
+            }
+        }
+    }
+}
+
+.perseus-matrix-editor {
+    .perseus-single-editor {
+        width: 338px;
+    }
+}

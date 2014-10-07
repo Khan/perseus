@@ -27,13 +27,13 @@ var getDefaultPath = function() {
 var getRowFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
-    return path[0];
+    return +path[0];
 };
 
 var getColumnFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
-    return path[1];
+    return +path[1];
 };
 
 var getRefForPath = function(path) {
@@ -54,13 +54,18 @@ var Table = React.createClass({
     },
 
     getDefaultProps: function() {
+        var defaultRows = 4;
+        var defaultColumns = 1;
+        var blankAnswers = _(defaultRows).times(function() {
+            return Util.stringArrayOfSize(defaultColumns);
+        });
         return {
-            editableHeaders: false,
-            headers: [],
-            answers: [[]],
             apiOptions: ApiOptions.defaults,
-            onFocus: function() { },
-            onBlur: function() { }
+            headers: [""],
+            editableHeaders: false,
+            rows: defaultRows,
+            columns: defaultColumns,
+            answers: blankAnswers,
         };
     },
 
@@ -101,7 +106,7 @@ var Table = React.createClass({
                             </th>;
                         } else {
                             return <th key={i}>
-                                {Renderer({content: header})}
+                                <Renderer content={header} />
                             </th>;
                         }
                     })
@@ -367,7 +372,7 @@ var TableEditor = React.createClass({
                 </InfoTip>
             </div>
             <div>
-                {Table(tableProps)}
+                <Table {...tableProps} />
             </div>
         </div>;
     },

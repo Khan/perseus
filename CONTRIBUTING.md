@@ -27,6 +27,7 @@ question editor.
 
 Here are some technologies that will be important to be familiar with to work with
 the Perseus source code:
+
  * We create all Perseus components, including widgets, with
    [React.js](http://facebook.github.io/react/).
  * We use [underscore](http://underscorejs.org/) for various collection utility
@@ -37,22 +38,44 @@ the Perseus source code:
  * We compile our CSS with [Less](http://lesscss.org/).
  * Some parts of question rendering, answer checking, and hint display are handled
    by [khan-excercises](https://github.com/Khan/khan-exercises), our legacy
-   exercise framework. We also make heavy use of
-   [Graphie](https://github.com/Khan/khan-exercises/blob/master/utils/graphie.js),
-   which exists within khan-exercises.
+   exercise framework.
+ * For graph or visual widgets, we often make use of:
+    * [graphie](https://github.com/Khan/khan-exercises/blob/master/utils/graphie.js),
+       which exists within khan-exercises, and
+    * The [React <Graphie> component](https://github.com/Khan/perseus/blob/master/src/components/graphie.jsx),
+      a react layer on top of graphie and Interactive2.
 
 And here are some other technologies we use, which are only used by specific
 parts of the code (and aren't necessary to understand to work with Perseus code):
+
  * We render math text with [KaTeX](https://github.com/Khan/KaTeX) and
    [MathJax](http://www.mathjax.org/).
- * We render Markdown with [marked-react](https://github.com/spicyj/marked-react),
-   a port of the [marked](https://github.com/chjj/marked) Markdown renderer to
-   React.js
  * We use [jQuery](http://jquery.com/) for low-level dom manipulation for things
    that are not possible with React.js
- * We use [Browserify](http://browserify.org/) to provide Node.js style `require`
+ * We use [webpack](http://webpack.github.io/) to provide Node.js style `require`
    dependencies.
+ * Some internal library-ish things:
+    * [Interactive2](https://github.com/Khan/perseus/tree/master/src/interactive2),
+      a higher level API on top of several interactive graphie things, and
+    * We render Markdown with
+      [simple-markdown](https://github.com/Khan/perseus/blob/master/src/simple-markdown.jsx),
+      a custom extensible markdown parser based on [marked.js](https://github.com/chjj/marked)
 
+
+## Overall architecture
+
+The root React components of perseus are:
+
+ * EditorPage (src/editor-page.jsx): This renders the entire editor,
+   and is what you see on test.html.
+ * Editor (src/editor.jsx): This renders the left text editor for the
+   question area, custom-format answer area, or a hint. It manages
+   much of question and widget serialization.
+ * ItemRenderer (src/item-renderer.jsx): This is the component that
+   renders the entire item on the site.
+ * Renderer: This renders a question area, a custom-format answer
+   area, or a hint. It manages markdown parsing and passing props
+   through to widgets.
 
 ## Adding widgets
 
@@ -63,6 +86,7 @@ you probably want to create a new widget or modify an existing widget.
 Widgets are all defined in the `src/widgets/` directory, and loaded in src/all-widgets.js.
 
 Each widget consists of the following parts:
+
  * A `name` which is a unique id slug, such as `number-input` or `example-widget`
     * *Note: This id should only contain lowercase alphabetic characters and dashes.*
  * A `displayName` which is shown to the user in the "Add widget" menu

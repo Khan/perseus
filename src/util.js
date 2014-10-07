@@ -12,6 +12,7 @@ var Util = {
     nestedMap: nestedMap,
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
+    rWidgetRule:  /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/,
     snowman: "\u2603",
 
     noScore: {
@@ -375,11 +376,10 @@ var Util = {
         } else if (_.isFunction(x) || _.isFunction(y)) {
             return false;
         } else if (_.isObject(x) && _.isObject(y)) {
-            return _.all(x, function(value, key) {
-                return Util.deepEq(y[key], value);
-            }) && _.all(y, function(value, key) {
-                return Util.deepEq(x[key], value);
-            });
+            return x === y || (
+                _.all(x, function(v, k) { return Util.deepEq(y[k], v); }) &&
+                _.all(y, function(v, k) { return Util.deepEq(x[k], v); })
+            );
         } else if (_.isObject(x) || _.isObject(y)) {
             return false;
         } else {

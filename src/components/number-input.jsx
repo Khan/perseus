@@ -53,7 +53,7 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        cx = React.addons.classSet;
+        var cx = React.addons.classSet;
 
         var classes = cx({
             "number-input": true,
@@ -67,21 +67,23 @@ var NumberInput = React.createClass({
             classes = [classes, this.props.className].join(" ");
         }
 
-        var input = React.DOM.input(_.extend({}, this.props, {
-            className: classes,
-            type: "text",
-            ref: "input",
-            onChange: this._handleChange,
-            onFocus: this._handleFocus,
-            onBlur: this._handleBlur,
-            onKeyPress: this._handleBlur,
-            onKeyDown: this._onKeyDown,
-            onTouchStart: captureScratchpadTouchStart,
-            defaultValue: toNumericString(this.props.value, this.state.format),
-            value: undefined
-        }));
+        var input = <input
+            {...this.props}
+            className={classes}
+            type="text"
+            ref="input"
+            onChange={this._handleChange}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur}
+            onKeyPress={this._handleBlur}
+            onKeyDown={this._onKeyDown}
+            onTouchStart={captureScratchpadTouchStart}
+            defaultValue={toNumericString(this.props.value, this.state.format)}
+            value={undefined} />;
 
         if (this.props.label) {
+            // TODO(aria): Remove this prop and option. Put your labels
+            // outside your inputs
             return <label>{this.props.label}{input}</label>;
         } else {
             return input;
@@ -164,6 +166,10 @@ var NumberInput = React.createClass({
     },
 
     _onKeyDown: function(e) {
+        if (this.props.onKeyDown) {
+            this.props.onKeyDown(e);
+        }
+
         if (!this.props.useArrowKeys ||
             !_.contains(["ArrowUp", "ArrowDown"], e.key)) {
             return;

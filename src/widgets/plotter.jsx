@@ -71,7 +71,7 @@ var Plotter = React.createClass({
 
     render: function() {
         return <div
-            className={"perseus-widget-plotter graphie above-scratchpad " +
+            className={"perseus-widget-plotter graphie " +
                 ApiClassNames.INTERACTIVE}
             ref="graphieDiv" />;
     },
@@ -851,11 +851,10 @@ var PlotterEditor = React.createClass({
                     they start the problem). Note: These cannot be the same.
                 </p></InfoTip>
             </div>
-            {this.transferPropsTo(
-                <Plotter
-                    starting={this.props[this.state.editing]}
-                    onChange={this.handlePlotterChange} />
-            )}
+            <Plotter
+                {...this.props}
+                starting={this.props[this.state.editing]}
+                onChange={this.handlePlotterChange} />
         </div>;
     },
 

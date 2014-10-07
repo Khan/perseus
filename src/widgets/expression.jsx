@@ -1,21 +1,21 @@
 /** @jsx React.DOM */
 
-var React   = require("react");
+var React = require("react");
 var InfoTip = require("react-components/info-tip.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
 
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var ApiOptions = require("../perseus-api.jsx").Options;
 
-var EnabledFeatures   = require("../enabled-features.jsx");
-var PropCheckBox      = require("../components/prop-check-box.jsx");
+var EnabledFeatures = require("../enabled-features.jsx");
+var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
-var MathInput         = require("../components/math-input.jsx");
-var TeX               = require("../tex.jsx"); // OldExpression only
-var TexButtons        = require("../components/tex-buttons.jsx");
+var MathInput = require("../components/math-input.jsx");
+var TeX = require("react-components/tex.jsx"); // OldExpression only
+var TexButtons = require("../components/tex-buttons.jsx");
 
 var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
@@ -175,7 +175,8 @@ var Expression = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.focus();
+        // The buttons are often on top of text you're trying to read, so don't
+        // focus the editor automatically.
         return true;
     },
 
@@ -603,7 +604,7 @@ var ExpressionEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:{' '}
-                {expression(expressionProps)}
+                <expression {...expressionProps} />
             </label></div>
             {this.state.isTex && <TexButtons
                 className="math-input-buttons"

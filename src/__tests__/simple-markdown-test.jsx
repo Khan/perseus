@@ -1,3 +1,5 @@
+/** @jsx React.DOM */
+
 var assert = require("assert");
 var nodeUtil = require("util");
 var _ = require("underscore");
@@ -31,6 +33,25 @@ var validateParse = (parsed, expected) => {
             "<>"
         );
     }
+};
+
+var htmlThroughReact = (parsed) => {
+    var output = defaultOutput(parsed);
+    var rawHtml = React.renderComponentToStaticMarkup(
+        <div>{output}</div>
+    );
+    var innerHtml = rawHtml
+        .replace(/^<div>/, '')
+        .replace(/<\/div>$/, '');
+    var simplifiedHtml = innerHtml
+        .replace(/>\n*/g, '>')
+        .replace(/\n*</g, '<')
+        .replace(/\s+/g, ' ');
+    return simplifiedHtml;
+};
+
+var htmlFromMarkdown = (source) => {
+    return htmlThroughReact(defaultParse(source));
 };
 
 describe("simple markdown", () => {
@@ -294,18 +315,28 @@ describe("simple markdown", () => {
             }]);
         });
 
-        it("should not parse \\[s as links", () => {
+        it("should allow escaping `[` with `\\`", () => {
+            // Without the backslash, the following would be a
+            // link with the text "hi".
+            // With the backslash, it should ignore the '[hi]'
+            // portion, but will still detect that the inside
+            // of the parentheses contains a raw url, which it
+            // will turn into a url link.
             var parsed = defaultParse("\\[hi](http://www.google.com)");
             validateParse(parsed, [
                 {content: "[", type: "text"},
                 {content: "hi", type: "text"},
                 {content: "]", type: "text"},
-                {content: "(http", type: "text"},
-                {content: ":", type: "text"},
-                {content: "/", type: "text"},
-                {content: "/www", type: "text"},
-                {content: ".google", type: "text"},
-                {content: ".com", type: "text"},
+                {content: "(", type: "text"},
+                {
+                    type: "link",
+                    content: [{
+                        type: "text",
+                        content: "http://www.google.com"
+                    }],
+                    target: "http://www.google.com",
+                    title: undefined
+                },
                 {content: ")", type: "text"},
             ]);
         });
@@ -395,9 +426,19 @@ describe("simple markdown", () => {
                 type: "link",
                 content: [{
                     type: "text",
-                    content: "test@example.com"
+                    content: "mailto:test@example.com"
                 }],
                 target: "mailto:test@example.com"
+            }]);
+
+            var parsed4 = defaultParse("<MAILTO:TEST@EXAMPLE.COM>");
+            validateParse(parsed4, [{
+                type: "link",
+                content: [{
+                    type: "text",
+                    content: "MAILTO:TEST@EXAMPLE.COM"
+                }],
+                target: "MAILTO:TEST@EXAMPLE.COM"
             }]);
         });
 
@@ -409,7 +450,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "http://www.google.com"
                 }],
-                target: "http://www.google.com"
+                target: "http://www.google.com",
+                title: undefined
             }]);
 
             var parsed2 = defaultParse("https://www.google.com");
@@ -419,7 +461,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "https://www.google.com"
                 }],
-                target: "https://www.google.com"
+                target: "https://www.google.com",
+                title: undefined
             }]);
 
             var parsed3 = defaultParse("http://example.com/test.html");
@@ -429,7 +472,8 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "http://example.com/test.html"
                 }],
-                target: "http://example.com/test.html"
+                target: "http://example.com/test.html",
+                title: undefined
             }]);
 
             var parsed4 = defaultParse(
@@ -444,7 +488,8 @@ describe("simple markdown", () => {
                             "?content=%7B%7D&format=pretty"
                 }],
                 target: "http://example.com/test.html" +
-                        "?content=%7B%7D&format=pretty"
+                        "?content=%7B%7D&format=pretty",
+                title: undefined
             }]);
 
             var parsed5 = defaultParse(
@@ -456,7 +501,32 @@ describe("simple markdown", () => {
                     type: "text",
                     content: "http://example.com/test.html#content=%7B%7D"
                 }],
-                target: "http://example.com/test.html#content=%7B%7D"
+                target: "http://example.com/test.html#content=%7B%7D",
+                title: undefined
+            }]);
+        });
+
+        it("should parse freeform urls inside paragraphs", () => {
+            var parsed = defaultParse(
+                "hi this is a link http://www.google.com\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "text",
+                        content: "hi this is a link ",
+                    },
+                    {
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "http://www.google.com"
+                        }],
+                        target: "http://www.google.com",
+                        title: undefined
+                    }
+                ]
             }]);
         });
 
@@ -875,8 +945,6 @@ describe("simple markdown", () => {
             ]);
         });
 
-
-
         it("should compare defs case- and whitespace-insensitively", () => {
             var parsed = defaultParse(
                 "[Google][HiIiI]\n\n" +
@@ -954,6 +1022,19 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should not allow defs to break out of a paragraph", () => {
+            var parsed = defaultParse("hi [1]: there\n\n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "hi ", type: "text"},
+                    {content: "[1", type: "text"},
+                    {content: "]", type: "text"},
+                    {content: ": there", type: "text"},
+                ]
+            }]);
+        });
+
         it("should parse a single top-level paragraph", () => {
             var parsed = defaultParse("hi\n\n");
             validateParse(parsed, [{
@@ -1011,6 +1092,53 @@ describe("simple markdown", () => {
             }]);
         });
 
+        it("should allow whitespace-only lines to end paragraphs", () => {
+            var parsed = defaultParse("hi\n \n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+
+            var parsed2 = defaultParse("hi\n  \n");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+
+            var parsed3 = defaultParse("hi\n\n  \n  \n");
+            validateParse(parsed3, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "hi"
+                }]
+            }]);
+
+            var parsed4 = defaultParse("hi\n  \n\n   \nbye\n\n");
+            validateParse(parsed4, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "hi"
+                    }]
+                },
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "text",
+                        content: "bye"
+                    }]
+                },
+            ]);
+        });
+
         it("should parse a single heading", () => {
             var parsed = defaultParse("### heading3\n\n");
             validateParse(parsed, [{
@@ -1051,8 +1179,7 @@ describe("simple markdown", () => {
                 type: "paragraph",
                 content: [
                     {type: "text", content: "heading2\n"},
-                    {type: "text", content: "-"},
-                    {type: "text", content: "-"},
+                    {type: "text", content: "--"},
                 ]
             }]);
         });
@@ -1099,6 +1226,36 @@ describe("simple markdown", () => {
                     }]
                 },
             ]);
+        });
+
+        it("should not allow headings mid-paragraph", () => {
+            var parsed = defaultParse(
+                "paragraph # text\n" +
+                "more paragraph\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "paragraph ", type: "text"},
+                    {content: "# text\nmore paragraph", type: "text"},
+                ]
+            }]);
+
+            var parsed2 = defaultParse(
+                "paragraph\n" +
+                "text\n" +
+                "----\n" +
+                "more paragraph\n\n"
+            );
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    {content: "paragraph\ntext\n", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "--\nmore paragraph", type: "text"},
+                ]
+            }]);
         });
 
         it("should parse a single top-level blockquote", () => {
@@ -1160,11 +1317,54 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should not let a > escape a paragraph as a blockquote", () => {
+            var parsed = defaultParse(
+                "para 1 > not a quote\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "para 1 ", type: "text"},
+                    {content: "> not a quote", type: "text"},
+                ]
+            }]);
+        });
+
         it("should parse a single top-level code block", () => {
             var parsed = defaultParse("    if (true) { code(); }\n\n");
             validateParse(parsed, [{
                 type: "codeBlock",
+                lang: undefined,
                 content: "if (true) { code(); }"
+            }]);
+        });
+
+        it("should parse a code block with trailing spaces", () => {
+            var parsed = defaultParse("    if (true) { code(); }\n    \n\n");
+            validateParse(parsed, [{
+                type: "codeBlock",
+                lang: undefined,
+                content: "if (true) { code(); }"
+            }]);
+        });
+
+        it("should parse fence blocks", () => {
+            var parsed = defaultParse("```\ncode\n```\n\n");
+            validateParse(parsed, [{
+                type: "codeBlock",
+                lang: undefined,
+                content: "code"
+            }]);
+
+            var parsed2 = defaultParse(
+                "```aletheia\n" +
+                "if true [code()]\n" +
+                "```\n\n"
+            );
+            validateParse(parsed2, [{
+                type: "codeBlock",
+                lang: "aletheia",
+                content: "if true [code()]"
             }]);
         });
 
@@ -1183,6 +1383,7 @@ describe("simple markdown", () => {
                 },
                 {
                     type: "codeBlock",
+                    lang: undefined,
                     content: "this is code"
                 },
                 {
@@ -1197,8 +1398,8 @@ describe("simple markdown", () => {
 
         it("should parse top-level horizontal rules", () => {
             var parsed = defaultParse(
-                "---\n" +
-                "***\n" +
+                "---\n\n" +
+                "***\n\n" +
                 "___\n\n" +
                 " - - - - \n\n" +
                 "_ _ _\n\n" +
@@ -1238,6 +1439,22 @@ describe("simple markdown", () => {
             ]);
         });
 
+        it("should not allow hrs within a paragraph", () => {
+            var parsed = defaultParse(
+                "paragraph ----\n" +
+                "more paragraph\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {content: "paragraph ", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "-", type: "text"},
+                    {content: "--\nmore paragraph", type: "text"},
+                ]
+            }]);
+        });
+
         it("should parse simple unordered lists", () => {
             var parsed = defaultParse(
                 " * hi\n" +
@@ -1245,22 +1462,22 @@ describe("simple markdown", () => {
                 " * there\n\n"
             );
             validateParse(parsed, [{
-                type: "list",
                 ordered: false,
                 items: [
                     [{
-                        type: "text",
                         content: "hi\n",
+                        type: "text",
                     }],
                     [{
-                        type: "text",
                         content: "bye\n",
+                        type: "text",
                     }],
                     [{
+                        content: "there\n",
                         type: "text",
-                        content: "there",
                     }],
-                ]
+                ],
+                type: "list",
             }]);
         });
 
@@ -1284,7 +1501,7 @@ describe("simple markdown", () => {
                     }],
                     [{
                         type: "text",
-                        content: "third",
+                        content: "third\n",
                     }],
                 ]
             }]);
@@ -1310,7 +1527,7 @@ describe("simple markdown", () => {
                     }],
                     [{
                         type: "text",
-                        content: "third",
+                        content: "third\n",
                     }],
                 ]
             }]);
@@ -1325,38 +1542,38 @@ describe("simple markdown", () => {
                 "3. third\n\n"
             );
             validateParse(parsed, [{
-                type: "list",
                 ordered: true,
                 items: [
                     [{
-                        type: "text",
                         content: "first\n",
+                        type: "text",
                     }],
                     [
                         {
-                            type: "text",
                             content: "second\n",
+                            type: "text",
                         },
                         {
-                            type: "list",
                             ordered: false,
                             items: [
                                 [{
+                                    content: "inner\n",
                                     type: "text",
-                                    content: "inner\n"
                                 }],
                                 [{
+                                    content: "inner\n",
                                     type: "text",
-                                    content: "inner"
                                 }]
-                            ]
+                            ],
+                            type: "list",
                         }
                     ],
                     [{
+                        content: "third\n",
                         type: "text",
-                        content: "third",
                     }],
-                ]
+                ],
+                type: "list",
             }]);
         });
 
@@ -1390,6 +1607,67 @@ describe("simple markdown", () => {
                             type: "text",
                             content: "there"
                         }]
+                    }],
+                ]
+            }]);
+        });
+
+        it("should have defined behaviour for semi-loose lists", () => {
+            // we mostly care that this does something vaguely reasonable.
+            // if you write markdown like this the results are your own fault.
+            var parsed = defaultParse(
+                " * hi\n" +
+                " * bye\n\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "text",
+                        content: "hi\n"
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "bye"
+                        }]
+                    }],
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "there"
+                        }]
+                    }],
+                ]
+            }]);
+
+            var parsed2 = defaultParse(
+                " * hi\n\n" +
+                " * bye\n" +
+                " * there\n\n"
+            );
+            validateParse(parsed2, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "hi"
+                        }]
+                    }],
+                    [{
+                        type: "text",
+                        content: "bye\n"
+                    }],
+                    [{
+                        type: "text",
+                        content: "there\n"
                     }],
                 ]
             }]);
@@ -1472,6 +1750,184 @@ describe("simple markdown", () => {
                             content: "there"
                         }]
                     }],
+                ]
+            }]);
+        });
+
+        it("should allow code inside list items", () => {
+            var parsed = defaultParse(
+                " * this is a list\n\n" +
+                "       with code in it\n\n"
+            );
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [[
+                    {
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "this is a list"
+                        }]
+                    },
+                    {
+                        type: "codeBlock",
+                        lang: undefined,
+                        content: "with code in it"
+                    }
+                ]]
+            }]);
+
+            var parsed2 = defaultParse(
+                " * this is a list\n\n" +
+                "       with code in it\n\n" +
+                " * second item\n" +
+                "\n"
+            );
+            validateParse(parsed2, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "this is a list"
+                            }]
+                        },
+                        {
+                            type: "codeBlock",
+                            lang: undefined,
+                            content: "with code in it"
+                        }
+                    ],
+                    [
+                        {
+                            type: "paragraph",
+                            content: [{
+                                type: "text",
+                                content: "second item"
+                            }]
+                        },
+                    ],
+                ]
+            }]);
+        });
+
+        it("should allow lists inside blockquotes", () => {
+            // This list also has lots of trailing space after the *s
+            var parsed = defaultParse(
+                "> A list within a blockquote\n" +
+                ">\n" +
+                "> *    asterisk 1\n" +
+                "> *    asterisk 2\n" +
+                "> *    asterisk 3\n" +
+                "\n"
+            );
+            validateParse(parsed, [{
+                type: "blockQuote",
+                content: [
+                    {
+                        type: "paragraph",
+                        content: [{
+                            content: "A list within a blockquote",
+                            type: "text",
+                        }]
+                    },
+                    {
+
+                        type: "list",
+                        ordered: false,
+                        items: [
+                            [{
+                                content: "asterisk 1\n",
+                                type: "text",
+                            }],
+                            [{
+                                content: "asterisk 2\n",
+                                type: "text",
+                            }],
+                            [{
+                                content: "asterisk 3\n",
+                                type: "text",
+                            }],
+                        ]
+                    }
+                ]
+            }]);
+        });
+
+        it("symbols should not break a paragraph into a list", () => {
+            var parsed = defaultParse("hi - there\n\n");
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi - there", type: "text" },
+                ]
+            }]);
+
+            var parsed2 = defaultParse("hi * there\n\n");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi ", type: "text" },
+                    { content: "* there", type: "text" },
+                ]
+            }]);
+
+            var parsed3 = defaultParse("hi 1. there\n\n");
+            validateParse(parsed3, [{
+                type: "paragraph",
+                content: [
+                    { content: "hi 1", type: "text" },
+                    { content: ". there", type: "text" },
+                ]
+            }]);
+        });
+
+        it("dashes or numbers should not break a list item into a list", () => {
+            var parsed = defaultParse("- hi - there\n\n");
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [[
+                    { content: "hi - there\n", type: "text" },
+                ]]
+            }]);
+
+            // NOTE: This doesn't work right now because we need `*`s for
+            // emphasis, so we have to split text on them.
+            // TODO(aria): split block vs inline parsing so we can handle
+            // this case
+//            var parsed2 = defaultParse("* hi * there\n\n");
+//            validateParse(parsed2, [{
+//                type: "list",
+//                ordered: false,
+//                items: [[
+//                    { content: "hi * there\n", type: "text" },
+//                ]]
+//            }]);
+
+            var parsed3 = defaultParse("1. hi 1. there\n\n");
+            validateParse(parsed3, [{
+                type: "list",
+                ordered: true,
+                items: [[
+                    { content: "hi 1", type: "text" },
+                    { content: ". there\n", type: "text" },
+                ]]
+            }]);
+        });
+
+        it("should ignore double spaces at the end of lists", () => {
+            var parsed = defaultParse(" * hi  \n * there\n\n");
+            validateParse(parsed, [{
+                type: "list",
+                ordered: false,
+                items: [
+                    [{type: "text", content: "hi\n"}],
+                    [{type: "text", content: "there\n"}],
                 ]
             }]);
         });
@@ -1627,6 +2083,45 @@ describe("simple markdown", () => {
             validateParse(parsed3, [
                 { content: "hi  bye", type: "text" },
             ]);
+        });
+    });
+
+    describe("react output", () => {
+        it("should sanitize dangerous links", () => {
+            var html = htmlFromMarkdown(
+                "[link](javascript:alert%28%27hi%27%29)"
+            );
+            assert.strictEqual(html, "<a>link</a>");
+
+            var html2 = htmlFromMarkdown(
+                "[link][1]\n\n" +
+                "[1]: javascript:alert('hi');\n\n"
+            );
+            assert.strictEqual(
+                html2,
+                "<div class=\"paragraph\"><a>link</a></div>"
+            );
+        });
+
+        it("should not sanitize safe links", () => {
+            var html = htmlFromMarkdown(
+                "[link](https://www.google.com)"
+            );
+            assert.strictEqual(
+                html,
+                "<a href=\"https://www.google.com\">link</a>"
+            );
+
+            var html2 = htmlFromMarkdown(
+                "[link][1]\n\n" +
+                "[1]: https://www.google.com\n\n"
+            );
+            assert.strictEqual(
+                html2,
+                "<div class=\"paragraph\">" +
+                    "<a href=\"https://www.google.com\">link</a>" +
+                "</div>"
+            );
         });
     });
 });

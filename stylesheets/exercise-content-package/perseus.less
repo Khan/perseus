@@ -52,8 +52,8 @@
     .no-select;
 }
 
-.interactive-component,
-.interactive-component.above-scratchpad {
+.perseus-interactive,
+.perseus-interactive.above-scratchpad {
     position: relative;
     z-index: @zIndexInteractiveComponent;
 }
@@ -81,7 +81,7 @@
 .framework-perseus {
     #problemarea {
         input, button {
-            .interactive-component
+            .perseus-interactive;
         }
     }
 
@@ -109,6 +109,10 @@
     .paragraph > ol {
         list-style: decimal;
         padding-left: 2em;
+    }
+
+    blockquote {
+        padding: 0 2.5em;
     }
 
     table {
@@ -185,7 +189,7 @@
         width: 40px;
 
         &.invalid-input {
-            background-color: #ffbaba;
+            background-color: @red;
             outline-color: red;
         }
 
@@ -271,6 +275,8 @@
 @import "widgets/sortable.less";
 @import "widgets/image.less";
 @import "widgets/passage.less";
+@import "widgets/matrix.less";
+@import "widgets/number-line.less";
 
 .perseus-diff {
     @borderColor: #E4E4E4;

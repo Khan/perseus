@@ -55,7 +55,7 @@ var Passage = React.createClass({
         }
         return <div className="perseus-widget-passage">
             <div className="passage-title">
-                {Renderer({ content: this.props.passageTitle })}
+                <Renderer content={this.props.passageTitle} />
             </div>
             {lineNumbers && <div className="line-numbers">
                 {lineNumbers}
@@ -64,7 +64,7 @@ var Passage = React.createClass({
                 {this._renderContent()}
             </div>
             <div className="footnotes">
-                {Renderer({ content: this.props.footnotes })}
+                <Renderer content={this.props.footnotes} />
             </div>
         </div>;
     },
@@ -208,24 +208,24 @@ var PassageEditor = React.createClass({
     },
 
     render: function() {
-        var passageEditor = Editor({
-            ref: "passage-editor",
-            content: this.props.passageText,
-            widgetEnabled: false,
-            placeholder: "Type passage here...",
-            onChange: (newProps) => {
+        var passageEditor = <Editor
+            ref="passage-editor"
+            content={this.props.passageText}
+            widgetEnabled={false}
+            placeholder="Type passage here..."
+            onChange={(newProps) => {
                 this.change({ passageText: newProps.content });
-            }
-        });
-        var footnotesEditor = Editor({
-            ref: "passage-footnotes-editor",
-            content: this.props.footnotes,
-            widgetEnabled: false,
-            placeholder: "Type footnotes here...",
-            onChange: (newProps) => {
+            }}
+        />;
+        var footnotesEditor = <Editor
+            ref="passage-footnotes-editor"
+            content={this.props.footnotes}
+            widgetEnabled={false}
+            placeholder="Type footnotes here..."
+            onChange={(newProps) => {
                 this.change({ footnotes: newProps.content });
-            }
-        });
+            }}
+        />;
         return <div className="perseus-widget-passage-editor">
             <div className="perseus-widget-row">
                 <PropCheckBox

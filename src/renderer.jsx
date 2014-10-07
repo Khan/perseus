@@ -1,10 +1,11 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var TeX = require("./tex.jsx");
+var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 var QuestionParagraph = require("./question-paragraph.jsx");
+var PerseusMarkdown = require("./perseus-markdown.jsx");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -117,9 +118,10 @@ var Renderer = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
-            inline: false,
             widgets: {},
-            ignoreMissingWidgets: false,
+            // TODO(aria): Remove this now that it is true everywhere
+            // (here and in perseus-i18n)
+            ignoreMissingWidgets: true,
             highlightedWidgets: [],
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: {},  // we'll do a deep defaults in render()
@@ -175,51 +177,28 @@ var Renderer = React.createClass({
         return propsChanged || stateChanged;
     },
 
-    getPiece: function(saved, /* output */ widgetIds) {
-        if (saved.charAt(0) === "@") {
-            // Just text
-            return saved;
-        } else if (saved.charAt(0) === "$") {
-            // Math
-            var tex = saved.slice(1, saved.length - 1);
-            return <TeX onRender={this.props.onRender}>{tex}</TeX>;
-        } else if (saved.charAt(0) === "[") {
-            // Widget
-            var match = Util.rWidgetParts.exec(saved);
-            var id = match[1];
-            var implied_type = match[2];
+    renderWidget: function(impliedType, id) {
+        var widgetInfo = this.state.widgetInfo[id];
+        if (widgetInfo || this.props.ignoreMissingWidgets) {
 
-            var widgetInfo = this.state.widgetInfo[id];
-            if (widgetInfo || this.props.ignoreMissingWidgets) {
+            var type = (widgetInfo && widgetInfo.type) || impliedType;
+            var cls = Widgets.getWidget(type, this.props.enabledFeatures);
+            var shouldHighlight = _.contains(
+                this.props.highlightedWidgets,
+                id
+            );
 
-                // We don't want to render a duplicate widget key/ref,
-                // as this causes problems with react (for obvious reasons).
-                // Instead we just notify the hopefully-content-creator that
-                // they need to change the widget id.
-                var duplicate = _.contains(widgetIds, id);
-                if (duplicate) {
-                    return <span className="renderer-widget-error">
-                        Widget [[{'\u2603'} {id}]] already exists.
-                    </span>;
-                }
-
-                // TODO(jack): Remove this input/output parameter
-                widgetIds.push(id);
-
-                var type = (widgetInfo || {}).type || implied_type;
-                var cls = Widgets.getWidget(type, this.props.enabledFeatures);
-                var shouldHighlight = _.contains(
-                    this.props.highlightedWidgets,
-                    id
-                );
-
-                return <WidgetContainer
-                        ref={"container:" + id}
-                        key={"container:" + id}
-                        type={cls}
-                        initialProps={this.getWidgetProps(id)}
-                        shouldHighlight={shouldHighlight} />;
-            }
+            // By this point we should have no duplicates, which are
+            // filtered out in this.render(), so we shouldn't have to
+            // worry about using this widget key and ref:
+            return <WidgetContainer
+                    ref={"container:" + id}
+                    key={"container:" + id}
+                    type={cls}
+                    initialProps={this.getWidgetProps(id)}
+                    shouldHighlight={shouldHighlight} />;
+        } else {
+            return null;
         }
     },
 
@@ -297,7 +276,11 @@ var Renderer = React.createClass({
     },
 
     getWidgetInstance: function(id) {
-        return this.refs["container:" + id].getWidget();
+        var ref = this.refs["container:" + id];
+        if (!ref) {
+            return null;
+        }
+        return ref.getWidget();
     },
 
     _onWidgetFocus: function(id, focusPath) {
@@ -341,20 +324,37 @@ var Renderer = React.createClass({
         var newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
         var oldContent = this.getContent(this.props, this.state);
         var newContent = this.getContent(nextProps, nextState);
+        var oldHighlightedWidgets = this.props.highlightedWidgets;
+        var newHighlightedWidgets = nextProps.highlightedWidgets;
 
-        this.reuseMarkdown = !oldJipt && !newJipt && oldContent === newContent;
+        this.reuseMarkdown = !oldJipt && !newJipt &&
+            oldContent === newContent &&
+            // yes, this is identity array comparison, but these are passed
+            // in from state in the item-renderer, so they should be
+            // identity equal unless something changed, and it's expensive
+            // to loop through them to look for differences.
+            // Technically, we could reuse the markdown when this changes, but
+            // to do that we'd have to do more expensive checking of whether
+            // a widget should be highlighted in the common case where
+            // this array hasn't changed, so we just redo the whole
+            // render if this changed
+            oldHighlightedWidgets === newHighlightedWidgets;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
         this.handleRender(prevProps);
-        if (this.reuseMarkdown) {
-            this.widgetIds.forEach(function(id) {
-                var container = this.refs["container:" + id];
-                container.replaceWidgetProps(
-                    this.getWidgetProps(id)
-                );
-            }, this);
-        }
+        // We even do this if we did reuse the markdown because
+        // we might need to update the widget props on this render,
+        // even though we have the same widgets.
+        // WidgetContainers don't update their widgets props when
+        // they are re-rendered, so even if they've been
+        // re-rendered we need to call these methods on them.
+        _.each(this.widgetIds, (id) => {
+            var container = this.refs["container:" + id];
+            container.replaceWidgetProps(
+                this.getWidgetProps(id)
+            );
+        });
     },
 
     getContent: function(props, state) {
@@ -372,9 +372,9 @@ var Renderer = React.createClass({
             return this.lastRenderedMarkdown;
         }
 
-        var self = this;
         var content = this.getContent(this.props, this.state);
-        var widgetIds = this.widgetIds = [];
+        // `this.widgetIds` is appended to in `this.outputMarkdown`:
+        this.widgetIds = [];
 
         if (this.shouldRenderJiptPlaceholder(this.props, this.state)) {
             // Crowdin's JIPT (Just in place translation) uses a fake language
@@ -408,82 +408,67 @@ var Renderer = React.createClass({
                 {content}
             </div>;
         }
-        var extracted = Renderer.extractMathAndWidgets(content);
-        var markdown = extracted[0];
-        var savedMath = extracted[1];
 
-        // XXX(alpert): smartypants gets called on each text node before it's
-        // added to the DOM tree, so we override it to insert the math and
-        // widgets.
-        var smartypants = markedReact.InlineLexer.prototype.smartypants;
-        markedReact.InlineLexer.prototype.smartypants = function(text) {
-            var pieces = Util.split(text, /@@(\d+)@@/g);
-            for (var i = 0; i < pieces.length; i++) {
-                var type = i % 2;
-                if (type === 0) {
-                    pieces[i] = smartypants.call(this, pieces[i]);
-                } else if (type === 1) {
-                    // A saved math-or-widget number
-                    pieces[i] = self.getPiece(
-                        savedMath[pieces[i]],
-                        widgetIds
-                    );
-                }
-            }
-            return pieces;
-        };
+        var parsedMardown = PerseusMarkdown.parse(content);
+        var markdownContents = this.outputMarkdown(parsedMardown);
+        this.lastRenderedMarkdown = <div>{markdownContents}</div>;
+        return this.lastRenderedMarkdown;
+    },
 
-        var wrap = function(text) {
+    // wrap top-level elements in a QuestionParagraph, mostly
+    // for appropriate spacing and other css
+    outputMarkdown: function(ast) {
+        if (_.isArray(ast)) {
+            return _.map(ast, (node) => {
+                return <QuestionParagraph>
+                    {this.outputNested(node)}
+                </QuestionParagraph>;
+            });
+        } else {
             return <QuestionParagraph>
-                {text}
+                {this.outputNested(ast)}
             </QuestionParagraph>;
-        };
+        }
+    },
 
-        var tok = markedReact.Parser.prototype.tok;
-        var tokLevelCount = 0;
-        var outerParagraphCount = 0;
-        markedReact.Parser.prototype.tok = function() {
-            tokLevelCount++;
-            outerParagraphCount++;
-            var text = tok.call(this);
+    // output non-top-level nodes or arrays
+    outputNested: function(ast) {
+        if (_.isArray(ast)) {
+            return _.map(ast, this.outputNested);
+        } else {
+            return this.outputNode(ast, this.outputNested);
+        }
+    },
 
-            // We want to wrap all base-level elements in a div.paragraph
-            // This is so things like tables or other non-paragraphs get the
-            // appropriate margins. Super hacky.
-            var hasChildren = text && (!_.isArray(text) || text.length);
-            var isOuter = tokLevelCount === 1 && hasChildren;
+    // output individual AST nodes [not arrays]
+    outputNode: function(node, nestedOutput) {
+        if (node.type === "widget") {
+            if (_.contains(this.widgetIds, node.id)) {
+                // We don't want to render a duplicate widget key/ref,
+                // as this causes problems with react (for obvious
+                // reasons). Instead we just notify the
+                // hopefully-content-creator that they need to change the
+                // widget id.
+                return <span className="renderer-widget-error">
+                    Widget [[{'\u2603'} {node.id}]] already exists.
+                </span>;
 
-            // We also only do this if we're not an inline widget, or we
-            // are inline but not on the first paragraph of the inline-ness
-            var isFirst = outerParagraphCount === 1;
-
-            var result;
-            if (isOuter && (!self.props.inline || !isFirst)) {
-                result = wrap(text);
             } else {
-                result = text;
+                this.widgetIds.push(node.id);
+                return this.renderWidget(node.widgetType, node.id);
             }
-            tokLevelCount--;
-            return result;
-        };
 
-        var markedOptions = {
-            sanitize: true,
-            paragraphFn: (this.props.inline ?
-                (text) => <span>{text}</span> :
-                (text) => <div>{text}</div>
-            )
-        };
+        } else if (node.type === "math") {
+            // We render math here instead of in perseus-markdown.jsx
+            // because we need to pass it our onRender callback.
+            return <TeX onRender={this.props.onRender}>
+                {node.content}
+            </TeX>;
 
-        try {
-            var markdownContents = markedReact(markdown, markedOptions);
-            this.lastRenderedMarkdown = this.props.inline ?
-                <span>{markdownContents}</span> :
-                <div>{markdownContents}</div>;
-            return this.lastRenderedMarkdown;
-        } finally {
-            markedReact.InlineLexer.prototype.smartypants = smartypants;
-            markedReact.Parser.prototype.tok = tok;
+        } else {
+            // If it's a "normal" or "simple" markdown node, just
+            // output it using its output rule.
+            return PerseusMarkdown.ruleOutput(node, nestedOutput);
         }
     },
 
@@ -665,9 +650,14 @@ var Renderer = React.createClass({
 
         var widgetId = _.first(path);
         var interWidgetPath = _.rest(path);
-        // Widget handles parsing of the interWidgetPath
-        var blurWidget = this.getWidgetInstance(widgetId).blur;
-        blurWidget && blurWidget(interWidgetPath);
+        var widget = this.getWidgetInstance(widgetId);
+        // We might be in the editor and blurring a widget that no
+        // longer exists, so only blur if we actually found the widget
+        if (widget) {
+            var blurWidget = this.getWidgetInstance(widgetId).blur;
+            // Widget handles parsing of the interWidgetPath
+            blurWidget && blurWidget(interWidgetPath);
+        }
     },
 
     blur: function() {
@@ -677,9 +667,9 @@ var Renderer = React.createClass({
     },
 
     getSaveWarnings: function() {
-        return _(this.props.widgets)
+        return _(this.state.widgetInfo)
             .chain()
-            .map((props, id) => {
+            .map((info, id) => {
                 var widget = this.getWidgetInstance(id);
                 var issuesFunc = widget.getSaveWarnings;
                 return issuesFunc ? issuesFunc() : [];
@@ -690,7 +680,7 @@ var Renderer = React.createClass({
 
     serialize: function() {
         var state = {};
-        _.each(this.props.widgets, function(props, id) {
+        _.each(this.state.widgetInfo, function(info, id) {
             var widget = this.getWidgetInstance(id);
             var s = widget.serialize();
             if (!_.isEmpty(s)) {
@@ -702,9 +692,9 @@ var Renderer = React.createClass({
 
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
-            var widgetProps = this.props.widgets[id];
+            var widgetInfo = this.state.widgetInfo[id];
             var score = this.getWidgetInstance(id).simpleValidate(
-                widgetProps.options,
+                widgetInfo.options,
                 null
             );
             return Util.scoreIsEmpty(score);
@@ -741,7 +731,7 @@ var Renderer = React.createClass({
     },
 
     guessAndScore: function() {
-        var widgetProps = this.props.widgets;
+        var widgetProps = this.state.widgetInfo;
         var onInputError = this.props.apiOptions.onInputError ||
                 function() { };
 
@@ -789,68 +779,6 @@ var Renderer = React.createClass({
 
         return examples[0];
     },
-
-    statics: {
-        extractMathAndWidgets: extractMathAndWidgets
-    }
 });
-
-var rInteresting =
-        /(\$|[{}]|\\[\\${}]|\n{2,}|\[\[\u2603 [a-z-]+ [0-9]+\]\]|@@\d+@@)/g;
-
-function extractMathAndWidgets(text) {
-    // "$x$ is a cool number, just like $6 * 7$!" gives
-    //     ["@@0@@ is a cool number, just like @@1@@!", ["$x$", "$6 * 7$"]]
-    //
-    // Inspired by http://stackoverflow.com/q/11231030.
-    var savedMath = [];
-    var blocks = Util.split(text, rInteresting);
-
-    var mathPieces = [], l = blocks.length, block, braces;
-    for (var i = 0; i < l; i++) {
-        block = blocks[i];
-
-        if (mathPieces.length) {
-            // Looking for an end delimeter
-            mathPieces.push(block);
-            blocks[i] = "";
-
-            if (block === "$" && braces <= 0) {
-                blocks[i] = saveMath(mathPieces.join(""));
-                mathPieces = [];
-            } else if (block.slice(0, 2) === "\n\n" || i === l - 1) {
-                // We're at the end of a line... just don't do anything
-                // TODO(alpert): Error somehow?
-                blocks[i] = mathPieces.join("");
-                mathPieces = [];
-            } else if (block === "{") {
-                braces++;
-            } else if (block === "}") {
-                braces--;
-            }
-        } else if (i % 2 === 1) {
-            // Looking for a start delimeter
-            var two = block && block.slice(0, 2);
-            if (two === "[[" || two === "@@") {
-                // A widget or an @@n@@ thing (which we pull out so we don't
-                // get confused later).
-                blocks[i] = saveMath(block);
-            } else if (block === "$") {
-                // We got one! Save it for later and blank out its space.
-                mathPieces.push(block);
-                blocks[i] = "";
-                braces = 0;
-            }
-            // Else, just normal text. Move along, move along.
-        }
-    }
-
-    return [blocks.join(""), savedMath];
-
-    function saveMath(math) {
-        savedMath.push(math);
-        return "@@" + (savedMath.length - 1) + "@@";
-    }
-}
 
 module.exports = Renderer;

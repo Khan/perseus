@@ -27,19 +27,18 @@ var RangeInput = React.createClass({
         var checkValidity = this.props.checkValidity || truth;
 
         return <div className="range-input">
-            [
-            {this.transferPropsTo(<NumberInput
+            <NumberInput
+                {...this.props}
                 value={value[0]}
                 checkValidity={val => checkValidity([val, value[1]])}
                 onChange={this.onChange.bind(this, 0)}
-                placeholder={this.props.placeholder[0]} />)}
-            ,
-            {this.transferPropsTo(<NumberInput
+                placeholder={this.props.placeholder[0]} />
+            <NumberInput
+                {...this.props}
                 value={value[1]}
                 checkValidity={val => checkValidity([value[0], val])}
                 onChange={this.onChange.bind(this, 1)}
-                placeholder={this.props.placeholder[1]} />)}
-            ]
+                placeholder={this.props.placeholder[1]} />
         </div>;
     },
 

@@ -121,7 +121,7 @@ var InputWithExamples = React.createClass({
     _renderInput: function() {
         var inputProps = this._getPropsForInputType();
         var inputComponent = this._getComponentForInputType();
-        return inputComponent(inputProps);
+        return <inputComponent {...inputProps} />;
     },
 
     render: function() {

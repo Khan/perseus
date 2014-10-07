@@ -116,19 +116,21 @@ var AnswerAreaRenderer = React.createClass({
             }
         );
 
-        return this.state.cls(_.extend({
-            ref: "widget",
-            problemNum: this.props.problemNum,
-            onChange: this.handleChangeRenderer,
-            onInteractWithWidget: this.props.onInteractWithWidget,
-            highlightedWidgets: this.props.highlightedWidgets,
-            enabledFeatures: _.extend({}, this.props.enabledFeatures, {
+        return <this.state.cls
+            ref="widget"
+            problemNum={this.props.problemNum}
+            onChange={this.handleChangeRenderer}
+            onInteractWithWidget={this.props.onInteractWithWidget}
+            highlightedWidgets={this.props.highlightedWidgets}
+            enabledFeatures={_.extend({}, this.props.enabledFeatures, {
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
                 toolTipFormats: false
-            }),
-            apiOptions: apiOptions
-        }, this.props.options, this.state.widget));
+            })}
+            apiOptions={apiOptions}
+            {...this.props.options}
+            {...this.state.widget}
+        />;
     },
 
     renderSingle: function() {
@@ -146,8 +148,6 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     getSingleWidgetProps: function() {
-        var editorProps = this.props.options;
-        var transform = Widgets.getTransform(this.props.type);
         var apiOptions = _.extend(
             {},
             ApiOptions.defaults,
@@ -177,6 +177,11 @@ var AnswerAreaRenderer = React.createClass({
                 [SINGLE_ITEM_WIDGET_ID].concat(path));
         };
 
+        var initialWidgetProps = Widgets.getRendererPropsForWidgetInfo(
+            this.props,
+            this.props.problemNum
+        );
+
         return _.extend({
             widgetId: SINGLE_ITEM_WIDGET_ID,
             problemNum: this.props.problemNum,
@@ -189,7 +194,7 @@ var AnswerAreaRenderer = React.createClass({
             apiOptions: apiOptions,
             onFocus: onFocus,
             onBlur: onBlur
-        }, transform(editorProps), this.state.widget);
+        }, initialWidgetProps, this.state.widget);
     },
 
     _setWidgetProps: function(widgetId, newProps, cb) {
