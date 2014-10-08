@@ -470,7 +470,7 @@ var defaultRules = {
         // paragraph but separated by a newline.
         // TODO(aria): fix this
         // TODO(aria): fix 80 char line width
-        regex: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *\n(?=\n|\[[^\]]\]: )\n?/,
+        regex: /^ *\[([^\]]+)\]: *<?([^\s>]*)>?(?: +["(]([^\n]+)[")])? *\n(?=\n|\[[^\]]+\]: )\n?/,
         parse: (capture, parse, state) => {
             var def = capture[1]
                 .replace(/\s+/g, ' ')

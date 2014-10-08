@@ -660,6 +660,33 @@ describe("simple markdown", () => {
                     }]
                 },
             ]);
+
+            // test some edge cases, notably:
+            // target of ""; title using parens; def with a `-` in it
+            var parsed3 = defaultParse(
+                "[Nowhere][nowhere-target]\n\n" +
+                "[nowhere-target]: <> (nowhere)\n\n"
+            );
+            validateParse(parsed3, [
+                {
+                    type: "paragraph",
+                    content: [{
+                        type: "link",
+                        content: [{
+                            type: "text",
+                            content: "Nowhere"
+                        }],
+                        target: "",
+                        title: "nowhere"
+                    }]
+                },
+                {
+                    type: "def",
+                    def: "nowhere-target",
+                    target: "",
+                    title: "nowhere"
+                },
+            ]);
         });
 
         it("should parse [reflinks][] with implicit targets", () => {
@@ -1033,6 +1060,49 @@ describe("simple markdown", () => {
                     {content: ": there", type: "text"},
                 ]
             }]);
+        });
+
+        it("should allow a group of defs next to each other", () => {
+            var parsed = defaultParse(
+                "[a]: # (title)\n" +
+                "[b]: http://www.google.com\n" +
+                "[//]: <> (hi)\n" +
+                "[label]: # (there)\n" +
+                "[#]: #\n" +
+                "\n"
+            );
+            validateParse(parsed, [
+                {
+                    type: "def",
+                    def: "a",
+                    target: "#",
+                    title: "title"
+                },
+                {
+                    type: "def",
+                    def: "b",
+                    target: "http://www.google.com",
+                    title: undefined
+                },
+                {
+                    type: "def",
+                    def: "//",
+                    target: "",
+                    title: "hi"
+                },
+                {
+                    type: "def",
+                    def: "label",
+                    target: "#",
+                    title: "there"
+                },
+                {
+                    type: "def",
+                    def: "#",
+                    target: "#",
+                    title: undefined
+                },
+            ]);
         });
 
         it("should parse a single top-level paragraph", () => {
