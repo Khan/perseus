@@ -374,8 +374,7 @@ var NumericInputEditor = React.createClass({
                     if ("content" in newProps) {
                         this.updateAnswer(i, {message: newProps.content});
                     }
-                }}
-            />;
+                }} />;
             return <div className="perseus-widget-row" key={i}>
                 <div className={"input-answer-editor-value-container" +
                     (answer.maxError ? " with-max-error" : "")}>
@@ -500,9 +499,10 @@ var NumericInputEditor = React.createClass({
             }, choiceIndex, update);
         }
 
-        var answers = this.props.answers;
-        
+        var answers = _.clone(this.props.answers);
+
         // Don't bother to make a new answer box unless we are editing the last one
+        // TODO(michelle): This might not be necessary anymore.
         if (choiceIndex == answers.length) {
             var lastAnswer = initAnswer(this.state.lastStatus);
             var answers = answers.concat(lastAnswer);
