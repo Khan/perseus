@@ -434,7 +434,7 @@ var propTransform = (editorProps) => {
     var blankAnswers = _(rows).times(function() {
         return Util.stringArrayOfSize(columns);
     });
-    return _.extend(editorProps, {
+    return _.extend({}, editorProps, {
         answers: blankAnswers
     });
 };
