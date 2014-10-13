@@ -103,6 +103,7 @@ var ItemRenderer = React.createClass({
                     enabledFeatures={enabledFeatures}
                     apiOptions={apiOptions}
                     questionCompleted={this.state.questionCompleted}
+                    savedState={this.props.savedState}
                     {...this.props.item.question}
                 />,
                 document.querySelector(this.props.workAreaSelector));

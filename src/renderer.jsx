@@ -135,9 +135,13 @@ var Renderer = React.createClass({
     },
 
     getInitialState: function() {
-        return _.extend({
-            jiptContent: null
-        }, this._getInitialWidgetState());
+        var widgetProps =
+            this.props.savedState ? {widgetProps: this.props.savedState} : {};
+
+        return _.extend(
+            {jiptContent: null},
+            this._getInitialWidgetState(),
+            widgetProps);
     },
 
     _getInitialWidgetState: function(props) {
@@ -226,6 +230,16 @@ var Renderer = React.createClass({
                 this._setWidgetProps(id, newProps, cb);
             }
         });
+    },
+
+    /**
+    * Serializes the questions state so it can be recovered.
+    *
+    * The return value of this function can be safely passed in through the
+    * savedState prop and things will behave as you expect.
+    */
+    getSerializedState: function() {
+        return this.state.widgetProps;
     },
 
     /**
