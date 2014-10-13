@@ -9,9 +9,11 @@ var NumberInput = require("../components/number-input.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
+var MathOutput = require("../components/math-output.jsx");
+
+var ApiOptions = require("../perseus-api.jsx").Options;
 
 var assert = require("../interactive2/interactive-util.js").assert;
-var firstNumericalParse = require("../util.js").firstNumericalParse;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
 
 // Set the input sizes through JS so we can control the size of the brackets.
@@ -29,6 +31,10 @@ var MAX_BOARD_SIZE = 6;
  * to focus, blur, set input values, etc. */
 var getInputPath = function(row, column) {
     return ["" + row, "" + column];
+};
+
+var getDefaultPath = function() {
+    return getInputPath(0, 0);
 };
 
 var getRowFromPath = function(path) {
@@ -99,7 +105,8 @@ var Matrix = React.createClass({
             answers: [[]],
             prefix: "",
             suffix: "",
-            cursorPosition: [0, 0]
+            cursorPosition: [0, 0],
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -107,6 +114,11 @@ var Matrix = React.createClass({
         return {
             enterTheMatrix: 0
         };
+    },
+
+    componentDidMount: function() {
+        // Used in the `onBlur` and `onFocus` handlers
+        this.cursorPosition = [0, 0];
     },
 
     render: function() {
@@ -163,14 +175,37 @@ var Matrix = React.createClass({
                                     margin: INPUT_MARGIN
                                 },
                                 onFocus: () => {
+                                    // We store this locally so that we can use
+                                    // the new information in the `onBlur`
+                                    // handler, which happens before the props
+                                    // change has time to propagate.
+                                    // TODO(emily): Try to fix `MathOutput` so
+                                    // it correctly sends blur events before
+                                    // focus events.
+                                    this.cursorPosition = [row, col];
                                     this.props.onChange({
                                         cursorPosition: [row, col]
+                                    }, () => {
+                                        // This isn't a user interaction, so
+                                        // return false to signal that the
+                                        // matrix shouldn't be focused
+                                        return false;
                                     });
+                                    this._handleFocus(row, col);
                                 },
                                 onBlur: () => {
-                                    this.props.onChange({
-                                        cursorPosition: [0, 0]
-                                    });
+                                    if (row === this.cursorPosition[0] &&
+                                        col === this.cursorPosition[1]) {
+                                        this.props.onChange({
+                                            cursorPosition: [0, 0]
+                                        }, () => {
+                                            // This isn't a user interaction,
+                                            // so return false to signal that
+                                            // the matrix shouldn't be focused
+                                            return false;
+                                        });
+                                    }
+                                    this._handleBlur(row, col);
                                 },
                                 onKeyDown: (e) => {
                                     this.handleKeyDown(row, col, e);
@@ -181,10 +216,12 @@ var Matrix = React.createClass({
                             };
 
                             var MatrixInput;
-                            if (this.props.numericInput) {
-                                MatrixInput = NumberInput(inputProps);
+                            if (this.props.apiOptions.staticRender) {
+                                MatrixInput = <MathOutput {...inputProps} />;
+                            } else if (this.props.numericInput) {
+                                MatrixInput = <NumberInput {...inputProps} />;
                             } else {
-                                MatrixInput = TextInput(inputProps);
+                                MatrixInput = <TextInput {...inputProps} />;
                             }
                             return <span
                                         key={col}
@@ -199,6 +236,55 @@ var Matrix = React.createClass({
                 {Renderer({ content: this.props.suffix })}
             </div>}
         </div>;
+    },
+
+    getInputPaths: function() {
+        var inputPaths = [];
+        var maxRows = this.props.matrixBoardSize[0];
+        var maxCols = this.props.matrixBoardSize[1];
+
+        _(maxRows).times(row => {
+            _(maxCols).times(col => {
+                var inputPath = getInputPath(row, col);
+                inputPaths.push(inputPath);
+            });
+        });
+
+        return inputPaths;
+    },
+
+    _handleFocus: function(row, col) {
+        this.props.onFocus(getInputPath(row, col));
+    },
+
+    _handleBlur: function(row, col) {
+        this.props.onBlur(getInputPath(row, col));
+    },
+
+    focus: function() {
+        this.focusInputPath(getDefaultPath());
+        return true;
+    },
+
+    focusInputPath: function(path) {
+        var inputID = getRefForPath(path);
+        this.refs[inputID].focus();
+    },
+
+    blurInputPath: function(path) {
+        var inputID = getRefForPath(path);
+        this.refs[inputID].blur();
+    },
+
+    getDOMNodeForPath: function(inputPath) {
+        var inputID = getRefForPath(inputPath);
+        return this.refs[inputID].getDOMNode();
+    },
+
+    setInputValue: function(inputPath, value, callback) {
+        var row = getRowFromPath(inputPath);
+        var col = getColumnFromPath(inputPath);
+        this.onValueChange(row, col, value, callback);
     },
 
     handleKeyDown: function (row, col, e) {
@@ -232,7 +318,7 @@ var Matrix = React.createClass({
         }
     },
 
-    onValueChange: function(row, column, value) {
+    onValueChange: function(row, column, value, cb) {
         var answers = _.map(this.props.answers, _.clone);
         if (!answers[row]) {
             answers[row] = [];
@@ -240,7 +326,7 @@ var Matrix = React.createClass({
         answers[row][column] = value;
         this.props.onChange({
             answers: answers
-        });
+        }, cb);
     },
 
     getUserInput: function() {

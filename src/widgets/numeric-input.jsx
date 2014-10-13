@@ -97,24 +97,24 @@ var NumericInput = React.createClass({
         return true;
     },
 
-    blur: function() {
+    focusInputPath: function(inputPath) {
+        this.refs.input.focus();
+    },
+
+    blurInputPath: function(inputPath) {
         this.refs.input.blur();
-        return true;
     },
 
     getInputPaths: function() {
-        return this;
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
     },
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
             currentValue: newValue
         }, cb);
-    },
-
-    getAcceptableFormatsForInputPath: function() {
-        // TODO(charlie): What format does the mobile team want this in?
-        return _.clone(this.props.answerForms);
     },
 
     getUserInput: function() {

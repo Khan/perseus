@@ -241,10 +241,6 @@ var ItemRenderer = React.createClass({
         return this._handleAPICall('getDOMNodeForPath', path);
     },
 
-    getAcceptableFormatsForInputPath: function(path) {
-        return this._handleAPICall('getAcceptableFormatsForInputPath', path);
-    },
-
     getInputPaths: function() {
         var questionAreaInputPaths = this.questionRenderer.getInputPaths();
         var answerAreaInputPaths = this.answerAreaRenderer.getInputPaths();

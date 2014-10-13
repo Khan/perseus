@@ -172,9 +172,12 @@ var Table = React.createClass({
         this.props.onBlur(inputPath);
     },
 
-    focus: function(path) {
-        // Allow for `focus` to be called without a target path
-        path = path || getDefaultPath();
+    focus: function() {
+        this.focusInputPath(getDefaultPath());
+        return true;
+    },
+
+    focusInputPath: function(path) {
         var inputID = getRefForPath(path);
         var inputComponent = this.refs[inputID];
         if (this.props.apiOptions.staticRender) {
@@ -182,12 +185,9 @@ var Table = React.createClass({
         } else {
             inputComponent.getDOMNode().focus();
         }
-        return true;
     },
 
-    blur: function(path) {
-        // Allow for `blur` to be called without a target path
-        path = path || getDefaultPath();
+    blurInputPath: function(path) {
         var inputID = getRefForPath(path);
         var inputComponent = this.refs[inputID];
         if (this.props.apiOptions.staticRender) {
@@ -195,7 +195,6 @@ var Table = React.createClass({
         } else {
             inputComponent.getDOMNode().blur();
         }
-        return true;
     },
 
     getDOMNodeForPath: function(path) {

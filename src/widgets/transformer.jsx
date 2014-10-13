@@ -362,21 +362,24 @@ var TransformOps = {
          * component, or threading the call down and returning the result. */
         _getComponentAtPath: function(path) {
             var transform = this.refs.transform;
-            path = path || _.head(transform.getInputPaths());
             var ref = _.head(path);
             return transform.refs[ref];
         },
-        focus: function(path) {
-            return this._getComponentAtPath(path).focus();
+        focus: function() {
+            var transform = this.refs.transform;
+            var path = _.head(transform.getInputPaths());
+            if (path) {
+                this.focusInputPath(path);
+            }
         },
-        blur: function(path) {
-            return this._getComponentAtPath(path).blur();
+        focusInputPath: function(path) {
+            this._getComponentAtPath(path).focus();
+        },
+        blurInputPath: function(path) {
+            this._getComponentAtPath(path).blur();
         },
         getDOMNodeForPath: function(path) {
             return this._getComponentAtPath(path).getDOMNode();
-        },
-        getAcceptableFormatsForInputPath: function(path) {
-            return null;
         },
         setInputValue: function(path, value, cb) {
             this.refs.transform.setInputValue(path, value, cb);
@@ -2545,22 +2548,29 @@ var Transformer = React.createClass({
         return caller[functionName].apply(caller, args);
     },
 
-    focus: function(path) {
-        return this._passToInner('focus', path);
+    focus: function() {
+        // Just focus the first showing input
+        var inputs = this.getInputPaths();
+        if (inputs.length > 0) {
+            this.focusInputPath(inputs[0]);
+            return true;
+        }
+        return false;
     },
 
-    blur: function(path) {
-        return this._passToInner('blur', path);
+    focusInputPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('focusInputPath', path);
+    },
+
+    blurInputPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('blurInputPath', path);
     },
 
     setInputValue: function(path, value, cb) {
         assert(path.length >= 2);
         return this._passToInner('setInputValue', path, value, cb);
-    },
-
-    getAcceptableFormatsForInputPath: function(path) {
-        assert(path.length >= 2);
-        return this._passToInner('getAcceptableFormatsForInputPath', path);
     },
 
     getDOMNodeForPath: function(path) {

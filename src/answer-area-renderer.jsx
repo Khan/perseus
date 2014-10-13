@@ -354,25 +354,6 @@ var AnswerAreaRenderer = React.createClass({
         }
     },
 
-    getAcceptableFormatsForInputPath: function(path) {
-            var prefixedWidgetId = _.first(path);
-            var interWidgetPath = _.rest(path);
-
-            var newPath;
-            if (this.props.type === "multiple") {
-                var widgetId = prefixedWidgetId.replace('answer-', '');
-                var relativePath = [widgetId].concat(interWidgetPath);
-                newPath = relativePath;
-            } else {
-                newPath = interWidgetPath;
-            }
-
-            // API is agnostic to `this.getWidgetInstance()` being a widget or
-            // renderer, so pass it down without concern for the actual type.
-            return this.getWidgetInstance().getAcceptableFormatsForInputPath(
-                newPath);
-        },
-
     getInputPaths: function() {
         if (this.props.type === "multiple") {
             var inputPaths = this.getWidgetInstance().getInputPaths();
@@ -419,7 +400,7 @@ var AnswerAreaRenderer = React.createClass({
             this.getWidgetInstance().focusPath(relativePath);
         } else {
             // Answer-area is a widget
-            var focusWidget = this.getWidgetInstance().focus;
+            var focusWidget = this.getWidgetInstance().focusInputPath;
             focusWidget && focusWidget(interWidgetPath);
         }
     },
@@ -436,7 +417,7 @@ var AnswerAreaRenderer = React.createClass({
             this.getWidgetInstance().blurPath(relativePath);
         } else {
             // Answer-area is a widget
-            var blurWidget = this.getWidgetInstance().blur;
+            var blurWidget = this.getWidgetInstance().blurInputPath;
             blurWidget && blurWidget(interWidgetPath);
         }
     },

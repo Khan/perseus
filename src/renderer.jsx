@@ -589,16 +589,6 @@ var Renderer = React.createClass({
         }
     },
 
-    getAcceptableFormatsForInputPath: function(path) {
-        var widgetId = _.first(path);
-        var interWidgetPath = _.rest(path);
-
-        // Widget handles parsing of the interWidgetPath.
-        var widget = this.getWidgetInstance(widgetId);
-        return widget.getAcceptableFormatsForInputPath(
-            interWidgetPath);
-    },
-
     getInputPaths: function() {
         var inputPaths = [];
         _.each(this.widgetIds, (widgetId) => {
@@ -606,19 +596,12 @@ var Renderer = React.createClass({
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
                 var widgetInputPaths = widget.getInputPaths();
-                if (widgetInputPaths === widget) {
-                    // Special case: we allow you to just return the widget
-                    inputPaths.push([
-                        widgetId
-                    ]);
-                } else {
-                    // Prefix paths with their widgetID and add to collective
-                    // list of paths.
-                    _.each(widgetInputPaths, (inputPath) => {
-                        var relativeInputPath = [widgetId].concat(inputPath);
-                        inputPaths.push(relativeInputPath);
-                    });
-                }
+                // Prefix paths with their widgetID and add to collective
+                // list of paths.
+                _.each(widgetInputPaths, (inputPath) => {
+                    var relativeInputPath = [widgetId].concat(inputPath);
+                    inputPaths.push(relativeInputPath);
+                });
             }
         });
 
@@ -638,7 +621,7 @@ var Renderer = React.createClass({
         var interWidgetPath = _.rest(path);
 
         // Widget handles parsing of the interWidgetPath
-        var focusWidget = this.getWidgetInstance(widgetId).focus;
+        var focusWidget = this.getWidgetInstance(widgetId).focusInputPath;
         focusWidget && focusWidget(interWidgetPath);
     },
 
@@ -654,7 +637,7 @@ var Renderer = React.createClass({
         // We might be in the editor and blurring a widget that no
         // longer exists, so only blur if we actually found the widget
         if (widget) {
-            var blurWidget = this.getWidgetInstance(widgetId).blur;
+            var blurWidget = this.getWidgetInstance(widgetId).blurInputPath;
             // Widget handles parsing of the interWidgetPath
             blurWidget && blurWidget(interWidgetPath);
         }

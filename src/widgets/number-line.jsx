@@ -11,6 +11,9 @@ var Interactive2 = require("../interactive2.js");
 var NumberInput  = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput   = require("../components/range-input.jsx");
+var MathOutput   = require("../components/math-output.jsx");
+
+var ApiOptions = require("../perseus-api.jsx").Options;
 
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
@@ -189,7 +192,8 @@ var NumberLine = React.createClass({
             isInequality: false,
             numLinePosition: 0,
             snapDivisions: 2,
-            rel: "ge"
+            rel: "ge",
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -231,15 +235,30 @@ var NumberLine = React.createClass({
                 onClick={this.handleToggleStrict} />
         </div>;
 
+        var tickCtrl;
+        if (this.props.isTickCtrl) {
+            var inputType;
+            if (this.props.apiOptions.staticRender) {
+                inputType = MathOutput;
+            } else {
+                inputType = NumberInput;
+            }
+            tickCtrl = <label><$_>Number of divisions:</$_>{" "}
+                <inputType
+                    ref={"tick-ctrl"}
+                    value={this.props.numDivisions || divisionRange[0]}
+                    checkValidity={(val) =>
+                        val >= divisionRange[0] && val <= divisionRange[1]}
+                    onChange={this.onNumDivisionsChange}
+                    onFocus={this._handleTickCtrlFocus}
+                    onBlur={this._handleTickCtrlBlur}
+                    useArrowKeys={true} />
+            </label>;
+        }
+
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
-            {this.props.isTickCtrl && <NumberInput
-                label={$._("Number of divisions:")}
-                value={this.props.numDivisions || divisionRange[0]}
-                checkValidity={(val) =>
-                    val >= divisionRange[0] && val <= divisionRange[1]}
-                onChange={this.onNumDivisionsChange}
-                useArrowKeys={true} />}
+            {tickCtrl}
             {!this.isValid() ?
                 <div className="invalid-number-line">
                     Invalid number line configuration.
@@ -255,7 +274,7 @@ var NumberLine = React.createClass({
         </div>;
     },
 
-    onNumDivisionsChange: function(numDivisions) {
+    onNumDivisionsChange: function(numDivisions, cb) {
         var divRange = this.props.divisionRange.slice();
         var width = this.props.range[1] - this.props.range[0];
 
@@ -280,7 +299,54 @@ var NumberLine = React.createClass({
                 divisionRange: divRange,
                 numDivisions: numDivisions,
                 numLinePosition: newNumLinePosition
-            });
+            }, cb);
+        }
+    },
+
+    _handleTickCtrlFocus: function() {
+        this.props.onFocus(["tick-ctrl"]);
+    },
+
+    _handleTickCtrlBlur: function() {
+        this.props.onBlur(["tick-ctrl"]);
+    },
+
+    focus: function() {
+        if (this.props.isTickCtrl) {
+            this.refs["tick-ctrl"].focus();
+            return true;
+        }
+    },
+
+    focusInputPath: function(path) {
+        if (path.length === 1) {
+            this.refs[path[0]].focus();
+        }
+    },
+
+    blurInputPath: function(path) {
+        if (path.length === 1) {
+            this.refs[path[0]].blur();
+        }
+    },
+
+    getInputPaths: function() {
+        if (this.props.isTickCtrl) {
+            return [["tick-ctrl"]];
+        } else {
+            return [];
+        }
+    },
+
+    getDOMNodeForPath: function(inputPath) {
+        if (inputPath.length === 1) {
+            return this.refs[inputPath[0]].getDOMNode();
+        }
+    },
+
+    setInputValue: function(inputPath, value, callback) {
+        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
+            this.onNumDivisionsChange(value, callback);
         }
     },
 
@@ -449,8 +515,6 @@ var NumberLine = React.createClass({
     simpleValidate: function(rubric) {
         return NumberLine.validate(this.getUserInput(), rubric);
     },
-
-    focus: $.noop,
 
     statics: {
         displayMode: "block"

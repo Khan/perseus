@@ -624,20 +624,24 @@ var Simulator = React.createClass({
         return [["userProportion"], ["sampleSize"]];
     },
 
-    focus: function(path) {
-        path = path || _.head(this.getInputPaths());
-        var inputID = _.head(path);
-        var inputComponent = this.refs[inputID];
-        inputComponent.focus();
+    focus: function() {
+        var path = _.head(this.getInputPaths());
+        this.focusInputPath(path);
         return true;
     },
 
-    blur: function(path) {
-        path = path || _.head(this.getInputPaths());
+    focusInputPath: function(path) {
+        assert(path.length > 0);
+        var inputID = _.head(path);
+        var inputComponent = this.refs[inputID];
+        inputComponent.focus();
+    },
+
+    blurInputPath: function(path) {
+        assert(path.length > 0);
         var inputID = _.head(path);
         var inputComponent = this.refs[inputID];
         inputComponent.blur();
-        return true;
     },
 
     getDOMNodeForPath: function(path) {
