@@ -76,6 +76,8 @@ var Iframe = React.createClass({
         if (url.length && url.indexOf("http") !== 0) {
             url = "https://www.khanacademy.org/cs/program/" + url +
                     "/embedded?buttons=no&embed=yes&editor=no&author=no";
+            url = updateQueryString(url, "width", this.props.width);
+            url = updateQueryString(url, "height", this.props.height);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", window.location.origin);
         }
