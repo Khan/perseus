@@ -613,6 +613,14 @@ var Renderer = React.createClass({
         }
     },
 
+    getGrammarTypeForPath: function(path) {
+        var widgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        var widget = this.getWidgetInstance(widgetId);
+        return widget.getGrammarTypeForPath(interWidgetPath);
+    },
+
     getInputPaths: function() {
         var inputPaths = [];
         _.each(this.widgetIds, (widgetId) => {

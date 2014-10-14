@@ -201,6 +201,10 @@ var Expression = React.createClass({
         return [[]];
     },
 
+    getGrammarTypeForPath: function(inputPath) {
+        return "expression";
+    },
+
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
             value: newValue
@@ -475,6 +479,10 @@ var OldExpression = React.createClass({
         // The widget itself is an input, so we return a single empty list to
         // indicate this.
         return [[]];
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        return "expression";
     },
 
     getUserInput: function() {

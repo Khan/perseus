@@ -354,6 +354,26 @@ var AnswerAreaRenderer = React.createClass({
         }
     },
 
+    getGrammarTypeForPath: function(path) {
+        // TODO(emily): refactor this kind of logic out, or wait until alex
+        // kills the answer-area-renderer and solves it for me.
+        var prefixedWidgetId = _.first(path);
+        var interWidgetPath = _.rest(path);
+
+        if (this.props.type === "multiple") {
+            var widgetId = prefixedWidgetId.replace('answer-', '');
+            var relativePath = [widgetId].concat(interWidgetPath);
+
+            // Answer-area is a renderer, so we can pass down the path
+            return this.getWidgetInstance().getGrammarTypeForPath(
+                relativePath);
+        } else {
+            // Answer-area is a widget, so we treat it like a widget.
+            var widget = this.getWidgetInstance();
+            return widget.getGrammarTypeForPath(interWidgetPath);
+        }
+    },
+
     getInputPaths: function() {
         if (this.props.type === "multiple") {
             var inputPaths = this.getWidgetInstance().getInputPaths();

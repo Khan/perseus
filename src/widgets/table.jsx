@@ -215,6 +215,10 @@ var Table = React.createClass({
         return inputPaths;
     },
 
+    getGrammarTypeForPath: function(inputPath) {
+        return "number";
+    },
+
     setInputValue: function(path, newValue, cb) {
         // Extract row, column information
         var row = getRowFromPath(path);

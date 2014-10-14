@@ -111,6 +111,10 @@ var NumericInput = React.createClass({
         return [[]];
     },
 
+    getGrammarTypeForPath: function(inputPath) {
+        return "number";
+    },
+
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
             currentValue: newValue

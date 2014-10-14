@@ -244,6 +244,10 @@ var ItemRenderer = React.createClass({
         return this._handleAPICall('getDOMNodeForPath', path);
     },
 
+    getGrammarTypeForPath: function(path) {
+        return this._handleAPICall('getGrammarTypeForPath', path);
+    },
+
     getInputPaths: function() {
         var questionAreaInputPaths = this.questionRenderer.getInputPaths();
         var answerAreaInputPaths = this.answerAreaRenderer.getInputPaths();

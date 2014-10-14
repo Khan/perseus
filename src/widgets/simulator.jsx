@@ -650,6 +650,11 @@ var Simulator = React.createClass({
         return this.refs[inputID].getDOMNode();
     },
 
+    getGrammarTypeForPath: function(path) {
+        assert(path.length > 0);
+        return "number";
+    },
+
     setInputValue: function(path, newValue, cb) {
         assert(path.length > 0);
         var inputID = _.head(path);

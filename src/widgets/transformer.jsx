@@ -381,6 +381,9 @@ var TransformOps = {
         getDOMNodeForPath: function(path) {
             return this._getComponentAtPath(path).getDOMNode();
         },
+        getGrammarTypeForPath: function(path) {
+            return "number";
+        },
         setInputValue: function(path, value, cb) {
             this.refs.transform.setInputValue(path, value, cb);
         },
@@ -2576,6 +2579,11 @@ var Transformer = React.createClass({
     getDOMNodeForPath: function(path) {
         assert(path.length >= 2);
         return this._passToInner('getDOMNodeForPath', path);
+    },
+
+    getGrammarTypeForPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('getGrammarTypeForPath', path);
     }
 });
 

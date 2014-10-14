@@ -344,6 +344,12 @@ var NumberLine = React.createClass({
         }
     },
 
+    getGrammarTypeForPath: function(inputPath) {
+        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
+            return "number";
+        }
+    },
+
     setInputValue: function(inputPath, value, callback) {
         if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
             this.onNumDivisionsChange(value, callback);

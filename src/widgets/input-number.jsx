@@ -152,6 +152,10 @@ var InputNumber = React.createClass({
         return [[]];
     },
 
+    getGrammarTypeForPath: function(path) {
+        return "number";
+    },
+
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
             currentValue: newValue

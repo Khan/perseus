@@ -253,6 +253,10 @@ var Matrix = React.createClass({
         return inputPaths;
     },
 
+    getGrammarTypeForPath: function(inputPath) {
+        return "number";
+    },
+
     _handleFocus: function(row, col) {
         this.props.onFocus(getInputPath(row, col));
     },

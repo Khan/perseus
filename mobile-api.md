@@ -76,7 +76,18 @@ and not called directly.
 ```js
 function getDOMNodeForPath(inputPath)
 ```
-Given a path, return the DOM node for that input path
+Given a path, return the DOM node for that input path. As a special case, if the
+single DOM node that a widget contains is the input, this function can be left
+un-implemented and the widget's DOM node will be used instead. (For example,
+input-number only has the input in it, so it doesn't need to implement this).
+
+```js
+function getGrammarTypeForPath(inputPath)
+```
+Given a path, return the kind of grammar that should be used when taking input
+from the user (this should be a string). As of writing, possible values are:
+ - `"number"`
+ - `"expression"`
 
 ```js
 this.props.onFocus(inputPath)
