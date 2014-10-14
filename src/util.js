@@ -138,6 +138,26 @@ var Util = {
         }
     },
 
+    keScoreFromPerseusScore: function(score, guess) {
+        if (score.type === "points") {
+            return {
+                empty: false,
+                correct: score.earned >= score.total,
+                message: score.message,
+                guess: guess
+            };
+        } else if (score.type === "invalid") {
+            return {
+                empty: true,
+                correct: false,
+                message: score.message,
+                guess: guess
+            };
+        } else {
+            throw new Error("Invalid score type: " + score.type);
+        }
+    },
+
     /**
      * Return the first valid interpretation of 'text' as a number, in the form
      * {value: 2.3, exact: true}.

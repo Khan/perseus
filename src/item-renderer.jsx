@@ -8,6 +8,8 @@ var Util = require("./util.js");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var EnabledFeatures = require("./enabled-features.jsx");
 
+var {mapObject} = require("./interactive2/objective_.js");
+
 var HintsRenderer = React.createClass({
     render: function() {
         var hintsVisible = this.props.hintsVisible;
@@ -320,24 +322,30 @@ var ItemRenderer = React.createClass({
             score = Util.combineScores(qScore, aScore);
         }
 
-        if (score.type === "points") {
-            var correct = score.earned >= score.total;
-            this.setState({ questionCompleted: correct });
-            return {
-                empty: false,
-                correct: correct,
-                message: score.message,
-                guess: guess
-            };
-        } else if (score.type === "invalid") {
-            this.setState({ questionCompleted: false });
-            return {
-                empty: true,
-                correct: false,
-                message: score.message,
-                guess: guess
-            };
-        }
+        var keScore = Util.keScoreFromPerseusScore(score);
+        this.setState({
+            questionCompleted: keScore.correct
+        });
+
+        return keScore;
+    },
+
+    /**
+     * NOTE: This ignores the answer area.
+     */
+    getWidgetIds: function() {
+        return this.questionRenderer.getWidgetIds();
+    },
+
+    /**
+     * NOTE: This ignores the answer area.
+     */
+    scoreWidgets: function() {
+        var qScore = this.questionRenderer.scoreWidgets();
+        var qGuess = this.questionRenderer.getUserInputForWidgets();
+        return mapObject(qScore, (score, id) => {
+            return Util.keScoreFromPerseusScore(score, qGuess[id]);
+        });
     }
 });
 

@@ -11,13 +11,7 @@ var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 
-var mapObject = function(obj, lambda) {
-    var result = {};
-    _.each(_.keys(obj), function(key) {
-        result[key] = lambda(obj[key], key);
-    });
-    return result;
-};
+var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
 
 var specialChars = {
     // escaped: original
@@ -733,24 +727,38 @@ var Renderer = React.createClass({
         });
     },
 
-    score: function() {
+    getWidgetIds: function() {
+        return this.widgetIds;
+    },
+
+    getUserInputForWidgets: function() {
+        return mapObjectFromArray(this.widgetIds, (id) => {
+            return this.getWidgetInstance(id).getUserInput();
+        });
+    },
+
+    scoreWidgets: function() {
         var widgetProps = this.state.widgetInfo;
         var onInputError = this.props.apiOptions.onInputError ||
                 function() { };
 
-        return _.chain(this.widgetIds)
-                .filter(function(id) {
-                    var props = widgetProps[id];
-                    // props.graded is unset or true
-                    return props.graded == null || props.graded;
-                })
-                .map(function(id) {
-                    var props = widgetProps[id];
-                    var widget = this.getWidgetInstance(id);
-                    return widget.simpleValidate(props.options, onInputError);
-                }, this)
-                .reduce(Util.combineScores, Util.noScore)
-                .value();
+        var gradedWidgetIds = _.filter(this.widgetIds, (id) => {
+            var props = widgetProps[id];
+            // props.graded is unset or true
+            return props.graded == null || props.graded;
+        });
+
+        var widgetScores = mapObjectFromArray(gradedWidgetIds, (id) => {
+            var props = widgetProps[id];
+            var widget = this.getWidgetInstance(id);
+            return widget.simpleValidate(props.options, onInputError);
+        });
+
+        return widgetScores;
+    },
+
+    score: function() {
+        return _.reduce(this.scoreWidgets(), Util.combineScores, Util.noScore);
     },
 
     guessAndScore: function() {
