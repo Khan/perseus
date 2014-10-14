@@ -99,7 +99,8 @@ var Renderer = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: React.PropTypes.object,
         questionCompleted: React.PropTypes.bool,
-        onInteractWithWidget: React.PropTypes.func
+        onInteractWithWidget: React.PropTypes.func,
+        interWidgets: React.PropTypes.func,
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -124,7 +125,8 @@ var Renderer = React.createClass({
             // It is a good idea to debounce any functions passed here.
             questionCompleted: false,
             onRender: function() {},
-            onInteractWithWidget: function() {}
+            onInteractWithWidget: function() {},
+            interWidgets: () => null,
         };
     },
 
@@ -276,11 +278,25 @@ var Renderer = React.createClass({
             filterFunc = filterCriterion;
         }
 
-        return this.widgetIds.filter((id) => {
+        var results = this.widgetIds.filter((id) => {
             var widgetInfo = this.state.widgetInfo[id];
             var widget = this.getWidgetInstance(id);
             return filterFunc(id, widgetInfo, widget);
         }).map(this.getWidgetInstance);
+
+        // We allow the parent of our renderer to intercept our
+        // interwidgets call.
+        var propsInterWidgetResult = this.props.interWidgets(
+            filterCriterion,
+            results // allow our parent to inspect the local
+                    // interwidget results before acting
+        );
+
+        if (propsInterWidgetResult) {
+            return propsInterWidgetResult;
+        } else {
+            return results;
+        }
     },
 
     getWidgetInstance: function(id) {

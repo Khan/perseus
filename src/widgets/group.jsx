@@ -45,8 +45,17 @@ var Group = React.createClass({
             <Renderer
                 {...this.props}
                 ref="renderer"
-                apiOptions={apiOptions} />
+                apiOptions={apiOptions}
+                interWidgets={this._interWidgets} />
         </div>;
+    },
+
+    _interWidgets: function(filterCriterion, localResults) {
+        if (localResults.length) {
+            return localResults;
+        } else {
+            return this.props.interWidgets(filterCriterion);
+        }
     },
 
     getUserInput: function() {
