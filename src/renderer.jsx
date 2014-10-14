@@ -727,16 +727,18 @@ var Renderer = React.createClass({
         widget.setInputValue(interWidgetPath, newValue, focus);
     },
 
-    guessAndScore: function() {
+    getUserInput: function() {
+        return _.map(this.widgetIds, (id) => {
+            return this.getWidgetInstance(id).getUserInput();
+        });
+    },
+
+    score: function() {
         var widgetProps = this.state.widgetInfo;
         var onInputError = this.props.apiOptions.onInputError ||
                 function() { };
 
-        var totalGuess = _.map(this.widgetIds, function(id) {
-            return this.getWidgetInstance(id).getUserInput();
-        }, this);
-
-        var totalScore = _.chain(this.widgetIds)
+        return _.chain(this.widgetIds)
                 .filter(function(id) {
                     var props = widgetProps[id];
                     // props.graded is unset or true
@@ -749,6 +751,11 @@ var Renderer = React.createClass({
                 }, this)
                 .reduce(Util.combineScores, Util.noScore)
                 .value();
+    },
+
+    guessAndScore: function() {
+        var totalGuess = this.getUserInput();
+        var totalScore = this.score();
 
         return [totalGuess, totalScore];
     },
