@@ -116,7 +116,8 @@ var EditorPage = React.createClass({
         // will be hosted. Image drag and drop is disabled when imageUploader
         // is null.
         imageUploader: React.PropTypes.func,
-        enabledFeatures: EnabledFeatures.propTypes
+        enabledFeatures: EnabledFeatures.propTypes,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -176,7 +177,8 @@ var EditorPage = React.createClass({
                     onChange={this.handleChange}
                     wasAnswered={this.state.wasAnswered}
                     gradeMessage={this.state.gradeMessage}
-                    onCheckAnswer={this.handleCheckAnswer} />
+                    onCheckAnswer={this.handleCheckAnswer}
+                    apiOptions={this._apiOptions()} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -226,11 +228,7 @@ var EditorPage = React.createClass({
             enabledFeatures: {
                 toolTipFormats: true
             },
-            apiOptions: _.extend(
-                {},
-                ApiOptions.defaults,
-                this.props.apiOptions
-            ),
+            apiOptions: this._apiOptions(),
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
@@ -244,6 +242,14 @@ var EditorPage = React.createClass({
             <ItemRenderer {...rendererConfig} />,
             this.rendererMountNode,
             cb);
+    },
+
+    _apiOptions: function() {
+        return _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions
+        );
     },
 
     handleChange: function(toChange, cb, silent) {

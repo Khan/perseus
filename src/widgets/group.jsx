@@ -103,6 +103,8 @@ var GroupEditor = React.createClass({
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
+        metadata: React.PropTypes.any,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -110,11 +112,16 @@ var GroupEditor = React.createClass({
             content: "",
             widgets: {},
             images: {},
+            metadata: null
         };
     },
 
     render: function() {
         return <div className="perseus-group-editor">
+            <div>
+                {/* the metadata editor; used for tags on khanacademy.org */}
+                {this._renderMetadataEditor()}
+            </div>
             <Editor
                 ref="editor"
                 content={this.props.content}
@@ -126,8 +133,17 @@ var GroupEditor = React.createClass({
         </div>;
     },
 
+    _renderMetadataEditor: function() {
+        var GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
+        return <GroupMetadataEditor
+            value={this.props.metadata}
+            onChange={this.change("metadata")} />;
+    },
+
     serialize: function() {
-        return this.refs.editor.serialize();
+        return _.extend({}, this.refs.editor.serialize(), {
+            metadata: this.props.metadata
+        });
     },
 });
 

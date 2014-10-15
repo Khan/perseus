@@ -5,6 +5,7 @@ var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 var DragTarget = require("react-components/drag-target.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
@@ -51,7 +52,8 @@ var WidgetEditor = React.createClass({
         type: React.PropTypes.string,
         id: React.PropTypes.string,
         graded: React.PropTypes.bool,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -108,6 +110,7 @@ var WidgetEditor = React.createClass({
                 <cls
                     ref="widget"
                     onChange={this._handleWidgetChange}
+                    apiOptions={this.props.apiOptions}
                     {...upgradedWidgetInfo.options} />
             </div>
         </div>;
@@ -207,7 +210,8 @@ var sizeImage = function(url, callback) {
 
 var Editor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -217,7 +221,8 @@ var Editor = React.createClass({
             widgets: {},
             images: {},
             widgetEnabled: true,
-            immutableWidgets: false
+            immutableWidgets: false,
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -231,6 +236,7 @@ var Editor = React.createClass({
             type={type}
             onChange={this._handleWidgetEditorChange.bind(this, id)}
             onRemove={this._handleWidgetEditorRemove.bind(this, id)}
+            apiOptions={this.props.apiOptions}
             {...this.props.widgets[id]} />;
     },
 

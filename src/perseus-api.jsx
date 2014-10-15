@@ -23,20 +23,25 @@
  * These are css class names that will continue to preserve their
  * semantic meaning across the same perseus api major version.
  */
+
+var TextInput = require("./components/text-input.jsx");
+
 module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
             fancyDropdowns: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
-            staticRender: React.PropTypes.bool.isRequired
+            staticRender: React.PropTypes.bool.isRequired,
+            GroupMetadataEditor: React.PropTypes.func.isRequired,
         }).isRequired,
 
         defaults: {
             fancyDropdowns: false,
             onInputError: function() { },
             onFocusChange: function() { },
-            staticRender: false
+            staticRender: false,
+            GroupMetadataEditor: TextInput,
         }
     },
     ClassNames: {
