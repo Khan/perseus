@@ -9,9 +9,6 @@ var Renderer = require("../renderer.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var PassageMarkdown = require("./passage/passage-markdown.jsx");
-var TextListEditor = require("../components/text-list-editor.jsx");
-
-var Util = require("../util.js");
 
 var Passage = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
@@ -34,7 +31,8 @@ var Passage = React.createClass({
 
     getInitialState: function() {
         return {
-            nLines: null
+            nLines: null,
+            startLineNumbersAfter: 0,
         };
     },
 
@@ -47,10 +45,19 @@ var Passage = React.createClass({
         var lineNumbers;
         var nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
-            lineNumbers = _.range(1, nLines + 1).map(function(lineN) {
-                return lineN === 4 && nLines > 4 ?
-                    <span className="line-marker">Line</span> :
-                    (lineN % 5 === 0 ? lineN : "\n");
+            // lineN is the line number in the current passage;
+            // the displayed line number is
+            // lineN + this.state.startLineNumbersAfter, where
+            // startLineNumbersAfter is the sum of all line numbers
+            // in earlier passages.
+            lineNumbers = _.range(1, nLines + 1).map((lineN) => {
+                if (lineN === 4 && nLines > 4) {
+                    return <span className="line-marker">Line</span>;
+                } else if (lineN % 5 === 0) {
+                    return lineN + this.state.startLineNumbersAfter;
+                } else {
+                    return "\n";
+                }
             });
         }
         return <div className="perseus-widget-passage">
@@ -70,11 +77,18 @@ var Passage = React.createClass({
     },
 
     componentDidMount: function() {
-        this._measureLines();
+        this._updateState();
     },
 
     componentDidUpdate: function() {
-        this._measureLines();
+        this._updateState();
+    },
+
+    _updateState: function() {
+        this.setState({
+            nLines: this._measureLines(),
+            startLineNumbersAfter: this._getInitialLineNumber(),
+        });
     },
 
     _measureLines: function() {
@@ -82,9 +96,32 @@ var Passage = React.createClass({
         var contentsHeight = $renderer.height();
         var lineHeight = parseInt($renderer.css("line-height"));
         var nLines = Math.round(contentsHeight / lineHeight);
-        this.setState({
-            nLines: nLines
+        return nLines;
+    },
+
+    _getInitialLineNumber: function() {
+        var isPassageBeforeThisPassage = true;
+        var passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
+            if (widgetInfo.type !== "passage") {
+                return false;
+            }
+            if (id === this.props.widgetId) {
+                isPassageBeforeThisPassage = false;
+            }
+            return isPassageBeforeThisPassage;
         });
+
+        return passagesBeforeUs.map((passageWidget) => {
+            return passageWidget.getLineCount();
+        }).reduce((a, b) => a + b, 0);
+    },
+
+    getLineCount: function() {
+        if (this.state.nLines != null) {
+            return this.state.nLines;
+        } else {
+            return this._measureLines();
+        }
     },
 
     _renderContent: function() {
