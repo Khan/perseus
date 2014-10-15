@@ -597,30 +597,35 @@ var ExpressionEditor = React.createClass({
 
         // checkboxes to choose which sets of input buttons are shown
         var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
-            return <label>
+            // The first one gets special cased to always be checked, disabled,
+            // and float left.
+            var isFirst = name === "basic";
+            var checked = _.contains(this.props.buttonSets, name) || isFirst;
+            var className = isFirst ?
+                "button-set-label-float" :
+                "button-set-label";
+            return <label className={className}>
                 <input type="checkbox"
-                       checked={_.contains(this.props.buttonSets, name)}
-                       disabled={name === "basic"}
+                       checked={checked}
+                       disabled={isFirst}
                        onChange={() => this.handleButtonSet(name)} />
                 {name}
             </label>;
         });
+
+        buttonSetChoices.splice(1, 1, <label>
+            <input type="checkbox"
+                   onChange={this.handleToggleDiv} />
+            <span className="show-div-button">
+                show <TeX>\div</TeX> button
+            </span>
+        </label>);
 
         return <div>
             <div><label>
                 Correct answer:{' '}
                 <expression {...expressionProps} />
             </label></div>
-            {this.state.isTex && <TexButtons
-                className="math-input-buttons"
-                sets={this.props.buttonSets}
-                convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert} />}
-
-            <div>
-                Button sets:
-                {buttonSetChoices}
-            </div>
 
             <div>
                 <PropCheckBox
@@ -679,6 +684,17 @@ var ExpressionEditor = React.createClass({
                 </p></InfoTip>
             </div>
 
+            <div>
+                <div>Button sets:</div>
+                {buttonSetChoices}
+            </div>
+
+            {this.state.isTex && <TexButtons
+                className="math-input-buttons"
+                sets={this.props.buttonSets}
+                convertDotToTimes={this.props.times}
+                onInsert={this.handleTexInsert} />}
+
         </div>;
     },
 
@@ -693,6 +709,27 @@ var ExpressionEditor = React.createClass({
         });
 
         this.props.onChange({ buttonSets });
+    },
+
+    handleToggleDiv: function() {
+        // We always want buttonSets to contain exactly one of "basic" and
+        // "basic+div". Toggle between the two of them.
+        // If someone can think of a more elegant formulation of this (there
+        // must be one!) feel free to change it.
+        var keep, remove;
+        if (_(this.props.buttonSets).contains("basic+div")) {
+            keep = "basic";
+            remove = "basic+div";
+        } else {
+            keep = "basic+div";
+            remove = "basic";
+        }
+
+        var buttonSets = _(this.props.buttonSets)
+            .reject(set => set === remove)
+            .concat(keep);
+
+        this.change("buttonSets", buttonSets);
     },
 
     handleTexInsert: function(str) {
