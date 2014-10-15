@@ -301,6 +301,16 @@ var ItemRenderer = React.createClass({
         return this.props.item.hints.length;
     },
 
+    /**
+     * Grades the item.
+     *
+     * Returns a KE-style score of {
+     *     empty: bool,
+     *     correct: bool,
+     *     message: string|null,
+     *     guess: Array
+     * }
+     */
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
@@ -335,6 +345,9 @@ var ItemRenderer = React.createClass({
     },
 
     /**
+     * Returns an array of all widget IDs in the order they occur in
+     * the question content.
+     *
      * NOTE: This ignores the answer area.
      */
     getWidgetIds: function() {
@@ -342,6 +355,10 @@ var ItemRenderer = React.createClass({
     },
 
     /**
+     * Returns an object mapping from widget ID to KE-style score.
+     * The keys of this object are the values of the array returned
+     * from `getWidgetIds`.
+     *
      * NOTE: This ignores the answer area.
      */
     scoreWidgets: function() {

@@ -745,22 +745,38 @@ var Renderer = React.createClass({
         widget.setInputValue(interWidgetPath, newValue, focus);
     },
 
+    /**
+     * Returns an array of the widget `.getUserInput()` results
+     */
     getUserInput: function() {
         return _.map(this.widgetIds, (id) => {
             return this.getWidgetInstance(id).getUserInput();
         });
     },
 
+    /**
+     * Returns an array of all widget IDs in the order they occur in
+     * the content.
+     */
     getWidgetIds: function() {
         return this.widgetIds;
     },
 
+    /**
+     * Returns the result of `.getUserInput()` for each widget, in
+     * a map from widgetId to userInput.
+     */
     getUserInputForWidgets: function() {
         return mapObjectFromArray(this.widgetIds, (id) => {
             return this.getWidgetInstance(id).getUserInput();
         });
     },
 
+    /**
+     * Returns an object mapping from widget ID to perseus-style score.
+     * The keys of this object are the values of the array returned
+     * from `getWidgetIds`.
+     */
     scoreWidgets: function() {
         var widgetProps = this.state.widgetInfo;
         var onInputError = this.props.apiOptions.onInputError ||
@@ -781,6 +797,16 @@ var Renderer = React.createClass({
         return widgetScores;
     },
 
+    /**
+     * Grades the content.
+     *
+     * Returns a perseus-style score of {
+     *     type: "invalid"|"points",
+     *     message: string,
+     *     earned: undefined|number,
+     *     total: undefined|number
+     * }
+     */
     score: function() {
         return _.reduce(this.scoreWidgets(), Util.combineScores, Util.noScore);
     },
