@@ -136,6 +136,6 @@ module.exports = {
     displayName: "Group",
     widget: Group,
     editor: GroupEditor,
-    hidden: true
+    hidden: false
 };
 
