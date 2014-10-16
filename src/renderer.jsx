@@ -101,6 +101,7 @@ var Renderer = React.createClass({
         questionCompleted: React.PropTypes.bool,
         onInteractWithWidget: React.PropTypes.func,
         interWidgets: React.PropTypes.func,
+        alwaysUpdate: React.PropTypes.bool,
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -172,6 +173,15 @@ var Renderer = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
+        if (this.props.alwaysUpdate) {
+            // TOTAL hacks so that interWidgets doesn't break
+            // when one widget updates without the other.
+            // See passage-refs inside radios, which was why
+            // this was introduced.
+            // I'm sorry!
+            // TODO(aria): cry
+            return true;
+        }
         var stateChanged = !_.isEqual(this.state, nextState);
         var propsChanged = !_.isEqual(this.props, nextProps);
         return propsChanged || stateChanged;

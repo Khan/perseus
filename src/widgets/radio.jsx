@@ -7,6 +7,8 @@ var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var Editor = require("../editor.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
+var PassageRef = require("./passage-ref.jsx");
+var Util = require("../util.js");
 
 var InfoTip = require("react-components/info-tip.jsx");
 
@@ -167,9 +169,9 @@ var Radio = React.createClass({
             }
             return {
                 // We need to make a copy, which _.pick does
-                content: <Renderer content={content} />,
+                content: this._renderRenderer(content),
                 checked: values[i],
-                clue: <Renderer content={choice.clue} />,
+                clue: this._renderRenderer(choice.clue),
             };
         });
         choices = this.enforceOrdering(choices);
@@ -184,6 +186,53 @@ var Radio = React.createClass({
                 return _.pick(choice, "content", "checked", "clue");
             })}
             onCheckedChange={this.onCheckedChange} />;
+    },
+
+    _renderRenderer: function(content) {
+        content = content || "";
+
+        var nextPassageRefId = 1;
+        var widgets = {};
+
+        var modContent = content.replace(
+            /\{\{passage-ref (\d+) (\d+)\}\}/g,
+            (match, passageNum, refNum) => {
+                var widgetId = "passage-ref " + nextPassageRefId;
+                nextPassageRefId++;
+
+                widgets[widgetId] = {
+                    type: "passage-ref",
+                    graded: false,
+                    options: {
+                        passageNumber: passageNum,
+                        referenceNumber: refNum
+                    },
+                    version: PassageRef.version
+                };
+
+                return "[[" + Util.snowman + " " + widgetId + "]]";
+            }
+        );
+
+        // alwaysUpdate={true} so that passage-refs interwidgets
+        // get called when the outer passage updates the renderer
+        // TODO(aria): This is really hacky
+        return <Renderer
+                content={modContent}
+                widgets={widgets}
+                interWidgets={this._interWidgets}
+                alwaysUpdate={true} />;
+    },
+
+    _interWidgets: function(filterCriterion, localResults) {
+        // If local results are not found, forward interwidgets
+        // calls to our parent renderer.
+        // For passage-refs to communicate with their passages.
+        if (localResults.length) {
+            return localResults;
+        } else {
+            return this.props.interWidgets(filterCriterion);
+        }
     },
 
     _shouldRevealNoneOfTheAbove: function(choices, values) {
