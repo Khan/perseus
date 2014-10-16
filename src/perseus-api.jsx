@@ -24,7 +24,7 @@
  * semantic meaning across the same perseus api major version.
  */
 
-var TextInput = require("./components/text-input.jsx");
+var StubTagEditor = require("./components/stub-tag-editor.jsx");
 
 module.exports = {
     Options: {
@@ -41,7 +41,7 @@ module.exports = {
             onInputError: function() { },
             onFocusChange: function() { },
             staticRender: false,
-            GroupMetadataEditor: TextInput,
+            GroupMetadataEditor: StubTagEditor,
         }
     },
     ClassNames: {

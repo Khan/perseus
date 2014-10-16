@@ -117,7 +117,10 @@ var EditorPage = React.createClass({
         // is null.
         imageUploader: React.PropTypes.func,
         enabledFeatures: EnabledFeatures.propTypes,
-        apiOptions: ApiOptions.propTypes,
+        // We don't specify a more specific type here because it's valid
+        // for a client of Perseus to specify a subset of the API options,
+        // in which case we default the rest in `this._apiOptions()`
+        apiOptions: React.PropTypes.object,
     },
 
     getDefaultProps: function() {

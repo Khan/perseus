@@ -112,7 +112,9 @@ var GroupEditor = React.createClass({
             content: "",
             widgets: {},
             images: {},
-            metadata: null
+            // `undefined` instead of `null` so that getDefaultProps works for
+            // `the GroupMetadataEditor`
+            metadata: undefined
         };
     },
 
