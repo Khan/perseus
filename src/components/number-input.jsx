@@ -4,7 +4,7 @@ var React = require('react');
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-var knumber = KhanUtil.knumber;
+var knumber = require("kmath").number;
 var toNumericString = KhanUtil.toNumericString;
 var getNumericFormat = KhanUtil.getNumericFormat;
 

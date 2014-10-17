@@ -20,8 +20,8 @@ var MovablePoint = Graphie.MovablePoint;
 var Line = Graphie.Line;
 var Label = Graphie.Label;
 
-var knumber = KhanUtil.knumber;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var deepEq = require("../util.js").deepEq;
@@ -116,7 +116,7 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
             var x = range[0] + i * props.tickStep;
             fractions.push(x);
         }
-        var getDenom = (x) => KhanUtil.knumber.toFraction(x)[1];
+        var getDenom = (x) => knumber.toFraction(x)[1];
         var denoms = _.map(fractions, getDenom);
         base = _.reduce(denoms, (x, y) => KhanUtil.getLCM(x, y));
     } else {

@@ -22,11 +22,12 @@ var deepEq = require("../util.js").deepEq;
 var getGridStep = require("../util.js").getGridStep;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-var knumber = KhanUtil.knumber;
-var kvector = KhanUtil.kvector;
-var kpoint = KhanUtil.kpoint;
-var kray = KhanUtil.kray;
-var kline = KhanUtil.kline;
+
+var knumber = require("kmath").number;
+var kvector = require("kmath").vector;
+var kpoint = require("kmath").point;
+var kray = require("kmath").ray;
+var kline = require("kmath").line;
 
 var assert = require("../interactive2/interactive-util.js").assert;
 
@@ -159,9 +160,9 @@ function scaleToRange(dist, range) {
 }
 
 function dilatePointFromCenter(point, dilationCenter, scale) {
-    var pv = KhanUtil.kvector.subtract(point, dilationCenter);
-    var pvScaled = KhanUtil.kvector.scale(pv, scale);
-    var transformedPoint = KhanUtil.kvector.add(dilationCenter, pvScaled);
+    var pv = kvector.subtract(point, dilationCenter);
+    var pvScaled = kvector.scale(pv, scale);
+    var transformedPoint = kvector.add(dilationCenter, pvScaled);
     return transformedPoint;
 }
 
@@ -405,7 +406,7 @@ var Transformations = {
         lowerNounName: $._("translation"),
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kvector.add(coord, transform.vector);
+                return kvector.add(coord, transform.vector);
             };
         },
         isValid: function(transform) {
@@ -518,7 +519,7 @@ var Transformations = {
         lowerNounName: $._("rotation"),
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kpoint.rotateDeg(coord, transform.angleDeg,
+                return kpoint.rotateDeg(coord, transform.angleDeg,
                         transform.center);
             };
         },
@@ -660,7 +661,7 @@ var Transformations = {
         lowerNounName: $._("reflection"),
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kpoint.reflectOverLine(
+                return kpoint.reflectOverLine(
                     coord,
                     transform.line
                 );
@@ -971,7 +972,7 @@ var ShapeTypes = {
                     isMoving = true;
                 }
 
-                var moveVector = KhanUtil.kvector.subtract(
+                var moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -993,7 +994,7 @@ var ShapeTypes = {
                         // movablePoint class, so only translate the other
                         // points
                         if (point !== currentPoint) {
-                            point.setCoord(KhanUtil.kvector.add(
+                            point.setCoord(kvector.add(
                                 point.coord,
                                 moveVector
                             ));
@@ -1006,7 +1007,7 @@ var ShapeTypes = {
                 // "bouncy" as they are updated with currentPoint at the
                 // current mouse coordinate (oldCoord), rather than newCoord
                 var oldCoord = currentPoint.coord;
-                var newCoord = KhanUtil.kvector.add(
+                var newCoord = kvector.add(
                     currentPoint.coord,
                     moveVector
                 );
@@ -1030,7 +1031,7 @@ var ShapeTypes = {
                     // because MovablePoint's onMoveEnd semantics suck.
                     // It returns the mouseX, mouseY without processing them
                     // through onMove, leaving us with weird fractional moves
-                    var change = KhanUtil.kvector.subtract(
+                    var change = kvector.subtract(
                         currentPoint.coord,
                         previousCoord
                     );
@@ -1561,7 +1562,7 @@ var TransformationsShapeEditor = React.createClass({
         var radius = scaleToRange(4, this.refs.graph.props.range);
         var offset = (1 / 2 - 1 / pointCount) * 180;
         var coords = _.times(pointCount, function(i) {
-            return KhanUtil.kpoint.rotateDeg([radius, 0],
+            return kpoint.rotateDeg([radius, 0],
                 360 * i / pointCount + offset);
         });
 

@@ -2,9 +2,9 @@
  * A library of options to pass to add/draw/remove/constraints
  */
 
-var knumber = KhanUtil.knumber;
-var kvector = KhanUtil.kvector;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kvector = require("kmath").vector;
+var kpoint = require("kmath").point;
 
 /**
  * Helper functions

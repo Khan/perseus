@@ -22,7 +22,7 @@ var NumberInput  = require("../components/number-input.jsx");
 var MathOutput  = require("../components/math-output.jsx");
 var seededRNG    = require("../util.js").seededRNG;
 var Util         = require("../util.js");
-var knumber      = KhanUtil.knumber;
+var knumber      = require("kmath").number;
 
 var defaultBoxSize = 400;
 var maxSampleSize = 1000;

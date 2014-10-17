@@ -8,8 +8,8 @@ var Interactive2  = require("../interactive2.js");
 var NumberInput   = require("../components/number-input.jsx");
 var Util          = require("../util.js");
 
-var knumber = KhanUtil.knumber;
-var kpoint  = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 var DeprecationMixin = Util.DeprecationMixin;
 

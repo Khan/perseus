@@ -6,7 +6,7 @@
  * are simply for convenience.
  */
 
-var kpoint = KhanUtil.kpoint;
+var kpoint = require("kmath").point;
 
 var MovableHelperMethods = {
     /**

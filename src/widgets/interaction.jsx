@@ -23,7 +23,7 @@ var Plot = Graphie.Plot;
 var PlotParametric = Graphie.PlotParametric;
 var Point = Graphie.Point;
 
-var kvector = KhanUtil.kvector;
+var kvector = require("kmath").vector;
 
 // Memoize KAS parsing
 var KAShashFunc = (expr, options) => {

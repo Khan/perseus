@@ -4,3 +4,6 @@
 [submodule "react-components"]
 	path = react-components
 	url = https://github.com/Khan/react-components.git
+[submodule "kmath"]
+	path = kmath
+	url = git@github.com:Khan/kmath.git
