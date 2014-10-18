@@ -37,7 +37,7 @@ var validateParse = (parsed, expected) => {
 
 var htmlThroughReact = (parsed) => {
     var output = defaultOutput(parsed);
-    var rawHtml = React.renderComponentToStaticMarkup(
+    var rawHtml = React.renderToStaticMarkup(
         <div>{output}</div>
     );
     var innerHtml = rawHtml

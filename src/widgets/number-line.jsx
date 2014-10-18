@@ -235,14 +235,14 @@ var NumberLine = React.createClass({
 
         var tickCtrl;
         if (this.props.isTickCtrl) {
-            var inputType;
+            var Input;
             if (this.props.apiOptions.staticRender) {
-                inputType = MathOutput;
+                Input = MathOutput;
             } else {
-                inputType = NumberInput;
+                Input = NumberInput;
             }
             tickCtrl = <label><$_>Number of divisions:</$_>{" "}
-                <inputType
+                <Input
                     ref={"tick-ctrl"}
                     value={this.props.numDivisions || divisionRange[0]}
                     checkValidity={(val) =>
