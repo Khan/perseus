@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React         = require('react');
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");

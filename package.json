@@ -18,8 +18,8 @@
     "less": "~1.7.0",
     "loader-utils": "~0.2.5",
     "mocha": "^1.19.0",
-    "node-jsx": "^0.11.0",
-    "react-tools": "0.11.0",
+    "node-jsx": "git://github.com/spicyj/node-jsx.git#bee8fc587a2309059d870616d9279dc8c9268635",
+    "react-tools": "0.12.0-rc1",
     "requirejs": "~2.1.11",
     "webpack": "~1.4.3",
     "webpack-dev-server": "~1.6.5"

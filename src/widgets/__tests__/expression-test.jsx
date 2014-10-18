@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var assert = require("assert");
 var Perseus = require("../../perseus.js");
 // TODO(jack): Package MathQuill

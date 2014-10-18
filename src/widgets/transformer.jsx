@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
@@ -446,12 +444,12 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var vector = [
                     <TeX>\langle</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x"
                         placeholder={0}
                         value={this.state.vector[0]}
@@ -465,7 +463,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "x")}
                         onBlur={_.partial(this.props.onBlur, "x")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y"
                         placeholder={0}
                         value={this.state.vector[1]}
@@ -567,12 +565,12 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var point = [
                     <TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="centerX"
                         placeholder={0}
                         value={this.state.center[0]}
@@ -586,7 +584,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "centerX")}
                         onBlur={_.partial(this.props.onBlur, "centerX")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="centerY"
                         placeholder={0}
                         value={this.state.center[1]}
@@ -602,7 +600,7 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 var degrees = [
-                    <inputComponent
+                    <InputComponent
                         ref="angleDeg"
                         placeholder={0}
                         value={this.state.angleDeg}
@@ -707,11 +705,11 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var point1 = [<TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x1"
                         value={this.state.line[0][0]}
                         useArrowKeys={true}
@@ -723,7 +721,7 @@ var Transformations = {
                             this.props.onBlur, "x1"
                         )}/>,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y1"
                         value={this.state.line[0][1]}
                         useArrowKeys={true}
@@ -733,7 +731,7 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 var point2 = [<TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x2"
                         value={this.state.line[1][0]}
                         useArrowKeys={true}
@@ -741,7 +739,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "x2")}
                         onBlur={_.partial(this.props.onBlur, "x2")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y2"
                         value={this.state.line[1][1]}
                         useArrowKeys={true}
@@ -851,11 +849,11 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var point = [<TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x"
                         placeholder={0}
                         value={this.state.center[0]}
@@ -869,7 +867,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "x")}
                         onBlur={_.partial(this.props.onBlur, "x")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y"
                         placeholder={0}
                         value={this.state.center[1]}
@@ -884,7 +882,7 @@ var Transformations = {
                         onBlur={_.partial(this.props.onBlur, "y")} />,
                     <TeX>)</TeX>
                 ];
-                var scale = <inputComponent
+                var scale = <InputComponent
                     ref="scale"
                     placeholder={1}
                     value={this.state.scale}

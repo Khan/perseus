@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React         = require("react");
 var TeX           = require("react-components/tex.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;

@@ -261,7 +261,8 @@ var seedContent = {
 
 Perseus.init({}).then(function() {
     var itemMountNode = document.createElement("div");
-    zk = React.renderComponent(Perseus.ItemRenderer({
+    var ItemRenderer = React.createFactory(Perseus.ItemRenderer);
+    zk = React.render(ItemRenderer({
         item: seedContent,
         problemNum: Math.floor(Math.random() * 50) + 1,
         initialHintsVisible: seedContent.hints.length,

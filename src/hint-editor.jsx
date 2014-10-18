@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */

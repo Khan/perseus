@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require("react");
 var InfoTip = require("react-components/info-tip.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
@@ -593,7 +591,7 @@ var ExpressionEditor = React.createClass({
             buttonSets: this.props.buttonSets
         };
 
-        var expression = this.state.isTex ? Expression : OldExpression;
+        var Expr = this.state.isTex ? Expression : OldExpression;
 
         // checkboxes to choose which sets of input buttons are shown
         var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
@@ -624,7 +622,7 @@ var ExpressionEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:{' '}
-                <expression {...expressionProps} />
+                <Expr {...expressionProps} />
             </label></div>
 
             <div>

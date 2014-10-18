@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var GraphieClasses = require("./graphie-classes.jsx");
 var Movables = require("./graphie-movables.jsx");
 

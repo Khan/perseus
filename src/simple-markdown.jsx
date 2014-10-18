@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * Simple-Markdown
  * ===============
@@ -454,12 +452,12 @@ var defaultRules = {
             };
         },
         output: (node, output) => {
-            var listWrapper = node.ordered ? React.DOM.ol : React.DOM.ul;
-            return <listWrapper>
+            var ListWrapper = node.ordered ? "ol" : "ul";
+            return <ListWrapper>
                 {_.map(node.items, (item) => {
                     return <li>{output(item)}</li>;
                 })}
-            </listWrapper>;
+            </ListWrapper>;
         }
     },
     def: {

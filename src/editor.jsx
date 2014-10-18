@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
@@ -81,7 +79,7 @@ var WidgetEditor = React.createClass({
         );
         var type = upgradedWidgetInfo.type;
 
-        var cls = Widgets.getEditor(type);
+        var Ed = Widgets.getEditor(type);
 
         var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
@@ -107,7 +105,7 @@ var WidgetEditor = React.createClass({
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
-                <cls
+                <Ed
                     ref="widget"
                     onChange={this._handleWidgetChange}
                     apiOptions={this.props.apiOptions}

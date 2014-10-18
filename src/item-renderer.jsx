@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
@@ -97,7 +95,7 @@ var ItemRenderer = React.createClass({
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-        this.questionRenderer = React.renderComponent(
+        this.questionRenderer = React.render(
                 <Renderer
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithWidget}
@@ -110,7 +108,7 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.workAreaSelector));
 
-        this.answerAreaRenderer = React.renderComponent(
+        this.answerAreaRenderer = React.render(
                 <AnswerAreaRenderer
                     type={this.props.item.answerArea.type}
                     options={this.props.item.answerArea.options}
@@ -123,7 +121,7 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.solutionAreaSelector));
 
-        this.hintsRenderer = React.renderComponent(
+        this.hintsRenderer = React.render(
                 <HintsRenderer
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Renderer = require("./renderer.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
@@ -288,7 +286,7 @@ var AnswerAreaRenderer = React.createClass({
                 return "- " + example;
             }).join("\n");
 
-            React.renderComponent(
+            React.render(
                 Renderer({content: content}),
                 this.$examples[0]);
 

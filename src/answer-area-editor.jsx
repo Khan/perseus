@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
@@ -15,14 +13,14 @@ var AnswerAreaEditor = React.createClass({
     },
 
     render: function() {
-        var cls;
+        var Ed;
         if (this.props.type === "multiple") {
-            cls = Editor;
+            Ed = Editor;
         } else {
-            cls = Widgets.getEditor(this.props.type);
+            Ed = Widgets.getEditor(this.props.type);
         }
 
-        var editor = <cls
+        var editor = <Ed
             ref="editor"
             placeholder={"This answer area is being deprecated. " +
             "Please use the widgets in the question area for your answer."}
@@ -71,7 +69,7 @@ var AnswerAreaEditor = React.createClass({
                 area, and tell the students how to complete the problem.</p>
             </InfoTip></div>
             </div>
-            <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
+            <div className={Ed !== Editor ? "perseus-answer-widget" : ""}>
                 {editor}
             </div>
         </div>;

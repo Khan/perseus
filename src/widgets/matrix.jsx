@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -449,7 +447,7 @@ var MatrixEditor = React.createClass({
                     useArrowKeys={true} />
             </div>
             <div className="perseus-widget-row">
-                {Matrix(matrixProps)}
+                <Matrix {...matrixProps} />
             </div>
             <div className="perseus-widget-row">
                 {" "}Matrix prefix:{" "}

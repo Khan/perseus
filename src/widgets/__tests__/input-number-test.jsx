@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * Disclaimer: Definitely not thorough enough
  */

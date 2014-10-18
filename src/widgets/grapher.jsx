@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var InfoTip          = require("react-components/info-tip.jsx");
 var Interactive2     = require("../interactive2.js");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");

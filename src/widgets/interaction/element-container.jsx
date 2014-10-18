@@ -1,9 +1,7 @@
-/** @jsx React.DOM */
-
 var ElementContainer = React.createClass({
     propTypes: {
         initiallVisible: React.PropTypes.bool,
-        title: React.PropTypes.renderable
+        title: React.PropTypes.node
     },
 
     getDefaultProps: function() {

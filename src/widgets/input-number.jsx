@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React             = require('react');
 var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");

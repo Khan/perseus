@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var InfoTip      = require("react-components/info-tip.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -420,11 +418,11 @@ var Simulator = React.createClass({
         var style = (this.state.invalidInput) ? highlightStyle
                                               : unhighlightStyle;
 
-        var inputComponent = this.props.apiOptions.staticRender ? MathOutput
+        var InputComponent = this.props.apiOptions.staticRender ? MathOutput
                                                                 : NumberInput;
 
         var proportionInput = <div>
-            <inputComponent
+            <InputComponent
                 ref="userProportion"
                 style={style}
                 value={this.calculateDisplayProportion()}
@@ -439,7 +437,7 @@ var Simulator = React.createClass({
         </div>;
 
         var sampleSizeInput = <div>
-            <inputComponent
+            <InputComponent
                 ref="sampleSize"
                 style={style}
                 value={this.props.sampleSize}

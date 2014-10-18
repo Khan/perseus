@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var _ = require("underscore");
 
 var SimpleMarkdown = require("../../simple-markdown.jsx");

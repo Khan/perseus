@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 // TODO(alex): Package MathQuill
 var MathQuill = window.MathQuill;
 var React     = require("react");

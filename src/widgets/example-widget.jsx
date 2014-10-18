@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * This is a simple number-entry widget
  * It is not as powerful as number-input, but has a simpler, more

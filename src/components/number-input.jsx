@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =

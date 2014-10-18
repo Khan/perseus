@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 
 var Editor = require("../editor.jsx");
@@ -82,11 +80,11 @@ var Table = React.createClass({
         var columns = this._getColumns();
         var headers = this.props.headers;
 
-        var inputComponent;
+        var InputComponent;
         if (this.props.apiOptions.staticRender) {
-            inputComponent = MathOutput;
+            InputComponent = MathOutput;
         } else {
-            inputComponent = React.DOM.input;
+            InputComponent = "input";
         }
 
         return <table className="perseus-widget-table-of-values non-markdown">
@@ -118,7 +116,7 @@ var Table = React.createClass({
                     return <tr key={r}>{
                         _(columns).times((c) => {
                             return <td key={c}>
-                                <inputComponent
+                                <InputComponent
                                     ref={getRefForPath(getInputPath(r, c))}
                                     type="text"
                                     value={this.props.answers[r][c]}

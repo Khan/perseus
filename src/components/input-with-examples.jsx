@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Tooltip = require("react-components/tooltip.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
@@ -120,8 +118,8 @@ var InputWithExamples = React.createClass({
 
     _renderInput: function() {
         var inputProps = this._getPropsForInputType();
-        var inputComponent = this._getComponentForInputType();
-        return <inputComponent {...inputProps} />;
+        var InputComponent = this._getComponentForInputType();
+        return <InputComponent {...inputProps} />;
     },
 
     render: function() {
