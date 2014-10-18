@@ -1,3 +1,5 @@
+var path = require("path");
+
 var webpack = require("webpack");
 
 module.exports = {
@@ -11,7 +13,8 @@ module.exports = {
     module: {
         loaders: [
         { test: /\.json$/, loader: "json-loader" },
-        { test: /\.jsx$/, loader: "jsx-loader?harmony" }
+        // https://github.com/webpack/webpack/issues/119
+        { test: /\.jsx$/, loader: path.join(__dirname, "node/jsx-loader.js") }
         ]
     }
 };
