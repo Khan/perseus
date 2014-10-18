@@ -34,6 +34,9 @@ module.exports = {
             onFocusChange: React.PropTypes.func.isRequired,
             staticRender: React.PropTypes.bool.isRequired,
             GroupMetadataEditor: React.PropTypes.func.isRequired,
+            // Enable old answer types in test.html
+            // TODO(aria) Remove when Alex kills the answer area
+            enableOldAnswerTypes: React.PropTypes.bool.isRequired,
         }).isRequired,
 
         defaults: {
@@ -42,6 +45,7 @@ module.exports = {
             onFocusChange: function() { },
             staticRender: false,
             GroupMetadataEditor: StubTagEditor,
+            enableOldAnswerTypes: false,
         }
     },
     ClassNames: {

@@ -59,6 +59,7 @@ var ItemEditor = React.createClass({
                     <AnswerAreaEditor
                         ref="answerAreaEditor"
                         onChange={this.handleAnswerAreaChange}
+                        apiOptions={this.props.apiOptions}
                         {...this.props.answerArea} />
                 </div>
 

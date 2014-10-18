@@ -2,13 +2,15 @@ var React = require('react');
 var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
 var Widgets = require("./widgets.js");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 var AnswerAreaEditor = React.createClass({
     getDefaultProps: function() {
         return {
             type: "input-number",
             options: {},
-            calculator: false
+            calculator: false,
+            apiOptions: ApiOptions.defaults,
         };
     },
 
