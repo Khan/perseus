@@ -116,7 +116,7 @@ var Card = React.createClass({
         return this.props.floating || nextProps.floating ||
             this.props.content !== nextProps.content ||
             // TODO(alpert): Remove ref here after fixing facebook/react#1392.
-            this.props.ref !== nextProps.ref;
+            this.props.fakeRef !== nextProps.fakeRef;
     },
 
     componentDidMount: function() {
@@ -263,6 +263,7 @@ var Orderer = React.createClass({
         var sortableCards = _.map(this.state.current, function(opt, i) {
             return <Card
                 ref={"sortable" + i}
+                fakeRef={"sortable" + i}
                 floating={false}
                 content={opt.content}
                 width={opt.width}
