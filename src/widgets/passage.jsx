@@ -148,7 +148,8 @@ var Passage = React.createClass({
         }
         var vPos = $refText.offset().top;
 
-        return this._convertPosToLineNumber(vPos) + 1;
+        return this.state.startLineNumbersAfter + 1 +
+            this._convertPosToLineNumber(vPos);
     },
 
     _getEndRefLineNumber: function(referenceNumber) {
@@ -181,7 +182,7 @@ var Passage = React.createClass({
             line += 1;
         }
 
-        return line;
+        return this.state.startLineNumbersAfter + line;
     },
 
     _convertPosToLineNumber: function(absoluteVPos) {
