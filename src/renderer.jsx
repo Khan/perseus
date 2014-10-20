@@ -130,13 +130,9 @@ var Renderer = React.createClass({
     },
 
     getInitialState: function() {
-        var widgetProps =
-            this.props.savedState ? {widgetProps: this.props.savedState} : {};
-
         return _.extend(
             {jiptContent: null},
-            this._getInitialWidgetState(),
-            widgetProps);
+            this._getInitialWidgetState());
     },
 
     _getInitialWidgetState: function(props) {
@@ -162,7 +158,7 @@ var Renderer = React.createClass({
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo, props) {
-        return mapObject(allWidgetInfo, (editorProps) => {
+        return props.savedState || mapObject(allWidgetInfo, (editorProps) => {
             return Widgets.getRendererPropsForWidgetInfo(
                 editorProps,
                 props.problemNum
