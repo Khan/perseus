@@ -69,7 +69,7 @@ var Passage = React.createClass({
                 {this._renderContent()}
             </div>
             <div className="footnotes">
-                <Renderer content={this.props.footnotes} />
+                {this._renderFootnotes()}
             </div>
         </div>;
     },
@@ -128,6 +128,12 @@ var Passage = React.createClass({
         return <div ref="content">
             {PassageMarkdown.output(parsed)}
         </div>;
+    },
+
+    _renderFootnotes: function() {
+        var rawContent = this.props.footnotes;
+        var parsed = PassageMarkdown.parse(rawContent);
+        return PassageMarkdown.output(parsed);
     },
 
     _getStartRefLineNumber: function(referenceNumber) {
