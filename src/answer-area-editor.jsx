@@ -12,7 +12,7 @@ var AnswerTypeSelector = React.createClass({
             <label>
                 Answer type:{' '}
                 <select value={this.props.type}
-                        onChange={this.props.onChange}>
+                        onChange={(e) => this.props.onChange(e.target.value)}>
                     <option value="radio">Multiple choice</option>
                     <option value="table">Table of values</option>
                     <option value="input-number">Text input (number)</option>
@@ -62,7 +62,8 @@ var AnswerAreaEditor = React.createClass({
         var className = cx({
             'perseus-answer-widget': this.props.type !== 'multiple',
             'perseus-answer-none': !(this.state.showEditor ||
-                                     this.state.showTypeSelector)
+                                    this.state.showTypeSelector ||
+                                    this.props.apiOptions.enableOldAnswerTypes)
         });
 
         var editor = <div className={className}>
@@ -96,17 +97,19 @@ var AnswerAreaEditor = React.createClass({
             </InfoTip>
             </div>
 
-            {this.state.showTypeSelector &&
-             <AnswerTypeSelector
-                type={this.props.type}
-                onChange={e => {
-                    this.props.onChange({
-                        type: e.target.value,
-                        options: {}
-                    }, () => {
-                        this.refs.editor.focus();
-                    });
-                }} />}
+            {(this.state.showTypeSelector ||
+                    this.props.apiOptions.enableOldAnswerTypes) &&
+                <AnswerTypeSelector
+                   type={this.props.type}
+                   onChange={(newValue) => {
+                       this.props.onChange({
+                           type: newValue,
+                           options: {}
+                       }, () => {
+                           this.refs.editor.focus();
+                       });
+                   }} />
+            }
 
             </div>
 
