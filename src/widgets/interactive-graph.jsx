@@ -981,11 +981,8 @@ var InteractiveGraph = React.createClass({
         }
 
         var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
-        this.sinusoid = this.graphie.plot(function(x) {
-            return a * Math.sin(b * x - c) + d;
-        }, this.props.range[0]).attr({
-            stroke: KhanUtil.BLUE
-        });
+        this.sinusoid = this.graphie.sinusoid(a, b, c, d);
+        this.sinusoid.attr({ stroke: KhanUtil.DYNAMIC });
         this.sinusoid.toBack();
     },
 
