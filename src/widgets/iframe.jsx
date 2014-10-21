@@ -72,7 +72,7 @@ var Iframe = React.createClass({
 
         // If the URL doesnt start with http, it must be a program ID
         if (url.length && url.indexOf("http") !== 0) {
-            url = "https://www.khanacademy.org/cs/program/" + url +
+            url = "https://www.khanacademy.org/computer-programming/program/" + url +
                     "/embedded?buttons=no&embed=yes&editor=no&author=no";
             url = updateQueryString(url, "width", this.props.width);
             url = updateQueryString(url, "height", this.props.height);
