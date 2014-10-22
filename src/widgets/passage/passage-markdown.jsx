@@ -1,6 +1,6 @@
 var _ = require("underscore");
 
-var SimpleMarkdown = require("../../simple-markdown.jsx");
+var SimpleMarkdown = require("simple-markdown");
 
 var START_REF_PREFIX = "start-ref-";
 var END_REF_PREFIX = "end-ref-";
