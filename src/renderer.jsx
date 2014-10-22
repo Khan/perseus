@@ -113,6 +113,7 @@ var Renderer = React.createClass({
         return {
             content: "",
             widgets: {},
+            images: {},
             // TODO(aria): Remove this now that it is true everywhere
             // (here and in perseus-i18n)
             ignoreMissingWidgets: true,
@@ -493,6 +494,22 @@ var Renderer = React.createClass({
                 {node.content}
             </TeX>;
 
+        } else if (node.type === "image") {
+            // We need to add width and height to images from our
+            // props.images mapping.
+
+            // We do a _.has check here to avoid wierd things like
+            // 'toString' or '__proto__' as a url.
+            var extraAttrs = (_.has(this.props.images, node.target)) ?
+                this.props.images[node.target] :
+                null;
+
+            return <img
+                src={PerseusMarkdown.sanitizeUrl(node.target)}
+                alt={node.alt}
+                title={node.title}
+                {...extraAttrs} />;
+
         } else {
             // If it's a "normal" or "simple" markdown node, just
             // output it using its output rule.
@@ -503,22 +520,7 @@ var Renderer = React.createClass({
     handleRender: function(prevProps) {
         var onRender = this.props.onRender;
         var oldOnRender = prevProps.onRender;
-
         var $images = $(this.getDOMNode()).find("img");
-        var imageAttrs = this.props.images || {};
-
-        // TODO(jack): Weave this into the rendering in markedReact by passing
-        // a function for how to render images, which reads this data
-        // (probably part of a larger marked refactor to take all rendering
-        // methods via parameters)
-        _.map(_.toArray($images), (image, i) => {
-            var $image = $(image);
-            var src = $image.attr('src');
-            var attrs = imageAttrs[src];
-            if (attrs) {
-                $image.attr(attrs);
-            }
-        });
 
         // Fire callback on image load...
         // TODO (jack): make this call happen exactly once through promises!

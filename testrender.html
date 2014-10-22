@@ -94,169 +94,22 @@ function initPerseus(Perseus) {
 
 var seedContent = {
     "question": {
-        "content": "[[☃ image-widget 1]]\n\nThe graph of the four-petal flower $~r=\\cos(2\\theta)~$ is pictured above.  For each of the four labeled points, determine whether $~\\dfrac{dy}{d\\theta}~$ and $~\\dfrac{dx}{d\\theta}~$ are opposite in sign.\n\nPoint|YES or NO\n:-:|:-:\n$A$|[[☃ dropdown 6]]\n$B$|[[☃ dropdown 7]]\n$C$|[[☃ dropdown 8]]\n$D$|[[☃ dropdown 9]]\n",
-        "images": {},
-        "widgets": {
-            "image-widget 1": {
-                "type": "image-widget",
-                "graded": true,
-                "options": {
-                    "backgroundImage": {
-                        "url": "https://ka-perseus-graphie.s3.amazonaws.com/b66154ceca9d493db19512507f2ce2d33e5cbb61.png",
-                        "width": 470,
-                        "height": 470
-                    },
-                    "box": [
-                        470,
-                        470
-                    ],
-                    "range": [
-                        [
-                            0,
-                            10
-                        ],
-                        [
-                            0,
-                            10
-                        ]
-                    ],
-                    "labels": [
-                        {
-                            "content": "A",
-                            "coordinates": [
-                                8.2,
-                                6
-                            ],
-                            "alignment": "center"
-                        },
-                        {
-                            "content": "B",
-                            "coordinates": [
-                                4.2,
-                                8.3
-                            ],
-                            "alignment": "center"
-                        },
-                        {
-                            "content": "C",
-                            "coordinates": [
-                                1.8,
-                                6
-                            ],
-                            "alignment": "center"
-                        },
-                        {
-                            "content": "D",
-                            "coordinates": [
-                                4.2,
-                                1.6
-                            ],
-                            "alignment": "center"
-                        }
-                    ]
-                }
-            },
-            "dropdown 6": {
-                "type": "dropdown",
-                "graded": true,
-                "options": {
-                    "placeholder": "Yes/No",
-                    "choices": [
-                        {
-                            "content": "Yes",
-                            "correct": true
-                        },
-                        {
-                            "content": "No",
-                            "correct": false
-                        }
-                    ]
-                }
-            },
-            "dropdown 7": {
-                "type": "dropdown",
-                "graded": true,
-                "options": {
-                    "placeholder": "Yes/No",
-                    "choices": [
-                        {
-                            "content": "Yes",
-                            "correct": false
-                        },
-                        {
-                            "content": "No",
-                            "correct": true
-                        }
-                    ]
-                }
-            },
-            "dropdown 8": {
-                "type": "dropdown",
-                "graded": true,
-                "options": {
-                    "placeholder": "Yes/No",
-                    "choices": [
-                        {
-                            "content": "Yes",
-                            "correct": false
-                        },
-                        {
-                            "content": "No",
-                            "correct": true
-                        }
-                    ]
-                }
-            },
-            "dropdown 9": {
-                "type": "dropdown",
-                "graded": true,
-                "options": {
-                    "placeholder": "Yes/No",
-                    "choices": [
-                        {
-                            "content": "Yes",
-                            "correct": true
-                        },
-                        {
-                            "content": "No",
-                            "correct": false
-                        }
-                    ]
-                }
-            }
-        }
+        "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/6180e0ee679ba21aa1e56a0b5bb0167cb89c3e7d.png)\n",
+        "widgets": {}
     },
     "answerArea": {
         "type": "multiple",
         "options": {
-            "content": "Answer to left.",
-            "images": {},
+            "content": "",
             "widgets": {}
         },
         "calculator": false
     },
-    "hints": [
-        {
-            "content": "Recall that for a polar curve, the slope of the tangent line at a given point is given by $~\\displaystyle\\frac{dy}{dx}=\\frac{\\tfrac{dy}{d\\theta }}{\\tfrac{dx}{d\\theta }}\\,$.",
-            "images": {},
-            "widgets": {}
-        },
-        {
-            "content": "Thus if $~\\dfrac{dy}{d\\theta}~$ and $~\\dfrac{dx}{d\\theta}~$ are opposite in sign, then $~\\dfrac{dy}{dx}<0\\,$.  Hence we need to examine the slopes of the tangent lines at the four points in question.",
-            "images": {},
-            "widgets": {}
-        },
-        {
-            "content": "We see that the tangent lines at points $~A~$ and $~D~$ will have negative slopes, while the tangent lines drawn at points $~B~$ and $~C~$ will have positive slopes.",
-            "images": {},
-            "widgets": {}
-        },
-        {
-            "content": "Therefore $~\\dfrac{dy}{d\\theta}~$ and $~\\dfrac{dx}{d\\theta}~$ are opposite in sign at points $~A~$ and $~D\\,$.",
-            "images": {},
-            "widgets": {}
-        }
-    ]
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
 };
 
 Perseus.init({}).then(function() {

@@ -173,6 +173,7 @@ module.exports = {
     parse: parse,
     outputFor: SimpleMarkdown.outputFor,
     ruleOutput: SimpleMarkdown.ruleOutput(rules),
-    testOutput: SimpleMarkdown.outputFor(SimpleMarkdown.ruleOutput(rules))
+    testOutput: SimpleMarkdown.outputFor(SimpleMarkdown.ruleOutput(rules)),
+    sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };
 
