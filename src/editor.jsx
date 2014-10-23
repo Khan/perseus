@@ -357,6 +357,7 @@ var Editor = React.createClass({
                 <option value="">Insert template{"\u2026"}</option>
                 <option disabled>--</option>
                 <option value="table">Table</option>
+                <option value="titledTable">Titled table</option>
                 <option value="alignment">Aligned equations</option>
                 <option value="piecewise">Piecewise function</option>
             </select>;
@@ -536,6 +537,13 @@ var Editor = React.createClass({
         var template;
         if (templateType === "table") {
             template = "header 1 | header 2 | header 3\n" +
+                       "- | - | -\n" +
+                       "data 1 | data 2 | data 3\n" +
+                       "data 4 | data 5 | data 6\n" +
+                       "data 7 | data 8 | data 9";
+        } else if (templateType === "titledTable") {
+            template = "|| **Table title** ||\n" +
+                       "header 1 | header 2 | header 3\n" +
                        "- | - | -\n" +
                        "data 1 | data 2 | data 3\n" +
                        "data 4 | data 5 | data 6\n" +
