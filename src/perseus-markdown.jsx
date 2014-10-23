@@ -93,6 +93,15 @@ var fakeMathRegex = {
     }
 };
 
+var TITLED_TABLE_REGEX = new RegExp(
+    "\\|\\| +(.*) +\\|\\| *\\n" +
+    "(" +
+    // The simple-markdown nptable regex, without
+    // the leading `^`
+    SimpleMarkdown.defaultRules.nptable.regex.source.substring(1) +
+    ")"
+);
+
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     columns: {
         regex: /^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/,
@@ -110,6 +119,42 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 <div className="perseus-column">
                     {output(node.col2)}
                 </div>
+            </div>;
+        }
+    },
+    // This is pretty much horrible, but we have a regex here to capture an
+    // entire table + a title. capture[1] is the title. capture[2] of the
+    // regex is a copy of the simple-markdown nptable regex. Then we turn
+    // our capture[2] into tableCapture[0], and any further captures in
+    // our table regex into tableCapture[1..], and we pass tableCapture to
+    // our nptable regex
+    titledTable: {
+        regex: TITLED_TABLE_REGEX,
+        parse: (capture, parse, state) => {
+            var title = parse(capture[1], state);
+
+            // Remove our [0] and [1] captures, and pass the rest to
+            // the nptable parser
+            var tableCapture = _.rest(capture, 2);
+            var table = SimpleMarkdown.defaultRules.nptable.parse(
+                tableCapture,
+                parse,
+                state
+            );
+            return {
+                title: title,
+                table: table,
+            };
+        },
+        output: (node, output) => {
+            var tableOutput = node.table ?
+                SimpleMarkdown.defaultRules.table.output(node.table, output) :
+                "//invalid table//";
+            return <div className="perseus-titled-table">
+                <div className="perseus-table-title">
+                    {output(node.title)}
+                </div>
+                <div>{tableOutput}</div>
             </div>;
         }
     },
@@ -141,21 +186,30 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // is just a stub for testing.
             return <TeX>{node.content}</TeX>;
         }
-    }
+    },
 });
 
-// Naively inject our rules before links so that our `[[`s take precedence
 var linkRuleIndex = SimpleMarkdown.defaultPriorities.indexOf("link");
-if (linkRuleIndex < 0) {
-    // assert that 'text' is the last rule
+var tableRuleIndex = SimpleMarkdown.defaultPriorities.indexOf("table");
+if (linkRuleIndex < 0 || tableRuleIndex < 0) {
+    // assert that we found the positions in the priority list at
+    // which to insert our rules.
     throw new Error(
-        "could not find link rule in simple-markdown to place " +
-        "widget and math rules before"
+        "could not find link/table rule in simple-markdown to place " +
+        "perseus table, widget, and math rules before"
     );
 }
 
 var priorities = _.clone(SimpleMarkdown.defaultPriorities);
 priorities.unshift("columns");
+// Inject our block table rule before normal tables
+priorities.splice(
+    tableRuleIndex,
+    0,
+    "titledTable"
+);
+// Naively inject our inline rules before links so that our `[[`s take
+// precedence
 priorities.splice(
     linkRuleIndex,
     0,
