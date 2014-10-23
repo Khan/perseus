@@ -94,7 +94,7 @@ var fakeMathRegex = {
 };
 
 var TITLED_TABLE_REGEX = new RegExp(
-    "\\|\\| +(.*) +\\|\\| *\\n" +
+    "^\\|\\| +(.*) +\\|\\| *\\n" +
     "(" +
     // The simple-markdown nptable regex, without
     // the leading `^`
