@@ -1,7 +1,8 @@
 var React = require('react');
 var Tooltip = require("react-components/tooltip.jsx");
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+var _ = require("underscore");
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var MathInput  = require("./math-input.jsx");
 var Renderer   = require("../renderer.jsx");
 var TextInput  = require("./text-input.jsx");

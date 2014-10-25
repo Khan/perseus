@@ -1,3 +1,5 @@
+var _ = require("underscore");
+
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {

@@ -2,6 +2,7 @@ var React = require('react');
 var InfoTip = require("react-components/info-tip.jsx");
 var FancySelect = require("../components/fancy-select.jsx");
 var FancyOption = FancySelect.Option;
+var _ = require("underscore");
 
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;

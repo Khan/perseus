@@ -32,7 +32,7 @@ if (!window.getSelection) {
 }
 
 var _ = require("../lib/underscore.js");
-global._ = global.window._ = _;
+global._ = window._ = _;
 
 // Create a function to copy globals from `window` to `global`
 var jsdomWindowProps = _.clone(global.window);

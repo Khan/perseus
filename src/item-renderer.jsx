@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var Renderer = require("./renderer.jsx");

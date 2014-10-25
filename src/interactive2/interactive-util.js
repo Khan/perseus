@@ -2,6 +2,7 @@
  * Utility functions for writing Interactive2 movablethings
  */
 
+var _ = require("underscore");
 var MovableHelperMethods = require("./movable-helper-methods.js");
 
 var InteractiveUtil = {

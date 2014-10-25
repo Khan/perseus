@@ -1,4 +1,6 @@
 var React             = require('react');
+var _ = require("underscore");
+
 var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");

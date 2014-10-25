@@ -1,6 +1,7 @@
 /**
  * MovableLine
  */
+var _ = require("underscore");
 
 var MovableLineOptions = require("./movable-line-options.js");
 var InteractiveUtil = require("./interactive-util.js");

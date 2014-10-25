@@ -1,3 +1,5 @@
+var _ = require("underscore");
+
 var textWidthCache = {};
 function getTextWidth(text) {
     if (!textWidthCache[text]) {

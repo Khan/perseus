@@ -1,6 +1,7 @@
 var React = require("react");
 var InfoTip = require("react-components/info-tip.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
+var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");

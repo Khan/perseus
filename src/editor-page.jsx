@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");

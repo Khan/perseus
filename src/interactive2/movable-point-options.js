@@ -1,6 +1,7 @@
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
+var _ = require("underscore");
 
 var knumber = require("kmath").number;
 var kpoint = require("kmath").point;

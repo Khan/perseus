@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var AnswerAreaEditor = require("./answer-area-editor.jsx");
 var Editor = require("./editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;

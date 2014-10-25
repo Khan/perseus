@@ -1,3 +1,4 @@
+var _ = require("underscore");
 var GraphieClasses = require("./graphie-classes.jsx");
 var Movables = require("./graphie-movables.jsx");
 
@@ -127,6 +128,7 @@ var Graphie = React.createClass({
             onMouseUp: this.props.onMouseUp,
             onMouseMove: this.props.onMouseMove
         });
+
         graphie.snap = this.props.options.snapStep || [1, 1];
 
         this.props.setup(graphie, _.extend({

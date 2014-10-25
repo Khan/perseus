@@ -6,6 +6,8 @@
  * TODO(aria): Move this out of interactive2
  */
 
+var _ = require("underscore");
+
 /**
  * Does a pluck on keys inside objects in an object
  *

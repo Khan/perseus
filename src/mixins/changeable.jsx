@@ -7,6 +7,8 @@
  * this.props.onChange with the modified props.
  */
 
+var _ = require("underscore");
+
 var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
 var USAGE = "Usage:\n" +

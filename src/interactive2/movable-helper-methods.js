@@ -6,6 +6,7 @@
  * are simply for convenience.
  */
 
+var _ = require("underscore");
 var kpoint = require("kmath").point;
 
 var MovableHelperMethods = {

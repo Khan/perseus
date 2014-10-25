@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");

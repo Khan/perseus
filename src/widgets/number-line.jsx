@@ -1,4 +1,5 @@
 var React = require('react');
+var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -496,6 +497,7 @@ var NumberLine = React.createClass({
         var right = range[1] + buffer;
         var bottom = -1;
         var top = 1;
+
         graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40]

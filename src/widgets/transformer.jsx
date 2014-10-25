@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var InfoTip       = require("react-components/info-tip.jsx");

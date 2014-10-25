@@ -8,6 +8,7 @@
  */
 
 var React = require("react");
+var _ = require("underscore");
 
 var BlurInput    = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");

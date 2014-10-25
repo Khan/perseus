@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");

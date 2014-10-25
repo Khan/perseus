@@ -1,3 +1,5 @@
+var _ = require("underscore");
+
 var Widgets = require("./widgets.js");
 
 _.each([

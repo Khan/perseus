@@ -10,6 +10,7 @@
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var _ = require("underscore");
 
 var TextInput = React.createClass({
     render: function() {

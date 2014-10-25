@@ -1,9 +1,10 @@
-var React          = require('react');
-var InfoTip        = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.jsx");
+var React = require('react');
+var _ = require("underscore");
 
-var Util           = require("../util.js");
-var Renderer       = require("../renderer.jsx");
+var Renderer = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
+var Util = require("../util.js");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 

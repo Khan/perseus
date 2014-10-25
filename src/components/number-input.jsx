@@ -1,4 +1,6 @@
 var React = require('react');
+var _ = require("underscore");
+
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;

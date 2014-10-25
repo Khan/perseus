@@ -1,4 +1,5 @@
 var React = require('react');
+var _ = require("underscore");
 
 var Editor = require("../editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");

@@ -49,6 +49,7 @@
  *   remove:
  *     removes the point from graphie
  */
+var _ = require("underscore");
 
 var MovablePointOptions = require("./movable-point-options.js");
 var InteractiveUtil = require("./interactive-util.js");
