@@ -236,9 +236,18 @@ _.extend(InputNumber, {
 });
 
 var InputNumberEditor = React.createClass({
+    propTypes: {
+        value: React.PropTypes.number,
+        simplify: React.PropTypes.oneOf(['required', 'optional', 'enforced']),
+        size: React.PropTypes.oneOf(['normal', 'small']),
+        inexact: React.PropTypes.bool,
+        maxError: React.PropTypes.number,
+        answerType: React.PropTypes.string
+    },
+
     getDefaultProps: function() {
         return {
-            value: "0",
+            value: 0,
             simplify: "required",
             size: "normal",
             inexact: false,
@@ -259,7 +268,7 @@ var InputNumberEditor = React.createClass({
 
         return <div>
             <div><label>
-                {' '}Correct answer:{' '}
+                Correct answer:{' '}
                 <BlurInput value={"" + this.props.value}
                            onChange={this.handleAnswerChange}
                            ref="input" />
@@ -267,7 +276,7 @@ var InputNumberEditor = React.createClass({
 
             <div>
                 <label>
-                    {' '}Unsimplified answers{' '}
+                    Unsimplified answers{' '}
                     <select value={this.props.simplify}
                             onChange={e => {
                                 this.props.onChange({simplify:
@@ -298,13 +307,13 @@ var InputNumberEditor = React.createClass({
                     onChange={e => {
                         this.props.onChange({inexact: e.target.checked});
                     }} />
-                {' '}Allow inexact answers{' '}
+                {' '}Allow inexact answers
             </label>
 
             <label>
             <input /* TODO(emily): don't use a hidden checkbox for alignment */
                 type="checkbox" style={{visibility: "hidden"}} />
-            {' '}Max error:{' '}
+            Max error:{' '}
             <input type="text" disabled={!this.props.inexact}
                 defaultValue={this.props.maxError}
                 onBlur={e => {
@@ -316,7 +325,7 @@ var InputNumberEditor = React.createClass({
             </label></div>
 
             <div>
-            {' '}Answer type:{' '}
+            Answer type:{' '}
             <select
                 value={this.props.answerType}
                 onChange={e => {
@@ -333,7 +342,7 @@ var InputNumberEditor = React.createClass({
 
             <div>
                 <label>
-                    {' '}Width{' '}
+                    Width{' '}
                     <select value={this.props.size}
                             onChange={e => {
                                 this.props.onChange({size: e.target.value});
