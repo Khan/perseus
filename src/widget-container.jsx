@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var cx = React.addons.classSet;
 
@@ -21,22 +19,22 @@ var WidgetContainer = React.createClass({
             "widget-nohighlight": !this.props.shouldHighlight,
         });
 
-        var widgetType = this.props.type;
-        if (widgetType == null) {
+        var WidgetType = this.props.type;
+        if (WidgetType == null) {
             // Just give up on invalid widget types
             return <div className={className} />;
         }
 
-        if (widgetType.displayMode == null) {
+        if (WidgetType.displayMode == null) {
             throw new Error("You didn't specify a displayMode in the " +
-                          "statics for " + widgetType.displayName + ".");
+                          "statics for " + WidgetType.displayName + ".");
         }
 
         return <div className={className}
             style={{
-                display: widgetType.displayMode
+                display: WidgetType.displayMode
             }}>
-            <widgetType {...this.state.widgetProps} ref="widget" />
+            <WidgetType {...this.state.widgetProps} ref="widget" />
         </div>;
     },
 

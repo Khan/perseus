@@ -1,6 +1,5 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -11,14 +10,17 @@ var Interactive2 = require("../interactive2.js");
 var NumberInput  = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput   = require("../components/range-input.jsx");
+var MathOutput   = require("../components/math-output.jsx");
+
+var ApiOptions = require("../perseus-api.jsx").Options;
 
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
 var Line = Graphie.Line;
 var Label = Graphie.Label;
 
-var knumber = KhanUtil.knumber;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var deepEq = require("../util.js").deepEq;
@@ -113,7 +115,7 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
             var x = range[0] + i * props.tickStep;
             fractions.push(x);
         }
-        var getDenom = (x) => KhanUtil.knumber.toFraction(x)[1];
+        var getDenom = (x) => knumber.toFraction(x)[1];
         var denoms = _.map(fractions, getDenom);
         base = _.reduce(denoms, (x, y) => KhanUtil.getLCM(x, y));
     } else {
@@ -189,7 +191,8 @@ var NumberLine = React.createClass({
             isInequality: false,
             numLinePosition: 0,
             snapDivisions: 2,
-            rel: "ge"
+            rel: "ge",
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -231,15 +234,30 @@ var NumberLine = React.createClass({
                 onClick={this.handleToggleStrict} />
         </div>;
 
+        var tickCtrl;
+        if (this.props.isTickCtrl) {
+            var Input;
+            if (this.props.apiOptions.staticRender) {
+                Input = MathOutput;
+            } else {
+                Input = NumberInput;
+            }
+            tickCtrl = <label><$_>Number of divisions:</$_>{" "}
+                <Input
+                    ref={"tick-ctrl"}
+                    value={this.props.numDivisions || divisionRange[0]}
+                    checkValidity={(val) =>
+                        val >= divisionRange[0] && val <= divisionRange[1]}
+                    onChange={this.onNumDivisionsChange}
+                    onFocus={this._handleTickCtrlFocus}
+                    onBlur={this._handleTickCtrlBlur}
+                    useArrowKeys={true} />
+            </label>;
+        }
+
         return <div className={"perseus-widget " +
                 "perseus-widget-interactive-number-line"}>
-            {this.props.isTickCtrl && <NumberInput
-                label={$._("Number of divisions:")}
-                value={this.props.numDivisions || divisionRange[0]}
-                checkValidity={(val) =>
-                    val >= divisionRange[0] && val <= divisionRange[1]}
-                onChange={this.onNumDivisionsChange}
-                useArrowKeys={true} />}
+            {tickCtrl}
             {!this.isValid() ?
                 <div className="invalid-number-line">
                     Invalid number line configuration.
@@ -255,7 +273,7 @@ var NumberLine = React.createClass({
         </div>;
     },
 
-    onNumDivisionsChange: function(numDivisions) {
+    onNumDivisionsChange: function(numDivisions, cb) {
         var divRange = this.props.divisionRange.slice();
         var width = this.props.range[1] - this.props.range[0];
 
@@ -280,7 +298,60 @@ var NumberLine = React.createClass({
                 divisionRange: divRange,
                 numDivisions: numDivisions,
                 numLinePosition: newNumLinePosition
-            });
+            }, cb);
+        }
+    },
+
+    _handleTickCtrlFocus: function() {
+        this.props.onFocus(["tick-ctrl"]);
+    },
+
+    _handleTickCtrlBlur: function() {
+        this.props.onBlur(["tick-ctrl"]);
+    },
+
+    focus: function() {
+        if (this.props.isTickCtrl) {
+            this.refs["tick-ctrl"].focus();
+            return true;
+        }
+    },
+
+    focusInputPath: function(path) {
+        if (path.length === 1) {
+            this.refs[path[0]].focus();
+        }
+    },
+
+    blurInputPath: function(path) {
+        if (path.length === 1) {
+            this.refs[path[0]].blur();
+        }
+    },
+
+    getInputPaths: function() {
+        if (this.props.isTickCtrl) {
+            return [["tick-ctrl"]];
+        } else {
+            return [];
+        }
+    },
+
+    getDOMNodeForPath: function(inputPath) {
+        if (inputPath.length === 1) {
+            return this.refs[inputPath[0]].getDOMNode();
+        }
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
+            return "number";
+        }
+    },
+
+    setInputValue: function(inputPath, value, callback) {
+        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
+            this.onNumDivisionsChange(value, callback);
         }
     },
 
@@ -426,6 +497,7 @@ var NumberLine = React.createClass({
         var right = range[1] + buffer;
         var bottom = -1;
         var top = 1;
+
         graphie.init({
             range: [[left, right], [bottom, top]],
             scale: [1 / scale, 40]
@@ -449,8 +521,6 @@ var NumberLine = React.createClass({
     simpleValidate: function(rubric) {
         return NumberLine.validate(this.getUserInput(), rubric);
     },
-
-    focus: $.noop,
 
     statics: {
         displayMode: "block"

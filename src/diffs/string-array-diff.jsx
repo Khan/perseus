@@ -1,4 +1,5 @@
 var jsdiff = require("../../lib/jsdiff");
+var _ = require("underscore");
 
 var statusFor = function(chunk) {
     if (chunk.added) {

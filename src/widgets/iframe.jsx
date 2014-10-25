@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage
@@ -10,6 +8,7 @@
  */
 
 var React = require("react");
+var _ = require("underscore");
 
 var BlurInput    = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
@@ -74,8 +73,10 @@ var Iframe = React.createClass({
 
         // If the URL doesnt start with http, it must be a program ID
         if (url.length && url.indexOf("http") !== 0) {
-            url = "https://www.khanacademy.org/cs/program/" + url +
+            url = "https://www.khanacademy.org/computer-programming/program/" + url +
                     "/embedded?buttons=no&embed=yes&editor=no&author=no";
+            url = updateQueryString(url, "width", this.props.width);
+            url = updateQueryString(url, "height", this.props.height);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", window.location.origin);
         }

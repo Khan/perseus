@@ -1,6 +1,5 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
 
 var Editor = require("../editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
@@ -82,11 +81,11 @@ var Table = React.createClass({
         var columns = this._getColumns();
         var headers = this.props.headers;
 
-        var inputComponent;
+        var InputComponent;
         if (this.props.apiOptions.staticRender) {
-            inputComponent = MathOutput;
+            InputComponent = MathOutput;
         } else {
-            inputComponent = React.DOM.input;
+            InputComponent = "input";
         }
 
         return <table className="perseus-widget-table-of-values non-markdown">
@@ -118,7 +117,7 @@ var Table = React.createClass({
                     return <tr key={r}>{
                         _(columns).times((c) => {
                             return <td key={c}>
-                                <inputComponent
+                                <InputComponent
                                     ref={getRefForPath(getInputPath(r, c))}
                                     type="text"
                                     value={this.props.answers[r][c]}
@@ -172,9 +171,12 @@ var Table = React.createClass({
         this.props.onBlur(inputPath);
     },
 
-    focus: function(path) {
-        // Allow for `focus` to be called without a target path
-        path = path || getDefaultPath();
+    focus: function() {
+        this.focusInputPath(getDefaultPath());
+        return true;
+    },
+
+    focusInputPath: function(path) {
         var inputID = getRefForPath(path);
         var inputComponent = this.refs[inputID];
         if (this.props.apiOptions.staticRender) {
@@ -182,12 +184,9 @@ var Table = React.createClass({
         } else {
             inputComponent.getDOMNode().focus();
         }
-        return true;
     },
 
-    blur: function(path) {
-        // Allow for `blur` to be called without a target path
-        path = path || getDefaultPath();
+    blurInputPath: function(path) {
         var inputID = getRefForPath(path);
         var inputComponent = this.refs[inputID];
         if (this.props.apiOptions.staticRender) {
@@ -195,7 +194,6 @@ var Table = React.createClass({
         } else {
             inputComponent.getDOMNode().blur();
         }
-        return true;
     },
 
     getDOMNodeForPath: function(path) {
@@ -214,6 +212,10 @@ var Table = React.createClass({
             });
         });
         return inputPaths;
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        return "number";
     },
 
     setInputValue: function(path, newValue, cb) {
@@ -434,7 +436,7 @@ var propTransform = (editorProps) => {
     var blankAnswers = _(rows).times(function() {
         return Util.stringArrayOfSize(columns);
     });
-    return _.extend(editorProps, {
+    return _.extend({}, editorProps, {
         answers: blankAnswers
     });
 };

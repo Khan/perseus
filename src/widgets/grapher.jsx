@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+var _ = require("underscore");
 
 var InfoTip          = require("react-components/info-tip.jsx");
 var Interactive2     = require("../interactive2.js");
@@ -6,7 +6,6 @@ var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var ButtonGroup      = require("react-components/button-group.jsx");
 var GraphSettings    = require("../components/graph-settings.jsx");
 var Util             = require("../util.js");
-var knumber          = KhanUtil.knumber;
 
 /* Graphie and relevant components. */
 var Graphie      = require("../components/graphie.jsx");
@@ -14,8 +13,9 @@ var MovablePoint = Graphie.MovablePoint;
 var Plot         = Graphie.Plot;
 var MovableLine  = Graphie.MovableLine;
 
-var kvector = KhanUtil.kvector;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kvector = require("kmath").vector;
+var kpoint = require("kmath").point;
 
 /* Mixins. */
 var Changeable   = require("../mixins/changeable.jsx");
@@ -886,7 +886,7 @@ _.extend(Grapher, {
             // on the Graphie to handle snapping. Here, we need the points
             // returned to already be snapped so that the plot that goes
             // through them is correct.
-            return KhanUtil.kpoint.roundTo(unsnappedPoint, snapStep);
+            return kpoint.roundTo(unsnappedPoint, snapStep);
         });
     }
 });

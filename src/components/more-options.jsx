@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /* A div that shows/hides its children.
  * (meant for use with editor widgets)
  */

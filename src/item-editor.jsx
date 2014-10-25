@@ -1,22 +1,25 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var AnswerAreaEditor = require("./answer-area-editor.jsx");
 var Editor = require("./editor.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
 var ItemEditor = React.createClass({
     propTypes: {
         imageUploader: React.PropTypes.func,
         wasAnswered: React.PropTypes.bool,
-        gradeMessage: React.PropTypes.string
+        gradeMessage: React.PropTypes.string,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
         return {
             onChange: () => {},
             question: {},
-            answerArea: {}
+            answerArea: {},
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -38,6 +41,7 @@ var ItemEditor = React.createClass({
                         className="perseus-question-editor"
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleEditorChange}
+                        apiOptions={this.props.apiOptions}
                         {...this.props.question} />
                 </div>
 
@@ -57,6 +61,7 @@ var ItemEditor = React.createClass({
                     <AnswerAreaEditor
                         ref="answerAreaEditor"
                         onChange={this.handleAnswerAreaChange}
+                        apiOptions={this.props.apiOptions}
                         {...this.props.answerArea} />
                 </div>
 

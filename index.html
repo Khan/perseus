@@ -91,7 +91,7 @@ requirejs.config({
 // Load khan-exercises modules, then perseus
 require(["ke-deps.js"], function() {
     // pre built
-    require(["build/perseus-1.js"], initPerseus);
+    require(["build/perseus-2.js"], initPerseus);
 
     // pre built with source maps
     // require(["build/perseus.debug.js"], initPerseus);
@@ -214,8 +214,9 @@ Perseus.init({skipMathJax: false}).then(function() {
         }
     });
 
-    editor = React.renderComponent(
-        Perseus.StatefulEditorPage(editorProps, null),
+    var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
+    editor = React.render(
+        StatefulEditorPage(editorProps, null),
         document.getElementById("perseus-container")
     );
 

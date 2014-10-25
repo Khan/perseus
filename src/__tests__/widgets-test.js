@@ -79,12 +79,12 @@ describe("widgets", function() {
 
     beforeEach(function() {
         Perseus = require("../perseus.js");  // loads all-widgets.jsx
-        Renderer = require("../renderer.jsx");
+        Renderer = React.createFactory(require("../renderer.jsx"));
         fixture = document.createElement('div');
     });
 
     xit("grades input-number", function() {
-        var component = React.renderComponent(Renderer({
+        var component = React.render(Renderer({
             content: "[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": {
@@ -113,7 +113,7 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple", function() {
-        var component = React.renderComponent(Renderer({
+        var component = React.render(Renderer({
             "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
             "widgets": {
                 "input-number 1": {
@@ -158,7 +158,7 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple simplify-enforced", 21, function() {
-        var component = React.renderComponent(Renderer({
+        var component = React.render(Renderer({
             "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
             "widgets": {
                 "input-number 1": {

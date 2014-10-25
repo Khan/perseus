@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 /**
  * Changeable
  *
@@ -7,6 +6,8 @@
  * This.change takes prop changes as parameters, and calls
  * this.props.onChange with the modified props.
  */
+
+var _ = require("underscore");
 
 var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 

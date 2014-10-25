@@ -23,20 +23,29 @@
  * These are css class names that will continue to preserve their
  * semantic meaning across the same perseus api major version.
  */
+
+var StubTagEditor = require("./components/stub-tag-editor.jsx");
+
 module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
             fancyDropdowns: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
-            staticRender: React.PropTypes.bool.isRequired
+            staticRender: React.PropTypes.bool.isRequired,
+            GroupMetadataEditor: React.PropTypes.func.isRequired,
+            // Enable old answer types in test.html
+            // TODO(aria) Remove when Alex kills the answer area
+            enableOldAnswerTypes: React.PropTypes.bool.isRequired,
         }).isRequired,
 
         defaults: {
             fancyDropdowns: false,
             onInputError: function() { },
             onFocusChange: function() { },
-            staticRender: false
+            staticRender: false,
+            GroupMetadataEditor: StubTagEditor,
+            enableOldAnswerTypes: false,
         }
     },
     ClassNames: {

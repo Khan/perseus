@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var InfoTip       = require("react-components/info-tip.jsx");
@@ -22,11 +22,12 @@ var deepEq = require("../util.js").deepEq;
 var getGridStep = require("../util.js").getGridStep;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-var knumber = KhanUtil.knumber;
-var kvector = KhanUtil.kvector;
-var kpoint = KhanUtil.kpoint;
-var kray = KhanUtil.kray;
-var kline = KhanUtil.kline;
+
+var knumber = require("kmath").number;
+var kvector = require("kmath").vector;
+var kpoint = require("kmath").point;
+var kray = require("kmath").ray;
+var kline = require("kmath").line;
 
 var assert = require("../interactive2/interactive-util.js").assert;
 
@@ -159,9 +160,9 @@ function scaleToRange(dist, range) {
 }
 
 function dilatePointFromCenter(point, dilationCenter, scale) {
-    var pv = KhanUtil.kvector.subtract(point, dilationCenter);
-    var pvScaled = KhanUtil.kvector.scale(pv, scale);
-    var transformedPoint = KhanUtil.kvector.add(dilationCenter, pvScaled);
+    var pv = kvector.subtract(point, dilationCenter);
+    var pvScaled = kvector.scale(pv, scale);
+    var transformedPoint = kvector.add(dilationCenter, pvScaled);
     return transformedPoint;
 }
 
@@ -362,21 +363,27 @@ var TransformOps = {
          * component, or threading the call down and returning the result. */
         _getComponentAtPath: function(path) {
             var transform = this.refs.transform;
-            path = path || _.head(transform.getInputPaths());
             var ref = _.head(path);
             return transform.refs[ref];
         },
-        focus: function(path) {
-            return this._getComponentAtPath(path).focus();
+        focus: function() {
+            var transform = this.refs.transform;
+            var path = _.head(transform.getInputPaths());
+            if (path) {
+                this.focusInputPath(path);
+            }
         },
-        blur: function(path) {
-            return this._getComponentAtPath(path).blur();
+        focusInputPath: function(path) {
+            this._getComponentAtPath(path).focus();
+        },
+        blurInputPath: function(path) {
+            this._getComponentAtPath(path).blur();
         },
         getDOMNodeForPath: function(path) {
             return this._getComponentAtPath(path).getDOMNode();
         },
-        getAcceptableFormatsForInputPath: function(path) {
-            return null;
+        getGrammarTypeForPath: function(path) {
+            return "number";
         },
         setInputValue: function(path, value, cb) {
             this.refs.transform.setInputValue(path, value, cb);
@@ -399,7 +406,7 @@ var Transformations = {
         lowerNounName: $._("translation"),
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kvector.add(coord, transform.vector);
+                return kvector.add(coord, transform.vector);
             };
         },
         isValid: function(transform) {
@@ -439,12 +446,12 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var vector = [
                     <TeX>\langle</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x"
                         placeholder={0}
                         value={this.state.vector[0]}
@@ -458,7 +465,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "x")}
                         onBlur={_.partial(this.props.onBlur, "x")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y"
                         placeholder={0}
                         value={this.state.vector[1]}
@@ -512,7 +519,7 @@ var Transformations = {
         lowerNounName: $._("rotation"),
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kpoint.rotateDeg(coord, transform.angleDeg,
+                return kpoint.rotateDeg(coord, transform.angleDeg,
                         transform.center);
             };
         },
@@ -560,12 +567,12 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var point = [
                     <TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="centerX"
                         placeholder={0}
                         value={this.state.center[0]}
@@ -579,7 +586,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "centerX")}
                         onBlur={_.partial(this.props.onBlur, "centerX")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="centerY"
                         placeholder={0}
                         value={this.state.center[1]}
@@ -595,7 +602,7 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 var degrees = [
-                    <inputComponent
+                    <InputComponent
                         ref="angleDeg"
                         placeholder={0}
                         value={this.state.angleDeg}
@@ -654,7 +661,7 @@ var Transformations = {
         lowerNounName: $._("reflection"),
         apply: function(transform) {
             return function(coord) {
-                return KhanUtil.kpoint.reflectOverLine(
+                return kpoint.reflectOverLine(
                     coord,
                     transform.line
                 );
@@ -700,11 +707,11 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var point1 = [<TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x1"
                         value={this.state.line[0][0]}
                         useArrowKeys={true}
@@ -716,7 +723,7 @@ var Transformations = {
                             this.props.onBlur, "x1"
                         )}/>,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y1"
                         value={this.state.line[0][1]}
                         useArrowKeys={true}
@@ -726,7 +733,7 @@ var Transformations = {
                     <TeX>)</TeX>
                 ];
                 var point2 = [<TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x2"
                         value={this.state.line[1][0]}
                         useArrowKeys={true}
@@ -734,7 +741,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "x2")}
                         onBlur={_.partial(this.props.onBlur, "x2")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y2"
                         value={this.state.line[1][1]}
                         useArrowKeys={true}
@@ -844,11 +851,11 @@ var Transformations = {
                 }
             },
             render: function() {
-                var inputComponent = (this.props.apiOptions.staticRender) ?
+                var InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
                         NumberInput;
                 var point = [<TeX>(</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="x"
                         placeholder={0}
                         value={this.state.center[0]}
@@ -862,7 +869,7 @@ var Transformations = {
                         onFocus={_.partial(this.props.onFocus, "x")}
                         onBlur={_.partial(this.props.onBlur, "x")} />,
                     <TeX>{", {}"}</TeX>,
-                    <inputComponent
+                    <InputComponent
                         ref="y"
                         placeholder={0}
                         value={this.state.center[1]}
@@ -877,7 +884,7 @@ var Transformations = {
                         onBlur={_.partial(this.props.onBlur, "y")} />,
                     <TeX>)</TeX>
                 ];
-                var scale = <inputComponent
+                var scale = <InputComponent
                     ref="scale"
                     placeholder={1}
                     value={this.state.scale}
@@ -965,7 +972,7 @@ var ShapeTypes = {
                     isMoving = true;
                 }
 
-                var moveVector = KhanUtil.kvector.subtract(
+                var moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -987,7 +994,7 @@ var ShapeTypes = {
                         // movablePoint class, so only translate the other
                         // points
                         if (point !== currentPoint) {
-                            point.setCoord(KhanUtil.kvector.add(
+                            point.setCoord(kvector.add(
                                 point.coord,
                                 moveVector
                             ));
@@ -1000,7 +1007,7 @@ var ShapeTypes = {
                 // "bouncy" as they are updated with currentPoint at the
                 // current mouse coordinate (oldCoord), rather than newCoord
                 var oldCoord = currentPoint.coord;
-                var newCoord = KhanUtil.kvector.add(
+                var newCoord = kvector.add(
                     currentPoint.coord,
                     moveVector
                 );
@@ -1024,7 +1031,7 @@ var ShapeTypes = {
                     // because MovablePoint's onMoveEnd semantics suck.
                     // It returns the mouseX, mouseY without processing them
                     // through onMove, leaving us with weird fractional moves
-                    var change = KhanUtil.kvector.subtract(
+                    var change = kvector.subtract(
                         currentPoint.coord,
                         previousCoord
                     );
@@ -1555,7 +1562,7 @@ var TransformationsShapeEditor = React.createClass({
         var radius = scaleToRange(4, this.refs.graph.props.range);
         var offset = (1 / 2 - 1 / pointCount) * 180;
         var coords = _.times(pointCount, function(i) {
-            return KhanUtil.kpoint.rotateDeg([radius, 0],
+            return kpoint.rotateDeg([radius, 0],
                 360 * i / pointCount + offset);
         });
 
@@ -2545,12 +2552,24 @@ var Transformer = React.createClass({
         return caller[functionName].apply(caller, args);
     },
 
-    focus: function(path) {
-        return this._passToInner('focus', path);
+    focus: function() {
+        // Just focus the first showing input
+        var inputs = this.getInputPaths();
+        if (inputs.length > 0) {
+            this.focusInputPath(inputs[0]);
+            return true;
+        }
+        return false;
     },
 
-    blur: function(path) {
-        return this._passToInner('blur', path);
+    focusInputPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('focusInputPath', path);
+    },
+
+    blurInputPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('blurInputPath', path);
     },
 
     setInputValue: function(path, value, cb) {
@@ -2558,14 +2577,14 @@ var Transformer = React.createClass({
         return this._passToInner('setInputValue', path, value, cb);
     },
 
-    getAcceptableFormatsForInputPath: function(path) {
-        assert(path.length >= 2);
-        return this._passToInner('getAcceptableFormatsForInputPath', path);
-    },
-
     getDOMNodeForPath: function(path) {
         assert(path.length >= 2);
         return this._passToInner('getDOMNodeForPath', path);
+    },
+
+    getGrammarTypeForPath: function(path) {
+        assert(path.length >= 2);
+        return this._passToInner('getGrammarTypeForPath', path);
     }
 });
 

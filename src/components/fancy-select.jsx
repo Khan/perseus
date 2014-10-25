@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * A <select> component rendered with classes instead of natively,
  * so that the classes may be styled/animated/magics
@@ -26,7 +24,7 @@ var DROPDOWN_OFFSET = 76;
 var cloneWithProps = React.addons.cloneWithProps;
 
 var cloneSingle = (comp) => {
-    if (React.isValidComponent(comp)) {
+    if (React.isValidElement(comp)) {
         return cloneWithProps(comp);
     } else {
         return comp;

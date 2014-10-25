@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
+var React = require('react');
+var _ = require("underscore");
 
-var React         = require('react');
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var InfoTip       = require("react-components/info-tip.jsx");
@@ -8,8 +8,8 @@ var Interactive2  = require("../interactive2.js");
 var NumberInput   = require("../components/number-input.jsx");
 var Util          = require("../util.js");
 
-var knumber = KhanUtil.knumber;
-var kpoint  = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 var DeprecationMixin = Util.DeprecationMixin;
 
@@ -885,12 +885,26 @@ var InteractiveGraph = React.createClass({
             return;
         }
 
+        // Apply the parabola
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
-        this.parabola = this.graphie.plot(function(x) {
-            return (a * x + b) * x + c;
-        }, this.props.range[0]).attr({
-            stroke: KhanUtil.INTERACTIVE
-        });
+        var plot = (x) => {
+            return [x, (a * x + b) * x + c];
+        };
+
+        // Calculate x coordinates of points on parabola
+        var xVertex = (a === 0) ? 0 : -b / (2 * a);
+        var distToEdge = Math.max(
+            Math.abs(xVertex - this.props.range[0][0]),
+            Math.abs(xVertex - this.props.range[0][1])
+        );
+
+        // To guarantee that drawn parabola to spans the viewport, use a point
+        // on the edge of the graph furtherest from the vertex
+        var xPoint = xVertex + distToEdge;
+
+        // Plot and style
+        this.parabola = this.graphie.parabola(plot(xVertex), plot(xPoint));
+        this.parabola.attr({ stroke: KhanUtil.INTERACTIVE });
         this.parabola.toBack();
     },
 
@@ -969,11 +983,8 @@ var InteractiveGraph = React.createClass({
         }
 
         var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
-        this.sinusoid = this.graphie.plot(function(x) {
-            return a * Math.sin(b * x - c) + d;
-        }, this.props.range[0]).attr({
-            stroke: KhanUtil.BLUE
-        });
+        this.sinusoid = this.graphie.sinusoid(a, b, c, d);
+        this.sinusoid.attr({ stroke: KhanUtil.DYNAMIC });
         this.sinusoid.toBack();
     },
 

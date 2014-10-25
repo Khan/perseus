@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
@@ -11,13 +11,7 @@ var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 
-var mapObject = function(obj, lambda) {
-    var result = {};
-    _.each(_.keys(obj), function(key) {
-        result[key] = lambda(obj[key], key);
-    });
-    return result;
-};
+var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
 
 var specialChars = {
     // escaped: original
@@ -105,7 +99,9 @@ var Renderer = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: React.PropTypes.object,
         questionCompleted: React.PropTypes.bool,
-        onInteractWithWidget: React.PropTypes.func
+        onInteractWithWidget: React.PropTypes.func,
+        interWidgets: React.PropTypes.func,
+        alwaysUpdate: React.PropTypes.bool,
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -119,6 +115,7 @@ var Renderer = React.createClass({
         return {
             content: "",
             widgets: {},
+            images: {},
             // TODO(aria): Remove this now that it is true everywhere
             // (here and in perseus-i18n)
             ignoreMissingWidgets: true,
@@ -130,14 +127,15 @@ var Renderer = React.createClass({
             // It is a good idea to debounce any functions passed here.
             questionCompleted: false,
             onRender: function() {},
-            onInteractWithWidget: function() {}
+            onInteractWithWidget: function() {},
+            interWidgets: () => null,
         };
     },
 
     getInitialState: function() {
-        return _.extend({
-            jiptContent: null
-        }, this._getInitialWidgetState());
+        return _.extend(
+            {jiptContent: null},
+            this._getInitialWidgetState());
     },
 
     _getInitialWidgetState: function(props) {
@@ -163,7 +161,7 @@ var Renderer = React.createClass({
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo, props) {
-        return mapObject(allWidgetInfo, (editorProps) => {
+        return props.savedState || mapObject(allWidgetInfo, (editorProps) => {
             return Widgets.getRendererPropsForWidgetInfo(
                 editorProps,
                 props.problemNum
@@ -172,6 +170,15 @@ var Renderer = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
+        if (this.props.alwaysUpdate) {
+            // TOTAL hacks so that interWidgets doesn't break
+            // when one widget updates without the other.
+            // See passage-refs inside radios, which was why
+            // this was introduced.
+            // I'm sorry!
+            // TODO(aria): cry
+            return true;
+        }
         var stateChanged = !_.isEqual(this.state, nextState);
         var propsChanged = !_.isEqual(this.props, nextProps);
         return propsChanged || stateChanged;
@@ -229,6 +236,16 @@ var Renderer = React.createClass({
     },
 
     /**
+    * Serializes the questions state so it can be recovered.
+    *
+    * The return value of this function can be safely passed in through the
+    * savedState prop and things will behave as you expect.
+    */
+    getSerializedState: function() {
+        return this.state.widgetProps;
+    },
+
+    /**
      * Allows inter-widget communication.
      *
      * Each widget can access this function using `this.props.interWidgets`
@@ -268,11 +285,25 @@ var Renderer = React.createClass({
             filterFunc = filterCriterion;
         }
 
-        return this.widgetIds.filter((id) => {
+        var results = this.widgetIds.filter((id) => {
             var widgetInfo = this.state.widgetInfo[id];
             var widget = this.getWidgetInstance(id);
             return filterFunc(id, widgetInfo, widget);
         }).map(this.getWidgetInstance);
+
+        // We allow the parent of our renderer to intercept our
+        // interwidgets call.
+        var propsInterWidgetResult = this.props.interWidgets(
+            filterCriterion,
+            results // allow our parent to inspect the local
+                    // interwidget results before acting
+        );
+
+        if (propsInterWidgetResult) {
+            return propsInterWidgetResult;
+        } else {
+            return results;
+        }
     },
 
     getWidgetInstance: function(id) {
@@ -465,6 +496,22 @@ var Renderer = React.createClass({
                 {node.content}
             </TeX>;
 
+        } else if (node.type === "image") {
+            // We need to add width and height to images from our
+            // props.images mapping.
+
+            // We do a _.has check here to avoid wierd things like
+            // 'toString' or '__proto__' as a url.
+            var extraAttrs = (_.has(this.props.images, node.target)) ?
+                this.props.images[node.target] :
+                null;
+
+            return <img
+                src={PerseusMarkdown.sanitizeUrl(node.target)}
+                alt={node.alt}
+                title={node.title}
+                {...extraAttrs} />;
+
         } else {
             // If it's a "normal" or "simple" markdown node, just
             // output it using its output rule.
@@ -475,22 +522,7 @@ var Renderer = React.createClass({
     handleRender: function(prevProps) {
         var onRender = this.props.onRender;
         var oldOnRender = prevProps.onRender;
-
         var $images = $(this.getDOMNode()).find("img");
-        var imageAttrs = this.props.images || {};
-
-        // TODO(jack): Weave this into the rendering in markedReact by passing
-        // a function for how to render images, which reads this data
-        // (probably part of a larger marked refactor to take all rendering
-        // methods via parameters)
-        _.map(_.toArray($images), (image, i) => {
-            var $image = $(image);
-            var src = $image.attr('src');
-            var attrs = imageAttrs[src];
-            if (attrs) {
-                $image.attr(attrs);
-            }
-        });
 
         // Fire callback on image load...
         // TODO (jack): make this call happen exactly once through promises!
@@ -589,14 +621,12 @@ var Renderer = React.createClass({
         }
     },
 
-    getAcceptableFormatsForInputPath: function(path) {
+    getGrammarTypeForPath: function(path) {
         var widgetId = _.first(path);
         var interWidgetPath = _.rest(path);
 
-        // Widget handles parsing of the interWidgetPath.
         var widget = this.getWidgetInstance(widgetId);
-        return widget.getAcceptableFormatsForInputPath(
-            interWidgetPath);
+        return widget.getGrammarTypeForPath(interWidgetPath);
     },
 
     getInputPaths: function() {
@@ -606,19 +636,12 @@ var Renderer = React.createClass({
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
                 var widgetInputPaths = widget.getInputPaths();
-                if (widgetInputPaths === widget) {
-                    // Special case: we allow you to just return the widget
-                    inputPaths.push([
-                        widgetId
-                    ]);
-                } else {
-                    // Prefix paths with their widgetID and add to collective
-                    // list of paths.
-                    _.each(widgetInputPaths, (inputPath) => {
-                        var relativeInputPath = [widgetId].concat(inputPath);
-                        inputPaths.push(relativeInputPath);
-                    });
-                }
+                // Prefix paths with their widgetID and add to collective
+                // list of paths.
+                _.each(widgetInputPaths, (inputPath) => {
+                    var relativeInputPath = [widgetId].concat(inputPath);
+                    inputPaths.push(relativeInputPath);
+                });
             }
         });
 
@@ -638,7 +661,7 @@ var Renderer = React.createClass({
         var interWidgetPath = _.rest(path);
 
         // Widget handles parsing of the interWidgetPath
-        var focusWidget = this.getWidgetInstance(widgetId).focus;
+        var focusWidget = this.getWidgetInstance(widgetId).focusInputPath;
         focusWidget && focusWidget(interWidgetPath);
     },
 
@@ -654,7 +677,7 @@ var Renderer = React.createClass({
         // We might be in the editor and blurring a widget that no
         // longer exists, so only blur if we actually found the widget
         if (widget) {
-            var blurWidget = this.getWidgetInstance(widgetId).blur;
+            var blurWidget = this.getWidgetInstance(widgetId).blurInputPath;
             // Widget handles parsing of the interWidgetPath
             blurWidget && blurWidget(interWidgetPath);
         }
@@ -730,28 +753,75 @@ var Renderer = React.createClass({
         widget.setInputValue(interWidgetPath, newValue, focus);
     },
 
-    guessAndScore: function() {
+    /**
+     * Returns an array of the widget `.getUserInput()` results
+     */
+    getUserInput: function() {
+        return _.map(this.widgetIds, (id) => {
+            return this.getWidgetInstance(id).getUserInput();
+        });
+    },
+
+    /**
+     * Returns an array of all widget IDs in the order they occur in
+     * the content.
+     */
+    getWidgetIds: function() {
+        return this.widgetIds;
+    },
+
+    /**
+     * Returns the result of `.getUserInput()` for each widget, in
+     * a map from widgetId to userInput.
+     */
+    getUserInputForWidgets: function() {
+        return mapObjectFromArray(this.widgetIds, (id) => {
+            return this.getWidgetInstance(id).getUserInput();
+        });
+    },
+
+    /**
+     * Returns an object mapping from widget ID to perseus-style score.
+     * The keys of this object are the values of the array returned
+     * from `getWidgetIds`.
+     */
+    scoreWidgets: function() {
         var widgetProps = this.state.widgetInfo;
         var onInputError = this.props.apiOptions.onInputError ||
                 function() { };
 
-        var totalGuess = _.map(this.widgetIds, function(id) {
-            return this.getWidgetInstance(id).getUserInput();
-        }, this);
+        var gradedWidgetIds = _.filter(this.widgetIds, (id) => {
+            var props = widgetProps[id];
+            // props.graded is unset or true
+            return props.graded == null || props.graded;
+        });
 
-        var totalScore = _.chain(this.widgetIds)
-                .filter(function(id) {
-                    var props = widgetProps[id];
-                    // props.graded is unset or true
-                    return props.graded == null || props.graded;
-                })
-                .map(function(id) {
-                    var props = widgetProps[id];
-                    var widget = this.getWidgetInstance(id);
-                    return widget.simpleValidate(props.options, onInputError);
-                }, this)
-                .reduce(Util.combineScores, Util.noScore)
-                .value();
+        var widgetScores = mapObjectFromArray(gradedWidgetIds, (id) => {
+            var props = widgetProps[id];
+            var widget = this.getWidgetInstance(id);
+            return widget.simpleValidate(props.options, onInputError);
+        });
+
+        return widgetScores;
+    },
+
+    /**
+     * Grades the content.
+     *
+     * Returns a perseus-style score of {
+     *     type: "invalid"|"points",
+     *     message: string,
+     *     earned: undefined|number,
+     *     total: undefined|number
+     * }
+     */
+    score: function() {
+        return _.reduce(this.scoreWidgets(), Util.combineScores, Util.noScore);
+    },
+
+    guessAndScore: function() {
+        var totalGuess = this.getUserInput();
+        var totalScore = this.score();
 
         return [totalGuess, totalScore];
     },

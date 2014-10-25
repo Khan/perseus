@@ -80,6 +80,10 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	npm install
 	rm -rf node_modules/react-components
 	ln -s ../react-components/js node_modules/react-components
+	rm -rf node_modules/kmath
+	ln -s ../kmath node_modules/kmath
+	rm -rf node_modules/simple-markdown
+	ln -s ../simple-markdown node_modules/simple-markdown
 endif
 
 clean:

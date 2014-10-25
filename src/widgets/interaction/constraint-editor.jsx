@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var ButtonGroup = require("react-components/button-group.jsx");
 var Changeable = require("../../mixins/changeable.jsx");
 var MathInput = require("../../components/math-input.jsx");

@@ -193,7 +193,7 @@ var defaultQuestion = {
 };
 
 var editor;
-var problemNum = _.random(1, 99);
+var problemNum = Math.floor(Math.random() * 100);
 var enabledFeatures = {
     highlight: true,
     toolTipFormats: true,
@@ -212,7 +212,8 @@ $('#permalink').on('click', function(e) {
     e.preventDefault();
 });
 $('#problemNum').text(problemNum);
-$('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
+$('#enabledFeatures').html(Object.keys(enabledFeatures).map(function(feature) {
+    var enabled = enabledFeatures[feature];
     return '<span style="margin-left: 5px; background: ' +
             (enabled ? "#aaffaa" : "#ffcccc") + ';">' + feature + '</span>';
 }).join(''));
@@ -221,6 +222,7 @@ var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
 var question = query.content ? JSON.parse(query.content) : defaultQuestion;
 
 Perseus.init({skipMathJax: false}).then(function() {
+    var _ = window._;
 
     var editorProps = _.extend(question, {
         problemNum: problemNum,
@@ -230,6 +232,7 @@ Perseus.init({skipMathJax: false}).then(function() {
             _.delay(callback, 1000, "http://fake.image.url");
         },
         apiOptions: {
+            enableOldAnswerTypes: true,
             fancyDropdowns: true,
             __onInputError: function() {
                 var args = _.toArray(arguments);
@@ -248,8 +251,9 @@ Perseus.init({skipMathJax: false}).then(function() {
         }
     });
 
-    editor = React.renderComponent(
-        Perseus.StatefulEditorPage(editorProps, null),
+    var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
+    editor = React.render(
+        StatefulEditorPage(editorProps, null),
         document.getElementById("perseus-container")
     );
 

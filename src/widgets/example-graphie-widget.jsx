@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 /**
  * This is an example graphie-using widget
  *
@@ -7,6 +5,8 @@
  */
 
 var React = require('react');
+var _ = require("underscore");
+
 var Util = require("../util.js");
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -15,8 +15,8 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
 
-var knumber = KhanUtil.knumber;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 /**
  * This is the widget's renderer. It shows up in the right column

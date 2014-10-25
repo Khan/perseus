@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var assert = require("assert");
 var Perseus = require("../perseus.js");
 var Renderer = Perseus.Renderer;

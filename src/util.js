@@ -1,3 +1,5 @@
+var _ = require("underscore");
+
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
         return _.map(children, function(child) {
@@ -135,6 +137,26 @@ var Util = {
                 type: "invalid",
                 message: message
             };
+        }
+    },
+
+    keScoreFromPerseusScore: function(score, guess) {
+        if (score.type === "points") {
+            return {
+                empty: false,
+                correct: score.earned >= score.total,
+                message: score.message,
+                guess: guess
+            };
+        } else if (score.type === "invalid") {
+            return {
+                empty: true,
+                correct: false,
+                message: score.message,
+                guess: guess
+            };
+        } else {
+            throw new Error("Invalid score type: " + score.type);
         }
     },
 

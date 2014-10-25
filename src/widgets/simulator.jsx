@@ -1,6 +1,5 @@
-/** @jsx React.DOM */
-
 var InfoTip      = require("react-components/info-tip.jsx");
+var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -22,7 +21,7 @@ var NumberInput  = require("../components/number-input.jsx");
 var MathOutput  = require("../components/math-output.jsx");
 var seededRNG    = require("../util.js").seededRNG;
 var Util         = require("../util.js");
-var knumber      = KhanUtil.knumber;
+var knumber      = require("kmath").number;
 
 var defaultBoxSize = 400;
 var maxSampleSize = 1000;
@@ -420,11 +419,11 @@ var Simulator = React.createClass({
         var style = (this.state.invalidInput) ? highlightStyle
                                               : unhighlightStyle;
 
-        var inputComponent = this.props.apiOptions.staticRender ? MathOutput
+        var InputComponent = this.props.apiOptions.staticRender ? MathOutput
                                                                 : NumberInput;
 
         var proportionInput = <div>
-            <inputComponent
+            <InputComponent
                 ref="userProportion"
                 style={style}
                 value={this.calculateDisplayProportion()}
@@ -439,7 +438,7 @@ var Simulator = React.createClass({
         </div>;
 
         var sampleSizeInput = <div>
-            <inputComponent
+            <InputComponent
                 ref="sampleSize"
                 style={style}
                 value={this.props.sampleSize}
@@ -624,26 +623,35 @@ var Simulator = React.createClass({
         return [["userProportion"], ["sampleSize"]];
     },
 
-    focus: function(path) {
-        path = path || _.head(this.getInputPaths());
-        var inputID = _.head(path);
-        var inputComponent = this.refs[inputID];
-        inputComponent.focus();
+    focus: function() {
+        var path = _.head(this.getInputPaths());
+        this.focusInputPath(path);
         return true;
     },
 
-    blur: function(path) {
-        path = path || _.head(this.getInputPaths());
+    focusInputPath: function(path) {
+        assert(path.length > 0);
+        var inputID = _.head(path);
+        var inputComponent = this.refs[inputID];
+        inputComponent.focus();
+    },
+
+    blurInputPath: function(path) {
+        assert(path.length > 0);
         var inputID = _.head(path);
         var inputComponent = this.refs[inputID];
         inputComponent.blur();
-        return true;
     },
 
     getDOMNodeForPath: function(path) {
         assert(path.length > 0);
         var inputID = _.head(path);
         return this.refs[inputID].getDOMNode();
+    },
+
+    getGrammarTypeForPath: function(path) {
+        assert(path.length > 0);
+        return "number";
     },
 
     setInputValue: function(path, newValue, cb) {

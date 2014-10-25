@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React        = require('react');
+var _ = require("underscore");
+
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 

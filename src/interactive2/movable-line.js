@@ -1,6 +1,7 @@
 /**
  * MovableLine
  */
+var _ = require("underscore");
 
 var MovableLineOptions = require("./movable-line-options.js");
 var InteractiveUtil = require("./interactive-util.js");
@@ -8,9 +9,9 @@ var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var knumber = KhanUtil.knumber;
-var kvector = KhanUtil.kvector;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kvector = require("kmath").vector;
+var kpoint = require("kmath").point;
 
 var FUNCTION_ARRAY_OPTIONS = [
     "add",

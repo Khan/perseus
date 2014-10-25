@@ -32,7 +32,7 @@ if (!window.getSelection) {
 }
 
 var _ = require("../lib/underscore.js");
-global._ = global.window._ = _;
+global._ = window._ = _;
 
 // Create a function to copy globals from `window` to `global`
 var jsdomWindowProps = _.clone(global.window);
@@ -49,12 +49,13 @@ var updateGlobals = function() {
 };
 
 // Third-party global dependencies
-global.React = window.React = withNavigator(function() {
+global.React = withNavigator(function() {
     // react-with-addons requires global.navigator to be defined,
     // but some other deps (including requirejs) require it to be
     // undefined to detect that we are running in Node.
     // We therefore define it only while loading React.
-    return require("../lib/react-with-addons.js");
+    require("../lib/react-with-addons.js");
+    return window.React;
 });
 require("../lib/jquery.js");
 require("../lib/mathquill/mathquill-basic.js");

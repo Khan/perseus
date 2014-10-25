@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React             = require('react');
+var _ = require("underscore");
+
 var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");
 var Renderer          = require("../renderer.jsx");
@@ -138,24 +138,28 @@ var InputNumber = React.createClass({
         return true;
     },
 
-    blur: function() {
+    focusInputPath: function(inputPath) {
+        this.refs.input.focus();
+    },
+
+    blurInputPath: function(inputPath) {
         this.refs.input.blur();
-        return true;
     },
 
     getInputPaths: function() {
-        return this;
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
+    },
+
+    getGrammarTypeForPath: function(path) {
+        return "number";
     },
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
             currentValue: newValue
         }, cb);
-    },
-
-    getAcceptableFormatsForInputPath: function() {
-        // TODO(charlie): What format does the mobile team want this in?
-        return answerTypes[this.props.answerType].forms.split(', ');
     },
 
     getUserInput: function() {

@@ -1,11 +1,12 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 var DragTarget = require("react-components/drag-target.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
+var ApiOptions = require("./perseus-api.jsx").Options;
 
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
@@ -89,7 +90,8 @@ var WidgetEditor = React.createClass({
         type: React.PropTypes.string,
         id: React.PropTypes.string,
         graded: React.PropTypes.bool,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -117,7 +119,7 @@ var WidgetEditor = React.createClass({
         );
         var type = upgradedWidgetInfo.type;
 
-        var cls = Widgets.getEditor(type);
+        var Ed = Widgets.getEditor(type);
 
         var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
@@ -143,9 +145,10 @@ var WidgetEditor = React.createClass({
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
                 {isUngradedEnabled && gradedPropBox}
-                <cls
+                <Ed
                     ref="widget"
                     onChange={this._handleWidgetChange}
+                    apiOptions={this.props.apiOptions}
                     {...upgradedWidgetInfo.options} />
             </div>
         </div>;
@@ -245,7 +248,8 @@ var sizeImage = function(url, callback) {
 
 var Editor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -255,7 +259,8 @@ var Editor = React.createClass({
             widgets: {},
             images: {},
             widgetEnabled: true,
-            immutableWidgets: false
+            immutableWidgets: false,
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -269,6 +274,7 @@ var Editor = React.createClass({
             type={type}
             onChange={this._handleWidgetEditorChange.bind(this, id)}
             onRemove={this._handleWidgetEditorRemove.bind(this, id)}
+            apiOptions={this.props.apiOptions}
             {...this.props.widgets[id]} />;
     },
 
@@ -396,6 +402,7 @@ var Editor = React.createClass({
                 <option value="">Insert template{"\u2026"}</option>
                 <option disabled>--</option>
                 <option value="table">Table</option>
+                <option value="titledTable">Titled table</option>
                 <option value="alignment">Aligned equations</option>
                 <option value="piecewise">Piecewise function</option>
             </select>;
@@ -609,6 +616,13 @@ var Editor = React.createClass({
         var template;
         if (templateType === "table") {
             template = "header 1 | header 2 | header 3\n" +
+                       "- | - | -\n" +
+                       "data 1 | data 2 | data 3\n" +
+                       "data 4 | data 5 | data 6\n" +
+                       "data 7 | data 8 | data 9";
+        } else if (templateType === "titledTable") {
+            template = "|| **Table title** ||\n" +
+                       "header 1 | header 2 | header 3\n" +
                        "- | - | -\n" +
                        "data 1 | data 2 | data 3\n" +
                        "data 4 | data 5 | data 6\n" +

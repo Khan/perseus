@@ -1,10 +1,10 @@
-/** @jsx React.DOM */
-
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
 
 var React = require('react');
+var _ = require("underscore");
+
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var InfoTip = require("react-components/info-tip.jsx");

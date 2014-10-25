@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
@@ -116,7 +116,11 @@ var EditorPage = React.createClass({
         // will be hosted. Image drag and drop is disabled when imageUploader
         // is null.
         imageUploader: React.PropTypes.func,
-        enabledFeatures: EnabledFeatures.propTypes
+        enabledFeatures: EnabledFeatures.propTypes,
+        // We don't specify a more specific type here because it's valid
+        // for a client of Perseus to specify a subset of the API options,
+        // in which case we default the rest in `this._apiOptions()`
+        apiOptions: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -176,7 +180,8 @@ var EditorPage = React.createClass({
                     onChange={this.handleChange}
                     wasAnswered={this.state.wasAnswered}
                     gradeMessage={this.state.gradeMessage}
-                    onCheckAnswer={this.handleCheckAnswer} />
+                    onCheckAnswer={this.handleCheckAnswer}
+                    apiOptions={this._apiOptions()} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -226,11 +231,7 @@ var EditorPage = React.createClass({
             enabledFeatures: {
                 toolTipFormats: true
             },
-            apiOptions: _.extend(
-                {},
-                ApiOptions.defaults,
-                this.props.apiOptions
-            ),
+            apiOptions: this._apiOptions(),
             initialHintsVisible: 0  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
@@ -240,10 +241,18 @@ var EditorPage = React.createClass({
                                "enabledFeatures")
         );
 
-        this.renderer = React.renderComponent(
+        this.renderer = React.render(
             <ItemRenderer {...rendererConfig} />,
             this.rendererMountNode,
             cb);
+    },
+
+    _apiOptions: function() {
+        return _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions
+        );
     },
 
     handleChange: function(toChange, cb, silent) {

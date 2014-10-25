@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var cx = React.addons.classSet;
 var performDiff = require("./widget-diff-performer.jsx");
 

@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var ButtonGroup = require("react-components/button-group.jsx");
 
 var ArrowPicker = React.createClass({

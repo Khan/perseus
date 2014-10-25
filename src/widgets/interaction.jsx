@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -23,7 +23,7 @@ var Plot = Graphie.Plot;
 var PlotParametric = Graphie.PlotParametric;
 var Point = Graphie.Point;
 
-var kvector = KhanUtil.kvector;
+var kvector = require("kmath").vector;
 
 // Memoize KAS parsing
 var KAShashFunc = (expr, options) => {

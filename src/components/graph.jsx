@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var Util = require("../util.js");
 
 var defaultBoxSize = 400;

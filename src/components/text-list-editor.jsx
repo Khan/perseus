@@ -1,4 +1,4 @@
-/** @jsx React.DOM */
+var _ = require("underscore");
 
 var textWidthCache = {};
 function getTextWidth(text) {

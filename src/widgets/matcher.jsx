@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var InfoTip        = require("react-components/info-tip.jsx");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
 var Renderer       = require("../renderer.jsx");

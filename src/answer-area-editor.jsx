@@ -1,41 +1,89 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
 var Widgets = require("./widgets.js");
+var ApiOptions = require("./perseus-api.jsx").Options;
+
+var cx = React.addons.classSet;
+
+var AnswerTypeSelector = React.createClass({
+    render: function() {
+        return <div>
+            <label>
+                Answer type:{' '}
+                <select value={this.props.type}
+                        onChange={(e) => this.props.onChange(e.target.value)}>
+                    <option value="radio">Multiple choice</option>
+                    <option value="table">Table of values</option>
+                    <option value="input-number">Text input (number)</option>
+                    <option value="expression">Expression / Equation</option>
+                    <option value="multiple">Custom format</option>
+                </select>
+            </label>
+            <InfoTip>
+                <p>Use the custom format if the question is in the question
+                area, and tell the students how to complete the problem.</p>
+            </InfoTip>
+        </div>;
+    }
+});
 
 var AnswerAreaEditor = React.createClass({
     getDefaultProps: function() {
         return {
-            type: "input-number",
+            type: "multiple",
             options: {},
-            calculator: false
+            calculator: false,
+            apiOptions: ApiOptions.defaults,
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            // We don't want people to use the answer area at all, so if it
+            // doesn't have any content we prevent users from adding any.
+            showEditor: !!this.props.options.content,
+
+            // If it does have content, it should use the "multiple" aka Custom
+            // Format answer type. So unless they are already using something
+            // else, don't give them the option to switch.
+            showTypeSelector: this.props.type !== "multiple",
         };
     },
 
     render: function() {
-        var cls;
+        var Ed;
         if (this.props.type === "multiple") {
-            cls = Editor;
+            Ed = Editor;
         } else {
-            cls = Widgets.getEditor(this.props.type);
+            Ed = Widgets.getEditor(this.props.type);
         }
 
-        var editor = <cls
-            ref="editor"
-            placeholder={"This answer area is being deprecated. " +
-            "Please use the widgets in the question area for your answer."}
-            onChange={(newProps, cb) => {
-                var options = _.extend({}, this.props.options, newProps);
-                this.props.onChange({options: options}, cb);
-            }}
-            {...this.props.options} />;
+        var className = cx({
+            'perseus-answer-widget': this.props.type !== 'multiple',
+            'perseus-answer-none': !(this.state.showEditor ||
+                                    this.state.showTypeSelector ||
+                                    this.props.apiOptions.enableOldAnswerTypes)
+        });
+
+        var editor = <div className={className}>
+            <Ed
+                ref="editor"
+                placeholder={"This answer area is deprecated. Please " +
+                "use the widgets in the question area for your answer."}
+                onChange={(newProps, cb) => {
+                    var options = _.extend({},
+                                           this.props.options,
+                                           newProps);
+                    this.props.onChange({options: options}, cb);
+                }}
+                {...this.props.options} />
+        </div>;
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
             <div><label>
-                {' '}Show calculator:{' '}
+                Show calculator:{' '}
                 <input type="checkbox" checked={this.props.calculator}
                     onChange={e => {
                         this.props.onChange({calculator: e.target.checked});
@@ -48,32 +96,24 @@ var AnswerAreaEditor = React.createClass({
                 computations.</p>
             </InfoTip>
             </div>
-            <div><label>
-                {' '}Answer type:{' '}
-                <select value={this.props.type}
-                        onChange={e => {
-                            this.props.onChange({
-                                type: e.target.value,
-                                options: {}
-                            }, () => {
-                                this.refs.editor.focus();
-                            });
-                        }}>
-                    <option value="radio">Multiple choice</option>
-                    <option value="table">Table of values</option>
-                    <option value="input-number">Text input (number)</option>
-                    <option value="expression">Expression / Equation</option>
-                    <option value="multiple">Custom format</option>
-                </select>
-            </label>
-            <InfoTip>
-                <p>Use the custom format if the question is in the question
-                area, and tell the students how to complete the problem.</p>
-            </InfoTip></div>
+
+            {(this.state.showTypeSelector ||
+                    this.props.apiOptions.enableOldAnswerTypes) &&
+                <AnswerTypeSelector
+                   type={this.props.type}
+                   onChange={(newValue) => {
+                       this.props.onChange({
+                           type: newValue,
+                           options: {}
+                       }, () => {
+                           this.refs.editor.focus();
+                       });
+                   }} />
+            }
+
             </div>
-            <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
-                {editor}
-            </div>
+
+            {editor}
         </div>;
     },
 

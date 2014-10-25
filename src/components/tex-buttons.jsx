@@ -1,6 +1,6 @@
-/** @jsx React.DOM */
-
 var React     = require("react");
+var _ = require("underscore");
+
 var TeX       = require("react-components/tex.jsx");
 var clone     = React.addons.cloneWithProps;
 
@@ -14,45 +14,40 @@ var symbStyle = { fontSize: "130%" };
 // Also, it's useful for things which might look different depending on the
 // props.
 
+var basic = [
+    () => [<span style={slightlyBig}>+</span>, "+"],
+    () => [<span style={prettyBig}>-</span>, "-"],
+
+    // TODO(joel) - display as \cdot when appropriate
+    props => {
+        if (props.convertDotToTimes) {
+            return [<TeX style={prettyBig}>\times</TeX>, "\\times"];
+        } else {
+            return [<TeX style={prettyBig}>\cdot</TeX>, "\\cdot"];
+        }
+    },
+    () => [
+        <TeX style={prettyBig}>{"\\frac{□}{□}"}</TeX>,
+
+        // If there's something in the input that can become part of a
+        // fraction, typing "/" puts it in the numerator. If not, typing
+        // "/" does nothing. In that case, enter a \frac.
+        input => {
+            var contents = input.latex();
+            input.typedText("/");
+            if (input.latex() === contents) {
+                input.cmd("\\frac");
+            }
+        }
+    ]
+];
+
 var buttonSets = {
-    basic: [
-        () => [<span style={slightlyBig}>+</span>, "+"],
-        () => [<span style={prettyBig}>-</span>, "-"],
+    basic,
 
-        // TODO(joel) - display as \cdot when appropriate
-        props => {
-            if (props.convertDotToTimes) {
-                return [<TeX style={prettyBig}>\times</TeX>, "\\times"];
-            } else {
-                return [<TeX style={prettyBig}>\cdot</TeX>, "\\cdot"];
-            }
-        },
-        () => [
-            <TeX style={prettyBig}>{"\\frac{□}{□}"}</TeX>,
-
-            // If there's something in the input that can become part of a
-            // fraction, typing "/" puts it in the numerator. If not, typing
-            // "/" does nothing. In that case, enter a \frac.
-            input => {
-                var contents = input.latex();
-                input.typedText("/");
-                if (input.latex() === contents) {
-                    input.cmd("\\frac");
-                }
-            }
-        ]
-    ],
-
-    /*
-    relations: [
-        // [<TeX>{"="}</TeX>, "\\eq"],
-        () => [<TeX>\neq</TeX>, "\\neq"],
-        () => [<TeX>\leq</TeX>, "\\leq"],
-        () => [<TeX>\geq</TeX>, "\\geq"],
-        () => [<TeX>\lt</TeX>, "\\lt"],
-        () => [<TeX>\gt</TeX>, "\\gt"],
-    ],
-    */
+    "basic+div": basic.concat([
+        () => [<TeX>\div</TeX>, "\\div"]
+    ]),
 
     trig: [
         () => [<TeX>\sin</TeX>, "\\sin"],
@@ -76,13 +71,26 @@ var buttonSets = {
                 }
             }
         ],
-        () => [<TeX style={slightlyBig}>\pi</TeX>, "\\pi"]
+        () => [<TeX style={slightlyBig}>\pi</TeX>, "\\pi"],
+        () => [<TeX>\div</TeX>, "\\div"],
     ],
 
     logarithms: [
         () => [<TeX>\log</TeX>, "\\log"],
         () => [<TeX>\ln</TeX>, "\\ln"]
-    ]
+    ],
+
+    "basic relations": [
+        () => [<TeX>{"="}</TeX>, "\\eq"],
+        () => [<TeX>\lt</TeX>, "\\lt"],
+        () => [<TeX>\gt</TeX>, "\\gt"],
+    ],
+
+    "advanced relations": [
+        () => [<TeX>\neq</TeX>, "\\neq"],
+        () => [<TeX>\leq</TeX>, "\\leq"],
+        () => [<TeX>\geq</TeX>, "\\geq"],
+    ],
 };
 
 var buttonSetsType = React.PropTypes.arrayOf(

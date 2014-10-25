@@ -1,8 +1,7 @@
-/** @jsx React.DOM */
-
 var React = require("react");
 var InfoTip = require("react-components/info-tip.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
+var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -180,9 +179,12 @@ var Expression = React.createClass({
         return true;
     },
 
-    blur: function() {
+    focusInputPath: function(inputPath) {
+        this.refs.input.focus();
+    },
+
+    blurInputPath: function(inputPath) {
         this.refs.input.blur();
-        return true;
     },
 
     // HACK(joel)
@@ -193,18 +195,19 @@ var Expression = React.createClass({
     },
 
     getInputPaths: function() {
-        return this;
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        return "expression";
     },
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
             value: newValue
         }, cb);
-    },
-
-    getAcceptableFormatsForInputPath: function() {
-        // TODO(charlie): What format does the mobile team want this in?
-        return null;
     },
 
     simpleValidate: function(rubric, onInputError) {
@@ -471,13 +474,14 @@ var OldExpression = React.createClass({
         return true;
     },
 
-    blur: function() {
-        this.refs.input.blur();
-        return true;
+    getInputPaths: function() {
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
     },
 
-    getInputPaths: function() {
-        return this;
+    getGrammarTypeForPath: function(inputPath) {
+        return "expression";
     },
 
     getUserInput: function() {
@@ -588,34 +592,39 @@ var ExpressionEditor = React.createClass({
             buttonSets: this.props.buttonSets
         };
 
-        var expression = this.state.isTex ? Expression : OldExpression;
+        var Expr = this.state.isTex ? Expression : OldExpression;
 
         // checkboxes to choose which sets of input buttons are shown
         var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
-            return <label>
+            // The first one gets special cased to always be checked, disabled,
+            // and float left.
+            var isFirst = name === "basic";
+            var checked = _.contains(this.props.buttonSets, name) || isFirst;
+            var className = isFirst ?
+                "button-set-label-float" :
+                "button-set-label";
+            return <label className={className}>
                 <input type="checkbox"
-                       checked={_.contains(this.props.buttonSets, name)}
-                       disabled={name === "basic"}
+                       checked={checked}
+                       disabled={isFirst}
                        onChange={() => this.handleButtonSet(name)} />
                 {name}
             </label>;
         });
 
+        buttonSetChoices.splice(1, 1, <label>
+            <input type="checkbox"
+                   onChange={this.handleToggleDiv} />
+            <span className="show-div-button">
+                show <TeX>\div</TeX> button
+            </span>
+        </label>);
+
         return <div>
             <div><label>
                 Correct answer:{' '}
-                <expression {...expressionProps} />
+                <Expr {...expressionProps} />
             </label></div>
-            {this.state.isTex && <TexButtons
-                className="math-input-buttons"
-                sets={this.props.buttonSets}
-                convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert} />}
-
-            <div>
-                Button sets:
-                {buttonSetChoices}
-            </div>
 
             <div>
                 <PropCheckBox
@@ -674,6 +683,17 @@ var ExpressionEditor = React.createClass({
                 </p></InfoTip>
             </div>
 
+            <div>
+                <div>Button sets:</div>
+                {buttonSetChoices}
+            </div>
+
+            {this.state.isTex && <TexButtons
+                className="math-input-buttons"
+                sets={this.props.buttonSets}
+                convertDotToTimes={this.props.times}
+                onInsert={this.handleTexInsert} />}
+
         </div>;
     },
 
@@ -688,6 +708,27 @@ var ExpressionEditor = React.createClass({
         });
 
         this.props.onChange({ buttonSets });
+    },
+
+    handleToggleDiv: function() {
+        // We always want buttonSets to contain exactly one of "basic" and
+        // "basic+div". Toggle between the two of them.
+        // If someone can think of a more elegant formulation of this (there
+        // must be one!) feel free to change it.
+        var keep, remove;
+        if (_(this.props.buttonSets).contains("basic+div")) {
+            keep = "basic";
+            remove = "basic+div";
+        } else {
+            keep = "basic+div";
+            remove = "basic";
+        }
+
+        var buttonSets = _(this.props.buttonSets)
+            .reject(set => set === remove)
+            .concat(keep);
+
+        this.change("buttonSets", buttonSets);
     },
 
     handleTexInsert: function(str) {

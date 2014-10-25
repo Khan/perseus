@@ -9,13 +9,14 @@
  * let this class handle all of the virtual mouse events, and then
  * take appropriate action in onMoveStart, onMove, onMoveEnd
  */
+var _ = require("underscore");
 
 var InteractiveUtil = require("./interactive-util.js");
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 var assert = InteractiveUtil.assert;
-var knumber = KhanUtil.knumber;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 // state parameters that should be converted into an array of
 // functions

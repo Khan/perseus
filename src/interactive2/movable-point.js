@@ -49,6 +49,7 @@
  *   remove:
  *     removes the point from graphie
  */
+var _ = require("underscore");
 
 var MovablePointOptions = require("./movable-point-options.js");
 var InteractiveUtil = require("./interactive-util.js");
@@ -56,8 +57,8 @@ var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var knumber = KhanUtil.knumber;
-var kpoint = KhanUtil.kpoint;
+var knumber = require("kmath").number;
+var kpoint = require("kmath").point;
 
 // State parameters that should be converted into an array of
 // functions

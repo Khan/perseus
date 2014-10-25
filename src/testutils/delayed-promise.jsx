@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 // Returns a promise that will resolve shortly after the end of this
 // browser tick (roughly a `setTimeout(0)`)
 var delayedPromise = (value) => {

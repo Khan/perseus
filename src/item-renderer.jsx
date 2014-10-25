@@ -1,12 +1,14 @@
-/** @jsx React.DOM */
-
 var React = require('react');
+var _ = require("underscore");
+
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var EnabledFeatures = require("./enabled-features.jsx");
+
+var {mapObject} = require("./interactive2/objective_.js");
 
 var HintsRenderer = React.createClass({
     render: function() {
@@ -95,7 +97,7 @@ var ItemRenderer = React.createClass({
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-        this.questionRenderer = React.renderComponent(
+        this.questionRenderer = React.render(
                 <Renderer
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithWidget}
@@ -103,11 +105,12 @@ var ItemRenderer = React.createClass({
                     enabledFeatures={enabledFeatures}
                     apiOptions={apiOptions}
                     questionCompleted={this.state.questionCompleted}
+                    savedState={this.props.savedState}
                     {...this.props.item.question}
                 />,
                 document.querySelector(this.props.workAreaSelector));
 
-        this.answerAreaRenderer = React.renderComponent(
+        this.answerAreaRenderer = React.render(
                 <AnswerAreaRenderer
                     type={this.props.item.answerArea.type}
                     options={this.props.item.answerArea.options}
@@ -120,7 +123,7 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.solutionAreaSelector));
 
-        this.hintsRenderer = React.renderComponent(
+        this.hintsRenderer = React.render(
                 <HintsRenderer
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
@@ -241,8 +244,8 @@ var ItemRenderer = React.createClass({
         return this._handleAPICall('getDOMNodeForPath', path);
     },
 
-    getAcceptableFormatsForInputPath: function(path) {
-        return this._handleAPICall('getAcceptableFormatsForInputPath', path);
+    getGrammarTypeForPath: function(path) {
+        return this._handleAPICall('getGrammarTypeForPath', path);
     },
 
     getInputPaths: function() {
@@ -298,6 +301,16 @@ var ItemRenderer = React.createClass({
         return this.props.item.hints.length;
     },
 
+    /**
+     * Grades the item.
+     *
+     * Returns a KE-style score of {
+     *     empty: bool,
+     *     correct: bool,
+     *     message: string|null,
+     *     guess: Array
+     * }
+     */
     scoreInput: function() {
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
@@ -323,24 +336,37 @@ var ItemRenderer = React.createClass({
             score = Util.combineScores(qScore, aScore);
         }
 
-        if (score.type === "points") {
-            var correct = score.earned >= score.total;
-            this.setState({ questionCompleted: correct });
-            return {
-                empty: false,
-                correct: correct,
-                message: score.message,
-                guess: guess
-            };
-        } else if (score.type === "invalid") {
-            this.setState({ questionCompleted: false });
-            return {
-                empty: true,
-                correct: false,
-                message: score.message,
-                guess: guess
-            };
-        }
+        var keScore = Util.keScoreFromPerseusScore(score);
+        this.setState({
+            questionCompleted: keScore.correct
+        });
+
+        return keScore;
+    },
+
+    /**
+     * Returns an array of all widget IDs in the order they occur in
+     * the question content.
+     *
+     * NOTE: This ignores the answer area.
+     */
+    getWidgetIds: function() {
+        return this.questionRenderer.getWidgetIds();
+    },
+
+    /**
+     * Returns an object mapping from widget ID to KE-style score.
+     * The keys of this object are the values of the array returned
+     * from `getWidgetIds`.
+     *
+     * NOTE: This ignores the answer area.
+     */
+    scoreWidgets: function() {
+        var qScore = this.questionRenderer.scoreWidgets();
+        var qGuess = this.questionRenderer.getUserInputForWidgets();
+        return mapObject(qScore, (score, id) => {
+            return Util.keScoreFromPerseusScore(score, qGuess[id]);
+        });
     }
 });
 

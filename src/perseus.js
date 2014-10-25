@@ -1,6 +1,3 @@
-// TODO(alpert): Move this out of the Perseus bundle
-require("./object-assign-polyfill.js");
-
 require("./all-widgets.js");
 
 var version = require("./version.json");

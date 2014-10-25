@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var assert = require("assert");
 
 var NumberInput = require("../number-input.jsx");
@@ -19,7 +18,7 @@ describe("NumberInput", function() {
             onChange: handleChange
         }, extraProps);
 
-        var node = TestUtils.renderIntoDocument(NumberInput(props));
+        var node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
         TestUtils.Simulate.change(node.getDOMNode(), {target: {value: input}});
         assert.deepEqual(newVal, result);
     };

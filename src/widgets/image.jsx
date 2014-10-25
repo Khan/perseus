@@ -1,7 +1,9 @@
-/** @jsx React.DOM */
+var _ = require("underscore");
 
 var BlurInput    = require("react-components/blur-input.jsx");
+var Editor       = require("../editor.jsx");
 var InfoTip      = require("react-components/info-tip.jsx");
+var Renderer     = require("../renderer.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -45,6 +47,7 @@ var ImageWidget = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
+        title: React.PropTypes.string,
         range: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.number
             )
@@ -61,15 +64,18 @@ var ImageWidget = React.createClass({
                 coordinates: React.PropTypes.arrayOf(React.PropTypes.number),
                 alignment: React.PropTypes.string
             })
-        )
+        ),
+        caption: React.PropTypes.string
     },
 
     getDefaultProps: function() {
         return {
+            title: "",
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
             backgroundImage: defaultBackgroundImage,
-            labels: []
+            labels: [],
+            caption: ""
         };
     },
 
@@ -86,20 +92,32 @@ var ImageWidget = React.createClass({
 
         var box = this.props.box;
 
-        return <div
-                className="graphie-container"
-                style={{
-                    width: box[0],
-                    height: box[1]
-                }}>
-            {image}
-            <Graphie
-                ref="graphie"
-                box={this.props.box}
-                range={this.props.range}
-                options={_.pick(this.props, "box", "range", "labels")}
-                setup={this.setupGraphie}>
-            </Graphie>
+        return <div className="perseus-image-widget">
+            {this.props.title &&
+                <div className="perseus-image-title">
+                    <Renderer content={this.props.title} />
+                </div>
+            }
+            <div
+                    className="graphie-container"
+                    style={{
+                        width: box[0],
+                        height: box[1]
+                    }}>
+                {image}
+                <Graphie
+                    ref="graphie"
+                    box={this.props.box}
+                    range={this.props.range}
+                    options={_.pick(this.props, "box", "range", "labels")}
+                    setup={this.setupGraphie}>
+                </Graphie>
+            </div>
+            {this.props.caption &&
+                <div className="perseus-image-caption">
+                <Renderer content={this.props.caption} />
+                </div>
+            }
         </div>;
     },
 
@@ -142,10 +160,12 @@ var ImageEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
+            title: "",
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
             backgroundImage: defaultBackgroundImage,
-            labels: []
+            labels: [],
+            caption: "",
         };
     },
 
@@ -196,9 +216,27 @@ var ImageEditor = React.createClass({
                 </table>}
         </div>;
 
-        return <div className="perseus-widget-image">
+        return <div className="perseus-image-editor">
+            <div>Title:</div>
+            <Editor
+                content={this.props.title}
+                onChange={(props) => {
+                    if (props.content != null) {
+                        this.change("title", props.content);
+                    }
+                }}
+                widgetEnabled={false} />
             {imageSettings}
             {graphSettings}
+            <div>Caption:</div>
+            <Editor
+                content={this.props.caption}
+                onChange={(props) => {
+                    if (props.content != null) {
+                        this.change("caption", props.content);
+                    }
+                }}
+                widgetEnabled={false} />
         </div>;
     },
 

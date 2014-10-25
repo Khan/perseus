@@ -1,6 +1,7 @@
 var Util = require("../util.js");
 var nestedMap = Util.nestedMap;
 var deepEq = Util.deepEq;
+var _ = require("underscore");
 
 /**
  * A base class for all Graphie Movables

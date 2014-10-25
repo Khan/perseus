@@ -1,7 +1,6 @@
-/** @jsx React.DOM */
 var _ = require("underscore");
 
-var SimpleMarkdown = require("../../simple-markdown.jsx");
+var SimpleMarkdown = require("simple-markdown");
 
 var START_REF_PREFIX = "start-ref-";
 var END_REF_PREFIX = "end-ref-";
@@ -9,6 +8,28 @@ var REF_STYLE = {
     display: "inline-block",
     width: 0,
     visibility: "hidden"
+};
+
+var SQUARE_LABEL_STYLE = {
+    display: "inline-block",
+    color: "rgb(255, 255, 255)",
+    backgroundColor: "rgb(90, 90, 90)",
+    paddingLeft: 10,
+    paddingRight: 10,
+    userSelect: "none",
+    WebkitUserSelect: "none",
+};
+
+var CIRCLE_LABEL_STYLE = {
+    display: "inline-block",
+    color: "rgb(255, 255, 255)",
+    backgroundColor: "rgb(90, 90, 90)",
+    userSelect: "none",
+    WebkitUserSelect: "none",
+    width: 22,
+    height: 22,
+    borderRadius: "50%",
+    textAlign: "center",
 };
 
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
@@ -37,6 +58,32 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         },
         output: (node, output) => {
             return <sup>{node.text}</sup>;
+        }
+    },
+    squareLabel: {
+        regex: /^\[\[(\w+)\]\]/,
+        parse: (capture, parse, state) => {
+            return {
+                content: parse(capture[1])
+            }
+        },
+        output: (node, output) => {
+            return <span style={SQUARE_LABEL_STYLE}>
+                {output(node.content)}
+            </span>;
+        }
+    },
+    circleLabel: {
+        regex: /^\(\((\w+)\)\)/,
+        parse: (capture, parse, state) => {
+            return {
+                content: parse(capture[1])
+            }
+        },
+        output: (node, output) => {
+            return <span style={CIRCLE_LABEL_STYLE}>
+                {output(node.content)}
+            </span>;
         }
     },
     refStart: {
@@ -89,6 +136,8 @@ var priorities = [
     "passageFootnote",
     "refStart",
     "refEnd",
+    "squareLabel",
+    "circleLabel",
     "strong",
     "u",
     "em",

@@ -173,7 +173,8 @@ var seedContent2 = {
 Perseus.init({}).then(function() {
     var itemMountNode = document.getElementById("diff");
 
-    zk = React.renderComponent(Perseus.RevisionDiff({
+    var RevisionDiff = React.createFactory(Perseus.RevisionDiff);
+    zk = React.render(RevisionDiff({
         beforeItem: seedContent,
         afterItem: seedContent2
     }, null), itemMountNode);
@@ -187,7 +188,8 @@ var swapped = false;
 
 $("#swap").click(function() {
     var itemMountNode = document.getElementById("diff");
-    zk = React.renderComponent(Perseus.RevisionDiff({
+    var RevisionDiff = React.createFactory(Perseus.RevisionDiff);
+    zk = React.render(RevisionDiff({
         beforeItem: seedContent,
         afterItem: swapped ? seedContent : seedContent2
     }, null), itemMountNode);
