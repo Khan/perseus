@@ -3,7 +3,7 @@ var _ = require("underscore");
 
 var EditorPage = require("./editor-page.jsx");
 
-/* Renders an EditorPage as a non-controlled component.
+/* Renders an EditorPage (or an ArticleEditor) as a non-controlled component.
  *
  * Normally the parent of EditorPage must pass it an onChange callback and then
  * respond to any changes by modifying the EditorPage props to reflect those
@@ -11,12 +11,23 @@ var EditorPage = require("./editor-page.jsx");
  * query them with serialize.
  */
 var StatefulEditorPage = React.createClass({
+
+    propTypes: {
+        componentClass: React.PropTypes.func
+    },
+
+    getDefaultProps: function() {
+        return {
+            componentClass: EditorPage
+        };
+    },
+
     render: function() {
-        return <EditorPage {...this.state} />;
+        return <this.props.componentClass {...this.state} />;
     },
 
     getInitialState: function() {
-        return _({}).extend(this.props, {
+        return _({}).extend(_.omit(this.props, 'componentClass'), {
             onChange: this.handleChange,
             ref: "editor"
         });

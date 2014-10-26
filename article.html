@@ -105,26 +105,19 @@ function initPerseus(Perseus) {
 
 window.Perseus = Perseus;
 
-var defaultQuestion = {
-    "question": {
-        "content": "",
-        "images": {},
-        "widgets": {}
-    },
-    "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
+var defaultContent = {
+    "content": "Hi I'm a particle!",
+    "images": {
+        "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
+            "width": 400,
+            "height": 70
         },
-        "calculator": false
+        "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
+            "width": 425,
+            "height": 150
+        }
     },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1
-    },
-    "hints": []
+    "widgets": {}
 };
 
 var editor;
@@ -154,14 +147,13 @@ $('#enabledFeatures').html(Object.keys(enabledFeatures).map(function(feature) {
 }).join(''));
 
 var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
-var question = query.content ? JSON.parse(query.content) : defaultQuestion;
+var content = query.content ? JSON.parse(query.content) : defaultContent;
 
 Perseus.init({skipMathJax: false}).then(function() {
     var _ = window._;
 
-    var editorProps = _.extend(question, {
-        problemNum: problemNum,
-        enabledFeatures: enabledFeatures,
+    var editorProps = {
+        json: content,
         developerMode: true,
         imageUploader: function(image, callback) {
             _.delay(callback, 1000, "http://fake.image.url");
@@ -184,8 +176,8 @@ Perseus.init({skipMathJax: false}).then(function() {
             },
             __staticRender: true
         },
-        componentClass: Perseus.EditorPage
-    });
+        componentClass: Perseus.ArticleEditor
+    };
 
     var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
     editor = React.render(
