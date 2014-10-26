@@ -904,7 +904,7 @@ var InteractiveGraph = React.createClass({
 
         // Plot and style
         this.parabola = this.graphie.parabola(plot(xVertex), plot(xPoint));
-        this.parabola.attr({ stroke: KhanUtil.INTERACTIVE });
+        this.parabola.attr({ stroke: KhanUtil.DYNAMIC });
         this.parabola.toBack();
     },
 
@@ -939,10 +939,6 @@ var InteractiveGraph = React.createClass({
                 });
                 this.props.onChange({graph: graph});
                 this.updateSinusoid();
-            },
-            normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
             }
         });
 
@@ -961,10 +957,6 @@ var InteractiveGraph = React.createClass({
                 });
                 this.props.onChange({graph: graph});
                 this.updateSinusoid();
-            },
-            normalStyle: {
-                stroke: KhanUtil.BLUE,
-                fill: KhanUtil.BLUE
             }
         });
 
