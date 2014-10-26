@@ -13,10 +13,11 @@ var ArticleEditor = React.createClass({
             content: React.PropTypes.string.isRequired,
             widgets: React.PropTypes.object.isRequired,
             images: React.PropTypes.object.isRequired,
-            apiOptions: React.PropTypes.object,
         }).isRequired,
+        apiOptions: React.PropTypes.object,
         developerMode: React.PropTypes.bool,
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        onChange: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -33,8 +34,8 @@ var ArticleEditor = React.createClass({
 
     render: function() {
         var apiOptions = _.extend({},
-                                  this.props.json.apiOptions,
-                                  ApiOptions.defaults);
+                                  ApiOptions.defaults,
+                                  this.props.apiOptions);
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&
