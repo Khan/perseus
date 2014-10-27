@@ -10,19 +10,20 @@ var ArticleEditor = React.createClass({
 
     propTypes: {
         json: React.PropTypes.shape({
-            content: React.PropTypes.string.isRequired,
-            widgets: React.PropTypes.object.isRequired,
-            images: React.PropTypes.object.isRequired,
-        }).isRequired,
+            content: React.PropTypes.string,
+            widgets: React.PropTypes.object,
+            images: React.PropTypes.object,
+        }),
         apiOptions: React.PropTypes.object,
         developerMode: React.PropTypes.bool,
         imageUploader: React.PropTypes.func,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            developerMode: false
+            developerMode: false,
+            json: {},
         };
     },
 
