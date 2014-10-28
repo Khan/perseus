@@ -62,6 +62,18 @@ var KAScompile = (expr, options) => {
     return cached;
 };
 
+var defaultInteractionProps = {
+    graph: {
+        box: [400, 400],
+        labels: ["x", "y"],
+        range: [[-10, 10], [-10, 10]],
+        tickStep: [1, 1],
+        gridStep: [1, 1],
+        markings: "graph",
+    },
+    elements: []
+};
+
 var Interaction = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
@@ -72,7 +84,7 @@ var Interaction = React.createClass({
     },
 
     getDefaultProps: function() {
-        return {};
+        return defaultInteractionProps;
     },
 
     getInitialState: function() {
@@ -862,17 +874,7 @@ var InteractionEditor = React.createClass({
     },
 
     getDefaultProps: function() {
-        return {
-            graph: {
-                box: [400, 400],
-                labels: ["x", "y"],
-                range: [[-10, 10], [-10, 10]],
-                tickStep: [1, 1],
-                gridStep: [1, 1],
-                markings: "graph",
-            },
-            elements: []
-        };
+        return defaultInteractionProps;
     },
 
     getInitialState: function() {
