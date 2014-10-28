@@ -29,6 +29,7 @@ var defaultBackgroundImage = {
     bottom: 0,
     left: 0
 };
+var defaultType = "linear";
 
 function typeToButton(type) {
     var capitalized = type.charAt(0).toUpperCase() + type.substring(1);
@@ -650,7 +651,7 @@ var Grapher = React.createClass({
     getDefaultProps: function() {
         return {
             plot: {
-                type: null,
+                type: defaultType,
                 coords: null,
                 asymptote: null
             },
@@ -665,7 +666,8 @@ var Grapher = React.createClass({
                 showRuler: false,
                 rulerLabel: "",
                 rulerTicks: 10
-            }
+            },
+            availableTypes: [defaultType],
         };
     },
 
@@ -897,7 +899,7 @@ var GrapherEditor = React.createClass({
     getDefaultProps: function() {
         return {
             correct: {
-                type: "linear",
+                type: defaultType,
                 coords: null,
                 asymptote: null
             },
@@ -913,7 +915,7 @@ var GrapherEditor = React.createClass({
                 rulerLabel: "",
                 rulerTicks: 10
             },
-            availableTypes: ["linear"],
+            availableTypes: [defaultType],
             valid: true
         };
     },
