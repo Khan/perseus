@@ -3,6 +3,7 @@ var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
 var Editor = require("./editor.jsx");
+var EnabledFeatures = require("./enabled-features.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var Renderer = require("./renderer.jsx");
 
@@ -16,6 +17,7 @@ var ArticleEditor = React.createClass({
         }),
         apiOptions: React.PropTypes.object,
         developerMode: React.PropTypes.bool,
+        enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
         onChange: React.PropTypes.func.isRequired,
     },
@@ -24,6 +26,10 @@ var ArticleEditor = React.createClass({
         return {
             developerMode: false,
             json: {},
+            enabledFeatures: {
+                toolTipFormats: true,
+                useMathQuill: true
+            },
         };
     },
 
@@ -70,14 +76,16 @@ var ArticleEditor = React.createClass({
                                 placeholder="Type your article text here..."
                                 imageUploader={this.props.imageUploader}
                                 onChange={this.handleEditorChange}
-                                apiOptions={apiOptions} />
+                                apiOptions={apiOptions}
+                                enabledFeatures={this.props.enabledFeatures} />
                         </div>
 
                         <div className="perseus-editor-right-cell">
                             <Renderer
                                 {...this.props.json}
                                 ref="renderer"
-                                apiOptions={apiOptions} />
+                                apiOptions={apiOptions}
+                                enabledFeatures={this.props.enabledFeatures} />
                         </div>
                     </div>
                 </div>

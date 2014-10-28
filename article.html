@@ -158,6 +158,7 @@ Perseus.init({skipMathJax: false}).then(function() {
         imageUploader: function(image, callback) {
             _.delay(callback, 1000, "http://fake.image.url");
         },
+        enabledFeatures: enabledFeatures,
         apiOptions: {
             enableOldAnswerTypes: true,
             fancyDropdowns: true,
