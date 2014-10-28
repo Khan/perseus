@@ -55,7 +55,8 @@ var NumericInput = React.createClass({
             size: "normal",
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
-            coefficient: false
+            coefficient: false,
+            answerForms: [],
         };
     },
 
