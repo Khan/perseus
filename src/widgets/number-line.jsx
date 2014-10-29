@@ -111,7 +111,7 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
     var base;
     if (props.labelStyle === "non-reduced") {
         var fractions = [leftLabel, rightLabel];
-        for (var i = 0; i < props.numDivisions; i++) {
+        for (var i = 0; i <= props.numDivisions; i++) {
             var x = range[0] + i * props.tickStep;
             fractions.push(x);
         }
@@ -123,7 +123,7 @@ TickMarks = Graphie.createSimpleClass((graphie, props) => {
     }
 
     // Draw and save the tick marks and tick labels
-    for (var i = 0; i < props.numDivisions; i++) {
+    for (var i = 0; i <= props.numDivisions; i++) {
         var x = range[0] + i * props.tickStep;
         results.push(graphie.line([x, -0.2], [x, 0.2]));
 
