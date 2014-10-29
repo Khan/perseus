@@ -144,6 +144,11 @@ var Circle = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
+var Rect = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.rect(
+        props.x, props.y, props.width, props.height, props.style);
+});
+
 module.exports = {
     Arc: Arc,
     Circle: Circle,
@@ -157,4 +162,5 @@ module.exports = {
     PlotParametric: PlotParametric,
     Point: Point,
     Sinusoid: Sinusoid
+    Rect: Rect
 };
