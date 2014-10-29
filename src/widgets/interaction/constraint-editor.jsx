@@ -11,14 +11,22 @@ var ConstraintEditor = React.createClass({
         constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
         constraintFn: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
+        constraintXMin: React.PropTypes.string,
+        constraintXMax: React.PropTypes.string,
+        constraintYMin: React.PropTypes.string,
+        constraintYMax: React.PropTypes.string
     },
 
     getDefaultProps: function() {
         return {
             constraint: "none",
             snap: 0.5,
-            constraintFn: "0"
+            constraintFn: "0",
+            constraintXMin: "-10",
+            constraintXMax: "10",
+            constraintYMin: "-10",
+            constraintYMax: "10"
         };
     },
 
@@ -59,6 +67,37 @@ var ConstraintEditor = React.createClass({
                         onChange={this.change("constraintFn")} />
                 </div>
             </div>}
+            Ensure these are set so nothing can be dragged off the canvas:
+            <div className="perseus-widget-row">
+                <div className="perseus-widget-row">
+                    <TeX>x \in \Large[</TeX> <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.constraintXMin}
+                        onChange={this.change("constraintXMin")} />
+                    <TeX>, </TeX> <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.constraintXMax}
+                        onChange={this.change("constraintXMax")}
+                    /> <TeX>\Large]</TeX>
+                </div>
+            </div>
+            <div className="perseus-widget-row">
+                <div className="perseus-widget-row">
+                    <TeX>y \in \Large[</TeX> <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.constraintYMin}
+                        onChange={this.change("constraintYMin")} />
+                    <TeX>, </TeX> <MathInput
+                        buttonSets={[]}
+                        buttonsVisible={"never"}
+                        value={this.props.constraintYMax}
+                        onChange={this.change("constraintYMax")}
+                    /> <TeX>\Large]</TeX>
+                </div>
+            </div>
         </div>;
     }
 });

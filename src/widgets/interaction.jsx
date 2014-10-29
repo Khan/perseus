@@ -269,22 +269,33 @@ var Interaction = React.createClass({
                 } else if (element.type === "movable-point") {
                     // TODO(eater): Would be nice if the constraint system
                     // were more flexible.
-                    var constraints = null;
+                    var constraints = [(coord) => {
+                        var coordX =
+                            Math.max(this._eval(element.options.constraintXMin),
+                            Math.min(this._eval(element.options.constraintXMax),
+                            coord[0]));
+                        var coordY =
+                            Math.max(this._eval(element.options.constraintYMin),
+                            Math.min(this._eval(element.options.constraintYMax),
+                            coord[1]));
+                        return [coordX, coordY];
+                    }];
                     if (element.options.constraint === "snap") {
-                        constraints = MovablePoint.constraints.snap(
-                            element.options.snap);
+                        constraints.push(MovablePoint.constraints.snap(
+                            element.options.snap));
                     } else if (element.options.constraint === "x") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [this._eval(
                                 element.options.constraintFn,
                                 {y: coord[1]}), coord[1]];
-                        };
+                        });
                     } else if (element.options.constraint === "y") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [coord[0], this._eval(
                                 element.options.constraintFn, {x: coord[0]})];
-                        };
+                        });
                     }
+
                     // TODO(eater): foo_[xyz] are hacky non-props to get the
                     // component to update when constraints change
                     return <MovablePoint
@@ -306,22 +317,32 @@ var Interaction = React.createClass({
                     // were more flexible.
                     // TODO(eater): Don't duplicate this code from
                     // movable-point above
-                    var constraints = null;
+                    var constraints = [(coord) => {
+                        var coordX =
+                            Math.max(this._eval(element.options.constraintXMin),
+                            Math.min(this._eval(element.options.constraintXMax),
+                            coord[0]));
+                        var coordY =
+                            Math.max(this._eval(element.options.constraintYMin),
+                            Math.min(this._eval(element.options.constraintYMax),
+                            coord[1]));
+                        return [coordX, coordY];
+                    }];
                     if (element.options.constraint === "snap") {
-                        constraints = MovablePoint.constraints.snap(
-                            element.options.snap);
+                        constraints.push(MovablePoint.constraints.snap(
+                            element.options.snap));
                     } else if (element.options.constraint === "x") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [this._eval(
                                 element.options.constraintFn,
                                 {y: coord[1]}), coord[1]];
-                        };
+                        });
                     } else if (element.options.constraint === "y") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [coord[0], this._eval(
                                 element.options.constraintFn,
                                 {x: coord[0]})];
-                        };
+                        });
                     }
                     var start = [
                             this.state.variables["x_" +
@@ -596,6 +617,10 @@ var MovablePointEditor = React.createClass({
             constraint: "none",
             snap: 0.5,
             constraintFn: "0",
+            constraintXMin: "-10",
+            constraintXMax: "10",
+            constraintYMin: "-10",
+            constraintYMax: "10"
         };
     },
 
@@ -654,6 +679,10 @@ var MovableLineEditor = React.createClass({
             constraint: "none",
             snap: 0.5,
             constraintFn: "0",
+            constraintXMin: "-10",
+            constraintXMax: "10",
+            constraintYMin: "-10",
+            constraintYMax: "10"
         };
     },
 
@@ -701,7 +730,7 @@ var MovableLineEditor = React.createClass({
                         onChange={this.change("endSubscript")}/>
             </div>
             <div className="perseus-widget-row">
-                Constraints are applied to the start point.
+                All constraints are applied to the start point.
             </div>
             <ConstraintEditor {...this.props} />
         </div>;
