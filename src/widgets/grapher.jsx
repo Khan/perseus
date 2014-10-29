@@ -125,10 +125,6 @@ var typeSelectorStyle = {
     padding: "5px 5px"
 };
 
-var graphStyle = {
-    padding: "25px 0"
-};
-
 /* Graphing interface. */
 var FunctionGrapher = React.createClass({
     mixins: [Changeable],
@@ -242,8 +238,12 @@ var FunctionGrapher = React.createClass({
             return;
         }
 
-        var fn = _.partial(model.getFunctionForCoeffs, coeffs);
-        return <Plot fn={fn} range={xRange} style={style} />;
+        var functionProps = model.getPropsForCoeffs(coeffs, xRange);
+        return <model.Movable
+                    {...functionProps}
+                    key={this.props.model.url}
+                    range={xRange}
+                    style={style} />;
     },
 
     renderAsymptote: function() {
@@ -292,6 +292,14 @@ var FunctionGrapher = React.createClass({
 var PlotDefaults = {
     areEqual: function(coeffs1, coeffs2) {
         return Util.deepEq(coeffs1, coeffs2);
+    },
+
+    Movable: Plot,
+
+    getPropsForCoeffs: function(coeffs) {
+        return {
+            fn: _.partial(this.getFunctionForCoeffs, coeffs)
+        };
     }
 };
 
@@ -333,6 +341,8 @@ var Quadratic = _.extend({}, PlotDefaults, {
 
     defaultCoords: [[0.5, 0.5], [0.75, 0.75]],
 
+    Movable: Graphie.Parabola,
+
     getCoefficients: function(coords) {
         var p1 = coords[0];
         var p2 = coords[1];
@@ -354,6 +364,14 @@ var Quadratic = _.extend({}, PlotDefaults, {
         return (a * x + b) * x + c;
     },
 
+    getPropsForCoeffs: function(coeffs) {
+        return {
+            a: coeffs[0],
+            b: coeffs[1],
+            c: coeffs[2]
+        };
+    },
+
     getEquationString: function(coords) {
         var coeffs = this.getCoefficients(coords);
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
@@ -366,6 +384,8 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png",
 
     defaultCoords: [[0.5, 0.5], [0.6, 0.6]],
+
+    Movable: Graphie.Sinusoid,
 
     getCoefficients: function(coords) {
         var p1 = coords[0];
@@ -382,6 +402,15 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     getFunctionForCoeffs: function(coeffs, x) {
         var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
         return a * Math.sin(b * x - c) + d;
+    },
+
+    getPropsForCoeffs: function(coeffs) {
+        return {
+            a: coeffs[0],
+            b: coeffs[1],
+            c: coeffs[2],
+            d: coeffs[3]
+        };
     },
 
     getEquationString: function(coords) {
@@ -553,9 +582,6 @@ var Logarithm = _.extend({}, PlotDefaults, {
     allowReflectOverAsymptote: true,
 
     getCoefficients: function(coords, asymptote) {
-        var p1 = coords[0];
-        var p2 = coords[1];
-
         // It's easiest to calculate the logarithm's coefficients by thinking
         // about it as the inverse of the exponential, so we flip x and y and
         // perform some algebra on the coefficients. This also unifies the
@@ -656,7 +682,7 @@ var Grapher = React.createClass({
                 asymptote: null
             },
             graph: {
-                box: [defaultEditorBoxSize, defaultEditorBoxSize],
+                box: [defaultBoxSize, defaultBoxSize],
                 labels: ["x", "y"],
                 range: [[-10, 10], [-10, 10]],
                 step: [1, 1],

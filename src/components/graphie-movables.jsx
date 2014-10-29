@@ -87,6 +87,14 @@ var Line = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.line(props.start, props.end, props.style);
 });
 
+var Parabola = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.parabola(props.a, props.b, props.c, props.style);
+});
+
+var Sinusoid = GraphieClasses.createSimpleClass((graphie, props) => {
+    return graphie.sinusoid(props.a, props.b, props.c, props.d, props.style);
+});
+
 var Plot = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.plot(props.fn, props.range, props.style);
 });
@@ -142,8 +150,10 @@ module.exports = {
     Line: Line,
     MovableLine: MovableLine,
     MovablePoint: MovablePoint,
+    Parabola: Parabola,
     Path: Path,
     Plot: Plot,
     PlotParametric: PlotParametric,
-    Point: Point
+    Point: Point,
+    Sinusoid: Sinusoid
 };
