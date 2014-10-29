@@ -79,7 +79,8 @@ var Label = GraphieClasses.createSimpleClass((graphie, props) => {
         coord,
         props.text,
         props.direction,
-        props.tex
+        props.tex,
+        props.style
     );
 });
 

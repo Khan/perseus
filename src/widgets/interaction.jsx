@@ -5,7 +5,6 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
-var ButtonGroup = require("react-components/button-group.jsx");
 var ColorPicker = require("./interaction/color-picker.jsx");
 var ConstraintEditor = require("./interaction/constraint-editor.jsx");
 var DashPicker = require("./interaction/dash-picker.jsx");
@@ -15,7 +14,9 @@ var GraphSettings = require("../components/graph-settings.jsx");
 var MathInput = require("../components/math-input.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var TeX = require("react-components/tex.jsx");
+var TextInput = require("../components/text-input.jsx");
 
+var Label = Graphie.Label;
 var Line = Graphie.Line;
 var MovablePoint = Graphie.MovablePoint;
 var MovableLine = Graphie.MovableLine;
@@ -102,7 +103,7 @@ var Interaction = React.createClass({
             var startXExpr = KASparse(element.options.startX || "0").expr;
             var startYExpr = KASparse(element.options.startY || "0").expr;
             var startX = 0;
-            var starty = 0;
+            var startY = 0;
             if (startXExpr) {
                 startX = startXExpr.eval({}) || 0;
             }
@@ -120,9 +121,9 @@ var Interaction = React.createClass({
             var endXExpr = KASparse(element.options.endX || "0").expr;
             var endYExpr = KASparse(element.options.endY || "0").expr;
             var startX = 0;
-            var starty = 0;
+            var startY = 0;
             var endX = 0;
-            var endy = 0;
+            var endY = 0;
             if (startXExpr) {
                 startX = startXExpr.eval({}) || 0;
             }
@@ -271,12 +272,16 @@ var Interaction = React.createClass({
                     // were more flexible.
                     var constraints = [(coord) => {
                         var coordX =
-                            Math.max(this._eval(element.options.constraintXMin),
-                            Math.min(this._eval(element.options.constraintXMax),
+                            Math.max(this._eval(
+                                element.options.constraintXMin),
+                            Math.min(this._eval(
+                                element.options.constraintXMax),
                             coord[0]));
                         var coordY =
-                            Math.max(this._eval(element.options.constraintYMin),
-                            Math.min(this._eval(element.options.constraintYMax),
+                            Math.max(this._eval(
+                                element.options.constraintYMin),
+                            Math.min(this._eval(
+                                element.options.constraintYMax),
                             coord[1]));
                         return [coordX, coordY];
                     }];
@@ -319,12 +324,16 @@ var Interaction = React.createClass({
                     // movable-point above
                     var constraints = [(coord) => {
                         var coordX =
-                            Math.max(this._eval(element.options.constraintXMin),
-                            Math.min(this._eval(element.options.constraintXMax),
+                            Math.max(this._eval(
+                                element.options.constraintXMin),
+                            Math.min(this._eval(
+                                element.options.constraintXMax),
                             coord[0]));
                         var coordY =
-                            Math.max(this._eval(element.options.constraintYMin),
-                            Math.min(this._eval(element.options.constraintYMax),
+                            Math.max(this._eval(
+                                element.options.constraintYMin),
+                            Math.min(this._eval(
+                                element.options.constraintYMax),
                             coord[1]));
                         return [coordX, coordY];
                     }];
@@ -431,6 +440,16 @@ var Interaction = React.createClass({
                             strokeWidth: element.options.strokeWidth,
                             strokeDasharray: element.options.strokeDasharray,
                             plotPoints: 100  // TODO(eater): why so slow?
+                        }} />;
+                } else if (element.type === "label") {
+                    var coord = [this._eval(element.options.coordX),
+                                 this._eval(element.options.coordY)];
+                    return <Label
+                        key={n + 1}
+                        coord={coord}
+                        text={element.options.label}
+                        style={{
+                            color: element.options.color
                         }} />;
                 }
             }, this)}
@@ -893,6 +912,61 @@ var ParametricEditor = React.createClass({
 });
 
 
+//
+// Editor for labels
+//
+// TODO(eater): Factor this out maybe?
+// TODO(eater): Add text direction
+//
+var LabelEditor = React.createClass({
+    mixins: [EditorJsonify, Changeable],
+
+    propTypes: {
+    },
+
+    getDefaultProps: function() {
+        return {
+            coordX: "0",
+            coordY: "0",
+            color: KhanUtil.BLACK,
+            label: "\\phi"
+        };
+    },
+
+    render: function() {
+        return <div className="graph-settings">
+            <div className="perseus-widget-row">
+                <TextInput
+                    value={this.props.label}
+                    onChange={this.change("label")}
+                    style={{
+                        width: "100%"
+                    }}
+                    />
+            </div>
+            <div className="perseus-widget-row">
+                Location: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.coordX}
+                    onChange={this.change("coordX")} />
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.coordY}
+                    onChange={this.change("coordY")} />
+                <TeX>\Large)</TeX>
+            </div>
+            <div className="perseus-widget-row">
+                <ColorPicker
+                    value={this.props.color}
+                    onChange={this.change("color")} />
+            </div>
+        </div>;
+    }
+});
+
+
 var InteractionEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
@@ -964,7 +1038,9 @@ var InteractionEditor = React.createClass({
                         elementType === "function" ?
                         _.clone(FunctionEditor.defaultProps) :
                         elementType === "parametric" ?
-                        _.clone(ParametricEditor.defaultProps) : {}
+                        _.clone(ParametricEditor.defaultProps) :
+                        elementType === "label" ?
+                        _.clone(LabelEditor.defaultProps) : {}
         };
         if (elementType === "movable-point") {
             var nextSubscript =
@@ -1165,6 +1241,25 @@ var InteractionEditor = React.createClass({
                             }}
                         />
                     </ElementContainer>;
+                } else if (element.type === "label") {
+                    return <ElementContainer
+                            title={<span>Label <TeX>
+                                {element.options.label}</TeX> </span>}
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement}
+                            key={element.key}>
+                        <LabelEditor
+                            {...element.options}
+                            onChange={(newProps) => {
+                                var elements = JSON.parse(JSON.stringify(
+                                    this.props.elements));
+                                _.extend(elements[n].options, newProps);
+                                this.change({elements: elements});
+                            }} />
+                    </ElementContainer>;
                 }
             }, this)}
             <div className="perseus-widget-interaction-editor-select-element">
@@ -1175,6 +1270,7 @@ var InteractionEditor = React.createClass({
                     <option value="line">Line segment</option>
                     <option value="function">Function plot</option>
                     <option value="parametric">Parametric plot</option>
+                    <option value="label">Label</option>
                     <option value="movable-point">
                         &#x2605; Movable point</option>
                     <option value="movable-line">
