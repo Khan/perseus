@@ -2,7 +2,6 @@ var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
 var ColorPicker = require("./interaction/color-picker.jsx");
@@ -77,7 +76,7 @@ var defaultInteractionProps = {
 };
 
 var Interaction = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
+    mixins: [Changeable],
 
     // TODO(eater): Make more better
     propTypes: {
@@ -466,6 +465,14 @@ var Interaction = React.createClass({
                 }
             }, this)}
         </Graphie>;
+    },
+
+    getUserInput: function() {
+        // TODO(eater): Perhaps we want to be able to record the state of the
+        // user's interaction. Unfortunately sending all the props will
+        // probably make the attempt payload too large. So for now, don't send
+        // anything.
+        return {};
     },
 
     simpleValidate: function(rubric) {

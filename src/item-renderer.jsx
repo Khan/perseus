@@ -336,7 +336,7 @@ var ItemRenderer = React.createClass({
             score = Util.combineScores(qScore, aScore);
         }
 
-        var keScore = Util.keScoreFromPerseusScore(score);
+        var keScore = Util.keScoreFromPerseusScore(score, guess);
         this.setState({
             questionCompleted: keScore.correct
         });
