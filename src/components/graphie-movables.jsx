@@ -161,6 +161,6 @@ module.exports = {
     Plot: Plot,
     PlotParametric: PlotParametric,
     Point: Point,
-    Sinusoid: Sinusoid
+    Sinusoid: Sinusoid,
     Rect: Rect
 };
