@@ -187,8 +187,7 @@ Perseus.init({skipMathJax: false}).then(function() {
     );
 
     // Some hacks to make debugging nicer
-    window.editorPage = editor.refs.editor;
-    window.itemRenderer = window.editorPage.renderer;
+    window.articleEditor = editor.refs.editor;
 }).then(function() {
 }, function(err) {
     console.error(err);

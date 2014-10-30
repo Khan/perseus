@@ -23,13 +23,16 @@ var Iframe = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
-        status: React.PropTypes.string,
+        width: React.PropTypes.string,
+        height: React.PropTypes.string,
+        url: React.PropTypes.string,
+        settings: React.PropTypes.array,
+        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
         message: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            // options: incomplete, incorrect, correct
             status: "incomplete",
             // optional message
             message: null
@@ -72,7 +75,7 @@ var Iframe = React.createClass({
         var url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
-        if (url.length && url.indexOf("http") !== 0) {
+        if (url && url.length && url.indexOf("http") !== 0) {
             url = "https://www.khanacademy.org/computer-programming/program/" + url +
                     "/embedded?buttons=no&embed=yes&editor=no&author=no";
             url = updateQueryString(url, "width", this.props.width);
