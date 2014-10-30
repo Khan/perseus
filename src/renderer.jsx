@@ -129,6 +129,7 @@ var Renderer = React.createClass({
             onRender: function() {},
             onInteractWithWidget: function() {},
             interWidgets: () => null,
+            alwaysUpdate: false,
         };
     },
 

@@ -97,12 +97,12 @@ var WidgetEditor = React.createClass({
                     <i className={"icon-chevron-" + direction} />
                 </a>
                 <a href="#" className="remove-widget simple-button simple-button--small orange"
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.preventDefault();
                             this.props.onRemove();
-                            return false;
                         }}>
                     <span className="icon-trash" />
-                </a>    
+                </a>
             </div>
             <div className={"perseus-widget-editor-content " +
                     (this.state.showWidget ? "enter" : "leave")}>
