@@ -161,7 +161,7 @@ var ArticleEditor = React.createClass({
                                     <SectionControlButton
                                         icon="icon-plus"
                                         onClick={() => {
-                                            this._handleAddSectionAt(i + 1);
+                                            this._handleAddSectionAfter(i);
                                         }} />
                                 </div>
                             </div>
@@ -194,7 +194,11 @@ var ArticleEditor = React.createClass({
         return <div className="perseus-editor-row">
             <div className="perseus-editor-left-cell">
                 <a href="#" className="simple-button orange"
-                        onClick={_.partial(this._handleAddSectionAt, this._sections().length)}>
+                        onClick={() => {
+                            this._handleAddSectionAfter(
+                                this._sections().length - 1
+                            );
+                        }}>
                     <span className="icon-plus" /> Add a section
                 </a>
             </div>
@@ -254,9 +258,18 @@ var ArticleEditor = React.createClass({
         });
     },
 
-    _handleAddSectionAt: function(i) {
+    _handleAddSectionAfter: function(i) {
         var sections = _.clone(this._sections());
-        sections.splice(i, 0, {});
+        // Here we do magic to allow you to copy-paste
+        // things from the previous section into the new
+        // section while preserving widgets.
+        // To enable this, we preserve the widgets
+        // object for the new section, but wipe out
+        // the content.
+        var newSection = (i >= 0) ? {
+            widgets: sections[i].widgets
+        } : {};
+        sections.splice(i + 1, 0, newSection);
         this.props.onChange({
             json: sections
         });
