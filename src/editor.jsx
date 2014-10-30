@@ -7,6 +7,8 @@ var Widgets = require("./widgets.js");
 var DragTarget = require("react-components/drag-target.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 
+var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
+
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
@@ -128,9 +130,10 @@ var WidgetEditor = React.createClass({
         // situations where we would send things like { answerType: "decimal" }
         // to our upgrade functions, without the rest of the props representing
         // the widget.
-        var currentWidgetInfo = _.extend({}, this.props, {
-            options: this.refs.widget.serialize()
-        });
+        var currentWidgetInfo = _.extend(
+            _.omit(this.props, WIDGET_PROP_BLACKLIST),
+            { options: this.refs.widget.serialize() }
+        );
         var newWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
             currentWidgetInfo
         );

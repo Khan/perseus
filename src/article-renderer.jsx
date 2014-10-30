@@ -3,7 +3,6 @@ var React = require("react");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
-var objective_ = require("./interactive2/objective_.js");
 
 var ArticleRenderer = React.createClass({
 

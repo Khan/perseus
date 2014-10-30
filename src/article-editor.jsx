@@ -65,11 +65,6 @@ var ArticleEditor = React.createClass({
     },
 
     render: function() {
-        var apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions
-        );
 
         return <div className="framework-perseus perseus-article">
             <div>
@@ -114,15 +109,22 @@ var ArticleEditor = React.createClass({
             [this.props.json];
     },
 
-    _renderEditor: function(apiOptions) {
+    _renderEditor: function() {
         return <div>
-            {this._renderSections(apiOptions)}
+            {this._renderSections()}
             {this._renderAddSection()}
         </div>;
     },
 
-    _renderSections: function(apiOptions) {
+    _renderSections: function() {
+        var apiOptions = _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions
+        );
+
         var sections = this._sections();
+
         return <div className="perseus-editor-table">
             {sections.map((section, i) => {
                 return [
@@ -259,7 +261,9 @@ var ArticleEditor = React.createClass({
     },
 
     _handleAddSectionAfter: function(i) {
-        var sections = _.clone(this._sections());
+        // We do a full serialization here because we
+        // might be copying widgets:
+        var sections = _.clone(this.serialize());
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
