@@ -81,12 +81,14 @@ var Sequence = React.createClass({
             };
         });
 
-        return <Renderer
-            ref="renderer"
-            content={content}
-            widgets={widgets}
-            apiOptions={this.props.apiOptions}
-            enabledFeatures={this.props.enabledFeatures} />;
+        return <div className="perseus-sequence">
+            <Renderer
+                ref="renderer"
+                content={content}
+                widgets={widgets}
+                apiOptions={this.props.apiOptions}
+                enabledFeatures={this.props.enabledFeatures} />
+        </div>;
     },
 
     _handleInteraction: function(step) {
