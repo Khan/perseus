@@ -10,6 +10,7 @@ var Group = React.createClass({
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
+        icon: React.PropTypes.object
     },
 
     getDefaultProps: function() {
@@ -17,6 +18,7 @@ var Group = React.createClass({
             content: "",
             widgets: {},
             images: {},
+            icon: null
         };
     },
 
@@ -45,6 +47,9 @@ var Group = React.createClass({
                 ref="renderer"
                 apiOptions={apiOptions}
                 interWidgets={this._interWidgets} />
+            {this.props.icon && <div className="group-icon">
+                {this.props.icon}
+            </div>}
         </div>;
     },
 
