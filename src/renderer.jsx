@@ -26,6 +26,7 @@ var specialChars = {
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
+var rContainsNonWhitespace = /\S/;
 
 if (typeof KA !== "undefined" && KA.language === "en-PT") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
@@ -451,14 +452,18 @@ var Renderer = React.createClass({
     // for appropriate spacing and other css
     outputMarkdown: function(ast) {
         if (_.isArray(ast)) {
-            return _.map(ast, (node) => {
-                return <QuestionParagraph>
-                    {this.outputNested(node)}
-                </QuestionParagraph>;
-            });
+            return _.map(ast, (node) => this.outputMarkdown(node));
         } else {
-            return <QuestionParagraph>
-                {this.outputNested(ast)}
+            // !!! WARNING: Mutative hacks! mutates `this._foundTextNodes`:
+            // because i wrote a bad interface to simple-markdown.js' `output`
+            this._foundTextNodes = false;
+            var output = this.outputNested(ast);
+            var className = this._foundTextNodes ?
+                "" :
+                "perseus-paragraph-centered";
+
+            return <QuestionParagraph className={className}>
+                {output}
             </QuestionParagraph>;
         }
     },
@@ -475,6 +480,12 @@ var Renderer = React.createClass({
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput) {
         if (node.type === "widget") {
+            // Widgets can contain text nodes, so we don't center them with
+            // markdown magic here.
+            // Instead, we center them with css magic in articles.less
+            // /cry(aria)
+            this._foundTextNodes = true;
+
             if (_.contains(this.widgetIds, node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
@@ -512,6 +523,12 @@ var Renderer = React.createClass({
                 alt={node.alt}
                 title={node.title}
                 {...extraAttrs} />;
+
+        } else if (node.type === "text") {
+            if (rContainsNonWhitespace.test(node.content)) {
+                this._foundTextNodes = true;
+            }
+            return node.content;
 
         } else {
             // If it's a "normal" or "simple" markdown node, just

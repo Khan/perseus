@@ -5,6 +5,9 @@
 
 @import "variables.less";
 
+// Article Renderer
+@import "articles.less";
+
 #perseus {
     position: relative;
 }
@@ -276,6 +279,8 @@
 
 /* Widget CSS */
 
+// TODO(aria): Ugh, sort these and remove
+// the extra categorization file
 @import "widgets/expression.less";
 @import "widgets/radio.less";
 @import "widgets/interactive-graph.less";
@@ -293,6 +298,7 @@
 @import "widgets/passage.less";
 @import "widgets/matrix.less";
 @import "widgets/number-line.less";
+@import "widgets/group.less";
 
 .perseus-diff {
     @borderColor: #E4E4E4;
@@ -550,16 +556,3 @@
 //    display: table-cell;
 //    width: 50%;
 //}
-
-// Article Renderer
-.framework-perseus.perseus-article {
-    width: 640px;
-}
-
-.perseus-group {
-    .group-icon {
-        position: absolute;
-        top: 50%;
-        margin-left: -20px;
-    }
-}
