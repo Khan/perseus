@@ -512,7 +512,7 @@ var Renderer = React.createClass({
             // We need to add width and height to images from our
             // props.images mapping.
 
-            // We do a _.has check here to avoid wierd things like
+            // We do a _.has check here to avoid weird things like
             // 'toString' or '__proto__' as a url.
             var extraAttrs = (_.has(this.props.images, node.target)) ?
                 this.props.images[node.target] :
