@@ -546,14 +546,35 @@
     background-color: #fcc;
 }
 
-/** Columns are visually disabled for now **/
-//.perseus-two-columns {
-//    display: table;
-//    table-layout: fixed;
-//    width: 100%;
-//}
-
-//.perseus-column {
-//    display: table-cell;
-//    width: 50%;
-//}
+body.sat-section {
+    @satTopPadding: 35px;
+    .perseus-renderer {
+        margin: 0 auto;
+        padding-top: @satTopPadding;
+        width: 592px;
+        &.two-columns {
+            padding-top: 0;
+            width: 1024px;
+            .perseus-column {
+                overflow-y: auto;
+                // TODO(kitt/john): Make this dynamically expand
+                // based on the height of the viewport.
+                max-height: 550px - @satTopPadding;
+                &:nth-child(1) {
+                    float: left;
+                    padding-left: 10px;
+                    padding-top: @satTopPadding;
+                    width: 512px;
+                }
+                &:nth-child(2) {
+                    float: right;
+                    padding-left: 20px;
+                    width: 482px;
+                    .perseus-group {
+                        padding-top: @satTopPadding;
+                    }
+                }
+            }
+        }
+    }
+}
