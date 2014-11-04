@@ -62,6 +62,18 @@ put-css: build
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
 
 
+# Pull submodules if they are empty.
+# This should make first-time installation easier.
+# We don't pull them if they are not empty because you might have
+# intentionally added commits to them, and it would be weird for
+# running the server to mess around with your git status.
+# (we just test kmath here as a fun sample repo. #yolo)
+ifeq ("$(wildcard kmath/package.json)", "")
+SUBMODULE_UPDATE := git submodule update --init
+else
+SUBMODULE_UPDATE := echo "submodules already initialized"
+endif
+
 # just to make the upgrade process over switching from injected rcss to
 # real rcss smooth
 ifeq ("$(wildcard node_modules/rcss/package.json)","")
@@ -76,6 +88,7 @@ endif
 
 install:
 ifneq ("$(SUPPRESSINSTALL)","TRUE")
+	$(SUBMODULE_UPDATE)
 	$(CLEAN_RCSS)
 	npm install
 	rm -rf node_modules/react-components
