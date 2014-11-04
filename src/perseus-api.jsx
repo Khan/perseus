@@ -49,6 +49,8 @@ module.exports = {
         }
     },
     ClassNames: {
+        RENDERER: "perseus-renderer",
+        TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
         INPUT: "perseus-input",
         FOCUSED: "perseus-focused",
         RADIO: {

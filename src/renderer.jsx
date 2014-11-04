@@ -10,6 +10,7 @@ var PerseusMarkdown = require("./perseus-markdown.jsx");
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
+var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 
 var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
 
@@ -442,9 +443,25 @@ var Renderer = React.createClass({
             </div>;
         }
 
+        // Hacks:
+        // We use mutable state here to figure out whether the output
+        // had two columns.
+        // It is updated to true by `this.outputMarkdown` if a
+        // column break is found
+        // TODO(aria): Add a state variable to simple-markdown's output
+        // functions so that we can do this in a less hacky way.
+        this._isTwoColumn = false;
+
         var parsedMardown = PerseusMarkdown.parse(content);
         var markdownContents = this.outputMarkdown(parsedMardown);
-        this.lastRenderedMarkdown = <div>{markdownContents}</div>;
+
+        var className = this._isTwoColumn ?
+            ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
+            ApiClassNames.RENDERER;
+
+        this.lastRenderedMarkdown = <div className={className}>
+            {markdownContents}
+        </div>;
         return this.lastRenderedMarkdown;
     },
 
@@ -523,6 +540,15 @@ var Renderer = React.createClass({
                 alt={node.alt}
                 title={node.title}
                 {...extraAttrs} />;
+
+        } else if (node.type === "columns") {
+            // Note that we have two columns. This is so we can put
+            // a className on the outer renderer content for SAT.
+            // TODO(aria): See if there is a better way we can do
+            // things like this
+            this._isTwoColumn = true;
+            // but then render normally:
+            return PerseusMarkdown.ruleOutput(node, nestedOutput);
 
         } else if (node.type === "text") {
             if (rContainsNonWhitespace.test(node.content)) {
