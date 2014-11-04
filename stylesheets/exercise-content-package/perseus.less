@@ -548,6 +548,7 @@
 
 body.sat-section {
     @satTopPadding: 35px;
+    @satSectionHeight: 550px;
     .perseus-renderer {
         margin: 0 auto;
         padding-top: @satTopPadding;
@@ -559,7 +560,7 @@ body.sat-section {
                 overflow-y: auto;
                 // TODO(kitt/john): Make this dynamically expand
                 // based on the height of the viewport.
-                max-height: 550px - @satTopPadding;
+                max-height: @satSectionHeight - @satTopPadding;
                 &:nth-child(1) {
                     float: left;
                     padding-left: 10px;
