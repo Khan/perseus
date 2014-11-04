@@ -14,7 +14,8 @@ module.exports = {
         loaders: [
         { test: /\.json$/, loader: "json-loader" },
         // https://github.com/webpack/webpack/issues/119
-        { test: /\.jsx$/, loader: path.join(__dirname, "node/jsx-loader.js") }
+        { test: /\.jsx$/, loader: path.join(__dirname, "node/jsx-loader.js") },
+        { test: /\.jison$/, loader: "jison-loader" }
         ]
     }
 };
