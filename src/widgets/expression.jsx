@@ -7,6 +7,7 @@ var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var ApiOptions = require("../perseus-api.jsx").Options;
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 var EnabledFeatures = require("../enabled-features.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
@@ -119,6 +120,7 @@ var Expression = React.createClass({
             return <span className={className}>
                 <MathInput
                     ref="input"
+                    className={ApiClassNames.INTERACTIVE}
                     value={this.props.value}
                     onChange={this.change("value")}
                     convertDotToTimes={this.props.times}
