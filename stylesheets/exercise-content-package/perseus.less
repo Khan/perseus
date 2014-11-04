@@ -549,19 +549,20 @@
 body.sat-section {
     @satTopPadding: 35px;
     @satSectionHeight: 550px;
-    .perseus-renderer {
+    .content-area > .perseus-renderer {
         margin: 0 auto;
         padding-top: @satTopPadding;
         width: 592px;
-        &.two-columns {
+        &.perseus-renderer-two-columns {
             padding-top: 0;
             width: 1024px;
             .perseus-column {
                 overflow-y: auto;
                 // TODO(kitt/john): Make this dynamically expand
                 // based on the height of the viewport.
-                max-height: @satSectionHeight - @satTopPadding;
                 &:nth-child(1) {
+                    height: @satSectionHeight - @satTopPadding;
+                    max-height: @satSectionHeight - @satTopPadding;
                     float: left;
                     padding-left: 10px;
                     padding-top: @satTopPadding;
@@ -569,8 +570,11 @@ body.sat-section {
                 }
                 &:nth-child(2) {
                     float: right;
+                    height: @satSectionHeight;
+                    max-height: @satSectionHeight;
                     padding-left: 20px;
-                    width: 482px;
+                    padding-right: 10px;
+                    width: 472px;
                     .perseus-group {
                         padding-top: @satTopPadding;
                     }
