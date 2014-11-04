@@ -583,7 +583,7 @@ var Editor = React.createClass({
             .value();
     },
 
-    serialize: function() {
+    serialize: function(options) {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -592,6 +592,20 @@ var Editor = React.createClass({
         _.each(widgetIds, id => {
             widgets[id] = this.refs[id].serialize();
         });
+
+        // Preserve the data associated with deleted widgets in their last
+        // modified form. This is only intended to be useful in the context of
+        // immediate cut and paste operations if Editor.serialize() is called
+        // in between the two (which ideally should not be happening).
+        // TODO(alex): Remove this once all widget.serialize() methods
+        //             have been fixed to only return props,
+        //             and the above no longer applies.
+        if (options && options.keepDeletedWidgets) {
+            _.chain(this.props.widgets)
+                .keys()
+                .reject(id => _.contains(widgetIds, id))
+                .each(id => widgets[id] = this.props.widgets[id]);
+        }
 
         return {
             content: this.props.content,

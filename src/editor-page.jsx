@@ -104,7 +104,7 @@ var EditorPage = React.createClass({
 
     toggleJsonMode: function() {
         this.setState({
-            json: this.serialize()
+            json: this.serialize({keepDeletedWidgets: true})
         }, function() {
             this.props.onChange({
                 jsonMode: !this.props.jsonMode
@@ -181,12 +181,12 @@ var EditorPage = React.createClass({
         return issues1.concat(issues2);
     },
 
-    serialize: function() {
+    serialize: function(options) {
         if (this.props.jsonMode) {
             return this.state.json;
         } else {
-            return _.extend(this.refs.itemEditor.serialize(), {
-                hints: this.refs.hintsEditor.serialize()
+            return _.extend(this.refs.itemEditor.serialize(options), {
+                hints: this.refs.hintsEditor.serialize(options)
             });
         }
     }
