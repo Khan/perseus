@@ -41,7 +41,12 @@ var Group = React.createClass({
             }
         );
 
+        // Allow a problem number annotation to be added.
+        var number = _.indexOf(this.props.interWidgets("group"), this);
+        var problemNumComponent = this.props.apiOptions.groupAnnotator(number);
+
         return <div className="perseus-group">
+            {problemNumComponent}
             <Renderer
                 {...this.props}
                 ref="renderer"

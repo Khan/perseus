@@ -38,6 +38,13 @@ module.exports = {
             // TODO(aria) Remove when Alex kills the answer area
             enableOldAnswerTypes: React.PropTypes.bool.isRequired,
             readOnly: React.PropTypes.bool.isRequired,
+
+            // A function that takes in the relative problem number (starts at
+            // 0 and is incremented for each group widget) and returns a react
+            // component that will be added immediately above the renderer in
+            // the group widget. If the function returns null, no annotation
+            // will be added.
+            groupAnnotator: React.PropTypes.func.isRequired,
         }).isRequired,
 
         defaults: {
@@ -48,6 +55,7 @@ module.exports = {
             GroupMetadataEditor: StubTagEditor,
             enableOldAnswerTypes: false,
             readOnly: false,
+            groupAnnotator: function() { return null; },
         }
     },
     ClassNames: {
