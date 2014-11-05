@@ -197,9 +197,11 @@ body.sat-section {
                 color: @satBlue;
                 font-family: 'Proxima Nova Semibold';
                 font-size: 13px;
-                left: 12px;
+                left: 0;
                 position: absolute;
+                text-align: center;
                 top: 7px;
+                width: 32px;
             }
         }
 
@@ -229,6 +231,10 @@ body.sat-section {
                     background-color: #d0edf4;
                 }
 
+                span.checkbox:after {
+                    color: #fff;
+                }
+
                 // Make the top border of the next section (which acts
                 // as this element's bottom border) the highlight color.
                 & + .perseus-radio-option {
@@ -243,19 +249,15 @@ body.sat-section {
 
             &:nth-child(1) span.checkbox:after {
                 content: 'A';
-                left: 11.5px;
             }
             &:nth-child(2) span.checkbox:after {
                 content: 'B';
-                left: 11.75px;
             }
             &:nth-child(3) span.checkbox:after {
                 content: 'C';
-                left: 11.25px;
             }
             &:nth-child(4) span.checkbox:after {
                 content: 'D';
-                left: 11.75px;
             }
             &:nth-child(5) span.checkbox:after {
                 content: 'E';
