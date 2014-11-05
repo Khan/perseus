@@ -94,13 +94,71 @@ function initPerseus(Perseus) {
 
 var seedContent = {
     "question": {
-        "content": "![](https://ka-perseus-graphie.s3.amazonaws.com/6180e0ee679ba21aa1e56a0b5bb0167cb89c3e7d.png)\n",
-        "widgets": {}
+        "content": "[[☃ input-number 1]]\n\n[[☃ group 1]]",
+        "images": {
+            "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
+                "width": 400,
+                "height": 70
+            },
+            "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
+                "width": 425,
+                "height": 150
+            }
+        },
+        "widgets": {
+            "input-number 1": {
+                "type": "input-number",
+                "graded": true,
+                "options": {
+                    "value": "0",
+                    "simplify": "required",
+                    "size": "normal",
+                    "inexact": false,
+                    "maxError": 0.1,
+                    "answerType": "number"
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "group 1": {
+                "type": "group",
+                "graded": true,
+                "options": {
+                    "content": "[[☃ input-number 1]]",
+                    "images": {},
+                    "widgets": {
+                        "input-number 1": {
+                            "type": "input-number",
+                            "graded": true,
+                            "options": {
+                                "value": "0",
+                                "simplify": "required",
+                                "size": "normal",
+                                "inexact": false,
+                                "maxError": 0.1,
+                                "answerType": "number"
+                            },
+                            "version": {
+                                "major": 0,
+                                "minor": 0
+                            }
+                        }
+                    }
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            }
+        }
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
+            "images": {},
             "widgets": {}
         },
         "calculator": false
@@ -109,7 +167,30 @@ var seedContent = {
         "major": 0,
         "minor": 1
     },
-    "hints": []
+    "hints": [
+        {
+            "content": "[[☃ input-number 1]]",
+            "images": {},
+            "widgets": {
+                "input-number 1": {
+                    "type": "input-number",
+                    "graded": true,
+                    "options": {
+                        "value": "0",
+                        "simplify": "required",
+                        "size": "normal",
+                        "inexact": false,
+                        "maxError": 0.1,
+                        "answerType": "number"
+                    },
+                    "version": {
+                        "major": 0,
+                        "minor": 0
+                    }
+                }
+            }
+        }
+    ]
 };
 
 Perseus.init({}).then(function() {

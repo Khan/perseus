@@ -65,6 +65,17 @@ var Group = React.createClass({
         return this.refs.renderer.getUserInput();
     },
 
+    getSerializedState: function() {
+        return this.refs.renderer.getSerializedState();
+    },
+
+    restoreSerializedState: function(state) {
+        this.refs.renderer.restoreSerializedState(state);
+        // Tell our renderer that we have no props to change
+        // (all our changes were in state):
+        return null;
+    },
+
     simpleValidate: function(rubric) {
         return this.refs.renderer.score();
     },

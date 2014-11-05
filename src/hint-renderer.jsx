@@ -14,11 +14,20 @@ var HintRenderer = React.createClass({
         }
         return <div className={classNames}>
             <Renderer
+                ref="renderer"
                 widgets={this.props.hint.widgets}
                 content={this.props.hint.content || ""}
                 images={this.props.hint.images} />
         </div>;
-    }
+    },
+
+    getSerializedState: function() {
+        return this.refs.renderer.getSerializedState();
+    },
+
+    restoreSerializedState: function(state) {
+        this.refs.renderer.restoreSerializedState(state);
+    },
 });
 
 module.exports = HintRenderer;

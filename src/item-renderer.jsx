@@ -12,22 +12,52 @@ var {mapObject} = require("./interactive2/objective_.js");
 
 var HintsRenderer = React.createClass({
     render: function() {
-        var hintsVisible = this.props.hintsVisible;
+        var hintsVisible = this._hintsVisible();
         var hints = this.props.hints
-            .slice(0, hintsVisible === -1 ? undefined : hintsVisible)
+            .slice(0, hintsVisible)
             .map(function(hint, i) {
                 var shouldBold = i === this.props.hints.length - 1 &&
                                  !(/\*\*/).test(hint.content);
                 return <HintRenderer
                             bold={shouldBold}
                             hint={hint}
+                            ref={"hintRenderer" + i}
                             key={"hintRenderer" + i}
                             enabledFeatures={this.props.enabledFeatures}
                             apiOptions={this.props.apiOptions} />;
             }, this);
 
         return <div>{hints}</div>;
-    }
+    },
+
+    _hintsVisible: function() {
+        if (this.props.hintsVisible == null ||
+                this.props.hintsVisible === -1) {
+            return this.props.hints.length;
+        } else {
+            return this.props.hintsVisible;
+        }
+    },
+
+    getSerializedState: function() {
+        return _.times(this._hintsVisible(), (i) => {
+            return this.refs["hintRenderer" + i].getSerializedState();
+        });
+    },
+
+    restoreSerializedState: function(state) {
+        _.each(state, (hintState, i) => {
+            var hintRenderer = this.refs["hintRenderer" + i];
+            // This is not ideal in that it doesn't restore state
+            // if the hint isn't visible, but we can't exactly restore
+            // the state to an unmounted renderer, so...
+            // If you want to restore state to hints, make sure to
+            // have the appropriate number of hints visible already.
+            if (hintRenderer) {
+                hintRenderer.restoreSerializedState(hintState);
+            }
+        });
+    },
 });
 
 var highlightedWidgets = (widgetList) =>
@@ -367,7 +397,24 @@ var ItemRenderer = React.createClass({
         return mapObject(qScore, (score, id) => {
             return Util.keScoreFromPerseusScore(score, qGuess[id]);
         });
-    }
+    },
+
+    /**
+     * Get a representation of the current state of the item.
+     *
+     * Note: this ignores the answer area.
+     */
+    getSerializedState: function() {
+        return {
+            question: this.questionRenderer.getSerializedState(),
+            hints: this.hintsRenderer.getSerializedState(),
+        };
+    },
+
+    restoreSerializedState: function(state) {
+        this.questionRenderer.restoreSerializedState(state.question);
+        this.hintsRenderer.restoreSerializedState(state.hints);
+    },
 });
 
 module.exports = ItemRenderer;

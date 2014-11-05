@@ -164,7 +164,7 @@ var Renderer = React.createClass({
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo, props) {
-        return props.savedState || mapObject(allWidgetInfo, (editorProps) => {
+        return mapObject(allWidgetInfo, (editorProps) => {
             return Widgets.getRendererPropsForWidgetInfo(
                 editorProps,
                 props.problemNum
@@ -241,11 +241,44 @@ var Renderer = React.createClass({
     /**
     * Serializes the questions state so it can be recovered.
     *
-    * The return value of this function can be safely passed in through the
-    * savedState prop and things will behave as you expect.
+    * The return value of this function can be sent to the
+    * `restoreSerializedState` method to restore this state.
     */
     getSerializedState: function() {
-        return this.state.widgetProps;
+        return mapObject(this.state.widgetProps, (props, widgetId) => {
+            var widget = this.getWidgetInstance(widgetId);
+            if (widget && widget.getSerializedState) {
+                return widget.getSerializedState();
+            } else {
+                return props;
+            }
+        });
+    },
+
+    restoreSerializedState: function(serializedState) {
+        this.setState({
+            widgetProps: mapObject(serializedState, (props, widgetId) => {
+                var widget = this.getWidgetInstance(widgetId);
+                if (widget && widget.restoreSerializedState) {
+                    // Note that we probably can't call
+                    // `this.change()/this.props.onChange()` in this
+                    // function, so we take the return value and use
+                    // that as props if necessary so that
+                    // `restoreSerializedState` in a widget can
+                    // change the props as well as state.
+                    // If a widget has no props to change, it can
+                    // safely return null.
+                    var restoreResult = widget.restoreSerializedState(props);
+                    return _.extend(
+                        {},
+                        this.state.widgetProps[widgetId],
+                        restoreResult
+                    );
+                } else {
+                    return props;
+                }
+            })
+        });
     },
 
     /**
