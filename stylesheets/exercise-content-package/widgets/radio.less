@@ -242,6 +242,47 @@ body.sat-section {
                 }
             }
 
+            &.perseus-correct {
+                color: @satCorrectColor;
+
+                input[type=radio] {
+                    // TODO(johnsullivan): support checkbox
+                    border-color: @satCorrectColor;
+
+                    &:checked {
+                        background: @satCorrectColor;
+                    }
+                }
+            }
+
+            &.perseus-radio-selected.perseus-correct {
+                background-color: @satCorrectBackgroundColor;
+                border-color: @satCorrectBorderColor;
+
+                & + .perseus-radio-option {
+                    border-top-color: @satCorrectBorderColor;
+                }
+            }
+
+            &.perseus-radio-selected.perseus-incorrect {
+                color: @satIncorrectColor;
+                background-color: @satIncorrectBackgroundColor;
+                border-color: @satIncorrectBorderColor;
+
+                & + .perseus-radio-option {
+                    border-top-color: @satIncorrectBorderColor;
+                }
+
+                input[type=radio] {
+                    // TODO(johnsullivan): support checkbox
+                    border-color: @satIncorrectColor;
+
+                    &:checked {
+                        background: @satIncorrectColor;
+                    }
+                }
+            }
+
             .perseus-radio-option-content {
                 display: block;
                 margin-left: 45px;

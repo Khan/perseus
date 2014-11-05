@@ -37,6 +37,7 @@ module.exports = {
             // Enable old answer types in test.html
             // TODO(aria) Remove when Alex kills the answer area
             enableOldAnswerTypes: React.PropTypes.bool.isRequired,
+            readOnly: React.PropTypes.bool.isRequired,
         }).isRequired,
 
         defaults: {
@@ -46,6 +47,7 @@ module.exports = {
             staticRender: false,
             GroupMetadataEditor: StubTagEditor,
             enableOldAnswerTypes: false,
+            readOnly: false,
         }
     },
     ClassNames: {
@@ -58,7 +60,9 @@ module.exports = {
             SELECTED: "perseus-radio-selected",
             OPTION_CONTENT: "perseus-radio-option-content"
         },
-        INTERACTIVE: "perseus-interactive"
+        INTERACTIVE: "perseus-interactive",
+        CORRECT: "perseus-correct",
+        INCORRECT: "perseus-incorrect",
     }
 };
 

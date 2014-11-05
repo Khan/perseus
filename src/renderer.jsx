@@ -104,6 +104,7 @@ var Renderer = React.createClass({
         onInteractWithWidget: React.PropTypes.func,
         interWidgets: React.PropTypes.func,
         alwaysUpdate: React.PropTypes.bool,
+        reviewMode: React.PropTypes.bool,
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -132,6 +133,7 @@ var Renderer = React.createClass({
             onInteractWithWidget: function() {},
             interWidgets: () => null,
             alwaysUpdate: false,
+            reviewMode: false,
         };
     },
 
@@ -222,6 +224,14 @@ var Renderer = React.createClass({
 
     getWidgetProps: function(id) {
         var widgetProps = this.state.widgetProps[id] || {};
+
+        // The widget needs access to its "rubric" at all times when in review
+        // mode (which is really just part of its widget info).
+        var reviewModeRubric = null;
+        if (this.props.reviewMode && this.state.widgetInfo[id]) {
+            reviewModeRubric = this.state.widgetInfo[id].options;
+        }
+
         return _.extend({}, widgetProps, {
             ref: id,
             widgetId: id,
@@ -232,6 +242,7 @@ var Renderer = React.createClass({
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
             interWidgets: this.interWidgets,
+            reviewModeRubric: reviewModeRubric,
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
             }

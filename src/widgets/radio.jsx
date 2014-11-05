@@ -25,18 +25,21 @@ var BaseRadio = React.createClass({
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
         showClues: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool
+        onePerLine: React.PropTypes.bool,
+        apiOptions: React.PropTypes.object,
+        reviewModeRubric: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
         return {
-            onePerLine: true
+            onePerLine: true,
         };
     },
 
     render: function() {
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
+        var rubric = this.props.reviewModeRubric;
 
         return <ul className={"perseus-widget-radio " +
                 "above-scratchpad blank-background"}>
@@ -54,8 +57,15 @@ var BaseRadio = React.createClass({
                     "inline": !this.props.onePerLine
                 };
                 classSet[ApiClassNames.RADIO.OPTION] = true;
-                classSet[ApiClassNames.INTERACTIVE] = true;
+                classSet[ApiClassNames.INTERACTIVE] =
+                    !this.props.apiOptions.readOnly;
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
+                if (rubric) {
+                    classSet[ApiClassNames.CORRECT] =
+                        rubric.choices[i].correct;
+                    classSet[ApiClassNames.INCORRECT] =
+                        !rubric.choices[i].correct;
+                }
                 var className = cx(classSet);
 
                 return <li className={className} key={i}
@@ -65,12 +75,14 @@ var BaseRadio = React.createClass({
                             onClick={!this.props.labelWrap ? null : (e) => {
                                 // Don't send this to the scratchpad
                                 e.preventDefault();
-                                this.checkOption(i,
-                                    (this.props.multipleSelect ?
-                                        !choice.checked :
-                                        true
-                                    )
-                                );
+                                if (!this.props.apiOptions.readOnly) {
+                                    this.checkOption(i,
+                                        (this.props.multipleSelect ?
+                                            !choice.checked :
+                                            true
+                                        )
+                                    );
+                                }
                             }}>
                     <div>
                         <span className="checkbox">
@@ -85,7 +97,8 @@ var BaseRadio = React.createClass({
                                 }}
                                 onChange={(e) => {
                                     this.checkOption(i, e.target.checked);
-                                }} />
+                                }}
+                                disabled={this.props.apiOptions.readOnly} />
                         </span>
                         {/* A pseudo-label. <label> is slightly broken on iOS,
                             so this works around that. Unfortunately, it is
@@ -185,7 +198,9 @@ var Radio = React.createClass({
             choices={choices.map(function(choice) {
                 return _.pick(choice, "content", "checked", "clue");
             })}
-            onCheckedChange={this.onCheckedChange} />;
+            onCheckedChange={this.onCheckedChange}
+            reviewModeRubric={this.props.reviewModeRubric}
+            apiOptions={this.props.apiOptions} />;
     },
 
     _renderRenderer: function(content) {
