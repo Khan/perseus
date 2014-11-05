@@ -192,6 +192,15 @@ body.sat-section {
             top: 50%;
             margin: -16px 0 0 0;
             width: auto;
+
+            &:after {
+                color: @satBlue;
+                font-family: 'Proxima Nova Semibold';
+                font-size: 13px;
+                left: 12px;
+                position: absolute;
+                top: 7px;
+            }
         }
 
         // General styles for the li
@@ -230,6 +239,26 @@ body.sat-section {
             .perseus-radio-option-content {
                 display: block;
                 margin-left: 45px;
+            }
+
+            &:nth-child(1) span.checkbox:after {
+                content: 'A';
+                left: 11.5px;
+            }
+            &:nth-child(2) span.checkbox:after {
+                content: 'B';
+                left: 11.75px;
+            }
+            &:nth-child(3) span.checkbox:after {
+                content: 'C';
+                left: 11.25px;
+            }
+            &:nth-child(4) span.checkbox:after {
+                content: 'D';
+                left: 11.75px;
+            }
+            &:nth-child(5) span.checkbox:after {
+                content: 'E';
             }
         }
 
