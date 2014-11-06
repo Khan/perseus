@@ -219,22 +219,17 @@ body.sat-section {
             overflow: hidden;
             padding: 17px 14px !important; // Being overwritten by khan-exercises.css
 
+            &.perseus-radio-selected,
             &:active {
-                background-color: #f7f7f7;
-            }
-
-            &.perseus-radio-selected {
-                background-color: #e4f3f9;
+                // TODO(kitt): Clean up these decorators.
                 border-color: @satBlue;
-
-                &:active {
-                    background-color: #d0edf4;
-                }
-
                 span.checkbox:after {
                     color: #fff;
                 }
-
+                input[type=radio] {
+                    outline: none;
+                    background: @satBlue;
+                }
                 // Make the top border of the next section (which acts
                 // as this element's bottom border) the highlight color.
                 & + .perseus-radio-option {
@@ -283,9 +278,24 @@ body.sat-section {
                 }
             }
 
+            &:active {
+                background-color: #d0edf4;
+            }
+
+            &.perseus-radio-selected {
+                background-color: #e4f3f9;
+
+                &:active {
+                    background-color: #d0edf4;
+                }
+            }
+
             .perseus-radio-option-content {
                 display: block;
                 margin-left: 45px;
+                // Overriding here, not sure why typically set to
+                // "cursor: default" in js.
+                cursor: inherit !important;
             }
 
             &:nth-child(1) span.checkbox:after {
@@ -305,8 +315,7 @@ body.sat-section {
             }
         }
 
-        input[type=radio],
-        input[type=checkbox] {
+        input[type=radio] {
             -webkit-appearance: none;
             appearance: none;
             border: 2px solid @satBlue;
@@ -314,33 +323,6 @@ body.sat-section {
             float: left;
             height: 25px;
             width: 25px;
-        }
-
-        input[type=radio] {
-            outline: none;
-            &:checked {
-                background: @satBlue;
-            }
-        }
-
-        input[type=checkbox] {
-            position: absolute;
-            outline: none;
-
-            &:before {
-                color: @satBlue;
-                font: 15pt "FontAwesome";
-                left: 0;
-                position: relative;
-                top: 1px;
-            }
-            &:checked {
-                border-color: @satBlue;
-                &:before {
-                    color: @satBlue;
-                    content: "\f00c";
-                }
-            }
         }
     }
 }
