@@ -76,9 +76,11 @@ var PassageRef = React.createClass({
             range = passage.getReference(this.props.referenceNumber);
         }
 
-        this.setState({
-            lineRange: range
-        });
+        if (this.isMounted()) {
+            this.setState({
+                lineRange: range
+            });
+        }
     },
 
     simpleValidate: function(rubric) {
