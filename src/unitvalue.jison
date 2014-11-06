@@ -53,7 +53,7 @@ Symbols:
   - 212b - angstrom
   - 00b5 - micro
  */
-"\u00b0"(" "?)[cCfF]                               return 'ATOM';
+"\u00b0"(" "?)[cCfF]                              return 'ATOM';
 [\u00b5]?([A-Za-z]+|[\u2103\u2109\u212b])         return 'ATOM';
 
 \s+                                               /* skip whitespace */

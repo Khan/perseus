@@ -124,6 +124,7 @@ _.extend(Categorizer, {
         if (!completed) {
             return {
                 type: "invalid",
+                // XXX(joel) - i18n
                 message: "Make sure you select something for every row."
             };
         }

@@ -32,7 +32,8 @@ _.each([
     require("./widgets/simple-markdown-tester.jsx"),
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
-    require("./widgets/transformer.jsx")
+    require("./widgets/transformer.jsx"),
+    require("./widgets/unit.jsx")
 ], function(widget) {
     Widgets.register(widget.name, widget);
 });
