@@ -21,9 +21,10 @@ build: install
 	mkdir -p build
 # very hacks to prevent simple-markdown from pulling in a separate version of react.
 # basically, we need its require("react") to resolve to perseus' react, instead of
-# one in its node_modules (yuck!)
+# one in its node_modules (yuck!) (same for "underscore")
 # TODO(aria): cry
 	rm -rf simple-markdown/node_modules
+	rm -rf kmath/node_modules
 	./node_modules/.bin/webpack
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
