@@ -561,6 +561,14 @@ body.sat-section {
             text-transform: uppercase;
         }
         &.perseus-renderer-two-columns {
+            // This prevents a strange blank space from appearing above
+            // passages.
+            // TODO(johnsullivan): Try and get rid of the wrapping div that's
+            // causing this instead of modifying its margin like this.
+            & > .paragraph {
+                margin: 0;
+            }
+
             width: 1024px;
             .perseus-column {
                 overflow-y: auto;
