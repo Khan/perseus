@@ -298,6 +298,10 @@ body.sat-section {
                 cursor: inherit !important;
             }
 
+            &.perseus-correct:not(.perseus-radio-selected) span.checkbox:after {
+                color: @satCorrectColor;
+            }
+
             &:nth-child(1) span.checkbox:after {
                 content: 'A';
             }
