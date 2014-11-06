@@ -553,13 +553,6 @@ body.sat-section {
         margin-left: auto;
         margin-right: auto;
         width: 592px;
-        &.question-annotation {
-            // TODO(kitt): generalize for passages
-            color: #999;
-            margin-top: @satTopSpacing;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-        }
         &.perseus-renderer-two-columns {
             // This prevents a strange blank space from appearing above
             // passages.
@@ -570,7 +563,13 @@ body.sat-section {
             }
 
             width: 1024px;
+            & > .paragraph {
+                margin: 0;
+            }
             .perseus-column {
+                & > .paragraph {
+                    margin: 0;
+                }
                 overflow-y: auto;
                 // TODO(kitt/john): Make this dynamically expand
                 // based on the height of the viewport.
@@ -591,13 +590,24 @@ body.sat-section {
                     padding-right: 20px;
                     width: 475px;
                     .perseus-group {
-                        margin-top: @satTopSpacing;
                         margin-bottom: 20px;
                     }
                 }
             }
         }
     }
+    .question-annotation {
+        // TODO(kitt): generalize for passages
+        color: #999;
+        margin-top: @satTopSpacing;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+    }
+
+    .paragraph:not(:first-child) .question-annotation {
+        margin-top: 48px;
+    }
+
     input[type=text],
     input[type=number] {
         margin: 10px 0;

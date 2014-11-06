@@ -325,4 +325,25 @@ body.sat-section {
             width: 25px;
         }
     }
+    .widget-nohighlight {
+        // TODO(kitt): Fully overrride/deactivate the :active state.
+        .perseus-radio-option:active {
+            background-color: inherit !important;
+            // TODO(kitt): Clean up these decorators.
+            border-color: #ccc !important;
+            span.checkbox:after {
+                color: inherit !important;
+            }
+            input[type=radio] {
+                outline: inherit !importantnone;
+                background: inherit !important;
+            }
+            // Make the top border of the next section (which acts
+            // as this element's bottom border) the highlight color.
+            & + .perseus-radio-option {
+                border-top-color: #ccc !important;
+            }
+
+        }
+    }
 }
