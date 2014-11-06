@@ -549,12 +549,18 @@
 body.sat-section {
     @satTopSpacing: 35px;
     @satSectionHeight: 550px;
-    .content-area > .perseus-renderer {
-        margin: 0 auto;
-        padding-top: @satTopSpacing;
+    .content-area > div {
+        margin-left: auto;
+        margin-right: auto;
         width: 592px;
+        &.question-annotation {
+            // TODO(kitt): generalize for passages
+            color: #999;
+            margin-top: @satTopSpacing;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
         &.perseus-renderer-two-columns {
-            padding-top: 0;
             width: 1024px;
             .perseus-column {
                 overflow-y: auto;
@@ -583,5 +589,13 @@ body.sat-section {
                 }
             }
         }
+    }
+    input[type=text],
+    input[type=number] {
+        margin: 10px 0;
+        padding: 5px;
+        font-family: @boldFontFamily;
+        // TODO(kitt): Resolve with KaTex_Main font somehow?
+        font-size: 14px;
     }
 }
