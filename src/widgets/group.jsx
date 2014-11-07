@@ -10,7 +10,8 @@ var Group = React.createClass({
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
-        icon: React.PropTypes.object
+        icon: React.PropTypes.object,
+        reviewModeRubric: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -51,7 +52,8 @@ var Group = React.createClass({
                 {...this.props}
                 ref="renderer"
                 apiOptions={apiOptions}
-                interWidgets={this._interWidgets} />
+                interWidgets={this._interWidgets}
+                reviewMode={!!this.props.reviewModeRubric} />
             {this.props.icon && <div className="group-icon">
                 {this.props.icon}
             </div>}
