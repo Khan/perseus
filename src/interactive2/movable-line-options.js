@@ -269,6 +269,21 @@ var constraints = {
 constraints.standard = null;
 
 
+var onMove = {
+    updatePoints: function(coord, prevCoord) {
+        var actualDelta = kvector.subtract(coord, prevCoord);
+        _.each(this.state.points, function(point) {
+            point.setCoord(kvector.add(
+                point.coord(),
+                actualDelta
+            ));
+        });
+    }
+};
+
+onMove.standard = null;
+
+
 module.exports = {
     add: add,
     modify: modify,
@@ -277,6 +292,6 @@ module.exports = {
 
     onMoveStart: {standard: null},
     constraints: constraints,
-    onMove: {standard: null},
+    onMove: onMove,
     onMoveEnd: {standard: null},
 };

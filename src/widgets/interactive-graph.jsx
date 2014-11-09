@@ -669,7 +669,7 @@ var InteractiveGraph = React.createClass({
 
                 this.updateCoordsFromPoints();
             } else if (this.props.graph.type === "polygon") {
-                if (this.polygon.closed) {
+                if (this.polygon.closed()) {
                     return;
                 }
                 point = this.createPointForPolygonType(
@@ -679,7 +679,7 @@ var InteractiveGraph = React.createClass({
                 this.points.push(point);
 
                 var idx = this.points.length - 1;
-                this.points[idx].grab();
+                this.points[idx].grab(coord);
 
                 // We don't call updateCoordsFromPoints for
                 // polygons, since the polygon won't be
@@ -1074,8 +1074,6 @@ var InteractiveGraph = React.createClass({
         var graphie = self.graphie;
         var point = Interactive2.addMovablePoint(graphie, {
             coord: coord,
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
                 Interactive2.MovablePoint.constraints.snap(),
@@ -1140,46 +1138,141 @@ var InteractiveGraph = React.createClass({
     },
 
     createPointForPolygonType: function(coord, i) {
-        var self = this;
         var graphie = this.graphie;
 
         // TODO(alex): check against "grid" instead, use constants
         var snapToGrid = !_.contains(["angles", "sides"],
             this.props.graph.snapTo);
 
-        var point = graphie.addMovablePoint(_.extend({
-            coord: coord,
-            normalStyle: {
-                stroke: KhanUtil.INTERACTIVE,
-                fill: KhanUtil.INTERACTIVE
-            }
-        }, snapToGrid ? {
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1]
-        } : {}
-        ));
-
         // Index relative to current point -> absolute index
         // NOTE: This does not work when isClickToAddPoints() == true,
         // as `i` can be changed by dragging a point to the trash
         // Currently this function is only called when !isClickToAddPoints()
-        function rel(j) {
-            return (i + j + self.points.length) % self.points.length;
-        }
+        var rel = (j) => {
+            return (i + j + this.points.length) % this.points.length;
+        };
 
-        point.hasMoved = false;
+        var onMoveEndHandler = (coord) => {
+            if (this.isClickToAddPoints()) {
+                if (this.isCoordInTrash(coord)) {
+                    // remove this point from points
+                    var index = this.removePoint(point);
+                    if (this.polygon.closed()) {
+                        this.points = rotate(this.points, index);
+                        this.polygon.update({closed: false});
+                    }
+                    this.updatePolygon();
+                    // the polygon is now unclosed, so we need to
+                    // remove any points props
+                    this.clearCoords();
 
-        point.onMove = (x, y) => {
-            var coords = _.pluck(this.points, "coord");
-            coords[i] = [x, y];
-            if (!kpoint.equal([x, y], point.coord)) {
-                point.hasMoved = true;
+                    // remove this movablePoint from graphie.
+                    // wait to do this until we're not inside of
+                    // said point's onMoveEnd method so state is
+                    // consistent throughout the method call
+                    setTimeout(point.remove.bind(point), 0);
+                } else if (this.points.length > 1 && ((
+                            point === this.points[0] &&
+                            kpoint.equal(
+                                coord,
+                                _.last(this.points).coord()
+                            )
+                        ) || (
+                            point === _.last(this.points) &&
+                            kpoint.equal(
+                                coord,
+                                this.points[0].coord()
+                            )
+                        ))) {
+                    // If the user clicked and dragged a point over endpoint,
+                    // join the them
+                    var pointToRemove = this.points.pop();
+                    if (this.points.length > 2) {
+                        this.polygon.update({closed: true});
+                        this.updateCoordsFromPoints();
+                    } else {
+                        this.polygon.update({closed: false});
+                        this.clearCoords();
+                    }
+                    this.updatePolygon();
+                    // remove this movablePoint from graphie.
+                    // wait to do this until we're not inside of
+                    // said point's onMoveEnd method so state is
+                    // consistent throughout the method call
+                    setTimeout(pointToRemove.remove.bind(
+                        pointToRemove), 0);
+                } else {
+                    // If the user clicked and dragged a point over any other
+                    // existing point, fix shape
+                    var shouldRemove = _.any(this.points, function(pt) {
+                        return pt !== point && kpoint.equal(
+                            pt.coord(), coord);
+                    });
+                    if (shouldRemove) {
+                        this.removePoint(point);
+
+                        if (this.points.length < 3) {
+                            this.polygon.update({closed: false});
+                            this.clearCoords();
+                        } else if (this.polygon.closed()) {
+                            this.updateCoordsFromPoints();
+                        }
+                        this.updatePolygon();
+                        // remove this movablePoint from graphie.
+                        // wait to do this until we're not inside
+                        // said point's onMoveEnd method so state
+                        // is consistent throughout the method call
+                        setTimeout(point.remove.bind(point), 0);
+                    } else {
+                        // If this was
+                        //  * not a deletion
+                        //  * and a click on the first or last point
+                        //  * and not a drag,
+                        //  * and not a creation of a new point
+                        //    (see !point.state.isInitialMove, below),
+                        //  * and our polygon is not closed,
+                        //  * and we can close it (we need at least 3 points),
+                        // then close it
+                        if ((point === this.points[0] ||
+                                point === _.last(this.points)) &&
+                                !point.hasMoved() &&
+                                !point.state.isInitialMove &&
+                                !this.polygon.closed() &&
+                                this.points.length > 2) {
+
+                            this.polygon.update({closed: true});
+                            this.updatePolygon();
+
+                            // We finally have a closed polygon, so save our
+                            // points to props
+                            this.updateCoordsFromPoints();
+                        }
+                    }
+                }
+
+                // In case we mouseup'd off the graphie and that
+                // stopped the move
+                this.setTrashCanVisibility(0.5);
             }
+
+            point.state.isInitialMove = false;
+        };
+
+        var graphConstraint = (coord) => {
+            // These constraints are all relative to the other points, so if
+            // we're creating the initial points and haven't added any others
+            // to the graph, we can't enforce them.
+            if (this.points == null || this.points.length === 0) {
+                return true;
+            }
+
+            var coords = _.invoke(this.points, "coord");
+            coords[i] = coord;
 
             // Check for invalid positioning, but only if we aren't adding
             // points one click at a time, since those added points could
             // have already violated these constraints
-            if (!self.isClickToAddPoints()) {
+            if (!this.isClickToAddPoints()) {
                 // Polygons can't have consecutive collinear points
                 if (collinear(coords[rel(-2)], coords[rel(-1)], coords[i]) ||
                     collinear(coords[rel(-1)], coords[i],  coords[rel(1)]) ||
@@ -1189,7 +1282,7 @@ var InteractiveGraph = React.createClass({
 
                 var segments = _.zip(coords, rotate(coords));
 
-                if (self.points.length > 3) {
+                if (this.points.length > 3) {
                     // Constrain to simple (non self-intersecting) polygon by
                     // testing whether adjacent segments intersect any others
                     for (var j = -1; j <= 0; j++) {
@@ -1208,7 +1301,7 @@ var InteractiveGraph = React.createClass({
             }
 
             if (this.props.graph.snapTo === "angles" &&
-                    self.points.length > 2) {
+                    this.points.length > 2) {
                 // Snap to whole degree interior angles
 
                 var angles = _.map(angleMeasures(coords), function(rad) {
@@ -1259,10 +1352,8 @@ var InteractiveGraph = React.createClass({
                 );
 
                 return this.graphie.addPoints(coords[rel(-1)], offset);
-
-
             } else if (this.props.graph.snapTo === "sides" &&
-                    self.points.length > 1) {
+                    this.points.length > 1) {
                 // Snap to whole unit side measures
 
                 var sides = _.map([
@@ -1301,123 +1392,37 @@ var InteractiveGraph = React.createClass({
                 );
 
                 return this.graphie.addPoints(coords[rel(-1)], offset);
-
             } else {
                 // Snap to grid (already done)
                 return true;
             }
-
         };
 
-        if (self.isClickToAddPoints()) {
-            point.onMoveEnd = function(x, y) {
-                if (self.isCoordInTrash([x, y])) {
-                    // remove this point from points
-                    var index = self.removePoint(point);
-                    if (self.polygon.closed) {
-                        self.points = rotate(self.points, index);
-                        self.polygon.closed = false;
-                    }
-                    self.polygon.points = self.points;
-                    self.updatePolygon();
-                    // the polygon is now unclosed, so we need to
-                    // remove any points props
-                    self.clearCoords();
-
-                    // remove this movablePoint from graphie.
-                    // we wait to do this until we're not inside of
-                    // said point's onMoveEnd method so its state is
-                    // consistent throughout this method call
-                    setTimeout(point.remove.bind(point), 0);
-                } else if (self.points.length > 1 && ((
-                            point === self.points[0] &&
-                            kpoint.equal([x, y], _.last(self.points).coord)
-                        ) || (
-                            point === _.last(self.points) &&
-                            kpoint.equal([x, y], self.points[0].coord)
-                        ))) {
-                    // Join endpoints
-                    var pointToRemove = self.points.pop();
-                    if (self.points.length > 2) {
-                        self.polygon.closed = true;
-                        self.updateCoordsFromPoints();
-                    } else {
-                        self.polygon.closed = false;
-                        self.clearCoords();
-                    }
-                    self.updatePolygon();
-                    // remove this movablePoint from graphie.
-                    // we wait to do this until we're not inside of
-                    // said point's onMoveEnd method so its state is
-                    // consistent throughout this method call
-                    setTimeout(pointToRemove.remove.bind(pointToRemove), 0);
-                } else {
-                    var shouldRemove = _.any(self.points, function(pt) {
-                        return pt !== point && kpoint.equal(pt.coord, [x, y]);
-                    });
-                    if (shouldRemove) {
-                        self.removePoint(point);
-                        self.polygon.points = self.points;
-                        if (self.points.length < 3) {
-                            self.polygon.closed = false;
-                            self.clearCoords();
-                        } else if (self.polygon.closed) {
-                            self.updateCoordsFromPoints();
-                        }
-                        self.updatePolygon();
-                        // remove this movablePoint from graphie.
-                        // we wait to do this until we're not inside of
-                        // said point's onMoveEnd method so its state is
-                        // consistent throughout this method call
-                        setTimeout(point.remove.bind(point), 0);
-                    }
+        var point = Interactive2.addMovablePoint(graphie, {
+            coord: coord,
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                snapToGrid ? Interactive2.MovablePoint.constraints.snap() :
+                             null,
+                graphConstraint
+            ],
+            onMoveStart: () => {
+                if (this.isClickToAddPoints()) {
+                    this.setTrashCanVisibility(1);
                 }
-                // In case we mouseup'd off the graphie and that
-                // stopped the move
-                self.setTrashCanVisibility(0.5);
-                return true;
-            };
-        }
-
-        point.isTouched = false;
-        $(point.mouseTarget[0]).on("vmousedown", function() {
-            if (self.isClickToAddPoints()) {
-                self.setTrashCanVisibility(1);
-            }
-            point.isTouched = true;
-        });
-
-        $(point.mouseTarget[0]).on("vmouseup", () => {
-            if (self.isClickToAddPoints()) {
-                self.setTrashCanVisibility(0.5);
-            }
-            // If this was
-            //  * a click on the first or last point
-            //  * and not a drag,
-            //  * and our polygon is not closed,
-            //  * and we can close it (we need at least 3 points),
-            // then close it
-            if ((point === this.points[0] || point === _.last(this.points)) &&
-                    point.isTouched &&
-                    !point.hasMoved &&
-                    !this.polygon.closed &&
-                    this.points.length > 2) {
-                this.polygon.closed = true;
-                this.updatePolygon();
-                // We finally have a closed polygon, so save our
-                // points to props
-                this.updateCoordsFromPoints();
-            }
-            point.isTouched = false;
-            point.hasMoved = false;
-        });
-
-        $(point).on("move", () => {
-            this.polygon.transform();
-            if (this.polygon.closed) {
-                this.updateCoordsFromPoints();
+            },
+            onMove: () => {
+                if (this.polygon.closed()) {
+                    this.updateCoordsFromPoints();
+                }
+            },
+            onMoveEnd: onMoveEndHandler,
+            normalStyle: {
+                stroke: KhanUtil.INTERACTIVE,
+                fill: KhanUtil.INTERACTIVE
             }
         });
+        point.state.isInitialMove = true;
 
         return point;
     },
@@ -1507,12 +1512,14 @@ var InteractiveGraph = React.createClass({
             var line = Interactive2.addMovableLine(graphie, {
                 points: points,
                 static: false,
-                updatePoints: true,
                 constraints: [
                     Interactive2.MovableLine.constraints.bound(),
                     Interactive2.MovableLine.constraints.snap()
                 ],
-                onMove: updateCoordProps,
+                onMove: [
+                    Interactive2.MovableLine.onMove.updatePoints,
+                    updateCoordProps
+                ],
                 normalStyle: {
                     stroke: KhanUtil.INTERACTIVE
                 },
@@ -1545,24 +1552,23 @@ var InteractiveGraph = React.createClass({
             this.props.graph,
             this.props
         );
-        this.points = _.map(coords, this.createPointForPolygonType);
+        // Clear out our old points so that newly added points don't
+        // "collide", as in `addPointControls`
+        this.points = [];
+        this.points = _.map(coords, this.createPointForPolygonType, this);
         this.updatePolygon();
     },
 
     updatePolygon: function() {
         var closed;
         if (this.polygon) {
-            closed = this.polygon.closed;
+            closed = this.polygon.closed();
         } else if (this.points.length >= 3) {
             closed = true;
         } else {
             // There will only be fewer than 3 points in click-to-add-vertices
             // mode, so we don't need to explicitly check for that here.
             closed = false;
-        }
-
-        if (this.polygon) {
-            this.polygon.remove();
         }
 
         var graphie = this.graphie;
@@ -1607,25 +1613,40 @@ var InteractiveGraph = React.createClass({
             }
         }, this);
 
-        this.polygon = graphie.addMovablePolygon(_.extend({
-            closed: closed,
-            points: this.points,
-            angleLabels: angleLabels,
-            showRightAngleMarkers: showRightAngleMarkers,
-            numArcs: numArcs,
-            sideLabels: sideLabels,
-            updateOnPointMove: false
-        }, snapToGrid ? {
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1]
-        } : {}
-        ));
-
-        $(this.polygon).on("move", () => {
-            if (this.polygon.closed) {
-                this.updateCoordsFromPoints();
-            }
-        });
+        if (this.polygon == null) {
+            var self = this;
+            self.polygon = Interactive2.addMovablePolygon(graphie, {
+                constraints: [
+                    Interactive2.MovablePolygon.constraints.bound(),
+                    snapToGrid ? Interactive2.MovablePolygon.constraints.snap()
+                               : null
+                ],
+                closed: closed,
+                points: self.points,
+                angleLabels: angleLabels,
+                showRightAngleMarkers: showRightAngleMarkers,
+                numArcs: numArcs,
+                sideLabels: sideLabels,
+                onMove: [
+                    Interactive2.MovablePolygon.onMove.updatePoints,
+                    function() {
+                        if (this.closed()) {
+                            self.updateCoordsFromPoints();
+                        }
+                    }
+                ]
+            });
+        } else {
+            // We only need to pass in the properties that might've changed
+            this.polygon.update({
+                closed: closed,
+                points: this.points,
+                angleLabels: angleLabels,
+                showRightAngleMarkers: showRightAngleMarkers,
+                numArcs: numArcs,
+                sideLabels: sideLabels
+            });
+        }
     },
 
     removePolygonControls: function() {
