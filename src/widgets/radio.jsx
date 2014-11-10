@@ -445,6 +445,7 @@ var RadioEditor = React.createClass({
                 multipleSelect={this.props.multipleSelect}
                 onePerLine={true}
                 labelWrap={false}
+                apiOptions={this.props.apiOptions}
                 choices={this.props.choices.map(function(choice, i) {
                     var checkedClass = choice.correct ?
                         "correct" :
