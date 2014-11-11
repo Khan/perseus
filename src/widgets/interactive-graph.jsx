@@ -808,56 +808,57 @@ var InteractiveGraph = React.createClass({
             coords = InteractiveGraph.defaultQuadraticCoords(this.props);
         }
 
-        var pointA = this.pointA = graphie.addMovablePoint({
-            coord: coords[0],
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
-            normalStyle: {
-                stroke: KhanUtil.INTERACTIVE,
-                fill: KhanUtil.INTERACTIVE
-            }
-        });
-
-        var pointB = this.pointB = graphie.addMovablePoint({
-            coord: coords[1],
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
-            normalStyle: {
-                stroke: KhanUtil.INTERACTIVE,
-                fill: KhanUtil.INTERACTIVE
-            }
-        });
-
-        var pointC = this.pointC = graphie.addMovablePoint({
-            coord: coords[2],
-            snapX: graphie.snap[0],
-            snapY: graphie.snap[1],
-            normalStyle: {
-                stroke: KhanUtil.INTERACTIVE,
-                fill: KhanUtil.INTERACTIVE
-            }
-        });
-
-        // A, B, and C can't be in the same place
-        pointA.onMove = function(x, y) {
-            return x !== pointB.coord[0] && x !== pointC.coord[0];
-        };
-        pointB.onMove = function(x, y) {
-            return x !== pointA.coord[0] && x !== pointC.coord[0];
-        };
-        pointC.onMove = function(x, y) {
-            return x !== pointA.coord[0] && x !== pointB.coord[0];
-        };
-
-        this.updateQuadratic();
-
-        $([pointA, pointB, pointC]).on("move", () => {
+        var pointA;
+        var pointB;
+        var pointC;
+        var onMoveHandler = () => {
             var graph = _.extend({}, this.props.graph, {
-                coords: [pointA.coord, pointB.coord, pointC.coord]
+                coords: [pointA.coord(), pointB.coord(), pointC.coord()]
             });
             this.props.onChange({graph: graph});
             this.updateQuadratic();
+        };
+
+        pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+            coord: coords[0],
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                Interactive2.MovablePoint.constraints.snap(),
+                (coord) => {
+                    return !pointA || (coord[0] !== pointB.coord()[0] &&
+                                coord[0] !== pointC.coord()[0]);
+                }
+            ],
+            onMove: onMoveHandler
         });
+
+        pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+            coord: coords[1],
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                Interactive2.MovablePoint.constraints.snap(),
+                (coord) => {
+                    return !pointB || (coord[0] !== pointA.coord()[0] &&
+                                coord[0] !== pointC.coord()[0]);
+                }
+            ],
+            onMove: onMoveHandler
+        });
+
+        pointC = this.pointC = Interactive2.addMovablePoint(graphie, {
+            coord: coords[2],
+            constraints: [
+                Interactive2.MovablePoint.constraints.bound(),
+                Interactive2.MovablePoint.constraints.snap(),
+                (coord) => {
+                    return !pointC || (coord[0] !== pointA.coord()[0] &&
+                                coord[0] !== pointB.coord()[0]);
+                }
+            ],
+            onMove: onMoveHandler
+        });
+
+        this.updateQuadratic();
     },
 
     updateQuadratic: function() {
@@ -896,7 +897,17 @@ var InteractiveGraph = React.createClass({
             coords = InteractiveGraph.defaultSinusoidCoords(this.props);
         }
 
-        var pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
+        var pointA;
+        var pointB;
+        var onMoveHandler = () => {
+            var graph = _.extend({}, this.props.graph, {
+                coords: [pointA.coord(), pointB.coord()]
+            });
+            this.props.onChange({graph: graph});
+            this.updateSinusoid();
+        };
+
+        pointA = this.pointA = Interactive2.addMovablePoint(graphie, {
             coord: coords[0],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -905,16 +916,10 @@ var InteractiveGraph = React.createClass({
                     return !pointA || coord[0] !== pointB.coord()[0];
                 }
             ],
-            onMove: () => {
-                var graph = _.extend({}, this.props.graph, {
-                    coords: [pointA.coord(), pointB.coord()]
-                });
-                this.props.onChange({graph: graph});
-                this.updateSinusoid();
-            }
+            onMove: onMoveHandler
         });
 
-        var pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
+        pointB = this.pointB = Interactive2.addMovablePoint(graphie, {
             coord: coords[1],
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -923,13 +928,7 @@ var InteractiveGraph = React.createClass({
                     return !pointA || coord[0] !== pointA.coord()[0];
                 }
             ],
-            onMove: () => {
-                var graph = _.extend({}, this.props.graph, {
-                    coords: [pointA.coord(), pointB.coord()]
-                });
-                this.props.onChange({graph: graph});
-                this.updateSinusoid();
-            }
+            onMove: onMoveHandler
         });
 
         this.updateSinusoid();
