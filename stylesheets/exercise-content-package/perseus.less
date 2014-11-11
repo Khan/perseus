@@ -564,6 +564,44 @@ body.sat-section {
         margin-left: auto;
         margin-right: auto;
         width: 592px;
+        .perseus-possible-answers, .perseus-possible-answers:before {
+            font-family: "Proxima Nova Semibold"
+        }
+
+        .perseus-possible-answers {
+            color: rgb(0, 153, 0);
+            padding-right: 4px;
+        }
+
+        .perseus-possible-answers:before {
+            content: "CORRECT ANSWER:";
+            padding: 0 5px 0 13px;
+            color: rgb(18, 18, 18);
+        }
+
+        .perseus-possible-answer:not(:first-child):before {
+            content: "or";
+            padding: 0 5px;
+            color: rgb(18, 18, 18);
+        }
+
+        input.perseus-incorrect {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
+        }
+
+        input.perseus-correct {
+            color: @satCorrectColor;
+            background-color: @satCorrectBackgroundColor;
+            border: solid 1px @satCorrectBorderColor;
+        }
+
+        input.perseus-unanswered {
+            background-color: #eee;
+            border: solid 1px #999;
+        }
+
         &.perseus-renderer-two-columns {
             // This prevents a strange blank space from appearing above
             // passages.

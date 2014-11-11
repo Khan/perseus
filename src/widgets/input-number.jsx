@@ -7,6 +7,7 @@ var Renderer          = require("../renderer.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");
 var EnabledFeatures = require("../enabled-features.jsx");
@@ -82,6 +83,7 @@ var InputNumber = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
+        reviewModeRubric: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -101,16 +103,46 @@ var InputNumber = React.createClass({
     },
 
     render: function() {
+        // HACK(johnsullivan): Create a function with shared logic between this
+        // and NumericInput.
+        var rubric = this.props.reviewModeRubric;
+        if (rubric) {
+            var score = this.simpleValidate(rubric);
+            var correct = score.type === "points" && score.earned === 1;
+
+            var answerBlurb = null;
+            if (!correct) {
+                var answerString = rubric.value;
+                if (rubric.maxError) {
+                    answerString += " \u00B1 " + rubric.maxError;
+                }
+                answerBlurb = <span className="perseus-possible-answers">
+                    <span className="perseus-possible-answer">
+                        {answerString}
+                    </span>
+                </span>;
+            }
+        }
+
+        var classes = {};
+        classes["perseus-input-size-" + this.props.size] = true;
+        classes[ApiClassNames.CORRECT] =
+            rubric && correct && this.props.currentValue;
+        classes[ApiClassNames.INCORRECT] =
+            rubric && !correct && this.props.currentValue;
+        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
+
         return <InputWithExamples
                     ref="input"
                     value={this.props.currentValue}
                     onChange={this.handleChange}
-                    className={"perseus-input-size-" + this.props.size}
+                    className={React.addons.classSet(classes)}
                     type={this._getInputType()}
                     examples={this.examples()}
                     shouldShowExamples={this.shouldShowExamples()}
                     onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />;
+                    onBlur={this._handleBlur}
+                    answerBlurb={answerBlurb} />;
     },
 
     handleChange: function(newValue) {

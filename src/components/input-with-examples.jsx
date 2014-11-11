@@ -27,7 +27,8 @@ var InputWithExamples = React.createClass({
         buttonSet: React.PropTypes.string,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        onBlur: React.PropTypes.func,
+        answerBlurb: React.PropTypes.element,
     },
 
     getDefaultProps: function() {
@@ -125,6 +126,13 @@ var InputWithExamples = React.createClass({
 
     render: function() {
         var input = this._renderInput();
+
+        if (this.props.answerBlurb) {
+            input = <span className="perseus-input-with-answer-key">
+                {input}
+                {this.props.answerBlurb}
+            </span>;
+        }
 
         // Static rendering, which doesn't include the 'tooltip' logic that the
         // other types require, and is hence handled separately.

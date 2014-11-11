@@ -71,6 +71,7 @@ module.exports = {
         INTERACTIVE: "perseus-interactive",
         CORRECT: "perseus-correct",
         INCORRECT: "perseus-incorrect",
+        UNANSWERED: "perseus-unanswered",
     }
 };
 
