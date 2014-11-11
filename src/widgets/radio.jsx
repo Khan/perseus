@@ -219,8 +219,8 @@ var Radio = React.createClass({
                     type: "passage-ref",
                     graded: false,
                     options: {
-                        passageNumber: passageNum,
-                        referenceNumber: refNum
+                        passageNumber: parseInt(passageNum),
+                        referenceNumber: parseInt(refNum),
                     },
                     version: PassageRef.version
                 };
