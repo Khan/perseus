@@ -220,12 +220,42 @@ var FunctionGrapher = React.createClass({
                 }} />;
         };
         var points = _.map(this._coords(), pointForCoord);
+        var box = this.props.graph.box;
 
-        return <Graphie {...this.props.graph}>
-            {this.props.model && this.renderPlot()}
-            {this.props.model && this.renderAsymptote()}
-            {this.props.model && points}
-        </Graphie>;
+        var imageDescription = this.props.graph.backgroundImage;
+        var image = null;
+        if (imageDescription.url) {
+            var preScale = box[0] / defaultBoxSize;
+            var scale = imageDescription.scale * preScale;
+            var style = {
+                bottom: (preScale * imageDescription.bottom) + "px",
+                left: (preScale * imageDescription.left) + "px",
+                width: (scale * imageDescription.width) + "px",
+                height: (scale * imageDescription.height) + "px"
+            };
+            image = <img style={style} src={imageDescription.url} />;
+        }
+
+        return <div
+                    className={"perseus-widget " + "perseus-widget-grapher"}
+                    style={{
+                        width: box[0],
+                        height: this.props.flexibleType ? "auto" : box[1]
+                    }}>
+                <div
+                    className="graphie-container above-scratchpad"
+                    style={{
+                        width: box[0],
+                        height: box[1]
+                    }}>
+                {image}
+                <Graphie {...this.props.graph}>
+                    {this.props.model && this.renderPlot()}
+                    {this.props.model && this.renderAsymptote()}
+                    {this.props.model && points}
+                </Graphie>
+            </div>
+        </div>;
     },
 
     renderPlot: function() {
@@ -688,10 +718,9 @@ var Grapher = React.createClass({
                 step: [1, 1],
                 backgroundImage: defaultBackgroundImage,
                 markings: "graph",
-                showProtractor: false,
-                showRuler: false,
                 rulerLabel: "",
-                rulerTicks: 10
+                rulerTicks: 10,
+                valid: true
             },
             availableTypes: [defaultType],
         };
@@ -711,9 +740,7 @@ var Grapher = React.createClass({
                 onChange={this.handleActiveTypeChange} />
         </div>;
 
-        var buttonHeight = 60;
-        var box = [this.props.graph.box[0],
-            this.props.graph.box[1] + buttonHeight];
+        var box = this.props.graph.box;
 
         // Calculate additional graph properties so that the same values are
         // passed in to both FunctionGrapher and Graphie.
@@ -733,6 +760,7 @@ var Grapher = React.createClass({
                 range: options.range,
                 step: options.step,
                 snapStep: options.snapStep,
+                backgroundImage: options.backgroundImage,
                 options: options,
                 setup: this._setupGraphie
             },
@@ -768,7 +796,7 @@ var Grapher = React.createClass({
 
     _getGridAndSnapSteps: function(options) {
         var gridStep = options.gridStep ||
-                Util.getGridStep(options.range, options.step, options.box[0]);
+                Util.getGridStep(options.range, options.step, defaultBoxSize);
         var snapStep = options.snapStep ||
                 Util.snapStepFromGridStep(gridStep);
         return {
@@ -930,27 +958,27 @@ var GrapherEditor = React.createClass({
                 asymptote: null
             },
             graph: {
-                box: [defaultEditorBoxSize, defaultEditorBoxSize],
                 labels: ["x", "y"],
                 range: [[-10, 10], [-10, 10]],
                 step: [1, 1],
                 backgroundImage: defaultBackgroundImage,
                 markings: "graph",
-                showProtractor: false,
-                showRuler: false,
                 rulerLabel: "",
-                rulerTicks: 10
+                rulerTicks: 10,
+                valid: true
             },
-            availableTypes: [defaultType],
-            valid: true
+            availableTypes: [defaultType]
         };
     },
 
     render: function() {
         var graph;
         var equationString;
+        var graph = _.extend(this.props.graph, {
+            box: [defaultEditorBoxSize, defaultEditorBoxSize]
+        });
 
-        if (this.props.valid === true) {
+        if (this.props.graph.valid === true) {
             var graphProps = {
                 graph: this.props.graph,
                 plot: this.props.correct,
@@ -970,7 +998,9 @@ var GrapherEditor = React.createClass({
             graph = <Grapher {...graphProps} />;
             equationString = Grapher.getEquationString(graphProps);
         } else {
-            graph = <div>{this.props.valid}</div>;
+            graph = <div className="perseus-error">
+                        {this.props.graph.valid}
+                    </div>;
         }
 
         return <div>
@@ -983,17 +1013,16 @@ var GrapherEditor = React.createClass({
                 {' '}: {equationString}</div>
 
             <GraphSettings
+                editableSettings={["graph", "snap", "image"]}
                 box={this.props.graph.box}
                 range={this.props.graph.range}
                 labels={this.props.graph.labels}
                 step={this.props.graph.step}
                 gridStep={this.props.graph.gridStep}
                 snapStep={this.props.graph.snapStep}
-                valid={this.props.valid}
+                valid={this.props.graph.valid}
                 backgroundImage={this.props.graph.backgroundImage}
                 markings={this.props.graph.markings}
-                showProtractor={this.props.graph.showProtractor}
-                showRuler={this.props.graph.showRuler}
                 rulerLabel={this.props.graph.rulerLabel}
                 rulerTicks={this.props.graph.rulerTicks}
                 onChange={this.change("graph")} />
@@ -1028,12 +1057,18 @@ var GrapherEditor = React.createClass({
     },
 
     serialize: function() {
-        return _.pick(this.props, "graph", "correct", "availableTypes");
+        return _.chain(this.props)
+                .pick("correct", "availableTypes")
+                .extend({ graph: _.omit(this.props.graph, "box") })
+                .value();
     }
 });
 
 var propTransform = (editorProps) => {
-    var widgetProps = _.pick(editorProps, "graph", "availableTypes");
+    var widgetProps = _.pick(editorProps, "availableTypes");
+    widgetProps.graph = _.extend(editorProps.graph, {
+        box: [defaultBoxSize, defaultBoxSize]
+    });
 
     // If there's only one type, the graph type is deterministic
     if (widgetProps.availableTypes.length === 1) {
@@ -1042,7 +1077,7 @@ var propTransform = (editorProps) => {
             coords: null,
             asymptote: null
         };
-        _.extend(widgetProps, { plot: plot });
+        widgetProps.plot = plot;
     }
 
     return widgetProps;

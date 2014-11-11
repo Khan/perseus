@@ -572,20 +572,6 @@ var InteractiveGraph = React.createClass({
 
         var box = this.props.box;
 
-        var image = this.props.backgroundImage;
-        if (image.url) {
-            var preScale = box[0] / defaultBoxSize;
-            var scale = image.scale * preScale;
-            var style = {
-                bottom: (preScale * image.bottom) + "px",
-                left: (preScale * image.left) + "px",
-                width: (scale * image.width) + "px",
-                height: (scale * image.height) + "px"
-            };
-            image = <img style={style} src={image.url} />;
-        } else {
-            image = null;
-        }
 
         var instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
@@ -2357,7 +2343,7 @@ var InteractiveGraphEditor = React.createClass({
         );
 
         if (this.props.valid === true) {
-            // TODO(jack): send these down all at once
+            // TODO(aria): send these down all at once
             var graphProps = {
                 ref: "graph",
                 box: this.props.box,
@@ -2388,7 +2374,7 @@ var InteractiveGraphEditor = React.createClass({
             graph = <InteractiveGraph {...graphProps} />;
             equationString = InteractiveGraph.getEquationString(graphProps);
         } else {
-            graph = <div>{this.props.valid}</div>;
+            graph = <div className="perseus-error">{this.props.valid}</div>;
         }
 
         return <div className="perseus-widget-interactive-graph">

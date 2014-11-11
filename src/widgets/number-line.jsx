@@ -259,11 +259,11 @@ var NumberLine = React.createClass({
                 "perseus-widget-interactive-number-line"}>
             {tickCtrl}
             {!this.isValid() ?
-                <div className="invalid-number-line">
+                <div className="perseus-error">
                     Invalid number line configuration.
                 </div> :
                 (this.props.isTickCtrl && invalidNumDivisions ?
-                    <div className="invalid-number-line">
+                    <div className="perseus-error">
                         <$_ divRangeString={divRangeString}>
                             Please make sure the number of divisions is in the
                             range %(divRangeString)s.
