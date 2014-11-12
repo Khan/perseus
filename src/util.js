@@ -15,7 +15,7 @@ var Util = {
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
     rWidgetRule:  /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/,
-    rTypeFromWidgetId: /^([a-z-]+) ([0-9])$/,
+    rTypeFromWidgetId: /^([a-z-]+) ([0-9]+)$/,
     snowman: "\u2603",
 
     noScore: {
