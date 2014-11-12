@@ -189,6 +189,23 @@ var Renderer = React.createClass({
         return propsChanged || stateChanged;
     },
 
+    _getDefaultWidgetInfo: function(widgetId) {
+        var widgetIdParts = Util.rTypeFromWidgetId.exec(widgetId);
+        if (widgetIdParts == null) {
+            return {};
+        }
+        return {
+            type: widgetIdParts[1],
+            graded: true,
+            options: {}
+        };
+    },
+
+    _getWidgetInfo: function(widgetId) {
+        return this.state.widgetInfo[widgetId] ||
+            this._getDefaultWidgetInfo(widgetId);
+    },
+
     renderWidget: function(impliedType, id) {
         var widgetInfo = this.state.widgetInfo[id];
         if (widgetInfo || this.props.ignoreMissingWidgets) {
@@ -333,7 +350,7 @@ var Renderer = React.createClass({
         }
 
         var results = this.widgetIds.filter((id) => {
-            var widgetInfo = this.state.widgetInfo[id];
+            var widgetInfo = this._getWidgetInfo(id);
             var widget = this.getWidgetInstance(id);
             return filterFunc(id, widgetInfo, widget);
         }).map(this.getWidgetInstance);
@@ -803,7 +820,7 @@ var Renderer = React.createClass({
 
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
-            var widgetInfo = this.state.widgetInfo[id];
+            var widgetInfo = this._getWidgetInfo(id);
             var score = this.getWidgetInstance(id).simpleValidate(
                 widgetInfo.options,
                 null
