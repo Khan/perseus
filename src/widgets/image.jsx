@@ -152,12 +152,6 @@ _.extend(ImageWidget, {
 var ImageEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
-    componentDidMount: function() {
-        // If URL already provided on page load, should display image
-        var url = this.props.backgroundImage.url;
-        this.onUrlChange(url);
-    },
-
     getDefaultProps: function() {
         return {
             title: "",
@@ -321,27 +315,41 @@ var ImageEditor = React.createClass({
         this.props.onChange({labels: labels});
     },
 
-    setUrl: function(url, width, height) {
+    setUrl: function(url, width, height, silent) {
+        // Because this calls into WidgetEditor._handleWidgetChange, which
+        // checks for this widget's ref to serialize it.
+        //
+        // Errors if you switch items before the `Image` from `onUrlChange`
+        // loads.
+        if (!this.isMounted()) {
+            return;
+        }
+
         var image = _.clone(this.props.backgroundImage);
         image.url = url;
         image.width = width;
         image.height = height;
         var box = [image.width, image.height];
         this.props.onChange({
-            backgroundImage: image,
-            box: box
-        });
+                backgroundImage: image,
+                box: box,
+            },
+            null,
+            silent
+        );
     },
 
     onUrlChange: function(url) {
+        // Immediately set the url (noisily), then set the image width and
+        // height (silently) later when the image loads.
+
         if (url) {
             var img = new Image();
-            // TODO(joel) make this silent
-            img.onload = () => this.setUrl(url, img.width, img.height);
+            img.onload = () => this.setUrl(url, img.width, img.height, true);
             img.src = url;
-        } else {
-            this.setUrl(url, 0, 0);
         }
+
+        this.setUrl(url, 0, 0, false);
     },
 
     onRangeChange: function(type, newRange) {
