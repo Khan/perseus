@@ -193,6 +193,17 @@ body.sat-section {
             margin: -16px 0 0 0;
             width: auto;
 
+            &:before {
+                border-radius: 25px;
+                border: 2px solid @satBlue;
+                content: '';
+                height: 25px;
+                left: 1px;
+                position: absolute;
+                top: 1px;
+                width: 25px;
+            }
+
             &:after {
                 color: @satBlue;
                 font-family: @boldFontFamily;
@@ -223,12 +234,13 @@ body.sat-section {
             &:active {
                 // TODO(kitt): Clean up these decorators.
                 border-color: @satBlue;
-                span.checkbox:after {
-                    color: #fff;
-                }
-                input[type=radio] {
-                    outline: none;
-                    background: @satBlue;
+                span.checkbox {
+                    &:after {
+                        color: #fff;
+                    }
+                    &:before {
+                        background: @satBlue;
+                    }
                 }
                 // Make the top border of the next section (which acts
                 // as this element's bottom border) the highlight color.
@@ -240,22 +252,20 @@ body.sat-section {
             &.perseus-correct {
                 color: @satCorrectColor;
 
-                input[type=radio] {
-                    // TODO(johnsullivan): support checkbox
+                span.checkbox:before {
                     border-color: @satCorrectColor;
+                }
+                &.perseus-radio-selected {
+                    background-color: @satCorrectBackgroundColor;
+                    border-color: @satCorrectBorderColor;
 
-                    &:checked {
+                    & + .perseus-radio-option {
+                        border-top-color: @satCorrectBorderColor;
+                    }
+
+                    span.checkbox:before {
                         background: @satCorrectColor;
                     }
-                }
-            }
-
-            &.perseus-radio-selected.perseus-correct {
-                background-color: @satCorrectBackgroundColor;
-                border-color: @satCorrectBorderColor;
-
-                & + .perseus-radio-option {
-                    border-top-color: @satCorrectBorderColor;
                 }
             }
 
@@ -268,13 +278,9 @@ body.sat-section {
                     border-top-color: @satIncorrectBorderColor;
                 }
 
-                input[type=radio] {
-                    // TODO(johnsullivan): support checkbox
+                span.checkbox:before {
                     border-color: @satIncorrectColor;
-
-                    &:checked {
-                        background: @satIncorrectColor;
-                    }
+                    background: @satIncorrectColor;
                 }
             }
 
@@ -320,13 +326,7 @@ body.sat-section {
         }
 
         input[type=radio] {
-            -webkit-appearance: none;
-            appearance: none;
-            border: 2px solid @satBlue;
-            border-radius: 25px;
-            float: left;
-            height: 25px;
-            width: 25px;
+            display: none;
         }
     }
     .review-mode {
