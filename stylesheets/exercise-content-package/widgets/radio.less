@@ -285,15 +285,11 @@ body.sat-section {
             }
 
             &:active {
-                background-color: #d0edf4;
+                background-color: @satActiveBackgroundColor !important;
             }
 
             &.perseus-radio-selected {
-                background-color: #e4f3f9;
-
-                &:active {
-                    background-color: #d0edf4;
-                }
+                background-color: @satSelectedBackgroundColor;
             }
 
             .perseus-radio-option-content {

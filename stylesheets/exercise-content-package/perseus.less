@@ -659,11 +659,15 @@ body.sat-section {
 
     input[type=text],
     input[type=number] {
+        border: 1px solid #aaa;
+        font-family: @boldFontFamily;
+        font-size: 14px;
         margin: 10px 0;
         padding: 5px;
-        font-family: @boldFontFamily;
-        // TODO(kitt): Resolve with KaTex_Main font somehow?
-        font-size: 14px;
+        &:valid {
+            border: 1px solid @satBlue;
+            background: @satSelectedBackgroundColor;
+        }
     }
 }
 
