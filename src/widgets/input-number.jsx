@@ -108,12 +108,14 @@ var InputNumber = React.createClass({
         var rubric = this.props.reviewModeRubric;
         if (rubric) {
             var score = this.simpleValidate(rubric);
-            var correct = score.type === "points" && score.earned === 1;
+            var correct = score.type === "points" &&
+                          score.earned === score.total;
 
             var answerBlurb = null;
             if (!correct) {
-                var answerString = rubric.value;
-                if (rubric.maxError) {
+                // TODO(johnsullivan): Make this a little more human-friendly.
+                var answerString = String(rubric.value);
+                if (rubric.inexact && rubric.maxError) {
                     answerString += " \u00B1 " + rubric.maxError;
                 }
                 answerBlurb = <span className="perseus-possible-answers">
@@ -132,17 +134,25 @@ var InputNumber = React.createClass({
             rubric && !correct && this.props.currentValue;
         classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
 
-        return <InputWithExamples
-                    ref="input"
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    className={React.addons.classSet(classes)}
-                    type={this._getInputType()}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur}
-                    answerBlurb={answerBlurb} />;
+        var input = <InputWithExamples
+            ref="input"
+            value={this.props.currentValue}
+            onChange={this.handleChange}
+            className={React.addons.classSet(classes)}
+            type={this._getInputType()}
+            examples={this.examples()}
+            shouldShowExamples={this.shouldShowExamples()}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur} />;
+
+        if (answerBlurb) {
+            return <span className="perseus-input-with-answer-blurb">
+                {input}
+                {answerBlurb}
+            </span>;
+        } else {
+            return input;
+        }
     },
 
     handleChange: function(newValue) {

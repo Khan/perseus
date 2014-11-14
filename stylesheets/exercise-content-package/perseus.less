@@ -564,25 +564,33 @@ body.sat-section {
         margin-left: auto;
         margin-right: auto;
         width: 592px;
-        .perseus-possible-answers, .perseus-possible-answers:before {
-            font-family: "Proxima Nova Semibold"
-        }
+        .perseus-input-with-answer-blurb {
+            > span {
+                display: inline-block;
+            }
 
-        .perseus-possible-answers {
-            color: rgb(0, 153, 0);
-            padding-right: 4px;
-        }
+            .perseus-possible-answers, .perseus-possible-answers:before {
+                font-family: "Proxima Nova Semibold"
+            }
 
-        .perseus-possible-answers:before {
-            content: "CORRECT ANSWER:";
-            padding: 0 5px 0 13px;
-            color: rgb(18, 18, 18);
-        }
+            .perseus-possible-answers {
+                color: rgb(0, 153, 0);
+                padding-right: 4px;
+            }
 
-        .perseus-possible-answer:not(:first-child):before {
-            content: "or";
-            padding: 0 5px;
-            color: rgb(18, 18, 18);
+            .perseus-possible-answers:before {
+                content: "CORRECT ANSWER:";
+                padding: 0 5px 0 13px;
+                color: rgb(18, 18, 18);
+            }
+
+            .perseus-possible-answer:not(:first-child):before {
+                // TODO(johnsullivan): Figure out a better way to do this list
+                // joining.
+                content: "or";
+                padding: 0 5px;
+                color: rgb(18, 18, 18);
+            }
         }
 
         input.perseus-incorrect {
