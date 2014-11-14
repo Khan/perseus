@@ -46,6 +46,17 @@ var Group = React.createClass({
         var number = _.indexOf(this.props.interWidgets("group"), this);
         var problemNumComponent = this.props.apiOptions.groupAnnotator(number);
 
+        // This is a little strange because the id of the widget that actually
+        // changed is going to be lost in favor of the group widget's id. The
+        // widgets prop also wasn't actually changed, and this only serves to
+        // alert our renderer (our parent) of the fact that some interaction
+        // has occurred.
+        var onInteractWithWidget = (id) => {
+            if (this.refs.renderer) {
+                this.change("widgets", this.refs.renderer.props.widgets);
+            }
+        };
+
         return <div className="perseus-group">
             {problemNumComponent}
             <Renderer
@@ -53,7 +64,8 @@ var Group = React.createClass({
                 ref="renderer"
                 apiOptions={apiOptions}
                 interWidgets={this._interWidgets}
-                reviewMode={!!this.props.reviewModeRubric} />
+                reviewMode={!!this.props.reviewModeRubric}
+                onInteractWithWidget={onInteractWithWidget} />
             {this.props.icon && <div className="group-icon">
                 {this.props.icon}
             </div>}
