@@ -34,6 +34,27 @@ describe("unit parser", function() {
         assert.deepEqual(parser.parse("5 ° C").unit.num[0].name, "° C");
         assert.deepEqual(parser.parse("5 ℃").unit.num[0].name, "℃");
         assert.deepEqual(parser.parse("5 ℉").unit.num[0].name, "℉");
+        assert.deepEqual(parser.parse("5 BTU").unit.num[0].name, "BTU");
+        assert.deepEqual(parser.parse("5 H-e").unit.num[0].name, "H-e");
+        assert.deepEqual(parser.parse("5 fl oz").unit.num[0].name, "fl oz");
+        assert.deepEqual(parser.parse("5 fl. oz.").unit.num[0].name, "fl. oz.");
+    });
+
+    it("invalid units", function() {
+        assert.throws(function() { parser.parse("5 mc"); });
+        assert.throws(function() { parser.parse("5 kc"); });
+        assert.throws(function() { parser.parse("5 mmmHg"); });
+        assert.throws(function() { parser.parse("5 ktsp"); });
+    });
+
+    it("unit equivalences", function() {
+        isEquivalent("1 nmi", "1852 m");
+        isEquivalent("1 olympiad", "1852 m");
+        isEquivalent("1 ppm", "1 part per million");
+        isEquivalent("1 arcminute", "60 arcsec");
+        isEquivalent("4 cups", "64 tablespoons");
+
+        // isntEquivalent("
     });
 
     it("scientific notation", function() {

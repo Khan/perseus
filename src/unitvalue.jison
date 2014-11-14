@@ -54,7 +54,8 @@ Symbols:
   - 00b5 - micro
  */
 "\u00b0"(" "?)[cCfF]                              return 'ATOM';
-[\u00b5]?([A-Za-z]+|[\u2103\u2109\u212b])         return 'ATOM';
+"fl""."?" oz""."?                                 return 'ATOM';
+[\u00b5]?([A-Za-z-]+|[\u2103\u2109\u212b])        return 'ATOM';
 
 \s+                                               /* skip whitespace */
 <<EOF>>                                           return 'EOF';
