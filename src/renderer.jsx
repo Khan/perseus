@@ -283,7 +283,18 @@ var Renderer = React.createClass({
         });
     },
 
-    restoreSerializedState: function(serializedState) {
+    restoreSerializedState: function(serializedState, callback) {
+        // We want to wait until any children widgets who have a
+        // restoreSerializedState function also call their own callbacks before
+        // we declare that the operation is finished.
+        var numCallbacks = 1;
+        var fireCallback = () => {
+            --numCallbacks;
+            if (callback && numCallbacks === 0) {
+                callback();
+            }
+        };
+
         this.setState({
             widgetProps: mapObject(serializedState, (props, widgetId) => {
                 var widget = this.getWidgetInstance(widgetId);
@@ -296,7 +307,9 @@ var Renderer = React.createClass({
                     // change the props as well as state.
                     // If a widget has no props to change, it can
                     // safely return null.
-                    var restoreResult = widget.restoreSerializedState(props);
+                    ++numCallbacks;
+                    var restoreResult =
+                        widget.restoreSerializedState(props, fireCallback);
                     return _.extend(
                         {},
                         this.state.widgetProps[widgetId],
@@ -306,7 +319,7 @@ var Renderer = React.createClass({
                     return props;
                 }
             })
-        });
+        }, fireCallback);
     },
 
     /**

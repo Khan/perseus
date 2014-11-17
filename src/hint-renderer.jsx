@@ -25,8 +25,8 @@ var HintRenderer = React.createClass({
         return this.refs.renderer.getSerializedState();
     },
 
-    restoreSerializedState: function(state) {
-        this.refs.renderer.restoreSerializedState(state);
+    restoreSerializedState: function(state, callback) {
+        this.refs.renderer.restoreSerializedState(state, callback);
     },
 });
 

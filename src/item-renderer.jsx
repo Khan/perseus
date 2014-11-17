@@ -45,7 +45,17 @@ var HintsRenderer = React.createClass({
         });
     },
 
-    restoreSerializedState: function(state) {
+    restoreSerializedState: function(state, callback) {
+        // We need to wait until all the renderers are finished restoring their
+        // state before we fire our callback.
+        var numCallbacks = 1;
+        var fireCallback = () => {
+            --numCallbacks;
+            if (callback && numCallbacks === 0) {
+                callback();
+            }
+        };
+
         _.each(state, (hintState, i) => {
             var hintRenderer = this.refs["hintRenderer" + i];
             // This is not ideal in that it doesn't restore state
@@ -54,9 +64,14 @@ var HintsRenderer = React.createClass({
             // If you want to restore state to hints, make sure to
             // have the appropriate number of hints visible already.
             if (hintRenderer) {
-                hintRenderer.restoreSerializedState(hintState);
+                ++numCallbacks;
+                hintRenderer.restoreSerializedState(hintState, fireCallback);
             }
         });
+
+        // This makes sure that the callback is fired if there aren't any
+        // mounted renderers.
+        fireCallback();
     },
 });
 
@@ -411,9 +426,20 @@ var ItemRenderer = React.createClass({
         };
     },
 
-    restoreSerializedState: function(state) {
-        this.questionRenderer.restoreSerializedState(state.question);
-        this.hintsRenderer.restoreSerializedState(state.hints);
+    restoreSerializedState: function(state, callback) {
+        // We need to wait for both the question renderer and the hints
+        // renderer to finish restoring their states.
+        var numCallbacks = 2;
+        var fireCallback = () => {
+            --numCallbacks;
+            if (callback && numCallbacks === 0) {
+                callback();
+            }
+        };
+
+        this.questionRenderer.restoreSerializedState(
+            state.question, fireCallback);
+        this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     },
 });
 

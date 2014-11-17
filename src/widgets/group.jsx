@@ -89,8 +89,8 @@ var Group = React.createClass({
         return this.refs.renderer.getSerializedState();
     },
 
-    restoreSerializedState: function(state) {
-        this.refs.renderer.restoreSerializedState(state);
+    restoreSerializedState: function(state, callback) {
+        this.refs.renderer.restoreSerializedState(state, callback);
         // Tell our renderer that we have no props to change
         // (all our changes were in state):
         return null;
