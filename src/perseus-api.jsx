@@ -40,10 +40,10 @@ module.exports = {
             readOnly: React.PropTypes.bool.isRequired,
 
             // A function that takes in the relative problem number (starts at
-            // 0 and is incremented for each group widget) and returns a react
-            // component that will be added immediately above the renderer in
-            // the group widget. If the function returns null, no annotation
-            // will be added.
+            // 0 and is incremented for each group widget), and the ID of the
+            // group widget, then returns a react component that will be added
+            // immediately above the renderer in the group widget. If the
+            // function returns null, no annotation will be added.
             groupAnnotator: React.PropTypes.func.isRequired,
         }).isRequired,
 

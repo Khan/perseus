@@ -44,7 +44,8 @@ var Group = React.createClass({
 
         // Allow a problem number annotation to be added.
         var number = _.indexOf(this.props.interWidgets("group"), this);
-        var problemNumComponent = this.props.apiOptions.groupAnnotator(number);
+        var problemNumComponent = this.props.apiOptions.groupAnnotator(
+            number, this.props.widgetId);
 
         // This is a little strange because the id of the widget that actually
         // changed is going to be lost in favor of the group widget's id. The
