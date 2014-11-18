@@ -177,7 +177,12 @@ _.extend(Movable.prototype, {
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
-            var $mouseTarget = $(state.mouseTarget[0]);
+            var $mouseTarget;
+            if (state.mouseTarget.getMouseTarget) {
+                $mouseTarget = $(state.mouseTarget.getMouseTarget());
+            } else {
+                $mouseTarget = $(state.mouseTarget[0]);
+            }
 
             var isMouse = !('ontouchstart' in window);
 
@@ -217,8 +222,15 @@ _.extend(Movable.prototype, {
         }
 
         if (state.mouseTarget && state.cursor !== undefined) {
+            var $mouseTarget;
+            if (state.mouseTarget.getMouseTarget) {
+                $mouseTarget = $(state.mouseTarget.getMouseTarget());
+            } else {
+                $mouseTarget = $(state.mouseTarget[0]);
+            }
+
             // "" removes the css cursor if state.cursor is null
-            $(state.mouseTarget[0]).css("cursor", state.cursor || "");
+            $mouseTarget.css("cursor", state.cursor || "");
         }
 
 
