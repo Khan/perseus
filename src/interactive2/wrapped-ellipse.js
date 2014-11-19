@@ -1,3 +1,4 @@
+var _ = require("underscore");
 var WrappedDefaults = require("./wrapped-defaults.js");
 
 var DEFAULT_OPTIONS = {

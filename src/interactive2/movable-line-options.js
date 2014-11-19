@@ -2,31 +2,30 @@
  * A library of options to pass to add/draw/remove/constraints
  */
 var _ = require("underscore");
-
-var knumber = require("kmath").number;
+var WrappedLine = require("./wrapped-line.js");
+var WrappedPath = require("./wrapped-path.js");
 var kvector = require("kmath").vector;
 var kpoint = require("kmath").point;
 
 /**
  * Helper functions
  */
-var getScaledPolarDiff = function(line) {
+var getScaledAngle = function(line) {
     var scaledA = line.graphie.scalePoint(line.coord(0));
     var scaledZ = line.graphie.scalePoint(line.coord(1));
-    var polarDiff = kvector.polarDegFromCart(
+    return kvector.polarDegFromCart(
         kvector.subtract(
             scaledZ,
             scaledA
         )
-    );
-    return polarDiff;
+    )[1];
 };
 
 // Given `coord` and `angle`, find the point where a line extended
 // from `coord` in the direction of `angle` would be clipped by the
 // edge of the graphie canvas. Then draw an arrowhead at that point
 // pointing in the direction of `angle`.
-var drawArrowAtClipPoint = function(graph, coord, angle, style) {
+var getClipPoint = function(graph, coord, angle) {
     // Actually put the arrowheads 4px from the edge so they have
     // a bit of room
     var xExtent = graph.range[0][1] - graph.range[0][0];
@@ -47,14 +46,70 @@ var drawArrowAtClipPoint = function(graph, coord, angle, style) {
     // ... and then bring it back
     var clipPoint = graph.constrainToBoundsOnAngle(farCoord, 4,
                                   scaledAngle * Math.PI / 180);
-    clipPoint = graph.scalePoint(clipPoint);
+    return clipPoint;
+};
 
-    var arrowHead = graph.raphael.path("M-3 4 C-2.75 2.5 0 0.25 0.75 0C0 -0.25 -2.75 -2.5 -3 -4");
-    arrowHead.rotate(360 - angle, 0.75, 0)
-        .scale(1.4, 1.4, 0.75, 0)
-        .translate(clipPoint[0], clipPoint[1])
-        .attr(style)
-        .attr({ "stroke-linejoin": "round", "stroke-linecap": "round", "stroke-dasharray": "" });
+// Given `coord` and `angle`, find the point where a line extended
+// from `coord` in the direction of `angle` would be clipped by the
+// edge of the graphie canvas. Then draw an arrowhead at that point
+// pointing in the direction of `angle`.
+var createArrow = function(graph, style) {
+    // Points that define the arrowhead
+    var center = [0.75, 0];
+    var points = [
+        [-3, 4],
+        [-2.75, 2.5],
+        [0, 0.25],
+        center,
+        [0, -0.25],
+        [-2.75, -2.5],
+        [-3, -4]
+    ];
+
+    // Scale points by 1.4 around (0.75, 0)
+    var scale = 1.4;
+    points = _.map(points, function(point) {
+        var pv = kvector.subtract(point, center);
+        var pvScaled = kvector.scale(pv, scale);
+        return kvector.add(center, pvScaled);
+    });
+
+    // We can't just pass in a path to `graph.fixedPath` as we need to modify
+    // the points in some way, so instead we provide a function for creating
+    // the path once the points have been transformed
+    var createCubicPath = function(points) {
+        var path = "M" + points[0][0] + " " + points[0][1];
+        for (var i = 1; i < points.length; i += 3) {
+            path += "C" + points[i][0] + " " + points[i][1] + " " +
+                          points[i + 1][0] + " " + points[i + 1][1] + " " +
+                          points[i + 2][0] + " " + points[i + 2][1];
+        }
+        return path;
+    };
+
+    // Create arrowhead
+    var unscaledPoints = _.map(points, graph.unscalePoint);
+    var options = {
+        center: graph.unscalePoint(center),
+        createPath: createCubicPath
+    };
+    var arrowHead = new WrappedPath(graph, unscaledPoints, options);
+    arrowHead.attr(_.extend({
+        "stroke-linejoin": "round",
+        "stroke-linecap": "round",
+        "stroke-dasharray": ""
+    }, style));
+
+    // Add custom function for transforming arrowheads that accounts for
+    // center, scaling, etc.
+    arrowHead.toCoordAtAngle = function(coord, angle) {
+        var clipPoint = graph.scalePoint(getClipPoint(graph, coord, angle));
+        arrowHead.transform(
+            "translateX(" + (clipPoint[0] + scale * center[0]) + "px) " +
+            "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " +
+            "translateZ(0) " +
+            "rotate(" + (360 - KhanUtil.bound(angle)) + "deg)");
+    };
 
     return arrowHead;
 };
@@ -88,73 +143,66 @@ modify.standard = [modify.draw];
 var draw = {
     basic: function(state) {
         var graphie = this.graphie;
+        var start = this.coord(0);
+        var end = this.coord(1);
+
         if (!this.state.visibleShape) {
-            this.state.visibleShape = graphie.path(
-                [[0, 0]],
-                this.normalStyle()
-            );
-            this.state.visibleShape.attr({
-                path: KhanUtil.unscaledSvgPath([[0, 0], [1, 0]])
-            });
+            var options = {
+                thickness: 10
+            };
+            this.state.visibleShape = new WrappedLine(graphie, start, end,
+                options);
+            this.state.visibleShape.attr(this.normalStyle());
+            this.state.visibleShape.toFront();
+
+            if (this.mouseTarget()) {
+                this.mouseTarget().toFront();
+            }
         }
 
+        // Compute angle
+        var angle = getScaledAngle(this);
 
-        // Clip the line 5px from the edge of the graphie to allow for
-        // arrowheads
-        if (state.extendLine || state.extendRay) {
-            this.state.visibleShape.attr({
-                "clip-rect": "5 5 " + (graphie.dimensions[0] - 10) + " " +
-                    (graphie.dimensions[1] - 10)
-            });
+        // Extend start, end if necessary (i.e., if not a line segment)
+        if (state.extendLine) {
+            start = getClipPoint(graphie, start, 360 - angle);
+            end = getClipPoint(graphie, end, (540 - angle) % 360);
+        } else if (state.extendRay) {
+            start = getClipPoint(graphie, start, 360 - angle);
         }
 
-        var scaledA = graphie.scalePoint(this.coord(0));
-        var scaledZ = graphie.scalePoint(this.coord(1));
-        var polarDiff = getScaledPolarDiff(this);
-        var lineLength = polarDiff[0];
-        var angle = polarDiff[1];
-
+        // Move elements
         var elements = [this.state.visibleShape];
+
         if (this.mouseTarget()) {
             elements.push(this.mouseTarget());
         }
         _.each(elements, function(element) {
-            element.translate(scaledA[0] - element.attr("translation").x,
-                    scaledA[1] - element.attr("translation").y);
-            element.rotate(angle, scaledA[0], scaledA[1]);
-            if (state.extendLine) {
-                element.translate(-0.5, 0);
-                lineLength = graphie.dimensions[0] + graphie.dimensions[1];
-                lineLength = 2 * lineLength;
-            } else if (state.extendRay) {
-                lineLength = graphie.dimensions[0] + graphie.dimensions[1];
-            }
-            element.scale(lineLength, 1, scaledA[0], scaledA[1]);
+            element.moveTo(start, end);
         });
     },
 
     arrows: function(state) {
-        if (this._arrows != null) {
-            _.invoke(this._arrows, "remove");
+        // Create arrows, if not yet created
+        if (this._arrows == null) {
+            this._arrows = [];
+            if (state.extendLine) {
+                this._arrows.push(createArrow(
+                    this.graphie, this.normalStyle()));
+                this._arrows.push(createArrow(
+                    this.graphie, this.normalStyle()));
+            } else if (state.extendRay) {
+                this._arrows.push(drawArrowAtClipPoint(
+                    this.graphie, this.normalStyle()));
+            }
         }
-        this._arrows = [];
 
-        var polarDiff = getScaledPolarDiff(this);
-        var angle = polarDiff[1];
-
-        if (state.extendLine) {
-            this._arrows.push(drawArrowAtClipPoint(
-                this.graphie, this.state.points[0].coord(), 360 - angle,
-                this.normalStyle()));
-            this._arrows.push(drawArrowAtClipPoint(
-                this.graphie, this.state.points[1].coord(),
-                (540 - angle) % 360,
-                this.normalStyle()));
-        } else if (state.extendRay) {
-            this._arrows.push(drawArrowAtClipPoint(
-                this.graphie, this.state.points[0].coord(), 360 - angle,
-                this.normalStyle()));
-        }
+        // Transform arrows
+        var angle = getScaledAngle(this);
+        var angleForArrow = [360 - angle, (540 - angle) % 360];
+        _.each(this._arrows, function(arrow, i) {
+            arrow.toCoordAtAngle(this.coord(i), angleForArrow[i]);
+        }, this);
     },
 
     highlight: function(state, prevState) {
@@ -185,10 +233,12 @@ var remove = {
             this.state.visibleShape.remove();
         }
     },
+
     arrows: function() {
         if (this._arrows != null) {
             _.invoke(this._arrows, "remove");
         }
+        this._arrows = null;
     }
 };
 

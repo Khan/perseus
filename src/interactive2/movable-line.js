@@ -4,6 +4,7 @@
 var _ = require("underscore");
 
 var MovableLineOptions = require("./movable-line-options.js");
+var WrappedLine = require("./wrapped-line.js");
 var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
@@ -132,9 +133,14 @@ _.extend(MovableLine.prototype, {
         }, state.highlightStyle);
 
         if (!state.static) {
-            // the invisible shape in front of the point that gets mouse events
+            // the invisible shape in front of the line that gets mouse events
             if (!state.mouseTarget) {
-                state.mouseTarget = graphie.mouselayer.rect(0, -15, 1, 30);
+                var options = {
+                    thickness: 30,
+                    mouselayer: true
+                };
+                state.mouseTarget = new WrappedLine(graphie, this.coord(0),
+                    this.coord(1), options);
                 state.mouseTarget.attr({fill: "#000", "opacity": 0.0});
             }
         }

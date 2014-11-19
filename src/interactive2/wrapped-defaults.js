@@ -1,3 +1,8 @@
+/**
+ * Default methods for a wrapped movable.
+ */
+
+var _ = require("underscore");
 var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
 var kvector = require("kmath").vector;
