@@ -76,11 +76,21 @@ var NumericInput = React.createClass({
                 var correctAnswers = _.filter(
                     rubric.answers, (answer) => answer.status === "correct");
                 var answerComponents = _.map(correctAnswers, (answer, key) => {
-                    // TODO(johnsullivan): Make this a little more
-                    // human-friendly.
-                    var answerString = answer.value;
+                    // Figure out how this answer is supposed to be displayed
+                    var format = "decimal";
+                    if (answer.answerForms && answer.answerForms[0]) {
+                        // NOTE(johnsullivan): This isn't exactly ideal, but
+                        // it does behave well for all the currently known
+                        // problems. See D14742 for some discussion on
+                        // alternate strategies.
+                        format = answer.answerForms[0]
+                    }
+
+                    var answerString = KhanUtil.toNumericString(answer.value,
+                                                                format);
                     if (answer.maxError) {
-                        answerString += " \u00B1 " + answer.maxError;
+                        answerString += " \u00B1 " +
+                            KhanUtil.toNumericString(answer.maxError, format);
                     }
                     return <span key={key} className="perseus-possible-answer">
                         {answerString}
