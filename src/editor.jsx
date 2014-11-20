@@ -123,7 +123,7 @@ var WidgetEditor = React.createClass({
         this.setState({showWidget: !this.state.showWidget});
     },
 
-    _handleWidgetChange: function(newProps, cb, silent) {
+    _handleWidgetChange: function(newProps, cb) {
         // TODO(jack): It is unfortunate to call serialize here, but is
         // important so that the widgetInfo we pass to our upgrade functions is
         // always complete. If we just sent this.props in, we could run into
@@ -138,7 +138,7 @@ var WidgetEditor = React.createClass({
             currentWidgetInfo
         );
         newWidgetInfo.options = _.extend(newWidgetInfo.options, newProps);
-        this.props.onChange(newWidgetInfo, cb, silent);
+        this.props.onChange(newWidgetInfo, cb);
     },
 
     getSaveWarnings: function() {
@@ -243,10 +243,10 @@ var Editor = React.createClass({
             {...this.props.widgets[id]} />;
     },
 
-    _handleWidgetEditorChange: function(id, newProps, cb, silent) {
+    _handleWidgetEditorChange: function(id, newProps, cb) {
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
-        this.props.onChange({widgets: widgets}, cb, silent);
+        this.props.onChange({widgets: widgets}, cb);
     },
 
     _handleWidgetEditorRemove: function(id) {
