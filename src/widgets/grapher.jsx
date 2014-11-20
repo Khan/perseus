@@ -1,10 +1,11 @@
 var _ = require("underscore");
 
+var ButtonGroup      = require("react-components/button-group.jsx");
+var GraphSettings    = require("../components/graph-settings.jsx");
 var InfoTip          = require("react-components/info-tip.jsx");
 var Interactive2     = require("../interactive2.js");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");
-var ButtonGroup      = require("react-components/button-group.jsx");
-var GraphSettings    = require("../components/graph-settings.jsx");
+var SvgImage         = require("../components/svg-image.jsx");
 var Util             = require("../util.js");
 
 /* Graphie and relevant components. */
@@ -227,13 +228,12 @@ var FunctionGrapher = React.createClass({
         if (imageDescription.url) {
             var preScale = box[0] / defaultBoxSize;
             var scale = imageDescription.scale * preScale;
-            var style = {
-                bottom: (preScale * imageDescription.bottom) + "px",
-                left: (preScale * imageDescription.left) + "px",
-                width: (scale * imageDescription.width) + "px",
-                height: (scale * imageDescription.height) + "px"
-            };
-            image = <img style={style} src={imageDescription.url} />;
+            image = <SvgImage src={imageDescription.url}
+                              left={preScale * imageDescription.left}
+                              bottom={preScale * imageDescription.bottom}
+                              width={imageDescription.width}
+                              height={imageDescription.height}
+                              scale={scale} />;
         }
 
         return <div

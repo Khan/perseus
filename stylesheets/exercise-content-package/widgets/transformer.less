@@ -2,8 +2,13 @@
     .highlighted-tool-button {
         text-shadow: 1px 1px rgba(0, 0, 0, 0.25);
     }
-    .graphie-container {
+    > .graphie-container {
         margin-bottom: 10px;
+        position: relative;
+
+        > img, > .svg-image {
+            position: absolute;
+        }
     }
     .transformer-undo-button {
         float: right;

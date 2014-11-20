@@ -1,4 +1,5 @@
 var _ = require("underscore");
+var Util = require("../util.js");
 
 var BlurInput    = require("react-components/blur-input.jsx");
 var Editor       = require("../editor.jsx");
@@ -11,6 +12,7 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
+var SvgImage     = require("../components/svg-image.jsx");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -83,11 +85,9 @@ var ImageWidget = React.createClass({
         var image;
         var backgroundImage = this.props.backgroundImage;
         if (backgroundImage.url) {
-            var style = {
-                width: backgroundImage.width,
-                height: backgroundImage.height
-            };
-            image = <img style={style} src={backgroundImage.url} />;
+            image = <SvgImage src={backgroundImage.url}
+                              width={backgroundImage.width}
+                              height={backgroundImage.height} />;
         }
 
         var box = this.props.box;
@@ -335,12 +335,19 @@ var ImageEditor = React.createClass({
 
     onUrlChange: function(url) {
         if (url) {
-            var img = new Image();
-            // TODO(joel) make this silent
-            img.onload = () => this.setUrl(url, img.width, img.height);
-            img.src = url;
+            Util.getImageSize(url, (width, height) => {
+                this.setUrl(url, width, height);
+            });
         } else {
-            this.setUrl(url, 0, 0);
+            // Don't clear the url unless the url was already set to something.
+            // Otherwise, the `onUrlChange` call in `componentDidMount`
+            // triggers a props change loop that breaks everything (since when
+            // the props are propogated, the item-renderer expects itself to be
+            // mounted)
+            // TODO(emily): Make that feedback loop not happen
+            if (this.props.backgroundImage.url) {
+                this.setUrl(url, 0, 0);
+            }
         }
     },
 

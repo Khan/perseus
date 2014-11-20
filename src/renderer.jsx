@@ -1,11 +1,12 @@
 var React = require('react');
 var _ = require("underscore");
 
+var PerseusMarkdown = require("./perseus-markdown.jsx");
+var QuestionParagraph = require("./question-paragraph.jsx");
+var SvgImage = require("./components/svg-image.jsx");
 var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
-var QuestionParagraph = require("./question-paragraph.jsx");
-var PerseusMarkdown = require("./perseus-markdown.jsx");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -609,7 +610,7 @@ var Renderer = React.createClass({
                 this.props.images[node.target] :
                 null;
 
-            return <img
+            return <SvgImage
                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                 alt={node.alt}
                 title={node.title}

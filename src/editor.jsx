@@ -1,11 +1,12 @@
 var React = require('react');
 var _ = require("underscore");
 
+var ApiOptions = require("./perseus-api.jsx").Options;
+var DragTarget = require("react-components/drag-target.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
+var SvgImage = require("./components/svg-image.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
-var DragTarget = require("react-components/drag-target.jsx");
-var ApiOptions = require("./perseus-api.jsx").Options;
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
@@ -198,19 +199,6 @@ var imageUrlsFromContent = function(content) {
     );
 };
 
-/**
- * Sends the dimensions of the image located at the given url to `callback`
- */
-var sizeImage = function(url, callback) {
-    var image = new Image();
-    image.onload = () => {
-        var width = image.naturalWidth || image.width;
-        var height = image.naturalHeight || image.height;
-        callback(width, height);
-    };
-    image.src = url;
-};
-
 var Editor = React.createClass({
     propTypes: {
         imageUploader: React.PropTypes.func,
@@ -277,7 +265,7 @@ var Editor = React.createClass({
         // TODO(jack): Q promises would make this nicer and only
         // fire once.
         _.each(newImageUrls, (url) => {
-            sizeImage(url, (width, height) => {
+            Util.getImageSize(url, (width, height) => {
                 // We keep modifying the same image object rather than a new
                 // copy from this.props because all changes here are additive.
                 // Maintaining old changes isn't strictly necessary if

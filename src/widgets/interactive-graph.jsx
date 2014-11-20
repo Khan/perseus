@@ -572,7 +572,6 @@ var InteractiveGraph = React.createClass({
 
         var box = this.props.box;
 
-
         var instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if  (this.props.graph.type === "point") {

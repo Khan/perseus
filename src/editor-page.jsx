@@ -122,7 +122,10 @@ var EditorPage = React.createClass({
     },
 
     updateRenderer: function(cb) {
-        if (this.props.jsonMode) {
+        // Some widgets (namely the image widget) like to call onChange before
+        // anything has actually been mounted, which causes problems here. We
+        // just ensure don't update until we've mounted
+        if (this.rendererMountNode == null || this.props.jsonMode) {
             return;
         }
         var rendererConfig = _({
