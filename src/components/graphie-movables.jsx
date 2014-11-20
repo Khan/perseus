@@ -84,16 +84,85 @@ var Label = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
-var Line = GraphieClasses.createSimpleClass((graphie, props) => {
-    return graphie.line(props.start, props.end, props.style);
+var Line = GraphieClasses.createClass({
+    displayName: "Line",
+
+    movableProps: ["children"],
+
+    add: function(graphie) {
+        var props = this.props;
+        this.graphie = graphie;
+        this.line = this.graphie.line(props.start, props.end, props.style);
+    },
+
+    modify: function() {
+        var props = this.props;
+        var path = this.graphie.svgPath([props.start, props.end]);
+        this.line.attr(_.extend({}, props.style, { path: path }));
+    },
+
+    remove: function() {
+        this.line.remove();
+    },
+
+    toFront: function() {
+        this.line.toFront();
+    }
 });
 
-var Parabola = GraphieClasses.createSimpleClass((graphie, props) => {
-    return graphie.parabola(props.a, props.b, props.c, props.style);
+var Parabola = GraphieClasses.createClass({
+    displayName: "Parabola",
+
+    movableProps: ["children"],
+
+    add: function(graphie) {
+        var props = this.props;
+        this.graphie = graphie;
+        this.parabola = this.graphie.parabola(props.a, props.b, props.c,
+            props.style);
+    },
+
+    modify: function() {
+        var props = this.props;
+        var path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
+        this.parabola.attr(_.extend({}, props.style, { path: path }));
+    },
+
+    remove: function() {
+        this.parabola.remove();
+    },
+
+    toFront: function() {
+        this.parabola.toFront();
+    }
 });
 
-var Sinusoid = GraphieClasses.createSimpleClass((graphie, props) => {
-    return graphie.sinusoid(props.a, props.b, props.c, props.d, props.style);
+var Sinusoid = GraphieClasses.createClass({
+    displayName: "Sinusoid",
+
+    movableProps: ["children"],
+
+    add: function(graphie) {
+        var props = this.props;
+        this.graphie = graphie;
+        this.sinusoid = this.graphie.sinusoid(props.a, props.b, props.c,
+            props.d, props.style);
+    },
+
+    modify: function() {
+        var props = this.props;
+        var path = this.graphie.svgSinusoidPath(props.a, props.b, props.c,
+            props.d);
+        this.sinusoid.attr(_.extend({}, props.style, { path: path }));
+    },
+
+    remove: function() {
+        this.sinusoid.remove();
+    },
+
+    toFront: function() {
+        this.sinusoid.toFront();
+    }
 });
 
 var Plot = GraphieClasses.createSimpleClass((graphie, props) => {
@@ -111,11 +180,30 @@ var Point = GraphieClasses.createSimpleClass((graphie, props) => {
     });
 });
 
-var Path = GraphieClasses.createSimpleClass((graphie, props) => {
-    return graphie.path(
-        props.coords,
-        props.style
-    );
+var Path = GraphieClasses.createClass({
+    displayName: "Path",
+
+    movableProps: ["children"],
+
+    add: function(graphie) {
+        var props = this.props;
+        this.graphie = graphie;
+        this.path = this.graphie.path(props.coords, props.style);
+    },
+
+    modify: function() {
+        var props = this.props;
+        var path = this.graphie.svgPath(props.coords);
+        this.path.attr({ path: path });
+    },
+
+    remove: function() {
+        this.path.remove();
+    },
+
+    toFront: function() {
+        this.path.toFront();
+    }
 });
 
 var Arc = GraphieClasses.createSimpleClass((graphie, props) => {

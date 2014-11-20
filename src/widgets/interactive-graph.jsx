@@ -862,10 +862,6 @@ var InteractiveGraph = React.createClass({
     },
 
     updateQuadratic: function() {
-        if (this.parabola) {
-            this.parabola.remove();
-        }
-
         var coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
                 this.props);
         if (!coeffs) {
@@ -876,9 +872,14 @@ var InteractiveGraph = React.createClass({
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
 
         // Plot and style
-        this.parabola = this.graphie.parabola(a, b, c);
-        this.parabola.attr({ stroke: KhanUtil.DYNAMIC });
-        this.parabola.toBack();
+        if (this.parabola) {
+            var path = this.graphie.svgParabolaPath(a, b, c);
+            this.parabola.attr({ path: path });
+        } else {
+            this.parabola = this.graphie.parabola(a, b, c);
+            this.parabola.attr({ stroke: KhanUtil.DYNAMIC });
+            this.parabola.toBack();
+        }
     },
 
     removeQuadraticControls: function() {
@@ -887,6 +888,7 @@ var InteractiveGraph = React.createClass({
         this.pointC.remove();
         if (this.parabola) {
             this.parabola.remove();
+            this.parabola = null;
         }
     },
 
@@ -935,10 +937,6 @@ var InteractiveGraph = React.createClass({
     },
 
     updateSinusoid: function() {
-        if (this.sinusoid) {
-            this.sinusoid.remove();
-        }
-
         var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
                 this.props);
         if (!coeffs) {
@@ -946,9 +944,16 @@ var InteractiveGraph = React.createClass({
         }
 
         var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
-        this.sinusoid = this.graphie.sinusoid(a, b, c, d);
-        this.sinusoid.attr({ stroke: KhanUtil.DYNAMIC });
-        this.sinusoid.toBack();
+
+        // Plot and style
+        if (this.sinusoid) {
+            var path = this.graphie.svgSinusoidPath(a, b, c, d);
+            this.sinusoid.attr({ path: path });
+        } else {
+            this.sinusoid = this.graphie.sinusoid(a, b, c, d);
+            this.sinusoid.attr({ stroke: KhanUtil.DYNAMIC });
+            this.sinusoid.toBack();
+        }
     },
 
     removeSinusoidControls: function() {
@@ -956,6 +961,7 @@ var InteractiveGraph = React.createClass({
         this.pointB.remove();
         if (this.sinusoid) {
             this.sinusoid.remove();
+            this.sinusoid = null;
         }
     },
 
