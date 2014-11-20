@@ -13,7 +13,8 @@ var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
-var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
+var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
+                              'g');
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -124,7 +125,7 @@ var WidgetEditor = React.createClass({
         this.setState({showWidget: !this.state.showWidget});
     },
 
-    _handleWidgetChange: function(newProps, cb) {
+    _handleWidgetChange: function(newProps, cb, silent) {
         // TODO(jack): It is unfortunate to call serialize here, but is
         // important so that the widgetInfo we pass to our upgrade functions is
         // always complete. If we just sent this.props in, we could run into
@@ -139,7 +140,7 @@ var WidgetEditor = React.createClass({
             currentWidgetInfo
         );
         newWidgetInfo.options = _.extend(newWidgetInfo.options, newProps);
-        this.props.onChange(newWidgetInfo, cb);
+        this.props.onChange(newWidgetInfo, cb, silent);
     },
 
     getSaveWarnings: function() {
@@ -231,10 +232,10 @@ var Editor = React.createClass({
             {...this.props.widgets[id]} />;
     },
 
-    _handleWidgetEditorChange: function(id, newProps, cb) {
+    _handleWidgetEditorChange: function(id, newProps, cb, silent) {
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
-        this.props.onChange({widgets: widgets}, cb);
+        this.props.onChange({widgets: widgets}, cb, silent);
     },
 
     _handleWidgetEditorRemove: function(id) {

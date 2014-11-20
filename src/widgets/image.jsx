@@ -153,9 +153,11 @@ var ImageEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     componentDidMount: function() {
-        // If URL already provided on page load, should display image
-        var url = this.props.backgroundImage.url;
-        this.onUrlChange(url);
+        // defer this because it can call a change handler synchronously
+        _.defer(() => {
+            var url = this.props.backgroundImage.url;
+            this.onUrlChange(url, true);
+        });
     },
 
     getDefaultProps: function() {
@@ -174,7 +176,7 @@ var ImageEditor = React.createClass({
             <div>Background image:</div>
             <div>Url:{' '}
                 <BlurInput value={this.props.backgroundImage.url || ''}
-                           onChange={this.onUrlChange} />
+                           onChange={url => this.onUrlChange(url, false)} />
                 <InfoTip>
                     <p>Create an image in graphie, or use the "Add image"
                     function to create a background.</p>
@@ -321,34 +323,47 @@ var ImageEditor = React.createClass({
         this.props.onChange({labels: labels});
     },
 
-    setUrl: function(url, width, height) {
+    setUrl: function(url, width, height, silent) {
+        // Because this calls into WidgetEditor._handleWidgetChange, which
+        // checks for this widget's ref to serialize it.
+        //
+        // Errors if you switch items before the `Image` from `onUrlChange`
+        // loads.
+        if (!this.isMounted()) {
+            return;
+        }
+
         var image = _.clone(this.props.backgroundImage);
         image.url = url;
         image.width = width;
         image.height = height;
         var box = [image.width, image.height];
         this.props.onChange({
-            backgroundImage: image,
-            box: box
-        });
+                backgroundImage: image,
+                box: box,
+            },
+            null,
+            silent
+        );
     },
 
-    onUrlChange: function(url) {
+    // silently update the url when the component mounts
+    // silently update sizes when the image loads
+    // noisily update the url in response to the author changing it
+    onUrlChange: function(url, silent) {
+        // Immediately set the url, then set the image width and height
+        // (silently) later when the image loads.
+
+        var width = 0;
+        var height = 0;
+
         if (url) {
             Util.getImageSize(url, (width, height) => {
-                this.setUrl(url, width, height);
+                this.setUrl(url, width, height, true);
             });
-        } else {
-            // Don't clear the url unless the url was already set to something.
-            // Otherwise, the `onUrlChange` call in `componentDidMount`
-            // triggers a props change loop that breaks everything (since when
-            // the props are propogated, the item-renderer expects itself to be
-            // mounted)
-            // TODO(emily): Make that feedback loop not happen
-            if (this.props.backgroundImage.url) {
-                this.setUrl(url, 0, 0);
-            }
         }
+
+        this.setUrl(url, width, height, silent);
     },
 
     onRangeChange: function(type, newRange) {
