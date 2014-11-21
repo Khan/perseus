@@ -168,7 +168,7 @@ var draw = {
             start = getClipPoint(graphie, start, 360 - angle);
             end = getClipPoint(graphie, end, (540 - angle) % 360);
         } else if (state.extendRay) {
-            start = getClipPoint(graphie, start, 360 - angle);
+            end = getClipPoint(graphie, end, 360 - angle);
         }
 
         // Move elements
@@ -192,7 +192,7 @@ var draw = {
                 this._arrows.push(createArrow(
                     this.graphie, this.normalStyle()));
             } else if (state.extendRay) {
-                this._arrows.push(drawArrowAtClipPoint(
+                this._arrows.push(createArrow(
                     this.graphie, this.normalStyle()));
             }
         }
