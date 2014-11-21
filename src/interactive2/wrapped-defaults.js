@@ -24,7 +24,6 @@ var WrappedDefaults = _.extend({
 
     toFront: function () {
         var parentNode = this.wrapper.parentNode;
-        this.wrapper.remove();
         parentNode.appendChild(this.wrapper);
     },
 
@@ -40,7 +39,7 @@ var WrappedDefaults = _.extend({
 
     remove: function() {
         this.visibleShape.remove();
-        this.wrapper.remove();
+        $(this.wrapper).remove();
     },
 
     getMouseTarget: function() {
@@ -52,9 +51,10 @@ var WrappedDefaults = _.extend({
             this.graphie.scalePoint(point),
             this.graphie.scalePoint(this.initialPoint)
         );
+        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
         var transformation = "translateX(" + delta[0] + "px) " +
-                             "translateY(" + delta[1] + "px) " +
-                             "translateZ(0)";
+                             "translateY(" + delta[1] + "px)" +
+                             (do3dTransform ? " translateZ(0)" : "");
         this.transform(transformation);
     }
 }, objective_.mapObjectFromArray(PASS_TO_RAPHAEL, function(attribute) {
