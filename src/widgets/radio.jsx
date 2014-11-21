@@ -28,6 +28,7 @@ var BaseRadio = React.createClass({
         onePerLine: React.PropTypes.bool,
         apiOptions: React.PropTypes.object,
         reviewModeRubric: React.PropTypes.object,
+        deselectEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -76,12 +77,12 @@ var BaseRadio = React.createClass({
                                 // Don't send this to the scratchpad
                                 e.preventDefault();
                                 if (!this.props.apiOptions.readOnly) {
-                                    this.checkOption(i,
-                                        (this.props.multipleSelect ?
-                                            !choice.checked :
-                                            true
-                                        )
-                                    );
+                                    var shouldToggle =
+                                        this.props.multipleSelect ||
+                                        this.props.deselectEnabled;
+                                    this.checkOption(
+                                        i,
+                                        shouldToggle ? !choice.checked : true);
                                 }
                             }}>
                     <div>
@@ -134,10 +135,10 @@ var BaseRadio = React.createClass({
                 return (i === radioIndex) ? shouldBeChecked : choice.checked;
             });
         } else {
-            // When multipleSelect is turned off, we always select the
-            // clicked index, and unselect everything else.
+            // When multipleSelect is turned off we always unselect everything
+            // that wasn't clicked.
             newChecked = _.map(this.props.choices, (choice, i) => {
-                return i === radioIndex;
+                return i === radioIndex && shouldBeChecked;
             });
         }
 
@@ -159,6 +160,7 @@ var Radio = React.createClass({
             choices: [{}],
             displayCount: null,
             multipleSelect: false,
+            deselectEnabled: false,
         };
     },
 
@@ -200,6 +202,7 @@ var Radio = React.createClass({
             })}
             onCheckedChange={this.onCheckedChange}
             reviewModeRubric={this.props.reviewModeRubric}
+            deselectEnabled={this.props.deselectEnabled}
             apiOptions={this.props.apiOptions} />;
     },
 
@@ -385,7 +388,8 @@ var RadioEditor = React.createClass({
         randomize: React.PropTypes.bool,
         noneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool
+        onePerLine: React.PropTypes.bool,
+        deselectEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -395,7 +399,8 @@ var RadioEditor = React.createClass({
             randomize: false,
             noneOfTheAbove: false,
             multipleSelect: false,
-            onePerLine: true
+            onePerLine: true,
+            deselectEnabled: false,
         };
     },
 
@@ -436,6 +441,12 @@ var RadioEditor = React.createClass({
                     <PropCheckBox label="Auto-none of the above"
                                   labelAlignment="right"
                                   noneOfTheAbove={this.props.noneOfTheAbove}
+                                  onChange={this.props.onChange} />
+                </div>
+                <div className="perseus-widget-right-col">
+                    <PropCheckBox label="Radio deselect enabled"
+                                  labelAlignment="right"
+                                  deselectEnabled={this.props.deselectEnabled}
                                   onChange={this.props.onChange} />
                 </div>
             </div>
@@ -595,7 +606,8 @@ var RadioEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
+            "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine",
+            "deselectEnabled");
     }
 });
 
@@ -639,7 +651,7 @@ var choiceTransform = (editorProps, problemNum) => {
 
     editorProps = _.extend({}, editorProps, { choices: choices });
     return _.pick(editorProps, "choices", "noneOfTheAbove", "onePerLine",
-        "multipleSelect", "correctAnswer");
+        "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
 module.exports = {
