@@ -145,7 +145,27 @@ var Widgets = {
         var transform = widgetExports.transform || _.identity;
         // widgetInfo.options are the widgetEditor's props:
         return transform(widgetInfo.options, problemNum);
-    }
+    },
+
+    traverseChildWidgets:
+            function(widgetInfo, widgetCallback, traverseRenderer) {
+
+        if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+            return;
+        }
+
+        var widgetExports = widgets[widgetInfo.type];
+        var traverseChildWidgets = widgetExports.traverseChildWidgets;
+        var props = widgetInfo.options;
+
+        if (traverseChildWidgets && props) {
+            traverseChildWidgets(
+                props,
+                widgetCallback,
+                traverseRenderer
+            );
+        }
+    },
 };
 
 module.exports = Widgets;

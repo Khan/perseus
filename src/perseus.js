@@ -5,7 +5,9 @@ var version = require("./version.json");
 module.exports = {
     apiVersion:         version.apiVersion,
     itemDataVersion:    version.itemDataVersion,
+    itemVersion:        require("./item-version"),
     init:               require("./init.js"),
+    renderability:      require("./renderability.jsx"),
     AnswerAreaRenderer: require("./answer-area-renderer.jsx"),
     ArticleEditor:      require("./article-editor.jsx"),
     ArticleRenderer:    require("./article-renderer.jsx"),

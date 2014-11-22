@@ -21,9 +21,10 @@
 <body>
 
 <div id="extras">
-    <button id="serialize">serialize</button>
-    <button id="scorePreview">Score</button>
-    <button id="permalink">permalink</button>
+    <button type="button" id="serialize">serialize</button>
+    <button type="button" id="scorePreview">score</button>
+    <button type="button" id="permalink">permalink</button>
+    <button type="button" id="input-version">contains only inputs?</button>
     <span>Seed:</span><span id="problemNum"></span>
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
@@ -144,6 +145,22 @@ $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
         Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor.serialize()));
     e.preventDefault();
+});
+$('#input-version').on('click', function(e) {
+    e.preventDefault();
+    // print whether or not this item consists only of
+    // input-numbers and numeric-inputs.
+    // just for versioning testing
+    console.log(Perseus.renderability.isItemRenderableByVersion(
+        editor.serialize(),
+        {
+            '::renderer::': { major: 100, minor: 0 },
+            'group': { major: 100, minor: 0 },
+            'sequence': { major: 100, minor: 0 },
+            'input-number': { major: 100, minor: 0 },
+            'numeric-input': { major: 100, minor: 0 },
+        }
+    ));
 });
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(Object.keys(enabledFeatures).map(function(feature) {
