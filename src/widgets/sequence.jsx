@@ -255,5 +255,6 @@ module.exports = {
     name: "sequence",
     displayName: "Sequence",
     widget: Sequence,
-    editor: SequenceEditor
+    editor: SequenceEditor,
+    hidden: true,
 };
