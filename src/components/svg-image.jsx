@@ -15,14 +15,14 @@ var Util = require("../util.js");
 // }
 var labelDataCache = {};
 
-var svgLabelsRegex = /\.svg-labels$/;
-var hashRegex = /([a-z0-9]{40})\.svg-labels$/;
+var svgLabelsRegex = /^web\+graphie\:/;
+var hashRegex = /\/([^/]+)$/;
 
 function isLabeledSVG(url) {
     return svgLabelsRegex.test(url);
 }
 
-// For each .svg-labels, there are two urls we need to download from. This gets
+// For each svg+labels, there are two urls we need to download from. This gets
 // the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
 // appropriate suffixes to get the image and other data
 function getBaseUrl(url) {
@@ -37,7 +37,7 @@ function getDataUrl(url) {
     return getBaseUrl(url) + "-data.json";
 }
 
-// Get the 40 hex character hash in the url
+// Get the hash from the url, which is just the filename
 function getUrlHash(url) {
     var match = url.match(hashRegex);
 
