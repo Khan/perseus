@@ -890,6 +890,48 @@ var Renderer = React.createClass({
     },
 
     /**
+     * WARNING: This is an experimental/temporary API and should not be relied
+     *     upon in production code. This function may change its behavior or
+     *     disappear without notice.
+     *
+     * Returns a treelike structure containing all widget IDs (this will
+     * descend into group widgets as well).
+     *
+     * An example of what the structure looks like:
+     *
+     * [
+     *    {id: "radio 1", children: []},
+     *    {
+     *        id: "group 1",
+     *        children: [
+     *            {id: "radio 1", children: []}
+     *            {id: "radio 2", children: []}
+     *        ]
+     *    }
+     * ]
+     *
+     * Widgets will be listed in the order that they appear in their renderer.
+     */
+    getAllWidgetIds: function() {
+        // Recursively builds our result
+        return _.map(this.getWidgetIds(), (id) => {
+            var groupPrefix = "group";
+            if (id.substring(0, groupPrefix.length) === groupPrefix) {
+                return {
+                    id: id,
+                    children:
+                        this.getWidgetInstance(id)
+                            .getRenderer()
+                            .getAllWidgetIds(),
+                };
+            }
+
+            // This is our base case
+            return {id: id, children: []};
+        });
+    },
+
+    /**
      * Returns the result of `.getUserInput()` for each widget, in
      * a map from widgetId to userInput.
      */

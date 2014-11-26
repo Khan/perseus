@@ -113,6 +113,18 @@ var Group = React.createClass({
         return this.refs.renderer.getAcceptableFormatsForInputPath(path);
     },
 
+    /**
+     * WARNING: This is an experimental/temporary API and should not be relied
+     *     upon in production code. This function may change its behavior or
+     *     disappear without notice.
+     *
+     * This function was created to allow Renderer.getAllWidgetIds to descend
+     * into our renderer.
+     */
+    getRenderer: function() {
+        return this.refs.renderer;
+    },
+
     focus: function(path) {
         if (path == null) {
             return this.refs.renderer.focus();
