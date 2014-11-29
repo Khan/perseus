@@ -5,109 +5,8 @@ var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
-var PropCheckBox = require("./components/prop-check-box.jsx");
+var JsonEditor = require("./json-editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
-
-var JsonEditor = React.createClass({
-
-    getInitialState: function() {
-        return {
-            currentValue: JSON.stringify(this.props.value, null, 4),
-            valid: true
-        };
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        var shouldReplaceContent = !this.state.valid ||
-            !_.isEqual(
-                nextProps.value,
-                JSON.parse(this.state.currentValue)
-            );
-
-        if (shouldReplaceContent) {
-            this.setState(this.getInitialState());
-        }
-    },
-
-    render: function() {
-        var classes = "perseus-json-editor " +
-            (this.state.valid ? "valid" : "invalid");
-
-        return <textarea
-            className={classes}
-            value={this.state.currentValue}
-            onChange={this.handleChange}
-            onKeyDown={this.handleKeyDown}
-            onBlur={this.handleBlur} />;
-    },
-
-    handleKeyDown: function(e) {
-        // This handler allows the tab character to be entered by pressing
-        // tab, instead of jumping to the next (non-existant) field
-        if (e.key === "Tab") {
-            var cursorPos = e.target.selectionStart;
-            var v = e.target.value;
-            var textBefore = v.substring(0, cursorPos);
-            var textAfter = v.substring(cursorPos, v.length);
-            e.target.value = textBefore+ "    " +textAfter;
-            e.target.selectionStart = textBefore.length + 4;
-            e.target.selectionEnd = textBefore.length + 4;
-
-            e.preventDefault();
-            this.handleChange(e);
-        }
-    },
-
-    handleChange: function(e) {
-        var nextString = e.target.value;
-        try {
-            var json = JSON.parse(nextString);
-            // Some extra handling to allow copy-pasting from /api/vi
-            if (_.isString(json)) {
-                json = JSON.parse(json);
-            }
-            // This callback unfortunately causes multiple renders,
-            // but seems to be necessary to avoid componentWillReceiveProps
-            // being called before setState has gone through
-            this.setState({
-                currentValue: nextString,
-                valid: true
-            }, function() {
-                this.props.onChange(json);
-            });
-        } catch (ex) {
-            this.setState({
-                currentValue: nextString,
-                valid: false
-            });
-        }
-    },
-
-    handleBlur: function(e) {
-        var nextString = e.target.value;
-        try {
-            var json = JSON.parse(nextString);
-            // Some extra handling to allow copy-pasting from /api/vi
-            if (_.isString(json)) {
-                json = JSON.parse(json);
-            }
-            // This callback unfortunately causes multiple renders,
-            // but seems to be necessary to avoid componentWillReceiveProps
-            // being called before setState has gone through
-            this.setState({
-                currentValue: JSON.stringify(json, null, 4),
-                valid: true
-            }, function() {
-                this.props.onChange(json);
-            });
-        } catch (ex) {
-            this.setState({
-                currentValue: JSON.stringify(this.props.value, null, 4),
-                valid: true
-            });
-        }
-    }
-});
 
 var EditorPage = React.createClass({
     propTypes: {
@@ -205,7 +104,7 @@ var EditorPage = React.createClass({
 
     toggleJsonMode: function() {
         this.setState({
-            json: this.serialize()
+            json: this.serialize({keepDeletedWidgets: true})
         }, function() {
             this.props.onChange({
                 jsonMode: !this.props.jsonMode
@@ -223,7 +122,10 @@ var EditorPage = React.createClass({
     },
 
     updateRenderer: function(cb) {
-        if (this.props.jsonMode) {
+        // Some widgets (namely the image widget) like to call onChange before
+        // anything has actually been mounted, which causes problems here. We
+        // just ensure don't update until we've mounted
+        if (this.rendererMountNode == null || this.props.jsonMode) {
             return;
         }
         var rendererConfig = _({
@@ -282,12 +184,12 @@ var EditorPage = React.createClass({
         return issues1.concat(issues2);
     },
 
-    serialize: function() {
+    serialize: function(options) {
         if (this.props.jsonMode) {
             return this.state.json;
         } else {
-            return _.extend(this.refs.itemEditor.serialize(), {
-                hints: this.refs.hintsEditor.serialize()
+            return _.extend(this.refs.itemEditor.serialize(options), {
+                hints: this.refs.hintsEditor.serialize(options)
             });
         }
     }

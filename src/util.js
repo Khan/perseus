@@ -15,6 +15,7 @@ var Util = {
 
     rWidgetParts: /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]$/,
     rWidgetRule:  /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/,
+    rTypeFromWidgetId: /^([a-z-]+) ([0-9]+)$/,
     snowman: "\u2603",
 
     noScore: {
@@ -556,6 +557,31 @@ var Util = {
      */
     captureScratchpadTouchStart: function(e) {
         e.stopPropagation();
+    },
+
+    getImageSize: function(url, callback) {
+        var img = new Image();
+        img.onload = function() {
+            // IE 11 seems to have problems calculating the heights of svgs
+            // if they're not in the DOM. To solve this, we add the element to
+            // the dom, wait for a rerender, and use `.clientWidth` and
+            // `.clientHeight`. I think we could also solve the problem by
+            // adding the image to the document before setting the src, but then
+            // the experience would be worse for other browsers.
+            if (img.width === 0 && img.height === 0) {
+                document.body.appendChild(img);
+                _.defer(function() {
+                    callback(img.clientWidth, img.clientHeight);
+                    document.body.removeChild(img);
+                });
+            } else {
+                callback(img.width, img.height);
+            }
+        };
+
+        // Require here to prevent recursive imports
+        var SvgImage = require("./components/svg-image.jsx");
+        img.src = SvgImage.getRealImageUrl(url);
     },
 
     /**

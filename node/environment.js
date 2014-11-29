@@ -19,6 +19,10 @@ require('node-jsx').install({
 global.document = jsdom.jsdom();
 var window = global.window = document.parentWindow;
 
+// KaTeX needs this, otherwise it throws errors and then we try to use MathJax,
+// which breaks everything
+global.document.compatMode = "CSS1Compat";
+
 // Mock out window.getSelection for react
 // TODO(jack): Remove this once
 // https://github.com/facebook/react/commit/2347abf75c2acb40b4b6ba10750f0461a5b837ad

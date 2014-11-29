@@ -9,6 +9,16 @@
 var _ = require("underscore");
 var kpoint = require("kmath").point;
 
+/* Local helper methods. */
+
+function getKey(eventName, id) {
+    return eventName + ":" + id;
+}
+
+function getEventName(key) {
+    return key.split(":")[0];
+}
+
 var MovableHelperMethods = {
     /**
      * Fire an onSomething type event to all functions in listeners
@@ -66,7 +76,8 @@ var MovableHelperMethods = {
 
     /**
      * Add a listener to any event: startMove, constraints, onMove, onMoveEnd,
-     * etc.
+     * etc. If a listener is already bound to the given eventName and id, then
+     * it is overwritten by func.
      *
      * eventName: the string name of the event to listen to. one of:
      *   "onMoveStart", "onMove", "onMoveEnd", "draw", "remove"
@@ -80,8 +91,13 @@ var MovableHelperMethods = {
      */
     listen: function(eventName, id, func) {
         this._listenerMap = this._listenerMap || {};
-        this._listenerMap[eventName + ":" + id] = this.state[eventName].length;
-        this.state[eventName].push(func);
+
+        // If there's an existing handler, replace it by using its index in
+        // `this.state[eventName]`; otherwise, add this handler to the end
+        var key = getKey(eventName, id);
+        var index = this._listenerMap[key] =
+                this._listenerMap[key] || this.state[eventName].length;
+        this.state[eventName][index] = func;
     },
 
     /**
@@ -92,9 +108,22 @@ var MovableHelperMethods = {
      */
     unlisten: function(eventName, id) {
         this._listenerMap = this._listenerMap || {};
-        var index = this._listenerMap[eventName + ":" + id];
+
+        var key = getKey(eventName, id);
+        var index = this._listenerMap[key];
         if (index !== undefined) {
+            // Remove handler from list of event handlers and listenerMap
             this.state[eventName].splice(index, 1);
+            delete this._listenerMap[key];
+
+            // Re-index existing events: if they occur after `index`, decrement
+            var keys = _.keys(this._listenerMap);
+            _.each(keys, function(key) {
+                if (getEventName(key) === eventName &&
+                        this._listenerMap[key] > index) {
+                    this._listenerMap[key]--;
+                }
+            }, this);
         }
     }
 };

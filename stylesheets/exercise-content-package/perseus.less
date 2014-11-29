@@ -5,10 +5,12 @@
 
 @import "variables.less";
 
+// Article Renderer
+@import "articles.less";
+
 #perseus {
     position: relative;
 }
-
 
 // .no-select is used to prevent selection of certain widgets.
 // often, allowing selection makes for an awkward mobile experience
@@ -71,11 +73,6 @@
     &.perseus-input-size-small {
         width: 40px;
     }
-}
-
-#examples > div > ul {
-    // React and Perseus.Renderer add an extra layer each to what qtip expects
-    list-style-type: disc;
 }
 
 .framework-perseus {
@@ -251,6 +248,14 @@
         }
     }
 
+    .graphie-container {
+        position: relative;
+
+        img {
+            position: absolute;
+        }
+    }
+
     .graph-settings, .image-settings, .misc-settings {
         padding-bottom: 5px;
     }
@@ -258,6 +263,14 @@
     .image-settings, .misc-settings, .type-settings {
         border-top: 1px solid black;
         padding-top: 5px;
+    }
+
+    .svg-image {
+        position: relative;
+
+        > img {
+            position: absolute;
+        }
     }
 }
 
@@ -276,6 +289,12 @@
 
 /* Widget CSS */
 
+.perseus-graph-padding {
+    padding: 25px 25px 0 0;
+}
+
+// TODO(aria): Ugh, sort these and remove
+// the extra categorization file
 @import "widgets/expression.less";
 @import "widgets/radio.less";
 @import "widgets/interactive-graph.less";
@@ -292,7 +311,9 @@
 @import "widgets/image.less";
 @import "widgets/passage.less";
 @import "widgets/matrix.less";
-@import "widgets/number-line.less";
+@import "widgets/group.less";
+@import "widgets/sequence.less";
+@import "widgets/grapher.less";
 
 .perseus-diff {
     @borderColor: #E4E4E4;
@@ -539,15 +560,137 @@
     background-color: #fcc;
 }
 
-/** Columns are visually disabled for now **/
-//.perseus-two-columns {
-//    display: table;
-//    table-layout: fixed;
-//    width: 100%;
-//}
+body.sat-section {
+    @satTopSpacing: 35px;
+    @satSectionHeight: 550px;
+    .content-area > div {
+        margin-left: auto;
+        margin-right: auto;
+        width: 592px;
+        .perseus-input-with-answer-blurb {
+            > span {
+                display: inline-block;
+            }
 
-//.perseus-column {
-//    display: table-cell;
-//    width: 50%;
-//}
+            .perseus-possible-answers, .perseus-possible-answers:before {
+                font-family: "Proxima Nova Semibold"
+            }
 
+            .perseus-possible-answers {
+                color: rgb(0, 153, 0);
+                padding-right: 4px;
+            }
+
+            .perseus-possible-answers:before {
+                content: "CORRECT ANSWER:";
+                padding: 0 5px 0 13px;
+                color: rgb(18, 18, 18);
+            }
+
+            .perseus-possible-answer:not(:first-child):before {
+                // TODO(johnsullivan): Figure out a better way to do this list
+                // joining.
+                content: "or";
+                padding: 0 5px;
+                color: rgb(18, 18, 18);
+            }
+        }
+
+        input.perseus-incorrect {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
+        }
+
+        input.perseus-correct {
+            color: @satCorrectColor;
+            background-color: @satCorrectBackgroundColor;
+            border: solid 1px @satCorrectBorderColor;
+        }
+
+        input.perseus-unanswered {
+            background-color: #eee;
+            border: solid 1px #999;
+        }
+
+        &.perseus-renderer-two-columns {
+            // This prevents a strange blank space from appearing above
+            // passages.
+            // TODO(johnsullivan): Try and get rid of the wrapping div that's
+            // causing this instead of modifying its margin like this.
+            & > .paragraph {
+                margin: 0;
+            }
+
+            width: 1024px;
+            & > .paragraph {
+                margin: 0;
+            }
+            .perseus-column {
+                & > .paragraph {
+                    margin: 0;
+                }
+                overflow-y: auto;
+                // TODO(kitt/john): Make this dynamically expand
+                // based on the height of the viewport.
+                &:nth-child(1) {
+                    background: #eee;
+                    border-right: 1px solid #ddd;
+                    height: @satSectionHeight - @satTopSpacing;
+                    max-height: @satSectionHeight - @satTopSpacing;
+                    float: left;
+                    padding-left: 10px;
+                    padding-top: @satTopSpacing;
+                    width: 498px;
+
+                    blockquote {
+                        padding: 0;
+                        margin: 0 22px 0 45px;
+                    }
+                }
+                &:nth-child(2) {
+                    float: right;
+                    height: @satSectionHeight;
+                    max-height: @satSectionHeight;
+                    padding-right: 20px;
+                    width: 475px;
+                    .perseus-group {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .question-annotation {
+        // TODO(kitt): generalize for passages
+        color: #999;
+        margin-top: @satTopSpacing;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+    }
+
+    .paragraph:not(:first-child) .question-annotation {
+        margin-top: 48px;
+    }
+
+    input[type=text],
+    input[type=number] {
+        border: 1px solid #aaa;
+        font-family: @boldFontFamily;
+        font-size: 14px;
+        margin: 10px 0;
+        padding: 5px;
+        &:valid {
+            border: 1px solid @satBlue;
+            background: @satSelectedBackgroundColor;
+        }
+    }
+}
+
+.perseus-error {
+    background: @red;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0 10px;
+}

@@ -3,7 +3,10 @@ var cx = React.addons.classSet;
 
 var QuestionParagraph = React.createClass({
     render: function() {
-        return <div className="paragraph">
+        var className = (this.props.className) ?
+            "paragraph " + this.props.className :
+            "paragraph";
+        return <div className={className}>
             {this.props.children}
         </div>;
     }

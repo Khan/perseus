@@ -2,10 +2,8 @@ var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
-var ButtonGroup = require("react-components/button-group.jsx");
 var ColorPicker = require("./interaction/color-picker.jsx");
 var ConstraintEditor = require("./interaction/constraint-editor.jsx");
 var DashPicker = require("./interaction/dash-picker.jsx");
@@ -15,13 +13,16 @@ var GraphSettings = require("../components/graph-settings.jsx");
 var MathInput = require("../components/math-input.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var TeX = require("react-components/tex.jsx");
+var TextInput = require("../components/text-input.jsx");
 
+var Label = Graphie.Label;
 var Line = Graphie.Line;
 var MovablePoint = Graphie.MovablePoint;
 var MovableLine = Graphie.MovableLine;
 var Plot = Graphie.Plot;
 var PlotParametric = Graphie.PlotParametric;
 var Point = Graphie.Point;
+var Rect = Graphie.Rect;
 
 var kvector = require("kmath").vector;
 
@@ -62,8 +63,20 @@ var KAScompile = (expr, options) => {
     return cached;
 };
 
+var defaultInteractionProps = {
+    graph: {
+        box: [400, 400],
+        labels: ["x", "y"],
+        range: [[-10, 10], [-10, 10]],
+        tickStep: [1, 1],
+        gridStep: [1, 1],
+        markings: "graph",
+    },
+    elements: []
+};
+
 var Interaction = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
+    mixins: [Changeable],
 
     // TODO(eater): Make more better
     propTypes: {
@@ -72,7 +85,7 @@ var Interaction = React.createClass({
     },
 
     getDefaultProps: function() {
-        return {};
+        return defaultInteractionProps;
     },
 
     getInitialState: function() {
@@ -90,7 +103,7 @@ var Interaction = React.createClass({
             var startXExpr = KASparse(element.options.startX || "0").expr;
             var startYExpr = KASparse(element.options.startY || "0").expr;
             var startX = 0;
-            var starty = 0;
+            var startY = 0;
             if (startXExpr) {
                 startX = startXExpr.eval({}) || 0;
             }
@@ -108,9 +121,9 @@ var Interaction = React.createClass({
             var endXExpr = KASparse(element.options.endX || "0").expr;
             var endYExpr = KASparse(element.options.endY || "0").expr;
             var startX = 0;
-            var starty = 0;
+            var startY = 0;
             var endX = 0;
-            var endy = 0;
+            var endY = 0;
             if (startXExpr) {
                 startX = startXExpr.eval({}) || 0;
             }
@@ -257,22 +270,37 @@ var Interaction = React.createClass({
                 } else if (element.type === "movable-point") {
                     // TODO(eater): Would be nice if the constraint system
                     // were more flexible.
-                    var constraints = null;
+                    var constraints = [(coord) => {
+                        var coordX =
+                            Math.max(this._eval(
+                                element.options.constraintXMin),
+                            Math.min(this._eval(
+                                element.options.constraintXMax),
+                            coord[0]));
+                        var coordY =
+                            Math.max(this._eval(
+                                element.options.constraintYMin),
+                            Math.min(this._eval(
+                                element.options.constraintYMax),
+                            coord[1]));
+                        return [coordX, coordY];
+                    }];
                     if (element.options.constraint === "snap") {
-                        constraints = MovablePoint.constraints.snap(
-                            element.options.snap);
+                        constraints.push(MovablePoint.constraints.snap(
+                            element.options.snap));
                     } else if (element.options.constraint === "x") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [this._eval(
                                 element.options.constraintFn,
                                 {y: coord[1]}), coord[1]];
-                        };
+                        });
                     } else if (element.options.constraint === "y") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [coord[0], this._eval(
                                 element.options.constraintFn, {x: coord[0]})];
-                        };
+                        });
                     }
+
                     // TODO(eater): foo_[xyz] are hacky non-props to get the
                     // component to update when constraints change
                     return <MovablePoint
@@ -294,22 +322,36 @@ var Interaction = React.createClass({
                     // were more flexible.
                     // TODO(eater): Don't duplicate this code from
                     // movable-point above
-                    var constraints = null;
+                    var constraints = [(coord) => {
+                        var coordX =
+                            Math.max(this._eval(
+                                element.options.constraintXMin),
+                            Math.min(this._eval(
+                                element.options.constraintXMax),
+                            coord[0]));
+                        var coordY =
+                            Math.max(this._eval(
+                                element.options.constraintYMin),
+                            Math.min(this._eval(
+                                element.options.constraintYMax),
+                            coord[1]));
+                        return [coordX, coordY];
+                    }];
                     if (element.options.constraint === "snap") {
-                        constraints = MovablePoint.constraints.snap(
-                            element.options.snap);
+                        constraints.push(MovablePoint.constraints.snap(
+                            element.options.snap));
                     } else if (element.options.constraint === "x") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [this._eval(
                                 element.options.constraintFn,
                                 {y: coord[1]}), coord[1]];
-                        };
+                        });
                     } else if (element.options.constraint === "y") {
-                        constraints = (coord) => {
+                        constraints.push((coord) => {
                             return [coord[0], this._eval(
                                 element.options.constraintFn,
                                 {x: coord[0]})];
-                        };
+                        });
                     }
                     var start = [
                             this.state.variables["x_" +
@@ -399,9 +441,38 @@ var Interaction = React.createClass({
                             strokeDasharray: element.options.strokeDasharray,
                             plotPoints: 100  // TODO(eater): why so slow?
                         }} />;
+                } else if (element.type === "label") {
+                    var coord = [this._eval(element.options.coordX),
+                                 this._eval(element.options.coordY)];
+                    return <Label
+                        key={n + 1}
+                        coord={coord}
+                        text={element.options.label}
+                        style={{
+                            color: element.options.color
+                        }} />;
+                } else if (element.type === "rectangle") {
+                    return <Rect
+                        key={n + 1}
+                        x={this._eval(element.options.coordX)}
+                        y={this._eval(element.options.coordY)}
+                        width={_.max([this._eval(element.options.width), 0])}
+                        height={_.max([this._eval(element.options.height), 0])}
+                        style={{
+                            stroke: "none",
+                            fill: element.options.color
+                        }} />;
                 }
             }, this)}
         </Graphie>;
+    },
+
+    getUserInput: function() {
+        // TODO(eater): Perhaps we want to be able to record the state of the
+        // user's interaction. Unfortunately sending all the props will
+        // probably make the attempt payload too large. So for now, don't send
+        // anything.
+        return {};
     },
 
     simpleValidate: function(rubric) {
@@ -584,6 +655,10 @@ var MovablePointEditor = React.createClass({
             constraint: "none",
             snap: 0.5,
             constraintFn: "0",
+            constraintXMin: "-10",
+            constraintXMax: "10",
+            constraintYMin: "-10",
+            constraintYMax: "10"
         };
     },
 
@@ -642,6 +717,10 @@ var MovableLineEditor = React.createClass({
             constraint: "none",
             snap: 0.5,
             constraintFn: "0",
+            constraintXMin: "-10",
+            constraintXMax: "10",
+            constraintYMin: "-10",
+            constraintYMax: "10"
         };
     },
 
@@ -689,7 +768,7 @@ var MovableLineEditor = React.createClass({
                         onChange={this.change("endSubscript")}/>
             </div>
             <div className="perseus-widget-row">
-                Constraints are applied to the start point.
+                All constraints are applied to the start point.
             </div>
             <ConstraintEditor {...this.props} />
         </div>;
@@ -852,6 +931,126 @@ var ParametricEditor = React.createClass({
 });
 
 
+//
+// Editor for labels
+//
+// TODO(eater): Factor this out maybe?
+// TODO(eater): Add text direction
+//
+var LabelEditor = React.createClass({
+    mixins: [EditorJsonify, Changeable],
+
+    propTypes: {
+    },
+
+    getDefaultProps: function() {
+        return {
+            coordX: "0",
+            coordY: "0",
+            color: KhanUtil.BLACK,
+            label: "\\phi"
+        };
+    },
+
+    render: function() {
+        return <div className="graph-settings">
+            <div className="perseus-widget-row">
+                <TextInput
+                    value={this.props.label}
+                    onChange={this.change("label")}
+                    style={{
+                        width: "100%"
+                    }}
+                    />
+            </div>
+            <div className="perseus-widget-row">
+                Location: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.coordX}
+                    onChange={this.change("coordX")} />
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.coordY}
+                    onChange={this.change("coordY")} />
+                <TeX>\Large)</TeX>
+            </div>
+            <div className="perseus-widget-row">
+                <ColorPicker
+                    value={this.props.color}
+                    onChange={this.change("color")} />
+            </div>
+        </div>;
+    }
+});
+
+
+//
+// Editor for rectangles
+//
+// TODO(eater): Factor this out maybe?
+//
+var RectangleEditor = React.createClass({
+    mixins: [EditorJsonify, Changeable],
+
+    propTypes: {
+    },
+
+    getDefaultProps: function() {
+        return {
+            coordX: "-5",
+            coordY: "5",
+            width: "2",
+            height: "3",
+            color: KhanUtil.LIGHT_BLUE
+        };
+    },
+
+    render: function() {
+        return <div className="graph-settings">
+            <div className="perseus-widget-row">
+                Top left: <TeX>\Large(</TeX><MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.coordX}
+                    onChange={this.change("coordX")} />
+                <TeX>,</TeX> <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.coordY}
+                    onChange={this.change("coordY")} />
+                <TeX>\Large)</TeX>
+            </div>
+            <div className="perseus-widget-row">
+                Width: <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.width}
+                    onChange={this.change("width")} />
+            </div>
+            <div className="perseus-widget-row">
+                Height: <MathInput
+                    buttonSets={[]}
+                    buttonsVisible={"never"}
+                    value={this.props.height}
+                    onChange={this.change("height")} />
+            </div>
+            <div className="perseus-widget-row">
+                <ColorPicker
+                    value={this.props.color}
+                    lightColors={true}
+                    onChange={this.change("color")} />
+            </div>
+            <div className="perseus-widget-row">
+                You want a border? Sorry, draw your own.
+            </div>
+        </div>;
+    }
+});
+
+
+
 var InteractionEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
@@ -862,17 +1061,7 @@ var InteractionEditor = React.createClass({
     },
 
     getDefaultProps: function() {
-        return {
-            graph: {
-                box: [400, 400],
-                labels: ["x", "y"],
-                range: [[-10, 10], [-10, 10]],
-                tickStep: [1, 1],
-                gridStep: [1, 1],
-                markings: "graph",
-            },
-            elements: []
-        };
+        return defaultInteractionProps;
     },
 
     getInitialState: function() {
@@ -933,7 +1122,11 @@ var InteractionEditor = React.createClass({
                         elementType === "function" ?
                         _.clone(FunctionEditor.defaultProps) :
                         elementType === "parametric" ?
-                        _.clone(ParametricEditor.defaultProps) : {}
+                        _.clone(ParametricEditor.defaultProps) :
+                        elementType === "label" ?
+                        _.clone(LabelEditor.defaultProps) :
+                        elementType === "rectangle" ?
+                        _.clone(RectangleEditor.defaultProps) : {}
         };
         if (elementType === "movable-point") {
             var nextSubscript =
@@ -1134,6 +1327,49 @@ var InteractionEditor = React.createClass({
                             }}
                         />
                     </ElementContainer>;
+                } else if (element.type === "label") {
+                    return <ElementContainer
+                            title={<span>Label <TeX>
+                                {element.options.label}</TeX> </span>}
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement}
+                            key={element.key}>
+                        <LabelEditor
+                            {...element.options}
+                            onChange={(newProps) => {
+                                var elements = JSON.parse(JSON.stringify(
+                                    this.props.elements));
+                                _.extend(elements[n].options, newProps);
+                                this.change({elements: elements});
+                            }} />
+                    </ElementContainer>;
+                } else if (element.type === "rectangle") {
+                    return <ElementContainer
+                            title={<span>Rectangle <TeX>{"(" +
+                                element.options.coordX + ", " +
+                                element.options.coordY + ")"}</TeX>
+                                &nbsp;&mdash;&nbsp;
+                                <TeX>{element.options.width + " \\times " +
+                                element.options.height}</TeX>
+                                </span>}
+                            onUp={n === 0 ?
+                                null : this._moveElementUp.bind(this, n)}
+                            onDown={n === this.props.elements.length - 1 ?
+                                null : this._moveElementDown.bind(this, n)}
+                            onDelete={this._deleteElement}
+                            key={element.key}>
+                        <RectangleEditor
+                            {...element.options}
+                            onChange={(newProps) => {
+                                var elements = JSON.parse(JSON.stringify(
+                                    this.props.elements));
+                                _.extend(elements[n].options, newProps);
+                                this.change({elements: elements});
+                            }} />
+                    </ElementContainer>;
                 }
             }, this)}
             <div className="perseus-widget-interaction-editor-select-element">
@@ -1144,6 +1380,8 @@ var InteractionEditor = React.createClass({
                     <option value="line">Line segment</option>
                     <option value="function">Function plot</option>
                     <option value="parametric">Parametric plot</option>
+                    <option value="label">Label</option>
+                    <option value="rectangle">Rectangle</option>
                     <option value="movable-point">
                         &#x2605; Movable point</option>
                     <option value="movable-line">

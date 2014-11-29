@@ -27,7 +27,7 @@ var InputWithExamples = React.createClass({
         buttonSet: React.PropTypes.string,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        onBlur: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -54,7 +54,7 @@ var InputWithExamples = React.createClass({
         }
 
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
-        var className = ApiClassNames.INPUT;
+        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }

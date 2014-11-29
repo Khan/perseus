@@ -143,7 +143,7 @@ var Matrix = React.createClass({
 
         return <div className={className}>
             {this.props.prefix && <div className="matrix-prefix">
-                {Renderer({ content: this.props.prefix })}
+                <Renderer content={this.props.prefix} />
             </div>}
             <div className="matrix-input">
                 <div
@@ -233,7 +233,7 @@ var Matrix = React.createClass({
                 })}
             </div>
             {this.props.suffix && <div className="matrix-suffix">
-                {Renderer({ content: this.props.suffix })}
+                <Renderer content={this.props.suffix} />
             </div>}
         </div>;
     },

@@ -12,6 +12,7 @@ var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
 
+var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
 
@@ -46,7 +47,8 @@ var formExamples = {
 var NumericInput = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
-        enabledFeatures: EnabledFeatures.propTypes
+        enabledFeatures: EnabledFeatures.propTypes,
+        reviewModeRubric: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -55,25 +57,89 @@ var NumericInput = React.createClass({
             size: "normal",
             enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
-            coefficient: false
+            coefficient: false,
+            answerForms: [],
         };
     },
 
     render: function() {
-        return <InputWithExamples
-                    ref="input"
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    className={"perseus-input-size-" + this.props.size}
-                    type={this._getInputType()}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />;
+        // HACK(johnsullivan): Create a function with shared logic between this
+        // and InputNumber.
+        var rubric = this.props.reviewModeRubric;
+        if (rubric) {
+            var score = this.simpleValidate(rubric);
+            var correct = score.type === "points" &&
+                          score.earned === score.total;
+
+            var answerBlurb = null;
+            if (!correct) {
+                var correctAnswers = _.filter(
+                    rubric.answers, (answer) => answer.status === "correct");
+                var answerComponents = _.map(correctAnswers, (answer, key) => {
+                    // Figure out how this answer is supposed to be displayed
+                    var format = "decimal";
+                    if (answer.answerForms && answer.answerForms[0]) {
+                        // NOTE(johnsullivan): This isn't exactly ideal, but
+                        // it does behave well for all the currently known
+                        // problems. See D14742 for some discussion on
+                        // alternate strategies.
+                        format = answer.answerForms[0]
+                    }
+
+                    var answerString = KhanUtil.toNumericString(answer.value,
+                                                                format);
+                    if (answer.maxError) {
+                        answerString += " \u00B1 " +
+                            KhanUtil.toNumericString(answer.maxError, format);
+                    }
+                    return <span key={key} className="perseus-possible-answer">
+                        {answerString}
+                    </span>
+                });
+                answerBlurb = <span className="perseus-possible-answers">
+                    {answerComponents}
+                </span>;
+            }
+        }
+
+        var classes = {};
+        classes["perseus-input-size-" + this.props.size] = true;
+        classes[ApiClassNames.CORRECT] =
+            rubric && correct && this.props.currentValue;
+        classes[ApiClassNames.INCORRECT] =
+            rubric && !correct && this.props.currentValue;
+        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
+
+        var input = <InputWithExamples
+            ref="input"
+            value={this.props.currentValue}
+            onChange={this.handleChange}
+            className={React.addons.classSet(classes)}
+            type={this._getInputType()}
+            examples={this.examples()}
+            shouldShowExamples={this.shouldShowExamples()}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur} />;
+
+        if (answerBlurb) {
+            return <span className="perseus-input-with-answer-blurb">
+                {input}
+                {answerBlurb}
+            </span>;
+        } else {
+            return input;
+        }
     },
 
     handleChange: function(newValue) {
-        this.props.onChange({ currentValue: newValue });
+        // TODO(johnsullivan): It would be better to support this lower down so
+        // that the input element actually gets marked with the disabled
+        // attribute. Because of how many layers of widgets are below us
+        // though, and because we're using CSS to disable click events (only
+        // unsupported on IE 10), I'm calling this sufficient for now.
+        if (!this.props.apiOptions.readOnly) {
+            this.props.onChange({ currentValue: newValue });
+        }
     },
 
     _getInputType: function() {

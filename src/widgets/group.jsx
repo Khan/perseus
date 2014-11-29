@@ -10,6 +10,8 @@ var Group = React.createClass({
         content: React.PropTypes.string,
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
+        icon: React.PropTypes.object,
+        reviewModeRubric: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -17,6 +19,7 @@ var Group = React.createClass({
             content: "",
             widgets: {},
             images: {},
+            icon: null
         };
     },
 
@@ -39,12 +42,34 @@ var Group = React.createClass({
             }
         );
 
+        // Allow a problem number annotation to be added.
+        var number = _.indexOf(this.props.interWidgets("group"), this);
+        var problemNumComponent = this.props.apiOptions.groupAnnotator(
+            number, this.props.widgetId);
+
+        // This is a little strange because the id of the widget that actually
+        // changed is going to be lost in favor of the group widget's id. The
+        // widgets prop also wasn't actually changed, and this only serves to
+        // alert our renderer (our parent) of the fact that some interaction
+        // has occurred.
+        var onInteractWithWidget = (id) => {
+            if (this.refs.renderer) {
+                this.change("widgets", this.refs.renderer.props.widgets);
+            }
+        };
+
         return <div className="perseus-group">
+            {problemNumComponent}
             <Renderer
                 {...this.props}
                 ref="renderer"
                 apiOptions={apiOptions}
-                interWidgets={this._interWidgets} />
+                interWidgets={this._interWidgets}
+                reviewMode={!!this.props.reviewModeRubric}
+                onInteractWithWidget={onInteractWithWidget} />
+            {this.props.icon && <div className="group-icon">
+                {this.props.icon}
+            </div>}
         </div>;
     },
 
@@ -58,6 +83,17 @@ var Group = React.createClass({
 
     getUserInput: function() {
         return this.refs.renderer.getUserInput();
+    },
+
+    getSerializedState: function() {
+        return this.refs.renderer.getSerializedState();
+    },
+
+    restoreSerializedState: function(state, callback) {
+        this.refs.renderer.restoreSerializedState(state, callback);
+        // Tell our renderer that we have no props to change
+        // (all our changes were in state):
+        return null;
     },
 
     simpleValidate: function(rubric) {
@@ -75,6 +111,18 @@ var Group = React.createClass({
 
     getAcceptableFormatsForInputPath: function(path) {
         return this.refs.renderer.getAcceptableFormatsForInputPath(path);
+    },
+
+    /**
+     * WARNING: This is an experimental/temporary API and should not be relied
+     *     upon in production code. This function may change its behavior or
+     *     disappear without notice.
+     *
+     * This function was created to allow Renderer.getAllWidgetIds to descend
+     * into our renderer.
+     */
+    getRenderer: function() {
+        return this.refs.renderer;
     },
 
     focus: function(path) {

@@ -179,24 +179,24 @@ var GraphSettings = React.createClass({
                 </div>
                 {this.props.backgroundImage.url && <div>
                     <div>Pixels from left:{' '}
-                        <input type="text"
-                                ref="bg-left"
-                                value={this.props.backgroundImage.left}
-                                onChange={
+                        <NumberInput type="text"
+                                     ref="bg-left"
+                                     value={this.props.backgroundImage.left}
+                                     onChange={
                         _.partial(this.changeBackgroundSetting, "left")} />
                     </div>
                     <div>Pixels from bottom:{' '}
-                        <input type="text"
-                                ref="bg-bottom"
-                                value={this.props.backgroundImage.bottom}
-                                onChange={
+                        <NumberInput type="text"
+                                     ref="bg-bottom"
+                                     value={this.props.backgroundImage.bottom}
+                                     onChange={
                         _.partial(this.changeBackgroundSetting, "bottom")} />
                     </div>
                     <div>Image scale:{' '}
-                        <input type="text"
-                                ref="bg-scale"
-                                value={this.props.backgroundImage.scale}
-                                onChange={
+                        <NumberInput type="text"
+                                     ref="bg-scale"
+                                     value={this.props.backgroundImage.scale}
+                                     onChange={
                         _.partial(this.changeBackgroundSetting, "scale")} />
                     </div>
                 </div>}
@@ -446,41 +446,35 @@ var GraphSettings = React.createClass({
     },
 
     changeBackgroundUrl: function(e) {
-        var self = this;
-
         // Only continue on blur or "enter"
         if (e.type === "keypress" && e.keyCode !== 13) {
             return;
         }
 
-        var url = self.refs["bg-url"].getDOMNode().value;
-        var setUrl = function() {
-            var image = _.clone(self.props.backgroundImage);
+        var setUrl = (url, width, height) => {
+            var image = _.clone(this.props.backgroundImage);
             image.url = url;
-            image.width = img.width;
-            image.height = img.height;
-            self.change({
+            image.width = width;
+            image.height = height;
+            this.change({
                 backgroundImage: image,
                 markings: url ? "none" : "graph"
             });
         };
+
+        var url = this.refs["bg-url"].getDOMNode().value;
         if (url) {
-            var img = new Image();
-            img.onload = setUrl;
-            img.src = url;
+            Util.getImageSize(url, (width, height) => {
+                setUrl(url, width, height);
+            });
         } else {
-            var img = {
-                url: url,
-                width: 0,
-                height: 0
-            };
-            setUrl();
+            setUrl(url, 0, 0);
         }
     },
 
-    changeBackgroundSetting: function(type, e) {
+    changeBackgroundSetting: function(type, value) {
         var image = _.clone(this.props.backgroundImage);
-        image[type] = e.target.value;
+        image[type] = value;
         this.change({ backgroundImage: image });
     },
 

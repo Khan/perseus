@@ -7,6 +7,7 @@ var Renderer          = require("../renderer.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");
 var EnabledFeatures = require("../enabled-features.jsx");
@@ -82,6 +83,7 @@ var InputNumber = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
+        reviewModeRubric: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -101,16 +103,56 @@ var InputNumber = React.createClass({
     },
 
     render: function() {
-        return <InputWithExamples
-                    ref="input"
-                    value={this.props.currentValue}
-                    onChange={this.handleChange}
-                    className={"perseus-input-size-" + this.props.size}
-                    type={this._getInputType()}
-                    examples={this.examples()}
-                    shouldShowExamples={this.shouldShowExamples()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />;
+        // HACK(johnsullivan): Create a function with shared logic between this
+        // and NumericInput.
+        var rubric = this.props.reviewModeRubric;
+        if (rubric) {
+            var score = this.simpleValidate(rubric);
+            var correct = score.type === "points" &&
+                          score.earned === score.total;
+
+            var answerBlurb = null;
+            if (!correct) {
+                // TODO(johnsullivan): Make this a little more human-friendly.
+                var answerString = String(rubric.value);
+                if (rubric.inexact && rubric.maxError) {
+                    answerString += " \u00B1 " + rubric.maxError;
+                }
+                answerBlurb = <span className="perseus-possible-answers">
+                    <span className="perseus-possible-answer">
+                        {answerString}
+                    </span>
+                </span>;
+            }
+        }
+
+        var classes = {};
+        classes["perseus-input-size-" + this.props.size] = true;
+        classes[ApiClassNames.CORRECT] =
+            rubric && correct && this.props.currentValue;
+        classes[ApiClassNames.INCORRECT] =
+            rubric && !correct && this.props.currentValue;
+        classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
+
+        var input = <InputWithExamples
+            ref="input"
+            value={this.props.currentValue}
+            onChange={this.handleChange}
+            className={React.addons.classSet(classes)}
+            type={this._getInputType()}
+            examples={this.examples()}
+            shouldShowExamples={this.shouldShowExamples()}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur} />;
+
+        if (answerBlurb) {
+            return <span className="perseus-input-with-answer-blurb">
+                {input}
+                {answerBlurb}
+            </span>;
+        } else {
+            return input;
+        }
     },
 
     handleChange: function(newValue) {
@@ -236,9 +278,18 @@ _.extend(InputNumber, {
 });
 
 var InputNumberEditor = React.createClass({
+    propTypes: {
+        value: React.PropTypes.number,
+        simplify: React.PropTypes.oneOf(['required', 'optional', 'enforced']),
+        size: React.PropTypes.oneOf(['normal', 'small']),
+        inexact: React.PropTypes.bool,
+        maxError: React.PropTypes.number,
+        answerType: React.PropTypes.string
+    },
+
     getDefaultProps: function() {
         return {
-            value: "0",
+            value: 0,
             simplify: "required",
             size: "normal",
             inexact: false,
@@ -259,7 +310,7 @@ var InputNumberEditor = React.createClass({
 
         return <div>
             <div><label>
-                {' '}Correct answer:{' '}
+                Correct answer:{' '}
                 <BlurInput value={"" + this.props.value}
                            onChange={this.handleAnswerChange}
                            ref="input" />
@@ -267,7 +318,7 @@ var InputNumberEditor = React.createClass({
 
             <div>
                 <label>
-                    {' '}Unsimplified answers{' '}
+                    Unsimplified answers{' '}
                     <select value={this.props.simplify}
                             onChange={e => {
                                 this.props.onChange({simplify:
@@ -298,13 +349,13 @@ var InputNumberEditor = React.createClass({
                     onChange={e => {
                         this.props.onChange({inexact: e.target.checked});
                     }} />
-                {' '}Allow inexact answers{' '}
+                {' '}Allow inexact answers
             </label>
 
             <label>
             <input /* TODO(emily): don't use a hidden checkbox for alignment */
                 type="checkbox" style={{visibility: "hidden"}} />
-            {' '}Max error:{' '}
+            Max error:{' '}
             <input type="text" disabled={!this.props.inexact}
                 defaultValue={this.props.maxError}
                 onBlur={e => {
@@ -316,7 +367,7 @@ var InputNumberEditor = React.createClass({
             </label></div>
 
             <div>
-            {' '}Answer type:{' '}
+            Answer type:{' '}
             <select
                 value={this.props.answerType}
                 onChange={e => {
@@ -333,7 +384,7 @@ var InputNumberEditor = React.createClass({
 
             <div>
                 <label>
-                    {' '}Width{' '}
+                    Width{' '}
                     <select value={this.props.size}
                             onChange={e => {
                                 this.props.onChange({size: e.target.value});

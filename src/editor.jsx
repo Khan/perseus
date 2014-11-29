@@ -1,17 +1,21 @@
 var React = require('react');
 var _ = require("underscore");
 
+var ApiOptions = require("./perseus-api.jsx").Options;
+var InfoTip = require("react-components/info-tip.jsx");
+var DragTarget = require("react-components/drag-target.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
+var SvgImage = require("./components/svg-image.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
-var DragTarget = require("react-components/drag-target.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
-var ApiOptions = require("./perseus-api.jsx").Options;
+
+var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
-var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'), 'g');
+var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
+                              'g');
 
 var shortcutRegexp = /^\[\[([a-z]+)$/; // like [[nu, [[int, etc
 
@@ -135,9 +139,9 @@ var WidgetEditor = React.createClass({
                     <i className={"icon-chevron-" + direction} />
                 </a>
                 <a href="#" className="remove-widget simple-button simple-button--small orange"
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.preventDefault();
                             this.props.onRemove();
-                            return false;
                         }}>
                     <span className="icon-trash" />
                 </a>
@@ -159,21 +163,22 @@ var WidgetEditor = React.createClass({
         this.setState({showWidget: !this.state.showWidget});
     },
 
-    _handleWidgetChange: function(newProps, cb) {
+    _handleWidgetChange: function(newProps, cb, silent) {
         // TODO(jack): It is unfortunate to call serialize here, but is
         // important so that the widgetInfo we pass to our upgrade functions is
         // always complete. If we just sent this.props in, we could run into
         // situations where we would send things like { answerType: "decimal" }
         // to our upgrade functions, without the rest of the props representing
         // the widget.
-        var currentWidgetInfo = _.extend({}, this.props, {
-            options: this.refs.widget.serialize()
-        });
+        var currentWidgetInfo = _.extend(
+            _.omit(this.props, WIDGET_PROP_BLACKLIST),
+            { options: this.refs.widget.serialize() }
+        );
         var newWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
             currentWidgetInfo
         );
         newWidgetInfo.options = _.extend(newWidgetInfo.options, newProps);
-        this.props.onChange(newWidgetInfo, cb);
+        this.props.onChange(newWidgetInfo, cb, silent);
     },
 
     getSaveWarnings: function() {
@@ -233,19 +238,6 @@ var imageUrlsFromContent = function(content) {
     );
 };
 
-/**
- * Sends the dimensions of the image located at the given url to `callback`
- */
-var sizeImage = function(url, callback) {
-    var image = new Image();
-    image.onload = () => {
-        var width = image.naturalWidth || image.width;
-        var height = image.naturalHeight || image.height;
-        callback(width, height);
-    };
-    image.src = url;
-};
-
 var Editor = React.createClass({
     propTypes: {
         imageUploader: React.PropTypes.func,
@@ -278,10 +270,10 @@ var Editor = React.createClass({
             {...this.props.widgets[id]} />;
     },
 
-    _handleWidgetEditorChange: function(id, newProps, cb) {
+    _handleWidgetEditorChange: function(id, newProps, cb, silent) {
         var widgets = _.clone(this.props.widgets);
         widgets[id] = _.extend({}, widgets[id], newProps);
-        this.props.onChange({widgets: widgets}, cb);
+        this.props.onChange({widgets: widgets}, cb, silent);
     },
 
     _handleWidgetEditorRemove: function(id) {
@@ -312,7 +304,7 @@ var Editor = React.createClass({
         // TODO(jack): Q promises would make this nicer and only
         // fire once.
         _.each(newImageUrls, (url) => {
-            sizeImage(url, (width, height) => {
+            Util.getImageSize(url, (width, height) => {
                 // We keep modifying the same image object rather than a new
                 // copy from this.props because all changes here are additive.
                 // Maintaining old changes isn't strictly necessary if
@@ -657,7 +649,7 @@ var Editor = React.createClass({
             .value();
     },
 
-    serialize: function() {
+    serialize: function(options) {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
         // interactive-graph and plotter).
@@ -666,6 +658,20 @@ var Editor = React.createClass({
         _.each(widgetIds, id => {
             widgets[id] = this.refs[id].serialize();
         });
+
+        // Preserve the data associated with deleted widgets in their last
+        // modified form. This is only intended to be useful in the context of
+        // immediate cut and paste operations if Editor.serialize() is called
+        // in between the two (which ideally should not be happening).
+        // TODO(alex): Remove this once all widget.serialize() methods
+        //             have been fixed to only return props,
+        //             and the above no longer applies.
+        if (options && options.keepDeletedWidgets) {
+            _.chain(this.props.widgets)
+                .keys()
+                .reject(id => _.contains(widgetIds, id))
+                .each(id => widgets[id] = this.props.widgets[id]);
+        }
 
         return {
             content: this.props.content,

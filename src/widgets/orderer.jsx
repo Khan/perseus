@@ -636,7 +636,7 @@ var OrdererEditor = React.createClass({
         this.props.onChange({height: e.target.value});
     },
 
-    serialize: function(skipValidation) {
+    serialize: function() {
         // We combine the correct answer and the other cards by merging them,
         // removing duplicates and empty cards, and sorting them into
         // categories based on their content

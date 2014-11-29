@@ -1,4 +1,5 @@
 var _ = require("underscore");
+var Util = require("../util.js");
 
 var BlurInput    = require("react-components/blur-input.jsx");
 var Editor       = require("../editor.jsx");
@@ -11,6 +12,7 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
+var SvgImage     = require("../components/svg-image.jsx");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -83,11 +85,9 @@ var ImageWidget = React.createClass({
         var image;
         var backgroundImage = this.props.backgroundImage;
         if (backgroundImage.url) {
-            var style = {
-                width: backgroundImage.width,
-                height: backgroundImage.height
-            };
-            image = <img style={style} src={backgroundImage.url} />;
+            image = <SvgImage src={backgroundImage.url}
+                              width={backgroundImage.width}
+                              height={backgroundImage.height} />;
         }
 
         var box = this.props.box;
@@ -153,9 +153,11 @@ var ImageEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     componentDidMount: function() {
-        // If URL already provided on page load, should display image
-        var url = this.props.backgroundImage.url;
-        this.onUrlChange(url);
+        // defer this because it can call a change handler synchronously
+        _.defer(() => {
+            var url = this.props.backgroundImage.url;
+            this.onUrlChange(url, true);
+        });
     },
 
     getDefaultProps: function() {
@@ -174,7 +176,7 @@ var ImageEditor = React.createClass({
             <div>Background image:</div>
             <div>Url:{' '}
                 <BlurInput value={this.props.backgroundImage.url || ''}
-                           onChange={this.onUrlChange} />
+                           onChange={url => this.onUrlChange(url, false)} />
                 <InfoTip>
                     <p>Create an image in graphie, or use the "Add image"
                     function to create a background.</p>
@@ -321,27 +323,47 @@ var ImageEditor = React.createClass({
         this.props.onChange({labels: labels});
     },
 
-    setUrl: function(url, width, height) {
+    setUrl: function(url, width, height, silent) {
+        // Because this calls into WidgetEditor._handleWidgetChange, which
+        // checks for this widget's ref to serialize it.
+        //
+        // Errors if you switch items before the `Image` from `onUrlChange`
+        // loads.
+        if (!this.isMounted()) {
+            return;
+        }
+
         var image = _.clone(this.props.backgroundImage);
         image.url = url;
         image.width = width;
         image.height = height;
         var box = [image.width, image.height];
         this.props.onChange({
-            backgroundImage: image,
-            box: box
-        });
+                backgroundImage: image,
+                box: box,
+            },
+            null,
+            silent
+        );
     },
 
-    onUrlChange: function(url) {
+    // silently update the url when the component mounts
+    // silently update sizes when the image loads
+    // noisily update the url in response to the author changing it
+    onUrlChange: function(url, silent) {
+        // Immediately set the url, then set the image width and height
+        // (silently) later when the image loads.
+
+        var width = 0;
+        var height = 0;
+
         if (url) {
-            var img = new Image();
-            // TODO(joel) make this silent
-            img.onload = () => this.setUrl(url, img.width, img.height);
-            img.src = url;
-        } else {
-            this.setUrl(url, 0, 0);
+            Util.getImageSize(url, (width, height) => {
+                this.setUrl(url, width, height, true);
+            });
         }
+
+        this.setUrl(url, width, height, silent);
     },
 
     onRangeChange: function(type, newRange) {

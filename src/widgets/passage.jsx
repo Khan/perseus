@@ -301,9 +301,9 @@ var PassageEditor = React.createClass({
             <div>
                 Footnotes:
                 <InfoTip>
-                    <p>To add a footnote, use a superscript number ${}^1$ or
-                    asterisk ${}^*$ in the passage text and reference it in
-                    the footnote section.</p>
+                    <p>To add footnotes, add ^ characters where they belong in
+                    the passage. Then, add ^ in the footnotes area to reference
+                    the footnotes in the passage.</p>
                 </InfoTip>
                 {footnotesEditor}
             </div>

@@ -309,13 +309,6 @@
     #answer_area {
         position: relative;
 
-        #examples-show {
-            float: none;
-            left: 109px;
-            position: absolute;
-            top: -30px;
-        }
-
         #solutionarea, .answer-buttons {
             border: 0; // override ke
             box-sizing: border-box;
@@ -365,6 +358,7 @@
     vertical-align: top;
     width: @leftCellWidth;
     max-width: @leftCellWidth;
+    min-width: @leftCellWidth;
 }
 
 .perseus-editor-right-cell {
@@ -388,7 +382,7 @@
         margin-bottom: 5px;
     }
 
-    .reorder-hints a {
+    .reorder-hints button {
         font-size: 16px;
 
         &:hover, &:active {
@@ -402,9 +396,14 @@
     }
 
     .remove-hint {
-        padding: 0 10px;
         float: right;
+        font-size: 13px;
+        padding: 0 10px;
     }
+}
+
+.perseus-hints-editor .add-hint {
+    font-size: 13px;
 }
 
 // Only apply borders to hints if they immediately follow a hint-editor
@@ -417,6 +416,27 @@
     // Force the hint width to make too-wide items visually overflow,
     // to indicate that there is a problem to content creators
     width: @questionWidth;
+}
+
+// Article Editor
+.perseus-article {
+    .perseus-single-editor {
+        margin-bottom: 10px;
+    }
+
+    .section-control-button, .step-control-button {
+        font-size: 13px;
+        padding: 2px 10px;
+        margin: 0 2px;
+    }
+
+    .perseus-editor-left-cell {
+        min-width: 360px;
+    }
+
+    .perseus-editor-right-cell > div {
+        width: 640px;
+    }
 }
 
 //

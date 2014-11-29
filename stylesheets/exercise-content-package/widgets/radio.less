@@ -10,6 +10,9 @@
 }
 
 .perseus-widget-radio {
+    // Avoid centering
+    width: 100%;
+
     div,
     div > p {
         /* TODO(alpert): Find a better way of doing inline renderers */
@@ -189,6 +192,28 @@ body.sat-section {
             top: 50%;
             margin: -16px 0 0 0;
             width: auto;
+
+            &:before {
+                border-radius: 25px;
+                border: 2px solid @satBlue;
+                content: '';
+                height: 25px;
+                left: 1px;
+                position: absolute;
+                top: 1px;
+                width: 25px;
+            }
+
+            &:after {
+                color: @satBlue;
+                font-family: @boldFontFamily;
+                font-size: 13px;
+                left: 0;
+                position: absolute;
+                text-align: center;
+                top: 7px;
+                width: 32px;
+            }
         }
 
         // General styles for the li
@@ -205,18 +230,18 @@ body.sat-section {
             overflow: hidden;
             padding: 17px 14px !important; // Being overwritten by khan-exercises.css
 
+            &.perseus-radio-selected,
             &:active {
-                background-color: #f7f7f7;
-            }
-
-            &.perseus-radio-selected {
-                background-color: #e4f3f9;
+                // TODO(kitt): Clean up these decorators.
                 border-color: @satBlue;
-
-                &:active {
-                    background-color: #d0edf4;
+                span.checkbox {
+                    &:after {
+                        color: #fff;
+                    }
+                    &:before {
+                        background: @satBlue;
+                    }
                 }
-
                 // Make the top border of the next section (which acts
                 // as this element's bottom border) the highlight color.
                 & + .perseus-radio-option {
@@ -224,47 +249,86 @@ body.sat-section {
                 }
             }
 
-            .perseus-radio-option-content {
-                margin-left: 45px;
-            }
-        }
+            &.perseus-correct {
+                color: @satCorrectColor;
 
-        input[type=radio],
-        input[type=checkbox] {
-            -webkit-appearance: none;
-            appearance: none;
-            border: 2px solid @satBlue;
-            border-radius: 25px;
-            float: left;
-            height: 25px;
-            width: 25px;
+                span.checkbox:before {
+                    border-color: @satCorrectColor;
+                }
+                &.perseus-radio-selected {
+                    background-color: @satCorrectBackgroundColor;
+                    border-color: @satCorrectBorderColor;
+
+                    & + .perseus-radio-option {
+                        border-top-color: @satCorrectBorderColor;
+                    }
+
+                    span.checkbox:before {
+                        background: @satCorrectColor;
+                    }
+                }
+            }
+
+            &.perseus-radio-selected.perseus-incorrect {
+                color: @satIncorrectColor;
+                background-color: @satIncorrectBackgroundColor;
+                border-color: @satIncorrectBorderColor;
+
+                & + .perseus-radio-option {
+                    border-top-color: @satIncorrectBorderColor;
+                }
+
+                span.checkbox:before {
+                    border-color: @satIncorrectColor;
+                    background: @satIncorrectColor;
+                }
+            }
+
+            &:active {
+                background-color: @satActiveBackgroundColor !important;
+            }
+
+            &.perseus-radio-selected {
+                background-color: @satSelectedBackgroundColor;
+            }
+
+            .perseus-radio-option-content {
+                display: block;
+                margin-left: 45px;
+                // Overriding here, not sure why typically set to
+                // "cursor: default" in js.
+                cursor: inherit !important;
+            }
+
+            &.perseus-correct:not(.perseus-radio-selected) span.checkbox:after {
+                color: @satCorrectColor;
+            }
+
+            &:nth-child(1) span.checkbox:after {
+                content: 'A';
+            }
+            &:nth-child(2) span.checkbox:after {
+                content: 'B';
+            }
+            &:nth-child(3) span.checkbox:after {
+                content: 'C';
+            }
+            &:nth-child(4) span.checkbox:after {
+                content: 'D';
+            }
+            &:nth-child(5) span.checkbox:after {
+                content: 'E';
+            }
         }
 
         input[type=radio] {
-            outline: none;
-            &:checked {
-                background: @satBlue;
-            }
+            display: none;
         }
-
-        input[type=checkbox] {
-            position: absolute;
-            outline: none;
-
-            &:before {
-                color: @satBlue;
-                font: 15pt "FontAwesome";
-                left: 0;
-                position: relative;
-                top: 1px;
-            }
-            &:checked {
-                border-color: @satBlue;
-                &:before {
-                    color: @satBlue;
-                    content: "\f00c";
-                }
-            }
+    }
+    .review-mode {
+        input,
+        .perseus-radio-option {
+            pointer-events: none;
         }
     }
 }

@@ -28,6 +28,10 @@ var MathInput = React.createClass({
             "mq-math-mode": true
         });
 
+        if (this.props.className) {
+            className = className + " " + this.props.className;
+        }
+
         var buttons = null;
         if (this._shouldShowButtons()) {
             buttons = <TexButtons

@@ -1,0 +1,19 @@
+// Article Renderer
+.framework-perseus.perseus-article {
+    width: 640px;
+
+    // Center paragraphs that contain no text or widgets:
+    div.paragraph.perseus-paragraph-centered,
+    // Or widgets that are the only [block] widget in a paragraph:
+    div.paragraph > .perseus-widget-container:only-child
+    // We [have to] do these differently because css is hard
+    {
+        text-align: center;
+
+        // But don't center text inside widgets inside centered paragraphs
+        > * {
+            display: inline-block;
+            text-align: initial;
+        }
+    }
+}

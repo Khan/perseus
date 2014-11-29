@@ -25,18 +25,22 @@ var BaseRadio = React.createClass({
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
         showClues: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool
+        onePerLine: React.PropTypes.bool,
+        apiOptions: React.PropTypes.object,
+        reviewModeRubric: React.PropTypes.object,
+        deselectEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            onePerLine: true
+            onePerLine: true,
         };
     },
 
     render: function() {
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
+        var rubric = this.props.reviewModeRubric;
 
         return <ul className={"perseus-widget-radio " +
                 "above-scratchpad blank-background"}>
@@ -54,8 +58,15 @@ var BaseRadio = React.createClass({
                     "inline": !this.props.onePerLine
                 };
                 classSet[ApiClassNames.RADIO.OPTION] = true;
-                classSet[ApiClassNames.INTERACTIVE] = true;
+                classSet[ApiClassNames.INTERACTIVE] =
+                    !this.props.apiOptions.readOnly;
                 classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
+                if (rubric) {
+                    classSet[ApiClassNames.CORRECT] =
+                        rubric.choices[i].correct;
+                    classSet[ApiClassNames.INCORRECT] =
+                        !rubric.choices[i].correct;
+                }
                 var className = cx(classSet);
 
                 return <li className={className} key={i}
@@ -65,12 +76,14 @@ var BaseRadio = React.createClass({
                             onClick={!this.props.labelWrap ? null : (e) => {
                                 // Don't send this to the scratchpad
                                 e.preventDefault();
-                                this.checkOption(i,
-                                    (this.props.multipleSelect ?
-                                        !choice.checked :
-                                        true
-                                    )
-                                );
+                                if (!this.props.apiOptions.readOnly) {
+                                    var shouldToggle =
+                                        this.props.multipleSelect ||
+                                        this.props.deselectEnabled;
+                                    this.checkOption(
+                                        i,
+                                        shouldToggle ? !choice.checked : true);
+                                }
                             }}>
                     <div>
                         <span className="checkbox">
@@ -85,7 +98,8 @@ var BaseRadio = React.createClass({
                                 }}
                                 onChange={(e) => {
                                     this.checkOption(i, e.target.checked);
-                                }} />
+                                }}
+                                disabled={this.props.apiOptions.readOnly} />
                         </span>
                         {/* A pseudo-label. <label> is slightly broken on iOS,
                             so this works around that. Unfortunately, it is
@@ -121,10 +135,10 @@ var BaseRadio = React.createClass({
                 return (i === radioIndex) ? shouldBeChecked : choice.checked;
             });
         } else {
-            // When multipleSelect is turned off, we always select the
-            // clicked index, and unselect everything else.
+            // When multipleSelect is turned off we always unselect everything
+            // that wasn't clicked.
             newChecked = _.map(this.props.choices, (choice, i) => {
-                return i === radioIndex;
+                return i === radioIndex && shouldBeChecked;
             });
         }
 
@@ -146,6 +160,7 @@ var Radio = React.createClass({
             choices: [{}],
             displayCount: null,
             multipleSelect: false,
+            deselectEnabled: false,
         };
     },
 
@@ -185,7 +200,10 @@ var Radio = React.createClass({
             choices={choices.map(function(choice) {
                 return _.pick(choice, "content", "checked", "clue");
             })}
-            onCheckedChange={this.onCheckedChange} />;
+            onCheckedChange={this.onCheckedChange}
+            reviewModeRubric={this.props.reviewModeRubric}
+            deselectEnabled={this.props.deselectEnabled}
+            apiOptions={this.props.apiOptions} />;
     },
 
     _renderRenderer: function(content) {
@@ -204,8 +222,8 @@ var Radio = React.createClass({
                     type: "passage-ref",
                     graded: false,
                     options: {
-                        passageNumber: passageNum,
-                        referenceNumber: refNum
+                        passageNumber: parseInt(passageNum),
+                        referenceNumber: parseInt(refNum),
                     },
                     version: PassageRef.version
                 };
@@ -370,7 +388,8 @@ var RadioEditor = React.createClass({
         randomize: React.PropTypes.bool,
         noneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool
+        onePerLine: React.PropTypes.bool,
+        deselectEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -380,7 +399,8 @@ var RadioEditor = React.createClass({
             randomize: false,
             noneOfTheAbove: false,
             multipleSelect: false,
-            onePerLine: true
+            onePerLine: true,
+            deselectEnabled: false,
         };
     },
 
@@ -423,6 +443,12 @@ var RadioEditor = React.createClass({
                                   noneOfTheAbove={this.props.noneOfTheAbove}
                                   onChange={this.props.onChange} />
                 </div>
+                <div className="perseus-widget-right-col">
+                    <PropCheckBox label="Radio deselect enabled"
+                                  labelAlignment="right"
+                                  deselectEnabled={this.props.deselectEnabled}
+                                  onChange={this.props.onChange} />
+                </div>
             </div>
 
             <BaseRadio
@@ -430,6 +456,7 @@ var RadioEditor = React.createClass({
                 multipleSelect={this.props.multipleSelect}
                 onePerLine={true}
                 labelWrap={false}
+                apiOptions={this.props.apiOptions}
                 choices={this.props.choices.map(function(choice, i) {
                     var checkedClass = choice.correct ?
                         "correct" :
@@ -579,7 +606,8 @@ var RadioEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine");
+            "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine",
+            "deselectEnabled");
     }
 });
 
@@ -623,7 +651,7 @@ var choiceTransform = (editorProps, problemNum) => {
 
     editorProps = _.extend({}, editorProps, { choices: choices });
     return _.pick(editorProps, "choices", "noneOfTheAbove", "onePerLine",
-        "multipleSelect", "correctAnswer");
+        "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
 module.exports = {

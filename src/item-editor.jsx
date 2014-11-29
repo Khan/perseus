@@ -67,9 +67,6 @@ var ItemEditor = React.createClass({
 
                 <div className="perseus-editor-right-cell">
                     <div id="answer_area">
-                        <span id="examples-show" style={{display: "none"}}>
-                            {' '}Acceptable formats{' '}
-                        </span>
                         <div id="solutionarea" className="solutionarea" />
                         <div className="answer-buttons">
                             <input
@@ -105,10 +102,10 @@ var ItemEditor = React.createClass({
         return issues1.concat(issues2);
     },
 
-    serialize: function() {
+    serialize: function(options) {
         return {
-            question: this.refs.questionEditor.serialize(),
-            answerArea: this.refs.answerAreaEditor.serialize(),
+            question: this.refs.questionEditor.serialize(options),
+            answerArea: this.refs.answerAreaEditor.serialize(options),
             itemDataVersion: ITEM_DATA_VERSION
         };
     },

@@ -1,10 +1,12 @@
 var React = require("react");
 var InfoTip = require("react-components/info-tip.jsx");
+var BlurInput = require("react-components/blur-input.jsx");
 var _ = require("underscore");
 
 var NumberInput = require("../components/number-input.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
 var RangeInput = require("../components/range-input.jsx");
+var SvgImage = require("../components/svg-image.jsx");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
@@ -771,12 +773,10 @@ var PlotterEditor = React.createClass({
             {this.props.type === PIC && <div>
                 <label>
                     Picture:{' '}
-                    <input
-                        type="text"
+                    <BlurInput
                         className="pic-url"
-                        defaultValue={this.props.picUrl}
-                        onKeyPress={this.changePicUrl}
-                        onBlur={this.changePicUrl} />
+                        value={this.props.picUrl}
+                        onChange={this.changePicUrl} />
                 <InfoTip>
                     <p>Use the default picture of Earth, or insert the URL for
                     a different picture using the "Add image" function.</p>
@@ -909,13 +909,13 @@ var PlotterEditor = React.createClass({
         this.props.onChange({labels: labels});
     },
 
-    changePicUrl: function(e) {
-        // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.keyCode !== 13) {
-            return;
-        }
+    changePicUrl: function(value) {
+        // We don't need the labels and other data in the plotter, so just
+        // extract the raw image and use that.
+        // TODO(emily): Maybe indicate that such a change has happened?
+        var url = SvgImage.getRealImageUrl(value);
 
-        this.props.onChange({picUrl: e.target.value});
+        this.props.onChange({picUrl: url});
     },
 
     changeCategories: function(categories) {

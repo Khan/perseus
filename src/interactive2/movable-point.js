@@ -52,6 +52,7 @@
 var _ = require("underscore");
 
 var MovablePointOptions = require("./movable-point-options.js");
+var WrappedEllipse = require("./wrapped-ellipse.js");
 var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
@@ -178,11 +179,13 @@ _.extend(MovablePoint.prototype, {
         if (!state.static) {
             // the invisible shape in front of the point that gets mouse events
             if (!state.mouseTarget) {
-                state.mouseTarget = graphie.mouselayer.circle(
-                    graphie.scalePoint(self.state.coord)[0],
-                    graphie.scalePoint(self.state.coord)[1],
-                    15
-                );
+                var center = self.state.coord;
+                var radii = graphie.unscaleVector(15);
+                var options = {
+                    mouselayer: true
+                };
+                state.mouseTarget = new WrappedEllipse(graphie, center, radii,
+                    options);
                 state.mouseTarget.attr({fill: "#000", opacity: 0.0});
             }
         }

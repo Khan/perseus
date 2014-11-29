@@ -122,11 +122,11 @@ var AnswerAreaEditor = React.createClass({
         return issuesFunc ? issuesFunc() : [];
     },
 
-    serialize: function() {
+    serialize: function(options) {
         // could be _.pick(this.props, "type", "options", "calculator");
         return {
             type: this.props.type,
-            options: this.refs.editor.serialize(),
+            options: this.refs.editor.serialize(options),
             calculator: this.props.calculator
         };
     }

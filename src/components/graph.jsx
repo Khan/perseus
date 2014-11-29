@@ -3,6 +3,8 @@ var _ = require("underscore");
 
 var Util = require("../util.js");
 
+var SvgImage = require("../components/svg-image.jsx");
+
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
     url: null,
@@ -86,17 +88,17 @@ var Graph = React.createClass({
     },
 
     render: function() {
-        var image = this.props.backgroundImage;
-        if (image.url) {
+        var image;
+        var imageData = this.props.backgroundImage;
+        if (imageData.url) {
             var preScale = this.props.box[0] / defaultBoxSize;
-            var scale = image.scale * preScale;
-            var style = {
-                bottom: (preScale * image.bottom) + "px",
-                left: (preScale * image.left) + "px",
-                width: (scale * image.width) + "px",
-                height: (scale * image.height) + "px"
-            };
-            image = <img style={style} src={image.url} />;
+            var scale = imageData.scale * preScale;
+            image = <SvgImage src={imageData.url}
+                              left={preScale * imageData.left}
+                              bottom={preScale * imageData.bottom}
+                              width={imageData.width}
+                              height={imageData.height}
+                              scale={scale} />;
         } else {
             image = null;
         }

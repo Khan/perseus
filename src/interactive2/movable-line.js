@@ -4,6 +4,7 @@
 var _ = require("underscore");
 
 var MovableLineOptions = require("./movable-line-options.js");
+var WrappedLine = require("./wrapped-line.js");
 var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
@@ -31,7 +32,6 @@ var FUNCTION_ARRAY_OPTIONS = [
 // while things used to render the point should be on "state".
 var DEFAULT_PROPS = {
     points: null,
-    updatePoints: false,
     static: false,
     cursor: "move",
     normalStyle: null,     // turned into an object in this.modify
@@ -133,9 +133,14 @@ _.extend(MovableLine.prototype, {
         }, state.highlightStyle);
 
         if (!state.static) {
-            // the invisible shape in front of the point that gets mouse events
+            // the invisible shape in front of the line that gets mouse events
             if (!state.mouseTarget) {
-                state.mouseTarget = graphie.mouselayer.rect(0, -15, 1, 30);
+                var options = {
+                    thickness: 30,
+                    mouselayer: true
+                };
+                state.mouseTarget = new WrappedLine(graphie, this.coord(0),
+                    this.coord(1), options);
                 state.mouseTarget.attr({fill: "#000", "opacity": 0.0});
             }
         }
@@ -181,17 +186,6 @@ _.extend(MovableLine.prototype, {
                     return;
                 }
 
-                var actualDelta = kvector.subtract(refCoord, self._prevRefCoord);
-
-                if (self.state.updatePoints) {
-                    _.each(self.state.points, function(point) {
-                        point.setCoord(kvector.add(
-                            point.coord(),
-                            actualDelta
-                        ));
-                    });
-                }
-
                 self._fireEvent(self.state.onMove, refCoord, self._prevRefCoord);
                 self._prevRefCoord = refCoord;
             },
@@ -204,15 +198,15 @@ _.extend(MovableLine.prototype, {
             },
         }));
 
-        // Update the line with the points' movement
-        _.invoke(state.points, "listen", "onMove", state.id,
-                self.draw.bind(self));
-
         // Trigger an add event if this hasn't been added before
         if (!state.added) {
             self.prevState = {};
             self._fireEvent(state.add, self.cloneState(), self.prevState);
             state.added = true;
+
+            // Update the line with the points' movement
+            _.invoke(state.points, "listen", "onMove", state.id,
+                    self.draw.bind(self));
 
             // Update the state for `added` and in case the add event
             // changed it
@@ -236,6 +230,7 @@ _.extend(MovableLine.prototype, {
     },
 
     remove: function() {
+        this.state.added = false;
         this._fireEvent(this.state.remove);
         if (this.points) {
             _.invoke(this.points, "unlisten", "onMove", this.state.id);

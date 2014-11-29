@@ -241,10 +241,7 @@ var AnswerAreaRenderer = React.createClass({
 
     componentDidMount: function() {
         // Storing things directly on components should be avoided!
-        this.examples = [];
-        this.$examples = $("<div id='examples'></div>");
         this._isFocused = false;
-
         this.update();
     },
 
@@ -260,73 +257,11 @@ var AnswerAreaRenderer = React.createClass({
 
     update: function() {
         $("#calculator").toggle(this.props.calculator);
-
-        var widget = this.getWidgetInstance();
-        var examples = widget.examples ? widget.examples() : null;
-
-        if (_.isEqual(examples, this.examples)) {
-            // Only destroy (and maybe recreate) qtip if examples have changed
-            return;
-        }
-
-        this.examples = examples;
-
-        $("#examples-show").hide();
-        if ($("#examples-show").data("qtip")) {
-            // This will warn about Jquery removing a node owned by React,
-            // however React no longer owns that node. We created that node
-            // using React, copied its html, passed it to qtip, and then
-            // unmounted it from React. So it React thinks it is it's code
-            // because it has a data-reactid, but qtip created it.
-            $("#examples-show").qtip("destroy", /* immediate */ true);
-        }
-
-        if (examples && $("#examples-show").length) {
-            $("#examples-show").append(this.$examples);
-
-            var content = _.map(examples, function(example) {
-                return "- " + example;
-            }).join("\n");
-
-            React.render(
-                Renderer({content: content}),
-                this.$examples[0]);
-
-            $("#examples-show").qtip({
-                content: {
-                    text: this.$examples.html()
-                },
-                style: {classes: "qtip-light leaf-tooltip"},
-                position: {
-                    my: "center right",
-                    at: "center left"
-                },
-                show: {
-                    delay: 200,
-                    effect: {
-                        length: 0
-                    }
-                },
-                hide: {delay: 0}
-            });
-
-            // Now that qtip has been created with a copy of the react
-            // component's html, we no longer need to keep the react component.
-            React.unmountComponentAtNode(this.$examples[0]);
-            this.$examples.remove();
-
-            $("#examples-show").show();
-        }
     },
 
     componentWillUnmount: function() {
         if (this.props.calculator) {
             $("#calculator").hide();
-        }
-        if (this.state.cls.examples && $("#examples-show").length) {
-            $("#examples-show").hide();
-            React.unmountComponentAtNode(
-                    document.getElementById("examples"));
         }
     },
 

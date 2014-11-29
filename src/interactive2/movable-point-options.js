@@ -3,6 +3,7 @@
  */
 var _ = require("underscore");
 
+var WrappedEllipse = require("./wrapped-ellipse.js");
 var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 
@@ -13,6 +14,7 @@ var add = {
 };
 
 add.standard = [add.constrain];
+
 
 var modify = {
     draw: function() {
@@ -27,25 +29,32 @@ var draw = {
     basic: function(state, prevState) {
         var graphie = this.graphie;
         if (!this.state.visibleShape) {
-            this.state.visibleShape = graphie.ellipse(
-                this.coord(),
-                [
-                    this.pointSize() / graphie.scale[0],
-                    this.pointSize() / graphie.scale[1]
-                ],
-                _.omit(this.normalStyle(), "scale")
-            );
+            var radii = [
+                this.pointSize() / graphie.scale[0],
+                this.pointSize() / graphie.scale[1]
+            ];
+            var options = {
+                maxScale: Math.max(
+                    this.highlightStyle().scale, this.normalStyle().scale)
+            };
+            this.state.visibleShape = new WrappedEllipse(graphie, this.coord(),
+                radii, options);
+            this.state.visibleShape.attr(_.omit(this.normalStyle(), "scale"));
+            this.state.visibleShape.toFront();
+
+            // Keep mouseTarget in front of visible shape
+            if (this.mouseTarget()) {
+                this.mouseTarget().toFront();
+            }
         }
         if (state.normalStyle !== prevState.normalStyle &&
                 !_.isEqual(state.normalStyle, prevState.normalStyle)) {
             this.state.visibleShape.attr(this.normalStyle());
         }
-        var scaledPoint = graphie.scalePoint(this.coord());
-        this.state.visibleShape.attr({cx: scaledPoint[0]});
-        this.state.visibleShape.attr({cy: scaledPoint[1]});
+
+        this.state.visibleShape.moveTo(this.coord());
         if (this.mouseTarget()) {
-            this.mouseTarget().attr({ cx: scaledPoint[0] });
-            this.mouseTarget().attr({ cy: scaledPoint[1] });
+            this.mouseTarget().moveTo(this.coord());
         }
     },
 

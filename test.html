@@ -7,8 +7,7 @@
 
 <link rel="stylesheet" type="text/css" href="ke/css/khan-site.css" />
 <link rel="stylesheet" type="text/css" href="ke/css/khan-exercise.css" />
-<link rel="stylesheet" type="text/css" href="lib/katex/fonts/fonts.css" />
-<link rel="stylesheet/less" type="text/css" href="lib/katex/katex.less" />
+<link rel="stylesheet" type="text/css" href="lib/katex/katex.css" />
 <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
 
@@ -107,74 +106,9 @@ window.Perseus = Perseus;
 
 var defaultQuestion = {
     "question": {
-        "content": "[[☃ interactive-graph 2]]",
-        "images": {
-            "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
-                "width": 400,
-                "height": 70
-            },
-            "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
-                "width": 425,
-                "height": 150
-            }
-        },
-        "widgets": {
-            "interactive-graph 2": {
-                "type": "interactive-graph",
-                "graded": true,
-                "options": {
-                    "step": [
-                        2,
-                        2
-                    ],
-                    "backgroundImage": {
-                        "url": null,
-                        "scale": 1,
-                        "bottom": 0,
-                        "left": 0
-                    },
-                    "markings": "graph",
-                    "labels": [
-                        "x",
-                        "y"
-                    ],
-                    "showProtractor": false,
-                    "showRuler": false,
-                    "rulerLabel": "",
-                    "rulerTicks": 10,
-                    "range": [
-                        [
-                            -20,
-                            20
-                        ],
-                        [
-                            -20,
-                            20
-                        ]
-                    ],
-                    "graph": {
-                        "type": "linear"
-                    },
-                    "correct": {
-                        "type": "linear",
-                        "coords": [
-                            [
-                                0,
-                                0
-                            ],
-                            [
-                                5,
-                                5
-                            ]
-                        ]
-                    }
-                },
-                "version": {
-                    "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+        "content": "",
+        "images": {},
+        "widgets": {}
     },
     "answerArea": {
         "type": "multiple",
@@ -248,7 +182,8 @@ Perseus.init({skipMathJax: false}).then(function() {
                 console.log("onFocusChange", newPath, oldPath);
             },
             __staticRender: true
-        }
+        },
+        componentClass: Perseus.EditorPage
     });
 
     var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);

@@ -1,15 +1,17 @@
 var React = require('react');
 var _ = require("underscore");
 
+var PerseusMarkdown = require("./perseus-markdown.jsx");
+var QuestionParagraph = require("./question-paragraph.jsx");
+var SvgImage = require("./components/svg-image.jsx");
 var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
-var QuestionParagraph = require("./question-paragraph.jsx");
-var PerseusMarkdown = require("./perseus-markdown.jsx");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
+var ApiClassNames = require("./perseus-api.jsx").ClassNames;
 
 var {mapObject, mapObjectFromArray} = require("./interactive2/objective_.js");
 
@@ -26,6 +28,7 @@ var specialChars = {
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
+var rContainsNonWhitespace = /\S/;
 
 if (typeof KA !== "undefined" && KA.language === "en-PT") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
@@ -102,6 +105,7 @@ var Renderer = React.createClass({
         onInteractWithWidget: React.PropTypes.func,
         interWidgets: React.PropTypes.func,
         alwaysUpdate: React.PropTypes.bool,
+        reviewMode: React.PropTypes.bool,
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -129,6 +133,8 @@ var Renderer = React.createClass({
             onRender: function() {},
             onInteractWithWidget: function() {},
             interWidgets: () => null,
+            alwaysUpdate: false,
+            reviewMode: false,
         };
     },
 
@@ -161,7 +167,7 @@ var Renderer = React.createClass({
     },
 
     _getAllWidgetsStartProps: function(allWidgetInfo, props) {
-        return props.savedState || mapObject(allWidgetInfo, (editorProps) => {
+        return mapObject(allWidgetInfo, (editorProps) => {
             return Widgets.getRendererPropsForWidgetInfo(
                 editorProps,
                 props.problemNum
@@ -182,6 +188,23 @@ var Renderer = React.createClass({
         var stateChanged = !_.isEqual(this.state, nextState);
         var propsChanged = !_.isEqual(this.props, nextProps);
         return propsChanged || stateChanged;
+    },
+
+    _getDefaultWidgetInfo: function(widgetId) {
+        var widgetIdParts = Util.rTypeFromWidgetId.exec(widgetId);
+        if (widgetIdParts == null) {
+            return {};
+        }
+        return {
+            type: widgetIdParts[1],
+            graded: true,
+            options: {}
+        };
+    },
+
+    _getWidgetInfo: function(widgetId) {
+        return this.state.widgetInfo[widgetId] ||
+            this._getDefaultWidgetInfo(widgetId);
     },
 
     renderWidget: function(impliedType, id) {
@@ -219,6 +242,14 @@ var Renderer = React.createClass({
 
     getWidgetProps: function(id) {
         var widgetProps = this.state.widgetProps[id] || {};
+
+        // The widget needs access to its "rubric" at all times when in review
+        // mode (which is really just part of its widget info).
+        var reviewModeRubric = null;
+        if (this.props.reviewMode && this.state.widgetInfo[id]) {
+            reviewModeRubric = this.state.widgetInfo[id].options;
+        }
+
         return _.extend({}, widgetProps, {
             ref: id,
             widgetId: id,
@@ -229,6 +260,7 @@ var Renderer = React.createClass({
             onFocus: _.partial(this._onWidgetFocus, id),
             onBlur: _.partial(this._onWidgetBlur, id),
             interWidgets: this.interWidgets,
+            reviewModeRubric: reviewModeRubric,
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
             }
@@ -238,11 +270,57 @@ var Renderer = React.createClass({
     /**
     * Serializes the questions state so it can be recovered.
     *
-    * The return value of this function can be safely passed in through the
-    * savedState prop and things will behave as you expect.
+    * The return value of this function can be sent to the
+    * `restoreSerializedState` method to restore this state.
     */
     getSerializedState: function() {
-        return this.state.widgetProps;
+        return mapObject(this.state.widgetProps, (props, widgetId) => {
+            var widget = this.getWidgetInstance(widgetId);
+            if (widget && widget.getSerializedState) {
+                return widget.getSerializedState();
+            } else {
+                return props;
+            }
+        });
+    },
+
+    restoreSerializedState: function(serializedState, callback) {
+        // We want to wait until any children widgets who have a
+        // restoreSerializedState function also call their own callbacks before
+        // we declare that the operation is finished.
+        var numCallbacks = 1;
+        var fireCallback = () => {
+            --numCallbacks;
+            if (callback && numCallbacks === 0) {
+                callback();
+            }
+        };
+
+        this.setState({
+            widgetProps: mapObject(serializedState, (props, widgetId) => {
+                var widget = this.getWidgetInstance(widgetId);
+                if (widget && widget.restoreSerializedState) {
+                    // Note that we probably can't call
+                    // `this.change()/this.props.onChange()` in this
+                    // function, so we take the return value and use
+                    // that as props if necessary so that
+                    // `restoreSerializedState` in a widget can
+                    // change the props as well as state.
+                    // If a widget has no props to change, it can
+                    // safely return null.
+                    ++numCallbacks;
+                    var restoreResult =
+                        widget.restoreSerializedState(props, fireCallback);
+                    return _.extend(
+                        {},
+                        this.state.widgetProps[widgetId],
+                        restoreResult
+                    );
+                } else {
+                    return props;
+                }
+            })
+        }, fireCallback);
     },
 
     /**
@@ -286,7 +364,7 @@ var Renderer = React.createClass({
         }
 
         var results = this.widgetIds.filter((id) => {
-            var widgetInfo = this.state.widgetInfo[id];
+            var widgetInfo = this._getWidgetInfo(id);
             var widget = this.getWidgetInstance(id);
             return filterFunc(id, widgetInfo, widget);
         }).map(this.getWidgetInstance);
@@ -440,9 +518,25 @@ var Renderer = React.createClass({
             </div>;
         }
 
+        // Hacks:
+        // We use mutable state here to figure out whether the output
+        // had two columns.
+        // It is updated to true by `this.outputMarkdown` if a
+        // column break is found
+        // TODO(aria): Add a state variable to simple-markdown's output
+        // functions so that we can do this in a less hacky way.
+        this._isTwoColumn = false;
+
         var parsedMardown = PerseusMarkdown.parse(content);
         var markdownContents = this.outputMarkdown(parsedMardown);
-        this.lastRenderedMarkdown = <div>{markdownContents}</div>;
+
+        var className = this._isTwoColumn ?
+            ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
+            ApiClassNames.RENDERER;
+
+        this.lastRenderedMarkdown = <div className={className}>
+            {markdownContents}
+        </div>;
         return this.lastRenderedMarkdown;
     },
 
@@ -450,14 +544,18 @@ var Renderer = React.createClass({
     // for appropriate spacing and other css
     outputMarkdown: function(ast) {
         if (_.isArray(ast)) {
-            return _.map(ast, (node) => {
-                return <QuestionParagraph>
-                    {this.outputNested(node)}
-                </QuestionParagraph>;
-            });
+            return _.map(ast, (node) => this.outputMarkdown(node));
         } else {
-            return <QuestionParagraph>
-                {this.outputNested(ast)}
+            // !!! WARNING: Mutative hacks! mutates `this._foundTextNodes`:
+            // because i wrote a bad interface to simple-markdown.js' `output`
+            this._foundTextNodes = false;
+            var output = this.outputNested(ast);
+            var className = this._foundTextNodes ?
+                "" :
+                "perseus-paragraph-centered";
+
+            return <QuestionParagraph className={className}>
+                {output}
             </QuestionParagraph>;
         }
     },
@@ -474,6 +572,12 @@ var Renderer = React.createClass({
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput) {
         if (node.type === "widget") {
+            // Widgets can contain text nodes, so we don't center them with
+            // markdown magic here.
+            // Instead, we center them with css magic in articles.less
+            // /cry(aria)
+            this._foundTextNodes = true;
+
             if (_.contains(this.widgetIds, node.id)) {
                 // We don't want to render a duplicate widget key/ref,
                 // as this causes problems with react (for obvious
@@ -500,17 +604,32 @@ var Renderer = React.createClass({
             // We need to add width and height to images from our
             // props.images mapping.
 
-            // We do a _.has check here to avoid wierd things like
+            // We do a _.has check here to avoid weird things like
             // 'toString' or '__proto__' as a url.
             var extraAttrs = (_.has(this.props.images, node.target)) ?
                 this.props.images[node.target] :
                 null;
 
-            return <img
+            return <SvgImage
                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                 alt={node.alt}
                 title={node.title}
                 {...extraAttrs} />;
+
+        } else if (node.type === "columns") {
+            // Note that we have two columns. This is so we can put
+            // a className on the outer renderer content for SAT.
+            // TODO(aria): See if there is a better way we can do
+            // things like this
+            this._isTwoColumn = true;
+            // but then render normally:
+            return PerseusMarkdown.ruleOutput(node, nestedOutput);
+
+        } else if (node.type === "text") {
+            if (rContainsNonWhitespace.test(node.content)) {
+                this._foundTextNodes = true;
+            }
+            return node.content;
 
         } else {
             // If it's a "normal" or "simple" markdown node, just
@@ -715,7 +834,7 @@ var Renderer = React.createClass({
 
     emptyWidgets: function () {
         return _.filter(this.widgetIds, (id) => {
-            var widgetInfo = this.state.widgetInfo[id];
+            var widgetInfo = this._getWidgetInfo(id);
             var score = this.getWidgetInstance(id).simpleValidate(
                 widgetInfo.options,
                 null
@@ -768,6 +887,48 @@ var Renderer = React.createClass({
      */
     getWidgetIds: function() {
         return this.widgetIds;
+    },
+
+    /**
+     * WARNING: This is an experimental/temporary API and should not be relied
+     *     upon in production code. This function may change its behavior or
+     *     disappear without notice.
+     *
+     * Returns a treelike structure containing all widget IDs (this will
+     * descend into group widgets as well).
+     *
+     * An example of what the structure looks like:
+     *
+     * [
+     *    {id: "radio 1", children: []},
+     *    {
+     *        id: "group 1",
+     *        children: [
+     *            {id: "radio 1", children: []}
+     *            {id: "radio 2", children: []}
+     *        ]
+     *    }
+     * ]
+     *
+     * Widgets will be listed in the order that they appear in their renderer.
+     */
+    getAllWidgetIds: function() {
+        // Recursively builds our result
+        return _.map(this.getWidgetIds(), (id) => {
+            var groupPrefix = "group";
+            if (id.substring(0, groupPrefix.length) === groupPrefix) {
+                return {
+                    id: id,
+                    children:
+                        this.getWidgetInstance(id)
+                            .getRenderer()
+                            .getAllWidgetIds(),
+                };
+            }
+
+            // This is our base case
+            return {id: id, children: []};
+        });
     },
 
     /**
