@@ -71,6 +71,7 @@ var AnswerAreaEditor = React.createClass({
                 ref="editor"
                 placeholder={"This answer area is deprecated. Please " +
                 "use the widgets in the question area for your answer."}
+                apiOptions={this.props.apiOptions}
                 onChange={(newProps, cb) => {
                     var options = _.extend({},
                                            this.props.options,
