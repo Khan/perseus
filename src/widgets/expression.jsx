@@ -894,8 +894,10 @@ var ExpressionEditor = React.createClass({
 
     handleReorder: function(components) {
         var answerForms = _(components).map(component => {
-            return _(component.props)
+            var form = _(component.props)
                 .pick("considered", "form", "simplify", "value");
+            form.key = component.key;
+            return form;
         });
 
         this.change({ answerForms });
@@ -1011,7 +1013,7 @@ var AnswerOption = React.createClass({
                     </div>
 
                     <div className="answer-expression">
-                        {Expression(this.props.expressionProps)}
+                        <Expression {...this.props.expressionProps} />
                     </div>
                 </div>
 
