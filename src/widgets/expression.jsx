@@ -742,7 +742,7 @@ var ExpressionEditor = React.createClass({
             </span>
         </label>);
 
-        return <div>
+        return <div className="perseus-widget-expression-editor">
             <h3 className="expression-editor-h3">Global Options</h3>
 
             <div>

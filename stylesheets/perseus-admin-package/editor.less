@@ -502,34 +502,39 @@
     }
 }
 
-.answer-options-list li {
-    margin: 5px 0;
-}
-
-.answer-status {
-    color: inherit;
-    cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    width: 75%; // TODO(joel) 60%?
-    .user-select(none);
-
-    &.wrong {
-        background-color: @wrongRed;
+//
+// Expression editor
+//
+.perseus-widget-expression-editor {
+    .answer-options-list li {
+        margin: 5px 0;
     }
 
-    &.correct {
-        background-color: @correctGreen;
+    .answer-status {
+        color: inherit;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        width: 75%; // TODO(joel) 60%?
+        .user-select(none);
+
+        &.wrong {
+            background-color: @wrongRed;
+        }
+
+        &.correct {
+            background-color: @correctGreen;
+        }
+
+        &.ungraded {
+            background-color: @ungradedBlue;
+        }
     }
 
-    &.ungraded {
-        background-color: @ungradedBlue;
+    .expression-editor-h3 {
+        margin: 10px 0 4px;
     }
-}
-
-.expression-editor-h3 {
-    margin: 10px 0 4px;
 }
 
 
@@ -676,6 +681,27 @@
         }
         &.enforced {
              background-color: @wrongRed;
+        }
+    }
+
+    .answer-status {
+        color: inherit;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        width: 60%;
+        .user-select(none);
+
+        &.wrong {
+            background-color: @wrongRed;
+        }
+
+        &.correct {
+            background-color: @correctGreen;
+        }
+
+        &.ungraded {
+            background-color: @ungradedBlue;
         }
     }
 
