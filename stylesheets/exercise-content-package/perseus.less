@@ -636,21 +636,32 @@ body.sat-section {
                     margin: 0;
                 }
                 overflow-y: auto;
-                // TODO(kitt/john): Make this dynamically expand
-                // based on the height of the viewport.
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
                     height: @satSectionHeight - @satTopSpacing;
                     max-height: @satSectionHeight - @satTopSpacing;
                     float: left;
-                    padding-left: 10px;
+                    padding-left: 46px;
                     padding-top: @satTopSpacing;
-                    width: 498px;
+                    padding-bottom: 22px;
+                    width: 512px;
+                    box-sizing: border-box;
+
+                    .perseus-widget-passage {
+                        // We've replaced the margin here with padding in the
+                        // parent element to stay consistent with non-passage
+                        // two-column mode.
+                        margin: 0;
+                    }
+
+                    & > .paragraph {
+                        margin-right: 40px;
+                    }
 
                     blockquote {
                         padding: 0;
-                        margin: 0 22px 0 45px;
+                        margin-right: 22px;
                     }
                 }
                 &:nth-child(2) {
