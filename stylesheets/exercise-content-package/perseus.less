@@ -701,9 +701,19 @@ body.sat-section {
         font-size: 14px;
         margin: 10px 0;
         padding: 5px;
-        &:valid {
+    }
+
+    .valid-answer {
+        input[type=text]:valid, input[type=number]:valid {
             border: 1px solid @satBlue;
             background: @satSelectedBackgroundColor;
+        }
+    }
+    .invalid-answer {
+        input[type=text]:valid, input[type=number]:valid {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
         }
     }
 }
