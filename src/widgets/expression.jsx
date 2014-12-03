@@ -805,7 +805,10 @@ var ExpressionEditor = React.createClass({
     },
 
     serialize: function() {
-        var formSerializables = ["value", "form", "simplify", "considered"];
+        var formSerializables = ["value", "form", "simplify", "considered",
+            // it's a little weird to serialize the react key, but saves some
+            // effort reconstructing them when this item is loaded later.
+            "key"];
         var serializables = ["answerForms", "buttonSets", "functions",
             "times"];
 
@@ -1068,7 +1071,7 @@ var AnswerOption = React.createClass({
     toggleConsidered: function() {
         var newVal = findNextIn(CONSIDERED, this.props.considered);
         this.change({ considered: newVal });
-    }
+    },
 });
 
 /*
@@ -1108,7 +1111,8 @@ propUpgrades = {
             considered: "correct",
             form: v0props.form,
             simplify: v0props.simplify,
-            value: v0props.value
+            value: v0props.value,
+            key: 0,
         }]
     })
 };
@@ -1122,7 +1126,8 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions", "buttonSets");
+        return _.pick(editorProps, "times", "functions", "buttonSets",
+                      "buttonsVisible", "answerForms");
     },
     version: { major: 1, minor: 0 },
     propUpgrades
