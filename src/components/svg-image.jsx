@@ -117,28 +117,22 @@ var SvgImage = React.createClass({
             title: this.props.title
         };
 
+        var width = this.props.width && this.props.width * this.props.scale;
+        var height = this.props.height && this.props.height * this.props.scale;
+
+        var style = {
+            width: width,
+            height: height,
+            bottom: this.props.bottom,
+            left: this.props.left,
+        };
+
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
-            var style = {
-                width: this.props.width != null ?
-                       (this.props.scale * this.props.width) : null,
-                height: this.props.height != null ?
-                        (this.props.scale * this.props.height) : null,
-                bottom: this.props.bottom,
-                left: this.props.left,
-            };
             return <img style={style}
                         src={this.props.src}
                         {...imageProps} />;
         }
-
-        // The `scale` prop doesn't apply to SVGs, only normal images, for now
-        var style = {
-            width: this.props.width != null ? this.props.width : null,
-            height: this.props.height != null ? this.props.height : null,
-            bottom: this.props.bottom,
-            left: this.props.left,
-        };
 
         var imageUrl = getSvgUrl(this.props.src);
         var image = <img style={{
@@ -154,10 +148,13 @@ var SvgImage = React.createClass({
         // otherwise use our own calculated size
         var box;
         if (this.sizeProvided()) {
-            box = [this.props.width, this.props.height];
+            box = [width, height];
         } else {
-            box = this.state.imageDimensions;
+            box = [this.state.imageDimensions[0] * this.props.scale,
+                   this.state.imageDimensions[1] * this.props.scale];
         }
+
+        var scale = [40 * this.props.scale, 40 * this.props.scale];
 
         var graphie;
         // Since we only want to do the graphie setup once, we only render the
@@ -166,6 +163,7 @@ var SvgImage = React.createClass({
             graphie = <Graphie
                 ref="graphie"
                 box={box}
+                scale={scale}
                 range={this.state.range}
                 options={_.pick(this.state, "labels")}
                 setup={this.setupGraphie} />;
@@ -273,16 +271,18 @@ var SvgImage = React.createClass({
     },
 
     setupGraphie: function(graphie, options) {
-        _.map(options.labels, function(labelData) {
+        _.map(options.labels, (labelData) => {
             // Create labels from the data
             var label = graphie.label(
                 labelData.coordinates,
                 labelData.content,
                 labelData.alignment,
-                labelData.typesetAsMath);
+                labelData.typesetAsMath,
+                {"font-size": (100 * this.props.scale) + "%"}
+            );
 
             // Add back the styles to each of the labels
-            _.each(labelData.style, function(styleValue, styleName) {
+            _.each(labelData.style, (styleValue, styleName) => {
                 label.css(styleName, styleValue);
             });
         });
