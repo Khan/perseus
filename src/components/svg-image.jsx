@@ -144,22 +144,22 @@ var SvgImage = React.createClass({
                          onLoad={this.onImageLoad}
                          {...imageProps} />;
 
-        // Use the provided width and height to size the graphie if possible,
-        // otherwise use our own calculated size
-        var box;
-        if (this.sizeProvided()) {
-            box = [width, height];
-        } else {
-            box = [this.state.imageDimensions[0] * this.props.scale,
-                   this.state.imageDimensions[1] * this.props.scale];
-        }
-
-        var scale = [40 * this.props.scale, 40 * this.props.scale];
-
         var graphie;
         // Since we only want to do the graphie setup once, we only render the
         // graphie once everything is loaded
         if (this.isLoadedInState(this.state)) {
+            // Use the provided width and height to size the graphie if
+            // possible, otherwise use our own calculated size
+            var box;
+            if (this.sizeProvided()) {
+                box = [width, height];
+            } else {
+                box = [this.state.imageDimensions[0] * this.props.scale,
+                       this.state.imageDimensions[1] * this.props.scale];
+            }
+
+            var scale = [40 * this.props.scale, 40 * this.props.scale];
+
             graphie = <Graphie
                 ref="graphie"
                 box={box}
