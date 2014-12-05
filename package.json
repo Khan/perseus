@@ -10,8 +10,6 @@
   },
   "devDependencies": {
     "jest-cli": "~0.1.17",
-    "jison": "^0.4.15",
-    "jison-loader": "^1.0.0",
     "jsdom": "^0.10.5",
     "json-loader": "~0.5.1",
     "jstransform": "~6.3.2",

@@ -1,19 +1,7 @@
 var _ = require("underscore");
 
-var { Parser } = require("../unitvalue.jison");
-
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-
-/*
-function Unit(name) { this.name = name; }
-Unit.prototype = new KAS.Symbol();
-
-_.extend(Unit.prototype, {
-    collect: function(options) {
-    }
-});
-*/
 
 /* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
  * the version that non-mathquill platforms get stuck with. Constructed with an
@@ -27,29 +15,19 @@ var OldUnitInput = React.createClass({
     },
 
     render: function() {
-        var parsed;
-
-        try {
-            parsed = this.parser.parse(this.props.value);
-        } catch (e) {
-            parsed = null;
-        }
+        var parsed = KAS.unitParse(this.props.value);
 
         // STOPSHIP(joel) - display the value in a nice way (not parsed/fail)
 
         return <div>
             <input onChange={this.onChange}
                    value={this.props.value} />
-            {parsed ? "parsed" : "fail"}
+            {parsed.parsed ? "parsed" : "fail"}
         </div>;
     },
 
     onChange: function(event) {
         this.props.onChange({ value: event.target.value });
-    },
-
-    componentDidMount: function() {
-        this.parser = new Parser();
     },
 
     simpleValidate: function(rubric, onInputError) {
@@ -68,19 +46,18 @@ var OldUnitInput = React.createClass({
 
 _.extend(OldUnitInput, {
     validate: function(state, rubric) {
-        var parser = new Parser();
-        var answer = parser.parse(rubric.value);
-        var guess;
-        try {
-            guess = parser.parse(state);
-        } catch (e) {
+        var answer = KAS.unitParse(rubric.value);
+        var guess = KAS.unitParse(state);
+        if (!guess.parsed) {
             return  {
                 type: "invalid",
                 message: $._("I couldn't understand those units."),
             };
         }
 
-        var correct = _.isEqual(answer, guess);
+        // KAS does the hard work of figuring out if the units are equivalent
+        var correct = KAS.compare(answer.unit.simplify(),
+                                  guess.unit.simplify()).equal;
 
         return {
             type: "points",
@@ -114,12 +91,8 @@ var UnitInputEditor = React.createClass({
     },
 
     getSaveWarnings: function() {
-        try {
-            this.parser.parse(this.props.value);
-            return [];
-        } catch (e) {
-            return ["answer did not parse"];
-        }
+        var tryParse = KAS.unitParse(this.props.value);
+        return tryParse.parsed ? [] : ["answer did not parse"];
     },
 });
 
