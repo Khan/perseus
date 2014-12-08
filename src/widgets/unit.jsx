@@ -9,6 +9,10 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 /* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
  * the version that non-mathquill platforms get stuck with. Constructed with an
  * <input>, a parser, popsicle sticks, and glue.
+ *
+ * In the same way as OldExpression, this parses continuously as you type, then
+ * shows and hides an error buddy. The error message is only shown after a
+* rolling two second delay, but hidden immediately on further typing.
  */
 var OldUnitInput = React.createClass({
     mixins: [Changeable],
@@ -17,19 +21,60 @@ var OldUnitInput = React.createClass({
         value: React.PropTypes.string.isRequired,
     },
 
+    // TODO(joel) think about showing the error buddy
     render: function() {
-        var parsed = KAS.unitParse(this.props.value);
-
-        // STOPSHIP(joel) - display the value in a nice way (not parsed/fail)
-
-        return <div>
-            <input onChange={this.onChange}
-                   value={this.props.value} />
-            {parsed.parsed ? "parsed" : "fail"}
+        return <div className="old-unit-input">
+            <input onChange={this.handleChange}
+                   value={this.props.value}
+                   onBlur={this.handleBlur} />
+            <div ref="error"
+                 className="error"
+                 style={{display: "none"}}>
+                <$_>I don't understand that</$_>
+            </div>
         </div>;
     },
 
-    onChange: function(event) {
+    _errorTimeout: null,
+
+    _showError: function() {
+        var $error = $(this.refs.error.getDOMNode());
+        if (!$error.is(":visible")) {
+            $error.css({ top: 50, opacity: 0.1 }).show()
+                .animate({ top: 0, opacity: 1.0 }, 300);
+        }
+    },
+
+    _hideError: function() {
+        var $error = $(this.refs.error.getDOMNode());
+        if ($error.is(":visible")) {
+            $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
+                $(this).hide();
+            });
+        }
+    },
+
+    componentDidUpdate: function() {
+        clearTimeout(this._errorTimeout);
+        if (KAS.unitParse(this.props.value).parsed) {
+            this._hideError();
+        } else {
+            this._errorTimeout = setTimeout(this._showError, 2000);
+        }
+    },
+
+    componentWillUnmount: function() {
+        clearTimeout(this._errorTimeout);
+    },
+
+    handleBlur: function() {
+        clearTimeout(this._errorTimeout);
+        if (!KAS.unitParse(this.props.value).parsed) {
+            this._showError();
+        }
+    },
+
+    handleChange: function(event) {
         this.props.onChange({ value: event.target.value });
     },
 
