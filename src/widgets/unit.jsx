@@ -1,3 +1,6 @@
+// TODO: teach KAS how to accept an answer only if it's expressed in terms of a
+// certain type.
+
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -68,6 +71,46 @@ _.extend(OldUnitInput, {
     }
 });
 
+
+// Show the name of a unit and whether it's recognized by KAS.
+//
+// In the future I plan for this to show an example of a thing that would be
+// accepted in that unit.
+var UnitExample = React.createClass({
+    render: function() {
+        var icon;
+        if (this.state.parsed) {
+            icon = <i className="icon-ok unit-example-okay" />;
+        } else {
+            icon = <i className="icon-remove unit-example-not-okay" />;
+        }
+
+        return <div>
+            {icon} {this.props.name}
+        </div>;
+    },
+
+    componentWillReceiveProps: function({ name }) {
+        this._checkParse(name);
+    },
+
+    componentWillMount: function() {
+        this._checkParse(this.props.name);
+    },
+
+    _checkParse: function(name) {
+        // HACK make a mode where KAS can understand a unit name in isolation
+        var { parsed } = KAS.unitParse("1 " + name);
+        this.setState({ parsed });
+    },
+});
+
+var acceptAll = "Any equivalent unit";
+var acceptSome = "Only these units";
+
+var all = {};
+var some = {};
+
 var UnitInputEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
@@ -75,15 +118,78 @@ var UnitInputEditor = React.createClass({
         value: React.PropTypes.string,
     },
 
+    getInitialState: function() {
+        return {
+            cachedAcceptingUnits: [],
+        };
+    },
+
     getDefaultProps: function() {
         return {
             value: "5x10^5 kg m / s^2",
+            accepting: all, // XXX not externally visible
         };
     },
 
     render: function() {
-        return <input value={this.props.value}
-                      onChange={this.onChange} />;
+        var { acceptingUnits, accepting } = this.props;
+        acceptingUnits = acceptingUnits || "";
+        var acceptingElem;
+        if (accepting === some) {
+            var unitsArr = acceptingUnits
+                .split(",")
+                .map(str => str.trim())
+                .filter(str => str !== "")
+                .map(name => <UnitExample name={name} />);
+            acceptingElem = <div>
+                <input
+                    type="text"
+                    value={acceptingUnits}
+                    onChange={this.handleAcceptingUnitsChange}
+                />
+                {" "}(comma-separated)
+                {unitsArr}
+            </div>;
+        }
+
+        // TODO sig fig slider (KAS?)
+        return <div>
+            <input value={this.props.value}
+                   onBlur={this._handleBlur}
+                   onKeyPress={this._handleBlur}
+                   onChange={this.onChange} />
+            <br />
+            <input type="radio"
+                   name="accepting"
+                   value={acceptAll}
+                   onChange={() => this._setAccepting(all)}
+                   checked={this.props.accepting === all} />
+            <a href="javascript: void 0;"
+               className="unit-radio"
+               onClick={() => this._setAccepting(all)}>
+               {" "}{acceptAll}
+            </a>
+            <br />
+            <input type="radio"
+                   name="accepting"
+                   value={acceptSome}
+                   onChange={() => this._setAccepting(some)}
+                   checked={this.props.accepting === some} />
+            <a href="javascript: void 0;"
+               className="unit-radio"
+               onClick={() => this._setAccepting(some)}>
+               {" "}{acceptSome}
+            </a>
+            {acceptingElem}
+        </div>;
+    },
+
+    handleAcceptingUnitsChange: function(event) {
+        this.change({ acceptingUnits: event.target.value });
+    },
+
+    _setAccepting: function(val) {
+        this.change({ accepting: val });
     },
 
     onChange: function(event) {
