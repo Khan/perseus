@@ -581,7 +581,7 @@ var OldExpression = React.createClass({
     },
 
     getUserInput: function() {
-        return {value: this.props.value};
+        return this.props.value;
     },
 
     updateParsedTex: function(value, props) {
