@@ -5,6 +5,7 @@ var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var NumberInput = require("../components/number-input.jsx");
 
 /* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
  * the version that non-mathquill platforms get stuck with. Constructed with an
@@ -138,29 +139,29 @@ var UnitExample = React.createClass({
         </div>;
     },
 
-    componentWillReceiveProps: function({ name }) {
-        this._checkParse(name);
+    componentWillReceiveProps: function(nextprops) {
+        this._checkParse(nextprops);
     },
 
     componentWillMount: function() {
-        this._checkParse(this.props.name);
+        this._checkParse(this.props);
     },
 
-    _checkParse: function(name) {
+    _checkParse: function({ name, original, sigfigs }) {
         var parseResult = KAS.unitParse(name);
         var solvedExample = "";
 
-        if (parseResult.parsed && this.props.original) {
+        if (parseResult.parsed && original) {
             var x = new KAS.Var("x");
             var { unit } = parseResult;
             var equality = new KAS.Eq(
-                this.props.original,
+                original,
                 "=",
                 new KAS.Mul(x, unit)
             );
             try {
                 var answer = equality.solveLinearEquationForVariable(x);
-                solvedExample = answer.print();
+                solvedExample = Number(answer.eval()).toPrecision(sigfigs);
             } catch (e) {
                 // ignore
             }
@@ -195,6 +196,7 @@ var UnitInputEditor = React.createClass({
         return {
             value: "5x10^5 kg m / s^2",
             accepting: all, // XXX not externally visible
+            sigfigs: 3
         };
     },
 
@@ -207,7 +209,12 @@ var UnitInputEditor = React.createClass({
                 .split(",")
                 .map(str => str.trim())
                 .filter(str => str !== "")
-                .map(name => <UnitExample name={name} original={this.original || null} />);
+                .map(name => <UnitExample
+                    name={name}
+                    original={this.original || null}
+                    sigfigs={this.props.sigfigs} />
+                );
+
             acceptingElem = <div>
                 <input
                     type="text"
@@ -219,12 +226,17 @@ var UnitInputEditor = React.createClass({
             </div>;
         }
 
-        // TODO sig fig slider (KAS?)
         return <div>
             <input value={this.props.value}
                    onBlur={this._handleBlur}
                    onKeyPress={this._handleBlur}
                    onChange={this.onChange} />
+            <br />
+            Significant Figures:{" "}
+            <NumberInput value={this.props.sigfigs}
+                         onChange={this.handleSigfigChange}
+                         checkValidity={this._checkSigfigValidity}
+                         useArrowKeys />
             <br />
             <input type="radio"
                    name="accepting"
@@ -253,6 +265,14 @@ var UnitInputEditor = React.createClass({
 
     handleAcceptingUnitsChange: function(event) {
         this.change({ acceptingUnits: event.target.value });
+    },
+
+    handleSigfigChange: function(sigfigs) {
+        this.change({ sigfigs });
+    },
+
+    _checkSigfigValidity: function(sigfigs) {
+        return sigfigs > 0 && sigfigs <= 10;
     },
 
     _setAccepting: function(val) {
