@@ -125,7 +125,10 @@ var UnitExample = React.createClass({
     render: function() {
         var icon;
         if (this.state.parsed) {
-            icon = <i className="icon-ok unit-example-okay" />;
+            icon = <span>
+                <i className="icon-ok unit-example-okay" />
+                {this.state.solvedExample}
+            </span>;
         } else {
             icon = <i className="icon-remove unit-example-not-okay" />;
         }
@@ -144,9 +147,28 @@ var UnitExample = React.createClass({
     },
 
     _checkParse: function(name) {
-        // HACK make a mode where KAS can understand a unit name in isolation
-        var { parsed } = KAS.unitParse("1 " + name);
-        this.setState({ parsed });
+        var parseResult = KAS.unitParse(name);
+        var solvedExample = "";
+
+        if (parseResult.parsed && this.props.original) {
+            var x = new KAS.Var("x");
+            var { unit } = parseResult;
+            var equality = new KAS.Eq(
+                this.props.original,
+                "=",
+                new KAS.Mul(x, unit)
+            );
+            try {
+                var answer = equality.solveLinearEquationForVariable(x);
+                solvedExample = answer.print();
+            } catch (e) {
+                // ignore
+            }
+        }
+        this.setState({
+            parsed: parseResult.parsed,
+            solvedExample,
+        });
     },
 });
 
@@ -185,7 +207,7 @@ var UnitInputEditor = React.createClass({
                 .split(",")
                 .map(str => str.trim())
                 .filter(str => str !== "")
-                .map(name => <UnitExample name={name} />);
+                .map(name => <UnitExample name={name} original={this.original || null} />);
             acceptingElem = <div>
                 <input
                     type="text"
@@ -235,6 +257,21 @@ var UnitInputEditor = React.createClass({
 
     _setAccepting: function(val) {
         this.change({ accepting: val });
+    },
+
+    componentWillMount: function() {
+        this._doOriginal();
+    },
+
+    componentWillReceiveProps: function() {
+        this._doOriginal();
+    },
+
+    _doOriginal: function() {
+        var tryParse = KAS.unitParse(this.props.value);
+        if (tryParse.parsed) {
+            this.original = tryParse.expr;
+        }
     },
 
     onChange: function(event) {
