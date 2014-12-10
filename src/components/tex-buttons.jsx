@@ -2,7 +2,6 @@ var React     = require("react");
 var _ = require("underscore");
 
 var TeX       = require("react-components/tex.jsx");
-var clone     = React.addons.cloneWithProps;
 
 var prettyBig = { fontSize: "150%" };
 var slightlyBig = { fontSize: "120%" };

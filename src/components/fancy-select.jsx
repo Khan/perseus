@@ -16,32 +16,6 @@ var React = require("react");
 
 var DROPDOWN_OFFSET = 76;
 
-// Hack to get around react descriptors not being renderable
-// in a new component after the first render. This is being
-// fixed in react 0.11 with the separation of descriptors,
-// so we can probably remove these tricks then.
-// TODO(jack): Remove these once we upgrade to React 0.11
-var cloneWithProps = React.addons.cloneWithProps;
-
-var cloneSingle = (comp) => {
-    if (React.isValidElement(comp)) {
-        return cloneWithProps(comp);
-    } else {
-        return comp;
-    }
-};
-
-var cloneRenderables = (children) => {
-    if (!children) {
-        return children;
-    } else if (_.isArray(children)) {
-        return _.map(children, cloneSingle);
-    } else {
-        return cloneSingle(children);
-    }
-};
-// END TODO
-
 var FancyOption = React.createClass({
     render: function() {
         throw new Error("FancyOption shouldn't ever be actually rendered");
@@ -94,7 +68,7 @@ var FancySelect = React.createClass({
             {_.map(children, (option) => {
                 return <div className="fancy-select-value-hidden"
                             style={{height: 0}}>
-                    {cloneRenderables(option.props.children)}
+                    {option.props.children}
                 </div>;
             })}
         </span>;
@@ -118,7 +92,7 @@ var FancySelect = React.createClass({
                 <span
                         className="fancy-select-value"
                         style={{position: "absolute"}}>
-                    {cloneRenderables(selectedOption.props.children)}
+                    {selectedOption.props.children}
                 </span>
         </div>;
 
@@ -173,7 +147,7 @@ var FancySelect = React.createClass({
                             closed: true
                         });
                     }}>
-                {cloneRenderables(option.props.children)}
+                {option.props.children}
             </li>;
         });
 
