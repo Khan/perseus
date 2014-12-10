@@ -10,6 +10,13 @@ var REF_STYLE = {
     visibility: "hidden"
 };
 
+var LABEL_OUTER_STYLE = {
+    // for some reason we need these to keep the nbsp from wrapping when the
+    // inner circle/square is display: inline-block
+    display: "inline",
+    whiteSpace: "nowrap",
+};
+
 var SQUARE_LABEL_STYLE = {
     display: "inline-block",
     color: "rgb(255, 255, 255)",
@@ -61,29 +68,41 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         }
     },
     squareLabel: {
-        regex: /^\[\[(\w+)\]\]/,
+        regex: /^\[\[(\w+)\]\]( *)/,
         parse: (capture, parse, state) => {
             return {
-                content: parse(capture[1])
+                content: parse(capture[1]),
+                space: capture[2].length > 0,
             }
         },
         output: (node, output) => {
-            return <span style={SQUARE_LABEL_STYLE}>
-                {output(node.content)}
-            </span>;
+            return [
+                <span style={LABEL_OUTER_STYLE}>
+                    <span style={SQUARE_LABEL_STYLE}>
+                        {output(node.content)}
+                    </span>
+                </span>,
+                (node.space ? "\u00A0" : null)
+            ];
         }
     },
     circleLabel: {
-        regex: /^\(\((\w+)\)\)/,
+        regex: /^\(\((\w+)\)\)( *)/,
         parse: (capture, parse, state) => {
             return {
-                content: parse(capture[1])
+                content: parse(capture[1]),
+                space: capture[2].length > 0,
             }
         },
         output: (node, output) => {
-            return <span style={CIRCLE_LABEL_STYLE}>
-                {output(node.content)}
-            </span>;
+            return [
+                <span style={LABEL_OUTER_STYLE}>
+                    <span style={CIRCLE_LABEL_STYLE}>
+                        {output(node.content)}
+                    </span>
+                </span>,
+                (node.space ? "\u00A0" : null)
+            ];
         }
     },
     refStart: {
