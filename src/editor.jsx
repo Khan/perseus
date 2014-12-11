@@ -2,7 +2,6 @@ var React = require('react');
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
-var InfoTip = require("react-components/info-tip.jsx");
 var DragTarget = require("react-components/drag-target.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
@@ -393,15 +392,6 @@ var Editor = React.createClass({
             widgetsDropDown = <WidgetSelect
                     ref="widgetSelect"
                     onChange={this.addWidget} />;
-            widgetsDropDownInfoTip = <div className="info-tip">
-                <InfoTip>
-                    <p>
-                        Type <b>[[&#123;shortcut&#125;</b> followed by SPACE,
-                        ENTER or TAB to quickly add a widget.
-                        ( Example: <b>[[n</b> )
-                    </p>
-                </InfoTip>
-            </div>;
 
             templatesDropDown = <select onChange={this.addTemplate}>
                 <option value="">Insert template{"\u2026"}</option>
@@ -415,7 +405,6 @@ var Editor = React.createClass({
             if (!this.props.immutableWidgets) {
                 widgetsAndTemplates = <div className="perseus-editor-widgets">
                     <div className="perseus-editor-widgets-selectors">
-                        {widgetsDropDownInfoTip}
                         {widgetsDropDown}
                         {templatesDropDown}
                     </div>
