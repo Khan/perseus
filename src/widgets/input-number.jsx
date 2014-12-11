@@ -420,7 +420,8 @@ var propTransform = (editorProps) => {
 
 module.exports = {
     name: "input-number",
-    displayName: "Number text box",
+    displayName: "Number text box (old)",
+    hidden: true,
     widget: InputNumber,
     editor: InputNumberEditor,
     transform: propTransform
