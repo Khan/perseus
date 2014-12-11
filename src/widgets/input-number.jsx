@@ -3,7 +3,6 @@ var _ = require("underscore");
 
 var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");
-var Renderer          = require("../renderer.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 
@@ -11,8 +10,6 @@ var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Util = require("../util.js");
 var EnabledFeatures = require("../enabled-features.jsx");
-
-var toNumericString = KhanUtil.toNumericString;
 
 var answerTypes = {
     number: {
@@ -106,12 +103,13 @@ var InputNumber = React.createClass({
         // HACK(johnsullivan): Create a function with shared logic between this
         // and NumericInput.
         var rubric = this.props.reviewModeRubric;
+        var correct = null;
+        var answerBlurb = null;
         if (rubric) {
             var score = this.simpleValidate(rubric);
-            var correct = score.type === "points" &&
+            correct = score.type === "points" &&
                           score.earned === score.total;
 
-            var answerBlurb = null;
             if (!correct) {
                 // TODO(johnsullivan): Make this a little more human-friendly.
                 var answerString = String(rubric.value);
