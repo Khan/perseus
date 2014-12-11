@@ -5,7 +5,6 @@ var ApiOptions = require("./perseus-api.jsx").Options;
 var InfoTip = require("react-components/info-tip.jsx");
 var DragTarget = require("react-components/drag-target.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
-var SvgImage = require("./components/svg-image.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 
@@ -21,7 +20,9 @@ var shortcutRegexp = /^\[\[([a-z]+)$/; // like [[nu, [[int, etc
 
 var WidgetSelectOption = React.createClass({
     render: function() {
-        return <option value={this.props.name}>{this.props.displayName}</option>;
+        return <option value={this.props.name}>
+            {this.props.displayName}
+        </option>;
     }
 });
 
@@ -41,7 +42,7 @@ var WidgetSelect = React.createClass({
 
                     do {
                         shortcut += widget.name.charAt(i++);
-                    } while (list[shortcut])
+                    } while (list[shortcut]);
                 }
 
                 list[shortcut] = widget.name;
@@ -77,12 +78,14 @@ var WidgetSelect = React.createClass({
             {_.map(orderedWidgetNames, (name) => {
                 var shortcut = this.shortcutsByName[name];
 
-                return WidgetSelectOption({
-                    ref: shortcut,
-                    key: name,
-                    name: name,
-                    displayName: this.widgets[name].displayName + ' (' + shortcut.toUpperCase() + ')'
-                })
+                return <WidgetSelectOption
+                    ref={shortcut}
+                    key={name}
+                    name={name}
+                    displayName={
+                        this.widgets[name].displayName +
+                        ' (' + shortcut.toUpperCase() + ')'
+                    } />;
             })}
         </select>;
     }
@@ -133,12 +136,16 @@ var WidgetEditor = React.createClass({
                                 onChange={this.props.onChange} />;
 
         return <div className="perseus-widget-editor">
-            <div className={"perseus-widget-editor-title " + (this.state.showWidget ? "open" : "closed")}>
+            <div className={"perseus-widget-editor-title " +
+                    (this.state.showWidget ? "open" : "closed")}>
                 <a href="#" onClick={this.toggleWidget}>
                     {this.props.id}
                     <i className={"icon-chevron-" + direction} />
                 </a>
-                <a href="#" className="remove-widget simple-button simple-button--small orange"
+                <a href="#" className={
+                            "remove-widget " +
+                            "simple-button simple-button--small orange"
+                        }
                         onClick={(e) => {
                             e.preventDefault();
                             this.props.onRemove();
@@ -383,12 +390,18 @@ var Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetsDropDown = <WidgetSelect ref="widgetSelect" onChange={this.addWidget} />;
+            widgetsDropDown = <WidgetSelect
+                    ref="widgetSelect"
+                    onChange={this.addWidget} />;
             widgetsDropDownInfoTip = <div className="info-tip">
                 <InfoTip>
-                    <p>Type <b>[[&#123;shortcut&#125;</b> followed by SPACE, ENTER or TAB to quickly add a widget. ( Example: <b>[[n</b> )</p>
+                    <p>
+                        Type <b>[[&#123;shortcut&#125;</b> followed by SPACE,
+                        ENTER or TAB to quickly add a widget.
+                        ( Example: <b>[[n</b> )
+                    </p>
                 </InfoTip>
-            </div>
+            </div>;
 
             templatesDropDown = <select onChange={this.addTemplate}>
                 <option value="">Insert template{"\u2026"}</option>
@@ -548,7 +561,11 @@ var Editor = React.createClass({
             var matches = word.string.toLowerCase().match(shortcutRegexp);
 
             if (matches !== null && select.shortcuts[matches[1]]) {
-                var newContent = Util.insertContent(textarea.value, '', [ word.pos.start, word.pos.end + 1 ]);
+                var newContent = Util.insertContent(
+                    textarea.value,
+                    "",
+                    [word.pos.start, word.pos.end + 1]
+                );
 
                 this.props.onChange({ content: newContent }, () => {
                     Util.textarea.moveCursor(textarea, word.pos.start);
@@ -570,7 +587,11 @@ var Editor = React.createClass({
         var textarea = this.refs.textarea.getDOMNode();
         var cursorPos = textarea.selectionStart;
 
-        for (var i = 1; oldContent.indexOf(widgetPlaceholder.replace('{id}', widgetType + " " + i)) > -1; i++) {
+        for (var i = 1;
+                oldContent.indexOf(
+                    widgetPlaceholder.replace('{id}', widgetType + " " + i)
+                ) > -1;
+                i++) {
             // pass
         }
 
@@ -582,12 +603,19 @@ var Editor = React.createClass({
             widgetContent = "\n\n" + widgetContent;
         }
 
-        var newContent = Util.insertContent(oldContent, widgetContent, [ textarea.selectionStart, textarea.selectionEnd ]);
+        var newContent = Util.insertContent(
+            oldContent,
+            widgetContent,
+            [textarea.selectionStart, textarea.selectionEnd]
+        );
 
         this.props.onChange({
             content: newContent
         }, function() {
-            Util.textarea.moveCursor(textarea, cursorPos + widgetContent.length);
+            Util.textarea.moveCursor(
+                textarea,
+                cursorPos + widgetContent.length
+            );
         });
     },
 
@@ -669,8 +697,8 @@ var Editor = React.createClass({
         if (options && options.keepDeletedWidgets) {
             _.chain(this.props.widgets)
                 .keys()
-                .reject(id => _.contains(widgetIds, id))
-                .each(id => widgets[id] = this.props.widgets[id]);
+                .reject((id) => _.contains(widgetIds, id))
+                .each((id) => { widgets[id] = this.props.widgets[id]; });
         }
 
         return {
