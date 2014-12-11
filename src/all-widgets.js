@@ -34,5 +34,5 @@ _.each([
     require("./widgets/table.jsx"),
     require("./widgets/transformer.jsx")
 ], function(widget) {
-    Widgets.register(widget.name, _.omit(widget, "name"));
+    Widgets.register(widget.name, widget);
 });

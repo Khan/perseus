@@ -251,6 +251,7 @@ var propTransform = (editorProps) => {
 
 module.exports = {
     name: "dropdown",
+    shortcut: 'drop',
     displayName: "Drop down",
     widget: Dropdown,
     editor: DropdownEditor,

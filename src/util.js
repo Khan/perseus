@@ -582,6 +582,52 @@ var Util = {
         // Require here to prevent recursive imports
         var SvgImage = require("./components/svg-image.jsx");
         img.src = SvgImage.getRealImageUrl(url);
+    },
+
+    /**
+     * Inserts new content in a text at the specified position
+     *
+     * @param {string} text - The text where the new content will be added
+     * @param {string} content - The content to add
+     * @param {Array} pos - ([startPos, endPos]) It determines the area where the new content will be placed
+     * @return {string} - The new text
+     */
+    insertContent: function(text, content, pos) {
+        return text.slice(0, pos[0]) + content + text.slice(pos[1]);
+    },
+
+    textarea: {
+
+        /**
+         * Gets the word right before where the textarea cursor is
+         *
+         * @param {Element} textarea - The textarea DOM element
+         * @return {JSON} - An object with the word and its starting and ending positions in the textarea
+         */
+        getWordBeforeCursor: function(textarea) {
+            var text = textarea.value;
+
+            var endPos = textarea.selectionStart - 1;
+            var startPos = Math.max(text.lastIndexOf("\n", endPos), text.lastIndexOf(' ', endPos)) + 1;
+
+            return {
+                string: text.substring(startPos, endPos + 1),
+                pos: {
+                    start: startPos,
+                    end: endPos
+                }
+            }
+        },
+
+        /**
+         * Moves the textarea cursor at the specified position
+         *
+         * @param {Element} textarea - The textarea DOM element
+         * @param {int} pos - The position where the cursor will be moved
+         */
+        moveCursor: function(textarea, pos) {
+            textarea.selectionStart = textarea.selectionEnd = pos
+        }
     }
 };
 

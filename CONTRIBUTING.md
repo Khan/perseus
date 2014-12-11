@@ -97,6 +97,8 @@ Each widget consists of the following parts:
    renderer's props
  * An options `hidden` flag, which, if `true`, will prevent the widget from being
    available in the widget menu
+ * An options `shorcut`, which is a unique string that can be used to quickly add the widget in the editor
+   * *Note: If not provided the widget will get automatically assigned a shortcut, extracted from `name`*
 
 These are exported in an object at the bottom of every widget file:
 

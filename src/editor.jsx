@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
+var InfoTip = require("react-components/info-tip.jsx");
 var DragTarget = require("react-components/drag-target.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var SvgImage = require("./components/svg-image.jsx");
@@ -16,7 +17,40 @@ var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
                               'g');
 
+var shortcutRegexp = /^\[\[([a-z]+)$/; // like [[nu, [[int, etc
+
+var WidgetSelectOption = React.createClass({
+    render: function() {
+        return <option value={this.props.name}>{this.props.displayName}</option>;
+    }
+});
+
 var WidgetSelect = React.createClass({
+    componentWillMount: function() {
+        this.widgets = Widgets.getPublicWidgets();
+        this.shortcuts = (() => {
+            var list = {};
+
+            _.map(_.sortBy(this.widgets, 'shortcut'), (widget) => {
+                var shortcut = '';
+
+                if (widget.shortcut) {
+                    shortcut = widget.shortcut;
+                } else {
+                    var i = 0;
+
+                    do {
+                        shortcut += widget.name.charAt(i++);
+                    } while (list[shortcut])
+                }
+
+                list[shortcut] = widget.name;
+            });
+
+            return list;
+        })();
+        this.shortcutsByName = _.invert(this.shortcuts);
+    },
     handleChange: function(e) {
         var widgetType = e.target.value;
         if (widgetType === "") {
@@ -33,18 +67,22 @@ var WidgetSelect = React.createClass({
         return false;
     },
     render: function() {
-        var widgets = Widgets.getPublicWidgets();
-        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
-            return widgets[name].displayName;
+        var orderedWidgetNames = _.sortBy(_.keys(this.widgets), (name) => {
+            return this.widgets[name].displayName;
         });
 
         return <select onChange={this.handleChange}>
             <option value="">Add a widget{"\u2026"}</option>
             <option disabled>--</option>
             {_.map(orderedWidgetNames, (name) => {
-                return <option value={name} key={name}>
-                    {widgets[name].displayName}
-                </option>;
+                var shortcut = this.shortcutsByName[name];
+
+                return WidgetSelectOption({
+                    ref: shortcut,
+                    key: name,
+                    name: name,
+                    displayName: this.widgets[name].displayName + ' (' + shortcut.toUpperCase() + ')'
+                })
             })}
         </select>;
     }
@@ -345,7 +383,12 @@ var Editor = React.createClass({
             // }, this);
 
             this.widgetIds = _.keys(widgets);
-            widgetsDropDown = <WidgetSelect onChange={this.addWidget} />;
+            widgetsDropDown = <WidgetSelect ref="widgetSelect" onChange={this.addWidget} />;
+            widgetsDropDownInfoTip = <div className="info-tip">
+                <InfoTip>
+                    <p>Type <b>[[&#123;shortcut&#125;</b> followed by SPACE, ENTER or TAB to quickly add a widget. ( Example: <b>[[n</b> )</p>
+                </InfoTip>
+            </div>
 
             templatesDropDown = <select onChange={this.addTemplate}>
                 <option value="">Insert template{"\u2026"}</option>
@@ -359,6 +402,7 @@ var Editor = React.createClass({
             if (!this.props.immutableWidgets) {
                 widgetsAndTemplates = <div className="perseus-editor-widgets">
                     <div className="perseus-editor-widgets-selectors">
+                        {widgetsDropDownInfoTip}
                         {widgetsDropDown}
                         {templatesDropDown}
                     </div>
@@ -382,6 +426,7 @@ var Editor = React.createClass({
                 <textarea ref="textarea"
                           key="textarea"
                           onChange={this.handleChange}
+                          onKeyDown={this.handleKeyDown}
                           placeholder={this.props.placeholder}
                           value={this.props.content} />
             ];
@@ -494,24 +539,56 @@ var Editor = React.createClass({
         this.props.onChange({content: textarea.value});
     },
 
+    handleKeyDown: function(e) {
+        if ([9, 13, 32].indexOf(e.keyCode) !== -1) {
+            var select = this.refs.widgetSelect;
+            var textarea = this.refs.textarea.getDOMNode();
+
+            var word = Util.textarea.getWordBeforeCursor(textarea);
+            var matches = word.string.toLowerCase().match(shortcutRegexp);
+
+            if (matches !== null && select.shortcuts[matches[1]]) {
+                var newContent = Util.insertContent(textarea.value, '', [ word.pos.start, word.pos.end + 1 ]);
+
+                this.props.onChange({ content: newContent }, () => {
+                    Util.textarea.moveCursor(textarea, word.pos.start);
+
+                    var widget = select.refs[matches[1]].getDOMNode();
+
+                    if (widget) {
+                        select.props.onChange(widget.getAttribute('value'));
+                    }
+                });
+
+                e.preventDefault();
+            }
+        }
+    },
+
     addWidget: function(widgetType) {
         var oldContent = this.props.content;
-
-        // Add newlines before "big" widgets like graphs
-        if (widgetType !== "input-number" && widgetType !== "dropdown") {
-            oldContent = oldContent.replace(/\n*$/, "\n\n");
-        }
+        var textarea = this.refs.textarea.getDOMNode();
+        var cursorPos = textarea.selectionStart;
 
         for (var i = 1; oldContent.indexOf(widgetPlaceholder.replace('{id}', widgetType + " " + i)) > -1; i++) {
             // pass
         }
 
         var id = widgetType + " " + i;
-        var newContent = oldContent + widgetPlaceholder.replace('{id}', id);
+        var widgetContent = widgetPlaceholder.replace('{id}', id) + ' ';
+
+        // Add newlines before "big" widgets like graphs
+        if (widgetType !== "input-number" && widgetType !== "dropdown") {
+            widgetContent = "\n\n" + widgetContent;
+        }
+
+        var newContent = Util.insertContent(oldContent, widgetContent, [ textarea.selectionStart, textarea.selectionEnd ]);
 
         this.props.onChange({
             content: newContent
-        }, this.focusAndMoveToEnd);
+        }, function() {
+            Util.textarea.moveCursor(textarea, cursorPos + widgetContent.length);
+        });
     },
 
     addTemplate: function(e) {
