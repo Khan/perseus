@@ -616,7 +616,7 @@ var Util = {
                     start: startPos,
                     end: endPos
                 }
-            }
+            };
         },
 
         /**
@@ -626,7 +626,8 @@ var Util = {
          * @param {int} pos - The position where the cursor will be moved
          */
         moveCursor: function(textarea, pos) {
-            textarea.selectionStart = textarea.selectionEnd = pos
+            textarea.selectionStart = pos;
+            textarea.selectionEnd = pos;
         }
     }
 };

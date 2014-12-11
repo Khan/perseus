@@ -13,11 +13,6 @@ var imagesInString = function(str) {
     return str.match(IMAGE_REGEX) || [];
 };
 
-var COLORS = {
-  "before": "#FFAAAA",
-  "after": "#AAFFAA"
-};
-
 var classFor = function(entry, ifAdded, ifRemoved) {
     if (entry.added) {
         return ifAdded;

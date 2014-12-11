@@ -1,4 +1,3 @@
-var React = require('react');
 var _ = require("underscore");
 
 var init = function(options) {

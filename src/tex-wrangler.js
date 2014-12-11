@@ -12,7 +12,6 @@
   */
 function findEndpoint(tex, currentIndex) {
     var bracketDepth = 0;
-    var rightEndpoint;
 
     for (var i = currentIndex, len = tex.length; i < len; i++) {
         var c = tex[i];

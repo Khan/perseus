@@ -109,7 +109,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             return {
                 col1: parse(capture[1], state),
                 col2: parse(capture[2], state)
-            }
+            };
         },
         output: (node, output) => {
             return <div className="perseus-two-columns">

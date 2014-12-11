@@ -1,5 +1,4 @@
 var React = require('react');
-var cx = React.addons.classSet;
 
 var QuestionParagraph = React.createClass({
     render: function() {
