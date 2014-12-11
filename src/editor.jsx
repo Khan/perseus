@@ -77,14 +77,9 @@ var WidgetSelect = React.createClass({
             {_.map(orderedWidgetNames, (name) => {
                 var shortcut = this.shortcutsByName[name];
 
-                return <WidgetSelectOption
-                    ref={shortcut}
-                    key={name}
-                    name={name}
-                    displayName={
-                        this.widgets[name].displayName +
-                        ' (' + shortcut.toUpperCase() + ')'
-                    } />;
+                return <option key={name} value={name}>
+                    {this.widgets[name].displayName}
+                </option>;
             })}
         </select>;
     }
