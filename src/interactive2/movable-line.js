@@ -10,9 +10,7 @@ var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var knumber = require("kmath").number;
 var kvector = require("kmath").vector;
-var kpoint = require("kmath").point;
 
 var FUNCTION_ARRAY_OPTIONS = [
     "add",

@@ -4,7 +4,6 @@
 var _ = require("underscore");
 
 var WrappedEllipse = require("./wrapped-ellipse.js");
-var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 
 var add = {

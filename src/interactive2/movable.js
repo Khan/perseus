@@ -15,7 +15,6 @@ var InteractiveUtil = require("./interactive-util.js");
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 var assert = InteractiveUtil.assert;
-var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 
 // state parameters that should be converted into an array of

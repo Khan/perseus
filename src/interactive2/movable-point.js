@@ -58,7 +58,6 @@ var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 
 // State parameters that should be converted into an array of
