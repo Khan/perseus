@@ -22,7 +22,7 @@ var TexButtons = require("../components/tex-buttons.jsx");
 var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
 
-var lens = require("../../hubble/lens.js");
+var lens = require("../../hubble/index.js");
 
 var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 

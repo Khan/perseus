@@ -1,6 +1,6 @@
 var assert = require("assert");
 var Perseus = require("../../perseus.js");
-var lens = require("../../../hubble/lens.js");
+var lens = require("../../../hubble/index.js");
 // TODO(jack): Package MathQuill
 var MathQuill = window.MathQuill;
 
