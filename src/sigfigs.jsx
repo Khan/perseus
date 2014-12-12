@@ -1,4 +1,3 @@
-// TODO(joel) - cut this down
 /*
  * A class for formatting number to significant digits.
  * Copyright (C) 2001 Stephen Ostermiller
