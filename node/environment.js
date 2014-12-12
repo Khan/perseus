@@ -72,7 +72,7 @@ require("./ke-deps-shim.js");
 updateGlobals();
 global.katex = window.katex = require("../lib/katex/katex.js");
 global.KAS = {};
-require("../ke/local-only/kas.js");
+require("../lib/kas.js");
 window.KAS = global.KAS; // don't ask--check out the KAS source.
 
 // Hacky assertion functions for jest compatibility

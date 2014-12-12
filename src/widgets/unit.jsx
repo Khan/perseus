@@ -1,11 +1,23 @@
 // TODO: teach KAS how to accept an answer only if it's expressed in terms of a
 // certain type.
+// TODO: Allow sigfigs within a range rather than an exact expected value?
 
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var NumberInput = require("../components/number-input.jsx");
+var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
+
+var acceptAllStr = "Any equivalent unit";
+var acceptSomeStr = "Only these units";
+
+var all = {};
+var some = {};
+
+var countSigfigs = function(value) {
+    return new SignificantFigures(value).sigFigs;
+};
 
 /* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
  * the version that non-mathquill platforms get stuck with. Constructed with an
@@ -89,7 +101,9 @@ var OldUnitInput = React.createClass({
     },
 
     statics: {
-        displayMode: "inline-block"
+        displayMode: "inline-block",
+        all,
+        some,
     }
 });
 
@@ -104,15 +118,66 @@ _.extend(OldUnitInput, {
             };
         }
 
-        // KAS does the hard work of figuring out if the units are equivalent
-        var correct = KAS.compare(answer.unit.simplify(),
-                                  guess.unit.simplify()).equal;
+        // Note: we check sigfigs, then numerical correctness, then units, so
+        // the most significant things come last, that way the user will see
+        // the most important message.
+        var message = null;
+
+        // did the user specify the right number of sigfigs?
+        // TODO(joel) - add a grading mode where the wrong number of sigfigs
+        // isn't marked wrong
+        var sigfigs = rubric.sigfigs;
+        var sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
+        if (!sigfigsCorrect) {
+            message = $._("Check your significant figures.");
+        }
+
+        var simplifiedGuess = guess.expr.simplify();
+        var guessNumeric = simplifiedGuess.terms[0].eval();
+        var guessUnit = simplifiedGuess.terms[1];
+
+        var simplifiedAnswer = answer.expr.simplify();
+        var answerNumeric = simplifiedAnswer.terms[0].eval();
+        var answerUnit = simplifiedAnswer.terms[1];
+
+        // now we need to check that the answer is correct to the precision we
+        // require.
+        var numericallyCorrect =
+            Number(answerNumeric).toPrecision(sigfigs) ===
+            Number(guessNumeric).toPrecision(sigfigs);
+        if (!numericallyCorrect) {
+            message = $._("That answer is numerically incorrect.");
+        }
+
+        var kasCorrect;
+        if (rubric.accepting === all) {
+            // We're accepting all units - KAS does the hard work of figuring
+            // out if the user's unit is equivalent to the author's unit.
+            kasCorrect = KAS.compare(
+                guessUnit,
+                answerUnit
+            ).equal;
+        } else {
+            // Are any of the accepted units the same as what the user entered?
+            kasCorrect = _(rubric.acceptingUnits).any(unit => {
+                KAS.compare(
+                    KAS.unitParse(unit).unit,
+                    guessUnit,
+                    { form: true }
+                );
+            });
+        }
+        if (!kasCorrect) {
+            var message = $._("Check your units.");
+        }
+
+        var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
 
         return {
             type: "points",
             earned: correct ? 1 : 0,
             total: 1,
-            message: null,
+            message,
         };
     }
 });
@@ -173,12 +238,6 @@ var UnitExample = React.createClass({
     },
 });
 
-var acceptAll = "Any equivalent unit";
-var acceptSome = "Only these units";
-
-var all = {};
-var some = {};
-
 var UnitInputEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
@@ -195,7 +254,7 @@ var UnitInputEditor = React.createClass({
     getDefaultProps: function() {
         return {
             value: "5x10^5 kg m / s^2",
-            accepting: all, // XXX not externally visible
+            accepting: all,
             sigfigs: 3
         };
     },
@@ -240,24 +299,24 @@ var UnitInputEditor = React.createClass({
             <br />
             <input type="radio"
                    name="accepting"
-                   value={acceptAll}
+                   value={acceptAllStr}
                    onChange={() => this._setAccepting(all)}
                    checked={this.props.accepting === all} />
             <a href="javascript: void 0;"
                className="unit-radio"
                onClick={() => this._setAccepting(all)}>
-               {" "}{acceptAll}
+               {" "}{acceptAllStr}
             </a>
             <br />
             <input type="radio"
                    name="accepting"
-                   value={acceptSome}
+                   value={acceptSomeStr}
                    onChange={() => this._setAccepting(some)}
                    checked={this.props.accepting === some} />
             <a href="javascript: void 0;"
                className="unit-radio"
                onClick={() => this._setAccepting(some)}>
-               {" "}{acceptSome}
+               {" "}{acceptSomeStr}
             </a>
             {acceptingElem}
         </div>;
@@ -299,8 +358,21 @@ var UnitInputEditor = React.createClass({
     },
 
     getSaveWarnings: function() {
-        var tryParse = KAS.unitParse(this.props.value);
-        return tryParse.parsed ? [] : ["answer did not parse"];
+        var { value, accepting, acceptingUnits } = this.props;
+        var warnings = [];
+
+        var tryParse = KAS.unitParse(value);
+        if (!tryParse.parsed) {
+            warnings.push("answer did not parse");
+        }
+
+        if (accepting === some) {
+            if (acceptingUnits.length === 0) {
+                warnings.push("there are no accepted units");
+            }
+        }
+
+        return warnings;
     },
 });
 
@@ -314,4 +386,5 @@ module.exports = {
     editor: UnitInputEditor,
     transform: x => x,
     version: { major: 0, minor: 1 },
+    countSigfigs,
 };
