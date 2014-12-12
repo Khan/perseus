@@ -394,4 +394,5 @@ module.exports = {
     transform: x => x,
     version: { major: 0, minor: 1 },
     countSigfigs,
+    hidden: true,
 };
