@@ -164,9 +164,11 @@ var FancySelect = React.createClass({
 
         return <div className={this.props.className}>
             {selectBox}
-            {<ul className={optionsBoxClassName} style={style}>
-                {options}
-            </ul>}
+            <div className="fancy-select-options-wrapper">
+                <ul className={optionsBoxClassName} style={style}>
+                    {options}
+                </ul>
+            </div>
         </div>;
     },
 

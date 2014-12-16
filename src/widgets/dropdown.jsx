@@ -31,11 +31,15 @@ var Dropdown = React.createClass({
     render: function() {
         var choices = this.props.choices.slice();
 
+        var selectClasses = React.addons.classSet({
+            "perseus-widget-dropdown": true,
+            "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns
+        });
+
         if (this.props.apiOptions.fancyDropdowns) {
             return <FancySelect
                     onChange={this._handleChange}
-                    className={"perseus-widget-dropdown " +
-                        ApiClassNames.INTERACTIVE}
+                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
                     value={this.props.selected}>
                 <FancyOption value={0} visible={false}>
                     <span className="placeholder">
@@ -54,8 +58,7 @@ var Dropdown = React.createClass({
             return <select
                     onChange={this._handleChangeEvent}
                     onTouchStart={captureScratchpadTouchStart}
-                    className={"perseus-widget-dropdown " +
-                        ApiClassNames.INTERACTIVE}
+                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
                     value={this.props.selected}>
                 <option value={0} disabled>
                     {this.props.placeholder}

@@ -5,6 +5,10 @@
 .perseus-widget-dropdown {
     position: relative;
 
+    &.perseus-fancy-dropdown {
+        position: static;
+    }
+
     .fancy-select {
         // Put some placeholder content hidden but always in the dropdown
         // so that its text-baseline vertical positioning doesn't change
@@ -15,11 +19,13 @@
             content: "_";
         }
 
+        position: relative;
+        z-index: @zIndexInteractiveComponent;
+
         border: 3px	solid @fancyDropdownColor;
         border-radius: 40px;
         color: @fancyDropdownColor;
         font: 700 23pt avenir, sans-serif;
-        z-index: @zIndexInteractiveComponent;
         padding: 0 60px 0 35px;
         min-width: 40px;
         min-height: 40px;
@@ -46,10 +52,14 @@
         }
     }
 
+    .fancy-select-options-wrapper {
+        position: relative;
+        z-index: @zIndexCurrentlyDragging;
+    }
+
     .fancy-select-options {
         color: @fancyDropdownColor;
         position: absolute;
-        z-index: @zIndexCurrentlyDragging;
         min-width: 100%;
     }
 
