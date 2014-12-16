@@ -354,16 +354,20 @@ var UnitInputEditor = React.createClass({
     },
 
     componentWillMount: function() {
-        this._doOriginal();
+        this._doOriginal(this.props);
     },
 
-    componentWillReceiveProps: function() {
-        this._doOriginal();
+    componentWillReceiveProps: function(nextprops) {
+        this._doOriginal(nextprops);
     },
 
-    _doOriginal: function() {
-        var tryParse = KAS.unitParse(this.props.value);
-        if (tryParse.parsed) {
+    _doOriginal: function(props) {
+        var tryParse = KAS.unitParse(props.value);
+
+        // Only update this state if the unit parsed *and* it has a magnitude
+        // attached to it. KAS can also parse units without magnitudes ("1.2
+        // g" vs "g").
+        if (tryParse.parsed && tryParse.type === "unitMagnitude") {
             this.original = tryParse.expr;
         }
     },
