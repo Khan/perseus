@@ -123,7 +123,7 @@ function displaySigFigs(f, sigFigs, sigDecs, scientific){
             returnVal += '.' + mantissa.substring(1, mantissa.length);
         }
         if (order-1!=0){
-			returnVal += "e" + (order-1);
+			returnVal += " x 10^" + (order-1);
         }
     } else {
         var wholePart = "";

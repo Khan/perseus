@@ -2,7 +2,6 @@
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
 // value?
-// TODO(joel): numerical inaccuracy: 12.4 lb is shown as equivalent to 5x10^5 N
 
 var _ = require("underscore");
 var lens = require("../../hubble/index.js");
@@ -12,8 +11,8 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
 
-var acceptAllStr = "Any equivalent unit";
-var acceptSomeStr = "Only these units";
+var ALL = "all";
+var SOME = "some";
 
 var countSigfigs = function(value) {
     return new SignificantFigures(value).sigFigs;
@@ -31,19 +30,19 @@ var OldUnitInput = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
-        value: React.PropTypes.string.isRequired,
+        value: React.PropTypes.string,
     },
 
     // TODO(joel) think about showing the error buddy
     render: function() {
         return <div className="old-unit-input">
             <input onChange={this.handleChange}
-                   value={this.props.value}
+                   value={this.props.value || ""}
                    onBlur={this.handleBlur} />
             <div ref="error"
                  className="error"
                  style={{display: "none"}}>
-                <$_>I don't understand that</$_>
+                <$_>{"I don't understand that"}</$_>
             </div>
         </div>;
     },
@@ -69,7 +68,7 @@ var OldUnitInput = React.createClass({
 
     componentDidUpdate: function() {
         clearTimeout(this._errorTimeout);
-        if (KAS.unitParse(this.props.value).parsed) {
+        if (KAS.unitParse(this.props.value || "").parsed) {
             this._hideError();
         } else {
             this._errorTimeout = setTimeout(this._showError, 2000);
@@ -82,7 +81,7 @@ var OldUnitInput = React.createClass({
 
     handleBlur: function() {
         clearTimeout(this._errorTimeout);
-        if (!KAS.unitParse(this.props.value).parsed) {
+        if (!KAS.unitParse(this.props.value || "").parsed) {
             this._showError();
         }
     },
@@ -105,13 +104,10 @@ var OldUnitInput = React.createClass({
     }
 });
 
-// Extract the primitive units from a unit expression. This simplified doesn to
-// something like "5 kg m / s^2" then removes the first term (taking advantage
-// of the property that the coefficient moves to the front).
+// Extract the primitive units from a unit expression. This first simplifies
+// `expr` to a `Mul` like "5 kg m / s^2" then removes the first term.
 var primUnits = function(expr) {
-    var unitTerms = lens(expr.simplify().terms).del([0]).freeze();
-    var unit = unitTerms.length === 1 ? unitTerms[0] : new KAS.Mul(unitTerms);
-    return unit.simplify();
+    return expr.simplify().asMul().partition()[1].flatten().simplify();
 };
 
 _.extend(OldUnitInput, {
@@ -149,6 +145,7 @@ _.extend(OldUnitInput, {
 
         // now we need to check that the answer is correct to the precision we
         // require.
+        var lower
         var numericallyCorrect =
             Number(answerNumeric).toPrecision(sigfigs) ===
             Number(guessNumeric).toPrecision(sigfigs);
@@ -157,7 +154,7 @@ _.extend(OldUnitInput, {
         }
 
         var kasCorrect;
-        if (rubric.accepting === "all") {
+        if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
             // out if the user's unit is equivalent to the author's unit.
             kasCorrect = KAS.compare(
@@ -201,7 +198,7 @@ _.extend(OldUnitInput, {
 var UnitExample = React.createClass({
     render: function() {
         var icon;
-        if (this.state.parsed) {
+        if (this.state.valid) {
             icon = <span>
                 <i className="icon-ok unit-example-okay" />
                 {this.state.solvedExample}
@@ -216,16 +213,19 @@ var UnitExample = React.createClass({
     },
 
     componentWillReceiveProps: function(nextprops) {
-        this._checkParse(nextprops);
+        this._checkValidity(nextprops);
     },
 
     componentWillMount: function() {
-        this._checkParse(this.props);
+        this._checkValidity(this.props);
     },
 
-    _checkParse: function({ name, original, sigfigs }) {
+    _checkValidity: function({ name, original, sigfigs }) {
         var parseResult = KAS.unitParse(name);
         var solvedExample = "";
+
+        // A unit is valid if it parses and is equivalent to the original.
+        var valid = true;
 
         if (parseResult.parsed && original) {
             var x = new KAS.Var("x");
@@ -237,13 +237,25 @@ var UnitExample = React.createClass({
             );
             try {
                 var answer = equality.solveLinearEquationForVariable(x);
-                solvedExample = Number(answer.eval()).toPrecision(sigfigs);
+                // TODO(joel) - the third parameter is "the least significant
+                // decimal place". Figure out what that means.
+                solvedExample = displaySigFigs(
+                    answer.eval(), sigfigs, 0, true
+                );
+
+                valid = KAS.compare(
+                    primUnits(original),
+                    primUnits(unit)
+                ).equal;
             } catch (e) {
-                // ignore
+                valid = false;
             }
+        } else {
+            valid = false;
         }
+
         this.setState({
-            parsed: parseResult.parsed,
+            valid,
             solvedExample,
         });
     },
@@ -255,14 +267,14 @@ var UnitInputEditor = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
         acceptingUnits: React.PropTypes.arrayOf(React.PropTypes.string),
-        accepting: React.PropTypes.oneOf(["all", "some"]),
+        accepting: React.PropTypes.oneOf([ALL, SOME]),
         sigfigs: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
             value: "5x10^5 kg m / s^2",
-            accepting: "all",
+            accepting: ALL,
             sigfigs: 3
         };
     },
@@ -271,16 +283,17 @@ var UnitInputEditor = React.createClass({
         var { acceptingUnits, accepting } = this.props;
         acceptingUnits = acceptingUnits || [];
         var acceptingElem = null;
-        if (accepting === "some") {
+        if (accepting === SOME) {
             var unitsArr = acceptingUnits.map(name =>
                 <UnitExample name={name}
                              original={this.original || null}
                              sigfigs={this.props.sigfigs} />
             );
+
             acceptingElem = <div>
                 <input
                     type="text"
-                    value={acceptingUnits.join(", ")}
+                    defaultValue={acceptingUnits.join(", ")}
                     onChange={this.handleAcceptingUnitsChange}
                 />
                 {" "}(comma-separated)
@@ -300,27 +313,22 @@ var UnitInputEditor = React.createClass({
                          checkValidity={this._checkSigfigValidity}
                          useArrowKeys />
             <br />
-            <input type="radio"
-                   name="accepting"
-                   value={acceptAllStr}
-                   onChange={() => this._setAccepting("all")}
-                   checked={this.props.accepting === "all"} />
-            <a href="javascript: void 0;"
-               className="unit-radio"
-               onClick={() => this._setAccepting("all")}>
-               {" "}{acceptAllStr}
-            </a>
-            <br />
-            <input type="radio"
-                   name="accepting"
-                   value={acceptSomeStr}
-                   onChange={() => this._setAccepting("some")}
-                   checked={this.props.accepting === "some"} />
-            <a href="javascript: void 0;"
-               className="unit-radio"
-               onClick={() => this._setAccepting("some")}>
-               {" "}{acceptSomeStr}
-            </a>
+
+            <label>
+                <input type="radio"
+                       name="accepting"
+                       onChange={() => this._setAccepting(ALL)}
+                       checked={this.props.accepting === ALL} />
+                {" Any equivalent unit "}
+            </label>
+            <label>
+                <input type="radio"
+                       name="accepting"
+                       onChange={() => this._setAccepting(SOME)}
+                       checked={this.props.accepting === SOME} />
+                {" Only these units "}
+            </label>
+
             {acceptingElem}
         </div>;
     },
@@ -373,7 +381,7 @@ var UnitInputEditor = React.createClass({
             warnings.push("answer did not parse");
         }
 
-        if (accepting === "some") {
+        if (accepting === SOME) {
             if (acceptingUnits.length === 0) {
                 warnings.push("there are no accepted units");
             }
@@ -391,7 +399,7 @@ module.exports = {
         return OldUnitInput;
     },
     editor: UnitInputEditor,
-    transform: x => x,
+    transform: x => lens(x).del(["value"]).freeze(),
     version: { major: 0, minor: 1 },
     countSigfigs,
     hidden: true,
