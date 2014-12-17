@@ -16,15 +16,23 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 var assert = require("../interactive2/interactive-util.js").assert;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
 
-// Set the input sizes through JS so we can control the size of the brackets.
-// (If we set them in CSS we won't know values until the inputs are rendered.)
-var INPUT_MARGIN = 3;
-var INPUT_HEIGHT = 30;
-var INPUT_WIDTH = 40;
-
 // Really large matrices will cause issues with question formatting, so we
 // have to cap it at some point.
 var MAX_BOARD_SIZE = 6;
+
+// We store two sets of dimensions for the brackets, because mobile formatting
+// is different. These dimensions come from `matrix.less`.
+var MOBILE_DIMENSIONS = {
+    INPUT_MARGIN: 4,
+    INPUT_HEIGHT: 38,
+    INPUT_WIDTH: 82
+};
+
+var NORMAL_DIMENSIONS = {
+    INPUT_MARGIN: 3,
+    INPUT_HEIGHT: 30,
+    INPUT_WIDTH: 40
+};
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
  * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -122,6 +130,13 @@ var Matrix = React.createClass({
     },
 
     render: function() {
+        // Set the input sizes through JS so we can control the size of the
+        // brackets. (If we set them in CSS we won't know values until the
+        // inputs are rendered.)
+        var dimensions = this.props.apiOptions.staticRender ?
+                MOBILE_DIMENSIONS : NORMAL_DIMENSIONS;
+        var { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
+
         var matrixSize = getMatrixSize(this.props.answers);
         var maxRows = this.props.matrixBoardSize[0];
         var maxCols = this.props.matrixBoardSize[1];
@@ -276,6 +291,10 @@ var Matrix = React.createClass({
     },
 
     blurInputPath: function(path) {
+        if (path.length === 0) {
+            path = getDefaultPath();
+        }
+
         var inputID = getRefForPath(path);
         this.refs[inputID].blur();
     },

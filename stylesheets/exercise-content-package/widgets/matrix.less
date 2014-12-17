@@ -25,6 +25,7 @@
         margin: @margin;
         padding: @padding;
         position: relative;
+        width: auto;
     }
 
     .matrix-row {
@@ -83,6 +84,29 @@
             &.outside {
                 background: #444;
             }
+        }
+    }
+}
+
+body.mobile {
+    .perseus-matrix {
+        .matrix-input {
+            display: table;
+        }
+
+        .matrix-row {
+            display: table-row;
+        }
+
+        .matrix-input-field {
+            display: table-cell;
+        }
+
+        .math-output {
+            margin: 4px 4px 2px 4px;
+            max-height: 36px;
+            max-width: 80px;
+            overflow: hidden;
         }
     }
 }
