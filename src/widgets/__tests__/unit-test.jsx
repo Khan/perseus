@@ -56,6 +56,16 @@ describe("Unit Widget Grading", () => {
         assert.equal(maybeValid.earned, 1);
     });
 
+    it("handles loss of precision gracefully", () => {
+        var maybeValid = UnitWidget.validate("1.12 lb", {
+            value: "5 N",
+            accepting: "some",
+            acceptingUnits: ["lb"],
+            sigfigs: 3,
+        });
+        assert.equal(maybeValid.earned, 1);
+    });
+
     it("flags incorrect units", () => {
         var maybeValid = UnitWidget.validate("5 tbsp", {
             value: "5 m",

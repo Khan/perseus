@@ -113,7 +113,7 @@ var primUnits = function(expr) {
 
 _.extend(OldUnitInput, {
     validate: function(state, rubric) {
-        var answer = KAS.unitParse(rubric.value);
+        var answer = KAS.unitParse(rubric.value).expr;
         var guess = KAS.unitParse(state);
         if (!guess.parsed) {
             return  {
@@ -136,25 +136,37 @@ _.extend(OldUnitInput, {
             message = $._("Check your significant figures.");
         }
 
-        var simplifiedGuess = guess.expr.simplify();
-        var guessNumeric = simplifiedGuess.terms[0].eval();
-        var guessUnit = primUnits(simplifiedGuess);
-
-        var simplifiedAnswer = answer.expr.simplify();
-        var answerNumeric = simplifiedAnswer.terms[0].eval();
-        var answerUnit = primUnits(simplifiedAnswer);
-
         // now we need to check that the answer is correct to the precision we
         // require.
-        var lower
-        var numericallyCorrect =
-            Number(answerNumeric).toPrecision(sigfigs) ===
-            Number(guessNumeric).toPrecision(sigfigs);
+        var numericallyCorrect;
+        try {
+            var x = new KAS.Var("x");
+            var equality = new KAS.Eq(
+                answer.simplify(),
+                "=",
+                new KAS.Mul(x, guess.expr.simplify())
+            );
+
+            var conversion = equality.solveLinearEquationForVariable(x);
+
+            // Make sure the conversion factor between the user's input answer
+            // and the canonical answer is 1, to sigfig places.
+            // TODO(joel) is this sound?
+            numericallyCorrect =
+                Number(conversion.eval()).toPrecision(sigfigs) ===
+                Number(1).toPrecision(sigfigs);
+        } catch (e) {
+            numericallyCorrect = false;
+        }
+
         if (!numericallyCorrect) {
             message = $._("That answer is numerically incorrect.");
         }
 
         var kasCorrect;
+        var guessUnit = primUnits(guess.expr.simplify());
+        var answerUnit = primUnits(answer.simplify());
+
         if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
             // out if the user's unit is equivalent to the author's unit.
