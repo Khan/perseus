@@ -34,11 +34,15 @@ var OldUnitInput = React.createClass({
         value: React.PropTypes.string,
     },
 
+    getDefaultProps: function() {
+        return { value: "" };
+    },
+
     // TODO(joel) think about showing the error buddy
     render: function() {
         return <div className="old-unit-input">
             <input onChange={this.handleChange}
-                   value={this.props.value || ""}
+                   value={this.props.value}
                    onBlur={this.handleBlur} />
             <div ref="error"
                  className="error"
@@ -69,7 +73,7 @@ var OldUnitInput = React.createClass({
 
     componentDidUpdate: function() {
         clearTimeout(this._errorTimeout);
-        if (KAS.unitParse(this.props.value || "").parsed) {
+        if (KAS.unitParse(this.props.value).parsed) {
             this._hideError();
         } else {
             this._errorTimeout = setTimeout(this._showError, 2000);
@@ -82,7 +86,7 @@ var OldUnitInput = React.createClass({
 
     handleBlur: function() {
         clearTimeout(this._errorTimeout);
-        if (!KAS.unitParse(this.props.value || "").parsed) {
+        if (!KAS.unitParse(this.props.value).parsed) {
             this._showError();
         }
     },
@@ -225,8 +229,8 @@ var UnitExample = React.createClass({
         </div>;
     },
 
-    componentWillReceiveProps: function(nextprops) {
-        this._checkValidity(nextprops);
+    componentWillReceiveProps: function(nextProps) {
+        this._checkValidity(nextProps);
     },
 
     componentWillMount: function() {
@@ -319,32 +323,37 @@ var UnitInputEditor = React.createClass({
         }
 
         return <div>
-            <input value={this.props.value}
-                   onBlur={this._handleBlur}
-                   onKeyPress={this._handleBlur}
-                   onChange={this.onChange} />
-            <br />
-            Significant Figures:{" "}
-            <NumberInput value={this.props.sigfigs}
-                         onChange={this.handleSigfigChange}
-                         checkValidity={this._checkSigfigValidity}
-                         useArrowKeys />
-            <br />
+            <div>
+                <input value={this.props.value}
+                       onBlur={this._handleBlur}
+                       onKeyPress={this._handleBlur}
+                       onChange={this.onChange} />
+            </div>
 
-            <label>
-                <input type="radio"
-                       name="accepting"
-                       onChange={() => this._setAccepting(ALL)}
-                       checked={this.props.accepting === ALL} />
-                {" Any equivalent unit "}
-            </label>
-            <label>
-                <input type="radio"
-                       name="accepting"
-                       onChange={() => this._setAccepting(SOME)}
-                       checked={this.props.accepting === SOME} />
-                {" Only these units "}
-            </label>
+            <div>
+                Significant Figures:{" "}
+                <NumberInput value={this.props.sigfigs}
+                             onChange={this.handleSigfigChange}
+                             checkValidity={this._checkSigfigValidity}
+                             useArrowKeys />
+            </div>
+
+            <div>
+                <label>
+                    <input type="radio"
+                           name={this.groupId}
+                           onChange={() => this._setAccepting(ALL)}
+                           checked={this.props.accepting === ALL} />
+                    {" Any equivalent unit "}
+                </label>
+                <label>
+                    <input type="radio"
+                           name={this.groupId}
+                           onChange={() => this._setAccepting(SOME)}
+                           checked={this.props.accepting === SOME} />
+                    {" Only these units "}
+                </label>
+            </div>
 
             {acceptingElem}
         </div>;
@@ -371,11 +380,12 @@ var UnitInputEditor = React.createClass({
     },
 
     componentWillMount: function() {
+        this.groupId = _.uniqueId("accepting");
         this._doOriginal(this.props);
     },
 
-    componentWillReceiveProps: function(nextprops) {
-        this._doOriginal(nextprops);
+    componentWillReceiveProps: function(nextProps) {
+        this._doOriginal(nextProps);
     },
 
     _doOriginal: function(props) {
