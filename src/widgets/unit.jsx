@@ -13,6 +13,7 @@ var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
 
 var ALL = "all";
 var SOME = "some";
+var MAX_SIGFIGS = 10;
 
 var countSigfigs = function(value) {
     return new SignificantFigures(value).sigFigs;
@@ -237,10 +238,14 @@ var UnitExample = React.createClass({
             );
             try {
                 var answer = equality.solveLinearEquationForVariable(x);
-                // TODO(joel) - the third parameter is "the least significant
-                // decimal place". Figure out what that means.
+
+                // The third parameter is the least significant decimal place.
+                // I.e. the index of the last place you care about
+                // (543210.(-1)(-2)(-3) etc). We use -10 because that should
+                // always be safe since we only care up to maximum 10 decimal
+                // places.
                 solvedExample = displaySigFigs(
-                    answer.eval(), sigfigs, 0, true
+                    answer.eval(), sigfigs, -MAX_SIGFIGS, true
                 );
 
                 valid = KAS.compare(
@@ -346,7 +351,7 @@ var UnitInputEditor = React.createClass({
     },
 
     _checkSigfigValidity: function(sigfigs) {
-        return sigfigs > 0 && sigfigs <= 10;
+        return sigfigs > 0 && sigfigs <= MAX_SIGFIGS;
     },
 
     _setAccepting: function(val) {
@@ -385,10 +390,8 @@ var UnitInputEditor = React.createClass({
             warnings.push("answer did not parse");
         }
 
-        if (accepting === SOME) {
-            if (acceptingUnits.length === 0) {
-                warnings.push("there are no accepted units");
-            }
+        if (accepting === SOME && acceptingUnits.length === 0) {
+            warnings.push("there are no accepted units");
         }
 
         return warnings;
