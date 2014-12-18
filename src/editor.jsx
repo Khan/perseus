@@ -18,13 +18,6 @@ var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
 
 var shortcutRegexp = /^\[\[([a-z]+)$/; // like [[nu, [[int, etc
 
-var WidgetSelectOption = React.createClass({
-    render: function() {
-        return <option value={this.props.name}>
-            {this.props.displayName}
-        </option>;
-    }
-});
 var ENDS_WITH_A_PARAGRAPH = /(?:\n{2,}|^\n*)$/;
 var TRAILING_NEWLINES = /(\n*)$/;
 var LEADING_NEWLINES = /^(\n*)/;

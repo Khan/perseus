@@ -584,18 +584,6 @@ var Util = {
         img.src = SvgImage.getRealImageUrl(url);
     },
 
-    /**
-     * Inserts new content in a text at the specified position
-     *
-     * @param {string} text - The text where the new content will be added
-     * @param {string} content - The content to add
-     * @param {Array} pos - ([startPos, endPos]) It determines the area where the new content will be placed
-     * @return {string} - The new text
-     */
-    insertContent: function(text, content, pos) {
-        return text.slice(0, pos[0]) + content + text.slice(pos[1]);
-    },
-
     textarea: {
 
         /**
