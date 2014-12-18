@@ -53,6 +53,10 @@ var Widgets = {
         }));
     },
 
+    getAllWidgetTypes: function() {
+        return _.keys(widgets);
+    },
+
     upgradeWidgetInfoToLatestVersion: function(oldWidgetInfo) {
         var type = oldWidgetInfo.type;
         if (!_.isString(type)) {

@@ -3,6 +3,7 @@ var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
 var DragTarget = require("react-components/drag-target.jsx");
+var EnabledFeatures = require("./enabled-features.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
@@ -24,6 +25,22 @@ var WidgetSelectOption = React.createClass({
         </option>;
     }
 });
+var ENDS_WITH_A_PARAGRAPH = /(?:\n{2,}|^\n*)$/;
+var TRAILING_NEWLINES = /(\n*)$/;
+var LEADING_NEWLINES = /^(\n*)/;
+
+var makeEndWithAParagraphIfNecessary = (content) => {
+    if (!ENDS_WITH_A_PARAGRAPH.test(content)) {
+        var newlines = TRAILING_NEWLINES.exec(content)[1];
+        return content + "\n\n".slice(0, 2 - newlines.length);
+    } else {
+        return content;
+    }
+};
+var makeStartWithAParagraphAlways = (content) => {
+    var newlines = LEADING_NEWLINES.exec(content)[1];
+    return "\n\n".slice(0, 2 - newlines.length) + content;
+};
 
 var WidgetSelect = React.createClass({
     componentWillMount: function() {
@@ -386,7 +403,7 @@ var Editor = React.createClass({
             this.widgetIds = _.keys(widgets);
             widgetsDropDown = <WidgetSelect
                     ref="widgetSelect"
-                    onChange={this.addWidget} />;
+                    onChange={this._addWidget} />;
 
             templatesDropDown = <select onChange={this.addTemplate}>
                 <option value="">Insert template{"\u2026"}</option>
@@ -566,41 +583,66 @@ var Editor = React.createClass({
         }
     },
 
-    addWidget: function(widgetType) {
-        var oldContent = this.props.content;
+    _addWidgetToContent(oldContent, cursorRange, widgetType) {
         var textarea = this.refs.textarea.getDOMNode();
-        var cursorPos = textarea.selectionStart;
 
-        for (var i = 1;
-                oldContent.indexOf(
-                    widgetPlaceholder.replace('{id}', widgetType + " " + i)
-                ) > -1;
-                i++) {
-            // pass
-        }
+        // Note: we have to use _.map here instead of Array::map
+        // because the results of a .match might be null if no
+        // widgets were found.
+        var allWidgetIds = _.map(oldContent.match(rWidgetSplit), (syntax) => {
+            var match = Util.rWidgetParts.exec(syntax);
+            var type = match[2];
+            var num = +match[3];
+            return [type, num];
+        });
 
-        var id = widgetType + " " + i;
-        var widgetContent = widgetPlaceholder.replace('{id}', id) + ' ';
+        var widgetNum = _.reduce(allWidgetIds, (currentNum, otherId) => {
+            var [otherType, otherNum] = otherId;
+            if (otherType === widgetType) {
+                return Math.max(otherNum + 1, currentNum);
+            } else {
+                return currentNum;
+            }
+        }, 1);
 
-        // Add newlines before "big" widgets like graphs
-        if (widgetType !== "input-number" && widgetType !== "dropdown") {
-            widgetContent = "\n\n" + widgetContent;
-        }
+        var id = widgetType + " " + widgetNum;
+        var widgetContent = widgetPlaceholder.replace("{id}", id);
 
-        var newContent = Util.insertContent(
-            oldContent,
-            widgetContent,
-            [textarea.selectionStart, textarea.selectionEnd]
-        );
+        // Add newlines before block-display widgets like graphs
+        var Widget = Widgets.getWidget(widgetType, EnabledFeatures.defaults);
+        var isBlock = Widget.displayMode === "block";
+        var prelude = oldContent.slice(0, cursorRange[0]);
+        var postlude = oldContent.slice(cursorRange[1]);
+
+        var newPrelude = isBlock ?
+            makeEndWithAParagraphIfNecessary(prelude) :
+            prelude;
+        var newPostlude = isBlock ?
+            makeStartWithAParagraphAlways(postlude) :
+            postlude;
+
+        var newContent = newPrelude + widgetContent + newPostlude;
 
         this.props.onChange({
             content: newContent
         }, function() {
             Util.textarea.moveCursor(
                 textarea,
-                cursorPos + widgetContent.length
+                // We want to put the cursor after the widget
+                // and after any added newlines
+                newContent.length - postlude.length
             );
         });
+    },
+
+    _addWidget: function(widgetType) {
+        var textarea = this.refs.textarea.getDOMNode();
+        this._addWidgetToContent(
+            this.props.content,
+            [textarea.selectionStart, textarea.selectionEnd],
+            widgetType
+        );
+        textarea.focus();
     },
 
     addTemplate: function(e) {
