@@ -13,6 +13,7 @@ The current widgets which have input boxes are:
  - number-line
  - transformer
  - simulator
+ - unit
 
 The main data used is the "input path", which is a list of strings uniquely
 identifying the specific input box. A path might look like

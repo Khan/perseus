@@ -6,6 +6,7 @@
 var _ = require("underscore");
 var lens = require("../../hubble/index.js");
 
+var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var NumberInput = require("../components/number-input.jsx");
@@ -35,14 +36,20 @@ var OldUnitInput = React.createClass({
     },
 
     getDefaultProps: function() {
-        return { value: "" };
+        return {
+            apiOptions: ApiOptions.defaults,
+            value: "",
+        };
     },
 
     // TODO(joel) think about showing the error buddy
     render: function() {
         return <div className="old-unit-input">
             <input onChange={this.handleChange}
+                   ref="input"
+                   className={ApiClassNames.INTERACTIVE}
                    value={this.props.value}
+                   onFocus={this.handleFocus}
                    onBlur={this.handleBlur} />
             <div ref="error"
                  className="error"
@@ -85,6 +92,7 @@ var OldUnitInput = React.createClass({
     },
 
     handleBlur: function() {
+        this.props.onBlur([]);
         clearTimeout(this._errorTimeout);
         if (!KAS.unitParse(this.props.value).parsed) {
             this._showError();
@@ -103,6 +111,42 @@ var OldUnitInput = React.createClass({
     getUserInput: function() {
         return this.props.value;
     },
+
+    // begin mobile stuff
+
+    getInputPaths: function() {
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
+    },
+
+    focusInputPath: function(inputPath) {
+        this.refs.input.focus();
+    },
+
+    handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    blurInputPath: function(inputPath) {
+        this.refs.input.blur();
+    },
+
+    setInputValue: function(path, newValue, cb) {
+        this.props.onChange({
+            value: newValue
+        }, cb);
+    },
+
+    getDOMNodeForPath: function() {
+        return this.refs.input.getDOMNode();
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        return "unit";
+    },
+
+    // end mobile stuff
 
     statics: {
         displayMode: "inline-block",
