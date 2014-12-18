@@ -122,7 +122,7 @@ var OldUnitInput = React.createClass({
     },
 
     focusInputPath: function(inputPath) {
-        this.refs.input.focus();
+        this.refs.input.getDOMNode().focus();
     },
 
     handleFocus: function() {
@@ -130,7 +130,7 @@ var OldUnitInput = React.createClass({
     },
 
     blurInputPath: function(inputPath) {
-        this.refs.input.blur();
+        this.refs.input.getDOMNode().blur();
     },
 
     setInputValue: function(path, newValue, cb) {
