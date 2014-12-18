@@ -6,6 +6,7 @@
 var _ = require("underscore");
 var lens = require("../../hubble/index.js");
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
