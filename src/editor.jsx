@@ -43,31 +43,27 @@ var makeStartWithAParagraphAlways = (content) => {
 };
 
 var WidgetSelect = React.createClass({
-    componentWillMount: function() {
-        this.widgets = Widgets.getPublicWidgets();
-        this.shortcuts = (() => {
-            var list = {};
-
-            _.map(_.sortBy(this.widgets, 'shortcut'), (widget) => {
-                var shortcut = '';
-
-                if (widget.shortcut) {
-                    shortcut = widget.shortcut;
-                } else {
-                    var i = 0;
-
-                    do {
-                        shortcut += widget.name.charAt(i++);
-                    } while (list[shortcut]);
-                }
-
-                list[shortcut] = widget.name;
-            });
-
-            return list;
-        })();
-        this.shortcutsByName = _.invert(this.shortcuts);
+    shouldComponentUpdate: function() {
+        return false;
     },
+
+    render: function() {
+        var widgets = Widgets.getPublicWidgets();
+        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
+            return widgets[name].displayName;
+        });
+
+        return <select value="" onChange={this.handleChange}>
+            <option value="">Add a widget{"\u2026"}</option>
+            <option disabled>--</option>
+            {_.map(orderedWidgetNames, (name) => {
+                return <option key={name} value={name}>
+                    {widgets[name].displayName}
+                </option>;
+            })}
+        </select>;
+    },
+
     handleChange: function(e) {
         var widgetType = e.target.value;
         if (widgetType === "") {
@@ -75,31 +71,10 @@ var WidgetSelect = React.createClass({
             // but might as well be safe
             return;
         }
-        e.target.value = "";
         if (this.props.onChange) {
             this.props.onChange(widgetType);
         }
     },
-    shouldComponentUpdate: function() {
-        return false;
-    },
-    render: function() {
-        var orderedWidgetNames = _.sortBy(_.keys(this.widgets), (name) => {
-            return this.widgets[name].displayName;
-        });
-
-        return <select onChange={this.handleChange}>
-            <option value="">Add a widget{"\u2026"}</option>
-            <option disabled>--</option>
-            {_.map(orderedWidgetNames, (name) => {
-                var shortcut = this.shortcutsByName[name];
-
-                return <option key={name} value={name}>
-                    {this.widgets[name].displayName}
-                </option>;
-            })}
-        </select>;
-    }
 });
 
 
@@ -440,7 +415,7 @@ var Editor = React.createClass({
                 <textarea ref="textarea"
                           key="textarea"
                           onChange={this.handleChange}
-                          onKeyDown={this.handleKeyDown}
+                          onKeyDown={this._handleKeyDown}
                           placeholder={this.props.placeholder}
                           value={this.props.content} />
             ];
@@ -553,30 +528,29 @@ var Editor = React.createClass({
         this.props.onChange({content: textarea.value});
     },
 
-    handleKeyDown: function(e) {
-        if ([9, 13, 32].indexOf(e.keyCode) !== -1) {
-            var select = this.refs.widgetSelect;
+    _handleKeyDown: function(e) {
+        if (e.key === "Tab") {
             var textarea = this.refs.textarea.getDOMNode();
 
             var word = Util.textarea.getWordBeforeCursor(textarea);
             var matches = word.string.toLowerCase().match(shortcutRegexp);
 
-            if (matches !== null && select.shortcuts[matches[1]]) {
-                var newContent = Util.insertContent(
-                    textarea.value,
-                    "",
-                    [word.pos.start, word.pos.end + 1]
-                );
-
-                this.props.onChange({ content: newContent }, () => {
-                    Util.textarea.moveCursor(textarea, word.pos.start);
-
-                    var widget = select.refs[matches[1]].getDOMNode();
-
-                    if (widget) {
-                        select.props.onChange(widget.getAttribute('value'));
-                    }
+            if (matches != null) {
+                var text = matches[1];
+                var widgets = Widgets.getAllWidgetTypes();
+                var matchingWidgets = _.filter(widgets, (name) => {
+                    return name.substring(0, text.length) === text;
                 });
+
+                if (matchingWidgets.length === 1) {
+                    var widgetType = matchingWidgets[0];
+
+                    this._addWidgetToContent(
+                        this.props.content,
+                        [word.pos.start, word.pos.end + 1],
+                        widgetType
+                    );
+                }
 
                 e.preventDefault();
             }
