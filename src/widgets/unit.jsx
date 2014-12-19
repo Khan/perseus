@@ -21,6 +21,10 @@ var countSigfigs = function(value) {
     return new SignificantFigures(value).sigFigs;
 };
 
+var sigfigPrint = function(num, sigfigs) {
+    return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
+};
+
 /* I just wrote this, but it's old by analogy to `OldExpression`, in that it's
  * the version that non-mathquill platforms get stuck with. Constructed with an
  * <input>, a parser, popsicle sticks, and glue.
@@ -63,6 +67,10 @@ var OldUnitInput = React.createClass({
     _errorTimeout: null,
 
     _showError: function() {
+        if (this.props.value === "") {
+            return;
+        }
+
         var $error = $(this.refs.error.getDOMNode());
         if (!$error.is(":visible")) {
             $error.css({ top: 50, opacity: 0.1 }).show()
@@ -101,6 +109,7 @@ var OldUnitInput = React.createClass({
     },
 
     handleChange: function(event) {
+        this._hideError();
         this.props.onChange({ value: event.target.value });
     },
 
@@ -305,9 +314,7 @@ var UnitExample = React.createClass({
                 // (543210.(-1)(-2)(-3) etc). We use -10 because that should
                 // always be safe since we only care up to maximum 10 decimal
                 // places.
-                solvedExample = displaySigFigs(
-                    answer.eval(), sigfigs, -MAX_SIGFIGS, true
-                );
+                solvedExample = sigfigPrint(answer.eval(), sigfigs);
 
                 valid = KAS.compare(
                     primUnits(original),
@@ -367,12 +374,18 @@ var UnitInputEditor = React.createClass({
             </div>;
         }
 
-        return <div>
+        return <div className="unit-editor">
             <div>
                 <input value={this.props.value}
+                       className="unit-editor-canonical"
                        onBlur={this._handleBlur}
                        onKeyPress={this._handleBlur}
                        onChange={this.onChange} />
+                {" "}
+                {this.parsed ?
+                    <i className="icon-ok unit-example-okay" /> :
+                    <i className="icon-remove unit-example-not-okay" />
+                }
             </div>
 
             <div>
@@ -435,12 +448,14 @@ var UnitInputEditor = React.createClass({
 
     _doOriginal: function(props) {
         var tryParse = KAS.unitParse(props.value);
+        this.parsed = false;
 
         // Only update this state if the unit parsed *and* it has a magnitude
         // attached to it. KAS can also parse units without magnitudes ("1.2
         // g" vs "g").
         if (tryParse.parsed && tryParse.type === "unitMagnitude") {
             this.original = tryParse.expr;
+            this.parsed = true;
         }
     },
 
@@ -476,5 +491,6 @@ module.exports = {
     transform: x => lens(x).del(["value"]).freeze(),
     version: { major: 0, minor: 1 },
     countSigfigs,
+    sigfigPrint,
     hidden: true,
 };

@@ -4,7 +4,7 @@ var assert = require("assert");
 // var TestUtils = React.addons.TestUtils;
 // var delayedPromise = require("../../testutils/delayed-promise.jsx");
 
-var { getWidget, countSigfigs } = require("../unit.jsx");
+var { getWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
 var UnitWidget = getWidget();
 
 describe("countSigfigs", () => {
@@ -14,6 +14,15 @@ describe("countSigfigs", () => {
         assert.equal(countSigfigs("5.00"), 3);
         assert.equal(countSigfigs("5.01"), 3);
         assert.equal(countSigfigs("05.01"), 3);
+    });
+});
+
+describe("displaySigFigs", () => {
+    it("gets a few simple cases right", () => {
+        assert.equal(sigfigPrint(150, 3), "150.");
+        assert.equal(sigfigPrint(0.0005, 2), "5.0 x 10^-4");
+        assert.equal(sigfigPrint(15000, 2), "1.5 x 10^4");
+        assert.equal(sigfigPrint(50, 2), "50.");
     });
 });
 

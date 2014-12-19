@@ -111,7 +111,7 @@ function displaySigFigs(f, sigFigs, sigDecs, scientific){
             }
         }
     }
-    var useScientific = (scientific || mantissa.length > 20 || order > 21 || order < -5 ||
+    var useScientific = (scientific || mantissa.length > 20 || order > 4 || order < -2 ||
 		    (order - mantissa.length > 0 && trailingZeros(mantissa) > 0) || zeroScientific);
     var returnVal = "";
     if (!positive){
