@@ -1,4 +1,5 @@
 var _ = require("underscore");
+var InteractiveUtil = require("./interactive-util.js");
 var WrappedDefaults = require("./wrapped-defaults.js");
 var kpoint = require("kmath").point;
 var kvector = require("kmath").vector;
@@ -64,9 +65,10 @@ _.extend(WrappedLine.prototype, WrappedDefaults, {
         var scale = KhanUtil.bound(lineLength / this.initialLength);
 
         // Construct and apply transformation string
+        var do3dTransform = InteractiveUtil.getCanUse3dTransform();
         var transformation = "translateX(" + delta[0] + "px) " +
                              "translateY(" + delta[1] + "px) " +
-                             "translateZ(0) " +
+                             (do3dTransform ? " translateZ(0)" : "") +
                              "rotate(" + angle + "deg) " +
                              "scaleX(" + scale + ") scaleY(1)";
         this.transform(transformation);
