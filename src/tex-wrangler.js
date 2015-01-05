@@ -115,10 +115,7 @@ function walkTex(tex, handler) {
     }
 
     // Add remaining TeX, which is \dfrac-free
-    var rightEndpoint = findEndpoint(
-        tex, currentIndex
-    );
-    parsedString += tex.substring(currentIndex, rightEndpoint);
+    parsedString += tex.slice(currentIndex);
 
     return parsedString;
 }
