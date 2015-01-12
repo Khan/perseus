@@ -367,11 +367,6 @@ var Plotter = React.createClass({
                     );
                 }
             }
-
-            // Align top of bar to edge unless at bottom
-            if (height) {
-                config.graph.lines[i].visibleLine.translate(0, 2);
-            }
         };
 
         graphie.style({
