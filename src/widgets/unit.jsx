@@ -10,6 +10,7 @@ var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var MathOutput   = require("../components/math-output.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
 
@@ -49,13 +50,20 @@ var OldUnitInput = React.createClass({
 
     // TODO(joel) think about showing the error buddy
     render: function() {
+        var inputType = this.props.apiOptions.staticRender ?
+                MathOutput.createFactory() :
+                React.DOM.input;
+        var input = inputType({
+            onChange: this.handleChange,
+            ref: "input",
+            className: ApiClassNames.INTERACTIVE,
+            value: this.props.value,
+            onFocus: this.handleFocus,
+            onBlur: this.handleBlur,
+        });
+
         return <div className="old-unit-input">
-            <input onChange={this.handleChange}
-                   ref="input"
-                   className={ApiClassNames.INTERACTIVE}
-                   value={this.props.value}
-                   onFocus={this.handleFocus}
-                   onBlur={this.handleBlur} />
+            {input}
             <div ref="error"
                  className="error"
                  style={{display: "none"}}>
