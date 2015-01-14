@@ -4,7 +4,7 @@ var cx = React.addons.classSet;
 var WidgetContainer = React.createClass({
     propTypes: {
         shouldHighlight: React.PropTypes.bool.isRequired,
-        type: React.PropTypes.func.isRequired,
+        type: React.PropTypes.func,
         initialProps: React.PropTypes.object.isRequired,
     },
 
