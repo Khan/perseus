@@ -51,7 +51,7 @@ var OldUnitInput = React.createClass({
     // TODO(joel) think about showing the error buddy
     render: function() {
         var inputType = this.props.apiOptions.staticRender ?
-                MathOutput.createFactory() :
+                React.createFactory(MathOutput) :
                 React.DOM.input;
         var input = inputType({
             onChange: this.handleChange,
