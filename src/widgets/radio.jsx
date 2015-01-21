@@ -261,8 +261,7 @@ var Radio = React.createClass({
         var noneOfTheAboveSelected = _.any(choices, (choice, i) => {
             return choice.isNoneOfTheAbove && values[i];
         });
-        return this.props.questionCompleted && this.props.noneOfTheAbove &&
-                    noneOfTheAboveSelected;
+        return this.props.questionCompleted && noneOfTheAboveSelected;
     },
 
     focus: function(i) {
@@ -441,7 +440,12 @@ var RadioEditor = React.createClass({
                     <PropCheckBox label="Auto-none of the above"
                                   labelAlignment="right"
                                   noneOfTheAbove={this.props.noneOfTheAbove}
-                                  onChange={this.props.onChange} />
+                                  onChange={(e) => {
+                                    var rand = seededRNG(this.props.problemNum)();
+                                    var index = Math.floor(rand * this.props.choices.length);
+
+                                    this.setNoneOfTheAbove(index, e.noneOfTheAbove, true);
+                                  }} />
                 </div>
                 <div className="perseus-widget-right-col">
                     <PropCheckBox label="Radio deselect enabled"
@@ -490,6 +494,17 @@ var RadioEditor = React.createClass({
                             onClick={this.onDelete.bind(this, i)}>
                         <span className="icon-trash" />
                     </a>;
+                    var asNoneOfTheAbove = <label>
+                        <input
+                            type="checkbox"
+                            checked={choice.isNoneOfTheAbove}
+                            disabled={this.props.noneOfTheAbove}
+                            onChange={(e) => {
+                                this.setNoneOfTheAbove(i, e.target.checked);
+                            }} />
+                        {' '}As none of the above{' '}
+                    </label>;
+
                     return {
                         content: <div className="choice-clue-editors">
                             <div className={"choice-editor " + checkedClass}>
@@ -503,6 +518,7 @@ var RadioEditor = React.createClass({
                                 </div>
                             }
                             {this.props.choices.length >= 2 && deleteLink}
+                            {choice.correct && asNoneOfTheAbove}
                         </div>,
                         checked: choice.correct
                     };
@@ -518,6 +534,17 @@ var RadioEditor = React.createClass({
             </div>
 
         </div>;
+    },
+
+    setNoneOfTheAbove: function(choiceIndex, checked, auto) {
+        var choices = _.map(this.props.choices, function(choice, i) {
+            return _.extend({}, choice, { isNoneOfTheAbove: choiceIndex === i && checked });
+        });
+
+        this.props.onChange({
+            noneOfTheAbove: auto && checked,
+            choices: choices
+        });
     },
 
     onMultipleSelectChange: function(allowMultiple) {
@@ -547,8 +574,11 @@ var RadioEditor = React.createClass({
     },
 
     onCheckedChange: function(checked) {
-        var choices = _.map(this.props.choices, function(choice, i) {
-            return _.extend({}, choice, {correct: checked[i]});
+        var choices = _.map(this.props.choices, (choice, i) => {
+            return _.extend({}, choice, {
+                correct: checked[i],
+                isNoneOfTheAbove: this.props.noneOfTheAbove && choice.isNoneOfTheAbove
+            });
         });
         this.props.onChange({choices: choices});
     },
@@ -622,28 +652,31 @@ var choiceTransform = (editorProps, problemNum) => {
     };
 
     var addNoneOfAbove = function(array) {
-        // Pick a random choice to replace with 'None of the above'
-        if (!editorProps.randomize && editorProps.noneOfTheAbove) {
-            // Seed RNG with problemNum
-            var rand = seededRNG(problemNum)();
-            var randomIndex = Math.floor(rand * array.length);
-            var itemToBeReplaced = array[randomIndex];
+        var noneIndex = null;
+
+        _.find(array, function(choice, index) {
+            if (choice.isNoneOfTheAbove) {
+                noneIndex = index;
+                return true;
+            }
+        });
+
+        if (noneIndex !== null) {
+            var itemToBeReplaced = array[noneIndex];
 
             // Shift array left so that 'None of the above' is last
-            array.splice(randomIndex, 1);
+            array.splice(noneIndex, 1);
             array.push(itemToBeReplaced);
         }
 
-        array[array.length - 1].isNoneOfTheAbove = editorProps.noneOfTheAbove;
         return array;
     };
 
     // Add meta-information to choices
     var choices = editorProps.choices.slice();
+
     choices = _.map(choices, function(choice, i) {
-        return _.extend({}, _.omit(choice, "correct"),
-            { originalIndex: i, isNoneOfTheAbove: false }
-        );
+        return _.extend({}, _.omit(choice, "correct"), { originalIndex: i });
     });
 
     // Randomize and add 'None of the above'
