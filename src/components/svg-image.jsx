@@ -26,7 +26,10 @@ function isLabeledSVG(url) {
 // the base url without the suffix, and `getSvgUrl` and `getDataUrl` apply
 // appropriate suffixes to get the image and other data
 function getBaseUrl(url) {
-    return url.replace(svgLabelsRegex, "");
+    // Force HTTPS connection unless we're on HTTP, so that IE works.
+    var protocol = window.location.protocol === "http:" ? "http:" : "https:";
+
+    return url.replace(svgLabelsRegex, protocol);
 }
 
 function getSvgUrl(url) {
