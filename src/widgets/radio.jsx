@@ -504,7 +504,7 @@ var RadioEditor = React.createClass({
                                 </div>
                             }
                             {this.props.choices.length >= 2 && deleteLink}
-                            {choice.correct && asNoneOfTheAbove}
+                            {asNoneOfTheAbove}
                         </div>,
                         checked: choice.correct
                     };
@@ -524,7 +524,12 @@ var RadioEditor = React.createClass({
 
     setNoneOfTheAbove: function(choiceIndex, checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
-            return _.extend({}, choice, { isNoneOfTheAbove: choiceIndex === i && checked });
+            isNoneOfTheAbove = choiceIndex === i && checked;
+
+            return _.extend({}, choice, {
+                isNoneOfTheAbove: isNoneOfTheAbove,
+                content: isNoneOfTheAbove && !choice.correct ? '' : choice.content
+            });
         });
 
         this.props.onChange({ choices: choices });
@@ -560,7 +565,7 @@ var RadioEditor = React.createClass({
         var choices = _.map(this.props.choices, (choice, i) => {
             return _.extend({}, choice, {
                 correct: checked[i],
-                isNoneOfTheAbove: false
+                content: choice.isNoneOfTheAbove && !checked[i] ? '' : choice.content
             });
         });
         this.props.onChange({choices: choices});
