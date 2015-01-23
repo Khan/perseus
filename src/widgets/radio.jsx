@@ -385,7 +385,6 @@ var RadioEditor = React.createClass({
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
-        noneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
@@ -396,7 +395,6 @@ var RadioEditor = React.createClass({
             choices: [{}, {}],
             displayCount: null,
             randomize: false,
-            noneOfTheAbove: false,
             multipleSelect: false,
             onePerLine: true,
             deselectEnabled: false,
@@ -407,45 +405,34 @@ var RadioEditor = React.createClass({
         return <div>
             <div className="perseus-widget-row">
 
-                <div>
-                    <div className="perseus-widget-left-col">
+                <div className="perseus-widget-left-col">
+                    <div>
                         <PropCheckBox label="One answer per line"
                                       labelAlignment="right"
                                       onePerLine={this.props.onePerLine}
                                       onChange={this.props.onChange} />
+                        <InfoTip>
+                            <p>
+                                Use one answer per line unless your question has
+                                images that might cause the answers to go off the
+                                page.
+                            </p>
+                        </InfoTip>
                     </div>
-                    <InfoTip>
-                        <p>
-                            Use one answer per line unless your question has
-                            images that might cause the answers to go off the
-                            page.
-                        </p>
-                    </InfoTip>
                 </div>
 
-                <div className="perseus-widget-left-col">
+                <div className="perseus-widget-right-col">
                     <PropCheckBox label="Multiple selections"
                                   labelAlignment="right"
                                   multipleSelect={this.props.multipleSelect}
                                   onChange={this.onMultipleSelectChange} />
                 </div>
 
-                <div className="perseus-widget-right-col">
+                <div className="perseus-widget-left-col">
                     <PropCheckBox label="Randomize order"
                                   labelAlignment="right"
                                   randomize={this.props.randomize}
                                   onChange={this.props.onChange} />
-                </div>
-                <div className="perseus-widget-left-col">
-                    <PropCheckBox label="Auto-none of the above"
-                                  labelAlignment="right"
-                                  noneOfTheAbove={this.props.noneOfTheAbove}
-                                  onChange={(e) => {
-                                    var rand = seededRNG(this.props.problemNum)();
-                                    var index = Math.floor(rand * this.props.choices.length);
-
-                                    this.setNoneOfTheAbove(index, e.noneOfTheAbove, true);
-                                  }} />
                 </div>
                 <div className="perseus-widget-right-col">
                     <PropCheckBox label="Radio deselect enabled"
@@ -498,7 +485,6 @@ var RadioEditor = React.createClass({
                         <input
                             type="checkbox"
                             checked={choice.isNoneOfTheAbove}
-                            disabled={this.props.noneOfTheAbove}
                             onChange={(e) => {
                                 this.setNoneOfTheAbove(i, e.target.checked);
                             }} />
@@ -536,15 +522,12 @@ var RadioEditor = React.createClass({
         </div>;
     },
 
-    setNoneOfTheAbove: function(choiceIndex, checked, auto) {
+    setNoneOfTheAbove: function(choiceIndex, checked) {
         var choices = _.map(this.props.choices, function(choice, i) {
             return _.extend({}, choice, { isNoneOfTheAbove: choiceIndex === i && checked });
         });
 
-        this.props.onChange({
-            noneOfTheAbove: auto && checked,
-            choices: choices
-        });
+        this.props.onChange({ choices: choices });
     },
 
     onMultipleSelectChange: function(allowMultiple) {
@@ -577,7 +560,7 @@ var RadioEditor = React.createClass({
         var choices = _.map(this.props.choices, (choice, i) => {
             return _.extend({}, choice, {
                 correct: checked[i],
-                isNoneOfTheAbove: this.props.noneOfTheAbove && choice.isNoneOfTheAbove
+                isNoneOfTheAbove: false
             });
         });
         this.props.onChange({choices: choices});
@@ -636,8 +619,7 @@ var RadioEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "noneOfTheAbove", "onePerLine",
-            "deselectEnabled");
+            "multipleSelect", "displayCount", "onePerLine", "deselectEnabled");
     }
 });
 
@@ -683,7 +665,7 @@ var choiceTransform = (editorProps, problemNum) => {
     choices = addNoneOfAbove(randomize(choices));
 
     editorProps = _.extend({}, editorProps, { choices: choices });
-    return _.pick(editorProps, "choices", "noneOfTheAbove", "onePerLine",
+    return _.pick(editorProps, "choices", "onePerLine",
         "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
