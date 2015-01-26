@@ -2,7 +2,7 @@ var React = require('react');
 var _ = require("underscore");
 
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
-var HintRenderer = require("./hint-renderer.jsx");
+var HintsRenderer = require("./hints-renderer.jsx");
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
 var ApiOptions = require("./perseus-api.jsx").Options;
