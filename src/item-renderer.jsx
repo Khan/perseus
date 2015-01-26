@@ -75,9 +75,6 @@ var HintsRenderer = React.createClass({
     },
 });
 
-var highlightedWidgets = (widgetList) =>
-    _.filter(widgetList, Util.widgetShouldHighlight);
-
 var ItemRenderer = React.createClass({
     getDefaultProps: function() {
         return {
