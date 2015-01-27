@@ -452,17 +452,21 @@ var RadioEditor = React.createClass({
                     var checkedClass = choice.correct ?
                         "correct" :
                         "incorrect";
+                    var placeholder = choice.isNoneOfTheAbove && !choice.correct ?
+                        "None of the above" :
+                        "Type a choice here...";
+
                     var editor = <Editor
                         ref={"editor" + i}
                         content={choice.content || ""}
                         widgetEnabled={false}
-                        placeholder={"Type a choice here..."}
+                        placeholder={placeholder}
+                        disabled={choice.isNoneOfTheAbove && !choice.correct}
                         onChange={newProps => {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
                             }
-                        }}
-                    />;
+                        }} />;
                     var clueEditor = <Editor
                         ref={"clue-editor-" + i}
                         content={choice.clue || ""}
@@ -473,22 +477,31 @@ var RadioEditor = React.createClass({
                             if ("content" in newProps) {
                                 this.onClueChange(i, newProps.content);
                             }
-                        }}
-                    />;
+                        }} />;
                     var deleteLink = <a href="#"
                             className="simple-button orange delete-choice"
                             title="Remove this choice"
                             onClick={this.onDelete.bind(this, i)}>
                         <span className="icon-trash" />
                     </a>;
-                    var asNoneOfTheAbove = <label>
+                    var asNoneOfTheAbove = <label className="none-above-label">
                         <input
                             type="checkbox"
                             checked={choice.isNoneOfTheAbove}
                             onChange={(e) => {
                                 this.setNoneOfTheAbove(i, e.target.checked);
                             }} />
-                        {' '}As none of the above{' '}
+                        None of the above
+                        { choice.correct && <div className="info-tip">
+                            <InfoTip>
+                                <p>
+                                    Use it to mask the correct answer as <em>None 
+                                    of the above</em> and have it revealed only after the
+                                    user has answered correctly.
+                                </p>
+                            </InfoTip>
+                        </div>
+                        }
                     </label>;
 
                     return {

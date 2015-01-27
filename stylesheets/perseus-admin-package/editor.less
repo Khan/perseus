@@ -784,8 +784,9 @@
     }
 
     .delete-choice {
-        margin-left: 5px;
-        padding: 5px;
+        float: right;
+        margin-right: 5px;
+        padding: 0 5px;
     }
 
     .perseus-single-editor {
@@ -812,12 +813,12 @@
             top: -10px;
         }
 
-        .checkbox {
-            top: -57px;
+        .none-above-label {
+            float: left;
         }
 
-        .delete-choice {
-            top: -10px;
+        .perseus-interactive {
+            position: static;
         }
     }
 }
@@ -996,6 +997,10 @@
 // Info-tip lives in react-components but these styles are perseus-specific.
 .info-tip {
     display: inline-block;
+
+    div {
+        display: inline-block;
+    }
 }
 
 .info-tip-content-container p {

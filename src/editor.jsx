@@ -236,6 +236,7 @@ var Editor = React.createClass({
             placeholder: "",
             widgets: {},
             images: {},
+            disabled: false,
             widgetEnabled: true,
             immutableWidgets: false,
             apiOptions: ApiOptions.defaults,
@@ -410,6 +411,7 @@ var Editor = React.createClass({
                           onChange={this.handleChange}
                           onKeyDown={this._handleKeyDown}
                           placeholder={this.props.placeholder}
+                          disabled={this.props.disabled}
                           value={this.props.content} />
             ];
         var textareaWrapper;
