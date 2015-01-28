@@ -55,7 +55,8 @@ var BaseRadio = React.createClass({
                     </div>;
 
                 var classSet = {
-                    "inline": !this.props.onePerLine
+                    "inline": !this.props.onePerLine,
+                    "none-of-above": choice.isNoneOfTheAbove
                 };
                 classSet[ApiClassNames.RADIO.OPTION] = true;
                 classSet[ApiClassNames.INTERACTIVE] =
@@ -385,6 +386,7 @@ var RadioEditor = React.createClass({
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
+        noneOfAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
@@ -395,6 +397,7 @@ var RadioEditor = React.createClass({
             choices: [{}, {}],
             displayCount: null,
             randomize: false,
+            noneOfAbove: false,
             multipleSelect: false,
             onePerLine: true,
             deselectEnabled: false,
@@ -449,12 +452,13 @@ var RadioEditor = React.createClass({
                 labelWrap={false}
                 apiOptions={this.props.apiOptions}
                 choices={this.props.choices.map(function(choice, i) {
-                    var checkedClass = choice.correct ?
-                        "correct" :
-                        "incorrect";
-                    var placeholder = choice.isNoneOfTheAbove && !choice.correct ?
-                        "None of the above" :
-                        "Type a choice here...";
+                    var checkedClass = choice.correct ? "correct" : "incorrect";
+                    var placeholder = "Type a choice here...";
+
+                    if (choice.isNoneOfTheAbove) {
+                        placeholder = choice.correct ? "Type the answer to reveal to the user..." :
+                        "None of the above";
+                    }
 
                     var editor = <Editor
                         ref={"editor" + i}
@@ -484,25 +488,6 @@ var RadioEditor = React.createClass({
                             onClick={this.onDelete.bind(this, i)}>
                         <span className="icon-trash" />
                     </a>;
-                    var asNoneOfTheAbove = <label className="none-above-label">
-                        <input
-                            type="checkbox"
-                            checked={choice.isNoneOfTheAbove}
-                            onChange={(e) => {
-                                this.setNoneOfTheAbove(i, e.target.checked);
-                            }} />
-                        None of the above
-                        { choice.correct && <div className="info-tip">
-                            <InfoTip>
-                                <p>
-                                    Use it to mask the correct answer as <em>None 
-                                    of the above</em> and have it revealed only after the
-                                    user has answered correctly.
-                                </p>
-                            </InfoTip>
-                        </div>
-                        }
-                    </label>;
 
                     return {
                         content: <div className="choice-clue-editors">
@@ -517,8 +502,8 @@ var RadioEditor = React.createClass({
                                 </div>
                             }
                             {this.props.choices.length >= 2 && deleteLink}
-                            {asNoneOfTheAbove}
                         </div>,
+                        isNoneOfTheAbove: choice.isNoneOfTheAbove,
                         checked: choice.correct
                     };
                 }, this)}
@@ -526,26 +511,19 @@ var RadioEditor = React.createClass({
 
             <div className="add-choice-container">
                 <a href="#" className="simple-button orange"
-                        onClick={this.addChoice}>
+                        onClick={this.addChoice.bind(this, false)}>
                     <span className="icon-plus" />
                     {' '}Add a choice{' '}
                 </a>
+
+                {!this.props.noneOfAbove && <a href="#" className="simple-button"
+                        onClick={this.addChoice.bind(this, true)}>
+                    <span className="icon-plus" />
+                    {' '}None of the above{' '}
+                </a>}
             </div>
 
         </div>;
-    },
-
-    setNoneOfTheAbove: function(choiceIndex, checked) {
-        var choices = _.map(this.props.choices, function(choice, i) {
-            isNoneOfTheAbove = choiceIndex === i && checked;
-
-            return _.extend({}, choice, {
-                isNoneOfTheAbove: isNoneOfTheAbove,
-                content: isNoneOfTheAbove && !choice.correct ? '' : choice.content
-            });
-        });
-
-        this.props.onChange({ choices: choices });
     },
 
     onMultipleSelectChange: function(allowMultiple) {
@@ -605,17 +583,32 @@ var RadioEditor = React.createClass({
 
     onDelete: function(choiceIndex, e) {
         e.preventDefault();
+
         var choices = this.props.choices.slice();
+        var deleted = choices[choiceIndex];
+
         choices.splice(choiceIndex, 1);
-        this.props.onChange({choices: choices});
+
+        this.props.onChange({
+            choices: choices,
+            noneOfAbove: !( deleted.isNoneOfTheAbove || !this.props.noneOfAbove )
+        });
     },
 
-    addChoice: function(e) {
+    addChoice: function(noneOfAbove, e) {
         e.preventDefault();
 
         var choices = this.props.choices;
-        this.props.onChange({choices: choices.concat([{}])}, () => {
-            this.refs["editor" + choices.length].focus();
+        var newChoice = { isNoneOfTheAbove: !!noneOfAbove }
+        var insertIndex = choices.length - ( this.props.noneOfAbove | 0 );
+
+        choices.splice(insertIndex, 0, newChoice);
+
+        this.props.onChange({
+            choices: choices,
+            noneOfAbove: !!noneOfAbove || this.props.noneOfAbove
+        }, () => {
+            this.refs["editor" + insertIndex].focus();
         });
     },
 
@@ -637,7 +630,8 @@ var RadioEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "onePerLine", "deselectEnabled");
+            "multipleSelect", "displayCount", "noneOfAbove", "onePerLine",
+            "deselectEnabled");
     }
 });
 
@@ -683,7 +677,7 @@ var choiceTransform = (editorProps, problemNum) => {
     choices = addNoneOfAbove(randomize(choices));
 
     editorProps = _.extend({}, editorProps, { choices: choices });
-    return _.pick(editorProps, "choices", "onePerLine",
+    return _.pick(editorProps, "choices", "noneOfAbove", "onePerLine",
         "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 

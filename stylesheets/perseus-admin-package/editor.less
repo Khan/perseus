@@ -784,9 +784,8 @@
     }
 
     .delete-choice {
-        float: right;
-        margin-right: 5px;
-        padding: 0 5px;
+        margin-left: 5px;
+        padding: 5px;
     }
 
     .perseus-single-editor {
@@ -807,18 +806,24 @@
 }
 
 .perseus-widget-editor-content {
+    .add-choice-container {
+        .simple-button {
+            margin-right: 10px;
+        }
+    }
+
     .perseus-widget-radio {
         .checkbox, .delete-choice {
             position: relative;
             top: -10px;
         }
+    }
 
-        .none-above-label {
-            float: left;
-        }
+    .perseus-radio-option.none-of-above {
+        margin-top: 20px;
 
-        .perseus-interactive {
-            position: static;
+        .choice-editor.incorrect {
+            opacity: 0.5;
         }
     }
 }
@@ -997,10 +1002,6 @@
 // Info-tip lives in react-components but these styles are perseus-specific.
 .info-tip {
     display: inline-block;
-
-    div {
-        display: inline-block;
-    }
 }
 
 .info-tip-content-container p {
