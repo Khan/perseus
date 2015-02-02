@@ -37,7 +37,10 @@ var GraphSettings = React.createClass({
         step: React.PropTypes.arrayOf(React.PropTypes.number),
         gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
         snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-        valid: React.PropTypes.bool,
+        valid: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.string
+        ]),
         backgroundImage: React.PropTypes.object,
         markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
         showProtractor: React.PropTypes.bool,
