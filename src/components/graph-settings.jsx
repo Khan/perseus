@@ -13,10 +13,7 @@ var Util = require("../util.js");
 
 var defaultBoxSize = 340;
 var defaultBackgroundImage = {
-    url: null,
-    scale: 1,
-    bottom: 0,
-    left: 0,
+    url: null
 };
 
 function numSteps(range, step) {
@@ -180,29 +177,6 @@ var GraphSettings = React.createClass({
                         function to create a background.</p>
                     </InfoTip>
                 </div>
-                {this.props.backgroundImage.url && <div>
-                    <div>Pixels from left:{' '}
-                        <NumberInput type="text"
-                                     ref="bg-left"
-                                     value={this.props.backgroundImage.left}
-                                     onChange={
-                        _.partial(this.changeBackgroundSetting, "left")} />
-                    </div>
-                    <div>Pixels from bottom:{' '}
-                        <NumberInput type="text"
-                                     ref="bg-bottom"
-                                     value={this.props.backgroundImage.bottom}
-                                     onChange={
-                        _.partial(this.changeBackgroundSetting, "bottom")} />
-                    </div>
-                    <div>Image scale:{' '}
-                        <NumberInput type="text"
-                                     ref="bg-scale"
-                                     value={this.props.backgroundImage.scale}
-                                     onChange={
-                        _.partial(this.changeBackgroundSetting, "scale")} />
-                    </div>
-                </div>}
             </div>}
 
             {_.contains(this.props.editableSettings, "measure") &&

@@ -25,10 +25,7 @@ var Changeable   = require("../mixins/changeable.jsx");
 var defaultBoxSize = 400;
 var defaultEditorBoxSize = 340;
 var defaultBackgroundImage = {
-    url: null,
-    scale: 1,
-    bottom: 0,
-    left: 0
+    url: null
 };
 var defaultType = "linear";
 
@@ -226,11 +223,8 @@ var FunctionGrapher = React.createClass({
         var imageDescription = this.props.graph.backgroundImage;
         var image = null;
         if (imageDescription.url) {
-            var preScale = box[0] / defaultBoxSize;
-            var scale = imageDescription.scale * preScale;
+            var scale = box[0] / defaultBoxSize;
             image = <SvgImage src={imageDescription.url}
-                              left={preScale * imageDescription.left}
-                              bottom={preScale * imageDescription.bottom}
                               width={imageDescription.width}
                               height={imageDescription.height}
                               scale={scale} />;

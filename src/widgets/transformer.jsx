@@ -33,10 +33,7 @@ var assert = require("../interactive2/interactive-util.js").assert;
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
-    url: null,
-    scale: 1,
-    bottom: 0,
-    left: 0,
+    url: null
 };
 
 function arraySum(array) {

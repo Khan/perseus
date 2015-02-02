@@ -19,10 +19,7 @@ var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f
 var defaultBoxSize = 400;
 var defaultEditorBoxSize = 340;
 var defaultBackgroundImage = {
-    url: null,
-    scale: 1,
-    bottom: 0,
-    left: 0
+    url: null
 };
 
 var eq = Util.eq;
