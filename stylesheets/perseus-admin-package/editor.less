@@ -807,12 +807,17 @@
 
 .perseus-widget-editor-content {
     .add-choice-container {
+        order: 0;
+
         .simple-button {
             margin-right: 10px;
         }
     }
 
     .perseus-widget-radio {
+        display: flex;
+        flex-direction: column;
+
         .checkbox, .delete-choice {
             position: relative;
             top: -10px;
@@ -820,7 +825,8 @@
     }
 
     .perseus-radio-option.none-of-above {
-        margin-top: 20px;
+        order: 1;
+        margin-top: 5px;
 
         .choice-editor.incorrect {
             opacity: 0.5;
