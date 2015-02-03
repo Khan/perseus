@@ -34,7 +34,6 @@ var BaseRadio = React.createClass({
     getDefaultProps: function() {
         return {
             onePerLine: true,
-            extraItem: null
         };
     },
 
@@ -129,9 +128,6 @@ var BaseRadio = React.createClass({
                 </li>;
 
             }, this)}
-            {this.props.extraItem && <li>
-                {this.props.extraItem}
-            </li>}
         </ul>;
     },
 
@@ -413,7 +409,12 @@ var RadioEditor = React.createClass({
     },
 
     render: function() {
-        return <div>
+        var classSet = {
+            'perseus-widget-editor-content-wrapper': true,
+            'has-none-of-above': this.props.noneOfAbove
+        }
+
+        return <div className={cx(classSet)}>
             <div className="perseus-widget-row">
 
                 <div className="perseus-widget-left-col">
@@ -515,20 +516,22 @@ var RadioEditor = React.createClass({
                         checked: choice.correct
                     };
                 }, this)}
-                onCheckedChange={this.onCheckedChange}
-                extraItem={<div className="add-choice-container">
-                    <a href="#" className="simple-button orange"
-                            onClick={this.addChoice.bind(this, false)}>
-                        <span className="icon-plus" />
-                        {' '}Add a choice{' '}
-                    </a>
+                onCheckedChange={this.onCheckedChange} />
 
-                    {!this.props.noneOfAbove && <a href="#" className="simple-button"
-                            onClick={this.addChoice.bind(this, true)}>
-                        <span className="icon-plus" />
-                        {' '}None of the above{' '}
-                    </a>}
-                </div>} />
+            <div className="add-choice-container">
+                <a href="#" className="simple-button orange"
+                        onClick={this.addChoice.bind(this, false)}>
+                    <span className="icon-plus" />
+                    {' '}Add a choice{' '}
+                </a>
+
+                {!this.props.noneOfAbove && <a href="#" className="simple-button"
+                        onClick={this.addChoice.bind(this, true)}>
+                    <span className="icon-plus" />
+                    {' '}None of the above{' '}
+                </a>}
+            </div>
+
         </div>;
     },
 
