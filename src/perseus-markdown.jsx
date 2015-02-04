@@ -223,7 +223,65 @@ var parse = (source) => {
     return builtParser(paragraphedSource);
 };
 
+/**
+ * Pull out text content from a Perseus Markdown AST.
+ * Returns an array of strings. 
+ */
+var getContent = (ast) => {
+    // Simplify logic by dealing with a single AST node at a time
+    if (_.isArray(ast)) {
+        return _.flatten(_.map(ast, getContent));
+    }
+
+    // Base case: This is where we actually extract text content
+    if (ast.content && _.isString(ast.content)) {
+        // Collapse whitespace within content unless it is code
+        if (ast.type.toLowerCase().indexOf('code') !== -1) {
+            // In case this is the sole child of a paragraph,
+            // prevent whitespace from being trimmed later
+            return ['', ast.content, ''];
+        } else {
+            return [ast.content.replace(/\s+/g, ' ')];
+        }
+    }
+
+    // Recurse through child AST nodes
+    // Assumptions made:
+    // 1) Child AST nodes are either direct properties or inside
+    //    arbitrarily nested lists that are direct properties.
+    // 2) Only AST nodes have a 'type' property.
+    var children = _.chain(ast)
+        .values()
+        .flatten()
+        .filter((object) => object != null && _.has(object, 'type'))
+        .value();
+
+    if (!children.length) {
+        return [];
+    } else {
+        var nestedContent = getContent(children);
+        if (ast.type === 'paragraph' && nestedContent.length) {
+            // Trim whitespace before or after a paragraph
+            nestedContent[0] = nestedContent[0].replace(/^\s+/, '');
+            var last = nestedContent.length - 1;
+            nestedContent[last] = nestedContent[last].replace(/\s+$/, '');
+        }
+        return nestedContent;
+    }
+};
+
+/**
+ * Count the number of characters in Perseus Markdown source.
+ * Markdown markup and widget references are ignored.
+ */
+var characterCount = (source) => {
+    var ast = parse(source);
+    var content = getContent(ast).join('');
+    return content.length;
+};
+
 module.exports = {
+    characterCount: characterCount,
     parse: parse,
     outputFor: SimpleMarkdown.outputFor,
     ruleOutput: SimpleMarkdown.ruleOutput(rules),

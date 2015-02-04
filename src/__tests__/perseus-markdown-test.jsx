@@ -4,6 +4,7 @@ var _ = require("underscore");
 
 var PerseusMarkdown = require("../perseus-markdown.jsx");
 var parse = PerseusMarkdown.parse;
+var characterCount = PerseusMarkdown.characterCount;
 
 // TODO(aria): Don't duplicate these two methods from simple-markdown:
 
@@ -30,6 +31,12 @@ var validateParse = (parsed, expected) => {
             "<>"
         );
     }
+};
+
+var validateCount = (source, expectedCount) => {
+    assert.equal(characterCount(source),
+                 expectedCount,
+                 "characterCount(" + source + ") !== " + expectedCount);
 };
 
 describe("perseus markdown", () => {
@@ -258,6 +265,53 @@ describe("perseus markdown", () => {
                     {type: "widget", widgetType: "test", id: "test 2"},
                 ]
             }]);
+        });
+    });
+
+    describe("characterCount", () => {
+        it("should ignore Markdown and widgets but count TeX", () => {
+            validateCount("", 0);
+            validateCount("-------", 0);
+
+            validateCount("  foo bar baz", 11);
+            validateCount("- foo bar baz", 11);
+            validateCount("# foo bar baz", 11);
+
+            validateCount("[text](resource)", 4);
+            validateCount("header 1 | header 2\n" +
+                          "- | -\n" +
+                          "data 1 | data 2\n" +
+                          "data 3 | data 4", 40);
+
+            validateCount("  ☃ test 1  ", 8);
+            validateCount("[[☃ test 1]]", 0);
+
+            validateCount(" 1234 ", 4);
+            validateCount("$1234$", 4);
+        });
+
+        it("should only count multiple sequential spaces within code", () => {
+            validateCount(         "a s  d   f    ", 7);
+            validateCount("    " + "a s  d   f    ", 14);
+
+            validateCount(" 1  2  3 ", 5);
+            validateCount("`1  2  3`", 7);
+
+            validateCount("123   4 5  6 7   890", 15);
+            validateCount("123  `4 5  6 7`  890", 16);
+        });
+
+        it("should count spaces between inline elements", () => {
+            validateCount("foo to the bar", 14);
+            validateCount("foo *to the* bar", 14);
+            validateCount("foo $to the$ bar", 14);
+        });
+
+        it("should not count spaces between block elements", () => {
+            validateCount("foo\n\nbar", 6);
+            validateCount(" foo \n\n bar ", 6);
+            validateCount("foo\n\n[[☃ test 1]]\n\nbar", 6);
+            validateCount(" foo \n\n [[☃ test 1]] \n\n bar ", 6);
         });
     });
 });

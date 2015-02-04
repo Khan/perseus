@@ -261,6 +261,7 @@ var PassageEditor = React.createClass({
             onChange={(newProps) => {
                 this.change({ passageText: newProps.content });
             }}
+            showWordCount={true}
         />;
         var footnotesEditor = <Editor
             ref="passage-footnotes-editor"

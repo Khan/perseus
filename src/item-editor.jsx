@@ -42,6 +42,7 @@ var ItemEditor = React.createClass({
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleEditorChange}
                         apiOptions={this.props.apiOptions}
+                        showWordCount={true}
                         {...this.props.question} />
                 </div>
 
