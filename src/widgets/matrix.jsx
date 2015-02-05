@@ -457,7 +457,11 @@ var MatrixEditor = React.createClass({
     },
 
     render: function() {
-        var matrixProps = _.extend({ numericInput: true }, this.props);
+        var matrixProps = _.extend({
+            numericInput: true,
+            onBlur: () => {},
+            onFocus: () => {}
+        }, this.props);
         return <div className="perseus-matrix-editor">
             <div className="perseus-widget-row">
                 {" "}Max matrix size:{" "}
