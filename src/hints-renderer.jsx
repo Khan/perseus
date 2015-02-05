@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require("underscore");
 
 var HintRenderer = require("./hint-renderer.jsx");
+var SvgImage = require("./components/svg-image.jsx");
 
 var HintsRenderer = React.createClass({
     render: function() {
@@ -29,6 +30,34 @@ var HintsRenderer = React.createClass({
             return this.props.hints.length;
         } else {
             return this.props.hintsVisible;
+        }
+    },
+
+    componentDidMount: function() {
+        this._cacheHintImages();
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        if (!_.isEqual(prevProps.hints, this.props.hints) ||
+            prevProps.hintsVisible !== this.props.hintsVisible) {
+            this._cacheHintImages();
+        }
+    },
+
+    _cacheImagesInHint: function(hint) {
+        _.each(hint.images, (data, src) => {
+            var image = new Image();
+            image.src = SvgImage.getRealImageUrl(src);
+        });
+    },
+
+    _cacheHintImages: function() {
+        // Only cache images in the first hint at the start. When hints are
+        // taken, cache images in the rest of the hints
+        if (this._hintsVisible() > 0) {
+            _.each(this.props.hints, this._cacheImagesInHint);
+        } else if (this.props.hints.length > 0) {
+            this._cacheImagesInHint(this.props.hints[0]);
         }
     },
 
