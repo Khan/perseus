@@ -495,13 +495,9 @@ var RadioEditor = React.createClass({
                             <div className={"choice-editor " + checkedClass}>
                                 {editor}
                             </div>
-                            {/* TODO(eater): Remove this condition after clues
-                                            are fully launched. */}
-                            {(!window.KA || window.KA.allowEditingClues) &&
-                                <div className="clue-editor">
-                                    {clueEditor}
-                                </div>
-                            }
+                            <div className="clue-editor">
+                                {clueEditor}
+                            </div>
                             {this.props.choices.length >= 2 && deleteLink}
                         </div>,
                         checked: choice.correct
