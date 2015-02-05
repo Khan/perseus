@@ -274,7 +274,10 @@ describe("perseus markdown", () => {
             validateCount("-------", 0);
 
             validateCount("  foo bar baz", 11);
-            validateCount("- foo bar baz", 11);
+            // Relies on new features of simple-markdown not-yet-landed in
+            // perseus
+            // TODO(aria): Re-enable once we upgrade simple-markdown
+            //validateCount("- foo bar baz", 11);
             validateCount("# foo bar baz", 11);
 
             validateCount("[text](resource)", 4);
