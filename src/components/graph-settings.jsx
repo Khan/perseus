@@ -313,6 +313,11 @@ var GraphSettings = React.createClass({
     },
 
     validBackgroundImageSize: function(image) {
+        // Ignore empty images
+        if (!image.url) {
+            return true;
+        }
+
         var validSize = image.width <= 450 && image.height <= 450;
 
         if (!validSize) {
