@@ -19,6 +19,89 @@ var captureScratchpadTouchStart =
 
 var cx = React.addons.classSet;
 
+var Choice = React.createClass({
+    propTypes: {
+        checked: React.PropTypes.bool,
+        classSet: React.PropTypes.shape,
+        clue: React.PropTypes.shape,
+        correct: React.PropTypes.bool,
+        content: React.PropTypes.shape,
+        disabled: React.PropTypes.bool,
+        groupName: React.PropTypes.string,
+        onChecked: React.PropTypes.func,
+        type: React.PropTypes.string
+    },
+
+    getDefaultProps: function() {
+        return {
+            checked: false,
+            classSet: {},
+            correct: false,
+            disabled: false,
+            type: 'radio'
+        };
+    },
+
+    render: function() {
+        this.props.classSet[ApiClassNames.RADIO.OPTION] = true;
+        this.props.classSet[ApiClassNames.RADIO.SELECTED] = this.props.checked;
+
+        return <div className={cx(this.props.classSet)}>
+            <span className="checkbox">
+                <input
+                    type={this.props.type}
+                    name={this.props.groupName}
+                    checked={this.props.checked}
+                    disabled={this.props.disabled}
+                    onClick={(e) => {
+                        // Avoid sending this to the parent
+                        e.stopPropagation();
+                    }}
+                    onChange={(e) => {
+                        this.props.onChecked(e.target.checked);
+                    }} />
+            </span>
+            {/* A pseudo-label. <label> is slightly broken on iOS,
+                so this works around that. Unfortunately, it is
+                simplest to just work around that everywhere. */}
+            <span className={
+                    ApiClassNames.RADIO.OPTION_CONTENT + " " +
+                    ApiClassNames.INTERACTIVE
+                }
+                style={{ cursor: "default" }}>
+                <div>
+                    {this.props.content}
+                </div>
+            </span>
+            {Exercises.cluesEnabled && this.props.checked &&
+                <div className="perseus-radio-clue">
+                    {this.props.clue}
+                </div>}
+        </div>
+    }
+});
+
+var ChoiceNoneAbove = React.createClass({
+    getDefaultProps: function() {
+        return {
+            correct: true
+        }
+    },
+
+    render: function() {
+        if (!this.props.correct) {
+            this.props.content = <span>None of the above</span>;
+        }
+
+        return React.createElement(
+            Choice,
+            _.extend(this.props, {
+                classSet: { "none-of-above": true }
+            })
+        )
+    }
+});
+
 var BaseRadio = React.createClass({
     propTypes: {
         labelWrap: React.PropTypes.bool,
@@ -49,84 +132,54 @@ var BaseRadio = React.createClass({
                     <$_>Select all that apply.</$_>
                 </div>}
             {this.props.choices.map(function(choice, i) {
-
-                var content = <div>
-                        {choice.content}
-                    </div>;
-
                 var classSet = {
-                    "inline": !this.props.onePerLine,
-                    "none-of-above": choice.isNoneOfTheAbove
+                    "inline": !this.props.onePerLine
                 };
-                classSet[ApiClassNames.RADIO.OPTION] = true;
+
                 classSet[ApiClassNames.INTERACTIVE] =
                     !this.props.apiOptions.readOnly;
-                classSet[ApiClassNames.RADIO.SELECTED] = choice.checked;
+
                 if (rubric) {
                     classSet[ApiClassNames.CORRECT] =
                         rubric.choices[i].correct;
                     classSet[ApiClassNames.INCORRECT] =
                         !rubric.choices[i].correct;
                 }
-                var className = cx(classSet);
 
-                return <li className={className} key={i}
-                            onTouchStart={!this.props.labelWrap ?
-                                null : captureScratchpadTouchStart
+            return <li className={cx(classSet)} key={i}
+                        onTouchStart={!this.props.labelWrap ?
+                            null : captureScratchpadTouchStart
+                        }
+                        onClick={!this.props.labelWrap ? null : (e) => {
+                            // Don't send this to the scratchpad
+                            e.preventDefault();
+                            if (!this.props.apiOptions.readOnly) {
+                                var shouldToggle =
+                                    this.props.multipleSelect ||
+                                    this.props.deselectEnabled;
+                                this.checkOption(
+                                    i,
+                                    shouldToggle ? !choice.checked : true);
                             }
-                            onClick={!this.props.labelWrap ? null : (e) => {
-                                // Don't send this to the scratchpad
-                                e.preventDefault();
-                                if (!this.props.apiOptions.readOnly) {
-                                    var shouldToggle =
-                                        this.props.multipleSelect ||
-                                        this.props.deselectEnabled;
-                                    this.checkOption(
-                                        i,
-                                        shouldToggle ? !choice.checked : true);
-                                }
-                            }}>
-                    {choice.isNoneOfTheAbove &&
-                        <div className="instructions">
-                            <$_>None of the above</$_>
-                        </div>}
-                    <div>
-                        <span className="checkbox">
-                            <input
-                                ref={"radio" + i}
-                                type={inputType}
-                                name={radioGroupName}
-                                checked={choice.checked}
-                                onClick={(e) => {
-                                    // Avoid sending this to the parent
-                                    e.stopPropagation();
-                                }}
-                                onChange={(e) => {
-                                    this.checkOption(i, e.target.checked);
-                                }}
-                                disabled={this.props.apiOptions.readOnly} />
-                        </span>
-                        {/* A pseudo-label. <label> is slightly broken on iOS,
-                            so this works around that. Unfortunately, it is
-                            simplest to just work around that everywhere. */}
-                        <span
-                                className={
-                                    ApiClassNames.RADIO.OPTION_CONTENT + " " +
-                                    ApiClassNames.INTERACTIVE
-                                }
-                                style={{
-                                    cursor: "default",
-                                }}>
-                            {content}
-                        </span>
-                        {Exercises.cluesEnabled && this.props.showClues &&
-                            choice.checked &&
-                            <div className="perseus-radio-clue">
-                                {choice.clue}
-                            </div>}
-                    </div>
-                </li>;
+                    }}>
 
+                    {React.createElement(( choice.isNoneOfTheAbove ?
+                        ChoiceNoneAbove : Choice ),
+                        {
+                            ref: `radio${i}`,
+                            checked: choice.checked,
+                            clue: this.props.showClues ? choice.clue : '',
+                            content: choice.content,
+                            correct: choice.correct,
+                            disabled: this.props.apiOptions.readOnly,
+                            groupName: radioGroupName,
+                            type: inputType,
+                            onChecked: (checked) => {
+                                this.checkOption(i, checked);
+                            }
+                        }
+                    )}
+                </li>;
             }, this)}
         </ul>;
     },
@@ -178,21 +231,15 @@ var Radio = React.createClass({
     render: function() {
         var choices = this.props.choices;
         var values = this.props.values || _.map(choices, () => false);
-        var revealNoneOfTheAbove = this._shouldRevealNoneOfTheAbove(choices,
-                                                                    values);
+
         choices = _.map(choices, (choice, i) => {
-            var content;
-            if (choice.isNoneOfTheAbove && !revealNoneOfTheAbove) {
-                content = "None of the above";
-            } else {
-                content = choice.content;
-            }
-            return {
-                // We need to make a copy, which _.pick does
-                content: this._renderRenderer(content),
+            return _.extend({}, {
+                content: this._renderRenderer(choice.content),
                 checked: values[i],
+                correct: this.props.questionCompleted && values[i],
                 clue: this._renderRenderer(choice.clue),
-            };
+                isNoneOfTheAbove: choice.isNoneOfTheAbove
+            });
         });
         choices = this.enforceOrdering(choices);
 
@@ -202,9 +249,7 @@ var Radio = React.createClass({
             onePerLine={this.props.onePerLine}
             multipleSelect={this.props.multipleSelect}
             showClues={this.state.showClues}
-            choices={choices.map(function(choice) {
-                return _.pick(choice, "content", "checked", "clue");
-            })}
+            choices={choices}
             onCheckedChange={this.onCheckedChange}
             reviewModeRubric={this.props.reviewModeRubric}
             deselectEnabled={this.props.deselectEnabled}
@@ -256,17 +301,6 @@ var Radio = React.createClass({
         } else {
             return this.props.interWidgets(filterCriterion);
         }
-    },
-
-    _shouldRevealNoneOfTheAbove: function(choices, values) {
-        // We reveal when 'None of the above' is the correct choice
-        // and the entire question is completed. If 'None of the above' isn't
-        // selected and the question is completed, then it's the wrong choice
-        // and not worth revealing.
-        var noneOfTheAboveSelected = _.any(choices, (choice, i) => {
-            return choice.isNoneOfTheAbove && values[i];
-        });
-        return this.props.questionCompleted && noneOfTheAboveSelected;
     },
 
     focus: function(i) {
@@ -409,12 +443,7 @@ var RadioEditor = React.createClass({
     },
 
     render: function() {
-        var classSet = {
-            'perseus-widget-editor-content-wrapper': true,
-            'has-none-of-above': this.props.noneOfAbove
-        }
-
-        return <div className={cx(classSet)}>
+        return <div>
             <div className="perseus-widget-row">
 
                 <div className="perseus-widget-left-col">
