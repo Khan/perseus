@@ -102,6 +102,63 @@ var ChoiceNoneAbove = React.createClass({
     }
 });
 
+var ChoiceEditor = React.createClass({
+    propTypes: {
+        choice: React.PropTypes.shape,
+        showDelete: React.PropTypes.bool,
+        onClueChange: React.PropTypes.func,
+        onContentChange: React.PropTypes.func,
+        onDelete: React.PropTypes.func
+    },
+
+    render: function() {
+        var checkedClass = this.props.choice.correct ? "correct" : "incorrect";
+        var placeholder = "Type a choice here...";
+
+        if (this.props.choice.isNoneOfTheAbove) {
+            placeholder = this.props.choice.correct ?
+            "Type the answer to reveal to the user..." : "None of the above";
+        }
+
+        var editor = <Editor
+            ref={"content-editor"}
+            content={this.props.choice.content || ""}
+            widgetEnabled={false}
+            placeholder={placeholder}
+            disabled={this.props.choice.isNoneOfTheAbove &&
+                !this.props.choice.correct}
+            onChange={this.props.onContentChange} />;
+
+        var clueEditor = <Editor
+            ref={"clue-editor"}
+            content={this.props.choice.clue || ""}
+            widgetEnabled={false}
+            placeholder={$._(`Why is this choice ${checkedClass}?`)}
+            onChange={this.props.onClueChange} />;
+
+        var deleteLink = <a href="#"
+                className="simple-button orange delete-choice"
+                title="Remove this choice"
+                onClick={this.props.onDelete}>
+            <span className="icon-trash" />
+        </a>;
+
+        return <div className="choice-clue-editors">
+            <div className={`choice-editor ${checkedClass}`}>
+                {editor}
+            </div>
+            {/* TODO(eater): Remove this condition after clues
+                are fully launched. */}
+            {(!window.KA || window.KA.allowEditingClues) &&
+                <div className="clue-editor">
+                    {clueEditor}
+                </div>
+            }
+            {this.props.showDelete && deleteLink}
+        </div>;
+    }
+});
+
 var BaseRadio = React.createClass({
     propTypes: {
         labelWrap: React.PropTypes.bool,
@@ -490,57 +547,22 @@ var RadioEditor = React.createClass({
                 labelWrap={false}
                 apiOptions={this.props.apiOptions}
                 choices={this.props.choices.map(function(choice, i) {
-                    var checkedClass = choice.correct ? "correct" : "incorrect";
-                    var placeholder = "Type a choice here...";
-
-                    if (choice.isNoneOfTheAbove) {
-                        placeholder = choice.correct ? "Type the answer to reveal to the user..." :
-                        "None of the above";
-                    }
-
-                    var editor = <Editor
-                        ref={"editor" + i}
-                        content={choice.content || ""}
-                        widgetEnabled={false}
-                        placeholder={placeholder}
-                        disabled={choice.isNoneOfTheAbove && !choice.correct}
-                        onChange={newProps => {
-                            if ("content" in newProps) {
-                                this.onContentChange(i, newProps.content);
-                            }
-                        }} />;
-                    var clueEditor = <Editor
-                        ref={"clue-editor-" + i}
-                        content={choice.clue || ""}
-                        widgetEnabled={false}
-                        placeholder={$._("Why is this choice " +
-                            checkedClass + "?")}
-                        onChange={newProps => {
-                            if ("content" in newProps) {
-                                this.onClueChange(i, newProps.content);
-                            }
-                        }} />;
-                    var deleteLink = <a href="#"
-                            className="simple-button orange delete-choice"
-                            title="Remove this choice"
-                            onClick={this.onDelete.bind(this, i)}>
-                        <span className="icon-trash" />
-                    </a>;
-
                     return {
-                        content: <div className="choice-clue-editors">
-                            <div className={"choice-editor " + checkedClass}>
-                                {editor}
-                            </div>
-                            {/* TODO(eater): Remove this condition after clues
-                                            are fully launched. */}
-                            {(!window.KA || window.KA.allowEditingClues) &&
-                                <div className="clue-editor">
-                                    {clueEditor}
-                                </div>
-                            }
-                            {this.props.choices.length >= 2 && deleteLink}
-                        </div>,
+                        content: <ChoiceEditor
+                            ref={`choice-editor${i}`}
+                            choice={choice}
+                            onContentChange={(newProps) => {
+                                if ("content" in newProps) {
+                                    this.onContentChange(i, newProps.content);
+                                }
+                            }}
+                            onClueChange={(newProps) => {
+                                if ("content" in newProps) {
+                                    this.onClueChange(i, newProps.content);
+                                }
+                            }}
+                            onDelete={this.onDelete.bind(this, i)}
+                            showDelete={this.props.choices.length >= 2} />,
                         isNoneOfTheAbove: choice.isNoneOfTheAbove,
                         checked: choice.correct
                     };
@@ -646,7 +668,7 @@ var RadioEditor = React.createClass({
             choices: choices,
             noneOfAbove: !!noneOfAbove || this.props.noneOfAbove
         }, () => {
-            this.refs["editor" + insertIndex].focus();
+            this.refs[`choice-editor${insertIndex}`].refs['content-editor'].focus();
         });
     },
 
@@ -655,7 +677,7 @@ var RadioEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.editor0.focus();
+        this.refs.editor0.refs['content-editor'].focus();
         return true;
     },
 
