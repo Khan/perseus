@@ -706,21 +706,15 @@ var choiceTransform = (editorProps, problemNum) => {
     };
 
     var addNoneOfAbove = function(array) {
-        var noneIndex = null;
+        var noneOfTheAbove = null;
 
-        _.find(array, function(choice, index) {
-            if (choice.isNoneOfTheAbove) {
-                noneIndex = index;
-                return true;
-            }
+        array = _.reject(array, function(choice, index) {
+            return choice.isNoneOfTheAbove && ( noneOfTheAbove = choice);
         });
 
-        if (noneIndex !== null) {
-            var itemToBeReplaced = array[noneIndex];
-
-            // Shift array left so that 'None of the above' is last
-            array.splice(noneIndex, 1);
-            array.push(itemToBeReplaced);
+        // Place the "None of the above" options last
+        if( noneOfTheAbove ) {
+            array.push(noneOfTheAbove)
         }
 
         return array;
