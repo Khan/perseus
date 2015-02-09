@@ -481,7 +481,7 @@ var RadioEditor = React.createClass({
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
-        noneOfAbove: React.PropTypes.bool,
+        hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
@@ -492,7 +492,7 @@ var RadioEditor = React.createClass({
             choices: [{}, {}],
             displayCount: null,
             randomize: false,
-            noneOfAbove: false,
+            hasNoneOfTheAbove: false,
             multipleSelect: false,
             onePerLine: true,
             deselectEnabled: false,
@@ -576,7 +576,7 @@ var RadioEditor = React.createClass({
                     {' '}Add a choice{' '}
                 </a>
 
-                {!this.props.noneOfAbove && <a href="#" className="simple-button"
+                {!this.props.hasNoneOfTheAbove && <a href="#" className="simple-button"
                         onClick={this.addChoice.bind(this, true)}>
                     <span className="icon-plus" />
                     {' '}None of the above{' '}
@@ -651,22 +651,22 @@ var RadioEditor = React.createClass({
 
         this.props.onChange({
             choices: choices,
-            noneOfAbove: !( deleted.isNoneOfTheAbove || !this.props.noneOfAbove )
+            hasNoneOfTheAbove: !( deleted.isNoneOfTheAbove || !this.props.hasNoneOfTheAbove )
         });
     },
 
-    addChoice: function(noneOfAbove, e) {
+    addChoice: function(noneOfTheAbove, e) {
         e.preventDefault();
 
         var choices = this.props.choices;
-        var newChoice = { isNoneOfTheAbove: !!noneOfAbove }
-        var insertIndex = choices.length - ( this.props.noneOfAbove | 0 );
+        var newChoice = { isNoneOfTheAbove: !!noneOfTheAbove }
+        var insertIndex = choices.length - ( this.props.hasNoneOfTheAbove | 0 );
 
         choices.splice(insertIndex, 0, newChoice);
 
         this.props.onChange({
             choices: choices,
-            noneOfAbove: !!noneOfAbove || this.props.noneOfAbove
+            hasNoneOfTheAbove: !!noneOfTheAbove || this.props.hasNoneOfTheAbove
         }, () => {
             this.refs[`choice-editor${insertIndex}`].refs['content-editor'].focus();
         });
@@ -690,7 +690,7 @@ var RadioEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "noneOfAbove", "onePerLine",
+            "multipleSelect", "displayCount", "hasNoneOfTheAbove", "onePerLine",
             "deselectEnabled");
     }
 });
@@ -737,7 +737,7 @@ var choiceTransform = (editorProps, problemNum) => {
     choices = addNoneOfAbove(randomize(choices));
 
     editorProps = _.extend({}, editorProps, { choices: choices });
-    return _.pick(editorProps, "choices", "noneOfAbove", "onePerLine",
+    return _.pick(editorProps, "choices", "hasNoneOfTheAbove", "onePerLine",
         "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
