@@ -596,9 +596,19 @@ var Renderer = React.createClass({
         } else if (node.type === "math") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
-            return <TeX onRender={this.props.onRender}>
-                {node.content}
-            </TeX>;
+            return <span style={{
+                             // If math is directly next to text, don't let it
+                             // wrap to the next line
+                             "whiteSpace": "nowrap"
+                         }}>
+                {/* We add extra empty spans around the math to make it not
+                    wrap (I don't know why this works, but it does) */}
+                <span />
+                <TeX onRender={this.props.onRender}>
+                    {node.content}
+                </TeX>
+                <span />
+            </span>;
 
         } else if (node.type === "image") {
             // We need to add width and height to images from our

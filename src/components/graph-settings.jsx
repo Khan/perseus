@@ -14,9 +14,8 @@ var Util = require("../util.js");
 var defaultBoxSize = 340;
 var defaultBackgroundImage = {
     url: null,
-    scale: 1,
-    bottom: 0,
-    left: 0,
+    width: 0,
+    height: 0
 };
 
 function numSteps(range, step) {
@@ -37,7 +36,10 @@ var GraphSettings = React.createClass({
         step: React.PropTypes.arrayOf(React.PropTypes.number),
         gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
         snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-        valid: React.PropTypes.bool,
+        valid: React.PropTypes.oneOfType([
+            React.PropTypes.bool,
+            React.PropTypes.string
+        ]),
         backgroundImage: React.PropTypes.object,
         markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
         showProtractor: React.PropTypes.bool,
@@ -52,7 +54,8 @@ var GraphSettings = React.createClass({
             gridStepTextbox: this.props.gridStep,
             snapStepTextbox: this.props.snapStep,
             stepTextbox: this.props.step,
-            rangeTextbox: this.props.range
+            rangeTextbox: this.props.range,
+            backgroundImage: _.clone(this.props.backgroundImage)
         };
     },
 
@@ -169,7 +172,7 @@ var GraphSettings = React.createClass({
                     <input type="text"
                             className="graph-settings-background-url"
                             ref="bg-url"
-                            defaultValue={this.props.backgroundImage.url}
+                            defaultValue={this.state.backgroundImage.url}
                             onKeyPress={this.changeBackgroundUrl}
                             onBlur={this.changeBackgroundUrl} />
                     <InfoTip>
@@ -177,29 +180,6 @@ var GraphSettings = React.createClass({
                         function to create a background.</p>
                     </InfoTip>
                 </div>
-                {this.props.backgroundImage.url && <div>
-                    <div>Pixels from left:{' '}
-                        <NumberInput type="text"
-                                     ref="bg-left"
-                                     value={this.props.backgroundImage.left}
-                                     onChange={
-                        _.partial(this.changeBackgroundSetting, "left")} />
-                    </div>
-                    <div>Pixels from bottom:{' '}
-                        <NumberInput type="text"
-                                     ref="bg-bottom"
-                                     value={this.props.backgroundImage.bottom}
-                                     onChange={
-                        _.partial(this.changeBackgroundSetting, "bottom")} />
-                    </div>
-                    <div>Image scale:{' '}
-                        <NumberInput type="text"
-                                     ref="bg-scale"
-                                     value={this.props.backgroundImage.scale}
-                                     onChange={
-                        _.partial(this.changeBackgroundSetting, "scale")} />
-                    </div>
-                </div>}
             </div>}
 
             {_.contains(this.props.editableSettings, "measure") &&
@@ -332,7 +312,21 @@ var GraphSettings = React.createClass({
         });
     },
 
-    validateGraphSettings: function(range, step, gridStep, snapStep) {
+    validBackgroundImageSize: function(image) {
+        // Ignore empty images
+        if (!image.url) {
+            return true;
+        }
+
+        var validSize = image.width <= 450 && image.height <= 450;
+
+        if (!validSize) {
+            return "Image must be smaller than 450px x 450px.";
+        }
+        return true;
+    },
+
+    validateGraphSettings: function(range, step, gridStep, snapStep, image) {
         var self = this;
         var msg;
         var goodRange = _.every(range, function(range) {
@@ -361,6 +355,11 @@ var GraphSettings = React.createClass({
             return msg === true;
         });
         if (!goodSnapStep) {
+            return msg;
+        }
+        var goodImageSize = this.validBackgroundImageSize(image);
+        if (goodImageSize !== true) {
+            msg = goodImageSize;
             return msg;
         }
         return true;
@@ -420,14 +419,15 @@ var GraphSettings = React.createClass({
         var step = _.map(this.state.stepTextbox, Number);
         var gridStep = this.state.gridStepTextbox;
         var snapStep = this.state.snapStepTextbox;
+        var image = this.state.backgroundImage;
 
         // validationResult is either:
         //   true -> the settings are valid
         //   a string -> the settings are invalid, and the explanation
         //               is contained in the string
-        // TODO(jack): Refactor this to not be confusing
+        // TODO(aria): Refactor this to not be confusing
         var validationResult = this.validateGraphSettings(range, step,
-                gridStep, snapStep);
+                gridStep, snapStep, image);
 
         if (validationResult === true) {  // either true or a string
             this.change({
@@ -436,7 +436,8 @@ var GraphSettings = React.createClass({
                 range: range,
                 step: step,
                 gridStep: gridStep,
-                snapStep: snapStep
+                snapStep: snapStep,
+                backgroundImage: image
             });
         } else {
             this.change({
@@ -447,7 +448,7 @@ var GraphSettings = React.createClass({
 
     changeBackgroundUrl: function(e) {
         // Only continue on blur or "enter"
-        if (e.type === "keypress" && e.keyCode !== 13) {
+        if (e.type === "keypress" && e.key !== "Enter") {
             return;
         }
 
@@ -456,10 +457,9 @@ var GraphSettings = React.createClass({
             image.url = url;
             image.width = width;
             image.height = height;
-            this.change({
-                backgroundImage: image,
-                markings: url ? "none" : "graph"
-            });
+            this.setState({
+                backgroundImage: image
+            }, this.changeGraph);
         };
 
         var url = this.refs["bg-url"].getDOMNode().value;
@@ -468,17 +468,11 @@ var GraphSettings = React.createClass({
                 setUrl(url, width, height);
             });
         } else {
-            setUrl(url, 0, 0);
+            setUrl(null, 0, 0);
         }
     },
 
-    changeBackgroundSetting: function(type, value) {
-        var image = _.clone(this.props.backgroundImage);
-        image[type] = value;
-        this.change({ backgroundImage: image });
-    },
-
-    // TODO(jack): Make either a wrapper for standard events to work
+    // TODO(aria): Make either a wrapper for standard events to work
     // with this.change, or make these use some TextInput/NumberInput box
     changeRulerLabel: function(e) {
         this.change({rulerLabel: e.target.value});

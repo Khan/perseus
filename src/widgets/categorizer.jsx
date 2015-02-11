@@ -4,6 +4,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var _ = require("underscore");
 
+var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
@@ -65,7 +66,7 @@ var Categorizer = React.createClass({
                             {/* a pseudo-label: toggle the value of the
                                 checkbox when this div or the checkbox is
                                 clicked */}
-                            <div
+                            <div className={ApiClassNames.INTERACTIVE}
                                     onClick={this.onChange.bind(
                                         this,
                                         itemNum,

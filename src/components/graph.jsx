@@ -7,10 +7,7 @@ var SvgImage = require("../components/svg-image.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
-    url: null,
-    scale: 1,
-    bottom: 0,
-    left: 0,
+    url: null
 };
 
 /* Style objects */
@@ -52,10 +49,7 @@ var Graph = React.createClass({
         snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
         markings: React.PropTypes.string,
         backgroundImage: React.PropTypes.shape({
-            url: React.PropTypes.string,
-            scale: React.PropTypes.number,
-            bottom: React.PropTypes.number,
-            left: React.PropTypes.number
+            url: React.PropTypes.string
         }),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
@@ -91,11 +85,8 @@ var Graph = React.createClass({
         var image;
         var imageData = this.props.backgroundImage;
         if (imageData.url) {
-            var preScale = this.props.box[0] / defaultBoxSize;
-            var scale = imageData.scale * preScale;
+            var scale = this.props.box[0] / defaultBoxSize;
             image = <SvgImage src={imageData.url}
-                              left={preScale * imageData.left}
-                              bottom={preScale * imageData.bottom}
                               width={imageData.width}
                               height={imageData.height}
                               scale={scale} />;

@@ -147,13 +147,9 @@ var ChoiceEditor = React.createClass({
             <div className={`choice-editor ${checkedClass}`}>
                 {editor}
             </div>
-            {/* TODO(eater): Remove this condition after clues
-                are fully launched. */}
-            {(!window.KA || window.KA.allowEditingClues) &&
-                <div className="clue-editor">
-                    {clueEditor}
-                </div>
-            }
+            <div className="clue-editor">
+                {clueEditor}
+            </div>
             {this.props.showDelete && deleteLink}
         </div>;
     }

@@ -193,6 +193,14 @@ var MathInput = React.createClass({
                     // which case 'x' should get converted to '\\times'
                     if (this.props.convertDotToTimes) {
                         value = value.replace(/\\cdot/g, "\\times");
+
+                        // Preserve cursor position in the common case:
+                        // typing '*' to insert a multiplication sign
+                        var left = mathField.controller.cursor[MathQuill.L];
+                        if (left && left.ctrlSeq === '\\cdot ') {
+                            mathField.controller.backspace();
+                            mathField.cmd('\\times');
+                        }
                     } else {
                         value = value.replace(/\\times/g, "\\cdot");
                     }

@@ -10,6 +10,8 @@ var Widgets = require("./widgets.js");
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
+var characterCount = require("./perseus-markdown.jsx").characterCount;
+
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
 var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
@@ -22,6 +24,13 @@ var ENDS_WITH_A_PARAGRAPH = /(?:\n{2,}|^\n*)$/;
 var TRAILING_NEWLINES = /(\n*)$/;
 var LEADING_NEWLINES = /^(\n*)/;
 
+var commafyInteger = (n) => {
+    var str = n.toString();
+    if (str.length >= 5) {
+        str = str.replace(/(\d)(?=(\d{3})+$)/g, "$1{,}");
+    }
+    return str;
+};
 var makeEndWithAParagraphIfNecessary = (content) => {
     if (!ENDS_WITH_A_PARAGRAPH.test(content)) {
         var newlines = TRAILING_NEWLINES.exec(content)[1];
@@ -239,6 +248,7 @@ var Editor = React.createClass({
             disabled: false,
             widgetEnabled: true,
             immutableWidgets: false,
+            showWordCount: false,
             apiOptions: ApiOptions.defaults,
         };
     },
@@ -319,6 +329,18 @@ var Editor = React.createClass({
         var widgetsDropDown;
         var templatesDropDown;
         var widgetsAndTemplates;
+        var wordCountDisplay;
+
+        if (this.props.showWordCount) {
+            var numChars = characterCount(this.props.content);
+            var numWords = Math.floor(numChars / 6);
+            wordCountDisplay = <span
+                    className="perseus-editor-word-count"
+                    title={'~' + commafyInteger(numWords) + ' words (' +
+                                 commafyInteger(numChars) + ' characters)'}>
+                {commafyInteger(numWords)}
+            </span>;
+        }
 
         if (this.props.widgetEnabled) {
             pieces = Util.split(this.props.content, rWidgetSplit);
@@ -388,9 +410,12 @@ var Editor = React.createClass({
                     <div className="perseus-editor-widgets-selectors">
                         {widgetsDropDown}
                         {templatesDropDown}
+                        {wordCountDisplay}
                     </div>
                     {widgets}
                 </div>;
+                // Prevent word count from being displayed elsewhere
+                wordCountDisplay = null;
             }
         } else {
             underlayPieces = [this.props.content];
@@ -430,6 +455,7 @@ var Editor = React.createClass({
         return <div className={"perseus-single-editor " +
                 (this.props.className || "")} >
             {textareaWrapper}
+            {wordCountDisplay}
             {widgetsAndTemplates}
         </div>;
     },
