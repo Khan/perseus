@@ -62,7 +62,6 @@
     }
 
    .perseus-radio-clue {
-        color: @clueColor;
         display: block;
     }
 
@@ -338,9 +337,18 @@ body.sat-section,
         }
     }
     .review-mode {
+        .perseus-radio-option-content {
+            font-weight: bold;
+        }
+
         input,
         .perseus-radio-option {
             pointer-events: none;
+        }
+
+        .perseus-radio-clue {
+            margin-top: 13px;
+            margin-left: 45px;
         }
     }
 }
