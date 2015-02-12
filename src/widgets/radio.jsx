@@ -28,8 +28,9 @@ var Choice = React.createClass({
         content: React.PropTypes.shape,
         disabled: React.PropTypes.bool,
         groupName: React.PropTypes.string,
-        onChecked: React.PropTypes.func,
-        type: React.PropTypes.string
+        showClue: React.PropTypes.bool,
+        type: React.PropTypes.string,
+        onChecked: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -38,6 +39,7 @@ var Choice = React.createClass({
             classSet: {},
             correct: false,
             disabled: false,
+            showClue: false,
             type: 'radio'
         };
     },
@@ -73,7 +75,7 @@ var Choice = React.createClass({
                     {this.props.content}
                 </div>
             </span>
-            {Exercises.cluesEnabled && this.props.checked &&
+            {this.props.showClue &&
                 <div className="perseus-radio-clue">
                     {this.props.clue}
                 </div>}
@@ -178,6 +180,10 @@ var BaseRadio = React.createClass({
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
         var rubric = this.props.reviewModeRubric;
 
+        // True if we're in an exercise and we should show a clue.
+        var exerciseClues = Exercises.cluesEnabled &&
+            this.props.showClues;
+
         return <ul className={"perseus-widget-radio " +
                 "above-scratchpad blank-background"}>
             {this.props.multipleSelect &&
@@ -188,6 +194,11 @@ var BaseRadio = React.createClass({
                 var classSet = {
                     "inline": !this.props.onePerLine
                 };
+
+                // True if we're in review mode and a clue is available
+                var reviewModeClues = rubric && rubric.choices[i].clue;
+                var showClue = choice.checked &&
+                (exerciseClues || reviewModeClues);
 
                 classSet[ApiClassNames.INTERACTIVE] =
                     !this.props.apiOptions.readOnly;
@@ -221,11 +232,12 @@ var BaseRadio = React.createClass({
                         {
                             ref: `radio${i}`,
                             checked: choice.checked,
-                            clue: this.props.showClues ? choice.clue : '',
+                            clue: choice.clue,
                             content: choice.content,
                             correct: choice.correct,
                             disabled: this.props.apiOptions.readOnly,
                             groupName: radioGroupName,
+                            showClue: showClue,
                             type: inputType,
                             onChecked: (checked) => {
                                 this.checkOption(i, checked);
