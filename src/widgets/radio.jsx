@@ -45,10 +45,12 @@ var Choice = React.createClass({
     },
 
     render: function() {
-        this.props.classSet[ApiClassNames.RADIO.OPTION] = true;
-        this.props.classSet[ApiClassNames.RADIO.SELECTED] = this.props.checked;
+        var classSet = _.clone(this.props.classSet);
 
-        return <div className={cx(this.props.classSet)}>
+        classSet[ApiClassNames.RADIO.OPTION] = true;
+        classSet[ApiClassNames.RADIO.SELECTED] = this.props.checked;
+
+        return <div className={cx(classSet)}>
             <span className="checkbox">
                 <input
                     type={this.props.type}
@@ -91,16 +93,15 @@ var ChoiceNoneAbove = React.createClass({
     },
 
     render: function() {
-        if (!this.props.correct) {
-            this.props.content = <span>None of the above</span>;
-        }
+        var choiceProps = _.extend({}, this.props, {
+            classSet: { "none-of-above": true },
+            content: (this.props.correct ?
+                this.props.content :
+                "None of the above"
+            ),
+        });
 
-        return React.createElement(
-            Choice,
-            _.extend(this.props, {
-                classSet: { "none-of-above": true }
-            })
-        )
+        return <Choice {...choiceProps} />;
     }
 });
 
@@ -298,13 +299,13 @@ var Radio = React.createClass({
         var values = this.props.values || _.map(choices, () => false);
 
         choices = _.map(choices, (choice, i) => {
-            return _.extend({}, {
+            return {
                 content: this._renderRenderer(choice.content),
                 checked: values[i],
                 correct: this.props.questionCompleted && values[i],
                 clue: this._renderRenderer(choice.clue),
                 isNoneOfTheAbove: choice.isNoneOfTheAbove
-            });
+            };
         });
         choices = this.enforceOrdering(choices);
 
@@ -659,7 +660,7 @@ var RadioEditor = React.createClass({
 
         this.props.onChange({
             choices: choices,
-            hasNoneOfTheAbove: !( deleted.isNoneOfTheAbove || !this.props.hasNoneOfTheAbove )
+            hasNoneOfTheAbove: this.props.hasNoneOfTheAbove && !deleted.isNoneOfTheAbove
         });
     },
 
@@ -667,14 +668,14 @@ var RadioEditor = React.createClass({
         e.preventDefault();
 
         var choices = this.props.choices;
-        var newChoice = { isNoneOfTheAbove: !!noneOfTheAbove }
-        var insertIndex = choices.length - ( this.props.hasNoneOfTheAbove | 0 );
+        var newChoice = { isNoneOfTheAbove: noneOfTheAbove };
+        var insertIndex = choices.length - ( this.props.hasNoneOfTheAbove || 0 );
 
         choices.splice(insertIndex, 0, newChoice);
 
         this.props.onChange({
             choices: choices,
-            hasNoneOfTheAbove: !!noneOfTheAbove || this.props.hasNoneOfTheAbove
+            hasNoneOfTheAbove: noneOfTheAbove || this.props.hasNoneOfTheAbove
         }, () => {
             this.refs[`choice-editor${insertIndex}`].refs['content-editor'].focus();
         });
@@ -717,11 +718,14 @@ var choiceTransform = (editorProps, problemNum) => {
         var noneOfTheAbove = null;
 
         array = _.reject(array, function(choice, index) {
-            return choice.isNoneOfTheAbove && ( noneOfTheAbove = choice);
+            if (choice.isNoneOfTheAbove) {
+                noneOfTheAbove = choice;
+                return true;
+            }
         });
 
         // Place the "None of the above" options last
-        if( noneOfTheAbove ) {
+        if (noneOfTheAbove) {
             array.push(noneOfTheAbove)
         }
 
