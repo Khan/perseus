@@ -900,11 +900,15 @@ body.sat-section {
             margin-top: @satTopSpacingForOneColumnLayout;
 
             &.perseus-renderer-two-columns {
-                // Override column top margin to 0 and apply margin to its
-                // paragraph within.
+                // Override column top margin to 0 (the first column will get
+                // the desired spacing by adding padding - to preserve the
+                // gray background)
                 margin-top: 0;
 
-                .perseus-column > .paragraph:first-child {
+                // Add spacing to the second column, by way of its first child.
+                // We want the margins to auto collapse, and so we can't add
+                // it to perseus-column because it's floated.
+                .perseus-column:nth-child(2) > *:first-child {
                     margin-top: @satTopSpacingForTwoColumnLayout;
                 }
             }
