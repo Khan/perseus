@@ -724,6 +724,8 @@ body.sat-section {
     }
 }
 
+@satTopSpacingForOneColumnLayout: 80px;
+@satTopSpacingForTwoColumnLayout: 48px;
 
 // body.sat-section (above) matches when we're inside the SAT Alpha product,
 // and this should be effectively frozen and removed soon (tm).
@@ -731,8 +733,6 @@ body.sat-section {
 // #sat-mission (below) matches when we're inside the SAT MVP product,
 // basically internal-only and in flux.
 #sat-mission {
-    @satTopSpacingForOneColumnLayout: 80px;
-    @satTopSpacingForTwoColumnLayout: 48px;
     @satSectionHeight: 550px;
     .content-area > div {
         margin-left: auto;
@@ -857,6 +857,7 @@ body.sat-section {
             }
         }
     }
+
     .question-annotation {
         // TODO(kitt): generalize for passages
         color: #999;
@@ -889,6 +890,24 @@ body.sat-section {
             color: @satIncorrectColor;
             background-color: @satIncorrectBackgroundColor;
             border: solid 1px @satIncorrectBorderColor;
+        }
+    }
+
+    #sat-route-task {
+        // Only want the direct child of content-area because there are many
+        // perseus-renderer divs.
+        .content-area > .perseus-renderer {
+            margin-top: @satTopSpacingForOneColumnLayout;
+
+            &.perseus-renderer-two-columns {
+                // Override column top margin to 0 and apply margin to its
+                // paragraph within.
+                margin-top: 0;
+
+                .perseus-column > .paragraph:first-child {
+                    margin-top: @satTopSpacingForTwoColumnLayout;
+                }
+            }
         }
     }
 }
