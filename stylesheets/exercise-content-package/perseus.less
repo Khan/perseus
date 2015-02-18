@@ -731,7 +731,8 @@ body.sat-section {
 // #sat-mission (below) matches when we're inside the SAT MVP product,
 // basically internal-only and in flux.
 #sat-mission {
-    @satTopSpacing: 35px;
+    @satTopSpacingForOneColumnLayout: 80px;
+    @satTopSpacingForTwoColumnLayout: 48px;
     @satSectionHeight: 550px;
     .content-area > div {
         margin-left: auto;
@@ -804,11 +805,11 @@ body.sat-section {
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
-                    height: @satSectionHeight - @satTopSpacing;
-                    max-height: @satSectionHeight - @satTopSpacing;
+                    height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
+                    max-height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
                     float: left;
                     padding-left: 46px;
-                    padding-top: @satTopSpacing;
+                    padding-top: @satTopSpacingForTwoColumnLayout;
                     padding-bottom: 22px;
                     width: 512px;
                     box-sizing: border-box;
@@ -837,19 +838,29 @@ body.sat-section {
                     float: right;
                     height: @satSectionHeight;
                     max-height: @satSectionHeight;
-                    padding-right: 20px;
-                    width: 475px;
+                    // TODO(marcia): These are only slightly magical. The left
+                    // column is 512px floated left. The right column is
+                    // 448px floated right, with 32px of right padding. This
+                    // leaves 32px in between, since the entire container is
+                    // 1024px. TODO to keep some of these #s in vars and use
+                    // arithmetic!
+                    padding-right: 32px;
+                    width: 448px;
                     .perseus-group {
                         margin-bottom: 20px;
                     }
                 }
+            }
+
+            .question-annotation {
+                margin-top: @satTopSpacingForTwoColumnLayout;
             }
         }
     }
     .question-annotation {
         // TODO(kitt): generalize for passages
         color: #999;
-        margin-top: @satTopSpacing;
+        margin-top: @satTopSpacingForOneColumnLayout;
         margin-bottom: 24px;
         text-transform: uppercase;
     }
