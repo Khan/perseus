@@ -567,9 +567,169 @@
     background-color: #fcc;
 }
 
-// body.sat-section matches when we're inside the SAT Alpha product, and
-// #sat-mission matches when we're inside the SAT MVP product.
-body.sat-section,
+// body.sat-section matches when we're inside the SAT Alpha product, and this
+// should be effectively frozen and removed soon (tm).
+// TODO(sat): Remove alpha soon (tm).
+// #sat-mission (further below) matches when we're inside the SAT MVP product,
+// basically internal-only and in flux.
+body.sat-section {
+    @satTopSpacing: 35px;
+    @satSectionHeight: 550px;
+    .content-area > div {
+        margin-left: auto;
+        margin-right: auto;
+        width: 592px;
+        .perseus-input-with-answer-blurb {
+            > span {
+                display: inline-block;
+            }
+
+            .perseus-possible-answers, .perseus-possible-answers:before {
+                font-family: "Proxima Nova Semibold"
+            }
+
+            .perseus-possible-answers {
+                color: rgb(0, 153, 0);
+                padding-right: 4px;
+            }
+
+            .perseus-possible-answers:before {
+                content: "CORRECT ANSWER:";
+                padding: 0 5px 0 13px;
+                color: rgb(18, 18, 18);
+            }
+
+            .perseus-possible-answer:not(:first-child):before {
+                // TODO(johnsullivan): Figure out a better way to do this list
+                // joining.
+                content: "or";
+                padding: 0 5px;
+                color: rgb(18, 18, 18);
+            }
+        }
+
+        input.perseus-incorrect {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
+        }
+
+        input.perseus-correct {
+            color: @satCorrectColor;
+            background-color: @satCorrectBackgroundColor;
+            border: solid 1px @satCorrectBorderColor;
+        }
+
+        input.perseus-unanswered {
+            background-color: #eee;
+            border: solid 1px #999;
+        }
+
+        &.perseus-renderer-two-columns {
+            // This prevents a strange blank space from appearing above
+            // passages.
+            // TODO(johnsullivan): Try and get rid of the wrapping div that's
+            // causing this instead of modifying its margin like this.
+            & > .paragraph {
+                margin: 0;
+            }
+
+            width: 1024px;
+            & > .paragraph {
+                margin: 0;
+            }
+            .perseus-column {
+                & > .paragraph {
+                    margin: 0;
+                }
+                overflow-y: auto;
+                &:nth-child(1) {
+                    background: #eee;
+                    border-right: 1px solid #ddd;
+                    height: @satSectionHeight - @satTopSpacing;
+                    max-height: @satSectionHeight - @satTopSpacing;
+                    float: left;
+                    padding-left: 46px;
+                    padding-top: @satTopSpacing;
+                    padding-bottom: 22px;
+                    width: 512px;
+                    box-sizing: border-box;
+
+                    .perseus-widget-passage {
+                        // We've replaced the margin here with padding in the
+                        // parent element to stay consistent with non-passage
+                        // two-column mode.
+                        margin: 0;
+                    }
+
+                    & > .paragraph {
+                        margin-right: 40px;
+                    }
+
+                    blockquote {
+                        padding: 0;
+                        margin-right: 22px;
+
+                        & > .paragraph:nth-child(1) {
+                            margin-top: 0;
+                        }
+                    }
+                }
+                &:nth-child(2) {
+                    float: right;
+                    height: @satSectionHeight;
+                    max-height: @satSectionHeight;
+                    padding-right: 20px;
+                    width: 475px;
+                    .perseus-group {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .question-annotation {
+        // TODO(kitt): generalize for passages
+        color: #999;
+        margin-top: @satTopSpacing;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+    }
+
+    .paragraph:not(:first-child) .question-annotation {
+        margin-top: 48px;
+    }
+
+    input[type=text],
+    input[type=number] {
+        border: 1px solid #aaa;
+        font-family: @boldFontFamily;
+        font-size: 14px;
+        margin: 10px 0;
+        padding: 5px;
+    }
+
+    .valid-answer {
+        input[type=text]:valid, input[type=number]:valid {
+            border: 1px solid @satBlue;
+            background: @satSelectedBackgroundColor;
+        }
+    }
+    .invalid-answer {
+        input[type=text]:valid, input[type=number]:valid {
+            color: @satIncorrectColor;
+            background-color: @satIncorrectBackgroundColor;
+            border: solid 1px @satIncorrectBorderColor;
+        }
+    }
+}
+
+
+// body.sat-section (above) matches when we're inside the SAT Alpha product,
+// and this should be effectively frozen and removed soon (tm).
+// TODO(sat): Remove alpha soon (tm).
+// #sat-mission (below) matches when we're inside the SAT MVP product,
+// basically internal-only and in flux.
 #sat-mission {
     @satTopSpacing: 35px;
     @satSectionHeight: 550px;
