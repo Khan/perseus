@@ -195,7 +195,10 @@ var MathInput = React.createClass({
                         value = value.replace(/\\cdot/g, "\\times");
 
                         // Preserve cursor position in the common case:
-                        // typing '*' to insert a multiplication sign
+                        // typing '*' to insert a multiplication sign.
+                        // We do this by modifying internal MathQuill state
+                        // directly, instead of waiting for `.latex()` to be
+                        // called in `componentDidUpdate()`.
                         var left = mathField.controller.cursor[MathQuill.L];
                         if (left && left.ctrlSeq === '\\cdot ') {
                             mathField.controller.backspace();
