@@ -1,4 +1,4 @@
-.PHONY: help build server server-offline all subperseus forcesubperseus put put-js put-css install clean lint test jest
+.PHONY: help build server server-offline all subperseus forcesubperseus webapp-put install clean lint test jest
 PORT=9000
 WEBAPP=../webapp
 IOS=../iOS
@@ -7,6 +7,7 @@ SUPPRESSINSTALL=FALSE
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
+PERSEUS_VERSION_FILE=perseus-$(API_VERSION_MAJOR)-item-version.js
 
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
@@ -32,6 +33,7 @@ build: install
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
 	cat build/perseus.js >> $(PERSEUS_BUILD_JS)
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
+	node node/create-item-version-file.js >> build/$(PERSEUS_VERSION_FILE)
 
 server: install server-offline
 
@@ -52,21 +54,18 @@ all: subperseus
 
 subperseus-ios: clean install build put-js-ios
 
-subperseus: clean install shorttest build put
+subperseus: clean install shorttest build webapp-put
 
-forcesubperseus: clean install build put
-
-put: put-js put-css
+forcesubperseus: clean install build webapp-put
 
 put-js-ios: build
 	cp $(PERSEUS_BUILD_JS) "$(IOS)/Resources/webview/javascript/perseus-package/perseus.js"
 
-put-js: build
+webapp-put: build
 	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
-
-put-css: build
 	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
+	cp build/$(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/$(PERSEUS_VERSION_FILE)"
 
 
 # Pull submodules if they are empty.
