@@ -300,12 +300,14 @@ _.extend(Expression, {
         // find the first result to match the user's input
         var result;
         var matchingAnswer;
+        var allEmpty = true;
         var foundMatch = !!_(rubric.answerForms).find(answer => {
             var validate = createValidator(answer);
 
             // save these because they'll be needed if this answer matches
             result = validate(state);
             matchingAnswer = answer;
+            allEmpty = allEmpty && result.empty;
 
             // short-circuit as soon as an answer matches
             return result.correct;
@@ -315,15 +317,22 @@ _.extend(Expression, {
 
         // now check to see whether it's considered correct, incorrect, or
         // ungraded
-        //
-        // in the first case we fell through all the possibilities, so the
-        // answer is considered incorrect.
         if (!foundMatch) {
-            return {
-                type: "points",
-                earned: 0,
-                total: 1
-            };
+            if (allEmpty) {
+                // If everything graded as empty, it's invalid.
+                return {
+                    type: "invalid",
+                    message: null
+                };
+            } else {
+                // We fell through all the possibilities and we're not empty,
+                // so the answer is considered incorrect.
+                return {
+                    type: "points",
+                    earned: 0,
+                    total: 1
+                };
+            }
 
         // we matched an ungraded answer - return "invalid"
         } else if (matchingAnswer.considered === "ungraded") {
