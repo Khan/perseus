@@ -340,6 +340,17 @@ var Editor = React.createClass({
                 {commafyInteger(numWords)}
             </span>;
         }
+        
+        var searchResultStyle = {
+            backgroundColor: 'yellow',
+            fontWeight: 'normal'
+        };
+        
+        var selectedSearchResultStyle = {
+            backgroundColor: 'orange',
+            fontWeight: 'normal'
+        };
+        
 
         if (this.props.widgetEnabled) {
             pieces = Util.split(this.props.content, rWidgetSplit);
@@ -350,7 +361,28 @@ var Editor = React.createClass({
                 var type = i % 2;
                 if (type === 0) {
                     // Normal text
-                    underlayPieces.push(pieces[i]);
+                    if (this.props.searchString !== "") {
+                        //var searchString = this.props.searchString;
+                        var searchRegex = new RegExp(`(${this.props.searchString})`, "g");
+                        var smallerPieces = Util.split(pieces[i], searchRegex);
+                        var searchResultIndex = 0;
+
+                        for (var j = 0; j < smallerPieces.length; j++) {
+                            var smallerPiece = smallerPieces[j];
+                            if (smallerPiece === this.props.searchString) {
+                                var style = searchResultStyle;
+                                if (searchResultIndex === this.props.searchIndex) {
+                                    style = selectedSearchResultStyle;
+                                }
+                                underlayPieces.push(<b style={style}>{smallerPiece}</b>);
+                                searchResultIndex++;
+                            } else {
+                                underlayPieces.push(smallerPiece);
+                            }
+                        }
+                    } else {
+                        underlayPieces.push(pieces[i]);
+                    }
                 } else {
                     // Widget reference
                     var match = Util.rWidgetParts.exec(pieces[i]);

@@ -29,7 +29,8 @@ var StatefulEditorPage = React.createClass({
     getInitialState: function() {
         return _({}).extend(_.omit(this.props, 'componentClass'), {
             onChange: this.handleChange,
-            ref: "editor"
+            ref: "editor",
+            onReplaceAll: this.onReplaceAll
         });
     },
 
@@ -58,6 +59,30 @@ var StatefulEditorPage = React.createClass({
 
     scorePreview: function() {
         return this.refs.editor.scorePreview();
+    },
+
+    searchAndReplace: function() {
+        this.setState({ searchAndReplace:true });
+    },
+
+    onReplaceAll: function(searchAndReplaceDialog) {
+        var searchString = searchAndReplaceDialog.state.searchString;
+        var replaceString = searchAndReplaceDialog.state.replaceString;
+
+        var question = this.state.question;
+        var hints = this.state.hints;
+
+        var regex = new RegExp(searchString, "g");
+
+        question.content = question.content.replace(regex, replaceString);
+        hints.forEach(hint => {
+            hint.content = hint.content.replace(regex, replaceString)
+        });
+
+        this.setState({
+            question: question,
+            hints: hints
+        });
     }
 });
 

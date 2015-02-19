@@ -24,6 +24,20 @@ var Util = {
         total: 0,
         message: null
     },
+    
+    countOccurences: function(contentString, searchString) {
+        var count = 0;
+
+        var searchRegex = new RegExp(searchString, "g");
+        var widgetRegex = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/g;
+
+        var matches = contentString.replace(widgetRegex, "").match(searchRegex);
+        if (matches !== null) {
+            count += matches.length;
+        }
+        
+        return count;
+    },
 
     seededRNG: function(seed) {
         var randomSeed = seed;

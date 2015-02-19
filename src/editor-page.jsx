@@ -7,6 +7,8 @@ var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
+var SearchAndReplaceDialog = require("./search-and-replace-dialog.jsx");
+var Util = require("./util.js");
 
 var EditorPage = React.createClass({
     propTypes: {
@@ -19,7 +21,7 @@ var EditorPage = React.createClass({
         // We don't specify a more specific type here because it's valid
         // for a client of Perseus to specify a subset of the API options,
         // in which case we default the rest in `this._apiOptions()`
-        apiOptions: React.PropTypes.object,
+        apiOptions: React.PropTypes.object
     },
 
     getDefaultProps: function() {
@@ -45,8 +47,41 @@ var EditorPage = React.createClass({
             wasAnswered: false
         };
     },
+    
+    getItemEditorSearchCount: function() {
+        var count = 0;
+        
+        count += Util.countOccurences(this.props.question.content, this.state.searchString);
+        count += Util.countOccurences(this.props.answerArea.options.content, this.state.searchString);
+
+        return count;
+    },
+    
+    getCombinedHintsSearchCount: function() {
+        var count = 0;
+        
+        this.props.hints.forEach(hint => {
+            count += Util.countOccurences(hint.content, this.state.searchString);
+        });
+
+        return count;
+    },
 
     render: function() {
+        
+        var itemEditorSearchIndex = -1;
+        var combinedHintsSearchIndex = -1;
+
+        if (this.props.searchIndex !== -1) {
+            var itemEditorCount = this.getItemEditorSearchCount();
+            var combinedHintsCount = this.getCombinedHintsSearchCount();
+
+            if (this.state.searchIndex < itemEditorCount) {
+                itemEditorSearchIndex = this.state.searchIndex;
+            } else if (this.state.searchIndex < itemEditorCount + combinedHintsCount) {
+                combinedHintsSearchIndex = this.state.searchIndex - itemEditorCount;
+            }
+        }
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&
@@ -80,7 +115,9 @@ var EditorPage = React.createClass({
                     wasAnswered={this.state.wasAnswered}
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
-                    apiOptions={this._apiOptions()} />
+                    apiOptions={this._apiOptions()}
+                    searchString={this.state.searchString}
+                    searchIndex={itemEditorSearchIndex} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -88,10 +125,25 @@ var EditorPage = React.createClass({
                     ref="hintsEditor"
                     hints={this.props.hints}
                     imageUploader={this.props.imageUploader}
-                    onChange={this.handleChange} />
+                    onChange={this.handleChange}
+                    searchString={this.state.searchString}
+                    searchIndex={combinedHintsSearchIndex} />
+            }
+
+            {(this.props.searchAndReplace) &&
+                <SearchAndReplaceDialog
+                    ref="searchAndReplace"
+                    question={this.props.question}
+                    hints={this.props.hints}
+                    onReplaceAll={this.props.onReplaceAll}
+                    onSearchStringChange={this.handleSearchStringChange} />
             }
         </div>;
 
+    },
+
+    handleSearchStringChange: function(searchString, searchIndex) {
+        this.setState({ searchString, searchIndex });
     },
 
     handleCheckAnswer: function() {
@@ -165,7 +217,7 @@ var EditorPage = React.createClass({
 
     changeJSON: function(newJson) {
         this.setState({
-            json: newJson,
+            json: newJson
         });
         this.props.onChange(newJson);
     },

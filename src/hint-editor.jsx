@@ -8,6 +8,7 @@ var _ = require("underscore");
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
+var Util = require("./util.js");
 
 /* Renders a hint editor box
  *
@@ -37,7 +38,9 @@ var HintEditor = React.createClass({
                     images={this.props.images}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                    searchString={this.props.searchString}
+                    searchIndex={this.props.searchIndex} />
             <div className="hint-controls-container clearfix">
                 <span className="reorder-hints">
                     <button type="button"
@@ -101,7 +104,9 @@ var CombinedHintEditor = React.createClass({
                 imageUploader={this.props.imageUploader}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
-                onMove={this.props.onMove} />
+                onMove={this.props.onMove}
+                searchString={this.props.searchString}
+                searchIndex={this.props.searchIndex} />
 
             <div className="perseus-editor-right-cell">
                 <HintRenderer hint={this.props.hint} bold={shouldBold} />
@@ -144,7 +149,19 @@ var CombinedHintsEditor = React.createClass({
 
     render: function() {
         var hints = this.props.hints;
+        var searchIndex = this.props.searchIndex;
+        var searchString = this.props.searchString;
+        
         var hintElems = _.map(hints, function(hint, i) {
+            var hintSearchCount = Util.countOccurences(hint.content, searchString);
+            var hintSearchIndex = -1;
+            if (searchIndex >= 0) {
+                if (searchIndex < hintSearchCount) {
+                    hintSearchIndex = searchIndex;
+                }
+                searchIndex -= hintSearchCount;
+            }
+
             return <CombinedHintEditor
                         ref={"hintEditor" + i}
                         key={"hintEditor" + i}
@@ -154,7 +171,9 @@ var CombinedHintsEditor = React.createClass({
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
-                        onMove={this.handleHintMove.bind(this, i)} />;
+                        onMove={this.handleHintMove.bind(this, i)}
+                        searchString={searchString}
+                        searchIndex={hintSearchIndex} />;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">

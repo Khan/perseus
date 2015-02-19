@@ -5,13 +5,14 @@ var AnswerAreaEditor = require("./answer-area-editor.jsx");
 var Editor = require("./editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
+var Util = require("./util.js");
 
 var ItemEditor = React.createClass({
     propTypes: {
         imageUploader: React.PropTypes.func,
         wasAnswered: React.PropTypes.bool,
         gradeMessage: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes,
+        apiOptions: ApiOptions.propTypes
     },
 
     getDefaultProps: function() {
@@ -19,7 +20,7 @@ var ItemEditor = React.createClass({
             onChange: () => {},
             question: {},
             answerArea: {},
-            apiOptions: ApiOptions.defaults,
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -31,6 +32,20 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
+        var questionSearchIndex = -1;
+        var answerAreaSearchIndex = -1;
+
+        if (this.props.searchIndex !== -1) {
+            var questionSearchCount = Util.countOccurences(this.props.question.content, this.props.searchString);
+            var answerAreaSearchCount = Util.countOccurences(this.props.question.content, this.props.searchString);
+            
+            if (this.props.searchIndex < questionSearchCount) {
+                questionSearchIndex = this.props.searchIndex;
+            } else if (this.props.searchIndex < questionSearchCount + answerAreaSearchCount) {
+                answerAreaSearchIndex = this.props.searchIndex - questionSearchCount;
+            }
+        }
+        
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -43,6 +58,8 @@ var ItemEditor = React.createClass({
                         onChange={this.handleEditorChange}
                         apiOptions={this.props.apiOptions}
                         showWordCount={true}
+                        searchString={this.props.searchString}
+                        searchIndex={questionSearchIndex}
                         {...this.props.question} />
                 </div>
 
@@ -62,7 +79,12 @@ var ItemEditor = React.createClass({
                     <AnswerAreaEditor
                         ref="answerAreaEditor"
                         onChange={this.handleAnswerAreaChange}
+
                         apiOptions={this.props.apiOptions}
+
+                        searchString={this.props.searchString}
+                        searchIndex={answerAreaSearchIndex}
+
                         {...this.props.answerArea} />
                 </div>
 
