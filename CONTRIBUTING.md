@@ -280,11 +280,12 @@ ours because of the DOM event.
 
 ## Starter projects
 
-The best type of contributions are those that the author needs themself. If you're using perseus and need a new type of widget, reading through `src/widgets/example-widget.jsx` and making a new one is awesome! But if you're just looking to get started contributing, perseus is also a very large project, and changing things can have non-obvious implications. We do have some more self-contained projects that perseus uses that could definitely use small improvements, such as [kmath][kmath], [KAS][KAS], [simple-markdown][simple-markdown].
+Perseus is a large and complicated project, and probably not the best first place to start contributing to if you're looking to get involved in Khan Academy open source. We have several more self-contained projects that perseus uses that could definitely use small improvements, such as [kmath][kmath], [KAS][KAS], [simple-markdown][simple-markdown]. That said, we're very happy to have quality open source contributions, but have limited time to support this. If you're looking for some projects, I've tried to curate some ideas into the [issues list][issues]. These should be doable, but are a little more involved than an ideal starter project.
 
 [kmath]: https://github.com/Khan/kmath
 [KAS]: https://github.com/Khan/KAS
 [simple-markdown]: https://github.com/Khan/simple-markdown
+[issues]: https://github.com/Khan/perseus/issues
 
 ## License
 
