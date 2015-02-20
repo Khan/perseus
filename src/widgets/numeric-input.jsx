@@ -386,11 +386,15 @@ var NumericInputEditor = React.createClass({
         </div>;
 
         var maxError = (i) => <div className="perseus-widget-row">
-            <NumberInput label="Max error"
-                className="max-error"
-                value={answers[i]["maxError"]}
-                onChange={this.updateAnswer(i, "maxError")}
-                placeholder="0" />
+            <label>
+                Max error
+                {" "}
+                <NumberInput
+                    className="max-error"
+                    value={answers[i]["maxError"]}
+                    onChange={this.updateAnswer(i, "maxError")}
+                    placeholder="0" />
+            </label>
         </div>;
 
         var inputSize = <div className="perseus-widget-row">
