@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var Util = require("./util.js");
 
 var SearchAndReplaceDialog = React.createClass({
 
@@ -13,25 +14,68 @@ var SearchAndReplaceDialog = React.createClass({
     },
 
     updateSearchValue(event) {
-        this.setState({ searchString: event.target.value });
-        this.props.onSearchStringChange(event.target.value, this.state.searchIndex);
+        var searchString = event.target.value;
+
+        this.setState({ searchString });
+        this.props.onChange({
+            searchString, searchIndex: 0
+        });
     },
-    
-    updateSearchIndex() {
-        var searchIndex = this.state.searchIndex;
-        searchIndex ++;
-        this.setState({ searchIndex });
-        this.props.onSearchStringChange(this.state.searchString, searchIndex);
-    },
-    
+
     updateReplaceValue(event) {
         this.setState({ replaceString: event.target.value });
     },
 
-    handleReplaceAll: function () {
-        this.props.onReplaceAll(this);
+    getTotalSearchCount: function() {
+        var count = 0;
+
+        count += Util.countOccurences(this.props.question.content, this.state.searchString);
+        count += Util.countOccurences(this.props.answerArea.options.content, this.state.searchString);
+        this.props.hints.forEach(hint => {
+            count += Util.countOccurences(hint.content, this.state.searchString);
+        });
+
+        return count;
     },
-    
+
+    handleNextSearchResult() {
+        var searchIndex = this.state.searchIndex;
+        searchIndex ++;
+        searchIndex = searchIndex % this.getTotalSearchCount();
+
+        this.setState({ searchIndex }); // TODO: have a current of total indicator
+        this.props.onChange({ searchIndex });
+    },
+
+    handlePreviousSearchResult() {
+        var searchIndex = this.state.searchIndex;
+        searchIndex --;
+        if (searchIndex < 0) {
+            searchIndex = this.getTotalSearchCount() - 1;
+        }
+
+        this.setState({ searchIndex });
+        this.props.onChange({ searchIndex });
+    },
+
+    handleReplaceAll: function () {
+        // TODO: replace results in answerArea
+        var searchString = this.state.searchString;
+        var replaceString = this.state.replaceString;
+
+        var question = this.props.question;
+        var hints = this.props.hints;
+
+        var regex = new RegExp(searchString, "g");
+
+        question.content = question.content.replace(regex, replaceString);
+        hints.forEach(hint => {
+            hint.content = hint.content.replace(regex, replaceString)
+        });
+
+        this.props.onReplaceAll({ question, hints });
+    },
+
     render() {
         var style = {
             padding: '10px',
@@ -58,7 +102,7 @@ var SearchAndReplaceDialog = React.createClass({
             clear: 'right',
             width: '220px'
         };
-        
+
         var buttonStyle = {
             float: 'right',
             marginLeft: '8px'
@@ -82,9 +126,9 @@ var SearchAndReplaceDialog = React.createClass({
 
             </div>
             <div style={{ overflow: 'auto', marginTop: '8px' }}>
-                results: {this.state.count}
                 <button style={buttonStyle} onClick={this.handleReplaceAll}>Replace All</button>
-                <button style={buttonStyle} onClick={this.updateSearchIndex}>Next</button>
+                <button style={buttonStyle} onClick={this.handleNextSearchResult}>Next</button>
+                <button style={buttonStyle} onClick={this.handlePreviousSearchResult}>Previous</button>
                 <button style={buttonStyle} disabled>Replace</button>
             </div>
         </div>;

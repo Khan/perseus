@@ -72,7 +72,7 @@ var EditorPage = React.createClass({
         var itemEditorSearchIndex = -1;
         var combinedHintsSearchIndex = -1;
 
-        if (this.props.searchIndex !== -1) {
+        if (this.state.searchIndex !== -1) {
             var itemEditorCount = this.getItemEditorSearchCount();
             var combinedHintsCount = this.getCombinedHintsSearchCount();
 
@@ -134,16 +134,17 @@ var EditorPage = React.createClass({
                 <SearchAndReplaceDialog
                     ref="searchAndReplace"
                     question={this.props.question}
+                    answerArea={this.props.answerArea}
                     hints={this.props.hints}
-                    onReplaceAll={this.props.onReplaceAll}
-                    onSearchStringChange={this.handleSearchStringChange} />
+                    onChange={this.handleStateChange}
+                    onReplaceAll={this.props.onChange} />
             }
         </div>;
 
     },
 
-    handleSearchStringChange: function(searchString, searchIndex) {
-        this.setState({ searchString, searchIndex });
+    handleStateChange: function(newState, cb) {
+        this.setState(newState, cb);
     },
 
     handleCheckAnswer: function() {

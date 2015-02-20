@@ -183,7 +183,7 @@ $('#permalink').on('click', function(e) {
     e.preventDefault();
 });
 $('#searchAndReplace').on('click', function() {
-    editor.searchAndReplace();
+    editor.toggleSearchAndReplace();
 });
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
