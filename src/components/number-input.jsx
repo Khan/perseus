@@ -32,7 +32,8 @@ var NumberInput = React.createClass({
         onChange: React.PropTypes.func.isRequired,
         onFormatChange: React.PropTypes.func,
         checkValidity: React.PropTypes.func,
-        size: React.PropTypes.string
+        size: React.PropTypes.string,
+        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]),
     },
 
     getDefaultProps: function() {
@@ -53,21 +54,18 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        var cx = React.addons.classSet;
-
-        var classes = cx({
+        var classes = React.addons.classSet({
             "number-input": true,
-            "number-input-label": this.props.label != null,
             "invalid-input": !this._checkValidity(this.props.value),
             "mini": this.props.size === "mini",
             "small": this.props.size === "small",
             "normal": this.props.size === "normal"
         });
         if (this.props.className != null) {
-            classes = [classes, this.props.className].join(" ");
+            classes = classes + " " + this.props.className;
         }
 
-        var input = <input
+        return <input
             {...this.props}
             className={classes}
             type="text"
@@ -80,14 +78,6 @@ var NumberInput = React.createClass({
             onTouchStart={captureScratchpadTouchStart}
             defaultValue={toNumericString(this.props.value, this.state.format)}
             value={undefined} />;
-
-        if (this.props.label) {
-            // TODO(aria): Remove this prop and option. Put your labels
-            // outside your inputs
-            return <label>{this.props.label}{input}</label>;
-        } else {
-            return input;
-        }
     },
 
     componentDidUpdate: function(prevProps) {
