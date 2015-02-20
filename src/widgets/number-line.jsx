@@ -624,7 +624,8 @@ var NumberLineEditor = React.createClass({
 
         return <div className="perseus-widget-number-line-editor">
             <div className="perseus-widget-row">
-                <label>correct x</label>
+                Correct x
+                {" "}
                 <select value={this.props.correctRel}
                   onChange={this.onChangeRelation}>
                     <option value="eq"> = </option>
@@ -633,6 +634,7 @@ var NumberLineEditor = React.createClass({
                     <option value="le"> &le; </option>
                     <option value="ge"> &ge; </option>
                 </select>
+                {" "}
                 <NumberInput
                     value={this.props.correctX}
                     format={this.props.labelStyle}
@@ -651,15 +653,20 @@ var NumberLineEditor = React.createClass({
             </div>
 
             <div className="perseus-widget-row">
-                <NumberInput
-                    label="position"
-                    value={this.props.initialX}
-                    format={this.props.labelStyle}
-                    onChange={this.onNumChange.bind(this, "initialX")}
-                    placeholder={range[0]}
-                    checkValidity={val => val >= range[0] && val <= range[1]}
-                    useArrowKeys={true} />
-                <span> &isin; {' '} </span>
+                <label>
+                    Position:
+                    {" "}
+                    <NumberInput
+                        value={this.props.initialX}
+                        format={this.props.labelStyle}
+                        onChange={this.onNumChange.bind(this, "initialX")}
+                        placeholder={range[0]}
+                        checkValidity={(val) => {
+                            return (val >= range[0]) && (val <= range[1]);
+                        }}
+                        useArrowKeys={true} />
+                </label>
+                {" \u2208 " /* element of (little E) symbol */}
                 <RangeInput
                     value={range}
                     onChange={this.onRangeChange}
@@ -674,7 +681,8 @@ var NumberLineEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
-                    <span>labels </span>
+                    Labels:
+                    {" "}
                     <NumberInput
                         value={labelRange[0]} placeholder={range[0]}
                         format={this.props.labelStyle}
@@ -699,47 +707,51 @@ var NumberLineEditor = React.createClass({
                 </div>
             </div>
             <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    <label>style</label>
-                    <ButtonGroup
-                        allowEmpty={false}
-                        value={this.props.labelStyle}
-                        buttons={labelStyleEditorButtons}
-                        onChange={this.onLabelStyleChange} />
-                    <InfoTip><p>
-                        This controls the styling of the labels for the two
-                        main labels as well as all the tick mark labels,
-                        if applicable. Your choices are decimal,
-                        improper fractions, mixed fractions, and non-reduced
-                        fractions.
-                    </p></InfoTip>
-                </div>
+                Style:
+                {" "}
+                <ButtonGroup
+                    allowEmpty={false}
+                    value={this.props.labelStyle}
+                    buttons={labelStyleEditorButtons}
+                    onChange={this.onLabelStyleChange} />
+                <InfoTip><p>
+                    This controls the styling of the labels for the two
+                    main labels as well as all the tick mark labels,
+                    if applicable. Your choices are decimal,
+                    improper fractions, mixed fractions, and non-reduced
+                    fractions.
+                </p></InfoTip>
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     <PropCheckBox
-                        label="show tick controller"
+                        label="Show tick controller"
                         isTickCtrl={this.props.isTickCtrl}
                         onChange={this.props.onChange} />
                 </div>
                 <div className="perseus-widget-right-col">
                     <PropCheckBox
-                        label="show label ticks"
+                        label="Show label ticks"
                         labelTicks={this.props.labelTicks}
                         onChange={this.props.onChange} />
                 </div>
             </div>
             <div className="perseus-widget-row">
                 {isTickCtrl && <span>
-                    <NumberInput
-                        label="start num divisions at"
-                        value={this.props.numDivisions || null}
-                        format={"decimal"}
-                        onChange={this.onNumDivisionsChange}
-                        checkValidity={val =>
-                            val >= divisionRange[0] && val <= divisionRange[1]}
-                        placeholder={width / this.props.tickStep}
-                        useArrowKeys={true} />
+                    <label>
+                        Start num divisions at
+                        {" "}
+                        <NumberInput
+                            value={this.props.numDivisions || null}
+                            format={"decimal"}
+                            onChange={this.onNumDivisionsChange}
+                            checkValidity={(val) => {
+                                return (val >= divisionRange[0]) &&
+                                    (val <= divisionRange[1]);
+                            }}
+                            placeholder={width / this.props.tickStep}
+                            useArrowKeys={true} />
+                    </label>
                     <InfoTip><p>
                         This controls the number (and position) of the tick
                         marks. The number of divisions is constrained to
@@ -749,23 +761,34 @@ var NumberLineEditor = React.createClass({
                         the number of divisions in a number input.
                     </p></InfoTip></span>}
                 {!isTickCtrl && <span>
-                    <NumberInput
-                        label="num divisions"
-                        value={this.props.numDivisions || null}
-                        format={"decimal"}
-                        onChange={this.onNumDivisionsChange}
-                        checkValidity={val =>
-                            val >= divisionRange[0] && val <= divisionRange[1]}
-                        placeholder={width / this.props.tickStep}
-                        useArrowKeys={true} />
-                    <NumberInput
-                        label=" or tick step"
-                        value={this.props.tickStep || null}
-                        format={this.props.labelStyle}
-                        onChange={this.onTickStepChange}
-                        checkValidity={val => val > 0 && val <= width}
-                        placeholder={width / this.props.numDivisions}
-                        useArrowKeys={true} />
+                    <label>
+                        Num divisions:
+                        {" "}
+                        <NumberInput
+                            value={this.props.numDivisions || null}
+                            format={"decimal"}
+                            onChange={this.onNumDivisionsChange}
+                            checkValidity={(val) => {
+                                return (val >= divisionRange[0]) &&
+                                    (val <= divisionRange[1]);
+                            }}
+                            placeholder={width / this.props.tickStep}
+                            useArrowKeys={true} />
+                    </label>
+                    {" "}
+                    <label>
+                        or tick step:
+                        {" "}
+                        <NumberInput
+                            value={this.props.tickStep || null}
+                            format={this.props.labelStyle}
+                            onChange={this.onTickStepChange}
+                            checkValidity={(val) => {
+                                return val > 0 && val <= width;
+                            }}
+                            placeholder={width / this.props.numDivisions}
+                            useArrowKeys={true} />
+                    </label>
                     <InfoTip><p>
                         This controls the number (and position) of the tick
                         marks; you can either set the number of divisions (2
@@ -779,13 +802,16 @@ var NumberLineEditor = React.createClass({
                     </p></InfoTip></span>}
             </div>
             <div className="perseus-widget-row">
-                <NumberInput
-                    label="snap increments per tick"
-                    value={snapDivisions}
-                    checkValidity={val => val > 0}
-                    format={this.props.labelStyle}
-                    onChange={this.onNumChange.bind(this, "snapDivisions")}
-                    useArrowKeys={true} />
+                <label>
+                    Snap increments per tick:
+                    {" "}
+                    <NumberInput
+                        value={snapDivisions}
+                        checkValidity={(val) => val > 0}
+                        format={this.props.labelStyle}
+                        onChange={this.onNumChange.bind(this, "snapDivisions")}
+                        useArrowKeys={true} />
+                </label>
                 <InfoTip><p>
                     This determines the number of different places the point
                     will snap between two adjacent tick marks. <br />
