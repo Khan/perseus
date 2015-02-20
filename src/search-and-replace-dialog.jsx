@@ -58,78 +58,140 @@ var SearchAndReplaceDialog = React.createClass({
         this.props.onChange({ searchIndex });
     },
 
-    handleReplaceAll: function () {
-        // TODO: replace results in answerArea
+    handleReplaceAll() {
         var searchString = this.state.searchString;
         var replaceString = this.state.replaceString;
 
         var question = this.props.question;
+        var answerArea = this.props.answerArea;
         var hints = this.props.hints;
 
         var regex = new RegExp(searchString, "g");
 
         question.content = question.content.replace(regex, replaceString);
+        answerArea.options.content = answerArea.options.content.replace(regex, replaceString);
         hints.forEach(hint => {
             hint.content = hint.content.replace(regex, replaceString)
         });
 
-        this.props.onReplaceAll({ question, hints });
+        this.props.onReplaceAll({ question, answerArea, hints });
+        // TODO: disable 'Replace' and 'Replace All' buttons
+    },
+    
+    handleReplace() {
+        var searchIndex = this.state.searchIndex;
+        var searchString = this.state.searchString;
+        var replaceString = this.state.replaceString;
+
+        var question = this.props.question;
+        var answerArea = this.props.answerArea;
+        var hints = this.props.hints;
+
+        var regex = new RegExp(searchString, "g");
+        var replaced = false;
+        var globalIndex = 0;
+
+        question.content = question.content.replace(regex, match => {
+            if (!replaced && globalIndex === searchIndex) {
+                replaced = true;
+                globalIndex ++;
+                return replaceString;
+            } else {
+                globalIndex ++;
+                return match;
+            }
+        });
+
+        if (!replaced) {
+            answerArea.options.content = answerArea.options.content.replace(regex, match => {
+                if (!replaced && globalIndex === searchIndex) {
+                    replaced = true;
+                    globalIndex ++;
+                    return replaceString;
+                } else {
+                    globalIndex ++;
+                    return match;
+                }
+            });
+        }
+
+        if (!replaced) {
+            hints.forEach(hint => {
+                if (replaced) {
+                    return;
+                }
+                hint.content = hint.content.replace(regex, match => {
+                    if (!replaced && globalIndex === searchIndex) {
+                        replaced = true;
+                        globalIndex ++;
+                        return replaceString;
+                    } else {
+                        globalIndex ++;
+                        return match;
+                    }
+                });
+            });
+        }
+
+        this.props.onReplaceAll({ question, answerArea, hints });
+        
+        // TODO: disable 'Replace' and 'Replace All' buttons when there are no matches
+    },
+
+    style: {
+        padding: '10px',
+        position: 'fixed',
+        right: 0,
+        top: 0,
+        width: '300px',
+        backgroundColor: '#EEE',
+        border: 'solid 1px #DDD',
+        zIndex: 100
+    },
+
+    labelStyle: {
+        display: 'inline-block',
+        float: 'right',
+        textAlign: 'right',
+        width: '60px',
+        marginRight: '8px'
+    },
+
+    inputStyle: {
+        display: 'inline-block',
+        float: 'right',
+        clear: 'right',
+        width: '220px'
+    },
+
+    buttonStyle: {
+        float: 'right',
+        marginLeft: '8px'
     },
 
     render() {
-        var style = {
-            padding: '10px',
-            position: 'fixed',
-            right: 0,
-            top: 0,
-            width: '300px',
-            backgroundColor: '#EEE',
-            border: 'solid 1px #DDD',
-            zIndex: 100
-        };
-
-        var labelStyle = {
-            display: 'inline-block',
-            float: 'right',
-            textAlign: 'right',
-            width: '60px',
-            marginRight: '8px'
-        };
-
-        var inputStyle = {
-            display: 'inline-block',
-            float: 'right',
-            clear: 'right',
-            width: '220px'
-        };
-
-        var buttonStyle = {
-            float: 'right',
-            marginLeft: '8px'
-        };
-
-        return <div style={style}>
+        return <div style={this.style}>
             <div style={{ overflow: 'auto' }}>
                 <input
                     type="text"
                     value={this.state.searchString}
                     onChange={this.updateSearchValue}
-                    style={inputStyle} />
-                <label style={labelStyle}>Search:</label>
+                    style={this.inputStyle} />
+                <label style={this.labelStyle}>Search:</label>
 
                 <input
                     type="text"
                     value={this.state.replaceString}
                     onChange={this.updateReplaceValue}
-                    style={inputStyle} />
-                <label style={labelStyle}>Replace:</label>
+                    style={this.inputStyle} />
+                <label style={this.labelStyle}>Replace:</label>
 
             </div>
             <div style={{ overflow: 'auto', marginTop: '8px' }}>
-                <button style={buttonStyle} onClick={this.handleReplaceAll}>Replace All</button>
-                <button style={buttonStyle} onClick={this.handleNextSearchResult}>Next</button>
-                <button style={buttonStyle} onClick={this.handlePreviousSearchResult}>Previous</button>
-                <button style={buttonStyle} disabled>Replace</button>
+                <button style={this.buttonStyle} onClick={this.handleReplaceAll}>Replace All</button>
+                <button style={this.buttonStyle} onClick={this.handleNextSearchResult}>Next</button>
+                <button style={this.buttonStyle} onClick={this.handlePreviousSearchResult}>Previous</button>
+                <button style={this.buttonStyle} onClick={this.handleReplace}>Replace</button>
             </div>
         </div>;
     }

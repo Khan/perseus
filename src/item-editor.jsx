@@ -37,7 +37,7 @@ var ItemEditor = React.createClass({
 
         if (this.props.searchIndex !== -1) {
             var questionSearchCount = Util.countOccurences(this.props.question.content, this.props.searchString);
-            var answerAreaSearchCount = Util.countOccurences(this.props.question.content, this.props.searchString);
+            var answerAreaSearchCount = Util.countOccurences(this.props.answerArea.options.content, this.props.searchString);
             
             if (this.props.searchIndex < questionSearchCount) {
                 questionSearchIndex = this.props.searchIndex;
