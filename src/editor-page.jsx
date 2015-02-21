@@ -50,20 +50,8 @@ var EditorPage = React.createClass({
     
     getItemEditorSearchCount: function() {
         var count = 0;
-        
         count += Util.countOccurences(this.props.question.content, this.state.searchString);
         count += Util.countOccurences(this.props.answerArea.options.content, this.state.searchString);
-
-        return count;
-    },
-    
-    getCombinedHintsSearchCount: function() {
-        var count = 0;
-        
-        this.props.hints.forEach(hint => {
-            count += Util.countOccurences(hint.content, this.state.searchString);
-        });
-
         return count;
     },
 

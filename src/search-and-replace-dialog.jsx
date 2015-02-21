@@ -76,13 +76,15 @@ var SearchAndReplaceDialog = React.createClass({
         var regex = new RegExp(searchString, "g");
 
         question.content = question.content.replace(regex, replaceString);
-        answerArea.options.content = answerArea.options.content.replace(regex, replaceString);
+        answerArea.options.content =
+            answerArea.options.content.replace(regex, replaceString);
         hints.forEach(hint => {
             hint.content = hint.content.replace(regex, replaceString)
         });
 
         // handle the case where the replaceString contains one or more copies
         // of searchString
+        // TODO(kevinb7) this is quite right
         var searchResultCount = this.getSearchResultCount(searchString);
 
         this.setState({ searchIndex: 0, searchResultCount });
@@ -114,16 +116,17 @@ var SearchAndReplaceDialog = React.createClass({
         });
 
         if (!replaced) {
-            answerArea.options.content = answerArea.options.content.replace(regex, match => {
-                if (!replaced && globalIndex === searchIndex) {
-                    replaced = true;
-                    globalIndex ++;
-                    return replaceString;
-                } else {
-                    globalIndex ++;
-                    return match;
-                }
-            });
+            answerArea.options.content =
+                answerArea.options.content.replace(regex, match => {
+                    if (!replaced && globalIndex === searchIndex) {
+                        replaced = true;
+                        globalIndex ++;
+                        return replaceString;
+                    } else {
+                        globalIndex ++;
+                        return match;
+                    }
+                });
         }
 
         if (!replaced) {
@@ -146,7 +149,7 @@ var SearchAndReplaceDialog = React.createClass({
 
         var searchResultCount = this.state.searchResultCount;
 
-        if (replaceString.indexOf(searchString) !== -1) {
+        if (replaceString.indexOf(searchString) === -1) {
             // normal case: replaceString doesn't contain searchString so we
             // can decrement searchResultCount because we just replaced one 
             // occurence of searchString

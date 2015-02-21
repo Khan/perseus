@@ -7,6 +7,7 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
+var cx = React.addons.classSet;
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
@@ -76,7 +77,7 @@ var WidgetSelect = React.createClass({
         if (this.props.onChange) {
             this.props.onChange(widgetType);
         }
-    },
+    }
 });
 
 
@@ -86,7 +87,7 @@ var WidgetEditor = React.createClass({
         id: React.PropTypes.string,
         graded: React.PropTypes.bool,
         onChange: React.PropTypes.func,
-        apiOptions: ApiOptions.propTypes,
+        apiOptions: ApiOptions.propTypes
     },
 
     getDefaultProps: function() {
@@ -236,7 +237,7 @@ var imageUrlsFromContent = function(content) {
 var Editor = React.createClass({
     propTypes: {
         imageUploader: React.PropTypes.func,
-        apiOptions: ApiOptions.propTypes,
+        apiOptions: ApiOptions.propTypes
     },
 
     getDefaultProps: function() {
@@ -248,7 +249,7 @@ var Editor = React.createClass({
             widgetEnabled: true,
             immutableWidgets: false,
             showWordCount: false,
-            apiOptions: ApiOptions.defaults,
+            apiOptions: ApiOptions.defaults
         };
     },
 
@@ -329,6 +330,7 @@ var Editor = React.createClass({
         var templatesDropDown;
         var widgetsAndTemplates;
         var wordCountDisplay;
+        var classes;
 
         if (this.props.showWordCount) {
             var numChars = characterCount(this.props.content);
@@ -362,21 +364,27 @@ var Editor = React.createClass({
                 if (type === 0) {
                     // Normal text
                     if (this.props.searchString !== "") {
-                        //var searchString = this.props.searchString;
-                        var searchRegex = new RegExp(`(${this.props.searchString})`, "g");
+                        var searchRegex =
+                            new RegExp(`(${this.props.searchString})`, "g");
                         var smallerPieces = Util.split(pieces[i], searchRegex);
                         var searchResultIndex = 0;
 
                         for (var j = 0; j < smallerPieces.length; j++) {
                             var smallerPiece = smallerPieces[j];
                             if (smallerPiece === this.props.searchString) {
-                                var style = searchResultStyle;
-                                if (searchResultIndex === this.props.searchIndex) {
-                                    style = selectedSearchResultStyle;
-                                }
-                                underlayPieces.push(<b style={style}>{smallerPiece}</b>);
+                                var currentSearchResult =
+                                    searchResultIndex === this.props.searchIndex;
+                                classes = cx({
+                                    "search-result": !currentSearchResult,
+                                    "current-search-result": currentSearchResult
+                                });
+
+                                // Search result
+                                underlayPieces.push(
+                                    <b className={classes}>{smallerPiece}</b>);
                                 searchResultIndex++;
                             } else {
+                                // Normal text
                                 underlayPieces.push(smallerPiece);
                             }
                         }
@@ -387,7 +395,7 @@ var Editor = React.createClass({
                     // Widget reference
                     var match = Util.rWidgetParts.exec(pieces[i]);
                     var id = match[1];
-                    var type = match[2];
+                    type = match[2];
 
                     var selected = false;
                     // TODO(alpert):
@@ -401,7 +409,7 @@ var Editor = React.createClass({
                     var duplicate = id in widgets;
 
                     widgets[id] = this.getWidgetEditor(id, type);
-                    var classes = (duplicate || !widgets[id] ? "error " : "") +
+                    classes = (duplicate || !widgets[id] ? "error " : "") +
                             (selected ? "selected " : "");
                     var key = duplicate ? i : id;
                     underlayPieces.push(
@@ -508,6 +516,15 @@ var Editor = React.createClass({
         if (this.props.content !== prevProps.content) {
             this._sizeImages(this.props);
         }
+
+        $('.current-search-result').each((index, elem) => {
+            var bounds = elem.getBoundingClientRect();
+            // TODO(kevinb7) improve behaviour so that more context is shown
+            if (bounds.top < 10 || bounds.bottom > $(window).height() - 10) {
+                var scrollY = bounds.top + window.scrollY - 100;
+                window.scrollTo(window.scrollX, scrollY);
+            }
+        });
     },
 
     handleDrop: function(e) {
@@ -755,7 +772,7 @@ var Editor = React.createClass({
         return {
             content: this.props.content,
             images: this.props.images,
-            widgets: widgets,
+            widgets: widgets
         };
     },
 
