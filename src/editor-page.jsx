@@ -47,15 +47,10 @@ var EditorPage = React.createClass({
             wasAnswered: false
         };
     },
-    
-    getItemEditorSearchCount: function() {
-        var count = 0;
-        count += Util.countOccurences(this.props.question.content, this.state.searchString);
-        count += Util.countOccurences(this.props.answerArea.options.content, this.state.searchString);
-        return count;
-    },
 
     render: function() {
+        var hintSearchIndex = this.state.searchIndex -
+            Util.countOccurences(this.props.question.content, this.state.searchString);
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&
@@ -101,14 +96,13 @@ var EditorPage = React.createClass({
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
                     searchString={this.state.searchString}
-                    searchIndex={this.state.searchIndex - this.getItemEditorSearchCount()} />
+                    searchIndex={hintSearchIndex} />
             }
 
             {(this.props.searchAndReplace) &&
                 <SearchAndReplaceDialog
                     ref="searchAndReplace"
                     question={this.props.question}
-                    answerArea={this.props.answerArea}
                     hints={this.props.hints}
                     onSearchChange={this.handleStateChange}
                     onDocumentChange={this.props.onChange} />
@@ -191,9 +185,10 @@ var EditorPage = React.createClass({
             if (typeof cb === "function") {
                 cb();
             }
-            // update the search results after question, hints, or answerArea
-            // changes
-            this.refs.searchAndReplace.updateSearchResults(newProps);
+            // update the search results after question or hints changes
+            if (this.refs.searchAndReplace) {
+                this.refs.searchAndReplace.updateSearchResults(newProps);
+            }
         }, silent);
     },
 

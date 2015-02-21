@@ -50,7 +50,6 @@ var SearchAndReplaceDialog = React.createClass({
         var count = 0;
 
         count += Util.countOccurences(this.props.question.content, searchString);
-        count += Util.countOccurences(this.props.answerArea.options.content, searchString);
         this.props.hints.forEach(hint => {
             count += Util.countOccurences(hint.content, searchString);
         });
@@ -83,14 +82,11 @@ var SearchAndReplaceDialog = React.createClass({
         var replaceString = this.state.replaceString;
 
         var question = this.props.question;
-        var answerArea = this.props.answerArea;
         var hints = this.props.hints;
 
         var regex = new RegExp(searchString, "g");
 
         question.content = question.content.replace(regex, replaceString);
-        answerArea.options.content =
-            answerArea.options.content.replace(regex, replaceString);
         hints.forEach(hint => {
             hint.content = hint.content.replace(regex, replaceString)
         });
@@ -101,7 +97,7 @@ var SearchAndReplaceDialog = React.createClass({
         var searchResultCount = this.getSearchResultCount(searchString);
 
         this.setState({ searchIndex: 0, searchResultCount });
-        this.props.onDocumentChange({ question, answerArea, hints });
+        this.props.onDocumentChange({ question, hints });
     },
 
     handleReplace() {
@@ -110,7 +106,6 @@ var SearchAndReplaceDialog = React.createClass({
         var replaceString = this.state.replaceString;
 
         var question = this.props.question;
-        var answerArea = this.props.answerArea;
         var hints = this.props.hints;
 
         var regex = new RegExp(searchString, "g");
@@ -127,20 +122,6 @@ var SearchAndReplaceDialog = React.createClass({
                 return match;
             }
         });
-
-        if (!replaced) {
-            answerArea.options.content =
-                answerArea.options.content.replace(regex, match => {
-                    if (!replaced && globalIndex === searchIndex) {
-                        replaced = true;
-                        globalIndex ++;
-                        return replaceString;
-                    } else {
-                        globalIndex ++;
-                        return match;
-                    }
-                });
-        }
 
         if (!replaced) {
             hints.forEach(hint => {
@@ -184,34 +165,7 @@ var SearchAndReplaceDialog = React.createClass({
 
         this.setState({ searchIndex, searchResultCount });
         this.props.onSearchChange({ searchIndex });
-        this.props.onDocumentChange({ question, answerArea, hints });
-    },
-
-    style: {
-        padding: 10,
-        position: 'fixed',
-        right: 0,
-        top: 0,
-        width: 300,
-        backgroundColor: '#EEE',
-        border: 'solid 1px #DDD',
-        zIndex: 100
-    },
-
-    labelStyle: {
-        display: 'inline-block',
-        float: 'left',
-        clear: 'left',
-        textAlign: 'right',
-        width: 60,
-        marginRight: 8
-    },
-
-    inputStyle: {
-        display: 'inline-block',
-        float: 'left',
-        width: 220,
-        boxSizing: 'border-box'
+        this.props.onDocumentChange({ question, hints });
     },
 
     render() {
@@ -223,31 +177,58 @@ var SearchAndReplaceDialog = React.createClass({
             displayIndex = displayCount;
         }
 
-        return <div style={this.style}>
-            <div style={{ overflow: 'auto' }}>
-                <label style={this.labelStyle}>Search:</label>
+        var gridSpace = 8;
 
+        var style = {
+            padding: 10,
+            position: 'fixed',
+            right: 0,
+            top: 0,
+            width: 300,
+            backgroundColor: '#EEE',
+            border: 'solid 1px #DDD',
+            zIndex: 100,
+            display: 'flex',
+            flexDirection: 'row'
+        };
+
+        var labelStyle = {
+            display: 'inline-block',
+            textAlign: 'right',
+            width: 60,
+            marginRight: gridSpace
+        };
+
+        var inputStyle = {
+            display: 'inline-block',
+            width: '100%',
+            boxSizing: 'border-box'
+        };
+
+        return <div style={style}>
+            <div style={{ flexShrink: 0, flexGrow: 0 }}>
+                <label style={labelStyle}>Search:</label>
+                <br />
+                <label style={labelStyle}>Replace:</label>
+                <br />
+                <span style={labelStyle}>{displayIndex} of {displayCount}</span>
+            </div>
+            <div style={{ flexShrink: 0, flexGrow: 1 }}>
                 <input
                     type="text"
                     value={this.state.searchString}
                     onChange={this.updateSearchString}
-                    style={this.inputStyle} />
-                <label style={this.labelStyle}>Replace:</label>
-
+                    style={inputStyle} />
+                <br />
                 <input
                     type="text"
                     value={this.state.replaceString}
                     onChange={this.updateReplaceString}
-                    style={this.inputStyle} />
-            </div>
-            <div style={{ overflow: 'auto', marginTop: 8 }}>
-                <span style={{ float: 'left', width: 60, marginRight: 8, textAlign: 'right' }}>
-                    {displayIndex} of {displayCount}
-                </span>
-
-                <div style={{ float: 'left', width: 220 }}>
+                    style={inputStyle} />
+                <br />
+                <div>
                     <button
-                        style={{ float: 'left', marginRight: 8 }}
+                        style={{ float: 'left', marginRight: gridSpace }}
                         onClick={this.handlePreviousSearchResult}
                         disabled={disabled}>&lt;</button>
                     <button
@@ -256,7 +237,7 @@ var SearchAndReplaceDialog = React.createClass({
                         disabled={disabled}>&gt;</button>
 
                     <button
-                        style={{ float: 'right', marginLeft: 8 }}
+                        style={{ float: 'right', marginLeft: gridSpace }}
                         onClick={this.handleReplaceAll}
                         disabled={disabled}>Replace All</button>
                     <button

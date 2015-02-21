@@ -32,8 +32,6 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
-        var questionSearchResultCount = Util.countOccurences(this.props.question.content, this.props.searchString);
-
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -68,8 +66,6 @@ var ItemEditor = React.createClass({
                         ref="answerAreaEditor"
                         onChange={this.handleAnswerAreaChange}
                         apiOptions={this.props.apiOptions}
-                        searchString={this.props.searchString}
-                        searchIndex={this.props.searchIndex - questionSearchResultCount}
                         {...this.props.answerArea} />
                 </div>
 

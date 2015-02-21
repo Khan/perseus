@@ -342,17 +342,6 @@ var Editor = React.createClass({
                 {commafyInteger(numWords)}
             </span>;
         }
-        
-        var searchResultStyle = {
-            backgroundColor: 'yellow',
-            fontWeight: 'normal'
-        };
-        
-        var selectedSearchResultStyle = {
-            backgroundColor: 'orange',
-            fontWeight: 'normal'
-        };
-        
 
         if (this.props.widgetEnabled) {
             pieces = Util.split(this.props.content, rWidgetSplit);
@@ -519,7 +508,6 @@ var Editor = React.createClass({
 
         $('.current-search-result').each((index, elem) => {
             var bounds = elem.getBoundingClientRect();
-            // TODO(kevinb7) improve behaviour so that more context is shown
             if (bounds.top < 10 || bounds.bottom > $(window).height() - 10) {
                 var scrollY = bounds.top + window.scrollY - 100;
                 window.scrollTo(window.scrollX, scrollY);
