@@ -21,19 +21,32 @@ var SearchAndReplaceDialog = React.createClass({
         }
     },
 
-    updateSearchValue(event) {
+    updateSearchString(event) {
+        var searchIndex = 0;
         var searchString = event.target.value;
         var searchResultCount = this.getSearchResultCount(searchString);
 
-        this.setState({ searchString, searchResultCount });
-        this.props.onSearchChange({ searchString, searchIndex: 0 });
+        this.setState({ searchString, searchIndex, searchResultCount });
+        this.props.onSearchChange({ searchString, searchIndex });
     },
 
-    updateReplaceValue(event) {
+    updateReplaceString(event) {
         this.setState({ replaceString: event.target.value });
     },
 
+    updateSearchResults() {
+        var searchIndex = 0;
+        var searchResultCount = this.getSearchResultCount(this.state.searchString);
+
+        this.setState({ searchResultCount, searchIndex });
+        this.props.onSearchChange({ searchIndex });
+    },
+
     getSearchResultCount(searchString) {
+        if (searchString === "") {
+            return 0;
+        }
+
         var count = 0;
 
         count += Util.countOccurences(this.props.question.content, searchString);
@@ -175,11 +188,11 @@ var SearchAndReplaceDialog = React.createClass({
     },
 
     style: {
-        padding: '10px',
+        padding: 10,
         position: 'fixed',
         right: 0,
         top: 0,
-        width: '300px',
+        width: 300,
         backgroundColor: '#EEE',
         border: 'solid 1px #DDD',
         zIndex: 100
@@ -187,61 +200,70 @@ var SearchAndReplaceDialog = React.createClass({
 
     labelStyle: {
         display: 'inline-block',
-        float: 'right',
+        float: 'left',
+        clear: 'left',
         textAlign: 'right',
-        width: '60px',
-        marginRight: '8px'
+        width: 60,
+        marginRight: 8
     },
 
     inputStyle: {
         display: 'inline-block',
-        float: 'right',
-        clear: 'right',
-        width: '220px'
-    },
-
-    buttonStyle: {
-        float: 'right',
-        marginLeft: '8px'
+        float: 'left',
+        width: 220,
+        boxSizing: 'border-box'
     },
 
     render() {
         var disabled = this.state.searchResultCount === 0;
 
+        var displayIndex = this.state.searchIndex + 1;
+        var displayCount = this.state.searchResultCount;
+        if (displayIndex > displayCount) {
+            displayIndex = displayCount;
+        }
+
         return <div style={this.style}>
             <div style={{ overflow: 'auto' }}>
-                <input
-                    type="text"
-                    value={this.state.searchString}
-                    onChange={this.updateSearchValue}
-                    style={this.inputStyle} />
                 <label style={this.labelStyle}>Search:</label>
 
                 <input
                     type="text"
-                    value={this.state.replaceString}
-                    onChange={this.updateReplaceValue}
+                    value={this.state.searchString}
+                    onChange={this.updateSearchString}
                     style={this.inputStyle} />
                 <label style={this.labelStyle}>Replace:</label>
 
+                <input
+                    type="text"
+                    value={this.state.replaceString}
+                    onChange={this.updateReplaceString}
+                    style={this.inputStyle} />
             </div>
-            <div style={{ overflow: 'auto', marginTop: '8px' }}>
-                <button 
-                    style={this.buttonStyle} 
-                    onClick={this.handleReplaceAll} 
-                    disabled={disabled}>Replace All</button>
-                <button 
-                    style={this.buttonStyle} 
-                    onClick={this.handleNextSearchResult} 
-                    disabled={disabled}>Next</button>
-                <button 
-                    style={this.buttonStyle} 
-                    onClick={this.handlePreviousSearchResult} 
-                    disabled={disabled}>Previous</button>
-                <button 
-                    style={this.buttonStyle} 
-                    onClick={this.handleReplace} 
-                    disabled={disabled}>Replace</button>
+            <div style={{ overflow: 'auto', marginTop: 8 }}>
+                <span style={{ float: 'left', width: 60, marginRight: 8, textAlign: 'right' }}>
+                    {displayIndex} of {displayCount}
+                </span>
+
+                <div style={{ float: 'left', width: 220 }}>
+                    <button
+                        style={{ float: 'left', marginRight: 8 }}
+                        onClick={this.handlePreviousSearchResult}
+                        disabled={disabled}>&lt;</button>
+                    <button
+                        style={{ float: 'left'}}
+                        onClick={this.handleNextSearchResult}
+                        disabled={disabled}>&gt;</button>
+
+                    <button
+                        style={{ float: 'right', marginLeft: 8 }}
+                        onClick={this.handleReplaceAll}
+                        disabled={disabled}>Replace All</button>
+                    <button
+                        style={{ float: 'right' }}
+                        onClick={this.handleReplace}
+                        disabled={disabled}>Replace</button>
+                </div>
             </div>
         </div>;
     }

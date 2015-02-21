@@ -187,7 +187,14 @@ var EditorPage = React.createClass({
     handleChange: function(toChange, cb, silent) {
         var newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
-        this.props.onChange(newProps, cb, silent);
+        this.props.onChange(newProps, () => {
+            if (typeof cb === "function") {
+                cb();
+            }
+            // update the search results after question, hints, or answerArea
+            // changes
+            this.refs.searchAndReplace.updateSearchResults(newProps);
+        }, silent);
     },
 
     changeJSON: function(newJson) {
