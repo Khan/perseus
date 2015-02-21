@@ -68,20 +68,6 @@ var EditorPage = React.createClass({
     },
 
     render: function() {
-        
-        var itemEditorSearchIndex = -1;
-        var combinedHintsSearchIndex = -1;
-
-        if (this.state.searchIndex !== -1) {
-            var itemEditorCount = this.getItemEditorSearchCount();
-            var combinedHintsCount = this.getCombinedHintsSearchCount();
-
-            if (this.state.searchIndex < itemEditorCount) {
-                itemEditorSearchIndex = this.state.searchIndex;
-            } else if (this.state.searchIndex < itemEditorCount + combinedHintsCount) {
-                combinedHintsSearchIndex = this.state.searchIndex - itemEditorCount;
-            }
-        }
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&
@@ -117,7 +103,7 @@ var EditorPage = React.createClass({
                     onCheckAnswer={this.handleCheckAnswer}
                     apiOptions={this._apiOptions()}
                     searchString={this.state.searchString}
-                    searchIndex={itemEditorSearchIndex} />
+                    searchIndex={this.state.searchIndex} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -127,7 +113,7 @@ var EditorPage = React.createClass({
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
                     searchString={this.state.searchString}
-                    searchIndex={combinedHintsSearchIndex} />
+                    searchIndex={this.state.searchIndex - this.getItemEditorSearchCount()} />
             }
 
             {(this.props.searchAndReplace) &&
@@ -136,8 +122,8 @@ var EditorPage = React.createClass({
                     question={this.props.question}
                     answerArea={this.props.answerArea}
                     hints={this.props.hints}
-                    onChange={this.handleStateChange}
-                    onReplaceAll={this.props.onChange} />
+                    onSearchChange={this.handleStateChange}
+                    onDocumentChange={this.props.onChange} />
             }
         </div>;
 

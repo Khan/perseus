@@ -151,18 +151,9 @@ var CombinedHintsEditor = React.createClass({
         var hints = this.props.hints;
         var searchIndex = this.props.searchIndex;
         var searchString = this.props.searchString;
-        
-        var hintElems = _.map(hints, function(hint, i) {
-            var hintSearchCount = Util.countOccurences(hint.content, searchString);
-            var hintSearchIndex = -1;
-            if (searchIndex >= 0) {
-                if (searchIndex < hintSearchCount) {
-                    hintSearchIndex = searchIndex;
-                }
-                searchIndex -= hintSearchCount;
-            }
 
-            return <CombinedHintEditor
+        var hintElems = _.map(hints, function(hint, i) {
+            var hintElem = <CombinedHintEditor
                         ref={"hintEditor" + i}
                         key={"hintEditor" + i}
                         isFirst={i === 0}
@@ -173,7 +164,12 @@ var CombinedHintsEditor = React.createClass({
                         onRemove={this.handleHintRemove.bind(this, i)}
                         onMove={this.handleHintMove.bind(this, i)}
                         searchString={searchString}
-                        searchIndex={hintSearchIndex} />;
+                        searchIndex={searchIndex} />;
+
+            // adjust searchIndex based on the number of occurences in the 
+            // the previous hint
+            searchIndex -= Util.countOccurences(hint.content, searchString);
+            return hintElem;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">

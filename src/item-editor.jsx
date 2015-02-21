@@ -32,20 +32,8 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
-        var questionSearchIndex = -1;
-        var answerAreaSearchIndex = -1;
+        var questionSearchResultCount = Util.countOccurences(this.props.question.content, this.props.searchString);
 
-        if (this.props.searchIndex !== -1) {
-            var questionSearchCount = Util.countOccurences(this.props.question.content, this.props.searchString);
-            var answerAreaSearchCount = Util.countOccurences(this.props.answerArea.options.content, this.props.searchString);
-            
-            if (this.props.searchIndex < questionSearchCount) {
-                questionSearchIndex = this.props.searchIndex;
-            } else if (this.props.searchIndex < questionSearchCount + answerAreaSearchCount) {
-                answerAreaSearchIndex = this.props.searchIndex - questionSearchCount;
-            }
-        }
-        
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -59,7 +47,7 @@ var ItemEditor = React.createClass({
                         apiOptions={this.props.apiOptions}
                         showWordCount={true}
                         searchString={this.props.searchString}
-                        searchIndex={questionSearchIndex}
+                        searchIndex={this.props.searchIndex}
                         {...this.props.question} />
                 </div>
 
@@ -79,12 +67,9 @@ var ItemEditor = React.createClass({
                     <AnswerAreaEditor
                         ref="answerAreaEditor"
                         onChange={this.handleAnswerAreaChange}
-
                         apiOptions={this.props.apiOptions}
-
                         searchString={this.props.searchString}
-                        searchIndex={answerAreaSearchIndex}
-
+                        searchIndex={this.props.searchIndex - questionSearchResultCount}
                         {...this.props.answerArea} />
                 </div>
 

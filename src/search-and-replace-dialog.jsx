@@ -5,34 +5,41 @@ var Util = require("./util.js");
 
 var SearchAndReplaceDialog = React.createClass({
 
+    getDefaultProps: function() {
+        return {
+            onSearchChange() {},    // TODO: throw an error
+            onDocumentChange() {}
+        };
+    },
+
     getInitialState() {
         return {
             searchString: "",
             replaceString: "",
-            searchIndex: 0
+            searchIndex: 0,
+            searchResultCount: 0
         }
     },
 
     updateSearchValue(event) {
         var searchString = event.target.value;
+        var searchResultCount = this.getSearchResultCount(searchString);
 
-        this.setState({ searchString });
-        this.props.onChange({
-            searchString, searchIndex: 0
-        });
+        this.setState({ searchString, searchResultCount });
+        this.props.onSearchChange({ searchString, searchIndex: 0 });
     },
 
     updateReplaceValue(event) {
         this.setState({ replaceString: event.target.value });
     },
 
-    getTotalSearchCount: function() {
+    getSearchResultCount(searchString) {
         var count = 0;
 
-        count += Util.countOccurences(this.props.question.content, this.state.searchString);
-        count += Util.countOccurences(this.props.answerArea.options.content, this.state.searchString);
+        count += Util.countOccurences(this.props.question.content, searchString);
+        count += Util.countOccurences(this.props.answerArea.options.content, searchString);
         this.props.hints.forEach(hint => {
-            count += Util.countOccurences(hint.content, this.state.searchString);
+            count += Util.countOccurences(hint.content, searchString);
         });
 
         return count;
@@ -41,21 +48,21 @@ var SearchAndReplaceDialog = React.createClass({
     handleNextSearchResult() {
         var searchIndex = this.state.searchIndex;
         searchIndex ++;
-        searchIndex = searchIndex % this.getTotalSearchCount();
+        searchIndex = searchIndex % this.state.searchResultCount;
 
         this.setState({ searchIndex }); // TODO: have a current of total indicator
-        this.props.onChange({ searchIndex });
+        this.props.onSearchChange({ searchIndex });
     },
 
     handlePreviousSearchResult() {
         var searchIndex = this.state.searchIndex;
         searchIndex --;
         if (searchIndex < 0) {
-            searchIndex = this.getTotalSearchCount() - 1;
+            searchIndex = this.state.searchResultCount - 1;
         }
 
         this.setState({ searchIndex });
-        this.props.onChange({ searchIndex });
+        this.props.onSearchChange({ searchIndex });
     },
 
     handleReplaceAll() {
@@ -74,10 +81,14 @@ var SearchAndReplaceDialog = React.createClass({
             hint.content = hint.content.replace(regex, replaceString)
         });
 
-        this.props.onReplaceAll({ question, answerArea, hints });
-        // TODO: disable 'Replace' and 'Replace All' buttons
+        // handle the case where the replaceString contains one or more copies
+        // of searchString
+        var searchResultCount = this.getSearchResultCount(searchString);
+
+        this.setState({ searchIndex: 0, searchResultCount });
+        this.props.onDocumentChange({ question, answerArea, hints });
     },
-    
+
     handleReplace() {
         var searchIndex = this.state.searchIndex;
         var searchString = this.state.searchString;
@@ -133,9 +144,31 @@ var SearchAndReplaceDialog = React.createClass({
             });
         }
 
-        this.props.onReplaceAll({ question, answerArea, hints });
-        
-        // TODO: disable 'Replace' and 'Replace All' buttons when there are no matches
+        var searchResultCount = this.state.searchResultCount;
+
+        if (replaceString.indexOf(searchString) !== -1) {
+            // normal case: replaceString doesn't contain searchString so we
+            // can decrement searchResultCount because we just replaced one 
+            // occurence of searchString
+            searchResultCount --;
+        } else {
+            // edge case: replaceString contains one or more instances of
+            // searchString which means the searchResultCount will either 
+            // stay the same if the number of instances is one or increase
+            // if it's more than one
+            var matches = replaceString.match(regex);
+            if (matches) {
+                searchResultCount += matches.length - 1;
+            }
+        }
+
+        if (searchIndex >= searchResultCount) {
+            searchIndex = searchResultCount - 1;
+        }
+
+        this.setState({ searchIndex, searchResultCount });
+        this.props.onSearchChange({ searchIndex });
+        this.props.onDocumentChange({ question, answerArea, hints });
     },
 
     style: {
@@ -170,6 +203,8 @@ var SearchAndReplaceDialog = React.createClass({
     },
 
     render() {
+        var disabled = this.state.searchResultCount === 0;
+
         return <div style={this.style}>
             <div style={{ overflow: 'auto' }}>
                 <input
@@ -188,10 +223,22 @@ var SearchAndReplaceDialog = React.createClass({
 
             </div>
             <div style={{ overflow: 'auto', marginTop: '8px' }}>
-                <button style={this.buttonStyle} onClick={this.handleReplaceAll}>Replace All</button>
-                <button style={this.buttonStyle} onClick={this.handleNextSearchResult}>Next</button>
-                <button style={this.buttonStyle} onClick={this.handlePreviousSearchResult}>Previous</button>
-                <button style={this.buttonStyle} onClick={this.handleReplace}>Replace</button>
+                <button 
+                    style={this.buttonStyle} 
+                    onClick={this.handleReplaceAll} 
+                    disabled={disabled}>Replace All</button>
+                <button 
+                    style={this.buttonStyle} 
+                    onClick={this.handleNextSearchResult} 
+                    disabled={disabled}>Next</button>
+                <button 
+                    style={this.buttonStyle} 
+                    onClick={this.handlePreviousSearchResult} 
+                    disabled={disabled}>Previous</button>
+                <button 
+                    style={this.buttonStyle} 
+                    onClick={this.handleReplace} 
+                    disabled={disabled}>Replace</button>
             </div>
         </div>;
     }
