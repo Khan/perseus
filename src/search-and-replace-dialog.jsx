@@ -93,12 +93,8 @@ var SearchAndReplaceDialog = React.createClass({
     },
 
     handleReplaceAll() {
-        var searchString = this.props.searchString;
         var replaceString = this.state.replaceString;
-
-        var question = this.props.question;
-        var hints = this.props.hints;
-        var particle = this.props.particle;
+        var { searchString, question, hints, particle } = this.props;
 
         var regex = new RegExp(searchString, "g");
 
@@ -132,56 +128,19 @@ var SearchAndReplaceDialog = React.createClass({
     },
 
     handleReplace() {
-        var searchIndex = this.props.searchIndex;
-        var searchString = this.props.searchString;
         var replaceString = this.state.replaceString;
-
-        var question = this.props.question;
-        var hints = this.props.hints;
-        var particle = this.props.particle;
+        var { searchIndex, searchString, question, hints, particle } = this.props;
 
         var regex = new RegExp(searchString, "g");
         var replaced = false;
         var globalIndex = 0;
 
-        if (!replaced && question) {
-            question.content = question.content.replace(regex, match => {
-                if (!replaced && globalIndex === searchIndex) {
-                    replaced = true;
-                    globalIndex ++;
-                    return replaceString;
+        var replaceFunc = function(obj) {
+            if (!replaced && obj) {
+                if (Array.isArray(obj)) {
+                    obj.forEach(replaceFunc);
                 } else {
-                    globalIndex ++;
-                    return match;
-                }
-            });
-        }
-
-        if (!replaced && hints) {
-            hints.forEach(hint => {
-                if (replaced) {
-                    return;
-                }
-                hint.content = hint.content.replace(regex, match => {
-                    if (!replaced && globalIndex === searchIndex) {
-                        replaced = true;
-                        globalIndex ++;
-                        return replaceString;
-                    } else {
-                        globalIndex ++;
-                        return match;
-                    }
-                });
-            });
-        }
-
-        if (!replaced && particle) {
-            if (Array.isArray(particle)) {
-                particle.forEach(section => {
-                    if (replaced) {
-                        return;
-                    }
-                    section.content = section.content.replace(regex, match => {
+                    obj.content = obj.content.replace(regex, match => {
                         if (!replaced && globalIndex === searchIndex) {
                             replaced = true;
                             globalIndex ++;
@@ -191,20 +150,13 @@ var SearchAndReplaceDialog = React.createClass({
                             return match;
                         }
                     });
-                })
-            } else {
-                particle.content = particle.content.replace(regex, match => {
-                    if (!replaced && globalIndex === searchIndex) {
-                        replaced = true;
-                        globalIndex ++;
-                        return replaceString;
-                    } else {
-                        globalIndex ++;
-                        return match;
-                    }
-                });
+                }
             }
-        }
+        };
+
+        replaceFunc(question);
+        replaceFunc(hints);
+        replaceFunc(particle);
 
         var searchResultCount = this.state.searchResultCount;
 

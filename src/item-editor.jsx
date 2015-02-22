@@ -20,7 +20,7 @@ var ItemEditor = React.createClass({
             onChange: () => {},
             question: {},
             answerArea: {},
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 

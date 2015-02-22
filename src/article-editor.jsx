@@ -12,7 +12,7 @@ var Util = require("./util.js");
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
     widgets: React.PropTypes.object,
-    images: React.PropTypes.object
+    images: React.PropTypes.object,
 });
 
 var SectionControlButton = React.createClass({

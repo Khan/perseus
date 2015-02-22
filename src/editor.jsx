@@ -77,7 +77,7 @@ var WidgetSelect = React.createClass({
         if (this.props.onChange) {
             this.props.onChange(widgetType);
         }
-    }
+    },
 });
 
 
@@ -87,7 +87,7 @@ var WidgetEditor = React.createClass({
         id: React.PropTypes.string,
         graded: React.PropTypes.bool,
         onChange: React.PropTypes.func,
-        apiOptions: ApiOptions.propTypes
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
@@ -249,7 +249,7 @@ var Editor = React.createClass({
             widgetEnabled: true,
             immutableWidgets: false,
             showWordCount: false,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -762,7 +762,7 @@ var Editor = React.createClass({
         return {
             content: this.props.content,
             images: this.props.images,
-            widgets: widgets
+            widgets: widgets,
         };
     },
 

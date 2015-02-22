@@ -20,7 +20,7 @@ var EditorPage = React.createClass({
         // We don't specify a more specific type here because it's valid
         // for a client of Perseus to specify a subset of the API options,
         // in which case we default the rest in `this._apiOptions()`
-        apiOptions: React.PropTypes.object
+        apiOptions: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -172,7 +172,7 @@ var EditorPage = React.createClass({
 
     changeJSON: function(newJson) {
         this.setState({
-            json: newJson
+            json: newJson,
         });
         this.props.onChange(newJson);
     },

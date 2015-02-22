@@ -193,7 +193,7 @@ _.extend(MovableLine.prototype, {
                     self._prevRefCoord,
                     self._initialRefCoord
                 );
-            }
+            },
         }));
 
         // Trigger an add event if this hasn't been added before

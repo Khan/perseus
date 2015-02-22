@@ -35,7 +35,7 @@ var StatefulEditorPage = React.createClass({
                 particle={this.state.json}
                 searchString={this.state.searchString}
                 searchIndex={this.state.searchIndex}
-                onChange={this.handleChange} />
+                onChange={this.handleSearchChange} />
         </div>;
     },
 
@@ -76,6 +76,15 @@ var StatefulEditorPage = React.createClass({
                     this.refs.searchAndReplace.updateSearchResults(newContent);
                 }
             });
+        }
+    },
+
+    // Have a separate handler for search changes so that we can avoid calling
+    // updateSearchResults which sets searchIndex to 0.  This maintains the
+    // searchIndex at the correct location when doing a replace operation.
+    handleSearchChange: function(newState, cb) {
+        if (this.isMounted()) {
+            this.setState(newState, cb);
         }
     },
 
