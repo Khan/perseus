@@ -49,7 +49,7 @@ var EditorPage = React.createClass({
 
     render: function() {
         var hintSearchIndex = this.props.searchIndex -
-            Util.countOccurences(this.props.question.content, this.props.searchString);
+            Util.countOccurrences(this.props.question.content, this.props.searchString);
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&

@@ -348,6 +348,8 @@ var Editor = React.createClass({
             widgets = {};
             underlayPieces = [];
 
+            var searchResultIndex = 0;
+
             for (var i = 0; i < pieces.length; i++) {
                 var type = i % 2;
                 if (type === 0) {
@@ -356,7 +358,6 @@ var Editor = React.createClass({
                         var searchRegex =
                             new RegExp(`(${this.props.searchString})`, "g");
                         var smallerPieces = Util.split(pieces[i], searchRegex);
-                        var searchResultIndex = 0;
 
                         for (var j = 0; j < smallerPieces.length; j++) {
                             var smallerPiece = smallerPieces[j];

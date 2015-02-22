@@ -67,7 +67,7 @@ var ArticleEditor = React.createClass({
 
     render: function() {
 
-        return <div id="perseus" className="framework-perseus perseus-article">
+        return <div className="framework-perseus perseus-article">
             <div>
                 <label>
                     Mode:{" "}
@@ -128,9 +128,16 @@ var ArticleEditor = React.createClass({
         var searchIndex = this.props.searchIndex;
         var searchString = this.props.searchString;
 
+        var adjustedSearchIndices = _.map(sections, section => {
+            var adjustedIndex = searchIndex;
+            var content = section.content || "";
+            searchIndex -= Util.countOccurrences(content, searchString);
+            return adjustedIndex;
+        });
+
         return <div className="perseus-editor-table">
             {sections.map((section, i) => {
-                var row = [
+                return [
                     <div className="perseus-editor-row">
                         <div className="perseus-editor-left-cell">
                             <div className="pod-title">
@@ -181,7 +188,7 @@ var ArticleEditor = React.createClass({
                                 apiOptions={apiOptions}
                                 enabledFeatures={this.props.enabledFeatures}
                                 searchString={searchString}
-                                searchIndex={searchIndex} />
+                                searchIndex={adjustedSearchIndices[i]} />
                         </div>
 
                         <div className="perseus-editor-right-cell">
@@ -193,11 +200,6 @@ var ArticleEditor = React.createClass({
                         </div>
                     </div>
                 ];
-
-                if (section.content) {
-                    searchIndex -= Util.countOccurences(section.content, searchString);
-                }
-                return row;
             })}
         </div>;
     },

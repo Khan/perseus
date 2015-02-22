@@ -168,7 +168,7 @@ var CombinedHintsEditor = React.createClass({
 
             // adjust searchIndex based on the number of occurences in the 
             // the previous hint
-            searchIndex -= Util.countOccurences(hint.content, searchString);
+            searchIndex -= Util.countOccurrences(hint.content, searchString);
             return hintElem;
         }, this);
 

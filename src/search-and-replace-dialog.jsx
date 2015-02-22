@@ -47,12 +47,12 @@ var SearchAndReplaceDialog = React.createClass({
         var count = 0;
 
         if (this.props.question) {
-            count += Util.countOccurences(this.props.question.content, searchString);
+            count += Util.countOccurrences(this.props.question.content, searchString);
         }
 
         if (this.props.hints) {
             this.props.hints.forEach(hint => {
-                count += Util.countOccurences(hint.content, searchString);
+                count += Util.countOccurrences(hint.content, searchString);
             });
         }
 
@@ -61,12 +61,12 @@ var SearchAndReplaceDialog = React.createClass({
             if (Array.isArray(particle)) {
                 particle.forEach(section => {
                     if (section.content) {
-                        count += Util.countOccurences(section.content, searchString);
+                        count += Util.countOccurrences(section.content, searchString);
                     }
                 });
             } else {
                 if (particle.content) {
-                    count += Util.countOccurences(particle.content, searchString);
+                    count += Util.countOccurrences(particle.content, searchString);
                 }
             }
         }
@@ -96,27 +96,28 @@ var SearchAndReplaceDialog = React.createClass({
         var replaceString = this.state.replaceString;
         var { searchString, question, hints, particle } = this.props;
 
-        var regex = new RegExp(searchString, "g");
+        var regex = new RegExp(Util.escapeRegExp(searchString), "g");
 
-        if (question) {
-            question.content = question.content.replace(regex, replaceString);
-        }
-
-        if (hints) {
-            hints.forEach(hint => {
-                hint.content = hint.content.replace(regex, replaceString);
-            });
-        }
-
-        if (particle) {
-            if (Array.isArray(particle)) {
-                particle.forEach(section => {
-                    section.content = section.content.replace(regex, replaceString);
-                });
-            } else {
-                particle.content = particle.content.replace(regex, replaceString);
+        var replaceFunc = function(obj) {
+            if (obj) {
+                if (Array.isArray(obj)) {
+                    obj.forEach(replaceFunc);
+                } else {
+                    var indices = Util.getIndicesOf(obj.content, searchString);
+                    obj.content = obj.content.replace(regex, (match, offset) => {
+                        if (indices.indexOf(offset) !== -1) {
+                            return replaceString
+                        } else {
+                            return match;
+                        }
+                    });
+                }
             }
-        }
+        };
+
+        replaceFunc(question);
+        replaceFunc(hints);
+        replaceFunc(particle);
 
         // handle the case where the replaceString contains one or more copies
         // of searchString
@@ -140,13 +141,18 @@ var SearchAndReplaceDialog = React.createClass({
                 if (Array.isArray(obj)) {
                     obj.forEach(replaceFunc);
                 } else {
-                    obj.content = obj.content.replace(regex, match => {
-                        if (!replaced && globalIndex === searchIndex) {
-                            replaced = true;
-                            globalIndex ++;
-                            return replaceString;
+                    var indices = Util.getIndicesOf(obj.content, searchString);
+                    obj.content = obj.content.replace(regex, (match, offset) => {
+                        if (indices.indexOf(offset) !== -1) {
+                            if (!replaced && globalIndex === searchIndex) {
+                                replaced = true;
+                                globalIndex++;
+                                return replaceString;
+                            } else {
+                                globalIndex++;
+                                return match;
+                            }
                         } else {
-                            globalIndex ++;
                             return match;
                         }
                     });
