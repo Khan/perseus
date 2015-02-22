@@ -7,7 +7,6 @@ var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
-var SearchAndReplaceDialog = require("./search-and-replace-dialog.jsx");
 var Util = require("./util.js");
 
 var EditorPage = React.createClass({
@@ -49,8 +48,8 @@ var EditorPage = React.createClass({
     },
 
     render: function() {
-        var hintSearchIndex = this.state.searchIndex -
-            Util.countOccurences(this.props.question.content, this.state.searchString);
+        var hintSearchIndex = this.props.searchIndex -
+            Util.countOccurences(this.props.question.content, this.props.searchString);
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&
@@ -85,8 +84,8 @@ var EditorPage = React.createClass({
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
                     apiOptions={this._apiOptions()}
-                    searchString={this.state.searchString}
-                    searchIndex={this.state.searchIndex} />
+                    searchString={this.props.searchString}
+                    searchIndex={this.props.searchIndex} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -95,17 +94,8 @@ var EditorPage = React.createClass({
                     hints={this.props.hints}
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
-                    searchString={this.state.searchString}
+                    searchString={this.props.searchString}
                     searchIndex={hintSearchIndex} />
-            }
-
-            {(this.props.searchAndReplace) &&
-                <SearchAndReplaceDialog
-                    ref="searchAndReplace"
-                    question={this.props.question}
-                    hints={this.props.hints}
-                    onSearchChange={this.handleStateChange}
-                    onDocumentChange={this.props.onChange} />
             }
         </div>;
 
@@ -181,15 +171,7 @@ var EditorPage = React.createClass({
     handleChange: function(toChange, cb, silent) {
         var newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
-        this.props.onChange(newProps, () => {
-            if (typeof cb === "function") {
-                cb();
-            }
-            // update the search results after question or hints changes
-            if (this.refs.searchAndReplace) {
-                this.refs.searchAndReplace.updateSearchResults(newProps);
-            }
-        }, silent);
+        this.props.onChange(newProps, cb, silent);
     },
 
     changeJSON: function(newJson) {

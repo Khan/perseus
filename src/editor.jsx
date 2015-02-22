@@ -398,8 +398,10 @@ var Editor = React.createClass({
                     var duplicate = id in widgets;
 
                     widgets[id] = this.getWidgetEditor(id, type);
-                    classes = (duplicate || !widgets[id] ? "error " : "") +
-                            (selected ? "selected " : "");
+                    classes = cx({
+                        "error": duplicate || !widgets[id],
+                        "selected": selected
+                    });
                     var key = duplicate ? i : id;
                     underlayPieces.push(
                             <b className={classes} key={key}>{pieces[i]}</b>);

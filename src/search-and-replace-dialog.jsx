@@ -7,8 +7,7 @@ var SearchAndReplaceDialog = React.createClass({
 
     getDefaultProps: function() {
         return {
-            onSearchChange() {},    // TODO: throw an error
-            onDocumentChange() {}
+            onChange() {}    // TODO: throw an error
         };
     },
 
@@ -27,7 +26,7 @@ var SearchAndReplaceDialog = React.createClass({
         var searchResultCount = this.getSearchResultCount(searchString);
 
         this.setState({ searchString, searchIndex, searchResultCount });
-        this.props.onSearchChange({ searchString, searchIndex });
+        this.props.onChange({ searchString, searchIndex });
     },
 
     updateReplaceString(event) {
@@ -39,7 +38,7 @@ var SearchAndReplaceDialog = React.createClass({
         var searchResultCount = this.getSearchResultCount(this.state.searchString);
 
         this.setState({ searchResultCount, searchIndex });
-        this.props.onSearchChange({ searchIndex });
+        this.props.onChange({ searchIndex });
     },
 
     getSearchResultCount(searchString) {
@@ -63,7 +62,7 @@ var SearchAndReplaceDialog = React.createClass({
         searchIndex = searchIndex % this.state.searchResultCount;
 
         this.setState({ searchIndex }); // TODO: have a current of total indicator
-        this.props.onSearchChange({ searchIndex });
+        this.props.onChange({ searchIndex });
     },
 
     handlePreviousSearchResult() {
@@ -74,7 +73,7 @@ var SearchAndReplaceDialog = React.createClass({
         }
 
         this.setState({ searchIndex });
-        this.props.onSearchChange({ searchIndex });
+        this.props.onChange({ searchIndex });
     },
 
     handleReplaceAll() {
@@ -97,7 +96,7 @@ var SearchAndReplaceDialog = React.createClass({
         var searchResultCount = this.getSearchResultCount(searchString);
 
         this.setState({ searchIndex: 0, searchResultCount });
-        this.props.onDocumentChange({ question, hints });
+        this.props.onChange({ question, hints });
     },
 
     handleReplace() {
@@ -164,8 +163,7 @@ var SearchAndReplaceDialog = React.createClass({
         }
 
         this.setState({ searchIndex, searchResultCount });
-        this.props.onSearchChange({ searchIndex });
-        this.props.onDocumentChange({ question, hints });
+        this.props.onChange({ searchIndex, question, hints });
     },
 
     render() {
