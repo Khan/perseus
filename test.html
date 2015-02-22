@@ -24,7 +24,6 @@
     <button id="serialize">serialize</button>
     <button id="scorePreview">Score</button>
     <button id="permalink">permalink</button>
-    <button id="searchAndReplace">Search and Replace</button>
     <span>Seed:</span><span id="problemNum"></span>
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
@@ -145,9 +144,6 @@ $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
         Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor.serialize()));
     e.preventDefault();
-});
-$('#searchAndReplace').on('click', function() {
-    editor.toggleSearchAndReplace();
 });
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(Object.keys(enabledFeatures).map(function(feature) {

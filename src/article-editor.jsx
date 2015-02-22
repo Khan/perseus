@@ -7,11 +7,12 @@ var Editor = require("./editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var Renderer = require("./renderer.jsx");
+var Util = require("./util.js");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
     widgets: React.PropTypes.object,
-    images: React.PropTypes.object,
+    images: React.PropTypes.object
 });
 
 var SectionControlButton = React.createClass({
@@ -66,7 +67,7 @@ var ArticleEditor = React.createClass({
 
     render: function() {
 
-        return <div className="framework-perseus perseus-article">
+        return <div id="perseus" className="framework-perseus perseus-article">
             <div>
                 <label>
                     Mode:{" "}
@@ -124,10 +125,12 @@ var ArticleEditor = React.createClass({
         );
 
         var sections = this._sections();
+        var searchIndex = this.props.searchIndex;
+        var searchString = this.props.searchString;
 
         return <div className="perseus-editor-table">
             {sections.map((section, i) => {
-                return [
+                var row = [
                     <div className="perseus-editor-row">
                         <div className="perseus-editor-left-cell">
                             <div className="pod-title">
@@ -176,7 +179,9 @@ var ArticleEditor = React.createClass({
                                     _.partial(this._handleEditorChange, i)
                                 }
                                 apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures} />
+                                enabledFeatures={this.props.enabledFeatures}
+                                searchString={searchString}
+                                searchIndex={searchIndex} />
                         </div>
 
                         <div className="perseus-editor-right-cell">
@@ -188,6 +193,11 @@ var ArticleEditor = React.createClass({
                         </div>
                     </div>
                 ];
+
+                if (section.content) {
+                    searchIndex -= Util.countOccurences(section.content, searchString);
+                }
+                return row;
             })}
         </div>;
     },

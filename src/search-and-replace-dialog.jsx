@@ -46,10 +46,30 @@ var SearchAndReplaceDialog = React.createClass({
 
         var count = 0;
 
-        count += Util.countOccurences(this.props.question.content, searchString);
-        this.props.hints.forEach(hint => {
-            count += Util.countOccurences(hint.content, searchString);
-        });
+        if (this.props.question) {
+            count += Util.countOccurences(this.props.question.content, searchString);
+        }
+
+        if (this.props.hints) {
+            this.props.hints.forEach(hint => {
+                count += Util.countOccurences(hint.content, searchString);
+            });
+        }
+
+        if (this.props.particle) {
+            var particle = this.props.particle;
+            if (Array.isArray(particle)) {
+                particle.forEach(section => {
+                    if (section.content) {
+                        count += Util.countOccurences(section.content, searchString);
+                    }
+                });
+            } else {
+                if (particle.content) {
+                    count += Util.countOccurences(particle.content, searchString);
+                }
+            }
+        }
 
         return count;
     },
@@ -78,13 +98,29 @@ var SearchAndReplaceDialog = React.createClass({
 
         var question = this.props.question;
         var hints = this.props.hints;
+        var particle = this.props.particle;
 
         var regex = new RegExp(searchString, "g");
 
-        question.content = question.content.replace(regex, replaceString);
-        hints.forEach(hint => {
-            hint.content = hint.content.replace(regex, replaceString)
-        });
+        if (question) {
+            question.content = question.content.replace(regex, replaceString);
+        }
+
+        if (hints) {
+            hints.forEach(hint => {
+                hint.content = hint.content.replace(regex, replaceString);
+            });
+        }
+
+        if (particle) {
+            if (Array.isArray(particle)) {
+                particle.forEach(section => {
+                    section.content = section.content.replace(regex, replaceString);
+                });
+            } else {
+                particle.content = particle.content.replace(regex, replaceString);
+            }
+        }
 
         // handle the case where the replaceString contains one or more copies
         // of searchString
@@ -92,7 +128,7 @@ var SearchAndReplaceDialog = React.createClass({
         var searchResultCount = this.getSearchResultCount(searchString);
 
         this.setState({ searchResultCount });
-        this.props.onChange({ question, hints, searchIndex: 0 });
+        this.props.onChange({ question, hints, json: particle, searchIndex: 0 });
     },
 
     handleReplace() {
@@ -102,23 +138,26 @@ var SearchAndReplaceDialog = React.createClass({
 
         var question = this.props.question;
         var hints = this.props.hints;
+        var particle = this.props.particle;
 
         var regex = new RegExp(searchString, "g");
         var replaced = false;
         var globalIndex = 0;
 
-        question.content = question.content.replace(regex, match => {
-            if (!replaced && globalIndex === searchIndex) {
-                replaced = true;
-                globalIndex ++;
-                return replaceString;
-            } else {
-                globalIndex ++;
-                return match;
-            }
-        });
+        if (!replaced && question) {
+            question.content = question.content.replace(regex, match => {
+                if (!replaced && globalIndex === searchIndex) {
+                    replaced = true;
+                    globalIndex ++;
+                    return replaceString;
+                } else {
+                    globalIndex ++;
+                    return match;
+                }
+            });
+        }
 
-        if (!replaced) {
+        if (!replaced && hints) {
             hints.forEach(hint => {
                 if (replaced) {
                     return;
@@ -134,6 +173,37 @@ var SearchAndReplaceDialog = React.createClass({
                     }
                 });
             });
+        }
+
+        if (!replaced && particle) {
+            if (Array.isArray(particle)) {
+                particle.forEach(section => {
+                    if (replaced) {
+                        return;
+                    }
+                    section.content = section.content.replace(regex, match => {
+                        if (!replaced && globalIndex === searchIndex) {
+                            replaced = true;
+                            globalIndex ++;
+                            return replaceString;
+                        } else {
+                            globalIndex ++;
+                            return match;
+                        }
+                    });
+                })
+            } else {
+                particle.content = particle.content.replace(regex, match => {
+                    if (!replaced && globalIndex === searchIndex) {
+                        replaced = true;
+                        globalIndex ++;
+                        return replaceString;
+                    } else {
+                        globalIndex ++;
+                        return match;
+                    }
+                });
+            }
         }
 
         var searchResultCount = this.state.searchResultCount;
@@ -159,7 +229,7 @@ var SearchAndReplaceDialog = React.createClass({
         }
 
         this.setState({ searchResultCount });
-        this.props.onChange({ searchIndex, question, hints });
+        this.props.onChange({ question, hints, json: particle, searchIndex });
     },
 
     render() {

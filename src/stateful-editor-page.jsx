@@ -32,6 +32,7 @@ var StatefulEditorPage = React.createClass({
                 ref="searchAndReplace"
                 question={this.state.question}
                 hints={this.state.hints}
+                particle={this.state.json}
                 searchString={this.state.searchString}
                 searchIndex={this.state.searchIndex}
                 onChange={this.handleChange} />
@@ -69,7 +70,8 @@ var StatefulEditorPage = React.createClass({
                 if (typeof cb === "function") {
                     cb();
                 }
-                var newContent = _(newState).pick("question", "hints");
+                // note: "json" represents a "particle"
+                var newContent = _(newState).pick("question", "hints", "json");
                 if (this.refs.searchAndReplace && Object.keys(newContent).length > 0) {
                     this.refs.searchAndReplace.updateSearchResults(newContent);
                 }
