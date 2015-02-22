@@ -32,9 +32,10 @@ var StatefulEditorPage = React.createClass({
                 ref="searchAndReplace"
                 question={this.state.question}
                 hints={this.state.hints}
+                searchString={this.state.searchString}
+                searchIndex={this.state.searchIndex}
                 onChange={this.handleChange} />
         </div>;
-        //return <this.props.componentClass {...this.state} />;
     },
 
     getInitialState: function() {

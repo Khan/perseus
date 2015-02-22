@@ -101,10 +101,6 @@ var EditorPage = React.createClass({
 
     },
 
-    handleStateChange: function(newState, cb) {
-        this.setState(newState, cb);
-    },
-
     handleCheckAnswer: function() {
         var result = this.scorePreview();
         this.setState({

@@ -13,9 +13,7 @@ var SearchAndReplaceDialog = React.createClass({
 
     getInitialState() {
         return {
-            searchString: "",
             replaceString: "",
-            searchIndex: 0,
             searchResultCount: 0
         }
     },
@@ -25,7 +23,7 @@ var SearchAndReplaceDialog = React.createClass({
         var searchString = event.target.value;
         var searchResultCount = this.getSearchResultCount(searchString);
 
-        this.setState({ searchString, searchIndex, searchResultCount });
+        this.setState({ searchResultCount });
         this.props.onChange({ searchString, searchIndex });
     },
 
@@ -35,9 +33,9 @@ var SearchAndReplaceDialog = React.createClass({
 
     updateSearchResults() {
         var searchIndex = 0;
-        var searchResultCount = this.getSearchResultCount(this.state.searchString);
+        var searchResultCount = this.getSearchResultCount(this.props.searchString);
 
-        this.setState({ searchResultCount, searchIndex });
+        this.setState({ searchResultCount });
         this.props.onChange({ searchIndex });
     },
 
@@ -57,27 +55,25 @@ var SearchAndReplaceDialog = React.createClass({
     },
 
     handleNextSearchResult() {
-        var searchIndex = this.state.searchIndex;
+        var searchIndex = this.props.searchIndex;
         searchIndex ++;
         searchIndex = searchIndex % this.state.searchResultCount;
 
-        this.setState({ searchIndex }); // TODO: have a current of total indicator
         this.props.onChange({ searchIndex });
     },
 
     handlePreviousSearchResult() {
-        var searchIndex = this.state.searchIndex;
+        var searchIndex = this.props.searchIndex;
         searchIndex --;
         if (searchIndex < 0) {
             searchIndex = this.state.searchResultCount - 1;
         }
 
-        this.setState({ searchIndex });
         this.props.onChange({ searchIndex });
     },
 
     handleReplaceAll() {
-        var searchString = this.state.searchString;
+        var searchString = this.props.searchString;
         var replaceString = this.state.replaceString;
 
         var question = this.props.question;
@@ -95,13 +91,13 @@ var SearchAndReplaceDialog = React.createClass({
         // TODO(kevinb7) this is quite right
         var searchResultCount = this.getSearchResultCount(searchString);
 
-        this.setState({ searchIndex: 0, searchResultCount });
-        this.props.onChange({ question, hints });
+        this.setState({ searchResultCount });
+        this.props.onChange({ question, hints, searchIndex: 0 });
     },
 
     handleReplace() {
-        var searchIndex = this.state.searchIndex;
-        var searchString = this.state.searchString;
+        var searchIndex = this.props.searchIndex;
+        var searchString = this.props.searchString;
         var replaceString = this.state.replaceString;
 
         var question = this.props.question;
@@ -162,15 +158,15 @@ var SearchAndReplaceDialog = React.createClass({
             searchIndex = searchResultCount - 1;
         }
 
-        this.setState({ searchIndex, searchResultCount });
+        this.setState({ searchResultCount });
         this.props.onChange({ searchIndex, question, hints });
     },
 
     render() {
-        var disabled = this.state.searchResultCount === 0;
-
-        var displayIndex = this.state.searchIndex + 1;
         var displayCount = this.state.searchResultCount;
+        var disabled = displayCount === 0;
+
+        var displayIndex = this.props.searchIndex + 1;
         if (displayIndex > displayCount) {
             displayIndex = displayCount;
         }
@@ -214,13 +210,13 @@ var SearchAndReplaceDialog = React.createClass({
             <div style={{ flexShrink: 0, flexGrow: 1 }}>
                 <input
                     type="text"
-                    value={this.state.searchString}
+                    value={this.props.searchString}
                     onChange={this.updateSearchString}
                     style={inputStyle} />
                 <br />
                 <input
                     type="text"
-                    value={this.state.replaceString}
+                    value={this.props.replaceString}
                     onChange={this.updateReplaceString}
                     style={inputStyle} />
                 <br />
