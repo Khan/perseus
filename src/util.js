@@ -31,6 +31,10 @@ var Util = {
         return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     },
 
+    /**
+     * Returns the indices of each occurrence of searchString within
+     * contentString ignoring occurrence within widget references.
+     */
     getIndicesOf: function(contentString, searchString) {
         if (searchString === "") {
             return [];

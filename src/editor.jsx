@@ -509,6 +509,7 @@ var Editor = React.createClass({
             this._sizeImages(this.props);
         }
 
+        // shift the view so the current search result is visible
         $('.current-search-result').each((index, elem) => {
             var bounds = elem.getBoundingClientRect();
             if (bounds.top < 10 || bounds.bottom > $(window).height() - 10) {

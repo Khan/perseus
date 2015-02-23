@@ -103,8 +103,10 @@ var SearchAndReplaceDialog = React.createClass({
                 if (Array.isArray(obj)) {
                     obj.forEach(replaceFunc);
                 } else {
+                    // excludes occurrences within widget references
                     var indices = Util.getIndicesOf(obj.content, searchString);
                     obj.content = obj.content.replace(regex, (match, offset) => {
+                        // make sure this match isn't inside a widget reference
                         if (indices.indexOf(offset) !== -1) {
                             return replaceString
                         } else {
@@ -141,8 +143,10 @@ var SearchAndReplaceDialog = React.createClass({
                 if (Array.isArray(obj)) {
                     obj.forEach(replaceFunc);
                 } else {
+                    // excludes occurrences within widget references
                     var indices = Util.getIndicesOf(obj.content, searchString);
                     obj.content = obj.content.replace(regex, (match, offset) => {
+                        // make sure this match isn't inside a widget reference
                         if (indices.indexOf(offset) !== -1) {
                             if (!replaced && globalIndex === searchIndex) {
                                 replaced = true;
@@ -237,12 +241,14 @@ var SearchAndReplaceDialog = React.createClass({
             </div>
             <div style={{ flexShrink: 0, flexGrow: 1 }}>
                 <input
+                    ref="searchInput"
                     type="text"
                     value={this.props.searchString}
                     onChange={this.updateSearchString}
                     style={inputStyle} />
                 <br />
                 <input
+                    ref="replaceInput"
                     type="text"
                     value={this.props.replaceString}
                     onChange={this.updateReplaceString}
@@ -250,19 +256,23 @@ var SearchAndReplaceDialog = React.createClass({
                 <br />
                 <div>
                     <button
+                        ref="previousButton"
                         style={{ float: 'left', marginRight: gridSpace }}
                         onClick={this.handlePreviousSearchResult}
                         disabled={disabled}>&lt;</button>
                     <button
+                        ref="nextButton"
                         style={{ float: 'left'}}
                         onClick={this.handleNextSearchResult}
                         disabled={disabled}>&gt;</button>
 
                     <button
+                        ref="replaceAllButton"
                         style={{ float: 'right', marginLeft: gridSpace }}
                         onClick={this.handleReplaceAll}
                         disabled={disabled}>Replace All</button>
                     <button
+                        ref="replaceButton"
                         style={{ float: 'right' }}
                         onClick={this.handleReplace}
                         disabled={disabled}>Replace</button>

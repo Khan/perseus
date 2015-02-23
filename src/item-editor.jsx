@@ -12,7 +12,7 @@ var ItemEditor = React.createClass({
         imageUploader: React.PropTypes.func,
         wasAnswered: React.PropTypes.bool,
         gradeMessage: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes
+        apiOptions: ApiOptions.propTypes,
     },
 
     getDefaultProps: function() {
