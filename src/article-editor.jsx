@@ -7,6 +7,7 @@ var Editor = require("./editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var Renderer = require("./renderer.jsx");
+var Util = require("./util.js");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -124,6 +125,15 @@ var ArticleEditor = React.createClass({
         );
 
         var sections = this._sections();
+        var searchIndex = this.props.searchIndex;
+        var searchString = this.props.searchString;
+
+        var adjustedSearchIndices = _.map(sections, section => {
+            var adjustedIndex = searchIndex;
+            var content = section.content || "";
+            searchIndex -= Util.countOccurrences(content, searchString);
+            return adjustedIndex;
+        });
 
         return <div className="perseus-editor-table">
             {sections.map((section, i) => {
@@ -176,7 +186,9 @@ var ArticleEditor = React.createClass({
                                     _.partial(this._handleEditorChange, i)
                                 }
                                 apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures} />
+                                enabledFeatures={this.props.enabledFeatures}
+                                searchString={searchString}
+                                searchIndex={adjustedSearchIndices[i]} />
                         </div>
 
                         <div className="perseus-editor-right-cell">

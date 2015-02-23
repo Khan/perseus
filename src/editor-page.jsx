@@ -7,6 +7,7 @@ var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
+var Util = require("./util.js");
 
 var EditorPage = React.createClass({
     propTypes: {
@@ -47,6 +48,8 @@ var EditorPage = React.createClass({
     },
 
     render: function() {
+        var hintSearchIndex = this.props.searchIndex -
+            Util.countOccurrences(this.props.question.content, this.props.searchString);
 
         return <div id="perseus" className="framework-perseus">
             {this.props.developerMode &&
@@ -80,7 +83,9 @@ var EditorPage = React.createClass({
                     wasAnswered={this.state.wasAnswered}
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
-                    apiOptions={this._apiOptions()} />
+                    apiOptions={this._apiOptions()}
+                    searchString={this.props.searchString}
+                    searchIndex={this.props.searchIndex} />
             }
 
             {(!this.props.developerMode || !this.props.jsonMode) &&
@@ -88,7 +93,9 @@ var EditorPage = React.createClass({
                     ref="hintsEditor"
                     hints={this.props.hints}
                     imageUploader={this.props.imageUploader}
-                    onChange={this.handleChange} />
+                    onChange={this.handleChange}
+                    searchString={this.props.searchString}
+                    searchIndex={hintSearchIndex} />
             }
         </div>;
 

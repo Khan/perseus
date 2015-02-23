@@ -7,6 +7,7 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
+var cx = React.addons.classSet;
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
 
@@ -236,7 +237,7 @@ var imageUrlsFromContent = function(content) {
 var Editor = React.createClass({
     propTypes: {
         imageUploader: React.PropTypes.func,
-        apiOptions: ApiOptions.propTypes,
+        apiOptions: ApiOptions.propTypes
     },
 
     getDefaultProps: function() {
@@ -329,6 +330,7 @@ var Editor = React.createClass({
         var templatesDropDown;
         var widgetsAndTemplates;
         var wordCountDisplay;
+        var classes;
 
         if (this.props.showWordCount) {
             var numChars = characterCount(this.props.content);
@@ -346,16 +348,44 @@ var Editor = React.createClass({
             widgets = {};
             underlayPieces = [];
 
+            var searchResultIndex = 0;
+
             for (var i = 0; i < pieces.length; i++) {
                 var type = i % 2;
                 if (type === 0) {
                     // Normal text
-                    underlayPieces.push(pieces[i]);
+                    if (this.props.searchString !== "") {
+                        var searchRegex =
+                            new RegExp(`(${this.props.searchString})`, "g");
+                        var smallerPieces = Util.split(pieces[i], searchRegex);
+
+                        for (var j = 0; j < smallerPieces.length; j++) {
+                            var smallerPiece = smallerPieces[j];
+                            if (smallerPiece === this.props.searchString) {
+                                var currentSearchResult =
+                                    searchResultIndex === this.props.searchIndex;
+                                classes = cx({
+                                    "search-result": !currentSearchResult,
+                                    "current-search-result": currentSearchResult
+                                });
+
+                                // Search result
+                                underlayPieces.push(
+                                    <b className={classes}>{smallerPiece}</b>);
+                                searchResultIndex++;
+                            } else {
+                                // Normal text
+                                underlayPieces.push(smallerPiece);
+                            }
+                        }
+                    } else {
+                        underlayPieces.push(pieces[i]);
+                    }
                 } else {
                     // Widget reference
                     var match = Util.rWidgetParts.exec(pieces[i]);
                     var id = match[1];
-                    var type = match[2];
+                    type = match[2];
 
                     var selected = false;
                     // TODO(alpert):
@@ -369,8 +399,10 @@ var Editor = React.createClass({
                     var duplicate = id in widgets;
 
                     widgets[id] = this.getWidgetEditor(id, type);
-                    var classes = (duplicate || !widgets[id] ? "error " : "") +
-                            (selected ? "selected " : "");
+                    classes = cx({
+                        "error": duplicate || !widgets[id],
+                        "selected": selected
+                    });
                     var key = duplicate ? i : id;
                     underlayPieces.push(
                             <b className={classes} key={key}>{pieces[i]}</b>);
@@ -476,6 +508,15 @@ var Editor = React.createClass({
         if (this.props.content !== prevProps.content) {
             this._sizeImages(this.props);
         }
+
+        // shift the view so the current search result is visible
+        $('.current-search-result').each((index, elem) => {
+            var bounds = elem.getBoundingClientRect();
+            if (bounds.top < 10 || bounds.bottom > $(window).height() - 10) {
+                var scrollY = bounds.top + window.scrollY - 100;
+                window.scrollTo(window.scrollX, scrollY);
+            }
+        });
     },
 
     handleDrop: function(e) {

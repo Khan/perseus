@@ -78,6 +78,8 @@ var AnswerAreaEditor = React.createClass({
                                            newProps);
                     this.props.onChange({options: options}, cb);
                 }}
+                searchString={this.props.searchString}
+                searchIndex={this.props.searchIndex}
                 {...this.props.options} />
         </div>;
 

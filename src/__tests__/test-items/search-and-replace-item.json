@@ -1,0 +1,131 @@
+{
+    "question": {
+        "content": "[[☃ categorizer 1]] categorizer [[☃ categorizer 2]] categorizer",
+        "images": {},
+        "widgets": {
+            "categorizer 1": {
+                "type": "categorizer",
+                "graded": true,
+                "options": {
+                    "items": [],
+                    "categories": [],
+                    "values": [],
+                    "randomizeItems": false
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "categorizer 2": {
+                "type": "categorizer",
+                "graded": true,
+                "options": {
+                    "items": [],
+                    "categories": [],
+                    "values": [],
+                    "randomizeItems": false
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            },
+            "expression 1": {
+                "type": "expression",
+                "graded": true,
+                "options": {
+                    "answerForms": [],
+                    "buttonSets": [
+                        "basic"
+                    ],
+                    "functions": [
+                        "f",
+                        "g",
+                        "h"
+                    ],
+                    "times": false
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 0
+                }
+            },
+            "expression 2": {
+                "type": "expression",
+                "graded": true,
+                "options": {
+                    "answerForms": [],
+                    "buttonSets": [
+                        "basic"
+                    ],
+                    "functions": [
+                        "f",
+                        "g",
+                        "h"
+                    ],
+                    "times": false
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": [
+        {
+            "content": "[[☃ categorizer 1]] categorizer",
+            "images": {},
+            "widgets": {
+                "categorizer 1": {
+                    "type": "categorizer",
+                    "graded": true,
+                    "options": {
+                        "items": [],
+                        "categories": [],
+                        "values": [],
+                        "randomizeItems": false
+                    },
+                    "version": {
+                        "major": 0,
+                        "minor": 0
+                    }
+                },
+                "expression 1": {
+                    "type": "expression",
+                    "graded": true,
+                    "options": {
+                        "answerForms": [],
+                        "buttonSets": [
+                            "basic"
+                        ],
+                        "functions": [
+                            "f",
+                            "g",
+                            "h"
+                        ],
+                        "times": false
+                    },
+                    "version": {
+                        "major": 1,
+                        "minor": 0
+                    }
+                }
+            }
+        }
+    ]
+}

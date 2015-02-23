@@ -2,6 +2,7 @@ var React = require('react');
 var _ = require("underscore");
 
 var EditorPage = require("./editor-page.jsx");
+var SearchAndReplaceDialog = require("./search-and-replace-dialog.jsx");
 
 /* Renders an EditorPage (or an ArticleEditor) as a non-controlled component.
  *
@@ -18,18 +19,31 @@ var StatefulEditorPage = React.createClass({
 
     getDefaultProps: function() {
         return {
-            componentClass: EditorPage
+            componentClass: EditorPage,
+            searchString: "",
+            searchIndex: 0
         };
     },
 
     render: function() {
-        return <this.props.componentClass {...this.state} />;
+        return <div>
+            <this.props.componentClass {...this.state} />
+            <SearchAndReplaceDialog
+                ref="searchAndReplace"
+                question={this.state.question}
+                hints={this.state.hints}
+                particle={this.state.json}
+                searchString={this.state.searchString}
+                searchIndex={this.state.searchIndex}
+                onChange={this.handleSearchChange} />
+        </div>;
     },
 
     getInitialState: function() {
         return _({}).extend(_.omit(this.props, 'componentClass'), {
+            ref: "editor",
             onChange: this.handleChange,
-            ref: "editor"
+            searchAndReplace: false
         });
     },
 
@@ -52,12 +66,34 @@ var StatefulEditorPage = React.createClass({
 
     handleChange: function(newState, cb) {
         if (this.isMounted()) {
+            this.setState(newState, () => {
+                if (typeof cb === "function") {
+                    cb();
+                }
+                // note: "json" represents a "particle"
+                var newContent = _(newState).pick("question", "hints", "json");
+                if (this.refs.searchAndReplace && Object.keys(newContent).length > 0) {
+                    this.refs.searchAndReplace.updateSearchResults(newContent);
+                }
+            });
+        }
+    },
+
+    // Have a separate handler for search changes so that we can avoid calling
+    // updateSearchResults which sets searchIndex to 0.  This maintains the
+    // searchIndex at the correct location when doing a replace operation.
+    handleSearchChange: function(newState, cb) {
+        if (this.isMounted()) {
             this.setState(newState, cb);
         }
     },
 
     scorePreview: function() {
         return this.refs.editor.scorePreview();
+    },
+
+    toggleSearchAndReplace: function() {
+        this.setState({ searchAndReplace: !this.state.searchAndReplace });
     }
 });
 

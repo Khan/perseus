@@ -5,6 +5,7 @@ var AnswerAreaEditor = require("./answer-area-editor.jsx");
 var Editor = require("./editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
+var Util = require("./util.js");
 
 var ItemEditor = React.createClass({
     propTypes: {
@@ -43,6 +44,8 @@ var ItemEditor = React.createClass({
                         onChange={this.handleEditorChange}
                         apiOptions={this.props.apiOptions}
                         showWordCount={true}
+                        searchString={this.props.searchString}
+                        searchIndex={this.props.searchIndex}
                         {...this.props.question} />
                 </div>
 
