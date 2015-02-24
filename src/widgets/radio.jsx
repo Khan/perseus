@@ -24,7 +24,6 @@ var Choice = React.createClass({
         checked: React.PropTypes.bool,
         classSet: React.PropTypes.shape,
         clue: React.PropTypes.shape,
-        correct: React.PropTypes.bool,
         content: React.PropTypes.shape,
         disabled: React.PropTypes.bool,
         groupName: React.PropTypes.string,
@@ -37,7 +36,6 @@ var Choice = React.createClass({
         return {
             checked: false,
             classSet: {},
-            correct: false,
             disabled: false,
             showClue: false,
             type: 'radio'
@@ -86,16 +84,20 @@ var Choice = React.createClass({
 });
 
 var ChoiceNoneAbove = React.createClass({
+    propTypes: {
+        showContent: React.PropTypes.bool
+    },
+
     getDefaultProps: function() {
         return {
-            correct: true
-        }
+            showContent: true
+        };
     },
 
     render: function() {
         var choiceProps = _.extend({}, this.props, {
             classSet: { "none-of-above": true },
-            content: (this.props.correct ?
+            content: (this.props.showContent ?
                 this.props.content :
                 "None of the above"
             ),
@@ -192,14 +194,32 @@ var BaseRadio = React.createClass({
                     <$_>Select all that apply.</$_>
                 </div>}
             {this.props.choices.map(function(choice, i) {
-                var classSet = {
-                    "inline": !this.props.onePerLine
-                };
+                var classSet = { "inline": !this.props.onePerLine };
 
                 // True if we're in review mode and a clue is available
                 var reviewModeClues = rubric && rubric.choices[i].clue;
                 var showClue = choice.checked &&
-                (exerciseClues || reviewModeClues);
+                    (exerciseClues || reviewModeClues);
+
+                var element = Choice;
+                var elementProps = {
+                    ref: `radio${i}`,
+                    checked: choice.checked,
+                    clue: choice.clue,
+                    content: choice.content,
+                    disabled: this.props.apiOptions.readOnly,
+                    groupName: radioGroupName,
+                    showClue: showClue,
+                    type: inputType,
+                    onChecked: (checked) => {
+                        this.checkOption(i, checked);
+                    }
+                }
+
+                if (choice.isNoneOfTheAbove) {
+                    element = ChoiceNoneAbove;
+                    _.extend(elementProps, { showContent: choice.correct });
+                }
 
                 classSet[ApiClassNames.INTERACTIVE] =
                     !this.props.apiOptions.readOnly;
@@ -228,23 +248,7 @@ var BaseRadio = React.createClass({
                             }
                     }}>
 
-                    {React.createElement(( choice.isNoneOfTheAbove ?
-                        ChoiceNoneAbove : Choice ),
-                        {
-                            ref: `radio${i}`,
-                            checked: choice.checked,
-                            clue: choice.clue,
-                            content: choice.content,
-                            correct: choice.correct,
-                            disabled: this.props.apiOptions.readOnly,
-                            groupName: radioGroupName,
-                            showClue: showClue,
-                            type: inputType,
-                            onChecked: (checked) => {
-                                this.checkOption(i, checked);
-                            }
-                        }
-                    )}
+                    {React.createElement(element, elementProps)}
                 </li>;
             }, this)}
         </ul>;
