@@ -98,6 +98,7 @@ var TITLED_TABLE_REGEX = new RegExp(
 
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     columns: {
+        order: -1,
         match: SimpleMarkdown.inlineRegex(/^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/),
         parse: (capture, parse, state) => {
             return {
@@ -114,7 +115,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                     {output(node.col2)}
                 </div>
             </div>;
-        }
+        },
     },
     // This is pretty much horrible, but we have a regex here to capture an
     // entire table + a title. capture[1] is the title. capture[2] of the
@@ -123,6 +124,8 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     // our table regex into tableCapture[1..], and we pass tableCapture to
     // our nptable regex
     titledTable: {
+        // process immediately before nptables
+        order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX),
         parse: (capture, parse, state) => {
             var title = parse(capture[1], state);
@@ -153,6 +156,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         }
     },
     widget: {
+        order: SimpleMarkdown.defaultRules.link.order - 0.75,
         match: SimpleMarkdown.inlineRegex(Util.rWidgetRule),
         parse: (capture, parse, state) => {
             return {
@@ -168,6 +172,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         }
     },
     math: {
+        order: SimpleMarkdown.defaultRules.link.order - 0.25,
         match: mathMatch,
         parse: (capture, parse, state) => {
             return {
@@ -183,35 +188,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     },
 });
 
-var linkRuleIndex = SimpleMarkdown.defaultPriorities.indexOf("link");
-var tableRuleIndex = SimpleMarkdown.defaultPriorities.indexOf("table");
-if (linkRuleIndex < 0 || tableRuleIndex < 0) {
-    // assert that we found the positions in the priority list at
-    // which to insert our rules.
-    throw new Error(
-        "could not find link/table rule in simple-markdown to place " +
-        "perseus table, widget, and math rules before"
-    );
-}
-
-var priorities = _.clone(SimpleMarkdown.defaultPriorities);
-priorities.unshift("columns");
-// Inject our block table rule before normal tables
-priorities.splice(
-    tableRuleIndex,
-    0,
-    "titledTable"
-);
-// Naively inject our inline rules before links so that our `[[`s take
-// precedence
-priorities.splice(
-    linkRuleIndex,
-    0,
-    "widget",
-    "math"
-);
-
-var builtParser = SimpleMarkdown.parserFor(rules, priorities);
+var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source) => {
     var paragraphedSource = source + "\n\n";
     return builtParser(paragraphedSource, {inline: false});

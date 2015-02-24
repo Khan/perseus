@@ -17,11 +17,10 @@ validateParse = (parsed, expected) => {
             parsedStr = "had undefined/function properties";
             expectedStr = "no undefined/function properties";
         }
-        assert.fail(
-            parsedStr,
-            expectedStr,
-            "parsed did not match expected",
-            "<>"
+        throw new Error("Expected:\n" +
+            expectedStr +
+            "\n\nActual:\n" +
+            parsedStr
         );
     }
 };
