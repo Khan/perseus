@@ -671,7 +671,7 @@ var RadioEditor = React.createClass({
     addChoice: function(noneOfTheAbove, e) {
         e.preventDefault();
 
-        var choices = this.props.choices;
+        var choices = this.props.choices.slice();
         var newChoice = { isNoneOfTheAbove: noneOfTheAbove };
         var insertIndex = choices.length - ( this.props.hasNoneOfTheAbove || 0 );
 
