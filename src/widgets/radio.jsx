@@ -95,7 +95,7 @@ var BaseRadio = React.createClass({
                                         shouldToggle ? !choice.checked : true);
                                 }
                             }}>
-                    <div>
+                    <label onClick={(e) => { e.preventDefault(); }}>
                         <span className="checkbox">
                             <input
                                 ref={"radio" + i}
@@ -128,7 +128,7 @@ var BaseRadio = React.createClass({
                             <div className="perseus-radio-clue">
                                 {choice.clue}
                             </div>}
-                    </div>
+                    </label>
                 </li>;
 
             }, this)}
