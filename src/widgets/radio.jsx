@@ -69,15 +69,11 @@ var BaseRadio = React.createClass({
                 }
                 var className = cx(classSet);
 
-                // True if we're in an exercise and we should show a clue.
-                var exerciseClues = Exercises.cluesEnabled &&
-                                    this.props.showClues;
-
                 // True if we're in review mode and a clue is available
                 var reviewModeClues = rubric && rubric.choices[i].clue;
 
                 var showClue = choice.checked &&
-                               (exerciseClues || reviewModeClues);
+                               (this.props.showClues || reviewModeClues);
 
                 return <li className={className} key={i}
                             onTouchStart={!this.props.labelWrap ?
