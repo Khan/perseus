@@ -24,7 +24,6 @@ var BaseRadio = React.createClass({
         labelWrap: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
         onCheckedChange: React.PropTypes.func,
-        showClues: React.PropTypes.bool,
         onePerLine: React.PropTypes.bool,
         apiOptions: React.PropTypes.object,
         reviewModeRubric: React.PropTypes.object,
@@ -72,8 +71,16 @@ var BaseRadio = React.createClass({
                 // True if we're in review mode and a clue is available
                 var reviewModeClues = rubric && rubric.choices[i].clue;
 
-                var showClue = choice.checked &&
-                               (this.props.showClues || reviewModeClues);
+                // TODO(marcia): As of March 2015, clues are only available
+                // within the SAT experience. There were a handful of non-SAT
+                // exercises (see content/targeted_clues_exercises.py) where we
+                // had enabled clues in an AB test, but closing that
+                // inconclusive test in favor of clues yielded strange
+                // interactions with SAT. Closing the AB test to keep the orig
+                // behavior, and adding a TODO here to leave a trace. Aria
+                // recommends bringing the logic for showing a clue to the same
+                // level as this.props.questionCompleted
+                var showClue = choice.checked && reviewModeClues;
 
                 return <li className={className} key={i}
                             onTouchStart={!this.props.labelWrap ?
@@ -169,12 +176,6 @@ var Radio = React.createClass({
         };
     },
 
-    getInitialState: function() {
-        return {
-            showClues: false
-        };
-    },
-
     render: function() {
         var choices = this.props.choices;
         var values = this.props.values || _.map(choices, () => false);
@@ -201,7 +202,6 @@ var Radio = React.createClass({
             labelWrap={true}
             onePerLine={this.props.onePerLine}
             multipleSelect={this.props.multipleSelect}
-            showClues={this.state.showClues}
             choices={choices.map(function(choice) {
                 return _.pick(choice, "content", "checked", "clue");
             })}
@@ -275,7 +275,6 @@ var Radio = React.createClass({
     },
 
     onCheckedChange: function(checked) {
-        this.setState({showClues: false});
         this.props.onChange({
             values: checked
         });
@@ -319,7 +318,6 @@ var Radio = React.createClass({
     },
 
     simpleValidate: function(rubric) {
-        this.setState({showClues: true});
         return Radio.validate(this.getUserInput(), rubric);
     },
 
