@@ -30,7 +30,7 @@ var specialChars = {
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 var rContainsNonWhitespace = /\S/;
 
-if (typeof KA !== "undefined" && KA.language === "en-PT") {
+if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
     // registry of crowdinId's to component so that we can update the
     // component's state as the translator enters their translation.
@@ -471,7 +471,7 @@ var Renderer = React.createClass({
     },
 
     shouldRenderJiptPlaceholder: function(props, state) {
-        return typeof KA !== "undefined" && KA.language === "en-PT" &&
+        return typeof KA !== "undefined" && KA.language === "en-pt" &&
                     state.jiptContent == null &&
                     props.content.indexOf('crwdns') !== -1;
     },
@@ -487,7 +487,7 @@ var Renderer = React.createClass({
 
         if (this.shouldRenderJiptPlaceholder(this.props, this.state)) {
             // Crowdin's JIPT (Just in place translation) uses a fake language
-            // with language tag "en-PT" where the value of the translations
+            // with language tag "en-pt" where the value of the translations
             // look like: {crwdns2657085:0}{crwdne2657085:0} where it keeps the
             // {crowdinId:ngettext variant}. We detect whether the current
             // content matches this, so we can take over rendering of
