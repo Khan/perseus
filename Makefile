@@ -25,6 +25,7 @@ build: install
 # TODO(aria): cry
 	rm -rf simple-markdown/node_modules
 	rm -rf kmath/node_modules
+	rm -rf react-components/node_modules
 	./node_modules/.bin/webpack
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
