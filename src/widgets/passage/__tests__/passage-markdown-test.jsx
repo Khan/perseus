@@ -176,6 +176,26 @@ describe("passage markdown", () => {
                 ],
             }]);
         });
+
+        it("should parse circle labels", () => {
+            var parsed = parse(
+                "((2)) Hi\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "circleLabel",
+                        space: true,
+                        content: [{type: "text", content: "2"}]
+                    },
+                    {
+                        type: "text",
+                        content: "Hi"
+                    },
+                ],
+            }]);
+        });
     });
 
     describe("orders", () => {
