@@ -120,7 +120,7 @@ var rules = {
         regex: /^\[\[(\w+)\]\]( *)/,
         parse: (capture, parse, state) => {
             return {
-                content: parse(capture[1]),
+                content: parse(capture[1], state),
                 space: capture[2].length > 0,
             };
         },

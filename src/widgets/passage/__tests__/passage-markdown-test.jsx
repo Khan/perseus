@@ -29,7 +29,7 @@ validateParse = (parsed, expected) => {
 
 describe("passage markdown", () => {
     describe("ref parsing", () => {
-        it ("should handle a single ref in plain text", () => {
+        it("should handle a single ref in plain text", () => {
             var parsed = parse("this is a {{ref}}");
             validateParse(parsed, [{
                 type: "paragraph",
@@ -56,7 +56,7 @@ describe("passage markdown", () => {
     });
 
     describe("footnote parsing", () => {
-        it ("should handle a single footnote in plain text", () => {
+        it("should handle a single footnote in plain text", () => {
             var parsed = parse("this is a footnote^");
             validateParse(parsed, [{
                 type: "paragraph",
@@ -74,7 +74,7 @@ describe("passage markdown", () => {
             }]);
         });
 
-        it ("should handle two footnotes in plain text", () => {
+        it("should handle two footnotes in plain text", () => {
             var parsed = parse("a^b^c");
             validateParse(parsed, [{
                 type: "paragraph",
@@ -105,7 +105,7 @@ describe("passage markdown", () => {
             }]);
         });
 
-        it ("should handle three footnotes in paragraphs", () => {
+        it("should handle three footnotes in paragraphs", () => {
             var parsed = parse(
                 "para 1 has this footnote^\n\n" +
                 "para 2 has two^ more^ footnotes\n\n"
@@ -154,7 +154,28 @@ describe("passage markdown", () => {
                 }
             ]);
         });
+    });
 
+    describe("label parsing", () => {
+        it("should parse square labels", () => {
+            var parsed = parse(
+                "[[1]] Hi\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "squareLabel",
+                        space: true,
+                        content: [{type: "text", content: "1"}]
+                    },
+                    {
+                        type: "text",
+                        content: "Hi"
+                    },
+                ],
+            }]);
+        });
     });
 
     describe("orders", () => {
