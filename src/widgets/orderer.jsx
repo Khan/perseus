@@ -399,7 +399,7 @@ var Orderer = React.createClass({
                     finalOffset = $(card).position();
                 }
             }, this);
-        } else {
+        } else if (this.refs.placeholder != null) {
             // Otherwise, go to the position that the placeholder is at
             finalOffset = $(this.refs.placeholder.getDOMNode()).position();
         }
