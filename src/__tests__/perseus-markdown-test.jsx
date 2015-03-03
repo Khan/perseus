@@ -20,15 +20,17 @@ var prettyPrintAST = (ast) => {
     });
 };
 
-var validateParse = (parsed, expected) => {
+var validateParse = function(parsed, expected) {
     if (!_.isEqual(parsed, expected)) {
         var parsedStr = prettyPrintAST(parsed);
         var expectedStr = prettyPrintAST(expected);
-        assert.fail(
-            parsedStr,
-            expectedStr,
-            "parsed did not match expected",
-            "<>"
+        // assert.fail doesn't seem to print the
+        // expected and actual anymore, so we just
+        // throw our own exception.
+        throw new Error("Expected:\n" +
+            expectedStr +
+            "\n\nActual:\n" +
+            parsedStr
         );
     }
 };
@@ -256,14 +258,44 @@ describe("perseus markdown", () => {
                 ]
             }]);
 
-            var parsed = parse("[[☃ test 1]] [[☃ test 2]]");
-            validateParse(parsed, [{
+            var parsed2 = parse("[[☃ test 1]] [[☃ test 2]]");
+            validateParse(parsed2, [{
                 type: "paragraph",
                 content: [
                     {type: "widget", widgetType: "test", id: "test 1"},
                     {type: "text", content: " "},
                     {type: "widget", widgetType: "test", id: "test 2"},
                 ]
+            }]);
+        });
+
+        it("should parse multiple columns", () => {
+            debugger;
+            var parsed = parse(
+                "hi\n\n" +
+                "=====\n\n" +
+                "there\n\n"
+            );
+            validateParse(parsed, [{
+                type: "columns",
+                col1: [
+                    {
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "hi",
+                        }],
+                    },
+                ],
+                col2: [
+                    {
+                        type: "paragraph",
+                        content: [{
+                            type: "text",
+                            content: "there",
+                        }],
+                    },
+                ],
             }]);
         });
     });

@@ -99,7 +99,7 @@ var TITLED_TABLE_REGEX = new RegExp(
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     columns: {
         order: -1,
-        match: SimpleMarkdown.inlineRegex(/^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/),
+        match: SimpleMarkdown.blockRegex(/^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/),
         parse: (capture, parse, state) => {
             return {
                 col1: parse(capture[1], state),
