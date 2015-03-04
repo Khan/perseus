@@ -40,10 +40,11 @@ var CIRCLE_LABEL_STYLE = {
 };
 
 var rules = {
+    newline: SimpleMarkdown.defaultRules.newline,
     paragraph: SimpleMarkdown.defaultRules.paragraph,
     escape: SimpleMarkdown.defaultRules.escape,
     passageFootnote: {
-        order: SimpleMarkdown.defaultRules.escape + 1,
+        order: SimpleMarkdown.defaultRules.escape.order + .1,
         regex: /^\^/,
         parse: (capture, parse, state) => {
             // if no footnotes have been seen, we're id 1. otherwise,
@@ -71,7 +72,7 @@ var rules = {
         }
     },
     refStart: {
-        order: SimpleMarkdown.defaultRules.escape + 2,
+        order: SimpleMarkdown.defaultRules.escape.order + .2,
         regex: /^\{\{/,
         parse: (capture, parse, state) => {
             var ref = state.lastRef + 1;
@@ -90,7 +91,7 @@ var rules = {
         }
     },
     refEnd: {
-        order: SimpleMarkdown.defaultRules.escape + 3,
+        order: SimpleMarkdown.defaultRules.escape.order + .3,
         regex: /^\}\}/,
         parse: (capture, parse, state) => {
             var ref = state.currentRef.pop() || null;
@@ -115,6 +116,7 @@ var rules = {
         }
     },
     squareLabel: {
+        order: SimpleMarkdown.defaultRules.escape.order + .4,
         regex: /^\[\[(\w+)\]\]( *)/,
         parse: (capture, parse, state) => {
             return {
@@ -134,6 +136,7 @@ var rules = {
         }
     },
     circleLabel: {
+        order: SimpleMarkdown.defaultRules.escape.order + .5,
         regex: /^\(\((\w+)\)\)( *)/,
         parse: (capture, parse, state) => {
             return {
@@ -156,7 +159,6 @@ var rules = {
     u: SimpleMarkdown.defaultRules.u,
     em: SimpleMarkdown.defaultRules.em,
     del: SimpleMarkdown.defaultRules.del,
-    newline: SimpleMarkdown.defaultRules.newline,
     text: SimpleMarkdown.defaultRules.text,
 };
 
@@ -174,5 +176,6 @@ module.exports = {
     parse: parse,
     output: SimpleMarkdown.outputFor(SimpleMarkdown.ruleOutput(rules)),
     START_REF_PREFIX: START_REF_PREFIX,
-    END_REF_PREFIX: END_REF_PREFIX
+    END_REF_PREFIX: END_REF_PREFIX,
+    _rulesForTesting: rules,
 };

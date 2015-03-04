@@ -2,7 +2,9 @@ var assert = require("assert");
 var _ = require("underscore");
 
 var PassageMarkdown = require("../passage-markdown.jsx");
-var {parse, output} = PassageMarkdown;
+var parse = PassageMarkdown.parse;
+var output = PassageMarkdown.output;
+var rules = PassageMarkdown._rulesForTesting;
 
 validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
@@ -153,6 +155,17 @@ describe("passage markdown", () => {
             ]);
         });
 
+    });
+
+    describe("orders", () => {
+        it("should always be numbers", () => {
+            _.each(rules, (rule) => {
+                assert(
+                    typeof rule.order === "number",
+                    rule.type + " order was not a number: " + rule.order
+                );
+            });
+        });
     });
 });
 
