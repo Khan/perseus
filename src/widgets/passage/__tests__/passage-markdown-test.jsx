@@ -3,7 +3,6 @@ var _ = require("underscore");
 
 var PassageMarkdown = require("../passage-markdown.jsx");
 var parse = PassageMarkdown.parse;
-var output = PassageMarkdown.output;
 var rules = PassageMarkdown._rulesForTesting;
 
 validateParse = (parsed, expected) => {
