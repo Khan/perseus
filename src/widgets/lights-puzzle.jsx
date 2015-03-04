@@ -336,8 +336,10 @@ var LightsPuzzleEditor = React.createClass({
                 <select
                         value={this.props.flipPattern}
                         onChange={this._handlePatternChange}>
-                    {_.map(_.keys(PATTERNS), (pattern) => {
-                        return <option value={pattern}>{pattern}</option>;
+                    {_.map(_.keys(PATTERNS), (pattern, i) => {
+                        return <option value={pattern} key={i}>
+                            {pattern}
+                        </option>;
                     })}
                 </select>
             </div>
