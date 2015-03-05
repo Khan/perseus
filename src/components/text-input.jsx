@@ -17,8 +17,7 @@ var TextInput = React.createClass({
         return <input
             {...this.props}
             type="text"
-            onChange={(e) => this.props.onChange(e.target.value)}
-        />;
+            onChange={(e) => this.props.onChange(e.target.value)} />;
     },
 
     focus: function() {
@@ -27,7 +26,28 @@ var TextInput = React.createClass({
 
     blur: function() {
         this.getDOMNode().blur();
+    },
+
+    getValue: function() {
+        return this.getDOMNode().value;
+    },
+
+    getStringValue: function() {
+        return this.getDOMNode().value.toString();
+    },
+
+    setSelectionRange: function(selectionStart, selectionEnd) {
+        this.getDOMNode().setSelectionRange(selectionStart, selectionEnd);
+    },
+
+    getSelectionStart: function() {
+        return this.getDOMNode().selectionStart;
+    },
+
+    getSelectionEnd: function() {
+        return this.getDOMNode().selectionEnd;
     }
+
 });
 
 module.exports = TextInput;

@@ -93,6 +93,11 @@ var NumberInput = React.createClass({
         return this.parseInputValue(this.refs.input.getDOMNode().value);
     },
 
+    /* Return the current string value of this input */
+    getStringValue: function() {
+        return this.refs.input.getDOMNode().value.toString();
+    },
+
     parseInputValue: function(value) {
         if (value === "") {
             placeholder = this.props.placeholder;
@@ -112,6 +117,18 @@ var NumberInput = React.createClass({
     blur: function() {
         this.refs.input.getDOMNode().blur();
         this._handleBlur();
+    },
+
+    setSelectionRange: function(selectionStart, selectionEnd) {
+        this.getDOMNode().setSelectionRange(selectionStart, selectionEnd);
+    },
+
+    getSelectionStart: function() {
+        return this.getDOMNode().selectionStart;
+    },
+
+    getSelectionEnd: function() {
+        return this.getDOMNode().selectionEnd;
     },
 
     _checkValidity: function(value) {
