@@ -51,8 +51,6 @@ var FancySelect = React.createClass({
     },
 
     render: function() {
-        var children = _.flatten([this.props.children || []]);
-
         // Some css-box magic:
         // We render all of the options on top of each other in a hidden,
         // floated span. This span then forces the <FancySelect>'s
@@ -65,7 +63,7 @@ var FancySelect = React.createClass({
                     visibility: "hidden",
                     height: 0
                 }}>
-            {_.map(children, (option) => {
+            {React.Children.map(this.props.children, (option) => {
                 return <div className="fancy-select-value-hidden"
                             style={{height: 0}}>
                     {option.props.children}
@@ -73,10 +71,14 @@ var FancySelect = React.createClass({
             })}
         </span>;
 
-        var selectedOption = _.find(
-            children,
-            (c) => c.props.value === this.props.value
-        );
+        var childCount = 0;
+        var selectedOption;
+        React.Children.forEach(this.props.children, (option) => {
+            childCount++;
+            if (option.props.value === this.props.value) {
+                selectedOption = option;
+            }
+        });
 
         var selectBoxClassName = React.addons.classSet({
             "fancy-select": true,
@@ -96,7 +98,7 @@ var FancySelect = React.createClass({
                 </span>
         </div>;
 
-        var options = _.map(children, (option, i) => {
+        var options = React.Children.map(this.props.children, (option, i) => {
             // options can specify visible={true|false|null/undefined} to
             // control whether they are displayed always, never, or when
             // active (the default). `true` is useful if you want to manage
@@ -137,7 +139,6 @@ var FancySelect = React.createClass({
 
             return <li
                     className={className}
-                    key={i}
                     style={style}
                     onClick={() => {
                         this._unbindClickHandler();
@@ -157,7 +158,7 @@ var FancySelect = React.createClass({
             closed: this.state.closed
         });
 
-        var height = DROPDOWN_OFFSET * _.size(children);
+        var height = DROPDOWN_OFFSET * childCount;
         var style = {
             clip: "rect(0, auto, " + height + "px, 0)"
         };

@@ -615,9 +615,13 @@ var InteractiveGraph = React.createClass({
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onMouseDown={onMouseDown}
-                onNewGraphie={this.setGraphie} />
+                onGraphieUpdated={this.setGraphie} />
             {typeSelect}{extraOptions}
         </div>;
+    },
+
+    componentDidMount: function() {
+        this.setGraphie(this.refs.graph.graphie());
     },
 
     setGraphie: function(newGraphie) {

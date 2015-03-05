@@ -387,14 +387,14 @@ var NumberLine = React.createClass({
                     this.refs.graphie.movables.numberLinePoint.grab(coord);
                 }}
                 setup={this._setupGraphie}>
-            {TickMarks(_.pick(props, [
+            <TickMarks {..._.pick(props, [
                 "range",
                 "numDivisions",
                 "labelTicks",
                 "labelStyle",
                 "labelRange",
                 "tickStep"
-            ]))}
+            ])} />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
         </Graphie>;

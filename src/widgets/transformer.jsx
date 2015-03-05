@@ -329,15 +329,16 @@ var TransformOps = {
                     {TransformOps.toTeX(this.props.transform)}
                 </div>;
             } else if (this.props.mode === "interactive") {
-                var transformClass =
+                var TransformClass =
                         Transformations[this.props.transform.type].Input;
-                return transformClass(_.extend({
-                    ref: "transform",
-                    onChange: this.handleChange,
-                    onFocus: this.props.onFocus,
-                    onBlur: this.props.onBlur,
-                    apiOptions: this.props.apiOptions
-                }, this.props.transform));
+                return <TransformClass
+                    ref="transform"
+                    onChange={this.handleChange}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
+                    apiOptions={this.props.apiOptions}
+                    {...this.props.transform}
+                    />;
             } else {
                 throw new Error("Invalid mode: " + this.props.mode);
             }
@@ -1513,7 +1514,7 @@ var TransformationsShapeEditor = React.createClass({
                 gridStep={this.props.graph.gridStep}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
-                onNewGraphie={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie} />
             <select
                     key="type-select"
                     value={this.getTypeString(this.props.shape.type)}
@@ -1570,6 +1571,10 @@ var TransformationsShapeEditor = React.createClass({
                 options: ShapeTypes.defaultOptions(types)
             }
         });
+    },
+
+    componentDidMount: function() {
+        this.setupGraphie(this.refs.graph.graphie());
     },
 
     componentDidUpdate: function(prevProps) {
@@ -1798,7 +1803,7 @@ var Transformer = React.createClass({
                 markings={graph.markings}
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
-                onNewGraphie={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie} />
 
             {!interactiveToolsMode && (
                 "Add transformations below:"
@@ -1825,6 +1830,10 @@ var Transformer = React.createClass({
             {!interactiveToolsMode && toolsBar}
 
         </div>;
+    },
+
+    componentDidMount: function() {
+        this.setupGraphie(this.graphie());
     },
 
     componentDidUpdate: function(prevProps) {
@@ -1860,18 +1869,14 @@ var Transformer = React.createClass({
         return this.refs.graph.graphie();
     },
 
-    setupGraphie: function() {
-        var self = this;
-
-        var graphie = this.graphie();
-
+    setupGraphie: function(graphie) {
         // A background image of our solution:
         if (this.props.drawSolutionShape &&
                 this.props.correct.shape &&
                 this.props.correct.shape.coords) {
             ShapeTypes.addShape(graphie, {
                 fixed: true,
-                shape: self.props.correct.shape,
+                shape: this.props.correct.shape,
                 normalStyle: {
                     stroke: KhanUtil.GRAY,
                     "stroke-dasharray": "",

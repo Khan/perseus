@@ -44,8 +44,11 @@ var rewriteProps = function(props, childrenArray) {
  * Create a custom GraphieMovable class
  */
 var createClass = function(spec) {
-    var GraphieClass = function(descriptor) {
-        this.props = rewriteProps(descriptor.props, descriptor.props.children);
+    var GraphieClass = function(props) {
+        if (!(this instanceof GraphieClass)) {
+            throw new Error("Use createElement or JSX with graphie movables");
+        }
+        this.props = rewriteProps(props, props.children || []);
         return this;
     };
 
@@ -58,41 +61,7 @@ var createClass = function(spec) {
     GraphieClass.prototype = new GraphieMovable(spec);
     GraphieClass.prototype.constructor = GraphieClass;
 
-    var factory = function(config) {
-        // TODO(alpert): Remove after 0.12 -- adapted from 
-        // https://github.com/facebook/react/blob/af485d9/src/core/ReactDescriptor.js#L136-L188
-        var props = {};
-        var key = null;
-        var ref = null;
-        var propName;
-        if (config != null) {
-            key = config.key === undefined ? null : '' + config.key;
-            ref = config.ref === undefined ? null : config.ref;
-            for (propName in config) {
-                if (config.hasOwnProperty(propName) &&
-                        propName !== "key" &&
-                        propName !== "ref") {
-                    props[propName] = config[propName];
-                }
-            }
-        }
-        props.children = _.rest(arguments);
-        return {
-            type: GraphieClass,
-            key: key,
-            ref: ref,
-            props: props,
-        };
-    };
-
-    // TODO(alpert): This is present to trick React.createElement into
-    // believing that graphie movable classes are valid React types. In React
-    // 0.13 (probably) createElement will probably just assume that its
-    // argument is a proper type and we'll be able to get rid of this.
-    factory.isReactLegacyFactory = true;
-    factory.type = GraphieClass;
-
-    return factory;
+    return GraphieClass;
 };
 
 

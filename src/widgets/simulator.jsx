@@ -69,8 +69,9 @@ var Histogram = React.createClass({
         var coords = _.map(yRange, (y) => [this.state.threshold, y]);
 
         // Returns an inivisble, placeholder coord that anchors the line
-        var invisiblePointForCoord = (coord) => {
+        var invisiblePointForCoord = (coord, i) => {
             return <MovablePoint
+                key={i}
                 static={true}
                 coord={coord}
                 normalStyle={{stroke: "none", fill: "none"}} />;
@@ -108,6 +109,7 @@ var Histogram = React.createClass({
         // Plot little circle
         var plotBelowCircle = () => {
             var options = {
+                key: "below",
                 center: center,
                 radius: radius,
                 startAngle: 0,
@@ -121,10 +123,11 @@ var Histogram = React.createClass({
                 }
             };
 
-            return Arc(options);
+            return <Arc {...options} />;
         };
         var plotAboveCircle = () => {
             var options = {
+                key: "above",
                 center: center,
                 radius: radius,
                 startAngle: (proportionBelow > 0) ? 360 * proportionBelow
@@ -138,7 +141,7 @@ var Histogram = React.createClass({
                 },
             };
 
-            return Arc(options);
+            return <Arc {...options} />;
         };
 
         // Plot the label below the circle
@@ -147,6 +150,7 @@ var Histogram = React.createClass({
             Math.max(this.state.threshold, xRange[0]), xRange[1]).toFixed(2);
         var plotLabel = () => {
             var options = {
+                key: "label",
                 coord: [center[0], center[1] + 1.5 * radius],
                 text: numBelow + " of " + total + " results below " +
                     formattedThreshold + "%",
@@ -157,7 +161,7 @@ var Histogram = React.createClass({
                     fontSize: "12px"
                 }
             };
-            return Label(options);
+            return <Label {...options} />;
         };
 
         return [
@@ -194,7 +198,7 @@ var Histogram = React.createClass({
                 [i + barWidth, count],
                 [i + barWidth, 0]
             ];
-            return <Path coords={coords} style={style} />;
+            return <Path key={i} coords={coords} style={style} />;
         };
 
         return _.map(data, pathForData);
@@ -230,11 +234,9 @@ var Histogram = React.createClass({
                         onMouseDown={this.handleMouseInteraction}>
             <Line start={origin} end={bottomRight} style={axisStyle} />
             {/* Only plot these cool extra features if there's data */}
-            {data && [
-                this._renderData(),
-                this._renderCircle(),
-                this._renderThresholdLine()
-            ]}
+            {data && this._renderData()}
+            {data && this._renderCircle()}
+            {data && this._renderThresholdLine()}
         </Graphie>;
     },
 

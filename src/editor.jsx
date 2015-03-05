@@ -411,7 +411,7 @@ var Editor = React.createClass({
                         {templatesDropDown}
                         {wordCountDisplay}
                     </div>
-                    {widgets}
+                    {React.addons.createFragment(widgets)}
                 </div>;
                 // Prevent word count from being displayed elsewhere
                 wordCountDisplay = null;

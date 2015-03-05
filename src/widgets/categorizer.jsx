@@ -49,8 +49,12 @@ var Categorizer = React.createClass({
         return <div className="categorizer-container clearfix"><table>
             <thead><tr>
                 <th>&nbsp;</th>
-                {_.map(this.props.categories, (category) => {
-                    return <th className="category">
+                {_.map(this.props.categories, (category, i) => {
+                    // Array index is the correct key here, as that's how
+                    // category grading actually works -- no way to add or
+                    // remove categories or items in the middle. (If we later
+                    // add that, this should be fixed.)
+                    return <th className="category" key={i}>
                         <Renderer content={category}/>
                     </th>;
                 })}
@@ -59,10 +63,10 @@ var Categorizer = React.createClass({
                 var item = indexedItem[0];
                 var itemNum = indexedItem[1];
                 var uniqueId = self.state.uniqueId + "_" + itemNum;
-                return <tr>
+                return <tr key={itemNum}>
                     <td><Renderer content={item}/></td>
                     {_.range(self.props.categories.length).map(catNum => {
-                        return <td className="category">
+                        return <td className="category" key={catNum}>
                             {/* a pseudo-label: toggle the value of the
                                 checkbox when this div or the checkbox is
                                 clicked */}

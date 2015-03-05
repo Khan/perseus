@@ -48,7 +48,7 @@ var Dropdown = React.createClass({
                 </FancyOption>
                 {choices.map((choice, i) => {
                     // Always visible so we can animate them with css
-                    return <FancyOption value={i + 1} visible>
+                    return <FancyOption key={i + 1} value={i + 1} visible>
                         {choice}
                     </FancyOption>;
                 })}

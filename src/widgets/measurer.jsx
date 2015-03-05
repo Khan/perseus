@@ -290,7 +290,7 @@ var MeasurerEditor = React.createClass({
                             this.change("rulerTicks", +e.target.value)}
                         value={this.props.rulerTicks} >
                             {_.map([1, 2, 4, 8, 10, 16], function(n) {
-                                return <option value={n}>{n}</option>;
+                                return <option key={n} value={n}>{n}</option>;
                             })}
                     </select>
                 </label>
@@ -341,7 +341,8 @@ var MeasurerEditor = React.createClass({
 
     renderLabelChoices: function(choices) {
         return _.map(choices, function(nameAndValue) {
-            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+            var [name, value] = nameAndValue;
+            return <option key={value} value={value}>{name}</option>;
         });
     }
 });

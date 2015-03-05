@@ -544,7 +544,16 @@ var Renderer = React.createClass({
     // for appropriate spacing and other css
     outputMarkdown: function(ast) {
         if (_.isArray(ast)) {
-            return _.map(ast, (node) => this.outputMarkdown(node));
+            // TODO(alpert): Using a keyed object here to silence key warnings,
+            // but these keys are not meaningful. Having meaningful keys
+            // requires how markdown parsing/editing works, so this is the best
+            // we can do for now. :(
+            var nodes = {};
+            _.each(ast, (node, i) => {
+                // Use non-numeric keys to preserve insertion order
+                nodes['k' + i] = this.outputMarkdown(node);
+            });
+            return React.addons.createFragment(nodes);
         } else {
             // !!! WARNING: Mutative hacks! mutates `this._foundTextNodes`:
             // because i wrote a bad interface to simple-markdown.js' `output`
@@ -563,7 +572,16 @@ var Renderer = React.createClass({
     // output non-top-level nodes or arrays
     outputNested: function(ast) {
         if (_.isArray(ast)) {
-            return _.map(ast, this.outputNested);
+            // TODO(alpert): Using a keyed object here to silence key warnings,
+            // but these keys are not meaningful. Having meaningful keys
+            // requires how markdown parsing/editing works, so this is the best
+            // we can do for now. :(
+            var nodes = {};
+            _.each(ast, (node, i) => {
+                // Use non-numeric keys to preserve insertion order
+                nodes['k' + i] = this.outputNested(node);
+            });
+            return React.addons.createFragment(nodes);
         } else {
             return this.outputNode(ast, this.outputNested);
         }

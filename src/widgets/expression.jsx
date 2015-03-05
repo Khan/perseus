@@ -734,7 +734,7 @@ var ExpressionEditor = React.createClass({
             var className = isFirst ?
                 "button-set-label-float" :
                 "button-set-label";
-            return <label className={className}>
+            return <label className={className} key={name}>
                 <input type="checkbox"
                        checked={checked}
                        disabled={isFirst}
@@ -743,7 +743,7 @@ var ExpressionEditor = React.createClass({
             </label>;
         });
 
-        buttonSetChoices.splice(1, 1, <label>
+        buttonSetChoices.splice(1, 1, <label key="show-div">
             <input type="checkbox"
                    onChange={this.handleToggleDiv} />
             <span className="show-div-button">
