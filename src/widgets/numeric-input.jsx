@@ -4,13 +4,14 @@ var _ = require("underscore");
 var Changeable    = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var InfoTip = require("react-components/info-tip.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var NumberInput = require("../components/number-input.jsx");
 var ButtonGroup = require("react-components/button-group.jsx");
-var MultiButtonGroup = require("react-components/multi-button-group.jsx");
+var InfoTip = require("react-components/info-tip.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
+var MultiButtonGroup = require("react-components/multi-button-group.jsx");
+var NumberInput = require("../components/number-input.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
+var PropCheckBox = require("../components/prop-check-box.jsx");
+var TextInput = require("../components/text-input.jsx");
 
 var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
@@ -47,7 +48,12 @@ var formExamples = {
 var NumericInput = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
+        size: React.PropTypes.oneOf(["normal", "small"]),
         enabledFeatures: EnabledFeatures.propTypes,
+        apiOptions: ApiOptions.propTypes,
+        coefficient: React.PropTypes.bool,
+        answerForms: React.PropTypes.arrayOf(React.PropTypes.string),
+        labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
     },
 
@@ -59,6 +65,7 @@ var NumericInput = React.createClass({
             apiOptions: ApiOptions.defaults,
             coefficient: false,
             answerForms: [],
+            labelText: "",
         };
     },
 
@@ -121,13 +128,23 @@ var NumericInput = React.createClass({
             onFocus={this._handleFocus}
             onBlur={this._handleBlur} />;
 
+        var inputWithLabel;
+        if (this.props.labelText) {
+            inputWithLabel = <label>
+                <span className="perseus-sr-only">{this.props.labelText}</span>
+                {input}
+            </label>;
+        } else {
+            inputWithLabel = input;
+        }
+
         if (answerBlurb) {
             return <span className="perseus-input-with-answer-blurb">
-                {input}
+                {inputWithLabel}
                 {answerBlurb}
             </span>;
         } else {
-            return input;
+            return inputWithLabel;
         }
     },
 
@@ -315,7 +332,8 @@ var NumericInputEditor = React.createClass({
         return {
             answers: [initAnswer("correct")],
             size: "normal",
-            coefficient: false
+            coefficient: false,
+            labelText: "",
         };
     },
 
@@ -408,6 +426,19 @@ var NumericInputEditor = React.createClass({
                     <p>Use size "Normal" for all text boxes, unless there are
                     multiple text boxes in one line and the answer area is too
                     narrow to fit them.</p>
+                </InfoTip>
+            </div>;
+
+        var labelText = <div className="perseus-widget-row">
+                <label>
+                    Label text:{' '}
+                    <TextInput
+                        value={this.props.labelText}
+                        onChange={this.change("labelText")} />
+                </label>
+                <InfoTip>
+                    <p>Text to describe this input. This will be shown to users
+                    using screenreaders.</p>
                 </InfoTip>
             </div>;
 
@@ -526,6 +557,7 @@ var NumericInputEditor = React.createClass({
             {addAnswerButton}
             {inputSize}
             {coefficientCheck}
+            {labelText}
         </div>;
 
     },
