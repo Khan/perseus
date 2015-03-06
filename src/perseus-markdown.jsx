@@ -4,6 +4,8 @@ var SimpleMarkdown = require("simple-markdown");
 var TeX = require("react-components/tex.jsx");
 var Util = require("./util.js");
 
+var parseInline = SimpleMarkdown.parseInline;
+
 /**
  * This match function matches math in `$`s, such as:
  *
@@ -128,7 +130,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX),
         parse: (capture, parse, state) => {
-            var title = parse(capture[1], state);
+            var title = parseInline(parse, capture[1], state);
 
             // Remove our [0] and [1] captures, and pass the rest to
             // the nptable parser
