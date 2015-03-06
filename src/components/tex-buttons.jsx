@@ -82,7 +82,7 @@ var buttonSets = {
     ],
 
     "basic relations": [
-        () => [<TeX key="eq">{"="}</TeX>, "\\eq"],
+        () => [<TeX key="eq">{"="}</TeX>, "="],
         () => [<TeX key="lt">\lt</TeX>, "\\lt"],
         () => [<TeX key="gt">\gt</TeX>, "\\gt"],
     ],
