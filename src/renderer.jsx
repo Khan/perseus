@@ -985,10 +985,16 @@ var Renderer = React.createClass({
             return props.graded == null || props.graded;
         });
 
-        var widgetScores = mapObjectFromArray(gradedWidgetIds, (id) => {
+        var widgetScores = {};
+        _.each(gradedWidgetIds, (id) => {
             var props = widgetProps[id];
             var widget = this.getWidgetInstance(id);
-            return widget.simpleValidate(props.options, onInputError);
+            if (!widget) {
+                // This can occur if the widget has not yet been rendered
+                return;
+            }
+            widgetScores[id] = widget.simpleValidate(props.options,
+                                                      onInputError);
         });
 
         return widgetScores;
