@@ -122,7 +122,8 @@ var ChoiceEditor = React.createClass({
 
         if (this.props.choice.isNoneOfTheAbove) {
             placeholder = this.props.choice.correct ?
-            "Type the answer to reveal to the user..." : "None of the above";
+                "Type the answer to reveal to the user..." :
+                "None of the above";
         }
 
         var editor = <Editor
@@ -201,7 +202,7 @@ var BaseRadio = React.createClass({
                 var showClue = choice.checked &&
                     (exerciseClues || reviewModeClues);
 
-                var element = Choice;
+                var Element = Choice;
                 var elementProps = {
                     ref: `radio${i}`,
                     checked: choice.checked,
@@ -214,10 +215,10 @@ var BaseRadio = React.createClass({
                     onChecked: (checked) => {
                         this.checkOption(i, checked);
                     }
-                }
+                };
 
                 if (choice.isNoneOfTheAbove) {
-                    element = ChoiceNoneAbove;
+                    Element = ChoiceNoneAbove;
                     _.extend(elementProps, { showContent: choice.correct });
                 }
 
@@ -248,7 +249,7 @@ var BaseRadio = React.createClass({
                             }
                     }}>
 
-                    {React.createElement(element, elementProps)}
+                    <Element {...elementProps} />
                 </li>;
             }, this)}
         </ul>;
@@ -538,7 +539,6 @@ var RadioEditor = React.createClass({
                                   multipleSelect={this.props.multipleSelect}
                                   onChange={this.onMultipleSelectChange} />
                 </div>
-
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="Randomize order"
                                   labelAlignment="right"
@@ -673,15 +673,15 @@ var RadioEditor = React.createClass({
 
         var choices = this.props.choices.slice();
         var newChoice = { isNoneOfTheAbove: noneOfTheAbove };
-        var insertIndex = choices.length - ( this.props.hasNoneOfTheAbove || 0 );
+        var addIndex = choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
 
-        choices.splice(insertIndex, 0, newChoice);
+        choices.splice(addIndex, 0, newChoice);
 
         this.props.onChange({
             choices: choices,
             hasNoneOfTheAbove: noneOfTheAbove || this.props.hasNoneOfTheAbove
         }, () => {
-            this.refs[`choice-editor${insertIndex}`].refs['content-editor'].focus();
+            this.refs[`choice-editor${addIndex}`].refs['content-editor'].focus();
         });
     },
 
@@ -690,7 +690,7 @@ var RadioEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.editor0.refs['content-editor'].focus();
+        this.refs['choice-editor0'].refs['content-editor'].focus()
         return true;
     },
 
