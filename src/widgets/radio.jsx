@@ -22,9 +22,9 @@ var cx = React.addons.classSet;
 var Choice = React.createClass({
     propTypes: {
         checked: React.PropTypes.bool,
-        classSet: React.PropTypes.shape,
-        clue: React.PropTypes.shape,
-        content: React.PropTypes.shape,
+        classSet: React.PropTypes.object,
+        clue: React.PropTypes.object,
+        content: React.PropTypes.node,
         disabled: React.PropTypes.bool,
         groupName: React.PropTypes.string,
         showClue: React.PropTypes.bool,
@@ -109,7 +109,7 @@ var ChoiceNoneAbove = React.createClass({
 
 var ChoiceEditor = React.createClass({
     propTypes: {
-        choice: React.PropTypes.shape,
+        choice: React.PropTypes.object,
         showDelete: React.PropTypes.bool,
         onClueChange: React.PropTypes.func,
         onContentChange: React.PropTypes.func,
