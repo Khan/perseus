@@ -341,28 +341,34 @@ var TableEditor = React.createClass({
 
         return <div>
             <div className="perseus-widget-row">
-                <NumberInput
-                    label="Number of columns:"
-                    ref="numberOfColumns"
-                    value={this.props.columns}
-                    onChange={(val) => {
-                        if (val) {
-                            this.onSizeInput(this.props.rows, val);
-                        }
-                    }}
-                    useArrowKeys={true} />
+                <label>
+                    Number of columns:
+                    {" "}
+                    <NumberInput
+                        ref="numberOfColumns"
+                        value={this.props.columns}
+                        onChange={(val) => {
+                            if (val) {
+                                this.onSizeInput(this.props.rows, val);
+                            }
+                        }}
+                        useArrowKeys={true} />
+                </label>
             </div>
             <div className="perseus-widget-row">
-                <NumberInput
-                    label="Number of rows:"
-                    ref="numberOfRows"
-                    value={this.props.rows}
-                    onChange={(val) => {
-                        if (val) {
-                            this.onSizeInput(val, this.props.columns);
-                        }
-                    }}
-                    useArrowKeys={true} />
+                <label>
+                    Number of rows:
+                    {" "}
+                    <NumberInput
+                        ref="numberOfRows"
+                        value={this.props.rows}
+                        onChange={(val) => {
+                            if (val) {
+                                this.onSizeInput(val, this.props.columns);
+                            }
+                        }}
+                        useArrowKeys={true} />
+                </label>
             </div>
             <div>
                 {' '}Table of answers:{' '}

@@ -203,8 +203,6 @@ describe("Expression Widget", function() {
         });
     });
 
-    // TODO(joel) - it appears this wasn't previously the case. do this?
-    /*
     describe("grading", function() {
         it("should not grade a thing that doesn't parse", function() {
             return makeRender(expressionItem2).then(renderer => {
@@ -213,8 +211,15 @@ describe("Expression Widget", function() {
                 assert.strictEqual(score.type, "invalid");
             });
         });
+
+        it("should not grade a thing that is empty", function() {
+            return makeRender(expressionItem2).then(renderer => {
+                mathQuillInput(renderer, "");
+                var score = renderer.guessAndScore()[1];
+                assert.strictEqual(score.type, "invalid");
+            });
+        });
     });
-    */
 
     describe("fallthrough", function() {
         it("should grade answers which don't match anything as wrong",

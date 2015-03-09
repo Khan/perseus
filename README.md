@@ -1,5 +1,8 @@
 # Perseus
 
+[![Build Status](https://travis-ci.org/Khan/perseus.svg?branch=master)](https://travis-ci.org/Khan/perseus)
+[![Join the chat at https://gitter.im/Khan/perseus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Khan/perseus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Perseus is Khan Academy's new exercise question editor and renderer. It allows
 you to create and display interactive questions.
 

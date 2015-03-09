@@ -1,5 +1,3 @@
-var _ = require("underscore");
-
 var SimpleMarkdown = require("simple-markdown");
 
 var START_REF_PREFIX = "start-ref-";
@@ -39,8 +37,12 @@ var CIRCLE_LABEL_STYLE = {
     textAlign: "center",
 };
 
-var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+var rules = {
+    newline: SimpleMarkdown.defaultRules.newline,
+    paragraph: SimpleMarkdown.defaultRules.paragraph,
+    escape: SimpleMarkdown.defaultRules.escape,
     passageFootnote: {
+        order: SimpleMarkdown.defaultRules.escape.order + .1,
         regex: /^\^/,
         parse: (capture, parse, state) => {
             // if no footnotes have been seen, we're id 1. otherwise,
@@ -67,45 +69,8 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             return <sup>{node.text}</sup>;
         }
     },
-    squareLabel: {
-        regex: /^\[\[(\w+)\]\]( *)/,
-        parse: (capture, parse, state) => {
-            return {
-                content: parse(capture[1]),
-                space: capture[2].length > 0,
-            }
-        },
-        output: (node, output) => {
-            return [
-                <span style={LABEL_OUTER_STYLE}>
-                    <span style={SQUARE_LABEL_STYLE}>
-                        {output(node.content)}
-                    </span>
-                </span>,
-                (node.space ? "\u00A0" : null)
-            ];
-        }
-    },
-    circleLabel: {
-        regex: /^\(\((\w+)\)\)( *)/,
-        parse: (capture, parse, state) => {
-            return {
-                content: parse(capture[1]),
-                space: capture[2].length > 0,
-            }
-        },
-        output: (node, output) => {
-            return [
-                <span style={LABEL_OUTER_STYLE}>
-                    <span style={CIRCLE_LABEL_STYLE}>
-                        {output(node.content)}
-                    </span>
-                </span>,
-                (node.space ? "\u00A0" : null)
-            ];
-        }
-    },
     refStart: {
+        order: SimpleMarkdown.defaultRules.escape.order + .2,
         regex: /^\{\{/,
         parse: (capture, parse, state) => {
             var ref = state.lastRef + 1;
@@ -124,6 +89,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         }
     },
     refEnd: {
+        order: SimpleMarkdown.defaultRules.escape.order + .3,
         regex: /^\}\}/,
         parse: (capture, parse, state) => {
             var ref = state.currentRef.pop() || null;
@@ -146,26 +112,55 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 </span>;
             }
         }
-    }
-});
+    },
+    squareLabel: {
+        order: SimpleMarkdown.defaultRules.escape.order + .4,
+        regex: /^\[\[(\w+)\]\]( *)/,
+        parse: (capture, parse, state) => {
+            return {
+                content: parse(capture[1], state),
+                space: capture[2].length > 0,
+            };
+        },
+        output: (node, output) => {
+            return [
+                <span style={LABEL_OUTER_STYLE}>
+                    <span style={SQUARE_LABEL_STYLE}>
+                        {output(node.content)}
+                    </span>
+                </span>,
+                (node.space ? "\u00A0" : null)
+            ];
+        }
+    },
+    circleLabel: {
+        order: SimpleMarkdown.defaultRules.escape.order + .5,
+        regex: /^\(\((\w+)\)\)( *)/,
+        parse: (capture, parse, state) => {
+            return {
+                content: parse(capture[1], state),
+                space: capture[2].length > 0,
+            };
+        },
+        output: (node, output) => {
+            return [
+                <span style={LABEL_OUTER_STYLE}>
+                    <span style={CIRCLE_LABEL_STYLE}>
+                        {output(node.content)}
+                    </span>
+                </span>,
+                (node.space ? "\u00A0" : null)
+            ];
+        }
+    },
+    strong: SimpleMarkdown.defaultRules.strong,
+    u: SimpleMarkdown.defaultRules.u,
+    em: SimpleMarkdown.defaultRules.em,
+    del: SimpleMarkdown.defaultRules.del,
+    text: SimpleMarkdown.defaultRules.text,
+};
 
-var priorities = [
-    "paragraph",
-    "escape",
-    "passageFootnote",
-    "refStart",
-    "refEnd",
-    "squareLabel",
-    "circleLabel",
-    "strong",
-    "u",
-    "em",
-    "del",
-    "newline",
-    "text"
-];
-
-var builtParser = SimpleMarkdown.parserFor(rules, priorities);
+var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source) => {
     var paragraphedSource = source + "\n\n";
     return builtParser(paragraphedSource, {
@@ -179,5 +174,6 @@ module.exports = {
     parse: parse,
     output: SimpleMarkdown.outputFor(SimpleMarkdown.ruleOutput(rules)),
     START_REF_PREFIX: START_REF_PREFIX,
-    END_REF_PREFIX: END_REF_PREFIX
+    END_REF_PREFIX: END_REF_PREFIX,
+    _rulesForTesting: rules,
 };

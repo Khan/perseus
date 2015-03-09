@@ -30,7 +30,7 @@ var specialChars = {
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 var rContainsNonWhitespace = /\S/;
 
-if (typeof KA !== "undefined" && KA.language === "en-PT") {
+if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // When using crowdin's jipt (Just in place translation), we need to keep a
     // registry of crowdinId's to component so that we can update the
     // component's state as the translator enters their translation.
@@ -471,7 +471,7 @@ var Renderer = React.createClass({
     },
 
     shouldRenderJiptPlaceholder: function(props, state) {
-        return typeof KA !== "undefined" && KA.language === "en-PT" &&
+        return typeof KA !== "undefined" && KA.language === "en-pt" &&
                     state.jiptContent == null &&
                     props.content.indexOf('crwdns') !== -1;
     },
@@ -487,7 +487,7 @@ var Renderer = React.createClass({
 
         if (this.shouldRenderJiptPlaceholder(this.props, this.state)) {
             // Crowdin's JIPT (Just in place translation) uses a fake language
-            // with language tag "en-PT" where the value of the translations
+            // with language tag "en-pt" where the value of the translations
             // look like: {crwdns2657085:0}{crwdne2657085:0} where it keeps the
             // {crowdinId:ngettext variant}. We detect whether the current
             // content matches this, so we can take over rendering of
@@ -544,7 +544,16 @@ var Renderer = React.createClass({
     // for appropriate spacing and other css
     outputMarkdown: function(ast) {
         if (_.isArray(ast)) {
-            return _.map(ast, (node) => this.outputMarkdown(node));
+            // TODO(alpert): Using a keyed object here to silence key warnings,
+            // but these keys are not meaningful. Having meaningful keys
+            // requires how markdown parsing/editing works, so this is the best
+            // we can do for now. :(
+            var nodes = {};
+            _.each(ast, (node, i) => {
+                // Use non-numeric keys to preserve insertion order
+                nodes['k' + i] = this.outputMarkdown(node);
+            });
+            return React.addons.createFragment(nodes);
         } else {
             // !!! WARNING: Mutative hacks! mutates `this._foundTextNodes`:
             // because i wrote a bad interface to simple-markdown.js' `output`
@@ -563,7 +572,16 @@ var Renderer = React.createClass({
     // output non-top-level nodes or arrays
     outputNested: function(ast) {
         if (_.isArray(ast)) {
-            return _.map(ast, this.outputNested);
+            // TODO(alpert): Using a keyed object here to silence key warnings,
+            // but these keys are not meaningful. Having meaningful keys
+            // requires how markdown parsing/editing works, so this is the best
+            // we can do for now. :(
+            var nodes = {};
+            _.each(ast, (node, i) => {
+                // Use non-numeric keys to preserve insertion order
+                nodes['k' + i] = this.outputNested(node);
+            });
+            return React.addons.createFragment(nodes);
         } else {
             return this.outputNode(ast, this.outputNested);
         }
@@ -967,10 +985,16 @@ var Renderer = React.createClass({
             return props.graded == null || props.graded;
         });
 
-        var widgetScores = mapObjectFromArray(gradedWidgetIds, (id) => {
+        var widgetScores = {};
+        _.each(gradedWidgetIds, (id) => {
             var props = widgetProps[id];
             var widget = this.getWidgetInstance(id);
-            return widget.simpleValidate(props.options, onInputError);
+            if (!widget) {
+                // This can occur if the widget has not yet been rendered
+                return;
+            }
+            widgetScores[id] = widget.simpleValidate(props.options,
+                                                      onInputError);
         });
 
         return widgetScores;

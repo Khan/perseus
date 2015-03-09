@@ -535,8 +535,8 @@ var Util = {
         } else {
             // touchstart or mousedown
             Util.touchHandlers.pointerDown = true;
-            if (event.touches) {
-                touchOrEvent = event.touches[0];
+            if (event.changedTouches) {
+                touchOrEvent = event.changedTouches[0];
                 Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
             } else {
                 touchOrEvent = event;

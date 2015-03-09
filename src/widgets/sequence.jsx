@@ -251,10 +251,18 @@ var SequenceEditor = React.createClass({
     },
 });
 
+var traverseChildWidgets = function(props, widgetCallback, traverseRenderer) {
+    _.each(props.json, (rendererOptions) => {
+        traverseRenderer(rendererOptions, widgetCallback);
+    });
+};
+
 module.exports = {
     name: "sequence",
     displayName: "Sequence",
     widget: Sequence,
     editor: SequenceEditor,
+    traverseChildWidgets: traverseChildWidgets,
     hidden: true,
 };
+

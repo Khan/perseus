@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require("react");
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -315,15 +315,26 @@ var Matrix = React.createClass({
         var maxCol = this.props.matrixBoardSize[1];
         var enterTheMatrix = null;
 
+        var curInput = this.refs[getRefForPath(getInputPath(row, col))];
+        var curValueString = curInput.getStringValue();
+        var cursorStartPosition = curInput.getSelectionStart();
+        var cursorEndPosition = curInput.getSelectionEnd();
+
         var nextPath = null;
         if (e.key === "ArrowUp" && row > 0) {
-            nextPath = getRefForPath(getInputPath(row - 1, col));
+            nextPath = getInputPath(row - 1, col);
         } else if (e.key === "ArrowDown" && row + 1 < maxRow) {
-            nextPath = getRefForPath(getInputPath(row + 1, col));
+            nextPath = getInputPath(row + 1, col);
         } else if (e.key === "ArrowLeft" && col > 0) {
-            nextPath = getRefForPath(getInputPath(row, col - 1));
+            if (cursorStartPosition === 0 && cursorEndPosition === 0) {
+                // Only go to next input if we're at the *start* of the content
+                nextPath = getInputPath(row, col - 1);
+            }
         } else if (e.key === "ArrowRight" && col + 1 < maxCol) {
-            nextPath = getRefForPath(getInputPath(row, col + 1));
+            if (cursorStartPosition === curValueString.length) {
+                // Only go to next input if we're at the *end* of the content
+                nextPath = getInputPath(row, col + 1);
+            }
         } else if (e.key === "Enter") {
             enterTheMatrix = this.state.enterTheMatrix + 1;
         } else if (e.key === "Escape") {
@@ -331,7 +342,23 @@ var Matrix = React.createClass({
         }
 
         if (nextPath) {
-            this.refs[nextPath].focus();
+            // Prevent the cursor from jumping again inside the next input
+            e.preventDefault();
+
+            // Focus the input and move the cursor to the end of it.
+            var input = this.refs[getRefForPath(nextPath)];
+
+            // Multiply by 2 to ensure the cursor always ends up at the end;
+            // Opera sometimes sees a carriage return as 2 characters.
+            var inputValString = input.getStringValue();
+            var valueLength = inputValString.length * 2;
+
+            input.focus();
+            if (e.key === "ArrowRight") {
+                input.setSelectionRange(0, 0);
+            } else {
+                input.setSelectionRange(valueLength, valueLength);
+            }
         }
 
         if (enterTheMatrix != null) {

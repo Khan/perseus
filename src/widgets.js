@@ -35,7 +35,12 @@ var Widgets = {
     },
 
     getVersion: function(name) {
-        return widgets[name].version || {major: 0, minor: 0};
+        var widgetInfo = widgets[name];
+        if (widgetInfo) {
+            return widgets[name].version || {major: 0, minor: 0};
+        } else {
+            return null;
+        }
     },
 
     getVersionVector: function() {
@@ -66,13 +71,18 @@ var Widgets = {
 
         if (widgetExports == null) {
             // If we have a widget that isn't registered, we can't upgrade it
-            // TODO(jack): Figure out what the best thing to do here would be
+            // TODO(aria): Figure out what the best thing to do here would be
             return oldWidgetInfo;
         }
 
         // Unversioned widgets (pre-July 2014) are all implicitly 0.0
         var initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
         var latestVersion = widgetExports.version || {major: 0, minor: 0};
+        // Actual version. Only updated if we did an upgrade. If we didn't,
+        // it might be because the actual version is already greater than
+        // the latest version (we might be looking at the props from
+        // a later version of perseus, sent in via isRenderable)
+        var actualVersion = initialVersion;
 
         // We do a clone here so that it's safe to mutate the input parameter
         // in propUpgrades functions (which I will probably accidentally do at
@@ -119,11 +129,19 @@ var Widgets = {
                     // than a halfhearted attempt to continue, however
                     // shallow...)
                 }
+
+                // we are updating this widget to the latest version (after
+                // all the iterations of this loop)
+                // We do this inside the loop so that if the widget is at a
+                // version later than what we understand, this loop will run
+                // zero times, and the actualVersion won't be changed from
+                // the initialVersion.
+                actualVersion = latestVersion;
             }
         }
 
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
-            version: latestVersion,
+            version: actualVersion,
             // Default graded to true (so null/undefined becomes true):
             graded: (
                 (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
@@ -145,7 +163,27 @@ var Widgets = {
         var transform = widgetExports.transform || _.identity;
         // widgetInfo.options are the widgetEditor's props:
         return transform(widgetInfo.options, problemNum);
-    }
+    },
+
+    traverseChildWidgets:
+            function(widgetInfo, widgetCallback, traverseRenderer) {
+
+        if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+            return;
+        }
+
+        var widgetExports = widgets[widgetInfo.type];
+        var traverseChildWidgets = widgetExports.traverseChildWidgets;
+        var props = widgetInfo.options;
+
+        if (traverseChildWidgets && props) {
+            traverseChildWidgets(
+                props,
+                widgetCallback,
+                traverseRenderer
+            );
+        }
+    },
 };
 
 module.exports = Widgets;

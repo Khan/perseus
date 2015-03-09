@@ -18,7 +18,7 @@ var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
                               'g');
 
-var shortcutRegexp = /^\[\[([a-z]+)$/; // like [[nu, [[int, etc
+var shortcutRegexp = /^\[\[([a-z\-]+)$/; // like [[nu, [[int, etc
 
 var ENDS_WITH_A_PARAGRAPH = /(?:\n{2,}|^\n*)$/;
 var TRAILING_NEWLINES = /(\n*)$/;
@@ -412,7 +412,7 @@ var Editor = React.createClass({
                         {templatesDropDown}
                         {wordCountDisplay}
                     </div>
-                    {widgets}
+                    {React.addons.createFragment(widgets)}
                 </div>;
                 // Prevent word count from being displayed elsewhere
                 wordCountDisplay = null;

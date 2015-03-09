@@ -217,20 +217,24 @@ var MeasurerEditor = React.createClass({
             </InfoTip>
             </div>
             {image.url && <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    <NumberInput label="Pixels from top:"
+                <label className="perseus-widget-left-col">
+                    Pixels from top:
+                    {" "}
+                    <NumberInput
                         placeholder={0}
                         onChange={this._changeTop}
                         value={image.top}
                         useArrowKeys={true} />
-                </div>
-                <div className="perseus-widget-right-col">
-                    <NumberInput label="Pixels from left:"
+                </label>
+                <label className="perseus-widget-right-col">
+                    Pixels from left:
+                    {" "}
+                    <NumberInput
                         placeholder={0}
                         onChange={this._changeLeft}
                         value={image.left}
                         useArrowKeys={true} />
-                </div>
+                </label>
             </div>}
             <div>Containing area [width, height]:{' '}
                 <RangeInput
@@ -286,24 +290,32 @@ var MeasurerEditor = React.createClass({
                             this.change("rulerTicks", +e.target.value)}
                         value={this.props.rulerTicks} >
                             {_.map([1, 2, 4, 8, 10, 16], function(n) {
-                                return <option value={n}>{n}</option>;
+                                return <option key={n} value={n}>{n}</option>;
                             })}
                     </select>
                 </label>
             </div>
             <div>
-                <NumberInput label="Ruler pixels per unit:"
-                    placeholder={40}
-                    onChange={this.change("rulerPixels")}
-                    value={this.props.rulerPixels}
-                    useArrowKeys={true} />
+                <label>
+                    Ruler pixels per unit:
+                    {" "}
+                    <NumberInput
+                        placeholder={40}
+                        onChange={this.change("rulerPixels")}
+                        value={this.props.rulerPixels}
+                        useArrowKeys={true} />
+                </label>
             </div>
             <div>
-                <NumberInput label="Ruler length in units:"
-                    placeholder={10}
-                    onChange={this.change("rulerLength")}
-                    value={this.props.rulerLength}
-                    useArrowKeys={true} />
+                <label>
+                    Ruler length in units:
+                    {" "}
+                    <NumberInput
+                        placeholder={10}
+                        onChange={this.change("rulerLength")}
+                        value={this.props.rulerLength}
+                        useArrowKeys={true} />
+                </label>
             </div>
             </div>}
         </div>;
@@ -329,7 +341,8 @@ var MeasurerEditor = React.createClass({
 
     renderLabelChoices: function(choices) {
         return _.map(choices, function(nameAndValue) {
-            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+            var [name, value] = nameAndValue;
+            return <option key={value} value={value}>{name}</option>;
         });
     }
 });

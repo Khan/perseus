@@ -88,7 +88,7 @@ Widgets are all defined in the `src/widgets/` directory, and loaded in src/all-w
 Each widget consists of the following parts:
 
  * A `name` which is a unique id slug, such as `number-input` or `example-widget`
-    * *Note: This id should only contain lowercase alphabetic characters and dashes.*
+    * *Note: This name must only contain lowercase alphabetic characters and dashes.*
  * A `displayName` which is shown to the user in the "Add widget" menu
  * A `widget` or "widget renderer", such as NumberInput or ExampleWidget
  * An `editor` or "widget editor", such as NumberInputEditor or ExampleWidgetEditor
@@ -268,33 +268,22 @@ in as much as the default React objects use onChange in a way similarly to
 ours because of the DOM event.
 
 
-## Mini-Projects
-
-Want to help out? Here are some well-scoped improvements we could use:
-- **Show messages on user input in test.html**: In production, there is a message box
-  that shows various clues to the user ("You didn't simplify" or "You used x instead of \*").
-  But those clues don't show up in Perseus for whatever reason. Essentially onClick of
-  the score button or (if the above mini-project is done) the green button, there should be
-  a message that appears. This is becoming more important as these little clues are now going
-  mainstream, with content creators able to add their own custom-tailored hints.
-- **Improve the way the above clues are shown for in-line widgets**: It depends on the widget, but
-  for non-answer-area widgets, it would be nice if they showed up somewhere close to the
-  widget in some obvious and perhaps playful way (I'm thinking error-buddy). That way, the
-  user knows which part they got wrong in a multi-part question, and potentially why too!
-- **Add angle-snapping to rays in src/widgets/interactive-graph:** Both points on a ray
-  currently snap to the graphie grid. However, for many questions, we care about the angle
-  of the ray, and would rather snap to degree multiples, say 5, 10, 15, degrees....
-  To change this, take a look at how angle snapping works in the interactive-graph
-  angle. Specifically, we would probably want to add a new dropdown for snap mode, set
-  to maybe "grid" or "angle", and when set to angle, there would be additional
-  snapDegrees and snapOffset props (the same ones used by the angle shape).
-
 ## Styles
 
 * `stylesheets/perseus-admin-package` has the styles for the Perseus item
     editor and the rest of the admin pages.
 * `stylesheets/exercise-content-package` has styles that are shared with
     exercises.
+
+
+## Starter projects
+
+Perseus is a large and complicated project, and probably not the best first place to start contributing to if you're looking to get involved in Khan Academy open source. We have several more self-contained projects that perseus uses that could definitely use small improvements, such as [kmath][kmath], [KAS][KAS], [simple-markdown][simple-markdown]. That said, we're very happy to have quality open source contributions, but have limited time to support this. If you're looking for some projects, I've tried to curate some ideas into the [issues list][issues]. These should be doable, but are a little more involved than an ideal starter project.
+
+[kmath]: https://github.com/Khan/kmath
+[KAS]: https://github.com/Khan/KAS
+[simple-markdown]: https://github.com/Khan/simple-markdown
+[issues]: https://github.com/Khan/perseus/issues
 
 ## License
 
