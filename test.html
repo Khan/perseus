@@ -24,6 +24,7 @@
     <button type="button" id="serialize">serialize</button>
     <button type="button" id="scorePreview">score</button>
     <button type="button" id="permalink">permalink</button>
+    <button type="button" id="rendered">view rendered</button>
     <button type="button" id="input-version">contains only inputs?</button>
     <span>Seed:</span><span id="problemNum"></span>
     <span>Features:</span><span id="enabledFeatures"></span>
@@ -144,6 +145,14 @@ $('#scorePreview').on('click', function() {
 $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
         Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor.serialize()));
+    e.preventDefault();
+});
+$('#rendered').on('click', function(e) {
+    var link = document.createElement("a");
+    link.href = "/testrender.html#content=" +
+        Perseus.Util.strongEncodeURIComponent(JSON.stringify(editor.serialize()));
+    link.target = "_blank";
+    link.click();
     e.preventDefault();
 });
 $('#input-version').on('click', function(e) {

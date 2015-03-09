@@ -16,7 +16,11 @@
 </head>
 <body>
 
-<div id="problem-and-answer" class="framework-perseus" style="width: 797px;">
+<div id="extras" style="margin: 20px;">
+    <button id="score">Score</button>
+</div>
+
+<div id="problem-and-answer" class="current-card framework-perseus vertical-shadow" style="width: 797px; margin: 20px;">
     <div id="problemarea">
         <div id="workarea"></div>
         <div id="hintsarea"></div>
@@ -24,17 +28,23 @@
     <div id="answer_area_wrap">
         <div id="answer_area">
             <form id="answerform">
-                <div id="anwsercontent">
+                <div id="anwsercontent" class="info-box">
+                    <b>Answer</b> <br>
                     <div id="solutionarea"></div>
+                    <div class="answer-buttons">
+                        <input type="button" class="simple-button green" value="Check Answer" id="check-answer" />
+                        <div id="positive-reinforcement" style="display: none;"><img src="/ke/images/face-smiley.png" /></div>
+                    </div>
                 </div>
             </form>
+            <div class="info-box">
+                <div class="answer-buttons">
+                    <input type="button" class="simple-button orange" value="Hint" id="take-hint" />
+                </div>
+            </div>
         </div>
     </div>
     <div style="clear: both;"></div>
-</div>
-
-<div id="extras">
-    <button id="score">Score</button>
 </div>
 
 <script src="/lib/es5-shim.js"></script>
@@ -85,72 +95,16 @@ require(["ke-deps.js"], function() {
 });
 
 $('#score').on('click', function() {
-    console.log(zk.scoreInput());
+    console.log(window.itemRenderer.scoreInput());
 });
 
 function initPerseus(Perseus) {
 
-var seedContent = {
+var defaultQuestion = {
     "question": {
-        "content": "[[☃ input-number 1]]\n\n[[☃ group 1]]",
-        "images": {
-            "https://ka-perseus-graphie.s3.amazonaws.com/da8df81c78b22f5c69d477d8eabfb583968eaf84.png": {
-                "width": 400,
-                "height": 70
-            },
-            "https://ka-perseus-graphie.s3.amazonaws.com/b59fc02ca1aae800977b8793ed22f647a1aa75ee.png": {
-                "width": 425,
-                "height": 150
-            }
-        },
-        "widgets": {
-            "input-number 1": {
-                "type": "input-number",
-                "graded": true,
-                "options": {
-                    "value": "0",
-                    "simplify": "required",
-                    "size": "normal",
-                    "inexact": false,
-                    "maxError": 0.1,
-                    "answerType": "number"
-                },
-                "version": {
-                    "major": 0,
-                    "minor": 0
-                }
-            },
-            "group 1": {
-                "type": "group",
-                "graded": true,
-                "options": {
-                    "content": "[[☃ input-number 1]]",
-                    "images": {},
-                    "widgets": {
-                        "input-number 1": {
-                            "type": "input-number",
-                            "graded": true,
-                            "options": {
-                                "value": "0",
-                                "simplify": "required",
-                                "size": "normal",
-                                "inexact": false,
-                                "maxError": 0.1,
-                                "answerType": "number"
-                            },
-                            "version": {
-                                "major": 0,
-                                "minor": 0
-                            }
-                        }
-                    }
-                },
-                "version": {
-                    "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+        "content": "",
+        "images": {},
+        "widgets": {}
     },
     "answerArea": {
         "type": "multiple",
@@ -165,45 +119,42 @@ var seedContent = {
         "major": 0,
         "minor": 1
     },
-    "hints": [
-        {
-            "content": "[[☃ input-number 1]]",
-            "images": {},
-            "widgets": {
-                "input-number 1": {
-                    "type": "input-number",
-                    "graded": true,
-                    "options": {
-                        "value": "0",
-                        "simplify": "required",
-                        "size": "normal",
-                        "inexact": false,
-                        "maxError": 0.1,
-                        "answerType": "number"
-                    },
-                    "version": {
-                        "major": 0,
-                        "minor": 0
-                    }
-                }
-            }
-        }
-    ]
+    "hints": []
 };
+
+$('#take-hint').on('click', function() {
+    window.itemRenderer.showHint();
+});
+
+$('#check-answer').on('click', function() {
+    var score = window.itemRenderer.scoreInput();
+
+    if (score.empty) {
+        return;
+    } else if (score.correct) {
+        $('#positive-reinforcement').show();
+        $('#check-answer').val('Correct!');
+    } else {
+        $('#check-answer').val('Incorrect, try again.');
+    }
+});
+
+var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
+var question = query.content ? JSON.parse(query.content) : defaultQuestion;
 
 Perseus.init({}).then(function() {
     var itemMountNode = document.createElement("div");
     var ItemRenderer = React.createFactory(Perseus.ItemRenderer);
-    zk = React.render(ItemRenderer({
-        item: seedContent,
+    window.itemRenderer = React.render(ItemRenderer({
+        item: question,
         problemNum: Math.floor(Math.random() * 50) + 1,
-        initialHintsVisible: seedContent.hints.length,
+        initialHintsVisible: 0,
         enabledFeatures: {
             highlight: true,
             toolTipFormats: true
         }
     }, null), itemMountNode);
-    zk.focus();
+    window.itemRenderer.focus();
 }).then(function() {
     console.log("all done.", +new Date/1000);
 }, function(err) {
