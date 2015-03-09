@@ -10599,7 +10599,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
                                 onClick:this.props.onCheckAnswer,
                                 value:"Check Answer"} ),
                             this.props.wasAnswered &&
-                                React.DOM.img( {src:"/images/face-smiley.png",
+                                React.DOM.img( {src:"images/face-smiley.png",
                                     className:"smiley"} ),
                             this.props.gradeMessage &&
                                 React.DOM.span(null, this.props.gradeMessage)
