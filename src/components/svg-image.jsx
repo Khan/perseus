@@ -174,8 +174,8 @@ var SvgImage = React.createClass({
 
         return <div className="svg-image"
                     style={style}>
-            {graphie}
             {image}
+            {graphie}
         </div>;
     },
 
