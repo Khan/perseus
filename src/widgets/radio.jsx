@@ -598,7 +598,7 @@ var RadioEditor = React.createClass({
 
     getSaveWarnings: function() {
         if (!_.some(_.pluck(this.props.choices, "correct"))) {
-            return ["Warning: No choice is marked as correct."];
+            return ["No choice is marked as correct"];
         }
         return [];
     },

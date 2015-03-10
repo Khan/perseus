@@ -224,10 +224,11 @@ var MatcherEditor = React.createClass({
     getSaveWarnings: function() {
         if (this.props.left.length !== this.props.right.length) {
             return [
-                "Warning: The two halves of the matcher have different" +
-                " numbers of cards."
+                "The two halves of the matcher have different numbers" +
+                " of cards."
             ];
         }
+        return [];
     },
 
     serialize: function() {

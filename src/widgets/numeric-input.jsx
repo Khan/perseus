@@ -626,10 +626,16 @@ var NumericInputEditor = React.createClass({
 
     getSaveWarnings: function() {
         // Filter out all the empty answers
+        var warnings = [];
+        // TODO(emily): This doesn't actually work, because the value is either
+        // null or undefined when undefined, probably.
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            return ["Warning: one or more answers is empty."];
+            warnings.push("One or more answers is empty");
         }
-        return [];
+        if (this.props.labelText === "") {
+            warnings.push("No label is specified");
+        }
+        return warnings;
     },
 });
 

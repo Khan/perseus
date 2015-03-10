@@ -197,8 +197,33 @@ var parse = (source) => {
 };
 
 /**
+ * Traverse all of the nodes in the Perseus Markdown AST. The callback is
+ * called for each node in the AST.
+ */
+var traverseContent = (ast, cb) => {
+    if (_.isArray(ast)) {
+        _.each(ast, (node) => traverseContent(node, cb));
+    } else if (_.isObject(ast)) {
+        cb(ast);
+        if (ast.type === "table") {
+            traverseContent(ast.header, cb);
+            traverseContent(ast.cells, cb);
+        } else if (ast.type === "list") {
+            traverseContent(ast.items, cb);
+        } else if (ast.type === "titledTable") {
+            traverseContent(ast.table, cb);
+        } else if (ast.type === "columns") {
+            traverseContent(ast.col1, cb);
+            traverseContent(ast.col2, cb);
+        } else if (_.isArray(ast.content)) {
+            traverseContent(ast.content, cb);
+        }
+    }
+};
+
+/**
  * Pull out text content from a Perseus Markdown AST.
- * Returns an array of strings. 
+ * Returns an array of strings.
  */
 var getContent = (ast) => {
     // Simplify logic by dealing with a single AST node at a time
@@ -255,6 +280,7 @@ var characterCount = (source) => {
 
 module.exports = {
     characterCount: characterCount,
+    traverseContent: traverseContent,
     parse: parse,
     outputFor: SimpleMarkdown.outputFor,
     ruleOutput: SimpleMarkdown.ruleOutput(rules),

@@ -71,7 +71,7 @@ var RevisionDiff = React.createClass({
 
         var result = [];
 
-        _(sections).each(function(section) {
+        _(sections).each(function(section, i) {
             var path = section.path;
             var beforeValue = getPath(before, path, "");
             var afterValue = getPath(after, path, "");
@@ -95,7 +95,7 @@ var RevisionDiff = React.createClass({
                     before={beforeValue.content}
                     after={afterValue.content} />;
             }
-            result.push(<div>
+            result.push(<div key={i}>
                 <div className="diff-header">{section.title}</div>
                 <div className="diff-header">{section.title}</div>
                 <div className="diff-body ui-helper-clearfix">

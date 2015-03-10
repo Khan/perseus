@@ -119,8 +119,10 @@ var AnswerAreaEditor = React.createClass({
     },
 
     getSaveWarnings: function() {
-        var issuesFunc = this.refs.editor.getSaveWarnings();
-        return issuesFunc ? issuesFunc() : [];
+        var issuesFunc = this.refs.editor.getSaveWarnings;
+        var issues = issuesFunc ? issuesFunc() : [];
+
+        return _.map(issues, (issue) => ("Answer area: " + issue));
     },
 
     serialize: function(options) {

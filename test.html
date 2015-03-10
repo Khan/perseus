@@ -26,6 +26,7 @@
     <button type="button" id="permalink">permalink</button>
     <button type="button" id="rendered">view rendered</button>
     <button type="button" id="input-version">contains only inputs?</button>
+    <button type="button" id="save-warnings">save warnings</button>
     <span>Seed:</span><span id="problemNum"></span>
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
@@ -170,6 +171,10 @@ $('#input-version').on('click', function(e) {
             'numeric-input': { major: 100, minor: 0 },
         }
     ));
+});
+$('#save-warnings').on('click', function(e) {
+    e.preventDefault();
+    console.log(editor.getSaveWarnings());
 });
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(Object.keys(enabledFeatures).map(function(feature) {
