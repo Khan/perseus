@@ -689,8 +689,13 @@ var Editor = React.createClass({
         var noAltImages = [];
         PerseusMarkdown.traverseContent(parsed, (node) => {
             if (node.type === "image" && !node.alt) {
-                noAltImages.push("Image '" + node.target +
-                                 "' doesn't have alt text");
+                var shortUrl = node.target.length < 9 ? node.target :
+                        node.target.slice(0, 3) + "..." + node.target.slice(-3);
+
+                noAltImages.push(
+                    "Image '" + node.target +
+                    "' doesn't have alt text: ![add alt text here](" +
+                    shortUrl + ")");
             }
         });
 
