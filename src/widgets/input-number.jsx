@@ -1,4 +1,5 @@
-var React             = require('react');
+var classNames = require("classnames");
+var React = require('react');
 var _ = require("underscore");
 
 var BlurInput         = require("react-components/blur-input.jsx");
@@ -136,7 +137,7 @@ var InputNumber = React.createClass({
             ref="input"
             value={this.props.currentValue}
             onChange={this.handleChange}
-            className={React.addons.classSet(classes)}
+            className={classNames(classes)}
             type={this._getInputType()}
             examples={this.examples()}
             shouldShowExamples={this.shouldShowExamples()}

@@ -1,3 +1,4 @@
+var classNames = require("classnames");
 var React = require('react');
 var _ = require("underscore");
 
@@ -54,7 +55,7 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        var classes = React.addons.classSet({
+        var classes = classNames({
             "number-input": true,
             "invalid-input": !this._checkValidity(this.props.value),
             "mini": this.props.size === "mini",

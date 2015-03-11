@@ -1,10 +1,9 @@
-var React = require('react');
+var ApiOptions = require("./perseus-api.jsx").Options;
+var classNames = require("classnames");
 var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
+var React = require('react');
 var Widgets = require("./widgets.js");
-var ApiOptions = require("./perseus-api.jsx").Options;
-
-var cx = React.addons.classSet;
 
 var AnswerTypeSelector = React.createClass({
     render: function() {
@@ -59,7 +58,7 @@ var AnswerAreaEditor = React.createClass({
             Ed = Widgets.getEditor(this.props.type);
         }
 
-        var className = cx({
+        var className = classNames({
             'perseus-answer-widget': this.props.type !== 'multiple',
             'perseus-answer-none': !(this.state.showEditor ||
                                     this.state.showTypeSelector ||

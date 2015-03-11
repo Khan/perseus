@@ -1,3 +1,4 @@
+var classNames = require("classnames");
 var React = require('react');
 var _ = require("underscore");
 
@@ -16,8 +17,6 @@ var shuffle = require("../util.js").shuffle;
 var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-
-var cx = React.addons.classSet;
 
 var BaseRadio = React.createClass({
     propTypes: {
@@ -66,7 +65,7 @@ var BaseRadio = React.createClass({
                     classSet[ApiClassNames.INCORRECT] =
                         !rubric.choices[i].correct;
                 }
-                var className = cx(classSet);
+                var className = classNames(classSet);
 
                 // True if we're in review mode and a clue is available
                 var reviewModeClues = rubric && rubric.choices[i].clue;

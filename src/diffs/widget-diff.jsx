@@ -1,4 +1,4 @@
-var cx = React.addons.classSet;
+var classNames = require("classnames");
 var performDiff = require("./widget-diff-performer.jsx");
 
 var indentationFromDepth = function(depth) {
@@ -21,7 +21,7 @@ var DiffSide = React.createClass({
     },
 
     render: function() {
-        var className = this.props.className + " " + cx({
+        var className = classNames(this.props.className, {
             "diff-row": true,
             before: this.props.side === BEFORE,
             after: this.props.side === AFTER
@@ -101,13 +101,13 @@ var DiffEntry = React.createClass({
 
         var hasChildren = entry.children.length > 0;
 
-        var leftClass = cx({
+        var leftClass = classNames({
             "removed": (propertyDeleted || propertyChanged) && !hasChildren,
             "dark": propertyDeleted,
             "blank-space": propertyAdded
         });
 
-        var rightClass = cx({
+        var rightClass = classNames({
             "added": (propertyAdded || propertyChanged) && !hasChildren,
             "dark": propertyAdded,
             "blank-space": propertyDeleted

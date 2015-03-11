@@ -1,8 +1,10 @@
-var React = require('react');
-var InfoTip = require("react-components/info-tip.jsx");
+var classNames = require("classnames");
 var FancySelect = require("../components/fancy-select.jsx");
-var FancyOption = FancySelect.Option;
+var InfoTip = require("react-components/info-tip.jsx");
+var React = require('react');
 var _ = require("underscore");
+
+var FancyOption = FancySelect.Option;
 
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
@@ -31,7 +33,7 @@ var Dropdown = React.createClass({
     render: function() {
         var choices = this.props.choices.slice();
 
-        var selectClasses = React.addons.classSet({
+        var selectClasses = classNames({
             "perseus-widget-dropdown": true,
             "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns
         });

@@ -1,5 +1,5 @@
+var classNames = require("classnames");
 var React = require('react');
-var cx = React.addons.classSet;
 
 var WidgetContainer = React.createClass({
     propTypes: {
@@ -13,7 +13,7 @@ var WidgetContainer = React.createClass({
     },
 
     render: function() {
-        var className = cx({
+        var className = classNames({
             "perseus-widget-container": true,
             "widget-highlight": this.props.shouldHighlight,
             "widget-nohighlight": !this.props.shouldHighlight,

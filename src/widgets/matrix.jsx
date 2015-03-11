@@ -1,3 +1,4 @@
+var classNames = require("classnames");
 var React = require("react");
 var _ = require("underscore");
 
@@ -150,8 +151,7 @@ var Matrix = React.createClass({
         var bracketOffset = (highlightedCol + 1) *
                 (INPUT_WIDTH + 2 * INPUT_MARGIN);
 
-        var cx = React.addons.classSet;
-        var className = cx({
+        var className = classNames({
             "perseus-matrix": true,
             "the-matrix": this.state.enterTheMatrix >= 5
         });
