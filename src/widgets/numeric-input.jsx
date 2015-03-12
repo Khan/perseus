@@ -1,4 +1,5 @@
-var React         = require('react');
+var classNames = require("classnames");
+var React = require('react');
 var _ = require("underscore");
 
 var Changeable    = require("../mixins/changeable.jsx");
@@ -121,7 +122,7 @@ var NumericInput = React.createClass({
             ref="input"
             value={this.props.currentValue}
             onChange={this.handleChange}
-            className={React.addons.classSet(classes)}
+            className={classNames(classes)}
             type={this._getInputType()}
             examples={this.examples()}
             shouldShowExamples={this.shouldShowExamples()}
@@ -626,10 +627,16 @@ var NumericInputEditor = React.createClass({
 
     getSaveWarnings: function() {
         // Filter out all the empty answers
+        var warnings = [];
+        // TODO(emily): This doesn't actually work, because the value is either
+        // null or undefined when undefined, probably.
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            return ["Warning: one or more answers is empty."];
+            warnings.push("One or more answers is empty");
         }
-        return [];
+        if (this.props.labelText === "") {
+            warnings.push("No label is specified");
+        }
+        return warnings;
     },
 });
 

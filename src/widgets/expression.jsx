@@ -1,5 +1,6 @@
-var React = require("react");
+var classNames = require("classnames");
 var InfoTip = require("react-components/info-tip.jsx");
+var React = require("react");
 var SortableArea     = require("react-components/sortable.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
 var _ = require("underscore");
@@ -19,13 +20,13 @@ var MathInput = require("../components/math-input.jsx");
 var TeX = require("react-components/tex.jsx"); // OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 
-var cx = React.addons.classSet;
 var EnabledFeatures = require("../enabled-features.jsx");
 
 var lens = require("../../hubble/index.js");
 
 var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
 
+// TODON'T(emily): Don't delete these.
 var NO_ANSWERS_WARNING = [
     "An expression without an answer",
     "is no expression to me.",
@@ -33,10 +34,9 @@ var NO_ANSWERS_WARNING = [
     "like the one that I see?",
     "Put something in there",
     "won't you please?",
-    "Just a digit will do -",
-    "might I suggest a three?"
+    "A few digits will do -",
+    "might I suggest some threes?"
     ].join("\n");
-
 var NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be too " +
     "hard because the expression has no correct answer.";
 var SIMPLIFY_WARNING = str => {
@@ -139,7 +139,7 @@ var Expression = React.createClass({
                 </Tooltip>
             </span>;
 
-            var className = cx({
+            var className = classNames({
                 "perseus-widget-expression": true,
                 "show-error-tooltip": this.state.showErrorTooltip
             });
@@ -835,27 +835,29 @@ var ExpressionEditor = React.createClass({
         var issues = [];
 
         if (this.props.answerForms.length === 0) {
-            issues.push(NO_ANSWERS_WARNING);
+            issues.push("No answers specified");
         } else {
 
             var hasCorrect = !!_(this.props.answerForms).find(form => {
                 return form.considered === "correct";
             });
             if (!hasCorrect) {
-                issues.push(NO_CORRECT_ANSWERS_WARNING);
+                issues.push("No correct answer specified");
             }
 
             _(this.props.answerForms).each((form, ix) => {
                 if (this.props.value === "") {
-                    issues.push(NOT_SPECIFIED_WARNING(ix+1));
+                    issues.push(`Answer ${ix+1} is empty`);
                 } else {
                     // note we're not using icu for content creators
                     var expression = KAS.parse(form.value);
                     if (!expression.parsed) {
-                        issues.push(PARSE_WARNING(form.value));
+                        issues.push(`Couldn't parse ${form.value}`);
                     } else if (form.simplify &&
                                !expression.expr.isSimplified()) {
-                        issues.push(SIMPLIFY_WARNING(form.value));
+                        issues.push(
+                            `${form.value} isn't simplified, but is required" +
+                            " to be`);
                     }
                 }
             });

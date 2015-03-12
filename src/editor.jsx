@@ -4,13 +4,12 @@ var _ = require("underscore");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var DragTarget = require("react-components/drag-target.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
+var PerseusMarkdown = require("./perseus-markdown.jsx");
 var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var Widgets = require("./widgets.js");
 
 var WIDGET_PROP_BLACKLIST = require("./mixins/widget-prop-blacklist.jsx");
-
-var characterCount = require("./perseus-markdown.jsx").characterCount;
 
 // like [[snowman input-number 1]]
 var widgetPlaceholder = "[[\u2603 {id}]]";
@@ -332,7 +331,7 @@ var Editor = React.createClass({
         var wordCountDisplay;
 
         if (this.props.showWordCount) {
-            var numChars = characterCount(this.props.content);
+            var numChars = PerseusMarkdown.characterCount(this.props.content);
             var numWords = Math.floor(numChars / 6);
             wordCountDisplay = <span
                     className="perseus-editor-word-count"
@@ -687,15 +686,33 @@ var Editor = React.createClass({
     },
 
     getSaveWarnings: function() {
+        var parsed = PerseusMarkdown.parse(this.props.content);
+
+        var noAltImages = [];
+        PerseusMarkdown.traverseContent(parsed, (node) => {
+            if (node.type === "image" && !node.alt) {
+                var shortUrl = node.target.length < 9 ? node.target :
+                        node.target.slice(0, 3) + "..." + node.target.slice(-3);
+
+                noAltImages.push(
+                    "Image '" + node.target +
+                    "' doesn't have alt text: ![add alt text here](" +
+                    shortUrl + ")");
+            }
+        });
+
         var widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
-        return _(widgetIds)
+        var widgetWarnings = _(widgetIds)
             .chain()
             .map(id => {
                 var issuesFunc = this.refs[id].getSaveWarnings;
-                return issuesFunc ? issuesFunc() : [];
+                var issues = issuesFunc ? issuesFunc() : [];
+                return _.map(issues, (issue) => (id + ": " + issue));
             })
             .flatten(true)
             .value();
+
+        return noAltImages.concat(widgetWarnings);
     },
 
     serialize: function(options) {

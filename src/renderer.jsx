@@ -836,18 +836,6 @@ var Renderer = React.createClass({
         }
     },
 
-    getSaveWarnings: function() {
-        return _(this.state.widgetInfo)
-            .chain()
-            .map((info, id) => {
-                var widget = this.getWidgetInstance(id);
-                var issuesFunc = widget.getSaveWarnings;
-                return issuesFunc ? issuesFunc() : [];
-            })
-            .flatten(true)
-            .value();
-    },
-
     serialize: function() {
         var state = {};
         _.each(this.state.widgetInfo, function(info, id) {

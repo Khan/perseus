@@ -209,9 +209,14 @@ var CombinedHintsEditor = React.createClass({
     },
 
     getSaveWarnings: function() {
-        return this.props.hints.map((hint, i) => {
-            return this.refs["hintEditor" + i].getSaveWarnings();
-        });
+        return _.chain(this.props.hints)
+            .map((hint, i) => {
+                return _.map(
+                    this.refs["hintEditor" + i].getSaveWarnings(),
+                    (issue) => ("Hint " + (i + 1) + ": " + issue));
+            })
+            .flatten(true)
+            .value();
     },
 
     serialize: function(options) {

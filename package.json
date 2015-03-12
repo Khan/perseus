@@ -6,6 +6,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "classnames": "~1.1.4",
     "rcss": "khan/RCSS#9e5ec9614e391d28a621297a63bc2d850eae89e8"
   },
   "devDependencies": {

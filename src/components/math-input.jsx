@@ -1,10 +1,12 @@
+var classNames = require("classnames");
+var React = require("react");
+var _ = require("underscore");
+
+var TexButtons = require("./tex-buttons.jsx");
+
 // TODO(alex): Package MathQuill
 var MathQuill = window.MathQuill;
-var React     = require("react");
-var _         = require("underscore");
-var cx        = React.addons.classSet;
 var PT = React.PropTypes;
-var TexButtons = require("./tex-buttons.jsx");
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 var MathInput = React.createClass({
@@ -19,7 +21,7 @@ var MathInput = React.createClass({
     },
 
     render: function() {
-        var className = cx({
+        var className = classNames({
             "perseus-math-input": true,
 
             // mathquill usually adds these itself but react removes them when

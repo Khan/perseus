@@ -17,7 +17,7 @@ var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var cx = React.addons.classSet;
+var classNames = require("classnames");
 
 var Choice = React.createClass({
     propTypes: {
@@ -49,7 +49,7 @@ var Choice = React.createClass({
         classSet[ApiClassNames.RADIO.SELECTED] = this.props.checked;
 
         return <label
-                className={cx(classSet)}
+                className={classNames(classSet)}
                 onClick={(e) => { e.preventDefault(); }}>
             <span className="checkbox">
                 <input
@@ -238,7 +238,7 @@ var BaseRadio = React.createClass({
                         !rubric.choices[i].correct;
                 }
 
-            return <li className={cx(classSet)} key={i}
+            return <li className={classNames(classSet)} key={i}
                         onTouchStart={!this.props.labelWrap ?
                             null : captureScratchpadTouchStart
                         }
@@ -692,7 +692,7 @@ var RadioEditor = React.createClass({
 
     getSaveWarnings: function() {
         if (!_.some(_.pluck(this.props.choices, "correct"))) {
-            return ["Warning: No choice is marked as correct."];
+            return ["No choice is marked as correct."];
         }
         return [];
     },
@@ -754,3 +754,4 @@ module.exports = {
     editor: RadioEditor,
     transform: choiceTransform
 };
+

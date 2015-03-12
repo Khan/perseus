@@ -477,11 +477,11 @@ var UnitInputEditor = React.createClass({
 
         var tryParse = KAS.unitParse(value);
         if (!tryParse.parsed) {
-            warnings.push("answer did not parse");
+            warnings.push("Answer did not parse");
         }
 
         if (accepting === SOME && acceptingUnits.length === 0) {
-            warnings.push("there are no accepted units");
+            warnings.push("There are no accepted units");
         }
 
         return warnings;

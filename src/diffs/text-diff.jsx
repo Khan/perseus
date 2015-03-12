@@ -1,8 +1,8 @@
+var classNames = require("classnames");
+
 var diff = require("../../lib/jsdiff");
 var splitDiff = require("./split-diff.jsx");
 var stringArrayDiff = require("./string-array-diff.jsx");
-
-var cx = React.addons.classSet;
 
 var BEFORE = "before";
 var AFTER = "after";
@@ -34,7 +34,7 @@ var ImageDiffSide = React.createClass({
             {this.props.images.length > 0 &&
                 <div className="diff-header">Images</div>}
             {_.map(this.props.images, (entry) => {
-                var className = cx({
+                var className = classNames({
                     "image": true,
                     "image-unchanged": entry.status === "unchanged",
                     "image-added": entry.status === "added",
@@ -106,7 +106,7 @@ var TextDiff = React.createClass({
             return contents;
         });
 
-        var className = cx({
+        var className = classNames({
             "diff-row": true,
             "collapsed": this.state.collapsed
         });
@@ -118,7 +118,7 @@ var TextDiff = React.createClass({
                         {!this.state.collapsed &&
                             _.map(renderedLines, (line) => {
                                 var changed = line[side].length > 1;
-                                var lineClass = cx({
+                                var lineClass = classNames({
                                     "diff-line": true,
                                     "added": side === AFTER && changed,
                                     "removed": side === BEFORE && changed
