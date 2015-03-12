@@ -1141,5 +1141,5 @@ module.exports = {
                       "buttonsVisible", "answerForms");
     },
     version: { major: 1, minor: 0 },
-    propUpgrades
+    propUpgrades: propUpgrades,
 };

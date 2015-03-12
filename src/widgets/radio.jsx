@@ -750,11 +750,44 @@ var choiceTransform = (editorProps, problemNum) => {
         "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
+var propUpgrades = {
+    1: (v0props) => {
+        var choices;
+        var hasNoneOfTheAbove;
+
+        if (!v0props.noneOfTheAbove) {
+            choices = v0props.choices;
+            hasNoneOfTheAbove = false;
+
+        } else {
+            choices = _.clone(v0props.choices);
+            var noneOfTheAboveIndex = _.random(0, v0props.choices.length - 1);
+            var noneChoice = _.extend(
+                {},
+                v0props.choices[noneOfTheAboveIndex],
+                {
+                    isNoneOfTheAbove: true,
+                }
+            );
+            choices.splice(noneOfTheAboveIndex, 1);
+            choices.push(noneChoice);
+            hasNoneOfTheAbove = true;
+        }
+
+        return _.extend(_.omit(v0props, "noneOfTheAbove"), {
+            choices: choices,
+            hasNoneOfTheAbove: hasNoneOfTheAbove,
+        });
+    },
+};
+
 module.exports = {
     name: "radio",
     displayName: "Multiple choice",
     widget: Radio,
     editor: RadioEditor,
-    transform: choiceTransform
+    transform: choiceTransform,
+    version: { major: 1, minor: 0 },
+    propUpgrades: propUpgrades,
 };
 
