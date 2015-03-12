@@ -13,6 +13,7 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
 var SvgImage     = require("../components/svg-image.jsx");
+var TextInput    = require("../components/text-input.jsx");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -67,6 +68,7 @@ var ImageWidget = React.createClass({
                 alignment: React.PropTypes.string
             })
         ),
+        alt: React.PropTypes.string,
         caption: React.PropTypes.string
     },
 
@@ -77,6 +79,7 @@ var ImageWidget = React.createClass({
             box: [defaultBoxSize, defaultBoxSize],
             backgroundImage: defaultBackgroundImage,
             labels: [],
+            alt: "",
             caption: ""
         };
     },
@@ -86,6 +89,7 @@ var ImageWidget = React.createClass({
         var backgroundImage = this.props.backgroundImage;
         if (backgroundImage.url) {
             image = <SvgImage src={backgroundImage.url}
+                              alt={this.props.alt}
                               width={backgroundImage.width}
                               height={backgroundImage.height} />;
         }
@@ -167,6 +171,7 @@ var ImageEditor = React.createClass({
             box: [defaultBoxSize, defaultBoxSize],
             backgroundImage: defaultBackgroundImage,
             labels: [],
+            alt: "",
             caption: "",
         };
     },
@@ -174,24 +179,40 @@ var ImageEditor = React.createClass({
     render: function() {
         var imageSettings = <div className="image-settings">
             <div>Background image:</div>
-            <div>Url:{' '}
-                <BlurInput value={this.props.backgroundImage.url || ''}
-                           onChange={url => this.onUrlChange(url, false)} />
-                <InfoTip>
-                    <p>Create an image in graphie, or use the "Add image"
-                    function to create a background.</p>
-                </InfoTip>
+            <div>
+                <label>Url:{' '}
+                    <BlurInput
+                        value={this.props.backgroundImage.url || ''}
+                        onChange={url => this.onUrlChange(url, false)} />
+                    <InfoTip>
+                        <p>Create an image in graphie, or use the "Add image"
+                        function to create a background.</p>
+                    </InfoTip>
+                </label>
             </div>
             {this.props.backgroundImage.url && <div>
-                <div>Graphie X range:{' '}
-                    <RangeInput
-                        value={this.props.range[0]}
-                        onChange={_.partial(this.onRangeChange, 0)} />
+                <div>
+                    <label>Graphie X range:{' '}
+                        <RangeInput
+                            value={this.props.range[0]}
+                            onChange={_.partial(this.onRangeChange, 0)} />
+                    </label>
                 </div>
-                <div>Graphie Y range:{' '}
-                    <RangeInput
-                        value={this.props.range[1]}
-                        onChange={_.partial(this.onRangeChange, 1)} />
+                <div>
+                    <label>Graphie Y range:{' '}
+                        <RangeInput
+                            value={this.props.range[1]}
+                            onChange={_.partial(this.onRangeChange, 1)} />
+                    </label>
+                </div>
+                <div>
+                    <label>Alt text:{' '}
+                        <TextInput value={this.props.alt}
+                                   onChange={this.change("alt")} />
+                        <InfoTip>
+                            <p>Add alt text to the image</p>
+                        </InfoTip>
+                    </label>
                 </div>
             </div>}
         </div>;
@@ -370,6 +391,16 @@ var ImageEditor = React.createClass({
         var range = this.props.range.slice();
         range[type] = newRange;
         this.props.onChange({range: range});
+    },
+
+    getSaveWarnings: function() {
+        var warnings = [];
+
+        if (this.props.backgroundImage.url && !this.props.alt) {
+            warnings.push("No alt text");
+        }
+
+        return warnings;
     },
 });
 
