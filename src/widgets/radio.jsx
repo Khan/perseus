@@ -101,7 +101,16 @@ var ChoiceNoneAbove = React.createClass({
             classSet: { "none-of-above": true },
             content: (this.props.showContent ?
                 this.props.content :
-                <$_>None of the above</$_>
+                // We use a Renderer here because that is how
+                // `this.props.content` is wrapped otherwise.
+                // We pass in a key here so that we avoid a semi-spurious
+                // react warning when we render this in the same place
+                // as the previous choice content renderer.
+                // Note this destroys state, but since all we're doing
+                // is outputting "None of the above", that is okay.
+                <Renderer
+                    key="noneOfTheAboveRenderer"
+                    content={$._("None of the above")} />
             ),
         });
 
@@ -360,7 +369,13 @@ var Radio = React.createClass({
         // alwaysUpdate={true} so that passage-refs interwidgets
         // get called when the outer passage updates the renderer
         // TODO(aria): This is really hacky
+        // We pass in a key here so that we avoid a semi-spurious
+        // react warning when the ChoiceNoneAbove renders a
+        // different renderer in the same place. Note this destroys
+        // state, but since all we're doing is outputting
+        // "None of the above", that is okay.
         return <Renderer
+                key="choiceContentRenderer"
                 content={modContent}
                 widgets={widgets}
                 interWidgets={this._interWidgets}
