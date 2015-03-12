@@ -303,8 +303,11 @@ var Radio = React.createClass({
         var values = this.props.values || _.map(choices, () => false);
 
         choices = _.map(choices, (choice, i) => {
+            var content = (choice.isNoneOfTheAbove && !choice.content) ?
+                "None of the above" :
+                choice.content;
             return {
-                content: this._renderRenderer(choice.content),
+                content: this._renderRenderer(content),
                 checked: values[i],
                 correct: this.props.questionCompleted && values[i],
                 clue: this._renderRenderer(choice.clue),
