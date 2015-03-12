@@ -101,7 +101,7 @@ var ChoiceNoneAbove = React.createClass({
             classSet: { "none-of-above": true },
             content: (this.props.showContent ?
                 this.props.content :
-                "None of the above"
+                <$_>None of the above</$_>
             ),
         });
 
@@ -304,7 +304,10 @@ var Radio = React.createClass({
 
         choices = _.map(choices, (choice, i) => {
             var content = (choice.isNoneOfTheAbove && !choice.content) ?
-                "None of the above" :
+                // we use $._ instead of $_ here because the content
+                // sent to a renderer needs to be a string, not a react
+                // node (/renderable/fragment).
+                $._("None of the above") :
                 choice.content;
             return {
                 content: this._renderRenderer(content),
