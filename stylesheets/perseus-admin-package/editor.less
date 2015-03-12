@@ -750,6 +750,7 @@
 //
 
 .perseus-widget-radio {
+    margin-bottom: 10px;
 
     .choice-editor {
         .perseus-single-editor {
@@ -816,10 +817,32 @@
 }
 
 .perseus-widget-editor-content {
+    .add-choice-container {
+        .simple-button {
+            margin-right: 10px;
+        }
+    }
+
     .perseus-widget-radio {
+        position: static;
+
         .checkbox, .delete-choice {
             position: relative;
             top: -10px;
+        }
+    }
+
+    .perseus-radio-option.none-of-above {
+
+        &:before {
+            content: 'None of the above';
+            display: block;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .choice-editor.incorrect {
+            opacity: 0.5;
         }
     }
 }
