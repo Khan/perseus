@@ -185,6 +185,8 @@ var BaseRadio = React.createClass({
     },
 
     render: function() {
+        // TODO(aria): Stop this from mutating the id every time someone
+        // clicks on a radio :(
         var radioGroupName = _.uniqueId("perseus_radio_");
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
         var rubric = this.props.reviewModeRubric;
@@ -213,8 +215,6 @@ var BaseRadio = React.createClass({
                 var Element = Choice;
                 var elementProps = {
                     ref: `radio${i}`,
-                    className: this.props.apiOptions.readOnly ? "" :
-                        ApiClassNames.INTERACTIVE,
                     checked: choice.checked,
                     clue: choice.clue,
                     content: choice.content,
