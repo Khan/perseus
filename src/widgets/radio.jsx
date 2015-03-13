@@ -22,7 +22,7 @@ var classNames = require("classnames");
 var Choice = React.createClass({
     propTypes: {
         checked: React.PropTypes.bool,
-        classSet: React.PropTypes.object,
+        className: React.PropTypes.string,
         clue: React.PropTypes.object,
         content: React.PropTypes.node,
         disabled: React.PropTypes.bool,
@@ -43,13 +43,8 @@ var Choice = React.createClass({
     },
 
     render: function() {
-        var classSet = _.clone(this.props.classSet);
-
-        classSet[ApiClassNames.RADIO.OPTION] = true;
-        classSet[ApiClassNames.RADIO.SELECTED] = this.props.checked;
-
         return <label
-                className={classNames(classSet)}
+                className={this.props.className}
                 onClick={(e) => { e.preventDefault(); }}>
             <span className="checkbox">
                 <input
@@ -98,7 +93,7 @@ var ChoiceNoneAbove = React.createClass({
 
     render: function() {
         var choiceProps = _.extend({}, this.props, {
-            classSet: { "none-of-above": true },
+            className: classNames(this.props.className, "none-of-above"),
             content: (this.props.showContent ?
                 this.props.content :
                 // We use a Renderer here because that is how
@@ -201,8 +196,6 @@ var BaseRadio = React.createClass({
                     <$_>Select all that apply.</$_>
                 </div>}
             {this.props.choices.map(function(choice, i) {
-                var classSet = { "inline": !this.props.onePerLine };
-
                 // True if we're in review mode and a clue is available
                 var reviewModeClues = rubric && rubric.choices[i].clue;
 
@@ -220,6 +213,8 @@ var BaseRadio = React.createClass({
                 var Element = Choice;
                 var elementProps = {
                     ref: `radio${i}`,
+                    className: this.props.apiOptions.readOnly ? "" :
+                        ApiClassNames.INTERACTIVE,
                     checked: choice.checked,
                     clue: choice.clue,
                     content: choice.content,
@@ -237,17 +232,20 @@ var BaseRadio = React.createClass({
                     _.extend(elementProps, { showContent: choice.correct });
                 }
 
-                classSet[ApiClassNames.INTERACTIVE] =
-                    !this.props.apiOptions.readOnly;
+                var className = classNames(
+                    // TODO(aria): Make a test case for these API classNames
+                    ApiClassNames.RADIO.OPTION,
+                    choice.checked && ApiClassNames.RADIO.SELECTED,
+                    !this.props.onePerLine && "inline",
+                    (rubric && rubric.choices[i].correct &&
+                        ApiClassNames.CORRECT
+                    ),
+                    (rubric && !rubric.choices[i].correct &&
+                        ApiClassNames.INCORRECT
+                    )
+                );
 
-                if (rubric) {
-                    classSet[ApiClassNames.CORRECT] =
-                        rubric.choices[i].correct;
-                    classSet[ApiClassNames.INCORRECT] =
-                        !rubric.choices[i].correct;
-                }
-
-            return <li className={classNames(classSet)} key={i}
+            return <li className={className} key={i}
                         onTouchStart={!this.props.labelWrap ?
                             null : captureScratchpadTouchStart
                         }
