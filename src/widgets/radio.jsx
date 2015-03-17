@@ -199,7 +199,7 @@ var BaseRadio = React.createClass({
                 </div>}
             {this.props.choices.map(function(choice, i) {
                 // True if we're in review mode and a clue is available
-                var reviewModeClues = rubric && rubric.choices[i].clue;
+                var reviewModeClues = !!(rubric && rubric.choices[i].clue);
 
                 // TODO(marcia): As of March 2015, clues are only available
                 // within the SAT experience. There were a handful of non-SAT
