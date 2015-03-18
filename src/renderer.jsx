@@ -927,12 +927,20 @@ var Renderer = React.createClass({
      * ]
      *
      * Widgets will be listed in the order that they appear in their renderer.
+     *
+     * Note: If a group hasn't been rendered yet, though, then its children
+     * ids will not be returned.
+     * TODO(marcia): We should figure out a way to either return the widget ids
+     * without needing to render all-the-things, or we should probably have a
+     * better pattern for requesting widget ids so we are more likely to get
+     * one true answer.
      */
     getAllWidgetIds: function() {
         // Recursively builds our result
         return _.map(this.getWidgetIds(), (id) => {
             var groupPrefix = "group";
-            if (id.substring(0, groupPrefix.length) === groupPrefix) {
+            if (id.substring(0, groupPrefix.length) === groupPrefix &&
+                    this.getWidgetInstance(id)) {
                 return {
                     id: id,
                     children:
