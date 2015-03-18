@@ -23,6 +23,13 @@ var Group = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        // TODO(marcia): See comment in render method about our cyclical
+        // numbering scheme. We force another render so that we can annotate
+        // the group with the correct number.
+        this.forceUpdate();
+    },
+
     render: function() {
         var apiOptions = _.extend(
             {},
@@ -43,6 +50,13 @@ var Group = React.createClass({
         );
 
         // Allow a problem number annotation to be added.
+        // This is cyclical and should probably be reconsidered. In order to
+        // render the annotation ("Question 3 of 10"), we call interWidgets to
+        // figure out our index in the list of all fellow group widgets. On
+        // first render, though, we don't exist yet in this list, and so we
+        // give ourselves number -1. To combat this, we forceUpdate in
+        // componentDidMount so that we can number ourselves properly. But,
+        // really we should have a more unidirectional flow. TODO(marcia): fix.
         var number = _.indexOf(this.props.interWidgets("group"), this);
         var problemNumComponent = this.props.apiOptions.groupAnnotator(
             number, this.props.widgetId);
