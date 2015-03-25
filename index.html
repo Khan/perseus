@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div id="extras">
+<div id="extras" style="display:none;">
     <button id="toJSON">toJSON</button>
     <button id="scorePreview">Score</button>
     <button id="permalink">permalink</button>
@@ -28,10 +28,64 @@
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
 
+<h2 id='message' style='color:red;'></h2>
+<table>
+    <tr>
+        <td>qid：</td>
+        <td>
+            <span id='qid'></span>
+        </td>
+    </tr>
+    <tr>
+        <td>科目：</td>
+        <td>
+            <input id='subject'></input>
+        </td>
+    </tr>
+    <tr>
+        <td>是否隱藏題目：</td>
+        <td>
+            <select id='is_hidden'>
+                <option value="True">是的</option>
+                <option value="False">否。</option>
+            </input>
+        </td>
+    </tr>
+    <tr>
+        <td>題目來源：</td>
+        <td>
+            <input id='source'></input>
+        </td>
+    </tr>
+    <tr>
+        <td>難度：</td>
+        <td>
+            <select id='level'>
+                <option value="1">簡單</option>
+                <option value="2">中等</option>
+                <option value="3">進階</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>範圍：</td>
+        <td>
+            <textarea rows="3" cols="20" id='cover_range'></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>相關影片：</td>
+        <td>
+            <textarea rows="3" cols="20" id='related_video'></textarea>
+        </td>
+    </tr>
+</table>
 <!-- Begin Perseus HTML -->
 <div id="perseus-container">
 </div>
 <!-- End Perseus HTML -->
+<button id="save">儲存改變</button>
+<button id="quit">取消編輯</button>
 
 <!-- put an empty div here so the margin on the perseus editor has something
 to "push against" (without the div, the padding goes off the page, and the
@@ -184,14 +238,72 @@ $('#permalink').on('click', function(e) {
         encodeURIComponent(JSON.stringify(editor));
     e.preventDefault();
 });
+
+$('#save').on('click',function(e){
+
+    if(question_dic.is_developer == 'True'){
+        return_string = "Have-Authorization";}
+    if(!question_dic.uploader_id){
+        return_string = "No-Uploader-Name";}
+    if(!question_dic.is_developer && question_dic.uploader_id != question_dic.user_id){
+        return_string = "No-Authorization";}
+    else{
+        return_string = "Have-Authorization";}
+
+
+    if (return_string == "No-Authorization" || return_string == "No-Uploader-Name") {
+        alert("很抱歉，您沒有權限編輯第" + question_dic.qid +"題。");
+    }
+    else{
+        if (confirm("修改將儲存於資料庫")) {
+            is_hidden = $('select#is_hidden').val();
+            subject = $('input#subject').val();
+            source = $('input#source').val();
+            level = $('select#level').val();
+            cover_range = $('textarea#cover_range').val();
+            related_video = $('textarea#related_video').val();
+            is_developer = question_dic.is_developer;
+            secret = question_dic.secret;
+            window.location.href = "http://localhost:8080/devadmin/questionmanager/save-edit/" + 
+                "?qid=" + question_dic.qid + 
+                '&is_hidden=' + is_hidden + 
+                '&subject=' + subject + 
+                "&source=" + source + 
+                "&level=" + level + 
+                "&cover_range=" + cover_range + 
+                "&related_video=" + related_video + 
+                "&is_developer=" + is_developer + 
+                "&secret=" + secret + 
+                "&json_question=" + encodeURIComponent(JSON.stringify(editor, null, 4));
+        }
+    }
+
+});
+$('#quit').on('click',function(e){
+    if (confirm("取消修改的話，未儲存之所有修改將不會儲存")) {
+        close();
+    }
+});
+
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
     return '<span style="margin-left: 5px; background: ' +
             (enabled ? "#aaffaa" : "#ffcccc") + ';">' + feature + '</span>';
 }).join(''));
 
-var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
-var question = query.content ? JSON.parse(query.content) : defaultQuestion;
+
+// don't know why!
+url = window.location.hash.split('?')[0];
+var question_dic = Perseus.Util.parseQueryString(url);
+var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
+$('span#qid').html(question_dic.qid);
+$('select#is_hidden').val(question_dic.is_hidden);
+$('input#subject').val(question_dic.subject);
+$('input#source').val(question_dic.source);
+$('select#level').val(question_dic.level);
+$('textarea#cover_range').val(question_dic.cover_range);
+$('textarea#related_video').val(question_dic.related_video);
+$('h2#message').html(question_dic.message);
 
 Perseus.init({skipMathJax: false}).then(function() {
 
