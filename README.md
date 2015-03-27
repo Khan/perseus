@@ -17,7 +17,7 @@ Our test page isn't much yet, but you can check out a
 
 To get the dev server running locally, try `make server PORT=9000` which will run the local perseus server on localhost:9000.
 
-To package perseus for distribution, run `make build` and to package a debug-friendy build, run `make debug`.
+To package perseus for distribution, run `make build` and to package a debug-friendly build, run `make debug`.
 
 Both the `build` and the `server` make targets will run `npm install` but you can also run it yourself to install all node dependencies.
 
@@ -26,7 +26,7 @@ Both the `build` and the `server` make targets will run `npm install` but you ca
 
 Perseus uses two types of version numbers: the version of the itemData/content
 that can be sent to `ItemRenderer`/`Renderer`, and the version of the api
-exposed through the `ItemRenderer/`Renderer` apiOptions prop.
+exposed through the `ItemRenderer`/`Renderer` apiOptions prop.
 
 ### itemData versioning
 
