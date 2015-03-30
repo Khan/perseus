@@ -262,9 +262,10 @@ $('#save').on('click',function(e){
             level = $('select#level').val();
             cover_range = $('textarea#cover_range').val();
             related_video = $('textarea#related_video').val();
+            question = JSON.stringify(editor);
 
             $.ajax({
-                url: 'http://localhost:8080/devadmin/questionmanager/save-edit/',
+                url: 'http://45-dot-junyiacademy.appspot.com/devadmin/questionmanager/save-edit/',
                 data:{'qid':question_dic.qid,
                     'is_hidden':is_hidden,
                     'subject':subject,
@@ -273,22 +274,21 @@ $('#save').on('click',function(e){
                     'cover_range':cover_range,
                     'related_video':related_video,
                     'is_developer':question_dic.is_developer,
-                    'secret':question_dic.secret
+                    'secret':question_dic.secret,
+                    'question':question
                 },
-                type:"POST",
-                //dataType:'text/json',
-                success:function(data){
-                    alert(data);
-                },
+                method:"POST",
 
-                error:function(xhr, ajaxOptions, thrownError){ 
-                    debugger;
-                    alert(xhr.status + " " + thrownError + "\n請檢查連線狀況");  
-                },
-                statusCode:{
-                    302:function(data){
-                        alert('lala');
+                success:function(data){
+                    if(data.indexOf('perseus')===-1){
+                        parent.window.location = data;
                     }
+                    else{
+                        window.location = data;
+                    }
+                },
+                error:function(xhr, ajaxOptions, thrownError){ 
+                    alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
                 }
             });
             
