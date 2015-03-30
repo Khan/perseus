@@ -285,6 +285,7 @@ $('#save').on('click',function(e){
                     }
                     else{
                         document.location.href = data;
+                        document.reload(true);
                     }
                 },
                 error:function(xhr, ajaxOptions, thrownError){ 
