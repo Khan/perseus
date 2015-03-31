@@ -178,7 +178,7 @@ $('#scorePreview').on('click', function() {
 });
 $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
-        encodeURIComponent(JSON.stringify(editor));
+        encodeURIComponent(JSON.stringify(editor.serialize()));
     e.preventDefault();
 });
 $('#problemNum').text(problemNum);
