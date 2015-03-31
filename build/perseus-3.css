@@ -1,0 +1,1942 @@
+.framework-perseus.perseus-article {
+  width: 640px;
+}
+.framework-perseus.perseus-article div.paragraph.perseus-paragraph-centered,
+.framework-perseus.perseus-article div.paragraph > .perseus-widget-container:only-child {
+  text-align: center;
+}
+.framework-perseus.perseus-article div.paragraph.perseus-paragraph-centered > *,
+.framework-perseus.perseus-article div.paragraph > .perseus-widget-container:only-child > * {
+  display: inline-block;
+  text-align: initial;
+}
+#perseus {
+  position: relative;
+}
+.no-select {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.blank-background {
+  background-color: #FDFDFD;
+}
+#answer_area .blank-background {
+  background-color: transparent;
+}
+.above-scratchpad {
+  position: relative;
+  z-index: 2;
+}
+.graphie.above-scratchpad,
+.graphie-container.above-scratchpad {
+  background-color: #FDFDFD;
+}
+.graphie {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.perseus-interactive,
+.perseus-interactive.above-scratchpad {
+  position: relative;
+  z-index: 3;
+}
+#answercontent input[type=text].perseus-input-size-normal,
+#answercontent input[type=number].perseus-input-size-normal,
+.framework-perseus input[type=text].perseus-input-size-normal,
+.framework-perseus input[type=number].perseus-input-size-normal {
+  width: 80px;
+}
+#answercontent input[type=text].perseus-input-size-small,
+#answercontent input[type=number].perseus-input-size-small,
+.framework-perseus input[type=text].perseus-input-size-small,
+.framework-perseus input[type=number].perseus-input-size-small {
+  width: 40px;
+}
+.framework-perseus #problemarea input,
+.framework-perseus #problemarea button {
+  position: relative;
+  z-index: 3;
+}
+.framework-perseus div.paragraph {
+  font-size: 14px;
+  margin: 22px 0px;
+}
+.framework-perseus div.instructions {
+  display: block;
+  font-style: italic;
+  font-weight: bold;
+}
+.framework-perseus .paragraph > ul:not(.perseus-widget-radio) {
+  font-size: 14px;
+  margin: -11px 0px 22px 0px;
+  padding-left: 35px;
+}
+.framework-perseus .paragraph > ul:not(.perseus-widget-radio) > li {
+  list-style-type: disc;
+}
+.framework-perseus .paragraph > ol {
+  list-style: decimal;
+  padding-left: 2em;
+}
+.framework-perseus blockquote {
+  padding: 0 2.5em;
+}
+.framework-perseus table {
+  font-size: 14px;
+}
+.framework-perseus table th,
+.framework-perseus table td {
+  padding: 5px 10px;
+  text-align: left;
+}
+.framework-perseus table th[align=center],
+.framework-perseus table td[align=center] {
+  text-align: center;
+}
+.framework-perseus table th[align=right],
+.framework-perseus table td[align=right] {
+  text-align: right;
+}
+.framework-perseus table th {
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  padding-bottom: 2px;
+}
+.framework-perseus table tr:nth-child(odd) td {
+  background-color: #ededed;
+}
+.framework-perseus .perseus-titled-table {
+  display: inline-block;
+}
+.framework-perseus .perseus-titled-table table {
+  margin-left: auto;
+  margin-right: auto;
+}
+.framework-perseus .perseus-table-title {
+  text-align: center;
+  font-size: larger;
+}
+.framework-perseus sup {
+  font-size: smaller;
+  vertical-align: super;
+  line-height: 0;
+}
+.framework-perseus .range-input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 0px 5px;
+}
+.framework-perseus .range-input > input {
+  border: 0;
+  display: inline;
+  text-align: center;
+  width: 30px;
+}
+.framework-perseus .range-input > span {
+  color: #999;
+  font-size: 14px;
+}
+.framework-perseus .number-input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0;
+  padding: 5px 0;
+  text-align: center;
+  width: 40px;
+}
+.framework-perseus .number-input.invalid-input {
+  background-color: #ffbaba;
+  outline-color: red;
+}
+.framework-perseus .number-input.mini {
+  width: 40px;
+}
+.framework-perseus .number-input.small {
+  width: 60px;
+}
+.framework-perseus .number-input.normal {
+  width: 80px;
+}
+.framework-perseus .math-output {
+  display: inline-block;
+  min-width: 80px;
+  min-height: 36px;
+  border-radius: 5px;
+  padding: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  background: white;
+  border: 1px solid #a4a4a4;
+}
+.framework-perseus .graph-settings .graph-settings-axis-label {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px 5px;
+  width: 70px;
+  float: right;
+  margin: 0 5px;
+}
+.framework-perseus .graph-settings .graph-settings-background-url {
+  width: 250px;
+}
+.framework-perseus .graphie-container {
+  position: relative;
+}
+.framework-perseus .graphie-container img {
+  position: absolute;
+}
+.framework-perseus .graph-settings,
+.framework-perseus .image-settings,
+.framework-perseus .misc-settings {
+  padding-bottom: 5px;
+}
+.framework-perseus .image-settings,
+.framework-perseus .misc-settings,
+.framework-perseus .type-settings {
+  border-top: 1px solid black;
+  padding-top: 5px;
+}
+.framework-perseus .svg-image {
+  display: inline-block;
+  position: relative;
+}
+.framework-perseus .svg-image > .graphie-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.framework-perseus table.non-markdown tr:nth-child(odd) td {
+  background-color: transparent;
+}
+.framework-perseus table.non-markdown th,
+.framework-perseus table.non-markdown td {
+  border-width: 0;
+}
+/* Widget CSS */
+.perseus-graph-padding {
+  padding: 25px 25px 0 0;
+}
+.perseus-widget-expression {
+  position: relative;
+}
+.perseus-widget-expression > span,
+.perseus-widget-expression .error-tooltip {
+  display: inline-block;
+  vertical-align: middle;
+}
+.perseus-widget-expression .error-tooltip {
+  position: absolute;
+  right: 6px;
+  top: -2px;
+}
+.perseus-widget-expression .error-icon {
+  color: #fcc335;
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+  z-index: 3;
+}
+.perseus-widget-expression .error-text {
+  background-color: #fff;
+  padding: 5px;
+  width: 210px;
+}
+.perseus-widget-expression.show-error-tooltip .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+  padding-right: 25px;
+}
+.perseus-widget-expression .perseus-formats-tooltip {
+  width: 190px;
+}
+#answer_area .perseus-widget-expression .perseus-math-input.mq-editable-field.mq-math-mode {
+  min-width: 130px;
+}
+#answer_area .perseus-widget-expression .error-tooltip .error-text-container {
+  left: -125px !important;
+  top: -17px !important;
+}
+#answer_area .perseus-widget-expression .error-tooltip .error-text {
+  font-size: 12px;
+  width: 90px;
+}
+#answer_area .perseus-widget-expression .error-tooltip .tooltipContainer > div:first-child {
+  visibility: hidden !important;
+}
+.perseus-widget-expression-old,
+.perseus-widget-expression-old > .output,
+.perseus-widget-expression-old > .output > .tex,
+.perseus-widget-expression-old > .output > .placeholder {
+  display: block;
+}
+.perseus-widget-expression-old input,
+#answer_area .perseus-widget-expression-old input {
+  direction: ltr;
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin-bottom: 5px;
+  max-width: 240px;
+  padding: 6px;
+  width: 100%;
+}
+.perseus-widget-expression-old > .output {
+  background: #f2f2f2;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+#answer_area .perseus-widget-expression-old > .output {
+  background: #f7f7f7;
+}
+.perseus-widget-expression-old > .output > .tex {
+  overflow-x: auto;
+  padding: 5px;
+}
+.perseus-widget-expression-old > .output > .placeholder {
+  position: relative;
+  height: 40px;
+  overflow-y: hidden;
+}
+.perseus-widget-expression-old > .output > .placeholder > .error {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  color: #000;
+  display: none;
+  font-weight: normal;
+  min-height: 22px;
+  width: 168px;
+  position: absolute;
+  top: 0px;
+  left: 40px;
+  margin: auto;
+}
+.perseus-widget-expression-old > .output > .placeholder > .error > .buddy {
+  background-image: url(/images/perseus/error-buddy.png);
+  background-size: 100%;
+  height: 36px;
+  width: 40px;
+  position: absolute;
+  top: -3px;
+  left: -42px;
+}
+.perseus-widget-expression-old > .output > .placeholder > .error > .message {
+  font: 12px "Proxima Nova", sans-serif;
+  line-height: 1.4em;
+  margin: 0px 4px;
+}
+.perseus-widget-radio li span.checkbox input[type=radio],
+#answer_area .perseus-widget-radio li span.checkbox input[type=radio] {
+  float: none;
+  margin: 3px;
+}
+.perseus-widget-radio {
+  width: 100%;
+}
+.perseus-widget-radio div,
+.perseus-widget-radio div > p {
+  /* TODO(alpert): Find a better way of doing inline renderers */
+  display: inline;
+}
+.perseus-widget-radio .svg-image div {
+  display: block;
+}
+.perseus-widget-radio li {
+  padding: 7px 0;
+  margin-left: 20px;
+}
+.perseus-widget-radio li.inline {
+  display: inline-block;
+  padding-left: 20px;
+}
+.perseus-widget-radio li span.checkbox {
+  position: relative;
+  z-index: 3;
+  display: inline-block;
+  width: 20px;
+  margin-left: -20px;
+  margin-right: 0;
+}
+.perseus-widget-radio li div.instructions {
+  margin-bottom: 5px;
+}
+.perseus-widget-radio li .value {
+  display: block;
+  margin-left: 18px;
+  min-height: 22px;
+}
+.perseus-widget-radio li img,
+.perseus-widget-radio li table {
+  display: inline-block;
+  vertical-align: middle;
+}
+.perseus-widget-radio li table {
+  border: 1px solid #ccc;
+}
+.perseus-widget-radio .perseus-radio-clue {
+  display: block;
+}
+.perseus-widget-radio .perseus-textarea-pair,
+.perseus-widget-radio .perseus-textarea-underlay {
+  display: block;
+}
+body.mobile .framework-perseus #problemarea input[type=radio],
+body.mobile .framework-perseus #problemarea input[type=checkbox] {
+  float: left;
+  margin-right: 7px;
+}
+body.mobile .perseus-widget-radio {
+  background: none;
+  color: #aaaaaa;
+  margin-left: 0;
+}
+body.mobile .perseus-widget-radio span.checkbox {
+  position: relative;
+  z-index: 3;
+  position: absolute;
+  margin-right: 26px;
+  display: block;
+  top: 50%;
+  margin: -14px 0 0 0;
+  width: auto;
+}
+body.mobile .perseus-widget-radio .perseus-radio-option {
+  background: white;
+  position: relative;
+  border: 2px solid #aaaaaa;
+  border-radius: 28px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
+  margin-left: 0;
+  margin-bottom: 10px;
+  overflow: hidden;
+  padding: 8px 10px !important;
+}
+body.mobile .perseus-widget-radio .perseus-radio-option:active {
+  background-color: #1c758a;
+  border-color: #1c758a;
+  color: white;
+}
+body.mobile .perseus-widget-radio .perseus-radio-option:active input[type=radio],
+body.mobile .perseus-widget-radio .perseus-radio-option:active input[type=checkbox] {
+  border-color: #aaaaaa;
+  background-color: white;
+}
+body.mobile .perseus-widget-radio .perseus-radio-option.perseus-radio-selected {
+  border-color: #1c758a;
+  color: #1c758a;
+  font-weight: bold;
+}
+body.mobile .perseus-widget-radio .perseus-radio-option.perseus-radio-selected:active {
+  color: white;
+}
+body.mobile .perseus-widget-radio .perseus-radio-option .perseus-radio-option-content {
+  margin-left: 40px;
+  display: inline-block;
+}
+body.mobile .perseus-widget-radio input[type=radio],
+body.mobile .perseus-widget-radio input[type=checkbox] {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 2px solid #aaaaaa;
+  border-radius: 25px;
+  float: left;
+}
+body.mobile .perseus-widget-radio input[type=radio] {
+  height: 25px;
+  margin-right: 10px;
+  outline: none;
+  width: 25px;
+}
+body.mobile .perseus-widget-radio input[type=radio]:checked {
+  background: #1c758a;
+  border: 2px solid #1c758a;
+}
+body.mobile .perseus-widget-radio input[type=checkbox] {
+  position: absolute;
+  outline: none;
+}
+body.mobile .perseus-widget-radio input[type=checkbox]:before {
+  color: #aaaaaa;
+  font: 15pt "FontAwesome";
+  left: 0;
+  position: relative;
+  top: 1px;
+}
+body.mobile .perseus-widget-radio input[type=checkbox]:checked {
+  border-color: #1c758a;
+}
+body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
+  color: #1c758a;
+  content: "\f00c";
+}
+body.sat-section .framework-perseus #problemarea input[type=radio],
+#sat-mission .framework-perseus #problemarea input[type=radio],
+body.sat-section .framework-perseus #problemarea input[type=checkbox],
+#sat-mission .framework-perseus #problemarea input[type=checkbox] {
+  float: left;
+  margin-right: 7px;
+}
+body.sat-section .perseus-widget-radio,
+#sat-mission .perseus-widget-radio {
+  background: none;
+  margin-left: 0;
+  margin-top: 24px;
+  user-select: none;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option-content,
+#sat-mission .perseus-widget-radio .perseus-radio-option-content {
+  user-select: all;
+}
+body.sat-section .perseus-widget-radio span.checkbox,
+#sat-mission .perseus-widget-radio span.checkbox {
+  position: relative;
+  z-index: 3;
+  position: absolute;
+  display: block;
+  top: 50%;
+  margin: -16px 0 0 0;
+  width: auto;
+}
+body.sat-section .perseus-widget-radio span.checkbox:before,
+#sat-mission .perseus-widget-radio span.checkbox:before {
+  border-radius: 25px;
+  border: 2px solid #0084ce;
+  content: '';
+  height: 25px;
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  width: 25px;
+}
+body.sat-section .perseus-widget-radio span.checkbox:after,
+#sat-mission .perseus-widget-radio span.checkbox:after {
+  color: #0084ce;
+  font-family: "Proxima Nova Semibold", sans-serif;
+  font-size: 13px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 7px;
+  width: 32px;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option,
+#sat-mission .perseus-widget-radio .perseus-radio-option {
+  position: relative;
+  border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  margin-left: 0;
+  overflow: hidden;
+  padding: 17px 14px !important;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:last-child,
+#sat-mission .perseus-widget-radio .perseus-radio-option:last-child {
+  border-bottom: 1px solid #ccc;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option label,
+#sat-mission .perseus-widget-radio .perseus-radio-option label {
+  cursor: pointer;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected,
+body.sat-section .perseus-widget-radio .perseus-radio-option:active,
+#sat-mission .perseus-widget-radio .perseus-radio-option:active {
+  border-color: #0084ce;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected span.checkbox:after,
+body.sat-section .perseus-widget-radio .perseus-radio-option:active span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option:active span.checkbox:after {
+  color: #fff;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected span.checkbox:before,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected span.checkbox:before,
+body.sat-section .perseus-widget-radio .perseus-radio-option:active span.checkbox:before,
+#sat-mission .perseus-widget-radio .perseus-radio-option:active span.checkbox:before {
+  background: #0084ce;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected + .perseus-radio-option,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected + .perseus-radio-option,
+body.sat-section .perseus-widget-radio .perseus-radio-option:active + .perseus-radio-option,
+#sat-mission .perseus-widget-radio .perseus-radio-option:active + .perseus-radio-option {
+  border-top-color: #0084ce;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-correct,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-correct {
+  color: #009900;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-correct span.checkbox:before,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-correct span.checkbox:before {
+  border-color: #009900;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-correct.perseus-radio-selected,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-correct.perseus-radio-selected {
+  background-color: #e4f7e4;
+  border-color: #00cc00;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-correct.perseus-radio-selected + .perseus-radio-option,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-correct.perseus-radio-selected + .perseus-radio-option {
+  border-top-color: #00cc00;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-correct.perseus-radio-selected span.checkbox:before,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-correct.perseus-radio-selected span.checkbox:before {
+  background: #009900;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected.perseus-incorrect,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected.perseus-incorrect {
+  color: #990000;
+  background-color: #f2ebeb;
+  border-color: #cc5252;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected.perseus-incorrect + .perseus-radio-option,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected.perseus-incorrect + .perseus-radio-option {
+  border-top-color: #cc5252;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected.perseus-incorrect span.checkbox:before,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected.perseus-incorrect span.checkbox:before {
+  border-color: #990000;
+  background: #990000;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:active,
+#sat-mission .perseus-widget-radio .perseus-radio-option:active {
+  background-color: #d0edf4 !important;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-radio-selected,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-radio-selected {
+  background-color: #e4f3f9;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option .perseus-radio-option-content,
+#sat-mission .perseus-widget-radio .perseus-radio-option .perseus-radio-option-content {
+  display: block;
+  margin-left: 45px;
+  cursor: inherit !important;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option.perseus-correct:not(.perseus-radio-selected) span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option.perseus-correct:not(.perseus-radio-selected) span.checkbox:after {
+  color: #009900;
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:nth-child(1) span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option:nth-child(1) span.checkbox:after {
+  content: 'A';
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:nth-child(2) span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option:nth-child(2) span.checkbox:after {
+  content: 'B';
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:nth-child(3) span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option:nth-child(3) span.checkbox:after {
+  content: 'C';
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:nth-child(4) span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option:nth-child(4) span.checkbox:after {
+  content: 'D';
+}
+body.sat-section .perseus-widget-radio .perseus-radio-option:nth-child(5) span.checkbox:after,
+#sat-mission .perseus-widget-radio .perseus-radio-option:nth-child(5) span.checkbox:after {
+  content: 'E';
+}
+body.sat-section .perseus-widget-radio input[type=radio],
+#sat-mission .perseus-widget-radio input[type=radio] {
+  display: none;
+}
+body.sat-section .review-mode .perseus-radio-option-content,
+#sat-mission .review-mode .perseus-radio-option-content {
+  font-weight: bold;
+}
+body.sat-section .review-mode input,
+#sat-mission .review-mode input,
+body.sat-section .review-mode .perseus-radio-option,
+#sat-mission .review-mode .perseus-radio-option {
+  pointer-events: none;
+}
+body.sat-section .review-mode .perseus-radio-clue,
+#sat-mission .review-mode .perseus-radio-clue {
+  margin-top: 13px;
+  margin-left: 45px;
+}
+.perseus-widget-interactive-graph {
+  padding: 25px 25px 0 0;
+}
+.perseus-widget-interactive-graph > .graphie-container {
+  position: relative;
+}
+.perseus-widget-interactive-graph > .graphie-container > img,
+.perseus-widget-interactive-graph > .graphie-container > .svg-image {
+  position: absolute;
+}
+.categorization-container {
+  position: relative;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.categorization-container .categories,
+.categorization-container .bank {
+  float: left;
+}
+.categorization-container .categories {
+  width: 231px;
+}
+.categorization-container .cards-list {
+  padding: 13px;
+}
+.categorization-container .category {
+  float: left;
+  padding: 8px;
+  width: 215px;
+  text-align: center;
+}
+.categorization-container .category .card-container {
+  float: left;
+  width: 100%;
+  display: block;
+}
+.categorization-container .category.target .cards-list.cards-area {
+  border-color: #999999;
+  box-shadow: 0 0 4px #7d7d7d;
+  -moz-box-shadow: 0 0 4px #7d7d7d;
+  -ms-box-shadow: 0 0 4px #7d7d7d;
+  -o-box-shadow: 0 0 4px #7d7d7d;
+  -webkit-box-shadow: 0 0 4px #7d7d7d;
+}
+.categorization-container .header {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.categorization-container .target .header {
+  color: black;
+}
+.categorization-container .card {
+  min-height: 26px;
+  text-align: center;
+  line-height: 24px;
+  width: 167px;
+  padding: 6px 8px;
+  margin: 0 auto;
+  transition-property: border-color, box-shadow;
+  transition-duration: 150ms;
+  -moz-transition-property: border-color, -moz-box-shadow;
+  -moz-transition-duration: 150ms;
+  -webkit-transition-property: border-color, -webkit-box-shadow;
+  -webkit-transition-duration: 150ms;
+}
+.categorization-container .card:hover {
+  transition-property: border-color, box-shadow;
+  transition-duration: 150ms;
+  -moz-transition-property: border-color, -moz-box-shadow;
+  -moz-transition-duration: 150ms;
+  -webkit-transition-property: border-color, -webkit-box-shadow;
+  -webkit-transition-duration: 150ms;
+}
+.categorization-container .card-container {
+  float: left;
+  padding: 4px 0;
+}
+.categorization-container .card-hidden {
+  visibility: hidden;
+  z-index: 0;
+}
+.categorization-container .card.dragging {
+  position: absolute;
+  display: none;
+  z-index: 4;
+  border-color: #ffa500;
+  box-shadow: 0 0 4px #c78100;
+  -moz-box-shadow: 0 0 4px #c78100;
+  -ms-box-shadow: 0 0 4px #c78100;
+  -o-box-shadow: 0 0 4px #c78100;
+  -webkit-box-shadow: 0 0 4px #c78100;
+}
+.categorization-container .card.placeholder > * {
+  visibility: hidden;
+}
+.categorization-container.currently-dragging .card {
+  opacity: 0.4;
+}
+.categorization-container.currently-dragging .card.dragging {
+  display: block;
+  background-color: white;
+  opacity: 1;
+  filter: opacity(1);
+}
+.categorization-container div.paragraph {
+  margin: 0;
+}
+.categorizer-container {
+  margin-top: 20px;
+}
+.categorizer-container div.paragraph {
+  margin: 10px 0px;
+}
+.categorizer-container .category {
+  text-align: center;
+}
+.categorizer-container th.category {
+  vertical-align: bottom;
+}
+.categorizer-container label {
+  position: relative;
+  z-index: 2;
+}
+.categorizer-container td.category {
+  padding: 0;
+  color: #ccc;
+  vertical-align: bottom;
+}
+.categorizer-container td.category input[type="radio"] {
+  display: none;
+}
+.categorizer-container td.category input[type="radio"] + span:before {
+  display: inline-block;
+  position: relative;
+  font-family: 'FontAwesome';
+  font-size: 30px;
+  width: 30px;
+  padding-right: 3px;
+  bottom: 9px;
+  content: "\f1db";
+}
+.categorizer-container td.category label span:hover {
+  color: #999;
+}
+.categorizer-container td.category input[type="radio"]:checked + span:before {
+  content: "\f111";
+  color: #333;
+}
+body.mobile .categorizer-container td.category input[type="radio"]:checked + span:before {
+  color: #1c758a;
+}
+body.mobile .categorizer-container td.category input[type="radio"] + span:active:before {
+  color: #666;
+  content: "\f111";
+}
+.perseus-widget-plotter svg,
+.perseus-widget-plotter vml {
+  position: absolute;
+}
+.perseus-widget-plotter span.rotate {
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+}
+.perseus-widget-plotter body.ie span.rotate {
+  left: 60px !important;
+  top: 140px !important;
+}
+.set-from-scale-box {
+  border: 2px solid #EEEEEE;
+  border-radius: 3px;
+  padding: 3px;
+}
+.categories-title {
+  font-size: 14px;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown {
+  text-align: left;
+  margin: 20px auto 0;
+  border-collapse: collapse;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown tr {
+  height: 23px;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th,
+.framework-perseus table.perseus-widget-table-of-values.non-markdown td {
+  border: 2px solid black;
+  border-width: 0 2px;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th:first-child,
+.framework-perseus table.perseus-widget-table-of-values.non-markdown td:first-child {
+  border-left: 0;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th:last-child,
+.framework-perseus table.perseus-widget-table-of-values.non-markdown td:last-child {
+  border-right: 0;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th {
+  font-weight: normal;
+  padding: 5px;
+  width: 80px;
+  text-align: left;
+  border-bottom: 2px solid black;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th .paragraph {
+  margin: 0;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown td {
+  padding: 0px 5px;
+  text-align: right;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown tbody tr:first-child td {
+  padding-top: 5px;
+}
+.framework-perseus table.perseus-widget-table-of-values input,
+#answer_area table.perseus-widget-table-of-values input {
+  width: 80px;
+}
+body.mobile .framework-perseus table.perseus-widget-table-of-values.non-markdown td {
+  padding: 5px;
+}
+.perseus-widget-dropdown {
+  position: relative;
+}
+.perseus-widget-dropdown.perseus-fancy-dropdown {
+  position: static;
+}
+.perseus-widget-dropdown .fancy-select {
+  position: relative;
+  z-index: 3;
+  border: 3px solid #358fa4;
+  border-radius: 40px;
+  color: #358fa4;
+  font: 700 23pt avenir, sans-serif;
+  padding: 0 60px 0 35px;
+  min-width: 40px;
+  min-height: 40px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.perseus-widget-dropdown .fancy-select:before {
+  font-size: 0;
+  visibility: hidden;
+  content: "_";
+}
+.perseus-widget-dropdown .fancy-select > .placeholder {
+  opacity: 0.5;
+}
+.perseus-widget-dropdown .fancy-select.active {
+  opacity: 0.5;
+}
+.perseus-widget-dropdown .fancy-select:after {
+  color: #358fa4;
+  content: "\f0dd";
+  font: 24pt "FontAwesome";
+  position: absolute;
+  top: 0px;
+  right: 17px;
+}
+.perseus-widget-dropdown .fancy-select-options-wrapper {
+  position: relative;
+  z-index: 4;
+}
+.perseus-widget-dropdown .fancy-select-options {
+  color: #358fa4;
+  position: absolute;
+  min-width: 100%;
+}
+.perseus-widget-dropdown .fancy-option {
+  cursor: pointer;
+  padding: 3px 20px 3px 38px !important;
+  font-size: 17pt;
+  line-height: 22pt;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #358fa4;
+  display: block;
+  border-radius: 20px;
+  min-width: 40px;
+  min-height: 30px;
+  margin-top: -70px;
+}
+.perseus-widget-dropdown .fancy-option:before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  border: 3px solid #358fa4;
+  margin-top: 4px;
+  margin-left: -30px;
+  border-radius: 25px;
+}
+.perseus-widget-dropdown .fancy-option.selected:before {
+  background: #358fa4;
+}
+body.mobile .perseus-widget-dropdown .fancy-option:active {
+  background: #358fa4;
+  color: white;
+}
+body.mobile .perseus-widget-dropdown .fancy-option:active:before {
+  background: white;
+}
+.orderer {
+  position: relative;
+  min-width: 480px;
+}
+.orderer .draggable-box {
+  padding: 13px;
+  min-height: 69px;
+  margin-top: 30px;
+}
+.orderer .card {
+  padding: 0 10px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  width: auto;
+}
+.orderer .card img {
+  vertical-align: middle;
+}
+.orderer.height-normal.layout-horizontal .card {
+  line-height: 65px;
+  height: 65px;
+}
+.orderer.height-normal.layout-vertical .card {
+  padding: 5px;
+}
+.orderer.height-large .card {
+  line-height: 160px;
+  height: 160px;
+}
+.orderer.height-auto .card {
+  padding: 0;
+}
+.orderer.height-auto.layout-horizontal .drag-hint {
+  min-height: 65px;
+  min-width: 22px;
+}
+.orderer .card-wrap {
+  position: relative;
+  z-index: 3;
+  margin-right: 4px;
+  width: auto;
+  float: left;
+}
+.orderer .bank {
+  margin: 0px 13px;
+}
+.orderer .bank .card-wrap {
+  margin-right: 10px;
+  margin-bottom: 8px;
+}
+.orderer div.paragraph {
+  margin: 0;
+}
+.orderer.layout-vertical .card-wrap {
+  float: none;
+  text-align: center;
+}
+.orderer.layout-vertical .bank,
+.orderer.layout-vertical .draggable-box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  float: left;
+  max-width: 50%;
+}
+.orderer.layout-vertical .bank {
+  padding: 10px 0 0 0;
+  margin: 0;
+}
+.orderer.layout-vertical .bank .card-wrap {
+  margin-right: 20px;
+}
+.orderer.layout-vertical .draggable-box {
+  margin-top: 0;
+  min-height: 170px;
+  padding: 10px;
+}
+.orderer.layout-vertical .draggable-box .card-wrap:first-child {
+  margin: 0;
+}
+.orderer.layout-vertical .draggable-box .card-wrap {
+  margin: 8px 0 0 0;
+}
+.orderer.layout-vertical .draggable-box .drag-hint {
+  box-sizing: border-box;
+  min-width: 140px;
+  min-height: 34px;
+}
+.orderer.layout-vertical .draggable-box .placeholder {
+  box-sizing: border-box;
+}
+.perseus-widget-measurer {
+  position: relative;
+}
+.perseus-widget-measurer img {
+  position: absolute;
+}
+.perseus-widget-measurer-url {
+  width: 70%;
+}
+.perseus-widget-transformer .highlighted-tool-button {
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.25);
+}
+.perseus-widget-transformer > .graphie-container {
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.perseus-widget-transformer > .graphie-container > img,
+.perseus-widget-transformer > .graphie-container > .svg-image {
+  position: absolute;
+}
+.perseus-widget-transformer .transformer-undo-button {
+  float: right;
+}
+.perseus-widget-transformer .perseus-transformation-list {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.perseus-widget-transformer .perseus-transformation-list input {
+  width: 40px;
+}
+.perseus-widget-matcher .column {
+  float: left;
+  max-width: 50%;
+}
+.perseus-widget-matcher .column:first-child .column-label,
+.perseus-widget-matcher .column:first-child .perseus-sortable {
+  padding-right: 5px;
+}
+.perseus-widget-matcher .column + .column .column-label,
+.perseus-widget-matcher .column + .column .perseus-sortable {
+  border-left: 1px solid #444444;
+  padding-left: 5px;
+}
+.perseus-widget-matcher .column-label {
+  border-bottom: 1px solid #444444;
+  padding-bottom: 5px;
+  text-align: center;
+}
+.perseus-widget-matcher .column-label div.paragraph {
+  margin: 0;
+}
+.perseus-widget-matcher .perseus-sortable {
+  padding-top: 5px;
+}
+.draggy-boxy-thing .draggable-box,
+.draggy-boxy-thing .cards-area {
+  background: #eee;
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #aaa;
+  box-shadow: 0 1px 2px #ccc;
+  -moz-box-shadow: 0 1px 2px #ccc;
+  -webkit-box-shadow: 0 1px 2px #ccc;
+}
+.draggy-boxy-thing .cards-area {
+  position: relative;
+  z-index: 2;
+}
+.draggy-boxy-thing .card {
+  position: relative;
+  z-index: 3;
+  background-color: #fff;
+  border: 1px solid #b9b9b9;
+  border-bottom-color: #939393;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  cursor: pointer;
+}
+.draggy-boxy-thing .card.placeholder {
+  background: #ddd;
+  border: 1px solid #ccc;
+}
+.draggy-boxy-thing .card.drag-hint {
+  background: none;
+  border: 1px dashed #aaa;
+  cursor: auto;
+}
+.draggy-boxy-thing .card.drag-hint:hover {
+  border-color: #aaa;
+  box-shadow: none;
+}
+.draggy-boxy-thing .card.dragging {
+  background-color: #ffedcd;
+  opacity: 0.8;
+  filter: opacity(0.8);
+}
+.draggy-boxy-thing .card.stack {
+  z-index: auto;
+}
+.draggy-boxy-thing .card.stack:after {
+  content: " ";
+  background-color: #fff;
+  border: 1px solid #b9b9b9;
+  border-bottom-color: #939393;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  top: 1px;
+  left: 1px;
+  position: absolute;
+}
+.draggy-boxy-thing .card:hover {
+  border-color: #ffa500;
+  box-shadow: 0 0 4px #c78100;
+  -moz-box-shadow: 0 0 4px #c78100;
+  -ms-box-shadow: 0 0 4px #c78100;
+  -o-box-shadow: 0 0 4px #c78100;
+  -webkit-box-shadow: 0 0 4px #c78100;
+}
+.perseus-sortable {
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  float: left;
+}
+.perseus-sortable .perseus-sortable-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  cursor: pointer;
+  min-width: 25px;
+  min-height: 44px;
+  padding: 10px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+}
+.perseus-sortable .perseus-sortable-placeholder {
+  background: #ddd;
+  border: 1px solid #ccc;
+}
+.perseus-sortable .perseus-sortable-draggable {
+  font-size: 0;
+  text-align: center;
+}
+.perseus-sortable .perseus-sortable-draggable:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.perseus-sortable .perseus-sortable-draggable > div {
+  display: inline-block;
+  font-size: 14px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.perseus-sortable .perseus-sortable-draggable div.paragraph {
+  margin: 0;
+}
+.perseus-sortable .perseus-sortable-draggable.perseus-sortable-static {
+  cursor: pointer;
+}
+.perseus-sortable .perseus-sortable-draggable.perseus-sortable-static:hover {
+  border-color: #ffa500;
+  box-shadow: 0 0 4px #c78100;
+  -moz-box-shadow: 0 0 4px #c78100;
+  -ms-box-shadow: 0 0 4px #c78100;
+  -o-box-shadow: 0 0 4px #c78100;
+  -webkit-box-shadow: 0 0 4px #c78100;
+}
+.perseus-sortable .perseus-sortable-draggable.perseus-sortable-dragging {
+  background-color: #ffedcd;
+  filter: opacity(0.8);
+  opacity: 0.8;
+}
+.perseus-sortable .perseus-sortable-draggable.perseus-sortable-disabled {
+  background-color: inherit;
+  border: 1px solid transparent;
+  cursor: default;
+}
+.perseus-sortable.layout-horizontal .perseus-sortable-card {
+  float: left;
+}
+.perseus-sortable.layout-horizontal .perseus-sortable-dragging {
+  cursor: ew-resize;
+}
+.perseus-sortable.layout-vertical,
+.perseus-sortable.layout-vertical .perseus-sortable-card {
+  max-width: 100%;
+}
+.perseus-sortable.layout-vertical .perseus-sortable-dragging {
+  cursor: ns-resize;
+}
+.perseus-sortable.unpadded .perseus-sortable-card {
+  padding: 0;
+}
+.perseus-sortable.unpadded .perseus-sortable-card img {
+  vertical-align: bottom;
+}
+.perseus-image-widget .perseus-image-title {
+  text-align: center;
+}
+.perseus-image-widget > .graphie-container {
+  position: relative;
+}
+.perseus-image-widget > .graphie-container > img,
+.perseus-image-widget > .graphie-container > .svg-image {
+  position: absolute;
+}
+.perseus-image-editor .label-settings td {
+  padding: 5px 4px;
+  text-align: center;
+}
+.perseus-image-editor .label-settings tr:nth-child(odd) td {
+  background-color: transparent;
+}
+.perseus-image-editor .label-settings th,
+.perseus-image-editor .label-settings td {
+  border-width: 0;
+}
+.perseus-widget-passage {
+  line-height: 22px;
+  margin: 22px 0 22px 45px;
+  position: relative;
+  width: 420px;
+}
+.perseus-widget-passage div.paragraph {
+  font-family: Times, "Times New Roman", serif;
+}
+.perseus-widget-passage .katex {
+  line-height: 20px;
+}
+.perseus-widget-passage .passage-title div.paragraph {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.perseus-widget-passage .passage-text div.paragraph {
+  font-size: 17px;
+  margin: 0;
+  text-indent: 20px;
+}
+.perseus-widget-passage .passage-text div.paragraph span {
+  text-indent: 0;
+}
+.perseus-widget-passage .footnotes {
+  margin-top: 22px;
+}
+.perseus-widget-passage .footnotes div.paragraph {
+  font-size: 14px;
+  margin: 0;
+}
+.perseus-widget-passage .line-numbers {
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 600;
+  left: -40px;
+  position: absolute;
+  text-align: right;
+  width: 25px;
+}
+.perseus-widget-passage .line-numbers span {
+  box-sizing: border-box;
+  display: block;
+  height: 22px;
+  padding-top: 1px;
+}
+.perseus-widget-passage .line-numbers .line-marker {
+  padding-top: 3px;
+}
+.perseus-widget-passage-editor .perseus-single-editor {
+  font-family: Times, "Times New Roman", serif;
+  margin-left: -11px;
+}
+.perseus-widget-passage-editor .perseus-textarea-pair textarea {
+  font-size: 13px;
+  line-height: 17px;
+}
+body.sat-section .perseus-widget-passage {
+  margin-top: 0;
+}
+.perseus-matrix .matrix-prefix,
+.perseus-matrix .matrix-suffix {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  margin: 10px 5px 0 10px;
+  vertical-align: top;
+}
+.perseus-matrix .matrix-suffix {
+  margin: 10px 10px 0 5px;
+}
+.perseus-matrix div.paragraph {
+  margin: 0;
+}
+.perseus-matrix .matrix-input {
+  background: #e2e2e2;
+  display: inline-block;
+  margin: 5px;
+  padding: 3px;
+  position: relative;
+  width: auto;
+}
+.perseus-matrix .matrix-row {
+  white-space: nowrap;
+}
+.perseus-matrix .matrix-bracket {
+  border-color: #666666;
+  border-style: solid;
+  border-bottom-width: 2px;
+  border-top-width: 2px;
+  margin-top: -2px;
+  position: absolute;
+  width: 6px;
+}
+.perseus-matrix .matrix-bracket.bracket-left {
+  border-color: #666666;
+  border-left-width: 2px;
+  left: 3px;
+}
+.perseus-matrix .matrix-bracket.bracket-right {
+  border-color: #666666;
+  border-right-width: 2px;
+  margin-left: -3px;
+}
+.perseus-matrix input,
+.perseus-matrix .number-input {
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  height: 30px;
+  margin: 3px;
+  padding: 0;
+  text-align: center;
+}
+.perseus-matrix input.outside,
+.perseus-matrix .number-input.outside {
+  background: #f3f3f3;
+}
+.perseus-matrix input:focus,
+.perseus-matrix .number-input:focus {
+  border: none;
+  outline: none;
+}
+.perseus-matrix.the-matrix .matrix-bracket,
+.perseus-matrix.the-matrix .matrix-left,
+.perseus-matrix.the-matrix .matrix-right {
+  border-color: #29F139;
+}
+.perseus-matrix.the-matrix .matrix-input {
+  background: #222;
+}
+.perseus-matrix.the-matrix input,
+.perseus-matrix.the-matrix .number-input {
+  background: #666;
+  color: #29F139;
+  font-weight: bold;
+}
+.perseus-matrix.the-matrix input.outside,
+.perseus-matrix.the-matrix .number-input.outside {
+  background: #444;
+}
+body.mobile .perseus-matrix .matrix-input {
+  display: table;
+}
+body.mobile .perseus-matrix .matrix-row {
+  display: table-row;
+}
+body.mobile .perseus-matrix .matrix-input-field {
+  display: table-cell;
+}
+body.mobile .perseus-matrix .math-output {
+  margin: 4px 4px 2px 4px;
+  max-height: 36px;
+  max-width: 80px;
+  overflow: hidden;
+}
+.perseus-matrix-editor .perseus-single-editor {
+  width: 338px;
+}
+.framework-perseus .perseus-group {
+  position: relative;
+  width: 100%;
+}
+.framework-perseus .perseus-group .group-icon {
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  top: calc(50% - 7px);
+  margin-left: -20px;
+}
+.framework-perseus .perseus-sequence {
+  width: 100%;
+}
+.perseus-widget-grapher {
+  padding: 25px 25px 0 0;
+}
+.perseus-widget-grapher > .graphie-container {
+  position: relative;
+}
+.perseus-widget-grapher > .graphie-container > img,
+.perseus-widget-grapher > .graphie-container > .svg-image {
+  position: absolute;
+}
+.old-unit-input input,
+.unit-editor-canonical {
+  border: 1px solid #a4a4a4;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 6px;
+}
+.unit-editor > div {
+  margin: 5px 0;
+}
+.perseus-diff {
+  margin: 0 10px;
+}
+.perseus-diff .diff-header {
+  font-size: 18px;
+  padding: 10px 0;
+  width: 50%;
+  display: inline-block;
+}
+.perseus-diff .diff-header.collapsed {
+  font-size: 14px;
+  padding: 0px;
+}
+.perseus-diff .diff-body {
+  border-top: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+}
+.perseus-diff .diff-row {
+  width: 50%;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 14px;
+  padding-right: 20px;
+  padding-left: 10px;
+  overflow: hidden;
+}
+.perseus-diff .diff-row.collapsed {
+  color: #888;
+  cursor: pointer;
+}
+.perseus-diff .diff-row.collapsed:hover {
+  color: #666;
+}
+.perseus-diff .diff-row.collapsed:active {
+  color: #444;
+}
+.perseus-diff .diff-row .diff-line {
+  margin-bottom: 20px;
+}
+.perseus-diff .before {
+  float: left;
+  border-left: 1px solid #e4e4e4;
+}
+.perseus-diff .after {
+  float: right;
+  border-right: 1px solid #e4e4e4;
+  border-left: 1px solid #e4e4e4;
+}
+.perseus-diff .inner-value {
+  height: 100%;
+  padding: 3px;
+}
+.perseus-diff .not-present {
+  display: none;
+}
+.perseus-diff .blank-space {
+  visibility: hidden;
+}
+.perseus-diff .added {
+  background-color: #EEFFEE;
+}
+.perseus-diff .added.dark {
+  background-color: #AAFFAA;
+}
+.perseus-diff .removed {
+  background-color: #FFEEEE;
+}
+.perseus-diff .removed.dark {
+  background-color: #FFAAAA;
+}
+.perseus-diff .image {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.perseus-diff .image-unchanged {
+  border: 1px solid #AAAAAA;
+}
+.perseus-diff .image-added {
+  border: 2px solid #AAFFAA;
+}
+.perseus-diff .image-removed {
+  border: 2px solid #FFAAAA;
+}
+.perseus-widget-container.widget-nohighlight {
+  transition: all 0.15s;
+}
+.perseus-widget-container.widget-highlight {
+  -webkit-box-shadow: 0px 0px 9px 2px #ffa500;
+  -moz-box-shadow: 0px 0px 9px 2px #ffa500;
+  box-shadow: 0px 0px 9px 2px #ffa500;
+  transition: all 0.15s;
+}
+.perseus-tooltip {
+  background: #fff;
+  padding: 5px 10px;
+  width: 240px;
+}
+.perseus-formats-tooltip {
+  background: #fff;
+  padding: 5px 10px;
+  width: 240px;
+  color: #777;
+}
+.framework-perseus .perseus-formats-tooltip .paragraph > ul {
+  padding: 0;
+  margin: -20px 0 -16px 0;
+}
+.framework-perseus .perseus-formats-tooltip .paragraph > ul > li {
+  list-style-type: none;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode {
+  background: #fff;
+  font-size: 18px;
+  min-width: 100px;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+  border-color: #a4a4a4;
+  border-radius: 5px;
+  padding: 4px;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-cursor {
+  padding-left: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-paren.mq-ghost {
+  color: inherit;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-paren + span {
+  margin: 0;
+}
+.perseus-widget-editor .perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+  border-radius: 0;
+}
+.math-input-buttons {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  margin-top: 5px;
+  padding: 2px;
+  width: 201px;
+}
+.math-input-buttons.absolute {
+  left: -2px;
+  position: absolute;
+  top: -3px;
+  z-index: 5;
+}
+.tex-button {
+  display: block;
+  float: left;
+  width: 35px;
+  height: 35px;
+  margin: 2px;
+  border: 1px solid #1c758a;
+  background-color: white;
+  border-radius: 5px;
+}
+.tex-button:hover {
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+.tex-button:focus {
+  border: 2px solid #1c758a;
+  outline: none;
+}
+.tex-button-row {
+  margin: 5px 0;
+}
+.tex-button-row:first-child {
+  margin-top: 0;
+}
+.tex-button-row:last-child {
+  margin-bottom: 0;
+}
+.renderer-widget-error {
+  background-color: #fcc;
+}
+body.sat-section .content-area > div {
+  margin-left: auto;
+  margin-right: auto;
+  width: 592px;
+}
+body.sat-section .content-area > div .perseus-input-with-answer-blurb > span {
+  display: inline-block;
+}
+body.sat-section .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers,
+body.sat-section .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers:before {
+  font-family: "Proxima Nova Semibold";
+}
+body.sat-section .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers {
+  color: #009900;
+  padding-right: 4px;
+}
+body.sat-section .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers:before {
+  content: "CORRECT ANSWER:";
+  padding: 0 5px 0 13px;
+  color: #121212;
+}
+body.sat-section .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answer:not(:first-child):before {
+  content: "or";
+  padding: 0 5px;
+  color: #121212;
+}
+body.sat-section .content-area > div input.perseus-incorrect {
+  color: #990000;
+  background-color: #f2ebeb;
+  border: solid 1px #cc5252;
+}
+body.sat-section .content-area > div input.perseus-correct {
+  color: #009900;
+  background-color: #e4f7e4;
+  border: solid 1px #00cc00;
+}
+body.sat-section .content-area > div input.perseus-unanswered {
+  background-color: #eee;
+  border: solid 1px #999;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns {
+  width: 1024px;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns > .paragraph {
+  margin: 0;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns > .paragraph {
+  margin: 0;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column {
+  overflow-y: auto;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column > .paragraph {
+  margin: 0;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) {
+  background: #eee;
+  border-right: 1px solid #ddd;
+  height: 515px;
+  max-height: 515px;
+  float: left;
+  padding-left: 46px;
+  padding-top: 35px;
+  padding-bottom: 22px;
+  width: 512px;
+  box-sizing: border-box;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-widget-passage {
+  margin: 0;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) > .paragraph {
+  margin-right: 40px;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) blockquote {
+  padding: 0;
+  margin-right: 22px;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) blockquote > .paragraph:nth-child(1) {
+  margin-top: 0;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) {
+  float: right;
+  height: 550px;
+  max-height: 550px;
+  padding-right: 20px;
+  width: 475px;
+}
+body.sat-section .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) .perseus-group {
+  margin-bottom: 20px;
+}
+body.sat-section .question-annotation {
+  color: #999;
+  margin-top: 35px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+body.sat-section .paragraph:not(:first-child) .question-annotation {
+  margin-top: 48px;
+}
+body.sat-section input[type=text],
+body.sat-section input[type=number] {
+  border: 1px solid #aaa;
+  font-family: "Proxima Nova Semibold", sans-serif;
+  font-size: 14px;
+  margin: 10px 0;
+  padding: 5px;
+}
+body.sat-section .valid-answer input[type=text]:valid,
+body.sat-section .valid-answer input[type=number]:valid {
+  border: 1px solid #0084ce;
+  background: #e4f3f9;
+}
+body.sat-section .invalid-answer input[type=text]:valid,
+body.sat-section .invalid-answer input[type=number]:valid {
+  color: #990000;
+  background-color: #f2ebeb;
+  border: solid 1px #cc5252;
+}
+#sat-mission .content-area > div {
+  margin-left: auto;
+  margin-right: auto;
+  width: 592px;
+}
+#sat-mission .content-area > div .perseus-input-with-answer-blurb > span {
+  display: inline-block;
+}
+#sat-mission .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers,
+#sat-mission .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers:before {
+  font-family: "Proxima Nova Semibold";
+}
+#sat-mission .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers {
+  color: #009900;
+  padding-right: 4px;
+}
+#sat-mission .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answers:before {
+  content: "CORRECT ANSWER:";
+  padding: 0 5px 0 13px;
+  color: #121212;
+}
+#sat-mission .content-area > div .perseus-input-with-answer-blurb .perseus-possible-answer:not(:first-child):before {
+  content: "or";
+  padding: 0 5px;
+  color: #121212;
+}
+#sat-mission .content-area > div input.perseus-incorrect {
+  color: #990000;
+  background-color: #f2ebeb;
+  border: solid 1px #cc5252;
+}
+#sat-mission .content-area > div input.perseus-correct {
+  color: #009900;
+  background-color: #e4f7e4;
+  border: solid 1px #00cc00;
+}
+#sat-mission .content-area > div input.perseus-unanswered {
+  background-color: #eee;
+  border: solid 1px #999;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns {
+  width: 1024px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns > .paragraph {
+  margin: 0;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns > .paragraph {
+  margin: 0;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column {
+  overflow-y: auto;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column > .paragraph {
+  margin: 0;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) {
+  background: #eee;
+  border-right: 1px solid #ddd;
+  height: 502px;
+  max-height: 502px;
+  float: left;
+  padding-left: 46px;
+  padding-top: 48px;
+  padding-bottom: 22px;
+  width: 512px;
+  box-sizing: border-box;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) .perseus-widget-passage {
+  margin: 0;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) > .paragraph {
+  margin-right: 40px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) blockquote {
+  padding: 0;
+  margin-right: 22px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(1) blockquote > .paragraph:nth-child(1) {
+  margin-top: 0;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) {
+  float: right;
+  height: 550px;
+  max-height: 550px;
+  padding-right: 32px;
+  width: 448px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .perseus-column:nth-child(2) .perseus-group {
+  margin-bottom: 20px;
+}
+#sat-mission .content-area > div.perseus-renderer-two-columns .question-annotation {
+  margin-top: 48px;
+}
+#sat-mission .question-annotation {
+  color: #999;
+  margin-top: 80px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+#sat-mission .paragraph:not(:first-child) .question-annotation {
+  margin-top: 48px;
+}
+#sat-mission input[type=text],
+#sat-mission input[type=number] {
+  border: 1px solid #aaa;
+  font-family: "Proxima Nova Semibold", sans-serif;
+  font-size: 14px;
+  margin: 10px 0;
+  padding: 5px;
+}
+#sat-mission .valid-answer input[type=text]:valid,
+#sat-mission .valid-answer input[type=number]:valid {
+  border: 1px solid #0084ce;
+  background: #e4f3f9;
+}
+#sat-mission .invalid-answer input[type=text]:valid,
+#sat-mission .invalid-answer input[type=number]:valid {
+  color: #990000;
+  background-color: #f2ebeb;
+  border: solid 1px #cc5252;
+}
+#sat-mission #sat-route-task .content-area > .perseus-renderer {
+  margin-top: 80px;
+}
+#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns {
+  margin-top: 0;
+}
+#sat-mission #sat-route-task .content-area > .perseus-renderer.perseus-renderer-two-columns .perseus-column:nth-child(2) > *:first-child {
+  margin-top: 48px;
+}
+.perseus-error {
+  background: #ffbaba;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 15px 0 10px;
+}
+.perseus-sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
