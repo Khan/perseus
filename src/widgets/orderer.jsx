@@ -669,5 +669,6 @@ module.exports = {
     name: "orderer",
     displayName: "Orderer",
     widget: Orderer,
-    editor: OrdererEditor
+    editor: OrdererEditor,
+    hidden: true
 };

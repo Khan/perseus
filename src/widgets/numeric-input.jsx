@@ -452,5 +452,6 @@ module.exports = {
     displayName: "Number text box (new)",
     widget: NumericInput,
     editor: NumericInputEditor,
-    transform: propsTransform
+    transform: propsTransform,
+    hidden: true
 };

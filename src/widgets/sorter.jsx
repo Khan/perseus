@@ -148,5 +148,6 @@ module.exports = {
     name: "sorter",
     displayName: "Sorter",
     widget: Sorter,
-    editor: SorterEditor
+    editor: SorterEditor,
+    hidden: true
 };

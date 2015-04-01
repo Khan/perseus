@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 10cd8f53b48995e12437eb7b73c8bae5d127ead8
-// branch gh-pages
+// commit a23c1ea3102cea4ae3b030f1ca4891b8aec5e72e
+// branch perseuseditor_into_junyi
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -10599,7 +10599,7 @@ var ItemEditor = React.createClass({displayName: 'ItemEditor',
                                 onClick:this.props.onCheckAnswer,
                                 value:"Check Answer"} ),
                             this.props.wasAnswered &&
-                                React.DOM.img( {src:"images/face-smiley.png",
+                                React.DOM.img( {src:"/images/face-smiley.png",
                                     className:"smiley"} ),
                             this.props.gradeMessage &&
                                 React.DOM.span(null, this.props.gradeMessage)
@@ -12394,6 +12394,7 @@ var Util = {
             a = /\+/g,  // Regex for replacing addition symbol with a space
             r = /([^&=]+)=?([^&]*)/g,
             d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
+        
         for(i=0;i<query.length;i++){
             while ((e = r.exec(query[i]))) {
                 urlParams[d(e[1])] = d(e[2]);
@@ -12908,7 +12909,8 @@ module.exports = {
     editor: CategorizerEditor,
     transform: function(editorProps)  {
         return _.pick(editorProps, "items", "categories");
-    }
+    },
+    hidden: true
 };
 
 
@@ -13167,7 +13169,8 @@ module.exports = {
     displayName: "Drop down",
     widget: Dropdown,
     editor: DropdownEditor,
-    transform: propTransform
+    transform: propTransform,
+    hidden: true
 };
 
 },{"../components/fancy-select.jsx":120,"../mixins/jsonify-props.jsx":160,"../perseus-api.jsx":162,"../util.js":168,"react":115,"react-components/info-tip":5}],174:[function(require,module,exports){
@@ -14217,7 +14220,8 @@ module.exports = {
     editor: ExpressionEditor,
     transform: function(editorProps)  {
         return _.pick(editorProps, "times", "functions");
-    }
+    },
+    hidden: true
 };
 
 },{"../components/input-with-examples.jsx":126,"../components/math-input.jsx":127,"../components/prop-check-box.jsx":130,"../components/tex-buttons.jsx":133,"../enabled-features.jsx":144,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../perseus-api.jsx":162,"../tex.jsx":167,"react":115,"react-components/info-tip":5,"react-components/tooltip":114}],177:[function(require,module,exports){
@@ -17702,7 +17706,8 @@ module.exports = {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    editor: InteractiveGraphEditor
+    editor: InteractiveGraphEditor,
+    hidden: true
 };
 
 },{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../interactive2.js":148,"../util.js":168,"react":115,"react-components/info-tip":5}],181:[function(require,module,exports){
@@ -18860,7 +18865,8 @@ module.exports = {
     name: "matcher",
     displayName: "Two column matcher",
     widget: Matcher,
-    editor: MatcherEditor
+    editor: MatcherEditor,
+    hidden: true
 };
 
 },{"../components/prop-check-box.jsx":130,"../components/sortable.jsx":132,"../components/text-list-editor.jsx":135,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],184:[function(require,module,exports){
@@ -19221,7 +19227,8 @@ module.exports = {
     widget: Measurer,
     editor: MeasurerEditor,
     version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades
+    propUpgrades: propUpgrades,
+    hidden: true
 };
 
 },{"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"react":115,"react-components/info-tip":5}],185:[function(require,module,exports){
@@ -20092,7 +20099,8 @@ module.exports = {
     displayName: "Number line",
     widget: NumberLine,
     editor: NumberLineEditor,
-    transform: NumberLineTransform
+    transform: NumberLineTransform,
+    hidden: true
 };
 
 },{"../components/graphie.jsx":125,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../interactive2.js":148,"../interactive2/interactive-util.js":149,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],186:[function(require,module,exports){
@@ -20550,7 +20558,8 @@ module.exports = {
     displayName: "Number text box (new)",
     widget: NumericInput,
     editor: NumericInputEditor,
-    transform: propsTransform
+    transform: propsTransform,
+    hidden: true
 };
 
 },{"../components/input-with-examples.jsx":126,"../components/multi-button-group.jsx":128,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../editor.jsx":143,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],187:[function(require,module,exports){
@@ -21225,7 +21234,8 @@ module.exports = {
     name: "orderer",
     displayName: "Orderer",
     widget: Orderer,
-    editor: OrdererEditor
+    editor: OrdererEditor,
+    hidden: true
 };
 
 },{"../components/text-list-editor.jsx":135,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],188:[function(require,module,exports){
@@ -22225,7 +22235,8 @@ module.exports = {
     name: "plotter",
     displayName: "Plotter",
     widget: Plotter,
-    editor: PlotterEditor
+    editor: PlotterEditor,
+    hidden: true
 };
 
 },{"../components/number-input.jsx":129,"../components/range-input.jsx":131,"../components/text-list-editor.jsx":135,"../util.js":168,"react":115,"react-components/info-tip":5}],189:[function(require,module,exports){
@@ -22957,7 +22968,8 @@ module.exports = {
     name: "sorter",
     displayName: "Sorter",
     widget: Sorter,
-    editor: SorterEditor
+    editor: SorterEditor,
+    hidden: true
 };
 
 },{"../components/prop-check-box.jsx":130,"../components/sortable.jsx":132,"../components/text-list-editor.jsx":135,"../util.js":168,"react":115,"react-components/info-tip":5}],191:[function(require,module,exports){
@@ -23277,7 +23289,8 @@ module.exports = {
     name: "table",
     displayName: "Table of values",
     widget: Table,
-    editor: TableEditor
+    editor: TableEditor,
+    hidden: true
 };
 
 },{"../editor.jsx":143,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],192:[function(require,module,exports){
@@ -25797,7 +25810,8 @@ module.exports = {
     name: "transformer",
     displayName: "Transformer",
     widget: Transformer,
-    editor: TransformerEditor
+    editor: TransformerEditor,
+    hidden: true
 };
 
 },{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../tex.jsx":167,"../util.js":168,"react":115,"react-components/info-tip":5}]},{},[163])

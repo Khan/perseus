@@ -994,5 +994,6 @@ module.exports = {
     name: "plotter",
     displayName: "Plotter",
     widget: Plotter,
-    editor: PlotterEditor
+    editor: PlotterEditor,
+    hidden: true
 };

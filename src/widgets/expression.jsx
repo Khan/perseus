@@ -665,5 +665,6 @@ module.exports = {
     editor: ExpressionEditor,
     transform: (editorProps) => {
         return _.pick(editorProps, "times", "functions");
-    }
+    },
+    hidden: true
 };

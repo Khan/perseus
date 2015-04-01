@@ -2514,5 +2514,6 @@ module.exports = {
     name: "transformer",
     displayName: "Transformer",
     widget: Transformer,
-    editor: TransformerEditor
+    editor: TransformerEditor,
+    hidden: true
 };
