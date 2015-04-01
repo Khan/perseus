@@ -865,5 +865,6 @@ module.exports = {
     displayName: "Number line",
     widget: NumberLine,
     editor: NumberLineEditor,
-    transform: NumberLineTransform
+    transform: NumberLineTransform,
+    hidden: true
 };

@@ -178,6 +178,7 @@ module.exports = {
     editor: CategorizerEditor,
     transform: (editorProps) => {
         return _.pick(editorProps, "items", "categories");
-    }
+    },
+    hidden: true
 };
 

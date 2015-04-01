@@ -239,5 +239,6 @@ module.exports = {
     name: "matcher",
     displayName: "Two column matcher",
     widget: Matcher,
-    editor: MatcherEditor
+    editor: MatcherEditor,
+    hidden: true
 };

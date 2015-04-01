@@ -252,5 +252,6 @@ module.exports = {
     displayName: "Drop down",
     widget: Dropdown,
     editor: DropdownEditor,
-    transform: propTransform
+    transform: propTransform,
+    hidden: true
 };

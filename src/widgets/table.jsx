@@ -314,5 +314,6 @@ module.exports = {
     name: "table",
     displayName: "Table of values",
     widget: Table,
-    editor: TableEditor
+    editor: TableEditor,
+    hidden: true
 };
