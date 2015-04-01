@@ -313,7 +313,7 @@ $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
 
 
 // don't know why!
-url = window.location.hash.split('?')[0];
+url = window.location.hash.split('?')[0].substring(1);
 var question_dic = Perseus.Util.parseQueryString(url);
 var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
 $('span#qid').html(question_dic.qid);
