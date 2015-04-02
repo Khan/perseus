@@ -5,6 +5,8 @@ var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip");
 var Widgets = require("./widgets.js");
 
+var WidgetsInAnswerAreaEditor = ['Image'];
+
 var AnswerAreaEditor = React.createClass({
     getDefaultProps: function() {
         return {
@@ -34,19 +36,7 @@ var AnswerAreaEditor = React.createClass({
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
-            <div><label>
-                {' '}Show calculator:{' '}
-                <input type="checkbox" checked={this.props.calculator}
-                    onChange={e => {
-                        this.props.onChange({calculator: e.target.checked});
-                    }} />
-            </label>
-            <InfoTip>
-                <p>Use the calculator when completing difficult calculations is
-                NOT the intent of the question. DON’T use the calculator when
-                testing the student’s ability to complete different types of
-                computations.</p>
-            </InfoTip>
+            <div>
             </div>
             <div><label>
                 {' '}Answer type:{' '}
@@ -60,16 +50,10 @@ var AnswerAreaEditor = React.createClass({
                             });
                         }}>
                     <option value="radio">Multiple choice</option>
-                    <option value="table">Table of values</option>
                     <option value="input-number">Text input (number)</option>
-                    <option value="expression">Expression / Equation</option>
-                    <option value="multiple">Custom format</option>
                 </select>
             </label>
-            <InfoTip>
-                <p>Use the custom format if the question is in the question
-                area, and tell the students how to complete the problem.</p>
-            </InfoTip></div>
+            </div>
             </div>
             <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
                 {editor}

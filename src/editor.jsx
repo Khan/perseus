@@ -9,6 +9,9 @@ var DragTarget = require("react-components/drag-target");
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
+// widgets junyi can use now:
+var widgetsInEditor = ['image'];
+
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
         var widgetType = e.target.value;
@@ -27,8 +30,9 @@ var WidgetSelect = React.createClass({
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
-            return widgets[name].displayName;
+        var junyiValidWidgets = _.pick(widgets, widgetsInEditor[0]);
+        var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), (name) => {
+            return junyiValidWidgets[name].displayName;
         });
 
         return <select onChange={this.handleChange}>
@@ -328,8 +332,6 @@ var Editor = React.createClass({
                 <option value="">Insert template{"\u2026"}</option>
                 <option disabled>--</option>
                 <option value="table">Table</option>
-                <option value="alignment">Aligned equations</option>
-                <option value="piecewise">Piecewise function</option>
             </select>;
 
             if (!this.props.immutableWidgets) {

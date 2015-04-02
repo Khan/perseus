@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 2d2062f073e2e50916b5377bae55548b060f923c
+// commit 0d28a38f612a50493486788a20d861ed5206329a
 // branch perseuseditor_into_junyi
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -3733,6 +3733,8 @@ var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip");
 var Widgets = require("./widgets.js");
 
+var WidgetsInAnswerAreaEditor = ['Image'];
+
 var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
     getDefaultProps: function() {
         return {
@@ -3762,19 +3764,7 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
 
         return React.DOM.div( {className:"perseus-answer-editor"}, 
             React.DOM.div( {className:"perseus-answer-options"}, 
-            React.DOM.div(null, React.DOM.label(null, 
-                ' ',"Show calculator:",' ',
-                React.DOM.input( {type:"checkbox", checked:this.props.calculator,
-                    onChange:function(e)  {
-                        this.props.onChange({calculator: e.target.checked});
-                    }.bind(this)} )
-            ),
-            InfoTip(null, 
-                React.DOM.p(null, "Use the calculator when completing difficult calculations is"+' '+
-                "NOT the intent of the question. DON’T use the calculator when"+' '+
-                "testing the student’s ability to complete different types of"+' '+
-                "computations.")
-            )
+            React.DOM.div(null
             ),
             React.DOM.div(null, React.DOM.label(null, 
                 ' ',"Answer type:",' ',
@@ -3788,16 +3778,10 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
                             }.bind(this));
                         }.bind(this)}, 
                     React.DOM.option( {value:"radio"}, "Multiple choice"),
-                    React.DOM.option( {value:"table"}, "Table of values"),
-                    React.DOM.option( {value:"input-number"}, "Text input (number)"),
-                    React.DOM.option( {value:"expression"}, "Expression / Equation"),
-                    React.DOM.option( {value:"multiple"}, "Custom format")
+                    React.DOM.option( {value:"input-number"}, "Text input (number)")
                 )
-            ),
-            InfoTip(null, 
-                React.DOM.p(null, "Use the custom format if the question is in the question"+' '+
-                "area, and tell the students how to complete the problem.")
-            ))
+            )
+            )
             ),
             React.DOM.div( {className:cls !== Editor ? "perseus-answer-widget" : ""}, 
                 editor
@@ -8121,6 +8105,9 @@ var DragTarget = require("react-components/drag-target");
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
+// widgets junyi can use now:
+var widgetsInEditor = ['image'];
+
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
         var widgetType = e.target.value;
@@ -8139,8 +8126,9 @@ var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var orderedWidgetNames = _.sortBy(_.keys(widgets), function(name)  {
-            return widgets[name].displayName;
+        var junyiValidWidgets = _.pick(widgets, widgetsInEditor[0]);
+        var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), function(name)  {
+            return junyiValidWidgets[name].displayName;
         });
 
         return React.DOM.select( {onChange:this.handleChange}, 
@@ -8439,9 +8427,7 @@ var Editor = React.createClass({displayName: 'Editor',
             templatesDropDown = React.DOM.select( {onChange:this.addTemplate}, 
                 React.DOM.option( {value:""}, "Insert template","\u2026"),
                 React.DOM.option( {disabled:true}, "--"),
-                React.DOM.option( {value:"table"}, "Table"),
-                React.DOM.option( {value:"alignment"}, "Aligned equations"),
-                React.DOM.option( {value:"piecewise"}, "Piecewise function")
+                React.DOM.option( {value:"table"}, "Table")
             );
 
             if (!this.props.immutableWidgets) {
@@ -14653,46 +14639,12 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
                     React.DOM.p(null, "Create an image in graphie, or use the \"Add image\""+' '+
                     "function to create a background.")
                 )
-            ),
-            this.props.backgroundImage.url && React.DOM.div(null, 
-                React.DOM.div(null, "Graphie X range:",' ',
-                    RangeInput(
-                        {value:this.props.range[0],
-                        onChange:_.partial(this.onRangeChange, 0)} )
-                ),
-                React.DOM.div(null, "Graphie Y range:",' ',
-                    RangeInput(
-                        {value:this.props.range[1],
-                        onChange:_.partial(this.onRangeChange, 1)} )
-                )
             )
         );
 
-        var graphSettings = React.DOM.div( {className:"graph-settings"}, 
-                React.DOM.div( {className:"add-label"}, 
-                    React.DOM.button( {onClick:this.addLabel}, 
-                        ' ',"Add a label",' '
-                    )
-                ),
-                this.props.labels.length > 0 &&
-                React.DOM.table( {className:"label-settings"}, 
-                    React.DOM.thead(null, 
-                    React.DOM.tr(null, 
-                        React.DOM.th(null, "Coordinates"),
-                        React.DOM.th(null, "Content"),
-                        React.DOM.th(null, "Alignment"),
-                        React.DOM.th(null)
-                    )
-                    ),
-                    React.DOM.tbody(null, 
-                        this.props.labels.map(this._renderRowForLabel)
-                    )
-                )
-        );
-
         return React.DOM.div( {className:"perseus-widget-image"}, 
-            imageSettings,
-            graphSettings
+            imageSettings
+            
         );
     },
 
@@ -15077,56 +15029,6 @@ var InputNumberEditor = React.createClass({displayName: 'InputNumberEditor',
                 BlurInput( {value:"" + this.props.value,
                            onChange:this.handleAnswerChange,
                            ref:"input"} )
-            )),
-
-            React.DOM.div(null, 
-                React.DOM.label(null, 
-                    ' ',"Unsimplified answers",' ',
-                    React.DOM.select( {value:this.props.simplify,
-                            onChange:function(e)  {
-                                this.props.onChange({simplify:
-                                e.target.value});
-                            }.bind(this)}, 
-                        React.DOM.option( {value:"required"}, "will not be graded"),
-                        React.DOM.option( {value:"optional"}, "will be accepted"),
-                        React.DOM.option( {value:"enforced"}, "will be marked wrong")
-                    )
-                ),
-                InfoTip(null, 
-                    React.DOM.p(null, "Normally select \"will not be graded\". This will give the"+' '+
-                    "user a message saying the answer is correct but not"+' '+
-                    "simplified. The user will then have to simplify it and"+' '+
-                    "re-enter, but will not be penalized. (5th grade and"+' '+
-                    "anything after)"),
-                    React.DOM.p(null, "Select \"will be accepted\" only if the user is not"+' '+
-                    "expected to know how to simplify fractions yet. (Anything"+' '+
-                    "prior to 5th grade)"),
-                    React.DOM.p(null, "Select \"will be marked wrong\" only if we are"+' '+
-                    "specifically assessing the ability to simplify.")
-                )
-            ),
-
-            React.DOM.div(null, React.DOM.label(null, 
-                React.DOM.input( {type:"checkbox",
-                    checked:this.props.inexact,
-                    onChange:function(e)  {
-                        this.props.onChange({inexact: e.target.checked});
-                    }.bind(this)} ),
-                ' ',"Allow inexact answers",' '
-            ),
-
-            React.DOM.label(null, 
-            React.DOM.input( /* TODO(emily): don't use a hidden checkbox for alignment */
-                {type:"checkbox", style:{visibility: "hidden"}} ),
-            ' ',"Max error:",' ',
-            React.DOM.input( {type:"text", disabled:!this.props.inexact,
-                defaultValue:this.props.maxError,
-                onBlur:function(e)  {
-                    var ans = "" + (Util.firstNumericalParse(
-                            e.target.value) || 0);
-                    e.target.value = ans;
-                    this.props.onChange({maxError: ans});
-                }.bind(this)} )
             )),
 
             React.DOM.div(null, 
@@ -22574,23 +22476,7 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
     render: function() {
         return React.DOM.div(null, 
             React.DOM.div( {className:"perseus-widget-row"}, 
-
-                React.DOM.div(null, 
-                    React.DOM.div( {className:"perseus-widget-left-col"}, 
-                        PropCheckBox( {label:"One answer per line",
-                                      labelAlignment:"right",
-                                      onePerLine:this.props.onePerLine,
-                                      onChange:this.props.onChange} )
-                    ),
-                    InfoTip(null, 
-                        React.DOM.p(null, 
-                            "Use one answer per line unless your question has"+' '+
-                            "images that might cause the answers to go off the"+' '+
-                            "page."
-                        )
-                    )
-                ),
-
+            
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
                     PropCheckBox( {label:"Multiple selections",
                                   labelAlignment:"right",
@@ -22602,12 +22488,6 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
                     PropCheckBox( {label:"Randomize order",
                                   labelAlignment:"right",
                                   randomize:this.props.randomize,
-                                  onChange:this.props.onChange} )
-                ),
-                React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    PropCheckBox( {label:"Auto-none of the above",
-                                  labelAlignment:"right",
-                                  noneOfTheAbove:this.props.noneOfTheAbove,
                                   onChange:this.props.onChange} )
                 )
             ),

@@ -263,56 +263,6 @@ var InputNumberEditor = React.createClass({
             </label></div>
 
             <div>
-                <label>
-                    {' '}Unsimplified answers{' '}
-                    <select value={this.props.simplify}
-                            onChange={e => {
-                                this.props.onChange({simplify:
-                                e.target.value});
-                            }}>
-                        <option value="required">will not be graded</option>
-                        <option value="optional">will be accepted</option>
-                        <option value="enforced">will be marked wrong</option>
-                    </select>
-                </label>
-                <InfoTip>
-                    <p>Normally select "will not be graded". This will give the
-                    user a message saying the answer is correct but not
-                    simplified. The user will then have to simplify it and
-                    re-enter, but will not be penalized. (5th grade and
-                    anything after)</p>
-                    <p>Select "will be accepted" only if the user is not
-                    expected to know how to simplify fractions yet. (Anything
-                    prior to 5th grade)</p>
-                    <p>Select "will be marked wrong" only if we are
-                    specifically assessing the ability to simplify.</p>
-                </InfoTip>
-            </div>
-
-            <div><label>
-                <input type="checkbox"
-                    checked={this.props.inexact}
-                    onChange={e => {
-                        this.props.onChange({inexact: e.target.checked});
-                    }} />
-                {' '}Allow inexact answers{' '}
-            </label>
-
-            <label>
-            <input /* TODO(emily): don't use a hidden checkbox for alignment */
-                type="checkbox" style={{visibility: "hidden"}} />
-            {' '}Max error:{' '}
-            <input type="text" disabled={!this.props.inexact}
-                defaultValue={this.props.maxError}
-                onBlur={e => {
-                    var ans = "" + (Util.firstNumericalParse(
-                            e.target.value) || 0);
-                    e.target.value = ans;
-                    this.props.onChange({maxError: ans});
-                }} />
-            </label></div>
-
-            <div>
             {' '}Answer type:{' '}
             <select
                 value={this.props.answerType}
