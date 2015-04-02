@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 2d2062f073e2e50916b5377bae55548b060f923c
+// commit 782c00db3ab02106bb7ac9f3d9479f8cb9529e32
 // branch perseuseditor_into_junyi
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -3733,6 +3733,8 @@ var Editor = require("./editor.jsx");
 var InfoTip = require("react-components/info-tip");
 var Widgets = require("./widgets.js");
 
+var WidgetsInAnswerAreaEditor = ['Image'];
+
 var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
     getDefaultProps: function() {
         return {
@@ -3762,19 +3764,7 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
 
         return React.DOM.div( {className:"perseus-answer-editor"}, 
             React.DOM.div( {className:"perseus-answer-options"}, 
-            React.DOM.div(null, React.DOM.label(null, 
-                ' ',"Show calculator:",' ',
-                React.DOM.input( {type:"checkbox", checked:this.props.calculator,
-                    onChange:function(e)  {
-                        this.props.onChange({calculator: e.target.checked});
-                    }.bind(this)} )
-            ),
-            InfoTip(null, 
-                React.DOM.p(null, "Use the calculator when completing difficult calculations is"+' '+
-                "NOT the intent of the question. DON’T use the calculator when"+' '+
-                "testing the student’s ability to complete different types of"+' '+
-                "computations.")
-            )
+            React.DOM.div(null
             ),
             React.DOM.div(null, React.DOM.label(null, 
                 ' ',"Answer type:",' ',
@@ -3788,16 +3778,10 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
                             }.bind(this));
                         }.bind(this)}, 
                     React.DOM.option( {value:"radio"}, "Multiple choice"),
-                    React.DOM.option( {value:"table"}, "Table of values"),
-                    React.DOM.option( {value:"input-number"}, "Text input (number)"),
-                    React.DOM.option( {value:"expression"}, "Expression / Equation"),
-                    React.DOM.option( {value:"multiple"}, "Custom format")
+                    React.DOM.option( {value:"input-number"}, "Text input (number)")
                 )
-            ),
-            InfoTip(null, 
-                React.DOM.p(null, "Use the custom format if the question is in the question"+' '+
-                "area, and tell the students how to complete the problem.")
-            ))
+            )
+            )
             ),
             React.DOM.div( {className:cls !== Editor ? "perseus-answer-widget" : ""}, 
                 editor
@@ -8121,6 +8105,9 @@ var DragTarget = require("react-components/drag-target");
 // like [[snowman input-number 1]]
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
+// widgets junyi can use now:
+var widgetsInEditor = ['image'];
+
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
         var widgetType = e.target.value;
@@ -8139,8 +8126,9 @@ var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var orderedWidgetNames = _.sortBy(_.keys(widgets), function(name)  {
-            return widgets[name].displayName;
+        var junyiValidWidgets = _.pick(widgets, widgetsInEditor[0]);
+        var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), function(name)  {
+            return junyiValidWidgets[name].displayName;
         });
 
         return React.DOM.select( {onChange:this.handleChange}, 
@@ -8439,9 +8427,7 @@ var Editor = React.createClass({displayName: 'Editor',
             templatesDropDown = React.DOM.select( {onChange:this.addTemplate}, 
                 React.DOM.option( {value:""}, "Insert template","\u2026"),
                 React.DOM.option( {disabled:true}, "--"),
-                React.DOM.option( {value:"table"}, "Table"),
-                React.DOM.option( {value:"alignment"}, "Aligned equations"),
-                React.DOM.option( {value:"piecewise"}, "Piecewise function")
+                React.DOM.option( {value:"table"}, "Table")
             );
 
             if (!this.props.immutableWidgets) {
