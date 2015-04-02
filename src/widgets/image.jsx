@@ -159,45 +159,11 @@ var ImageEditor = React.createClass({
                     function to create a background.</p>
                 </InfoTip>
             </div>
-            {this.props.backgroundImage.url && <div>
-                <div>Graphie X range:{' '}
-                    <RangeInput
-                        value={this.props.range[0]}
-                        onChange={_.partial(this.onRangeChange, 0)} />
-                </div>
-                <div>Graphie Y range:{' '}
-                    <RangeInput
-                        value={this.props.range[1]}
-                        onChange={_.partial(this.onRangeChange, 1)} />
-                </div>
-            </div>}
-        </div>;
-
-        var graphSettings = <div className="graph-settings">
-                <div className="add-label">
-                    <button onClick={this.addLabel}>
-                        {' '}Add a label{' '}
-                    </button>
-                </div>
-                {this.props.labels.length > 0 &&
-                <table className="label-settings">
-                    <thead>
-                    <tr>
-                        <th>Coordinates</th>
-                        <th>Content</th>
-                        <th>Alignment</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.labels.map(this._renderRowForLabel)}
-                    </tbody>
-                </table>}
         </div>;
 
         return <div className="perseus-widget-image">
             {imageSettings}
-            {graphSettings}
+            
         </div>;
     },
 
