@@ -53,7 +53,11 @@ var Passage = React.createClass({
             // in earlier passages.
             lineNumbers = _.range(1, nLines + 1).map((lineN) => {
                 if (lineN === 4 && nLines > 4) {
-                    return <span className="line-marker">Line</span>;
+                    return <span
+                            key="line-marker"
+                            className="line-marker">
+                        Line
+                    </span>;
                 } else if (lineN % 5 === 0) {
                     return lineN + this.state.startLineNumbersAfter;
                 } else {
