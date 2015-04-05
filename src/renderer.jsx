@@ -455,7 +455,7 @@ var Renderer = React.createClass({
         // We even do this if we did reuse the markdown because
         // we might need to update the widget props on this render,
         // even though we have the same widgets.
-        // WidgetContainers don't update their widgets props when
+        // WidgetContainers don't update their widgets' props when
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
         _.each(this.widgetIds, (id) => {
