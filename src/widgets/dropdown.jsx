@@ -257,6 +257,7 @@ var propTransform = (editorProps) => {
 module.exports = {
     name: "dropdown",
     displayName: "Drop down",
+    accessible: true,
     widget: Dropdown,
     editor: DropdownEditor,
     transform: propTransform

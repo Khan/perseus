@@ -58,6 +58,13 @@ var Widgets = {
         }));
     },
 
+    getAccessibleWidgets: function() {
+        // TODO(alex): Update underscore.js so that _.pick can take a function.
+        return _.pick(widgets, _.filter(_.keys(widgets), function(name) {
+            return widgets[name].accessible;
+        }));
+    },
+
     getAllWidgetTypes: function() {
         return _.keys(widgets);
     },

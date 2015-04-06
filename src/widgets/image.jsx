@@ -406,6 +406,8 @@ var ImageEditor = React.createClass({
 
 module.exports = {
     name: "image",
+    // This widget's accessibility will be tested externally, since it depends
+    // on whether or not the image contains alt text
     displayName: "Image",
     widget: ImageWidget,
     editor: ImageEditor

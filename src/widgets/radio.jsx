@@ -800,6 +800,7 @@ var propUpgrades = {
 module.exports = {
     name: "radio",
     displayName: "Multiple choice",
+    accessible: true,
     widget: Radio,
     editor: RadioEditor,
     transform: choiceTransform,

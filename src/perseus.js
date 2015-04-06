@@ -8,6 +8,7 @@ module.exports = {
     itemVersion:        require("./item-version"),
     init:               require("./init.js"),
     renderability:      require("./renderability.jsx"),
+    accessibility:      require("./a11y.js"),
     AnswerAreaRenderer: require("./answer-area-renderer.jsx"),
     ArticleEditor:      require("./article-editor.jsx"),
     ArticleRenderer:    require("./article-renderer.jsx"),

@@ -450,6 +450,7 @@ var propTransform = (editorProps) => {
 module.exports = {
     name: "table",
     displayName: "Table of values",
+    accessible: true,
     widget: Table,
     editor: TableEditor,
     transform: propTransform
