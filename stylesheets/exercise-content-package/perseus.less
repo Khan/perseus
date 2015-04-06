@@ -783,6 +783,8 @@ body.sat-section {
         }
 
         &.perseus-renderer-two-columns {
+            width: 1024px;
+
             // This prevents a strange blank space from appearing above
             // passages.
             // TODO(johnsullivan): Try and get rid of the wrapping div that's
@@ -791,13 +793,9 @@ body.sat-section {
                 margin: 0;
             }
 
-            width: 1024px;
-            & > .paragraph {
-                margin: 0;
-            }
             .perseus-column {
                 & > .paragraph {
-                    margin: 0;
+                    margin-top: 0;
                 }
                 overflow-y: auto;
                 &:nth-child(1) {
