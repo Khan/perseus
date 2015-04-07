@@ -28,6 +28,11 @@
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
 
+<div style="width:100%; text-align:center;" id='button-collector'>
+    <span class="simple-button green" id="prev_question">編輯上一題</span>
+    <span class="simple-button green" id="next_question">編輯下一題</span>
+</div>
+
 <h2 id='message' style='color:red;'></h2>
 <table>
     <tr>
@@ -85,8 +90,8 @@
 </div>
 <!-- End Perseus HTML -->
 <div style="width:100%; text-align:center;" id='button-collector'>
-    <span class="simple-button orange" id="save">儲存改變</span>
-    <span class="simple-button green" id="quit">取消編輯</span>
+    <span class="simple-button green" id="save">儲存改變</span>
+    <span class="simple-button orange" id="quit">取消編輯</span>
 </div>
 <!-- put an empty div here so the margin on the perseus editor has something
 to "push against" (without the div, the padding goes off the page, and the
@@ -265,37 +270,19 @@ $('#save').on('click',function(e){
             related_video = $('textarea#related_video').val();
             question = JSON.stringify(editor);
             host_name = question_dic.host_name;
-
-            $.ajax({
-                url: 'http://' + host_name + '/devadmin/questionmanager/save-edit/',
-                data:{'qid':question_dic.qid,
-                    'is_hidden':is_hidden,
-                    'subject':subject,
-                    'source':source,
-                    'level':level,
-                    'cover_range':cover_range,
-                    'related_video':related_video,
-                    'is_developer':question_dic.is_developer,
-                    'secret':question_dic.secret,
-                    'iv':question_dic.iv,
-                    'question':question
-                },
-                method:"POST",
-
-                success:function(data){
-                    if(data.indexOf('github')===-1 && data.indexOf('localhost')===-1){
-                        parent.window.location = data;
-                    }
-                    else{
-                        document.location.href = data;
-                        document.location.reload(true);
-                    }
-                },
-                error:function(xhr, ajaxOptions, thrownError){ 
-                    alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
-                }
-            });
-            
+            data={'qid':question_dic.qid,
+                'is_hidden':is_hidden,
+                'subject':subject,
+                'source':source,
+                'level':level,
+                'cover_range':cover_range,
+                'related_video':related_video,
+                'is_developer':question_dic.is_developer,
+                'secret':question_dic.secret,
+                'iv':question_dic.iv,
+                'question':question
+            };
+            getQuestion(data, 'save-edit/');
         }
     }
 
@@ -305,7 +292,43 @@ $('#quit').on('click',function(e){
         parent.close();
     }
 });
+$('#prev_question').on('click',function(e){
+    data={
+        'secret':question_dic.secret,
+        'iv':question_dic.iv,
+        'qid_offset':"-1"
+    };
+    getQuestion(data, 'another-question/');
+});
+$('#next_question').on('click',function(e){
+    data={
+        'secret':question_dic.secret,
+        'iv':question_dic.iv,
+        'qid_offset':"1"
+    };
+    getQuestion(data, 'another-question/');
+});
+function getQuestion(data, func){
+    host_name = question_dic.host_name;
+    $.ajax({
+        url: 'http://' + host_name + '/devadmin/questionmanager/' + func,
+        data: data,
+        method: "POST",
 
+        success:function(data){
+            if(data.indexOf('github')===-1 && data.indexOf('localhost')===-1){
+                parent.window.location = data;
+            }
+            else{
+                document.location.href = data;
+                document.location.reload(true);
+            }
+        },
+        error:function(xhr, ajaxOptions, thrownError){ 
+            alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
+        }
+    });
+};
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
     return '<span style="margin-left: 5px; background: ' +
