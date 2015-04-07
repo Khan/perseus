@@ -58,11 +58,13 @@ var Widgets = {
         }));
     },
 
-    getAccessibleWidgets: function() {
-        // TODO(alex): Update underscore.js so that _.pick can take a function.
-        return _.pick(widgets, _.filter(_.keys(widgets), function(name) {
-            return widgets[name].accessible;
-        }));
+    isAccessible: function(widgetInfo) {
+        var accessible = widgets[widgetInfo.type].accessible;
+        if (typeof accessible === "function") {
+            return accessible(widgetInfo.options);
+        } else {
+            return !!accessible;
+        }
     },
 
     getAllWidgetTypes: function() {

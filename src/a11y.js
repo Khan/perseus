@@ -8,11 +8,6 @@ var _ = require("underscore");
 var Traversal = require("./traversal.jsx");
 var Widgets = require("./widgets.js");
 
-var _accessibleWidgets = Widgets.getAccessibleWidgets();
-var isAccessible = function(widgetName) {
-    return !!_accessibleWidgets[widgetName];
-};
-
 module.exports = {
     // Returns a list of widgets that cause a given perseus item to require
     // the use of a screen or mouse.
@@ -26,7 +21,7 @@ module.exports = {
 
         // Traverse the question data
         Traversal.traverseRendererDeep(itemData.question, function(info) {
-            if (info.type && !isAccessible(info.type)) {
+            if (info.type && !Widgets.isAccessible(info)) {
                 widgets.push(info.type);
             }
         });

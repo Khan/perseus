@@ -146,6 +146,118 @@ var oneInaccessibleWidget = {
     "hints": []
 };
 
+var imageWithAltText = {
+    "question": {
+        "content": "hello\n\n[[☃ image 1]]\n\n",
+        "images": {},
+        "widgets": {
+            "image 1": {
+                "type": "image",
+                "graded": true,
+                "options": {
+                    "title": "",
+                    "range": [
+                        [
+                            0,
+                            10
+                        ],
+                        [
+                            0,
+                            10
+                        ]
+                    ],
+                    "box": [
+                        350,
+                        150
+                    ],
+                    "backgroundImage": {
+                        "url": "http://placehold.it/350x150",
+                        "width": 350,
+                        "height": 150
+                    },
+                    "labels": [],
+                    "alt": "oh cool",
+                    "caption": ""
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
+};
+
+var imageWithoutAltText = {
+    "question": {
+        "content": "hello\n\n[[☃ image 1]]\n\n",
+        "images": {},
+        "widgets": {
+            "image 1": {
+                "type": "image",
+                "graded": true,
+                "options": {
+                    "title": "",
+                    "range": [
+                        [
+                            0,
+                            10
+                        ],
+                        [
+                            0,
+                            10
+                        ]
+                    ],
+                    "box": [
+                        350,
+                        150
+                    ],
+                    "backgroundImage": {
+                        "url": "http://placehold.it/350x150",
+                        "width": 350,
+                        "height": 150
+                    },
+                    "labels": [],
+                    "alt": "",
+                    "caption": ""
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
+};
+
 describe("a11y", () => {
     describe("violatingWidgets", () => {
         describe("Current Perseus Version", () => {
@@ -164,6 +276,17 @@ describe("a11y", () => {
                 var result = a11y.violatingWidgets(oneInaccessibleWidget);
                 assert.strictEqual(result.length, 1);
                 assert.strictEqual(result[0], "matrix");
+            });
+
+            it("should pass for images with alt text", () => {
+                var result = a11y.violatingWidgets(imageWithAltText);
+                assert.strictEqual(result.length, 0);
+            });
+
+            it("should pick out images without alt text", () => {
+                var result = a11y.violatingWidgets(imageWithoutAltText);
+                assert.strictEqual(result.length, 1);
+                assert.strictEqual(result[0], "image");
             });
         });
     });
