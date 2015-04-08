@@ -176,8 +176,6 @@ var Widgets = {
 
     traverseChildWidgets: function(
             widgetInfo,
-            contentCallback,
-            widgetCallback,
             traverseRenderer) {
 
         if (!traverseRenderer) {
@@ -194,8 +192,6 @@ var Widgets = {
         if (widgetExports.traverseChildWidgets && props) {
             widgetExports.traverseChildWidgets(
                 props,
-                contentCallback,
-                widgetCallback,
                 traverseRenderer
             );
         }

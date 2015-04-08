@@ -50,10 +50,13 @@ var deepCallbackFor = function(contentCallback, widgetCallback) {
                 upgradedWidgetInfo.version.major === latestVersion.major)) {
             Widgets.traverseChildWidgets(
                 upgradedWidgetInfo,
-                contentCallback,
-                deepCallback, // so that we traverse grandchildren, too!
-                traverseRenderer // not deep because we are getting the
-                                 // deepness from the deepCallback
+                (rendererOptions) => {
+                    traverseRenderer(
+                        rendererOptions,
+                        contentCallback,
+                        deepCallback // so that we traverse grandchildren, too!
+                    );
+                }
             );
         }
     };

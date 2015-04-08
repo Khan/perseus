@@ -255,12 +255,10 @@ var SequenceEditor = React.createClass({
 
 var traverseChildWidgets = function(
         props,
-        contentCallback,
-        widgetCallback,
         traverseRenderer) {
 
     _.each(props.json, (rendererOptions) => {
-        traverseRenderer(rendererOptions, contentCallback, widgetCallback);
+        traverseRenderer(rendererOptions);
     });
 };
 

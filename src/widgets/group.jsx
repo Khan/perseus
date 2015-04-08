@@ -213,11 +213,9 @@ var GroupEditor = React.createClass({
 
 var traverseChildWidgets = function(
         props,
-        contentCallback,
-        widgetCallback,
         traverseRenderer) {
 
-    traverseRenderer(props, contentCallback, widgetCallback);
+    traverseRenderer(props);
 };
 
 module.exports = {
