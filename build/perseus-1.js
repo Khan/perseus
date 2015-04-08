@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 0d28a38f612a50493486788a20d861ed5206329a
+// commit 9b65796266be4045c41f9c427b07630c8c22d36b
 // branch perseuseditor_into_junyi
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -12374,19 +12374,17 @@ var Util = {
      */
     parseQueryString: function(query) {
         query = query || window.location.search.substring(1);
-        query = decodeURIComponent(query).split('&');
         var urlParams = {},
             e,
             a = /\+/g,  // Regex for replacing addition symbol with a space
             r = /([^&=]+)=?([^&]*)/g,
             d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
         
-        for(i=0;i<query.length;i++){
-            while ((e = r.exec(query[i]))) {
-                urlParams[d(e[1])] = d(e[2]);
-            }
+        
+        while (e = r.exec(query)) {
+            urlParams[d(e[1])] = d(e[2]);
         }
-
+        
         return urlParams;
     },
 

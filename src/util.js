@@ -390,19 +390,17 @@ var Util = {
      */
     parseQueryString: function(query) {
         query = query || window.location.search.substring(1);
-        query = decodeURIComponent(query).split('&');
         var urlParams = {},
             e,
             a = /\+/g,  // Regex for replacing addition symbol with a space
             r = /([^&=]+)=?([^&]*)/g,
             d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
         
-        for(i=0;i<query.length;i++){
-            while ((e = r.exec(query[i]))) {
-                urlParams[d(e[1])] = d(e[2]);
-            }
+        
+        while (e = r.exec(query)) {
+            urlParams[d(e[1])] = d(e[2]);
         }
-
+        
         return urlParams;
     },
 
