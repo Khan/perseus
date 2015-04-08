@@ -57,12 +57,16 @@ var isRawWidgetInfoRenderableBy = function(widgetInfo,
 var isRendererContentRenderableBy =
         function(rendererOptions, rendererContentVersion) {
     var isRenderable = true;
-    Traversal.traverseRendererDeep(rendererOptions, function(widgetInfo) {
-        isRenderable = isRenderable && isRawWidgetInfoRenderableBy(
-            widgetInfo,
-            rendererContentVersion
-        );
-    });
+    Traversal.traverseRendererDeep(
+        rendererOptions,
+        null,
+        function(widgetInfo) {
+            isRenderable = isRenderable && isRawWidgetInfoRenderableBy(
+                widgetInfo,
+                rendererContentVersion
+            );
+        }
+    );
     return isRenderable;
 };
 

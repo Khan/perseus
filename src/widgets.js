@@ -174,20 +174,27 @@ var Widgets = {
         return transform(widgetInfo.options, problemNum);
     },
 
-    traverseChildWidgets:
-            function(widgetInfo, widgetCallback, traverseRenderer) {
+    traverseChildWidgets: function(
+            widgetInfo,
+            contentCallback,
+            widgetCallback,
+            traverseRenderer) {
+
+        if (!traverseRenderer) {
+            throw new Error("traverseRenderer must be provided, but was not");
+        }
 
         if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
             return;
         }
 
         var widgetExports = widgets[widgetInfo.type];
-        var traverseChildWidgets = widgetExports.traverseChildWidgets;
         var props = widgetInfo.options;
 
-        if (traverseChildWidgets && props) {
-            traverseChildWidgets(
+        if (widgetExports.traverseChildWidgets && props) {
+            widgetExports.traverseChildWidgets(
                 props,
+                contentCallback,
                 widgetCallback,
                 traverseRenderer
             );

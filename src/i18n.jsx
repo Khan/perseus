@@ -108,6 +108,7 @@ function findImagesInItemData(itemData) {
 
         traversal.traverseRendererDeep(
             renderer,
+            (content) => {},
             (widget) => widgetCallback(widget, images)
         );
     });

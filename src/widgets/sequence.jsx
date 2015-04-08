@@ -253,9 +253,14 @@ var SequenceEditor = React.createClass({
     },
 });
 
-var traverseChildWidgets = function(props, widgetCallback, traverseRenderer) {
+var traverseChildWidgets = function(
+        props,
+        contentCallback,
+        widgetCallback,
+        traverseRenderer) {
+
     _.each(props.json, (rendererOptions) => {
-        traverseRenderer(rendererOptions, widgetCallback);
+        traverseRenderer(rendererOptions, contentCallback, widgetCallback);
     });
 };
 

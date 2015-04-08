@@ -17,9 +17,11 @@ var _ = require("underscore");
 
 var Widgets = require("./widgets.js");
 
-var deepCallbackFor = function(callback) {
+var noop = function() { };
+
+var deepCallbackFor = function(contentCallback, widgetCallback) {
     var deepCallback = function(widgetInfo, widgetId) {
-        callback(widgetInfo, widgetId);
+        widgetCallback(widgetInfo, widgetId);
 
         // This doesn't modify the widget info if the widget info
         // is at a later version than is supported, which is important
@@ -48,6 +50,7 @@ var deepCallbackFor = function(callback) {
                 upgradedWidgetInfo.version.major === latestVersion.major)) {
             Widgets.traverseChildWidgets(
                 upgradedWidgetInfo,
+                contentCallback,
                 deepCallback, // so that we traverse grandchildren, too!
                 traverseRenderer // not deep because we are getting the
                                  // deepness from the deepCallback
@@ -57,7 +60,15 @@ var deepCallbackFor = function(callback) {
     return deepCallback;
 };
 
-var traverseRenderer = function(rendererOptions, deepCallback) {
+var traverseRenderer = function(
+        rendererOptions,
+        contentCallback,
+        deepWidgetCallback) {
+
+    if (rendererOptions.content != null) {
+        contentCallback(rendererOptions.content);
+    }
+
     _.each(rendererOptions.widgets, function(widgetInfo, widgetId) {
         // Widgets without info or a type are empty widgets, and
         // should always be renderable. It's also annoying to write
@@ -66,12 +77,23 @@ var traverseRenderer = function(rendererOptions, deepCallback) {
         if (widgetInfo == null || widgetInfo.type == null) {
             return;
         }
-        deepCallback(widgetInfo, widgetId);
+        deepWidgetCallback(widgetInfo, widgetId);
     });
 };
 
-var traverseRendererDeep = function(rendererOptions, callback) {
-    traverseRenderer(rendererOptions, deepCallbackFor(callback));
+var traverseRendererDeep = function(
+        rendererOptions,
+        contentCallback,
+        widgetCallback) {
+
+    contentCallback = contentCallback || noop;
+    widgetCallback = widgetCallback || noop;
+
+    traverseRenderer(
+        rendererOptions,
+        contentCallback,
+        deepCallbackFor(contentCallback, widgetCallback)
+    );
 };
 
 module.exports = {

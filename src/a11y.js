@@ -20,11 +20,15 @@ module.exports = {
         var widgets = [];
 
         // Traverse the question data
-        Traversal.traverseRendererDeep(itemData.question, function(info) {
-            if (info.type && !Widgets.isAccessible(info)) {
-                widgets.push(info.type);
+        Traversal.traverseRendererDeep(
+            itemData.question,
+            null,
+            function(info) {
+                if (info.type && !Widgets.isAccessible(info)) {
+                    widgets.push(info.type);
+                }
             }
-        });
+        );
 
         // Uniquify the list of widgets (by type)
         return _.uniq(widgets);
