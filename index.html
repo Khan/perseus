@@ -48,11 +48,11 @@
         </td>
     </tr>
     <tr>
-        <td>是否隱藏題目：</td>
+        <td>是否開放題目：</td>
         <td>
             <select id='is_hidden'>
-                <option value="True">是的</option>
-                <option value="False">否。</option>
+                <option value="False">是</option>
+                <option value="True">否</option>
             </input>
         </td>
     </tr>
@@ -293,6 +293,10 @@ $('#quit').on('click',function(e){
     }
 });
 $('#prev_question').on('click',function(e){
+    if(question_dic.qid == 0){
+        alert('沒有上一題囉！');
+        return;
+    }
     data={
         'secret':question_dic.secret,
         'iv':question_dic.iv,
@@ -301,6 +305,10 @@ $('#prev_question').on('click',function(e){
     getQuestion(data, 'another-question/');
 });
 $('#next_question').on('click',function(e){
+    if(question_dic.qid == question_dic.question_amount-1){
+        alert('沒有下一題囉！');
+        return;
+    }
     data={
         'secret':question_dic.secret,
         'iv':question_dic.iv,
@@ -322,6 +330,7 @@ function getQuestion(data, func){
             else{
                 document.location.href = data;
                 document.location.reload(true);
+                document.scrollTop(0);
             }
         },
         error:function(xhr, ajaxOptions, thrownError){ 
