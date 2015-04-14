@@ -233,6 +233,10 @@ var enabledFeatures = {
 url = window.location.hash.split('?')[0].substring(1);
 var question_dic = Perseus.Util.parseQueryString(url);
 var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
+var new_perseus_question = false;
+if (question_dic.qid == '-1'){
+    new_perseus_question = true;
+}
 $('#toJSON').on('click', function() {
     console.log(JSON.stringify(editor, null, 4));
 });
@@ -282,7 +286,7 @@ $('#save').on('click',function(e){
                         'iv':question_dic.iv,
                         'question':question
                     };
-            if (question_dic.qid == "-1") {
+            if (new_perseus_question == true) {
                 newQuestion(data, 'save-perseus-question');
             }else{
                 getQuestion(data, 'save-edit/');
@@ -296,7 +300,7 @@ $('#quit').on('click',function(e){
         parent.close();
     }
 });
-if (question_dic.qid != '-1'){
+if (new_perseus_question == false){
     $('#edit-button-collector').append('<span class="simple-button green" id="prev_question">編輯上一題</span>');
     $('#edit-button-collector').append('<span class="simple-button green" id="next_question">編輯下一題</span>');
     $('#prev_question').on('click',function(e){
