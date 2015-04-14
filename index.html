@@ -337,7 +337,7 @@ function getQuestion(data, func){
 
         success:function(data){
             if(data == 'Have_No_Authority'){
-                parent.window.location = 'http://' + question_dic.host_name + '/devadmin/questionmanager';
+                parent.window.location = 'http://' + question_dic.host_name + '/devadmin/questionmanager/';
             }
             else{
                 document.location.href = data;
