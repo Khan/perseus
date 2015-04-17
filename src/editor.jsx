@@ -78,21 +78,26 @@ var WidgetSelect = React.createClass({
     },
 });
 
-
+// This component handles upgading widget editor props via prop
+// upgrade transforms. Widget editors will always be rendered
+// with all available transforms applied, but the results of those
+// transforms will not be propogated upwards until serialization.
 var WidgetEditor = React.createClass({
     propTypes: {
-        type: React.PropTypes.string,
-        id: React.PropTypes.string,
-        graded: React.PropTypes.bool,
-        onChange: React.PropTypes.func,
+        // Unserialized props
+        id: React.PropTypes.string.isRequired,
+        onChange: React.PropTypes.func.isRequired,
+        onRemove: React.PropTypes.func.isRequired,
         apiOptions: ApiOptions.propTypes,
-    },
 
-    getDefaultProps: function() {
-        return {
-            graded: true,
-            options: {}
-        };
+        // Serialized props
+        type: React.PropTypes.string.isRequired,
+        graded: React.PropTypes.bool,
+        options: React.PropTypes.object,
+        version: React.PropTypes.shape({
+            major: React.PropTypes.number.isRequired,
+            minor: React.PropTypes.number.isRequired,
+        }),
     },
 
     getInitialState: function() {
@@ -101,33 +106,40 @@ var WidgetEditor = React.createClass({
         };
     },
 
+    componentWillMount: function() {
+        this._upgradeWidgetInfo(this.props);
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this._upgradeWidgetInfo(nextProps);
+    },
+
+    _upgradeWidgetInfo: function(props) {
+        // We can't call serialize here because this.refs.widget
+        // doesn't exist before this component is mounted.
+        var filteredProps = _.omit(props, WIDGET_PROP_BLACKLIST);
+        this.setState({
+            widgetInfo: Widgets.upgradeWidgetInfoToLatestVersion(filteredProps)
+        });
+    },
+
     render: function() {
-        // We can't call our widget's `serialize` here, because on
-        // first render that ref hasn't mounted yet.
-        // This means that on first render we'll send in
-        // `options: {}` to `upgradeWidgetInfoToLatestVersion`, but
-        // `upgradeWidgetInfoToLatestVersion` accounts for that
-        // before sending {} to any of our prop upgrade functions.
-        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
-            this.props
-        );
-        var type = upgradedWidgetInfo.type;
+        var widgetInfo = this.state.widgetInfo;
 
-        var Ed = Widgets.getEditor(type);
+        var Ed = Widgets.getEditor(widgetInfo.type);
 
-        var isUngradedEnabled = (type === "transformer");
-        var direction = this.state.showWidget ? "down" : "right";
-
+        var isUngradedEnabled = (widgetInfo.type === "transformer");
         var gradedPropBox = <PropCheckBox label="Graded:"
-                                graded={upgradedWidgetInfo.graded}
+                                graded={widgetInfo.graded}
                                 onChange={this.props.onChange} />;
 
         return <div className="perseus-widget-editor">
             <div className={"perseus-widget-editor-title " +
                     (this.state.showWidget ? "open" : "closed")}>
-                <a href="#" onClick={this.toggleWidget}>
+                <a href="#" onClick={this._toggleWidget}>
                     {this.props.id}
-                    <i className={"icon-chevron-" + direction} />
+                    <i className={"icon-chevron-" +
+                            (this.state.showWidget ? "down" : "right")} />
                 </a>
                 <a href="#" className={
                             "remove-widget " +
@@ -147,31 +159,22 @@ var WidgetEditor = React.createClass({
                     ref="widget"
                     onChange={this._handleWidgetChange}
                     apiOptions={this.props.apiOptions}
-                    {...upgradedWidgetInfo.options} />
+                    {...widgetInfo.options} />
             </div>
         </div>;
     },
 
-    toggleWidget: function(e) {
+    _toggleWidget: function(e) {
         e.preventDefault();
         this.setState({showWidget: !this.state.showWidget});
     },
 
     _handleWidgetChange: function(newProps, cb, silent) {
-        // TODO(jack): It is unfortunate to call serialize here, but is
-        // important so that the widgetInfo we pass to our upgrade functions is
-        // always complete. If we just sent this.props in, we could run into
-        // situations where we would send things like { answerType: "decimal" }
-        // to our upgrade functions, without the rest of the props representing
-        // the widget.
-        var currentWidgetInfo = _.extend(
-            _.omit(this.props, WIDGET_PROP_BLACKLIST),
-            { options: this.refs.widget.serialize() }
+        var newWidgetInfo = _.clone(this.state.widgetInfo);
+        newWidgetInfo.options = _.extend(
+            this.refs.widget.serialize(),
+            newProps
         );
-        var newWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
-            currentWidgetInfo
-        );
-        newWidgetInfo.options = _.extend(newWidgetInfo.options, newProps);
         this.props.onChange(newWidgetInfo, cb, silent);
     },
 
@@ -181,11 +184,15 @@ var WidgetEditor = React.createClass({
     },
 
     serialize: function() {
+        // TODO(alex): Make this properly handle the case where we load json
+        // with a more recent widget version than this instance of Perseus
+        // knows how to handle.
+        var widgetInfo = this.state.widgetInfo;
         return {
-            type: this.props.type,
-            graded: this.props.graded,
+            type: widgetInfo.type,
+            graded: widgetInfo.graded,
             options: this.refs.widget.serialize(),
-            version: Widgets.getVersion(this.props.type)
+            version: widgetInfo.version,
         };
     }
 });
@@ -577,7 +584,7 @@ var Editor = React.createClass({
         }
     },
 
-    _addWidgetToContent(oldContent, cursorRange, widgetType) {
+    _addWidgetToContent: function(oldContent, cursorRange, widgetType) {
         var textarea = this.refs.textarea.getDOMNode();
 
         // Note: we have to use _.map here instead of Array::map
@@ -617,8 +624,19 @@ var Editor = React.createClass({
 
         var newContent = newPrelude + widgetContent + newPostlude;
 
+        var newWidgets = _.clone(this.props.widgets);
+        newWidgets[id] = {
+            options: {},
+            type: widgetType,
+            // Track widget version on creation, so that a widget editor
+            // without a valid version prop can only possibly refer to a
+            // pre-versioning creation time.
+            version: Widgets.getVersion(widgetType),
+        };
+
         this.props.onChange({
-            content: newContent
+            content: newContent,
+            widgets: newWidgets,
         }, function() {
             Util.textarea.moveCursor(
                 textarea,
