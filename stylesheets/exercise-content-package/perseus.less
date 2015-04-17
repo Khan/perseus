@@ -624,6 +624,8 @@ body.sat-section {
         }
 
         &.perseus-renderer-two-columns {
+            width: 1024px;
+
             // This prevents a strange blank space from appearing above
             // passages.
             // TODO(johnsullivan): Try and get rid of the wrapping div that's
@@ -632,15 +634,15 @@ body.sat-section {
                 margin: 0;
             }
 
-            width: 1024px;
             & > .paragraph {
                 margin: 0;
             }
             .perseus-column {
+                overflow-y: auto;
+
                 & > .paragraph {
                     margin: 0;
                 }
-                overflow-y: auto;
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
@@ -794,16 +796,18 @@ body.sat-section {
             }
 
             .perseus-column {
+                overflow-y: auto;
+                display: inline-block;
+
                 & > .paragraph {
                     margin-top: 0;
                 }
-                overflow-y: auto;
+
                 &:nth-child(1) {
                     background: #eee;
                     border-right: 1px solid #ddd;
                     height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
                     max-height: @satSectionHeight - @satTopSpacingForTwoColumnLayout;
-                    float: left;
                     padding-left: 46px;
                     padding-top: @satTopSpacingForTwoColumnLayout;
                     padding-bottom: 22px;
@@ -831,7 +835,6 @@ body.sat-section {
                     }
                 }
                 &:nth-child(2) {
-                    float: right;
                     height: @satSectionHeight;
                     max-height: @satSectionHeight;
                     // TODO(marcia): These are only slightly magical. The left
@@ -840,7 +843,7 @@ body.sat-section {
                     // leaves 32px in between, since the entire container is
                     // 1024px. TODO to keep some of these #s in vars and use
                     // arithmetic!
-                    padding-right: 32px;
+                    padding-left: 32px;
                     width: 448px;
                     .perseus-group {
                         margin-bottom: 20px;
