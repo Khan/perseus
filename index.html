@@ -28,9 +28,7 @@
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
 
-<div style="width:100%; text-align:center;" id='button-collector'>
-    <span class="simple-button green" id="prev_question">編輯上一題</span>
-    <span class="simple-button green" id="next_question">編輯下一題</span>
+<div style="width:100%; text-align:center;" id='edit-button-collector'>
 </div>
 
 <h2 id='message' style='color:red;'></h2>
@@ -89,7 +87,7 @@
 <div id="perseus-container">
 </div>
 <!-- End Perseus HTML -->
-<div style="width:100%; text-align:center;" id='button-collector'>
+<div style="width:100%; text-align:center;" id='save-button-collector'>
     <span class="simple-button green" id="save">儲存改變</span>
     <span class="simple-button orange" id="quit">取消編輯</span>
 </div>
@@ -232,7 +230,13 @@ var enabledFeatures = {
     toolTipFormats: true,
     useMathQuill: true
 };
-
+url = window.location.hash.split('?')[0].substring(1);
+var question_dic = Perseus.Util.parseQueryString(url);
+var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
+var new_perseus_question = false;
+if (question_dic.qid == '-1'){
+    new_perseus_question = true;
+}
 $('#toJSON').on('click', function() {
     console.log(JSON.stringify(editor, null, 4));
 });
@@ -271,18 +275,22 @@ $('#save').on('click',function(e){
             question = JSON.stringify(editor);
             host_name = question_dic.host_name;
             data={'qid':question_dic.qid,
-                'is_hidden':is_hidden,
-                'subject':subject,
-                'source':source,
-                'level':level,
-                'cover_range':cover_range,
-                'related_video':related_video,
-                'is_developer':question_dic.is_developer,
-                'secret':question_dic.secret,
-                'iv':question_dic.iv,
-                'question':question
-            };
-            getQuestion(data, 'save-edit/');
+                        'is_hidden':is_hidden,
+                        'subject':subject,
+                        'source':source,
+                        'level':level,
+                        'cover_range':cover_range,
+                        'related_video':related_video,
+                        'is_developer':question_dic.is_developer,
+                        'secret':question_dic.secret,
+                        'iv':question_dic.iv,
+                        'question':question
+                    };
+            if (new_perseus_question == true) {
+                newQuestion(data, 'save-perseus-question');
+            }else{
+                getQuestion(data, 'save-edit/');
+            }
         }
     }
 
@@ -292,30 +300,34 @@ $('#quit').on('click',function(e){
         parent.close();
     }
 });
-$('#prev_question').on('click',function(e){
-    if(question_dic.qid == 0){
-        alert('沒有上一題囉！');
-        return;
-    }
-    data={
-        'secret':question_dic.secret,
-        'iv':question_dic.iv,
-        'qid_offset':"-1"
-    };
-    getQuestion(data, 'another-question/');
-});
-$('#next_question').on('click',function(e){
-    if(question_dic.qid == question_dic.question_amount-1){
-        alert('沒有下一題囉！');
-        return;
-    }
-    data={
-        'secret':question_dic.secret,
-        'iv':question_dic.iv,
-        'qid_offset':"1"
-    };
-    getQuestion(data, 'another-question/');
-});
+if (new_perseus_question == false){
+    $('#edit-button-collector').append('<span class="simple-button green" id="prev_question">編輯上一題</span>');
+    $('#edit-button-collector').append('<span class="simple-button green" id="next_question">編輯下一題</span>');
+    $('#prev_question').on('click',function(e){
+        if(question_dic.qid == 0){
+            alert('沒有上一題囉！');
+            return;
+        }
+        data={
+            'secret':question_dic.secret,
+            'iv':question_dic.iv,
+            'qid_offset':"-1"
+        };
+        getQuestion(data, 'another-question/');
+    });
+    $('#next_question').on('click',function(e){
+        if(question_dic.qid == question_dic.question_amount-1){
+            alert('沒有下一題囉！');
+            return;
+        }
+        data={
+            'secret':question_dic.secret,
+            'iv':question_dic.iv,
+            'qid_offset':"1"
+        };
+        getQuestion(data, 'another-question/');
+    });
+}
 function getQuestion(data, func){
     host_name = question_dic.host_name;
     $.ajax({
@@ -324,13 +336,12 @@ function getQuestion(data, func){
         method: "POST",
 
         success:function(data){
-            if(data.indexOf('github')===-1 && data.indexOf('localhost')===-1){
-                parent.window.location = data;
+            if(data == 'Have_No_Authority'){
+                parent.window.location = 'http://' + question_dic.host_name + '/devadmin/questionmanager/';
             }
             else{
                 document.location.href = data;
                 document.location.reload(true);
-                document.scrollTop(0);
             }
         },
         error:function(xhr, ajaxOptions, thrownError){ 
@@ -338,6 +349,28 @@ function getQuestion(data, func){
         }
     });
 };
+function newQuestion(data, func){
+    host_name = question_dic.host_name;
+    $.ajax({
+        url: 'http://' + host_name + '/devadmin/makeperseusquestion/' + func,
+        data: data,
+        method: "POST",
+
+        success:function(data){
+             if(data == 'Have_No_Authority'){
+                // user has no authority, redirect to junyiacademy.org
+                parent.window.location = 'http://' + question_dic.host_name;
+            }
+            else{
+                document.location.href = data;
+                document.location.reload(true);
+            }
+        },
+        error:function(xhr, ajaxOptions, thrownError){ 
+            alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
+        }
+    });
+}
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
     return '<span style="margin-left: 5px; background: ' +
@@ -346,9 +379,6 @@ $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
 
 
 // don't know why!
-url = window.location.hash.split('?')[0].substring(1);
-var question_dic = Perseus.Util.parseQueryString(url);
-var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
 $('span#qid').html(question_dic.qid);
 $('select#is_hidden').val(question_dic.is_hidden);
 $('input#subject').val(question_dic.subject);
