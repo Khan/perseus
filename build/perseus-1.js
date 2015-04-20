@@ -1,6 +1,7 @@
 /*! Perseus | http://github.com/Khan/perseus */
 // commit b026e21b92ff1684d94657abffb066f2eef8b9a4
 // branch gh-pages
+
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -22480,14 +22481,8 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
                                   labelAlignment:"right",
                                   multipleSelect:this.props.multipleSelect,
                                   onChange:this.onMultipleSelectChange} )
-                ),
-
-                React.DOM.div( {className:"perseus-widget-right-col"}, 
-                    PropCheckBox( {label:"Randomize order",
-                                  labelAlignment:"right",
-                                  randomize:this.props.randomize,
-                                  onChange:this.props.onChange} )
                 )
+
             ),
 
             BaseRadio(

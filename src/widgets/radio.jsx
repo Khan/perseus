@@ -340,12 +340,6 @@ var RadioEditor = React.createClass({
                                   onChange={this.onMultipleSelectChange} />
                 </div>
 
-                <div className="perseus-widget-right-col">
-                    <PropCheckBox label="Randomize order"
-                                  labelAlignment="right"
-                                  randomize={this.props.randomize}
-                                  onChange={this.props.onChange} />
-                </div>
             </div>
 
             <BaseRadio
