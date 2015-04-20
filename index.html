@@ -268,9 +268,17 @@ $('#save').on('click',function(e){
         if (confirm("修改將儲存於資料庫")) {
             is_hidden = $('select#is_hidden').val();
             subject = $('input#subject').val();
+            if (subject == '科目為必填' || subject == ''){
+                alert('一定要填科目喔！請填入這一題的科目，謝謝！');
+                return;
+            }
             source = $('input#source').val();
             level = $('select#level').val();
             cover_range = $('textarea#cover_range').val();
+            if (cover_range == '範圍為必填' || cover_range == ''){
+                alert('一定要填範圍喔！請填入這一題的範圍，謝謝！');
+                return;
+            }
             related_video = $('textarea#related_video').val();
             question = JSON.stringify(editor);
             host_name = question_dic.host_name;
