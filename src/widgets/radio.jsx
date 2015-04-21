@@ -29,7 +29,10 @@ var Choice = React.createClass({
         groupName: React.PropTypes.string,
         showClue: React.PropTypes.bool,
         type: React.PropTypes.string,
-        onChecked: React.PropTypes.func
+        onChecked: React.PropTypes.func,
+        // This indicates the position of the choice relative to others
+        // (so that we can display a nice little (A), (B), etc. next to it)
+        pos: React.PropTypes.number
     },
 
     getDefaultProps: function() {
@@ -38,15 +41,25 @@ var Choice = React.createClass({
             classSet: {},
             disabled: false,
             showClue: false,
-            type: 'radio'
+            type: 'radio',
+            pos: 0
         };
     },
 
     render: function() {
-        return <label
-                className={this.props.className}
-                onClick={(e) => { e.preventDefault(); }}>
+        // NOTE(jeresig): This is not i18n appropriate and should probably be
+        // changed to a map of common options that are properly translated.
+        var letter = String.fromCharCode(65 + this.props.pos);
+
+        return <label className={this.props.className}>
             <span className="checkbox">
+                <div className="pos-back"></div>
+                <div className="pos">
+                    <span className="sr-only">{
+                        $._("(Choice %(letter)s)", {letter: letter})
+                    }</span>
+                    <span aria-hidden="true">{letter}</span>
+                </div>
                 <input
                     type={this.props.type}
                     name={this.props.groupName}
@@ -222,6 +235,7 @@ var BaseRadio = React.createClass({
                     groupName: radioGroupName,
                     showClue: showClue,
                     type: inputType,
+                    pos: i,
                     onChecked: (checked) => {
                         this.checkOption(i, checked);
                     }
@@ -245,22 +259,35 @@ var BaseRadio = React.createClass({
                     )
                 );
 
-            return <li className={className} key={i}
+                var checkHandler = (e) => {
+                    if (!this.props.labelWrap) {
+                        return;
+                    }
+
+                    // Ignore non-enter and non-space keypresses
+                    if (e.keyCode && e.keyCode !== 13 && e.keyCode !== 32) {
+                        return;
+                    }
+
+                    // Don't send this to the scratchpad
+                    e.preventDefault();
+                    if (!this.props.apiOptions.readOnly) {
+                        var shouldToggle =
+                            this.props.multipleSelect ||
+                            this.props.deselectEnabled;
+                        this.checkOption(
+                            i,
+                            shouldToggle ? !choice.checked : true);
+                    }
+                };
+
+                return <li className={className} key={i} tabIndex="0"
+                        role="radio" aria-checked={choice.checked}
                         onTouchStart={!this.props.labelWrap ?
                             null : captureScratchpadTouchStart
                         }
-                        onClick={!this.props.labelWrap ? null : (e) => {
-                            // Don't send this to the scratchpad
-                            e.preventDefault();
-                            if (!this.props.apiOptions.readOnly) {
-                                var shouldToggle =
-                                    this.props.multipleSelect ||
-                                    this.props.deselectEnabled;
-                                this.checkOption(
-                                    i,
-                                    shouldToggle ? !choice.checked : true);
-                           }
-                        }}>
+                        onKeyDown={checkHandler}
+                        onClick={checkHandler}>
                     <Element {...elementProps} />
                 </li>;
             }, this)}

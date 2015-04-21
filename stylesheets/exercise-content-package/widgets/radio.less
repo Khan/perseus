@@ -39,6 +39,10 @@
             width: 20px;
             margin-left: -20px;
             margin-right: 0;
+
+            .pos-back, .pos {
+                display: none;
+            }
         }
 
         div.instructions {
@@ -206,7 +210,8 @@ body.sat-section,
             margin: -16px 0 0 0;
             width: auto;
 
-            &:before {
+            .pos-back {
+                display: block;
                 border-radius: 25px;
                 border: 2px solid @satBlue;
                 content: '';
@@ -217,7 +222,8 @@ body.sat-section,
                 width: 25px;
             }
 
-            &:after {
+            .pos {
+                display: block;
                 color: @satBlue;
                 font-family: @boldFontFamily;
                 font-size: 13px;
@@ -319,22 +325,6 @@ body.sat-section,
 
             &.perseus-correct:not(.perseus-radio-selected) span.checkbox:after {
                 color: @satCorrectColor;
-            }
-
-            &:nth-child(1) span.checkbox:after {
-                content: 'A';
-            }
-            &:nth-child(2) span.checkbox:after {
-                content: 'B';
-            }
-            &:nth-child(3) span.checkbox:after {
-                content: 'C';
-            }
-            &:nth-child(4) span.checkbox:after {
-                content: 'D';
-            }
-            &:nth-child(5) span.checkbox:after {
-                content: 'E';
             }
         }
 
