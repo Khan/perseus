@@ -9,6 +9,7 @@ var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
+var _ = require("underscore");
 var kvector = require("kmath").vector;
 
 // State parameters that should be converted into an array of
