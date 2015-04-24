@@ -408,9 +408,11 @@ module.exports = {
     name: "image",
     // This widget's accessibility depends on its contents: if the image has
     // has a background but no alt text, it is not accessible
-    accessible: (props) => !(props.backgroundImage.url && !props.alt),
+    accessible: (props) => {
+        var bgImage = props.backgroundImage;
+        return !(bgImage && bgImage.url && !props.alt);
+    },
     displayName: "Image",
     widget: ImageWidget,
     editor: ImageEditor
 };
-

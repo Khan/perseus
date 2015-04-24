@@ -258,6 +258,57 @@ var imageWithoutAltText = {
     "hints": []
 };
 
+var emptyImageWithoutAltText = {
+    "question": {
+        "content": "hello\n\n[[☃ image 1]]\n\n",
+        "images": {},
+        "widgets": {
+            "image 1": {
+                "type": "image",
+                "graded": true,
+                "options": {
+                    "title": "",
+                    "range": [
+                        [
+                            0,
+                            10
+                        ],
+                        [
+                            0,
+                            10
+                        ]
+                    ],
+                    "box": [
+                        350,
+                        150
+                    ],
+                    "labels": [],
+                    "alt": "",
+                    "caption": ""
+                },
+                "version": {
+                    "major": 0,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
+};
+
 describe("a11y", () => {
     describe("violatingWidgets", () => {
         describe("Current Perseus Version", () => {
@@ -287,6 +338,11 @@ describe("a11y", () => {
                 var result = a11y.violatingWidgets(imageWithoutAltText);
                 assert.strictEqual(result.length, 1);
                 assert.strictEqual(result[0], "image");
+            });
+
+            it("should ignore blank images", () => {
+                var result = a11y.violatingWidgets(emptyImageWithoutAltText);
+                assert.strictEqual(result.length, 0);
             });
         });
     });
