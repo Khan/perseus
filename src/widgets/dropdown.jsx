@@ -146,7 +146,7 @@ var DropdownEditor = React.createClass({
     render: function() {
         var dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return <div className="perseus-widget-dropdown">
-            <div>Dropdown
+            <div className="dropdown-info">Dropdown
                 <InfoTip>
                     <p>The drop down is useful for making inequalities in a
                     custom format. We normally use the symbols {"<"}, {">"},
@@ -155,18 +155,23 @@ var DropdownEditor = React.createClass({
                     type instead.</p>
                 </InfoTip>
             </div>
-            <input
-                type="text"
-                placeholder="Placeholder value"
-                value={this.props.placeholder}
-                onChange={this.onPlaceholderChange} />
-            <InfoTip>
-                <p>This value will appear as the drop down default. It should
-                give the user some indication of the values available in the
-                drop down itself, e.g., Yes/No/Maybe.</p>
-            </InfoTip>
-            <ul>
+            <div className="dropdown-placeholder">
+                <input
+                    type="text"
+                    placeholder="Placeholder value"
+                    value={this.props.placeholder}
+                    onChange={this.onPlaceholderChange} />
+                <InfoTip>
+                    <p>This value will appear as the drop down default. It should
+                    give the user some indication of the values available in the
+                    drop down itself, e.g., Yes/No/Maybe.</p>
+                </InfoTip>
+            </div>
+            <div className="clearfix"></div>
+            <ul className="dropdown-choices">
                 {this.props.choices.map(function(choice, i) {
+                    var checkedClass = choice.correct ? 'correct' : 'incorrect'
+
                     return <li key={"" + i}>
                         <div>
                             <input
@@ -180,6 +185,7 @@ var DropdownEditor = React.createClass({
                                 type="text"
                                 ref={"editor" + i}
                                 onChange={this.onContentChange.bind(this, i)}
+                                className={checkedClass}
                                 value={choice.content} />
                             <a href="#" className="simple-button orange"
                                     onClick={this.removeChoice.bind(this, i)}>
