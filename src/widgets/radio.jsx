@@ -204,94 +204,101 @@ var BaseRadio = React.createClass({
         var inputType = this.props.multipleSelect ? "checkbox" : "radio";
         var rubric = this.props.reviewModeRubric;
 
-        return <ul className={"perseus-widget-radio " +
+        return <fieldset className="perseus-widget-radio-fieldset">
+            <legend className="sr-only">{this.props.multipleSelect ?
+                <$_>Select all that apply.</$_> :
+                <$_>Please choose from one of the following options.</$_>
+            }</legend>
+            <ul className={"perseus-widget-radio " +
                 "above-scratchpad blank-background"}>
-            {this.props.multipleSelect &&
-                <div className="instructions">
-                    <$_>Select all that apply.</$_>
-                </div>}
-            {this.props.choices.map(function(choice, i) {
-                // True if we're in review mode and a clue is available
-                var reviewModeClues = !!(rubric && rubric.choices[i].clue);
+                {this.props.multipleSelect &&
+                    <div className="instructions">
+                        <$_>Select all that apply.</$_>
+                    </div>}
+                {this.props.choices.map(function(choice, i) {
+                    // True if we're in review mode and a clue is available
+                    var reviewModeClues = !!(rubric && rubric.choices[i].clue);
 
-                // TODO(marcia): As of March 2015, clues are only available
-                // within the SAT experience. There were a handful of non-SAT
-                // exercises (see content/targeted_clues_exercises.py) where we
-                // had enabled clues in an AB test, but closing that
-                // inconclusive test in favor of clues yielded strange
-                // interactions with SAT. Closing the AB test to keep the orig
-                // behavior, and adding a TODO here to leave a trace. Aria
-                // recommends bringing the logic for showing a clue to the same
-                // level as this.props.questionCompleted
-                var showClue = choice.checked && reviewModeClues;
+                    // TODO(marcia): As of March 2015, clues are only available
+                    // within the SAT experience. There were a handful of
+                    // non-SAT exercises (see content/
+                    // targeted_clues_exercises.py) where we
+                    // had enabled clues in an AB test, but closing that
+                    // inconclusive test in favor of clues yielded strange
+                    // interactions with SAT. Closing the AB test to keep the
+                    // orig behavior, and adding a TODO here to leave a trace.
+                    // Aria recommends bringing the logic for showing a clue to
+                    // the same level as this.props.questionCompleted
+                    var showClue = choice.checked && reviewModeClues;
 
-                var Element = Choice;
-                var elementProps = {
-                    ref: `radio${i}`,
-                    checked: choice.checked,
-                    clue: choice.clue,
-                    content: choice.content,
-                    disabled: this.props.apiOptions.readOnly,
-                    groupName: radioGroupName,
-                    showClue: showClue,
-                    type: inputType,
-                    pos: i,
-                    onChecked: (checked) => {
-                        this.checkOption(i, checked);
-                    }
-                };
-
-                if (choice.isNoneOfTheAbove) {
-                    Element = ChoiceNoneAbove;
-                    _.extend(elementProps, { showContent: choice.correct });
-                }
-
-                var className = classNames(
-                    // TODO(aria): Make a test case for these API classNames
-                    ApiClassNames.RADIO.OPTION,
-                    choice.checked && ApiClassNames.RADIO.SELECTED,
-                    !this.props.onePerLine && "inline",
-                    (rubric && rubric.choices[i].correct &&
-                        ApiClassNames.CORRECT
-                    ),
-                    (rubric && !rubric.choices[i].correct &&
-                        ApiClassNames.INCORRECT
-                    )
-                );
-
-                var checkHandler = (e) => {
-                    if (!this.props.labelWrap) {
-                        return;
-                    }
-
-                    // Ignore non-enter and non-space keypresses
-                    if (e.keyCode && e.keyCode !== 13 && e.keyCode !== 32) {
-                        return;
-                    }
-
-                    // Don't send this to the scratchpad
-                    e.preventDefault();
-                    if (!this.props.apiOptions.readOnly) {
-                        var shouldToggle =
-                            this.props.multipleSelect ||
-                            this.props.deselectEnabled;
-                        this.checkOption(
-                            i,
-                            shouldToggle ? !choice.checked : true);
-                    }
-                };
-
-                return <li className={className} key={i} tabIndex="0"
-                        role="radio" aria-checked={choice.checked}
-                        onTouchStart={!this.props.labelWrap ?
-                            null : captureScratchpadTouchStart
+                    var Element = Choice;
+                    var elementProps = {
+                        ref: `radio${i}`,
+                        checked: choice.checked,
+                        clue: choice.clue,
+                        content: choice.content,
+                        disabled: this.props.apiOptions.readOnly,
+                        groupName: radioGroupName,
+                        showClue: showClue,
+                        type: inputType,
+                        pos: i,
+                        onChecked: (checked) => {
+                            this.checkOption(i, checked);
                         }
-                        onKeyDown={checkHandler}
-                        onClick={checkHandler}>
-                    <Element {...elementProps} />
-                </li>;
-            }, this)}
-        </ul>;
+                    };
+
+                    if (choice.isNoneOfTheAbove) {
+                        Element = ChoiceNoneAbove;
+                        _.extend(elementProps, { showContent: choice.correct });
+                    }
+
+                    var className = classNames(
+                        // TODO(aria): Make a test case for these API classNames
+                        ApiClassNames.RADIO.OPTION,
+                        choice.checked && ApiClassNames.RADIO.SELECTED,
+                        !this.props.onePerLine && "inline",
+                        (rubric && rubric.choices[i].correct &&
+                            ApiClassNames.CORRECT
+                        ),
+                        (rubric && !rubric.choices[i].correct &&
+                            ApiClassNames.INCORRECT
+                        )
+                    );
+
+                    var checkHandler = (e) => {
+                        if (!this.props.labelWrap) {
+                            return;
+                        }
+
+                        // Ignore non-enter and non-space keypresses
+                        if (e.keyCode && e.keyCode !== 13 && e.keyCode !== 32) {
+                            return;
+                        }
+
+                        // Don't send this to the scratchpad
+                        e.preventDefault();
+                        if (!this.props.apiOptions.readOnly) {
+                            var shouldToggle =
+                                this.props.multipleSelect ||
+                                this.props.deselectEnabled;
+                            this.checkOption(
+                                i,
+                                shouldToggle ? !choice.checked : true);
+                        }
+                    };
+
+                    return <li className={className} key={i} tabIndex="0"
+                            role="radio" aria-checked={choice.checked}
+                            onTouchStart={!this.props.labelWrap ?
+                                null : captureScratchpadTouchStart
+                            }
+                            onKeyDown={checkHandler}
+                            onClick={checkHandler}>
+                        <Element {...elementProps} />
+                    </li>;
+                }, this)}
+            </ul>
+        </fieldset>;
     },
 
     checkOption: function(radioIndex, shouldBeChecked) {
