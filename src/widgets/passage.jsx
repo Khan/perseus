@@ -72,11 +72,22 @@ var Passage = React.createClass({
             {lineNumbers && <div className="line-numbers" aria-hidden={true}>
                 {lineNumbers}
             </div>}
+            <div className="perseus-sr-only">
+                <$_>Beginning of reading passage.</$_>
+            </div>
             <div className="passage-text">
                 {this._renderContent()}
             </div>
-            <div className="footnotes">
-                {this._renderFootnotes()}
+            {this._hasFootnotes() && [
+                <div key="footnote-start" className="perseus-sr-only">
+                    <$_>Beginning of reading passage footnotes.</$_>
+                </div>,
+                <div key="footnotes" className="footnotes">
+                    {this._renderFootnotes()}
+                </div>
+            ]}
+            <div className="perseus-sr-only">
+                <$_>End of reading passage.</$_>
             </div>
         </div>;
     },
@@ -135,6 +146,12 @@ var Passage = React.createClass({
         return <div ref="content">
             {PassageMarkdown.output(parsed)}
         </div>;
+    },
+
+    _hasFootnotes: function() {
+        var rawContent = this.props.footnotes;
+        var isEmpty = /\s+/.test(rawContent);
+        return !isEmpty;
     },
 
     _renderFootnotes: function() {
