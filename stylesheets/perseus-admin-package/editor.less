@@ -30,8 +30,8 @@
 @rightCellWidth:        @questionWidth + 2 * @cellPadding;
 
 // Colors
-@wrongRed:              #f2dede;
-@correctGreen:          #dff0d8;
+@wrongRed:              #ffcccc;
+@correctGreen:          #aaffaa;
 @ungradedBlue:          #d9edf7;
 
 .border-box-sizing() {
@@ -264,7 +264,7 @@
 }
 
 .perseus-editor-widgets .warning {
-    background-color: #ffcccc;
+    background-color: @wrongRed;
     padding: 4px;
     margin: 4px;
 }
@@ -556,9 +556,43 @@
 //
 // Dropdown editor
 //
-.perseus-widget-dropdown .remove-choice {
-    margin-bottom:10px;
+.perseus-widget-dropdown {
+    input[type=text] {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 5px;
+
+        &.correct {
+            background: @correctGreen;
+        }
+
+        &.incorrect {
+            background: @wrongRed;
+        }
+    }
+
+    .dropdown-choices {
+        margin: 20px 0;
+
+        input[type="text"] {
+            margin: 0 5px;
+            width: 70%;
+        }
+    }
+
+    .dropdown-info {
+        float: left;
+    }
+
+    .dropdown-placeholder {
+        float: right;
+    }
+
+    .remove-choice {
+        margin-bottom: 10px;
+    }
 }
+
 //
 // Input Number / Text Input
 //
@@ -757,10 +791,10 @@
             margin-bottom: 0;
         }
         &.correct textarea {
-            background: #aaffaa;
+            background: @correctGreen;
         }
         &.incorrect textarea {
-            background: #ffcccc;
+            background: @wrongRed;
         }
     }
 
