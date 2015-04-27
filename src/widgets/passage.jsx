@@ -69,7 +69,7 @@ var Passage = React.createClass({
             <div className="passage-title">
                 <Renderer content={this.props.passageTitle} />
             </div>
-            {lineNumbers && <div className="line-numbers">
+            {lineNumbers && <div className="line-numbers" aria-hidden={true}>
                 {lineNumbers}
             </div>}
             <div className="passage-text">
