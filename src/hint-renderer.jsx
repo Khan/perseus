@@ -12,7 +12,7 @@ var HintRenderer = React.createClass({
         } else {
             classNames = "perseus-hint-renderer";
         }
-        return <div className={classNames}>
+        return <div className={classNames} tabIndex="-1">
             <Renderer
                 ref="renderer"
                 widgets={this.props.hint.widgets}

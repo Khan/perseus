@@ -42,6 +42,12 @@ var HintsRenderer = React.createClass({
             prevProps.hintsVisible !== this.props.hintsVisible) {
             this._cacheHintImages();
         }
+
+        // When a new hint is displayed we immediately focus it
+        if (prevProps.hintsVisible !== this.props.hintsVisible) {
+            var pos = this.props.hintsVisible - 1;
+            React.findDOMNode(this.refs["hintRenderer" + pos]).focus();
+        }
     },
 
     _cacheImagesInHint: function(hint) {
