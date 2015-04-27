@@ -23,19 +23,6 @@
     user-select: none;
 }
 
-// Make content only visible to screen readers.
-// Both collegeboard.org and Bootstrap 3 use this exact implementation.
-.sr-only {
-    border: 0;
-    clip: rect(0,0,0,0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
 // .blank-background is used to prevent drawing under transparent widgets.
 // drawing under transparent widgets is particularly annoying because if
 // you lift up your pen and put it down again, you can't continue drawing,
@@ -939,6 +926,7 @@ body.sat-section {
 
 // Make content only visible to screen readers.
 // Stolen from the .sr-only class on the website.
+// Both collegeboard.org and Bootstrap 3 use this exact implementation.
 .perseus-sr-only {
     border: 0;
     clip: rect(0,0,0,0);

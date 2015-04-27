@@ -55,7 +55,7 @@ var Choice = React.createClass({
             <span className="checkbox">
                 <div className="pos-back"></div>
                 <div className="pos">
-                    <span className="sr-only">{
+                    <span className="perseus-sr-only">{
                         $._("(Choice %(letter)s)", {letter: letter})
                     }</span>
                     <span aria-hidden="true">{letter}</span>
@@ -205,7 +205,7 @@ var BaseRadio = React.createClass({
         var rubric = this.props.reviewModeRubric;
 
         return <fieldset className="perseus-widget-radio-fieldset">
-            <legend className="sr-only">{this.props.multipleSelect ?
+            <legend className="perseus-sr-only">{this.props.multipleSelect ?
                 <$_>Select all that apply.</$_> :
                 <$_>Please choose from one of the following options.</$_>
             }</legend>
