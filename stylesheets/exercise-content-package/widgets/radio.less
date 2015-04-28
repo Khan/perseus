@@ -258,10 +258,10 @@ body.sat-section,
                 // TODO(kitt): Clean up these decorators.
                 border-color: @satBlue;
                 span.checkbox {
-                    &:after {
+                    .pos {
                         color: #fff;
                     }
-                    &:before {
+                    .pos-back {
                         background: @satBlue;
                     }
                 }
@@ -275,7 +275,7 @@ body.sat-section,
             &.perseus-correct {
                 color: @satCorrectColor;
 
-                span.checkbox:before {
+                span.checkbox .pos-back {
                     border-color: @satCorrectColor;
                 }
                 &.perseus-radio-selected {
@@ -286,7 +286,7 @@ body.sat-section,
                         border-top-color: @satCorrectBorderColor;
                     }
 
-                    span.checkbox:before {
+                    span.checkbox .pos-back {
                         background: @satCorrectColor;
                     }
                 }
@@ -301,7 +301,7 @@ body.sat-section,
                     border-top-color: @satIncorrectBorderColor;
                 }
 
-                span.checkbox:before {
+                span.checkbox .pos-back {
                     border-color: @satIncorrectColor;
                     background: @satIncorrectColor;
                 }
@@ -323,7 +323,7 @@ body.sat-section,
                 cursor: inherit !important;
             }
 
-            &.perseus-correct:not(.perseus-radio-selected) span.checkbox:after {
+            &.perseus-correct:not(.perseus-radio-selected) span.checkbox .pos {
                 color: @satCorrectColor;
             }
         }
