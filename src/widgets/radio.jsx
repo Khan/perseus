@@ -51,13 +51,29 @@ var Choice = React.createClass({
         // changed to a map of common options that are properly translated.
         var letter = String.fromCharCode(65 + this.props.pos);
 
+        var a11yText = () => {
+            if (this.props.checked) {
+                if (typeof this.props.correct === "boolean") {
+                    if (this.props.correct) {
+                        return $._("(Choice %(letter)s, Checked, Correct)",
+                            {letter: letter});
+                    } else {
+                        return $._("(Choice %(letter)s, Checked, Incorrect)",
+                            {letter: letter});
+                    }
+                }
+
+                return $._("(Choice %(letter)s, Checked)", {letter: letter});
+            }
+
+            return $._("(Choice %(letter)s)", {letter: letter});
+        };
+
         return <label className={this.props.className}>
             <span className="checkbox">
                 <div className="pos-back"></div>
                 <div className="pos">
-                    <span className="perseus-sr-only">{
-                        $._("(Choice %(letter)s)", {letter: letter})
-                    }</span>
+                    <span className="perseus-sr-only">{a11yText()}</span>
                     <span aria-hidden="true">{letter}</span>
                 </div>
                 <input
@@ -235,6 +251,7 @@ var BaseRadio = React.createClass({
                     var elementProps = {
                         ref: `radio${i}`,
                         checked: choice.checked,
+                        correct: (rubric && rubric.choices[i].correct),
                         clue: choice.clue,
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
