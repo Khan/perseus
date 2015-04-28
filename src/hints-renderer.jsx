@@ -15,6 +15,7 @@ var HintsRenderer = React.createClass({
                 return <HintRenderer
                             bold={shouldBold}
                             hint={hint}
+                            pos={i}
                             ref={"hintRenderer" + i}
                             key={"hintRenderer" + i}
                             enabledFeatures={this.props.enabledFeatures}

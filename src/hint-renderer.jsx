@@ -13,6 +13,9 @@ var HintRenderer = React.createClass({
             classNames = "perseus-hint-renderer";
         }
         return <div className={classNames} tabIndex="-1">
+            <span className="sr-only">{
+                $._("Hint #%(pos)s", {pos: this.props.pos + 1})
+            }</span>
             <Renderer
                 ref="renderer"
                 widgets={this.props.hint.widgets}
