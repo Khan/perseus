@@ -124,10 +124,18 @@ var rules = {
         },
         output: (node, output) => {
             return [
-                <span style={LABEL_OUTER_STYLE}>
+                <span
+                        key="visual-square"
+                        style={LABEL_OUTER_STYLE}
+                        aria-hidden="true">
                     <span style={SQUARE_LABEL_STYLE}>
                         {output(node.content)}
                     </span>
+                </span>,
+                <span key="alt-text" className="perseus-sr-only">
+                    <$_ number={output(node.content)}>
+                        [Question marker %(number)s]
+                    </$_>
                 </span>,
                 (node.space ? "\u00A0" : null)
             ];
@@ -144,10 +152,43 @@ var rules = {
         },
         output: (node, output) => {
             return [
-                <span style={LABEL_OUTER_STYLE}>
+                <span
+                        key="visual-circle"
+                        style={LABEL_OUTER_STYLE}
+                        aria-hidden={true}>
                     <span style={CIRCLE_LABEL_STYLE}>
                         {output(node.content)}
                     </span>
+                </span>,
+                <span key="alt-text" className="perseus-sr-only">
+                    <$_ number={output(node.content)}>
+                        [Circle marker %(number)s]
+                    </$_>
+                </span>,
+                (node.space ? "\u00A0" : null)
+            ];
+        }
+    },
+    squareBracketRef: {
+        order: SimpleMarkdown.defaultRules.escape.order + .6,
+        regex: /^\[(\d+)\]( *)/,
+        parse: (capture, parse, state) => {
+            return {
+                content: capture[1],
+                space: capture[2].length > 0,
+            };
+        },
+        output: (node, output) => {
+            return [
+                <span
+                        key="visual-brackets"
+                        aria-hidden="true">
+                    [{node.content}]
+                </span>,
+                <span key="alt-text" className="perseus-sr-only">
+                    <$_ number={node.content}>
+                        [Sentence marker %(number)s]
+                    </$_>
                 </span>,
                 (node.space ? "\u00A0" : null)
             ];
