@@ -150,7 +150,7 @@ var Passage = React.createClass({
 
     _hasFootnotes: function() {
         var rawContent = this.props.footnotes;
-        var isEmpty = /\s+/.test(rawContent);
+        var isEmpty = /^\s*$/.test(rawContent);
         return !isEmpty;
     },
 
