@@ -52,6 +52,8 @@ var Choice = React.createClass({
         var letter = String.fromCharCode(65 + this.props.pos);
 
         var a11yText = () => {
+            // If the option was checked we need to reveal more context about
+            // what the result was (correct/incorrect)
             if (this.props.checked) {
                 if (typeof this.props.correct === "boolean") {
                     if (this.props.correct) {
@@ -64,6 +66,12 @@ var Choice = React.createClass({
                 }
 
                 return $._("(Choice %(letter)s, Checked)", {letter: letter});
+
+            // If the option wasn't checked, but was correct, we need to tell
+            // the user that this was, in fact, the correct answer.
+            } else if (this.props.correct) {
+                return $._("(Choice %(letter)s, Correct Answer)",
+                    {letter: letter});
             }
 
             return $._("(Choice %(letter)s)", {letter: letter});
