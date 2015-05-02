@@ -72,16 +72,16 @@ var Passage = React.createClass({
             {lineNumbers && <div className="line-numbers" aria-hidden={true}>
                 {lineNumbers}
             </div>}
-            <div className="perseus-sr-only">
+            <h3 className="perseus-sr-only">
                 <$_>Beginning of reading passage.</$_>
-            </div>
+            </h3>
             <div className="passage-text">
                 {this._renderContent()}
             </div>
             {this._hasFootnotes() && [
-                <div key="footnote-start" className="perseus-sr-only">
+                <h4 key="footnote-start" className="perseus-sr-only">
                     <$_>Beginning of reading passage footnotes.</$_>
-                </div>,
+                </h4>,
                 <div key="footnotes" className="footnotes">
                     {this._renderFootnotes()}
                 </div>
