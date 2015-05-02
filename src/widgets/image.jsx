@@ -86,12 +86,43 @@ var ImageWidget = React.createClass({
 
     render: function() {
         var image;
+        var alt;
         var backgroundImage = this.props.backgroundImage;
         if (backgroundImage.url) {
             image = <SvgImage src={backgroundImage.url}
-                              alt={this.props.alt}
+                              alt={
+                                  /* alt text is formatted in a sr-only
+                                     div next to the image, so we make
+                                     this empty here.
+                                     If there is no alt text at all,
+                                     we don't put an alt attribute on
+                                     the image, so that screen readers
+                                     know there's something they can't
+                                     read there :(.
+                                     NOTE: React <=0.13 (maybe later)
+                                     has a bug where it won't ever
+                                     remove an attribute, so if this
+                                     alt node is ever defined it's
+                                     not removed. This is sort of
+                                     dangerous, but we usually re-key
+                                     new renderers so that they're
+                                     rendered from scratch anyways,
+                                     so this shouldn't be a problem
+                                     in practice right now, although
+                                     it will exhibit weird behaviour
+                                     while editing. */
+                                  this.props.alt ? "" : undefined
+                              }
                               width={backgroundImage.width}
                               height={backgroundImage.height} />;
+        }
+
+        if (this.props.alt) {
+            alt = <span className="perseus-sr-only">
+                <Renderer
+                    content={this.props.alt}
+                    apiOptions={this.props.apiOptions} />
+            </span>;
         }
 
         var box = this.props.box;
@@ -99,7 +130,9 @@ var ImageWidget = React.createClass({
         return <div className="perseus-image-widget">
             {this.props.title &&
                 <div className="perseus-image-title">
-                    <Renderer content={this.props.title} />
+                    <Renderer
+                        content={this.props.title}
+                        apiOptions={this.props.apiOptions} />
                 </div>
             }
             <div
@@ -109,6 +142,7 @@ var ImageWidget = React.createClass({
                         height: box[1]
                     }}>
                 {image}
+                {alt}
                 <Graphie
                     ref="graphie"
                     box={this.props.box}
@@ -206,12 +240,27 @@ var ImageEditor = React.createClass({
                     </label>
                 </div>
                 <div>
-                    <label>Alt text:{' '}
-                        <TextInput value={this.props.alt}
-                                   onChange={this.change("alt")} />
-                        <InfoTip>
-                            <p>Add alt text to the image</p>
-                        </InfoTip>
+                    <label>
+                        <div>
+                            Alt text:
+                            <InfoTip>
+                                <p>
+                                    Add alt text to the image.
+                                    This is important for screenreaders.
+                                    The content of this alt text will be
+                                    formatted as markdown (tables, emphasis,
+                                    etc. are supported).
+                                </p>
+                            </InfoTip>
+                        </div>
+                        <Editor
+                            content={this.props.alt}
+                            onChange={(props) => {
+                                if (props.content != null) {
+                                    this.change("alt", props.content);
+                                }
+                            }}
+                            widgetEnabled={false} />
                     </label>
                 </div>
             </div>}
