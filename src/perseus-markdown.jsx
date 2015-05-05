@@ -188,6 +188,48 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             return <TeX>{node.content}</TeX>;
         }
     },
+    fence: _.extend({}, SimpleMarkdown.defaultRules.fence, {
+        parse: (capture, parse, state) => {
+            var node = SimpleMarkdown.defaultRules.fence.parse(
+                capture,
+                parse,
+                state
+            );
+
+            // support screenreader-only text with ```alt
+            if (node.lang === "alt") {
+                return {
+                    type: "codeBlock",
+                    lang: "alt",
+                    // default codeBlock parsing doesn't parse the contents.
+                    // We need to parse the contents for things like table
+                    // support :).
+                    // The \n\n is because the inside of the codeblock might
+                    // not end in double newlines for block rules, because
+                    // ordinarily we don't parse this :).
+                    content: parse(node.content + "\n\n", state),
+                };
+            } else {
+                return node;
+            }
+        },
+    }),
+    codeBlock: _.extend({}, SimpleMarkdown.defaultRules.codeBlock, {
+        output: (node, output) => {
+            // ideally this should be a different rule, with only an
+            // output function, but right now that breaks the parser.
+            if (node.lang === "alt") {
+                return <div className="perseus-markdown-alt perseus-sr-only">
+                    {output(node.content)}
+                </div>;
+            } else {
+                return SimpleMarkdown.defaultRules.codeBlock.output(
+                    node,
+                    output
+                );
+            }
+        }
+    }),
 });
 
 var builtParser = SimpleMarkdown.parserFor(rules);
