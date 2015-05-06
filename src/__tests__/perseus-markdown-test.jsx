@@ -35,6 +35,34 @@ var validateParse = function(parsed, expected) {
     }
 };
 
+var htmlThroughReact = function(parsed) {
+    var output = PerseusMarkdown.testOutput(parsed);
+    var rawHtml = React.renderToStaticMarkup(
+        React.DOM.div(null, output)
+    );
+    var innerHtml = rawHtml
+        .replace(/^<div>/, '')
+        .replace(/<\/div>$/, '');
+    var simplifiedHtml = innerHtml
+        .replace(/>\n*/g, '>')
+        .replace(/\n*</g, '<')
+        .replace(/\s+/g, ' ');
+    return simplifiedHtml;
+};
+
+var htmlFromMarkdown = function(source) {
+    return htmlThroughReact(parse(source));
+};
+
+var assertParsesToReact = function(source, html) {
+    var actualHtml = htmlFromMarkdown(source);
+    if (actualHtml !== html) {
+        console.warn(actualHtml);
+        console.warn(html);
+    }
+    assert.strictEqual(actualHtml, html);
+};
+
 var validateCount = (source, expectedCount) => {
     assert.equal(characterCount(source),
                  expectedCount,
@@ -297,6 +325,48 @@ describe("perseus markdown", () => {
                     },
                 ],
             }]);
+        });
+    });
+
+    describe("output", () => {
+        it("should output paragraphs", () => {
+            assertParsesToReact(
+                "para!",
+                // This is overridden in Renderer
+                '<div class="paragraph">para!</div>'
+            )
+        });
+
+        it("should output columns", () => {
+            assertParsesToReact(
+                "col1\n\n" +
+                "=====\n\n" +
+                "col2",
+                '<div class="perseus-two-columns">' +
+                '<div class="perseus-column">' +
+                '<div class="paragraph">col1</div>' +
+                '</div>' +
+                '<div class="perseus-column">' +
+                '<div class="paragraph">col2</div>' +
+                '</div>' +
+                '</div>'
+            );
+        });
+
+        it("should render ```alt screenreader blocks", () => {
+            assertParsesToReact(
+                "```alt\n" +
+                "screenreader-only text!\n" +
+                "```",
+                // I'm not sure this is the best order; it looks like
+                // code is parsed before paragraphs, and then the
+                // paragraph is parsed internally.
+                '<div class="perseus-markdown-alt perseus-sr-only">' +
+                '<div class="paragraph">' +
+                'screenreader-only text!' +
+                '</div>' +
+                '</div>'
+            );
         });
     });
 
