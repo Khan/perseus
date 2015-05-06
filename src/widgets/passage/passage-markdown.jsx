@@ -43,7 +43,7 @@ var rules = {
     escape: SimpleMarkdown.defaultRules.escape,
     passageFootnote: {
         order: SimpleMarkdown.defaultRules.escape.order + .1,
-        regex: /^\^/,
+        match: SimpleMarkdown.inlineRegex(/^\^/),
         parse: (capture, parse, state) => {
             // if no footnotes have been seen, we're id 1. otherwise,
             // we're the next subsequent id
@@ -71,7 +71,7 @@ var rules = {
     },
     refStart: {
         order: SimpleMarkdown.defaultRules.escape.order + .2,
-        regex: /^\{\{/,
+        match: SimpleMarkdown.inlineRegex(/^\{\{/),
         parse: (capture, parse, state) => {
             var ref = state.lastRef + 1;
             state.lastRef = ref;
@@ -91,7 +91,7 @@ var rules = {
     },
     refEnd: {
         order: SimpleMarkdown.defaultRules.escape.order + .3,
-        regex: /^\}\}/,
+        match: SimpleMarkdown.inlineRegex(/^\}\}/),
         parse: (capture, parse, state) => {
             var ref = state.currentRef.pop() || null;
             return {
@@ -117,7 +117,7 @@ var rules = {
     },
     squareLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + .4,
-        regex: /^\[\[(\w+)\]\]( *)/,
+        match: SimpleMarkdown.inlineRegex(/^\[\[(\w+)\]\]( *)/),
         parse: (capture, parse, state) => {
             if (!state.firstQuestionRef) {
                 state.firstQuestionRef = capture[1];
@@ -149,7 +149,7 @@ var rules = {
     },
     circleLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + .5,
-        regex: /^\(\((\w+)\)\)( *)/,
+        match: SimpleMarkdown.inlineRegex(/^\(\((\w+)\)\)( *)/),
         parse: (capture, parse, state) => {
             return {
                 content: capture[1],
@@ -178,7 +178,7 @@ var rules = {
     },
     squareBracketRef: {
         order: SimpleMarkdown.defaultRules.escape.order + .6,
-        regex: /^\[(\d+)\]( *)/,
+        match: SimpleMarkdown.inlineRegex(/^\[(\d+)\]( *)/),
         parse: (capture, parse, state) => {
             if (!state.firstSentenceRef) {
                 state.firstSentenceRef = capture[1];
