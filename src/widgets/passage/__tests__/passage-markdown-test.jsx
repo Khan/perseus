@@ -26,6 +26,34 @@ validateParse = (parsed, expected) => {
     }
 };
 
+var htmlThroughReact = function(parsed) {
+    var output = PassageMarkdown.output(parsed);
+    var rawHtml = React.renderToStaticMarkup(
+        React.DOM.div(null, output)
+    );
+    var innerHtml = rawHtml
+        .replace(/^<div>/, '')
+        .replace(/<\/div>$/, '');
+    var simplifiedHtml = innerHtml
+        .replace(/>\n*/g, '>')
+        .replace(/\n*</g, '<')
+        .replace(/\s+/g, ' ');
+    return simplifiedHtml;
+};
+
+var htmlFromMarkdown = function(source) {
+    return htmlThroughReact(parse(source));
+};
+
+var assertParsesToReact = function(source, html) {
+    var actualHtml = htmlFromMarkdown(source);
+    if (actualHtml !== html) {
+        console.warn(actualHtml);
+        console.warn(html);
+    }
+    assert.strictEqual(actualHtml, html);
+};
+
 describe("passage markdown", () => {
     describe("ref parsing", () => {
         it("should handle a single ref in plain text", () => {
@@ -225,6 +253,26 @@ describe("passage markdown", () => {
                     rule.type + " order was not a number: " + rule.order
                 );
             });
+        });
+    });
+
+    describe("output", () => {
+        it("should output some basic formatted passage text", () => {
+            assertParsesToReact(
+                "This is *some* __passage__ **text**\n\n" +
+                "This is paragraph 2",
+                '<div class="paragraph">' +
+                'This is ' +
+                '<em>some</em>' +
+                ' ' +
+                '<u>passage</u>' +
+                ' ' +
+                '<strong>text</strong>' +
+                '</div>' +
+                '<div class="paragraph">' +
+                'This is paragraph 2' +
+                '</div>'
+            );
         });
     });
 });
