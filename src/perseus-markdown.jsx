@@ -108,13 +108,13 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 col2: parse(capture[2], state)
             };
         },
-        output: (node, output) => {
-            return <div className="perseus-two-columns">
+        react: (node, output, state) => {
+            return <div className="perseus-two-columns" key={state.key}>
                 <div className="perseus-column">
-                    {output(node.col1)}
+                    {output(node.col1, state)}
                 </div>
                 <div className="perseus-column">
-                    {output(node.col2)}
+                    {output(node.col2, state)}
                 </div>
             </div>;
         },
@@ -145,13 +145,17 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 table: table,
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             var tableOutput = node.table ?
-                SimpleMarkdown.defaultRules.table.output(node.table, output) :
+                SimpleMarkdown.defaultRules.table.react(
+                    node.table,
+                    output,
+                    state
+                ) :  // :( (middle of the ternary expression)
                 "//invalid table//";
-            return <div className="perseus-titled-table">
+            return <div className="perseus-titled-table" key={state.key}>
                 <div className="perseus-table-title">
-                    {output(node.title)}
+                    {output(node.title, state)}
                 </div>
                 <div>{tableOutput}</div>
             </div>;
@@ -166,11 +170,13 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 widgetType: capture[2]
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             // The actual output is handled in the renderer, where
             // we know the current widget props/state. This is
             // just a stub for testing.
-            return <em>[Widget: {node.id}]</em>;
+            return <em key={state.key}>
+                [Widget: {node.id}]
+            </em>;
         }
     },
     math: {
@@ -181,11 +187,11 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 content: capture[1]
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             // The actual output is handled in the renderer, because
             // it needs to pass in an `onRender` callback prop. This
             // is just a stub for testing.
-            return <TeX>{node.content}</TeX>;
+            return <TeX key={state.key}>{node.content}</TeX>;
         }
     },
     fence: _.extend({}, SimpleMarkdown.defaultRules.fence, {
@@ -215,17 +221,20 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         },
     }),
     codeBlock: _.extend({}, SimpleMarkdown.defaultRules.codeBlock, {
-        output: (node, output) => {
+        react: (node, output, state) => {
             // ideally this should be a different rule, with only an
             // output function, but right now that breaks the parser.
             if (node.lang === "alt") {
-                return <div className="perseus-markdown-alt perseus-sr-only">
-                    {output(node.content)}
+                return <div
+                        key={state.key}
+                        className="perseus-markdown-alt perseus-sr-only">
+                    {output(node.content, state)}
                 </div>;
             } else {
-                return SimpleMarkdown.defaultRules.codeBlock.output(
+                return SimpleMarkdown.defaultRules.codeBlock.react(
                     node,
-                    output
+                    output,
+                    state
                 );
             }
         }
@@ -324,9 +333,11 @@ module.exports = {
     characterCount: characterCount,
     traverseContent: traverseContent,
     parse: parse,
-    outputFor: SimpleMarkdown.outputFor,
-    ruleOutput: SimpleMarkdown.ruleOutput(rules),
-    testOutput: SimpleMarkdown.outputFor(SimpleMarkdown.ruleOutput(rules)),
+    reactFor: SimpleMarkdown.reactFor,
+    ruleOutput: SimpleMarkdown.ruleOutput(rules, "react"),
+    testOutput: SimpleMarkdown.reactFor(
+        SimpleMarkdown.ruleOutput(rules, "react")
+    ),
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,
 };
 
