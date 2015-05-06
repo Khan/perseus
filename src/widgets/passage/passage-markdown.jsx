@@ -65,8 +65,8 @@ var rules = {
             state.lastFootnote = footnote;
             return footnote;
         },
-        output: (node, output) => {
-            return <sup>{node.text}</sup>;
+        react: (node, output, state) => {
+            return <sup key={state.key}>{node.text}</sup>;
         }
     },
     refStart: {
@@ -80,9 +80,10 @@ var rules = {
                 ref: ref
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             return <span
                     ref={START_REF_PREFIX + node.ref}
+                    key={START_REF_PREFIX + node.ref}
                     style={REF_STYLE}>
                 _
             </span>;
@@ -97,17 +98,18 @@ var rules = {
                 ref: ref
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             if (node.ref != null) {
                 return <span
                         ref={END_REF_PREFIX + node.ref}
+                        key={END_REF_PREFIX + node.ref}
                         style={REF_STYLE}>
                     _
                 </span>;
             } else {
                 // if we didn't have a matching start reference, don't output
                 // a ref
-                return <span style={REF_STYLE}>
+                return <span key={state.key} style={REF_STYLE}>
                     _
                 </span>;
             }
@@ -125,7 +127,7 @@ var rules = {
                 space: capture[2].length > 0,
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             return [
                 <span
                         key="visual-square"
@@ -154,7 +156,7 @@ var rules = {
                 space: capture[2].length > 0,
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             return [
                 <span
                         key="visual-circle"
@@ -186,7 +188,7 @@ var rules = {
                 space: capture[2].length > 0,
             };
         },
-        output: (node, output) => {
+        react: (node, output, state) => {
             return [
                 <span
                         key="visual-brackets"
@@ -223,7 +225,7 @@ var parse = (source, state) => {
 
 module.exports = {
     parse: parse,
-    output: SimpleMarkdown.outputFor(SimpleMarkdown.ruleOutput(rules)),
+    output: SimpleMarkdown.reactFor(SimpleMarkdown.ruleOutput(rules, "react")),
     START_REF_PREFIX: START_REF_PREFIX,
     END_REF_PREFIX: END_REF_PREFIX,
     _rulesForTesting: rules,
