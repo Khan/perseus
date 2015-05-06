@@ -207,7 +207,7 @@ var Renderer = React.createClass({
             this._getDefaultWidgetInfo(widgetId);
     },
 
-    renderWidget: function(impliedType, id) {
+    renderWidget: function(impliedType, id, state) {
         var widgetInfo = this.state.widgetInfo[id];
         if (widgetInfo || this.props.ignoreMissingWidgets) {
 
@@ -542,53 +542,78 @@ var Renderer = React.createClass({
 
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
-    outputMarkdown: function(ast) {
+    outputMarkdown: function(ast, state) {
+        var state = state || {};
         if (_.isArray(ast)) {
-            // TODO(alpert): Using a keyed object here to silence key warnings,
-            // but these keys are not meaningful. Having meaningful keys
-            // requires how markdown parsing/editing works, so this is the best
-            // we can do for now. :(
-            var nodes = {};
-            _.each(ast, (node, i) => {
-                // Use non-numeric keys to preserve insertion order
-                nodes['k' + i] = this.outputMarkdown(node);
-            });
-            return React.addons.createFragment(nodes);
+            // This is duplicated from simple-markdown
+            // TODO(aria): Don't duplicate this logic
+            var oldKey = state.key;
+            var result = [];
+
+            // map nestedOutput over the ast, except group any text
+            // nodes together into a single string output.
+            var lastWasString = false;
+            for (var i = 0; i < ast.length; i++) {
+                state.key = i;
+                var nodeOut = this.outputMarkdown(ast[i], state);
+                var isString = (typeof nodeOut === "string");
+                if (isString && lastWasString) {
+                    result[result.length - 1] += nodeOut;
+                } else {
+                    result.push(nodeOut);
+                }
+                lastWasString = isString;
+            }
+
+            state.key = oldKey;
+            return result;
         } else {
             // !!! WARNING: Mutative hacks! mutates `this._foundTextNodes`:
-            // because i wrote a bad interface to simple-markdown.js' `output`
+            // because I wrote a bad interface to simple-markdown.js' `output`
             this._foundTextNodes = false;
-            var output = this.outputNested(ast);
+            var output = this.outputNested(ast, state);
             var className = this._foundTextNodes ?
                 "" :
                 "perseus-paragraph-centered";
 
-            return <QuestionParagraph className={className}>
+            return <QuestionParagraph key={state.key} className={className}>
                 {output}
             </QuestionParagraph>;
         }
     },
 
     // output non-top-level nodes or arrays
-    outputNested: function(ast) {
+    outputNested: function(ast, state) {
         if (_.isArray(ast)) {
-            // TODO(alpert): Using a keyed object here to silence key warnings,
-            // but these keys are not meaningful. Having meaningful keys
-            // requires how markdown parsing/editing works, so this is the best
-            // we can do for now. :(
-            var nodes = {};
-            _.each(ast, (node, i) => {
-                // Use non-numeric keys to preserve insertion order
-                nodes['k' + i] = this.outputNested(node);
-            });
-            return React.addons.createFragment(nodes);
+            // This is duplicated from simple-markdown
+            // TODO(aria): Don't duplicate this logic
+            var oldKey = state.key;
+            var result = [];
+
+            // map nestedOutput over the ast, except group any text
+            // nodes together into a single string output.
+            var lastWasString = false;
+            for (var i = 0; i < ast.length; i++) {
+                state.key = i;
+                var nodeOut = this.outputNested(ast[i], state);
+                var isString = (typeof nodeOut === "string");
+                if (isString && lastWasString) {
+                    result[result.length - 1] += nodeOut;
+                } else {
+                    result.push(nodeOut);
+                }
+                lastWasString = isString;
+            }
+
+            state.key = oldKey;
+            return result;
         } else {
-            return this.outputNode(ast, this.outputNested);
+            return this.outputNode(ast, this.outputNested, state);
         }
     },
 
     // output individual AST nodes [not arrays]
-    outputNode: function(node, nestedOutput) {
+    outputNode: function(node, nestedOutput, state) {
         if (node.type === "widget") {
             // Widgets can contain text nodes, so we don't center them with
             // markdown magic here.
@@ -602,23 +627,25 @@ var Renderer = React.createClass({
                 // reasons). Instead we just notify the
                 // hopefully-content-creator that they need to change the
                 // widget id.
-                return <span className="renderer-widget-error">
+                return <span key={state.key} className="renderer-widget-error">
                     Widget [[{'\u2603'} {node.id}]] already exists.
                 </span>;
 
             } else {
                 this.widgetIds.push(node.id);
-                return this.renderWidget(node.widgetType, node.id);
+                return this.renderWidget(node.widgetType, node.id, state);
             }
 
         } else if (node.type === "math") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
-            return <span style={{
-                             // If math is directly next to text, don't let it
-                             // wrap to the next line
-                             "whiteSpace": "nowrap"
-                         }}>
+            return <span
+                        key={state.key}
+                        style={{
+                            // If math is directly next to text, don't let it
+                            // wrap to the next line
+                            "whiteSpace": "nowrap"
+                        }}>
                 {/* We add extra empty spans around the math to make it not
                     wrap (I don't know why this works, but it does) */}
                 <span />
@@ -639,6 +666,7 @@ var Renderer = React.createClass({
                 null;
 
             return <SvgImage
+                key={state.key}
                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                 alt={node.alt}
                 title={node.title}
@@ -651,7 +679,7 @@ var Renderer = React.createClass({
             // things like this
             this._isTwoColumn = true;
             // but then render normally:
-            return PerseusMarkdown.ruleOutput(node, nestedOutput);
+            return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
 
         } else if (node.type === "text") {
             if (rContainsNonWhitespace.test(node.content)) {
@@ -662,7 +690,7 @@ var Renderer = React.createClass({
         } else {
             // If it's a "normal" or "simple" markdown node, just
             // output it using its output rule.
-            return PerseusMarkdown.ruleOutput(node, nestedOutput);
+            return PerseusMarkdown.ruleOutput(node, nestedOutput, state);
         }
     },
 
