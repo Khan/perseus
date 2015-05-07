@@ -195,6 +195,26 @@ describe("passage markdown", () => {
                 ],
             }]);
         });
+
+        it("should parse bracket labels", () => {
+            var parsed = parse(
+                "[3] Hi\n\n"
+            );
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [
+                    {
+                        type: "squareBracketRef",
+                        space: true,
+                        content: "3"
+                    },
+                    {
+                        type: "text",
+                        content: "Hi"
+                    },
+                ],
+            }]);
+        });
     });
 
     describe("orders", () => {
