@@ -75,7 +75,7 @@ put-js-ios: build
 
 webapp-put: build
 	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
-	cp $(PERSEUS_NODE_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
+	cp $(PERSEUS_NODE_BUILD_JS) "$(WEBAPP)/tools/"
 	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
 	cp $(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/"
