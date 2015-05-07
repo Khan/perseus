@@ -7,7 +7,7 @@ SUPPRESSINSTALL=FALSE
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
-PERSEUS_VERSION_FILE=perseus-$(API_VERSION_MAJOR)-item-version.js
+PERSEUS_VERSION_FILE=build/perseus-$(API_VERSION_MAJOR)-item-version.js
 
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
@@ -18,22 +18,23 @@ help:
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: install
+build: $(PERSEUS_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
+
+$(PERSEUS_BUILD_JS): install
 	mkdir -p build
-# very hacks to prevent simple-markdown from pulling in a separate version of react.
-# basically, we need its require("react") to resolve to perseus' react, instead of
-# one in its node_modules (yuck!) (same for "underscore")
-# TODO(aria): cry
-	rm -rf simple-markdown/node_modules
-	rm -rf kmath/node_modules
-	rm -rf react-components/node_modules
 	./node_modules/.bin/webpack
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
 	cat build/perseus.js >> $(PERSEUS_BUILD_JS)
+
+$(PERSEUS_BUILD_CSS): install
+	mkdir -p build
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
-	node node/create-item-version-file.js >> build/$(PERSEUS_VERSION_FILE)
+
+$(PERSEUS_VERSION_FILE): install
+	mkdir -p build
+	node node/create-item-version-file.js >> $(PERSEUS_VERSION_FILE)
 
 server: install server-offline
 
@@ -65,7 +66,7 @@ webapp-put: build
 	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
 	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
-	cp build/$(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/$(PERSEUS_VERSION_FILE)"
+	cp $(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/"
 
 
 # Pull submodules if they are empty.
@@ -77,7 +78,7 @@ webapp-put: build
 ifeq ("$(wildcard kmath/package.json)", "")
 SUBMODULE_UPDATE := git submodule update --init
 else
-SUBMODULE_UPDATE := echo "submodules already initialized"
+SUBMODULE_UPDATE := @echo "submodules already initialized"
 endif
 
 # just to make the upgrade process over switching from injected rcss to
@@ -88,7 +89,7 @@ else
 ifeq ("$(wildcard node_modules/rcss/index.js)","")
 CLEAN_RCSS := rm -rf node_modules/rcss
 else
-CLEAN_RCSS := echo "rcss already upgraded"
+CLEAN_RCSS := @echo "rcss already upgraded"
 endif
 endif
 
@@ -103,6 +104,13 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	ln -s ../kmath node_modules/kmath
 	rm -rf node_modules/simple-markdown
 	ln -s ../simple-markdown node_modules/simple-markdown
+# very hacks to prevent simple-markdown from pulling in a separate version of react.
+# basically, we need its require("react") to resolve to perseus' react, instead of
+# one in its node_modules (yuck!) (same for "underscore")
+# TODO(aria): cry
+	rm -rf simple-markdown/node_modules
+	rm -rf kmath/node_modules
+	rm -rf react-components/node_modules
 endif
 
 clean:
@@ -120,7 +128,7 @@ else
 ifneq ("$(shell $(FIND_TESTS_2) 2>/dev/null)","")
 FIND_TESTS := $(FIND_TESTS_2)
 else
-FIND_TESTS := echo "Could not figure out how to run tests; skipping"; echo ""
+FIND_TESTS := @echo "Could not figure out how to run tests; skipping"; @echo ""
 endif
 endif
 
