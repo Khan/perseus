@@ -65,29 +65,39 @@ var Passage = React.createClass({
                 }
             });
         }
-        return <div className="perseus-widget-passage">
-            <div className="passage-title">
-                <Renderer content={this.props.passageTitle} />
-            </div>
-            {lineNumbers && <div className="line-numbers" aria-hidden={true}>
-                {lineNumbers}
-            </div>}
-            <h3 className="perseus-sr-only">
-                <$_>Beginning of reading passage.</$_>
-            </h3>
-            <div className="passage-text">
-                {this._renderContent()}
-            </div>
-            {this._hasFootnotes() && [
-                <h4 key="footnote-start" className="perseus-sr-only">
-                    <$_>Beginning of reading passage footnotes.</$_>
-                </h4>,
-                <div key="footnotes" className="footnotes">
-                    {this._renderFootnotes()}
+
+        var rawContent = this.props.passageText;
+        var parseState = {};
+        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
+
+        return <div className="perseus-widget-passage-container">
+            {this._renderInstructions(parseState)}
+            <div className="perseus-widget-passage">
+                <div className="passage-title">
+                    <Renderer content={this.props.passageTitle} />
                 </div>
-            ]}
-            <div className="perseus-sr-only">
-                <$_>End of reading passage.</$_>
+                {lineNumbers &&
+                    <div className="line-numbers" aria-hidden={true}>
+                        {lineNumbers}
+                    </div>
+                }
+                <h3 className="perseus-sr-only">
+                    <$_>Beginning of reading passage.</$_>
+                </h3>
+                <div className="passage-text">
+                    {this._renderContent(parsedContent)}
+                </div>
+                {this._hasFootnotes() && [
+                    <h4 key="footnote-start" className="perseus-sr-only">
+                        <$_>Beginning of reading passage footnotes.</$_>
+                    </h4>,
+                    <div key="footnotes" className="footnotes">
+                        {this._renderFootnotes()}
+                    </div>
+                ]}
+                <div className="perseus-sr-only">
+                    <$_>End of reading passage.</$_>
+                </div>
             </div>
         </div>;
     },
@@ -140,9 +150,35 @@ var Passage = React.createClass({
         }
     },
 
-    _renderContent: function() {
-        var rawContent = this.props.passageText;
-        var parsed = PassageMarkdown.parse(rawContent);
+    _renderInstructions: function(parseState) {
+        var firstQuestionNumber = parseState.firstQuestionRef;
+        var firstSentenceRef = parseState.firstSentenceRef;
+
+        var instructions = "";
+        if (firstQuestionNumber) {
+            instructions += $._(
+                "The symbol %(questionSymbol)s indicates that question" +
+                "%(questionNumber)s references this portion of the passage.",
+                {
+                    questionSymbol: "[[" + firstQuestionNumber + "]]",
+                    questionNumber: firstQuestionNumber,
+                }
+            );
+        }
+        if (firstSentenceRef) {
+            instructions += $._(
+                " The symbol %(sentenceSymbol)s indicates that the " +
+                "following sentence is referenced in a question.",
+                {
+                    sentenceSymbol: "[" + firstSentenceRef + "]",
+                }
+            );
+        }
+        var parsedInstructions = PassageMarkdown.parse(instructions);
+        return PassageMarkdown.output(parsedInstructions);
+    },
+
+    _renderContent: function(parsed) {
         return <div ref="content">
             {PassageMarkdown.output(parsed)}
         </div>;

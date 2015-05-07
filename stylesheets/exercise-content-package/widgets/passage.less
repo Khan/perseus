@@ -1,13 +1,15 @@
-.perseus-widget-passage {
+.perseus-widget-passage-container {
     @line-height: 22px;
 
-    line-height: @line-height;
-    margin: 22px 0 22px 45px;
-    position: relative;
-    width: 420px;
+    .perseus-widget-passage {
+        line-height: @line-height;
+        margin: 22px 0 22px 45px;
+        position: relative;
+        width: 420px;
 
-    div.paragraph {
-        font-family: Times, "Times New Roman", serif;
+        div.paragraph {
+            font-family: Times, "Times New Roman", serif;
+        }
     }
     .katex {
         line-height: @line-height - 2;
