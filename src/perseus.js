@@ -9,6 +9,7 @@ module.exports = {
     init:               require("./init.js"),
     renderability:      require("./renderability.jsx"),
     accessibility:      require("./a11y.js"),
+    i18n:               require("./i18n.jsx"),
     AnswerAreaRenderer: require("./answer-area-renderer.jsx"),
     ArticleEditor:      require("./article-editor.jsx"),
     ArticleRenderer:    require("./article-renderer.jsx"),
