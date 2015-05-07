@@ -117,6 +117,9 @@ var rules = {
         order: SimpleMarkdown.defaultRules.escape.order + .4,
         regex: /^\[\[(\w+)\]\]( *)/,
         parse: (capture, parse, state) => {
+            if (!state.firstQuestionRef) {
+                state.firstQuestionRef = capture[1];
+            }
             return {
                 content: capture[1],
                 space: capture[2].length > 0,
@@ -173,6 +176,9 @@ var rules = {
         order: SimpleMarkdown.defaultRules.escape.order + .6,
         regex: /^\[(\d+)\]( *)/,
         parse: (capture, parse, state) => {
+            if (!state.firstSentenceRef) {
+                state.firstSentenceRef = capture[1];
+            }
             return {
                 content: capture[1],
                 space: capture[2].length > 0,
@@ -202,13 +208,14 @@ var rules = {
 };
 
 var builtParser = SimpleMarkdown.parserFor(rules);
-var parse = (source) => {
+var parse = (source, state) => {
+    state = state || {};
     var paragraphedSource = source + "\n\n";
-    return builtParser(paragraphedSource, {
+    return builtParser(paragraphedSource, _.extend(state, {
         currentRef: [],
         lastRef: 0,
         lastFootnote: {id: 0, text: ""}
-    });
+    }));
 };
 
 module.exports = {
