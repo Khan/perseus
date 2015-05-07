@@ -129,6 +129,7 @@ var rules = {
             return [
                 <span
                         key="visual-square"
+                        className="perseus-passage-square-label"
                         style={LABEL_OUTER_STYLE}
                         aria-hidden="true">
                     <span style={SQUARE_LABEL_STYLE}>
@@ -157,6 +158,7 @@ var rules = {
             return [
                 <span
                         key="visual-circle"
+                        className="perseus-passage-circle-label"
                         style={LABEL_OUTER_STYLE}
                         aria-hidden={true}>
                     <span style={CIRCLE_LABEL_STYLE}>
@@ -188,6 +190,7 @@ var rules = {
             return [
                 <span
                         key="visual-brackets"
+                        className="perseus-passage-bracket-label"
                         aria-hidden="true">
                     [{node.content}]
                 </span>,
