@@ -118,7 +118,7 @@ var rules = {
         regex: /^\[\[(\w+)\]\]( *)/,
         parse: (capture, parse, state) => {
             return {
-                content: parse(capture[1], state),
+                content: capture[1],
                 space: capture[2].length > 0,
             };
         },
@@ -129,11 +129,11 @@ var rules = {
                         style={LABEL_OUTER_STYLE}
                         aria-hidden="true">
                     <span style={SQUARE_LABEL_STYLE}>
-                        {output(node.content)}
+                        {node.content}
                     </span>
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    <$_ number={output(node.content)}>
+                    <$_ number={node.content}>
                         [Marker for question %(number)s]
                     </$_>
                 </span>,
@@ -146,7 +146,7 @@ var rules = {
         regex: /^\(\((\w+)\)\)( *)/,
         parse: (capture, parse, state) => {
             return {
-                content: parse(capture[1], state),
+                content: capture[1],
                 space: capture[2].length > 0,
             };
         },
@@ -157,11 +157,11 @@ var rules = {
                         style={LABEL_OUTER_STYLE}
                         aria-hidden={true}>
                     <span style={CIRCLE_LABEL_STYLE}>
-                        {output(node.content)}
+                        {node.content}
                     </span>
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
-                    <$_ number={output(node.content)}>
+                    <$_ number={node.content}>
                         [Circle marker %(number)s]
                     </$_>
                 </span>,

@@ -166,7 +166,7 @@ describe("passage markdown", () => {
                     {
                         type: "squareLabel",
                         space: true,
-                        content: [{type: "text", content: "1"}]
+                        content: "1"
                     },
                     {
                         type: "text",
@@ -186,7 +186,7 @@ describe("passage markdown", () => {
                     {
                         type: "circleLabel",
                         space: true,
-                        content: [{type: "text", content: "2"}]
+                        content: "2"
                     },
                     {
                         type: "text",
