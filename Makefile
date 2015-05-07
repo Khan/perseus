@@ -7,6 +7,7 @@ SUPPRESSINSTALL=FALSE
 API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
+PERSEUS_NODE_BUILD_JS=build/node-perseus.js
 PERSEUS_VERSION_FILE=build/perseus-$(API_VERSION_MAJOR)-item-version.js
 
 help:
@@ -18,7 +19,7 @@ help:
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: $(PERSEUS_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
+build: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
 
 $(PERSEUS_BUILD_JS): install
 	mkdir -p build
@@ -27,6 +28,16 @@ $(PERSEUS_BUILD_JS): install
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
 	cat build/perseus.js >> $(PERSEUS_BUILD_JS)
+
+$(PERSEUS_NODE_BUILD_JS): install
+	mkdir -p build
+	./node_modules/.bin/webpack --config webpack.config.node-perseus.js
+	mv build/node-perseus.js{,.tmp}
+	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_NODE_BUILD_JS)
+	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
+	cat build/node-perseus.js.tmp >> $(PERSEUS_NODE_BUILD_JS)
+	rm build/node-perseus.js.tmp
 
 $(PERSEUS_BUILD_CSS): install
 	mkdir -p build
@@ -55,7 +66,7 @@ all: subperseus
 
 subperseus-ios: clean install build put-js-ios
 
-subperseus: clean install shorttest build webapp-put
+subperseus: clean install shorttest build shortnodetest webapp-put
 
 forcesubperseus: clean install build webapp-put
 
@@ -64,6 +75,7 @@ put-js-ios: build
 
 webapp-put: build
 	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
+	cp $(PERSEUS_NODE_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
 	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
 	cp $(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/"
@@ -136,6 +148,10 @@ test:
 	$(FIND_TESTS) | xargs ./node_modules/.bin/mocha --reporter spec -r node/environment.js
 shorttest:
 	$(FIND_TESTS) | xargs ./node_modules/.bin/mocha --reporter dot -r node/environment.js
+nodetest: $(PERSEUS_NODE_BUILD_JS)
+	./node_modules/.bin/mocha --reporter dot node/__tests__/require-test.js
+shortnodetest: $(PERSEUS_NODE_BUILD_JS)
+	./node_modules/.bin/mocha --reporter dot node/__tests__/require-test.js
 
 build/ke.js:
 	(cd ke && ../node_modules/.bin/r.js -o requirejs.config.js out=../build/ke.js)
