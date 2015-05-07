@@ -134,7 +134,7 @@ var rules = {
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
                     <$_ number={output(node.content)}>
-                        [Question marker %(number)s]
+                        [Marker for question %(number)s]
                     </$_>
                 </span>,
                 (node.space ? "\u00A0" : null)
@@ -187,7 +187,7 @@ var rules = {
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">
                     <$_ number={node.content}>
-                        [Sentence marker %(number)s]
+                        [Sentence %(number)s]
                     </$_>
                 </span>,
                 (node.space ? "\u00A0" : null)
