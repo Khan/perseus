@@ -92,6 +92,8 @@ var ItemRenderer = React.createClass({
                     type={this.props.item.answerArea.type}
                     options={this.props.item.answerArea.options}
                     calculator={this.props.item.answerArea.calculator || false}
+                    periodicTable={this.props.item.answerArea.periodicTable ||
+                        false}
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithAnswerWidget}
                     highlightedWidgets={this.state.answerHighlightedWidgets}

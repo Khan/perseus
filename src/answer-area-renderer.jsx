@@ -18,6 +18,7 @@ var AnswerAreaRenderer = React.createClass({
         type: PT.string,
         options: PT.object,
         calculator: PT.bool,
+        periodicTable: PT.bool,
         problemNum: PT.number,
         onInteractWithWidget: PT.func.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
@@ -257,11 +258,15 @@ var AnswerAreaRenderer = React.createClass({
 
     update: function() {
         $("#calculator").toggle(this.props.calculator);
+        $(".periodic-table-info-box").toggle(this.props.periodicTable);
     },
 
     componentWillUnmount: function() {
         if (this.props.calculator) {
             $("#calculator").hide();
+        }
+        if (this.props.periodicTable) {
+            $(".periodic-table-info-box").hide();
         }
     },
 

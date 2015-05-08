@@ -33,6 +33,7 @@ var AnswerAreaEditor = React.createClass({
             type: "multiple",
             options: {},
             calculator: false,
+            periodicTable: false,
             apiOptions: ApiOptions.defaults,
         };
     },
@@ -97,6 +98,20 @@ var AnswerAreaEditor = React.createClass({
             </InfoTip>
             </div>
 
+            <div><label>
+                Show periodic table:{' '}
+                <input type="checkbox" checked={this.props.periodicTable}
+                    onChange={e => {
+                        this.props.onChange({periodicTable: e.target.checked});
+                    }} />
+            </label>
+            <InfoTip>
+                <p>This provides the student with the ability to view a
+                periodic table of the elements, e.g., for answering chemistry
+                questions.</p>
+            </InfoTip>
+            </div>
+
             {(this.state.showTypeSelector ||
                     this.props.apiOptions.enableOldAnswerTypes) &&
                 <AnswerTypeSelector
@@ -129,7 +144,8 @@ var AnswerAreaEditor = React.createClass({
         return {
             type: this.props.type,
             options: this.refs.editor.serialize(options),
-            calculator: this.props.calculator
+            calculator: this.props.calculator,
+            periodicTable: this.props.periodicTable
         };
     }
 });
