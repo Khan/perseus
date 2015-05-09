@@ -25,7 +25,8 @@ var PassageRef = React.createClass({
 
     getInitialState: function() {
         return {
-            lineRange: null
+            lineRange: null,
+            content: null,
         };
     },
 
@@ -54,6 +55,11 @@ var PassageRef = React.createClass({
 
         return <span>
             {lineRangeOutput}
+            {lineRange &&
+                <div className="perseus-sr-only">
+                    {this.state.content}
+                </div>
+            }
         </span>;
     },
 
@@ -78,10 +84,12 @@ var PassageRef = React.createClass({
             if (refInfo) {
                 this.setState({
                     lineRange: [refInfo.startLine, refInfo.endLine],
+                    content: refInfo.content,
                 });
             } else {
                 this.setState({
                     lineRange: null,
+                    content: null
                 });
             }
         }

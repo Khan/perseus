@@ -260,16 +260,27 @@ var Passage = React.createClass({
         return line;
     },
 
+    _getRefContent: function(referenceNumber) {
+        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        var ref = this.refs[refRef];
+        if (!ref) {
+            return null;
+        }
+        return ref.getRefContent();
+    },
+
     getReference: function(referenceNumber) {
         var refStartLine = this._getStartRefLineNumber(referenceNumber);
         var refEndLine = this._getEndRefLineNumber(referenceNumber);
         if (refStartLine == null || refEndLine == null) {
             return null;
         }
+        var refContent = this._getRefContent(referenceNumber);
 
         return {
             startLine: refStartLine,
             endLine: refEndLine,
+            content: refContent,
         };
     },
 
