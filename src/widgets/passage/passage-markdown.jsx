@@ -216,15 +216,19 @@ var rules = {
     text: SimpleMarkdown.defaultRules.text,
 };
 
+var INITIAL_PARSE_STATE = {
+    currentRef: [],
+    lastRef: 0,
+    lastFootnote: {id: 0, text: ""}
+};
 var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source, state) => {
     state = state || {};
     var paragraphedSource = source + "\n\n";
-    return builtParser(paragraphedSource, _.extend(state, {
-        currentRef: [],
-        lastRef: 0,
-        lastFootnote: {id: 0, text: ""}
-    }));
+    return builtParser(
+        paragraphedSource,
+        _.extend(state, INITIAL_PARSE_STATE)
+    );
 };
 
 module.exports = {
