@@ -67,7 +67,14 @@ describe("passage markdown", () => {
                     },
                     {
                         type: "refStart",
-                        ref: 1
+                        ref: 1,
+                        refContent: [{
+                            type: "paragraph",
+                            content: [
+                                {type: "text", content: "(ref"},
+                                {type: "text", content: ")"},
+                            ]
+                        }],
                     },
                     {
                         type: "text",
