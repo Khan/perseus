@@ -37,6 +37,18 @@ var CIRCLE_LABEL_STYLE = {
     textAlign: "center",
 };
 
+var RefStart = React.createClass({
+    render: function() {
+        return <span style={REF_STYLE}>_</span>;
+    },
+});
+
+var RefEnd = React.createClass({
+    render: function() {
+        return <span style={REF_STYLE}>_</span>;
+    },
+});
+
 var rules = {
     newline: SimpleMarkdown.defaultRules.newline,
     paragraph: SimpleMarkdown.defaultRules.paragraph,
@@ -81,12 +93,9 @@ var rules = {
             };
         },
         react: (node, output, state) => {
-            return <span
-                    ref={START_REF_PREFIX + node.ref}
-                    key={START_REF_PREFIX + node.ref}
-                    style={REF_STYLE}>
-                _
-            </span>;
+            return <RefStart
+                ref={START_REF_PREFIX + node.ref}
+                key={START_REF_PREFIX + node.ref} />;
         }
     },
     refEnd: {
@@ -100,18 +109,13 @@ var rules = {
         },
         react: (node, output, state) => {
             if (node.ref != null) {
-                return <span
+                return <RefEnd
                         ref={END_REF_PREFIX + node.ref}
-                        key={END_REF_PREFIX + node.ref}
-                        style={REF_STYLE}>
-                    _
-                </span>;
+                        key={END_REF_PREFIX + node.ref} />;
             } else {
                 // if we didn't have a matching start reference, don't output
                 // a ref
-                return <span key={state.key} style={REF_STYLE}>
-                    _
-                </span>;
+                return <RefEnd key={state.key} />;
             }
         }
     },
