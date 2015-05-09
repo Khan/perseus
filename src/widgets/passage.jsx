@@ -157,7 +157,7 @@ var Passage = React.createClass({
         var instructions = "";
         if (firstQuestionNumber) {
             instructions += $._(
-                "The symbol %(questionSymbol)s indicates that question" +
+                "The symbol %(questionSymbol)s indicates that question " +
                 "%(questionNumber)s references this portion of the passage.",
                 {
                     questionSymbol: "[[" + firstQuestionNumber + "]]",
