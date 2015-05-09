@@ -267,7 +267,10 @@ var Passage = React.createClass({
             return null;
         }
 
-        return [refStartLine, refEndLine];
+        return {
+            startLine: refStartLine,
+            endLine: refEndLine,
+        };
     },
 
     simpleValidate: function(rubric) {

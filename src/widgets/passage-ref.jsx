@@ -71,15 +71,21 @@ var PassageRef = React.createClass({
         var passage = this.props.interWidgets(
                 "passage " + this.props.passageNumber)[0];
 
-        var range = null;
+        var refInfo = null;
         if (passage) {
-            range = passage.getReference(this.props.referenceNumber);
+            refInfo = passage.getReference(this.props.referenceNumber);
         }
 
         if (this.isMounted()) {
-            this.setState({
-                lineRange: range
-            });
+            if (refInfo) {
+                this.setState({
+                    lineRange: [refInfo.startLine, refInfo.endLine],
+                });
+            } else {
+                this.setState({
+                    lineRange: null,
+                });
+            }
         }
     },
 
