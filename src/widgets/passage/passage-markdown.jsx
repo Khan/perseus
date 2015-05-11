@@ -146,7 +146,8 @@ var rules = {
             state.currentRef.push(ref);
 
             var refContent = parse(
-                "(" + capture[1] + ")\n\n",
+                // Curly quotes
+                "(\u201C" + capture[1] + "\u201D)\n\n",
                 _.defaults({
                     // We don't want to parse refs while looking through
                     // this refs contents. We definitely don't want

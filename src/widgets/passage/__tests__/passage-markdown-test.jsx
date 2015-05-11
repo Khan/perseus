@@ -71,7 +71,7 @@ describe("passage markdown", () => {
                         refContent: [{
                             type: "paragraph",
                             content: [
-                                {type: "text", content: "(ref"},
+                                {type: "text", content: "(\u201Cref\u201D"},
                                 {type: "text", content: ")"},
                             ]
                         }],
@@ -107,7 +107,7 @@ describe("passage markdown", () => {
                             content: [
                                 {
                                     type: "text",
-                                    content: "(ref ",
+                                    content: "(\u201Cref ",
                                 },
                                 {
                                     type: "refStart",
@@ -121,6 +121,10 @@ describe("passage markdown", () => {
                                 {
                                     type: "refEnd",
                                     ref: null,
+                                },
+                                {
+                                    type: "text",
+                                    content: "\u201D",
                                 },
                                 {
                                     type: "text",
@@ -141,7 +145,9 @@ describe("passage markdown", () => {
                             content: [
                                 {
                                     type: "text",
-                                    content: "(inside of another ref",
+                                    content: "(\u201C" +
+                                        "inside of another ref" +
+                                        "\u201D",
                                 },
                                 {
                                     type: "text",
