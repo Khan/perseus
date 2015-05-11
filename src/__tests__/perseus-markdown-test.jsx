@@ -36,7 +36,7 @@ var validateParse = function(parsed, expected) {
 };
 
 var htmlThroughReact = function(parsed) {
-    var output = PerseusMarkdown.testOutput(parsed);
+    var output = PerseusMarkdown.basicOutput(parsed);
     var rawHtml = React.renderToStaticMarkup(
         React.DOM.div(null, output)
     );

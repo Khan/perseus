@@ -335,7 +335,7 @@ module.exports = {
     parse: parse,
     reactFor: SimpleMarkdown.reactFor,
     ruleOutput: SimpleMarkdown.ruleOutput(rules, "react"),
-    testOutput: SimpleMarkdown.reactFor(
+    basicOutput: SimpleMarkdown.reactFor(
         SimpleMarkdown.ruleOutput(rules, "react")
     ),
     sanitizeUrl: SimpleMarkdown.sanitizeUrl,

@@ -6,7 +6,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var PerseusMarkdown = require("../perseus-markdown.jsx");
 var mdParse = PerseusMarkdown.parse;
-var mdOutput = PerseusMarkdown.testOutput;
+var mdOutput = PerseusMarkdown.basicOutput;
 
 var TextArea = React.createClass({
     render: function() {
