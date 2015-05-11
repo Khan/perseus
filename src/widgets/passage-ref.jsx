@@ -3,7 +3,10 @@ var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var InfoTip = require("react-components/info-tip.jsx");
 var NumberInput = require("../components/number-input.jsx");
+var PerseusMarkdown = require("../perseus-markdown.jsx");
+var TextInput = require("../components/text-input.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var EN_DASH = "\u2013";
@@ -14,12 +17,14 @@ var PassageRef = React.createClass({
     propTypes: {
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
+        summaryText: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
             passageNumber: 1,
             referenceNumber: 1,
+            summaryText: "",
         };
     },
 
@@ -53,8 +58,25 @@ var PassageRef = React.createClass({
             </$_>;
         }
 
+        var summaryOutput;
+        if (this.props.summaryText) {
+            var summaryTree = PerseusMarkdown.parseInline(
+                this.props.summaryText
+            );
+            summaryOutput = <span aria-hidden={true}>
+                {" "}
+                {/* curly quotes */}
+                (&ldquo;
+                {PerseusMarkdown.basicOutput(summaryTree)}
+                &rdquo;)
+            </span>;
+        } else {
+            summaryOutput = null;
+        }
+
         return <span>
             {lineRangeOutput}
+            {summaryOutput}
             {lineRange &&
                 <div className="perseus-sr-only">
                     {this.state.content}
@@ -121,12 +143,14 @@ var PassageRefEditor = React.createClass({
     propTypes: {
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
+        summaryText: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
             passageNumber: 1,
             referenceNumber: 1,
+            summaryText: "",
         };
     },
 
@@ -149,6 +173,22 @@ var PassageRefEditor = React.createClass({
                 </label>
             </div>
             <div>
+                <label>
+                    {"Summary Text: "}
+                    <TextInput
+                        value={this.props.summaryText}
+                        onChange={this.change("summaryText")} />
+                    <InfoTip>
+                        <p>
+                            Short summary of the referenced section. This
+                            will be included in parentheses and quotes
+                            automatically.
+                        </p>
+                        <p>
+                            Ex: The start ... the end
+                        </p>
+                    </InfoTip>
+                </label>
             </div>
         </div>;
     }
@@ -160,7 +200,11 @@ module.exports = {
     widget: PassageRef,
     editor: PassageRefEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "passageNumber", "referenceNumber");
+        return _.pick(editorProps,
+            "passageNumber",
+            "referenceNumber",
+            "summaryText"
+        );
     },
-    version: {major: 0, minor: 0}
+    version: {major: 0, minor: 1}
 };
