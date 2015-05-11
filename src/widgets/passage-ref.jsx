@@ -3,8 +3,8 @@ var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var NumberInput = require("../components/number-input.jsx");
+var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var EN_DASH = "\u2013";
 
@@ -13,13 +13,13 @@ var PassageRef = React.createClass({
 
     propTypes: {
         passageNumber: React.PropTypes.number,
-        referenceNumber: React.PropTypes.number
+        referenceNumber: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
             passageNumber: 1,
-            referenceNumber: 1
+            referenceNumber: 1,
         };
     },
 
@@ -120,29 +120,35 @@ var PassageRefEditor = React.createClass({
 
     propTypes: {
         passageNumber: React.PropTypes.number,
-        referenceNumber: React.PropTypes.number
+        referenceNumber: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
             passageNumber: 1,
-            referenceNumber: 1
+            referenceNumber: 1,
         };
     },
 
     render: function() {
         return <div>
             <div>
-                Passage Number:
-                <NumberInput
-                    value={this.props.passageNumber}
-                    onChange={this.change("passageNumber")} />
+                <label>
+                    {"Passage Number: "}
+                    <NumberInput
+                        value={this.props.passageNumber}
+                        onChange={this.change("passageNumber")} />
+                </label>
             </div>
             <div>
-                Reference Number:
-                <NumberInput
-                    value={this.props.referenceNumber}
-                    onChange={this.change("referenceNumber")} />
+                <label>
+                    {"Reference Number: "}
+                    <NumberInput
+                        value={this.props.referenceNumber}
+                        onChange={this.change("referenceNumber")} />
+                </label>
+            </div>
+            <div>
             </div>
         </div>;
     }
