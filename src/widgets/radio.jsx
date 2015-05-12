@@ -404,8 +404,8 @@ var Radio = React.createClass({
         var widgets = {};
 
         var modContent = content.replace(
-            /\{\{passage-ref (\d+) (\d+)\}\}/g,
-            (match, passageNum, refNum) => {
+            /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
+            (match, passageNum, refNum, summaryText) => {
                 var widgetId = "passage-ref " + nextPassageRefId;
                 nextPassageRefId++;
 
@@ -415,6 +415,7 @@ var Radio = React.createClass({
                     options: {
                         passageNumber: parseInt(passageNum),
                         referenceNumber: parseInt(refNum),
+                        summaryText: summaryText,
                     },
                     version: PassageRef.version
                 };
