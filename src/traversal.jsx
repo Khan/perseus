@@ -21,8 +21,6 @@ var noop = function() { };
 
 var deepCallbackFor = function(contentCallback, widgetCallback) {
     var deepCallback = function(widgetInfo, widgetId) {
-        widgetCallback(widgetInfo, widgetId);
-
         // This doesn't modify the widget info if the widget info
         // is at a later version than is supported, which is important
         // for our latestVersion test below.
@@ -59,6 +57,8 @@ var deepCallbackFor = function(contentCallback, widgetCallback) {
                 }
             );
         }
+
+        widgetCallback(upgradedWidgetInfo, widgetId);
     };
     return deepCallback;
 };
