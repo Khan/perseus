@@ -44,8 +44,6 @@ function widgetCallback(widgetInfo, images) {
         _.each(widgetInfo.options.categories, function(category) {
             findImagesInContent(category, images);
         });
-    } else if (widgetInfo.type === "group") {
-        findImagesInContent(widgetInfo.options.content, images);
     } else if (widgetInfo.type === "image") {
         findImagesInContent(widgetInfo.options.title, images);
         findImagesInContent(widgetInfo.options.caption, images);
@@ -104,11 +102,11 @@ function findImagesInItemData(itemData) {
     var renderers = [itemData.question].concat(itemData.hints);
 
     _.each(renderers, (renderer) => {
-        findImagesInContent(renderer.content, images);
-
         traversal.traverseRendererDeep(
             renderer,
-            (content) => {},
+            (content) => {
+                findImagesInContent(content, images);
+            },
             (widget) => widgetCallback(widget, images)
         );
     });
