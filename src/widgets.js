@@ -183,17 +183,20 @@ var Widgets = {
         }
 
         if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
-            return;
+            return widgetInfo;
         }
 
         var widgetExports = widgets[widgetInfo.type];
         var props = widgetInfo.options;
 
         if (widgetExports.traverseChildWidgets && props) {
-            widgetExports.traverseChildWidgets(
+            var newProps = widgetExports.traverseChildWidgets(
                 props,
                 traverseRenderer
             );
+            return _.extend({}, widgetInfo, {options: newProps});
+        } else {
+            return widgetInfo;
         }
     },
 };

@@ -14,6 +14,8 @@
  */
 
 var _ = require("underscore");
+// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
+var objective_ = require("./interactive2/objective_.js");
 
 var Widgets = require("./widgets.js");
 
@@ -44,21 +46,29 @@ var deepCallbackFor = function(contentCallback, widgetCallback) {
         // make all of this a little tighter.
         // I think once we use react class defaultProps instead of relying
         // on getDefaultProps, this will become easier.
+        var newWidgetInfo;
         if (latestVersion && (
                 upgradedWidgetInfo.version.major === latestVersion.major)) {
-            Widgets.traverseChildWidgets(
+            newWidgetInfo = Widgets.traverseChildWidgets(
                 upgradedWidgetInfo,
                 (rendererOptions) => {
-                    traverseRenderer(
+                    return traverseRenderer(
                         rendererOptions,
                         contentCallback,
                         deepCallback // so that we traverse grandchildren, too!
                     );
                 }
             );
+        } else {
+            newWidgetInfo = upgradedWidgetInfo;
         }
 
-        widgetCallback(upgradedWidgetInfo, widgetId);
+        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
+        if (userWidgetInfo !== undefined) {
+            return userWidgetInfo;
+        } else {
+            return newWidgetInfo;
+        }
     };
     return deepCallback;
 };
@@ -68,19 +78,29 @@ var traverseRenderer = function(
         contentCallback,
         deepWidgetCallback) {
 
+    var newContent = rendererOptions.content;
     if (rendererOptions.content != null) {
-        contentCallback(rendererOptions.content);
+        var modifiedContent = contentCallback(rendererOptions.content);
+        if (modifiedContent !== undefined) {
+            newContent = modifiedContent;
+        }
     }
 
-    _.each(rendererOptions.widgets, function(widgetInfo, widgetId) {
+    var newWidgets = objective_.mapObject(rendererOptions.widgets,
+            function(widgetInfo, widgetId) {
         // Widgets without info or a type are empty widgets, and
         // should always be renderable. It's also annoying to write
         // checks for this everywhere, so we just filter them out once and
         // for all!
         if (widgetInfo == null || widgetInfo.type == null) {
-            return;
+            return widgetInfo;
         }
-        deepWidgetCallback(widgetInfo, widgetId);
+        return deepWidgetCallback(widgetInfo, widgetId);
+    });
+
+    return _.extend({}, rendererOptions, {
+        content: newContent,
+        widgets: newWidgets,
     });
 };
 
@@ -92,7 +112,7 @@ var traverseRendererDeep = function(
     contentCallback = contentCallback || noop;
     widgetCallback = widgetCallback || noop;
 
-    traverseRenderer(
+    return traverseRenderer(
         rendererOptions,
         contentCallback,
         deepCallbackFor(contentCallback, widgetCallback)

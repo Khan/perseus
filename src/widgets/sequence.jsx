@@ -257,9 +257,15 @@ var traverseChildWidgets = function(
         props,
         traverseRenderer) {
 
-    _.each(props.json, (rendererOptions) => {
-        traverseRenderer(rendererOptions);
+    var oldJson = props.json;
+    if (!_.isArray(oldJson)) {
+        oldJson = [oldJson];
+    }
+    var json = _.map(oldJson, (rendererOptions) => {
+        return traverseRenderer(rendererOptions);
     });
+
+    return _.extend({}, props, {json: json});
 };
 
 module.exports = {

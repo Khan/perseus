@@ -215,7 +215,7 @@ var traverseChildWidgets = function(
         props,
         traverseRenderer) {
 
-    traverseRenderer(props);
+    return _.extend({}, props, traverseRenderer(props));
 };
 
 module.exports = {
