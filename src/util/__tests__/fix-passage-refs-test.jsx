@@ -101,12 +101,60 @@ var sampleGroupItem = {
     "hints": []
 };
 
+var sampleRadioItem = {
+    "question": {
+        "content": "[[☃ radio 1]]\n\n",
+        "images": {},
+        "widgets": {
+            "radio 1": {
+                "type": "radio",
+                "graded": true,
+                "options": {
+                    "choices": [
+                        {
+                            "content": "{{passage-ref 1 2}} (\"hi ... there\")"
+                        },
+                        {}
+                    ],
+                    "randomize": false,
+                    "multipleSelect": false,
+                    "displayCount": null,
+                    "hasNoneOfTheAbove": false,
+                    "onePerLine": true,
+                    "deselectEnabled": false
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false,
+        "periodicTable": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": []
+};
+
 var clonedSampleItem = _.clone(sampleItem);
 var clonedSampleGroupItem = _.clone(sampleGroupItem);
+var clonedSampleRadioItem = _.clone(sampleRadioItem);
 
 var assertNonMutative = () => {
     assert.deepEqual(sampleItem, clonedSampleItem);
     assert.deepEqual(sampleGroupItem, clonedSampleGroupItem);
+    assert.deepEqual(sampleRadioItem, clonedSampleRadioItem);
 };
 
 describe("fix-passage-refs", () => {
@@ -164,5 +212,16 @@ describe("fix-passage-refs", () => {
         );
         assertNonMutative();
     });
+
+    it("should modify a passage ref in a radio", () => {
+        var newItem = FixPassageRefs(sampleRadioItem);
+        var radio = newItem.question.widgets["radio 1"];
+        assert.strictEqual(
+            radio.options.choices[0].content,
+            "{{passage-ref 1 2 \"hi ... there\"}}"
+        );
+        assertNonMutative();
+    });
+
 
 });

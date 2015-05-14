@@ -46,11 +46,60 @@ var fixWholeOptions = (options) => {
     });
 };
 
+var findRadioRefsR = new RegExp(
+    // passage-ref notation
+    "\\{\\{(passage-ref \\d+ \\d+)}}" +
+    // a space
+    "\\s+" +
+    // ("
+    "\\([\"\\u201C]" +
+    // <capture the content>
+    "([^\"]*)" +
+    // ")
+    "[\"\\u201D]\\)",
+    // find all passage-refs
+    "g"
+);
+var replaceRadioRefs = (fullText, reference, summaryText) => {
+    if (/\n\n/.test(summaryText)) {
+        return fullText;
+    }
+    return "{{" + reference + " \"" + summaryText + "\"}}";
+};
+
+var fixRadioWidget = (widgetInfo) => {
+    if (widgetInfo.type !== "radio" ||
+            !widgetInfo.options ||
+            !widgetInfo.options.choices) {
+        return widgetInfo;
+    }
+
+    var newChoices = _.map(widgetInfo.options.choices, (choice) => {
+        if (!choice.content) {
+            return choice;
+        }
+
+        var newChoice = choice.content.replace(
+            findRadioRefsR,
+            replaceRadioRefs
+        );
+        return _.extend({}, choice, {
+            content: newChoice
+        });
+    });
+
+    return _.extend({}, widgetInfo, {
+        options: _.extend({}, widgetInfo.options, {
+            choices: newChoices,
+        }),
+    });
+};
+
 var fixRendererPassageRefs = (options) => {
     return Traversal.traverseRendererDeep(
         options,
         null,
-        null,
+        fixRadioWidget,
         fixWholeOptions
     );
 };
