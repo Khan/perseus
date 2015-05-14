@@ -257,6 +257,20 @@ describe("Traversal", () => {
         assertNonMutative();
     });
 
+    it("should have access to modify full renderer options", () => {
+        var newOptions = traverse(sampleOptions, null, null, (options) => {
+            return _.extend({}, options, {
+                content: options.content + "\n\nnew content!",
+            });
+        });
+        assert.strictEqual(
+            newOptions.content,
+            "[[☃ input-number 1]]\n\nnew content!"
+        );
+        assert.deepEqual(newOptions.widgets, sampleOptions.widgets);
+        assertNonMutative();
+    });
+
     it("should upgrade widgets automagickally", () => {
         var newOptions = traverse(sampleOptions2);
         assert.deepEqual(newOptions, sampleOptions2Upgraded);
@@ -296,4 +310,25 @@ describe("Traversal", () => {
         assertNonMutative();
     });
 
+    it("should modify full renderer options inside of groups", () => {
+        var newOptions = traverse(sampleGroup, null, null, (options) => {
+            if (/radio/.test(options.content)) {
+                return _.extend({}, options, {
+                    content: "Extra instructions\n\n" + options.content,
+                });
+            } else {
+                return undefined;
+            }
+        });
+        var newContent = newOptions.widgets["group 1"].options.content;
+        assert.ok(
+            /^Extra instructions/.test(newContent),
+            "newContent was: " + newContent
+        );
+        assert.deepEqual(
+            newOptions.widgets["group 1"].options.widgets,
+            sampleGroupUpgraded.widgets["group 1"].options.widgets
+        );
+        assertNonMutative();
+    });
 });

@@ -21,7 +21,10 @@ var Widgets = require("./widgets.js");
 
 var noop = function() { };
 
-var deepCallbackFor = function(contentCallback, widgetCallback) {
+var deepCallbackFor = function(
+        contentCallback,
+        widgetCallback,
+        optionsCallback) {
     var deepCallback = function(widgetInfo, widgetId) {
         // This doesn't modify the widget info if the widget info
         // is at a later version than is supported, which is important
@@ -55,7 +58,9 @@ var deepCallbackFor = function(contentCallback, widgetCallback) {
                     return traverseRenderer(
                         rendererOptions,
                         contentCallback,
-                        deepCallback // so that we traverse grandchildren, too!
+                        // so that we traverse grandchildren, too:
+                        deepCallback,
+                        optionsCallback
                     );
                 }
             );
@@ -76,7 +81,8 @@ var deepCallbackFor = function(contentCallback, widgetCallback) {
 var traverseRenderer = function(
         rendererOptions,
         contentCallback,
-        deepWidgetCallback) {
+        deepWidgetCallback,
+        optionsCallback) {
 
     var newContent = rendererOptions.content;
     if (rendererOptions.content != null) {
@@ -98,24 +104,33 @@ var traverseRenderer = function(
         return deepWidgetCallback(widgetInfo, widgetId);
     });
 
-    return _.extend({}, rendererOptions, {
+    var newOptions = _.extend({}, rendererOptions, {
         content: newContent,
         widgets: newWidgets,
     });
+    var userOptions = optionsCallback(newOptions);
+    if (userOptions !== undefined) {
+        return userOptions;
+    } else {
+        return newOptions;
+    }
 };
 
 var traverseRendererDeep = function(
         rendererOptions,
         contentCallback,
-        widgetCallback) {
+        widgetCallback,
+        optionsCallback) {
 
     contentCallback = contentCallback || noop;
     widgetCallback = widgetCallback || noop;
+    optionsCallback = optionsCallback || noop;
 
     return traverseRenderer(
         rendererOptions,
         contentCallback,
-        deepCallbackFor(contentCallback, widgetCallback)
+        deepCallbackFor(contentCallback, widgetCallback, optionsCallback),
+        optionsCallback
     );
 };
 
