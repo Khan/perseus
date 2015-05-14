@@ -1,12 +1,12 @@
 var React = require('react');
 var _ = require("underscore");
 
+var ApiOptions = require("./perseus-api.jsx").Options;
 var CombinedHintsEditor = require("./hint-editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var JsonEditor = require("./json-editor.jsx");
-var ApiOptions = require("./perseus-api.jsx").Options;
 
 var EditorPage = React.createClass({
     propTypes: {
