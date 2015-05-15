@@ -45,7 +45,7 @@ var HintsRenderer = React.createClass({
         }
 
         // When a new hint is displayed we immediately focus it
-        if (prevProps.hintsVisible !== this.props.hintsVisible) {
+        if (prevProps.hintsVisible < this.props.hintsVisible) {
             var pos = this.props.hintsVisible - 1;
             React.findDOMNode(this.refs["hintRenderer" + pos]).focus();
         }
