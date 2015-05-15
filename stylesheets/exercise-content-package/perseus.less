@@ -733,10 +733,12 @@ body.sat-section {
 // basically internal-only and in flux.
 #sat-mission {
     @satSectionHeight: 550px;
+    @satContentWidth: 592px;
+
     .content-area > div {
         margin-left: auto;
         margin-right: auto;
-        width: 592px;
+        width: @satContentWidth;
         .perseus-input-with-answer-blurb {
             > span {
                 display: inline-block;
@@ -861,8 +863,12 @@ body.sat-section {
         color: #999;
         font-size: 100%;
         font-family: inherit;
-        margin-top: @satTopSpacingForOneColumnLayout;
-        margin-bottom: 24px;
+        margin: @satTopSpacingForOneColumnLayout auto 24px auto;
+
+        // (In the 2 column layout, the annotation's column is always a smaller
+        // of 448px. So this combination of max-width and auto left/right
+        // margin only applies for our one column layout.
+        max-width: @satContentWidth;
         text-transform: uppercase;
     }
 
