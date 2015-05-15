@@ -877,12 +877,22 @@ body.sat-section {
         font-size: 14px;
         margin: 10px 0;
         padding: 5px;
+
+        &:focus {
+            border-color: @satBlue;
+            box-shadow: 0 0 10px fade(@satBlue, 80%);
+            outline: none;
+        }
     }
 
     .valid-answer {
         input[type=text]:valid, input[type=number]:valid {
             border: 1px solid @satBlue;
             background: @satSelectedBackgroundColor;
+
+            &:focus {
+                box-shadow: 0 0 10px fade(@satBlue, 80%);
+            }
         }
     }
     .invalid-answer {
@@ -890,6 +900,10 @@ body.sat-section {
             color: @satIncorrectColor;
             background-color: @satIncorrectBackgroundColor;
             border: solid 1px @satIncorrectBorderColor;
+
+            &:focus {
+                box-shadow: 0 0 10px fade(@satIncorrectBorderColor, 80%);
+            }
         }
     }
 

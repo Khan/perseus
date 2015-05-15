@@ -242,6 +242,8 @@ body.sat-section,
             &:last-child {
                 border-bottom: 1px solid #ccc;
             }
+            border-left: 1px solid transparent;
+            border-right: 1px solid transparent;
             box-sizing: border-box;
             cursor: pointer;
             display: block;
@@ -253,10 +255,21 @@ body.sat-section,
                 cursor: pointer;
             }
 
+            &:focus {
+                border-bottom: 1px solid;
+                border-color: @satBlue;
+                outline: 1px solid @satBlue;
+
+                & + .perseus-radio-option {
+                    border-top-width: 0;
+                }
+            }
+
             &.perseus-radio-selected,
             &:active {
                 // TODO(kitt): Clean up these decorators.
-                border-color: @satBlue;
+                border-bottom-color: @satBlue;
+                border-top-color: @satBlue;
                 span.checkbox {
                     .pos {
                         color: #fff;
@@ -280,7 +293,8 @@ body.sat-section,
                 }
                 &.perseus-radio-selected {
                     background-color: @satCorrectBackgroundColor;
-                    border-color: @satCorrectBorderColor;
+                    border-bottom-color: @satCorrectBorderColor;
+                    border-top-color: @satCorrectBorderColor;
 
                     & + .perseus-radio-option {
                         border-top-color: @satCorrectBorderColor;
@@ -290,12 +304,18 @@ body.sat-section,
                         background: @satCorrectColor;
                     }
                 }
+
+                &:focus {
+                    border-color: @satCorrectColor;
+                    outline-color: @satCorrectColor;
+                }
             }
 
             &.perseus-radio-selected.perseus-incorrect {
                 color: @satIncorrectColor;
                 background-color: @satIncorrectBackgroundColor;
-                border-color: @satIncorrectBorderColor;
+                border-bottom-color: @satIncorrectBorderColor;
+                border-top-color: @satIncorrectBorderColor;
 
                 & + .perseus-radio-option {
                     border-top-color: @satIncorrectBorderColor;
@@ -304,6 +324,11 @@ body.sat-section,
                 span.checkbox .pos-back {
                     border-color: @satIncorrectColor;
                     background: @satIncorrectColor;
+                }
+
+                &:focus {
+                    border-color: @satIncorrectColor;
+                    outline-color: @satIncorrectColor;
                 }
             }
 
