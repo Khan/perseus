@@ -75,12 +75,13 @@ var Explanation = React.createClass({
 
     render: function() {
         return <div className="perseus-widget-explanation">
-            <div className="perseus-widget-explanation-link">
-                <a href="javascript:void(0)" onClick={this._onClick}>
-                    {this.state.expanded ?
-                        this.props.hidePrompt : this.props.showPrompt}
-                </a>
-            </div>
+            <a className="perseus-widget-explanation-link"
+                href="javascript:void(0)"
+                onClick={this._onClick}>
+
+                {this.state.expanded ?
+                    this.props.hidePrompt : this.props.showPrompt}
+            </a>
             <div className="perseus-widget-explanation-content" style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
                     overflow: "hidden"
@@ -99,7 +100,7 @@ var Explanation = React.createClass({
     },
 
     statics: {
-        displayMode: "block"
+        displayMode: "inline"
     }
 });
 

@@ -1,21 +1,16 @@
 .perseus-widget-explanation {
-    position: relative;
+    display: inline;
 
     .perseus-widget-explanation-link {
-        position: absolute;
-        right: 0;
-        top: -2em;
-        > a {
-            font-size: 12px;
-            font-style: italic;
-            z-index: @zIndexInteractiveComponent;
+        font-size: 12px;
+        font-style: italic;
+        z-index: @zIndexInteractiveComponent;
 
-            &:before {
-                content: "["
-            }
-            &:after {
-                content: "]"
-            }
+        &:before {
+            content: "["
+        }
+        &:after {
+            content: "]"
         }
     }
 
