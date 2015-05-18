@@ -90,7 +90,7 @@ requirejs.config({
 // Load khan-exercises modules, then perseus
 require(["ke-deps.js"], function() {
     // pre built
-    require(["build/perseus-2.js"], initPerseus);
+    require(["build/perseus-3.js"], initPerseus);
 
     // pre built with source maps
     // require(["build/perseus.debug.js"], initPerseus);
@@ -178,7 +178,7 @@ $('#scorePreview').on('click', function() {
 });
 $('#permalink').on('click', function(e) {
     window.location.hash = "content=" +
-        encodeURIComponent(JSON.stringify(editor));
+        encodeURIComponent(JSON.stringify(editor.serialize()));
     e.preventDefault();
 });
 $('#problemNum').text(problemNum);
