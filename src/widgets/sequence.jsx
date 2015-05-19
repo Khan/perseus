@@ -1,3 +1,5 @@
+var _ = require("underscore");
+
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable   = require("../mixins/changeable.jsx");
 var Editor = require("../editor.jsx");
