@@ -253,7 +253,9 @@ var BaseRadio = React.createClass({
                     // orig behavior, and adding a TODO here to leave a trace.
                     // Aria recommends bringing the logic for showing a clue to
                     // the same level as this.props.questionCompleted
-                    var showClue = choice.checked && reviewModeClues;
+                    var showClue =
+                            (choice.checked && reviewModeClues) ||
+                            (reviewModeClues && rubric.choices[i].correct);
 
                     var Element = Choice;
                     var elementProps = {
