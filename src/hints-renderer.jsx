@@ -22,7 +22,7 @@ var HintsRenderer = React.createClass({
                             apiOptions={this.props.apiOptions} />;
             }, this);
 
-        return <div>{hints}</div>;
+        return <div className={this.props.className}>{hints}</div>;
     },
 
     _hintsVisible: function() {
