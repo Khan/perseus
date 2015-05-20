@@ -15,6 +15,42 @@ var Util = require("../util.js");
 // }
 var labelDataCache = {};
 
+// Write our own JSONP handler because all the other ones don't do things we
+// need.
+var doJSONP = function(url, options) {
+    options = _.extend({}, {
+        callbackName: "callback",
+        success: $.noop,
+        error: $.noop
+    }, options);
+
+    // Create the script
+    var script = document.createElement("script");
+    script.setAttribute("async", "");
+    script.setAttribute("src", url);
+
+    // A cleanup function to run when we're done.
+    function cleanup() {
+        document.head.removeChild(script);
+        delete window[options.callbackName];
+    }
+
+    // Add the global callback.
+    window[options.callbackName] = function() {
+        cleanup();
+        options.success.apply(null, arguments);
+    };
+
+    // Add the error handler.
+    script.addEventListener("error", function() {
+        cleanup();
+        options.error.apply(null, arguments);
+    });
+
+    // Insert the script to start the download.
+    document.head.appendChild(script);
+};
+
 var svgLabelsRegex = /^web\+graphie\:/;
 var hashRegex = /\/([^/]+)$/;
 
@@ -38,6 +74,27 @@ function getSvgUrl(url) {
 
 function getDataUrl(url) {
     return getBaseUrl(url) + "-data.json";
+}
+
+function shouldUseLocalizedData() {
+    // TODO(emily): Remove this depenency on `KA` and pass it down with
+    // Perseus' initialization. (Also used in renderer.jsx)
+    return typeof KA !== "undefined" && KA.language !== "en";
+}
+
+// A regex to split at the last / of a URL, separating the base part from the
+// hash. This is used to create the localized label data URLs.
+var splitHashRegex = /\/(?=[^/]+$)/;
+
+function getLocalizedDataUrl(url) {
+    if (typeof KA !== "undefined") {
+        // Parse out the hash and base so that we can insert the locale
+        // directory in the middle.
+        var [base, hash] = getBaseUrl(url).split(splitHashRegex);
+        return `${base}/${KA.language}/${hash}-data.json`;
+    } else {
+        return getDataUrl(url);
+    }
 }
 
 // Get the hash from the url, which is just the filename
@@ -222,25 +279,49 @@ var SvgImage = React.createClass({
 
             labelDataCache[hash] = cacheData;
 
-            var dataUrl = getDataUrl(this.props.src);
+            var retrieveData = (url, errorCallback) => {
+                doJSONP(url, {
+                    callbackName: "svgData" + hash,
+                    success: (data) => {
+                        cacheData.data = data;
+                        cacheData.loaded = true;
 
-            $.ajax({
-                url: dataUrl,
-                dataType: "jsonp",
-                jsonp: false,
-                jsonpCallback: "svgData" + hash,
-                success: data => {
-                    cacheData.data = data;
-                    cacheData.loaded = true;
+                        _.each(cacheData.dataCallbacks, callback => {
+                            callback(cacheData.data);
+                        });
+                    },
+                    error: errorCallback
+                });
+            };
 
-                    _.each(cacheData.dataCallbacks, callback => {
-                        callback(cacheData.data);
-                    });
-                },
-                error: (x, status, error) => {
-                    console.error("Data load failed:", urls.data, error);
-                }
-            });
+            if (shouldUseLocalizedData()) {
+                retrieveData(
+                    getLocalizedDataUrl(this.props.src),
+                    (x, status, error) => {
+                        // If there is isn't any localized data, fall back to
+                        // the original, unlocalized data
+                        retrieveData(
+                            getDataUrl(this.props.src),
+                            (x, status, error) => {
+                                console.error(
+                                    "Data load failed:",
+                                    getDataUrl(this.props.src), error
+                                );
+                            }
+                        );
+                    }
+                );
+            } else {
+                retrieveData(
+                    getDataUrl(this.props.src),
+                    (x, status, error) => {
+                        console.error(
+                            "Data load failed:",
+                            getDataUrl(this.props.src), error
+                        );
+                    }
+                );
+            }
         }
     },
 
