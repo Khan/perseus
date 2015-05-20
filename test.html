@@ -75,10 +75,14 @@ add hint button ends up touching the bottom of the page). -->
             disable: function() {}
         }
     };
+    var langMatch = window.location.search.slice(1).match(
+        /(?:^|&)lang=([^&]*)(?:&|$)/
+    );
     var KA = {
         // This is reset down below when we parse the query string.
-        language: "en"
+        language: langMatch ? langMatch[1] : "en"
     };
+
     React.initializeTouchEvents(true);
 </script>
 
@@ -189,10 +193,6 @@ $('#enabledFeatures').html(Object.keys(enabledFeatures).map(function(feature) {
 
 var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
 var question = query.content ? JSON.parse(query.content) : defaultQuestion;
-
-var searchQuery = Perseus.Util.parseQueryString(
-    window.location.search.slice(1));
-KA.language = searchQuery.lang ? searchQuery.lang : "en";
 
 Perseus.init({skipMathJax: false}).then(function() {
     var _ = window._;

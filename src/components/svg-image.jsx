@@ -88,6 +88,59 @@ function shouldUseLocalizedData() {
     return typeof KA !== "undefined" && KA.language !== "en";
 }
 
+function shouldRenderJipt() {
+    return typeof KA !== "undefined" && KA.language === "en-pt";
+}
+
+var specialChars = {
+    // escaped: original
+    "\\a": "\u0007", // \a isn't valid javascript
+    "\\b": "\b",
+    "\\t": "\t",
+    "\\n": "\n",
+    "\\v": "\v",
+    "\\f": "\f",
+    "\\r": "\r",
+    "\\\\": "\\"
+};
+
+var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
+
+var jiptLabels = [];
+if (shouldRenderJipt()) {
+    if (!KA.jipt_dom_insert_checks) {
+        KA.jipt_dom_insert_checks = [];
+    }
+
+    KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
+        var index = $(node).data("jipt-label-index");
+        if (node && typeof index !== "undefined") {
+            debugger;
+            var {label, useMath} = jiptLabels[index];
+
+            label.text("");
+
+            text = text.replace(
+                rEscapedChars,
+                function(ch) {
+                    return specialChars[ch];
+                });
+
+            if (useMath) {
+                var mathRegex = /^\$(.*)\$$/;
+                var match = text.match(mathRegex);
+                var mathText = match ? match[1] : "\\color{red}{\\text{Invalid Math}}";
+                label.processMath(mathText, true);
+            } else {
+                label.processText(text);
+            }
+
+            return false;
+        }
+        return text;
+    });
+}
+
 // A regex to split at the last / of a URL, separating the base part from the
 // hash. This is used to create the localized label data URLs.
 var splitHashRegex = /\/(?=[^/]+$)/;
@@ -432,30 +485,45 @@ var SvgImage = React.createClass({
 
     setupGraphie: function(graphie, options) {
         _.map(options.labels, (labelData) => {
-            // Create labels from the data
-            var label = graphie.label(
-                labelData.coordinates,
-                labelData.content,
-                labelData.alignment,
-                labelData.typesetAsMath,
-                {"font-size": (100 * this.props.scale) + "%"}
-            );
+            if (shouldRenderJipt()) {
+                var elem = graphie.label(
+                    labelData.coordinates,
+                    labelData.content,
+                    labelData.alignment,
+                    false
+                );
 
-            // Convert absolute positioning css from pixels to percentages
-            // TODO(alex): Dynamically resize font-size as well. This almost
-            // certainly means listening to throttled window.resize events.
-            var position = label.position();
-            var height = this.props.height * this.props.scale;
-            var width = this.props.width * this.props.scale;
-            label.css({
-                top: position.top / height * 100 + '%',
-                left: position.left / width * 100 + '%',
-            });
+                $(elem).data("jipt-label-index", jiptLabels.length);
+                jiptLabels.push({
+                    label: elem,
+                    useMath: labelData.typesetAsMath
+                });
+            } else {
+                // Create labels from the data
+                var label = graphie.label(
+                    labelData.coordinates,
+                    labelData.content,
+                    labelData.alignment,
+                    labelData.typesetAsMath,
+                    {"font-size": (100 * this.props.scale) + "%"}
+                );
 
-            // Add back the styles to each of the labels
-            _.each(labelData.style, (styleValue, styleName) => {
-                label.css(styleName, styleValue);
-            });
+                // Convert absolute positioning css from pixels to percentages
+                // TODO(alex): Dynamically resize font-size as well. This almost
+                // certainly means listening to throttled window.resize events.
+                var position = label.position();
+                var height = this.props.height * this.props.scale;
+                var width = this.props.width * this.props.scale;
+                label.css({
+                    top: position.top / height * 100 + '%',
+                    left: position.left / width * 100 + '%',
+                });
+
+                // Add back the styles to each of the labels
+                _.each(labelData.style, (styleValue, styleName) => {
+                    label.css(styleName, styleValue);
+                });
+            }
         });
     },
 
