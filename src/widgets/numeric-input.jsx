@@ -247,7 +247,8 @@ _.extend(NumericInput, {
                         answer.simplify : "optional",
                     inexact: true, // TODO(merlob) backfill / delete
                     maxError: answer.maxError,
-                    forms: (answer.strict && answer.answerForms.length !== 0) ?
+                    forms: (answer.strict && answer.answerForms 
+                            && answer.answerForms.length !== 0) ?
                             answer.answerForms : allAnswerForms
             });
 
@@ -636,6 +637,11 @@ var NumericInputEditor = React.createClass({
         if (this.props.labelText === "") {
             warnings.push("No label is specified");
         }
+        this.props.answers.forEach((answer, i) => {
+            if (answer.strict && (!answer.answerForms || answer.answerForms.length === 0)) {
+                warnings.push("Answer " + (i + 1) + " is set to strict format matching, but no format was selected");
+            }
+        });
         return warnings;
     },
 });
