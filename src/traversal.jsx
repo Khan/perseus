@@ -92,7 +92,7 @@ var traverseRenderer = function(
         }
     }
 
-    var newWidgets = objective_.mapObject(rendererOptions.widgets,
+    var newWidgets = objective_.mapObject(rendererOptions.widgets || {},
             function(widgetInfo, widgetId) {
         // Widgets without info or a type are empty widgets, and
         // should always be renderable. It's also annoying to write
