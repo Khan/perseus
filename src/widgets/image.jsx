@@ -8,7 +8,6 @@ var Renderer     = require("../renderer.jsx");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
@@ -47,7 +46,7 @@ function blankLabel() {
 }
 
 var ImageWidget = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
+    mixins: [Changeable],
 
     propTypes: {
         title: React.PropTypes.string,
@@ -163,6 +162,10 @@ var ImageWidget = React.createClass({
         _.map(options.labels, function(label) {
             graphie.label(label.coordinates, label.content, label.alignment);
         });
+    },
+
+    getUserInput: function() {
+        return null;
     },
 
     simpleValidate: function(rubric) {

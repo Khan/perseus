@@ -486,12 +486,11 @@ var Radio = React.createClass({
                 }
             }
 
-            return _.extend({}, this.props, {
+            return {
                 values: values,
                 noneOfTheAboveIndex: noneOfTheAboveIndex,
                 noneOfTheAboveSelected: noneOfTheAboveSelected
-              }
-            );
+            };
         } else {
             // Nothing checked
             return {

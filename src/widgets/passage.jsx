@@ -3,7 +3,6 @@ var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Editor = require("../editor.jsx");
 var Renderer = require("../renderer.jsx");
@@ -12,7 +11,7 @@ var PropCheckBox  = require("../components/prop-check-box.jsx");
 var PassageMarkdown = require("./passage/passage-markdown.jsx");
 
 var Passage = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
+    mixins: [Changeable],
 
     propTypes: {
         passageTitle: React.PropTypes.string,
@@ -282,6 +281,10 @@ var Passage = React.createClass({
             endLine: refEndLine,
             content: refContent,
         };
+    },
+
+    getUserInput: function() {
+        return null;
     },
 
     simpleValidate: function(rubric) {
