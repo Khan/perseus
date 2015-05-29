@@ -298,7 +298,6 @@ describe("perseus markdown", () => {
         });
 
         it("should parse multiple columns", () => {
-            debugger;
             var parsed = parse(
                 "hi\n\n" +
                 "=====\n\n" +
@@ -334,7 +333,7 @@ describe("perseus markdown", () => {
                 "para!",
                 // This is overridden in Renderer
                 '<div class="paragraph">para!</div>'
-            )
+            );
         });
 
         it("should output columns", () => {
@@ -348,6 +347,7 @@ describe("perseus markdown", () => {
                 '</div>' +
                 '<div class="perseus-column">' +
                 '<div class="paragraph">col2</div>' +
+                '<div class="sat-grafting-area"></div>' +
                 '</div>' +
                 '</div>'
             );

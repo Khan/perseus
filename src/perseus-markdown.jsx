@@ -113,6 +113,13 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 </div>
                 <div className="perseus-column">
                     {output(node.col2, state)}
+                    {/* HACK(#sat) This is a cheap way to allow hints to be
+                      * displayed in two-column items in the SAT mission. The
+                      * hint renderer will be rendered into this div. Do not
+                      * write code outside of the SAT mission that relies on
+                      * this because this will be cleaned up with other SAT
+                      * technical debt. */}
+                    <div className="sat-grafting-area"/>
                 </div>
             </div>;
         },
