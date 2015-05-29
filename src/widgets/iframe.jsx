@@ -13,6 +13,7 @@ var _ = require("underscore");
 var BlurInput    = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var PropCheckBox  = require("../components/prop-check-box.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var updateQueryString = require("../util.js").updateQueryString;
 
@@ -29,13 +30,15 @@ var Iframe = React.createClass({
         settings: React.PropTypes.array,
         status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
         message: React.PropTypes.string,
+        allowFullScreen: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             status: "incomplete",
             // optional message
-            message: null
+            message: null,
+            allowFullScreen: false,
         };
     },
     handleMessageEvent: function(e) {
@@ -101,7 +104,8 @@ var Iframe = React.createClass({
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return <iframe sandbox="allow-same-origin allow-scripts"
-                       style={style} src={url} />;
+                       style={style} src={url}
+                       allowFullScreen={this.props.allowFullScreen} />;
     },
 
     simpleValidate: function(rubric) {
@@ -227,7 +231,8 @@ var IframeEditor = React.createClass({
             url: "",
             settings: [{name: "", value: ""}],
             width: 400,
-            height: 400
+            height: 400,
+            allowFullScreen: false,
         };
     },
 
@@ -255,6 +260,9 @@ var IframeEditor = React.createClass({
                            value={this.props.height}
                            onChange={this.change("height")} />
             </label>
+            <PropCheckBox label="Allow full screen"
+                allowFullScreen={this.props.allowFullScreen}
+                onChange={this.props.onChange} />
         </div>;
     },
 
