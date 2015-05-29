@@ -326,11 +326,13 @@ var SvgImage = React.createClass({
     },
 
     onDataLoaded: function(data) {
-        this.setState({
-            dataLoaded: true,
-            labels: data.labels,
-            range: data.range
-        });
+        if (this.isMounted()) {
+            this.setState({
+                dataLoaded: true,
+                labels: data.labels,
+                range: data.range
+            });
+        }
     },
 
     sizeProvided: function() {
