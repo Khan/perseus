@@ -174,7 +174,9 @@ var Passage = React.createClass({
             );
         }
         var parsedInstructions = PassageMarkdown.parse(instructions);
-        return PassageMarkdown.output(parsedInstructions);
+        return <div className="perseus-widget-passage-instructions">
+            {PassageMarkdown.output(parsedInstructions)}
+        </div>;
     },
 
     _renderContent: function(parsed) {
