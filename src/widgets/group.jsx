@@ -204,6 +204,10 @@ var GroupEditor = React.createClass({
             onChange={this.change("metadata")} />;
     },
 
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
     serialize: function() {
         return _.extend({}, this.refs.editor.serialize(), {
             metadata: this.props.metadata
