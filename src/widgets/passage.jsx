@@ -231,7 +231,7 @@ var Passage = React.createClass({
         // ref element itself:
         var $refText = $ref.prev();
         if ($refText.length === 0) {
-            // But if there are no elements after the ref, just
+            // But if there are no elements before the ref, just
             // use the ref itself.
             $refText = $ref;
         }
