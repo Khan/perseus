@@ -116,6 +116,9 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	ln -s ../kmath node_modules/kmath
 	rm -rf node_modules/simple-markdown
 	ln -s ../simple-markdown node_modules/simple-markdown
+	rm -rf node_modules/jquery
+	mkdir -p node_modules/jquery
+	echo "module.export = window.$$" > node_modules/jquery/index.js
 # very hacks to prevent simple-markdown from pulling in a separate version of react.
 # basically, we need its require("react") to resolve to perseus' react, instead of
 # one in its node_modules (yuck!) (same for "underscore")
