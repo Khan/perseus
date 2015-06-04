@@ -5,7 +5,6 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 var _ = require("underscore");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
 var TextListEditor = require("../components/text-list-editor.jsx");
@@ -129,8 +128,7 @@ _.extend(Categorizer, {
         if (!completed) {
             return {
                 type: "invalid",
-                // XXX(joel) - i18n
-                message: "Make sure you select something for every row."
+                message: $._("Make sure you select something for every row.")
             };
         }
         return {
