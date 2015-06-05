@@ -21,8 +21,18 @@ var getPath = function(obj, path, defaultValue) {
 var widgetsIn = function(item) {
     var question = item.question || {};
     var widgets = question.widgets || {};
+
     return _.keys(widgets);
 };
+
+var hintWidgetsIn = function(item, n) {
+    var hints = item.hints || [];
+    var hint = hints[n] || {};
+    var widgets = hint.widgets || {};
+    return _.keys(widgets);
+};
+
+
 
 var isWidget = obj => _.isObject(obj) && !("content" in obj);
 
@@ -44,6 +54,7 @@ var RevisionDiff = React.createClass({
         }
 
         var widgets = _.union(widgetsIn(before), widgetsIn(after));
+
         var sections = [
             {
                 title: "Question Area",
@@ -67,7 +78,24 @@ var RevisionDiff = React.createClass({
                     path: ["question", "widgets", widget, "options"]
                 };
             })
-        );
+        ).concat( 
+            _.flatten(
+                _.times(hintCount, function(n) {
+
+                var hintWidgets = _.union(hintWidgetsIn(before, n), 
+                                          hintWidgetsIn(after, n));
+
+                return _.map(hintWidgets, function(widget) {
+                    return {
+                        title: "Hint #"+(n+1)+"."+widget,
+                        path: ["hints", n, "widgets", widget, "options"]
+                    };
+                });
+
+            })
+           
+        ));
+
 
         var result = [];
 
