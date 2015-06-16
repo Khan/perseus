@@ -78,37 +78,39 @@ var Choice = React.createClass({
         };
 
         return <label className={this.props.className}>
-            <span className="checkbox">
-                <div className="pos-back"></div>
-                <div className="pos">
-                    <span className="perseus-sr-only">{a11yText()}</span>
-                    <span aria-hidden="true">{letter}</span>
-                </div>
-                <input
-                    type={this.props.type}
-                    name={this.props.groupName}
-                    checked={this.props.checked}
-                    disabled={this.props.disabled}
-                    onClick={(e) => {
-                        // Avoid sending this to the parent
-                        e.stopPropagation();
-                    }}
-                    onChange={(e) => {
-                        this.props.onChecked(e.target.checked);
-                    }} />
-            </span>
-            {/* A pseudo-label. <label> is slightly broken on iOS,
-                so this works around that. Unfortunately, it is
-                simplest to just work around that everywhere. */}
-            <span className={
-                    ApiClassNames.RADIO.OPTION_CONTENT + " " +
-                    ApiClassNames.INTERACTIVE
-                }
-                style={{ cursor: "default" }}>
-                <div>
-                    {this.props.content}
-                </div>
-            </span>
+            <div className="checkbox-and-option">
+                <span className="checkbox">
+                    <div className="pos-back"></div>
+                    <div className="pos">
+                        <span className="perseus-sr-only">{a11yText()}</span>
+                        <span aria-hidden="true">{letter}</span>
+                    </div>
+                    <input
+                        type={this.props.type}
+                        name={this.props.groupName}
+                        checked={this.props.checked}
+                        disabled={this.props.disabled}
+                        onClick={(e) => {
+                            // Avoid sending this to the parent
+                            e.stopPropagation();
+                        }}
+                        onChange={(e) => {
+                            this.props.onChecked(e.target.checked);
+                        }} />
+                </span>
+                {/* A pseudo-label. <label> is slightly broken on iOS,
+                    so this works around that. Unfortunately, it is
+                    simplest to just work around that everywhere. */}
+                <span className={
+                        ApiClassNames.RADIO.OPTION_CONTENT + " " +
+                        ApiClassNames.INTERACTIVE
+                    }
+                    style={{ cursor: "default" }}>
+                    <div>
+                        {this.props.content}
+                    </div>
+                </span>
+            </div>
             {this.props.showClue &&
                 <div className="perseus-radio-clue">
                     {this.props.clue}
@@ -240,22 +242,14 @@ var BaseRadio = React.createClass({
                         <$_>Select all that apply.</$_>
                     </div>}
                 {this.props.choices.map(function(choice, i) {
-                    // True if we're in review mode and a clue is available
+                    // True if we're in review mode and a clue (aka rationale)
+                    // is available. These are only used for SAT questions,
+                    // though there was historically an inconclusive AB test
+                    // that showed clues for other exercises.
+                    // (See content/targeted_clues_exercises.py for more)
+                    // TODO(marcia): Aria recommends bringing this logic up a
+                    // level, as with this.props.questionCompleted.
                     var reviewModeClues = !!(rubric && rubric.choices[i].clue);
-
-                    // TODO(marcia): As of March 2015, clues are only available
-                    // within the SAT experience. There were a handful of
-                    // non-SAT exercises (see content/
-                    // targeted_clues_exercises.py) where we
-                    // had enabled clues in an AB test, but closing that
-                    // inconclusive test in favor of clues yielded strange
-                    // interactions with SAT. Closing the AB test to keep the
-                    // orig behavior, and adding a TODO here to leave a trace.
-                    // Aria recommends bringing the logic for showing a clue to
-                    // the same level as this.props.questionCompleted
-                    var showClue =
-                            (choice.checked && reviewModeClues) ||
-                            (reviewModeClues && rubric.choices[i].correct);
 
                     var Element = Choice;
                     var elementProps = {
@@ -266,7 +260,7 @@ var BaseRadio = React.createClass({
                         content: choice.content,
                         disabled: this.props.apiOptions.readOnly,
                         groupName: radioGroupName,
-                        showClue: showClue,
+                        showClue: reviewModeClues,
                         type: inputType,
                         pos: i,
                         onChecked: (checked) => {
