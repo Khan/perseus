@@ -12,7 +12,6 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
 var SvgImage     = require("../components/svg-image.jsx");
-var TextInput    = require("../components/text-input.jsx");
 
 var defaultBoxSize = 400;
 var defaultRange = [0, 10];
@@ -420,23 +419,29 @@ var ImageEditor = React.createClass({
         );
     },
 
-    // silently update the url when the component mounts
-    // silently update sizes when the image loads
-    // noisily update the url in response to the author changing it
+    // silently load the image when the component mounts
+    // silently update url and sizes when the image loads
+    // noisily load the image in response to the author changing it
     onUrlChange: function(url, silent) {
-        // Immediately set the url, then set the image width and height
-        // (silently) later when the image loads.
+        // We update our background image prop after the image loads below. To
+        // avoid weirdness when we change to a very slow URL, then a much
+        // faster URL, we keep track of the URL we're trying to change to.
+        this._leadingUrl = url;
 
-        var width = 0;
-        var height = 0;
-
-        if (url) {
-            Util.getImageSize(url, (width, height) => {
-                this.setUrl(url, width, height, true);
-            });
+        if (!url) {
+            this.setUrl(url, 0, 0, silent);
+            return;
         }
 
-        this.setUrl(url, width, height, silent);
+        Util.getImageSize(
+            url,
+            (width, height) => {
+                if (this._leadingUrl !== url) {
+                    return;
+                }
+
+                this.setUrl(url, width, height, true);
+            });
     },
 
     onRangeChange: function(type, newRange) {
