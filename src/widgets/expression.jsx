@@ -618,6 +618,7 @@ var OldExpression = React.createClass({
             $._("For $x^{y}$, enter **x^y**"),
             $._("For $x^{2/3}$, enter **x^(2/3)**"),
             $._("For $\\sqrt{x}$, enter **sqrt(x)**"),
+            $._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\](x)**"),
             $._("For $\\pi$, enter **pi**"),
             $._("For $\\sin \\theta$, enter **sin(theta)**"),
             $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),

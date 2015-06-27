@@ -151,7 +151,7 @@ var MathInput = React.createClass({
         // LaTeX commands that, when typed, are immediately replaced by the
         // appropriate symbol. This does not include ln, log, or any of the
         // trig functions; those are always interpreted as commands.
-        MathQuill.addAutoCommands("pi theta phi sqrt");
+        MathQuill.addAutoCommands("pi theta phi sqrt nthroot");
 
         // Pop the cursor out of super/subscripts on arithmetic operators or
         // (in)equalities.

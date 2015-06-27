@@ -523,6 +523,12 @@
     .mq-paren + span {
         margin: 0;
     }
+
+    sup {
+        // This is set to 0 across Perseus normally, but we need to override it
+        // here so nth-roots are rendered correctly.
+        line-height: normal;
+    }
 }
 
 // override normal 5px border radius for the editor only

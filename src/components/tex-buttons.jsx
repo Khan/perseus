@@ -61,7 +61,12 @@ var buttonSets = {
     prealgebra: [
         () => [<TeX key="sqrt">{"\\sqrt{x}"}</TeX>, "\\sqrt"],
         // TODO(joel) - how does desmos do this?
-        // ["\\sqrt[3]{x}", "\\sqrt[3]{x}"],
+        () => [
+            <TeX key="nthroot">{"\\sqrt[3]{x}"}</TeX>,
+            input => {
+                input.typedText("nthroot3");
+                input.keystroke("Right");
+            }],
         () => [
             <TeX key="pow" style={slightlyBig}>□^a</TeX>,
             input => {
