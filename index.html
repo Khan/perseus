@@ -339,13 +339,13 @@ if (new_perseus_question == false){
 function getQuestion(data, func){
     host_name = question_dic.host_name;
     $.ajax({
-        url: 'http://' + host_name + '/questionpanel/questionmanager/' + func,
+        url: 'http://' + host_name + '/devadmin/questionmanager/' + func,
         data: data,
         method: "POST",
 
         success:function(data){
             if(data == 'Have_No_Authority'){
-                parent.window.location = 'http://' + question_dic.host_name + '/questionpanel/questionmanager/';
+                parent.window.location = 'http://' + question_dic.host_name + '/devadmin/questionmanager/';
             }
             else{
                 document.location.href = data;
@@ -360,7 +360,7 @@ function getQuestion(data, func){
 function newQuestion(data, func){
     host_name = question_dic.host_name;
     $.ajax({
-        url: 'http://' + host_name + '/questionpanel/makeperseusquestion/' + func,
+        url: 'http://' + host_name + '/devadmin/makeperseusquestion/' + func,
         data: data,
         method: "POST",
 
