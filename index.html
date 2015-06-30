@@ -251,11 +251,11 @@ $('#permalink').on('click', function(e) {
 
 $('#save').on('click',function(e){
 
-    if(question_dic.is_developer == 'True'){
+    if(question_dic.can_manage_all_questions == 'True'){
         return_string = "Have-Authorization";}
     if(!question_dic.uploader_id){
         return_string = "No-Uploader-Name";}
-    if(!question_dic.is_developer && question_dic.uploader_id != question_dic.user_id){
+    if(!question_dic.can_manage_all_questions && question_dic.uploader_id != question_dic.user_id){
         return_string = "No-Authorization";}
     else{
         return_string = "Have-Authorization";}
@@ -289,7 +289,7 @@ $('#save').on('click',function(e){
                         'level':level,
                         'cover_range':cover_range,
                         'related_video':related_video,
-                        'is_developer':question_dic.is_developer,
+                        'can_manage_all_questions':question_dic.can_manage_all_questions,
                         'secret':question_dic.secret,
                         'iv':question_dic.iv,
                         'question':question
