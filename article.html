@@ -12,11 +12,18 @@
 <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
 
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
+<link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/articles.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
 
 <script>less = {env: 'development', logLevel: 1};</script>
 <script src="lib/less.js"></script>
 
+<style>
+/* Needed because we set a pagewide min-width of 1000px in khan-site.css */
+body {
+    min-width: 0;
+}
+</style>
 </head>
 <body>
 

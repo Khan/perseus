@@ -66,7 +66,7 @@ var ArticleEditor = React.createClass({
 
     render: function() {
 
-        return <div className="framework-perseus perseus-article">
+        return <div className="framework-perseus perseus-article-editor">
             <div>
                 <label>
                     Mode:{" "}
@@ -180,11 +180,13 @@ var ArticleEditor = React.createClass({
                         </div>
 
                         <div className="perseus-editor-right-cell">
-                            <Renderer
-                                {...section}
+                            <ArticleRenderer
+                                json={section}
                                 ref={"renderer" + i}
                                 apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures} />
+                                enabledFeatures={
+                                    this.props.enabledFeatures
+                                } />
                         </div>
                     </div>
                 ];
