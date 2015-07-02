@@ -349,27 +349,41 @@ $('#quit').on('click',function(e){
 });
 
 function getQuestion(data, func){
-    host_name = init_data.host_name;
-    $.ajax({
-        url: 'http://' + host_name + '/questionpanel/questionmanager/' + func,
-        data: data,
-        dataType: 'json',
-        method: "POST",
+    if (new_perseus_question) {
+        default_question_dic = {
+            'is_hidden': true,
+            'subject': '科目為必填',
+            'source': '',
+            'level': 1,
+            'cover_range': ['範圍為必填'],
+            'related_video': [],
+            "question": defaultQuestion
+        };
+        $.extend(default_question_dic, init_data)
+        renderQuestion(default_question_dic);
+    }
+    else {
+        $.ajax({
+            url: 'http://' + init_data.host_name + '/questionpanel/questionmanager/' + func,
+            data: data,
+            dataType: 'json',
+            method: "POST",
 
-        success:function(data){
-            if(data == 'Have_No_Authority'){
-                alert("您沒有足夠權限，將跳轉至題庫管理頁面。");
-                parent.window.location = 'http://' + init_data.host_name + '/questionpanel/questionmanager/';
+            success:function(data){
+                if(data == 'Have_No_Authority'){
+                    alert("您沒有足夠權限，將跳轉至題庫管理頁面。");
+                    parent.window.location = 'http://' + init_data.host_name + '/questionpanel/questionmanager/';
+                }
+                else{
+                    question_dic = data;
+                    renderQuestion(data);
+                }
+            },
+            error:function(xhr, ajaxOptions, thrownError){ 
+                alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
             }
-            else{
-                question_dic = data;
-                renderQuestion(data);
-            }
-        },
-        error:function(xhr, ajaxOptions, thrownError){ 
-            alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
-        }
-    });
+        });
+    }
 };
 function newQuestion(data, func){
     host_name = init_data.host_name;
