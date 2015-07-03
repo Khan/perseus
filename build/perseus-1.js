@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit c3b673f72248510b4baeeeb21ab495e6a0d513dc
+// commit 67ed29b9d625159fd5ab03024109236d28bcad40
 // branch gh-pages
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -2460,7 +2460,7 @@ module.exports = every;
 
 },{"lodash.createcallback":48,"lodash.forown":84}],48:[function(require,module,exports){
 /**
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Lo-Dash 2.4.3 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
@@ -8425,9 +8425,19 @@ var Editor = React.createClass({displayName: 'Editor',
             widgetsDropDown = WidgetSelect( {onChange:this.addWidget} );
 
             templatesDropDown = React.DOM.select( {onChange:this.addTemplate}, 
-                React.DOM.option( {value:""}, "Insert template","\u2026"),
+                React.DOM.option( {value:""}, "插入範本(可自行調整數字)","\u2026"),
                 React.DOM.option( {disabled:true}, "--"),
-                React.DOM.option( {value:"table"}, "Table")
+                React.DOM.option( {value:"sqrt"}, "根號"),
+                React.DOM.option( {value:"frac"}, "分數"),
+                React.DOM.option( {value:"square"}, "次方"),
+                React.DOM.option( {value:"overline"}, "線段"),
+                React.DOM.option( {value:"frown"}, "弧線"),
+                React.DOM.option( {value:"vec"}, "向量/射線"),
+                React.DOM.option( {value:"table"}, "表格"),
+                React.DOM.option( {value:"matrix"}, "矩陣"),
+                React.DOM.option( {value:"alignment"}, "互相對齊的方程式(用&對齊)"),
+                React.DOM.option( {value:"piecewise"}, "聯立方程式"),
+                React.DOM.option( {value:"color"}, "顏色(支援red/blue/orange/fuchsia/green/gray/purple/HTML色碼)")
             );
 
             if (!this.props.immutableWidgets) {
@@ -8607,21 +8617,40 @@ var Editor = React.createClass({displayName: 'Editor',
         oldContent = oldContent.replace(/\n*$/, "\n\n");
 
         var template;
-        if (templateType === "table") {
+        if (templateType === "sqrt") {
+            template = "$\\sqrt{3}$";
+        } else if (templateType === "frac") {
+            template = "$\\frac{2}{5}$";
+        } else if (templateType === "square") {
+            template = "$x^3$";
+        } else if (templateType === "overline") {
+            template = "$\\overline{ABC}$";
+        } else if (templateType === "frown") {
+            template = "$\\buildrel\\frown\\over {ABC}$";
+        } else if (templateType === "vec") {
+            template = "$\\vec{AB}$";
+        } else if (templateType === "table") {
             template = "header 1 | header 2 | header 3\n" +
                        "- | - | -\n" +
                        "data 1 | data 2 | data 3\n" +
                        "data 4 | data 5 | data 6\n" +
                        "data 7 | data 8 | data 9";
+        } else if (templateType === "matrix") {
+            template = "$\\left[ \\begin{array}{title}" +
+                       " a & b & c \\\\ d & e & f \\\\ g & h & i" +
+                       "\\end{array} \\right]$";
         } else if (templateType === "alignment") {
-            template = "$\\begin{align} x+5 &= 30 \\\\\n" +
-                       "x+5-5 &= 30-5 \\\\\n" +
+            template = "$\\begin{align} x+5 &= 30 \\\\" +
+                       "x+5-5 &= 30-5 \\\\" +
                        "x &= 25 \\end{align}$";
         } else if (templateType === "piecewise") {
-            template = "$f(x) = \\begin{cases}\n" +
-                       "7 & \\text{if $x=1$} \\\\\n" +
-                       "f(x-1)+5 & \\text{if $x > 1$}\n" +
+            template = "$\\begin{cases}" +
+                       "x-3=5 \\\\" +
+                       "3x+5y=0 \\\\" +
+                       "x^2+5=-1 \\\\" +
                        "\\end{cases}$";
+        } else if (templateType === "color") {
+            template = "$\\color{fuchsia}{顏色可以自己換}$";
         } else {
             throw new Error("Invalid template type: " + templateType);
         }

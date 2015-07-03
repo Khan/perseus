@@ -329,9 +329,19 @@ var Editor = React.createClass({
             widgetsDropDown = <WidgetSelect onChange={this.addWidget} />;
 
             templatesDropDown = <select onChange={this.addTemplate}>
-                <option value="">Insert template{"\u2026"}</option>
+                <option value="">插入範本(可自行調整數字){"\u2026"}</option>
                 <option disabled>--</option>
-                <option value="table">Table</option>
+                <option value="sqrt">根號</option>
+                <option value="frac">分數</option>
+                <option value="square">次方</option>
+                <option value="overline">線段</option>
+                <option value="frown">弧線</option>
+                <option value="vec">向量/射線</option>
+                <option value="table">表格</option>
+                <option value="matrix">矩陣</option>
+                <option value="alignment">互相對齊的方程式(用&amp;對齊)</option>
+                <option value="piecewise">聯立方程式</option>
+                <option value="color">顏色(支援red/blue/orange/fuchsia/green/gray/purple/HTML色碼)</option>
             </select>;
 
             if (!this.props.immutableWidgets) {
@@ -511,21 +521,40 @@ var Editor = React.createClass({
         oldContent = oldContent.replace(/\n*$/, "\n\n");
 
         var template;
-        if (templateType === "table") {
+        if (templateType === "sqrt") {
+            template = "$\\sqrt{3}$";
+        } else if (templateType === "frac") {
+            template = "$\\frac{2}{5}$";
+        } else if (templateType === "square") {
+            template = "$x^3$";
+        } else if (templateType === "overline") {
+            template = "$\\overline{ABC}$";
+        } else if (templateType === "frown") {
+            template = "$\\buildrel\\frown\\over {ABC}$";
+        } else if (templateType === "vec") {
+            template = "$\\vec{AB}$";
+        } else if (templateType === "table") {
             template = "header 1 | header 2 | header 3\n" +
                        "- | - | -\n" +
                        "data 1 | data 2 | data 3\n" +
                        "data 4 | data 5 | data 6\n" +
                        "data 7 | data 8 | data 9";
+        } else if (templateType === "matrix") {
+            template = "$\\left[ \\begin{array}{title}" +
+                       " a & b & c \\\\ d & e & f \\\\ g & h & i" +
+                       "\\end{array} \\right]$";
         } else if (templateType === "alignment") {
-            template = "$\\begin{align} x+5 &= 30 \\\\\n" +
-                       "x+5-5 &= 30-5 \\\\\n" +
+            template = "$\\begin{align} x+5 &= 30 \\\\" +
+                       "x+5-5 &= 30-5 \\\\" +
                        "x &= 25 \\end{align}$";
         } else if (templateType === "piecewise") {
-            template = "$f(x) = \\begin{cases}\n" +
-                       "7 & \\text{if $x=1$} \\\\\n" +
-                       "f(x-1)+5 & \\text{if $x > 1$}\n" +
+            template = "$\\begin{cases}" +
+                       "x-3=5 \\\\" +
+                       "3x+5y=0 \\\\" +
+                       "x^2+5=-1 \\\\" +
                        "\\end{cases}$";
+        } else if (templateType === "color") {
+            template = "$\\color{fuchsia}{顏色可以自己換}$";
         } else {
             throw new Error("Invalid template type: " + templateType);
         }
