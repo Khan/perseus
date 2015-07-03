@@ -21,13 +21,15 @@ var Graphie = React.createClass({
         onClick: React.PropTypes.func,
         onMouseDown: React.PropTypes.func,
         onMouseUp: React.PropTypes.func,
-        onMouseMove: React.PropTypes.func
+        onMouseMove: React.PropTypes.func,
+        responsive: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             range: [[-10, 10], [-10, 10]],
-            options: {}
+            options: {},
+            responsive: false,
         };
     },
 
@@ -130,6 +132,13 @@ var Graphie = React.createClass({
         });
 
         graphie.snap = this.props.options.snapStep || [1, 1];
+
+        if (this.props.responsive) {
+            // Overwrite fixed styles set in init()
+            // TODO(alex): Either make this component always responsive by
+            // itself, or always wrap it in other components so that it is.
+            $(graphieDiv).css({width: '100%', height: '100%'});
+        }
 
         this.props.setup(graphie, _.extend({
             range: this._range(),

@@ -1,5 +1,6 @@
 var _ = require("underscore");
 
+var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 var Graphie = require("../components/graphie.jsx");
 var Util = require("../util.js");
 
@@ -122,18 +123,20 @@ var SvgImage = React.createClass({
         src: React.PropTypes.string.isRequired,
         alt: React.PropTypes.string,
         title: React.PropTypes.string,
-        bottom: React.PropTypes.number,
-        left: React.PropTypes.number,
         width: React.PropTypes.number,
         height: React.PropTypes.number,
         scale: React.PropTypes.number,
+
+        extraGraphie: React.PropTypes.shape({
+            box: React.PropTypes.array.isRequired,
+            range: React.PropTypes.array.isRequired,
+            labels: React.PropTypes.array.isRequired,
+        }),
     },
 
     getDefaultProps: function() {
         return {
             src: "",
-            bottom: 0,
-            left: 0,
             scale: 1,
         };
     },
@@ -180,27 +183,34 @@ var SvgImage = React.createClass({
         var width = this.props.width && this.props.width * this.props.scale;
         var height = this.props.height && this.props.height * this.props.scale;
 
-        var style = {
-            width: width,
-            height: height,
-            bottom: this.props.bottom,
-            left: this.props.left,
-        };
+        // An additional <Graphie /> may be inserted after the image/graphie
+        // pair. Only used by the image widget, for its legacy labels support.
+        // TODO(alex): Convert all existing uses of that to web+graphie. This
+        // is tricky because web+graphie doesn't support labels on non-graphie
+        // images.
+        var extraGraphie;
+        if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
+            extraGraphie = <Graphie
+                box={this.props.extraGraphie.box}
+                range={this.props.extraGraphie.range}
+                options={{labels: this.props.extraGraphie.labels}}
+                responsive={true}
+                setup={this.setupGraphie} />;
+        }
 
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
-            return <img style={style}
-                        src={this.props.src}
-                        {...imageProps} />;
+            return <FixedToResponsive
+                        className="svg-image"
+                        width={width}
+                        height={height}>
+                <img src={this.props.src} {...imageProps} />
+                {extraGraphie}
+            </FixedToResponsive>;
         }
 
         var imageUrl = getSvgUrl(this.props.src);
-        var image = <img style={{
-                             width: style.width,
-                             height: style.height,
-                         }}
-                         src={imageUrl}
-                         ref="image"
+        var image = <img src={imageUrl}
                          onLoad={this.onImageLoad}
                          {...imageProps} />;
 
@@ -226,14 +236,18 @@ var SvgImage = React.createClass({
                 scale={scale}
                 range={this.state.range}
                 options={_.pick(this.state, "labels")}
+                responsive={true}
                 setup={this.setupGraphie} />;
         }
 
-        return <div className="svg-image"
-                    style={style}>
+        return <FixedToResponsive
+                    className="svg-image"
+                    width={width}
+                    height={height}>
             {image}
             {graphie}
-        </div>;
+            {extraGraphie}
+        </FixedToResponsive>;
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -340,6 +354,7 @@ var SvgImage = React.createClass({
     },
 
     onImageLoad: function() {
+        // Only need to do this if rendering a Graphie
         if (this.sizeProvided()) {
             // If width and height are provided, we don't need to calculate the
             // size ourselves
@@ -370,6 +385,15 @@ var SvgImage = React.createClass({
             // Add back the styles to each of the labels
             _.each(labelData.style, (styleValue, styleName) => {
                 label.css(styleName, styleValue);
+            });
+
+            // Convert absolute positioning css from pixels to percentages
+            // TODO(alex): Dynamically resize font-size as well. This almost
+            // certainly means listening to throttled window.resize events.
+            var position = label.position();
+            label.css({
+                top: position.top / this.props.height * 100 + '%',
+                left: position.left / this.props.width * 100 + '%',
             });
         });
     }

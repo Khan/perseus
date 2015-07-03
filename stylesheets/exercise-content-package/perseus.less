@@ -245,12 +245,9 @@
         }
     }
 
+    // TODO(alex): Is this still used?
     .graphie-container {
         position: relative;
-
-        img {
-            position: absolute;
-        }
     }
 
     .graph-settings, .image-settings, .misc-settings {
@@ -264,12 +261,22 @@
 
     .svg-image {
         display: inline-block;
-        position: relative;
+    }
 
-        > .graphie-container {
+    .fixed-to-responsive {
+        position: relative;
+        width: 100%;
+
+        // The first child is different than the rest - it's a div
+        // with vertical padding that reserves space for the rest
+        // of the children (which are absolutely positioned and
+        // thus can't claim space for themselves).
+        > :not(:first-child) {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 }

@@ -49,16 +49,17 @@ var ImageWidget = React.createClass({
 
     propTypes: {
         title: React.PropTypes.string,
-        range: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(React.PropTypes.number
-            )
-        ),
         box: React.PropTypes.arrayOf(React.PropTypes.number),
+
+        // TODO(alex): Rename to something else, e.g. "image", perhaps flatten
         backgroundImage: React.PropTypes.shape({
             url: React.PropTypes.string,
             width: React.PropTypes.number,
             height: React.PropTypes.number
         }),
+
+        // TODO(alex): Convert uses of this widget's labeling functionality to
+        // SvgImage wherever possible (almost certainly requires a backfill)
         labels: React.PropTypes.arrayOf(
             React.PropTypes.shape({
                 content: React.PropTypes.string,
@@ -66,6 +67,10 @@ var ImageWidget = React.createClass({
                 alignment: React.PropTypes.string
             })
         ),
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.number)
+        ),
+
         alt: React.PropTypes.string,
         caption: React.PropTypes.string
     },
@@ -83,36 +88,53 @@ var ImageWidget = React.createClass({
     },
 
     render: function() {
+        var title;
         var image;
         var alt;
+        var caption;
+
+        if (this.props.title) {
+            title = <div className="perseus-image-title">
+                <Renderer
+                    content={this.props.title}
+                    apiOptions={this.props.apiOptions} />
+            </div>;
+        }
+
         var backgroundImage = this.props.backgroundImage;
         if (backgroundImage.url) {
-            image = <SvgImage src={backgroundImage.url}
-                              alt={
-                                  /* alt text is formatted in a sr-only
-                                     div next to the image, so we make
-                                     this empty here.
-                                     If there is no alt text at all,
-                                     we don't put an alt attribute on
-                                     the image, so that screen readers
-                                     know there's something they can't
-                                     read there :(.
-                                     NOTE: React <=0.13 (maybe later)
-                                     has a bug where it won't ever
-                                     remove an attribute, so if this
-                                     alt node is ever defined it's
-                                     not removed. This is sort of
-                                     dangerous, but we usually re-key
-                                     new renderers so that they're
-                                     rendered from scratch anyways,
-                                     so this shouldn't be a problem
-                                     in practice right now, although
-                                     it will exhibit weird behaviour
-                                     while editing. */
-                                  this.props.alt ? "" : undefined
-                              }
-                              width={backgroundImage.width}
-                              height={backgroundImage.height} />;
+            image = <SvgImage
+                        src={backgroundImage.url}
+                        alt={
+                            /* alt text is formatted in a sr-only
+                               div next to the image, so we make
+                               this empty here.
+                               If there is no alt text at all,
+                               we don't put an alt attribute on
+                               the image, so that screen readers
+                               know there's something they can't
+                               read there :(.
+                               NOTE: React <=0.13 (maybe later)
+                               has a bug where it won't ever
+                               remove an attribute, so if this
+                               alt node is ever defined it's
+                               not removed. This is sort of
+                               dangerous, but we usually re-key
+                               new renderers so that they're
+                               rendered from scratch anyways,
+                               so this shouldn't be a problem
+                               in practice right now, although
+                               it will exhibit weird behaviour
+                               while editing. */
+                            this.props.alt ? "" : undefined
+                        }
+                        width={backgroundImage.width}
+                        height={backgroundImage.height}
+                        extraGraphie={{
+                            box: this.props.box,
+                            range: this.props.range,
+                            labels: this.props.labels,
+                        }} />;
         }
 
         if (this.props.alt) {
@@ -123,44 +145,18 @@ var ImageWidget = React.createClass({
             </span>;
         }
 
-        var box = this.props.box;
+        if (this.props.caption) {
+            caption = <div className="perseus-image-caption">
+                <Renderer content={this.props.caption} />
+            </div>;
+        }
 
         return <div className="perseus-image-widget">
-            {this.props.title &&
-                <div className="perseus-image-title">
-                    <Renderer
-                        content={this.props.title}
-                        apiOptions={this.props.apiOptions} />
-                </div>
-            }
-            <div
-                    className="graphie-container"
-                    style={{
-                        width: box[0],
-                        height: box[1]
-                    }}>
-                {image}
-                {alt}
-                <Graphie
-                    ref="graphie"
-                    box={this.props.box}
-                    range={this.props.range}
-                    options={_.pick(this.props, "box", "range", "labels")}
-                    setup={this.setupGraphie}>
-                </Graphie>
-            </div>
-            {this.props.caption &&
-                <div className="perseus-image-caption">
-                <Renderer content={this.props.caption} />
-                </div>
-            }
+            {title}            
+            {image}
+            {alt}
+            {caption}
         </div>;
-    },
-
-    setupGraphie: function(graphie, options) {
-        _.map(options.labels, function(label) {
-            graphie.label(label.coordinates, label.content, label.alignment);
-        });
     },
 
     getUserInput: function() {
