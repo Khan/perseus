@@ -38,3 +38,5 @@ _.each([
 ], function(widget) {
     Widgets.register(widget.name, widget);
 });
+
+Widgets.validateAlignments();

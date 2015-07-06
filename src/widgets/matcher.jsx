@@ -108,10 +108,6 @@ var Matcher = React.createClass({
 
     simpleValidate: function(rubric) {
         return Matcher.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

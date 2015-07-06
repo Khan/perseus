@@ -291,10 +291,6 @@ var Passage = React.createClass({
 
     simpleValidate: function(rubric) {
         return Passage.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

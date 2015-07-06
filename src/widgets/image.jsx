@@ -6,7 +6,7 @@ var Editor       = require("../editor.jsx");
 var InfoTip      = require("react-components/info-tip.jsx");
 var Renderer     = require("../renderer.jsx");
 
-var Changeable   = require("../mixins/changeable.jsx");
+var Changeable    = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var Graphie      = require("../components/graphie.jsx");
@@ -24,7 +24,7 @@ var defaultBackgroundImage = {
 /**
  * Alignment option for captions, relative to specified coordinates.
  */
-var alignments = [
+var captionAlignments = [
     "center",
     "above",
     "above right",
@@ -102,6 +102,7 @@ var ImageWidget = React.createClass({
         }
 
         var backgroundImage = this.props.backgroundImage;
+
         if (backgroundImage.url) {
             image = <SvgImage
                         src={backgroundImage.url}
@@ -167,11 +168,7 @@ var ImageWidget = React.createClass({
         return ImageWidget.validate(this.getUserInput(), rubric);
     },
 
-    focus: $.noop,
-
-    statics: {
-        displayMode: "block"
-    }
+    focus: $.noop
 });
 
 _.extend(ImageWidget, {
@@ -209,12 +206,15 @@ var ImageEditor = React.createClass({
     },
 
     render: function() {
+        var backgroundImage = this.props.backgroundImage;
+
         var imageSettings = <div className="image-settings">
             <div>Background image:</div>
             <div>
                 <label>Url:{' '}
                     <BlurInput
-                        value={this.props.backgroundImage.url || ''}
+                        value={backgroundImage.url || ''}
+                        style={{width: 290}}
                         onChange={url => this.onUrlChange(url, false)} />
                     <InfoTip>
                         <p>Create an image in graphie, or use the "Add image"
@@ -222,7 +222,7 @@ var ImageEditor = React.createClass({
                     </InfoTip>
                 </label>
             </div>
-            {this.props.backgroundImage.url && <div>
+            {backgroundImage.url && <div>
                 <div>
                     <label>Graphie X range:{' '}
                         <RangeInput
@@ -329,7 +329,7 @@ var ImageEditor = React.createClass({
                     className="perseus-widget-dropdown"
                     value={label.alignment}
                     onChange={this.onAlignmentChange.bind(this, i)}>
-                    {alignments.map(function(alignment, i) {
+                    {captionAlignments.map(function(alignment, i) {
                         return <option key={"" + i} value={alignment}>
                             {alignment}
                         </option>;
@@ -465,6 +465,7 @@ module.exports = {
         var bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },
+    supportedAlignments: ["block", "float-left", "float-right"],
     displayName: "Image",
     widget: ImageWidget,
     editor: ImageEditor

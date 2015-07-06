@@ -504,10 +504,6 @@ var Radio = React.createClass({
             return ([choices[1]]).concat([choices[0]]);
         }
         return choices;
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

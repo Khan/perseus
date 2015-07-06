@@ -30,10 +30,6 @@ var PassageRefTarget = React.createClass({
 
     simpleValidate: function(rubric) {
         return PassageRefTarget.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "inline"
     }
 });
 
@@ -78,6 +74,7 @@ var PassageRefTargetEditor = React.createClass({
 module.exports = {
     name: "passage-ref-target",
     displayName: "PassageRefTarget",
+    defaultAlignment: "inline",
     widget: PassageRefTarget,
     editor: PassageRefTargetEditor,
     hidden: true,

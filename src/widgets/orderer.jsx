@@ -508,10 +508,6 @@ var Orderer = React.createClass({
 
     simpleValidate: function(rubric) {
         return Orderer.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

@@ -592,10 +592,6 @@ var Plotter = React.createClass({
 
     simpleValidate: function(rubric) {
         return Plotter.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

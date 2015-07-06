@@ -156,11 +156,17 @@ var Renderer = React.createClass({
     _getAllWidgetsInfo: function(props) {
         props = props || this.props;
         return mapObject(props.widgets, (widgetInfo, widgetId) => {
-            if (!widgetInfo.type) {
-                var type = widgetId.split(" ")[0];
-                widgetInfo = _.extend({}, widgetInfo, {
-                    type: type
-                });
+            if (!widgetInfo.type || !widgetInfo.alignment) {
+                var newValues = {};
+
+                if (!widgetInfo.type) {
+                    newValues.type = widgetId.split(" ")[0];
+                }
+                if (!widgetInfo.alignment) {
+                    newValues.alignment = "default";
+                }
+
+                widgetInfo = _.extend({}, widgetInfo, newValues);
             }
             return Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
         });
@@ -212,19 +218,19 @@ var Renderer = React.createClass({
         if (widgetInfo || this.props.ignoreMissingWidgets) {
 
             var type = (widgetInfo && widgetInfo.type) || impliedType;
-            var cls = Widgets.getWidget(type, this.props.enabledFeatures);
             var shouldHighlight = _.contains(
                 this.props.highlightedWidgets,
                 id
             );
-
+            
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return <WidgetContainer
                     ref={"container:" + id}
                     key={"container:" + id}
-                    type={cls}
+                    enabledFeatures={this.props.enabledFeatures}
+                    type={type}
                     initialProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight} />;
         } else {
@@ -253,6 +259,8 @@ var Renderer = React.createClass({
         return _.extend({}, widgetProps, {
             ref: id,
             widgetId: id,
+            alignment: this.state.widgetInfo[id] &&
+                       this.state.widgetInfo[id].alignment,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
             apiOptions: this.getApiOptions(this.props),

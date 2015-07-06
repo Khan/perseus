@@ -165,10 +165,6 @@ var OldUnitInput = React.createClass({
     },
 
     // end mobile stuff
-
-    statics: {
-        displayMode: "inline-block",
-    }
 });
 
 // Extract the primitive units from a unit expression. This first simplifies
@@ -491,6 +487,7 @@ var UnitInputEditor = React.createClass({
 module.exports = {
     name: "unit-input",
     displayName: "Unit",
+    defaultAlignment: "inline-block",
     getWidget: (enabledFeatures) => {
         // Allow toggling between the two versions of the widget
         return OldUnitInput;

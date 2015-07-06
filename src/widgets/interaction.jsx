@@ -477,10 +477,6 @@ var Interaction = React.createClass({
 
     simpleValidate: function(rubric) {
         return Interaction.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

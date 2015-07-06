@@ -110,10 +110,6 @@ var Iframe = React.createClass({
 
     simpleValidate: function(rubric) {
         return Iframe.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

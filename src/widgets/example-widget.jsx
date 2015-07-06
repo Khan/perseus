@@ -88,14 +88,6 @@ var ExampleWidget = React.createClass({
      */
     simpleValidate: function(rubric) {
         return ExampleWidget.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        /**
-         * Tell the renderer what type of `display:` style we would like
-         * for the component wrapping this one.
-         */
-        displayMode: "inline-block"
     }
 });
 
@@ -180,6 +172,11 @@ var ExampleWidgetEditor = React.createClass({
 module.exports = {
     name: "example-widget",
     displayName: "Example Widget",
+
+    // Tell the renderer what type of `display:` style we would like
+    // for the component wrapping this one.
+    defaultAlignment: "inline-block", 
+    
     hidden: true,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleWidget,
     editor: ExampleWidgetEditor

@@ -273,10 +273,6 @@ var LightsPuzzle = React.createClass({
 
     simpleValidate: function(rubric) {
         return validate(rubric, this.getUserInput());
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

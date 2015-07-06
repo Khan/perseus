@@ -77,10 +77,6 @@ var SimpleMarkdownTester = React.createClass({
      */
     simpleValidate: function(rubric) {
         return SimpleMarkdownTester.validate(this.toJSON(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

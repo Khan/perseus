@@ -127,6 +127,13 @@ var WidgetEditor = React.createClass({
         var widgetInfo = this.state.widgetInfo;
 
         var Ed = Widgets.getEditor(widgetInfo.type);
+        var supportedAlignments;
+        if (this.props.apiOptions.showAlignmentOptions) {
+            supportedAlignments =
+                Widgets.getSupportedAlignments(widgetInfo.type);
+        } else {
+            supportedAlignments = ["default"];
+        }
 
         var isUngradedEnabled = (widgetInfo.type === "transformer");
         var gradedPropBox = <PropCheckBox label="Graded:"
@@ -141,6 +148,14 @@ var WidgetEditor = React.createClass({
                     <i className={"icon-chevron-" +
                             (this.state.showWidget ? "down" : "right")} />
                 </a>
+                {supportedAlignments.length > 1 && 
+                <select 
+                        className="alignment"
+                        value={widgetInfo.alignment}
+                        onChange={this._handleAlignmentChange} >
+                    {supportedAlignments.map((alignment) =>
+                        <option key={alignment}>{alignment}</option>)}
+                </select>}
                 <a href="#" className={
                             "remove-widget " +
                             "simple-button simple-button--small orange"
@@ -178,6 +193,13 @@ var WidgetEditor = React.createClass({
         this.props.onChange(newWidgetInfo, cb, silent);
     },
 
+    _handleAlignmentChange: function (e) {
+        var newAlignment = e.target.value;
+        var newWidgetInfo = _.clone(this.state.widgetInfo);
+        newWidgetInfo.alignment = newAlignment;
+        this.props.onChange(newWidgetInfo);
+    },
+
     getSaveWarnings: function() {
         var issuesFunc = this.refs.widget.getSaveWarnings;
         return issuesFunc ? issuesFunc() : [];
@@ -190,6 +212,7 @@ var WidgetEditor = React.createClass({
         var widgetInfo = this.state.widgetInfo;
         return {
             type: widgetInfo.type,
+            alignment: widgetInfo.alignment,
             graded: widgetInfo.graded,
             options: this.refs.widget.serialize(),
             version: widgetInfo.version,
@@ -610,8 +633,10 @@ var Editor = React.createClass({
         var widgetContent = widgetPlaceholder.replace("{id}", id);
 
         // Add newlines before block-display widgets like graphs
-        var Widget = Widgets.getWidget(widgetType, EnabledFeatures.defaults);
-        var isBlock = Widget.displayMode === "block";
+        var isBlock = Widgets.getDefaultAlignment(widgetType, 
+            this.props.enabledFeatures || EnabledFeatures.defaults) ===
+            "block";
+        
         var prelude = oldContent.slice(0, cursorRange[0]);
         var postlude = oldContent.slice(cursorRange[1]);
 
@@ -710,7 +735,8 @@ var Editor = React.createClass({
         PerseusMarkdown.traverseContent(parsed, (node) => {
             if (node.type === "image" && !node.alt) {
                 var shortUrl = node.target.length < 9 ? node.target :
-                        node.target.slice(0, 3) + "..." + node.target.slice(-3);
+                        node.target.slice(0, 3) + "..." +
+                        node.target.slice(-3);
 
                 noAltImages.push(
                     "Image '" + node.target +

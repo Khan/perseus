@@ -851,11 +851,7 @@ var Grapher = React.createClass({
         return this.props.plot;
     },
 
-    focus: $.noop,
-
-    statics: {
-        displayMode: "block"
-    }
+    focus: $.noop
 });
 
 _.extend(Grapher, {

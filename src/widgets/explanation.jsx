@@ -97,10 +97,6 @@ var Explanation = React.createClass({
 
     simpleValidate: function(rubric) {
         return Explanation.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "inline"
     }
 });
 
@@ -165,6 +161,7 @@ var ExplanationEditor = React.createClass({
 module.exports = {
     name: "explanation",
     displayName: "Explanation (for hints)",
+    defaultAlignment: "inline",
     widget: Explanation,
     editor: ExplanationEditor,
     transform: _.identity

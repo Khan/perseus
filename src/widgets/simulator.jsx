@@ -670,10 +670,6 @@ var Simulator = React.createClass({
 
     simpleValidate: function(rubric) {
         return Simulator.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

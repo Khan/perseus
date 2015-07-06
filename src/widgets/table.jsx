@@ -228,10 +228,6 @@ var Table = React.createClass({
         this.props.onChange({
             answers: answers
         }, cb);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

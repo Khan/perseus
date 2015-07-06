@@ -120,7 +120,11 @@ var ArticleEditor = React.createClass({
         var apiOptions = _.extend(
             {},
             ApiOptions.defaults,
-            this.props.apiOptions
+            this.props.apiOptions,
+            {
+                // Alignment options are always available in article editors
+                showAlignmentOptions: true
+            }
         );
 
         var sections = this._sections();

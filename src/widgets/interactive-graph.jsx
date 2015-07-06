@@ -1712,11 +1712,7 @@ var InteractiveGraph = React.createClass({
         return InteractiveGraph.validate(this.getUserInput(), rubric, this);
     },
 
-    focus: $.noop,
-
-    statics: {
-        displayMode: "block"
-    }
+    focus: $.noop
 });
 
 

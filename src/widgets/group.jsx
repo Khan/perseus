@@ -151,10 +151,6 @@ var Group = React.createClass({
 
     blur: function(path) {
         this.refs.renderer.blurPath(path);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 
@@ -190,6 +186,7 @@ var GroupEditor = React.createClass({
                 ref="editor"
                 content={this.props.content}
                 widgets={this.props.widgets}
+                apiOptions={this.props.apiOptions}
                 images={this.props.images}
                 widgetEnabled={true}
                 immutableWidgets={false}

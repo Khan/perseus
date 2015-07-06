@@ -387,10 +387,6 @@ var Matrix = React.createClass({
 
     simpleValidate: function(rubric) {
         return Matrix.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

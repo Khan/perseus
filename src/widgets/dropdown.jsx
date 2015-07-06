@@ -95,10 +95,6 @@ var Dropdown = React.createClass({
 
     simpleValidate: function(rubric) {
         return Dropdown.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "inline-block"
     }
 });
 
@@ -263,6 +259,7 @@ var propTransform = (editorProps) => {
 module.exports = {
     name: "dropdown",
     displayName: "Drop down",
+    defaultAlignment: "inline-block",
     accessible: true,
     widget: Dropdown,
     editor: DropdownEditor,

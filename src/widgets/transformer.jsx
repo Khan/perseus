@@ -388,10 +388,6 @@ var TransformOps = {
         },
         getInputPaths: function() {
             return this.refs.transform.getInputPaths();
-        },
-
-        statics: {
-            displayMode: "block"
         }
     })
 };
@@ -2491,10 +2487,6 @@ var Transformer = React.createClass({
                 options: this.shape.getOptions()
             }
         };
-    },
-
-    statics: {
-        displayMode: "block"
     },
 
     /* InputPath API */

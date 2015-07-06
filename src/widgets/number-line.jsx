@@ -520,10 +520,6 @@ var NumberLine = React.createClass({
 
     simpleValidate: function(rubric) {
         return NumberLine.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

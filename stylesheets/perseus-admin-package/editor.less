@@ -202,8 +202,13 @@
     .perseus-widget-editor-title {
         .pod-title;
         border: 0;
-        display: block;
+        display: flex;
+        align-items: center;
         position: relative;
+
+        :first-child {
+            flex-grow: 1;
+        }
 
         > a {
             color: inherit;
@@ -216,9 +221,8 @@
             }
         }
 
-        .remove-widget {
-            position: absolute;
-            right: 5px;
+        .alignment {
+            margin-right: 5px;
         }
 
         .simple-button {

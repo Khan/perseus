@@ -251,10 +251,6 @@ var Expression = React.createClass({
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.getUserInput(), rubric, onInputError);
-    },
-
-    statics: {
-        displayMode: "inline-block"
     }
 });
 
@@ -627,10 +623,6 @@ var OldExpression = React.createClass({
             $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
             $._("For $\\neq$, enter **=/=**")
         ];
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 
@@ -1131,6 +1123,10 @@ propUpgrades = {
 module.exports = {
     name: "expression",
     displayName: "Expression / Equation",
+    getDefaultAlignment: function (enabledFeatures) {
+        // Each version of the widget has different alignments
+        return enabledFeatures.useMathQuill ? "inline-block" : "block";
+    },
     getWidget: (enabledFeatures) => {
         // Allow toggling between the two versions of the widget
         return enabledFeatures.useMathQuill ? Expression : OldExpression;

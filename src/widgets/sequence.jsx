@@ -104,10 +104,6 @@ var Sequence = React.createClass({
                 });
             }
         }
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

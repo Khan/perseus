@@ -105,10 +105,6 @@ var Categorizer = React.createClass({
 
     simpleValidate: function(rubric) {
         return Categorizer.validate(this.getUserInput(), rubric);
-    },
-
-    statics: {
-        displayMode: "block"
     }
 });
 

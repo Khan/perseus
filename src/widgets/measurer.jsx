@@ -148,11 +148,7 @@ var Measurer = React.createClass({
         return Measurer.validate(this.getUserInput(), rubric);
     },
 
-    focus: $.noop,
-
-    statics: {
-        displayMode: "block"
-    }
+    focus: $.noop
 });
 
 

@@ -142,7 +142,8 @@ var AnswerAreaRenderer = React.createClass({
             <WidgetContainer
                 ref="container"
                 key={this.props.type}
-                type={this.state.cls}
+                enabledFeatures={this.props.enabledFeatures}
+                type={this.props.type}
                 initialProps={this.getSingleWidgetProps()}
                 shouldHighlight={shouldHighlight} />
         </QuestionParagraph>;

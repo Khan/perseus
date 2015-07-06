@@ -227,10 +227,6 @@ var InputNumber = React.createClass({
         }, this);
 
         return [$._("**Acceptable Formats**")].concat(examples);
-    },
-
-    statics: {
-        displayMode: "inline-block"
     }
 });
 
@@ -420,6 +416,7 @@ var propTransform = (editorProps) => {
 module.exports = {
     name: "input-number",
     displayName: "Number text box (old)",
+    defaultAlignment: "inline-block",
     hidden: true,
     widget: InputNumber,
     editor: InputNumberEditor,

@@ -1,5 +1,8 @@
 var _ = require("underscore");
 
+var DEFAULT_ALIGNMENT = "block";
+var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+
 var widgets = {};
 
 var Widgets = {
@@ -149,12 +152,23 @@ var Widgets = {
             }
         }
 
+        var alignment = oldWidgetInfo.alignment;
+
+        // Widgets that support multiple alignments will "lock in" the
+        // alignment to the alignment that would be listed first in the
+        // select box. If the widget only supports one alignment, the
+        // alignment value will likely just end up as "default".
+        if (alignment == null || alignment === "default") {
+            alignment = Widgets.getSupportedAlignments(type)[0];
+        }
+
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
             version: actualVersion,
             // Default graded to true (so null/undefined becomes true):
             graded: (
                 (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
             ),
+            alignment: alignment,
             options: newEditorProps
         });
     },
@@ -199,6 +213,87 @@ var Widgets = {
             return widgetInfo;
         }
     },
+
+    /**
+     * Handling for the optional alignments for widgets
+     * The following alignments are supported (see widget-container.jsx for 
+     * details on how alignments are implemented):
+     *
+     * * default: If this alignment is selected, the default alignment provided
+     *     by the widget's code will be used.
+     * * block
+     * * inline-block
+     * * inline
+     * * float-left
+     * * float-right
+     */
+
+    /**
+     * Returns the list of supported alignments for the given (string) widget
+     * type. This is used primarily at editing time to display the choices 
+     * for the user.
+     *
+     * Support alignments are given as an array of strings in the exports of
+     * a widget's module.
+     */
+    getSupportedAlignments: function(type) {
+        var widgetInfo = widgets[type];
+        return (widgetInfo && widgetInfo.supportedAlignments) || DEFAULT_SUPPORTED_ALIGNMENTS;
+    },
+
+    /**
+     * For the given (string) widget type and enabledFeatures, determine the
+     * default alignment for the widget. This is used at rendering time to
+     * go from "default" alignment to the actual alignment displayed on the
+     * screen.
+     *
+     * The default alignment is given either as a string (called
+     * `defaultAlignment`) or a function (called `getDefaultAlignment`) on
+     * the exports of a widget's module.
+     */
+    getDefaultAlignment: function(type, enabledFeatures) {
+        var widgetInfo = widgets[type];
+        if (!widgetInfo) {
+            return DEFAULT_ALIGNMENT;
+        }
+
+        if (widgetInfo.getDefaultAlignment) {
+            alignment = widgetInfo.getDefaultAlignment(enabledFeatures);
+        } else {
+            alignment = widgetInfo.defaultAlignment;
+        }
+        return alignment || DEFAULT_ALIGNMENT;
+    },
+
+    validAlignments: ["block", "inline-block", "inline", "float-left", "float-right"],
+
+    /**
+     * Used at startup to fail fast if an alignment given by a widget is
+     * invalid.
+     */
+    validateAlignments: function () {
+        _.each(widgets, function (widgetInfo) {
+            if (widgetInfo.defaultAlignment && 
+                !_.contains(Widgets.validAlignments,
+                            widgetInfo.defaultAlignment)) {
+                throw new Error("Widget '" + widgetInfo.displayName +
+                    "' has an invalid defaultAlignment value: " +
+                    widgetInfo.defaultAlignment);
+            }
+
+            if (widgetInfo.supportedAlignments) {
+                var unknownAlignments = _.difference(
+                     widgetInfo.supportedAlignments, 
+                     Widgets.validAlignments);
+
+                if (unknownAlignments.length) {
+                    throw new Error("Widget '" + widgetInfo.displayName +
+                        "' has an invalid value for supportedAlignments: " +
+                        unknownAlignments.join(" "));
+                }
+            }
+        });
+    }
 };
 
 module.exports = Widgets;

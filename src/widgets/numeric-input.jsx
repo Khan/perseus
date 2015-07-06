@@ -228,10 +228,6 @@ var NumericInput = React.createClass({
         return _.map(forms, (form) => {
             return formExamples[form](this.props);
         });
-    },
-
-    statics: {
-        displayMode: "inline-block"
     }
 });
 
@@ -672,6 +668,7 @@ var propsTransform = function(editorProps) {
 module.exports = {
     name: "numeric-input",
     displayName: "Number text box",
+    defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
     editor: NumericInputEditor,
