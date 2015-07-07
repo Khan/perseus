@@ -33,11 +33,11 @@ var answerFormButtons = [
 ];
 
 var formExamples = {
-    "integer": (options) => $._("an integer, like $6$"),
-    "proper": (options) => options.simplify === "optional" ?
+    "integer": () => $._("an integer, like $6$"),
+    "proper": (form) => form.simplify === "optional" ?
         $._("a *proper* fraction, like $1/2$ or $6/10$") :
         $._("a *simplified proper* fraction, like $3/5$"),
-    "improper": (options) => options.simplify === "optional" ?
+    "improper": (form) => form.simplify === "optional" ?
         $._("an *improper* fraction, like $10/7$ or $14/8$") :
         $._("a *simplified improper* fraction, like $7/4$"),
     "mixed": () => $._("a mixed number, like $1\\ 3/4$"),
@@ -53,7 +53,13 @@ var NumericInput = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         apiOptions: ApiOptions.propTypes,
         coefficient: React.PropTypes.bool,
-        answerForms: React.PropTypes.arrayOf(React.PropTypes.string),
+        answerForms: React.PropTypes.arrayOf(React.PropTypes.shape({
+            name: React.PropTypes.string.isRequired,
+            simplify: React.PropTypes.oneOf([
+                "required",
+                "optional"
+            ]).isRequired,
+        })),
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
     },
@@ -224,9 +230,16 @@ var NumericInput = React.createClass({
     examples: function() {
         // if the set of specified forms are empty, allow all forms
         var forms = this.props.answerForms.length !== 0 ?
-                this.props.answerForms : _.keys(formExamples);
+                        this.props.answerForms :
+                        _.map(_.keys(formExamples), (name) => {
+                            return {
+                                name: name,
+                                simplify: "required"
+                            };
+                        });
+
         return _.map(forms, (form) => {
-            return formExamples[form](this.props);
+            return formExamples[form.name](form);
         });
     }
 });
@@ -643,14 +656,34 @@ var NumericInputEditor = React.createClass({
 });
 
 var unionAnswerForms = function(answerFormsList) {
-    var set = {};
-    _.each(answerFormsList, (answerForms) => {
-        _.each(answerForms, (form) => {
-            set[form] = true;
-        });
+    // Takes a list of lists of answer forms, and returns a list of the forms
+    // in each of these lists in the same order that they're listed in the
+    // `formExamples` forms from above.
+
+    // uniqueBy takes a list of elements and a function which compares whether
+    // two elements are equal, and returns a list of unique elements. This is
+    // just a helper function here, but works generally.
+    var uniqueBy = function(list, iteratee) {
+        return _.reduce(list, (uniqueList, element) => {
+            // For each element, decide whether it's already in the list of
+            // unique items.
+            var inList = _.find(uniqueList, iteratee.bind(null, element));
+            if (inList) {
+                return uniqueList;
+            } else {
+                return uniqueList.concat([element]);
+            }
+        }, []);
+    };
+
+    // Pull out all of the forms from the different lists.
+    var allForms = _.flatten(answerFormsList);
+    // Pull out the unique forms using uniqueBy.
+    var uniqueForms = uniqueBy(allForms, _.isEqual);
+    // Sort them by the order they appear in the `formExamples` list.
+    return _.sortBy(uniqueForms, (form) => {
+        return _.keys(formExamples).indexOf(form.name);
     });
-    // Make sure to keep the order of forms in formExamples
-    return _.filter(_.keys(formExamples), (form) => set[form] === true);
 };
 
 var propsTransform = function(editorProps) {
@@ -658,7 +691,16 @@ var propsTransform = function(editorProps) {
         _.omit(editorProps, "answers"),
         {
             answerForms: unionAnswerForms(
-                _.pluck(editorProps.answers, "answerForms")
+                // Pull out the name of each form and whether that form has
+                // required simplification.
+                _.map(editorProps.answers, (answer) => {
+                    return _.map(answer.answerForms, (form) => {
+                        return {
+                            simplify: answer.simplify,
+                            name: form
+                        };
+                    });
+                })
             )
         }
     );
