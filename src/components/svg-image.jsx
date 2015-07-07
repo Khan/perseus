@@ -183,8 +183,20 @@ var SvgImage = React.createClass({
         var width = this.props.width && this.props.width * this.props.scale;
         var height = this.props.height && this.props.height * this.props.scale;
 
+        // To make an image responsive, we need to know what its width and
+        // height are in advance (before inserting it into the DOM) so that we
+        // can ensure it doesn't grow past those limits. We don't always have
+        // this information, especially in places where <Renderer /> is used
+        // to render inline Markdown images within a widget. See Radio, Sorter,
+        // Matcher, etc.
+        // TODO(alex): Make all of those image rendering locations aware of
+        // width+height so that they too can render responsively.
+        var responsive = !!(width && height);
+
         // An additional <Graphie /> may be inserted after the image/graphie
         // pair. Only used by the image widget, for its legacy labels support.
+        // Note that since the image widget always provides width and height
+        // data, extraGraphie can be ignored for unresponsive images.
         // TODO(alex): Convert all existing uses of that to web+graphie. This
         // is tricky because web+graphie doesn't support labels on non-graphie
         // images.
@@ -200,13 +212,19 @@ var SvgImage = React.createClass({
 
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
-            return <FixedToResponsive
-                        className="svg-image"
-                        width={width}
-                        height={height}>
-                <img src={this.props.src} {...imageProps} />
-                {extraGraphie}
-            </FixedToResponsive>;
+            var bareImage = <img src={this.props.src} {...imageProps} />;
+            if (responsive) {
+                return <FixedToResponsive
+                            className="svg-image"
+                            width={width}
+                            height={height}>
+                    {bareImage}
+                    {extraGraphie}
+                </FixedToResponsive>;
+            } else {
+                return bareImage;
+            }
+            
         }
 
         var imageUrl = getSvgUrl(this.props.src);
@@ -236,18 +254,25 @@ var SvgImage = React.createClass({
                 scale={scale}
                 range={this.state.range}
                 options={_.pick(this.state, "labels")}
-                responsive={true}
+                responsive={responsive}
                 setup={this.setupGraphie} />;
         }
 
-        return <FixedToResponsive
-                    className="svg-image"
-                    width={width}
-                    height={height}>
-            {image}
-            {graphie}
-            {extraGraphie}
-        </FixedToResponsive>;
+        if (responsive) {
+            return <FixedToResponsive
+                        className="svg-image"
+                        width={width}
+                        height={height}>
+                {image}
+                {graphie}
+                {extraGraphie}
+            </FixedToResponsive>;
+        } else {
+            return <div className="unresponsive-svg-image">
+                {image}
+                {graphie}
+            </div>;
+        }
     },
 
     componentWillReceiveProps: function(nextProps) {
