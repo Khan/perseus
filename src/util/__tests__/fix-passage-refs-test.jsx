@@ -179,7 +179,8 @@ describe("fix-passage-refs", () => {
                     // TODO(aria): Update this when we do minor updates as
                     // a part of version upgrading
                     "minor": 0
-                }
+                },
+                "alignment": "default",
             }
         );
         assertNonMutative();
@@ -207,7 +208,8 @@ describe("fix-passage-refs", () => {
                     // TODO(aria): Update this when we merge the passage-ref
                     // changes
                     "minor": 0
-                }
+                },
+                "alignment": "default",
             }
         );
         assertNonMutative();

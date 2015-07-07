@@ -24,7 +24,8 @@ var sampleOptions = {
             "version": {
                 "major": 0,
                 "minor": 0
-            }
+            },
+            "alignment": "default",
         }
     }
 };
@@ -61,7 +62,8 @@ var sampleOptions2 = {
             "version": {
                 "major": 0,
                 "minor": 0
-            }
+            },
+            "alignment": "default",
         }
     }
 };
@@ -98,7 +100,8 @@ var sampleOptions2Upgraded = {
             "version": {
                 "major": 1,
                 "minor": 0
-            }
+            },
+            "alignment": "default",
         }
     }
 };
@@ -138,14 +141,16 @@ var sampleGroup = {
                         "version": {
                             "major": 0,
                             "minor": 0
-                        }
+                        },
+                        "alignment": "default",
                     }
                 }
             },
             "version": {
                 "major": 0,
                 "minor": 0
-            }
+            },
+            "alignment": "default",
         }
     }
 };
@@ -185,14 +190,16 @@ var sampleGroupUpgraded = {
                         "version": {
                             "major": 1,
                             "minor": 0
-                        }
+                        },
+                        "alignment": "default",
                     }
                 }
             },
             "version": {
                 "major": 0,
                 "minor": 0
-            }
+            },
+            "alignment": "default",
         }
     }
 };
