@@ -13,7 +13,7 @@ var HintRenderer = React.createClass({
             classNames = "perseus-hint-renderer";
         }
         return <div className={classNames} tabIndex="-1">
-            <span className="sr-only">{
+            <span className="perseus-sr-only">{
                 $._("Hint #%(pos)s", {pos: this.props.pos + 1})
             }</span>
             <Renderer

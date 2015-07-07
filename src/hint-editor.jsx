@@ -104,7 +104,10 @@ var CombinedHintEditor = React.createClass({
                 onMove={this.props.onMove} />
 
             <div className="perseus-editor-right-cell">
-                <HintRenderer hint={this.props.hint} bold={shouldBold} />
+                <HintRenderer
+                    hint={this.props.hint}
+                    bold={shouldBold}
+                    pos={this.props.pos} />
             </div>
         </div>;
     },
@@ -151,6 +154,7 @@ var CombinedHintsEditor = React.createClass({
                         isFirst={i === 0}
                         isLast={i + 1 === hints.length}
                         hint={hint}
+                        pos={i}
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
