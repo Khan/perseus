@@ -428,11 +428,6 @@ var SvgImage = React.createClass({
                 {"font-size": (100 * this.props.scale) + "%"}
             );
 
-            // Add back the styles to each of the labels
-            _.each(labelData.style, (styleValue, styleName) => {
-                label.css(styleName, styleValue);
-            });
-
             // Convert absolute positioning css from pixels to percentages
             // TODO(alex): Dynamically resize font-size as well. This almost
             // certainly means listening to throttled window.resize events.
@@ -442,6 +437,11 @@ var SvgImage = React.createClass({
             label.css({
                 top: position.top / height * 100 + '%',
                 left: position.left / width * 100 + '%',
+            });
+
+            // Add back the styles to each of the labels
+            _.each(labelData.style, (styleValue, styleName) => {
+                label.css(styleName, styleValue);
             });
         });
     }
