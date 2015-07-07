@@ -7,8 +7,12 @@
         position: relative;
         overflow: hidden;
 
-        > img, > .svg-image {
+        > img, > .unresponsive-svg-image {
             position: absolute;
+            // Preserves background image alignment (if image is a graph,
+            // it can extend up and to the right to allow for axis labels)
+            bottom: 0;
+            left: 0;
         }
     }
     .transformer-undo-button {

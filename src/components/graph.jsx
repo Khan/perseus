@@ -89,7 +89,8 @@ var Graph = React.createClass({
             image = <SvgImage src={imageData.url}
                               width={imageData.width}
                               height={imageData.height}
-                              scale={scale} />;
+                              scale={scale}
+                              responsive={false} />;
         } else {
             image = null;
         }

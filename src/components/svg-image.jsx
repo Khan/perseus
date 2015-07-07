@@ -127,6 +127,15 @@ var SvgImage = React.createClass({
         height: React.PropTypes.number,
         scale: React.PropTypes.number,
 
+        // By default, this component attempts to be responsive whenever
+        // possible (specifically, when width and height are passed in).
+        // You can expliclty force unresponsive behavior by *either*
+        // not passing in width/height *or* setting this prop to false.
+        // The difference is that forcing via this prop will result in
+        // explicit width and height styles being set on the rendered
+        // component.
+        responsive: React.PropTypes.bool,
+
         extraGraphie: React.PropTypes.shape({
             box: React.PropTypes.array.isRequired,
             range: React.PropTypes.array.isRequired,
@@ -138,6 +147,7 @@ var SvgImage = React.createClass({
         return {
             src: "",
             scale: 1,
+            responsive: true,
         };
     },
 
@@ -182,6 +192,10 @@ var SvgImage = React.createClass({
 
         var width = this.props.width && this.props.width * this.props.scale;
         var height = this.props.height && this.props.height * this.props.scale;
+        var dimensions = {
+            width: width,
+            height: height,
+        };
 
         // To make an image responsive, we need to know what its width and
         // height are in advance (before inserting it into the DOM) so that we
@@ -191,7 +205,7 @@ var SvgImage = React.createClass({
         // Matcher, etc.
         // TODO(alex): Make all of those image rendering locations aware of
         // width+height so that they too can render responsively.
-        var responsive = !!(width && height);
+        var responsive = this.props.responsive && !!(width && height);
 
         // An additional <Graphie /> may be inserted after the image/graphie
         // pair. Only used by the image widget, for its legacy labels support.
@@ -212,25 +226,23 @@ var SvgImage = React.createClass({
 
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
-            var bareImage = <img src={this.props.src} {...imageProps} />;
             if (responsive) {
                 return <FixedToResponsive
                             className="svg-image"
                             width={width}
                             height={height}>
-                    {bareImage}
+                    <img src={this.props.src} {...imageProps} />
                     {extraGraphie}
                 </FixedToResponsive>;
             } else {
-                return bareImage;
+                return <img src={this.props.src}
+                            style={dimensions}
+                            {...imageProps} />;
             }
             
         }
 
         var imageUrl = getSvgUrl(this.props.src);
-        var image = <img src={imageUrl}
-                         onLoad={this.onImageLoad}
-                         {...imageProps} />;
 
         var graphie;
         // Since we only want to do the graphie setup once, we only render the
@@ -263,13 +275,22 @@ var SvgImage = React.createClass({
                         className="svg-image"
                         width={width}
                         height={height}>
-                {image}
+                <img
+                    src={imageUrl}
+                    onLoad={this.onImageLoad}
+                    {...imageProps} />
                 {graphie}
                 {extraGraphie}
             </FixedToResponsive>;
         } else {
-            return <div className="unresponsive-svg-image">
-                {image}
+            return <div
+                        className="unresponsive-svg-image"
+                        style={dimensions} >
+                <img
+                    src={imageUrl}
+                    onLoad={this.onImageLoad}
+                    style={dimensions}
+                    {...imageProps} />
                 {graphie}
             </div>;
         }
@@ -416,9 +437,11 @@ var SvgImage = React.createClass({
             // TODO(alex): Dynamically resize font-size as well. This almost
             // certainly means listening to throttled window.resize events.
             var position = label.position();
+            var height = this.props.height * this.props.scale;
+            var width = this.props.width * this.props.scale;
             label.css({
-                top: position.top / this.props.height * 100 + '%',
-                left: position.left / this.props.width * 100 + '%',
+                top: position.top / height * 100 + '%',
+                left: position.left / width * 100 + '%',
             });
         });
     }
