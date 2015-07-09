@@ -25,28 +25,17 @@ var ArticleRenderer = React.createClass({
     },
 
     render: function() {
-        // TODO(alex): Make this render in multiple Renderers vs. in one
-        var content = this._sections().map((section, i) => {
-            return "[[" + Util.snowman + " group " + i + "]]";
-        }).join("\n\n");
-        
-        var widgets = {};
-        _.each(this._sections(), (section, i) => {
-            var widgetId = "group " + i;
-            widgets[widgetId] = {
-                type: "group",
-                graded: true,
-                version: {major: 0, minor: 0},
-                options: section
-            };
+        // TODO(alex): Add mobile api functions and pass them down here
+        var sections = this._sections().map((section, i) => {
+            return <Renderer
+                {...section}
+                key={i}
+                apiOptions={this.props.apiOptions}
+                enabledFeatures={this.props.enabledFeatures} />;
         });
 
         return <div className="framework-perseus perseus-article">
-            <Renderer
-                content={content}
-                widgets={widgets}
-                apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures} />
+            {sections}
         </div>;
     },
 

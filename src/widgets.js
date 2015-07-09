@@ -271,6 +271,7 @@ var Widgets = {
      * Used at startup to fail fast if an alignment given by a widget is
      * invalid.
      */
+    // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
     validateAlignments: function () {
         _.each(widgets, function (widgetInfo) {
             if (widgetInfo.defaultAlignment && 
