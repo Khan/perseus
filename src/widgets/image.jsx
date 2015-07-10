@@ -465,7 +465,7 @@ module.exports = {
         var bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },
-    supportedAlignments: ["block", "float-left", "float-right"],
+    supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     displayName: "Image",
     widget: ImageWidget,
     editor: ImageEditor

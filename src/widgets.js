@@ -265,7 +265,14 @@ var Widgets = {
         return alignment || DEFAULT_ALIGNMENT;
     },
 
-    validAlignments: ["block", "inline-block", "inline", "float-left", "float-right"],
+    validAlignments: [
+        "block",
+        "inline-block",
+        "inline",
+        "float-left",
+        "float-right",
+        "full-width",
+    ],
 
     /**
      * Used at startup to fail fast if an alignment given by a widget is

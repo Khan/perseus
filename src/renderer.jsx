@@ -1,5 +1,6 @@
 var React = require('react');
 var _ = require("underscore");
+var classNames = require("classnames");
 
 var PerseusMarkdown = require("./perseus-markdown.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
@@ -215,6 +216,11 @@ var Renderer = React.createClass({
 
     renderWidget: function(impliedType, id, state) {
         var widgetInfo = this.state.widgetInfo[id];
+
+        if (widgetInfo && widgetInfo.alignment === "full-width") {
+            state.foundFullWidth = true;
+        }
+
         if (widgetInfo || this.props.ignoreMissingWidgets) {
 
             var type = (widgetInfo && widgetInfo.type) || impliedType;
@@ -579,10 +585,17 @@ var Renderer = React.createClass({
             // !!! WARNING: Mutative hacks! mutates `this._foundTextNodes`:
             // because I wrote a bad interface to simple-markdown.js' `output`
             this._foundTextNodes = false;
+            state.foundFullWidth = false;
             var output = this.outputNested(ast, state);
-            var className = this._foundTextNodes ?
-                "" :
-                "perseus-paragraph-centered";
+
+            var className = classNames({
+                "perseus-paragraph-centered": !this._foundTextNodes,
+                "perseus-paragraph-full-width": (
+                    // There is only one node being rendered,
+                    // and it's a full-width widget.
+                    state.foundFullWidth && ast.content.length === 1
+                ),
+            });
 
             return <QuestionParagraph key={state.key} className={className}>
                 {output}
