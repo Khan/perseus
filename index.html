@@ -211,7 +211,7 @@ var defaultQuestion = {
         }
     },
     "answerArea": {
-        "type": "multiple",
+        "type": "radio",
         "options": {
             "content": "",
             "widgets": {}
@@ -290,10 +290,10 @@ $('#save').on('click',function(e){
         can_manage_all_questions = question_dic.can_manage_all_questions;
     }
 
-    if (!question_dic.uploader_id) {
+    if (!new_perseus_question && !question_dic.uploader_id) {
         return_string = "No-Uploader-Name";
     }
-    else if (!can_manage_all_questions && question_dic.uploader_id != question_dic.user_id) {
+    else if (!new_perseus_question && !can_manage_all_questions && question_dic.uploader_id != question_dic.user_id) {
         return_string = "No-Authorization";
     }
     else {
@@ -359,6 +359,7 @@ function getQuestion(data, func){
             'related_video': []
         };
         $.extend(default_question_dic, init_data);
+        question_dic = default_question_dic;
         renderQuestion(default_question_dic);
     }
     else {
