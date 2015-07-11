@@ -530,9 +530,9 @@ var Editor = React.createClass({
         } else if (templateType === "overline") {
             template = "$\\overline{ABC}$";
         } else if (templateType === "frown") {
-            template = "$\\buildrel\\frown\\over {ABC}$";
+            template = "$\\overset{\\LARGE{\\frown{\\small ABC}}}$";
         } else if (templateType === "vec") {
-            template = "$\\vec{AB}$";
+            template = "$\\overset{\\large \\rightharpoonup}{\\small{AB}}$";
         } else if (templateType === "table") {
             template = "header 1 | header 2 | header 3\n" +
                        "- | - | -\n" +
