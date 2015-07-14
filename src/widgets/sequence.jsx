@@ -132,7 +132,7 @@ var SequenceEditor = React.createClass({
     render: function() {
         return <div className="perseus-sequence-editor">
             {_.map(this.props.json, (json, i) => {
-                return <div>
+                return <div key={i}>
                     Step {i+1}
                     <div style={{
                         display: "inline-block",
