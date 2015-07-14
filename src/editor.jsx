@@ -540,9 +540,9 @@ var Editor = React.createClass({
                        "data 4 | data 5 | data 6\n" +
                        "data 7 | data 8 | data 9";
         } else if (templateType === "matrix") {
-            template = "$\\left[ \\begin{array}{title}" +
+            template = "$\\begin{bmatrix}" +
                        " a & b & c \\\\ d & e & f \\\\ g & h & i" +
-                       "\\end{array} \\right]$";
+                       "\\end{bmatrix}$";
         } else if (templateType === "alignment") {
             template = "$\\begin{align} x+5 &= 30 \\\\" +
                        "x+5-5 &= 30-5 \\\\" +

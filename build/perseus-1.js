@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit beaa1bd715650b59dc85a2218e9eb2f3a01ed554
+// commit 0b8ea52739dff5cf360235b2a1116fed63503558
 // branch gh-pages
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -8636,9 +8636,9 @@ var Editor = React.createClass({displayName: 'Editor',
                        "data 4 | data 5 | data 6\n" +
                        "data 7 | data 8 | data 9";
         } else if (templateType === "matrix") {
-            template = "$\\left[ \\begin{array}{title}" +
+            template = "$\\begin{bmatrix}" +
                        " a & b & c \\\\ d & e & f \\\\ g & h & i" +
-                       "\\end{array} \\right]$";
+                       "\\end{bmatrix}$";
         } else if (templateType === "alignment") {
             template = "$\\begin{align} x+5 &= 30 \\\\" +
                        "x+5-5 &= 30-5 \\\\" +
