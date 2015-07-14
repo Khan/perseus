@@ -80,6 +80,12 @@
             <textarea rows="3" cols="20" id='related_video'></textarea>
         </td>
     </tr>
+    <tr>
+        <td>下架時間：</td>
+        <td>
+            <input id='expire_date' placeholder='範例格式：2025/12/31'></input>(若不限定下架時間則不用填)
+        </td>
+    </tr>
 </table>
 <!-- Begin Perseus HTML -->
 <div id="perseus-container">
@@ -276,6 +282,7 @@ $('#save').on('click',function(e){
                 return;
             }
             related_video = $('textarea#related_video').val();
+            expire_date = $('input#expire_date').val();
             question = JSON.stringify(editor);
             host_name = question_dic.host_name;
             data = {'qid':question_dic.qid,
@@ -285,6 +292,7 @@ $('#save').on('click',function(e){
                     'level':level,
                     'cover_range':cover_range,
                     'related_video':related_video,
+                    'expire_date':expire_date,
                     'can_manage_all_questions':question_dic.can_manage_all_questions,
                     'secret':question_dic.secret,
                     'iv':question_dic.iv,
@@ -393,6 +401,7 @@ function renderQuestion(question_dic) {
     $('select#level').val(question_dic.level);
     $('textarea#cover_range').val(question_dic.cover_range);
     $('textarea#related_video').val(question_dic.related_video);
+    $('input#expire_date').val(question_dic.expire_date);
     if (question_dic.message) {
         confirm(question_dic.message);
     }
