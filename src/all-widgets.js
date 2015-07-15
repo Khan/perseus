@@ -4,6 +4,7 @@ var Widgets = require("./widgets.js");
 
 _.each([
     require("./widgets/categorizer.jsx"),
+    require("./widgets/cs-program.jsx"),
     require("./widgets/dropdown.jsx"),
     require("./widgets/example-widget.jsx"),
     require("./widgets/example-graphie-widget.jsx"),
