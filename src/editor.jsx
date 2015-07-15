@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jquery');
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
@@ -495,6 +496,10 @@ var Editor = React.createClass({
         // this.props.onChange during that, since it calls our parent's
         // setState
         this._sizeImages(this.props);
+
+        $(React.findDOMNode(this.refs.textarea))
+            .on('copy cut', this._maybeCopyWidgets)
+            .on('paste', this._maybePasteWidgets);
     },
 
     componentDidUpdate: function(prevProps) {
@@ -579,6 +584,8 @@ var Editor = React.createClass({
     },
 
     _handleKeyDown: function(e) {
+        // Tab-completion of widgets. For example, to insert an image:
+        // type `[[im`, then tab.
         if (e.key === "Tab") {
             var textarea = this.refs.textarea.getDOMNode();
 
@@ -604,6 +611,41 @@ var Editor = React.createClass({
 
                 e.preventDefault();
             }
+        }
+    },
+
+    _maybeCopyWidgets: function(e) {
+        // If there are widgets being cut/copied, put the widget JSON in
+        // localStorage.perseusLastCopiedWidgets to allow copy-pasting of
+        // widgets between Editors.
+        var textarea = e.target;
+        var selectedText = textarea.value.substring(
+            textarea.selectionStart,
+            textarea.selectionEnd
+        );
+
+        var widgetNames = _.map(selectedText.match(rWidgetSplit), (syntax) => {
+            return Util.rWidgetParts.exec(syntax)[1];
+        });
+
+        var widgetData = _.pick(this.props.widgets, widgetNames);
+
+        localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
+
+        console.log(
+            `Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
+    },
+
+    _maybePasteWidgets: function() {
+        // Use the data from localStorage to paste any widgets we copied
+        // before. If there is a widget name conflict, don't override the
+        // widgets in the Editor we're pasting into.
+        var widgetJSON = localStorage.perseusLastCopiedWidgets;
+
+        if (widgetJSON) {
+            var widgetData = JSON.parse(widgetJSON);
+            var newWidgets = _.extend(widgetData, this.props.widgets);
+            this.props.onChange({widgets: newWidgets});
         }
     },
 
