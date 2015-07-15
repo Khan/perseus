@@ -216,16 +216,7 @@ var Widgets = {
 
     /**
      * Handling for the optional alignments for widgets
-     * The following alignments are supported (see widget-container.jsx for 
-     * details on how alignments are implemented):
-     *
-     * * default: If this alignment is selected, the default alignment provided
-     *     by the widget's code will be used.
-     * * block
-     * * inline-block
-     * * inline
-     * * float-left
-     * * float-right
+     * See widget-container.jsx for details on how alignments are implemented.
      */
 
     /**
@@ -238,7 +229,8 @@ var Widgets = {
      */
     getSupportedAlignments: function(type) {
         var widgetInfo = widgets[type];
-        return (widgetInfo && widgetInfo.supportedAlignments) || DEFAULT_SUPPORTED_ALIGNMENTS;
+        return (widgetInfo && widgetInfo.supportedAlignments) ||
+            DEFAULT_SUPPORTED_ALIGNMENTS;
     },
 
     /**

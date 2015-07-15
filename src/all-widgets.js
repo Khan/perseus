@@ -34,7 +34,8 @@ _.each([
     require("./widgets/sorter.jsx"),
     require("./widgets/table.jsx"),
     require("./widgets/transformer.jsx"),
-    require("./widgets/unit.jsx")
+    require("./widgets/unit.jsx"),
+    require("./widgets/video.jsx"),
 ], function(widget) {
     Widgets.register(widget.name, widget);
 });
