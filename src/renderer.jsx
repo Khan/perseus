@@ -686,11 +686,20 @@ var Renderer = React.createClass({
                 this.props.images[node.target] :
                 null;
 
+            // The width of a table column is determined by the widest table
+            // cell within that column, but responsive images constrain
+            // themselves to the width of their parent containers. Thus,
+            // responsive images don't do very well within tables. To avoid
+            // haphazard sizing, simply make images within tables unresponsive.
+            // TODO(alex): Make tables themselves responsive.
+            var responsive = !state.inTable;
+
             return <SvgImage
                 key={state.key}
                 src={PerseusMarkdown.sanitizeUrl(node.target)}
                 alt={node.alt}
                 title={node.title}
+                responsive={responsive}
                 {...extraAttrs} />;
 
         } else if (node.type === "columns") {
@@ -707,6 +716,12 @@ var Renderer = React.createClass({
                 this._foundTextNodes = true;
             }
             return node.content;
+
+        } else if (node.type === "table") {
+            state.inTable = true;
+            var output = PerseusMarkdown.ruleOutput(node, nestedOutput, state);
+            state.inTable = false;
+            return output;
 
         } else {
             // If it's a "normal" or "simple" markdown node, just
