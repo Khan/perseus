@@ -1,8 +1,13 @@
 var _ = require("underscore");
+var classNames = require("classnames");
 
 var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 var Graphie = require("../components/graphie.jsx");
 var Util = require("../util.js");
+var Zoom = require("../zoom.js");
+
+// Minimum image width to make an image appear as zoomable.
+var ZOOMABLE_THRESHOLD = 700;
 
 // The global cache of label data. Its format is:
 // {
@@ -227,11 +232,19 @@ var SvgImage = React.createClass({
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
             if (responsive) {
+                var wrapperClasses = classNames({
+                    zoomable: width > ZOOMABLE_THRESHOLD,
+                    "svg-image": true,
+                });
+
                 return <FixedToResponsive
-                            className="svg-image"
+                            className={wrapperClasses}
                             width={width}
                             height={height}>
-                    <img src={this.props.src} {...imageProps} />
+                    <img
+                        src={this.props.src}
+                        onClick={this._handleZoomClick}
+                        {...imageProps} />
                     {extraGraphie}
                 </FixedToResponsive>;
             } else {
@@ -444,6 +457,23 @@ var SvgImage = React.createClass({
                 label.css(styleName, styleValue);
             });
         });
+    },
+
+    _handleZoomClick: function (e) {
+        var $image = $(e.target);
+
+        // It's possible that the image is already displayed at its
+        // full size, but we don't really know that until we get a chance
+        // to measure it (just now, after the user clicks). We only zoom
+        // if there's more image to be shown.
+        //
+        // TODO(kevindangoor) If the window is narrow and the image is
+        // already displayed as wide as possible, we may want to do
+        // nothing in that case as well. Figuring this out correctly
+        // likely required accounting for the image alignment and margins.
+        if ($image.width() < this.props.width) {
+            Zoom.ZoomService.handleZoomClick(e);
+        }
     }
 });
 

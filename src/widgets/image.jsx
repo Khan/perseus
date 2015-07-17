@@ -153,7 +153,7 @@ var ImageWidget = React.createClass({
         }
 
         return <div className="perseus-image-widget">
-            {title}            
+            {title}
             {image}
             {alt}
             {caption}
