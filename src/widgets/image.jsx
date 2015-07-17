@@ -9,7 +9,6 @@ var Renderer     = require("../renderer.jsx");
 var Changeable    = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var Graphie      = require("../components/graphie.jsx");
 var RangeInput   = require("../components/range-input.jsx");
 var SvgImage     = require("../components/svg-image.jsx");
 
@@ -202,6 +201,7 @@ var ImageEditor = React.createClass({
             labels: [],
             alt: "",
             caption: "",
+            showAdvancedSettings: false,
         };
     },
 
@@ -209,68 +209,63 @@ var ImageEditor = React.createClass({
         var backgroundImage = this.props.backgroundImage;
 
         var imageSettings = <div className="image-settings">
-            <div>Background image:</div>
             <div>
-                <label>Url:{' '}
-                    <BlurInput
-                        value={backgroundImage.url || ''}
-                        style={{width: 290}}
-                        onChange={url => this.onUrlChange(url, false)} />
-                    <InfoTip>
-                        <p>Create an image in graphie, or use the "Add image"
-                        function to create a background.</p>
-                    </InfoTip>
+                <label>
+                    <div>
+                        Alt text:
+                        <InfoTip>
+                            This is important for screenreaders.
+                            The content of this alt text will be
+                            formatted as markdown (tables, emphasis,
+                            etc. are supported).
+                        </InfoTip>
+                    </div>
+                    <Editor
+                        content={this.props.alt}
+                        onChange={(props) => {
+                            if (props.content != null) {
+                                this.change("alt", props.content);
+                            }
+                        }}
+                        widgetEnabled={false} />
                 </label>
             </div>
-            {backgroundImage.url && <div>
-                <div>
-                    <label>Graphie X range:{' '}
-                        <RangeInput
-                            value={this.props.range[0]}
-                            onChange={_.partial(this.onRangeChange, 0)} />
-                    </label>
-                </div>
-                <div>
-                    <label>Graphie Y range:{' '}
-                        <RangeInput
-                            value={this.props.range[1]}
-                            onChange={_.partial(this.onRangeChange, 1)} />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <div>
-                            Alt text:
-                            <InfoTip>
-                                <p>
-                                    Add alt text to the image.
-                                    This is important for screenreaders.
-                                    The content of this alt text will be
-                                    formatted as markdown (tables, emphasis,
-                                    etc. are supported).
-                                </p>
-                            </InfoTip>
-                        </div>
-                        <Editor
-                            content={this.props.alt}
-                            onChange={(props) => {
-                                if (props.content != null) {
-                                    this.change("alt", props.content);
-                                }
-                            }}
-                            widgetEnabled={false} />
-                    </label>
-                </div>
-            </div>}
+            <div>
+                <label>
+                    <div>Caption:</div>
+                    <Editor
+                        content={this.props.caption}
+                        onChange={(props) => {
+                            if (props.content != null) {
+                                this.change("caption", props.content);
+                            }
+                        }}
+                        widgetEnabled={false} />
+                </label>
+            </div>
         </div>;
 
-        var graphSettings = <div className="graph-settings">
-                <div className="add-label">
-                    <button onClick={this.addLabel}>
-                        {' '}Add a label{' '}
-                    </button>
-                </div>
-                {this.props.labels.length > 0 &&
+        var advancedSettings = <div className="graph-settings">
+            <div>
+                <label>Graphie X range:{' '}
+                    <RangeInput
+                        value={this.props.range[0]}
+                        onChange={_.partial(this.onRangeChange, 0)} />
+                </label>
+            </div>
+            <div>
+                <label>Graphie Y range:{' '}
+                    <RangeInput
+                        value={this.props.range[1]}
+                        onChange={_.partial(this.onRangeChange, 1)} />
+                </label>
+            </div>
+            <div className="add-label">
+                <button onClick={this.addLabel}>
+                    {' '}Add a label{' '}
+                </button>
+            </div>
+            {this.props.labels.length > 0 &&
                 <table className="label-settings">
                     <thead>
                     <tr>
@@ -284,30 +279,54 @@ var ImageEditor = React.createClass({
                         {this.props.labels.map(this._renderRowForLabel)}
                     </tbody>
                 </table>}
+            <div>
+                <label>
+                    <div>
+                        Title:
+                        <InfoTip>Appears above the image.</InfoTip>
+                    </div>
+                    <Editor
+                        content={this.props.title}
+                        onChange={(props) => {
+                            if (props.content != null) {
+                                this.change("title", props.content);
+                            }
+                        }}
+                        widgetEnabled={false} />
+                </label>
+            </div>
+        </div>;
+
+        var showHideAdvancedSettings = <div>
+            <a href="#" onClick={this._toggleAdvancedSettings}>
+                {this.props.showAdvancedSettings ? "Hide " : "Show "}
+                advanced settings
+            </a>
+
+            {this.props.showAdvancedSettings && advancedSettings}
         </div>;
 
         return <div className="perseus-image-editor">
-            <div>Title:</div>
-            <Editor
-                content={this.props.title}
-                onChange={(props) => {
-                    if (props.content != null) {
-                        this.change("title", props.content);
-                    }
-                }}
-                widgetEnabled={false} />
-            {imageSettings}
-            {graphSettings}
-            <div>Caption:</div>
-            <Editor
-                content={this.props.caption}
-                onChange={(props) => {
-                    if (props.content != null) {
-                        this.change("caption", props.content);
-                    }
-                }}
-                widgetEnabled={false} />
+            <label>
+                Image url:
+                <InfoTip>Paste an image or graphie image URL.</InfoTip>
+
+                <BlurInput
+                    value={backgroundImage.url || ''}
+                    style={{width: 332}}
+                    onChange={url => this.onUrlChange(url, false)} />
+            </label>
+
+            {backgroundImage.url && imageSettings}
+            {backgroundImage.url && showHideAdvancedSettings}
         </div>;
+    },
+
+    _toggleAdvancedSettings: function(e) {
+        e.preventDefault();
+        this.props.onChange({
+            showAdvancedSettings: !this.props.showAdvancedSettings
+        });
     },
 
     _renderRowForLabel: function(label, i) {
