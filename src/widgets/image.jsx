@@ -201,7 +201,13 @@ var ImageEditor = React.createClass({
             labels: [],
             alt: "",
             caption: "",
-            showAdvancedSettings: false,
+        };
+    },
+
+    getInitialState: function() {
+        return {
+            showAdvancedSettings:
+                this.props.title.length > 0 || this.props.labels.length > 0,
         };
     },
 
@@ -299,11 +305,11 @@ var ImageEditor = React.createClass({
 
         var showHideAdvancedSettings = <div>
             <a href="#" onClick={this._toggleAdvancedSettings}>
-                {this.props.showAdvancedSettings ? "Hide " : "Show "}
+                {this.state.showAdvancedSettings ? "Hide " : "Show "}
                 advanced settings
             </a>
 
-            {this.props.showAdvancedSettings && advancedSettings}
+            {this.state.showAdvancedSettings && advancedSettings}
         </div>;
 
         return <div className="perseus-image-editor">
@@ -324,8 +330,8 @@ var ImageEditor = React.createClass({
 
     _toggleAdvancedSettings: function(e) {
         e.preventDefault();
-        this.props.onChange({
-            showAdvancedSettings: !this.props.showAdvancedSettings
+        this.setState({
+            showAdvancedSettings: !this.state.showAdvancedSettings
         });
     },
 
