@@ -32,7 +32,7 @@ $(PERSEUS_BUILD_JS): install
 $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
 	./node_modules/.bin/webpack --config webpack.config.node-perseus.js
-	mv build/node-perseus.js{,.tmp}
+	mv build/node-perseus.js build/node-perseus.js.tmp
 	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_NODE_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
