@@ -10,6 +10,7 @@ var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
+var updateQueryString = require("../util.js").updateQueryString;
 
 var DEFAULT_WIDTH = 400;
 var DEFAULT_HEIGHT = 400;
@@ -112,6 +113,18 @@ var CSProgram = React.createClass({
             style.height += 50;
         } else {
             url += "&buttons=no";
+        }
+
+        // Turn array of [{name: "", value: ""}] into object
+        if (this.props.settings) {
+            var settings = {};
+            _.each(this.props.settings, function(setting) {
+                if (setting.name && setting.value) {
+                    settings[setting.name] = setting.value;
+                }
+            });
+            // This becomes available to programs as Program.settings()
+            url = updateQueryString(url, "settings", JSON.stringify(settings));
         }
 
         // We sandbox the iframe so that we whitelist only the functionality
@@ -291,6 +304,10 @@ var CSProgramEditor = React.createClass({
                 <PairsEditor name="settings"
                            pairs={this.props.settings}
                            onChange={this._handleSettingsChange} />
+                <InfoTip>
+                    Settings that you add here are available to the program
+                    as an object returned by <code>Program.settings()</code>
+                </InfoTip>
             </label>
         </div>;
     },
