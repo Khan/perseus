@@ -10,8 +10,10 @@
     "rcss": "khan/RCSS#9e5ec9614e391d28a621297a63bc2d850eae89e8"
   },
   "devDependencies": {
+    "babel-core": "^5.7.4",
+    "i18n-babel-plugin": "git://github.com/Khan/i18n-babel-plugin#1ed3f6d33ad7bde5e524dc6e471821087676323b",
     "jest-cli": "~0.1.17",
-    "jsdom": "^0.10.5",
+    "jsdom": "^2.0.0",
     "json-loader": "~0.5.1",
     "jstransform": "~6.3.2",
     "jsx-i18n": "0.0.0",

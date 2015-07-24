@@ -1,11 +1,10 @@
+var _ = require("../lib/underscore.js");
+var options = require("./babel-options.js");
+options = _.extend({}, options, { extensions: [".jsx"] });
+require("babel-core/register")(options);
+
 var jsdom = require("jsdom");
 global.jsdom = jsdom;
-
-// Enable jsx files (with es6)
-require('node-jsx').install({
-  extension: '.jsx',
-  harmony: true
-});
 
 var common = require("./common.js");
 
