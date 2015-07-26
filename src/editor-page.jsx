@@ -37,11 +37,13 @@ var EditorPage = React.createClass({
 
     getInitialState: function() {
         return {
-            json: {
-                question: this.props.question,
-                answer: this.props.answerArea,
-                hints: this.props.hints
-            },
+            json: _.pick(
+                this.props,
+                'question',
+                'answerArea',
+                'hints',
+                'itemDataVersion'
+            ),
             gradeMessage: "",
             wasAnswered: false
         };
