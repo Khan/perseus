@@ -30,6 +30,7 @@
 
 <div style="width:100%; text-align:center; margin: 20px;" id='edit-button-collector'>
 </div>
+<button id='copy_last_info' style="display: none;">Copy上題資訊</button>
 <table>
     <tr>
         <td>qid：</td>
@@ -192,11 +193,11 @@ var enabledFeatures = {
     useMathQuill: true
 };
 url = window.location.hash.split('?')[0].substring(1);
-var question_dic = {}
+var question_dic = {};
 var init_data = Perseus.Util.parseQueryString(url);
-var new_perseus_question = false;
-if (init_data.qid == '-1'){
-    new_perseus_question = true;
+var new_perseus_question = true;
+if ('qid' in init_data && init_data.qid != '-1') {
+    new_perseus_question = false;
 }
 if (new_perseus_question == false){
     if ($('#edit-button-collector').children().length == 0) {
@@ -240,7 +241,35 @@ $('#permalink').on('click', function(e) {
         encodeURIComponent(JSON.stringify(editor));
     e.preventDefault();
 });
+$('#copy_last_info').on('click',function(e){
+    if (confirm("要複製前一題的題目資訊嗎？(不包含題目內容)")) {
+        if ('host_name' in init_data) {
+            data={
+                'secret':question_dic.secret,
+                'iv':question_dic.iv,
+                'qid_offset':"-1"
+            };
+            $.ajax({
+                url: 'http://' + init_data.host_name + '/questionpanel/questionmanager/offset-question/',
+                data: data,
+                dataType: 'json',
+                method: "POST",
 
+                success:function(data){
+                    if(data == 'Have_No_Authority'){
+                        alert("抱歉，您沒辦法獲取上一題資料。");
+                    }
+                    else{
+                        renderQuestionInfo(data);
+                    }
+                },
+                error:function(xhr, ajaxOptions, thrownError){ 
+                    alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
+                }
+            });
+        }
+    }
+});
 $('#save').on('click',function(e){
 
     if(question_dic.can_manage_all_questions == 'True') {
@@ -380,15 +409,7 @@ $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
             (enabled ? "#aaffaa" : "#ffcccc") + ';">' + feature + '</span>';
 }).join(''));
 
-
-function renderQuestion(question_dic) {
-    var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
-    new_perseus_question = false;
-    if (question_dic.qid == '-1'){
-        new_perseus_question = true;
-    }
-
-    $('span#qid').html(question_dic.qid);
+function renderQuestionInfo(question_dic) {
     if (question_dic.is_hidden === true) {
         $('select#is_hidden').val('True');
     }
@@ -402,6 +423,25 @@ function renderQuestion(question_dic) {
     $('textarea#cover_range').val(question_dic.cover_range);
     $('textarea#related_video').val(question_dic.related_video);
     $('input#expire_date').val(question_dic.expire_date);
+};
+
+function renderQuestion(question_dic) {
+    var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
+    new_perseus_question = false;
+    if (question_dic.qid == '-1') {
+        new_perseus_question = true;
+    }
+
+    // Show or hide copy-last-info button
+    if ('host_name' in question_dic) {
+        $('#copy_last_info').show();
+    }
+    else {
+        $('#copy_last_info').hide();
+    }
+
+    $('span#qid').html(question_dic.qid);
+    renderQuestionInfo(question_dic);
     if (question_dic.message) {
         confirm(question_dic.message);
     }
