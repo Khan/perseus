@@ -54,6 +54,7 @@ var ImageWidget = React.createClass({
             width: React.PropTypes.number,
             height: React.PropTypes.number
         }),
+        useBoxSize: React.PropTypes.bool,
         labels: React.PropTypes.arrayOf(
             React.PropTypes.shape({
                 content: React.PropTypes.string,
@@ -143,6 +144,7 @@ var ImageEditor = React.createClass({
         return {
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
+            useBoxSize: false,
             backgroundImage: defaultBackgroundImage,
             labels: []
         };
@@ -150,13 +152,23 @@ var ImageEditor = React.createClass({
 
     render: function() {
         var imageSettings = <div className="image-settings">
-            <div>Background image:</div>
             <div>Url:{' '}
                 <BlurInput value={this.props.backgroundImage.url}
                            onChange={this.onUrlChange} />
                 <InfoTip>
-                    <p>Create an image in graphie, or use the "Add image"
-                    function to create a background.</p>
+                    <p>填入圖片的網址</p>
+                </InfoTip>
+            </div>
+            <label>
+                <input type="checkbox"
+                        checked={this.props.useBoxSize}
+                        onChange={this.toggleUseBoxSize} />手動調整寬度
+            </label>
+            <div>Width:{' '}
+                <BlurInput value={parseInt(this.props.box[0])}
+                           onChange={this.onWidthChange} />
+                <InfoTip>
+                    <p>希望圖片顯示的寬度(px)，若要調整請先勾選"手動調整寬度"</p>
                 </InfoTip>
             </div>
         </div>;
@@ -248,6 +260,30 @@ var ImageEditor = React.createClass({
         this.props.onChange({labels: labels});
     },
 
+    onWidthChange: function(newAlignment) {
+        var image = _.clone(this.props.backgroundImage);
+        if (this.props.useBoxSize) {
+            var w_h_ratio = image.height / image.width;
+            image.width = parseInt(newAlignment);
+            image.height = Math.round(image.width * w_h_ratio);
+        }
+        var box = [image.width, image.height];
+        this.props.onChange({
+            backgroundImage: image,
+            box: box,
+        });
+    },
+
+    toggleUseBoxSize: function() {
+        var useBoxSize = !this.props.useBoxSize;
+        if (!useBoxSize) {
+            this.reloadImage(this.props.backgroundImage.url);
+        }
+        this.props.onChange({
+            useBoxSize: useBoxSize
+        });
+    },
+
     setUrl: function(url, width, height) {
         var image = _.clone(this.props.backgroundImage);
         image.url = url;
@@ -256,15 +292,22 @@ var ImageEditor = React.createClass({
         var box = [image.width, image.height];
         this.props.onChange({
             backgroundImage: image,
-            box: box
+            box: box,
+            useBoxSize: false
         });
+    },
+
+    reloadImage: function(url) {
+        var img = new Image();
+        img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
+        img.src = url;
     },
 
     onUrlChange: function(url) {
         if (url) {
-            var img = new Image();
-            img.onload = () => this.setUrl(url, img.width, img.height);
-            img.src = url;
+            if (this.props.backgroundImage.url != url) {
+                this.reloadImage(url);
+            }
         } else {
             this.setUrl(url, 0, 0);
         }

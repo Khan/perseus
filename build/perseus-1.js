@@ -1,5 +1,5 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 0b8ea52739dff5cf360235b2a1116fed63503558
+// commit c3a79e5f47a88d2e38c141b3c6206c32dc5538f9
 // branch gh-pages
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
@@ -14562,6 +14562,7 @@ var ImageWidget = React.createClass({displayName: 'ImageWidget',
             width: React.PropTypes.number,
             height: React.PropTypes.number
         }),
+        useBoxSize: React.PropTypes.bool,
         labels: React.PropTypes.arrayOf(
             React.PropTypes.shape({
                 content: React.PropTypes.string,
@@ -14651,6 +14652,7 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
         return {
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
+            useBoxSize: false,
             backgroundImage: defaultBackgroundImage,
             labels: []
         };
@@ -14658,13 +14660,23 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
 
     render: function() {
         var imageSettings = React.DOM.div( {className:"image-settings"}, 
-            React.DOM.div(null, "Background image:"),
             React.DOM.div(null, "Url:",' ',
                 BlurInput( {value:this.props.backgroundImage.url,
                            onChange:this.onUrlChange} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Create an image in graphie, or use the \"Add image\""+' '+
-                    "function to create a background.")
+                    React.DOM.p(null, "填入圖片的網址")
+                )
+            ),
+            React.DOM.label(null, 
+                React.DOM.input( {type:"checkbox",
+                        checked:this.props.useBoxSize,
+                        onChange:this.toggleUseBoxSize} ),"手動調整寬度"
+            ),
+            React.DOM.div(null, "Width:",' ',
+                BlurInput( {value:parseInt(this.props.box[0]),
+                           onChange:this.onWidthChange} ),
+                InfoTip(null, 
+                    React.DOM.p(null, "希望圖片顯示的寬度(px)，若要調整請先勾選\"手動調整寬度\"")
                 )
             )
         );
@@ -14756,6 +14768,30 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
         this.props.onChange({labels: labels});
     },
 
+    onWidthChange: function(newAlignment) {
+        var image = _.clone(this.props.backgroundImage);
+        if (this.props.useBoxSize) {
+            var w_h_ratio = image.height / image.width;
+            image.width = parseInt(newAlignment);
+            image.height = Math.round(image.width * w_h_ratio);
+        }
+        var box = [image.width, image.height];
+        this.props.onChange({
+            backgroundImage: image,
+            box: box,
+        });
+    },
+
+    toggleUseBoxSize: function() {
+        var useBoxSize = !this.props.useBoxSize;
+        if (!useBoxSize) {
+            this.reloadImage(this.props.backgroundImage.url);
+        }
+        this.props.onChange({
+            useBoxSize: useBoxSize
+        });
+    },
+
     setUrl: function(url, width, height) {
         var image = _.clone(this.props.backgroundImage);
         image.url = url;
@@ -14764,15 +14800,22 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
         var box = [image.width, image.height];
         this.props.onChange({
             backgroundImage: image,
-            box: box
+            box: box,
+            useBoxSize: false
         });
+    },
+
+    reloadImage: function(url) {
+        var img = new Image();
+        img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
+        img.src = url;
     },
 
     onUrlChange: function(url) {
         if (url) {
-            var img = new Image();
-            img.onload = function()  {return this.setUrl(url, img.width, img.height);}.bind(this);
-            img.src = url;
+            if (this.props.backgroundImage.url != url) {
+                this.reloadImage(url);
+            }
         } else {
             this.setUrl(url, 0, 0);
         }
