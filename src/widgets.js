@@ -90,11 +90,15 @@ var Widgets = {
         // Unversioned widgets (pre-July 2014) are all implicitly 0.0
         var initialVersion = oldWidgetInfo.version || {major: 0, minor: 0};
         var latestVersion = widgetExports.version || {major: 0, minor: 0};
-        // Actual version. Only updated if we did an upgrade. If we didn't,
-        // it might be because the actual version is already greater than
-        // the latest version (we might be looking at the props from
-        // a later version of perseus, sent in via isRenderable)
-        var actualVersion = initialVersion;
+
+        // If the widget version is later than what we understand (major
+        // version is higher than latest, or major versions are equal and minor
+        // version is higher than latest), don't perform any upgrades.
+        if (initialVersion.major > latestVersion.major ||
+                (initialVersion.major === latestVersion.major &&
+                 initialVersion.minor > latestVersion.minor)) {
+            return oldWidgetInfo;
+        }
 
         // We do a clone here so that it's safe to mutate the input parameter
         // in propUpgrades functions (which I will probably accidentally do at
@@ -141,16 +145,14 @@ var Widgets = {
                     // than a halfhearted attempt to continue, however
                     // shallow...)
                 }
-
-                // we are updating this widget to the latest version (after
-                // all the iterations of this loop)
-                // We do this inside the loop so that if the widget is at a
-                // version later than what we understand, this loop will run
-                // zero times, and the actualVersion won't be changed from
-                // the initialVersion.
-                actualVersion = latestVersion;
             }
         }
+
+        // Minor version upgrades (eg. new optional props) don't have
+        // transform functions. Instead, we fill in the new props with their
+        // defaults.
+        var defaultProps = widgetExports.editor.defaultProps;
+        newEditorProps = _.extend({}, defaultProps, newEditorProps);
 
         var alignment = oldWidgetInfo.alignment;
 
@@ -163,7 +165,8 @@ var Widgets = {
         }
 
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
-            version: actualVersion,
+            // After upgrading we guarantee that the version is up-to-date
+            version: latestVersion,
             // Default graded to true (so null/undefined becomes true):
             graded: (
                 (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
@@ -221,7 +224,7 @@ var Widgets = {
 
     /**
      * Returns the list of supported alignments for the given (string) widget
-     * type. This is used primarily at editing time to display the choices 
+     * type. This is used primarily at editing time to display the choices
      * for the user.
      *
      * Support alignments are given as an array of strings in the exports of
@@ -273,7 +276,7 @@ var Widgets = {
     // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
     validateAlignments: function () {
         _.each(widgets, function (widgetInfo) {
-            if (widgetInfo.defaultAlignment && 
+            if (widgetInfo.defaultAlignment &&
                 !_.contains(Widgets.validAlignments,
                             widgetInfo.defaultAlignment)) {
                 throw new Error("Widget '" + widgetInfo.displayName +
@@ -283,7 +286,7 @@ var Widgets = {
 
             if (widgetInfo.supportedAlignments) {
                 var unknownAlignments = _.difference(
-                     widgetInfo.supportedAlignments, 
+                     widgetInfo.supportedAlignments,
                      Widgets.validAlignments);
 
                 if (unknownAlignments.length) {

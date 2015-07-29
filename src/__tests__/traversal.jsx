@@ -6,6 +6,38 @@ var Widgets = require("../widgets.js");
 
 var traverse = Traversal.traverseRendererDeep;
 
+var missingOptions = {
+    "content": "[[☃ radio 1]]\n\n",
+    "images": {},
+    "widgets": {
+        "radio 1": {
+            "type": "radio",
+            "graded": true,
+            "options": {
+                "choices": [
+                    {
+                        "content": "A",
+                        "correct": true,
+                    },
+                    {
+                        "correct": false,
+                        "content": "B",
+                    },
+                ],
+            },
+            "version": {
+                "major": 0,
+                "minor": 0
+            },
+            "alignment": "default",
+        }
+    }
+};
+
+var clonedMissingOptions = JSON.parse(JSON.stringify(
+    missingOptions
+));
+
 var sampleOptions = {
     "content": "[[☃ input-number 1]]",
     "images": {},
@@ -193,7 +225,8 @@ var sampleGroupUpgraded = {
                         },
                         "alignment": "default",
                     }
-                }
+                },
+                "metadata": undefined,
             },
             "version": {
                 "major": 0,
@@ -209,6 +242,7 @@ var clonedSampleGroup = JSON.parse(JSON.stringify(
 ));
 
 var assertNonMutative = () => {
+    assert.deepEqual(missingOptions, clonedMissingOptions);
     assert.deepEqual(sampleOptions, clonedSampleOptions);
     assert.deepEqual(sampleOptions2, clonedSampleOptions2);
     assert.deepEqual(sampleGroup, clonedSampleGroup);
@@ -280,6 +314,13 @@ describe("Traversal", () => {
 
     it("should upgrade widgets automagickally", () => {
         var newOptions = traverse(sampleOptions2);
+        assert.deepEqual(newOptions, sampleOptions2Upgraded);
+        assertNonMutative();
+    });
+
+    it("should use defaults for missing options when upgrading widgets",
+            () => {
+        var newOptions = traverse(missingOptions);
         assert.deepEqual(newOptions, sampleOptions2Upgraded);
         assertNonMutative();
     });
