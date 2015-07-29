@@ -149,8 +149,8 @@ var WidgetEditor = React.createClass({
                     <i className={"icon-chevron-" +
                             (this.state.showWidget ? "down" : "right")} />
                 </a>
-                {supportedAlignments.length > 1 && 
-                <select 
+                {supportedAlignments.length > 1 &&
+                <select
                         className="alignment"
                         value={widgetInfo.alignment}
                         onChange={this._handleAlignmentChange} >
@@ -675,10 +675,10 @@ var Editor = React.createClass({
         var widgetContent = widgetPlaceholder.replace("{id}", id);
 
         // Add newlines before block-display widgets like graphs
-        var isBlock = Widgets.getDefaultAlignment(widgetType, 
+        var isBlock = Widgets.getDefaultAlignment(widgetType,
             this.props.enabledFeatures || EnabledFeatures.defaults) ===
             "block";
-        
+
         var prelude = oldContent.slice(0, cursorRange[0]);
         var postlude = oldContent.slice(cursorRange[1]);
 
@@ -693,7 +693,7 @@ var Editor = React.createClass({
 
         var newWidgets = _.clone(this.props.widgets);
         newWidgets[id] = {
-            options: {},
+            options: Widgets.getEditor(widgetType).defaultProps,
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
