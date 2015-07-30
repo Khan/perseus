@@ -1,9 +1,7 @@
 var React = require("react");
 var _ = require("underscore");
 
-var ApiOptions = require("./perseus-api.jsx").Options;
 var Renderer = require("./renderer.jsx");
-var Util = require("./util.js");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -26,7 +24,6 @@ var ArticleRenderer = React.createClass({
     },
 
     render: function() {
-        var editorOnChange = this.props.editorOnChange;
         // TODO(alex): Add mobile api functions and pass them down here
         var sections = this._sections().map((section, i) => {
             // debugger;
@@ -34,7 +31,7 @@ var ArticleRenderer = React.createClass({
                 {...section}
                 key={i}
                 apiOptions={this.props.apiOptions}
-                editorOnChange={editorOnChange}
+                editorOnChange={this._handleEditorChange}
                 enabledFeatures={this.props.enabledFeatures} />;
         });
 

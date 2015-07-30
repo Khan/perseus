@@ -241,7 +241,11 @@ var Renderer = React.createClass({
                     key={"container:" + id}
                     enabledFeatures={this.props.enabledFeatures}
                     apiOptions={this.props.apiOptions}
+
+                    widgetInfo={this.props.widgets[id]}
+                    id={id}
                     editorOnChange={this.props.editorOnChange}
+
                     type={type}
                     initialProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight} />;

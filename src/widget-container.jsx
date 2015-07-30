@@ -13,6 +13,8 @@ var WidgetContainer = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         initialProps: React.PropTypes.object.isRequired,
 
+        widgetInfo: React.PropTypes.object,
+        id: React.PropTypes.string,
         editorOnChange: React.PropTypes.func,
     },
 
@@ -35,7 +37,6 @@ var WidgetContainer = React.createClass({
         }
 
         var alignment = this.state.widgetProps.alignment;
-        var style = {};
 
 
         if (alignment === "default") {
@@ -51,6 +52,8 @@ var WidgetContainer = React.createClass({
         return <div>
             {showFloatingWidgetEditor &&
                 <FloatingWidgetEditor
+                    widgetInfo={this.props.widgetInfo}
+                    id={this.props.id}
                     onChange={this.props.editorOnChange} />
             }
             <WidgetType {...this.state.widgetProps} ref="widget" />
