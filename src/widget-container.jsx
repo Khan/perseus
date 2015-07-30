@@ -41,7 +41,15 @@ var WidgetContainer = React.createClass({
 
         className += " widget-" + alignment;
 
-        return <div className={className} style={style}>
+        var onHover = this.props.apiOptions &&
+            this.props.apiOptions.onWidgetHover;
+
+        return <div
+            className={className}
+            style={style}
+            data-widget-id={this.state.widgetProps.widgetId}
+            onMouseOver={onHover}
+            onMouseOut={onHover}>
             <WidgetType {...this.state.widgetProps} ref="widget" />
         </div>;
     },
