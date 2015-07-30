@@ -5,33 +5,14 @@ var ApiOptions = require("./perseus-api.jsx").Options;
 var ArticleRenderer = require("./article-renderer.jsx");
 var Editor = require("./editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
-var FloatingWidgetEditor = require("./editor/floating-widget-editor.jsx");
 var JsonEditor = require("./json-editor.jsx");
 var Renderer = require("./renderer.jsx");
+var SectionControlButton = require("./components/section-control-button.jsx");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
     widgets: React.PropTypes.object,
     images: React.PropTypes.object,
-});
-
-var SectionControlButton = React.createClass({
-    render: function() {
-        return <a
-                href="#"
-                className={
-                    "section-control-button " +
-                    "simple-button " +
-                    "simple-button--small " +
-                    "orange"
-                }
-                onClick={(e) => {
-                    e.preventDefault();
-                    this.props.onClick();
-                }}>
-            <span className={this.props.icon} />
-        </a>;
-    }
 });
 
 var ArticleEditor = React.createClass({
@@ -125,7 +106,7 @@ var ArticleEditor = React.createClass({
             {
                 // Alignment options are always available in article editors
                 showAlignmentOptions: true,
-                onWidgetHover: this._handleWidgetHover
+                showFloatingWidgetEditor: true,
             }
         );
 
@@ -230,27 +211,6 @@ var ArticleEditor = React.createClass({
         }, () => {
             this.setState({mode: newMode});
         });
-    },
-
-    _handleWidgetHover: function(e) {
-        console.log("Widget hovered! ", e.currentTarget.dataset.widgetId);
-        console.log("Event: ", e.type);
-        if (e.type === "mouseout") {
-            if (this._floatingWidgetEditor) {
-                this._floatingWidgetEditor.container.remove();
-            }
-        } else {
-            var container = document.createElement("div");
-            var offset = $(e.currentTarget).offset();
-            container.setAttribute("style", "position: absolute; left: " + offset.left + "px; top: " + offset.top + "px; z-index: 1000");
-            var editor = <FloatingWidgetEditor/>;
-            React.render(editor, container);
-            document.body.appendChild(container);
-            this._floatingWidgetEditor = {
-                editor: editor,
-                container: container
-            };
-        }
     },
 
     _handleJsonChange: function(newJson) {

@@ -1,16 +1,20 @@
+var SectionControlButton = require("../components/section-control-button.jsx");
 
 var FloatingWidgetEditor = React.createClass({
-	propTypes: {
-	},
-	render: function () {
-		var style = {
-			fontSize: "20px",
-			color: "red"
-		}
-		return <div>
-			<i className="icon-edit" style={style}>&nbsp;</i>
-		</div>;
-	}
+    propTypes: {
+
+    },
+
+    render: function () {
+        return <div>
+            <SectionControlButton
+                icon="icon-edit"
+                onClick={() => console.log("Edit!")} />
+            <SectionControlButton
+                icon="icon-trash"
+                onClick={() => console.log("Trash!")} />
+        </div>;
+    }
 });
 
 module.exports = FloatingWidgetEditor;

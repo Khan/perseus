@@ -3,6 +3,7 @@ var React = require('react');
 
 var EnabledFeatures = require("./enabled-features.jsx");
 var Widgets = require("./widgets.js");
+var FloatingWidgetEditor = require("./editor/floating-widget-editor.jsx");
 
 var WidgetContainer = React.createClass({
     propTypes: {
@@ -41,15 +42,12 @@ var WidgetContainer = React.createClass({
 
         className += " widget-" + alignment;
 
-        var onHover = this.props.apiOptions &&
-            this.props.apiOptions.onWidgetHover;
+        var showFloatingWidgetEditor = this.props.apiOptions &&
+            this.props.apiOptions.showFloatingWidgetEditor;
 
-        return <div
-            className={className}
-            style={style}
-            data-widget-id={this.state.widgetProps.widgetId}
-            onMouseOver={onHover}
-            onMouseOut={onHover}>
+        return <div>
+            {showFloatingWidgetEditor &&
+                <FloatingWidgetEditor />}
             <WidgetType {...this.state.widgetProps} ref="widget" />
         </div>;
     },
