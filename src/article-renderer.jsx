@@ -18,6 +18,7 @@ var ArticleRenderer = React.createClass({
             rendererProps,
             React.PropTypes.arrayOf(rendererProps)
         ]).isRequired,
+        editorOnChange: React.PropTypes.func.isRequired,
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -25,18 +26,25 @@ var ArticleRenderer = React.createClass({
     },
 
     render: function() {
+        var editorOnChange = this.props.editorOnChange;
         // TODO(alex): Add mobile api functions and pass them down here
         var sections = this._sections().map((section, i) => {
+            // debugger;
             return <Renderer
                 {...section}
                 key={i}
                 apiOptions={this.props.apiOptions}
+                editorOnChange={editorOnChange}
                 enabledFeatures={this.props.enabledFeatures} />;
         });
 
         return <div className="framework-perseus perseus-article">
             {sections}
         </div>;
+    },
+
+    _handleEditorChange: function(newProps) {
+        this.props.editorOnChange(newProps);
     },
 
     _sections: function() {

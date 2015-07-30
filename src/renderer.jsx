@@ -107,6 +107,8 @@ var Renderer = React.createClass({
         interWidgets: React.PropTypes.func,
         alwaysUpdate: React.PropTypes.bool,
         reviewMode: React.PropTypes.bool,
+
+        editorOnChange: React.PropTypes.func,
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -136,6 +138,8 @@ var Renderer = React.createClass({
             interWidgets: () => null,
             alwaysUpdate: false,
             reviewMode: false,
+
+            editorOnChange: () => null,
         };
     },
 
@@ -228,7 +232,7 @@ var Renderer = React.createClass({
                 this.props.highlightedWidgets,
                 id
             );
-            
+
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
@@ -237,6 +241,7 @@ var Renderer = React.createClass({
                     key={"container:" + id}
                     enabledFeatures={this.props.enabledFeatures}
                     apiOptions={this.props.apiOptions}
+                    editorOnChange={this.props.editorOnChange}
                     type={type}
                     initialProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight} />;

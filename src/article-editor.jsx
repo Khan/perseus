@@ -171,6 +171,9 @@ var ArticleEditor = React.createClass({
                                 json={section}
                                 ref={"renderer" + i}
                                 apiOptions={apiOptions}
+                                editorOnChange={
+                                    _.partial(this._handleEditorChange, i)
+                                }
                                 enabledFeatures={
                                     this.props.enabledFeatures
                                 } />

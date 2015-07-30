@@ -7,10 +7,13 @@ var FloatingWidgetEditor = require("./editor/floating-widget-editor.jsx");
 
 var WidgetContainer = React.createClass({
     propTypes: {
+        apiOptions: React.PropTypes.object,
         shouldHighlight: React.PropTypes.bool.isRequired,
         type: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
         initialProps: React.PropTypes.object.isRequired,
+
+        editorOnChange: React.PropTypes.func,
     },
 
     getInitialState: function() {
@@ -47,7 +50,9 @@ var WidgetContainer = React.createClass({
 
         return <div>
             {showFloatingWidgetEditor &&
-                <FloatingWidgetEditor />}
+                <FloatingWidgetEditor
+                    editorOnChange={this.props.editorOnChange} />
+            }
             <WidgetType {...this.state.widgetProps} ref="widget" />
         </div>;
     },
