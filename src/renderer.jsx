@@ -242,9 +242,12 @@ var Renderer = React.createClass({
                     enabledFeatures={this.props.enabledFeatures}
                     apiOptions={this.props.apiOptions}
 
+                    // Floating widget editor props
                     widgetInfo={this.props.widgets[id]}
                     id={id}
-                    editorOnChange={this.props.editorOnChange}
+                    editorOnChange={
+                        this._handleWidgetEditorChange.bind(this, id)
+                    }
 
                     type={type}
                     initialProps={this.getWidgetProps(id)}
@@ -252,6 +255,12 @@ var Renderer = React.createClass({
         } else {
             return null;
         }
+    },
+
+    _handleWidgetEditorChange: function(id, newProps, cb, silent) {
+        var widgets = _.clone(this.props.widgets);
+        widgets[id] = _.extend({}, widgets[id], newProps);
+        this.props.editorOnChange({ widgets }, cb, silent);
     },
 
     getApiOptions: function(props) {

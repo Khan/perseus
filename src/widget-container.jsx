@@ -49,10 +49,16 @@ var WidgetContainer = React.createClass({
         var showFloatingWidgetEditor = this.props.apiOptions &&
             this.props.apiOptions.showFloatingWidgetEditor;
 
+        // Read most recent widget props from state
+        var widgetInfo = _.clone(this.props.widgetInfo);
+        // widgetInfo.options = _.extend({},
+        //     widgetInfo.options, this.state.widgetProps);
+
         return <div>
             {showFloatingWidgetEditor &&
                 <FloatingWidgetEditor
-                    widgetInfo={this.props.widgetInfo}
+                    apiOptions={this.props.apiOptions}
+                    widgetInfo={widgetInfo}
                     id={this.props.id}
                     onChange={this.props.editorOnChange} />
             }
@@ -70,11 +76,12 @@ var WidgetContainer = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
-        return (
-            this.props.shouldHighlight !== nextProps.shouldHighlight ||
-            this.props.type !== nextProps.type ||
-            this.state.widgetProps !== nextState.widgetProps
-        );
+        return true;
+        // return (
+        //     this.props.shouldHighlight !== nextProps.shouldHighlight ||
+        //     this.props.type !== nextProps.type ||
+        //     this.state.widgetProps !== nextState.widgetProps
+        // );
     },
 
     getWidget: function() {

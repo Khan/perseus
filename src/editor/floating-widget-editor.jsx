@@ -1,5 +1,6 @@
+var ApiOptions = require("../perseus-api.jsx").Options;
 var SectionControlButton = require("../components/section-control-button.jsx");
-var Widgets = require("../widgets.js");
+var WidgetEditor = require("../widget-editor.jsx");
 
 var FloatingWidgetButtons = React.createClass({
     displayName: "FloatingWidgetButtons",
@@ -25,27 +26,29 @@ var FloatingWidgetEditor = React.createClass({
     displayName: "FloatingWidgetEditor",
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         widgetInfo: React.PropTypes.object.isRequired,
         id: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func.isRequired,
     },
 
     getInitialState: function() {
-        return { showEditor: false };
+        return { showEditor: true };
     },
 
     render: function() {
-        var WidgetEditor = Widgets.getEditor(this.props.widgetInfo.type);
-
         return <div>
             <FloatingWidgetButtons
                 onEditClicked={this._toggleEditor}
-                onTrashClicked={() => console.log("TODO: Delete widget.")} />
+                onTrashClicked={this._handleWidgetRemove} />
             {this.state.showEditor &&
                 <WidgetEditor
+                    apiOptions={this.props.apiOptions}
                     ref="widget"
-                    onChange={this._handleWidgetChange}
-                    {...this.props.widgetInfo.options} />
+                    onChange={this.props.onChange}
+                    onRemove={this._handleWidgetRemove}
+                    id={this.props.id}
+                    {...this.props.widgetInfo} />
             }
         </div>;
     },
@@ -54,14 +57,8 @@ var FloatingWidgetEditor = React.createClass({
         this.setState({ showEditor: !this.state.showEditor });
     },
 
-    // TODO(sam): Make this work
-    _handleWidgetChange: function(newOptions, cb, silent) {
-        var newWidgetInfo = _.clone(this.props.widgetInfo);
-        newWidgetInfo.options = _.extend(
-            this.refs.widget.serialize(),
-            newOptions
-        );
-        this.props.onChange(newWidgetInfo, cb, silent);
+    _handleWidgetRemove: function() {
+        console.log("TODO: Delete widget.");
     },
 });
 
