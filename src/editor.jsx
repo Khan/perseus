@@ -550,7 +550,7 @@ var Editor = React.createClass({
 
         var newWidgets = _.clone(this.props.widgets);
         newWidgets[id] = {
-            options: {},
+            options: Widgets.getEditor(widgetType).defaultProps,
             type: widgetType,
             // Track widget version on creation, so that a widget editor
             // without a valid version prop can only possibly refer to a
