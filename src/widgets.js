@@ -152,6 +152,14 @@ var Widgets = {
             }
         }
 
+        // Minor version upgrades (eg. new optional props) don't have
+        // transform functions. Instead, we fill in the new props with their
+        // defaults.
+        // TODO(sam): Upgrade the minor widget version properly when the major
+        // version isn't updated.
+        var defaultProps = widgetExports.editor.defaultProps;
+        newEditorProps = _.extend({}, defaultProps, newEditorProps);
+
         var alignment = oldWidgetInfo.alignment;
 
         // Widgets that support multiple alignments will "lock in" the
@@ -221,7 +229,7 @@ var Widgets = {
 
     /**
      * Returns the list of supported alignments for the given (string) widget
-     * type. This is used primarily at editing time to display the choices 
+     * type. This is used primarily at editing time to display the choices
      * for the user.
      *
      * Support alignments are given as an array of strings in the exports of
@@ -273,7 +281,7 @@ var Widgets = {
     // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
     validateAlignments: function () {
         _.each(widgets, function (widgetInfo) {
-            if (widgetInfo.defaultAlignment && 
+            if (widgetInfo.defaultAlignment &&
                 !_.contains(Widgets.validAlignments,
                             widgetInfo.defaultAlignment)) {
                 throw new Error("Widget '" + widgetInfo.displayName +
@@ -283,7 +291,7 @@ var Widgets = {
 
             if (widgetInfo.supportedAlignments) {
                 var unknownAlignments = _.difference(
-                     widgetInfo.supportedAlignments, 
+                     widgetInfo.supportedAlignments,
                      Widgets.validAlignments);
 
                 if (unknownAlignments.length) {
