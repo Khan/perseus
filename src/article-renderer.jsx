@@ -30,7 +30,6 @@ var ArticleRenderer = React.createClass({
     render: function() {
         // TODO(alex): Add mobile api functions and pass them down here
         var sections = this._sections().map((section, i) => {
-            // debugger;
             return <Renderer
                 {...section}
                 key={i}

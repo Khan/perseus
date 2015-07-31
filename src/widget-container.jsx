@@ -49,16 +49,11 @@ var WidgetContainer = React.createClass({
         var showFloatingWidgetEditor = this.props.apiOptions &&
             this.props.apiOptions.showFloatingWidgetEditor;
 
-        // Read most recent widget props from state
-        var widgetInfo = _.clone(this.props.widgetInfo);
-        widgetInfo.options = _.extend({},
-            widgetInfo.options, this.state.widgetProps);
-
         return <div>
             {showFloatingWidgetEditor &&
                 <FloatingWidgetEditor
                     apiOptions={this.props.apiOptions}
-                    widgetInfo={widgetInfo}
+                    widgetInfo={this.props.widgetInfo}
                     id={this.props.id}
                     onChange={this.props.editorOnChange} />
             }

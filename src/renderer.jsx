@@ -480,7 +480,8 @@ var Renderer = React.createClass({
             // a widget should be highlighted in the common case where
             // this array hasn't changed, so we just redo the whole
             // render if this changed
-            oldHighlightedWidgets === newHighlightedWidgets;
+            oldHighlightedWidgets === newHighlightedWidgets &&
+            _.isEqual(this.props, nextProps);
     },
 
     componentDidUpdate: function(prevProps, prevState) {
