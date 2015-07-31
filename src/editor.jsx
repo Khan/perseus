@@ -6,7 +6,6 @@ var ApiOptions = require("./perseus-api.jsx").Options;
 var DragTarget = require("react-components/drag-target.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
-var PropCheckBox = require("./components/prop-check-box.jsx");
 var Util = require("./util.js");
 var WidgetEditor = require("./widget-editor.jsx");
 var Widgets = require("./widgets.js");

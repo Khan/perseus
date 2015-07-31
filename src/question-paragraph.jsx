@@ -1,6 +1,8 @@
 var React = require('react');
 
 var QuestionParagraph = React.createClass({
+    displayName: "QuestionParagraph",
+
     render: function() {
         var className = (this.props.className) ?
             "paragraph " + this.props.className :

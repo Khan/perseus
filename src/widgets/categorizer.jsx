@@ -192,7 +192,7 @@ var CategorizerEditor = React.createClass({
                 items={this.props.items}
                 categories={this.props.categories}
                 values={this.props.values}
-                onChange={(newProps) => {this.props.onChange(newProps);}}
+                onChange={this.props.onChange}
                 />
         </div>;
     },
