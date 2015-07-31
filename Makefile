@@ -1,4 +1,4 @@
-.PHONY: help build server server-offline all subperseus forcesubperseus webapp-put install clean lint test jest
+.PHONY: help build serve server server-offline all subperseus forcesubperseus webapp-put install clean lint test jest
 PORT=9000
 WEBAPP=../webapp
 IOS=../iOS
@@ -46,6 +46,8 @@ $(PERSEUS_BUILD_CSS): install
 $(PERSEUS_VERSION_FILE): install
 	mkdir -p build
 	node node/create-item-version-file.js >> $(PERSEUS_VERSION_FILE)
+
+serve: server
 
 server: install server-offline
 
