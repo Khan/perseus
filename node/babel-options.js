@@ -13,7 +13,8 @@ module.exports = {
         'es6.templateLiterals',
         'es6.spread',
         'es7.objectRestSpread',
-        'react'
+        'react',
+        'react.displayName',
     ],
     blacklist: [],
     plugins: ['i18n-babel-plugin']
