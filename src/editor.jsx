@@ -138,8 +138,7 @@ var WidgetEditor = React.createClass({
             supportedAlignments = ["default"];
         }
 
-        // TODO(sam): make static only togglable for widgets that support it
-        var static = widgetInfo.static;
+        var supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
 
         var isUngradedEnabled = (widgetInfo.type === "transformer");
         var gradedPropBox = <PropCheckBox label="Graded:"
@@ -155,9 +154,13 @@ var WidgetEditor = React.createClass({
                             (this.state.showWidget ? "down" : "right")} />
                 </a>
 
-                <a href="#" onClick={this._toggleStatic}>
-                    {static ? "Unset as static" : "Set as static"}
-                </a>
+                {supportsStaticMode &&
+                    <input
+                        type="button"
+                        onClick={this._toggleStatic}
+                        className="simple-button--small"
+                        value={widgetInfo.static ?
+                            "Unset as static" : "Set as static"} />}
 
                 {supportedAlignments.length > 1 &&
                     <select

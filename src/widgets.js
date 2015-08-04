@@ -235,7 +235,7 @@ var Widgets = {
      * type. This is used primarily at editing time to display the choices
      * for the user.
      *
-     * Support alignments are given as an array of strings in the exports of
+     * Supported alignments are given as an array of strings in the exports of
      * a widget's module.
      */
     getSupportedAlignments: function(type) {
@@ -304,7 +304,30 @@ var Widgets = {
                 }
             }
         });
-    }
+    },
+
+    /**
+     * Handling for static mode for widgets that support it.
+     */
+
+    /**
+     * Returns true iff the widget supports static mode.
+     * A widget implicitly supports static mode if it exports a
+     * staticTransform function.
+     */
+    supportsStaticMode: function(type) {
+        var widgetInfo = widgets[type];
+        return widgetInfo && widgetInfo.staticTransform != null;
+    },
+
+    /**
+     * Return the staticTransform function used to convert the editorProps to
+     * the rendered widget state.
+     */
+    getStaticTransform: function(type) {
+        var widgetInfo = widgets[type];
+        return widgetInfo && widgetInfo.staticTransform;
+    },
 };
 
 module.exports = Widgets;
