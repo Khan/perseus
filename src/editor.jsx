@@ -93,6 +93,8 @@ var WidgetEditor = React.createClass({
 
         // Serialized props
         type: React.PropTypes.string.isRequired,
+        alignment: React.PropTypes.string,
+        static: React.PropTypes.bool,
         graded: React.PropTypes.bool,
         options: React.PropTypes.object,
         version: React.PropTypes.shape({
@@ -136,6 +138,9 @@ var WidgetEditor = React.createClass({
             supportedAlignments = ["default"];
         }
 
+        // TODO(sam): make static only togglable for widgets that support it
+        var static = widgetInfo.static;
+
         var isUngradedEnabled = (widgetInfo.type === "transformer");
         var gradedPropBox = <PropCheckBox label="Graded:"
                                 graded={widgetInfo.graded}
@@ -149,14 +154,20 @@ var WidgetEditor = React.createClass({
                     <i className={"icon-chevron-" +
                             (this.state.showWidget ? "down" : "right")} />
                 </a>
+
+                <a href="#" onClick={this._toggleStatic}>
+                    {static ? "Unset as static" : "Set as static"}
+                </a>
+
                 {supportedAlignments.length > 1 &&
-                <select
-                        className="alignment"
-                        value={widgetInfo.alignment}
-                        onChange={this._handleAlignmentChange} >
-                    {supportedAlignments.map((alignment) =>
-                        <option key={alignment}>{alignment}</option>)}
-                </select>}
+                    <select
+                            className="alignment"
+                            value={widgetInfo.alignment}
+                            onChange={this._handleAlignmentChange} >
+                        {supportedAlignments.map((alignment) =>
+                            <option key={alignment}>{alignment}</option>)}
+                    </select>}
+
                 <a href="#" className={
                             "remove-widget " +
                             "simple-button simple-button--small orange"
@@ -194,6 +205,14 @@ var WidgetEditor = React.createClass({
         this.props.onChange(newWidgetInfo, cb, silent);
     },
 
+    _toggleStatic: function(e) {
+        e.preventDefault();
+        var newWidgetInfo = _.extend({}, this.state.widgetInfo, {
+            static: !this.state.widgetInfo.static,
+        });
+        this.props.onChange(newWidgetInfo);
+    },
+
     _handleAlignmentChange: function (e) {
         var newAlignment = e.target.value;
         var newWidgetInfo = _.clone(this.state.widgetInfo);
@@ -214,6 +233,7 @@ var WidgetEditor = React.createClass({
         return {
             type: widgetInfo.type,
             alignment: widgetInfo.alignment,
+            static: widgetInfo.static,
             graded: widgetInfo.graded,
             options: this.refs.widget.serialize(),
             version: widgetInfo.version,

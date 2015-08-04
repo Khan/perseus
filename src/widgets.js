@@ -2,6 +2,7 @@ var _ = require("underscore");
 
 var DEFAULT_ALIGNMENT = "block";
 var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
+var DEFAULT_STATIC = false;
 
 var widgets = {};
 
@@ -164,6 +165,12 @@ var Widgets = {
             alignment = Widgets.getSupportedAlignments(type)[0];
         }
 
+        var static = oldWidgetInfo.static;
+
+        if (static == null) {
+            static = DEFAULT_STATIC;
+        }
+
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
             // After upgrading we guarantee that the version is up-to-date
             version: latestVersion,
@@ -172,7 +179,8 @@ var Widgets = {
                 (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
             ),
             alignment: alignment,
-            options: newEditorProps
+            static: static,
+            options: newEditorProps,
         });
     },
 
