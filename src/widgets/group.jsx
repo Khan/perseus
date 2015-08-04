@@ -141,15 +141,15 @@ var Group = React.createClass({
         return this.refs.renderer;
     },
 
-    focus: function(path) {
-        if (path == null) {
-            return this.refs.renderer.focus();
-        } else {
-            this.refs.renderer.focusPath(path);
-        }
+    focus: function() {
+        return this.refs.renderer.focus();
     },
 
-    blur: function(path) {
+    focusInputPath: function(path) {
+        this.refs.renderer.focusPath(path);
+    },
+
+    blurInputPath: function(path) {
         this.refs.renderer.blurPath(path);
     }
 });

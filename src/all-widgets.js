@@ -11,6 +11,7 @@ _.each([
     require("./widgets/explanation.jsx"),
     require("./widgets/expression.jsx"),
     require("./widgets/grapher.jsx"),
+    require("./widgets/graded-group.jsx"),
     require("./widgets/group.jsx"),
     require("./widgets/iframe.jsx"),
     require("./widgets/image.jsx"),
