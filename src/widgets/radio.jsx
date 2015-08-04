@@ -326,10 +326,23 @@ var BaseRadio = React.createClass({
         var newChecked;
         if (this.props.multipleSelect) {
             // When multipleSelect is on, clicking an index toggles the
-            // selection of just that index.
-            newChecked = _.map(this.props.choices, (choice, i) => {
-                return (i === radioIndex) ? shouldBeChecked : choice.checked;
-            });
+            // selection of just that index unless 'None of the Above' is present.
+            noneOfTheAboveIndex = this.noneOfTheAboveIndex()
+            if (noneOfTheAboveIndex === radioIndex) {
+                newChecked = _.map(this.props.choices, (choice, i) =>{
+                    return (i === noneOfTheAboveIndex) ? shouldBeChecked : false
+                })
+            } else {
+                newChecked = _.map(this.props.choices, (choice, i) => {
+                    if (i === radioIndex) {
+                        return shouldBeChecked
+                    } else if (i === noneOfTheAboveIndex) {
+                        return false
+                    } else {
+                        return choice.checked;
+                    }
+                });
+            };
         } else {
             // When multipleSelect is turned off we always unselect everything
             // that wasn't clicked.
@@ -342,6 +355,13 @@ var BaseRadio = React.createClass({
         // onCheckedChange reconstructs the new choices to send to
         // this.props.onChange
         this.props.onCheckedChange(newChecked);
+    },
+
+    noneOfTheAboveIndex: function() {
+        choices = _.map(this.props.choices, (choice) => {
+            return !!choice.isNoneOfTheAbove
+        })
+        return _.indexOf(choices, true)
     },
 
     focus: function(i) {
