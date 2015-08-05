@@ -164,6 +164,7 @@ var FunctionGrapher = React.createClass({
             return <MovablePoint
                 key={i}
                 coord={coord}
+                static={this.props.static}
                 constraints={[
                     Interactive2.MovablePoint.constraints.bound(),
                     Interactive2.MovablePoint.constraints.snap(),
@@ -761,7 +762,8 @@ var Grapher = React.createClass({
             onChange: this.handlePlotChanges,
             model: type && functionForType(type),
             coords: coords,
-            asymptote: asymptote
+            asymptote: asymptote,
+            static: this.props.static,
         };
 
         return <div>
@@ -1073,10 +1075,22 @@ var propTransform = (editorProps) => {
     return widgetProps;
 };
 
+// Note that in addition to the standard staticTransform, in static
+// mode we set static=true for the graph's handles in FunctionGrapher.
+var staticTransform = (editorProps) => {
+    return _.extend({}, propTransform(editorProps), {
+        // Don't display graph type choices if we're in static mode
+        availableTypes: [editorProps.correct.type],
+        // Display the same graph marked as correct in the widget editor.
+        plot: editorProps.correct,
+    });
+};
+
 module.exports = {
     name: "grapher",
     displayName: "Grapher",
     widget: Grapher,
     editor: GrapherEditor,
-    transform: propTransform
+    transform: propTransform,
+    staticTransform: staticTransform,
 };
