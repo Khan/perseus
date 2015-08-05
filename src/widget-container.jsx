@@ -31,8 +31,6 @@ var WidgetContainer = React.createClass({
         }
 
         var alignment = this.state.widgetProps.alignment;
-        var style = {};
-
         if (alignment === "default") {
             alignment = Widgets.getDefaultAlignment(type,
                             this.props.enabledFeatures);
@@ -40,8 +38,32 @@ var WidgetContainer = React.createClass({
 
         className += " widget-" + alignment;
 
-        return <div className={className} style={style}>
+        // Hack to prevent interaction with static widgets: we overlay a big
+        // div on top of the widget and overflow: hidden the container.
+        // Ideally widgets themselves should know how to prevent interaction.
+        var isStatic = this.state.widgetProps.static;
+        var staticContainerStyles = {
+            position: 'relative',
+            overflow: 'hidden',
+        };
+        var staticOverlayStyles = {
+            width: 10000,
+            height: 10000,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            // Since the zIndex is only relative to the nearest parent with a
+            // position:, scratchpads are still able to draw over this overlay.
+            zIndex: 100,
+        };
+
+        // We default to an empty object for style instead of null
+        // because of a strange bug where the static styles aren't applied
+        // after toggling static mode.
+        return <div className={className}
+                style={isStatic ? staticContainerStyles : {}}>
             <WidgetType {...this.state.widgetProps} ref="widget" />
+            {isStatic && <div style={staticOverlayStyles} />}
         </div>;
     },
 
