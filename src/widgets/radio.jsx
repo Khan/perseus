@@ -358,10 +358,9 @@ var BaseRadio = React.createClass({
     },
 
     noneOfTheAboveIndex: function() {
-        choices = _.map(this.props.choices, (choice) => {
+        return _.findIndex(this.props.choices, (choice) => {
             return !!choice.isNoneOfTheAbove
         })
-        return _.indexOf(choices, true)
     },
 
     focus: function(i) {
