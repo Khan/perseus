@@ -194,7 +194,16 @@ var Widgets = {
             // not have a transform defined.
             return widgetInfo.options;
         }
-        var transform = widgetExports.transform || _.identity;
+        var transform;
+        if (widgetInfo.static) {
+            // There aren't a lot of real places where we'll have to default to
+            // _.identity, but it's theoretically possile if someone changes
+            // the JSON manually / we have to back out static support for a
+            // widget.
+            transform = this.getStaticTransform(type) || _.identity;
+        } else {
+            transform = widgetExports.transform || _.identity;
+        }
         // widgetInfo.options are the widgetEditor's props:
         return transform(widgetInfo.options, problemNum);
     },

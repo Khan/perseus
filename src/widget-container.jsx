@@ -33,7 +33,6 @@ var WidgetContainer = React.createClass({
         var alignment = this.state.widgetProps.alignment;
         var style = {};
 
-
         if (alignment === "default") {
             alignment = Widgets.getDefaultAlignment(type,
                             this.props.enabledFeatures);

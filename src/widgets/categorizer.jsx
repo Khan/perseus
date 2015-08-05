@@ -205,6 +205,10 @@ module.exports = {
     editor: CategorizerEditor,
     transform: (editorProps) => {
         return _.pick(editorProps, "items", "categories", "randomizeItems");
-    }
+    },
+    staticTransform: (editorProps) => {
+        return _.pick(editorProps,
+            "items", "categories", "values", "randomizeItems");
+    },
 };
 

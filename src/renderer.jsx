@@ -228,7 +228,7 @@ var Renderer = React.createClass({
                 this.props.highlightedWidgets,
                 id
             );
-            
+
             // By this point we should have no duplicates, which are
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
@@ -267,6 +267,8 @@ var Renderer = React.createClass({
             widgetId: id,
             alignment: this.state.widgetInfo[id] &&
                        this.state.widgetInfo[id].alignment,
+            static: this.state.widgetInfo[id] &&
+                    this.state.widgetInfo[id].static,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
             apiOptions: this.getApiOptions(this.props),
