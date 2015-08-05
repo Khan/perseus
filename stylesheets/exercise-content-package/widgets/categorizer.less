@@ -44,9 +44,16 @@
         input[type="radio"]:checked + span:before {
             content: "\f111";  // fa-circle
             color: #333;
+
+            // .static-mode is applied by the Categorizer when the rendered
+            // widget is static; in this case we gray out the choices to show
+            // the user that the widget can't be interacted with.
+            // TODO(sam): Use inline styles for this
+            .static-mode& {
+                color: #888;
+            }
         }
     }
-
 }
 
 

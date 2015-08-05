@@ -1,4 +1,5 @@
 var React = require('react');
+var classNames = require("classnames");
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
@@ -45,7 +46,13 @@ var Categorizer = React.createClass({
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
 
-        return <div className="categorizer-container clearfix"><table>
+        var className = classNames({
+            "categorizer-container": true,
+            "clearfix": true,
+            "static-mode": this.props.static,
+        });
+
+        return <div className={className}><table>
             <thead><tr>
                 <th>&nbsp;</th>
                 {_.map(this.props.categories, (category, i) => {
