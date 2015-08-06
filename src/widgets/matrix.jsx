@@ -153,7 +153,8 @@ var Matrix = React.createClass({
 
         var className = classNames({
             "perseus-matrix": true,
-            "the-matrix": this.state.enterTheMatrix >= 5
+            "static-mode": this.props.static,
+            "the-matrix": this.state.enterTheMatrix >= 5,
         });
 
         return <div className={className}>
@@ -551,10 +552,25 @@ var propTransform = (editorProps) => {
     });
 };
 
+var staticTransform = (editorProps) => {
+    var widgetProps = _.pick(editorProps,
+        "matrixBoardSize", "prefix", "suffix");
+    // We convert matrix cells from numbers to string to match the expected
+    // input into the rendered widget.
+    widgetProps.answers = _.map(editorProps.answers,
+        (row) => {
+            // Replace null values with empty string
+            return _.map(row, (cell) => cell != null ? String(cell) : "");
+        }
+    );
+    return widgetProps;
+};
+
 module.exports = {
     name: "matrix",
     displayName: "Matrix",
     widget: Matrix,
     editor: MatrixEditor,
-    transform: propTransform
+    transform: propTransform,
+    staticTransform: staticTransform,
 };
