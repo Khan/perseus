@@ -13,7 +13,6 @@ var Util = require("../util.js");
 var InfoTip = require("react-components/info-tip.jsx");
 
 var shuffle = require("../util.js").shuffle;
-var seededRNG = require("../util.js").seededRNG;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
@@ -270,11 +269,11 @@ var BaseRadio = React.createClass({
 
                     if (choice.isNoneOfTheAbove) {
                         Element = ChoiceNoneAbove;
-                        _.extend(elementProps, { showContent: choice.correct });
+                        _.extend(elementProps, {showContent: choice.correct});
                     }
 
                     var className = classNames(
-                        // TODO(aria): Make a test case for these API classNames
+                        // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
                         choice.checked && ApiClassNames.RADIO.SELECTED,
                         !this.props.onePerLine && "inline",
@@ -292,7 +291,8 @@ var BaseRadio = React.createClass({
                         }
 
                         // Ignore non-enter and non-space keypresses
-                        if (e.keyCode && e.keyCode !== 13 && e.keyCode !== 32) {
+                        if (e.keyCode && e.keyCode !== 13 &&
+                                e.keyCode !== 32) {
                             return;
                         }
 
@@ -565,6 +565,7 @@ var RadioEditor = React.createClass({
         multipleSelect: React.PropTypes.bool,
         onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
+        static: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -591,9 +592,9 @@ var RadioEditor = React.createClass({
                                       onChange={this.props.onChange} />
                         <InfoTip>
                             <p>
-                                Use one answer per line unless your question has
-                                images that might cause the answers to go off the
-                                page.
+                                Use one answer per line unless your question
+                                has images that might cause the answers to go
+                                off the page.
                             </p>
                         </InfoTip>
                     </div>
@@ -611,12 +612,14 @@ var RadioEditor = React.createClass({
                                   randomize={this.props.randomize}
                                   onChange={this.props.onChange} />
                 </div>
-                <div className="perseus-widget-right-col">
-                    <PropCheckBox label="Radio deselect enabled"
-                                  labelAlignment="right"
-                                  deselectEnabled={this.props.deselectEnabled}
-                                  onChange={this.props.onChange} />
-                </div>
+                {!this.props.static &&
+                    <div className="perseus-widget-right-col">
+                        <PropCheckBox
+                            label="Radio deselect enabled"
+                            labelAlignment="right"
+                            deselectEnabled={this.props.deselectEnabled}
+                            onChange={this.props.onChange} />
+                    </div>}
             </div>
 
             <BaseRadio
@@ -655,11 +658,12 @@ var RadioEditor = React.createClass({
                     {' '}Add a choice{' '}
                 </a>
 
-                {!this.props.hasNoneOfTheAbove && <a href="#" className="simple-button"
-                        onClick={this.addChoice.bind(this, true)}>
-                    <span className="icon-plus" />
-                    {' '}None of the above{' '}
-                </a>}
+                {!this.props.hasNoneOfTheAbove &&
+                    <a href="#" className="simple-button"
+                            onClick={this.addChoice.bind(this, true)}>
+                        <span className="icon-plus" />
+                        {' '}None of the above{' '}
+                    </a>}
             </div>
 
         </div>;
@@ -695,7 +699,8 @@ var RadioEditor = React.createClass({
         var choices = _.map(this.props.choices, (choice, i) => {
             return _.extend({}, choice, {
                 correct: checked[i],
-                content: choice.isNoneOfTheAbove && !checked[i] ? '' : choice.content
+                content: choice.isNoneOfTheAbove && !checked[i] ?
+                        '' : choice.content,
             });
         });
         this.props.onChange({choices: choices});
@@ -730,7 +735,8 @@ var RadioEditor = React.createClass({
 
         this.props.onChange({
             choices: choices,
-            hasNoneOfTheAbove: this.props.hasNoneOfTheAbove && !deleted.isNoneOfTheAbove
+            hasNoneOfTheAbove: this.props.hasNoneOfTheAbove &&
+                !deleted.isNoneOfTheAbove,
         });
     },
 
@@ -747,16 +753,17 @@ var RadioEditor = React.createClass({
             choices: choices,
             hasNoneOfTheAbove: noneOfTheAbove || this.props.hasNoneOfTheAbove
         }, () => {
-            this.refs[`choice-editor${addIndex}`].refs['content-editor'].focus();
+            this.refs[`choice-editor${addIndex}`]
+                .refs['content-editor'].focus();
         });
     },
 
-    setDisplayCount: function(num){
+    setDisplayCount: function(num) {
         this.props.onChange({displayCount: num});
     },
 
     focus: function() {
-        this.refs['choice-editor0'].refs['content-editor'].focus()
+        this.refs['choice-editor0'].refs['content-editor'].focus();
         return true;
     },
 
@@ -768,26 +775,21 @@ var RadioEditor = React.createClass({
     },
 
     serialize: function() {
-        return _.pick(this.props, "choices", "randomize",
-            "multipleSelect", "displayCount", "hasNoneOfTheAbove", "onePerLine",
+        return _.pick(this.props, "choices", "randomize", "multipleSelect",
+            "displayCount", "hasNoneOfTheAbove", "onePerLine",
             "deselectEnabled");
     }
 });
 
-var choiceTransform = (editorProps, problemNum) => {
-
-    var randomize = function(array) {
-        if (editorProps.randomize) {
-            return shuffle(array, problemNum);
-        } else {
-            return array;
-        }
+var _choiceTransform = (editorProps, problemNum) => {
+    var _maybeRandomize = function(array) {
+        return editorProps.randomize ? shuffle(array, problemNum) : array;
     };
 
-    var addNoneOfAbove = function(array) {
+    var _addNoneOfAbove = function(choices) {
         var noneOfTheAbove = null;
 
-        array = _.reject(array, function(choice, index) {
+        var newChoices = _.reject(choices, function(choice, index) {
             if (choice.isNoneOfTheAbove) {
                 noneOfTheAbove = choice;
                 return true;
@@ -796,25 +798,43 @@ var choiceTransform = (editorProps, problemNum) => {
 
         // Place the "None of the above" options last
         if (noneOfTheAbove) {
-            array.push(noneOfTheAbove)
+            newChoices.push(noneOfTheAbove);
         }
 
-        return array;
+        return newChoices;
     };
 
     // Add meta-information to choices
     var choices = editorProps.choices.slice();
-
-    choices = _.map(choices, function(choice, i) {
-        return _.extend({}, _.omit(choice, "correct"), { originalIndex: i });
+    choices = _.map(choices, (choice, i) => {
+        return _.extend({}, choice, { originalIndex: i });
     });
 
     // Randomize and add 'None of the above'
-    choices = addNoneOfAbove(randomize(choices));
+    return _addNoneOfAbove(_maybeRandomize(choices));
+};
+
+var radioTransform = (editorProps, problemNum) => {
+    var choices = _.map(_choiceTransform(editorProps, problemNum),
+        (choice) => _.omit(choice, 'correct'));
 
     editorProps = _.extend({}, editorProps, { choices: choices });
     return _.pick(editorProps, "choices", "hasNoneOfTheAbove", "onePerLine",
         "multipleSelect", "correctAnswer", "deselectEnabled");
+};
+
+var staticTransform = (editorProps, problemNum) => {
+    var choices = _choiceTransform(editorProps, problemNum);
+    // The correct answers are the selected values in the rendered widget
+    var selectedChoices = _.pluck(choices, "correct");
+
+    var selectedProps = _.pick(editorProps, "hasNoneOfTheAbove", "onePerLine",
+        "multipleSelect", "correctAnswer", "deselectEnabled");
+    var staticProps = _.extend({}, selectedProps, {
+        choices: choices,
+        values: selectedChoices,
+    });
+    return staticProps;
 };
 
 var propUpgrades = {
@@ -854,7 +874,8 @@ module.exports = {
     accessible: true,
     widget: Radio,
     editor: RadioEditor,
-    transform: choiceTransform,
+    transform: radioTransform,
+    staticTransform: staticTransform,
     version: { major: 1, minor: 0 },
     propUpgrades: propUpgrades,
 };
