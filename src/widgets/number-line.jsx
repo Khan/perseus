@@ -6,7 +6,6 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var ButtonGroup  = require("react-components/button-group.jsx");
 var InfoTip      = require("react-components/info-tip.jsx");
-var Interactive2 = require("../interactive2.js");
 var NumberInput  = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput   = require("../components/range-input.jsx");
@@ -17,13 +16,10 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 var Graphie = require("../components/graphie.jsx");
 var MovablePoint = Graphie.MovablePoint;
 var Line = Graphie.Line;
-var Label = Graphie.Label;
 
 var knumber = require("kmath").number;
-var kpoint = require("kmath").point;
 
 var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
-var deepEq = require("../util.js").deepEq;
 var assert = require("../interactive2/interactive-util.js").assert;
 
 var EN_DASH = "\u2013";
@@ -212,8 +208,6 @@ var NumberLine = React.createClass({
     },
 
     render: function() {
-        var range = this.props.range;
-        var width = range[1] - range[0];
         var divisionRange = this.props.divisionRange;
         var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
         var invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
@@ -269,7 +263,8 @@ var NumberLine = React.createClass({
                             range %(divRangeString)s.
                         </$_>
                     </div> : this._renderGraphie())}
-            {this.props.isInequality && inequalityControls}
+            {!this.props.static && this.props.isInequality &&
+                inequalityControls}
         </div>;
     },
 
@@ -357,17 +352,8 @@ var NumberLine = React.createClass({
 
     _renderGraphie: function() {
         // Position variables
-        var widthInPixels = 400;
         var range = this.props.range;
         var width = range[1] - range[0];
-        var scale = width / widthInPixels;
-        var buffer = 30 * scale;
-
-        // Initiate the graphie without actually drawing anything
-        var left = range[0] - buffer;
-        var right = range[1] + buffer;
-        var bottom = -1;
-        var top = 1;
 
         var options = _.pick(this.props, [
             "range",
@@ -413,8 +399,20 @@ var NumberLine = React.createClass({
 
     _renderNumberLinePoint: function(props) {
         var isOpen = _(["lt", "gt"]).contains(props.rel);
+
+        // In static mode the point's fill and stroke is blue to signify that
+        // it can't be interacted with.
+        var fill;
+        if (isOpen) {
+            fill = KhanUtil._BACKGROUND;
+        } else if (props.static) {
+            fill = KhanUtil.DYNAMIC;
+        } else {
+            fill = KhanUtil.INTERACTIVE;
+        }
         var normalStyle = {
-            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTIVE,
+            fill: fill,
+            stroke: props.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE,
             "stroke-width": isOpen ? 3 : 1
         };
         var highlightStyle = {
@@ -644,25 +642,32 @@ var NumberLineEditor = React.createClass({
                 <InfoTip><p>
                     This is the correct answer. The answer is validated
                     (as right or wrong) by using only the end position of the
-                    point and the relation (=, &lt;, &gt;, &le;, &ge;)
+                    point and the relation (=, &lt;, &gt;, &le;, &ge;).
                 </p></InfoTip>
             </div>
 
             <div className="perseus-widget-row">
-                <label>
-                    Position:
-                    {" "}
-                    <NumberInput
-                        value={this.props.initialX}
-                        format={this.props.labelStyle}
-                        onChange={this.onNumChange.bind(this, "initialX")}
-                        placeholder={range[0]}
-                        checkValidity={(val) => {
-                            return (val >= range[0]) && (val <= range[1]);
-                        }}
-                        useArrowKeys={true} />
-                </label>
-                {" \u2208 " /* element of (little E) symbol */}
+                {this.props.static ?
+                    <label>
+                        {/* Don't display initial position input in static mode
+                            since it isn't used. */}
+                        Range:
+                    </label> :
+                    <label>
+                        Position:
+                        {" "}
+                        <NumberInput
+                            value={this.props.initialX}
+                            format={this.props.labelStyle}
+                            onChange={this.onNumChange.bind(this, "initialX")}
+                            placeholder={range[0]}
+                            checkValidity={(val) => {
+                                return (val >= range[0]) && (val <= range[1]);
+                            }}
+                            useArrowKeys={true} />
+                        {" \u2208 " /* element of (little E) symbol */}
+                    </label>}
+
                 <RangeInput
                     value={range}
                     onChange={this.onRangeChange}
@@ -673,6 +678,9 @@ var NumberLineEditor = React.createClass({
                     number line and the <strong>range</strong>, the position
                     of the endpoints of the number line. Setting the range
                     constrains the position of the answer and the labels.
+                </p><p>
+                    In static mode, the initial position of the point is
+                    determined by Correct x instead of position.
                 </p></InfoTip>
             </div>
             <div className="perseus-widget-row">
@@ -719,12 +727,14 @@ var NumberLineEditor = React.createClass({
                 </p></InfoTip>
             </div>
             <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    <PropCheckBox
-                        label="Show tick controller"
-                        isTickCtrl={this.props.isTickCtrl}
-                        onChange={this.props.onChange} />
-                </div>
+                {!this.props.static &&
+                    <div className="perseus-widget-left-col">
+                        <PropCheckBox
+                            label="Show tick controller"
+                            isTickCtrl={this.props.isTickCtrl}
+                            onChange={this.props.onChange} />
+                    </div>
+                }
                 <div className="perseus-widget-right-col">
                     <PropCheckBox
                         label="Show label ticks"
@@ -829,9 +839,8 @@ var NumberLineEditor = React.createClass({
     },
 
     onLabelRangeChange: function(i, num) {
-        var range = this.props.range.slice(),
-            labelRange = this.props.labelRange.slice(),
-            otherNum = labelRange[1-i];
+        var labelRange = this.props.labelRange.slice();
+        var otherNum = labelRange[1-i];
 
         if (num == null || otherNum == null) {
             labelRange[i] = num;
@@ -910,7 +919,7 @@ var NumberLineEditor = React.createClass({
     }
 });
 
-var NumberLineTransform = (editorProps) => {
+var numberLineTransform = (editorProps) => {
     var props = _.pick(editorProps, [
         "range",
 
@@ -948,10 +957,52 @@ var NumberLineTransform = (editorProps) => {
     return props;
 };
 
+var staticTransform = (editorProps) => {
+    var props = _.pick(editorProps, [
+        "range",
+
+        "labelRange",
+        "labelStyle",
+        "labelTicks",
+
+        "divisionRange",
+        "snapDivisions",
+
+        // isTickCtrl is ignored since users can't interact with it anyway
+        "isInequality",
+    ]);
+
+    // The correct x is the initial position of the point
+    var numLinePosition = (editorProps.correctX != null) ?
+            editorProps.correctX :
+            editorProps.range[0];
+
+    var width = editorProps.range[1] - editorProps.range[0];
+
+    var numDivisions;
+    if (editorProps.numDivisions != null) {
+        numDivisions = editorProps.numDivisions;
+    } else if (editorProps.tickStep != null) {
+        numDivisions = width / editorProps.tickStep;
+    } else {
+        numDivisions = undefined; // send to getDefaultProps()
+    }
+
+    _.extend(props, {
+        numLinePosition: numLinePosition,
+        numDivisions: numDivisions,
+        // Render the relation in the correct answer
+        rel: editorProps.isInequality ? editorProps.correctRel : null,
+    });
+
+    return props;
+};
+
 module.exports = {
     name: "number-line",
     displayName: "Number line",
     widget: NumberLine,
     editor: NumberLineEditor,
-    transform: NumberLineTransform
+    transform: numberLineTransform,
+    staticTransform: staticTransform,
 };
