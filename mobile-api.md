@@ -104,24 +104,11 @@ the input.
 
 ### API options props
 
-Your widget should allow the `APIOptions` props, which can easily be done by
-adding
-```js
-getDefaultProps: function() {
-    return {
-        ...
-        apiOptions: ApiOptions.defaults,
-        ...
-    };
-}
-```
-
-The input component that you use must be one that interacts correctly with
-mobile. Currently, the main component to use is a `MathOutput`, which will
-correctly render the LaTeX that the mobile API sends down, and will display
-correctly on mobile.
-
-When the API option `apiOptions.staticRender` is set to true, you should use the
-`MathOutput` inputs instead of whatever else you were using. Alternatively, you
+Your widgetwill be passed an `apiOptions` prop from the renderer, which you can
+see the format of in src/api-options.jsx. One of the apiOptions is `staticRender`,
+which you'll want to examine to create inputs that interacts correctly with
+mobile. When the API option `apiOptions.staticRender` is set to true, you should use the
+`MathOutput` (a static latex-displaying input that functions with the mobile math API)
+inputs instead of whatever else you were using. Alternatively, you
 can pass the string `"tex"` as the type to an `InputWithExamples` and it will
 automatically do the right thing.
