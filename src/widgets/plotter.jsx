@@ -91,7 +91,7 @@ var Plotter = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         var props = ["type", "labels", "categories", "scaleY", "maxY",
-            "snapsPerLine", "picUrl", "labelInterval"];
+            "snapsPerLine", "picUrl", "labelInterval", "static"];
 
         this.shouldSetupGraphie = _.any(props, function (prop) {
             return !_.isEqual(this.props[prop], nextProps[prop]);
@@ -404,8 +404,9 @@ var Plotter = React.createClass({
             },
             normalStyle: {
                 "stroke": KhanUtil.INTERACTIVE,
-                "stroke-width": 4
-            }
+                // Don't display graph handles in static mode
+                "stroke-width": this.props.static ? 0 : 4,
+            },
         });
 
         config.graph.lines[i].onMove = function(dx, dy) {
@@ -841,6 +842,9 @@ var PlotterEditor = React.createClass({
                     answer (what the student will be graded on) and the
                     starting values (what the student will see plotted when
                     they start the problem). Note: These cannot be the same.
+                </p><p>
+                    In static mode, the starting values are rendered out to the
+                    displayed widget.
                 </p></InfoTip>
             </div>
             <Plotter
@@ -994,9 +998,13 @@ var PlotterEditor = React.createClass({
     }
 });
 
+// We don't need to change any of the original props for static mode
+var staticTransform = _.identity;
+
 module.exports = {
     name: "plotter",
     displayName: "Plotter",
     widget: Plotter,
-    editor: PlotterEditor
+    editor: PlotterEditor,
+    staticTransform: staticTransform,
 };
