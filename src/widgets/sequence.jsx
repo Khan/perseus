@@ -62,22 +62,18 @@ var Sequence = React.createClass({
 
         var content = _.chain(this.props.json)
                 .first(this.state.visible)
-                .map((step, i) => {
-                    return "[[" + Util.snowman + " group " + i + "]]";
-                })
+                .map((step, i) => `[[${Util.snowman} group ${i}]]`)
                 .join("\n\n")
                 .value();
-        
+
         var widgets = {};
         _.each(this.props.json, (step, i) => {
-            var widgetId = "group " + i;
+            var widgetId = `group ${i}`;
             widgets[widgetId] = {
                 type: "group",
                 graded: true,
                 version: {major: 0, minor: 0},
                 options: _.extend({}, step, {
-                    onInteractWithWidget: _.partial(
-                            this._handleInteraction, i),
                     icon: i < this.state.visible - 1 ? icon : null
                 })
             };
@@ -88,12 +84,14 @@ var Sequence = React.createClass({
                 ref="renderer"
                 content={content}
                 widgets={widgets}
+                onInteractWithWidget={this._handleInteraction}
                 apiOptions={this.props.apiOptions}
                 enabledFeatures={this.props.enabledFeatures} />
         </div>;
     },
 
-    _handleInteraction: function(step) {
+    _handleInteraction: function(groupWidgetId) {
+        var step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
             var widget = this.refs.renderer.getWidgetInstance("group " + step);
             var score = widget.simpleValidate();
