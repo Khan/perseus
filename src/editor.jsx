@@ -188,6 +188,7 @@ var WidgetEditor = React.createClass({
                 <Ed
                     ref="widget"
                     onChange={this._handleWidgetChange}
+                    static={widgetInfo.static}
                     apiOptions={this.props.apiOptions}
                     {...widgetInfo.options} />
             </div>
