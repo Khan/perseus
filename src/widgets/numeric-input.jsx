@@ -135,15 +135,14 @@ var NumericInput = React.createClass({
             onFocus={this._handleFocus}
             onBlur={this._handleBlur} />;
 
-        var inputWithLabel;
-        if (this.props.labelText) {
-            inputWithLabel = <label>
-                <span className="perseus-sr-only">{this.props.labelText}</span>
-                {input}
-            </label>;
-        } else {
-            inputWithLabel = input;
+        var labelText = this.props.labelText;
+        if (labelText == null || labelText === "") {
+            labelText = $._("Your answer:");
         }
+        var inputWithLabel = <label>
+            <span className="perseus-sr-only">{labelText}</span>
+            {input}
+        </label>;
 
         if (answerBlurb) {
             return <span className="perseus-input-with-answer-blurb">
