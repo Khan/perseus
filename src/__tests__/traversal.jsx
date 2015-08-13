@@ -13,6 +13,7 @@ var missingOptions = {
         "radio 1": {
             "type": "radio",
             "graded": true,
+            "static": false,
             "options": {
                 "choices": [
                     {
@@ -45,6 +46,7 @@ var sampleOptions = {
         "input-number 1": {
             "type": "input-number",
             "graded": true,
+            "static": false,
             "options": {
                 "value": "0",
                 "simplify": "required",
@@ -73,6 +75,7 @@ var sampleOptions2 = {
         "radio 1": {
             "type": "radio",
             "graded": true,
+            "static": false,
             "options": {
                 "choices": [
                     {
@@ -111,6 +114,7 @@ var sampleOptions2Upgraded = {
         "radio 1": {
             "type": "radio",
             "graded": true,
+            "static": false,
             "options": {
                 "choices": [
                     {
@@ -145,6 +149,7 @@ var sampleGroup = {
         "group 1": {
             "type": "group",
             "graded": true,
+            "static": false,
             "options": {
                 "content": "[[☃ radio 1]]\n\n",
                 "images": {},
@@ -152,6 +157,7 @@ var sampleGroup = {
                     "radio 1": {
                         "type": "radio",
                         "graded": true,
+                        "static": false,
                         "options": {
                             "choices": [
                                 {
@@ -194,6 +200,7 @@ var sampleGroupUpgraded = {
         "group 1": {
             "type": "group",
             "graded": true,
+            "static": false,
             "options": {
                 "content": "[[☃ radio 1]]\n\n",
                 "images": {},
@@ -201,6 +208,7 @@ var sampleGroupUpgraded = {
                     "radio 1": {
                         "type": "radio",
                         "graded": true,
+                        "static": false,
                         "options": {
                             "choices": [
                                 {

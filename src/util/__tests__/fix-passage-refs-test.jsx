@@ -11,19 +11,21 @@ var sampleItem = {
             "passage-ref 1": {
                 "type": "passage-ref",
                 "graded": true,
+                "static": false,
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
+                    "minor": 1
                 }
             }
         }
     },
     "answerArea": {
         "type": "multiple",
+        "static": false,
         "options": {
             "content": "",
             "images": {},
@@ -47,6 +49,7 @@ var sampleGroupItem = {
             "group 1": {
                 "type": "group",
                 "graded": true,
+                "static": false,
                 "options": {
                     "content": "[[☃ passage-ref 1]] (\"hi ... there\")",
                     "images": {},
@@ -54,13 +57,14 @@ var sampleGroupItem = {
                         "passage-ref 1": {
                             "type": "passage-ref",
                             "graded": true,
+                            "static": false,
                             "options": {
                                 "passageNumber": 1,
                                 "referenceNumber": 1
                             },
                             "version": {
                                 "major": 0,
-                                "minor": 0
+                                "minor": 1
                             }
                         }
                     }
@@ -73,19 +77,21 @@ var sampleGroupItem = {
             "passage-ref 1": {
                 "type": "passage-ref",
                 "graded": true,
+                "static": false,
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
+                    "minor": 1
                 }
             }
         }
     },
     "answerArea": {
         "type": "multiple",
+        "static": false,
         "options": {
             "content": "",
             "images": {},
@@ -109,6 +115,7 @@ var sampleRadioItem = {
             "radio 1": {
                 "type": "radio",
                 "graded": true,
+                "static": false,
                 "options": {
                     "choices": [
                         {
@@ -132,6 +139,7 @@ var sampleRadioItem = {
     },
     "answerArea": {
         "type": "multiple",
+        "static": false,
         "options": {
             "content": "",
             "images": {},
@@ -169,6 +177,7 @@ describe("fix-passage-refs", () => {
             {
                 "type": "passage-ref",
                 "graded": true,
+                "static": false,
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1,
@@ -178,7 +187,7 @@ describe("fix-passage-refs", () => {
                     "major": 0,
                     // TODO(aria): Update this when we do minor updates as
                     // a part of version upgrading
-                    "minor": 0
+                    "minor": 1
                 },
                 "alignment": "default",
             }
@@ -198,6 +207,7 @@ describe("fix-passage-refs", () => {
             {
                 "type": "passage-ref",
                 "graded": true,
+                "static": false,
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1,
@@ -207,7 +217,7 @@ describe("fix-passage-refs", () => {
                     "major": 0,
                     // TODO(aria): Update this when we merge the passage-ref
                     // changes
-                    "minor": 0
+                    "minor": 1
                 },
                 "alignment": "default",
             }
