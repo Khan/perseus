@@ -78,7 +78,6 @@ var buttonSets = {
             }
         ],
         () => [<TeX key="pi" style={slightlyBig}>\pi</TeX>, "\\pi"],
-        () => [<TeX key="div">\div</TeX>, "\\div"],
     ],
 
     logarithms: [
@@ -110,7 +109,13 @@ var TexButtons = React.createClass({
     },
 
     render: function() {
-        var buttons = _(this.props.sets).map(setName => buttonSets[setName]);
+        // Always show buttonSets in the same order. Note: Technically it's ok
+        // for _.keys() to return the keys in an arbitrary order, but in
+        // practice, they will be ordered as listed above.
+        var sortedButtonSets = _.sortBy(this.props.sets,
+            (setName) => _.keys(buttonSets).indexOf(setName));
+
+        var buttons = _(sortedButtonSets).map(setName => buttonSets[setName]);
 
         var buttonRows = _(buttons).map(row => row.map(symbGen => {
             // create a (component, thing we should send to mathquill) pair
