@@ -641,7 +641,9 @@ var Editor = React.createClass({
     _maybeCopyWidgets: function(e) {
         // If there are widgets being cut/copied, put the widget JSON in
         // localStorage.perseusLastCopiedWidgets to allow copy-pasting of
-        // widgets between Editors.
+        // widgets between Editors. Also store the text to be pasted in
+        // localStorage.perseusLastCopiedText since we want to know if the user
+        // is actually pasting something originally from Perseus later.
         var textarea = e.target;
         var selectedText = textarea.value.substring(
             textarea.selectionStart,
@@ -652,25 +654,111 @@ var Editor = React.createClass({
             return Util.rWidgetParts.exec(syntax)[1];
         });
 
-        var widgetData = _.pick(this.props.widgets, widgetNames);
+        var widgetData = _.pick(this.serialize().widgets, widgetNames);
 
+        localStorage.perseusLastCopiedText = selectedText;
         localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
 
         console.log(
             `Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
     },
 
-    _maybePasteWidgets: function() {
+    _maybePasteWidgets: function(e) {
         // Use the data from localStorage to paste any widgets we copied
-        // before. If there is a widget name conflict, don't override the
-        // widgets in the Editor we're pasting into.
-        var widgetJSON = localStorage.perseusLastCopiedWidgets;
+        // before. Avoid name conflicts by renumbering pasted widgets so that
+        // their numbers are always higher than the highest numbered widget of
+        // their type.
+        // TODO(sam): Fix widget numbering in the widget editor titles
 
-        if (widgetJSON) {
+        var widgetJSON = localStorage.perseusLastCopiedWidgets;
+        var lastCopiedText = localStorage.perseusLastCopiedText;
+        var textToBePasted = e.originalEvent.clipboardData.getData('text');
+
+        // Only intercept if we have widget data to paste and the user is
+        // pasting something originally from Perseus.
+        // TODO(sam/aria/alex): Make it so that you can paste arbitrary text
+        // (e.g. from a text editor) instead of exactly what was copied, and
+        // let the widgetJSON match up with it. This would let you copy text
+        // into a buffer, perform complex operations on it, then paste it back.
+        if (widgetJSON && lastCopiedText === textToBePasted) {
+            e.preventDefault();
+
             var widgetData = JSON.parse(widgetJSON);
-            var newWidgets = _.extend(widgetData, this.props.widgets);
-            this.props.onChange({widgets: newWidgets});
+            var safeWidgetMapping = this._safeWidgetNameMapping(widgetData);
+
+            // Use safe widget name map to construct the new widget data
+            // TODO(aria/alex): Don't use `rWidgetSplit` or other piecemeal
+            // regexes directly; abstract this out so that we don't have to
+            // worry about potential edge cases.
+            var safeWidgetData = {};
+            _.each(widgetData, (data, key) => {
+                safeWidgetData[safeWidgetMapping[key]] = data;
+            });
+            var newWidgets = _.extend(safeWidgetData, this.props.widgets);
+
+            // Use safe widget name map to construct new text
+            var safeText = lastCopiedText.replace(rWidgetSplit, (syntax) => {
+                var match = Util.rWidgetParts.exec(syntax);
+                var completeWidget = match[0];
+                var widget = match[1];
+                return completeWidget.replace(
+                    widget, safeWidgetMapping[widget]);
+            });
+
+            // Add pasted text to previous content, replacing selected text to
+            // replicate normal paste behavior.
+            var textarea = e.target;
+            var newContent =
+                this.props.content.substr(0, textarea.selectionStart) +
+                safeText +
+                this.props.content.substr(textarea.selectionEnd);
+
+            this.props.onChange({content: newContent, widgets: newWidgets});
         }
+    },
+
+    _safeWidgetNameMapping: function(widgetData) {
+        // Helper function for _maybePasteWidgets.
+        // For each widget about to be pasted, construct a mapping from
+        // old widget name to a new widget name that doesn't have conflicts
+        // with widgets already in the editor.
+        // eg. If there is an "image 2" already present in the editor and we're
+        // about to paste in two new images, return
+        // { "image 1": "image 3", "image 2": "image 4" }
+
+        // List of widgets about to be pasted as [[name, number], ...]
+        var widgets = _.keys(widgetData).map((name) => name.split(' '));
+        var widgetTypes = _.uniq(widgets.map((widget) => widget[0]));
+
+        // List of existing widgets as [[name, number], ...]
+        var existingWidgets = _.keys(this.props.widgets)
+            .map((name) => name.split(' '));
+
+        // Mapping of widget type to a safe (non-conflicting) number
+        // eg. { "image": 2, "dropdown": 1 }
+        var safeWidgetNums = {};
+        _.each(widgetTypes, (type) => {
+            safeWidgetNums[type] = _.chain(existingWidgets)
+                .filter((existingWidget) => existingWidget[0] === type)
+                .map((existingWidget) => +existingWidget[1] + 1)
+                .max()
+                .value();
+            // If there are no existing widgets _.max returns -Infinity
+            safeWidgetNums[type] = Math.max(safeWidgetNums[type], 1);
+        });
+
+        // Construct mapping, incrementing the vals in safeWidgetNums as we go
+        var safeWidgetMapping = {};
+        _.each(widgets, (widget) => {
+            var widgetName = widget.join(' ');
+            var widgetType = widget[0];
+
+            safeWidgetMapping[widgetName] =
+                `${widgetType} ${safeWidgetNums[widgetType]}`;
+            safeWidgetNums[widgetType]++;
+        });
+
+        return safeWidgetMapping;
     },
 
     _addWidgetToContent: function(oldContent, cursorRange, widgetType) {
