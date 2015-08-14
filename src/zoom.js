@@ -184,12 +184,16 @@ ZoomService.prototype._clickHandler = function(e) {
 };
 
 ZoomService.prototype._touchStart = function(e) {
-    this._initialTouchPosition = e.touches[0].pageY;
+    // Our jQuery doesn't include `touches` in its event
+    // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
+    this._initialTouchPosition = e.originalEvent.touches[0].pageY;
     $(e.target).on('touchmove.zoom', $.proxy(this._touchMove, this));
 };
 
 ZoomService.prototype._touchMove = function(e) {
-    if (Math.abs(e.touches[0].pageY - this._initialTouchPosition) > 10) {
+    // Our jQuery doesn't include `touches` in its event
+    // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
+    if (Math.abs(e.originalEvent.touches[0].pageY - this._initialTouchPosition) > 10) {
         this._activeZoomClose();
         $(e.target).off('touchmove.zoom');
     }
