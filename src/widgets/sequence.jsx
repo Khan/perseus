@@ -264,10 +264,8 @@ var traverseChildWidgets = function(
 
 module.exports = {
     name: "sequence",
-    displayName: "Sequence",
+    displayName: "Graded Sequence",
     widget: Sequence,
     editor: SequenceEditor,
     traverseChildWidgets: traverseChildWidgets,
-    hidden: true,
 };
-
