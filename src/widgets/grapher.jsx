@@ -22,12 +22,11 @@ var kpoint = require("kmath").point;
 var Changeable   = require("../mixins/changeable.jsx");
 
 /* Utility objects and functions. */
-var defaultBoxSize = 400;
-var defaultEditorBoxSize = 340;
-var defaultBackgroundImage = {
+var DEFAULT_BOX_SIZE = 400;
+var DEFAULT_EDITOR_BOX_SIZE = 340;
+var DEFAULT_BACKGROUND_IMAGE = {
     url: null
 };
-var defaultType = "linear";
 
 function typeToButton(type) {
     var capitalized = type.charAt(0).toUpperCase() + type.substring(1);
@@ -131,21 +130,17 @@ var FunctionGrapher = React.createClass({
         // Coords are usually based on props, but should fall back to the
         // model's default whenever they're not provided (if there's a model)
         props = props || this.props;
-        var defaultModelCoords = props.model && props.model.defaultCoords &&
-            Grapher.pointsFromNormalized(props.graph.range, props.graph.step,
-                props.graph.snapStep, props.model.defaultCoords);
+        var graph = props.graph;
+        var defaultModelCoords = props.model &&
+            GrapherUtil.maybePointsFromNormalized(props.model.defaultCoords,
+                graph.range, graph.step, graph.snapStep);
         return props.coords || defaultModelCoords || null;
     },
 
     _asymptote: function(props) {
-        // Coords are usually based on props, but should fall back to the
-        // model's default whenever they're not provided (if there's a model)
+        // Unlike coords, asymptotes are never null; see defaultPlotProps.
         props = props || this.props;
-        var defaultModelAsymptote = props.model &&
-            props.model.defaultAsymptote &&
-            Grapher.pointsFromNormalized(props.graph.range, props.graph.step,
-                props.graph.snapStep, props.model.defaultAsymptote);
-        return props.asymptote || defaultModelAsymptote || null;
+        return props.asymptote;
     },
 
     getDefaultProps: function() {
@@ -224,7 +219,7 @@ var FunctionGrapher = React.createClass({
         var imageDescription = this.props.graph.backgroundImage;
         var image = null;
         if (imageDescription.url) {
-            var scale = box[0] / defaultBoxSize;
+            var scale = box[0] / DEFAULT_BOX_SIZE;
             image = <SvgImage src={imageDescription.url}
                               width={imageDescription.width}
                               height={imageDescription.height}
@@ -697,166 +692,7 @@ function functionForType(type) {
     return functionTypeMapping[type];
 }
 
-/* Widget and editor. */
-var Grapher = React.createClass({
-    getDefaultProps: function() {
-        return {
-            plot: {
-                type: defaultType,
-                coords: null,
-                asymptote: null
-            },
-            graph: {
-                box: [defaultBoxSize, defaultBoxSize],
-                labels: ["x", "y"],
-                range: [[-10, 10], [-10, 10]],
-                step: [1, 1],
-                backgroundImage: defaultBackgroundImage,
-                markings: "graph",
-                rulerLabel: "",
-                rulerTicks: 10,
-                valid: true
-            },
-            availableTypes: [defaultType],
-        };
-    },
-
-    render: function() {
-        var type = this.props.plot.type;
-        var coords = this.props.plot.coords;
-        var asymptote = this.props.plot.asymptote;
-
-        var typeSelector = <div style={typeSelectorStyle}
-                className="above-scratchpad">
-            <ButtonGroup
-                value={type}
-                allowEmpty={true}
-                buttons={_.map(this.props.availableTypes, typeToButton)}
-                onChange={this.handleActiveTypeChange} />
-        </div>;
-
-        var box = this.props.graph.box;
-
-        // Calculate additional graph properties so that the same values are
-        // passed in to both FunctionGrapher and Graphie.
-        var options = _.extend({}, this.props.graph,
-            this._getGridAndSnapSteps(this.props.graph));
-        _.extend(options, {
-            gridConfig: this._getGridConfig(options)
-        });
-
-        // The `graph` prop will eventually be passed to the <Graphie>
-        // component. In fact, if model is `null`, this is functionalliy
-        // identical to a <Graphie>. Otherwise, some points and a plot will be
-        // overlayed.
-        var grapherProps = {
-            graph: {
-                box: box,
-                range: options.range,
-                step: options.step,
-                snapStep: options.snapStep,
-                backgroundImage: options.backgroundImage,
-                options: options,
-                setup: this._setupGraphie
-            },
-            onChange: this.handlePlotChanges,
-            model: type && functionForType(type),
-            coords: coords,
-            asymptote: asymptote,
-            static: this.props.static,
-        };
-
-        return <div>
-            <FunctionGrapher {...grapherProps} />
-            {this.props.availableTypes.length > 1 && typeSelector}
-        </div>;
-    },
-
-    handlePlotChanges: function(newPlot) {
-        var plot = _.extend({}, this.props.plot, newPlot);
-        this.props.onChange({
-            plot: plot
-        });
-    },
-
-    handleActiveTypeChange: function(newType) {
-        var plot = _.extend({}, this.props.plot, {
-            type: newType,
-            coords: null,
-            asymptote: null
-        });
-        this.props.onChange({
-            plot: plot
-        });
-    },
-
-    _getGridAndSnapSteps: function(options) {
-        var gridStep = options.gridStep ||
-                Util.getGridStep(options.range, options.step, defaultBoxSize);
-        var snapStep = options.snapStep ||
-                Util.snapStepFromGridStep(gridStep);
-        return {
-            gridStep: gridStep,
-            snapStep: snapStep
-        };
-    },
-
-    _getGridConfig: function(options) {
-        return _.map(options.step, function(step, i) {
-            return Util.gridDimensionConfig(
-                    step,
-                    options.range[i],
-                    options.box[i],
-                    options.gridStep[i]);
-        });
-    },
-
-    _setupGraphie: function(graphie, options) {
-        if (options.markings === "graph") {
-            graphie.graphInit({
-                range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
-                axisArrows: "<->",
-                labelFormat: function(s) { return "\\small{" + s + "}"; },
-                gridStep: options.gridStep,
-                snapStep: options.snapStep,
-                tickStep: _.pluck(options.gridConfig, "tickStep"),
-                labelStep: 1,
-                unityLabels: _.pluck(options.gridConfig, "unityLabel")
-            });
-            graphie.label([0, options.range[1][1]], options.labels[1],
-                "above");
-            graphie.label([options.range[0][1], 0], options.labels[0],
-                "right");
-        } else if (options.markings === "grid") {
-            graphie.graphInit({
-                range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
-                gridStep: options.gridStep,
-                axes: false,
-                ticks: false,
-                labels: false
-            });
-        } else if (options.markings === "none") {
-            graphie.init({
-                range: options.range,
-                scale: _.pluck(options.gridConfig, "scale")
-            });
-        }
-    },
-
-    simpleValidate: function(rubric) {
-        return Grapher.validate(this.getUserInput(), rubric);
-    },
-
-    getUserInput: function() {
-        return this.props.plot;
-    },
-
-    focus: $.noop
-});
-
-_.extend(Grapher, {
+var GrapherUtil = {
     validate: function(state, rubric) {
         if (state.type !== rubric.correct.type) {
             return {
@@ -917,7 +753,7 @@ _.extend(Grapher, {
         }
     },
 
-    pointsFromNormalized: function(range, step, snapStep, coordsList) {
+    pointsFromNormalized: function(coordsList, range, step, snapStep) {
         var numSteps = function(range, step) {
             return Math.floor((range[1] - range[0]) / step);
         };
@@ -936,7 +772,211 @@ _.extend(Grapher, {
             // through them is correct.
             return kpoint.roundTo(unsnappedPoint, snapStep);
         });
+    },
+
+    maybePointsFromNormalized: function(coordsList, range, step, snapStep) {
+        if (coordsList) {
+            return this.pointsFromNormalized(
+                coordsList, range, step, snapStep);
+        } else {
+            return coordsList;
+        }
+    },
+
+    /* Given a plot type, return the appropriate default value for a grapher
+     * widget's plot props: type, default coords, default asymptote. */
+    defaultPlotProps: function(type, graph) {
+        // The coords are null by default, to indicate that the user has not
+        // moved them from the default position, and that this widget should
+        // therefore be considered empty and ineligible for grading. The user
+        // *can* move the coords from the default position and then back if
+        // they really want to submit the default coords as their answer, but
+        // we currently don't write questions that require this.
+        //
+        // We *do* write questions in which the asymptote should be left in
+        // the default position. For this reason, we fill in the default
+        // asymptote rather than leaving it null; if the user moves the coords
+        // but not the asymptote, the widget is non-empty and eligible for
+        // grading.
+        //
+        // TODO(mattdr): Consider an updated scoring function that marks the
+        // default coords as empty *unless* they're the correct coords. This
+        // would remove this default-coords-are-always-wrong constraints on
+        // the questions we write, while still maintaining our kind behavior
+        // when users forget to update a widget... but we'd also be revealing
+        // extra information. It would be valid to always submit the default
+        // widget before even reading the question; you can't lose, but you
+        // might get a free win.
+        var model = functionForType(type);
+        var snapStep = this.getGridAndSnapSteps(graph).snapStep;
+        return {
+            type,
+            asymptote: this.maybePointsFromNormalized(model.defaultAsymptote,
+                graph.range, graph.step, snapStep),
+            coords: null
+        };
+    },
+
+    /* Given a list of available types, choose which to use. */
+    chooseType: _.first,
+
+    getGridAndSnapSteps: function(options) {
+        var gridStep = options.gridStep ||
+            Util.getGridStep(options.range, options.step, DEFAULT_BOX_SIZE);
+        var snapStep = options.snapStep ||
+            Util.snapStepFromGridStep(gridStep);
+        return {
+            gridStep: gridStep,
+            snapStep: snapStep
+        };
     }
+};
+
+var DEFAULT_GRAPHER_PROPS = {};
+
+DEFAULT_GRAPHER_PROPS.graph = {
+    box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE],
+    labels: ["x", "y"],
+    range: [[-10, 10], [-10, 10]],
+    step: [1, 1],
+    backgroundImage: DEFAULT_BACKGROUND_IMAGE,
+    markings: "graph",
+    rulerLabel: "",
+    rulerTicks: 10,
+    valid: true
+};
+
+DEFAULT_GRAPHER_PROPS.plot = GrapherUtil.defaultPlotProps("linear",
+    DEFAULT_GRAPHER_PROPS.graph);
+
+DEFAULT_GRAPHER_PROPS.availableTypes = [DEFAULT_GRAPHER_PROPS.plot.type];
+
+/* Widget and editor. */
+var Grapher = React.createClass({
+    getDefaultProps: function() {
+        return DEFAULT_GRAPHER_PROPS;
+    },
+
+    render: function() {
+        var type = this.props.plot.type;
+        var coords = this.props.plot.coords;
+        var asymptote = this.props.plot.asymptote;
+
+        var typeSelector = <div style={typeSelectorStyle}
+                className="above-scratchpad">
+            <ButtonGroup
+                value={type}
+                allowEmpty={true}
+                buttons={_.map(this.props.availableTypes, typeToButton)}
+                onChange={this.handleActiveTypeChange} />
+        </div>;
+
+        var box = this.props.graph.box;
+
+        // Calculate additional graph properties so that the same values are
+        // passed in to both FunctionGrapher and Graphie.
+        var options = _.extend({}, this.props.graph,
+            GrapherUtil.getGridAndSnapSteps(this.props.graph));
+        _.extend(options, {
+            gridConfig: this._getGridConfig(options)
+        });
+
+        // The `graph` prop will eventually be passed to the <Graphie>
+        // component. In fact, if model is `null`, this is functionalliy
+        // identical to a <Graphie>. Otherwise, some points and a plot will be
+        // overlayed.
+        var grapherProps = {
+            graph: {
+                box: box,
+                range: options.range,
+                step: options.step,
+                snapStep: options.snapStep,
+                backgroundImage: options.backgroundImage,
+                options: options,
+                setup: this._setupGraphie
+            },
+            onChange: this.handlePlotChanges,
+            model: type && functionForType(type),
+            coords: coords,
+            asymptote: asymptote,
+            static: this.props.static,
+        };
+
+        return <div>
+            <FunctionGrapher {...grapherProps} />
+            {this.props.availableTypes.length > 1 && typeSelector}
+        </div>;
+    },
+
+    handlePlotChanges: function(newPlot) {
+        var plot = _.extend({}, this.props.plot, newPlot);
+        this.props.onChange({
+            plot: plot
+        });
+    },
+
+    handleActiveTypeChange: function(newType) {
+        var graph = this.props.graph;
+        var plot = _.extend({}, this.props.plot,
+            GrapherUtil.defaultPlotProps(newType, graph));
+        this.props.onChange({
+            plot: plot
+        });
+    },
+
+    _getGridConfig: function(options) {
+        return _.map(options.step, function(step, i) {
+            return Util.gridDimensionConfig(
+                    step,
+                    options.range[i],
+                    options.box[i],
+                    options.gridStep[i]);
+        });
+    },
+
+    _setupGraphie: function(graphie, options) {
+        if (options.markings === "graph") {
+            graphie.graphInit({
+                range: options.range,
+                scale: _.pluck(options.gridConfig, "scale"),
+                axisArrows: "<->",
+                labelFormat: function(s) { return "\\small{" + s + "}"; },
+                gridStep: options.gridStep,
+                snapStep: options.snapStep,
+                tickStep: _.pluck(options.gridConfig, "tickStep"),
+                labelStep: 1,
+                unityLabels: _.pluck(options.gridConfig, "unityLabel")
+            });
+            graphie.label([0, options.range[1][1]], options.labels[1],
+                "above");
+            graphie.label([options.range[0][1], 0], options.labels[0],
+                "right");
+        } else if (options.markings === "grid") {
+            graphie.graphInit({
+                range: options.range,
+                scale: _.pluck(options.gridConfig, "scale"),
+                gridStep: options.gridStep,
+                axes: false,
+                ticks: false,
+                labels: false
+            });
+        } else if (options.markings === "none") {
+            graphie.init({
+                range: options.range,
+                scale: _.pluck(options.gridConfig, "scale")
+            });
+        }
+    },
+
+    simpleValidate: function(rubric) {
+        return GrapherUtil.validate(this.getUserInput(), rubric);
+    },
+
+    getUserInput: function() {
+        return this.props.plot;
+    },
+
+    focus: $.noop
 });
 
 var GrapherEditor = React.createClass({
@@ -944,22 +984,9 @@ var GrapherEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            correct: {
-                type: defaultType,
-                coords: null,
-                asymptote: null
-            },
-            graph: {
-                labels: ["x", "y"],
-                range: [[-10, 10], [-10, 10]],
-                step: [1, 1],
-                backgroundImage: defaultBackgroundImage,
-                markings: "graph",
-                rulerLabel: "",
-                rulerTicks: 10,
-                valid: true
-            },
-            availableTypes: [defaultType]
+            correct: DEFAULT_GRAPHER_PROPS.plot,
+            graph: DEFAULT_GRAPHER_PROPS.graph,
+            availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes
         };
     },
 
@@ -967,7 +994,7 @@ var GrapherEditor = React.createClass({
         var graph;
         var equationString;
         var graph = _.extend(this.props.graph, {
-            box: [defaultEditorBoxSize, defaultEditorBoxSize]
+            box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE]
         });
 
         if (this.props.graph.valid === true) {
@@ -988,7 +1015,7 @@ var GrapherEditor = React.createClass({
             };
 
             graph = <Grapher {...graphProps} />;
-            equationString = Grapher.getEquationString(graphProps);
+            equationString = GrapherUtil.getEquationString(graphProps);
         } else {
             graph = <div className="perseus-error">
                         {this.props.graph.valid}
@@ -1036,11 +1063,9 @@ var GrapherEditor = React.createClass({
         // If the currently 'correct' type is removed from the list of types,
         // we need to change it to avoid impossible questions.
         if (!_.contains(newAvailableTypes, this.props.correct.type)) {
-            var correct = {
-                type: _.first(newAvailableTypes),
-                coords: null,
-                asymptote: null
-            };
+            var graph = this.props.graph;
+            var newType = GrapherUtil.chooseType(newAvailableTypes);
+            var correct = GrapherUtil.defaultPlotProps(newType, graph);
         }
         this.props.onChange({
             availableTypes: newAvailableTypes,
@@ -1059,17 +1084,14 @@ var GrapherEditor = React.createClass({
 var propTransform = (editorProps) => {
     var widgetProps = _.pick(editorProps, "availableTypes");
     widgetProps.graph = _.extend(editorProps.graph, {
-        box: [defaultBoxSize, defaultBoxSize]
+        box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE]
     });
 
     // If there's only one type, the graph type is deterministic
     if (widgetProps.availableTypes.length === 1) {
-        var plot = {
-            type: _.first(widgetProps.availableTypes),
-            coords: null,
-            asymptote: null
-        };
-        widgetProps.plot = plot;
+        var graph = widgetProps.graph;
+        var type = GrapherUtil.chooseType(widgetProps.availableTypes);
+        widgetProps.plot = GrapherUtil.defaultPlotProps(type, graph);
     }
 
     return widgetProps;
