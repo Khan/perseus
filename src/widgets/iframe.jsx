@@ -226,14 +226,18 @@ var IframeEditor = React.createClass({
         return {
             url: "",
             settings: [{name: "", value: ""}],
-            width: 400,
-            height: 400,
+            width: "400",
+            height: "400",
             allowFullScreen: false,
         };
     },
 
     render: function() {
         return <div>
+            <div style={{fontWeight: "bold", textAlign: "center"}} >
+                This widget is deprecated! <br />
+                Try using the Video or CS Program widgets instead.
+            </div>
             <label>Url or Program ID:
                 <BlurInput name="url"
                            value={this.props.url}
