@@ -29,6 +29,7 @@ var StubTagEditor = require("./components/stub-tag-editor.jsx");
 module.exports = {
     Options: {
         propTypes: React.PropTypes.shape({
+            isArticle: React.PropTypes.bool.isRequired,
             fancyDropdowns: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
@@ -49,6 +50,7 @@ module.exports = {
         }).isRequired,
 
         defaults: {
+            isArticle: false,
             fancyDropdowns: false,
             onInputError: function() { },
             onFocusChange: function() { },

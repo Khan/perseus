@@ -123,7 +123,8 @@ var ArticleEditor = React.createClass({
             this.props.apiOptions,
             {
                 // Alignment options are always available in article editors
-                showAlignmentOptions: true
+                showAlignmentOptions: true,
+                isArticle: true,
             }
         );
 
