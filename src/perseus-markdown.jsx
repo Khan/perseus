@@ -96,9 +96,12 @@ var TITLED_TABLE_REGEX = new RegExp(
     ")"
 );
 
+var crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
+
 var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+    // NOTE: basically ignored by JIPT. wraps everything at the outer layer
     columns: {
-        order: -1,
+        order: -2,
         match: SimpleMarkdown.blockRegex(/^([\s\S]*\n\n)={5,}\n\n([\s\S]*)/),
         parse: (capture, parse, state) => {
             return {
@@ -123,6 +126,30 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 </div>
             </div>;
         },
+    },
+    // Match paragraphs consisting solely of crowdin IDs
+    // (they look roughly like crwdns9238932:0), which means that
+    // crowdin is going to take the DOM node that ID is rendered into
+    // and count it as the top-level translation node. They mutate this
+    // node, so we need to make sure it is an outer node, not an inner
+    // span. So here we parse this separately and just output the
+    // raw string, which becomes the body of the <QuestionParagraph>
+    // created by the Renderer.
+    // This currently (2015-09-01) affects only articles, since
+    // for exercises the renderer just renders the crowdin id to the
+    // renderer div.
+    crowdinId: {
+        order: -1,
+        match: (source, state, prevCapture) => {
+            // Only match on the just-in-place translation site
+            if (state.isJipt) {
+                return crowdinJiptMatcher(source, state, prevCapture);
+            } else {
+                return null;
+            }
+        },
+        parse: (capture, parse, state) => ({ id: capture[1] }),
+        react: (node, output, state) => node.id,
     },
     // This is pretty much horrible, but we have a regex here to capture an
     // entire table + a title. capture[1] is the title. capture[2] of the

@@ -559,8 +559,14 @@ var Renderer = React.createClass({
         // state on this component to do this in a less hacky way.
         this._isTwoColumn = false;
 
-        var parsedMardown = PerseusMarkdown.parse(content);
-        var markdownContents = this.outputMarkdown(parsedMardown, {});
+        var parsedMarkdown = PerseusMarkdown.parse(content, {
+            // Recognize crowdin IDs while translating articles
+            // (This should never be hit by exercises, though if you
+            // decide you want to add a check that this is an article,
+            // go for it.)
+            isJipt: this.translationIndex != null
+        });
+        var markdownContents = this.outputMarkdown(parsedMarkdown, {});
 
         var className = this._isTwoColumn ?
             ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
