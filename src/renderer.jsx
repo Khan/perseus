@@ -58,9 +58,8 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
             // unescape \\t to \t among other characters here
             text = text.replace(
                 rEscapedChars,
-                function(ch) {
-                    return specialChars[ch];
-                });
+                (ch) => specialChars[ch]
+            );
 
             component.setState({
                 jiptContent: text
@@ -487,6 +486,7 @@ var Renderer = React.createClass({
     },
 
     shouldRenderJiptPlaceholder: function(props, state) {
+        // TODO(aria): Pass this in via webapp as an apiOption
         return typeof KA !== "undefined" && KA.language === "en-pt" &&
                     state.jiptContent == null &&
                     props.content.indexOf('crwdns') !== -1;
@@ -539,12 +539,13 @@ var Renderer = React.createClass({
         // had two columns.
         // It is updated to true by `this.outputMarkdown` if a
         // column break is found
-        // TODO(aria): Add a state variable to simple-markdown's output
-        // functions so that we can do this in a less hacky way.
+        // TODO(aria): We now have a state variable threaded through
+        // simple-markdown output. We should mutate it instead of
+        // state on this component to do this in a less hacky way.
         this._isTwoColumn = false;
 
         var parsedMardown = PerseusMarkdown.parse(content);
-        var markdownContents = this.outputMarkdown(parsedMardown);
+        var markdownContents = this.outputMarkdown(parsedMardown, {});
 
         var className = this._isTwoColumn ?
             ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
@@ -559,7 +560,6 @@ var Renderer = React.createClass({
     // wrap top-level elements in a QuestionParagraph, mostly
     // for appropriate spacing and other css
     outputMarkdown: function(ast, state) {
-        var state = state || {};
         if (_.isArray(ast)) {
             // This is duplicated from simple-markdown
             // TODO(aria): Don't duplicate this logic
@@ -568,6 +568,8 @@ var Renderer = React.createClass({
 
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
+            // NOTE(aria): These are never strings--always QuestionParagraphs
+            // TODO(aria): We probably don't need this string logic here.
             var lastWasString = false;
             for (var i = 0; i < ast.length; i++) {
                 state.key = i;
