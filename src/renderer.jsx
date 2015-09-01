@@ -1,7 +1,9 @@
+var $ = require("jquery");
 var React = require('react');
 var _ = require("underscore");
 var classNames = require("classnames");
 
+var JiptParagraphs = require("./jipt-paragraphs.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
 var SvgImage = require("./components/svg-image.jsx");
@@ -44,7 +46,9 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
     // We add a function that will get called whenever jipt says the dom needs
     // to be updated
     KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
-        var index = $(node).data("perseus-component-index");
+        var $node = $(node);
+        var index = $node.data("perseus-component-index");
+        var paragraphIndex = $node.data("perseus-paragraph-index");
         // We only update if we had added an index onto the node's data.
         if (node && typeof index !== "undefined") {
             var component = window.PerseusTranslationComponents[index];
@@ -61,9 +65,7 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
                 (ch) => specialChars[ch]
             );
 
-            component.setState({
-                jiptContent: text
-            });
+            component.replaceJiptContent(text, paragraphIndex);
 
             // Return false to tell jipt not to insert anything into the DOM
             // itself, otherwise it will mess up what React expects there to be
@@ -507,6 +509,40 @@ var Renderer = React.createClass({
                     props.content.indexOf('crwdns') !== -1;
     },
 
+    replaceJiptContent: function(content, paragraphIndex) {
+        if (paragraphIndex == null) {
+            // we're not translating paragraph-wise; replace the whole content
+            // (we could also theoretically check for apiOptions.isArticle
+            // here, which is what causes paragraphIndex to not be null)
+            this.setState({
+                jiptContent: content,
+            });
+        } else {
+            // Our "render the exact same QuestionParagraphs each time"
+            // strategy will fail if we allow translating a paragraph
+            // to more than one paragraph. This hack renders as a single
+            // paragraph and lets the translator know to not use \n\n,
+            // hopefully. We can't wait for linting because we can't
+            // safely render the node.
+            // TODO(aria): Check for the max number of backticks or tildes
+            // in the content, and just render a red code block of the
+            // content here instead?
+            if (/\S\n\s*\n\S/.test(content)) {
+                content = "$\\large{\\red{\\text{Please translate each " +
+                    "paragraph to a single paragraph.}}}$";
+            }
+            // Split the paragraphs; we have to use getContent() in case
+            // nothing has been translated yet (in which case we just have
+            // this.props.content)
+            var allContent = this.getContent(this.props, this.state);
+            var paragraphs = JiptParagraphs.parseToArray(allContent);
+            paragraphs[paragraphIndex] = content;
+            this.setState({
+                jiptContent: JiptParagraphs.joinFromArray(paragraphs),
+            });
+        }
+    },
+
     render: function() {
         if (this.reuseMarkdown) {
             return this.lastRenderedMarkdown;
@@ -537,16 +573,25 @@ var Renderer = React.createClass({
                 this.translationIndex =
                     window.PerseusTranslationComponents.push(this) - 1;
             }
-            // We now need to output this tag, as jipt looks for it to be
-            // able to replace it with a translation that it runs an ajax
-            // call to get.  We add a data attribute with the index to the
-            // Persues.TranslationComponent registry so that when jipt
-            // calls its before_dom_insert we can lookup this component by
-            // this attribute and render the text with markdown.
-            return <div
-                    data-perseus-component-index={this.translationIndex}>
-                {content}
-            </div>;
+
+            // For articles, we add jipt data to individual paragraphs. For
+            // exercises, we add it to the renderer and let translators
+            // translate the entire thing. For the article equivalent of
+            // this if block, search this file for where we render a
+            // QuestionParagraph, and see the `isJipt:` parameter sent to
+            // PerseusMarkdown.parse()
+            if (!this.props.apiOptions.isArticle) {
+                // We now need to output this tag, as jipt looks for it to be
+                // able to replace it with a translation that it runs an ajax
+                // call to get.  We add a data attribute with the index to the
+                // Persues.TranslationComponent registry so that when jipt
+                // calls its before_dom_insert we can lookup this component by
+                // this attribute and render the text with markdown.
+                return <div
+                        data-perseus-component-index={this.translationIndex}>
+                    {content}
+                </div>;
+            }
         }
 
         // Hacks:
@@ -594,6 +639,7 @@ var Renderer = React.createClass({
             var lastWasString = false;
             for (var i = 0; i < ast.length; i++) {
                 state.key = i;
+                state.paragraphIndex = i;
                 var nodeOut = this.outputMarkdown(ast[i], state);
                 var isString = (typeof nodeOut === "string");
                 if (isString && lastWasString) {
@@ -613,16 +659,39 @@ var Renderer = React.createClass({
             state.foundFullWidth = false;
             var output = this.outputNested(ast, state);
 
-            var className = classNames({
-                "perseus-paragraph-centered": !this._foundTextNodes,
-                "perseus-paragraph-full-width": (
-                    // There is only one node being rendered,
-                    // and it's a full-width widget.
-                    state.foundFullWidth && ast.content.length === 1
-                ),
-            });
+            // In Jipt-land, we need to render the exact same outer
+            // QuestionParagraph nodes always. This means the number of
+            // paragraphs needs to stay the same, and we can't modify
+            // the classnames on the QuestionParagraphs or we'll destroy
+            // the crowdin classnames. So we just only use the
+            // 'paragraph' classname from the QuestionParagraph.
+            // If this becomes a problem it would be easy to fix by wrapping
+            // the nodes in an extra layer (hopefully only for jipt) that
+            // handles the jipt classnames, and let this layer handle the
+            // dynamic classnames.
+            // We can't render the classes the first time and leave them
+            // the same because we don't know at the time of the first
+            // render whether they are full-bleed or centered, since they
+            // only contain crowdin IDs like `crwdns:972384209:0...`
+            var className;
+            if (this.translationIndex != null) {
+                className = null;
+            } else {
+                className = classNames({
+                    "perseus-paragraph-centered": !this._foundTextNodes,
+                    "perseus-paragraph-full-width": (
+                        // There is only one node being rendered,
+                        // and it's a full-width widget.
+                        state.foundFullWidth && ast.content.length === 1
+                    ),
+                });
+            }
 
-            return <QuestionParagraph key={state.key} className={className}>
+            return <QuestionParagraph
+                    key={state.key}
+                    className={className}
+                    translationIndex={this.translationIndex}
+                    paragraphIndex={state.paragraphIndex}>
                 {output}
             </QuestionParagraph>;
         }

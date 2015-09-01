@@ -5,7 +5,12 @@ var QuestionParagraph = React.createClass({
         var className = (this.props.className) ?
             "paragraph " + this.props.className :
             "paragraph";
-        return <div className={className}>
+        // For perseus-article just-in-place-translation (jipt), we need
+        // to attach some metadata to top-level QuestionParagraphs:
+        return <div
+                className={className}
+                data-perseus-component-index={this.props.translationIndex}
+                data-perseus-paragraph-index={this.props.paragraphIndex}>
             {this.props.children}
         </div>;
     }
