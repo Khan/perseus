@@ -247,12 +247,18 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
 });
 
 var builtParser = SimpleMarkdown.parserFor(rules);
-var parse = (source) => {
+var parse = (source, state) => {
     var paragraphedSource = source + "\n\n";
-    return builtParser(paragraphedSource, {inline: false});
+    return builtParser(paragraphedSource, _.extend(
+        { inline: false },
+        state
+    ));
 };
-var inlineParser = (source) => {
-    return builtParser(source, {inline: true});
+var inlineParser = (source, state) => {
+    return builtParser(source, _.extend(
+        { inline: true },
+        state
+    ));
 };
 
 /**
