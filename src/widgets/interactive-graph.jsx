@@ -2102,10 +2102,12 @@ _.extend(InteractiveGraph, {
     },
 
     validate: function(state, rubric, component) {
-        // TODO(alpert): Because this.props.graph doesn't always have coords,
-        // check that .coords exists here, which is always true when something
-        // has moved
-        if (state.type === rubric.correct.type && state.coords) {
+        // When nothing has moved, there will neither be coords nor the
+        // circle's center/radius fields. When those fields are absent, skip
+        // all these checks; just go mark the answer as empty.
+        var hasValue = !!(state.coords || (state.center && state.radius));
+
+        if (state.type === rubric.correct.type && hasValue) {
             if (state.type === "linear") {
                 var guess = state.coords;
                 var correct = rubric.correct.coords;
@@ -2286,7 +2288,7 @@ _.extend(InteractiveGraph, {
 
         // The input wasn't correct, so check if it's a blank input or if it's
         // actually just wrong
-        if (!state.coords || _.isEqual(state, rubric.graph)) {
+        if (!hasValue || _.isEqual(state, rubric.graph)) {
             // We're where we started.
             return {
                 type: "invalid",
