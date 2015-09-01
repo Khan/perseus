@@ -300,6 +300,21 @@ var Renderer = React.createClass({
     },
 
     restoreSerializedState: function(serializedState, callback) {
+        // Do some basic validation on the serialized state (just make sure the
+        // widget IDs are what we expect).
+        var serializedWidgetIds = _.keys(serializedState);
+        var widgetPropIds = _.keys(this.state.widgetProps);
+
+        // If the two lists of IDs match (ignoring order)
+        if (serializedWidgetIds.length !== widgetPropIds.length ||
+                _.intersection(serializedWidgetIds, widgetPropIds).length !==
+                    serializedWidgetIds.length) {
+            console.error("Refusing to restore bad serialized state:",
+                          serializedState, "Current props:",
+                          this.state.widgetProps);
+            return;
+        }
+
         // We want to wait until any children widgets who have a
         // restoreSerializedState function also call their own callbacks before
         // we declare that the operation is finished.
