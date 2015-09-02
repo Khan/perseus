@@ -531,6 +531,12 @@ var Renderer = React.createClass({
                 content = "$\\large{\\red{\\text{Please translate each " +
                     "paragraph to a single paragraph.}}}$";
             }
+            // We similarly can't have an all-whitespace paragraph, or
+            // we will parse it as the closing of the previous paragraph
+            if (/^\s*$/.test(content)) {
+                content = "$\\large{\\red{\\text{Translated paragraph is " +
+                    "currently empty}}}$";
+            }
             // Split the paragraphs; we have to use getContent() in case
             // nothing has been translated yet (in which case we just have
             // this.props.content)
