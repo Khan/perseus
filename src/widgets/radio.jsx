@@ -76,44 +76,50 @@ var Choice = React.createClass({
             return $._("(Choice %(letter)s)", {letter: letter});
         };
 
-        return <label className={this.props.className}>
-            <div className="checkbox-and-option">
-                <span className="checkbox">
-                    <div className="pos-back"></div>
-                    <div className="pos">
-                        <span className="perseus-sr-only">{a11yText()}</span>
-                        <span aria-hidden="true">{letter}</span>
-                    </div>
-                    <input
-                        type={this.props.type}
-                        name={this.props.groupName}
-                        checked={this.props.checked}
-                        disabled={this.props.disabled}
-                        onClick={(e) => {
-                            // Avoid sending this to the parent
-                            e.stopPropagation();
-                        }}
-                        onChange={(e) => {
-                            this.props.onChecked(e.target.checked);
-                        }} />
-                </span>
-                {/* A pseudo-label. <label> is slightly broken on iOS,
-                    so this works around that. Unfortunately, it is
-                    simplest to just work around that everywhere. */}
-                <span className={
-                        ApiClassNames.RADIO.OPTION_CONTENT + " " +
-                        ApiClassNames.INTERACTIVE
-                    }
-                    style={{ cursor: "default" }}>
-                    <div>
-                        {this.props.content}
-                    </div>
-                </span>
+        var className = classNames(this.props.className, "checkbox-label");
+
+        return <label className={className}>
+            <input
+                type={this.props.type}
+                name={this.props.groupName}
+                checked={this.props.checked}
+                disabled={this.props.disabled}
+                onClick={(e) => {
+                    // Avoid sending this to the parent
+                    e.stopPropagation();
+                }}
+                onChange={(e) => {
+                    this.props.onChecked(e.target.checked);
+                }} />
+            <div className="description">
+                <div className="checkbox-and-option">
+                    <span className="checkbox">
+                        <div className="pos-back"></div>
+                        <div className="pos">
+                            <span className="perseus-sr-only">
+                                {a11yText()}
+                            </span>
+                            <span aria-hidden="true">{letter}</span>
+                        </div>
+                    </span>
+                    {/* A pseudo-label. <label> is slightly broken on iOS,
+                        so this works around that. Unfortunately, it is
+                        simplest to just work around that everywhere. */}
+                    <span className={
+                            ApiClassNames.RADIO.OPTION_CONTENT + " " +
+                            ApiClassNames.INTERACTIVE
+                        }
+                        style={{ cursor: "default" }}>
+                        <div>
+                            {this.props.content}
+                        </div>
+                    </span>
+                </div>
+                {this.props.showClue &&
+                    <div className="perseus-radio-clue">
+                        {this.props.clue}
+                    </div>}
             </div>
-            {this.props.showClue &&
-                <div className="perseus-radio-clue">
-                    {this.props.clue}
-                </div>}
         </label>;
     }
 });
@@ -285,36 +291,15 @@ var BaseRadio = React.createClass({
                         )
                     );
 
-                    var checkHandler = (e) => {
-                        if (!this.props.labelWrap) {
-                            return;
-                        }
-
-                        // Ignore non-enter and non-space keypresses
-                        if (e.keyCode && e.keyCode !== 13 &&
-                                e.keyCode !== 32) {
-                            return;
-                        }
-
-                        // Don't send this to the scratchpad
-                        e.preventDefault();
-                        if (!this.props.apiOptions.readOnly) {
-                            var shouldToggle =
-                                this.props.multipleSelect ||
-                                this.props.deselectEnabled;
-                            this.checkOption(
-                                i,
-                                shouldToggle ? !choice.checked : true);
-                        }
-                    };
-
-                    return <li className={className} key={i} tabIndex="0"
-                            role="radio" aria-checked={choice.checked}
+                    // TODO(mattdr): Index isn't a *good* choice of key here;
+                    // is there a better one? Can we use choice content
+                    // somehow? Would changing our choice of key somehow break
+                    // any voodoo happening inside a choice's child Renderers
+                    // by changing when we mount/unmount?
+                    return <li className={className} key={i}
                             onTouchStart={!this.props.labelWrap ?
                                 null : captureScratchpadTouchStart
-                            }
-                            onKeyDown={checkHandler}
-                            onClick={checkHandler}>
+                            }>
                         <Element {...elementProps} />
                     </li>;
                 }, this)}
@@ -342,11 +327,6 @@ var BaseRadio = React.createClass({
         // onCheckedChange reconstructs the new choices to send to
         // this.props.onChange
         this.props.onCheckedChange(newChecked);
-    },
-
-    focus: function(i) {
-        this.refs["radio" + (i || 0)].getDOMNode().focus();
-        return true;
     }
 });
 

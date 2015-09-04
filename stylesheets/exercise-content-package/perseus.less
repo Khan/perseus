@@ -4,6 +4,7 @@
 //
 
 @import "variables.less";
+@import "util.less";
 
 // Article Renderer
 @import "articles.less";
@@ -821,18 +822,4 @@
     border-radius: 5px;
     padding: 20px;
     margin: 15px 0 10px;
-}
-
-// Make content only visible to screen readers.
-// Stolen from the .sr-only class on the website.
-// Both collegeboard.org and Bootstrap 3 use this exact implementation.
-.perseus-sr-only {
-    border: 0;
-    clip: rect(0,0,0,0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
 }

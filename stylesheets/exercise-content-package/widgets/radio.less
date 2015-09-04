@@ -1,3 +1,5 @@
+@import "../util.less";
+
 // Override the float: left on input[type=radio]s in the
 // #answer_area from khan-exercise.css, because it breaks our
 // margin-left: -20px positioning
@@ -12,6 +14,10 @@
 .perseus-widget-radio {
     // Avoid centering
     width: 100%;
+
+    .checkbox-label {
+        display: block;
+    }
 
     div,
     div > p {
@@ -33,16 +39,16 @@
             padding-left: 20px;
         }
 
-        span.checkbox {
+        input[type="radio"], input[type="checkbox"] {
             .perseus-interactive;
             display: inline-block;
             width: 20px;
             margin-left: -20px;
             margin-right: 0;
+        }
 
-            .pos-back, .pos {
-                display: none;
-            }
+        .pos-back, .pos {
+            display: none;
         }
 
         div.instructions {
@@ -202,9 +208,18 @@ body.sat-section,
             user-select: text;
         }
 
-        .checkbox-and-option {
+        .description {
             display: block;
             position: relative;
+            border-top: 1px solid #ccc;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            margin-left: 0;
+            // TODO(mattdr): there was an overflow:hidden here. why?
+            // I need it removed in order to fake out a bottom border, but does
+            // removing it break something else?
+            padding: 17px 14px;
         }
 
         span.checkbox {
@@ -240,41 +255,31 @@ body.sat-section,
             }
         }
 
-        // General styles for the li
         .perseus-radio-option {
-            position: relative;
-            border-top: 1px solid #ccc;
-            &:last-child {
-                border-bottom: 1px solid #ccc;
-            }
-            border-left: 1px solid transparent;
-            border-right: 1px solid transparent;
-            box-sizing: border-box;
-            cursor: pointer;
-            display: block;
-            margin-left: 0;
-            overflow: hidden;
-            padding: 17px 14px !important; // Being overwritten by khan-exercises.css
+            margin: 0;
+            padding: 0;
 
             label {
                 cursor: pointer;
             }
 
-            &:focus {
-                border-bottom: 1px solid;
-                border-color: @satBlue;
-                outline: 1px solid @satBlue;
+            // Even with radio buttons, it's possible to be focused without being
+            // selected - try tabbing in without having made a selection yet.
+            // So, a blue *background* indicates focus; a blue *checkbox* indicates
+            // selection.
 
-                & + .perseus-radio-option {
-                    border-top-width: 0;
-                }
+            .focused() {
+                background-color: @satSelectedBackgroundColor;
+                border-top-color: transparent;
+                border-bottom-color: transparent;
+                outline: 2px solid @satBlue;
+
+                // Render the outline higher than the following element's
+                // border.
+                z-index: 1;
             }
 
-            &.perseus-radio-selected,
-            &:active {
-                // TODO(kitt): Clean up these decorators.
-                border-bottom-color: @satBlue;
-                border-top-color: @satBlue;
+            .selected() {
                 span.checkbox {
                     .pos {
                         color: #fff;
@@ -283,48 +288,86 @@ body.sat-section,
                         background: @satBlue;
                     }
                 }
-                // Make the top border of the next section (which acts
-                // as this element's bottom border) the highlight color.
-                & + .perseus-radio-option {
-                    border-top-color: @satBlue;
+            }
+
+            .border-bottom-override-color(@color) {
+                &::after {
+                    background-color: @color;
                 }
             }
 
-            &.perseus-correct {
-                color: @satCorrectColor;
-
-                span.checkbox .pos-back {
-                    border-color: @satCorrectColor;
+            .description {
+                // Give ourselves a fake border-bottom that actually sits upon
+                // the following element's border-top. It's transparent by
+                // default; use .border-bottom-override-color to actually
+                // *visibly* override the border.
+                &::after {
+                    bottom: -1px;
+                    content: " ";
+                    height: 1px;
+                    left: 0;
+                    position: absolute;
+                    width: 100%;
+                    z-index: 1;
                 }
-                &.perseus-radio-selected {
+            }
+
+            input[type=radio] {
+                .perseus-sr-only;
+
+                // This is the reason for all the .description
+                // weirdness: we need the primary styled element to be a
+                // sibling of the input, in order to respond to being focused
+                // and active.
+                &:focus + .description {
+                    .focused();
+                }
+
+                &:active + .description {
+                    .focused();
+                    .selected();
+                    background-color: @satActiveBackgroundColor !important;
+                }
+            }
+
+            &.perseus-radio-selected .description {
+                .selected();
+            }
+
+            &.perseus-correct {
+                .description {
+                    color: @satCorrectColor;
+
+                    span.checkbox .pos-back {
+                        border-color: @satCorrectColor;
+                    }
+
+                    &:focus {
+                        border-color: @satCorrectColor;
+                        outline-color: @satCorrectColor;
+                    }
+                }
+
+                &.perseus-radio-selected .description {
                     background-color: @satCorrectBackgroundColor;
                     border-bottom-color: @satCorrectBorderColor;
                     border-top-color: @satCorrectBorderColor;
 
-                    & + .perseus-radio-option {
-                        border-top-color: @satCorrectBorderColor;
-                    }
+                    .border-bottom-override-color(@satCorrectBorderColor);
 
                     span.checkbox .pos-back {
                         background: @satCorrectColor;
                     }
                 }
-
-                &:focus {
-                    border-color: @satCorrectColor;
-                    outline-color: @satCorrectColor;
-                }
             }
 
-            &.perseus-radio-selected.perseus-incorrect {
+            &.perseus-radio-selected.perseus-incorrect .description {
                 color: @satIncorrectColor;
                 background-color: @satIncorrectBackgroundColor;
                 border-bottom-color: @satIncorrectBorderColor;
                 border-top-color: @satIncorrectBorderColor;
 
-                & + .perseus-radio-option {
-                    border-top-color: @satIncorrectBorderColor;
-                }
+                .border-bottom-override-color(@satIncorrectBorderColor);
 
                 span.checkbox .pos-back {
                     border-color: @satIncorrectColor;
@@ -337,12 +380,8 @@ body.sat-section,
                 }
             }
 
-            &:active {
-                background-color: @satActiveBackgroundColor !important;
-            }
-
-            &.perseus-radio-selected {
-                background-color: @satSelectedBackgroundColor;
+            &:last-child .description {
+                border-bottom: 1px solid #ccc;
             }
 
             .perseus-radio-option-content {
@@ -356,10 +395,6 @@ body.sat-section,
             &.perseus-correct:not(.perseus-radio-selected) span.checkbox .pos {
                 color: @satCorrectColor;
             }
-        }
-
-        input[type=radio] {
-            display: none;
         }
     }
     .review-mode {

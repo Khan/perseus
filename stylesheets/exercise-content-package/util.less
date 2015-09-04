@@ -1,0 +1,16 @@
+// Make content only visible to screen readers.
+// This keeps the element physically present on the page (i.e. focusable),
+// while visually appearing as if it were subject to `display: none`.
+// Stolen from the .sr-only class on the main Khan Academy site.
+// Both collegeboard.org and Bootstrap 3 use this exact implementation.
+// We use this as both a physical class and as a mixin.
+.perseus-sr-only {
+    border: 0;
+    clip: rect(0,0,0,0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
