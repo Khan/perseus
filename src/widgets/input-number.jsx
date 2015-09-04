@@ -6,6 +6,7 @@ var BlurInput         = require("react-components/blur-input.jsx");
 var InfoTip           = require("react-components/info-tip.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
+var PossibleAnswers = require("../components/possible-answers.jsx");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -117,11 +118,8 @@ var InputNumber = React.createClass({
                 if (rubric.inexact && rubric.maxError) {
                     answerString += " \u00B1 " + rubric.maxError;
                 }
-                answerBlurb = <span className="perseus-possible-answers">
-                    <span className="perseus-possible-answer">
-                        {answerString}
-                    </span>
-                </span>;
+                var answerStrings = [answerString];
+                answerBlurb = <PossibleAnswers answers={answerStrings} />;
             }
         }
 

@@ -11,6 +11,7 @@ var InputWithExamples = require("../components/input-with-examples.jsx");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var NumberInput = require("../components/number-input.jsx");
 var ParseTex = require("../tex-wrangler.js").parseTex;
+var PossibleAnswers = require("../components/possible-answers.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var TextInput = require("../components/text-input.jsx");
 
@@ -90,7 +91,7 @@ var NumericInput = React.createClass({
             if (!correct) {
                 var correctAnswers = _.filter(
                     rubric.answers, (answer) => answer.status === "correct");
-                var answerComponents = _.map(correctAnswers, (answer, key) => {
+                var answerStrings = _.map(correctAnswers, (answer) => {
                     // Figure out how this answer is supposed to be displayed
                     var format = "decimal";
                     if (answer.answerForms && answer.answerForms[0]) {
@@ -98,7 +99,7 @@ var NumericInput = React.createClass({
                         // it does behave well for all the currently known
                         // problems. See D14742 for some discussion on
                         // alternate strategies.
-                        format = answer.answerForms[0]
+                        format = answer.answerForms[0];
                     }
 
                     var answerString = KhanUtil.toNumericString(answer.value,
@@ -107,13 +108,9 @@ var NumericInput = React.createClass({
                         answerString += " \u00B1 " +
                             KhanUtil.toNumericString(answer.maxError, format);
                     }
-                    return <span key={key} className="perseus-possible-answer">
-                        {answerString}
-                    </span>
+                    return answerString;
                 });
-                answerBlurb = <span className="perseus-possible-answers">
-                    {answerComponents}
-                </span>;
+                answerBlurb = <PossibleAnswers answers={answerStrings} />;
             }
         }
 

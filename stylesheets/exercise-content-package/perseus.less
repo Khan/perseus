@@ -624,20 +624,37 @@
             .perseus-possible-answers {
                 color: rgb(0, 153, 0);
                 padding-right: 4px;
-            }
 
-            .perseus-possible-answers:before {
-                content: "CORRECT ANSWER:";
-                padding: 0 5px 0 13px;
-                color: rgb(18, 18, 18);
-            }
+                dt, dd {
+                    // If you just use inline, then screen readers (or at least
+                    // ChromeVox) won't read the answers as distinct items;
+                    // if 2 and 4 were both correct, then it would read them
+                    // concatenated as "twenty-four".
+                    display: inline-block;
+                }
 
-            .perseus-possible-answer:not(:first-child):before {
-                // TODO(johnsullivan): Figure out a better way to do this list
-                // joining.
-                content: "or";
-                padding: 0 5px;
-                color: rgb(18, 18, 18);
+                dt {
+                    padding: 0 5px 0 13px;
+                    color: rgb(18, 18, 18);
+                    text-transform: uppercase;
+                }
+
+                dt::after {
+                    content: ":";
+                }
+
+                dd:not(:last-child)::after {
+                    // TODO(johnsullivan): Figure out a better way to do this list
+                    // joining.
+                    // TODO(mattdr): Joining in CSS makes semantic sense here
+                    // (they're definition list entries that we happen to be
+                    // rendering as a line of text joined by "or"), but CSS is
+                    // more difficult to internationalize. SAT is English-only
+                    // for now, though.
+                    content: "or";
+                    padding: 0 5px;
+                    color: rgb(18, 18, 18);
+                }
             }
         }
 
