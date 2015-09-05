@@ -327,7 +327,12 @@ var BaseRadio = React.createClass({
         // onCheckedChange reconstructs the new choices to send to
         // this.props.onChange
         this.props.onCheckedChange(newChecked);
-    }
+    },
+
+    focus: function(i) {
+        this.refs["radio" + (i || 0)].getDOMNode().focus();
+        return true;
+     }
 });
 
 var Radio = React.createClass({
