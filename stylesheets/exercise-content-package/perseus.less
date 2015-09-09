@@ -613,7 +613,9 @@
         width: @satContentWidth;
 
         .perseus-input-with-answer-blurb {
-            > span {
+            // numeric-inputs widgets use labels whereas input-number widgets
+            // use spans.
+            > span, > label {
                 display: inline-block;
             }
 
@@ -623,6 +625,7 @@
 
             .perseus-possible-answers {
                 color: rgb(0, 153, 0);
+                display: inline-block;
                 padding-right: 4px;
 
                 dt, dd {
