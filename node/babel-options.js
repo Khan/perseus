@@ -12,6 +12,7 @@ module.exports = {
         'es6.properties.shorthand',
         'es6.templateLiterals',
         'es6.spread',
+        'es6.constants',
         'es7.objectRestSpread',
         'react',
         'react.displayName',
