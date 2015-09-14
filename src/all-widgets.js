@@ -24,6 +24,7 @@ _.each([
     require("./widgets/matrix.jsx"),
     require("./widgets/matcher.jsx"),
     require("./widgets/measurer.jsx"),
+    require("./widgets/molecule.jsx"),
     require("./widgets/number-line.jsx"),
     require("./widgets/numeric-input.jsx"),
     require("./widgets/orderer.jsx"),
