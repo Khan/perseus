@@ -82,6 +82,12 @@
         </td>
     </tr>
     <tr>
+        <td>相關練習題：</td>
+        <td>
+            <textarea rows="3" cols="20" id='related_exercise'></textarea>
+        </td>
+    </tr>
+    <tr>
         <td>下架時間：</td>
         <td>
             <input id='expire_date' placeholder='範例格式：2025/12/31'></input>(若不限定下架時間則不用填)
@@ -311,6 +317,7 @@ $('#save').on('click',function(e){
                 return;
             }
             related_video = $('textarea#related_video').val();
+            related_exercise = $('textarea#related_exercise').val();
             expire_date = $('input#expire_date').val();
             question = JSON.stringify(editor);
             host_name = question_dic.host_name;
@@ -321,6 +328,7 @@ $('#save').on('click',function(e){
                     'level':level,
                     'cover_range':cover_range,
                     'related_video':related_video,
+                    'related_exercise':related_exercise,
                     'expire_date':expire_date,
                     'can_manage_all_questions':question_dic.can_manage_all_questions,
                     'secret':question_dic.secret,
@@ -350,7 +358,8 @@ function getQuestion(data, func){
             'source': '',
             'level': 1,
             'cover_range': ['範圍為必填'],
-            'related_video': []
+            'related_video': [],
+            'related_exercise': []
         };
         $.extend(default_question_dic, init_data);
         question_dic = default_question_dic;
@@ -416,12 +425,15 @@ function renderQuestionInfo(question_dic) {
     else {
         $('select#is_hidden').val('False');
     }
+    question_dic.related_exercise = question_dic.related_exercise || [];  
+    // this line can be removed when we make sure that the get 'dada' has related_exercise attribute
     
     $('input#subject').val(question_dic.subject);
     $('input#source').val(question_dic.source);
     $('select#level').val(question_dic.level);
     $('textarea#cover_range').val(question_dic.cover_range);
     $('textarea#related_video').val(question_dic.related_video);
+    $('textarea#related_exercise').val(question_dic.related_exercise);
     $('input#expire_date').val(question_dic.expire_date);
 };
 
