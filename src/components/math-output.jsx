@@ -11,6 +11,7 @@ var MathOutput = React.createClass({
             React.PropTypes.number
         ]),
         className: React.PropTypes.string,
+        labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func
     },
@@ -60,6 +61,7 @@ var MathOutput = React.createClass({
 
         return <span ref="input"
                 className={this._getInputClassName()}
+                aria-label={this.props.labelText}
                 onMouseDown={this.focus}
                 onTouchStart={this.focus}>
             <div style={divStyle}>

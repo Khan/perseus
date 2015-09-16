@@ -122,33 +122,30 @@ var NumericInput = React.createClass({
             rubric && !correct && this.props.currentValue;
         classes[ApiClassNames.UNANSWERED] = rubric && !this.props.currentValue;
 
+        var labelText = this.props.labelText;
+        if (labelText == null || labelText === "") {
+            labelText = $._("Your answer:");
+        }
+
         var input = <InputWithExamples
             ref="input"
             value={this.props.currentValue}
             onChange={this.handleChange}
             className={classNames(classes)}
+            labelText={labelText}
             type={this._getInputType()}
             examples={this.examples()}
             shouldShowExamples={this.shouldShowExamples()}
             onFocus={this._handleFocus}
             onBlur={this._handleBlur} />;
 
-        var labelText = this.props.labelText;
-        if (labelText == null || labelText === "") {
-            labelText = $._("Your answer:");
-        }
-        var inputWithLabel = <label>
-            <span className="perseus-sr-only">{labelText}</span>
-            {input}
-        </label>;
-
         if (answerBlurb) {
             return <span className="perseus-input-with-answer-blurb">
-                {inputWithLabel}
+                {input}
                 {answerBlurb}
             </span>;
         } else {
-            return inputWithLabel;
+            return input;
         }
     },
 

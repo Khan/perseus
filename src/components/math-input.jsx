@@ -16,6 +16,7 @@ var MathInput = React.createClass({
         convertDotToTimes: PT.bool,
         buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
         buttonSets: TexButtons.buttonSetsType.isRequired,
+        labelText: React.PropTypes.string,
         onFocus: PT.func,
         onBlur: PT.func
     },
@@ -47,6 +48,7 @@ var MathInput = React.createClass({
             <div style={{display: 'inline-block'}}>
                 <span className={className}
                       ref="mathinput"
+                      aria-label={this.props.labelText}
                       onFocus={this.handleFocus}
                       onBlur={this.handleBlur} />
             </div>

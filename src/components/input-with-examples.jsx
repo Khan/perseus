@@ -26,6 +26,7 @@ var InputWithExamples = React.createClass({
         convertDotToTimes: React.PropTypes.bool,
         buttonSet: React.PropTypes.string,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
+        labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func,
     },
@@ -69,6 +70,7 @@ var InputWithExamples = React.createClass({
         var inputProps = {
             ref: "input",
             className: this._getInputClassName(),
+            labelText: this.props.labelText,
             value: this.props.value,
             onFocus: this._handleFocus,
             onBlur: this._handleBlur

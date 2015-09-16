@@ -3,6 +3,7 @@ var TextInput = React.createClass({
         value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
         className: React.PropTypes.string,
+        labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func
     },
@@ -17,6 +18,7 @@ var TextInput = React.createClass({
         return <input
             {...this.props}
             type="text"
+            aria-label={this.props.labelText}
             onChange={(e) => this.props.onChange(e.target.value)} />;
     },
 
