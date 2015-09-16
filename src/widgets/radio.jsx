@@ -18,6 +18,91 @@ var captureScratchpadTouchStart =
 
 var classNames = require("classnames");
 
+/**
+ * A radio button that can be unchecked by clicking it again.
+ *
+ * This component behaves much like a checkbox in that when you click it again
+ * (or hit space bar or select it in some other way), it will become unchecked.
+ * (Hopefully) it behaves exactly like a radio button in every other way though
+ * (arrow keys can still be used to select it within a group for example).
+ *
+ * Here's a summary of which of our event handlers fire for each way to select
+ * or deselect the button:
+ *
+ * - Clicking a button: handleClick, handleChange
+ * - Pressing spacebar with button focussed: handleKeyDown, handleKeyUp (we
+ *   suppress the default behavior of some browsers to synthesize a click event
+ *   here).
+ * - When radio button A is selected, pressing down arrow to select B:
+ *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
+ * - Clicking with mac screenreader: handleClick, handleChange
+ */
+var ToggleableRadioButton = React.createClass({
+    propTypes: {
+        // A function that will be called whenever the radio button is checked
+        // or unchecked. It's possible for this to be called twice for a single
+        // checking or unchecking.
+        onChecked: React.PropTypes.func.isRequired,
+
+        // Whether the radio button should be checked or unchecked (this is a
+        // controlled component).
+        checked: React.PropTypes.bool.isRequired,
+    },
+
+    handleClick: function(event) {
+        this.props.onChecked(!this.props.checked);
+
+        // NOTE(johnsullivan): Preventing default would make sense to do here
+        //     because we're fully controlling the state of the check box and
+        //     don't really want it to be (un)checked accidently. React
+        //     requires that we *don't* call preventDefault from the onClick or
+        //     onChecked handlers of a controlled component though.
+    },
+
+    handleKeyUp: function(event) {
+        // Make hitting the spacebar with the element selected equivalent to
+        // clicking it. Some browsers do this as part of the radio button's
+        // default behavior, but since some browsers don't we normalize the
+        // behavior here.
+        if (event.key === " ") {
+            this.props.onChecked(!this.props.checked);
+            event.preventDefault();
+        }
+    },
+
+    handleChange: function(event) {
+        // If the checkbox is going from unchecked to checked, we'll handle it
+        // here.
+        // NOTE(johnsullivan): The onClick/onKeyUp handler most likely *also*
+        //     handled this, but we're being defensive against browsers/devices
+        //     that might not call those handlers like we'd expect. It's
+        //     unclear to me whether this is strictly necessary.
+        if (!this.props.checked && event.target.checked) {
+            this.props.onChecked(true);
+        }
+    },
+
+    handleKeyDown: function(event) {
+        // This is necessary in order to prevent IE9 from creating a duplicate
+        // click event on the radio button when the space bar is hit.
+        if (event.key === " ") {
+            event.preventDefault();
+        }
+    },
+
+    render: function() {
+        var inputProps = _.extend({}, this.props, {
+            type: "radio",
+            onChange: this.handleChange,
+            onClick: this.handleClick,
+            onKeyDown: this.handleKeyDown,
+            onKeyUp: this.handleKeyUp,
+        });
+
+        return <input {...inputProps} />;
+    },
+});
+
 var Choice = React.createClass({
     propTypes: {
         checked: React.PropTypes.bool,
@@ -28,7 +113,8 @@ var Choice = React.createClass({
         groupName: React.PropTypes.string,
         showClue: React.PropTypes.bool,
         type: React.PropTypes.string,
-        onChecked: React.PropTypes.func,
+        onChecked: React.PropTypes.func.isRequired,
+        deselectEnabled: React.PropTypes.bool,
         // This indicates the position of the choice relative to others
         // (so that we can display a nice little (A), (B), etc. next to it)
         pos: React.PropTypes.number
@@ -78,19 +164,35 @@ var Choice = React.createClass({
 
         var className = classNames(this.props.className, "checkbox-label");
 
+        // There's two different input components we could use (the builtin
+        // input component, or the ToggleableRadioButton component). These are
+        // the props that we will pass to either.
+        var commonInputProps = {
+            type: this.props.type,
+            name: this.props.groupName,
+            checked: this.props.checked,
+            disabled: this.props.disabled,
+        };
+
+        var input = null;
+        if (this.props.type === "radio" && this.props.deselectEnabled) {
+            // This is a special radio button that allows a user to deselect
+            // it by merely clicking/selecting it again.
+            input = (
+                <ToggleableRadioButton
+                    onChecked={this.props.onChecked}
+                    {...commonInputProps} />);
+        } else {
+            input = (
+                <input
+                    onChange={(event) => {
+                        this.props.onChecked(event.target.checked);
+                    }}
+                    {...commonInputProps} />);
+        }
+
         return <label className={className}>
-            <input
-                type={this.props.type}
-                name={this.props.groupName}
-                checked={this.props.checked}
-                disabled={this.props.disabled}
-                onClick={(e) => {
-                    // Avoid sending this to the parent
-                    e.stopPropagation();
-                }}
-                onChange={(e) => {
-                    this.props.onChecked(e.target.checked);
-                }} />
+            {input}
             <div className="description">
                 <div className="checkbox-and-option">
                     <span className="checkbox">
@@ -268,6 +370,7 @@ var BaseRadio = React.createClass({
                         showClue: reviewModeClues,
                         type: inputType,
                         pos: i,
+                        deselectEnabled: this.props.deselectEnabled,
                         onChecked: (checked) => {
                             this.checkOption(i, checked);
                         }
