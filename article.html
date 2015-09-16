@@ -151,7 +151,6 @@ Perseus.init({skipMathJax: false}).then(function() {
 
     var editorProps = {
         json: content,
-        developerMode: true,
         imageUploader: function(image, callback) {
             _.delay(callback, 1000, "http://fake.image.url");
         },

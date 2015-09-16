@@ -6,7 +6,6 @@ var ArticleRenderer = require("./article-renderer.jsx");
 var Editor = require("./editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var JsonEditor = require("./json-editor.jsx");
-var Renderer = require("./renderer.jsx");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -41,7 +40,6 @@ var ArticleEditor = React.createClass({
             React.PropTypes.arrayOf(rendererProps)
         ]),
         apiOptions: React.PropTypes.object,
-        developerMode: React.PropTypes.bool,
         enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
         onChange: React.PropTypes.func.isRequired,
@@ -49,7 +47,6 @@ var ArticleEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            developerMode: false,
             json: [{}],
             enabledFeatures: {
                 toolTipFormats: true,
@@ -75,12 +72,14 @@ var ArticleEditor = React.createClass({
                             onChange={this._changeMode}>
                         <option value="edit">Edit</option>
                         <option value="preview">Preview</option>
-                        {this.props.developerMode &&
-                            <option value="json">
-                                Dev-only JSON
-                            </option>
-                        }
+                        <option value="json">Developer JSON</option>
                     </select>
+                    {(this.state.mode === "json") &&
+                        <span style={{marginLeft: 10}}>
+                            Warning: Editing in this mode can lead to broken
+                            articles.
+                        </span>
+                    }
                 </label>
             </div>
 
@@ -92,7 +91,7 @@ var ArticleEditor = React.createClass({
                 this._renderPreviewMode()
             }
 
-            {(this.props.developerMode && this.state.mode === "json") &&
+            {(this.state.mode === "json") &&
                 <div>
                     <JsonEditor
                         multiLine={true}
