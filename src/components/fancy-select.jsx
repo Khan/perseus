@@ -16,6 +16,7 @@ var classNames = require("classnames");
 var React = require("react");
 
 var DROPDOWN_OFFSET = 76;
+var ITEM_HEIGHT = 48;
 
 var FancyOption = React.createClass({
     render: function() {
@@ -47,7 +48,8 @@ var FancySelect = React.createClass({
             // when the element loads :(.
             closed: false,
             // Used to namespace $(document) event handlers
-            selectorNamespace: _.uniqueId("fancy")
+            selectorNamespace: _.uniqueId("fancy"),
+            nodeOffset: 0,
         };
     },
 
@@ -124,7 +126,7 @@ var FancySelect = React.createClass({
             var translate;
             var transition;
             if (this.state.active) {
-                var offset = DROPDOWN_OFFSET * i;
+                var offset = DROPDOWN_OFFSET * i + this.state.nodeOffset;
                 translate = "translate3d(0, " + offset + "px, 0)";
                 transition = "0.35s ease-in";
             } else {
@@ -160,8 +162,10 @@ var FancySelect = React.createClass({
         });
 
         var height = DROPDOWN_OFFSET * childCount;
+        var clipOffset = this.state.active ? this.state.nodeOffset : 0;
         var style = {
-            clip: "rect(0, auto, " + height + "px, 0)"
+            clip: "rect(" + clipOffset + "px, auto, " + height + "px, 0)",
+            WebkitTransition: ".35s ease-in",
         };
 
         return <div className={this.props.className}>
@@ -177,6 +181,7 @@ var FancySelect = React.createClass({
     _swapActive: function() {
         var active = !this.state.active;
         var closed = !active;
+        var nodeOffset = 0;
 
         // Prepare to detect clicks outside of the dropdown
         if (active) {
@@ -185,9 +190,25 @@ var FancySelect = React.createClass({
             this._unbindClickHandler();
         }
 
+        // We only need to know the position on screen if it's opening
+        // TODO(jared): it could be useful to recalculate this when the device
+        // is rotated. Maybe "onorientationchange"? Not sure if that is fired
+        // in a webview though.
+        if (active) {
+          var nodeBox = this.getDOMNode().getBoundingClientRect();
+          var distToBottom = window.innerHeight - nodeBox.bottom;
+          // One of the children is the placeholder
+          var numOptions = React.Children.count(this.props.children) - 1;
+          var overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
+          if (overflow > 0) {
+            nodeOffset = -overflow;
+          }
+        }
+
         this.setState({
             active: active,
-            closed: closed
+            closed: closed,
+            nodeOffset: nodeOffset,
         });
     },
 
