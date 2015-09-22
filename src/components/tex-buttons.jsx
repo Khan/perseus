@@ -82,7 +82,16 @@ var buttonSets = {
 
     logarithms: [
         () => [<TeX key="log">\log</TeX>, "\\log"],
-        () => [<TeX key="ln">\ln</TeX>, "\\ln"]
+        () => [<TeX key="ln">\ln</TeX>, "\\ln"],
+        () => [
+            <TeX key="log_b">\log_b</TeX>,
+            input => {
+                input.typedText("log_");
+                input.keystroke("Right");
+                input.typedText("(");
+                input.keystroke("Left");
+                input.keystroke("Left");
+            }],
     ],
 
     "basic relations": [
