@@ -10,6 +10,7 @@ var defaultExplanationProps = {
     showPrompt: "Explain",
     hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
+    widgets: {},
 };
 
 var Explanation = React.createClass({
@@ -19,6 +20,7 @@ var Explanation = React.createClass({
         showPrompt: React.PropTypes.string,
         hidePrompt: React.PropTypes.string,
         explanation: React.PropTypes.string,
+        widgets: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -84,9 +86,11 @@ var Explanation = React.createClass({
             </a>
             <div className="perseus-widget-explanation-content" style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
-                    overflow: "hidden"
+                    overflow: this.state.expanded ? "visible" : "hidden"
                 }} ref="content">
-                <Renderer content={this.props.explanation} />
+                <Renderer
+                    content={this.props.explanation}
+                    widgets={this.props.widgets} />
             </div>
         </div>;
     },
@@ -122,6 +126,7 @@ var ExplanationEditor = React.createClass({
         showPrompt: React.PropTypes.string,
         hidePrompt: React.PropTypes.string,
         explanation: React.PropTypes.string,
+        widgets: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -148,10 +153,19 @@ var ExplanationEditor = React.createClass({
             <div className="perseus-widget-row">
                 <Editor
                     content={this.props.explanation}
+                    widgets={this.props.widgets}
+                    widgetEnabled={true}
+                    immutableWidgets={false}
                     onChange={(props) => {
-                        this.change("explanation", props.content);
-                    }}
-                    widgetEnabled={false} />
+                        var newProps = {};
+                        if (_.has(props, "content")) {
+                            newProps.explanation = props.content;
+                        }
+                        if (_.has(props, "widgets")) {
+                            newProps.widgets = props.widgets;
+                        }
+                        this.change(newProps);
+                    }} />
             </div>
         </div>;
     }
