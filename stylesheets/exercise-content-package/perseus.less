@@ -96,16 +96,19 @@
     }
 
     .paragraph > ul:not(.perseus-widget-radio) {
+        margin: -11px 0px 22px 0px;  // first-level lists need padding
+    }
+
+    .paragraph ul:not(.perseus-widget-radio) {
         font-size: 14px;
-        margin: -11px 0px 22px 0px;
         padding-left: 35px;
     }
 
-    .paragraph > ul:not(.perseus-widget-radio) > li {
+    .paragraph ul:not(.perseus-widget-radio) li {
         list-style-type: disc;
     }
 
-    .paragraph > ol {
+    .paragraph ol {
         list-style: decimal;
         padding-left: 2em;
     }
