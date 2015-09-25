@@ -49,6 +49,28 @@ var NOT_SPECIFIED_WARNING = ix => {
     return `mind filling in answer ${ix}? (the blank one)`;
 };
 
+var insertBraces = value => {
+    // HACK(alex): Make sure that all LaTeX super/subscripts are wrapped
+    // in curly braces to avoid the mismatch between KAS and LaTeX sup/sub
+    // parsing.
+    //
+    // What exactly is this mismatch? Due to its heritage of parsing plain
+    // text math from <OldExpression />, KAS parses "x^12" as x^(12).
+    // This is both generally what the user expects to happen, and is
+    // consistent with other computer algebra systems. It is NOT
+    // consistent with LaTeX however, where x^12 is equivalent to x^{1}2.
+    //
+    // Since the only LaTeX we parse comes from MathQuill, this wouldn't
+    // be a problem if MathQuill just always gave us the latter version
+    // (with explicit braces). However, instead it always gives the former.
+    // This behavior is baked in pretty deep; my naive attempts at changing
+    // it triggered all sorts of confusing errors. So instead we just make
+    // sure to add in any missing braces before grading MathQuill input.
+    //
+    // TODO(alex): Properly hack MathQuill to always use explicit braces.
+    return value.replace(/([_^])([^{])/g, "$1{$2}");
+};
+
 // The new, MathQuill input expression widget
 var Expression = React.createClass({
     mixins: [Changeable],
@@ -90,7 +112,7 @@ var Expression = React.createClass({
         if (window.icu && window.icu.getDecimalFormatSymbols) {
             _.extend(options, window.icu.getDecimalFormatSymbols());
         }
-        return KAS.parse(value, options);
+        return KAS.parse(insertBraces(value), options);
     },
 
     render: function() {
@@ -245,25 +267,7 @@ var Expression = React.createClass({
     },
 
     getUserInput: function() {
-        // HACK(alex): Make sure that all LaTeX super/subscripts are wrapped
-        // in curly braces to avoid the mismatch between KAS and LaTeX sup/sub
-        // parsing.
-        // 
-        // What exactly is this mismatch? Due to its heritage of parsing plain
-        // text math from <OldExpression />, KAS parses "x^12" as x^(12).
-        // This is both generally what the user expects to happen, and is
-        // consistent with other computer algebra systems. It is NOT
-        // consistent with LaTeX however, where x^12 is equivalent to x^{1}2.
-        // 
-        // Since the only LaTeX we parse comes from MathQuill, this wouldn't
-        // be a problem if MathQuill just always gave us the latter version
-        // (with explicit braces). However, instead it always gives the former.
-        // This behavior is baked in pretty deep; my naive attempts at changing
-        // it triggered all sorts of confusing errors. So instead we just make
-        // sure to add in any missing braces before grading MathQuill input.
-        // 
-        // TODO(alex): Properly hack MathQuill to always use explicit braces.
-        return this.props.value.replace(/([_^])([^{])/g, "$1{$2}");
+        return insertBraces(this.props.value);
     },
 
     simpleValidate: function(rubric, onInputError) {
