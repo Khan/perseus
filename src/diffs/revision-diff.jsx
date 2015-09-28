@@ -1,5 +1,6 @@
 // Responsible for combining the text diffs from text-diff and the widget
 // diffs from widget-differ.
+var React = require("react");
 
 var TextDiff = require("./text-diff.jsx");
 var WidgetDiff = require("./widget-diff.jsx");

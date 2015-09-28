@@ -3,8 +3,9 @@
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
 // value?
 
-var _ = require("underscore");
 var lens = require("../../hubble/index.js");
+var React = require("react");
+var _ = require("underscore");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;

@@ -1,3 +1,5 @@
+var React = require("react");
+
 var assert = require("assert");
 var Perseus = require("../perseus.js");
 var Renderer = Perseus.Renderer;

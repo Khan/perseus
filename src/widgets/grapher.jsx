@@ -1,3 +1,4 @@
+var React = require("react");
 var _ = require("underscore");
 
 var ButtonGroup      = require("react-components/button-group.jsx");

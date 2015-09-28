@@ -1,4 +1,5 @@
 var assert = require("assert");
+var React = require("react");
 var _ = require("underscore");
 
 var PassageMarkdown = require("../passage-markdown.jsx");

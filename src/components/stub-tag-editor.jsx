@@ -11,6 +11,7 @@
  * It also gives a nicer interface for the group metadata editor
  * in local test.html mode.
  */
+var React = require("react");
 
 var TextListEditor = require("./text-list-editor.jsx");
 var EMPTY_ARRAY = [];

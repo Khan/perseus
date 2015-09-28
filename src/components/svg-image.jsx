@@ -1,5 +1,6 @@
-var _ = require("underscore");
 var classNames = require("classnames");
+var React = require("react");
+var _ = require("underscore");
 
 var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 var Graphie = require("../components/graphie.jsx");
@@ -115,7 +116,6 @@ if (shouldRenderJipt()) {
     KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
         var index = $(node).data("jipt-label-index");
         if (node && typeof index !== "undefined") {
-            debugger;
             var {label, useMath} = jiptLabels[index];
 
             label.text("");
@@ -129,7 +129,9 @@ if (shouldRenderJipt()) {
             if (useMath) {
                 var mathRegex = /^\$(.*)\$$/;
                 var match = text.match(mathRegex);
-                var mathText = match ? match[1] : "\\color{red}{\\text{Invalid Math}}";
+                var mathText = match ?
+                        match[1] :
+                        "\\color{red}{\\text{Invalid Math}}";
                 label.processMath(mathText, true);
             } else {
                 label.processText(text);
@@ -509,8 +511,9 @@ var SvgImage = React.createClass({
                 );
 
                 // Convert absolute positioning css from pixels to percentages
-                // TODO(alex): Dynamically resize font-size as well. This almost
-                // certainly means listening to throttled window.resize events.
+                // TODO(alex): Dynamically resize font-size as well. This
+                // almost certainly means listening to throttled window.resize
+                // events.
                 var position = label.position();
                 var height = this.props.height * this.props.scale;
                 var width = this.props.width * this.props.scale;

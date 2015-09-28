@@ -1,3 +1,5 @@
+var React = require("react");
+
 var JsonEditor = React.createClass({
 
     getInitialState: function() {

@@ -1,4 +1,5 @@
 var classNames = require("classnames");
+var React = require("react");
 
 var diff = require("../../lib/jsdiff");
 var splitDiff = require("./split-diff.jsx");

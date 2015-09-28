@@ -1,4 +1,6 @@
 var classNames = require("classnames");
+var React = require("react");
+
 var performDiff = require("./widget-diff-performer.jsx");
 
 var indentationFromDepth = function(depth) {

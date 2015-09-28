@@ -1,9 +1,11 @@
+var React = require("react");
+var _ = require("underscore");
+
 var Changeable = require("../mixins/changeable.jsx");
 var Editor = require("../editor.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
-var _ = require("underscore");
 
 
 var defaultExplanationProps = {

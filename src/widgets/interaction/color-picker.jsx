@@ -1,4 +1,5 @@
 var ButtonGroup = require("react-components/button-group.jsx");
+var React = require("react");
 
 var ColorPicker = React.createClass({
     COLORS: [KhanUtil.BLACK, KhanUtil.BLUE, KhanUtil.GREEN, KhanUtil.PINK,

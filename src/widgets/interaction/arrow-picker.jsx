@@ -1,4 +1,5 @@
 var ButtonGroup = require("react-components/button-group.jsx");
+var React = require("react");
 
 var ArrowPicker = React.createClass({
     propTypes: {

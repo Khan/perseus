@@ -1,5 +1,6 @@
 var assert = require("assert");
 var nodeUtil = require("util");
+var React = require("react");
 var _ = require("underscore");
 
 var PerseusMarkdown = require("../perseus-markdown.jsx");

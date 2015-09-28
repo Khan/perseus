@@ -2,15 +2,14 @@
  * Creates and adds a polygon to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.
  */
+var kvector = require("kmath").vector;
+var _ = require("underscore");
 
 var MovablePolygonOptions = require("./movable-polygon-options.js");
 var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
-
-var _ = require("underscore");
-var kvector = require("kmath").vector;
 
 // State parameters that should be converted into an array of
 // functions

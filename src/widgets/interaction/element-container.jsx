@@ -1,3 +1,5 @@
+var React = require("react");
+
 var ElementContainer = React.createClass({
     propTypes: {
         initiallVisible: React.PropTypes.bool,

@@ -1,3 +1,4 @@
+var React = require("react");
 var SimpleMarkdown = require("simple-markdown");
 var _ = require("underscore");
 

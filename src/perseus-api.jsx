@@ -23,6 +23,7 @@
  * These are css class names that will continue to preserve their
  * semantic meaning across the same perseus api major version.
  */
+var React = require("react");
 
 var StubTagEditor = require("./components/stub-tag-editor.jsx");
 

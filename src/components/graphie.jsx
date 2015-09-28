@@ -1,4 +1,6 @@
+var React = require("react");
 var _ = require("underscore");
+
 var GraphieClasses = require("./graphie-classes.jsx");
 var Movables = require("./graphie-movables.jsx");
 

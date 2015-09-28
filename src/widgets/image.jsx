@@ -1,4 +1,6 @@
+var React = require("react");
 var _ = require("underscore");
+
 var Util = require("../util.js");
 
 var BlurInput    = require("react-components/blur-input.jsx");

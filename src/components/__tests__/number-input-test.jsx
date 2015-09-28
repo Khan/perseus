@@ -1,4 +1,5 @@
 var assert = require("assert");
+var React = require("react");
 
 var NumberInput = require("../number-input.jsx");
 var TestUtils = React.addons.TestUtils;
