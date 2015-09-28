@@ -1,4 +1,5 @@
 var React        = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -93,7 +94,7 @@ var Measurer = React.createClass({
     },
 
     setupGraphie: function() {
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
         var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
 

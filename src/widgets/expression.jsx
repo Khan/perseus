@@ -1,6 +1,7 @@
 var classNames = require("classnames");
 var InfoTip = require("react-components/info-tip.jsx");
 var React = require("react");
+var ReactDOM = require("react-dom");
 var SortableArea     = require("react-components/sortable.jsx");
 var Tooltip = require("react-components/tooltip.jsx");
 var _ = require("underscore");
@@ -17,7 +18,7 @@ var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
-var TeX = require("react-components/tex.jsx"); // OldExpression only
+var TeX = require("react-components/tex.jsx");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 
 var EnabledFeatures = require("../enabled-features.jsx");
@@ -493,7 +494,7 @@ var OldExpression = React.createClass({
             ERROR_MESSAGE
         );
         if (apiResult !== false) {
-            var $error = $(this.refs.error.getDOMNode());
+            var $error = $(ReactDOM.findDOMNode(this.refs.error));
             if (!$error.is(":visible")) {
                 $error.css({ top: 50, opacity: 0.1 }).show()
                     .animate({ top: 0, opacity: 1.0 }, 300);
@@ -504,7 +505,7 @@ var OldExpression = React.createClass({
     },
 
     hideError: function() {
-        var $error = $(this.refs.error.getDOMNode());
+        var $error = $(ReactDOM.findDOMNode(this.refs.error));
         if ($error.is(":visible")) {
             $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
                 $(this).hide();
@@ -518,7 +519,7 @@ var OldExpression = React.createClass({
      * appropriate...
      */
     handleKeyDown: function(event) {
-        var input = this.refs.input.getDOMNode();
+        var input = ReactDOM.findDOMNode(this.refs.input);
         var text = input.value;
 
         var start = input.selectionStart;
@@ -549,7 +550,7 @@ var OldExpression = React.createClass({
      * open paren '(' instead of keydown which gives 57, the code for '9').
      */
     handleKeyPress: function(event) {
-        var input = this.refs.input.getDOMNode();
+        var input = ReactDOM.findDOMNode(this.refs.input);
         var text = input.value;
 
         var start = input.selectionStart;

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -334,7 +335,7 @@ var NumberLine = React.createClass({
 
     getDOMNodeForPath: function(inputPath) {
         if (inputPath.length === 1) {
-            return this.refs[inputPath[0]].getDOMNode();
+            return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
         }
     },
 

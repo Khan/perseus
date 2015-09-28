@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Graph         = require("../components/graph.jsx");
@@ -378,7 +379,7 @@ var TransformOps = {
             this._getComponentAtPath(path).blur();
         },
         getDOMNodeForPath: function(path) {
-            return this._getComponentAtPath(path).getDOMNode();
+            return ReactDOM.findDOMNode(this._getComponentAtPath(path));
         },
         getGrammarTypeForPath: function(path) {
             return "number";

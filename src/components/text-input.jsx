@@ -1,5 +1,7 @@
 var React = require("react");
 
+var ReactDOM = require("react-dom");
+
 var TextInput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
@@ -25,31 +27,31 @@ var TextInput = React.createClass({
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        ReactDOM.findDOMNode(this).focus();
     },
 
     blur: function() {
-        this.getDOMNode().blur();
+        ReactDOM.findDOMNode(this).blur();
     },
 
     getValue: function() {
-        return this.getDOMNode().value;
+        return ReactDOM.findDOMNode(this).value;
     },
 
     getStringValue: function() {
-        return this.getDOMNode().value.toString();
+        return ReactDOM.findDOMNode(this).value.toString();
     },
 
     setSelectionRange: function(selectionStart, selectionEnd) {
-        this.getDOMNode().setSelectionRange(selectionStart, selectionEnd);
+        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
     },
 
     getSelectionStart: function() {
-        return this.getDOMNode().selectionStart;
+        return ReactDOM.findDOMNode(this).selectionStart;
     },
 
     getSelectionEnd: function() {
-        return this.getDOMNode().selectionEnd;
+        return ReactDOM.findDOMNode(this).selectionEnd;
     }
 
 });

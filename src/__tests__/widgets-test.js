@@ -1,5 +1,7 @@
 var React = require("react");
 
+var ReactDOM = require("react-dom");
+
 var fixture;
 
 function translateScore(guessAndScore) {
@@ -85,7 +87,7 @@ describe("widgets", function() {
     });
 
     xit("grades input-number", function() {
-        var component = React.render(Renderer({
+        var component = ReactDOM.render(Renderer({
             content: "[[☃ input-number 1]]",
             widgets: {
                 "input-number 1": {
@@ -114,7 +116,7 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple", function() {
-        var component = React.render(Renderer({
+        var component = ReactDOM.render(Renderer({
             "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
             "widgets": {
                 "input-number 1": {
@@ -159,7 +161,7 @@ describe("widgets", function() {
     });
 
     xit("grades widget input-number multiple simplify-enforced", 21, function() {
-        var component = React.render(Renderer({
+        var component = ReactDOM.render(Renderer({
             "content": "[[☃ input-number 1]]\n[[☃ input-number 2]]",
             "widgets": {
                 "input-number 1": {

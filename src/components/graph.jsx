@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Util = require("../util.js");
@@ -176,7 +177,7 @@ var Graph = React.createClass({
             return;
         }
 
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
         var labels = this.props.labels;
         var range = this.props.range;

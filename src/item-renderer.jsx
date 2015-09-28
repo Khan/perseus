@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
@@ -74,7 +75,7 @@ var ItemRenderer = React.createClass({
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
         // TODO(alpert): Figure out how to clean this up somehow
-        this.questionRenderer = React.render(
+        this.questionRenderer = ReactDOM.render(
                 <Renderer
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithWidget}
@@ -87,7 +88,7 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.workAreaSelector));
 
-        this.answerAreaRenderer = React.render(
+        this.answerAreaRenderer = ReactDOM.render(
                 <AnswerAreaRenderer
                     type={this.props.item.answerArea.type}
                     options={this.props.item.answerArea.options}
@@ -102,7 +103,7 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.solutionAreaSelector));
 
-        this.hintsRenderer = React.render(
+        this.hintsRenderer = ReactDOM.render(
                 <HintsRenderer
                     hints={this.props.item.hints}
                     hintsVisible={this.state.hintsVisible}
@@ -260,11 +261,11 @@ var ItemRenderer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        React.unmountComponentAtNode(
+        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
-        React.unmountComponentAtNode(
+        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.solutionAreaSelector));
-        React.unmountComponentAtNode(
+        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.hintsAreaSelector));
     },
 

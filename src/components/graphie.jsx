@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var GraphieClasses = require("./graphie-classes.jsx");
@@ -116,7 +117,7 @@ var Graphie = React.createClass({
     _setupGraphie: function() {
         this._removeMovables();
 
-        var graphieDiv = this.refs.graphieDiv.getDOMNode();
+        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
         var graphie = this._graphie = createGraphie(graphieDiv);
 

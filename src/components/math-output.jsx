@@ -1,4 +1,5 @@
 var React         = require("react");
+var ReactDOM = require("react-dom");
 var TeX           = require("react-components/tex.jsx");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var Tooltip       = require("react-components/tooltip.jsx");
@@ -99,7 +100,7 @@ var MathOutput = React.createClass({
     _bindBlurHandler: function() {
         $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
-            var $closestWidget = $(e.target).closest(this.getDOMNode());
+            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(this));
             if (!$closestWidget.length) {
                 this.blur();
             }

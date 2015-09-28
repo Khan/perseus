@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var HintRenderer = require("./hint-renderer.jsx");
@@ -47,7 +48,7 @@ var HintsRenderer = React.createClass({
         // When a new hint is displayed we immediately focus it
         if (prevProps.hintsVisible < this.props.hintsVisible) {
             var pos = this.props.hintsVisible - 1;
-            React.findDOMNode(this.refs["hintRenderer" + pos]).focus();
+            ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus();
         }
     },
 

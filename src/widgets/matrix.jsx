@@ -1,5 +1,6 @@
 var classNames = require("classnames");
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -302,7 +303,7 @@ var Matrix = React.createClass({
 
     getDOMNodeForPath: function(inputPath) {
         var inputID = getRefForPath(inputPath);
-        return this.refs[inputID].getDOMNode();
+        return ReactDOM.findDOMNode(this.refs[inputID]);
     },
 
     setInputValue: function(inputPath, value, callback) {

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Editor = require("../editor.jsx");
@@ -182,7 +183,7 @@ var Table = React.createClass({
         if (this.props.apiOptions.staticRender) {
             inputComponent.focus();
         } else {
-            inputComponent.getDOMNode().focus();
+            ReactDOM.findDOMNode(inputComponent).focus();
         }
     },
 
@@ -192,13 +193,13 @@ var Table = React.createClass({
         if (this.props.apiOptions.staticRender) {
             inputComponent.blur();
         } else {
-            inputComponent.getDOMNode().blur();
+            ReactDOM.findDOMNode(inputComponent).blur();
         }
     },
 
     getDOMNodeForPath: function(path) {
         var inputID = getRefForPath(path);
-        return this.refs[inputID].getDOMNode();
+        return ReactDOM.findDOMNode(this.refs[inputID]);
     },
 
     getInputPaths: function() {
@@ -323,7 +324,7 @@ var TableEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.numberOfColumns.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.numberOfColumns).focus();
     },
 
     render: function() {

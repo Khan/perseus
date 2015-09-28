@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -433,7 +434,7 @@ var BaseRadio = React.createClass({
     },
 
     focus: function(i) {
-        this.refs["radio" + (i || 0)].getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs["radio" + (i || 0)]).focus();
         return true;
      }
 });

@@ -1,5 +1,6 @@
 var classNames = require("classnames");
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var BlurInput         = require("react-components/blur-input.jsx");
@@ -396,7 +397,7 @@ var InputNumberEditor = React.createClass({
     },
 
     focus: function() {
-        this.refs.input.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
         return true;
     },
 

@@ -1,5 +1,6 @@
 var InfoTip = require("react-components/info-tip.jsx");
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Renderer = require("../renderer.jsx");
@@ -138,7 +139,7 @@ var Card = React.createClass({
                              this.props.startOffset.top, 2)
                 )
             );
-            $(this.getDOMNode()).animate(
+            $(ReactDOM.findDOMNode(this)).animate(
                 this.props.animateTo, Math.max(ms, 1),
                 this.props.onAnimationEnd
             );
@@ -321,7 +322,7 @@ var Orderer = React.createClass({
     },
 
     onClick: function(type, index, loc, draggable) {
-        var $draggable = $(draggable.getDOMNode());
+        var $draggable = $(ReactDOM.findDOMNode(draggable));
         var list = this.state.current.slice();
 
         var opt;
@@ -388,20 +389,20 @@ var Orderer = React.createClass({
 
         // Find the position of the card we should animate to
         // TODO(alpert): Update mouse position once more before animating?
-        var offset = $(draggable.getDOMNode()).position();
+        var offset = $(ReactDOM.findDOMNode(draggable)).position();
         var finalOffset = null;
         if (inCardBank) {
             // If we're in the card bank, go through the options to find the
             // one with the same content
             _.each(this.props.options, function(opt, i) {
                 if (opt.content === this.state.dragContent) {
-                    var card = this.refs["bank" + i].getDOMNode();
+                    var card = ReactDOM.findDOMNode(this.refs["bank" + i]);
                     finalOffset = $(card).position();
                 }
             }, this);
         } else if (this.refs.placeholder != null) {
             // Otherwise, go to the position that the placeholder is at
-            finalOffset = $(this.refs.placeholder.getDOMNode()).position();
+            finalOffset = $(ReactDOM.findDOMNode(this.refs.placeholder)).position();
         }
 
         if (finalOffset == null) {
@@ -442,18 +443,18 @@ var Orderer = React.createClass({
     findCorrectIndex: function(draggable, list) {
         // Find the correct index for a card given the current cards.
         var isHorizontal = this.props.layout === HORIZONTAL,
-            $dragList = $(this.refs.dragList.getDOMNode()),
+            $dragList = $(ReactDOM.findDOMNode(this.refs.dragList)),
             leftEdge = $dragList.offset().left,
             topEdge = $dragList.offset().top,
-            midWidth = $(draggable.getDOMNode()).offset().left - leftEdge,
-            midHeight = $(draggable.getDOMNode()).offset().top - topEdge,
+            midWidth = $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge,
+            midHeight = $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge,
             index = 0,
             sumWidth = 0,
             sumHeight = 0;
 
         if (isHorizontal) {
             _.each(list, function(opt, i) {
-                var card = this.refs["sortable" + i].getDOMNode();
+                var card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
                 var outerWidth = $(card).outerWidth(true);
                 if (midWidth > sumWidth + outerWidth / 2) {
                     index += 1;
@@ -462,7 +463,7 @@ var Orderer = React.createClass({
             }, this);
         } else {
             _.each(list, function(opt, i) {
-                var card = this.refs["sortable" + i].getDOMNode();
+                var card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
                 var outerHeight = $(card).outerHeight(true);
                 if (midHeight > sumHeight + outerHeight / 2) {
                     index += 1;
@@ -480,14 +481,14 @@ var Orderer = React.createClass({
         }
 
         var isHorizontal = this.props.layout === HORIZONTAL,
-            $draggable = $(draggable.getDOMNode()),
-            $bank = $(this.refs.bank.getDOMNode()),
+            $draggable = $(ReactDOM.findDOMNode(draggable)),
+            $bank = $(ReactDOM.findDOMNode(this.refs.bank)),
             draggableOffset = $draggable.offset(),
             bankOffset = $bank.offset(),
             draggableHeight = $draggable.outerHeight(true),
             bankHeight = $bank.outerHeight(true),
             bankWidth = $bank.outerWidth(true),
-            dragList = this.refs.dragList.getDOMNode(),
+            dragList = ReactDOM.findDOMNode(this.refs.dragList),
             dragListWidth = $(dragList).width(),
             draggableWidth = $draggable.outerWidth(true);
 

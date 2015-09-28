@@ -2,6 +2,7 @@ var classNames = require("classnames");
 var FancySelect = require("../components/fancy-select.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var FancyOption = FancySelect.Option;
@@ -77,7 +78,7 @@ var Dropdown = React.createClass({
     },
 
     focus: function() {
-        this.getDOMNode().focus();
+        ReactDOM.findDOMNode(this).focus();
         return true;
     },
 
@@ -244,7 +245,7 @@ var DropdownEditor = React.createClass({
     },
 
     focus: function(i) {
-        this.refs["editor" + i].getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
         return true;
     }
 });

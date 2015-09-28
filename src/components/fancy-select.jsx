@@ -15,6 +15,8 @@
 var classNames = require("classnames");
 var React = require("react");
 
+var ReactDOM = require("react-dom");
+
 var DROPDOWN_OFFSET = 76;
 var ITEM_HEIGHT = 48;
 
@@ -216,7 +218,7 @@ var FancySelect = React.createClass({
         // Close the dropdown when the user clicks elsewhere
         $(document).on("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
-            var $this = $(this.getDOMNode());
+            var $this = $(ReactDOM.findDOMNode(this));
             var $closestWidget = $(e.target).closest($this);
             if (!$closestWidget.length) {
                 this._swapActive();

@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -117,7 +118,7 @@ var Passage = React.createClass({
     },
 
     _measureLines: function() {
-        var $renderer = $(this.refs.content.getDOMNode());
+        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
         var contentsHeight = $renderer.height();
         var lineHeight = parseInt($renderer.css("line-height"));
         var nLines = Math.round(contentsHeight / lineHeight);
@@ -204,7 +205,7 @@ var Passage = React.createClass({
             return null;
         }
 
-        var $ref = $(ref.getDOMNode());
+        var $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
         var $refText = $ref.next();
@@ -226,7 +227,7 @@ var Passage = React.createClass({
             return null;
         }
 
-        var $ref = $(ref.getDOMNode());
+        var $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
         var $refText = $ref.prev();
@@ -253,7 +254,7 @@ var Passage = React.createClass({
     },
 
     _convertPosToLineNumber: function(absoluteVPos) {
-        var $content= $(this.refs.content.getDOMNode());
+        var $content= $(ReactDOM.findDOMNode(this.refs.content));
         var relativeVPos = absoluteVPos - $content.offset().top;
         var lineHeight = parseInt($content.css("line-height"));
 

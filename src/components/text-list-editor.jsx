@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var textWidthCache = {};
@@ -87,11 +88,11 @@ var TextListEditor = React.createClass({
                     (index === 0 || items[focusIndex] !== "")) {
                 // ...except for the last one, iff it is the only empty
                 // input at the end.
-                this.refs["input_" + focusIndex].getDOMNode().focus();
+                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
             } else {
                 items.splice(index, 1);
                 this.setState({items: items}, function() {
-                    this.refs["input_" + focusIndex].getDOMNode().focus();
+                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
                 });                
             }
 
@@ -115,11 +116,11 @@ var TextListEditor = React.createClass({
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.
-                this.refs["input_" + focusIndex].getDOMNode().focus();
+                ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
             } else {
                 items.splice(focusIndex, 0, "");
                 this.setState({items: items}, function() {
-                    this.refs["input_" + focusIndex].getDOMNode().focus();
+                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
                 });
             }
         }

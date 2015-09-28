@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
@@ -150,7 +151,7 @@ var EditorPage = React.createClass({
                                "enabledFeatures")
         );
 
-        this.renderer = React.render(
+        this.renderer = ReactDOM.render(
             <ItemRenderer {...rendererConfig} />,
             this.rendererMountNode,
             cb);

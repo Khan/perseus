@@ -1,5 +1,6 @@
 var $ = require("jquery");
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 var classNames = require("classnames");
 
@@ -833,7 +834,7 @@ var Renderer = React.createClass({
     handleRender: function(prevProps) {
         var onRender = this.props.onRender;
         var oldOnRender = prevProps.onRender;
-        var $images = $(this.getDOMNode()).find("img");
+        var $images = $(ReactDOM.findDOMNode(this)).find("img");
 
         // Fire callback on image load...
         // TODO (jack): make this call happen exactly once through promises!
@@ -928,7 +929,7 @@ var Renderer = React.createClass({
         if (getNode) {
             return getNode(interWidgetPath);
         } else if (interWidgetPath.length === 0) {
-            return widget.getDOMNode();
+            return ReactDOM.findDOMNode(widget);
         }
     },
 

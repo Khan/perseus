@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Renderer = require("./renderer.jsx");
@@ -290,7 +291,7 @@ var AnswerAreaRenderer = React.createClass({
             if (getNode) {
                 return getNode(interWidgetPath);
             } else if (interWidgetPath.length === 0) {
-                return widget.getDOMNode();
+                return ReactDOM.findDOMNode(widget);
             }
         }
     },

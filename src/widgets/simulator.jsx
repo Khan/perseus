@@ -1,5 +1,6 @@
 var InfoTip = require("react-components/info-tip.jsx");
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
@@ -649,7 +650,7 @@ var Simulator = React.createClass({
     getDOMNodeForPath: function(path) {
         assert(path.length > 0);
         var inputID = _.head(path);
-        return this.refs[inputID].getDOMNode();
+        return ReactDOM.findDOMNode(this.refs[inputID]);
     },
 
     getGrammarTypeForPath: function(path) {

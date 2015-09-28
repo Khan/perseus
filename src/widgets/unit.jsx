@@ -5,6 +5,7 @@
 
 var lens = require("../../hubble/index.js");
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
@@ -80,7 +81,7 @@ var OldUnitInput = React.createClass({
             return;
         }
 
-        var $error = $(this.refs.error.getDOMNode());
+        var $error = $(ReactDOM.findDOMNode(this.refs.error));
         if (!$error.is(":visible")) {
             $error.css({ top: 50, opacity: 0.1 }).show()
                 .animate({ top: 0, opacity: 1.0 }, 300);
@@ -88,7 +89,7 @@ var OldUnitInput = React.createClass({
     },
 
     _hideError: function() {
-        var $error = $(this.refs.error.getDOMNode());
+        var $error = $(ReactDOM.findDOMNode(this.refs.error));
         if ($error.is(":visible")) {
             $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
                 $(this).hide();
@@ -140,7 +141,7 @@ var OldUnitInput = React.createClass({
     },
 
     focusInputPath: function(inputPath) {
-        this.refs.input.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.input).focus();
     },
 
     handleFocus: function() {
@@ -148,7 +149,7 @@ var OldUnitInput = React.createClass({
     },
 
     blurInputPath: function(inputPath) {
-        this.refs.input.getDOMNode().blur();
+        ReactDOM.findDOMNode(this.refs.input).blur();
     },
 
     setInputValue: function(path, newValue, cb) {
@@ -158,7 +159,7 @@ var OldUnitInput = React.createClass({
     },
 
     getDOMNodeForPath: function() {
-        return this.refs.input.getDOMNode();
+        return ReactDOM.findDOMNode(this.refs.input);
     },
 
     getGrammarTypeForPath: function(inputPath) {

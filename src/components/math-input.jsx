@@ -1,5 +1,6 @@
 var classNames = require("classnames");
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var TexButtons = require("./tex-buttons.jsx");
@@ -74,7 +75,7 @@ var MathInput = React.createClass({
     },
 
     handleMouseDown: function(event) {
-        var focused = this.getDOMNode().contains(event.target);
+        var focused = ReactDOM.findDOMNode(this).contains(event.target);
         this.mouseDown = focused;
         if (!focused) {
             this.setState({ focused: false });
@@ -135,7 +136,7 @@ var MathInput = React.createClass({
         // seeing that node for the first time, then returns the associated
         // MathQuill object for that node. It is stable - will always return
         // the same object when called on the same DOM node.
-        return MathQuill.MathField(this.refs.mathinput.getDOMNode(), options);
+        return MathQuill.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
     },
 
     componentWillUnmount: function() {
@@ -220,7 +221,7 @@ var MathInput = React.createClass({
                     // This handler is called when the user presses the enter
                     // key. Since this isn't an actual <input> element, we have
                     // to manually trigger the usually automatic form submit.
-                    $(this.refs.mathinput.getDOMNode()).submit();
+                    $(ReactDOM.findDOMNode(this.refs.mathinput)).submit();
                 },
                 upOutOf: (mathField) => {
                     // This handler is called when the user presses the up

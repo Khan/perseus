@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable  = require("../mixins/changeable.jsx");
@@ -462,7 +463,7 @@ var GraphSettings = React.createClass({
             }, this.changeGraph);
         };
 
-        var url = this.refs["bg-url"].getDOMNode().value;
+        var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 setUrl(url, width, height);

@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require("react-dom");
 var $ = require('jquery');
 var _ = require("underscore");
 
@@ -18,7 +19,7 @@ var widgetRegExp = "(\\[\\[\u2603 {id}\\]\\])";
 var rWidgetSplit = new RegExp(widgetRegExp.replace('{id}', '[a-z-]+ [0-9]+'),
                               'g');
 
-var shortcutRegexp = /^\[\[([a-z\-]+)$/; // like [[nu, [[int, etc
+var shortcutRegexp = /^\[\[([a-z\-]+)$/;// like [[nu, [[int, etc
 
 var ENDS_WITH_A_PARAGRAPH = /(?:\n{2,}|^\n*)$/;
 var TRAILING_NEWLINES = /(\n*)$/;
@@ -329,7 +330,7 @@ var Editor = React.createClass({
 
     _handleWidgetEditorRemove: function(id) {
         var re = new RegExp(widgetRegExp.replace('{id}', id), 'gm');
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
 
         this.props.onChange({content: textarea.value.replace(re, '')});
     },
@@ -521,14 +522,14 @@ var Editor = React.createClass({
         // setState
         this._sizeImages(this.props);
 
-        $(React.findDOMNode(this.refs.textarea))
+        $(ReactDOM.findDOMNode(this.refs.textarea))
             .on('copy cut', this._maybeCopyWidgets)
             .on('paste', this._maybePasteWidgets);
     },
 
     componentDidUpdate: function(prevProps) {
         // TODO(alpert): Maybe fix React so this isn't necessary
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         textarea.value = this.props.content;
 
         // This can't be in componentWillReceiveProps because that's happening
@@ -603,7 +604,7 @@ var Editor = React.createClass({
     },
 
     handleChange: function() {
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         this.props.onChange({content: textarea.value});
     },
 
@@ -611,7 +612,7 @@ var Editor = React.createClass({
         // Tab-completion of widgets. For example, to insert an image:
         // type `[[im`, then tab.
         if (e.key === "Tab") {
-            var textarea = this.refs.textarea.getDOMNode();
+            var textarea = ReactDOM.findDOMNode(this.refs.textarea);
 
             var word = Util.textarea.getWordBeforeCursor(textarea);
             var matches = word.string.toLowerCase().match(shortcutRegexp);
@@ -762,7 +763,7 @@ var Editor = React.createClass({
     },
 
     _addWidgetToContent: function(oldContent, cursorRange, widgetType) {
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
 
         // Note: we have to use _.map here instead of Array::map
         // because the results of a .match might be null if no
@@ -827,7 +828,7 @@ var Editor = React.createClass({
     },
 
     _addWidget: function(widgetType) {
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         this._addWidgetToContent(
             this.props.content,
             [textarea.selectionStart, textarea.selectionEnd],
@@ -945,12 +946,12 @@ var Editor = React.createClass({
     },
 
     focus: function() {
-        this.refs.textarea.getDOMNode().focus();
+        ReactDOM.findDOMNode(this.refs.textarea).focus();
     },
 
     focusAndMoveToEnd: function() {
         this.focus();
-        var textarea = this.refs.textarea.getDOMNode();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
         textarea.selectionStart = textarea.value.length;
         textarea.selectionEnd = textarea.value.length;
     }

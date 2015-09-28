@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
@@ -46,7 +47,7 @@ var Explanation = React.createClass({
     // know what to animate the height to/from when showing/hiding the
     // explanation.
     _updateHeight: function() {
-        contentElement = React.findDOMNode(this.refs.content);
+        contentElement = ReactDOM.findDOMNode(this.refs.content);
 
         // Add up the heights of all the the child nodes
         var contentHeight = Array.prototype.reduce.call(

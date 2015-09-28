@@ -5,6 +5,8 @@ var MathQuill = window.MathQuill;
 var Perseus = require("../../perseus.js");
 var React = require("react");
 
+var ReactDOM = require("react-dom");
+
 var TestUtils = React.addons.TestUtils;
 var delayedPromise = require("../../testutils/delayed-promise.jsx");
 
@@ -150,7 +152,7 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
 };
 
 var findMathQuill = function(renderer) {
-    var base = renderer.getDOMNode();
+    var base = ReactDOM.findDOMNode(renderer);
     var span = base.querySelector(".mq-editable-field");
     assert.notEqual(span, null);
     var mathQuillField = MathQuill.MathField(span);
@@ -159,7 +161,7 @@ var findMathQuill = function(renderer) {
 };
 
 var findMathQuillTextArea = function(renderer) {
-    var base = renderer.getDOMNode();
+    var base = ReactDOM.findDOMNode(renderer);
     var input = base.querySelector(".mq-textarea>textarea");
     assert.notEqual(input, null);
     return input;

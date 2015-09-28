@@ -1,4 +1,5 @@
 var React = require("react");
+var ReactDOM = require("react-dom");
 var InfoTip = require("react-components/info-tip.jsx");
 var BlurInput = require("react-components/blur-input.jsx");
 var _ = require("underscore");
@@ -107,7 +108,7 @@ var Plotter = React.createClass({
     setupGraphie: function(prevState) {
         var self = this;
         self.shouldSetupGraphie = false;
-        var graphieDiv = self.refs.graphieDiv.getDOMNode();
+        var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
         $(graphieDiv).empty();
         var graphie = KhanUtil.createGraphie(graphieDiv);
 
@@ -894,7 +895,7 @@ var PlotterEditor = React.createClass({
         }
 
         if (categories) {
-            this.refs.categories.getDOMNode().value = categories.join(", ");
+            ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
         }
     },
 
@@ -945,7 +946,7 @@ var PlotterEditor = React.createClass({
             starting: _.map(this.props.starting, scale)
         });
 
-        this.refs.maxY.getDOMNode().value = maxY;
+        ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
     },
 
     changeMax: function(e) {
@@ -983,7 +984,7 @@ var PlotterEditor = React.createClass({
 
         this.changeCategories(categories);
 
-        this.refs.categories.getDOMNode().value = categories.join(", ");
+        ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
     },
 
     serialize: function() {
