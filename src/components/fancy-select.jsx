@@ -14,7 +14,6 @@
 
 var classNames = require("classnames");
 var React = require("react");
-
 var ReactDOM = require("react-dom");
 
 var DROPDOWN_OFFSET = 76;
@@ -197,7 +196,7 @@ var FancySelect = React.createClass({
         // is rotated. Maybe "onorientationchange"? Not sure if that is fired
         // in a webview though.
         if (active) {
-          var nodeBox = this.getDOMNode().getBoundingClientRect();
+          var nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
           var distToBottom = window.innerHeight - nodeBox.bottom;
           // One of the children is the placeholder
           var numOptions = React.Children.count(this.props.children) - 1;
