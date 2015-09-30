@@ -109,6 +109,7 @@ require(["ke-deps.js"], function() {
 function initPerseus(Perseus) {
 
 window.Perseus = Perseus;
+window.ReactDOM = React.__internalReactDOM;
 
 var defaultContent = {
     "content": "Hi I'm a particle!",
@@ -176,7 +177,7 @@ Perseus.init({skipMathJax: false}).then(function() {
     };
 
     var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
-    editor = React.render(
+    editor = ReactDOM.render(
         StatefulEditorPage(editorProps, null),
         document.getElementById("perseus-container")
     );

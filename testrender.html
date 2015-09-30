@@ -99,6 +99,9 @@ $('#score').on('click', function() {
 
 function initPerseus(Perseus) {
 
+window.Perseus = Perseus;
+window.ReactDOM = React.__internalReactDOM;
+
 var defaultQuestion = {
     "question": {
         "content": "",
@@ -144,7 +147,7 @@ var question = query.content ? JSON.parse(query.content) : defaultQuestion;
 Perseus.init({}).then(function() {
     var itemMountNode = document.createElement("div");
     var ItemRenderer = React.createFactory(Perseus.ItemRenderer);
-    window.itemRenderer = React.render(ItemRenderer({
+    window.itemRenderer = ReactDOM.render(ItemRenderer({
         item: question,
         problemNum: Math.floor(Math.random() * 50) + 1,
         initialHintsVisible: 0,

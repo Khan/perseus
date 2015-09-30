@@ -74,6 +74,9 @@ require(["ke-deps.js"], function() {
 
 function initPerseus(Perseus) {
 
+window.Perseus = Perseus;
+window.ReactDOM = React.__internalReactDOM;
+
 var seedContent = {
     "question": {
         "content": "**What kind of structure is highlighted in green in the diagram shown?**\n \n![](https://ka-perseus-graphie.s3.amazonaws.com/07dace481175322baa244b35d112968977d19da3.png)![](https://ka-perseus-graphie.s3.amazonaws.com/a10ab9f9b66982637bd1cf1e3cfe493562144e15.png)",
@@ -172,7 +175,7 @@ Perseus.init({}).then(function() {
     var itemMountNode = document.getElementById("diff");
 
     var RevisionDiff = React.createFactory(Perseus.RevisionDiff);
-    zk = React.render(RevisionDiff({
+    zk = ReactDOM.render(RevisionDiff({
         beforeItem: seedContent,
         afterItem: seedContent2
     }, null), itemMountNode);
@@ -187,7 +190,7 @@ var swapped = false;
 $("#swap").click(function() {
     var itemMountNode = document.getElementById("diff");
     var RevisionDiff = React.createFactory(Perseus.RevisionDiff);
-    zk = React.render(RevisionDiff({
+    zk = ReactDOM.render(RevisionDiff({
         beforeItem: seedContent,
         afterItem: swapped ? seedContent : seedContent2
     }, null), itemMountNode);
