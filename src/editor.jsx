@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require("react-dom");
+var ReactCreateFragment = require("react-addons-create-fragment");
 var $ = require('jquery');
 var _ = require("underscore");
 
@@ -467,7 +468,7 @@ var Editor = React.createClass({
                         {templatesDropDown}
                         {wordCountDisplay}
                     </div>
-                    {React.addons.createFragment(widgets)}
+                    {ReactCreateFragment(widgets)}
                 </div>;
                 // Prevent word count from being displayed elsewhere
                 wordCountDisplay = null;
