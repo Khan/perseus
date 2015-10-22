@@ -49,32 +49,32 @@ var answerTypes = {
 };
 
 var formExamples = {
-    "integer": function(options) { return $._("an integer, like $6$"); },
+    "integer": function(options) { return i18n._("an integer, like $6$"); },
     "proper": function(options) {
         if (options.simplify === "optional") {
-            return $._("a *proper* fraction, like $1/2$ or $6/10$");
+            return i18n._("a *proper* fraction, like $1/2$ or $6/10$");
         } else {
-            return $._("a *simplified proper* fraction, like $3/5$");
+            return i18n._("a *simplified proper* fraction, like $3/5$");
         }
     },
     "improper": function(options) {
         if (options.simplify === "optional") {
-            return $._("an *improper* fraction, like $10/7$ or $14/8$");
+            return i18n._("an *improper* fraction, like $10/7$ or $14/8$");
         } else {
-            return $._("a *simplified improper* fraction, like $7/4$");
+            return i18n._("a *simplified improper* fraction, like $7/4$");
         }
     },
     "mixed": function(options) {
-        return $._("a mixed number, like $1\\ 3/4$");
+        return i18n._("a mixed number, like $1\\ 3/4$");
     },
     "decimal": function(options) {
-        return $._("an *exact* decimal, like $0.75$");
+        return i18n._("an *exact* decimal, like $0.75$");
     },
     "percent": function(options) {
-        return $._("a percent, like $12.34\\%$");
+        return i18n._("a percent, like $12.34\\%$");
     },
     "pi": function(options) {
-        return $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+        return i18n._("a multiple of pi, like $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$");
     }
 };
@@ -225,7 +225,7 @@ var InputNumber = React.createClass({
             return formExamples[form](this.props);
         }, this);
 
-        return [$._("**Acceptable Formats**")].concat(examples);
+        return [i18n._("**Acceptable Formats**")].concat(examples);
     }
 });
 

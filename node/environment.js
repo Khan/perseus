@@ -17,7 +17,11 @@ common.updateGlobals();
 
 // KaTeX needs this, otherwise it throws errors and then we try to use MathJax,
 // which breaks everything
-global.document.compatMode = "CSS1Compat";
+Object.defineProperty(global.document, "compatMode", {
+    get: function() {
+        return "CSS1Compat";
+    }
+});
 global.katex = common.window.katex = require("../lib/katex/katex.js");
 
 global.KAS = {};

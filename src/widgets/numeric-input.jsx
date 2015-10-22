@@ -34,16 +34,16 @@ var answerFormButtons = [
 ];
 
 var formExamples = {
-    "integer": () => $._("an integer, like $6$"),
+    "integer": () => i18n._("an integer, like $6$"),
     "proper": (form) => form.simplify === "optional" ?
-        $._("a *proper* fraction, like $1/2$ or $6/10$") :
-        $._("a *simplified proper* fraction, like $3/5$"),
+        i18n._("a *proper* fraction, like $1/2$ or $6/10$") :
+        i18n._("a *simplified proper* fraction, like $3/5$"),
     "improper": (form) => form.simplify === "optional" ?
-        $._("an *improper* fraction, like $10/7$ or $14/8$") :
-        $._("a *simplified improper* fraction, like $7/4$"),
-    "mixed": () => $._("a mixed number, like $1\\ 3/4$"),
-    "decimal": () => $._("an *exact* decimal, like $0.75$"),
-    "pi": () => $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+        i18n._("an *improper* fraction, like $10/7$ or $14/8$") :
+        i18n._("a *simplified improper* fraction, like $7/4$"),
+    "mixed": () => i18n._("a mixed number, like $1\\ 3/4$"),
+    "decimal": () => i18n._("an *exact* decimal, like $0.75$"),
+    "pi": () => i18n._("a multiple of pi, like $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$")
 };
 
@@ -124,7 +124,7 @@ var NumericInput = React.createClass({
 
         var labelText = this.props.labelText;
         if (labelText == null || labelText === "") {
-            labelText = $._("Your answer:");
+            labelText = i18n._("Your answer:");
         }
 
         var input = <InputWithExamples

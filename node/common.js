@@ -11,7 +11,7 @@ var withNavigator = function(lambda) {
 
 // Fake being a web browser
 global.document = jsdom.jsdom();
-var window = global.window = document.parentWindow; // @Nolint
+var window = global.window = document.defaultView; // @Nolint
 
 // Mock out window.getSelection for react
 // TODO(jack): Remove this once

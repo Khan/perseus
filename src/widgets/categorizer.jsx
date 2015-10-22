@@ -131,7 +131,7 @@ _.extend(Categorizer, {
         if (!completed) {
             return {
                 type: "invalid",
-                message: $._("Make sure you select something for every row.")
+                message: i18n._("Make sure you select something for every row.")
             };
         }
         return {

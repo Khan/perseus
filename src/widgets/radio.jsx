@@ -143,24 +143,24 @@ var Choice = React.createClass({
             if (this.props.checked) {
                 if (typeof this.props.correct === "boolean") {
                     if (this.props.correct) {
-                        return $._("(Choice %(letter)s, Checked, Correct)",
+                        return i18n._("(Choice %(letter)s, Checked, Correct)",
                             {letter: letter});
                     } else {
-                        return $._("(Choice %(letter)s, Checked, Incorrect)",
+                        return i18n._("(Choice %(letter)s, Checked, Incorrect)",
                             {letter: letter});
                     }
                 }
 
-                return $._("(Choice %(letter)s, Checked)", {letter: letter});
+                return i18n._("(Choice %(letter)s, Checked)", {letter: letter});
 
             // If the option wasn't checked, but was correct, we need to tell
             // the user that this was, in fact, the correct answer.
             } else if (this.props.correct) {
-                return $._("(Choice %(letter)s, Correct Answer)",
+                return i18n._("(Choice %(letter)s, Correct Answer)",
                     {letter: letter});
             }
 
-            return $._("(Choice %(letter)s)", {letter: letter});
+            return i18n._("(Choice %(letter)s)", {letter: letter});
         };
 
         var className = classNames(this.props.className, "checkbox-label");
@@ -252,7 +252,7 @@ var ChoiceNoneAbove = React.createClass({
                 // is outputting "None of the above", that is okay.
                 <Renderer
                     key="noneOfTheAboveRenderer"
-                    content={$._("None of the above")} />
+                    content={i18n._("None of the above")} />
             ),
         });
 
@@ -292,7 +292,7 @@ var ChoiceEditor = React.createClass({
             ref={"clue-editor"}
             content={this.props.choice.clue || ""}
             widgetEnabled={false}
-            placeholder={$._(`Why is this choice ${checkedClass}?`)}
+            placeholder={i18n._(`Why is this choice ${checkedClass}?`)}
             onChange={this.props.onClueChange} />;
 
         var deleteLink = <a href="#"
@@ -455,10 +455,10 @@ var Radio = React.createClass({
 
         choices = _.map(choices, (choice, i) => {
             var content = (choice.isNoneOfTheAbove && !choice.content) ?
-                // we use $._ instead of $_ here because the content
+                // we use i18n._ instead of $_ here because the content
                 // sent to a renderer needs to be a string, not a react
                 // node (/renderable/fragment).
-                $._("None of the above") :
+                i18n._("None of the above") :
                 choice.content;
             return {
                 content: this._renderRenderer(content),
@@ -588,8 +588,8 @@ var Radio = React.createClass({
 
     enforceOrdering: function(choices) {
         var content = _.pluck(choices, "content");
-        if (_.isEqual(content, [$._("False"), $._("True")]) ||
-            _.isEqual(content, [$._("No"), $._("Yes")])) {
+        if (_.isEqual(content, [i18n._("False"), i18n._("True")]) ||
+            _.isEqual(content, [i18n._("No"), i18n._("Yes")])) {
             return ([choices[1]]).concat([choices[0]]);
         }
         return choices;
@@ -611,7 +611,7 @@ _.extend(Radio, {
         } else if (state.noneOfTheAboveSelected && numSelected > 1) {
             return {
                 type: "invalid",
-                message: $._("'None of the above' may not be selected " +
+                message: i18n._("'None of the above' may not be selected " +
                                     "when other answers are selected.")
              };
         } else {

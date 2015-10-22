@@ -25,7 +25,7 @@ var EnabledFeatures = require("../enabled-features.jsx");
 
 var lens = require("../../hubble/index.js");
 
-var ERROR_MESSAGE = $._("Sorry, I don't understand that!");
+var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 // TODON'T(emily): Don't delete these.
 var NO_ANSWERS_WARNING = [
@@ -626,26 +626,26 @@ var OldExpression = React.createClass({
     },
 
     examples: function() {
-        var mult = $._("For $2\\cdot2$, enter **2*2**");
+        var mult = i18n._("For $2\\cdot2$, enter **2*2**");
         if (this.props.times) {
             mult = mult.replace(/\\cdot/g, "\\times");
         }
 
         return [
-            $._("**Acceptable Formats**"),
+            i18n._("**Acceptable Formats**"),
             mult,
-            $._("For $3y$, enter **3y** or **3*y**"),
-            $._("For $\\dfrac{1}{x}$, enter **1/x**"),
-            $._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"),
-            $._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"),
-            $._("For $x^{y}$, enter **x^y**"),
-            $._("For $x^{2/3}$, enter **x^(2/3)**"),
-            $._("For $\\sqrt{x}$, enter **sqrt(x)**"),
-            $._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\](x)**"),
-            $._("For $\\pi$, enter **pi**"),
-            $._("For $\\sin \\theta$, enter **sin(theta)**"),
-            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            $._("For $\\neq$, enter **=/=**")
+            i18n._("For $3y$, enter **3y** or **3*y**"),
+            i18n._("For $\\dfrac{1}{x}$, enter **1/x**"),
+            i18n._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"),
+            i18n._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"),
+            i18n._("For $x^{y}$, enter **x^y**"),
+            i18n._("For $x^{2/3}$, enter **x^(2/3)**"),
+            i18n._("For $\\sqrt{x}$, enter **sqrt(x)**"),
+            i18n._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\](x)**"),
+            i18n._("For $\\pi$, enter **pi**"),
+            i18n._("For $\\sin \\theta$, enter **sin(theta)**"),
+            i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
+            i18n._("For $\\neq$, enter **=/=**")
         ];
     }
 });

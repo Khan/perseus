@@ -572,9 +572,9 @@ var InteractiveGraph = React.createClass({
         var instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if  (this.props.graph.type === "point") {
-                instructions = $._("Click to add points");
+                instructions = i18n._("Click to add points");
             } else if (this.props.graph.type === "polygon") {
-                instructions = $._("Click to add vertices");
+                instructions = i18n._("Click to add vertices");
             }
         } else {
             instructions = undefined;

@@ -182,7 +182,7 @@ _.extend(OldUnitInput, {
         if (!guess.parsed) {
             return  {
                 type: "invalid",
-                message: $._("I couldn't understand those units."),
+                message: i18n._("I couldn't understand those units."),
             };
         }
 
@@ -197,7 +197,7 @@ _.extend(OldUnitInput, {
         var sigfigs = rubric.sigfigs;
         var sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
         if (!sigfigsCorrect) {
-            message = $._("Check your significant figures.");
+            message = i18n._("Check your significant figures.");
         }
 
         // now we need to check that the answer is correct to the precision we
@@ -224,7 +224,7 @@ _.extend(OldUnitInput, {
         }
 
         if (!numericallyCorrect) {
-            message = $._("That answer is numerically incorrect.");
+            message = i18n._("That answer is numerically incorrect.");
         }
 
         var kasCorrect;
@@ -253,7 +253,7 @@ _.extend(OldUnitInput, {
             });
         }
         if (!kasCorrect) {
-            var message = $._("Check your units.");
+            var message = i18n._("Check your units.");
         }
 
         var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;

@@ -396,9 +396,9 @@ var TransformOps = {
 var Transformations = {
     translation: {
         // I18N: As in the command, "Translate the polygon"
-        verbName: $._("Translate"),
-        nounName: $._("Translation"),
-        lowerNounName: $._("translation"),
+        verbName: i18n._("Translate"),
+        nounName: i18n._("Translation"),
+        lowerNounName: i18n._("translation"),
         apply: function(transform) {
             return function(coord) {
                 return kvector.add(coord, transform.vector);
@@ -509,9 +509,9 @@ var Transformations = {
 
     rotation: {
         // I18N: As in the command, "Rotate the polygon"
-        verbName: $._("Rotate"),
-        nounName: $._("Rotation"),
-        lowerNounName: $._("rotation"),
+        verbName: i18n._("Rotate"),
+        nounName: i18n._("Rotation"),
+        lowerNounName: i18n._("rotation"),
         apply: function(transform) {
             return function(coord) {
                 return kpoint.rotateDeg(coord, transform.angleDeg,
@@ -651,9 +651,9 @@ var Transformations = {
 
     reflection: {
         // I18N: As in the command, "Reflect the polygon"
-        verbName: $._("Reflect"),
-        nounName: $._("Reflection"),
-        lowerNounName: $._("reflection"),
+        verbName: i18n._("Reflect"),
+        nounName: i18n._("Reflection"),
+        lowerNounName: i18n._("reflection"),
         apply: function(transform) {
             return function(coord) {
                 return kpoint.reflectOverLine(
@@ -792,9 +792,9 @@ var Transformations = {
 
     dilation: {
         // I18N: As in the command, "Dilate the polygon"
-        verbName: $._("Dilate"),
-        nounName: $._("Dilation"),
-        lowerNounName: $._("dilation"),
+        verbName: i18n._("Dilate"),
+        nounName: i18n._("Dilation"),
+        lowerNounName: i18n._("dilation"),
         apply: function(transform) {
             return function(coord) {
                 return dilatePointFromCenter(coord, transform.center,
@@ -2600,7 +2600,7 @@ _.extend(Transformer, {
                 if (!isUsed) {
                     return {
                         type: "invalid",
-                        message: $._("Your transformation must use a " +
+                        message: i18n._("Your transformation must use a " +
                                 "%(type)s.", {
                             type: Transformations[type].lowerNounName
                         })
@@ -2624,7 +2624,7 @@ _.extend(Transformer, {
                 )) {
             return {
                 type: "invalid",
-                message: $._("Use the interactive graph to define a " +
+                message: i18n._("Use the interactive graph to define a " +
                     "correct transformation.")
             };
         } else {

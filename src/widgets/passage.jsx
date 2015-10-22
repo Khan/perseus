@@ -156,7 +156,7 @@ var Passage = React.createClass({
 
         var instructions = "";
         if (firstQuestionNumber) {
-            instructions += $._(
+            instructions += i18n._(
                 "The symbol %(questionSymbol)s indicates that question " +
                 "%(questionNumber)s references this portion of the passage.",
                 {
@@ -166,7 +166,7 @@ var Passage = React.createClass({
             );
         }
         if (firstSentenceRef) {
-            instructions += $._(
+            instructions += i18n._(
                 " The symbol %(sentenceSymbol)s indicates that the " +
                 "following sentence is referenced in a question.",
                 {

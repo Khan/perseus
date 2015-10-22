@@ -406,7 +406,7 @@ var validate = function(rubric, state) {
     if (empty) {
         return {
             type: "invalid",
-            message: $._("Click on the tiles to change the lights.")
+            message: i18n._("Click on the tiles to change the lights.")
         };
     }
 
@@ -433,7 +433,7 @@ var validate = function(rubric, state) {
     } else {
         return {
             type: "invalid",
-            message: $._("You must turn on all of the lights to continue.")
+            message: i18n._("You must turn on all of the lights to continue.")
         };
     }
 };

@@ -12,8 +12,8 @@
   "devDependencies": {
     "babel-core": "~5.6.20",
     "i18n-babel-plugin": "git://github.com/Khan/i18n-babel-plugin#1cec582e9d0df24b0fa0dbbf60bbccffe7ea3230",
-    "jest-cli": "~0.1.17",
-    "jsdom": "^2.0.0",
+    "jest-cli": "~0.6.0",
+    "jsdom": "^7.0.0",
     "json-loader": "~0.5.1",
     "jstransform": "~6.3.2",
     "jsx-i18n": "0.0.0",

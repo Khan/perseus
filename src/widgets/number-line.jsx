@@ -218,14 +218,14 @@ var NumberLine = React.createClass({
             <input
                 type="button"
                 className="simple-button"
-                value={$._("Switch direction")}
+                value={i18n._("Switch direction")}
                 onClick={this.handleReverse} />
             <input
                 type="button"
                 className="simple-button"
                 value={_(["le", "ge"]).contains(this.props.rel) ?
-                        $._("Make circle open") :
-                        $._("Make circle filled")}
+                        i18n._("Make circle open") :
+                        i18n._("Make circle filled")}
                 onClick={this.handleToggleStrict} />
         </div>;
 

@@ -430,7 +430,7 @@ _.extend(Matrix, {
         if (hasEmptyCell) {
             return {
                 type: "invalid",
-                message: $._("Make sure you fill in all cells in the matrix.")
+                message: i18n._("Make sure you fill in all cells in the matrix.")
             };
         }
 

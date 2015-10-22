@@ -17,6 +17,15 @@ requirejs.config({
 
 global.Khan = window.Khan = {};
 global.KhanUtil = window.KhanUtil = Khan.KhanUtil = {};
+
+// Like React in common.js, khan-exercises (notably raphael) requires
+// navigator to be set, but requirejs doesn't allow it, so we
+// temporarily set it here.
+var oldNavigator = global.navigator;
+global.navigator = { userAgent: "Node" };
+
 requirejs("./ke-deps.js");
+
+global.navigator = oldNavigator;
 
 module.exports = KhanUtil;
