@@ -14,7 +14,7 @@ global.KhanUtil = common.window.KhanUtil = Khan.KhanUtil = {};
 // temporarily set it here.
 var oldNavigator = global.navigator;
 global.navigator = { userAgent: "Node" };
-requirejs("./ke-deps.js");
+require("../ke-deps.js");
 global.navigator = oldNavigator;
 
 common.updateGlobals();
