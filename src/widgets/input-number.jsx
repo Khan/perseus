@@ -225,7 +225,7 @@ var InputNumber = React.createClass({
             return formExamples[form](this.props);
         }, this);
 
-        return [i18n._("**Acceptable Formats**")].concat(examples);
+        return [i18n._("**Your answer should be** ")].concat(examples);
     }
 });
 

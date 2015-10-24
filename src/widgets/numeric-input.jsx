@@ -232,9 +232,11 @@ var NumericInput = React.createClass({
                             };
                         });
 
-        return _.map(forms, (form) => {
+        var examples = _.map(forms, (form) => {
             return formExamples[form.name](form);
         });
+
+        return [i18n._("**Your answer should be** ")].concat(examples);
     }
 });
 

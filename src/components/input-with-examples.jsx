@@ -15,6 +15,8 @@ var MATH = "math";
 var TEXT = "text";
 var TEX = "tex";
 
+var tooltipCounter = 0;
+
 var InputWithExamples = React.createClass({
     propTypes: {
         type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
@@ -43,7 +45,8 @@ var InputWithExamples = React.createClass({
     getInitialState: function() {
         return {
             focused: false,
-            showExamples: false
+            showExamples: false,
+            tooltipId: "input-with-examples-tooltip-" + (tooltipCounter++),
         };
     },
 
@@ -68,6 +71,7 @@ var InputWithExamples = React.createClass({
     _getPropsForInputType: function() {
         // Minimal set of props, used by each input type
         var inputProps = {
+            "aria-describedby": this.state.tooltipId,
             ref: "input",
             className: this._getInputClassName(),
             labelText: this.props.labelText,
@@ -152,7 +156,9 @@ var InputWithExamples = React.createClass({
                 borderColor="#ccc"
                 show={showExamples}>
             {input}
-            <Renderer content={examplesContent} />
+            <div id={this.state.tooltipId}>
+                <Renderer content={examplesContent} />
+            </div>
         </Tooltip>;
     },
 
