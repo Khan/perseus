@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types, react/sort-comp, prefer-template,
+react/jsx-sort-prop-types, no-console, react/jsx-closing-bracket-location */
 var React = require('react');
 var ReactDOM = require("react-dom");
 var ReactCreateFragment = require("react-addons-create-fragment");
@@ -51,6 +53,18 @@ var WidgetSelect = React.createClass({
         return false;
     },
 
+    handleChange: function(e) {
+        var widgetType = e.target.value;
+        if (widgetType === "") {
+            // TODO(alpert): Not sure if change will trigger here
+            // but might as well be safe
+            return;
+        }
+        if (this.props.onChange) {
+            this.props.onChange(widgetType);
+        }
+    },
+
     render: function() {
         var widgets = Widgets.getPublicWidgets();
         var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
@@ -66,18 +80,6 @@ var WidgetSelect = React.createClass({
                 </option>;
             })}
         </select>;
-    },
-
-    handleChange: function(e) {
-        var widgetType = e.target.value;
-        if (widgetType === "") {
-            // TODO(alpert): Not sure if change will trigger here
-            // but might as well be safe
-            return;
-        }
-        if (this.props.onChange) {
-            this.props.onChange(widgetType);
-        }
     },
 });
 
@@ -107,7 +109,7 @@ var WidgetEditor = React.createClass({
 
     getInitialState: function() {
         return {
-            showWidget: true
+            showWidget: true,
         };
     },
 
@@ -123,78 +125,10 @@ var WidgetEditor = React.createClass({
         // We can't call serialize here because this.refs.widget
         // doesn't exist before this component is mounted.
         var filteredProps = _.omit(props, WIDGET_PROP_BLACKLIST);
+        var info = Widgets.upgradeWidgetInfoToLatestVersion(filteredProps);
         this.setState({
-            widgetInfo: Widgets.upgradeWidgetInfoToLatestVersion(filteredProps)
+            widgetInfo: info,
         });
-    },
-
-    render: function() {
-        var widgetInfo = this.state.widgetInfo;
-
-        var Ed = Widgets.getEditor(widgetInfo.type);
-        var supportedAlignments;
-        if (this.props.apiOptions.showAlignmentOptions) {
-            supportedAlignments =
-                Widgets.getSupportedAlignments(widgetInfo.type);
-        } else {
-            supportedAlignments = ["default"];
-        }
-
-        var supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
-
-        var isUngradedEnabled = (widgetInfo.type === "transformer");
-        var gradedPropBox = <PropCheckBox label="Graded:"
-                                graded={widgetInfo.graded}
-                                onChange={this.props.onChange} />;
-
-        return <div className="perseus-widget-editor">
-            <div className={"perseus-widget-editor-title " +
-                    (this.state.showWidget ? "open" : "closed")}>
-                <a href="#" onClick={this._toggleWidget}>
-                    {this.props.id}
-                    <i className={"icon-chevron-" +
-                            (this.state.showWidget ? "down" : "right")} />
-                </a>
-
-                {supportsStaticMode &&
-                    <input
-                        type="button"
-                        onClick={this._toggleStatic}
-                        className="simple-button--small"
-                        value={widgetInfo.static ?
-                            "Unset as static" : "Set as static"} />}
-
-                {supportedAlignments.length > 1 &&
-                    <select
-                            className="alignment"
-                            value={widgetInfo.alignment}
-                            onChange={this._handleAlignmentChange} >
-                        {supportedAlignments.map((alignment) =>
-                            <option key={alignment}>{alignment}</option>)}
-                    </select>}
-
-                <a href="#" className={
-                            "remove-widget " +
-                            "simple-button simple-button--small orange"
-                        }
-                        onClick={(e) => {
-                            e.preventDefault();
-                            this.props.onRemove();
-                        }}>
-                    <span className="icon-trash" />
-                </a>
-            </div>
-            <div className={"perseus-widget-editor-content " +
-                    (this.state.showWidget ? "enter" : "leave")}>
-                {isUngradedEnabled && gradedPropBox}
-                <Ed
-                    ref="widget"
-                    onChange={this._handleWidgetChange}
-                    static={widgetInfo.static}
-                    apiOptions={this.props.apiOptions}
-                    {...widgetInfo.options} />
-            </div>
-        </div>;
     },
 
     _toggleWidget: function(e) {
@@ -219,11 +153,95 @@ var WidgetEditor = React.createClass({
         this.props.onChange(newWidgetInfo);
     },
 
-    _handleAlignmentChange: function (e) {
+    _handleAlignmentChange: function(e) {
         var newAlignment = e.target.value;
         var newWidgetInfo = _.clone(this.state.widgetInfo);
         newWidgetInfo.alignment = newAlignment;
         this.props.onChange(newWidgetInfo);
+    },
+
+    render: function() {
+        var widgetInfo = this.state.widgetInfo;
+
+        var Ed = Widgets.getEditor(widgetInfo.type);
+        var supportedAlignments;
+        if (this.props.apiOptions.showAlignmentOptions) {
+            supportedAlignments =
+                Widgets.getSupportedAlignments(widgetInfo.type);
+        } else {
+            supportedAlignments = ["default"];
+        }
+
+        var supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
+
+        var isUngradedEnabled = (widgetInfo.type === "transformer");
+        var gradedPropBox = <PropCheckBox
+            label="Graded:"
+            graded={widgetInfo.graded}
+            onChange={this.props.onChange}
+        />;
+
+        return <div className="perseus-widget-editor">
+            <div
+                className={"perseus-widget-editor-title " +
+                    (this.state.showWidget ? "open" : "closed")}
+            >
+                <a href="#" onClick={this._toggleWidget}>
+                    {this.props.id}
+                    <i
+                        className={"icon-chevron-" +
+                            (this.state.showWidget ? "down" : "right")}
+                    />
+                </a>
+
+                {supportsStaticMode &&
+                    <input
+                        type="button"
+                        onClick={this._toggleStatic}
+                        className="simple-button--small"
+                        value={widgetInfo.static ?
+                            "Unset as static" : "Set as static"}
+                    />
+                }
+                {supportedAlignments.length > 1 &&
+                    <select
+                        className="alignment"
+                        value={widgetInfo.alignment}
+                        onChange={this._handleAlignmentChange}
+                    >
+                        {supportedAlignments.map((alignment) =>
+                            <option key={alignment}>{alignment}</option>
+                        )}
+                    </select>
+                }
+                <a
+                    href="#"
+                    className={
+                            "remove-widget " +
+                            "simple-button simple-button--small orange"
+                        }
+                    onClick={(e) => {
+                        e.preventDefault();
+                        this.props.onRemove();
+                    }}
+                >
+                    <span className="icon-trash" />
+                </a>
+            </div>
+            <div
+                className={"perseus-widget-editor-content " +
+                    (this.state.showWidget ? "enter" : "leave")}
+            >
+                {isUngradedEnabled && gradedPropBox}
+                <Ed
+                    ref="widget"
+                    onChange={this._handleWidgetChange}
+                    static={widgetInfo.static}
+                    apiOptions={this.props.apiOptions}
+                    {...widgetInfo.options}
+                />
+            </div>
+        </div>;
     },
 
     getSaveWarnings: function() {
@@ -244,7 +262,7 @@ var WidgetEditor = React.createClass({
             options: this.refs.widget.serialize(),
             version: widgetInfo.version,
         };
-    }
+    },
 });
 
 // This is more general than the actual markdown image parsing regex,
@@ -268,7 +286,7 @@ var IMAGE_REGEX = /!\[[^\]]*\]\(([^\s\)]+)[^\)]*\)/g;
  */
 var allMatches = function(regex, str) {
     var result = [];
-    while (true) {
+    while (true) { // @Nolint
         var match = regex.exec(str);
         if (!match) {
             break;
@@ -320,7 +338,8 @@ var Editor = React.createClass({
             onChange={this._handleWidgetEditorChange.bind(this, id)}
             onRemove={this._handleWidgetEditorRemove.bind(this, id)}
             apiOptions={this.props.apiOptions}
-            {...this.props.widgets[id]} />;
+            {...this.props.widgets[id]}
+        />;
     },
 
     _handleWidgetEditorChange: function(id, newProps, cb, silent) {
@@ -366,10 +385,11 @@ var Editor = React.createClass({
                 // perspective as well.
                 images[url] = {
                     width: width,
-                    height: height
+                    height: height,
                 };
-                props.onChange({
-                        images: _.clone(images)
+                props.onChange(
+                    {
+                        images: _.clone(images),
                     },
                     null, // callback
                     true // silent
@@ -377,145 +397,6 @@ var Editor = React.createClass({
             });
         });
     },
-
-    render: function() {
-        var pieces;
-        var widgets;
-        var underlayPieces;
-        var widgetsDropDown;
-        var templatesDropDown;
-        var widgetsAndTemplates;
-        var wordCountDisplay;
-
-        if (this.props.showWordCount) {
-            var numChars = PerseusMarkdown.characterCount(this.props.content);
-            var numWords = Math.floor(numChars / 6);
-            wordCountDisplay = <span
-                    className="perseus-editor-word-count"
-                    title={'~' + commafyInteger(numWords) + ' words (' +
-                                 commafyInteger(numChars) + ' characters)'}>
-                {commafyInteger(numWords)}
-            </span>;
-        }
-
-        if (this.props.widgetEnabled) {
-            pieces = Util.split(this.props.content, rWidgetSplit);
-            widgets = {};
-            underlayPieces = [];
-
-            for (var i = 0; i < pieces.length; i++) {
-                var type = i % 2;
-                if (type === 0) {
-                    // Normal text
-                    underlayPieces.push(pieces[i]);
-                } else {
-                    // Widget reference
-                    var match = Util.rWidgetParts.exec(pieces[i]);
-                    var id = match[1];
-                    var type = match[2];
-
-                    var selected = false;
-                    // TODO(alpert):
-                    // var selected = focused && selStart === selEnd &&
-                    //         offset <= selStart &&
-                    //         selStart < offset + text.length;
-                    // if (selected) {
-                    //     selectedWidget = id;
-                    // }
-
-                    var duplicate = id in widgets;
-
-                    widgets[id] = this.getWidgetEditor(id, type);
-                    var classes = (duplicate || !widgets[id] ? "error " : "") +
-                            (selected ? "selected " : "");
-                    var key = duplicate ? i : id;
-                    underlayPieces.push(
-                            <b className={classes} key={key}>{pieces[i]}</b>);
-                }
-            }
-
-            // TODO(alpert): Move this to the content-change event handler
-            // _.each(_.keys(this.props.widgets), function(id) {
-            //     if (!(id in widgets)) {
-            //         // It's strange if these preloaded options stick around
-            //         // since it's inconsistent with how things work if you
-            //         // don't have the serialize/deserialize step in the
-            //         // middle
-            //         // TODO(alpert): Save options in a consistent manner so
-            //         // that you can undo the deletion of a widget
-            //         delete this.props.widgets[id];
-            //     }
-            // }, this);
-
-            this.widgetIds = _.keys(widgets);
-            widgetsDropDown = <WidgetSelect
-                    ref="widgetSelect"
-                    onChange={this._addWidget} />;
-
-            templatesDropDown = <select onChange={this.addTemplate}>
-                <option value="">Insert template{"\u2026"}</option>
-                <option disabled>--</option>
-                <option value="table">Table</option>
-                <option value="titledTable">Titled table</option>
-                <option value="alignment">Aligned equations</option>
-                <option value="piecewise">Piecewise function</option>
-            </select>;
-
-            if (!this.props.immutableWidgets) {
-                widgetsAndTemplates = <div className="perseus-editor-widgets">
-                    <div className="perseus-editor-widgets-selectors">
-                        {widgetsDropDown}
-                        {templatesDropDown}
-                        {wordCountDisplay}
-                    </div>
-                    {ReactCreateFragment(widgets)}
-                </div>;
-                // Prevent word count from being displayed elsewhere
-                wordCountDisplay = null;
-            }
-        } else {
-            underlayPieces = [this.props.content];
-        }
-
-        // Without this, the underlay isn't the proper size when the text ends
-        // with a newline.
-        underlayPieces.push(<br key="end"/>);
-
-        var completeTextarea = [
-                <div className="perseus-textarea-underlay"
-                     ref="underlay"
-                     key="underlay">
-                    {underlayPieces}
-                </div>,
-                <textarea ref="textarea"
-                          key="textarea"
-                          onChange={this.handleChange}
-                          onKeyDown={this._handleKeyDown}
-                          placeholder={this.props.placeholder}
-                          disabled={this.props.disabled}
-                          value={this.props.content} />
-            ];
-        var textareaWrapper;
-        if (this.props.imageUploader) {
-            textareaWrapper = <DragTarget
-                    onDrop={this.handleDrop}
-                    className="perseus-textarea-pair">
-                {completeTextarea}
-            </DragTarget>;
-        } else {
-            textareaWrapper = <div className="perseus-textarea-pair">
-                {completeTextarea}
-            </div>;
-        }
-
-        return <div className={"perseus-single-editor " +
-                (this.props.className || "")} >
-            {textareaWrapper}
-            {wordCountDisplay}
-            {widgetsAndTemplates}
-        </div>;
-    },
-
     componentDidMount: function() {
         // This can't be in componentWillMount because that's happening during
         // the middle of our parent's render, so we can't call
@@ -598,7 +479,7 @@ var Editor = React.createClass({
                 this.props.imageUploader(fileAndSentinel.file, url => {
                     this.props.onChange({
                         content: this.props.content.replace(
-                            fileAndSentinel.sentinel, url)
+                            fileAndSentinel.sentinel, url),
                     });
                 });
             });
@@ -915,6 +796,163 @@ var Editor = React.createClass({
         return noAltImages.concat(widgetWarnings);
     },
 
+    focus: function() {
+        ReactDOM.findDOMNode(this.refs.textarea).focus();
+    },
+
+    focusAndMoveToEnd: function() {
+        this.focus();
+        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+    },
+
+    render: function() {
+        var pieces;
+        var widgets;
+        var underlayPieces;
+        var widgetsDropDown;
+        var templatesDropDown;
+        var widgetsAndTemplates;
+        var wordCountDisplay;
+
+        if (this.props.showWordCount) {
+            var numChars = PerseusMarkdown.characterCount(this.props.content);
+            var numWords = Math.floor(numChars / 6);
+            wordCountDisplay = <span
+                className="perseus-editor-word-count"
+                title={'~' + commafyInteger(numWords) + ' words (' +
+                             commafyInteger(numChars) + ' characters)'}
+            >
+                {commafyInteger(numWords)}
+            </span>;
+        }
+
+        if (this.props.widgetEnabled) {
+            pieces = Util.split(this.props.content, rWidgetSplit);
+            widgets = {};
+            underlayPieces = [];
+
+            for (var i = 0; i < pieces.length; i++) {
+                if (i % 2 === 0) {
+                    // Normal text
+                    underlayPieces.push(pieces[i]);
+                } else {
+                    // Widget reference
+                    var match = Util.rWidgetParts.exec(pieces[i]);
+                    var id = match[1];
+                    var type = match[2];
+
+                    var selected = false;
+                    // TODO(alpert):
+                    // var selected = focused && selStart === selEnd &&
+                    //         offset <= selStart &&
+                    //         selStart < offset + text.length;
+                    // if (selected) {
+                    //     selectedWidget = id;
+                    // }
+
+                    var duplicate = id in widgets;
+
+                    widgets[id] = this.getWidgetEditor(id, type);
+                    var classes = (duplicate || !widgets[id] ? "error " : "") +
+                            (selected ? "selected " : "");
+                    var key = duplicate ? i : id;
+                    underlayPieces.push(
+                            <b className={classes} key={key}>{pieces[i]}</b>);
+                }
+            }
+
+            // TODO(alpert): Move this to the content-change event handler
+            // _.each(_.keys(this.props.widgets), function(id) {
+            //     if (!(id in widgets)) {
+            //         // It's strange if these preloaded options stick around
+            //         // since it's inconsistent with how things work if you
+            //         // don't have the serialize/deserialize step in the
+            //         // middle
+            //         // TODO(alpert): Save options in a consistent manner so
+            //         // that you can undo the deletion of a widget
+            //         delete this.props.widgets[id];
+            //     }
+            // }, this);
+
+            this.widgetIds = _.keys(widgets);
+            widgetsDropDown = <WidgetSelect
+                ref="widgetSelect"
+                onChange={this._addWidget}
+            />;
+
+            templatesDropDown = <select onChange={this.addTemplate}>
+                <option value="">Insert template{"\u2026"}</option>
+                <option disabled>--</option>
+                <option value="table">Table</option>
+                <option value="titledTable">Titled table</option>
+                <option value="alignment">Aligned equations</option>
+                <option value="piecewise">Piecewise function</option>
+            </select>;
+
+            if (!this.props.immutableWidgets) {
+                widgetsAndTemplates = <div className="perseus-editor-widgets">
+                    <div className="perseus-editor-widgets-selectors">
+                        {widgetsDropDown}
+                        {templatesDropDown}
+                        {wordCountDisplay}
+                    </div>
+                    {ReactCreateFragment(widgets)}
+                </div>;
+                // Prevent word count from being displayed elsewhere
+                wordCountDisplay = null;
+            }
+        } else {
+            underlayPieces = [this.props.content];
+        }
+
+        // Without this, the underlay isn't the proper size when the text ends
+        // with a newline.
+        underlayPieces.push(<br key="end"/>);
+
+        var completeTextarea = [
+            <div
+                className="perseus-textarea-underlay"
+                ref="underlay"
+                key="underlay"
+            >
+                {underlayPieces}
+            </div>,
+            <textarea
+                ref="textarea"
+                key="textarea"
+                onChange={this.handleChange}
+                onKeyDown={this._handleKeyDown}
+                placeholder={this.props.placeholder}
+                disabled={this.props.disabled}
+                value={this.props.content}
+            />,
+        ];
+        var textareaWrapper;
+        if (this.props.imageUploader) {
+            textareaWrapper = <DragTarget
+                onDrop={this.handleDrop}
+                className="perseus-textarea-pair"
+            >
+                {completeTextarea}
+            </DragTarget>;
+        } else {
+            textareaWrapper = <div className="perseus-textarea-pair">
+                {completeTextarea}
+            </div>;
+        }
+
+        return <div
+            className={"perseus-single-editor " + (this.props.className || "")}
+        >
+            {textareaWrapper}
+            {wordCountDisplay}
+            {widgetsAndTemplates}
+        </div>;
+    },
+
+
     serialize: function(options) {
         // need to serialize the widgets since the state might not be
         // completely represented in props. ahem //transformer// (and
@@ -945,17 +983,6 @@ var Editor = React.createClass({
             widgets: widgets,
         };
     },
-
-    focus: function() {
-        ReactDOM.findDOMNode(this.refs.textarea).focus();
-    },
-
-    focusAndMoveToEnd: function() {
-        this.focus();
-        var textarea = ReactDOM.findDOMNode(this.refs.textarea);
-        textarea.selectionStart = textarea.value.length;
-        textarea.selectionEnd = textarea.value.length;
-    }
 });
 
 module.exports = Editor;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 /**
  * Traverses a {content, widgets, images} renderer props object,
  * such as `itemData.question`
@@ -93,16 +94,17 @@ var traverseRenderer = function(
     }
 
     var newWidgets = objective_.mapObject(rendererOptions.widgets || {},
-            function(widgetInfo, widgetId) {
-        // Widgets without info or a type are empty widgets, and
-        // should always be renderable. It's also annoying to write
-        // checks for this everywhere, so we just filter them out once and
-        // for all!
-        if (widgetInfo == null || widgetInfo.type == null) {
-            return widgetInfo;
+        function(widgetInfo, widgetId) {
+            // Widgets without info or a type are empty widgets, and
+            // should always be renderable. It's also annoying to write
+            // checks for this everywhere, so we just filter them out once and
+            // for all!
+            if (widgetInfo == null || widgetInfo.type == null) {
+                return widgetInfo;
+            }
+            return deepWidgetCallback(widgetInfo, widgetId);
         }
-        return deepWidgetCallback(widgetInfo, widgetId);
-    });
+    );
 
     var newOptions = _.extend({}, rendererOptions, {
         content: newContent,

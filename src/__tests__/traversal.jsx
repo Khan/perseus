@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 var assert = require("assert");
 var _ = require("underscore");
 
@@ -28,11 +29,11 @@ var missingOptions = {
             },
             "version": {
                 "major": 0,
-                "minor": 0
+                "minor": 0,
             },
             "alignment": "default",
-        }
-    }
+        },
+    },
 };
 
 var clonedMissingOptions = JSON.parse(JSON.stringify(
@@ -53,15 +54,15 @@ var sampleOptions = {
                 "size": "normal",
                 "inexact": false,
                 "maxError": 0.1,
-                "answerType": "number"
+                "answerType": "number",
             },
             "version": {
                 "major": 0,
-                "minor": 0
+                "minor": 0,
             },
             "alignment": "default",
-        }
-    }
+        },
+    },
 };
 
 var clonedSampleOptions = JSON.parse(JSON.stringify(
@@ -80,27 +81,27 @@ var sampleOptions2 = {
                 "choices": [
                     {
                         "content": "A",
-                        "correct": true
+                        "correct": true,
                     },
                     {
                         "correct": false,
-                        "content": "B"
-                    }
+                        "content": "B",
+                    },
                 ],
                 "randomize": false,
                 "multipleSelect": false,
                 "displayCount": null,
                 "noneOfTheAbove": false,
                 "onePerLine": true,
-                "deselectEnabled": false
+                "deselectEnabled": false,
             },
             "version": {
                 "major": 0,
-                "minor": 0
+                "minor": 0,
             },
             "alignment": "default",
-        }
-    }
+        },
+    },
 };
 
 var clonedSampleOptions2 = JSON.parse(JSON.stringify(
@@ -119,27 +120,27 @@ var sampleOptions2Upgraded = {
                 "choices": [
                     {
                         "content": "A",
-                        "correct": true
+                        "correct": true,
                     },
                     {
                         "correct": false,
-                        "content": "B"
-                    }
+                        "content": "B",
+                    },
                 ],
                 "randomize": false,
                 "multipleSelect": false,
                 "displayCount": null,
                 "hasNoneOfTheAbove": false,
                 "onePerLine": true,
-                "deselectEnabled": false
+                "deselectEnabled": false,
             },
             "version": {
                 "major": 1,
-                "minor": 0
+                "minor": 0,
             },
             "alignment": "default",
-        }
-    }
+        },
+    },
 };
 
 var sampleGroup = {
@@ -162,35 +163,35 @@ var sampleGroup = {
                             "choices": [
                                 {
                                     "content": "A",
-                                    "correct": true
+                                    "correct": true,
                                 },
                                 {
                                     "correct": false,
-                                    "content": "B"
-                                }
+                                    "content": "B",
+                                },
                             ],
                             "randomize": false,
                             "multipleSelect": false,
                             "displayCount": null,
                             "noneOfTheAbove": false,
                             "onePerLine": true,
-                            "deselectEnabled": false
+                            "deselectEnabled": false,
                         },
                         "version": {
                             "major": 0,
-                            "minor": 0
+                            "minor": 0,
                         },
                         "alignment": "default",
-                    }
-                }
+                    },
+                },
             },
             "version": {
                 "major": 0,
-                "minor": 0
+                "minor": 0,
             },
             "alignment": "default",
-        }
-    }
+        },
+    },
 };
 
 var sampleGroupUpgraded = {
@@ -213,36 +214,36 @@ var sampleGroupUpgraded = {
                             "choices": [
                                 {
                                     "content": "A",
-                                    "correct": true
+                                    "correct": true,
                                 },
                                 {
                                     "correct": false,
-                                    "content": "B"
-                                }
+                                    "content": "B",
+                                },
                             ],
                             "randomize": false,
                             "multipleSelect": false,
                             "displayCount": null,
                             "hasNoneOfTheAbove": false,
                             "onePerLine": true,
-                            "deselectEnabled": false
+                            "deselectEnabled": false,
                         },
                         "version": {
                             "major": 1,
-                            "minor": 0
+                            "minor": 0,
                         },
                         "alignment": "default",
-                    }
+                    },
                 },
                 "metadata": undefined,
             },
             "version": {
                 "major": 0,
-                "minor": 0
+                "minor": 0,
             },
             "alignment": "default",
-        }
-    }
+        },
+    },
 };
 
 var clonedSampleGroup = JSON.parse(JSON.stringify(
@@ -309,7 +310,7 @@ describe("Traversal", () => {
     it("should have access to modify full renderer options", () => {
         var newOptions = traverse(sampleOptions, null, null, (options) => {
             return _.extend({}, options, {
-                content: options.content + "\n\nnew content!",
+                content: `${options.content}\n\nnew content!`,
             });
         });
         assert.strictEqual(
@@ -327,11 +328,12 @@ describe("Traversal", () => {
     });
 
     it("should use defaults for missing options when upgrading widgets",
-            () => {
-        var newOptions = traverse(missingOptions);
-        assert.deepEqual(newOptions, sampleOptions2Upgraded);
-        assertNonMutative();
-    });
+        () => {
+            var newOptions = traverse(missingOptions);
+            assert.deepEqual(newOptions, sampleOptions2Upgraded);
+            assertNonMutative();
+        }
+    );
 
     it("should be able to see group widgets", () => {
         var widgetMap = {};

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types, react/sort-comp */
+var _ = require("underscore");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var classNames = require("classnames");
 var Editor = require("./editor.jsx");
@@ -10,8 +12,10 @@ var AnswerTypeSelector = React.createClass({
         return <div>
             <label>
                 Answer type:{' '}
-                <select value={this.props.type}
-                        onChange={(e) => this.props.onChange(e.target.value)}>
+                <select
+                    value={this.props.type}
+                    onChange={(e) => this.props.onChange(e.target.value)}
+                >
                     <option value="radio">Multiple choice</option>
                     <option value="table">Table of values</option>
                     <option value="input-number">Text input (number)</option>
@@ -24,7 +28,7 @@ var AnswerTypeSelector = React.createClass({
                 area, and tell the students how to complete the problem.</p>
             </InfoTip>
         </div>;
-    }
+    },
 });
 
 var AnswerAreaEditor = React.createClass({
@@ -62,8 +66,8 @@ var AnswerAreaEditor = React.createClass({
         var className = classNames({
             'perseus-answer-widget': this.props.type !== 'multiple',
             'perseus-answer-none': !(this.state.showEditor ||
-                                    this.state.showTypeSelector ||
-                                    this.props.apiOptions.enableOldAnswerTypes)
+                this.state.showTypeSelector ||
+                this.props.apiOptions.enableOldAnswerTypes),
         });
 
         var editor = <div className={className}>
@@ -78,17 +82,20 @@ var AnswerAreaEditor = React.createClass({
                                            newProps);
                     this.props.onChange({options: options}, cb);
                 }}
-                {...this.props.options} />
+                {...this.props.options}
+            />
         </div>;
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
             <div><label>
                 Show calculator:{' '}
-                <input type="checkbox" checked={this.props.calculator}
+                <input
+                    type="checkbox" checked={this.props.calculator}
                     onChange={e => {
                         this.props.onChange({calculator: e.target.checked});
-                    }} />
+                    }}
+                />
             </label>
             <InfoTip>
                 <p>Use the calculator when completing difficult calculations is
@@ -100,10 +107,12 @@ var AnswerAreaEditor = React.createClass({
 
             <div><label>
                 Show periodic table:{' '}
-                <input type="checkbox" checked={this.props.periodicTable}
+                <input
+                    type="checkbox" checked={this.props.periodicTable}
                     onChange={e => {
                         this.props.onChange({periodicTable: e.target.checked});
-                    }} />
+                    }}
+                />
             </label>
             <InfoTip>
                 <p>This provides the student with the ability to view a
@@ -115,15 +124,16 @@ var AnswerAreaEditor = React.createClass({
             {(this.state.showTypeSelector ||
                     this.props.apiOptions.enableOldAnswerTypes) &&
                 <AnswerTypeSelector
-                   type={this.props.type}
-                   onChange={(newValue) => {
-                       this.props.onChange({
-                           type: newValue,
-                           options: {}
-                       }, () => {
-                           this.refs.editor.focus();
-                       });
-                   }} />
+                    type={this.props.type}
+                    onChange={(newValue) => {
+                        this.props.onChange({
+                            type: newValue,
+                            options: {},
+                        }, () => {
+                            this.refs.editor.focus();
+                        });
+                    }}
+                />
             }
 
             </div>
@@ -136,7 +146,7 @@ var AnswerAreaEditor = React.createClass({
         var issuesFunc = this.refs.editor.getSaveWarnings;
         var issues = issuesFunc ? issuesFunc() : [];
 
-        return _.map(issues, (issue) => ("Answer area: " + issue));
+        return _.map(issues, (issue) => (`Answer area: ${issue}`));
     },
 
     serialize: function(options) {
@@ -145,9 +155,9 @@ var AnswerAreaEditor = React.createClass({
             type: this.props.type,
             options: this.refs.editor.serialize(options),
             calculator: this.props.calculator,
-            periodicTable: this.props.periodicTable
+            periodicTable: this.props.periodicTable,
         };
-    }
+    },
 });
 
 module.exports = AnswerAreaEditor;

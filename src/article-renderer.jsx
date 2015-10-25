@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types, react/jsx-closing-bracket-location */
 var React = require("react");
 var _ = require("underscore");
 
 var ApiOptions = require("./perseus-api.jsx").Options;
 var Renderer = require("./renderer.jsx");
-var Util = require("./util.js");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -16,12 +16,18 @@ var ArticleRenderer = React.createClass({
     propTypes: {
         json: React.PropTypes.oneOfType([
             rendererProps,
-            React.PropTypes.arrayOf(rendererProps)
+            React.PropTypes.arrayOf(rendererProps),
         ]).isRequired,
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
         return nextProps !== this.props || nextState !== this.state;
+    },
+
+    _sections: function() {
+        return _.isArray(this.props.json) ?
+            this.props.json :
+            [this.props.json];
     },
 
     render: function() {
@@ -30,7 +36,7 @@ var ArticleRenderer = React.createClass({
             ApiOptions.defaults,
             this.props.apiOptions,
             {
-                isArticle: true
+                isArticle: true,
             }
         );
 
@@ -42,18 +48,13 @@ var ArticleRenderer = React.createClass({
                 key={i}
                 key_={i}
                 apiOptions={apiOptions}
-                enabledFeatures={this.props.enabledFeatures} />;
+                enabledFeatures={this.props.enabledFeatures}
+            />;
         });
 
         return <div className="framework-perseus perseus-article">
             {sections}
         </div>;
-    },
-
-    _sections: function() {
-        return _.isArray(this.props.json) ?
-            this.props.json :
-            [this.props.json];
     },
 });
 

@@ -7,23 +7,23 @@ var noWidgets = {
     "question": {
         "content": "Hello, world!",
         "images": {},
-        "widgets": {}
+        "widgets": {},
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
-}
+    "hints": [],
+};
 
 var oneAccessibleWidget = {
     "question": {
@@ -37,41 +37,41 @@ var oneAccessibleWidget = {
                     "choices": [
                         {
                             "content": "hello",
-                            "correct": true
+                            "correct": true,
                         },
                         {
                             "content": "goodbye",
-                            "correct": false
-                        }
+                            "correct": false,
+                        },
                     ],
                     "randomize": false,
                     "multipleSelect": false,
                     "displayCount": null,
                     "hasNoneOfTheAbove": false,
                     "onePerLine": true,
-                    "deselectEnabled": false
+                    "deselectEnabled": false,
                 },
                 "version": {
                     "major": 1,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var oneInaccessibleWidget = {
@@ -86,24 +86,24 @@ var oneInaccessibleWidget = {
                     "choices": [
                         {
                             "content": "hello",
-                            "correct": true
+                            "correct": true,
                         },
                         {
                             "content": "goodbye",
-                            "correct": false
-                        }
+                            "correct": false,
+                        },
                     ],
                     "randomize": false,
                     "multipleSelect": false,
                     "displayCount": null,
                     "hasNoneOfTheAbove": false,
                     "onePerLine": true,
-                    "deselectEnabled": false
+                    "deselectEnabled": false,
                 },
                 "version": {
                     "major": 1,
-                    "minor": 0
-                }
+                    "minor": 0,
+                },
             },
             "matrix 1": {
                 "type": "matrix",
@@ -111,39 +111,39 @@ var oneInaccessibleWidget = {
                 "options": {
                     "matrixBoardSize": [
                         3,
-                        3
+                        3,
                     ],
                     "answers": [
-                        []
+                        [],
                     ],
                     "prefix": "",
                     "suffix": "",
                     "cursorPosition": [
                         0,
-                        0
-                    ]
+                        0,
+                    ],
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var imageWithAltText = {
@@ -159,47 +159,47 @@ var imageWithAltText = {
                     "range": [
                         [
                             0,
-                            10
+                            10,
                         ],
                         [
                             0,
-                            10
-                        ]
+                            10,
+                        ],
                     ],
                     "box": [
                         350,
-                        150
+                        150,
                     ],
                     "backgroundImage": {
                         "url": "http://placehold.it/350x150",
                         "width": 350,
-                        "height": 150
+                        "height": 150,
                     },
                     "labels": [],
                     "alt": "oh cool",
-                    "caption": ""
+                    "caption": "",
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var imageWithoutAltText = {
@@ -215,47 +215,47 @@ var imageWithoutAltText = {
                     "range": [
                         [
                             0,
-                            10
+                            10,
                         ],
                         [
                             0,
-                            10
-                        ]
+                            10,
+                        ],
                     ],
                     "box": [
                         350,
-                        150
+                        150,
                     ],
                     "backgroundImage": {
                         "url": "http://placehold.it/350x150",
                         "width": 350,
-                        "height": 150
+                        "height": 150,
                     },
                     "labels": [],
                     "alt": "",
-                    "caption": ""
+                    "caption": "",
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var emptyImageWithoutAltText = {
@@ -271,42 +271,42 @@ var emptyImageWithoutAltText = {
                     "range": [
                         [
                             0,
-                            10
+                            10,
                         ],
                         [
                             0,
-                            10
-                        ]
+                            10,
+                        ],
                     ],
                     "box": [
                         350,
-                        150
+                        150,
                     ],
                     "labels": [],
                     "alt": "",
-                    "caption": ""
+                    "caption": "",
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 describe("a11y", () => {

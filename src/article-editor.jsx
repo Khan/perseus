@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types, react/sort-comp, no-alert, prefer-template,
+react/jsx-closing-bracket-location */
 var React = require('react');
 var _ = require("underscore");
 
@@ -16,32 +18,33 @@ var rendererProps = React.PropTypes.shape({
 var SectionControlButton = React.createClass({
     render: function() {
         return <a
-                href="#"
-                className={
-                    "section-control-button " +
-                    "simple-button " +
-                    "simple-button--small " +
-                    "orange"
-                }
-                onClick={(e) => {
-                    e.preventDefault();
-                    this.props.onClick();
-                }}>
+            href="#"
+            className={
+                "section-control-button " +
+                "simple-button " +
+                "simple-button--small " +
+                "orange"
+            }
+            onClick={(e) => {
+                e.preventDefault();
+                this.props.onClick();
+            }}
+        >
             <span className={this.props.icon} />
         </a>;
-    }
+    },
 });
 
 var ArticleEditor = React.createClass({
 
     propTypes: {
-        json: React.PropTypes.oneOfType([
-            rendererProps,
-            React.PropTypes.arrayOf(rendererProps)
-        ]),
         apiOptions: React.PropTypes.object,
         enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
+        json: React.PropTypes.oneOfType([
+            rendererProps,
+            React.PropTypes.arrayOf(rendererProps),
+        ]),
         onChange: React.PropTypes.func.isRequired,
     },
 
@@ -50,14 +53,14 @@ var ArticleEditor = React.createClass({
             json: [{}],
             enabledFeatures: {
                 toolTipFormats: true,
-                useMathQuill: true
+                useMathQuill: true,
             },
         };
     },
 
     getInitialState: function() {
         return {
-            mode: "edit"
+            mode: "edit",
         };
     },
 
@@ -68,8 +71,9 @@ var ArticleEditor = React.createClass({
                 <label>
                     Mode:{" "}
                     <select
-                            value={this.state.mode}
-                            onChange={this._changeMode}>
+                        value={this.state.mode}
+                        onChange={this._changeMode}
+                    >
                         <option value="edit">Edit</option>
                         <option value="preview">Preview</option>
                         <option value="json">Developer JSON</option>
@@ -96,7 +100,8 @@ var ArticleEditor = React.createClass({
                     <JsonEditor
                         multiLine={true}
                         value={this.props.json}
-                        onChange={this._handleJsonChange} />
+                        onChange={this._handleJsonChange}
+                    />
                 </div>
             }
         </div>;
@@ -135,24 +140,28 @@ var ArticleEditor = React.createClass({
                     <div className="perseus-editor-row">
                         <div className="perseus-editor-left-cell">
                             <div className="pod-title">
-                                Section {i+1}
-                                <div style={{
-                                    display: "inline-block",
-                                    float: "right"
-                                }}>
+                                Section {i + 1}
+                                <div
+                                    style={{
+                                        display: "inline-block",
+                                        float: "right",
+                                    }}
+                                >
                                     {(i + 1 < sections.length) &&
-                                        <SectionControlButton
-                                            icon="icon-circle-arrow-down"
-                                            onClick={() => {
-                                                this._handleMoveSectionLater(i);
-                                            }} />
+                                    <SectionControlButton
+                                        icon="icon-circle-arrow-down"
+                                        onClick={() => {
+                                            this._handleMoveSectionLater(i);
+                                        }}
+                                    />
                                     }
                                     {(i > 0) &&
-                                        <SectionControlButton
-                                            icon="icon-circle-arrow-up"
-                                            onClick={() => {
-                                                this._handleMoveSectionEarlier(i);
-                                            }} />
+                                    <SectionControlButton
+                                        icon="icon-circle-arrow-up"
+                                        onClick={() => {
+                                            this._handleMoveSectionEarlier(i);
+                                        }}
+                                    />
                                     }
                                     <SectionControlButton
                                         icon="icon-trash"
@@ -163,12 +172,14 @@ var ArticleEditor = React.createClass({
                                             if (confirm(msg)) {
                                                 this._handleRemoveSection(i);
                                             }
-                                        }} />
+                                        }}
+                                    />
                                     <SectionControlButton
                                         icon="icon-plus"
                                         onClick={() => {
                                             this._handleAddSectionAfter(i);
-                                        }} />
+                                        }}
+                                    />
                                 </div>
                             </div>
                             <Editor
@@ -180,7 +191,8 @@ var ArticleEditor = React.createClass({
                                     _.partial(this._handleEditorChange, i)
                                 }
                                 apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures} />
+                                enabledFeatures={this.props.enabledFeatures}
+                            />
                         </div>
 
                         <div className="perseus-editor-right-cell">
@@ -190,9 +202,10 @@ var ArticleEditor = React.createClass({
                                 apiOptions={apiOptions}
                                 enabledFeatures={
                                     this.props.enabledFeatures
-                                } />
+                                }
+                            />
                         </div>
-                    </div>
+                    </div>,
                 ];
             })}
         </div>;
@@ -201,12 +214,15 @@ var ArticleEditor = React.createClass({
     _renderAddSection: function() {
         return <div className="perseus-editor-row">
             <div className="perseus-editor-left-cell">
-                <a href="#" className="simple-button orange"
-                        onClick={() => {
-                            this._handleAddSectionAfter(
-                                this._sections().length - 1
-                            );
-                        }}>
+                <a
+                    href="#"
+                    className="simple-button orange"
+                    onClick={() => {
+                        this._handleAddSectionAfter(
+                            this._sections().length - 1
+                        );
+                    }}
+                >
                     <span className="icon-plus" /> Add a section
                 </a>
             </div>
@@ -218,13 +234,14 @@ var ArticleEditor = React.createClass({
         return <ArticleRenderer
             json={this.props.json}
             apiOptions={this.props.apiOptions}
-            enabledFeatures={this.props.enabledFeatures} />;
+            enabledFeatures={this.props.enabledFeatures}
+        />;
     },
 
     _changeMode: function(e) {
         var newMode = e.target.value;
         this.props.onChange({
-            json: this.serialize()
+            json: this.serialize(),
         }, () => {
             this.setState({mode: newMode});
         });
@@ -249,7 +266,7 @@ var ArticleEditor = React.createClass({
         sections.splice(i, 1);
         sections.splice(i - 1, 0, section);
         this.props.onChange({
-            json: sections
+            json: sections,
         });
     },
 
@@ -262,7 +279,7 @@ var ArticleEditor = React.createClass({
         sections.splice(i, 1);
         sections.splice(i + 1, 0, section);
         this.props.onChange({
-            json: sections
+            json: sections,
         });
     },
 
@@ -277,11 +294,11 @@ var ArticleEditor = React.createClass({
         // object for the new section, but wipe out
         // the content.
         var newSection = (i >= 0) ? {
-            widgets: sections[i].widgets
+            widgets: sections[i].widgets,
         } : {};
         sections.splice(i + 1, 0, newSection);
         this.props.onChange({
-            json: sections
+            json: sections,
         });
     },
 
@@ -289,7 +306,7 @@ var ArticleEditor = React.createClass({
         var sections = _.clone(this._sections());
         sections.splice(i, 1);
         this.props.onChange({
-            json: sections
+            json: sections,
         });
     },
 

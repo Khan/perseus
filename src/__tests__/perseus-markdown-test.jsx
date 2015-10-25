@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template, no-console  */
 var assert = require("assert");
 var nodeUtil = require("util");
 var React = require("react");
@@ -17,7 +18,7 @@ var characterCount = PerseusMarkdown.characterCount;
 var prettyPrintAST = (ast) => {
     return nodeUtil.inspect(ast, {
         depth: null,
-        colors: false
+        colors: false,
     });
 };
 
@@ -79,8 +80,8 @@ describe("perseus markdown", () => {
                 type: "paragraph",
                 content: [{
                     type: "math",
-                    content: "y = x + 1"
-                }]
+                    content: "y = x + 1",
+                }],
             }]);
 
             var parsed2 = parse("hi $y = x + 1$ there");
@@ -90,7 +91,7 @@ describe("perseus markdown", () => {
                     {type: "text", content: "hi "},
                     {type: "math", content: "y = x + 1"},
                     {type: "text", content: " there"},
-                ]
+                ],
             }]);
         });
 
@@ -100,8 +101,8 @@ describe("perseus markdown", () => {
                 type: "paragraph",
                 content: [{
                     type: "math",
-                    content: "y = \\text{$x + 1$}"
-                }]
+                    content: "y = \\text{$x + 1$}",
+                }],
             }]);
 
             var parsed2 = parse(
@@ -112,8 +113,8 @@ describe("perseus markdown", () => {
                 content: [{
                     type: "math",
                     content: " x^2 \\text{blah $math " +
-                        "\\text{something $more math$} $ } "
-                }]
+                        "\\text{something $more math$} $ } ",
+                }],
             }]);
         });
 
@@ -123,8 +124,8 @@ describe("perseus markdown", () => {
                 type: "paragraph",
                 content: [{
                     type: "math",
-                    content: "\\\\"
-                }]
+                    content: "\\\\",
+                }],
             }]);
 
             var parsed2 = parse("$\\$$");
@@ -132,8 +133,8 @@ describe("perseus markdown", () => {
                 type: "paragraph",
                 content: [{
                     type: "math",
-                    content: "\\$"
-                }]
+                    content: "\\$",
+                }],
             }]);
 
             var parsed3 = parse("${$");
@@ -143,7 +144,7 @@ describe("perseus markdown", () => {
                     {type: "text", content: "$"},
                     {type: "text", content: "{"},
                     {type: "text", content: "$"},
-                ]
+                ],
             }]);
 
             var parsed4 = parse("$\\{$");
@@ -151,18 +152,18 @@ describe("perseus markdown", () => {
                 type: "paragraph",
                 content: [{
                     type: "math",
-                    content: "\\{"
-                }]
+                    content: "\\{",
+                }],
             }]);
 
-            var parsed4 = parse("hello $ escaped dollar \\$ $ not math");
-            validateParse(parsed4, [{
+            var parsed5 = parse("hello $ escaped dollar \\$ $ not math");
+            validateParse(parsed5, [{
                 type: "paragraph",
                 content: [
                     {type: "text", content: "hello "},
                     {type: "math", content: " escaped dollar \\$ "},
                     {type: "text", content: " not math"},
-                ]
+                ],
             }]);
         });
 
@@ -173,7 +174,7 @@ describe("perseus markdown", () => {
                 content: [
                     {type: "text", content: "hello "},
                     {type: "text", content: "$ single dollar"},
-                ]
+                ],
             }]);
 
             var parsed2 = parse(
@@ -185,13 +186,13 @@ describe("perseus markdown", () => {
                     content: [
                         {type: "text", content: "hello "},
                         {type: "text", content: "$ single dollar paragraph"},
-                    ]
+                    ],
                 },
                 {
                     type: "paragraph",
                     content: [
                         {type: "text", content: " not math"},
-                    ]
+                    ],
                 },
             ]);
 
@@ -203,7 +204,7 @@ describe("perseus markdown", () => {
                     {type: "text", content: "$ bad "},
                     {type: "text", content: "{ math "},
                     {type: "text", content: "$"},
-                ]
+                ],
             }]);
 
         });
@@ -215,8 +216,8 @@ describe("perseus markdown", () => {
                 content: [{
                     type: "widget",
                     widgetType: "test",
-                    id: "test 1"
-                }]
+                    id: "test 1",
+                }],
             }]);
 
             var parsed2 = parse("[[☃ test 1]]+[[☃ input-number 2]]");
@@ -226,18 +227,18 @@ describe("perseus markdown", () => {
                     {
                         type: "widget",
                         widgetType: "test",
-                        id: "test 1"
+                        id: "test 1",
                     },
                     {
                         type: "text",
-                        content: "+"
+                        content: "+",
                     },
                     {
                         type: "widget",
                         widgetType: "input-number",
-                        id: "input-number 2"
+                        id: "input-number 2",
                     },
-                ]
+                ],
             }]);
 
             var parsed3 = parse("*[[☃ test 2]]* [[☃ input-number 1]]");
@@ -249,19 +250,19 @@ describe("perseus markdown", () => {
                         content: [{
                             type: "widget",
                             widgetType: "test",
-                            id: "test 2"
-                        }]
+                            id: "test 2",
+                        }],
                     },
                     {
                         type: "text",
-                        content: " "
+                        content: " ",
                     },
                     {
                         type: "widget",
                         widgetType: "input-number",
-                        id: "input-number 1"
+                        id: "input-number 1",
                     },
-                ]
+                ],
             }]);
         });
 
@@ -274,7 +275,7 @@ describe("perseus markdown", () => {
                     {content: "[☃ test 1", type: "text"},
                     {content: "]", type: "text"},
                     {content: "]", type: "text"},
-                ]
+                ],
             }]);
         });
 
@@ -285,7 +286,7 @@ describe("perseus markdown", () => {
                 content: [
                     {type: "widget", widgetType: "test", id: "test 1"},
                     {type: "widget", widgetType: "test", id: "test 2"},
-                ]
+                ],
             }]);
 
             var parsed2 = parse("[[☃ test 1]] [[☃ test 2]]");
@@ -295,7 +296,7 @@ describe("perseus markdown", () => {
                     {type: "widget", widgetType: "test", id: "test 1"},
                     {type: "text", content: " "},
                     {type: "widget", widgetType: "test", id: "test 2"},
-                ]
+                ],
             }]);
         });
 

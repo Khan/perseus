@@ -10,7 +10,9 @@ global.Jed = window.Jed = require("../ke/local-only/jed.js");
 // is defined. We use Object.defineProperty to do this
 //Object.defineProperty(window, "i18n", {
 //    get: function() { console.log("GET i18n"); return global.i18n; },
-//    set: function(value) { console.log("SET i18n", value); global.i18n = value; }
+//    set: function(value) {
+//        console.log("SET i18n", value); global.i18n = value;
+//    }
 //});
 
 require("../ke/local-only/i18n.js");

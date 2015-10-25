@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types, react/sort-comp, prefer-template,
+react/jsx-closing-bracket-location, no-console */
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -16,15 +18,15 @@ var PT = React.PropTypes;
 
 var AnswerAreaRenderer = React.createClass({
     propTypes: {
-        type: PT.string,
-        options: PT.object,
+        apiOptions: ApiOptions.propTypes,
         calculator: PT.bool,
-        periodicTable: PT.bool,
-        problemNum: PT.number,
-        onInteractWithWidget: PT.func.isRequired,
         enabledFeatures: EnabledFeatures.propTypes,
         highlightedWidgets: PT.array.isRequired,
-        apiOptions: ApiOptions.propTypes
+        onInteractWithWidget: PT.func.isRequired,
+        options: PT.object,
+        periodicTable: PT.bool,
+        problemNum: PT.number,
+        type: PT.string,
     },
 
     getDefaultProps: function() {
@@ -33,7 +35,7 @@ var AnswerAreaRenderer = React.createClass({
             onInteractWithWidget: function() {},
             enabledFeatures: EnabledFeatures.defaults,
             highlightedWidgets: [],
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -41,7 +43,7 @@ var AnswerAreaRenderer = React.createClass({
         // TODO(alpert): Move up to parent props?
         return {
             widget: {},
-            cls: this.getClass(this.props.type)
+            cls: this.getClass(this.props.type),
         };
     },
 
@@ -95,7 +97,7 @@ var AnswerAreaRenderer = React.createClass({
         // array, rather than modifying the widgetId, once we have
         // expunged widgetIds from the rest of the api calls in
         // favor of focus paths
-        var answerPath = ["answer-" + _.first(rendererFocusPath)].concat(
+        var answerPath = [`answer-${_.first(rendererFocusPath)}`].concat(
             _.rest(rendererFocusPath));
         return answerPath;
     },
@@ -114,7 +116,7 @@ var AnswerAreaRenderer = React.createClass({
                         this._getAnswerAreaFocusObj(newFocus),
                         this._getAnswerAreaFocusObj(oldFocus)
                     );
-                }
+                },
             }
         );
 
@@ -127,7 +129,7 @@ var AnswerAreaRenderer = React.createClass({
             enabledFeatures={_.extend({}, this.props.enabledFeatures, {
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
-                toolTipFormats: false
+                toolTipFormats: false,
             })}
             apiOptions={apiOptions}
             {...this.props.options}
@@ -146,7 +148,8 @@ var AnswerAreaRenderer = React.createClass({
                 enabledFeatures={this.props.enabledFeatures}
                 type={this.props.type}
                 initialProps={this.getSingleWidgetProps()}
-                shouldHighlight={shouldHighlight} />
+                shouldHighlight={shouldHighlight}
+            />
         </QuestionParagraph>;
     },
 
@@ -192,11 +195,11 @@ var AnswerAreaRenderer = React.createClass({
             enabledFeatures: _.extend({}, this.props.enabledFeatures, {
                 // Hide answer area tooltip formats,
                 // the "Acceptable formats" box already works
-                toolTipFormats: false
+                toolTipFormats: false,
             }),
             apiOptions: apiOptions,
             onFocus: onFocus,
-            onBlur: onBlur
+            onBlur: onBlur,
         }, initialWidgetProps, this.state.widget);
     },
 
@@ -317,17 +320,18 @@ var AnswerAreaRenderer = React.createClass({
     },
 
     getInputPaths: function() {
+        var inputPaths;
         if (this.props.type === "multiple") {
-            var inputPaths = this.getWidgetInstance().getInputPaths();
+            inputPaths = this.getWidgetInstance().getInputPaths();
             // We need to prefix our widgetIds with 'answer-' to preserve
             // uniqueness when we return these to the item-renderer.
             return _.map(inputPaths, (path) => {
-                var prefixedWidget = 'answer-' + _.first(path);
+                var prefixedWidget = `answer-${_.first(path)}`;
                 return [prefixedWidget].concat(_.rest(path));
             });
         } else {
             var widgetId = "answer-area";
-            var inputPaths = [];
+            inputPaths = [];
             var widget = this.getWidgetInstance();
             if (widget.getInputPaths) {
                 // Grab all input paths and add widgetID to the front
@@ -336,7 +340,7 @@ var AnswerAreaRenderer = React.createClass({
                 if (widgetInputPaths === widget) {
                     // Special case: we allow you to just return the widget
                     inputPaths.push([
-                        widgetId
+                        widgetId,
                     ]);
                 } else {
                     // Add to collective list of inputs
@@ -431,7 +435,7 @@ var AnswerAreaRenderer = React.createClass({
 
             return [guess, score];
         }
-    }
+    },
 });
 
 module.exports = AnswerAreaRenderer;

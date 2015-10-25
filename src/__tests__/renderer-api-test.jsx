@@ -1,4 +1,5 @@
 var React = require("react");
+var _ = require("underscore");
 
 var ReactDOM = require("react-dom");
 
@@ -32,7 +33,8 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
             widgets={item.question.widgets}
             problemNum={0}
             apiOptions={apiOptions}
-            enabledFeatures={enabledFeatures} />
+            enabledFeatures={enabledFeatures}
+        />
     );
     return renderer;
 };
@@ -45,7 +47,8 @@ var renderAnswerArea = function(item, apiOptions, enabledFeatures) {
             calculator={item.answerArea.calculator}
             problemNum={0}
             apiOptions={apiOptions}
-            enabledFeatures={enabledFeatures} />
+            enabledFeatures={enabledFeatures}
+        />
     );
     return answerAreaRenderer;
 };
@@ -75,7 +78,7 @@ describe("Perseus API", function() {
             assert.strictEqual(score.type, "points");
             assert.strictEqual(score.earned, 0);
             renderer.setInputValue(["input-number 1"], "");
-            var score = renderer.guessAndScore()[1];
+            score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "invalid");
         });
 
@@ -134,153 +137,165 @@ describe("Perseus API", function() {
 
     describe("onInputError", function() {
         it("should call a callback when grading an empty input-number",
-                function() {
-            var wasCalled;
-            var renderer = renderQuestionArea(inputNumber1Item, {
-                onInputError: function(widgetId) {
-                    wasCalled = true;
-                }
-            });
-            var score = renderer.guessAndScore()[1];
-            assert.strictEqual(score.type, "invalid");
-            assert.strictEqual(wasCalled, true);
-        });
+            function() {
+                var wasCalled;
+                var renderer = renderQuestionArea(inputNumber1Item, {
+                    onInputError: function(widgetId) {
+                        wasCalled = true;
+                    },
+                });
+                var score = renderer.guessAndScore()[1];
+                assert.strictEqual(score.type, "invalid");
+                assert.strictEqual(wasCalled, true);
+            }
+        );
     });
 
     describe("CSS ClassNames", function() {
         describe("perseus-input", function() {
             it("should be on the `input` element of an input-number",
-                    function() {
-                // Feel free to change this if you change the class name, but
-                // if you do, you must up the perseus api [major] version
-                assert.strictEqual(Perseus.ClassNames.INPUT, "perseus-input");
+                function() {
+                    // Feel free to change this if you change the class name,
+                    // but if you do, you must up the perseus api [major]
+                    // version
+                    assert.strictEqual(
+                        Perseus.ClassNames.INPUT,
+                        "perseus-input");
 
-                var renderer = renderQuestionArea(inputNumber1Item);
+                    var renderer = renderQuestionArea(inputNumber1Item);
 
-                var input = ReactDOM.findDOMNode(renderer).querySelector('input');
-                assert.strictEqual(
-                    $(input).hasClass(Perseus.ClassNames.INPUT),
-                    true
-                );
+                    var input = ReactDOM.findDOMNode(renderer)
+                            .querySelector('input');
+                    assert.strictEqual(
+                        $(input).hasClass(Perseus.ClassNames.INPUT),
+                        true
+                    );
 
-                var perseusInput = ReactDOM.findDOMNode(renderer).querySelector(
-                    ".perseus-input"
-                );
-                assert.strictEqual(input, perseusInput);
-            });
+                    var perseusInput = ReactDOM.findDOMNode(renderer)
+                        .querySelector(".perseus-input");
+                    assert.strictEqual(input, perseusInput);
+                }
+            );
         });
 
         describe("perseus-focused", function() {
             it("should be on an input-number exactly when focused",
-                    function() {
-                // Feel free to change this if you change the class name, but
-                // if you do, you must up the perseus api [major] version
-                assert.strictEqual(
-                    Perseus.ClassNames.FOCUSED,
-                    "perseus-focused"
-                );
+                function() {
+                    // Feel free to change this if you change the class name,
+                    // but if you do, you must up the perseus api [major]
+                    // version
+                    assert.strictEqual(
+                        Perseus.ClassNames.FOCUSED,
+                        "perseus-focused"
+                    );
 
-                var renderer = renderQuestionArea(inputNumber1Item, {
-                    interceptInputFocus: function(widgetId) {
-                        renderer.setInputValue(widgetId, "5");
-                    }
-                });
-                var input = ReactDOM.findDOMNode(renderer).querySelector('input');
+                    var renderer = renderQuestionArea(inputNumber1Item, {
+                        interceptInputFocus: function(widgetId) {
+                            renderer.setInputValue(widgetId, "5");
+                        },
+                    });
+                    var input = ReactDOM.findDOMNode(renderer)
+                            .querySelector('input');
 
-                assert.strictEqual(
-                    $(input).hasClass(Perseus.ClassNames.FOCUSED),
-                    false
-                );
+                    assert.strictEqual(
+                        $(input).hasClass(Perseus.ClassNames.FOCUSED),
+                        false
+                    );
 
-                TestUtils.Simulate.focus(input);
-                assert.strictEqual(
-                    $(input).hasClass(Perseus.ClassNames.FOCUSED),
-                    true
-                );
+                    TestUtils.Simulate.focus(input);
+                    assert.strictEqual(
+                        $(input).hasClass(Perseus.ClassNames.FOCUSED),
+                        true
+                    );
 
-                TestUtils.Simulate.blur(input);
-                assert.strictEqual(
-                    $(input).hasClass(Perseus.ClassNames.FOCUSED),
-                    false
-                );
-            });
+                    TestUtils.Simulate.blur(input);
+                    assert.strictEqual(
+                        $(input).hasClass(Perseus.ClassNames.FOCUSED),
+                        false
+                    );
+                }
+            );
         });
     });
 
     describe("onFocusChange", function() {
         pit("should be called from focused to blurred to back on one input",
-                function() {
-            var callCount = 0;
-            var newFocusResult;
-            var oldFocusResult;
-            var renderer = renderQuestionArea(inputNumber1Item, {
-                onFocusChange: function(newFocus, oldFocus) {
-                    callCount++;
-                    newFocusResult = newFocus;
-                    oldFocusResult = oldFocus;
-                }
-            });
+            function() {
+                var callCount = 0;
+                var newFocusResult;
+                var oldFocusResult;
+                var renderer = renderQuestionArea(inputNumber1Item, {
+                    onFocusChange: function(newFocus, oldFocus) {
+                        callCount++;
+                        newFocusResult = newFocus;
+                        oldFocusResult = oldFocus;
+                    },
+                });
 
-            var input = ReactDOM.findDOMNode(renderer).querySelector('input');
-
-            callCount = 0;
-            TestUtils.Simulate.focus(input);
-            // Technically, this is probably synchronous, but we do want
-            // to make sure that this hasn't been called a second time
-            // asynchronously, so we check after waiting for an async
-            // result here. This also means that this test should
-            // continue to pass if we decide it makes more sense for
-            // this callback to be async, which could reasonably happen
-            return delayedPromise().then(() => {
-                assert.strictEqual(callCount, 1,
-                        "onFocusChange was not called during onFocus");
-                assert.strictEqual(oldFocusResult, null);
-                assert.deepEqual(newFocusResult, ["input-number 1"]);
+                var input = ReactDOM.findDOMNode(renderer)
+                        .querySelector('input');
 
                 callCount = 0;
-                TestUtils.Simulate.blur(input);
-                return delayedPromise();
-            }).then(() => {
-                assert.strictEqual(callCount, 1,
-                        "onFocusChange was not called during onBlur");
-                assert.deepEqual(oldFocusResult, ["input-number 1"]);
-                assert.strictEqual(newFocusResult, null);
-            });
-        });
+                TestUtils.Simulate.focus(input);
+                // Technically, this is probably synchronous, but we do want
+                // to make sure that this hasn't been called a second time
+                // asynchronously, so we check after waiting for an async
+                // result here. This also means that this test should
+                // continue to pass if we decide it makes more sense for
+                // this callback to be async, which could reasonably happen
+                return delayedPromise().then(() => {
+                    assert.strictEqual(callCount, 1,
+                            "onFocusChange was not called during onFocus");
+                    assert.strictEqual(oldFocusResult, null);
+                    assert.deepEqual(newFocusResult, ["input-number 1"]);
+
+                    callCount = 0;
+                    TestUtils.Simulate.blur(input);
+                    return delayedPromise();
+                }).then(() => {
+                    assert.strictEqual(callCount, 1,
+                            "onFocusChange was not called during onBlur");
+                    assert.deepEqual(oldFocusResult, ["input-number 1"]);
+                    assert.strictEqual(newFocusResult, null);
+                });
+            }
+        );
 
         pit("should be called focusing between two inputs",
-                function() {
-            var callCount = 0;
-            var newFocusResult;
-            var oldFocusResult;
-            var renderer = renderQuestionArea(inputNumber2Item, {
-                onFocusChange: function(newFocus, oldFocus) {
-                    callCount++;
-                    newFocusResult = newFocus;
-                    oldFocusResult = oldFocus;
-                }
-            });
+            function() {
+                var callCount = 0;
+                var newFocusResult;
+                var oldFocusResult;
+                var renderer = renderQuestionArea(inputNumber2Item, {
+                    onFocusChange: function(newFocus, oldFocus) {
+                        callCount++;
+                        newFocusResult = newFocus;
+                        oldFocusResult = oldFocus;
+                    },
+                });
 
-            var inputs = ReactDOM.findDOMNode(renderer).querySelectorAll('input');
-            var input1 = inputs[0];
-            var input2 = inputs[1];
-            TestUtils.Simulate.focus(input1);
+                var inputs = ReactDOM.findDOMNode(renderer)
+                        .querySelectorAll('input');
+                var input1 = inputs[0];
+                var input2 = inputs[1];
+                TestUtils.Simulate.focus(input1);
 
-            callCount = 0;
-            TestUtils.Simulate.focus(input2);
-            // Technically, this is probably synchronous, but we do want
-            // to make sure that this hasn't been called a second time
-            // asynchronously, so we check after waiting for an async
-            // result here. This also means that this test should
-            // continue to pass if we decide it makes more sense for
-            // this callback to be async, which could reasonably happen
-            return delayedPromise().then(() => {
-                assert.strictEqual(callCount, 1,
-                        "onFocusChange was called the wrong number of" +
-                        "times while switching between input-numbers");
-                assert.deepEqual(oldFocusResult, ["input-number 1"]);
-                assert.deepEqual(newFocusResult, ["input-number 2"]);
-            });
-        });
+                callCount = 0;
+                TestUtils.Simulate.focus(input2);
+                // Technically, this is probably synchronous, but we do want
+                // to make sure that this hasn't been called a second time
+                // asynchronously, so we check after waiting for an async
+                // result here. This also means that this test should
+                // continue to pass if we decide it makes more sense for
+                // this callback to be async, which could reasonably happen
+                return delayedPromise().then(() => {
+                    assert.strictEqual(callCount, 1,
+                            "onFocusChange was called the wrong number of" +
+                            "times while switching between input-numbers");
+                    assert.deepEqual(oldFocusResult, ["input-number 1"]);
+                    assert.deepEqual(newFocusResult, ["input-number 2"]);
+                });
+            }
+        );
     });
 });

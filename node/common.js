@@ -1,4 +1,5 @@
-// This is a file of things that both the perseus environment and node-perseus need
+// This is a file of things that both the perseus environment and node-perseus
+// need
 
 // Helper function for loading react; see comment when we load react
 var withNavigator = function(lambda) {
@@ -10,7 +11,7 @@ var withNavigator = function(lambda) {
 };
 
 // Fake being a web browser
-global.document = jsdom.jsdom();
+global.document = global.jsdom.jsdom();
 var window = global.window = document.defaultView; // @Nolint
 
 // Mock out window.getSelection for react
@@ -20,7 +21,7 @@ var window = global.window = document.defaultView; // @Nolint
 if (!window.getSelection) {
     window.getSelection = function() {
         return {
-            rangeCount: 0
+            rangeCount: 0,
         };
     };
 }
@@ -60,5 +61,5 @@ updateGlobals();
 
 module.exports = {
     updateGlobals: updateGlobals,
-    window: window
+    window: window,
 };

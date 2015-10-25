@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require("./environment.js");
 var ItemVersion = require("../src/item-version.js");
 

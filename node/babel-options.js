@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-    whitelist: whitelist = [
+    whitelist: [
         'es6.arrowFunctions',
         'es6.blockScoping',
         'es6.classes',
@@ -18,5 +18,5 @@ module.exports = {
         'react.displayName',
     ],
     blacklist: [],
-    plugins: ['i18n-babel-plugin']
+    plugins: ['i18n-babel-plugin'],
 };

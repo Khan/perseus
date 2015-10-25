@@ -6,22 +6,22 @@ var sampleItemNoWidgets = {
     "question": {
         "content": "hi 14",
         "images": {},
-        "widgets": {}
+        "widgets": {},
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleV0InputNumberItem = {
@@ -38,14 +38,14 @@ var sampleV0InputNumberItem = {
                     "size": "normal",
                     "inexact": false,
                     "maxError": 0.1,
-                    "answerType": "number"
+                    "answerType": "number",
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
@@ -62,22 +62,22 @@ var sampleV0InputNumberItem = {
                         "size": "normal",
                         "inexact": false,
                         "maxError": 0.1,
-                        "answerType": "number"
+                        "answerType": "number",
                     },
                     "version": {
                         "major": 0,
-                        "minor": 0
-                    }
-                }
-            }
+                        "minor": 0,
+                    },
+                },
+            },
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleV1MeasurerItem = {
@@ -91,7 +91,7 @@ var sampleV1MeasurerItem = {
                 "options": {
                     "box": [
                         480,
-                        480
+                        480,
                     ],
                     "image": {},
                     "showProtractor": true,
@@ -99,29 +99,29 @@ var sampleV1MeasurerItem = {
                     "rulerLabel": "",
                     "rulerTicks": 10,
                     "rulerPixels": 40,
-                    "rulerLength": 10
+                    "rulerLength": 10,
                 },
                 "version": {
                     "major": 1,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleImpossibleWidgetsItem = {
@@ -135,25 +135,25 @@ var sampleImpossibleWidgetsItem = {
                 "options": {},
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var IMPOSSIBLY_HIGH_VERSION_NUMBER = 68921;
@@ -171,29 +171,29 @@ var sampleImpossibleInputNumberItem1 = {
                     "size": "normal",
                     "inexact": false,
                     "maxError": 0.1,
-                    "answerType": "number"
+                    "answerType": "number",
                 },
                 "version": {
                     "major": IMPOSSIBLY_HIGH_VERSION_NUMBER,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 var sampleImpossibleInputNumberItem2 = {
     "question": {
@@ -209,29 +209,29 @@ var sampleImpossibleInputNumberItem2 = {
                     "size": "normal",
                     "inexact": false,
                     "maxError": 0.1,
-                    "answerType": "number"
+                    "answerType": "number",
                 },
                 "version": {
                     "major": IMPOSSIBLY_HIGH_VERSION_NUMBER,
-                    "minor": IMPOSSIBLY_HIGH_VERSION_NUMBER
-                }
-            }
-        }
+                    "minor": IMPOSSIBLY_HIGH_VERSION_NUMBER,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleEmptyGroupItem = {
@@ -245,29 +245,29 @@ var sampleEmptyGroupItem = {
                 "options": {
                     "content": "",
                     "images": {},
-                    "widgets": {}
+                    "widgets": {},
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleGroupWithInputNumberItem = {
@@ -291,36 +291,36 @@ var sampleGroupWithInputNumberItem = {
                                 "size": "normal",
                                 "inexact": false,
                                 "maxError": 0.1,
-                                "answerType": "number"
+                                "answerType": "number",
                             },
                             "version": {
                                 "major": 0,
-                                "minor": 0
-                            }
-                        }
-                    }
+                                "minor": 0,
+                            },
+                        },
+                    },
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleGroupWithRadioItem = {
@@ -342,48 +342,48 @@ var sampleGroupWithRadioItem = {
                                 "choices": [
                                     {
                                         "content": "A",
-                                        "correct": true
+                                        "correct": true,
                                     },
                                     {
                                         "correct": false,
-                                        "content": "B"
-                                    }
+                                        "content": "B",
+                                    },
                                 ],
                                 "randomize": false,
                                 "multipleSelect": false,
                                 "displayCount": null,
                                 "noneOfTheAbove": false,
                                 "onePerLine": true,
-                                "deselectEnabled": false
+                                "deselectEnabled": false,
                             },
                             "version": {
                                 "major": 0,
-                                "minor": 0
-                            }
-                        }
-                    }
+                                "minor": 0,
+                            },
+                        },
+                    },
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "type": "multiple",
         "options": {
             "content": "",
             "images": {},
-            "widgets": {}
+            "widgets": {},
         },
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 describe("Renderability", () => {

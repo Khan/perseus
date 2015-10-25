@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types, react/sort-comp */
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -12,27 +13,27 @@ var JsonEditor = require("./json-editor.jsx");
 
 var EditorPage = React.createClass({
     propTypes: {
+        // We don't specify a more specific type here because it's valid
+        // for a client of Perseus to specify a subset of the API options,
+        // in which case we default the rest in `this._apiOptions()`
+        apiOptions: React.PropTypes.object,
+        enabledFeatures: EnabledFeatures.propTypes,
         // A function which takes a file object (guaranteed to be an image) and
         // a callback, then calls the callback with the url where the image
         // will be hosted. Image drag and drop is disabled when imageUploader
         // is null.
         imageUploader: React.PropTypes.func,
-        enabledFeatures: EnabledFeatures.propTypes,
-        // We don't specify a more specific type here because it's valid
-        // for a client of Perseus to specify a subset of the API options,
-        // in which case we default the rest in `this._apiOptions()`
-        apiOptions: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
         return {
+            apiOptions: {}, // deep defaults on updateRenderer
             developerMode: false,
-            jsonMode: false,
             enabledFeatures: {
                 toolTipFormats: true,
-                useMathQuill: true
+                useMathQuill: true,
             },
-            apiOptions: {} // deep defaults on updateRenderer
+            jsonMode: false,
         };
     },
 
@@ -46,76 +47,24 @@ var EditorPage = React.createClass({
                 'itemDataVersion'
             ),
             gradeMessage: "",
-            wasAnswered: false
+            wasAnswered: false,
         };
-    },
-
-    render: function() {
-
-        return <div id="perseus" className="framework-perseus">
-            {this.props.developerMode &&
-                <div>
-                    <label>
-                        {' '}Developer JSON Mode:{' '}
-                        <input type="checkbox"
-                            checked={this.props.jsonMode}
-                            onChange={this.toggleJsonMode} />
-                    </label>
-                    {" "}
-                    <button type="button" onClick={this._fixPassageRefs}>
-                        Fix passage-refs
-                    </button>
-                </div>
-            }
-
-            {this.props.developerMode && this.props.jsonMode &&
-                <div>
-                    <JsonEditor
-                        multiLine={true}
-                        value={this.state.json}
-                        onChange={this.changeJSON} />
-                </div>
-            }
-
-            {(!this.props.developerMode || !this.props.jsonMode) &&
-                <ItemEditor
-                    ref="itemEditor"
-                    rendererOnly={this.props.jsonMode}
-                    question={this.props.question}
-                    answerArea={this.props.answerArea}
-                    imageUploader={this.props.imageUploader}
-                    onChange={this.handleChange}
-                    wasAnswered={this.state.wasAnswered}
-                    gradeMessage={this.state.gradeMessage}
-                    onCheckAnswer={this.handleCheckAnswer}
-                    apiOptions={this._apiOptions()} />
-            }
-
-            {(!this.props.developerMode || !this.props.jsonMode) &&
-                <CombinedHintsEditor
-                    ref="hintsEditor"
-                    hints={this.props.hints}
-                    imageUploader={this.props.imageUploader}
-                    onChange={this.handleChange} />
-            }
-        </div>;
-
     },
 
     handleCheckAnswer: function() {
         var result = this.scorePreview();
         this.setState({
             gradeMessage: result.message,
-            wasAnswered: result.correct
+            wasAnswered: result.correct,
         });
     },
 
     toggleJsonMode: function() {
         this.setState({
-            json: this.serialize({keepDeletedWidgets: true})
+            json: this.serialize({keepDeletedWidgets: true}),
         }, function() {
             this.props.onChange({
-                jsonMode: !this.props.jsonMode
+                jsonMode: !this.props.jsonMode,
             });
         });
     },
@@ -139,10 +88,10 @@ var EditorPage = React.createClass({
         var rendererConfig = _({
             item: this.serialize(),
             enabledFeatures: {
-                toolTipFormats: true
+                toolTipFormats: true,
             },
             apiOptions: this._apiOptions(),
-            initialHintsVisible: 0  /* none; to be displayed below */
+            initialHintsVisible: 0,  /* none; to be displayed below */
         }).extend(
             _(this.props).pick("workAreaSelector",
                                "solutionAreaSelector",
@@ -195,6 +144,63 @@ var EditorPage = React.createClass({
         }
     },
 
+    render: function() {
+
+        return <div id="perseus" className="framework-perseus">
+            {this.props.developerMode &&
+                <div>
+                    <label>
+                        {' '}Developer JSON Mode:{' '}
+                        <input
+                            type="checkbox"
+                            checked={this.props.jsonMode}
+                            onChange={this.toggleJsonMode}
+                        />
+                    </label>
+                    {" "}
+                    <button type="button" onClick={this._fixPassageRefs}>
+                        Fix passage-refs
+                    </button>
+                </div>
+            }
+
+            {this.props.developerMode && this.props.jsonMode &&
+                <div>
+                    <JsonEditor
+                        multiLine={true}
+                        value={this.state.json}
+                        onChange={this.changeJSON}
+                    />
+                </div>
+            }
+
+            {(!this.props.developerMode || !this.props.jsonMode) &&
+                <ItemEditor
+                    ref="itemEditor"
+                    rendererOnly={this.props.jsonMode}
+                    question={this.props.question}
+                    answerArea={this.props.answerArea}
+                    imageUploader={this.props.imageUploader}
+                    onChange={this.handleChange}
+                    wasAnswered={this.state.wasAnswered}
+                    gradeMessage={this.state.gradeMessage}
+                    onCheckAnswer={this.handleCheckAnswer}
+                    apiOptions={this._apiOptions()}
+                />
+            }
+
+            {(!this.props.developerMode || !this.props.jsonMode) &&
+                <CombinedHintsEditor
+                    ref="hintsEditor"
+                    hints={this.props.hints}
+                    imageUploader={this.props.imageUploader}
+                    onChange={this.handleChange}
+                />
+            }
+        </div>;
+
+    },
+
     getSaveWarnings: function() {
         var issues1 = this.refs.itemEditor.getSaveWarnings();
         var issues2 = this.refs.hintsEditor.getSaveWarnings();
@@ -206,10 +212,10 @@ var EditorPage = React.createClass({
             return this.state.json;
         } else {
             return _.extend(this.refs.itemEditor.serialize(options), {
-                hints: this.refs.hintsEditor.serialize(options)
+                hints: this.refs.hintsEditor.serialize(options),
             });
         }
-    }
+    },
 
 });
 

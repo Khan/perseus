@@ -32,5 +32,5 @@ module.exports = {
 
         // Uniquify the list of widgets (by type)
         return _.uniq(widgets);
-    }
+    },
 };
