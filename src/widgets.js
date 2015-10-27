@@ -165,10 +165,10 @@ var Widgets = {
             alignment = Widgets.getSupportedAlignments(type)[0];
         }
 
-        var static = oldWidgetInfo.static;
+        var widgetStatic = oldWidgetInfo.static;
 
-        if (static == null) {
-            static = DEFAULT_STATIC;
+        if (widgetStatic == null) {
+            widgetStatic = DEFAULT_STATIC;
         }
 
         return _.extend({}, oldWidgetInfo, {  // maintain other info, like type
@@ -179,7 +179,7 @@ var Widgets = {
                 (oldWidgetInfo.graded != null) ? oldWidgetInfo.graded : true
             ),
             alignment: alignment,
-            static: static,
+            static: widgetStatic,
             options: newEditorProps,
         });
     },
