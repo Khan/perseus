@@ -9,3 +9,6 @@ notifications:
       #     travis encrypt "khanacademy:<token>" --add notifications.slack.rooms
       # where <token> is from the Slack integration settings.
       secure: X+bv+k3GVaVyzFqlFkX14hWEuJIjM/ylcY7Dbe3gwTX3ozKF1wAF0N1Ui7JStrVSoq+7hDSDDef4+VsgGauY2Erv0+K4xKgmmbR2gIWb14IiCOM3GNyv1hKqSgmyBj5MJCZbVB+OrvC/erdfpbtqsCPpmuvMLcuiFz5W4QJD+ZY=
+language: node_js
+node_js:
+  - "4.1"
