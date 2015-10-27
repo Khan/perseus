@@ -1,17 +1,10 @@
+/* global beforeEach, notStrictEqual, strictEqual, xit */
+
 var _ = require("underscore");
-
 var React = require("react");
-
 var ReactDOM = require("react-dom");
 
 var fixture;
-
-var {
-    beforeEach,
-    notStrictEqual,
-    strictEqual,
-    xit,
-} = global;
 
 function translateScore(guessAndScore) {
     // Translate a guessAndScore from internal Perseus format to the
