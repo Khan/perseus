@@ -466,7 +466,9 @@ var GraphSettings = React.createClass({
         var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
-                setUrl(url, width, height);
+                if (this.isMounted()) {
+                    setUrl(url, width, height);
+                }
             });
         } else {
             setUrl(null, 0, 0);

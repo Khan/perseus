@@ -477,10 +477,12 @@ var SvgImage = React.createClass({
             });
         } else {
             Util.getImageSize(this.props.src, (width, height) => {
-                this.setState({
-                    imageLoaded: true,
-                    imageDimensions: [width, height],
-                });
+                if (this.isMounted()) {
+                    this.setState({
+                        imageLoaded: true,
+                        imageDimensions: [width, height],
+                    });
+                }
             });
         }
     },
