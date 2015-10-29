@@ -3,7 +3,7 @@ _ = require("../lib/underscore.js");
 
 require("../lib/jquery.js");
 
-require("../node/i18n-shim.js");
+require("../ke/local-only/i18n.js");
 require("../build/ke.js");
 
 window.katex = require("../lib/katex/katex.js");

@@ -56,7 +56,7 @@ require("../lib/jquery.js");
 updateGlobals();
 
 // First-party global dependencies
-require("./i18n-shim.js");
+require("../ke/local-only/i18n.js");
 updateGlobals();
 
 module.exports = {
