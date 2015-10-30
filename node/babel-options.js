@@ -7,16 +7,21 @@ module.exports = {
         'es6.arrowFunctions',
         'es6.blockScoping',
         'es6.classes',
+        'es6.constants',
         'es6.destructuring',
-        'es6.parameters',
+        'es6.forOf',
+        'es6.parameters.rest',
+
+        // The non-loose code for for of uses computed properties... they might
+        // be used elsewhere too.
+        // TODO(kevinb) We can experiment with whether this is necessary
+        'es6.properties.computed',
         'es6.properties.shorthand',
         'es6.templateLiterals',
         'es6.spread',
-        'es6.constants',
         'es7.objectRestSpread',
         'react',
-        'react.displayName',
     ],
-    blacklist: [],
     plugins: ['i18n-babel-plugin'],
+    loose: 'all',
 };

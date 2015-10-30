@@ -100,7 +100,7 @@ var WidgetEditor = React.createClass({
         alignment: React.PropTypes.string,
         static: React.PropTypes.bool,
         graded: React.PropTypes.bool,
-        options: React.PropTypes.object,
+        options: React.PropTypes.any,
         version: React.PropTypes.shape({
             major: React.PropTypes.number.isRequired,
             minor: React.PropTypes.number.isRequired,
@@ -392,7 +392,7 @@ var Editor = React.createClass({
                         images: _.clone(images),
                     },
                     null, // callback
-                    true // silent
+                    true  // silent
                 );
             });
         });
@@ -574,9 +574,9 @@ var Editor = React.createClass({
             // regexes directly; abstract this out so that we don't have to
             // worry about potential edge cases.
             var safeWidgetData = {};
-            _.each(widgetData, (data, key) => {
+            for (const [key, data] of Object.entries(widgetData)) {
                 safeWidgetData[safeWidgetMapping[key]] = data;
-            });
+            }
             var newWidgets = _.extend(safeWidgetData, this.props.widgets);
 
             // Use safe widget name map to construct new text

@@ -37,6 +37,7 @@ to "push against" (without the div, the padding goes off the page, and the
 add hint button ends up touching the bottom of the page). -->
 <div class="clear"></div>
 
+<script src="lib/babel-polyfills.min.js"></script>
 <script src="lib/jquery.js"></script>
 <script src="lib/underscore.js"></script>
 <script src="lib/react-with-addons.js"></script>
@@ -88,7 +89,7 @@ requirejs.config({
 // Load khan-exercises modules, then perseus
 require(["ke-deps.js"], function() {
     // pre built
-    require(["build/perseus-3.js"], initPerseus);
+    require(["build/perseus-4.js"], initPerseus);
 
     // pre built with source maps
     // require(["build/perseus.debug.js"], initPerseus);
