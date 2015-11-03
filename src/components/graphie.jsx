@@ -16,16 +16,19 @@ var createGraphie = KhanUtil.createGraphie;
 var Graphie = React.createClass({
     propTypes: {
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+        children: React.PropTypes.node,
+        onClick: React.PropTypes.func,
+        onMouseDown: React.PropTypes.func,
+        onMouseMove: React.PropTypes.func,
+        onMouseUp: React.PropTypes.func,
+        options: React.PropTypes.shape({
+            snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        }),
         range: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.number)
         ),
-        options: React.PropTypes.object,
-        setup: React.PropTypes.func.isRequired,
-        onClick: React.PropTypes.func,
-        onMouseDown: React.PropTypes.func,
-        onMouseUp: React.PropTypes.func,
-        onMouseMove: React.PropTypes.func,
         responsive: React.PropTypes.bool,
+        setup: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -34,12 +37,6 @@ var Graphie = React.createClass({
             options: {},
             responsive: false,
         };
-    },
-
-    render: function() {
-        return <div className="graphie-container">
-            <div className="graphie" ref="graphieDiv" />
-        </div>;
     },
 
     componentDidMount: function() {
@@ -125,13 +122,13 @@ var Graphie = React.createClass({
         // with graphInit later if you prefer
         graphie.init({
             range: this._range(),
-            scale: this._scale()
+            scale: this._scale(),
         });
         graphie.addMouseLayer({
             onClick: this.props.onClick,
             onMouseDown: this.props.onMouseDown,
             onMouseUp: this.props.onMouseUp,
-            onMouseMove: this.props.onMouseMove
+            onMouseMove: this.props.onMouseMove,
         });
 
         graphie.snap = this.props.options.snapStep || [1, 1];
@@ -145,7 +142,7 @@ var Graphie = React.createClass({
 
         this.props.setup(graphie, _.extend({
             range: this._range(),
-            scale: this._scale()
+            scale: this._scale(),
         }, this.props.options));
     },
 
@@ -247,8 +244,9 @@ var Graphie = React.createClass({
                 // This generally is a bad idea, so warn about it if this
                 // is being caused by implicit keys
                 if (keyProp == null) {
-                    if (typeof console !== "undefined" && console.warn) {
-                        console.warn("Replacing a <Graphie> child with a " +
+                    if (typeof console !== "undefined" &&
+                            console.warn) { // @Nolint
+                        console.warn("Replacing a <Graphie> child with a " + // @Nolint
                                 "child of a different type. Please add keys " +
                                 "to your <Graphie> children");
                     }
@@ -286,7 +284,7 @@ var Graphie = React.createClass({
             nextKey: 1,
             graphie: graphie,
             oldMovables: oldMovables,
-            newMovables: newMovables
+            newMovables: newMovables,
         });
 
         // Remove any movables that no longer exist in the child array
@@ -295,7 +293,13 @@ var Graphie = React.createClass({
                 oldMovable.remove();
             }
         });
-    }
+    },
+
+    render: function() {
+        return <div className="graphie-container">
+            <div className="graphie" ref="graphieDiv" />
+        </div>;
+    },
 });
 
 // Attach Graphie.createClass and Graphie.createSimpleClass

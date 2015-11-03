@@ -1,3 +1,4 @@
+/* globals KA */
 var classNames = require("classnames");
 var React = require("react");
 var _ = require("underscore");
@@ -28,7 +29,7 @@ var doJSONP = function(url, options) {
     options = _.extend({}, {
         callbackName: "callback",
         success: $.noop,
-        error: $.noop
+        error: $.noop,
     }, options);
 
     // Create the script
@@ -102,7 +103,7 @@ var specialChars = {
     "\\v": "\v",
     "\\f": "\f",
     "\\r": "\r",
-    "\\\\": "\\"
+    "\\\\": "\\",
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
@@ -166,26 +167,16 @@ function getUrlHash(url) {
 }
 
 var SvgImage = React.createClass({
-    statics: {
-        // Sometimes other components want to download the actual image e.g. to
-        // determine its size. Here, we transform an .svg-labels url into the
-        // correct image url, and leave normal image urls alone
-        getRealImageUrl: function(url) {
-            if (isLabeledSVG(url)) {
-                return getSvgUrl(url);
-            } else {
-                return url;
-            }
-        }
-    },
-
     propTypes: {
-        src: React.PropTypes.string.isRequired,
         alt: React.PropTypes.string,
-        title: React.PropTypes.string,
-        width: React.PropTypes.number,
+
+        extraGraphie: React.PropTypes.shape({
+            box: React.PropTypes.array.isRequired,
+            range: React.PropTypes.array.isRequired,
+            labels: React.PropTypes.array.isRequired,
+        }),
+
         height: React.PropTypes.number,
-        scale: React.PropTypes.number,
 
         // By default, this component attempts to be responsive whenever
         // possible (specifically, when width and height are passed in).
@@ -196,11 +187,23 @@ var SvgImage = React.createClass({
         // component.
         responsive: React.PropTypes.bool,
 
-        extraGraphie: React.PropTypes.shape({
-            box: React.PropTypes.array.isRequired,
-            range: React.PropTypes.array.isRequired,
-            labels: React.PropTypes.array.isRequired,
-        }),
+        scale: React.PropTypes.number,
+        src: React.PropTypes.string.isRequired,
+        title: React.PropTypes.string,
+        width: React.PropTypes.number,
+    },
+
+    statics: {
+        // Sometimes other components want to download the actual image e.g. to
+        // determine its size. Here, we transform an .svg-labels url into the
+        // correct image url, and leave normal image urls alone
+        getRealImageUrl: function(url) {
+            if (isLabeledSVG(url)) {
+                return getSvgUrl(url);
+            } else {
+                return url;
+            }
+        },
     },
 
     getDefaultProps: function() {
@@ -221,146 +224,9 @@ var SvgImage = React.createClass({
         };
     },
 
-    // Check if all of the resources are loaded in a given state
-    isLoadedInState: function(state) {
-        return state.imageLoaded && state.dataLoaded;
-    },
-
-    shouldComponentUpdate: function(nextProps, nextState) {
-        // If the props changed, we definitely need to update
-        if (!_.isEqual(this.props, nextProps)) {
-            return true;
-        }
-
-        // If something changed but 
-        if (!isLabeledSVG(nextProps.src)) {
-            return false;
-        }
-
-        var wasLoaded = this.isLoadedInState(this.state);
-        var nextLoaded = this.isLoadedInState(nextState);
-
-        return wasLoaded !== nextLoaded;
-    },
-
-    render: function() {
-        // Props to send to all images
-        var imageProps = {
-            alt: this.props.alt,
-            title: this.props.title
-        };
-
-        var width = this.props.width && this.props.width * this.props.scale;
-        var height = this.props.height && this.props.height * this.props.scale;
-        var dimensions = {
-            width: width,
-            height: height,
-        };
-
-        // To make an image responsive, we need to know what its width and
-        // height are in advance (before inserting it into the DOM) so that we
-        // can ensure it doesn't grow past those limits. We don't always have
-        // this information, especially in places where <Renderer /> is used
-        // to render inline Markdown images within a widget. See Radio, Sorter,
-        // Matcher, etc.
-        // TODO(alex): Make all of those image rendering locations aware of
-        // width+height so that they too can render responsively.
-        var responsive = this.props.responsive && !!(width && height);
-
-        // An additional <Graphie /> may be inserted after the image/graphie
-        // pair. Only used by the image widget, for its legacy labels support.
-        // Note that since the image widget always provides width and height
-        // data, extraGraphie can be ignored for unresponsive images.
-        // TODO(alex): Convert all existing uses of that to web+graphie. This
-        // is tricky because web+graphie doesn't support labels on non-graphie
-        // images.
-        var extraGraphie;
-        if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
-            extraGraphie = <Graphie
-                box={this.props.extraGraphie.box}
-                range={this.props.extraGraphie.range}
-                options={{labels: this.props.extraGraphie.labels}}
-                responsive={true}
-                setup={this.setupGraphie} />;
-        }
-
-        // Just use a normal image if a normal image is provided
-        if (!isLabeledSVG(this.props.src)) {
-            if (responsive) {
-                var wrapperClasses = classNames({
-                    zoomable: width > ZOOMABLE_THRESHOLD,
-                    "svg-image": true,
-                });
-
-                return <FixedToResponsive
-                            className={wrapperClasses}
-                            width={width}
-                            height={height}>
-                    <img
-                        src={this.props.src}
-                        onClick={this._handleZoomClick}
-                        {...imageProps} />
-                    {extraGraphie}
-                </FixedToResponsive>;
-            } else {
-                return <img src={this.props.src}
-                            style={dimensions}
-                            {...imageProps} />;
-            }
-            
-        }
-
-        var imageUrl = getSvgUrl(this.props.src);
-
-        var graphie;
-        // Since we only want to do the graphie setup once, we only render the
-        // graphie once everything is loaded
-        if (this.isLoadedInState(this.state)) {
-            // Use the provided width and height to size the graphie if
-            // possible, otherwise use our own calculated size
-            var box;
-            if (this.sizeProvided()) {
-                box = [width, height];
-            } else {
-                box = [this.state.imageDimensions[0] * this.props.scale,
-                       this.state.imageDimensions[1] * this.props.scale];
-            }
-
-            var scale = [40 * this.props.scale, 40 * this.props.scale];
-
-            graphie = <Graphie
-                ref="graphie"
-                box={box}
-                scale={scale}
-                range={this.state.range}
-                options={_.pick(this.state, "labels")}
-                responsive={responsive}
-                setup={this.setupGraphie} />;
-        }
-
-        if (responsive) {
-            return <FixedToResponsive
-                        className="svg-image"
-                        width={width}
-                        height={height}>
-                <img
-                    src={imageUrl}
-                    onLoad={this.onImageLoad}
-                    {...imageProps} />
-                {graphie}
-                {extraGraphie}
-            </FixedToResponsive>;
-        } else {
-            return <div
-                        className="unresponsive-svg-image"
-                        style={dimensions} >
-                <img
-                    src={imageUrl}
-                    onLoad={this.onImageLoad}
-                    style={dimensions}
-                    {...imageProps} />
-                {graphie}
-            </div>;
+    componentDidMount: function() {
+        if (isLabeledSVG(this.props.src)) {
+            this.loadResources();
         }
     },
 
@@ -373,10 +239,20 @@ var SvgImage = React.createClass({
         }
     },
 
-    componentDidMount: function() {
-        if (isLabeledSVG(this.props.src)) {
-            this.loadResources();
+    shouldComponentUpdate: function(nextProps, nextState) {
+        // If the props changed, we definitely need to update
+        if (!_.isEqual(this.props, nextProps)) {
+            return true;
         }
+
+        if (!isLabeledSVG(nextProps.src)) {
+            return false;
+        }
+
+        var wasLoaded = this.isLoadedInState(this.state);
+        var nextLoaded = this.isLoadedInState(nextState);
+
+        return wasLoaded !== nextLoaded;
     },
 
     componentDidUpdate: function() {
@@ -384,6 +260,11 @@ var SvgImage = React.createClass({
             !this.isLoadedInState(this.state)) {
             this.loadResources();
         }
+    },
+
+    // Check if all of the resources are loaded in a given state
+    isLoadedInState: function(state) {
+        return state.imageLoaded && state.dataLoaded;
     },
 
     loadResources: function() {
@@ -418,7 +299,7 @@ var SvgImage = React.createClass({
                             callback(cacheData.data);
                         });
                     },
-                    error: errorCallback
+                    error: errorCallback,
                 });
             };
 
@@ -431,7 +312,7 @@ var SvgImage = React.createClass({
                         retrieveData(
                             getDataUrl(this.props.src),
                             (x, status, error) => {
-                                console.error(
+                                console.error( // @Nolint
                                     "Data load failed:",
                                     getDataUrl(this.props.src), error
                                 );
@@ -443,7 +324,7 @@ var SvgImage = React.createClass({
                 retrieveData(
                     getDataUrl(this.props.src),
                     (x, status, error) => {
-                        console.error(
+                        console.error( // @Nolint
                             "Data load failed:",
                             getDataUrl(this.props.src), error
                         );
@@ -458,7 +339,7 @@ var SvgImage = React.createClass({
             this.setState({
                 dataLoaded: true,
                 labels: data.labels,
-                range: data.range
+                range: data.range,
             });
         }
     },
@@ -473,7 +354,7 @@ var SvgImage = React.createClass({
             // If width and height are provided, we don't need to calculate the
             // size ourselves
             this.setState({
-                imageLoaded: true
+                imageLoaded: true,
             });
         } else {
             Util.getImageSize(this.props.src, (width, height) => {
@@ -500,7 +381,7 @@ var SvgImage = React.createClass({
                 $(elem).data("jipt-label-index", jiptLabels.length);
                 jiptLabels.push({
                     label: elem,
-                    useMath: labelData.typesetAsMath
+                    useMath: labelData.typesetAsMath,
                 });
             } else {
                 // Create labels from the data
@@ -532,7 +413,7 @@ var SvgImage = React.createClass({
         });
     },
 
-    _handleZoomClick: function (e) {
+    _handleZoomClick: function(e) {
         var $image = $(e.target);
 
         // It's possible that the image is already displayed at its
@@ -547,7 +428,149 @@ var SvgImage = React.createClass({
         if ($image.width() < this.props.width) {
             Zoom.ZoomService.handleZoomClick(e);
         }
-    }
+    },
+
+    render: function() {
+        // Props to send to all images
+        var imageProps = {
+            alt: this.props.alt,
+            title: this.props.title,
+        };
+
+        var width = this.props.width && this.props.width * this.props.scale;
+        var height = this.props.height && this.props.height * this.props.scale;
+        var dimensions = {
+            width: width,
+            height: height,
+        };
+
+        // To make an image responsive, we need to know what its width and
+        // height are in advance (before inserting it into the DOM) so that we
+        // can ensure it doesn't grow past those limits. We don't always have
+        // this information, especially in places where <Renderer /> is used
+        // to render inline Markdown images within a widget. See Radio, Sorter,
+        // Matcher, etc.
+        // TODO(alex): Make all of those image rendering locations aware of
+        // width+height so that they too can render responsively.
+        var responsive = this.props.responsive && !!(width && height);
+
+        // An additional <Graphie /> may be inserted after the image/graphie
+        // pair. Only used by the image widget, for its legacy labels support.
+        // Note that since the image widget always provides width and height
+        // data, extraGraphie can be ignored for unresponsive images.
+        // TODO(alex): Convert all existing uses of that to web+graphie. This
+        // is tricky because web+graphie doesn't support labels on non-graphie
+        // images.
+        var extraGraphie;
+        if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
+            extraGraphie = (
+                <Graphie
+                    box={this.props.extraGraphie.box}
+                    range={this.props.extraGraphie.range}
+                    options={{labels: this.props.extraGraphie.labels}}
+                    responsive={true}
+                    setup={this.setupGraphie}
+                />
+            );
+        }
+
+        // Just use a normal image if a normal image is provided
+        if (!isLabeledSVG(this.props.src)) {
+            if (responsive) {
+                var wrapperClasses = classNames({
+                    zoomable: width > ZOOMABLE_THRESHOLD,
+                    "svg-image": true,
+                });
+
+                return (
+                    <FixedToResponsive
+                        className={wrapperClasses}
+                        width={width}
+                        height={height}
+                    >
+                        <img
+                            src={this.props.src}
+                            onClick={this._handleZoomClick}
+                            {...imageProps}
+                        />
+                        {extraGraphie}
+                    </FixedToResponsive>
+                );
+            } else {
+                return (
+                    <img
+                        src={this.props.src}
+                        style={dimensions}
+                        {...imageProps}
+                    />
+                );
+            }
+        }
+
+        var imageUrl = getSvgUrl(this.props.src);
+
+        var graphie;
+        // Since we only want to do the graphie setup once, we only render the
+        // graphie once everything is loaded
+        if (this.isLoadedInState(this.state)) {
+            // Use the provided width and height to size the graphie if
+            // possible, otherwise use our own calculated size
+            var box;
+            if (this.sizeProvided()) {
+                box = [width, height];
+            } else {
+                box = [this.state.imageDimensions[0] * this.props.scale,
+                       this.state.imageDimensions[1] * this.props.scale];
+            }
+
+            var scale = [40 * this.props.scale, 40 * this.props.scale];
+
+            graphie = (
+                <Graphie
+                    ref="graphie"
+                    box={box}
+                    scale={scale}
+                    range={this.state.range}
+                    options={_.pick(this.state, "labels")}
+                    responsive={responsive}
+                    setup={this.setupGraphie}
+                />
+            );
+        }
+
+        if (responsive) {
+            return (
+                <FixedToResponsive
+                    className="svg-image"
+                    width={width}
+                    height={height}
+                >
+                    <img
+                        src={imageUrl}
+                        onLoad={this.onImageLoad}
+                        {...imageProps}
+                    />
+                    {graphie}
+                    {extraGraphie}
+                </FixedToResponsive>
+            );
+        } else {
+            return (
+                <div
+                    className="unresponsive-svg-image"
+                    style={dimensions}
+                >
+                    <img
+                        src={imageUrl}
+                        onLoad={this.onImageLoad}
+                        style={dimensions}
+                        {...imageProps}
+                    />
+                    {graphie}
+                </div>
+            );
+        }
+    },
 });
 
 module.exports = SvgImage;
