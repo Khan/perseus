@@ -15,6 +15,7 @@ var createGraphie = KhanUtil.createGraphie;
 
 var Graphie = React.createClass({
     propTypes: {
+        addMouseLayer: React.PropTypes.bool,
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         children: React.PropTypes.node,
         onClick: React.PropTypes.func,
@@ -36,6 +37,7 @@ var Graphie = React.createClass({
             range: [[-10, 10], [-10, 10]],
             options: {},
             responsive: false,
+            addMouseLayer: true,
         };
     },
 
@@ -124,12 +126,15 @@ var Graphie = React.createClass({
             range: this._range(),
             scale: this._scale(),
         });
-        graphie.addMouseLayer({
-            onClick: this.props.onClick,
-            onMouseDown: this.props.onMouseDown,
-            onMouseUp: this.props.onMouseUp,
-            onMouseMove: this.props.onMouseMove,
-        });
+        // Only add the mouselayer if we actually want one.
+        if (this.props.addMouseLayer) {
+            graphie.addMouseLayer({
+                onClick: this.props.onClick,
+                onMouseDown: this.props.onMouseDown,
+                onMouseUp: this.props.onMouseUp,
+                onMouseMove: this.props.onMouseMove,
+            });
+        }
 
         graphie.snap = this.props.options.snapStep || [1, 1];
 

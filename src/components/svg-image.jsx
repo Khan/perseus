@@ -469,6 +469,7 @@ var SvgImage = React.createClass({
                     range={this.props.extraGraphie.range}
                     options={{labels: this.props.extraGraphie.labels}}
                     responsive={true}
+                    addMouseLayer={false}
                     setup={this.setupGraphie}
                 />
             );
@@ -533,6 +534,7 @@ var SvgImage = React.createClass({
                     range={this.state.range}
                     options={_.pick(this.state, "labels")}
                     responsive={responsive}
+                    addMouseLayer={false}
                     setup={this.setupGraphie}
                 />
             );
