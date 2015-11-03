@@ -29,6 +29,7 @@
     <button type="button" id="save-warnings">save warnings</button>
     <span>Seed:</span><span id="problemNum"></span>
     <span>Features:</span><span id="enabledFeatures"></span>
+    <span>Scratchpad:</span><span id="scratchpadEnabled">enabled</span>
 </div>
 
 <!-- Begin Perseus HTML -->
@@ -71,8 +72,17 @@ add hint button ends up touching the bottom of the page). -->
         query: {debug: ""},
         imageBase: "/ke/images/",
         scratchpad: {
-            enable: function() {},
-            disable: function() {}
+            enable: function() {
+                Khan.scratchpad.enabled = true;
+                document.getElementById("scratchpadEnabled").innerText =
+                    "enabled";
+            },
+            disable: function() {
+                Khan.scratchpad.enabled = false;
+                document.getElementById("scratchpadEnabled").innerText =
+                    "disabled";
+            },
+            enabled: true,
         }
     };
     var langMatch = window.location.search.slice(1).match(
