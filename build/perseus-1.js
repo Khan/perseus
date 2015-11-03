@@ -607,7 +607,6 @@ var React = require('react');
 var DragTarget = React.createClass({displayName: 'DragTarget',
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
-        component: React.PropTypes.component,
         shouldDragHighlight: React.PropTypes.func
     },
     render: function() {
@@ -3490,10 +3489,7 @@ var Tooltip = React.createClass({displayName: 'Tooltip',
         ),
         horizontalAlign: React.PropTypes.oneOf(
             _.keys(HORIZONTAL_ALIGNMNENTS)
-        ),
-        children: React.PropTypes.arrayOf(
-            React.PropTypes.component
-        ).isRequired
+        )
     },
 
     getDefaultProps: function() {
@@ -4391,7 +4387,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
             step: [1, 1],
             gridStep: [1, 1],
             snapStep: Util.snapStepFromGridStep(
-                this.props.gridStep || [1, 1]),
+                this.gridStep || [1, 1]),
             valid: true,
             backgroundImage: defaultBackgroundImage,
             markings: "graph",
@@ -12923,7 +12919,7 @@ module.exports = {
     transform: function(editorProps)  {
         return _.pick(editorProps, "items", "categories");
     },
-    hidden: true
+    hidden: false
 };
 
 
@@ -13183,7 +13179,7 @@ module.exports = {
     widget: Dropdown,
     editor: DropdownEditor,
     transform: propTransform,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/fancy-select.jsx":120,"../mixins/jsonify-props.jsx":160,"../perseus-api.jsx":162,"../util.js":168,"react":115,"react-components/info-tip":5}],174:[function(require,module,exports){
@@ -13376,7 +13372,7 @@ var ExampleGraphieWidgetEditor = React.createClass({displayName: 'ExampleGraphie
 module.exports = {
     name: "example-graphie-widget",
     displayName: "Example Graphie Widget",
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: false,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleGraphieWidget,
     editor: ExampleGraphieWidgetEditor
 };
@@ -13560,7 +13556,7 @@ var ExampleWidgetEditor = React.createClass({displayName: 'ExampleWidgetEditor',
 module.exports = {
     name: "example-widget",
     displayName: "Example Widget",
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: false,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleWidget,
     editor: ExampleWidgetEditor
 };
@@ -14234,7 +14230,7 @@ module.exports = {
     transform: function(editorProps)  {
         return _.pick(editorProps, "times", "functions");
     },
-    hidden: true
+    hidden: false
 };
 
 },{"../components/input-with-examples.jsx":126,"../components/math-input.jsx":127,"../components/prop-check-box.jsx":130,"../components/tex-buttons.jsx":133,"../enabled-features.jsx":144,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../perseus-api.jsx":162,"../tex.jsx":167,"react":115,"react-components/info-tip":5,"react-components/tooltip":114}],177:[function(require,module,exports){
@@ -14501,7 +14497,7 @@ module.exports = {
     displayName: "Iframe",
     widget: Iframe,
     // Let's not expose it to all content creators yet
-    hidden: true,
+    hidden: false,
     editor: IframeEditor
 };
 
@@ -15462,12 +15458,10 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
     },
 
     getDefaultProps: function() {
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
-        var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultBoxSize);
-        var snapStep = this.props.snapStep ||
-                   Util.snapStepFromGridStep(gridStep);
+        var range = [[-10, 10], [-10, 10]];
+        var step = [1, 1];
+        var gridStep = Util.getGridStep(range, step, defaultBoxSize);
+        var snapStep = Util.snapStepFromGridStep(gridStep);
         return {
             labels: ["x", "y"],
             range: range,
@@ -17475,12 +17469,10 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
     className: "perseus-widget-interactive-graph",
 
     getDefaultProps: function() {
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
-        var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultEditorBoxSize);
-        var snapStep = this.props.snapStep ||
-                   Util.snapStepFromGridStep(gridStep);
+        var range = [[-10, 10], [-10, 10]];
+        var step = [1, 1];
+        var gridStep = Util.getGridStep(range, step, defaultEditorBoxSize);
+        var snapStep = Util.snapStepFromGridStep(gridStep);
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: ["x", "y"],
@@ -17679,7 +17671,7 @@ module.exports = {
     displayName: "Interactive graph",
     widget: InteractiveGraph,
     editor: InteractiveGraphEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../interactive2.js":148,"../util.js":168,"react":115,"react-components/info-tip":5}],181:[function(require,module,exports){
@@ -18128,7 +18120,7 @@ var InteractiveNumberLineEditor = React.createClass({displayName: 'InteractiveNu
 module.exports = {
     name: "interactive-number-line",
     displayName: "Number line 2",
-    hidden: true,
+    hidden: false,
     widget: InteractiveNumberLine,
     editor: InteractiveNumberLineEditor
 };
@@ -18589,7 +18581,7 @@ var transformProps = function(editorProps) {
 module.exports = {
     name: "lights-puzzle",
     displayName: "Lights Puzzle",
-    hidden: true,
+    hidden: false,
     widget: LightsPuzzle,
     editor: LightsPuzzleEditor,
     transform: transformProps
@@ -18838,7 +18830,7 @@ module.exports = {
     displayName: "Two column matcher",
     widget: Matcher,
     editor: MatcherEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/prop-check-box.jsx":130,"../components/sortable.jsx":132,"../components/text-list-editor.jsx":135,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],184:[function(require,module,exports){
@@ -19200,7 +19192,7 @@ module.exports = {
     editor: MeasurerEditor,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"react":115,"react-components/info-tip":5}],185:[function(require,module,exports){
@@ -20072,7 +20064,7 @@ module.exports = {
     widget: NumberLine,
     editor: NumberLineEditor,
     transform: NumberLineTransform,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/graphie.jsx":125,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../interactive2.js":148,"../interactive2/interactive-util.js":149,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],186:[function(require,module,exports){
@@ -20531,7 +20523,7 @@ module.exports = {
     widget: NumericInput,
     editor: NumericInputEditor,
     transform: propsTransform,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/input-with-examples.jsx":126,"../components/multi-button-group.jsx":128,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../editor.jsx":143,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],187:[function(require,module,exports){
@@ -21207,7 +21199,7 @@ module.exports = {
     displayName: "Orderer",
     widget: Orderer,
     editor: OrdererEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/text-list-editor.jsx":135,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],188:[function(require,module,exports){
@@ -22208,7 +22200,7 @@ module.exports = {
     displayName: "Plotter",
     widget: Plotter,
     editor: PlotterEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/number-input.jsx":129,"../components/range-input.jsx":131,"../components/text-list-editor.jsx":135,"../util.js":168,"react":115,"react-components/info-tip":5}],189:[function(require,module,exports){
@@ -22440,12 +22432,11 @@ var Radio = React.createClass({displayName: 'Radio',
                 }
             }
 
-            return _.extend({}, this.props, {
+            return {
                 values: values,
                 noneOfTheAboveIndex: noneOfTheAboveIndex,
                 noneOfTheAboveSelected: noneOfTheAboveSelected
-              }
-            );
+              };
         } else {
             // Nothing checked
             return {
@@ -22913,7 +22904,7 @@ module.exports = {
     displayName: "Sorter",
     widget: Sorter,
     editor: SorterEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/prop-check-box.jsx":130,"../components/sortable.jsx":132,"../components/text-list-editor.jsx":135,"../util.js":168,"react":115,"react-components/info-tip":5}],191:[function(require,module,exports){
@@ -23234,7 +23225,7 @@ module.exports = {
     displayName: "Table of values",
     widget: Table,
     editor: TableEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../editor.jsx":143,"../renderer.jsx":165,"../util.js":168,"react":115,"react-components/info-tip":5}],192:[function(require,module,exports){
@@ -25635,7 +25626,7 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
     // so that we don't have all this duplication
     getDefaultProps: function() {
         return _.defaults({
-            graph: defaultGraphProps(this.props.graph, 340)
+            graph: defaultGraphProps(null, 340)
         }, defaultTransformerProps);
     },
 
@@ -25644,7 +25635,7 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
         // this can happen because the graph json doesn't include
         // box, for example
         var graph = _.extend(
-                defaultGraphProps(this.props.graph, 340),
+                defaultGraphProps(null, 340),
                 this.props.graph
         );
 
@@ -25755,7 +25746,7 @@ module.exports = {
     displayName: "Transformer",
     widget: Transformer,
     editor: TransformerEditor,
-    hidden: true
+    hidden: false
 };
 
 },{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../tex.jsx":167,"../util.js":168,"react":115,"react-components/info-tip":5}]},{},[163])
