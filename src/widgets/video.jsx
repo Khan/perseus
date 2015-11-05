@@ -34,6 +34,10 @@ var Video = React.createClass({
 
     mixins: [Changeable],
 
+    simpleValidate: function(rubric) {
+        return Video.validate(null, rubric);
+    },
+
     render: function() {
         var location = this.props.location;
         if (!location) {
