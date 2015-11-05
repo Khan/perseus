@@ -27,11 +27,12 @@ var IS_KA_SITE = /khanacademy\.org/;
  */
 var Video = React.createClass({
 
-    mixins: [Changeable],
-
     propTypes: {
+        alignment: React.PropTypes.string,
         location: React.PropTypes.string,
     },
+
+    mixins: [Changeable],
 
     render: function() {
         var location = this.props.location;
@@ -53,19 +54,21 @@ var Video = React.createClass({
             url = url.replace("{hostname}", embedHostname);
         }
 
-        return <FixedToResponsive
+        return <FixedToResponsive // @Nolint this is fine, the linter is wrong
             width={DEFAULT_WIDTH}
             height={DEFAULT_HEIGHT}
             // The key is here for the benefit of the editor, to ensure that
             // any changes cause a re-rendering of the frame.
-            key={location + this.props.alignment}>
+            key={location + this.props.alignment}
+        >
             <iframe
-                    className="perseus-video-widget"
-                    sandbox="allow-same-origin allow-scripts"
-                    width={DEFAULT_WIDTH}
-                    height={DEFAULT_HEIGHT}
-                    src={url}
-                    allowFullScreen={true} />
+                className="perseus-video-widget"
+                sandbox="allow-same-origin allow-scripts"
+                width={DEFAULT_WIDTH}
+                height={DEFAULT_HEIGHT}
+                src={url}
+                allowFullScreen={true}
+            />
         </FixedToResponsive>;
     },
 });
@@ -82,9 +85,9 @@ _.extend(Video, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 /**
@@ -104,6 +107,11 @@ function getSlugFromUrl(url) {
  */
 var VideoEditor = React.createClass({
 
+    propTypes: {
+        location: React.PropTypes.string,
+        onChange: React.PropTypes.func,
+    },
+
     mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
@@ -112,13 +120,19 @@ var VideoEditor = React.createClass({
         };
     },
 
+    _handleUrlChange: function(url) {
+        this.props.onChange({location: getSlugFromUrl(url)});
+    },
+
     render: function() {
         return <div>
             <label>URL or KA Video Slug:{' '}
-                <BlurInput name="location"
-                           value={this.props.location}
-                           style={{width: 290}}
-                           onChange={this._handleUrlChange} />
+                <BlurInput
+                    name="location"
+                    value={this.props.location}
+                    style={{width: 290}}
+                    onChange={this._handleUrlChange}
+                />
                 <InfoTip>
                     You can paste any URL here. KA video URLs will
                     be converted to just the slug.
@@ -126,10 +140,6 @@ var VideoEditor = React.createClass({
             </label>
         </div>;
     },
-
-    _handleUrlChange: function (url) {
-        this.props.onChange({location: getSlugFromUrl(url)});
-    }
 });
 
 
