@@ -5105,7 +5105,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
         if (this.props.showProtractor) {
             var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
-            this.protractor = this._graphie.protractor(coord);
+            this.protractor = this._graphie.Protractor(coord);
         }
     },
 
@@ -5117,7 +5117,7 @@ var Graph = React.createClass({displayName: 'Graph',
         if (this.props.showRuler) {
             var coord = this.pointsFromNormalized([[0.50, 0.25]])[0];
             var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-            this.ruler = this._graphie.ruler({
+            this.ruler = this._graphie.Ruler({
                 center: coord,
                 label: this.props.rulerLabel,
                 pixelsPerUnit: this._graphie.scale[0],
@@ -5891,6 +5891,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
     },
 
     componentWillUnmount: function() {
+        console.log('unmount~~~~~');
         window.removeEventListener("mousedown", this.handleMouseDown);
         window.removeEventListener("mouseup", this.handleMouseUp);
     },
@@ -10888,6 +10889,7 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
     },
 
     componentWillUnmount: function() {
+      console.log('item renderer unmount');
         React.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
         React.unmountComponentAtNode(
@@ -18951,7 +18953,7 @@ var Measurer = React.createClass({displayName: 'Measurer',
         }
 
         if (this.props.showProtractor) {
-            this.protractor = graphie.protractor([
+            this.protractor = graphie.Protractor([
                 this.props.protractorX,
                 this.props.protractorY
             ]);
