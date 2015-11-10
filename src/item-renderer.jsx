@@ -23,7 +23,7 @@ var ItemRenderer = React.createClass({
             hintsAreaSelector: "#hintsarea",
 
             enabledFeatures: {},  // a deep default is done in `this.update()`
-            apiOptions: {}  // likewise ^
+            apiOptions: {},  // likewise ^
         };
     },
 
@@ -32,15 +32,8 @@ var ItemRenderer = React.createClass({
             hintsVisible: this.props.initialHintsVisible,
             questionCompleted: false,
             questionHighlightedWidgets: [],
-            answerHighlightedWidgets: []
+            answerHighlightedWidgets: [],
         };
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this.setState({
-            questionHighlightedWidgets: [],
-            answerHighlightedWidgets: []
-        });
     },
 
     componentDidMount: function() {
@@ -51,8 +44,24 @@ var ItemRenderer = React.createClass({
         this.update();
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            questionHighlightedWidgets: [],
+            answerHighlightedWidgets: [],
+        });
+    },
+
     componentDidUpdate: function() {
         this.update();
+    },
+
+    componentWillUnmount: function() {
+        ReactDOM.unmountComponentAtNode(
+                document.querySelector(this.props.workAreaSelector));
+        ReactDOM.unmountComponentAtNode(
+                document.querySelector(this.props.solutionAreaSelector));
+        ReactDOM.unmountComponentAtNode(
+                document.querySelector(this.props.hintsAreaSelector));
     },
 
     update: function() {
@@ -67,7 +76,7 @@ var ItemRenderer = React.createClass({
             ApiOptions.defaults,
             this.props.apiOptions,
             {
-                onFocusChange: this._handleFocusChange
+                onFocusChange: this._handleFocusChange,
             }
         );
 
@@ -95,6 +104,9 @@ var ItemRenderer = React.createClass({
                     calculator={this.props.item.answerArea.calculator || false}
                     periodicTable={this.props.item.answerArea.periodicTable ||
                         false}
+                    zTable={this.props.item.answerArea.zTable || false}
+                    tTable={this.props.item.answerArea.tTable || false}
+                    chi2Table={this.props.item.answerArea.chi2Table || false}
                     problemNum={this.props.problemNum}
                     onInteractWithWidget={this.handleInteractWithAnswerWidget}
                     highlightedWidgets={this.state.answerHighlightedWidgets}
@@ -239,7 +251,7 @@ var ItemRenderer = React.createClass({
                                        [widgetId]);
         this.setState({
             questionCompleted: false,
-            questionHighlightedWidgets: withRemoved
+            questionHighlightedWidgets: withRemoved,
         });
     },
 
@@ -247,12 +259,8 @@ var ItemRenderer = React.createClass({
         var withRemoved = _.difference(this.state.answerHighlightedWidgets,
                                        [widgetId]);
         this.setState({
-            answerHighlightedWidgets: withRemoved
+            answerHighlightedWidgets: withRemoved,
         });
-    },
-
-    render: function() {
-        return <div />;
     },
 
     focus: function() {
@@ -260,19 +268,10 @@ var ItemRenderer = React.createClass({
                 this.answerAreaRenderer.focus();
     },
 
-    componentWillUnmount: function() {
-        ReactDOM.unmountComponentAtNode(
-                document.querySelector(this.props.workAreaSelector));
-        ReactDOM.unmountComponentAtNode(
-                document.querySelector(this.props.solutionAreaSelector));
-        ReactDOM.unmountComponentAtNode(
-                document.querySelector(this.props.hintsAreaSelector));
-    },
-
     showHint: function() {
         if (this.state.hintsVisible < this.getNumHints()) {
             this.setState({
-                hintsVisible: this.state.hintsVisible + 1
+                hintsVisible: this.state.hintsVisible + 1,
             });
         }
     },
@@ -295,17 +294,20 @@ var ItemRenderer = React.createClass({
         var qGuessAndScore = this.questionRenderer.guessAndScore();
         var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
 
-        var qGuess = qGuessAndScore[0], qScore = qGuessAndScore[1];
-        var aGuess = aGuessAndScore[0], aScore = aGuessAndScore[1];
+        var qGuess = qGuessAndScore[0];
+        var qScore = qGuessAndScore[1];
+        var aGuess = aGuessAndScore[0];
+        var aScore = aGuessAndScore[1];
 
         var emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
         var emptyAnswerAreaWidgets = this.answerAreaRenderer.emptyWidgets();
         this.setState({
             questionHighlightedWidgets: emptyQuestionAreaWidgets,
-            answerHighlightedWidgets: emptyAnswerAreaWidgets
+            answerHighlightedWidgets: emptyAnswerAreaWidgets,
         });
 
-        var guess, score;
+        var guess;
+        var score;
         if (qGuess.length === 0) {
             // No widgets in question. For compatability with old guess format,
             // leave it out here completely.
@@ -318,7 +320,7 @@ var ItemRenderer = React.createClass({
 
         var keScore = Util.keScoreFromPerseusScore(score, guess);
         this.setState({
-            questionCompleted: keScore.correct
+            questionCompleted: keScore.correct,
         });
 
         return keScore;
@@ -375,6 +377,10 @@ var ItemRenderer = React.createClass({
         this.questionRenderer.restoreSerializedState(
             state.question, fireCallback);
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
+    },
+
+    render: function() {
+        return <div />;
     },
 });
 

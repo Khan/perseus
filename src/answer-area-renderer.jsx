@@ -20,13 +20,16 @@ var AnswerAreaRenderer = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         calculator: PT.bool,
+        chi2Table: PT.bool,
         enabledFeatures: EnabledFeatures.propTypes,
-        highlightedWidgets: PT.array.isRequired,
+        highlightedWidgets: PT.arrayOf(PT.any).isRequired,
         onInteractWithWidget: PT.func.isRequired,
-        options: PT.object,
+        options: PT.objectOf(PT.any),
         periodicTable: PT.bool,
         problemNum: PT.number,
+        tTable: PT.bool,
         type: PT.string,
+        zTable: PT.bool,
     },
 
     getDefaultProps: function() {
@@ -264,6 +267,9 @@ var AnswerAreaRenderer = React.createClass({
     update: function() {
         $("#calculator").toggle(this.props.calculator);
         $(".periodic-table-info-box").toggle(this.props.periodicTable);
+        $(".z-table-info-box").toggle(this.props.zTable);
+        $(".t-table-info-box").toggle(this.props.tTable);
+        $(".chi2-table-info-box").toggle(this.props.chi2Table);
     },
 
     componentWillUnmount: function() {
@@ -272,6 +278,15 @@ var AnswerAreaRenderer = React.createClass({
         }
         if (this.props.periodicTable) {
             $(".periodic-table-info-box").hide();
+        }
+        if (this.props.zTable) {
+            $(".z-table-info-box").hide();
+        }
+        if (this.props.tTable) {
+            $(".t-table-info-box").hide();
+        }
+        if (this.props.chi2Table) {
+            $(".chi2-table-info-box").hide();
         }
     },
 

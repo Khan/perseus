@@ -38,6 +38,9 @@ var AnswerAreaEditor = React.createClass({
             options: {},
             calculator: false,
             periodicTable: false,
+            zTable: false,
+            tTable: false,
+            chi2Table: false,
             apiOptions: ApiOptions.defaults,
         };
     },
@@ -121,6 +124,54 @@ var AnswerAreaEditor = React.createClass({
             </InfoTip>
             </div>
 
+            <div><label>
+                Show z table (statistics):{' '}
+                <input
+                    type="checkbox" checked={this.props.zTable}
+                    onChange={e => {
+                        this.props.onChange({zTable: e.target.checked});
+                    }}
+                />
+            </label>
+            <InfoTip>
+                <p>This provides the student with the ability to view a
+                table of critical values for the z distribution, e.g.
+                for answering statistics questions.</p>
+            </InfoTip>
+            </div>
+
+            <div><label>
+                Show t table (statistics):{' '}
+                <input
+                    type="checkbox" checked={this.props.tTable}
+                    onChange={e => {
+                        this.props.onChange({tTable: e.target.checked});
+                    }}
+                />
+            </label>
+            <InfoTip>
+                <p>This provides the student with the ability to view a
+                table of critical values for the Student's t distribution,
+                e.g. for answering statistics questions.</p>
+            </InfoTip>
+            </div>
+
+            <div><label>
+                Show chi-squared table (statistics):{' '}
+                <input
+                    type="checkbox" checked={this.props.chi2Table}
+                    onChange={e => {
+                        this.props.onChange({chi2Table: e.target.checked});
+                    }}
+                />
+            </label>
+            <InfoTip>
+                <p>This provides the student with the ability to view a
+                table of critical values for the chi-squared distribution,
+                e.g. for answering statistics questions.</p>
+            </InfoTip>
+            </div>
+
             {(this.state.showTypeSelector ||
                     this.props.apiOptions.enableOldAnswerTypes) &&
                 <AnswerTypeSelector
@@ -150,12 +201,15 @@ var AnswerAreaEditor = React.createClass({
     },
 
     serialize: function(options) {
-        // could be _.pick(this.props, "type", "options", "calculator");
+        // could be _.pick(this.props, "type", "options", "calculator", etc);
         return {
             type: this.props.type,
             options: this.refs.editor.serialize(options),
             calculator: this.props.calculator,
             periodicTable: this.props.periodicTable,
+            zTable: this.props.zTable,
+            tTable: this.props.tTable,
+            chi2Table: this.props.chi2Table,
         };
     },
 });
