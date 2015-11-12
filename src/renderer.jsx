@@ -1,3 +1,5 @@
+/*eslint-disable no-console */
+/* globals KA */
 var $ = require("jquery");
 var React = require('react');
 var ReactDOM = require("react-dom");
@@ -28,7 +30,7 @@ var specialChars = {
     "\\v": "\v",
     "\\f": "\f",
     "\\r": "\r",
-    "\\\\": "\\"
+    "\\\\": "\\",
 };
 
 var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
@@ -81,7 +83,7 @@ if (typeof KA !== "undefined" && KA.language === "en-pt") {
 var SHOULD_CLEAR_WIDGETS_PROP_LIST = [
     "content",
     "problemNum",
-    "widgets"
+    "widgets",
 ];
 
 // Check if one focus path / id path is a prefix of another
@@ -101,21 +103,18 @@ var isIdPathPrefix = function(prefixArray, wholeArray) {
 
 var Renderer = React.createClass({
     propTypes: {
-        highlightedWidgets: React.PropTypes.array,
-        enabledFeatures: EnabledFeatures.propTypes,
-        apiOptions: React.PropTypes.object,
-        questionCompleted: React.PropTypes.bool,
-        onInteractWithWidget: React.PropTypes.func,
-        interWidgets: React.PropTypes.func,
         alwaysUpdate: React.PropTypes.bool,
+        apiOptions: React.PropTypes.any,
+        enabledFeatures: EnabledFeatures.propTypes,
+        highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
+        ignoreMissingWidgets: React.PropTypes.bool,
+        images: React.PropTypes.any,
+        interWidgets: React.PropTypes.func,
+        onInteractWithWidget: React.PropTypes.func,
+        onRender: React.PropTypes.func,
+        problemNum: React.PropTypes.number,
+        questionCompleted: React.PropTypes.bool,
         reviewMode: React.PropTypes.bool,
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(_.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
-                       _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST))) {
-            this.setState(this._getInitialWidgetState(nextProps));
-        }
     },
 
     getDefaultProps: function() {
@@ -145,6 +144,77 @@ var Renderer = React.createClass({
         return _.extend(
             {jiptContent: null},
             this._getInitialWidgetState());
+    },
+
+    componentDidMount: function() {
+        this.handleRender({});
+        this._currentFocus = null;
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        if (!_.isEqual(_.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
+                _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST))) {
+            this.setState(this._getInitialWidgetState(nextProps));
+        }
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        if (this.props.alwaysUpdate) {
+            // TOTAL hacks so that interWidgets doesn't break
+            // when one widget updates without the other.
+            // See passage-refs inside radios, which was why
+            // this was introduced.
+            // I'm sorry!
+            // TODO(aria): cry
+            return true;
+        }
+        var stateChanged = !_.isEqual(this.state, nextState);
+        var propsChanged = !_.isEqual(this.props, nextProps);
+        return propsChanged || stateChanged;
+    },
+
+    componentWillUpdate: function(nextProps, nextState) {
+        var oldJipt = this.shouldRenderJiptPlaceholder(this.props, this.state);
+        var newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
+        var oldContent = this.getContent(this.props, this.state);
+        var newContent = this.getContent(nextProps, nextState);
+        var oldHighlightedWidgets = this.props.highlightedWidgets;
+        var newHighlightedWidgets = nextProps.highlightedWidgets;
+
+        this.reuseMarkdown = !oldJipt && !newJipt &&
+            oldContent === newContent &&
+                // yes, this is identity array comparison, but these are passed
+                // in from state in the item-renderer, so they should be
+                // identity equal unless something changed, and it's expensive
+                // to loop through them to look for differences.
+                // Technically, we could reuse the markdown when this changes,
+                // but to do that we'd have to do more expensive checking of
+                // whether a widget should be highlighted in the common case
+                // where this array hasn't changed, so we just redo the whole
+                // render if this changed
+            oldHighlightedWidgets === newHighlightedWidgets;
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        this.handleRender(prevProps);
+        // We even do this if we did reuse the markdown because
+        // we might need to update the widget props on this render,
+        // even though we have the same widgets.
+        // WidgetContainers don't update their widgets' props when
+        // they are re-rendered, so even if they've been
+        // re-rendered we need to call these methods on them.
+        _.each(this.widgetIds, (id) => {
+            var container = this.refs["container:" + id];
+            container.replaceWidgetProps(
+                this.getWidgetProps(id)
+            );
+        });
+    },
+
+    componentWillUnmount: function() {
+        if (this.translationIndex != null) {
+            window.PerseusTranslationComponents[this.translationIndex] = null;
+        }
     },
 
     _getInitialWidgetState: function(props) {
@@ -184,21 +254,6 @@ var Renderer = React.createClass({
         });
     },
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-        if (this.props.alwaysUpdate) {
-            // TOTAL hacks so that interWidgets doesn't break
-            // when one widget updates without the other.
-            // See passage-refs inside radios, which was why
-            // this was introduced.
-            // I'm sorry!
-            // TODO(aria): cry
-            return true;
-        }
-        var stateChanged = !_.isEqual(this.state, nextState);
-        var propsChanged = !_.isEqual(this.props, nextProps);
-        return propsChanged || stateChanged;
-    },
-
     _getDefaultWidgetInfo: function(widgetId) {
         var widgetIdParts = Util.rTypeFromWidgetId.exec(widgetId);
         if (widgetIdParts == null) {
@@ -207,7 +262,7 @@ var Renderer = React.createClass({
         return {
             type: widgetIdParts[1],
             graded: true,
-            options: {}
+            options: {},
         };
     },
 
@@ -235,12 +290,13 @@ var Renderer = React.createClass({
             // filtered out in this.render(), so we shouldn't have to
             // worry about using this widget key and ref:
             return <WidgetContainer
-                    ref={"container:" + id}
-                    key={"container:" + id}
-                    enabledFeatures={this.props.enabledFeatures}
-                    type={type}
-                    initialProps={this.getWidgetProps(id)}
-                    shouldHighlight={shouldHighlight} />;
+                ref={"container:" + id}
+                key={"container:" + id}
+                enabledFeatures={this.props.enabledFeatures}
+                type={type}
+                initialProps={this.getWidgetProps(id)}
+                shouldHighlight={shouldHighlight}
+            />;
         } else {
             return null;
         }
@@ -281,7 +337,7 @@ var Renderer = React.createClass({
             reviewModeRubric: reviewModeRubric,
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
-            }
+            },
         });
     },
 
@@ -352,7 +408,7 @@ var Renderer = React.createClass({
                 } else {
                     return props;
                 }
-            })
+            }),
         }, fireCallback);
     },
 
@@ -461,44 +517,6 @@ var Renderer = React.createClass({
         });
     },
 
-    componentWillUpdate: function(nextProps, nextState) {
-        var oldJipt = this.shouldRenderJiptPlaceholder(this.props, this.state);
-        var newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
-        var oldContent = this.getContent(this.props, this.state);
-        var newContent = this.getContent(nextProps, nextState);
-        var oldHighlightedWidgets = this.props.highlightedWidgets;
-        var newHighlightedWidgets = nextProps.highlightedWidgets;
-
-        this.reuseMarkdown = !oldJipt && !newJipt &&
-            oldContent === newContent &&
-            // yes, this is identity array comparison, but these are passed
-            // in from state in the item-renderer, so they should be
-            // identity equal unless something changed, and it's expensive
-            // to loop through them to look for differences.
-            // Technically, we could reuse the markdown when this changes, but
-            // to do that we'd have to do more expensive checking of whether
-            // a widget should be highlighted in the common case where
-            // this array hasn't changed, so we just redo the whole
-            // render if this changed
-            oldHighlightedWidgets === newHighlightedWidgets;
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-        this.handleRender(prevProps);
-        // We even do this if we did reuse the markdown because
-        // we might need to update the widget props on this render,
-        // even though we have the same widgets.
-        // WidgetContainers don't update their widgets' props when
-        // they are re-rendered, so even if they've been
-        // re-rendered we need to call these methods on them.
-        _.each(this.widgetIds, (id) => {
-            var container = this.refs["container:" + id];
-            container.replaceWidgetProps(
-                this.getWidgetProps(id)
-            );
-        });
-    },
-
     getContent: function(props, state) {
         return state.jiptContent || props.content;
     },
@@ -548,86 +566,6 @@ var Renderer = React.createClass({
                 jiptContent: JiptParagraphs.joinFromArray(paragraphs),
             });
         }
-    },
-
-    render: function() {
-        if (this.reuseMarkdown) {
-            return this.lastRenderedMarkdown;
-        }
-
-        var content = this.getContent(this.props, this.state);
-        // `this.widgetIds` is appended to in `this.outputMarkdown`:
-        this.widgetIds = [];
-
-        if (this.shouldRenderJiptPlaceholder(this.props, this.state)) {
-            // Crowdin's JIPT (Just in place translation) uses a fake language
-            // with language tag "en-pt" where the value of the translations
-            // look like: {crwdns2657085:0}{crwdne2657085:0} where it keeps the
-            // {crowdinId:ngettext variant}. We detect whether the current
-            // content matches this, so we can take over rendering of
-            // the perseus content as the translators interact with jipt.
-            // We search for only part of the tag that crowdin uses to guard
-            // against them changing the format on us. The full tag it looks
-            // for can be found in https://cdn.crowdin.net/jipt/jipt.js
-            // globalPhrase var.
-
-            // If we haven't already added this component to the registry do so
-            // now. showHints() may cause this component to be rerendered
-            // before jipt has a chance to replace its contents, so this check
-            // will keep us from adding the component to the registry a second
-            // time.
-            if (!this.translationIndex) {
-                this.translationIndex =
-                    window.PerseusTranslationComponents.push(this) - 1;
-            }
-
-            // For articles, we add jipt data to individual paragraphs. For
-            // exercises, we add it to the renderer and let translators
-            // translate the entire thing. For the article equivalent of
-            // this if block, search this file for where we render a
-            // QuestionParagraph, and see the `isJipt:` parameter sent to
-            // PerseusMarkdown.parse()
-            if (!this.props.apiOptions.isArticle) {
-                // We now need to output this tag, as jipt looks for it to be
-                // able to replace it with a translation that it runs an ajax
-                // call to get.  We add a data attribute with the index to the
-                // Persues.TranslationComponent registry so that when jipt
-                // calls its before_dom_insert we can lookup this component by
-                // this attribute and render the text with markdown.
-                return <div
-                        data-perseus-component-index={this.translationIndex}>
-                    {content}
-                </div>;
-            }
-        }
-
-        // Hacks:
-        // We use mutable state here to figure out whether the output
-        // had two columns.
-        // It is updated to true by `this.outputMarkdown` if a
-        // column break is found
-        // TODO(aria): We now have a state variable threaded through
-        // simple-markdown output. We should mutate it instead of
-        // state on this component to do this in a less hacky way.
-        this._isTwoColumn = false;
-
-        var parsedMarkdown = PerseusMarkdown.parse(content, {
-            // Recognize crowdin IDs while translating articles
-            // (This should never be hit by exercises, though if you
-            // decide you want to add a check that this is an article,
-            // go for it.)
-            isJipt: this.translationIndex != null
-        });
-        var markdownContents = this.outputMarkdown(parsedMarkdown, {});
-
-        var className = this._isTwoColumn ?
-            ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
-            ApiClassNames.RENDERER;
-
-        this.lastRenderedMarkdown = <div className={className}>
-            {markdownContents}
-        </div>;
-        return this.lastRenderedMarkdown;
     },
 
     // wrap top-level elements in a QuestionParagraph, mostly
@@ -695,10 +633,11 @@ var Renderer = React.createClass({
             }
 
             return <QuestionParagraph
-                    key={state.key}
-                    className={className}
-                    translationIndex={this.translationIndex}
-                    paragraphIndex={state.paragraphIndex}>
+                key={state.key}
+                className={className}
+                translationIndex={this.translationIndex}
+                paragraphIndex={state.paragraphIndex}
+            >
                 {output}
             </QuestionParagraph>;
         }
@@ -762,12 +701,13 @@ var Renderer = React.createClass({
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
             return <span
-                        key={state.key}
-                        style={{
-                            // If math is directly next to text, don't let it
-                            // wrap to the next line
-                            "whiteSpace": "nowrap"
-                        }}>
+                key={state.key}
+                style={{
+                    // If math is directly next to text, don't let it
+                    // wrap to the next line
+                    "whiteSpace": "nowrap",
+                }}
+            >
                 {/* We add extra empty spans around the math to make it not
                     wrap (I don't know why this works, but it does) */}
                 <span />
@@ -801,7 +741,8 @@ var Renderer = React.createClass({
                 alt={node.alt}
                 title={node.title}
                 responsive={responsive}
-                {...extraAttrs} />;
+                {...extraAttrs}
+            />;
 
         } else if (node.type === "columns") {
             // Note that we have two columns. This is so we can put
@@ -845,17 +786,6 @@ var Renderer = React.createClass({
 
         // ...as well as right now (non-image, non-TeX or image from cache)
         onRender();
-    },
-
-    componentDidMount: function() {
-        this.handleRender({});
-        this._currentFocus = null;
-    },
-
-    componentWillUnmount: function() {
-        if (this.translationIndex != null) {
-            window.PerseusTranslationComponents[this.translationIndex] = null;
-        }
     },
 
     // Sets the current focus path
@@ -1013,7 +943,7 @@ var Renderer = React.createClass({
         return state;
     },
 
-    emptyWidgets: function () {
+    emptyWidgets: function() {
         return _.filter(this.widgetIds, (id) => {
             var widgetInfo = this._getWidgetInfo(id);
             var score = this.getWidgetInstance(id).simpleValidate(
@@ -1204,6 +1134,87 @@ var Renderer = React.createClass({
         }
 
         return examples[0];
+    },
+
+    render: function() {
+        if (this.reuseMarkdown) {
+            return this.lastRenderedMarkdown;
+        }
+
+        var content = this.getContent(this.props, this.state);
+        // `this.widgetIds` is appended to in `this.outputMarkdown`:
+        this.widgetIds = [];
+
+        if (this.shouldRenderJiptPlaceholder(this.props, this.state)) {
+            // Crowdin's JIPT (Just in place translation) uses a fake language
+            // with language tag "en-pt" where the value of the translations
+            // look like: {crwdns2657085:0}{crwdne2657085:0} where it keeps the
+            // {crowdinId:ngettext variant}. We detect whether the current
+            // content matches this, so we can take over rendering of
+            // the perseus content as the translators interact with jipt.
+            // We search for only part of the tag that crowdin uses to guard
+            // against them changing the format on us. The full tag it looks
+            // for can be found in https://cdn.crowdin.net/jipt/jipt.js
+            // globalPhrase var.
+
+            // If we haven't already added this component to the registry do so
+            // now. showHints() may cause this component to be rerendered
+            // before jipt has a chance to replace its contents, so this check
+            // will keep us from adding the component to the registry a second
+            // time.
+            if (!this.translationIndex) {
+                this.translationIndex =
+                    window.PerseusTranslationComponents.push(this) - 1;
+            }
+
+            // For articles, we add jipt data to individual paragraphs. For
+            // exercises, we add it to the renderer and let translators
+            // translate the entire thing. For the article equivalent of
+            // this if block, search this file for where we render a
+            // QuestionParagraph, and see the `isJipt:` parameter sent to
+            // PerseusMarkdown.parse()
+            if (!this.props.apiOptions.isArticle) {
+                // We now need to output this tag, as jipt looks for it to be
+                // able to replace it with a translation that it runs an ajax
+                // call to get.  We add a data attribute with the index to the
+                // Persues.TranslationComponent registry so that when jipt
+                // calls its before_dom_insert we can lookup this component by
+                // this attribute and render the text with markdown.
+                return <div
+                    data-perseus-component-index={this.translationIndex}
+                >
+                    {content}
+                </div>;
+            }
+        }
+
+        // Hacks:
+        // We use mutable state here to figure out whether the output
+        // had two columns.
+        // It is updated to true by `this.outputMarkdown` if a
+        // column break is found
+        // TODO(aria): We now have a state variable threaded through
+        // simple-markdown output. We should mutate it instead of
+        // state on this component to do this in a less hacky way.
+        this._isTwoColumn = false;
+
+        var parsedMarkdown = PerseusMarkdown.parse(content, {
+            // Recognize crowdin IDs while translating articles
+            // (This should never be hit by exercises, though if you
+            // decide you want to add a check that this is an article,
+            // go for it.)
+            isJipt: this.translationIndex != null,
+        });
+        var markdownContents = this.outputMarkdown(parsedMarkdown, {});
+
+        var className = this._isTwoColumn ?
+        ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
+            ApiClassNames.RENDERER;
+
+        this.lastRenderedMarkdown = <div className={className}>
+            {markdownContents}
+        </div>;
+        return this.lastRenderedMarkdown;
     },
 });
 
