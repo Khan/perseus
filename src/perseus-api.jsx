@@ -48,6 +48,11 @@ module.exports = {
             // immediately above the renderer in the group widget. If the
             // function returns null, no annotation will be added.
             groupAnnotator: React.PropTypes.func.isRequired,
+
+            // If imagePlaceholder or widgetPlaceholder are set, perseus will
+            // render the placeholder instead of the image or widget node.
+            imagePlaceholder: React.PropTypes.node,
+            widgetPlaceholder: React.PropTypes.node,
         }).isRequired,
 
         defaults: {
@@ -61,7 +66,7 @@ module.exports = {
             enableOldAnswerTypes: false,
             readOnly: false,
             groupAnnotator: function() { return null; },
-        }
+        },
     },
     ClassNames: {
         RENDERER: "perseus-renderer",
@@ -71,12 +76,12 @@ module.exports = {
         RADIO: {
             OPTION: "perseus-radio-option",
             SELECTED: "perseus-radio-selected",
-            OPTION_CONTENT: "perseus-radio-option-content"
+            OPTION_CONTENT: "perseus-radio-option-content",
         },
         INTERACTIVE: "perseus-interactive",
         CORRECT: "perseus-correct",
         INCORRECT: "perseus-incorrect",
         UNANSWERED: "perseus-unanswered",
-    }
+    },
 };
 

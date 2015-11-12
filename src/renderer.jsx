@@ -675,7 +675,14 @@ var Renderer = React.createClass({
 
     // output individual AST nodes [not arrays]
     outputNode: function(node, nestedOutput, state) {
+        var apiOptions = this.getApiOptions(this.props);
+
         if (node.type === "widget") {
+            var widgetPlaceholder = apiOptions.widgetPlaceholder;
+
+            if (widgetPlaceholder) {
+                return widgetPlaceholder;
+            }
             // Widgets can contain text nodes, so we don't center them with
             // markdown magic here.
             // Instead, we center them with css magic in articles.less
@@ -718,6 +725,12 @@ var Renderer = React.createClass({
             </span>;
 
         } else if (node.type === "image") {
+            var imagePlaceholder = apiOptions.imagePlaceholder;
+
+            if (imagePlaceholder) {
+                return imagePlaceholder;
+            }
+
             // We need to add width and height to images from our
             // props.images mapping.
 

@@ -298,4 +298,50 @@ describe("Perseus API", function() {
             }
         );
     });
+
+    describe("widget placeholders", function() {
+        it("should replace widgets with [WIDGET]", function() {
+            var item = require("./test-items/input-number-1-item.json");
+            var widgetPlaceholder = <span>[WIDGET]</span>;
+            var apiOptions = {
+                widgetPlaceholder: widgetPlaceholder,
+            };
+            var renderer = TestUtils.renderIntoDocument(
+                <Renderer
+                    content={item.question.content}
+                    images={item.question.images}
+                    widgets={item.question.widgets}
+                    problemNum={0}
+                    apiOptions={apiOptions}
+                />
+            );
+
+            var spans = TestUtils.scryRenderedDOMComponentsWithTag(
+                renderer, "span");
+
+            assert.equal(spans[0].textContent, "[WIDGET]");
+        });
+
+        it("should replace images with [IMAGE]", function() {
+            var item = require("./test-items/image-item.json");
+            var imagePlaceholder = <span>[IMAGE]</span>;
+            var apiOptions = {
+                imagePlaceholder: imagePlaceholder,
+            };
+            var renderer = TestUtils.renderIntoDocument(
+                <Renderer
+                    content={item.question.content}
+                    images={item.question.images}
+                    widgets={item.question.widgets}
+                    problemNum={0}
+                    apiOptions={apiOptions}
+                />
+            );
+
+            var spans = TestUtils.scryRenderedDOMComponentsWithTag(
+                renderer, "span");
+
+            assert.equal(spans[0].textContent, "[IMAGE]");
+        });
+    });
 });
