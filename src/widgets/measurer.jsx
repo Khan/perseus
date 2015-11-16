@@ -355,5 +355,6 @@ module.exports = {
     widget: Measurer,
     editor: MeasurerEditor,
     version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades
+    propUpgrades: propUpgrades,
+    hidden: true
 };

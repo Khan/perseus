@@ -395,11 +395,12 @@ var Util = {
             a = /\+/g,  // Regex for replacing addition symbol with a space
             r = /([^&=]+)=?([^&]*)/g,
             d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
-
-        while ((e = r.exec(query))) {
+        
+        
+        while (e = r.exec(query)) {
             urlParams[d(e[1])] = d(e[2]);
         }
-
+        
         return urlParams;
     },
 

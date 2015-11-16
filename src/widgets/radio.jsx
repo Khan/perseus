@@ -332,23 +332,7 @@ var RadioEditor = React.createClass({
     render: function() {
         return <div>
             <div className="perseus-widget-row">
-
-                <div>
-                    <div className="perseus-widget-left-col">
-                        <PropCheckBox label="One answer per line"
-                                      labelAlignment="right"
-                                      onePerLine={this.props.onePerLine}
-                                      onChange={this.props.onChange} />
-                    </div>
-                    <InfoTip>
-                        <p>
-                            Use one answer per line unless your question has
-                            images that might cause the answers to go off the
-                            page.
-                        </p>
-                    </InfoTip>
-                </div>
-
+            
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="Multiple selections"
                                   labelAlignment="right"
@@ -356,18 +340,6 @@ var RadioEditor = React.createClass({
                                   onChange={this.onMultipleSelectChange} />
                 </div>
 
-                <div className="perseus-widget-right-col">
-                    <PropCheckBox label="Randomize order"
-                                  labelAlignment="right"
-                                  randomize={this.props.randomize}
-                                  onChange={this.props.onChange} />
-                </div>
-                <div className="perseus-widget-left-col">
-                    <PropCheckBox label="Auto-none of the above"
-                                  labelAlignment="right"
-                                  noneOfTheAbove={this.props.noneOfTheAbove}
-                                  onChange={this.props.onChange} />
-                </div>
             </div>
 
             <BaseRadio

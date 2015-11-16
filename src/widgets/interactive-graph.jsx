@@ -2514,5 +2514,6 @@ module.exports = {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    editor: InteractiveGraphEditor
+    editor: InteractiveGraphEditor,
+    hidden: true
 };
