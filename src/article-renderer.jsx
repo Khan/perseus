@@ -43,13 +43,15 @@ var ArticleRenderer = React.createClass({
 
         // TODO(alex): Add mobile api functions and pass them down here
         var sections = this._sections().map((section, i) => {
-            return <Renderer
-                {...section}
-                key={i}
-                key_={i}
-                apiOptions={apiOptions}
-                enabledFeatures={this.props.enabledFeatures}
-            />;
+            return <div key={i} className="clearfix">
+                <Renderer
+                    {...section}
+                    key={i}
+                    key_={i}
+                    apiOptions={apiOptions}
+                    enabledFeatures={this.props.enabledFeatures}
+                />
+            </div>;
         });
 
         return <div className="framework-perseus perseus-article">
