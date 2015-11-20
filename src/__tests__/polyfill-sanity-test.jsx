@@ -79,26 +79,27 @@ describe("Polyfill Sanity Checks", () => {
             const obj = {
                 [a]: "a",
             };
-            console.log(obj[a]);
+            assert(obj[a]);
         });
     });
 
     describe("Iteration", () => {
         it("iterating over Object.values", () => {
             for (const v of Object.values({x:5, y:10})) {
-                console.log(`${v}`);
+                assert(v)
             }
         });
 
         it("iterating over Object.entries", () => {
             for (const [k, v] of Object.entries({x:5, y:10})) {
-                console.log(`${k} = ${v}`);
+                assert(k);
+                assert(v);
             }
         });
 
         it("iterating over arrays", () => {
             for (const i of [1, 2, 3]) {
-                console.log(i);
+                assert(i);
             }
         });
     });
