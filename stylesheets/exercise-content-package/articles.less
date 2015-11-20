@@ -1,5 +1,6 @@
 // Article Renderer
 .framework-perseus.perseus-article {
+    @textColor: #21242c;
     .perseus-widget-container {
         &.widget-float-left {
             float: left;
@@ -17,9 +18,43 @@
     }
 
     .perseus-renderer > .paragraph {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 700px;
+        color: @textColor;
+        font-size: 20px;
+        line-height: 30px;
+        margin: 0 auto;
+        max-width: 688px;
+    }
+    .perseus-renderer > .paragraph .paragraph {
+        // These are actual paragraphs
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 32px;
+        margin-top: 0;
+    }
+
+    h2 {
+        font-family: inherit;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 27px;
+        margin-bottom: 16px;
+        margin-top: 50px;
+    }
+
+    .MathJax .math {
+        color: inherit;
+    }
+
+    .perseus-image-widget {
+        text-align: center;
+    }
+    .perseus-image-caption .paragraph .paragraph {
+        color: #999;
+        font-size: 14px;
+        line-height: 19px;
+        margin: 16px auto 42px;
+        max-width: 455px;
+        text-align: left;
     }
 
     .paragraph.perseus-paragraph-full-width {
