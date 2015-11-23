@@ -14,17 +14,25 @@
         }
     }
 
+    @marginLeft: -23px;
+    @borderLeft: 5px;
+    // The content of the explanation should line up with the other
+    // paragraphs, so we'll do a little algebra to make it happen.
+    @paddingLeft: -@marginLeft - @borderLeft;
+
+    // TODO(jordan): Shared?
+    @borderColor: #ccc;
+
     .perseus-widget-explanation-content {
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: @marginLeft;
         position: relative;
         transition: all 0.1s;
 
         > .perseus-renderer {
-            border-left: 5px solid #ccc;
+            border-left: @borderLeft solid @borderColor;
             margin-top: 22px;
             margin-bottom: 22px;
-            padding-left: 10px;
+            padding-left: @paddingLeft;
         }
     }
 }
