@@ -12,6 +12,7 @@ var ItemEditor = React.createClass({
         wasAnswered: React.PropTypes.bool,
         gradeMessage: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
+        previewWidth: React.PropTypes.number.isRequired,
     },
 
     getDefaultProps: function() {
@@ -31,6 +32,8 @@ var ItemEditor = React.createClass({
     },
 
     render: function() {
+        var previewWidth = this.props.previewWidth;
+
         return <div className="perseus-editor-table">
             <div className="perseus-editor-row perseus-question-container">
                 <div className="perseus-editor-left-cell">
@@ -46,7 +49,10 @@ var ItemEditor = React.createClass({
                         {...this.props.question} />
                 </div>
 
-                <div className="perseus-editor-right-cell">
+                <div
+                    className="perseus-editor-right-cell"
+                    style={{width: previewWidth, maxWidth: previewWidth}}
+                >
                     <div id="problemarea">
                         <div id="workarea" className="workarea" />
                         <div id="hintsarea"
@@ -66,7 +72,10 @@ var ItemEditor = React.createClass({
                         {...this.props.answerArea} />
                 </div>
 
-                <div className="perseus-editor-right-cell">
+                <div
+                    className="perseus-editor-right-cell"
+                    style={{width: previewWidth, maxWidth: previewWidth}}
+                >
                     <div id="answer_area">
                         <div id="solutionarea" className="solutionarea" />
                         <div className="answer-buttons">
@@ -107,13 +116,13 @@ var ItemEditor = React.createClass({
         return {
             question: this.refs.questionEditor.serialize(options),
             answerArea: this.refs.answerAreaEditor.serialize(options),
-            itemDataVersion: ITEM_DATA_VERSION
+            itemDataVersion: ITEM_DATA_VERSION,
         };
     },
 
     focus: function() {
         this.questionEditor.focus();
-    }
+    },
 });
 
 module.exports = ItemEditor;

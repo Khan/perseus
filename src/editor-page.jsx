@@ -10,6 +10,7 @@ var FixPassageRefs = require("./util/fix-passage-refs.jsx");
 var ItemEditor = require("./item-editor.jsx");
 var ItemRenderer = require("./item-renderer.jsx");
 var JsonEditor = require("./json-editor.jsx");
+var ViewportResizer = require("./components/viewport-resizer.jsx");
 
 var EditorPage = React.createClass({
     propTypes: {
@@ -48,6 +49,7 @@ var EditorPage = React.createClass({
             ),
             gradeMessage: "",
             wasAnswered: false,
+            previewWidth: ViewportResizer.DEFAULT_WIDTH,
         };
     },
 
@@ -120,6 +122,10 @@ var EditorPage = React.createClass({
         this.props.onChange(newProps, cb, silent);
     },
 
+    handleViewportSizeChanged: function(width, height) {
+        this.setState({previewWidth: width});
+    },
+
     changeJSON: function(newJson) {
         this.setState({
             json: newJson,
@@ -147,22 +153,32 @@ var EditorPage = React.createClass({
     render: function() {
 
         return <div id="perseus" className="framework-perseus">
-            {this.props.developerMode &&
-                <div>
-                    <label>
-                        {' '}Developer JSON Mode:{' '}
-                        <input
-                            type="checkbox"
-                            checked={this.props.jsonMode}
-                            onChange={this.toggleJsonMode}
-                        />
-                    </label>
-                    {" "}
-                    <button type="button" onClick={this._fixPassageRefs}>
-                        Fix passage-refs
-                    </button>
-                </div>
-            }
+            <div style={{marginBottom: 10}}>
+                {this.props.developerMode &&
+                    <span>
+                        <label>
+                            {' '}Developer JSON Mode:{' '}
+                            <input
+                                type="checkbox"
+                                checked={this.props.jsonMode}
+                                onChange={this.toggleJsonMode}
+                            />
+                        </label>
+                        {" "}
+                        <button type="button" onClick={this._fixPassageRefs}>
+                            Fix passage-refs
+                        </button>
+                        {" "}
+                    </span>
+                }
+
+                {!this.props.jsonMode &&
+                    <ViewportResizer
+                        onViewportSizeChanged={
+                            this.handleViewportSizeChanged}
+                    />
+                }
+            </div>
 
             {this.props.developerMode && this.props.jsonMode &&
                 <div>
@@ -186,6 +202,7 @@ var EditorPage = React.createClass({
                     gradeMessage={this.state.gradeMessage}
                     onCheckAnswer={this.handleCheckAnswer}
                     apiOptions={this._apiOptions()}
+                    previewWidth={this.state.previewWidth}
                 />
             }
 
@@ -195,6 +212,7 @@ var EditorPage = React.createClass({
                     hints={this.props.hints}
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
+                    previewWidth={this.state.previewWidth}
                 />
             }
         </div>;

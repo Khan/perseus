@@ -207,10 +207,7 @@ var ArticleEditor = React.createClass({
                         </div>
 
                         <div
-                            className={
-                                "perseus-editor-right-cell " +
-                                "preview-in-viewport"
-                            }
+                            className="perseus-editor-right-cell"
                             style={{
                                 width: this.state.previewWidth,
                                 maxWidth: this.state.previewWidth,
@@ -254,13 +251,12 @@ var ArticleEditor = React.createClass({
                     <span className="icon-plus" /> Add a section
                 </a>
             </div>
-            <div className="perseus-editor-right-cell" />
         </div>;
     },
 
     _renderPreviewMode: function() {
         return <div
-            className="article-preview-container preview-in-viewport"
+            className="article-preview-container"
             style={{
                 width: this.state.previewWidth,
                 maxWidth: this.state.previewWidth,

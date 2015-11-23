@@ -19,12 +19,12 @@ var InfoTip = require("react-components/info-tip.jsx");
  */
 var HintEditor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
-            content: ""
+            content: "",
         };
     },
 
@@ -76,19 +76,22 @@ var HintEditor = React.createClass({
 
     serialize: function(options) {
         return this.refs.editor.serialize(options);
-    }
+    },
 });
 
 
 /* A single hint-row containing a hint editor and preview */
 var CombinedHintEditor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        previewWidth: React.PropTypes.number.isRequired,
     },
 
     render: function() {
         var shouldBold = this.props.isLast &&
                          !(/\*\*/).test(this.props.hint.content);
+        var previewWidth = this.props.previewWidth;
+
         return <div className={"perseus-combined-hint-editor " +
                     "perseus-editor-row"}>
             <HintEditor
@@ -101,9 +104,13 @@ var CombinedHintEditor = React.createClass({
                 imageUploader={this.props.imageUploader}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
-                onMove={this.props.onMove} />
+                onMove={this.props.onMove}
+                previewWidth={this.props.previewWidth} />
 
-            <div className="perseus-editor-right-cell">
+            <div
+                className="perseus-editor-right-cell"
+                style={{width: previewWidth, maxWidth: previewWidth}}
+            >
                 <HintRenderer
                     hint={this.props.hint}
                     bold={shouldBold}
@@ -122,7 +129,7 @@ var CombinedHintEditor = React.createClass({
 
     focus: function() {
         this.refs.editor.focus();
-    }
+    },
 });
 
 
@@ -135,13 +142,14 @@ var CombinedHintEditor = React.createClass({
  */
 var CombinedHintsEditor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func
+        imageUploader: React.PropTypes.func,
+        previewWidth: React.PropTypes.number.isRequired,
     },
 
     getDefaultProps: function() {
         return {
             onChange: () => {},
-            hints: []
+            hints: [],
         };
     },
 
@@ -158,7 +166,8 @@ var CombinedHintsEditor = React.createClass({
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
-                        onMove={this.handleHintMove.bind(this, i)} />;
+                        onMove={this.handleHintMove.bind(this, i)}
+                        previewWidth={this.props.previewWidth} />;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">
@@ -231,7 +240,7 @@ var CombinedHintsEditor = React.createClass({
 
     serializeHint: function(index, options) {
         return this.refs["hintEditor" + index].serialize(options);
-    }
+    },
 });
 
 module.exports = CombinedHintsEditor;

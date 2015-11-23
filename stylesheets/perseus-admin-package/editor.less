@@ -23,11 +23,11 @@
 @widgetBorder:          @widgetBorderWidth solid @widgetBorderColor;
 @widgetBorderRadius:    3px;
 
+@previewBorder:         1px solid @gray;
+
 // Dimensions
-@questionWidth:         480px;
 @leftCellWidth:         360px;
 @cellPadding:           30px;
-@rightCellWidth:        @questionWidth + 2 * @cellPadding;
 
 // Colors
 @wrongRed:              #ffcccc;
@@ -306,9 +306,8 @@
         if it means it aligns better with the editor. */
         min-height: 0;
 
-        // Force the question width to make too-wide items visually overflow,
-        // to indicate that there is a problem to content creators
-        width: @questionWidth;
+        // Force the hint width to take up the width of its containing viewport.
+        width: 100%;
 
         #workarea {
             margin: 0; // override ke
@@ -361,6 +360,14 @@
 
 .perseus-editor-row {
     display: table-row;
+
+    &:first-child .perseus-editor-right-cell {
+        border-top: @previewBorder;
+    }
+
+    &:last-child .perseus-editor-right-cell {
+        border-bottom: @previewBorder;
+    }
 }
 
 .perseus-editor-left-cell {
@@ -373,12 +380,12 @@
 }
 
 .perseus-editor-right-cell {
-    background-color: #f7f7f7;
     .border-box-sizing();
+    border-left: @previewBorder;
+    border-right: @previewBorder;
     display: table-cell;
     padding: @cellPadding;
     vertical-align: top;
-    width: @rightCellWidth;
 }
 
 //
@@ -424,9 +431,8 @@
     }
     outline: 1px solid #ccc;
 
-    // Force the hint width to make too-wide items visually overflow,
-    // to indicate that there is a problem to content creators
-    width: @questionWidth;
+    // Force the hint width to take up the width of its containing viewport.
+    width: 100%;
 }
 
 // Article Editor
@@ -447,11 +453,6 @@
 
     .perseus-editor-left-cell {
         min-width: 360px;
-    }
-
-    .preview-in-viewport {
-        background: none;
-        border: 1px solid #777;
     }
 
     .article-preview-container {
