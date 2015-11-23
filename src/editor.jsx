@@ -591,12 +591,18 @@ var Editor = React.createClass({
             // Add pasted text to previous content, replacing selected text to
             // replicate normal paste behavior.
             var textarea = e.target;
+            var selectionStart = textarea.selectionStart;
             var newContent =
-                this.props.content.substr(0, textarea.selectionStart) +
+                this.props.content.substr(0, selectionStart) +
                 safeText +
                 this.props.content.substr(textarea.selectionEnd);
 
-            this.props.onChange({content: newContent, widgets: newWidgets});
+            this.props.onChange({content: newContent, widgets: newWidgets},
+                () => {
+                    var expectedCursorPosition =
+                        selectionStart + safeText.length;
+                    Util.textarea.moveCursor(textarea, expectedCursorPosition);
+                });
         }
     },
 
