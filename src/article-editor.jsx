@@ -8,7 +8,6 @@ var ArticleRenderer = require("./article-renderer.jsx");
 var Editor = require("./editor.jsx");
 var EnabledFeatures = require("./enabled-features.jsx");
 var JsonEditor = require("./json-editor.jsx");
-var ViewportResizer = require("./components/viewport-resizer.jsx");
 
 var rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
@@ -62,7 +61,6 @@ var ArticleEditor = React.createClass({
     getInitialState: function() {
         return {
             mode: "edit",
-            previewWidth: ViewportResizer.DEFAULT_WIDTH,
         };
     },
 
@@ -87,15 +85,6 @@ var ArticleEditor = React.createClass({
                         </span>
                     }
                 </label>
-                {(this.state.mode !== "json") &&
-                    <span>
-                        {" "}
-                        <ViewportResizer
-                            onViewportSizeChanged={
-                                this._handleViewportSizeChanged}
-                        />
-                    </span>
-                }
             </div>
 
             {(this.state.mode === "edit") &&
@@ -206,13 +195,7 @@ var ArticleEditor = React.createClass({
                             />
                         </div>
 
-                        <div
-                            className="perseus-editor-right-cell"
-                            style={{
-                                width: this.state.previewWidth,
-                                maxWidth: this.state.previewWidth,
-                            }}
-                        >
+                        <div className="perseus-editor-right-cell">
                             <ArticleRenderer
                                 json={section}
                                 ref={"renderer" + i}
@@ -226,14 +209,6 @@ var ArticleEditor = React.createClass({
                 ];
             })}
         </div>;
-    },
-
-    _handleViewportSizeChanged: function(width, height) {
-        // TODO(david): Also adjust the height of the viewport in our mobile
-        //     preview. Perhaps have a horizontal line or frame to indicate how
-        //     tall the device would be. Would need to take into account height
-        //     of site header and any other top-level Chrome.
-        this.setState({previewWidth: width});
     },
 
     _renderAddSection: function() {
