@@ -69,7 +69,7 @@ var ArticleEditor = React.createClass({
     render: function() {
 
         return <div className="framework-perseus perseus-article-editor">
-            <div style={{marginBottom: 10}}>
+            <div>
                 <label>
                     Mode:{" "}
                     <select
@@ -207,10 +207,7 @@ var ArticleEditor = React.createClass({
                         </div>
 
                         <div
-                            className={
-                                "perseus-editor-right-cell " +
-                                "preview-in-viewport"
-                            }
+                            className="perseus-editor-right-cell"
                             style={{
                                 width: this.state.previewWidth,
                                 maxWidth: this.state.previewWidth,
@@ -259,19 +256,11 @@ var ArticleEditor = React.createClass({
     },
 
     _renderPreviewMode: function() {
-        return <div
-            className="article-preview-container preview-in-viewport"
-            style={{
-                width: this.state.previewWidth,
-                maxWidth: this.state.previewWidth,
-            }}
-        >
-            <ArticleRenderer
-                json={this.props.json}
-                apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures}
-            />
-        </div>;
+        return <ArticleRenderer
+            json={this.props.json}
+            apiOptions={this.props.apiOptions}
+            enabledFeatures={this.props.enabledFeatures}
+        />;
     },
 
     _changeMode: function(e) {
