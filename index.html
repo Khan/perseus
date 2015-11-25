@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div id="extras" style="display:none;">
+<div id="extras">
     <button id="toJSON">toJSON</button>
     <button id="scorePreview">Score</button>
     <button id="permalink">permalink</button>
@@ -28,80 +28,11 @@
     <span>Features:</span><span id="enabledFeatures"></span>
 </div>
 
-<div style="width:100%; text-align:center; margin: 20px;" id='edit-button-collector'>
-</div>
-<button id='copy_last_info' style="display: none;">複製上題資訊</button>
-<table>
-    <tr>
-        <td>qid：</td>
-        <td>
-            <span id='qid'></span>
-        </td>
-    </tr>
-    <tr>
-        <td>科目：</td>
-        <td>
-            <input id='subject'></input>
-        </td>
-    </tr>
-    <tr>
-        <td>是否開放題目：</td>
-        <td>
-            <select id='is_hidden'>
-                <option value="False">公開</option>
-                <option value="True">隱藏</option>
-            </input>
-        </td>
-    </tr>
-    <tr>
-        <td>題目來源：</td>
-        <td>
-            <input id='source'></input>
-        </td>
-    </tr>
-    <tr>
-        <td>難度：</td>
-        <td>
-            <select id='level'>
-                <option value="1">簡單</option>
-                <option value="2">中等</option>
-                <option value="3">進階</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>範圍：</td>
-        <td>
-            <textarea rows="3" cols="20" id='cover_range'></textarea>
-        </td>
-    </tr>
-    <tr>
-        <td>相關影片：</td>
-        <td>
-            <textarea rows="3" cols="20" id='related_video'></textarea>
-        </td>
-    </tr>
-    <tr>
-        <td>相關練習題：</td>
-        <td>
-            <textarea rows="3" cols="20" id='related_exercise'></textarea>
-        </td>
-    </tr>
-    <tr>
-        <td>下架時間：</td>
-        <td>
-            <input id='expire_date' placeholder='範例格式：2025/12/31'></input>(若不限定下架時間則不用填)
-        </td>
-    </tr>
-</table>
 <!-- Begin Perseus HTML -->
 <div id="perseus-container">
 </div>
 <!-- End Perseus HTML -->
-<div style="width:100%; text-align:center; margin: 20px;" id='save-button-collector'>
-    <span class="simple-button green" id="save">儲存改變</span>
-    <span class="simple-button orange" id="quit">取消編輯</span>
-</div>
+
 <!-- put an empty div here so the margin on the perseus editor has something
 to "push against" (without the div, the padding goes off the page, and the
 add hint button ends up touching the bottom of the page). -->
@@ -154,34 +85,70 @@ add hint button ends up touching the bottom of the page). -->
 
 <script>
 (function() {
-
 requirejs.config({
     waitSeconds: 120
 });
-
 // Load khan-exercises modules, then perseus
 require(["ke-deps.js"], function() {
     // pre built
     require(["build/perseus-1.js"], initPerseus);
-
     // pre built with source maps
     // require(["build/perseus.debug.js"], initPerseus);
-
     // built on demand
     // require(["src/perseus.js"], initPerseus);
 });
-
 function initPerseus(Perseus) {
-
 window.Perseus = Perseus;
-
 var defaultQuestion = {
     "question": {
-        "content": "請在這裡填入問題",
-        "widgets": {}
+        "content": "[[☃ example-graphie-widget 1]]",
+        "widgets": {
+            "example-graphie-widget 1": {
+                "type": "example-graphie-widget",
+                "graded": true,
+                "options": {
+                    "correct": [
+                        -1,
+                        -3
+                    ],
+                    "graph": {
+                        "box": [
+                            340,
+                            340
+                        ],
+                        "labels": [
+                            "x",
+                            "y"
+                        ],
+                        "range": [
+                            [
+                                -10,
+                                10
+                            ],
+                            [
+                                -10,
+                                10
+                            ]
+                        ],
+                        "step": [
+                            1,
+                            1
+                        ],
+                        "gridStep": [
+                            1,
+                            1
+                        ],
+                        "valid": true,
+                        "backgroundImage": null,
+                        "markings": "grid",
+                        "showProtractor": false
+                    }
+                }
+            }
+        }
     },
     "answerArea": {
-        "type": "radio",
+        "type": "multiple",
         "options": {
             "content": "",
             "widgets": {}
@@ -190,7 +157,6 @@ var defaultQuestion = {
     },
     "hints": []
 };
-
 var editor;
 var problemNum = _.random(1, 99);
 var enabledFeatures = {
@@ -198,44 +164,6 @@ var enabledFeatures = {
     toolTipFormats: true,
     useMathQuill: true
 };
-url = window.location.hash.split('?')[0].substring(1);
-var question_dic = {};
-var init_data = Perseus.Util.parseQueryString(url);
-var new_perseus_question = true;
-if ('qid' in init_data && init_data.qid != '-1') {
-    new_perseus_question = false;
-}
-if (new_perseus_question == false){
-    if ($('#edit-button-collector').children().length == 0) {
-        $('#edit-button-collector').append('<span class="simple-button green" id="prev_question">編輯上一題</span>');
-        $('#edit-button-collector').append('<span class="simple-button green" id="next_question">編輯下一題</span>');
-    }
-    $('#prev_question').on('click',function(e){
-        if(question_dic.qid == 0){
-            alert('沒有上一題囉！');
-            return;
-        }
-        data={
-            'secret':question_dic.secret,
-            'iv':question_dic.iv,
-            'qid_offset':"-1"
-        };
-        getQuestion(data, 'offset-question/');
-    });
-    $('#next_question').on('click',function(e){
-        if(question_dic.qid == question_dic.question_amount-1){
-            alert('沒有下一題囉！');
-            return;
-        }
-        data={
-            'secret':question_dic.secret,
-            'iv':question_dic.iv,
-            'qid_offset':"1"
-        };
-        getQuestion(data, 'offset-question/');
-    });
-}
-
 $('#toJSON').on('click', function() {
     console.log(JSON.stringify(editor, null, 4));
 });
@@ -247,217 +175,14 @@ $('#permalink').on('click', function(e) {
         encodeURIComponent(JSON.stringify(editor));
     e.preventDefault();
 });
-$('#copy_last_info').on('click',function(e){
-    if (confirm("要複製前一題的題目資訊嗎？(不包含題目內容)")) {
-        if ('host_name' in init_data) {
-            data={
-                'secret':question_dic.secret,
-                'iv':question_dic.iv,
-                'qid_offset':"-1"
-            };
-            $.ajax({
-                url: 'http://' + init_data.host_name + '/questionpanel/questionmanager/offset-question/',
-                data: data,
-                dataType: 'json',
-                method: "POST",
-
-                success:function(data){
-                    if(data == 'Have_No_Authority'){
-                        alert("抱歉，您沒辦法獲取上一題資料。");
-                    }
-                    else{
-                        renderQuestionInfo(data);
-                    }
-                },
-                error:function(xhr, ajaxOptions, thrownError){ 
-                    alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
-                }
-            });
-        }
-    }
-});
-$('#save').on('click',function(e){
-
-    if(question_dic.can_manage_all_questions == 'True') {
-        can_manage_all_questions = true;
-    }
-    else if (question_dic.can_manage_all_questions == 'False') {
-        can_manage_all_questions = false;
-    }
-    else {
-        can_manage_all_questions = question_dic.can_manage_all_questions;
-    }
-
-    if (!new_perseus_question && !question_dic.uploader_id) {
-        return_string = "No-Uploader-Name";
-    }
-    else if (!new_perseus_question && !can_manage_all_questions && question_dic.uploader_id != question_dic.user_id) {
-        return_string = "No-Authorization";
-    }
-    else {
-        return_string = "Have-Authorization";
-    }
-
-    if (return_string == "No-Authorization" || return_string == "No-Uploader-Name") {
-        alert("很抱歉，您沒有權限編輯第" + question_dic.qid +"題。");
-    }
-    else {
-        if (confirm("修改將儲存於資料庫")) {
-            is_hidden = $('select#is_hidden').val();
-            subject = $('input#subject').val();
-            if (subject == '科目為必填' || subject == ''){
-                alert('一定要填科目喔！請填入這一題的科目，謝謝！');
-                return;
-            }
-            source = $('input#source').val();
-            level = $('select#level').val();
-            cover_range = $('textarea#cover_range').val();
-            if (cover_range == '範圍為必填' || cover_range == ''){
-                alert('一定要填範圍喔！請填入這一題的範圍，謝謝！');
-                return;
-            }
-            related_video = $('textarea#related_video').val();
-            related_exercise = $('textarea#related_exercise').val();
-            expire_date = $('input#expire_date').val();
-            question = JSON.stringify(editor);
-            host_name = question_dic.host_name;
-            data = {'qid':question_dic.qid,
-                    'is_hidden':is_hidden,
-                    'subject':subject,
-                    'source':source,
-                    'level':level,
-                    'cover_range':cover_range,
-                    'related_video':related_video,
-                    'related_exercise':related_exercise,
-                    'expire_date':expire_date,
-                    'can_manage_all_questions':question_dic.can_manage_all_questions,
-                    'secret':question_dic.secret,
-                    'iv':question_dic.iv,
-                    'question':question
-                };
-            if (new_perseus_question == true) {
-                newQuestion(data, 'save-perseus-question');
-            }else{
-                getQuestion(data, 'save-edit/');
-            }
-        }
-    }
-
-});
-$('#quit').on('click',function(e){
-    if (confirm("取消修改的話，未儲存之所有修改將不會儲存")) {
-        parent.close();
-    }
-});
-
-function getQuestion(data, func){
-    if (new_perseus_question) {
-        default_question_dic = {
-            'is_hidden': true,
-            'subject': '科目為必填',
-            'source': '',
-            'level': 1,
-            'cover_range': ['範圍為必填'],
-            'related_video': [],
-            'related_exercise': []
-        };
-        $.extend(default_question_dic, init_data);
-        question_dic = default_question_dic;
-        renderQuestion(default_question_dic);
-    }
-    else {
-        $.ajax({
-            url: 'http://' + init_data.host_name + '/questionpanel/questionmanager/' + func,
-            data: data,
-            dataType: 'json',
-            method: "POST",
-
-            success:function(data){
-                if(data == 'Have_No_Authority'){
-                    alert("您沒有足夠權限，將跳轉至題庫管理頁面。");
-                    parent.window.location = 'http://' + init_data.host_name + '/questionpanel/questionmanager/';
-                }
-                else{
-                    question_dic = data;
-                    renderQuestion(data);
-                }
-            },
-            error:function(xhr, ajaxOptions, thrownError){ 
-                alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
-            }
-        });
-    }
-};
-function newQuestion(data, func){
-    host_name = init_data.host_name;
-    $.ajax({
-        url: 'http://' + host_name + '/questionpanel/makeperseusquestion/' + func,
-        data: data,
-        dataType: 'json',
-        method: "POST",
-
-        success:function(data){
-             if(data == 'Have_No_Authority'){
-                // user has no authority, redirect to junyiacademy.org
-                alert("您沒有足夠權限，將跳轉至首頁。");
-                parent.window.location = 'http://' + init_data.host_name;
-            }
-            else{
-                question_dic = data;
-                renderQuestion(data);
-            }
-        },
-        error:function(xhr, ajaxOptions, thrownError){ 
-            alert(xhr.status + " " + thrownError + "\n請檢查連線狀況"); 
-        }
-    });
-}
 $('#problemNum').text(problemNum);
 $('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
     return '<span style="margin-left: 5px; background: ' +
             (enabled ? "#aaffaa" : "#ffcccc") + ';">' + feature + '</span>';
 }).join(''));
-
-function renderQuestionInfo(question_dic) {
-    if (question_dic.is_hidden === true) {
-        $('select#is_hidden').val('True');
-    }
-    else {
-        $('select#is_hidden').val('False');
-    }
-    question_dic.related_exercise = question_dic.related_exercise || [];  
-    // this line can be removed when we make sure that the get 'dada' has related_exercise attribute
-    
-    $('input#subject').val(question_dic.subject);
-    $('input#source').val(question_dic.source);
-    $('select#level').val(question_dic.level);
-    $('textarea#cover_range').val(question_dic.cover_range);
-    $('textarea#related_video').val(question_dic.related_video);
-    $('textarea#related_exercise').val(question_dic.related_exercise);
-    $('input#expire_date').val(question_dic.expire_date);
-};
-
-function renderQuestion(question_dic) {
-    var question = question_dic.question ? JSON.parse(question_dic.question) : defaultQuestion;
-    new_perseus_question = false;
-    if (question_dic.qid == '-1') {
-        new_perseus_question = true;
-    }
-
-    // Show or hide copy-last-info button
-    if ('host_name' in question_dic) {
-        $('#copy_last_info').show();
-    }
-    else {
-        $('#copy_last_info').hide();
-    }
-
-    $('span#qid').html(question_dic.qid);
-    renderQuestionInfo(question_dic);
-    if (question_dic.message) {
-        confirm(question_dic.message);
-    }
-
+var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
+var question = query.content ? JSON.parse(query.content) : defaultQuestion;
+Perseus.init({skipMathJax: false}).then(function() {
     var editorProps = _.extend(question, {
         problemNum: problemNum,
         enabledFeatures: enabledFeatures,
@@ -478,7 +203,6 @@ function renderQuestion(question_dic) {
             }
         }
     });
-
     editor = React.renderComponent(
         Perseus.StatefulEditorPage(editorProps, null),
         document.getElementById("perseus-container")
@@ -486,19 +210,11 @@ function renderQuestion(question_dic) {
     // Some hacks to make debugging nicer
     window.editorPage = editor.refs.editor;
     window.itemRenderer = window.editorPage.renderer;
-}
-
-Perseus.init({skipMathJax: false}).then(function() {
-    init_data['qid_offset'] = 0;
-    getQuestion(init_data, 'offset-question/');
-
 }).then(function() {
 }, function(err) {
     console.error(err);
 });
-
 }
-
 })();
 </script>
 
