@@ -1,19 +1,26 @@
 // Article Renderer
 .framework-perseus.perseus-article {
     @textColor: #21242c;
+    @paragraphSpacing: 32px;
     .perseus-widget-container {
+        &.widget-float-left,
+        &.widget-float-right {
+            max-width: 50%;
+            padding-top: @paragraphSpacing;
+            width: 100%;
+            .perseus-image-caption .paragraph .paragraph {
+                margin-bottom: 0;
+            }
+        }
+
         &.widget-float-left {
             float: left;
-            padding-right: 1em;
-            max-width: 50%;
-            width: 100%;
+            padding-right: @paragraphSpacing;
         }
 
         &.widget-float-right {
             float: right;
-            padding-left: 1em;
-            max-width: 50%;
-            width: 100%;
+            padding-left: @paragraphSpacing;
         }
     }
 
@@ -28,7 +35,7 @@
         // These are actual paragraphs
         font-size: 20px;
         line-height: 30px;
-        margin-bottom: 32px;
+        margin-bottom: @paragraphSpacing;
         margin-top: 0;
     }
 
@@ -58,6 +65,7 @@
     }
 
     .paragraph.perseus-paragraph-full-width {
+        margin-bottom: @paragraphSpacing;
         margin-left: 0;
         margin-right: 0;
         max-width: none;
