@@ -8103,7 +8103,11 @@ var DragTarget = require("react-components/drag-target");
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
 // widgets junyi can use now:
-var widgetsInEditor = ['image'];
+var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression', 
+                      'input-number', 'interactive-graph', 'interactive-number-line', 
+                      'lights-puzzle', 'matcher', 'measurer', 'number-line', 
+                      'iframe', 'numeric-input', 'orderer', 'plotter', 
+                      'radio', 'sorter', 'table', 'transformer '];
 
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
@@ -8123,7 +8127,7 @@ var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var junyiValidWidgets = _.pick(widgets, widgetsInEditor[0]);
+        var junyiValidWidgets = _.pick(widgets, widgetsInEditor);
         var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), function(name)  {
             return junyiValidWidgets[name].displayName;
         });
