@@ -11703,6 +11703,9 @@ var Renderer = React.createClass({displayName: 'Renderer',
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
+            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1) {
+                return id + ' is too big to record attempt content.'
+            }
             return this.refs[id].toJSON();
         }, this);
 
@@ -14268,7 +14271,7 @@ var Iframe = React.createClass({displayName: 'Iframe',
     getDefaultProps: function() {
         return {
             // options: incomplete, incorrect, correct
-            status: "incomplete",
+            status: "correct",
             // optional message
             message: null
         };
@@ -18964,7 +18967,7 @@ var Measurer = React.createClass({displayName: 'Measurer',
         }
 
         if (this.props.showRuler) {
-            this.ruler = graphie.ruler({
+            this.ruler = graphie.Ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2
@@ -22435,9 +22438,7 @@ var Radio = React.createClass({displayName: 'Radio',
             }
 
             return {
-                values: values,
-                noneOfTheAboveIndex: noneOfTheAboveIndex,
-                noneOfTheAboveSelected: noneOfTheAboveSelected
+                values: values
               };
         } else {
             // Nothing checked
@@ -22503,7 +22504,7 @@ _.extend(Radio, {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: rubric.choices[_.indexOf(state.values, true)].clue
             };
         }
     }
