@@ -5,6 +5,7 @@ var _ = require("underscore");
 
 var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 var Graphie = require("../components/graphie.jsx");
+var ImageLoader = require("../components/image-loader.jsx");
 var Util = require("../util.js");
 var Zoom = require("../zoom.js");
 
@@ -166,6 +167,19 @@ function getUrlHash(url) {
     return match && match[1];
 }
 
+function defaultPreloader() {
+    return React.DOM.span({
+        style: {
+            background: "url(/images/throbber.gif) no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            minWidth: "20px",
+        },
+    });
+}
+
 var SvgImage = React.createClass({
     propTypes: {
         alt: React.PropTypes.string,
@@ -177,6 +191,8 @@ var SvgImage = React.createClass({
         }),
 
         height: React.PropTypes.number,
+
+        preloader: React.PropTypes.func,
 
         // By default, this component attempts to be responsive whenever
         // possible (specifically, when width and height are passed in).
@@ -475,6 +491,15 @@ var SvgImage = React.createClass({
             );
         }
 
+        // If preloader is undefined, we use the default. If it's
+        // null, there will be no preloader in use.
+        var preloaderBaseFunc = this.props.preloader === undefined ?
+            defaultPreloader : this.props.preloader;
+
+        var preloader = preloaderBaseFunc ?
+            () => preloaderBaseFunc(dimensions) :
+            null;
+
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
             if (responsive) {
@@ -483,26 +508,29 @@ var SvgImage = React.createClass({
                     "svg-image": true,
                 });
 
+                imageProps.onClick = this._handleZoomClick;
+
                 return (
                     <FixedToResponsive
                         className={wrapperClasses}
                         width={width}
                         height={height}
                     >
-                        <img
+                        <ImageLoader
                             src={this.props.src}
-                            onClick={this._handleZoomClick}
-                            {...imageProps}
+                            imgProps={imageProps}
+                            preloader={preloader}
                         />
                         {extraGraphie}
                     </FixedToResponsive>
                 );
             } else {
+                imageProps.style = dimensions;
                 return (
-                    <img
+                    <ImageLoader
                         src={this.props.src}
-                        style={dimensions}
-                        {...imageProps}
+                        preloader={preloader}
+                        imgProps={imageProps}
                     />
                 );
             }
@@ -547,26 +575,28 @@ var SvgImage = React.createClass({
                     width={width}
                     height={height}
                 >
-                    <img
+                    <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
-                        {...imageProps}
+                        preloader={preloader}
+                        imgProps={imageProps}
                     />
                     {graphie}
                     {extraGraphie}
                 </FixedToResponsive>
             );
         } else {
+            imageProps.style = dimensions;
             return (
                 <div
                     className="unresponsive-svg-image"
                     style={dimensions}
                 >
-                    <img
+                    <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
-                        style={dimensions}
-                        {...imageProps}
+                        preloader={preloader}
+                        imgProps={imageProps}
                     />
                     {graphie}
                 </div>

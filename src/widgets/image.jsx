@@ -1,8 +1,14 @@
+// TODO(kevindangoor) fix these lint errors
+/*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
+    react/jsx-closing-bracket-location
+*/
+
 var React = require("react");
 var _ = require("underscore");
 
 var Util = require("../util.js");
 
+var ApiOptions   = require("../perseus-api.jsx").Options;
 var BlurInput    = require("react-components/blur-input.jsx");
 var Editor       = require("../editor.jsx");
 var InfoTip      = require("react-components/info-tip.jsx");
@@ -19,7 +25,7 @@ var defaultRange = [0, 10];
 var defaultBackgroundImage = {
     url: null,
     width: 0,
-    height: 0
+    height: 0,
 };
 
 /**
@@ -34,30 +40,31 @@ var captionAlignments = [
     "below",
     "below left",
     "left",
-    "above left"
+    "above left",
 ];
 
 function blankLabel() {
     return {
         content: "",
         coordinates: [0, 0],
-        alignment: "center"
+        alignment: "center",
     };
 }
 
 var ImageWidget = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
-        title: React.PropTypes.string,
-        box: React.PropTypes.arrayOf(React.PropTypes.number),
-
+        alt: React.PropTypes.string,
+        apiOptions: ApiOptions.propTypes,
         // TODO(alex): Rename to something else, e.g. "image", perhaps flatten
         backgroundImage: React.PropTypes.shape({
             url: React.PropTypes.string,
             width: React.PropTypes.number,
-            height: React.PropTypes.number
+            height: React.PropTypes.number,
         }),
+
+        box: React.PropTypes.arrayOf(React.PropTypes.number),
+
+        caption: React.PropTypes.string,
 
         // TODO(alex): Convert uses of this widget's labeling functionality to
         // SvgImage wherever possible (almost certainly requires a backfill)
@@ -65,16 +72,18 @@ var ImageWidget = React.createClass({
             React.PropTypes.shape({
                 content: React.PropTypes.string,
                 coordinates: React.PropTypes.arrayOf(React.PropTypes.number),
-                alignment: React.PropTypes.string
+                alignment: React.PropTypes.string,
             })
         ),
+
         range: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.number)
         ),
 
-        alt: React.PropTypes.string,
-        caption: React.PropTypes.string
+        title: React.PropTypes.string,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -84,7 +93,7 @@ var ImageWidget = React.createClass({
             backgroundImage: defaultBackgroundImage,
             labels: [],
             alt: "",
-            caption: ""
+            caption: "",
         };
     },
 
@@ -93,12 +102,14 @@ var ImageWidget = React.createClass({
         var image;
         var alt;
         var caption;
+        var {apiOptions} = this.props;
 
         if (this.props.title) {
             title = <div className="perseus-image-title">
                 <Renderer
                     content={this.props.title}
-                    apiOptions={this.props.apiOptions} />
+                    apiOptions={this.props.apiOptions}
+                />
             </div>;
         }
 
@@ -132,18 +143,22 @@ var ImageWidget = React.createClass({
                         }
                         width={backgroundImage.width}
                         height={backgroundImage.height}
+                        preloader={apiOptions ?
+                            apiOptions.imagePreloader : null}
                         extraGraphie={{
                             box: this.props.box,
                             range: this.props.range,
                             labels: this.props.labels,
-                        }} />;
+                        }}
+            />;
         }
 
         if (this.props.alt) {
             alt = <span className="perseus-sr-only">
                 <Renderer
                     content={this.props.alt}
-                    apiOptions={this.props.apiOptions} />
+                    apiOptions={this.props.apiOptions}
+                />
             </span>;
         }
 
@@ -169,7 +184,7 @@ var ImageWidget = React.createClass({
         return ImageWidget.validate(this.getUserInput(), rubric);
     },
 
-    focus: $.noop
+    focus: $.noop,
 });
 
 _.extend(ImageWidget, {
@@ -178,9 +193,9 @@ _.extend(ImageWidget, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 var ImageEditor = React.createClass({
@@ -235,7 +250,8 @@ var ImageEditor = React.createClass({
                                 this.change("alt", props.content);
                             }
                         }}
-                        widgetEnabled={false} />
+                        widgetEnabled={false}
+                    />
                 </label>
             </div>
             <div>
@@ -248,7 +264,8 @@ var ImageEditor = React.createClass({
                                 this.change("caption", props.content);
                             }
                         }}
-                        widgetEnabled={false} />
+                        widgetEnabled={false}
+                    />
                 </label>
             </div>
         </div>;
@@ -300,7 +317,8 @@ var ImageEditor = React.createClass({
                                 this.change("title", props.content);
                             }
                         }}
-                        widgetEnabled={false} />
+                        widgetEnabled={false}
+                    />
                 </label>
             </div>
         </div>;
@@ -333,7 +351,7 @@ var ImageEditor = React.createClass({
     _toggleAdvancedSettings: function(e) {
         e.preventDefault();
         this.setState({
-            showAdvancedSettings: !this.state.showAdvancedSettings
+            showAdvancedSettings: !this.state.showAdvancedSettings,
         });
     },
 
@@ -368,7 +386,8 @@ var ImageEditor = React.createClass({
                     href="#"
                     className="simple-button orange delete-label"
                     title="Remove this label"
-                    onClick={this.removeLabel.bind(this, i)}>
+                    onClick={this.removeLabel.bind(this, i)}
+                >
                     <span className="icon-trash" />
                 </a>
             </td>
@@ -395,7 +414,7 @@ var ImageEditor = React.createClass({
     onCoordinateChange: function(labelIndex, newCoordinates) {
         var labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
-            coordinates: newCoordinates
+            coordinates: newCoordinates,
         });
         this.props.onChange({labels: labels});
     },
@@ -404,7 +423,7 @@ var ImageEditor = React.createClass({
         var newContent = e.target.value;
         var labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
-            content: newContent
+            content: newContent,
         });
         this.props.onChange({labels: labels});
     },
@@ -413,7 +432,7 @@ var ImageEditor = React.createClass({
         var newAlignment = e.target.value;
         var labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
-            alignment: newAlignment
+            alignment: newAlignment,
         });
         this.props.onChange({labels: labels});
     },
@@ -434,9 +453,9 @@ var ImageEditor = React.createClass({
         image.height = height;
         var box = [image.width, image.height];
         this.props.onChange({
-                backgroundImage: image,
-                box: box,
-            },
+            backgroundImage: image,
+            box: box,
+        },
             null,
             silent
         );
@@ -495,5 +514,5 @@ module.exports = {
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     displayName: "Image",
     widget: ImageWidget,
-    editor: ImageEditor
+    editor: ImageEditor,
 };

@@ -53,6 +53,10 @@ module.exports = {
             // render the placeholder instead of the image or widget node.
             imagePlaceholder: React.PropTypes.node,
             widgetPlaceholder: React.PropTypes.node,
+
+            // Function that takes dimensions and returns a React component
+            // to display while an image is loading
+            imagePreloader: React.PropTypes.func,
         }).isRequired,
 
         defaults: {
