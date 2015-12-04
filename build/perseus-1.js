@@ -8100,9 +8100,9 @@ var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 // widgets junyi can use now:
 var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression', 
                       'input-number', 'interactive-graph', 'interactive-number-line', 
-                      'lights-puzzle', 'matcher', 'measurer', 'number-line', 
+                      'lights-puzzle', 'measurer', 'number-line', 
                       'iframe', 'numeric-input', 'orderer', 'plotter', 
-                      'radio', 'sorter', 'table', 'transformer '];
+                      'radio', 'sorter', 'table', 'transformer'];
 
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
