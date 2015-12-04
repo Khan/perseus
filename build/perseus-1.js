@@ -3734,10 +3734,14 @@ var WidgetsInAnswerAreaEditor = ['Image'];
 var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
     getDefaultProps: function() {
         return {
-            type: "input-number",
+            type: "multiple",
             options: {},
             calculator: false
         };
+    },
+
+    getInitialState: function() {
+      return {showSolutionArea: this.props.type === "radio" || this.props.type === "input-number"}
     },
 
     render: function() {
@@ -3759,37 +3763,28 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
         }, this.props.options));
 
         return React.DOM.div( {className:"perseus-answer-editor"}, 
-            React.DOM.div( {className:"perseus-answer-options"}, 
-            React.DOM.div(null
-            ),
-            React.DOM.div(null, React.DOM.label(null, 
-                ' ',"Answer type:",' ',
-                React.DOM.select( {value:this.props.type,
-                        onChange:function(e)  {
-                            this.props.onChange({
-                                type: e.target.value,
-                                options: {}
-                            }, function()  {
-                                this.refs.editor.focus();
-                            }.bind(this));
-                        }.bind(this)}, 
-                    React.DOM.option( {value:"radio"}, "Multiple choice"),
-                    React.DOM.option( {value:"input-number"}, "Text input (number)")
-                )
-            )
-            )
-            ),
-            React.DOM.div( {className:cls !== Editor ? "perseus-answer-widget" : ""}, 
-                editor
+            React.DOM.div( {className:"perseus-answer-options"},
+              (this.state.showSolutionArea) && React.DOM.div( {className:cls !== Editor ? "perseus-answer-widget" : ""}, 
+                  editor
+              )
             )
         );
     },
 
+    getEditorInAnswerArea: function() {
+      if (this.refs !== undefined) {
+        return this.refs.editor;
+      } else {
+        return undefined;
+      } 
+    },
+
     toJSON: function(skipValidation) {
         // Could be just _.pick(this.props, "type", "options"); but validation!
+        var editor = this.getEditorInAnswerArea();
         return {
             type: this.props.type,
-            options: this.refs.editor.toJSON(skipValidation),
+            options: editor !== undefined ? this.refs.editor.toJSON(skipValidation) : {},
             calculator: this.props.calculator
         };
     }
