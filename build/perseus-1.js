@@ -14139,7 +14139,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
         // focus
         return React.DOM.div(null, 
             React.DOM.div(null, React.DOM.label(null, 
-                "Correct answer:",' ',
+                "正確答案:",' ',
                 expression(expressionProps)
             )),
             this.state.isTex && TexButtons(
@@ -14152,10 +14152,10 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                     {form:this.props.form,
                     onChange:this.props.onChange,
                     labelAlignment:"right",
-                    label:"Answer expression must have the same form."} ),
+                    label:"答案一定要與格式相符"} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "The student's answer must be in the same form."+' '+
-                    "Commutativity and excess negative signs are ignored.")
+                    React.DOM.p(null, "學生必須輸入相同的算式。"+
+                    "但容許交換律與負號，例如：1+3，可接收3+1或1-(-3)，但不能接受4或2+2。")
                 )
             ),
 
@@ -14164,13 +14164,12 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                     {simplify:this.props.simplify,
                     onChange:this.props.onChange,
                     labelAlignment:"right",
-                    label:"Answer expression must be fully expanded and"+' '+
-                        "simplified."} ),
+                    label:"答案一定要化簡、展開。"} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "The student's answer must be fully expanded and"+' '+
-                    "simplified. Answering this equation (x^2+2x+1) with this"+' '+
-                    "factored equation (x+1)^2 will render this response"+' '+
-                    "\"Your answer is not fully expanded and simplified.\"")
+                    React.DOM.p(null, "答案一定要化簡或展開"+
+                    "，例如方程式(x^2+2x+1) ，如果輸入"+' '+
+                    "(x+1)^2 就會算不對，並且提示學生："+' '+
+                    "\"你的答案還沒化簡或展開\"。")
                 )
             ),
 
@@ -14181,26 +14180,21 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                     {times:this.props.times,
                     onChange:this.props.onChange,
                     labelAlignment:"right",
-                    label:"Use × for rendering multiplication instead of a"+' '+
-                        "center dot."} ),
+                    label:"用 × 表示乘號。"} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "For pre-algebra problems this option displays"+' '+
-                    "multiplication as \\times instead of \\cdot in both the"+' '+
-                    "rendered output and the acceptable formats examples.")
+                    React.DOM.p(null, "算術問題使用 × 表示乘法，代數問題用・表示乘法。")
                 )
             ),
 
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                "Function variables: ",
+                "函數名稱: ",
                 React.DOM.input( {type:"text",
                     defaultValue:this.props.functions.join(" "),
                     onChange:this.handleFunctions} )
                 ),
                 InfoTip(null, React.DOM.p(null, 
-                    "Single-letter variables listed here will be"+' '+
-                    "interpreted as functions. This let us know that f(x) means"+' '+
-                    "\"f of x\" and not \"f times x\"."
+                    "列在此處的變數為函數名稱，當我們使用 f(x)，會把它解讀成函數，而不是解釋成 f 乘以 x 。"
                 ))
             )
 
