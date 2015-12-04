@@ -22251,7 +22251,7 @@ var BaseRadio = React.createClass({displayName: 'BaseRadio',
                 "above-scratchpad blank-background"}, 
             this.props.multipleSelect &&
                 React.DOM.div( {className:"instructions"}, 
-                    $_(null, "Select all that apply.")
+                    $_(null, "請選擇所有正確的答案。")
                 ),
             this.props.choices.map(function(choice, i) {
 
@@ -22541,7 +22541,7 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
             React.DOM.div( {className:"perseus-widget-row"}, 
             
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    PropCheckBox( {label:"Multiple selections",
+                    PropCheckBox( {label:"多選題",
                                   labelAlignment:"right",
                                   multipleSelect:this.props.multipleSelect,
                                   onChange:this.onMultipleSelectChange} )
@@ -22562,7 +22562,7 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
                         ref: "editor" + i,
                         content: choice.content || "",
                         widgetEnabled: false,
-                        placeholder: "Type a choice here...",
+                        placeholder: "請輸入選項內容",
                         onChange: function(newProps)  {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
@@ -22572,7 +22572,7 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
                         ref: "clue-editor-" + i,
                         content: choice.clue || "",
                         widgetEnabled: false,
-                        placeholder: $._("Why is this choice " +
+                        placeholder: $._("為什麼這個選項 " +
                             checkedClass + "?"),
                         onChange: function(newProps)  {
                             if ("content" in newProps) {
@@ -22608,7 +22608,7 @@ var RadioEditor = React.createClass({displayName: 'RadioEditor',
                 React.DOM.a( {href:"#", className:"simple-button orange",
                         onClick:this.addChoice}, 
                     React.DOM.span( {className:"icon-plus"} ),
-                    ' ',"Add a choice",' '
+                    ' ',"增加選項",' '
                 )
             )
 
