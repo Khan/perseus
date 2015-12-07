@@ -4397,14 +4397,14 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
         return React.DOM.div(null, 
             React.DOM.div( {className:"graph-settings"}, 
                 React.DOM.div( {className:"perseus-widget-row"}, 
-                    React.DOM.div( {className:"perseus-widget-left-col"},  " x Label",
+                    React.DOM.div( {className:"perseus-widget-left-col"},  "x軸標籤",
                         React.DOM.input(  {type:"text",
                                 className:"graph-settings-axis-label",
                                 ref:"labels-0",
                                 onChange:this.changeLabel.bind(this, 0),
                                 value:this.state.labelsTextbox[0]} )
                     ),
-                    React.DOM.div( {className:"perseus-widget-right-col"}, "y Label",
+                    React.DOM.div( {className:"perseus-widget-right-col"}, "y軸標籤",
                         React.DOM.input(  {type:"text",
                                 className:"graph-settings-axis-label",
                                 ref:"labels-1",
@@ -4415,48 +4415,48 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
 
                 React.DOM.div( {className:"perseus-widget-row"}, 
                     React.DOM.div( {className:"perseus-widget-left-col"}, 
-                        "x Range",
+                        "x軸範圍",
                         RangeInput( {value: this.state.rangeTextbox[0],
                             onChange:  this.changeRange.bind(this, 0)} )
                     ),
                     React.DOM.div( {className:"perseus-widget-right-col"}, 
-                        "y Range",
+                        "y軸範圍",
                         RangeInput( {value: this.state.rangeTextbox[1],
                             onChange:  this.changeRange.bind(this, 1)} )
                     )
                 ),
                 React.DOM.div( {className:"perseus-widget-row"}, 
                     React.DOM.div( {className:"perseus-widget-left-col"}, 
-                        "Tick Step",
+                        "座標間距",
                         RangeInput( {value: this.state.stepTextbox,
                                     onChange:  this.changeStep} )
                     ),
                     React.DOM.div( {className:"perseus-widget-right-col"}, 
-                        "Grid Step",
+                        "網格間距",
                         RangeInput( {value: this.state.gridStepTextbox,
                                     onChange:  this.changeGridStep} )
                     )
                 ),
                 React.DOM.div( {className:"perseus-widget-row"}, 
                     React.DOM.div( {className:"perseus-widget-left-col"}, 
-                        "Snap Step",
+                        "答案拖拉間距",
                         RangeInput( {value: this.state.snapStepTextbox,
                                     onChange:  this.changeSnapStep} )
                     )
                 ),
                 React.DOM.div( {className:"perseus-widget-row"}, 
-                    React.DOM.label(null, "Markings:",' ', " " ),
+                    React.DOM.label(null, "標記:",' ', " " ),
                     ButtonGroup( {value:this.props.markings,
                         allowEmpty:false,
                         buttons:[
-                            {value: "graph", text: "Graph"},
-                            {value: "grid", text: "Grid"},
-                            {value: "none", text: "None"}],
+                            {value: "graph", text: "座標圖"},
+                            {value: "grid", text: "僅網格"},
+                            {value: "none", text: "無"}],
                         onChange:this.change("markings")} )
                 )
             ),
             React.DOM.div( {className:"image-settings"}, 
-                React.DOM.div(null, "Background image:"),
+                React.DOM.div(null, "背景圖:"),
                 React.DOM.div(null, "Url:",' ',
                     React.DOM.input( {type:"text",
                             className:"graph-settings-background-url",
@@ -4465,8 +4465,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
                             onKeyPress:this.changeBackgroundUrl,
                             onBlur:this.changeBackgroundUrl} ),
                     InfoTip(null, 
-                        React.DOM.p(null, "Create an image in graphie, or use the \"Add image\""+' '+
-                        "function to create a background.")
+                        React.DOM.p(null, "請在圖形中增加圖片，或於欄中輸入圖片連結。")
                     )
                 ),
                 this.props.backgroundImage.url && React.DOM.div(null, 
@@ -15530,16 +15529,16 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                             graph: {type: type}
                         });
                     }.bind(this)}, 
-                React.DOM.option( {value:"linear"}, "Linear function"),
-                React.DOM.option( {value:"quadratic"}, "Quadratic function"),
-                React.DOM.option( {value:"sinusoid"}, "Sinusoid function"),
-                React.DOM.option( {value:"circle"}, "Circle"),
-                React.DOM.option( {value:"point"}, "Point(s)"),
-                React.DOM.option( {value:"linear-system"}, "Linear System"),
-                React.DOM.option( {value:"polygon"}, "Polygon"),
-                React.DOM.option( {value:"segment"}, "Line Segment(s)"),
-                React.DOM.option( {value:"ray"}, "Ray"),
-                React.DOM.option( {value:"angle"}, "Angle")
+                React.DOM.option( {value:"linear"}, "線性函數"),
+                React.DOM.option( {value:"quadratic"}, "二次函數"),
+                React.DOM.option( {value:"sinusoid"}, "正餘弦函數"),
+                React.DOM.option( {value:"circle"}, "圓形"),
+                React.DOM.option( {value:"point"}, "點"),
+                React.DOM.option( {value:"linear-system"}, "聯立方程組"),
+                React.DOM.option( {value:"polygon"}, "多邊形"),
+                React.DOM.option( {value:"segment"}, "線段"),
+                React.DOM.option( {value:"ray"}, "射線"),
+                React.DOM.option( {value:"angle"}, "角度")
             );
 
             if (this.props.graph.type === "point") {
@@ -15559,10 +15558,10 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                         }.bind(this)}, 
                     _.map(_.range(1, 7), function(n) {
                         return React.DOM.option( {value:n}, 
-                            n, " point",n > 1 && "s"
+                            n, " 點",n > 1 && "s"
                         );
                     }),
-                    React.DOM.option( {value:UNLIMITED}, "unlimited")
+                    React.DOM.option( {value:UNLIMITED}, "無限制")
                 );
             } else if (this.props.graph.type === "polygon") {
                 extraOptions = React.DOM.div(null, 
@@ -15583,13 +15582,13 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                                 this.props.onChange({graph: graph});
                             }.bind(this)}, 
                             _.map(_.range(3, 13), function(n) {
-                                return React.DOM.option( {value:n}, n, " sides");
+                                return React.DOM.option( {value:n}, n, " 邊");
                             }),
-                            React.DOM.option( {value:UNLIMITED}, "unlimited sides")
+                            React.DOM.option( {value:UNLIMITED}, "無限制")
                         )
                     ),
                     React.DOM.div(null, 
-                        React.DOM.label(null,  " Snap to",' ',
+                        React.DOM.label(null,  " 對齊",' ',
                             React.DOM.select(
                                 {key:"polygon-snap",
                                 value:this.props.graph.snapTo,
@@ -15602,45 +15601,44 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                                         });
                                     this.props.onChange({graph: graph});
                                 }.bind(this)}, 
-                                React.DOM.option( {value:"grid"}, "grid"),
+                                React.DOM.option( {value:"grid"}, "網格"),
                                 (this.props.graph.numSides !== UNLIMITED) && [
-                                    React.DOM.option( {value:"angles"}, 
-                                        ' ',"interior angles",' '
+                                    React.DOM.option( {value:"interior angles"}, 
+                                        ' ',"內角",' '
                                     ),
-                                    React.DOM.option( {value:"sides"}, 
-                                        ' ',"side measures",' '
+                                    React.DOM.option( {value:"side measures"}, 
+                                        ' ',"邊長",' '
                                     )
                                 ]
                             )
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "These options affect the movement of the vertex"+' '+
-                            "points. The grid option will guide the points to"+' '+
-                            "the nearest half step along the grid."),
+                            React.DOM.p(null, "此選項是用來決定答案的符合情況，\"對齊網格\"為頂點位置需符合答案要求，\"對齊內角\"為內角需符合答案要求，\"對齊邊長\"為各邊需符合答案要求。"), ''
 
-                            React.DOM.p(null, "The interior angle and side measure options"+' '+
-                            "guide the points to the nearest whole angle or"+' '+
-                            "side"), " measure respectively.",' '
+                            //React.DOM.p(null, "The interior angle and side measure options"+' '+
+                            //"guide the points to the nearest whole angle or"+' '+
+                            //"side"), 
+                            //" measure respectively.",' '
                         )
                     ),
                     React.DOM.div(null, 
-                        React.DOM.label(null, "Show angle measures:",' ',
+                        React.DOM.label(null, "顯示角度度數:",' ',
                             React.DOM.input( {type:"checkbox",
                                 checked:this.props.graph.showAngles,
                                 onChange:this.toggleShowAngles} )
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "Displays the interior angle measures.")
+                            React.DOM.p(null, "顯示出各內角的角度。")
                         )
                     ),
                     React.DOM.div(null, 
-                        React.DOM.label(null, "Show side measures:",' ',
+                        React.DOM.label(null, "顯示邊長長度:",' ',
                             React.DOM.input( {type:"checkbox",
                                 checked:this.props.graph.showSides,
                                 onChange:this.toggleShowSides} )
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "Displays the side lengths.")
+                            React.DOM.p(null, "顯示出各邊的長度。")
                         )
                     )
                 );
@@ -15660,7 +15658,7 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                         }.bind(this)}, 
                     _.map(_.range(1, 7), function(n) {
                         return React.DOM.option( {value:n}, 
-                            n, " segment",n > 1 && "s"
+                            n, " 線段",n > 1 && "s"
                         );
                     })
                 );
@@ -15671,14 +15669,14 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                 );
                 extraOptions = React.DOM.div(null, 
                     React.DOM.div(null, 
-                        React.DOM.label(null, "Show angle measure:",' ',
+                        React.DOM.label(null, "顯示角度值:",' ',
                             React.DOM.input( {type:"checkbox",
                                 checked:this.props.graph.showAngles,
                                 onChange:this.toggleShowAngles} )
                         )
                     ),
                     React.DOM.div(null, 
-                        React.DOM.label(null, "Allow reflex angles:",' ',
+                        React.DOM.label(null, "允許反角:",' ',
                             React.DOM.input( {type:"checkbox",
                                 checked:allowReflexAngles,
                                 onChange:function(newVal)  {
@@ -15693,16 +15691,15 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                         ),
                         InfoTip(null, 
                             React.DOM.p(null, 
-                                "Reflex angles are angles with a measure"+' '+
-                                "greater than 180 degrees."
+                                "反角是指大於 180 度的角度。"
                             ),
                             React.DOM.p(null, 
-                                "By default, these should remain enabled."
+                                "(預設為允許)"
                             )
                         )
                     ),
                     React.DOM.div(null, 
-                        React.DOM.label(null, "Snap to increments of",' ',
+                        React.DOM.label(null, "符合",' ',
                             NumberInput(
                                 {key:"degree-snap",
                                 placeholder:1,
@@ -15715,12 +15712,12 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                                         })
                                     });
                                 }.bind(this)} ),
-                            ' ',"degrees",' '
+                            ' ',"度",' '
                         )
                     ),
                     React.DOM.div(null, 
                         React.DOM.label(null, 
-                            ' ',"With an offset of",' ',
+                            ' ',"偏移",' ',
                             NumberInput(
                                 {key:"angle-offset",
                                 placeholder:0,
@@ -15733,7 +15730,7 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                                         })
                                     });
                                 }.bind(this)} ),
-                            ' ',"degrees",' '
+                            ' ',"度",' '
                         )
                     )
                 );
@@ -17541,11 +17538,9 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
         }
 
         return React.DOM.div( {className:"perseus-widget-interactive-graph"}, 
-            React.DOM.div(null, "Correct answer",' ',
+            React.DOM.div(null, "正確答案",' ',
                 InfoTip(null, 
-                    React.DOM.p(null, "Graph the correct answer in the graph below and ensure"+' '+
-                    "the equation or point coordinates displayed represent the"+' '+
-                    "correct answer.")
+                    React.DOM.p(null, "將正確答案於下圖中繪製出來，請注意所有的函數圖或資料點需表示出正確的答案。")
                 ),
                 ' ',": ", equationString),
 
@@ -17570,43 +17565,33 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
             this.props.correct.type === "polygon" &&
             React.DOM.div( {className:"type-settings"}, 
                 React.DOM.label(null, 
-                    ' ',"Student answer must",' ',
+                    ' ',"學生的答案必須要",' ',
                     React.DOM.select(
                             {value:this.props.correct.match,
                             onChange:this.changeMatchType}, 
-                        React.DOM.option( {value:"exact"}, "match exactly"),
-                        React.DOM.option( {value:"congruent"}, "be congruent"),
+                        React.DOM.option( {value:"exact"}, "完全符合"),
+                        React.DOM.option( {value:"congruent"}, "全等"),
                         React.DOM.option( {value:"approx"}, 
-                            "be approximately congruent"),
-                        React.DOM.option( {value:"similar"}, "be similar")
+                            "大致上全等"),
+                        React.DOM.option( {value:"similar"}, "相似")
                     )
                 ),
                 InfoTip(null, 
                     React.DOM.ul(null, 
                         React.DOM.li(null, 
-                            React.DOM.p(null, React.DOM.b(null, "Match Exactly:"), " Match exactly in size,"+' '+
-                            "orientation, and location on the grid even if it is"+' '+
-                            "not shown in the background.")
+                            React.DOM.p(null, React.DOM.b(null, "完全符合:"), " 圖形於網格上的大小、方向、位置皆需完全符合答案。")
                         ),
                         React.DOM.li(null, 
-                            React.DOM.p(null, React.DOM.b(null, "Be Congruent:"), " Be congruent in size and"+' '+
-                            "shape, but can be located anywhere on the grid.")
+                            React.DOM.p(null, React.DOM.b(null, "全等:"), " 圖形的大小和形狀需與答案符合，但圖形於網格上的位置並無限制。")
                         ),
                         React.DOM.li(null, 
                             React.DOM.p(null, 
-                                React.DOM.b(null, "Be Approximately Congruent:"), " Be exactly"+' '+
-                                "similar, and congruent in size and shape to"+' '+
-                                "within 0.1 units, but can be located anywhere"+' '+
-                                "on the grid. ", React.DOM.em(null, "Use this with snapping to"+' '+
-                                "angle measure.")
+                                React.DOM.b(null, "大致上全等:"), " 圖形需與答案非常相似，圖形的大小和形狀與答案可誤差於 0.1 個網格單位，且圖形於網格上的位置並無限制。", 
+                                React.DOM.em(null, "(可使用此答案於對齊角度的選項)")
                             )
                         ),
                         React.DOM.li(null, 
-                            React.DOM.p(null, React.DOM.b(null, "Be Similar:"), " Be similar with matching"+' '+
-                            "interior angles, and side measures that are"+' '+
-                            "matching or a multiple of the correct side"+' '+
-                            "measures. The figure can be located anywhere on the"+' '+
-                            "grid.")
+                            React.DOM.p(null, React.DOM.b(null, "相似:"), " 圖形的內角、邊長與答案大致相似，或是圖形大部份邊的性質符合答案，且圖形於網格上的位置並無限制。")
                         )
                     )
                 )
@@ -17615,19 +17600,16 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
             React.DOM.div( {className:"type-settings"}, 
                 React.DOM.div(null, 
                     React.DOM.label(null, 
-                        ' ',"Student answer must",' ',
+                        ' ',"學生的答案必須要",' ',
                         React.DOM.select(
                                 {value:this.props.correct.match,
                                 onChange:this.changeMatchType}, 
-                            React.DOM.option( {value:"exact"}, "match exactly"),
-                            React.DOM.option( {value:"congruent"}, "be congruent")
+                            React.DOM.option( {value:"exact"}, "完全符合"),
+                            React.DOM.option( {value:"congruent"}, "全等")
                         )
                     ),
                     InfoTip(null, 
-                        React.DOM.p(null, "Congruency requires only that the angle measures are"+' '+
-                        "the same. An exact match implies congruency, but also"+' '+
-                        "requires that the angles have the same orientation and"+' '+
-                        "that the vertices are in the same position.")
+                        React.DOM.p(null, "\"完全符合\"是指圖形於網格上的方向、位置皆需完全符合答案；\"全等\"僅要求角度部份相同即可。")
                     )
                 )
             ),
