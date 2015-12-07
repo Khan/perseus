@@ -148,7 +148,7 @@ var draw = {
                 );
             }
 
-            _.each(labeledVertices, function(label, i) {
+            _.each(self.state._labeledVertices, function(label, i) {
                 self.state._labelCache.push(graphie.labelVertex({
                     point1: coords[(i - 1 + n) % n],
                     vertex: coords[i],
