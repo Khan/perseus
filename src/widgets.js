@@ -265,6 +265,7 @@ var Widgets = {
      */
     getDefaultAlignment: function(type, enabledFeatures) {
         var widgetInfo = widgets[type];
+        var alignment;
         if (!widgetInfo) {
             return DEFAULT_ALIGNMENT;
         }
