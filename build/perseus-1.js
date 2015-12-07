@@ -21215,11 +21215,11 @@ var RangeInput = require("../components/range-input.jsx");
 
 var deepEq = require("../util.js").deepEq;
 
-var BAR = "bar",
-    LINE = "line",
-    PIC = "pic",
-    HISTOGRAM = "histogram",
-    DOTPLOT = "dotplot";
+var BAR = "條狀圖",
+    LINE = "折線圖",
+    PIC = "條狀圖 (圖例)",
+    HISTOGRAM = "長條圖",
+    DOTPLOT = "點狀圖";
 
 var DOT_PLOT_POINT_SIZE = 4;
 var DOT_PLOT_POINT_PADDING = 8;
@@ -21889,7 +21889,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
         var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
         return React.DOM.div( {className:"perseus-widget-plotter-editor"}, 
             React.DOM.div(null, 
-                "Chart type:",' ',
+                "圖表種類:",' ',
                 _.map([BAR, LINE, PIC, HISTOGRAM, DOTPLOT], function(type) {
                     return React.DOM.label( {key:type}, 
                         React.DOM.input(
@@ -21902,8 +21902,8 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
                 }, this)
             ),
             React.DOM.div(null, 
-                "Labels:",' ',
-                _.map(["x", "y"], function(axis, i) {
+                "標籤:",' ',
+                _.map(["x軸", "y軸"], function(axis, i) {
                     return React.DOM.label( {key:axis}, 
                         axis + ":",
                         React.DOM.input(
@@ -21916,11 +21916,11 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
 
             setFromScale && React.DOM.div( {className:"set-from-scale-box"}, 
                 React.DOM.span( {className:"categories-title"}, 
-                    "Set Categories From Scale"
+                    "批次設定類別 (x軸)"
                 ),
                 React.DOM.div(null, 
                     React.DOM.label(null, 
-                        "Tick Step:",' ',
+                        "間距:",' ',
                         NumberInput(
                             {placeholder:1,
                             useArrowKeys:true,
@@ -21928,12 +21928,12 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
                             onChange:this.handleChangeTickStep} )
                     ),
                     InfoTip(null, 
-                        React.DOM.p(null, "The difference between adjacent ticks.")
+                        React.DOM.p(null, "兩個資料點間的間距。")
                     )
                 ),
                 React.DOM.div(null, 
                     React.DOM.label(null, 
-                        "Range:",' ',
+                        "範圍:",' ',
                         RangeInput(
                             {placeholder:[0, 10],
                             useArrowKeys:true,
@@ -21943,13 +21943,13 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
                 ),
                 React.DOM.div(null, 
                     React.DOM.button( {onClick:this.setCategoriesFromScale}, 
-                        "Set Categories",' '
+                        "設定",' '
                     )
                 )
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    "Label Interval:",' ',
+                    "標籤範圍:",' ',
                     NumberInput(
                         {useArrowKeys:true,
                         value:this.props.labelInterval,
@@ -21963,7 +21963,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
             ),
             this.props.type === PIC && React.DOM.div(null, 
                 React.DOM.label(null, 
-                    "Picture:",' ',
+                    "圖例:",' ',
                     React.DOM.input(
                         {type:"text",
                         className:"pic-url",
@@ -21971,8 +21971,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
                         onKeyPress:this.changePicUrl,
                         onBlur:this.changePicUrl} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Use the default picture of Earth, or insert the URL for"+' '+
-                    "a different picture using the \"Add image\" function.")
+                    React.DOM.p(null, "預設值為地球圖例，若要使用特定圖例，請於此處輸入圖片連結網址。")
                 )
                 ),
                 this.state.pic &&
@@ -21985,7 +21984,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    "Categories:",' ',
+                    "類別 (x軸):",' ',
                     TextListEditor(
                         {ref:"categories",
                         layout:"horizontal",
@@ -21995,7 +21994,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    "Scale (y):",' ',
+                    "組距 (y軸):",' ',
                     React.DOM.input(
                         {type:"text",
                         onChange:this.changeScale,
@@ -22004,7 +22003,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    "Max y:",' ',
+                    "最大值 (y軸):",' ',
                     React.DOM.input(
                         {type:"text",
                         ref:"maxY",
@@ -22014,21 +22013,19 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
             ),
             canChangeSnaps && React.DOM.div(null, 
                 React.DOM.label(null, 
-                    "Snaps per line:",' ',
+                    "垂直拖拉間距參數:",' ',
                     React.DOM.input(
                         {type:"text",
                         onChange:this.changeSnaps,
                         defaultValue:this.props.snapsPerLine} )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Creates the specified number of divisions between the"+' '+
-                    "horizontal lines. Fewer snaps between lines makes the graph"+' '+
-                    "easier for the student to create correctly.")
+                    React.DOM.p(null, "用以調整學生在拖拉答案時的，y 軸的單位間距前進比例，舉例來說，當此參數設定為 2 之時，每次的拖拉時的前進單位為 1/2 個 y 軸單位間距。一般來說，為求學生作答時的便利性，此值不宜設定太大。")
                 )
             ),
             React.DOM.div(null, 
-                "Editing values:",' ',
-                _.map(["correct", "starting"], function(editing) {
+                "圖表編輯值:",' ',
+                _.map(["答案值", "起始值"], function(editing) {
                     return React.DOM.label( {key:editing}, 
                         React.DOM.input(
                             {type:"radio",
@@ -22039,10 +22036,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
                     );
                 }, this),
                 InfoTip(null, React.DOM.p(null, 
-                    "Use this toggle to switch between editing the correct"+' '+
-                    "answer (what the student will be graded on) and the"+' '+
-                    "starting values (what the student will see plotted when"+' '+
-                    "they start the problem). Note: These cannot be the same."
+                    "選用\"答案值\"編輯此題的圖表答案；選用\"起始值\"編輯此題作答前的圖表預設樣式。"
                 ))
             ),
             this.transferPropsTo(
