@@ -1,7 +1,7 @@
 var React = require('react');
 var _ = require("underscore");
 
-var InfoTip        = require("react-components/info-tip.jsx");
+var InfoTip        = require("react-components/info-tip.js");
 var PropCheckBox   = require("../components/prop-check-box.jsx");
 var Renderer       = require("../renderer.jsx");
 var Sortable       = require("../components/sortable.jsx");

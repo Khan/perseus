@@ -5,11 +5,11 @@
 var React = require("react");
 var _ = require("underscore");
 
-var BlurInput = require("react-components/blur-input.jsx");
+var BlurInput = require("react-components/blur-input.js");
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 
 // Current default is 720p, based on the typical videos we upload currently
 var DEFAULT_WIDTH = 1280;

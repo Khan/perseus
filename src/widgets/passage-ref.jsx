@@ -3,7 +3,7 @@ var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 var NumberInput = require("../components/number-input.jsx");
 var PerseusMarkdown = require("../perseus-markdown.jsx");
 var TextInput = require("../components/text-input.jsx");

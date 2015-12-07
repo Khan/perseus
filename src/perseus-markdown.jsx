@@ -1,7 +1,7 @@
 var _ = require("underscore");
 
 var SimpleMarkdown = require("simple-markdown");
-var TeX = require("react-components/tex.jsx");
+var TeX = require("react-components/tex.js");
 var Util = require("./util.js");
 
 /**

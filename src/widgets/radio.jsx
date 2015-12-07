@@ -11,7 +11,7 @@ var Renderer = require("../renderer.jsx");
 var PassageRef = require("./passage-ref.jsx");
 var Util = require("../util.js");
 
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 
 var shuffle = require("../util.js").shuffle;
 var captureScratchpadTouchStart =

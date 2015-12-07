@@ -1,7 +1,7 @@
 var React = require("react");
-var TeX = require("react-components/tex.jsx");
+var TeX = require("react-components/tex.js");
 
-var ButtonGroup = require("react-components/button-group.jsx");
+var ButtonGroup = require("react-components/button-group.js");
 var Changeable = require("../../mixins/changeable.jsx");
 var MathInput = require("../../components/math-input.jsx");
 var NumberInput = require("../../components/number-input.jsx");

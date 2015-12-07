@@ -5,7 +5,7 @@ var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx")
 
 var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 
 var MAX_SIZE = 8;
 

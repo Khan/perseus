@@ -1,7 +1,7 @@
 var React     = require("react");
 var _ = require("underscore");
 
-var TeX       = require("react-components/tex.jsx");
+var TeX       = require("react-components/tex.js");
 
 var prettyBig = { fontSize: "150%" };
 var slightlyBig = { fontSize: "120%" };

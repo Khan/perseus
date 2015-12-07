@@ -1,6 +1,6 @@
 var classNames = require("classnames");
 var FancySelect = require("../components/fancy-select.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");

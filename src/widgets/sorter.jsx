@@ -1,5 +1,5 @@
 var React          = require('react');
-var InfoTip        = require("react-components/info-tip.jsx");
+var InfoTip        = require("react-components/info-tip.js");
 var _ = require("underscore");
 
 var PropCheckBox   = require("../components/prop-check-box.jsx");

@@ -1,9 +1,9 @@
 var classNames = require("classnames");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 var React = require("react");
 var ReactDOM = require("react-dom");
-var SortableArea     = require("react-components/sortable.jsx");
-var Tooltip = require("react-components/tooltip.jsx");
+var SortableArea     = require("react-components/sortable.js");
+var Tooltip = require("react-components/tooltip.js");
 var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -18,7 +18,7 @@ var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
-var TeX = require("react-components/tex.jsx");// OldExpression only
+var TeX = require("react-components/tex.js");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 
 var EnabledFeatures = require("../enabled-features.jsx");

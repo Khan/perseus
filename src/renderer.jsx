@@ -10,7 +10,7 @@ var JiptParagraphs = require("./jipt-paragraphs.jsx");
 var PerseusMarkdown = require("./perseus-markdown.jsx");
 var QuestionParagraph = require("./question-paragraph.jsx");
 var SvgImage = require("./components/svg-image.jsx");
-var TeX = require("react-components/tex.jsx");
+var TeX = require("react-components/tex.js");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
 

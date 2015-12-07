@@ -7,7 +7,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var Editor = require("../editor.jsx");
 var Renderer = require("../renderer.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var PassageMarkdown = require("./passage/passage-markdown.jsx");
 

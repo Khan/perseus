@@ -1,7 +1,7 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
-var InfoTip = require("react-components/info-tip.jsx");
-var BlurInput = require("react-components/blur-input.jsx");
+var InfoTip = require("react-components/info-tip.js");
+var BlurInput = require("react-components/blur-input.js");
 var _ = require("underscore");
 
 var NumberInput = require("../components/number-input.jsx");

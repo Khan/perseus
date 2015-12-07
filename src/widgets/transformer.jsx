@@ -4,11 +4,11 @@ var _ = require("underscore");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
-var InfoTip       = require("react-components/info-tip.jsx");
+var InfoTip       = require("react-components/info-tip.js");
 var NumberInput   = require("../components/number-input.jsx");
 var MathOutput    = require("../components/math-output.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
-var TeX           = require("react-components/tex.jsx");
+var TeX           = require("react-components/tex.js");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 

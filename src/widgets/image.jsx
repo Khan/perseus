@@ -3,9 +3,9 @@ var _ = require("underscore");
 
 var Util = require("../util.js");
 
-var BlurInput    = require("react-components/blur-input.jsx");
+var BlurInput    = require("react-components/blur-input.js");
 var Editor       = require("../editor.jsx");
-var InfoTip      = require("react-components/info-tip.jsx");
+var InfoTip      = require("react-components/info-tip.js");
 var Renderer     = require("../renderer.jsx");
 
 var Changeable    = require("../mixins/changeable.jsx");

@@ -3,7 +3,7 @@ var _ = require("underscore");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
-var InfoTip       = require("react-components/info-tip.jsx");
+var InfoTip       = require("react-components/info-tip.js");
 var Interactive2  = require("../interactive2.js");
 var NumberInput   = require("../components/number-input.jsx");
 var Util          = require("../util.js");
