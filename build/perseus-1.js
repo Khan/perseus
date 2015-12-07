@@ -12883,13 +12883,13 @@ var CategorizerEditor = React.createClass({displayName: 'CategorizerEditor',
 
     render: function() {
         return React.DOM.div(null, 
-            "Categories:",
+            "類別:", 
             TextListEditor(
                 {options:this.props.categories,
                 onChange:function(cat)  {this.change("categories", cat);}.bind(this),
                 layout:"horizontal"} ),
 
-            "Items:",
+            "項目:",
             TextListEditor(
                 {options:this.props.items,
                 onChange:function(items)  {this.change({
