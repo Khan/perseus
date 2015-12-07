@@ -264,7 +264,8 @@ var Widgets = {
      * the exports of a widget's module.
      */
     getDefaultAlignment: function(type, enabledFeatures) {
-        var alignment, widgetInfo = widgets[type];
+        var widgetInfo = widgets[type];
+        var alignment;
         if (!widgetInfo) {
             return DEFAULT_ALIGNMENT;
         }
