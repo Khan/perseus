@@ -23070,7 +23070,7 @@ var TableEditor = React.createClass({displayName: 'TableEditor',
         return React.DOM.div(null, 
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Number of columns:",' ',
+                    ' ',"欄數:",' ',
                     React.DOM.input(
                         {ref:"numberOfColumns",
                         type:"text",
@@ -23081,7 +23081,7 @@ var TableEditor = React.createClass({displayName: 'TableEditor',
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Number of rows:",' ',
+                    ' ',"列數:",' ',
                     React.DOM.input(
                         {ref:"numberOfRows",
                         type:"text",
@@ -23091,7 +23091,7 @@ var TableEditor = React.createClass({displayName: 'TableEditor',
                 )
             ),
             React.DOM.div(null, 
-                ' ',"Table of answers type:",' ',
+                ' ',"答案表格:",' ',
                 React.DOM.ul(null, 
                     React.DOM.li(null, 
                         React.DOM.label(null, 
@@ -23099,13 +23099,10 @@ var TableEditor = React.createClass({displayName: 'TableEditor',
                                 {type:"radio",
                                 checked:"checked",
                                 readOnly:true} ),
-                            "Set of values (complete)"
+                            "設定值"
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "The student has to fill out all cells in the"+' '+
-                            "table.  For partially filled tables create a table"+' '+
-                            "using the template, and insert text input boxes"+' '+
-                            "as desired.")
+                            React.DOM.p(null, "當表格欄數大於 1 的時候，答案表格中的所有欄位都需有值，也就是說，學生在作答時需填完所有的欄位，若有不需填完所有欄位的答案需求時，請再另行增加欄數為 1 的表格進行使用。")
                         )
                     )
                 )
