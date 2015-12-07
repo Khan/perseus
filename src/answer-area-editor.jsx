@@ -3,7 +3,7 @@ var _ = require("underscore");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var classNames = require("classnames");
 var Editor = require("./editor.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("react-components/info-tip.js");
 var React = require('react');
 var Widgets = require("./widgets.js");
 
