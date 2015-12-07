@@ -8177,7 +8177,7 @@ var WidgetEditor = React.createClass({displayName: 'WidgetEditor',
         var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
 
-        var gradedPropBox = PropCheckBox( {label:"Graded:",
+        var gradedPropBox = PropCheckBox( {label:"評分:",
                                 graded:upgradedWidgetInfo.graded,
                                 onChange:this.props.onChange} );
 
@@ -23563,7 +23563,7 @@ var TransformOps = {
 var Transformations = {
     translation: {
         // I18N: As in the command, "Translate the polygon"
-        verbName: $._("Translate"),
+        verbName: $._("平移"),
         nounName: $._("Translation"),
         lowerNounName: $._("translation"),
         apply: function(transform) {
@@ -23593,7 +23593,7 @@ var Transformations = {
         toTeX: function(transform) {
             // I18N: As in the command, "Translation by <3, 1>"
             return $_( {vector:texFromVector(transform.vector)}, 
-                "Translation by %(vector)s"
+                "平移向量 %(vector)s"
             );
         },
         Input: React.createClass({displayName: 'Input',
@@ -23635,7 +23635,7 @@ var Transformations = {
                 ];
                 return React.DOM.div(null, 
                     $_( {vector:vector}, 
-                        "Translation by %(vector)s"
+                        "平移向量 %(vector)s"
                     )
                 );
             },
@@ -23654,7 +23654,7 @@ var Transformations = {
 
     rotation: {
         // I18N: As in the command, "Rotate the polygon"
-        verbName: $._("Rotate"),
+        verbName: $._("旋轉"),
         nounName: $._("Rotation"),
         lowerNounName: $._("rotation"),
         apply: function(transform) {
@@ -23688,7 +23688,7 @@ var Transformations = {
         toTeX: function(transform) {
             return $_( {degrees:texFromAngleDeg(transform.angleDeg),
                        point:texFromPoint(transform.center)}, 
-                "Rotation by %(degrees)s about %(point)s"
+                "旋轉 %(degrees)s 度 (以 %(point)s 為中心)"
             );
         },
         Input: React.createClass({displayName: 'Input',
@@ -23768,7 +23768,7 @@ var Transformations = {
 
     reflection: {
         // I18N: As in the command, "Reflect the polygon"
-        verbName: $._("Reflect"),
+        verbName: $._("鏡射"),
         nounName: $._("Reflection"),
         lowerNounName: $._("reflection"),
         apply: function(transform) {
@@ -23804,7 +23804,7 @@ var Transformations = {
             var point2 = transform.line[1];
             return $_( {point1:texFromPoint(point1),
                        point2:texFromPoint(point2)}, 
-                "Reflection over the line from %(point1)s to %(point2)s"
+                "對應從 %(point1)s 至 %(point2)s 的線做鏡射"
             );
         },
         Input: React.createClass({displayName: 'Input',
@@ -23849,7 +23849,7 @@ var Transformations = {
                 ];
                 return React.DOM.div(null, 
                     $_( {point1:point1, point2:point2}, 
-                        "Reflection over the line from %(point1)s to %(point2)s"
+                        "對應從 %(point1)s 至 %(point2)s 的線做鏡射"
                     )
                 );
             },
@@ -23876,7 +23876,7 @@ var Transformations = {
 
     dilation: {
         // I18N: As in the command, "Dilate the polygon"
-        verbName: $._("Dilate"),
+        verbName: $._("放大"),
         nounName: $._("Dilation"),
         lowerNounName: $._("dilation"),
         apply: function(transform) {
@@ -23911,7 +23911,7 @@ var Transformations = {
             var scaleString = stringFromFraction(transform.scale);
             return $_( {scale:scaleString,
                        point:texFromPoint(transform.center)}, 
-                "Dilation of scale %(scale)s about %(point)s"
+                "放大 %(scale)s 倍 (以 %(point)s 為中心)"
             );
         },
         Input: React.createClass({displayName: 'Input',
@@ -24420,32 +24420,31 @@ var ToolSettings = React.createClass({displayName: 'ToolSettings',
             this.props.name,":",' ',
             " ",
             PropCheckBox(
-                {label:"enabled:",
+                {label:"開啟:",
                 enabled:this.props.settings.enabled,
                 onChange:this.props.onChange} ),
             " ",
             this.props.settings.enabled &&
                 PropCheckBox(
-                    {label:"required:",
+                    {label:"必要:",
                     required:this.props.settings.required,
                     onChange:this.props.onChange} ),
             
             this.props.settings.enabled &&
                 InfoTip(null, 
-                    "'Required' will only grade the answer as correct if the"+' '+
-                    "student has used at least one such transformation."
+                    "勾選\"必要\"表示學生至少要用過此轉換一次。"
                 ),
             
             " ",
             this.props.allowFixed && this.props.settings.enabled &&
                 PropCheckBox(
-                    {label:"fixed:",
+                    {label:"固定:",
                     fixed:this.props.settings.constraints.fixed,
                     onChange:this.changeConstraints} ),
             
             this.props.allowFixed && this.props.settings.enabled &&
                 InfoTip(null, 
-                    "Enable 'fixed' to prevent the student from repositioning"+' '+
+                    "勾選\"固定\"可防止學生重新定位此工具。Enable 'fixed' to prevent the student from repositioning"+' '+
                     "the tool. The tool will appear in the position at which it"+' '+
                     "is placed in the editor below."
                 )
@@ -24467,61 +24466,56 @@ var TransformationExplorerSettings = React.createClass({displayName: 'Transforma
 
         return React.DOM.div( {className:"transformer-settings"}, 
             React.DOM.div(null, 
-                ' ',"Mode:",' ',
+                ' ',"模式:",' ',
                 React.DOM.select( {value:this.getMode(),
                         onChange:this.changeMode}, 
                     React.DOM.option( {value:"interactive,dynamic"}, 
-                        ' ',"Exploration with text",' '
+                        ' ',"顯示轉換的過程",' '
                     ),
                     React.DOM.option( {value:"interactive,static"}, 
-                        ' ',"Exploration without text",' '
+                        ' ',"不顯示轉換的過程",' '
                     ),
                     React.DOM.option( {value:"dynamic,interactive"}, 
-                        ' ',"Formal with movement",' '
+                        ' ',"指定轉換參數並即時顯示",' '
                     ),
                     React.DOM.option( {value:"static,interactive"}, 
-                        ' ',"Formal without movement",' '
+                        ' ',"指定轉換參數但不即時顯示",' '
                     )
                 ),
                 InfoTip(null, 
                     React.DOM.ul(null, 
+                        //React.DOM.li(null, 
+                        //    React.DOM.b(null, "顯示轉換的過程:"), " Students create"+' '+
+                        //    "transformations with tools on the graph.",' '
+                        //),
                         React.DOM.li(null, 
-                            React.DOM.b(null, "Exploration:"), " Students create"+' '+
-                            "transformations with tools on the graph.",' '
+                            React.DOM.b(null, "指定轉換參數並即時顯示:"), " 學生可自行指定轉換所需參數，而圖形可即時顯示轉換後的結果。",' '
                         ),
                         React.DOM.li(null, 
-                            React.DOM.b(null, "Formal with movement:"), " Students specify"+' '+
-                            "transformations mathematically in the"+' '+
-                            "transformation list. Graph shows the results of"+' '+
-                            "these transformations.",' '
-                        ),
-                        React.DOM.li(null, 
-                            React.DOM.b(null, "Formal without movement:"), " Students specify"+' '+
-                            "transformations mathematically in the"+' '+
-                            "transformation list. Graph does not update.",' '
+                            React.DOM.b(null, "指定轉換參數但不即時顯示:"), " 學生可自行指定轉換所需參數，但圖形不即時顯示轉換後的結果。",' '
                         )
                     )
                 )
             ),
             ToolSettings(
-                    {name:"Translations",
+                    {name:"平移",
                     settings:this.props.tools.translation,
                     allowFixed:false,
                     onChange:this.changeHandlerFor("translation")} ),
             ToolSettings(
-                    {name:"Rotations",
+                    {name:"旋轉",
                     settings:this.props.tools.rotation,
                     onChange:this.changeHandlerFor("rotation")} ),
             ToolSettings(
-                    {name:"Reflections",
+                    {name:"鏡射",
                     settings:this.props.tools.reflection,
                     onChange:this.changeHandlerFor("reflection")} ),
             ToolSettings(
-                    {name:"Dilations",
+                    {name:"放大",
                     settings:this.props.tools.dilation,
                     onChange:this.changeHandlerFor("dilation")} ),
             PropCheckBox(
-                    {label:"Draw Solution:",
+                    {label:"畫出答案:",
                     drawSolutionShape:this.props.drawSolutionShape,
                     onChange:this.props.onChange} )
         );
@@ -24572,18 +24566,18 @@ var TransformationsShapeEditor = React.createClass({displayName: 'Transformation
                     {key:"type-select",
                     value:this.getTypeString(this.props.shape.type),
                     onChange:this.changeType} , 
-                React.DOM.option( {value:"polygon-3"}, "Triangle"),
-                React.DOM.option( {value:"polygon-4"}, "Quadrilateral"),
-                React.DOM.option( {value:"polygon-5"}, "Pentagon"),
-                React.DOM.option( {value:"polygon-6"}, "Hexagon"),
-                React.DOM.option( {value:"line"}, "Line"),
-                React.DOM.option( {value:"line,line"}, "2 lines"),
-                React.DOM.option( {value:"lineSegment"}, "Line segment"),
+                React.DOM.option( {value:"polygon-3"}, "三角形"),
+                React.DOM.option( {value:"polygon-4"}, "四邊形"),
+                React.DOM.option( {value:"polygon-5"}, "五邊形"),
+                React.DOM.option( {value:"polygon-6"}, "六邊形"),
+                React.DOM.option( {value:"line"}, "線"),
+                React.DOM.option( {value:"line,line"}, "2 線"),
+                React.DOM.option( {value:"lineSegment"}, "線段"),
                 React.DOM.option( {value:"lineSegment,lineSegment"}, 
-                    ' ',"2 line segments",' '
+                    ' ',"2 線段",' '
                 ),
-                React.DOM.option( {value:"angle"}, "Angle"),
-                React.DOM.option( {value:"circle"}, "Circle")
+                React.DOM.option( {value:"angle"}, "角度"),
+                React.DOM.option( {value:"circle"}, "圓形")
             )
         );
     },
@@ -24742,8 +24736,8 @@ var ToolsBar = React.createClass({displayName: 'ToolsBar',
                     onClick:this.props.onUndoClick,
                     onTouchStart:captureScratchpadTouchStart}, 
                 React.DOM.span( {className:"icon-undo"} ),
-                " ",
-                "Undo"
+                " ","回復"
+                
             ),
             React.DOM.div( {className:"clear"})
         );
@@ -24789,7 +24783,7 @@ var AddTransformBar = React.createClass({displayName: 'AddTransformBar',
                     onTouchStart:captureScratchpadTouchStart}, 
                 React.DOM.span( {className:"icon-undo"} ),
                 " ",
-                "Undo"
+                "回復"
             ),
             React.DOM.div( {className:"clear"})
         );
@@ -25615,26 +25609,16 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
         return React.DOM.div(null, 
             React.DOM.div(null, 
                 PropCheckBox(
-                    {label:"Grade empty answers as wrong:",
+                    {label:"將空的答案視為錯誤:",
                     gradeEmpty:this.props.gradeEmpty,
                     onChange:this.props.onChange} ),
                 InfoTip(null, 
                     React.DOM.p(null, 
-                        "We generally do not grade empty answers. This usually"+' '+
-                        "works well, but sometimes can result in giving away"+' '+
-                        "part of an answer in a multi-part question."
-                    ),
-                    React.DOM.p(null, 
-                        "If this is a multi-part question (there is another"+' '+
-                        "widget), you probably want to enable this option."+' '+
-                        "Otherwise, you should leave it disabled."
-                    ),
-                    React.DOM.p(null, 
-                        "Confused? Talk to Elizabeth."
+                        "基本上我們並不允許答案為空，但在具有多重填答需求的問題中 (另一個 widget)，此功能是需要的。"
                     )
                 )
             ),
-            React.DOM.div(null, "Graph settings:"),
+            React.DOM.div(null, "圖形設定:"),
             GraphSettings(
                 {box:graph.box,
                 labels:graph.labels,
@@ -25646,7 +25630,7 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
                 markings:graph.markings,
                 showProtractor:graph.showProtractor,
                 onChange:this.changeGraph} ),
-            React.DOM.div(null, "Transformation settings:"),
+            React.DOM.div(null, "變換設定:"),
             TransformationExplorerSettings(
                 {ref:"transformationSettings",
                 graphMode:this.props.graphMode,
@@ -25654,13 +25638,13 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
                 tools:this.props.tools,
                 drawSolutionShape:this.props.drawSolutionShape,
                 onChange:this.props.onChange} ),
-            React.DOM.div(null, "Starting location:"),
+            React.DOM.div(null, "起始位置:"),
             TransformationsShapeEditor(
                 {ref:"shapeEditor",
                 graph:graph,
                 shape:this.props.starting.shape,
                 onChange:this.changeStarting} ),
-            React.DOM.div(null, "Solution transformations:"),
+            React.DOM.div(null, "答案:"),
             Transformer(
                 {ref:"explorer",
                 graph:graph,
