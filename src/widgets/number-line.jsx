@@ -66,7 +66,7 @@ function formatNonReduced(n, d, base) {
     return formatImproper(n * factor, base);
 }
 
-_label = (graphie, labelStyle, pos, value, base) => {
+var _label = (graphie, labelStyle, pos, value, base) => {
     value = value || pos;
 
     // TODO(jack): Find out if any exercises have "decimal ticks" set,
@@ -89,7 +89,7 @@ _label = (graphie, labelStyle, pos, value, base) => {
     }
 };
 
-TickMarks = Graphie.createSimpleClass((graphie, props) => {
+var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     // Avoid infinite loop
     if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
         return []; // this has screwed me for the last time!

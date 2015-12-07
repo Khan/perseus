@@ -51,7 +51,7 @@ var KASparse = (expr, options) => {
     return cached;
 };
 
-_compileCache = Object.create(null);
+var _compileCache = Object.create(null);
 var KAScompile = (expr, options) => {
     var hash = KAShashFunc(expr, options);
     var cached = _compileCache[hash];

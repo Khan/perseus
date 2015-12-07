@@ -1127,7 +1127,8 @@ var AnswerOption = React.createClass({
  *         value: string
  *     }]
  */
-propUpgrades = {
+
+var propUpgrades = {
     1: (v0props) => ({
         times: v0props.times,
         buttonSets: v0props.buttonSets,

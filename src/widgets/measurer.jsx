@@ -344,7 +344,7 @@ var MeasurerEditor = React.createClass({
     }
 });
 
-propUpgrades = {
+var propUpgrades = {
     1: (v0props) => {
         var v1props = _(v0props).chain()
             .omit("imageUrl", "imageTop", "imageLeft")
