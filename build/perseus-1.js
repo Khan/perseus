@@ -21094,11 +21094,9 @@ var OrdererEditor = React.createClass({displayName: 'OrdererEditor',
 
         return React.DOM.div( {className:"perseus-widget-orderer"}, 
             React.DOM.div(null, 
-                ' ',"Correct answer:",' ',
+                ' ',"正確答案:",' ',
                 InfoTip(null, React.DOM.p(null, 
-                    "Place the cards in the correct order. The same card can be"+' '+
-                    "used more than once in the answer but will only be"+' '+
-                    "displayed once at the top of a stack of identical cards."
+                    "請將卡片依正確答案的順序排列，答案中允許使用多張相同的卡片，但在候選卡片中僅會顯示一次。"
                 ))
             ),
             TextListEditor(
@@ -21107,9 +21105,9 @@ var OrdererEditor = React.createClass({displayName: 'OrdererEditor',
                 layout:this.props.layout} ),
 
             React.DOM.div(null, 
-                ' ',"Other cards:",' ',
+                ' ',"其他卡片:",' ',
                 InfoTip(null, 
-                    React.DOM.p(null, "Create cards that are not part of the answer.")
+                    React.DOM.p(null, "可在此增加不在答案中使用的卡片。")
                 )
             ),
             TextListEditor(
@@ -21119,30 +21117,30 @@ var OrdererEditor = React.createClass({displayName: 'OrdererEditor',
 
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Layout:",' ',
+                    ' ',"顯示方式:",' ',
                     React.DOM.select( {value:this.props.layout,
                             onChange:this.onLayoutChange}, 
-                        React.DOM.option( {value:HORIZONTAL}, "Horizontal"),
-                        React.DOM.option( {value:VERTICAL}, "Vertical")
+                        React.DOM.option( {value:HORIZONTAL}, "水平方式"),
+                        React.DOM.option( {value:VERTICAL}, "垂直方式")
                     )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Use the horizontal layout for short text and small"+' '+
-                    "images. The vertical layout is best for longer text (e.g."+' '+
-                    "proofs).")
+                    React.DOM.p(null, 
+                      "當卡片中的文字較短或是圖形較小時，建議可選用水平方式顯示，垂直方式較適用於較長的文字敘述 (如：證明) 或較大的圖形。"
+                    )
                 )
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Height:",' ',
+                    ' ',"顯示高度:",' ',
                     React.DOM.select( {value:this.props.height,
                             onChange:this.onHeightChange}, 
-                        React.DOM.option( {value:NORMAL}, "Normal"),
-                        React.DOM.option( {value:AUTO}, "Automatic")
+                        React.DOM.option( {value:NORMAL}, "一般大小"),
+                        React.DOM.option( {value:AUTO}, "自動調整")
                     )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Use \"Normal\" for text, \"Automatic\" for images.")
+                    React.DOM.p(null, "若卡片內容為文字時，建議選用\"一般大小\"；若卡片內容為圖片時，建議選用\"自動調整\"。")//Use \"Normal\" for text, \"Automatic\" for images.
                 )
             )
         );
