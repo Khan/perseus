@@ -14398,11 +14398,11 @@ var PairEditor = React.createClass({displayName: 'PairEditor',
 
     render: function() {
         return React.DOM.fieldset(null, 
-                React.DOM.label(null, "Name:", 
+                React.DOM.label(null, "名稱:", 
                     BlurInput( {value:this.props.name,
                            onChange:this.change("name")} )
                 ),
-                React.DOM.label(null, "Value:",
+                React.DOM.label(null, "設定值:",
                     BlurInput( {value:this.props.value,
                            onChange:this.change("value")} )
                 )
@@ -14465,24 +14465,24 @@ var IframeEditor = React.createClass({displayName: 'IframeEditor',
 
     render: function() {
         return React.DOM.div(null, 
-            React.DOM.label(null, "Url or Program ID:",
+            React.DOM.label(null, "Url 或 Program ID:",
                 BlurInput( {name:"url",
                            value:this.props.url,
                            onChange:this.change("url")} )
             ),
             React.DOM.br(null),
-            React.DOM.label(null, "Settings:",
+            React.DOM.label(null, "設定值:",
                 PairsEditor( {name:"settings",
                            pairs:this.props.settings,
                            onChange:this.handleSettingsChange} )
             ),
             React.DOM.br(null),
-            React.DOM.label(null, "Width:", 
+            React.DOM.label(null, "寬度:", 
                 BlurInput( {name:"width",
                            value:this.props.width,
                            onChange:this.change("width")} )
             ),
-            React.DOM.label(null, "Height:", 
+            React.DOM.label(null, "高度:", 
                 BlurInput( {name:"height",
                            value:this.props.height,
                            onChange:this.change("height")} )
