@@ -18313,12 +18313,12 @@ var LightsPuzzle = React.createClass({displayName: 'LightsPuzzle',
                 onChange:this._flipTile} ),
             React.DOM.div( {style:{width: pxWidth}}, 
                 React.DOM.div( {style:MOVE_COUNT_STYLE}, 
-                    "Moves: ", this.props.moveCount
+                    "移動次數: ", this.props.moveCount
                 ),
                 React.DOM.div( {style:RESET_BUTTON_STYLE}, 
                 React.DOM.input(
                     {type:"button",
-                    value:"Reset",
+                    value:"重置",
                     onClick:this._reset,
                     className:"simple-button"} )
                 )
@@ -18429,20 +18429,20 @@ var LightsPuzzleEditor = React.createClass({displayName: 'LightsPuzzleEditor',
     render: function() {
         return React.DOM.div(null, 
             React.DOM.div(null, 
-                "Width:",
+                "寬度:",
                 NumberInput(
                     {value:this._width(),
                     placeholder:5,
                     onChange:this._changeWidth} ),
                 ", ",
-                "Height:",
+                "高度:",
                 NumberInput(
                     {value:this._height(),
                     placeholder:5,
                     onChange:this._changeHeight} )
             ),
             React.DOM.div(null, 
-                "Flip pattern:",
+                "翻轉圖樣: ",
                 React.DOM.select(
                         {value:this.props.flipPattern,
                         onChange:this._handlePatternChange}, 
@@ -18452,17 +18452,17 @@ var LightsPuzzleEditor = React.createClass({displayName: 'LightsPuzzleEditor',
                 )
             ),
             React.DOM.div(null, 
-                "Grade incomplete puzzles as wrong:",
+                "將未完成的謎題視為錯誤:",
                 " ",
                 PropCheckBox(
                     {gradeIncompleteAsWrong:this.props.gradeIncompleteAsWrong,
                     onChange:this.props.onChange} ),
                     InfoTip(null, 
-                        "By default, incomplete puzzles are graded as empty."
+                        "預設未完成的謎題會被當成空白來處理。"
                     )
                 ),
             React.DOM.div(null, 
-                "Starting configuration:"
+                "起始圖案設定:"
             ),
             React.DOM.div( {style:{overflowX: "auto"}}, 
                 TileGrid(
