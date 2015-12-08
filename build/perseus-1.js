@@ -13068,24 +13068,22 @@ var DropdownEditor = React.createClass({displayName: 'DropdownEditor',
     render: function() {
         var dropdownGroupName = _.uniqueId("perseus_dropdown_");
         return React.DOM.div( {className:"perseus-widget-dropdown"}, 
-            React.DOM.div(null, "Dropdown",
+            React.DOM.div(null, "下拉式選單",
                 InfoTip(null, 
-                    React.DOM.p(null, "The drop down is useful for making inequalities in a"+' '+
-                    "custom format. We normally use the symbols ", "<",", ", ">",","+' '+
-                    "≤, ≥ (in that order) which you can copy into the"+' '+
-                    "choices. When possible, use the \"multiple choice\" answer"+' '+
-                    "type instead.")
+                    React.DOM.p(null, "下拉式選單可以用在需要自訂格式的不等式問題，"+
+                    "我們通常按照順序使用", "<",", ", ">",","+' '+
+                    "≤, ≥，你可以直接複製下來當選項。"+
+                    "可以的話，使用「multiple choice」這個 widget。")
                 )
             ),
             React.DOM.input(
                 {type:"text",
-                placeholder:"Placeholder value",
+                placeholder:"佔位符的值",
                 value:this.props.placeholder,
                 onChange:this.onPlaceholderChange} ),
             InfoTip(null, 
-                React.DOM.p(null, "This value will appear as the drop down default. It should"+' '+
-                "give the user some indication of the values available in the"+' '+
-                "drop down itself, e.g., Yes/No/Maybe.")
+                React.DOM.p(null, "這會顯示為下拉式選單的預設值，可以給使用者一些下拉式選單可能答案的指示。"+
+				"例如：是/不是/可能是。")
             ),
             React.DOM.ul(null, 
                 this.props.choices.map(function(choice, i) {
@@ -13116,7 +13114,7 @@ var DropdownEditor = React.createClass({displayName: 'DropdownEditor',
                 React.DOM.a( {href:"#", className:"simple-button orange",
                         onClick:this.addChoice}, 
                     React.DOM.span( {className:"icon-plus"} ),
-                    ' ',"Add a choice",' '
+                    ' ',"增加選項",' '
                 )
             )
         );
