@@ -8101,7 +8101,7 @@ var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
                       'input-number', 'interactive-graph', 'interactive-number-line', 
                       'lights-puzzle', 'measurer', 'number-line', 
                       'iframe', 'numeric-input', 'orderer', 'plotter', 
-                      'radio', 'sorter', 'table', 'transformer'];
+                      'radio', 'sorter', 'table', 'transformer', 'matcher'];
 
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
