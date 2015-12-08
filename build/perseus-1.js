@@ -14851,35 +14851,35 @@ var toNumericString = KhanUtil.toNumericString;
 
 var answerTypes = {
     number: {
-        name: "Numbers",
+        name: "數字",
         forms: "integer, decimal, proper, improper, mixed"
     },
     decimal: {
-        name: "Decimals",
+        name: "小數",
         forms: "decimal"
     },
     integer: {
-        name: "Integers",
+        name: "整數",
         forms: "integer"
     },
     rational: {
-        name: "Fractions and mixed numbers",
+        name: "分數與帶分數",
         forms: "integer, proper, improper, mixed"
     },
     improper: {
-        name: "Improper numbers (no mixed)",
+        name: "假分數 (不接受帶分數)",
         forms: "integer, proper, improper"
     },
     mixed: {
-        name: "Mixed numbers (no improper)",
+        name: "帶分數 (不接受假分數)",
         forms: "integer, proper, mixed"
     },
     percent: {
-        name: "Numbers or percents",
+        name: "數字或百分數",
         forms: "integer, decimal, proper, improper, mixed, percent"
     },
     pi: {
-        name: "Numbers with pi", forms: "pi"
+        name: "有 \u03C0 的數", forms: "pi"
     }
 };
 
@@ -15092,14 +15092,14 @@ var InputNumberEditor = React.createClass({displayName: 'InputNumberEditor',
 
         return React.DOM.div(null, 
             React.DOM.div(null, React.DOM.label(null, 
-                ' ',"Correct answer:",' ',
+                ' ',"正確答案:",' ',
                 BlurInput( {value:"" + this.props.value,
                            onChange:this.handleAnswerChange,
                            ref:"input"} )
             )),
 
             React.DOM.div(null, 
-            ' ',"Answer type:",' ',
+            ' ',"答案類型:",' ',
             React.DOM.select(
                 {value:this.props.answerType,
                 onChange:function(e)  {
@@ -15108,27 +15108,23 @@ var InputNumberEditor = React.createClass({displayName: 'InputNumberEditor',
                 answerTypeOptions
             ),
             InfoTip(null, 
-                React.DOM.p(null, "Use the default \"Numbers\" unless the answer must be in a"+' '+
-                "specific form (e.g., question is about converting decimals to"+' '+
-                "fractions).")
+                React.DOM.p(null, "預設使用「數字」，除非答案需要是一個特定的格式。(例如：將小數轉換成分數的問題)")
             )
             ),
 
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Width",' ',
+                    ' ',"寬度",' ',
                     React.DOM.select( {value:this.props.size,
                             onChange:function(e)  {
                                 this.props.onChange({size: e.target.value});
                             }.bind(this)}, 
-                        React.DOM.option( {value:"normal"}, "Normal (80px)"),
-                        React.DOM.option( {value:"small"}, "Small (40px)")
+                        React.DOM.option( {value:"normal"}, "一般 (80px)"),
+                        React.DOM.option( {value:"small"}, "較小 (40px)")
                     )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Use size \"Normal\" for all text boxes, unless there are"+' '+
-                    "multiple text boxes in one line and the answer area is too"+' '+
-                    "narrow to fit them.")
+                    React.DOM.p(null, "預設使用一般大小，除非需要很多個答案格在同一行，會出現放不下的情況。")
                 )
             )
         );
