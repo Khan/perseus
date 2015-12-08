@@ -5100,7 +5100,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
         if (this.props.showProtractor) {
             var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
-            this.protractor = this._graphie.Protractor(coord);
+            this.protractor = this._graphie.protractor(coord);
         }
     },
 
@@ -8102,7 +8102,7 @@ var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression',
                       'input-number', 'interactive-graph', 'interactive-number-line', 
                       'lights-puzzle', 'matcher', 'measurer', 'number-line', 
                       'iframe', 'numeric-input', 'orderer', 'plotter', 
-                      'radio', 'sorter', 'table', 'transformer '];
+                      'radio', 'sorter', 'table', 'transformer'];
 
 var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
     handleChange: function(e) {
@@ -18949,7 +18949,7 @@ var Measurer = React.createClass({displayName: 'Measurer',
         }
 
         if (this.props.showProtractor) {
-            this.protractor = graphie.Protractor([
+            this.protractor = graphie.protractor([
                 this.props.protractorX,
                 this.props.protractorY
             ]);
@@ -24875,6 +24875,7 @@ var Transformer = React.createClass({displayName: 'Transformer',
                 markings:graph.markings,
                 backgroundImage:graph.backgroundImage,
                 showProtractor:graph.showProtractor,
+                showRuler:graph.showRuler,
                 onNewGraphie:this.setupGraphie} ),
 
             !interactiveToolsMode && (
@@ -25668,6 +25669,7 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
                 backgroundImage:graph.backgroundImage,
                 markings:graph.markings,
                 showProtractor:graph.showProtractor,
+                showRuler:graph.showRuler,
                 onChange:this.changeGraph} ),
             React.DOM.div(null, "Transformation settings:"),
             TransformationExplorerSettings(
