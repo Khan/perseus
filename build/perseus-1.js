@@ -19514,12 +19514,12 @@ var NumberLine = React.createClass({displayName: 'NumberLine',
             Line( {start:[tickCtrlLeft, 1.5], end:[tickCtrlRight, 1.5]} ),
             Label(
                 {coord:[textLeft, 1.5],
-                text:"fewer ticks",
+                text:"較少刻度",
                 direction:"center",
                 tex:false} ),
             Label(
                 {coord:[textRight, 1.5],
-                text:"more ticks",
+                text:"較多刻度",
                 direction:"center",
                 tex:false} ),
             MovablePoint(
@@ -19750,17 +19750,17 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
         }
 
         var labelStyleEditorButtons = [
-              {value: "decimal", text: "0.75", title: "Decimals",},
+              {value: "decimal", text: "0.75", title: "小數",},
               {value: "improper", text: "\u2077\u2044\u2084",
-                title: "Improper fractions"},
+                title: "假分數"},
               {value: "mixed", text: "1\u00BE",
-                title: "Mixed numbers"},
+                title: "帶分數"},
               {value: "non-reduced", text: "\u2078\u2044\u2084",
-                title: "Non-reduced"}];
+                title: "未化簡分數"}];
 
         return React.DOM.div( {className:"perseus-widget-number-line-editor"}, 
             React.DOM.div( {className:"perseus-widget-row"}, 
-                React.DOM.label(null, "correct x"),
+                React.DOM.label(null, "正確的 x "),
                 React.DOM.select( {value:this.props.correctRel,
                   onChange:this.onChangeRelation}, 
                     React.DOM.option( {value:"eq"},  " = " ),
@@ -19775,17 +19775,16 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                     checkValidity:function(val) 
                         {return val >= range[0] && val <= range[1] &&
                         (!step || Math.abs(val - range[0]) % step === 0);},
-                    placeholder:"answer", size:"normal",
+                    placeholder:"答案", size:"normal",
                     useArrowKeys:true} ),
                 InfoTip(null, React.DOM.p(null, 
-                    "This is the correct answer. The answer is validated"+' '+
-                    "(as right or wrong) by using only the end position of the"+' '+
-                    "point and the relation (=, <, >, ≤, ≥)"
+                    "這是正確答案，會使用使用者移動的最終位置以及數學關係 (=, <, >, ≤, ≥) 來驗證答案是否正確。"+
+					"若底色變為紅色，代表使用者不可能透過操作得到這個答案。"
                 ))
             ),
 
             React.DOM.div( {className:"perseus-widget-row"}, 
-                NumberInput( {label:"position",
+                NumberInput( {label:"初始位置 ",
                     value:this.props.initialX,
                     format:this.props.labelStyle,
                     onChange:this.onNumChange.bind(this, "initialX"),
@@ -19798,15 +19797,12 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                     format:this.props.labelStyle,
                     useArrowKeys:true} ),
                 InfoTip(null, React.DOM.p(null, 
-                    "This controls the initial position of the point along the"+' '+
-                    "number line and the ", React.DOM.strong(null, "range"),", the position"+' '+
-                    "of the endpoints of the number line. Setting the range"+' '+
-                    "constrains the position of the answer and the labels."
+                    "這控制橘色點在數線上的初始位置，以及在數線上可移動的", React.DOM.strong(null, "範圍")
                 ))
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    React.DOM.span(null, "labels " ),
+                    React.DOM.span(null, "標籤 " ),
                     NumberInput(
                         {value:labelRange[0], placeholder:range[0],
                         format:this.props.labelStyle,
@@ -19823,43 +19819,37 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         onChange:this.onLabelRangeChange.bind(this, 1),
                         useArrowKeys:true} ),
                     InfoTip(null, React.DOM.p(null, 
-                        "This controls the position of the left / right labels."+' '+
-                        "By default, the labels are set by the range ", React.DOM.br(null ),
-                        React.DOM.strong(null, "Note:"), " Ensure that the labels line up"+' '+
-                        "with the tick marks, or it may be confusing for users."
+                        "這控制左右標籤的位置，預設為移動範圍的兩端。", React.DOM.br(null ),
+                        React.DOM.strong(null, "注意:"), " 確保藍色標籤在黑色刻度線上，否則可能會讓使用者困惑。"
                     ))
                 )
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    React.DOM.label(null, "style"),
+                    React.DOM.label(null, "標籤格式 "),
                     ButtonGroup( {allowEmpty:false,
                         value:this.props.labelStyle,
                         buttons:labelStyleEditorButtons,
                         onChange:this.onLabelStyleChange} ),
                     InfoTip(null, React.DOM.p(null, 
-                        "This controls the styling of the labels for the two"+' '+
-                        "main labels as well as all the tick mark labels,"+' '+
-                        "if applicable. Your choices are decimal,"+' '+
-                        "improper fractions, mixed fractions, and non-reduced"+' '+
-                        "fractions."
+                        "這控制標籤的格式，使用上，可以選擇「小數、假分數、帶分數、未化簡分數」。"
                     ))
                 )
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    PropCheckBox( {label:"show tick controller",
+                    PropCheckBox( {label:"顯示刻度線控制器",
                         isTickCtrl:this.props.isTickCtrl,
                         onChange:this.props.onChange} )
                 ),
                 React.DOM.div( {className:"perseus-widget-right-col"}, 
-                    PropCheckBox( {label:"show label ticks",
+                    PropCheckBox( {label:"顯示刻度線上的標籤",
                         labelTicks:this.props.labelTicks,
                         onChange:this.props.onChange} )
                 )
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
-                NumberInput( {label:"num divisions",
+                NumberInput( {label:"分割數量 ",
                     value:this.props.numDivisions || null,
                     format:"decimal",
                     onChange:this.onNumDivisionsChange,
@@ -19875,15 +19865,11 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         onChange:this.onDivisionRangeChange,
                         useArrowKeys:true} ),
                     InfoTip(null, React.DOM.p(null, 
-                    "This controls the number (and position) of the tick marks."+' '+
-                    "The range dictates the minimum and maximum number of ticks"+' '+
-                    "that the user can make using the tick controller. ", React.DOM.br(null ),
-                    React.DOM.strong(null, "Note:"), " There is no check to see if labels"+' '+
-                    "coordinate with the tick marks, which may be confusing for"+' '+
-                    "users if the blue labels and black ticks are off-step."
+					"這控制刻度線的數量，後面的範圍設定的是使用者用刻度線控制器可以調整的最大與最小分割數量。", React.DOM.br(null ),
+                    React.DOM.strong(null, "注意:"), "沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。"
                     ))),
                 !isTickCtrl && React.DOM.span(null, 
-                    NumberInput( {label: " or tick step",
+                    NumberInput( {label: "或一刻度為",
                         value:this.props.tickStep || null,
                         format:this.props.labelStyle,
                         onChange:this.onTickStepChange,
@@ -19891,28 +19877,22 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         placeholder:width / this.props.numDivisions,
                         useArrowKeys:true} ),
                     InfoTip(null, React.DOM.p(null, 
-                    "This controls the number (and position) of the tick marks;"+' '+
-                    "you can either set the number of divisions (2 divisions"+' '+
-                    "would split the entire range in two halves), or the"+' '+
-                    "tick step (the distance between ticks) and the other"+' '+
-                    "value will be updated accordingly. ", React.DOM.br(null ),
-                    React.DOM.strong(null, "Note:"), " There is no check to see if labels"+' '+
-                    "coordinate with the tick marks, which may be confusing for"+' '+
-                    "users if the blue labels and black ticks are off-step."
+                    "這控制刻度線的位置與數量，可以設定分割數量 (2 表示把整個範圍分割成兩半) "+
+                    "或者設定一刻度為多少 (相鄰兩刻度之間的距離)。設定其中一個另一個會自動更新為對應的值。",
+                    React.DOM.br(null ),
+                    React.DOM.strong(null, "注意:"), "沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。"
                     )))
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
-                NumberInput( {label:"snap increments per tick",
+                NumberInput( {label:"刻度之間的分割數量 ",
                     value:snapDivisions,
                     checkValidity:function(val)  {return val > 0;},
                     format:this.props.labelStyle,
                     onChange:this.onNumChange.bind(this, "snapDivisions"),
                     useArrowKeys:true} ),
                 InfoTip(null, React.DOM.p(null, 
-                    "This determines the number of different places the point"+' '+
-                    "will snap between two adjacent tick marks. ", React.DOM.br(null ),
-                    React.DOM.strong(null, "Note:"),"Ensure the required number of"+' '+
-                    "snap increments is provided to answer the question."
+                    "這控制兩個相鄰的刻度之間，被分成了幾份，也就是使用者可以將橘點移動到的位置。", React.DOM.br(null ),
+                    React.DOM.strong(null, "注意:"),"確保分割數量足夠讓使用者回答問題，即答案會落在某分割的位置。"
                 ))
             )
 
