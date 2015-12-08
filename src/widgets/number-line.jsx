@@ -5,8 +5,8 @@ var _ = require("underscore");
 var Changeable   = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var ButtonGroup  = require("react-components/button-group.js");
-var InfoTip      = require("react-components/info-tip.js");
+var ButtonGroup  = require("react-components/button-group");
+var InfoTip      = require("react-components/info-tip");
 var NumberInput  = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput   = require("../components/range-input.jsx");

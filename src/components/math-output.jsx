@@ -1,8 +1,8 @@
 var React         = require("react");
 var ReactDOM = require("react-dom");
-var TeX           = require("react-components/tex.js");
+var TeX           = require("react-components/tex");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var Tooltip       = require("react-components/tooltip.js");
+var Tooltip       = require("react-components/tooltip");
 var ModifyTex     = require("../tex-wrangler.js").modifyTex;
 
 var MathOutput = React.createClass({

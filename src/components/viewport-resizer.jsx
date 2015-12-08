@@ -5,7 +5,7 @@
 
 var React = require("react");
 
-var ButtonGroup = require("react-components/button-group.jsx");
+var ButtonGroup = require("react-components/button-group");
 
 // These values for screen sizes come from dominant screen sizes by device type
 // according to screensiz.es and our own Google Analytics reporting (Nov 2015).

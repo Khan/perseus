@@ -7,7 +7,7 @@ var _ = require("underscore");
 
 var Editor = require("./editor.jsx");
 var HintRenderer = require("./hint-renderer.jsx");
-var InfoTip = require("react-components/info-tip.js");
+var InfoTip = require("react-components/info-tip");
 
 /* Renders a hint editor box
  *

@@ -1,9 +1,9 @@
 var classNames = require("classnames");
-var InfoTip = require("react-components/info-tip.js");
+var InfoTip = require("react-components/info-tip");
 var React = require("react");
 var ReactDOM = require("react-dom");
-var SortableArea     = require("react-components/sortable.js");
-var Tooltip = require("react-components/tooltip.js");
+var SortableArea     = require("react-components/sortable");
+var Tooltip = require("react-components/tooltip");
 var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -18,12 +18,12 @@ var PropCheckBox = require("../components/prop-check-box.jsx");
 
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MathInput = require("../components/math-input.jsx");
-var TeX = require("react-components/tex.js");// OldExpression only
+var TeX = require("react-components/tex");// OldExpression only
 var TexButtons = require("../components/tex-buttons.jsx");
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
-var lens = require("../../hubble/index.js");
+var lens = require("../../assets/hubble/index.js");
 
 var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 

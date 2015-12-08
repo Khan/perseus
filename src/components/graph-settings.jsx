@@ -4,12 +4,12 @@ var _ = require("underscore");
 
 var Changeable  = require("../mixins/changeable.jsx");
 
-var ButtonGroup = require("react-components/button-group.js");
-var InfoTip = require("react-components/info-tip.js");
+var ButtonGroup = require("react-components/button-group");
+var InfoTip = require("react-components/info-tip");
 var NumberInput = require("../components/number-input.jsx");
 var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
-var TeX = require("react-components/tex.js");
+var TeX = require("react-components/tex");
 var Util = require("../util.js");
 
 var defaultBoxSize = 340;

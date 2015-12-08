@@ -1,5 +1,5 @@
 var React = require('react');
-var Tooltip = require("react-components/tooltip.js");
+var Tooltip = require("react-components/tooltip");
 var _ = require("underscore");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;

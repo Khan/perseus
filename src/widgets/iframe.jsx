@@ -10,7 +10,7 @@
 var React = require("react");
 var _ = require("underscore");
 
-var BlurInput    = require("react-components/blur-input.js");
+var BlurInput    = require("react-components/blur-input");
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");

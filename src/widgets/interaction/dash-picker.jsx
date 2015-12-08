@@ -1,4 +1,4 @@
-var ButtonGroup = require("react-components/button-group.js");
+var ButtonGroup = require("react-components/button-group");
 var React = require("react");
 
 var DashPicker = React.createClass({

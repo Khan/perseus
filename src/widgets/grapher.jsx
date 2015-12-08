@@ -1,11 +1,11 @@
 var React = require("react");
 var _ = require("underscore");
 
-var ButtonGroup      = require("react-components/button-group.js");
+var ButtonGroup      = require("react-components/button-group");
 var GraphSettings    = require("../components/graph-settings.jsx");
-var InfoTip          = require("react-components/info-tip.js");
+var InfoTip          = require("react-components/info-tip");
 var Interactive2     = require("../interactive2.js");
-var MultiButtonGroup = require("react-components/multi-button-group.js");
+var MultiButtonGroup = require("react-components/multi-button-group");
 var SvgImage         = require("../components/svg-image.jsx");
 var Util             = require("../util.js");
 
