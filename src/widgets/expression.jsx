@@ -23,7 +23,7 @@ var TexButtons = require("../components/tex-buttons.jsx");
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
-var lens = require("../../assets/hubble/index.js");
+var lens = require("../../hubble/index.js");
 
 var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
