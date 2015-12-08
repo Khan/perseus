@@ -18002,25 +18002,24 @@ var InteractiveNumberLineEditor = React.createClass({displayName: 'InteractiveNu
     render: function() {
         return React.DOM.div(null, 
             React.DOM.label(null, 
-                ' ',"min x: ", React.DOM.input( {defaultValue:'' + this.props.range[0],
+                ' ',"最小 x: ", React.DOM.input( {defaultValue:'' + this.props.range[0],
                     onBlur:this.onRangeBlur.bind(this, 0)} )
             ),React.DOM.br(null ),
             React.DOM.label(null, 
-                ' ',"max x: ", React.DOM.input( {defaultValue:'' + this.props.range[1],
+                ' ',"最大 x: ", React.DOM.input( {defaultValue:'' + this.props.range[1],
                     onBlur:this.onRangeBlur.bind(this, 1)} )
             ),
             InfoTip(null, 
-                React.DOM.p(null, "Change \"label styles\" below to display the max and min x in"+' '+
-                "different number formats.")
+                React.DOM.p(null, "利用下方的「標籤格式」來改變最大與最小 x 的標籤顯示格式。")
             ),React.DOM.br(null ),
             React.DOM.span(null, 
-                ' ',"correct:",' ',
+                ' ',"正確答案:",' ',
                 React.DOM.select( {value:this.props.correctRel,
                         onChange:this.onChange.bind(this, "correctRel")}, 
-                    React.DOM.optgroup( {label:"Equality"}, 
+                    React.DOM.optgroup( {label:"等式"}, 
                         React.DOM.option( {value:"eq"}, "x =")
                     ),
-                    React.DOM.optgroup( {label:"Inequality"}, 
+                    React.DOM.optgroup( {label:"不等式"}, 
                         React.DOM.option( {value:"lt"}, "x <"),
                         React.DOM.option( {value:"gt"}, "x >"),
                         React.DOM.option( {value:"le"}, "x ≤"),
@@ -18031,34 +18030,32 @@ var InteractiveNumberLineEditor = React.createClass({displayName: 'InteractiveNu
                     onBlur:this.onNumBlur.bind(this, "correctX")} )
             ),React.DOM.br(null ),React.DOM.br(null ),
             React.DOM.label(null, 
-                ' ',"label style:",' ',
+                ' ',"標籤格式:",' ',
                 React.DOM.select( {value:this.props.labelStyle,
                         onChange:this.onChange.bind(this, "labelStyle")}, 
-                    React.DOM.option( {value:"decimal"}, "Decimals"),
-                    React.DOM.option( {value:"improper"}, "Improper fractions"),
-                    React.DOM.option( {value:"mixed"}, "Mixed numbers")
+                    React.DOM.option( {value:"decimal"}, "小數"),
+                    React.DOM.option( {value:"improper"}, "假分數"),
+                    React.DOM.option( {value:"mixed"}, "帶分數")
                 ),
                 PropCheckBox(
-                    {label:"label ticks",
+                    {label:" 每一刻度的標籤",
                     labelTicks:this.props.labelTicks,
                     onChange:this.props.onChange} )
             ),React.DOM.br(null ),
             React.DOM.label(null, 
-                ' ',"tick step: ", React.DOM.input( {defaultValue:'' + this.props.tickStep,
+                ' ',"每一刻度之間距離: ", React.DOM.input( {defaultValue:'' + this.props.tickStep,
                     onBlur:this.onNumBlur.bind(this, "tickStep")} )
             ),
             InfoTip(null, 
-                React.DOM.p(null, "A tick mark is placed at every number of steps"+' '+
-                "indicated.")
+                React.DOM.p(null, "每一個刻度都會標上刻度線。")
             ),React.DOM.br(null ),
             React.DOM.label(null, 
-                ' ',"snap increments per tick:",' ',
+                ' ',"刻度之間的分割數量 :",' ',
                 React.DOM.input( {defaultValue:'' + this.props.snapDivisions,
                     onBlur:this.onNumBlur.bind(this, "snapDivisions")} )
             ),
             InfoTip(null, 
-                React.DOM.p(null, "Ensure the required number of snap increments is provided to"+' '+
-                "answer the question.")
+                React.DOM.p(null, "確保分割數量足夠讓使用者回答問題，即答案會落在某分割的位置。")
             )
         );
     },
