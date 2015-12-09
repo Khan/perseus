@@ -4508,25 +4508,25 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
                 this.props.showRuler && React.DOM.div(null, 
                     React.DOM.div(null, 
                         React.DOM.label(null, 
-                            ' ',"Ruler label:",' ',
+                            ' ',"直尺單位：",' ',
                             React.DOM.select(
                                 {onChange:this.changeRulerLabel,
                                 value:this.props.rulerLabel} , 
-                                    React.DOM.option( {value:""}, "None"),
-                                    React.DOM.optgroup( {label:"Metric"}, 
+                                    React.DOM.option( {value:""}, "無"),
+                                    React.DOM.optgroup( {label:"公制"}, 
                                         this.renderLabelChoices([
-                                            ["milimeters", "mm"],
-                                            ["centimeters", "cm"],
-                                            ["meters", "m"],
-                                            ["kilometers", "km"]
+                                            ["公厘", "mm"],
+                                            ["公分", "cm"],
+                                            ["公尺", "m"],
+                                            ["公里", "km"]
                                         ])
                                     ),
-                                    React.DOM.optgroup( {label:"Imperial"}, 
+                                    React.DOM.optgroup( {label:"英制"}, 
                                         this.renderLabelChoices([
-                                            ["inches", "in"],
-                                            ["feet", "ft"],
-                                            ["yards", "yd"],
-                                            ["miles", "mi"]
+                                            ["英吋", "in"],
+                                            ["英呎", "ft"],
+                                            ["碼", "yd"],
+                                            ["英里", "mi"]
                                         ])
                                     )
                             )
@@ -4534,7 +4534,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
                     ),
                     React.DOM.div(null, 
                         React.DOM.label(null, 
-                            ' ',"Ruler ticks:",' ',
+                            ' ',"直尺間隔：",' ',
                             React.DOM.select(
                                 {onChange:this.changeRulerTicks,
                                 value:this.props.rulerTicks} , 
@@ -12916,7 +12916,7 @@ var CategorizerEditor = React.createClass({displayName: 'CategorizerEditor',
 
 module.exports = {
     name: "categorizer",
-    displayName: "Categorizer",
+    displayName: "Categorizer/分類器",
     widget: Categorizer,
     editor: CategorizerEditor,
     transform: function(editorProps)  {
@@ -13070,15 +13070,14 @@ var DropdownEditor = React.createClass({displayName: 'DropdownEditor',
         return React.DOM.div( {className:"perseus-widget-dropdown"}, 
             React.DOM.div(null, "下拉式選單",
                 InfoTip(null, 
-                    React.DOM.p(null, "下拉式選單可以用在需要自訂格式的不等式問題，"+
-                    "我們通常按照順序使用", "<",", ", ">",","+' '+
-                    "≤, ≥，你可以直接複製下來當選項。"+
-                    "可以的話，使用「multiple choice」這個 widget。")
+                    React.DOM.p(null, "短敘述的單選題。例如："+
+                    "<",", ", ">","," +' '+
+                    "≤, ≥")
                 )
             ),
             React.DOM.input(
                 {type:"text",
-                placeholder:"佔位符的值",
+                placeholder:"預設值",
                 value:this.props.placeholder,
                 onChange:this.onPlaceholderChange} ),
             InfoTip(null, 
@@ -13176,7 +13175,7 @@ var propTransform = function(editorProps)  {
 
 module.exports = {
     name: "dropdown",
-    displayName: "Drop down",
+    displayName: "Drop down/下拉式選單",
     widget: Dropdown,
     editor: DropdownEditor,
     transform: propTransform,
@@ -14222,7 +14221,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
 
 module.exports = {
     name: "expression",
-    displayName: "Expression / Equation",
+    displayName: "expression/數學式",
     getWidget: function(enabledFeatures)  {
         // Allow toggling between the two versions of the widget
         return enabledFeatures.useMathQuill ? Expression : OldExpression;
@@ -14462,24 +14461,24 @@ var IframeEditor = React.createClass({displayName: 'IframeEditor',
 
     render: function() {
         return React.DOM.div(null, 
-            React.DOM.label(null, "Url 或 Program ID:",
+            React.DOM.label(null, "網址 Url：",
                 BlurInput( {name:"url",
                            value:this.props.url,
                            onChange:this.change("url")} )
             ),
             React.DOM.br(null),
-            React.DOM.label(null, "設定值:",
+            React.DOM.label(null, "設定值：",
                 PairsEditor( {name:"settings",
                            pairs:this.props.settings,
                            onChange:this.handleSettingsChange} )
             ),
             React.DOM.br(null),
-            React.DOM.label(null, "寬度:", 
+            React.DOM.label(null, "寬度：", 
                 BlurInput( {name:"width",
                            value:this.props.width,
                            onChange:this.change("width")} )
             ),
-            React.DOM.label(null, "高度:", 
+            React.DOM.label(null, "高度：", 
                 BlurInput( {name:"height",
                            value:this.props.height,
                            onChange:this.change("height")} )
@@ -14495,7 +14494,7 @@ var IframeEditor = React.createClass({displayName: 'IframeEditor',
 
 module.exports = {
     name: "iframe",
-    displayName: "Iframe",
+    displayName: "Iframe/外掛套件",
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: false,
@@ -14661,7 +14660,7 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
                 BlurInput( {value:this.props.backgroundImage.url,
                            onChange:this.onUrlChange} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "填入圖片的網址")
+                    React.DOM.p(null, "填入圖片的網址。例如，先上傳至 http://imgur.com ，貼上圖片網址 (Direct link)。")
                 )
             ),
             React.DOM.label(null, 
@@ -14827,7 +14826,7 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
 
 module.exports = {
     name: "image",
-    displayName: "Image",
+    displayName: "Image/圖片",
     widget: ImageWidget,
     editor: ImageEditor
 };
@@ -17648,7 +17647,7 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
 
 module.exports = {
     name: "interactive-graph",
-    displayName: "Interactive graph",
+    displayName: "Interactive graph/互動式座標圖",
     widget: InteractiveGraph,
     editor: InteractiveGraphEditor,
     hidden: false
@@ -18034,7 +18033,7 @@ var InteractiveNumberLineEditor = React.createClass({displayName: 'InteractiveNu
                     React.DOM.option( {value:"mixed"}, "帶分數")
                 ),
                 PropCheckBox(
-                    {label:" 每一刻度的標籤",
+                    {label:"顯示刻度代表的數字",
                     labelTicks:this.props.labelTicks,
                     onChange:this.props.onChange} )
             ),React.DOM.br(null ),
@@ -18096,7 +18095,7 @@ var InteractiveNumberLineEditor = React.createClass({displayName: 'InteractiveNu
 
 module.exports = {
     name: "interactive-number-line",
-    displayName: "Number line 2",
+    displayName: "Interactive-number-line/互動式數線",
     hidden: false,
     widget: InteractiveNumberLine,
     editor: InteractiveNumberLineEditor
@@ -18557,7 +18556,7 @@ var transformProps = function(editorProps) {
 
 module.exports = {
     name: "lights-puzzle",
-    displayName: "Lights Puzzle",
+    displayName: "Lights Puzzle/點燈謎題",
     hidden: false,
     widget: LightsPuzzle,
     editor: LightsPuzzleEditor,
@@ -18720,11 +18719,9 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
     render: function() {
         return React.DOM.div( {className:"perseus-matcher-editor"}, 
             React.DOM.div(null, 
-                ' ',"Correct answer:",' ',
+                ' ',"正確答案：",' ',
                 InfoTip(null, 
-                    React.DOM.p(null, "Enter the correct answers here. The preview on the right"+' '+
-                    "will show the cards in a randomized order, which is how the"+' '+
-                    "student will see them.")
+                    React.DOM.p(null, "在此輸入配對題組的正確答案。當題目顯示時，會隨機排序卡片的順序。")
                 )
             ),
             React.DOM.div( {className:"ui-helper-clearfix"}, 
@@ -18742,9 +18739,9 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
                     layout:"vertical"} )
             ),
             React.DOM.span(null, 
-                ' ',"Labels:",' ',
+                ' ',"標籤：",' ',
                 InfoTip(null, 
-                    React.DOM.p(null, "These are entirely optional.")
+                    React.DOM.p(null, "此欄位非必填。")
                 )
             ),
             React.DOM.div(null, 
@@ -18757,26 +18754,22 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
             ),
             React.DOM.div(null, 
                 PropCheckBox(
-                    {label:"Order of the matched pairs matters:",
+                    {label:"第一欄的欄位順序可重新調整：",
                     orderMatters:this.props.orderMatters,
                     onChange:this.props.onChange} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "With this option enabled, only the order provided above"+' '+
-                    "will be treated as correct. This is useful when ordering is"+' '+
-                    "significant, such as in the context of a proof."),
-                    React.DOM.p(null, "If disabled, pairwise matching is sufficient. To make"+' '+
-                    "this clear, the left column becomes fixed in the provided"+' '+
-                    "order and only the cards in the right column can be"+' '+
-                    "moved.")
+                    React.DOM.p(null, "當此功能開啟時，第一欄欄位的順序必須完成符合。"+' '+
+                      "此功能適合使用在證明題的論證步驟與其理由的配對。"),
+                    React.DOM.p(null, "當此功能關閉時，第一欄的欄位會固定下來，只讓使用者調整第二欄欄位的順序。")
                 )
             ),
             React.DOM.div(null, 
                 PropCheckBox(
-                    {label:"Padding:",
+                    {label:"留白:",
                     padding:this.props.padding,
                     onChange:this.props.onChange} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "Padding is good for text, but not needed for images.")
+                    React.DOM.p(null, "建議在文字時加入「留白」，圖片模式不要加入。")
                 )
             )
         );
@@ -18804,7 +18797,7 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
 
 module.exports = {
     name: "matcher",
-    displayName: "Two column matcher",
+    displayName: "Two column matcher/配對題",
     widget: Matcher,
     editor: MatcherEditor,
     hidden: false
@@ -19016,35 +19009,34 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
         var image = _.extend({}, defaultImage, this.props.image);
 
         return React.DOM.div( {className:"perseus-widget-measurer"}, 
-            React.DOM.div(null, "Image displayed under protractor and/or ruler:"),
-            React.DOM.div(null, "URL:",' ',
+            React.DOM.div(null, "背景圖片："),
+            React.DOM.div(null, "圖片網址:",' ',
                 React.DOM.input( {type:"text",
                         className:"perseus-widget-measurer-url",
                         ref:"image-url",
                         defaultValue:image.url,
                         onChange:this._changeUrl} ),
             InfoTip(null, 
-                React.DOM.p(null, "Create an image in graphie, or use the \"Add image\" function"+' '+
-                "to create a background.")
+                React.DOM.p(null, "插入圖片的連結網址。例如，先將圖片上傳至 http://imgur.com ，再分享其圖片網址 (Direct Link)。 ")
             )
             ),
             image.url && React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    NumberInput( {label:"Pixels from top:",
+                    NumberInput( {label:"與上方的間隔畫素：",
                         placeholder:0,
                         onChange:this._changeTop,
                         value:image.top,
                         useArrowKeys:true} )
                 ),
                 React.DOM.div( {className:"perseus-widget-right-col"}, 
-                    NumberInput( {label:"Pixels from left:",
+                    NumberInput( {label:"與右方的間隔畫素：",
                         placeholder:0,
                         onChange:this._changeLeft,
                         value:image.left,
                         useArrowKeys:true} )
                 )
             ),
-            React.DOM.div(null, "Containing area [width, height]:",' ',
+            React.DOM.div(null, "圖片大小 [寬, 高]:",' ',
                 RangeInput(
                     {onChange:this.change("box"),
                     value:this.props.box,
@@ -19052,12 +19044,12 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    PropCheckBox( {label:"Show ruler",
+                    PropCheckBox( {label:"顯示直尺",
                         showRuler:this.props.showRuler,
                         onChange:this.props.onChange} )
                 ),
                 React.DOM.div( {className:"perseus-widget-right-col"}, 
-                    PropCheckBox( {label:"Show protractor",
+                    PropCheckBox( {label:"顯示量角器",
                         showProtractor:this.props.showProtractor,
                         onChange:this.props.onChange} )
                 )
@@ -19065,26 +19057,26 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
             this.props.showRuler && React.DOM.div(null, 
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Ruler label:",' ',
+                    ' ',"直尺單位：",' ',
                     React.DOM.select(
                         {onChange:function(e) 
                             {return this.change("rulerLabel", e.target.value);}.bind(this),
                         value:this.props.rulerLabel} , 
-                            React.DOM.option( {value:""}, "None"),
-                            React.DOM.optgroup( {label:"Metric"}, 
+                            React.DOM.option( {value:""}, "無"),
+                            React.DOM.optgroup( {label:"公制"}, 
                                 this.renderLabelChoices([
-                                    ["milimeters", "mm"],
-                                    ["centimeters", "cm"],
-                                    ["meters", "m"],
-                                    ["kilometers", "km"]
+                                    ["厘米", "mm"],
+                                    ["公分", "cm"],
+                                    ["公尺", "m"],
+                                    ["公里", "km"]
                                 ])
                             ),
-                            React.DOM.optgroup( {label:"Imperial"}, 
+                            React.DOM.optgroup( {label:"英制"}, 
                                 this.renderLabelChoices([
-                                    ["inches", "in"],
-                                    ["feet", "ft"],
-                                    ["yards", "yd"],
-                                    ["miles", "mi"]
+                                    ["英吋", "in"],
+                                    ["英呎", "ft"],
+                                    ["碼", "yd"],
+                                    ["英哩", "mi"]
                                 ])
                             )
                     )
@@ -19092,7 +19084,7 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"Ruler ticks:",' ',
+                    ' ',"每單位分割數：",' ',
                     React.DOM.select(
                         {onChange:function(e) 
                             {return this.change("rulerTicks", +e.target.value);}.bind(this),
@@ -19104,14 +19096,14 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
                 )
             ),
             React.DOM.div(null, 
-                NumberInput( {label:"Ruler pixels per unit:",
+                NumberInput( {label:"每單位長的畫素:",
                     placeholder:40,
                     onChange:this.change("rulerPixels"),
                     value:this.props.rulerPixels,
                     useArrowKeys:true} )
             ),
             React.DOM.div(null, 
-                NumberInput( {label:"Ruler length in units:",
+                NumberInput( {label:"直尺長度",
                     placeholder:10,
                     onChange:this.change("rulerLength"),
                     value:this.props.rulerLength,
@@ -19164,7 +19156,7 @@ propUpgrades = {
 
 module.exports = {
     name: "measurer",
-    displayName: "Measurer",
+    displayName: "Measurer/直尺、量角器",
     widget: Measurer,
     editor: MeasurerEditor,
     version: {major: 1, minor: 0},
@@ -19839,7 +19831,7 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         onChange:this.props.onChange} )
                 ),
                 React.DOM.div( {className:"perseus-widget-right-col"}, 
-                    PropCheckBox( {label:"顯示刻度線上的標籤",
+                    PropCheckBox( {label:"顯示刻度代表的數字",
                         labelTicks:this.props.labelTicks,
                         onChange:this.props.onChange} )
                 )
@@ -20017,7 +20009,7 @@ var NumberLineTransform = function(editorProps)  {
 
 module.exports = {
     name: "number-line",
-    displayName: "Number line",
+    displayName: "Number line/數線",
     widget: NumberLine,
     editor: NumberLineEditor,
     transform: NumberLineTransform,
@@ -21143,7 +21135,7 @@ var OrdererEditor = React.createClass({displayName: 'OrdererEditor',
 
 module.exports = {
     name: "orderer",
-    displayName: "Orderer",
+    displayName: "Orderer/卡片重組",
     widget: Orderer,
     editor: OrdererEditor,
     hidden: false
@@ -22138,7 +22130,7 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
 
 module.exports = {
     name: "plotter",
-    displayName: "Plotter",
+    displayName: "Plotter/統計圖",
     widget: Plotter,
     editor: PlotterEditor,
     hidden: false
@@ -22685,7 +22677,7 @@ var choiceTransform = function(editorProps)  {
 
 module.exports = {
     name: "radio",
-    displayName: "Multiple choice",
+    displayName: "radio/選擇題",
     widget: Radio,
     editor: RadioEditor,
     transform: choiceTransform
@@ -22837,7 +22829,7 @@ var SorterEditor = React.createClass({displayName: 'SorterEditor',
 
 module.exports = {
     name: "sorter",
-    displayName: "Sorter",
+    displayName: "Sorter/排序",
     widget: Sorter,
     editor: SorterEditor,
     hidden: false
@@ -23155,7 +23147,7 @@ var TableEditor = React.createClass({displayName: 'TableEditor',
 
 module.exports = {
     name: "table",
-    displayName: "Table of values",
+    displayName: "Table of values/表格",
     widget: Table,
     editor: TableEditor,
     hidden: false
@@ -25660,7 +25652,7 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
 
 module.exports = {
     name: "transformer",
-    displayName: "Transformer",
+    displayName: "Transformer/圖形變換",
     widget: Transformer,
     editor: TransformerEditor,
     hidden: false
