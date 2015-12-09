@@ -1,3 +1,7 @@
+/* eslint-disable no-redeclare, react/forbid-prop-types,
+react/jsx-closing-bracket-location, react/jsx-indent-props,
+react/jsx-sort-prop-types, react/prop-types, react/sort-comp,
+space-infix-ops */
 var React = require("react");
 var _ = require("underscore");
 
@@ -73,7 +77,7 @@ var defaultInteractionProps = {
         gridStep: [1, 1],
         markings: "graph",
     },
-    elements: []
+    elements: [],
 };
 
 var Interaction = React.createClass({
@@ -82,7 +86,7 @@ var Interaction = React.createClass({
     // TODO(eater): Make more better
     propTypes: {
         graph: React.PropTypes.object,
-        elements: React.PropTypes.arrayOf(React.PropTypes.object)
+        elements: React.PropTypes.arrayOf(React.PropTypes.object),
     },
 
     getDefaultProps: function() {
@@ -92,7 +96,7 @@ var Interaction = React.createClass({
     getInitialState: function() {
         return {
             variables: this._getInitialVariables(this.props.elements),
-            functions: this._getInitialFunctions(this.props.elements)
+            functions: this._getInitialFunctions(this.props.elements),
         };
     },
 
@@ -156,7 +160,7 @@ var Interaction = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState({
             variables: this._getInitialVariables(nextProps.elements),
-            functions: this._getInitialFunctions(nextProps.elements)
+            functions: this._getInitialFunctions(nextProps.elements),
         });
     },
 
@@ -168,7 +172,7 @@ var Interaction = React.createClass({
             labels: _.contains(["graph"], this.props.graph.markings),
             labelFormat: function(s) { return "\\small{" + s + "}"; },
             axisArrows: "<->",
-            unityLabels: false
+            unityLabels: false,
         }));
         if (this.props.graph.markings === "graph") {
             var labels = this.props.graph.labels;
@@ -207,18 +211,17 @@ var Interaction = React.createClass({
         _.each(_.keys(compiledVars), (name) => {
             if (_.isString(compiledVars[name])) {
                 var func = KAScompile(compiledVars[name], {
-                    functions: this.state.functions
+                    functions: this.state.functions,
                 });
                 compiledVars[name] = function(x) {
                     return func(_.extend({}, compiledVars, {
-                        x: x
+                        x: x,
                     }));
                 };
             }
         });
-        val = func(compiledVars);
         // Default to 0 if the expression couldn't be parsed
-        return val || 0;
+        return func(compiledVars) || 0;
     },
 
     // Return an array of all the variables in an expression
@@ -245,14 +248,16 @@ var Interaction = React.createClass({
                 box={this.props.graph.box}
                 range={this.props.graph.range}
                 options={this.props.graph}
-                setup={this._setupGraphie}>
+                setup={this._setupGraphie}
+        >
             {_.map(this.props.elements, function(element, n) {
                 if (element.type === "point") {
                     return <Point
                         key={element.key}
                         coord={[this._eval(element.options.coordX),
                             this._eval(element.options.coordY)]}
-                        color={element.options.color} />;
+                        color={element.options.color}
+                    />;
                 } else if (element.type === "line") {
                     var start = [this._eval(element.options.startX),
                                  this._eval(element.options.startY)];
@@ -266,8 +271,9 @@ var Interaction = React.createClass({
                             stroke: element.options.color,
                             strokeWidth: element.options.strokeWidth,
                             strokeDasharray: element.options.strokeDasharray,
-                            arrows: element.options.arrows
-                        }} />;
+                            arrows: element.options.arrows,
+                        }}
+                    />;
                 } else if (element.type === "movable-point") {
                     // TODO(eater): Would be nice if the constraint system
                     // were more flexible.
@@ -317,7 +323,7 @@ var Interaction = React.createClass({
                         foo_z={element.options.snap}
                         onMove={_.partial(this._updatePointLocation,
                             element.options.varSubscript)}
-                        />;
+                    />;
                 } else if (element.type === "movable-line") {
                     // TODO(eater): Would be nice if the constraint system
                     // were more flexible.
@@ -355,17 +361,17 @@ var Interaction = React.createClass({
                         });
                     }
                     var start = [
-                            this.state.variables["x_" +
+                        this.state.variables["x_" +
                                 element.options.startSubscript],
-                            this.state.variables["y_" +
-                                element.options.startSubscript]
-                        ];
+                        this.state.variables["y_" +
+                                element.options.startSubscript],
+                    ];
                     var end = [
-                            this.state.variables["x_" +
+                        this.state.variables["x_" +
                                 element.options.endSubscript],
-                            this.state.variables["y_" +
-                                element.options.endSubscript]
-                        ];
+                        this.state.variables["y_" +
+                                element.options.endSubscript],
+                    ];
                     return <MovableLine
                         key={element.key}
                         constraints={constraints}
@@ -373,7 +379,8 @@ var Interaction = React.createClass({
                             element.options)}
                         foo_x={element.options.constraint}
                         foo_y={element.options.constraintFn}
-                        foo_z={element.options.snap}>
+                        foo_z={element.options.snap}
+                    >
                             <MovablePoint coord={start}
                                 static={true}
                                 normalStyle={{stroke: "none", fill: "none"}} />
@@ -407,8 +414,9 @@ var Interaction = React.createClass({
                             stroke: element.options.color,
                             strokeWidth: element.options.strokeWidth,
                             strokeDasharray: element.options.strokeDasharray,
-                            plotPoints: 100  // TODO(eater): why so slow?
-                        }} />;
+                            plotPoints: 100,  // TODO(eater): why so slow?
+                        }}
+                    />;
                 } else if (element.type === "parametric") {
                     var fn = (t) => {
                         return [
@@ -440,8 +448,9 @@ var Interaction = React.createClass({
                             stroke: element.options.color,
                             strokeWidth: element.options.strokeWidth,
                             strokeDasharray: element.options.strokeDasharray,
-                            plotPoints: 100  // TODO(eater): why so slow?
-                        }} />;
+                            plotPoints: 100,  // TODO(eater): why so slow?
+                        }}
+                    />;
                 } else if (element.type === "label") {
                     var coord = [this._eval(element.options.coordX),
                                  this._eval(element.options.coordY)];
@@ -450,8 +459,9 @@ var Interaction = React.createClass({
                         coord={coord}
                         text={element.options.label}
                         style={{
-                            color: element.options.color
-                        }} />;
+                            color: element.options.color,
+                        }}
+                    />;
                 } else if (element.type === "rectangle") {
                     return <Rect
                         key={n + 1}
@@ -461,8 +471,9 @@ var Interaction = React.createClass({
                         height={_.max([this._eval(element.options.height), 0])}
                         style={{
                             stroke: "none",
-                            fill: element.options.color
-                        }} />;
+                            fill: element.options.color,
+                        }}
+                    />;
                 }
             }, this)}
         </Graphie>;
@@ -478,7 +489,7 @@ var Interaction = React.createClass({
 
     simpleValidate: function(rubric) {
         return Interaction.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -488,9 +499,9 @@ _.extend(Interaction, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 
@@ -505,14 +516,14 @@ var PointEditor = React.createClass({
     propTypes: {
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
-        color: React.PropTypes.string
+        color: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
             coordX: "0",
             coordY: "0",
-            color: KhanUtil.BLACK
+            color: KhanUtil.BLACK,
         };
     },
 
@@ -523,21 +534,24 @@ var PointEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.coordX}
-                    onChange={this.change("coordX")} />
+                    onChange={this.change("coordX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.coordY}
-                    onChange={this.change("coordY")} />
+                    onChange={this.change("coordY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
-                    onChange={this.change("color")} />
+                    onChange={this.change("color")}
+                />
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -557,7 +571,7 @@ var LineEditor = React.createClass({
         color: React.PropTypes.string,
         strokeDasharray: React.PropTypes.string,
         arrows: React.PropTypes.string,
-        strokeWidth: React.PropTypes.number
+        strokeWidth: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -569,7 +583,7 @@ var LineEditor = React.createClass({
             color: KhanUtil.BLACK,
             strokeDasharray: "",
             arrows: "",
-            strokeWidth: 2
+            strokeWidth: 2,
         };
     },
 
@@ -580,12 +594,14 @@ var LineEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.startX}
-                    onChange={this.change("startX")} />
+                    onChange={this.change("startX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.startY}
-                    onChange={this.change("startY")} />
+                    onChange={this.change("startY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
@@ -593,18 +609,21 @@ var LineEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.endX}
-                    onChange={this.change("endX")} />
+                    onChange={this.change("endX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.endY}
-                    onChange={this.change("endY")} />
+                    onChange={this.change("endY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
-                    onChange={this.change("color")} />
+                    onChange={this.change("color")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <DashPicker
@@ -613,7 +632,8 @@ var LineEditor = React.createClass({
                 &nbsp; &nbsp;
                 <ArrowPicker
                     value={this.props.arrows}
-                    onChange={this.change("arrows")} />
+                    onChange={this.change("arrows")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
@@ -624,7 +644,7 @@ var LineEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -642,7 +662,7 @@ var MovablePointEditor = React.createClass({
         startY: React.PropTypes.string,
         constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string
+        constraintFn: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -655,7 +675,7 @@ var MovablePointEditor = React.createClass({
             constraintXMin: "-10",
             constraintXMax: "10",
             constraintYMin: "-10",
-            constraintYMax: "10"
+            constraintYMax: "10",
         };
     },
 
@@ -666,23 +686,26 @@ var MovablePointEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.startX}
-                    onChange={this.change("startX")} />
+                    onChange={this.change("startX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.startY}
-                    onChange={this.change("startY")} />
+                    onChange={this.change("startY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
                 Update <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX> <NumberInput
                     value={this.props.varSubscript}
                     placeholder={0}
-                    onChange={this.change("varSubscript")}/>
+                    onChange={this.change("varSubscript")}
+                />
             </div>
             <ConstraintEditor {...this.props} />
         </div>;
-    }
+    },
 });
 
 
@@ -702,7 +725,7 @@ var MovableLineEditor = React.createClass({
         endY: React.PropTypes.string,
         constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string
+        constraintFn: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -717,7 +740,7 @@ var MovableLineEditor = React.createClass({
             constraintXMin: "-10",
             constraintXMax: "10",
             constraintYMin: "-10",
-            constraintYMax: "10"
+            constraintYMax: "10",
         };
     },
 
@@ -729,12 +752,14 @@ var MovableLineEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.startX}
-                    onChange={this.change("startX")} />
+                    onChange={this.change("startX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.startY}
-                    onChange={this.change("startY")} />
+                    onChange={this.change("startY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
@@ -742,12 +767,14 @@ var MovableLineEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.endX}
-                    onChange={this.change("endX")} />
+                    onChange={this.change("endX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.endY}
-                    onChange={this.change("endY")} />
+                    onChange={this.change("endY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
@@ -769,7 +796,7 @@ var MovableLineEditor = React.createClass({
             </div>
             <ConstraintEditor {...this.props} />
         </div>;
-    }
+    },
 });
 
 
@@ -787,7 +814,7 @@ var FunctionEditor = React.createClass({
         rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
         strokeDashArray: React.PropTypes.string,
-        strokeWidth: React.PropTypes.number
+        strokeWidth: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -797,7 +824,7 @@ var FunctionEditor = React.createClass({
             rangeMax: "10",
             color: KhanUtil.BLUE,
             strokeDasharray: "",
-            strokeWidth: 2
+            strokeWidth: 2,
         };
     },
 
@@ -808,25 +835,29 @@ var FunctionEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.value}
-                    onChange={this.change("value")} />
+                    onChange={this.change("value")}
+                />
             </div>
             <div className="perseus-widget-row">
                 Range: <TeX>\Large(</TeX><MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.rangeMin}
-                    onChange={this.change("rangeMin")} />
+                    onChange={this.change("rangeMin")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.rangeMax}
-                    onChange={this.change("rangeMax")} />
+                    onChange={this.change("rangeMax")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
-                    onChange={this.change("color")} />
+                    onChange={this.change("color")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <DashPicker
@@ -842,7 +873,7 @@ var FunctionEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -861,7 +892,7 @@ var ParametricEditor = React.createClass({
         rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
         strokeDashArray: React.PropTypes.string,
-        strokeWidth: React.PropTypes.number
+        strokeWidth: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -872,7 +903,7 @@ var ParametricEditor = React.createClass({
             rangeMax: "2\\pi",
             color: KhanUtil.BLUE,
             strokeDasharray: "",
-            strokeWidth: 2
+            strokeWidth: 2,
         };
     },
 
@@ -883,32 +914,37 @@ var ParametricEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.x}
-                    onChange={this.change("x")} />
+                    onChange={this.change("x")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <TeX>Y(t) =</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.y}
-                    onChange={this.change("y")} />
+                    onChange={this.change("y")}
+                />
             </div>
             <div className="perseus-widget-row">
                 Range: <TeX>\Large(</TeX><MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.rangeMin}
-                    onChange={this.change("rangeMin")} />
+                    onChange={this.change("rangeMin")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.rangeMax}
-                    onChange={this.change("rangeMax")} />
+                    onChange={this.change("rangeMax")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
-                    onChange={this.change("color")} />
+                    onChange={this.change("color")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <DashPicker
@@ -924,7 +960,7 @@ var ParametricEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -938,6 +974,10 @@ var LabelEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
+        color: React.PropTypes.string,
+        coordX: React.PropTypes.string,
+        coordY: React.PropTypes.string,
+        label: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -945,7 +985,7 @@ var LabelEditor = React.createClass({
             coordX: "0",
             coordY: "0",
             color: KhanUtil.BLACK,
-            label: "\\phi"
+            label: "\\phi",
         };
     },
 
@@ -956,30 +996,33 @@ var LabelEditor = React.createClass({
                     value={this.props.label}
                     onChange={this.change("label")}
                     style={{
-                        width: "100%"
+                        width: "100%",
                     }}
-                    />
+                />
             </div>
             <div className="perseus-widget-row">
                 Location: <TeX>\Large(</TeX><MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.coordX}
-                    onChange={this.change("coordX")} />
+                    onChange={this.change("coordX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.coordY}
-                    onChange={this.change("coordY")} />
+                    onChange={this.change("coordY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
-                    onChange={this.change("color")} />
+                    onChange={this.change("color")}
+                />
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -992,6 +1035,11 @@ var RectangleEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
+        color: React.PropTypes.string,
+        coordX: React.PropTypes.string,
+        coordY: React.PropTypes.string,
+        height: React.PropTypes.string,
+        width: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -1000,23 +1048,25 @@ var RectangleEditor = React.createClass({
             coordY: "5",
             width: "2",
             height: "3",
-            color: KhanUtil.LIGHT_BLUE
+            color: KhanUtil.LIGHT_BLUE,
         };
     },
 
     render: function() {
         return <div className="graph-settings">
             <div className="perseus-widget-row">
-                Top left: <TeX>\Large(</TeX><MathInput
+                Bottom left: <TeX>\Large(</TeX><MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.coordX}
-                    onChange={this.change("coordX")} />
+                    onChange={this.change("coordX")}
+                />
                 <TeX>,</TeX> <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.coordY}
-                    onChange={this.change("coordY")} />
+                    onChange={this.change("coordY")}
+                />
                 <TeX>\Large)</TeX>
             </div>
             <div className="perseus-widget-row">
@@ -1024,26 +1074,29 @@ var RectangleEditor = React.createClass({
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.width}
-                    onChange={this.change("width")} />
+                    onChange={this.change("width")}
+                />
             </div>
             <div className="perseus-widget-row">
                 Height: <MathInput
                     buttonSets={[]}
                     buttonsVisible={"never"}
                     value={this.props.height}
-                    onChange={this.change("height")} />
+                    onChange={this.change("height")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
                     lightColors={true}
-                    onChange={this.change("color")} />
+                    onChange={this.change("color")}
+                />
             </div>
             <div className="perseus-widget-row">
                 You want a border? Sorry, draw your own.
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -1053,8 +1106,8 @@ var InteractionEditor = React.createClass({
 
     // TODO(eater): Make more better
     propTypes: {
-        graph: React.PropTypes.object,
-        elements: React.PropTypes.arrayOf(React.PropTypes.object)
+        elements: React.PropTypes.arrayOf(React.PropTypes.object),
+        graph: React.PropTypes.objectOf(React.PropTypes.any),
     },
 
     getDefaultProps: function() {
@@ -1064,14 +1117,14 @@ var InteractionEditor = React.createClass({
     getInitialState: function() {
         return {
             usedVarSubscripts: this._getAllVarSubscripts(this.props.elements),
-            usedFunctionNames: this._getAllFunctionNames(this.props.elements)
+            usedFunctionNames: this._getAllFunctionNames(this.props.elements),
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
         this.setState({
             usedVarSubscripts: this._getAllVarSubscripts(nextProps.elements),
-            usedFunctionNames: this._getAllFunctionNames(nextProps.elements)
+            usedFunctionNames: this._getAllFunctionNames(nextProps.elements),
         });
     },
 
@@ -1094,8 +1147,8 @@ var InteractionEditor = React.createClass({
         // of step. Grr..
         this.change({
             graph: _.extend(_.omit(newProps, "step"), {
-                    tickStep: newProps.step
-                })
+                tickStep: newProps.step,
+            }),
         });
     },
 
@@ -1107,7 +1160,8 @@ var InteractionEditor = React.createClass({
         e.target.value = "";
         var newElement = {
             type: elementType,
-            key: elementType + "-" + (Math.random()*0xffffff<<0).toString(16),
+            key: elementType + "-" +
+                (Math.random() * 0xffffff << 0).toString(16),
             options: elementType === "point" ?
                         _.clone(PointEditor.defaultProps) :
                         elementType === "line" ?
@@ -1123,14 +1177,16 @@ var InteractionEditor = React.createClass({
                         elementType === "label" ?
                         _.clone(LabelEditor.defaultProps) :
                         elementType === "rectangle" ?
-                        _.clone(RectangleEditor.defaultProps) : {}
+                        _.clone(RectangleEditor.defaultProps) : {},
         };
+
+        var nextSubscript;
         if (elementType === "movable-point") {
-            var nextSubscript =
+            nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
             newElement.options.varSubscript = nextSubscript;
         } else if (elementType === "movable-line") {
-            var nextSubscript =
+            nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
             newElement.options.startSubscript = nextSubscript;
             newElement.options.endSubscript = nextSubscript + 1;
@@ -1139,12 +1195,13 @@ var InteractionEditor = React.createClass({
             // comes after 'z'
             var nextLetter = String.fromCharCode(_.max([_.max(_.map(
                 this.state.usedFunctionNames, function(c) {
-                return c.charCodeAt(0); })),
+                    return c.charCodeAt(0);
+                })),
                 "e".charCodeAt(0)]) + 1);
             newElement.options.funcName = nextLetter;
         }
         this.change({
-            elements: this.props.elements.concat(newElement)
+            elements: this.props.elements.concat(newElement),
         });
     },
 
@@ -1170,16 +1227,18 @@ var InteractionEditor = React.createClass({
     render: function() {
         return <div className="perseus-widget-interaction-editor">
             <ElementContainer
-                    title="Grid settings">
+                    title="Grid settings"
+            >
                 <GraphSettings
                     editableSettings={["canvas", "graph"]}
                     box={this.props.graph.box}
                     labels={this.props.graph.labels}
                     range={this.props.graph.range}
-                    step={this.props.graph.tickStep /*TODO(eater): grr names*/}
+                    step={this.props.graph.tickStep}
                     gridStep={this.props.graph.gridStep}
                     markings={this.props.graph.markings}
-                    onChange={this._updateGraphProps} />
+                    onChange={this._updateGraphProps}
+                />
                 {(this.props.graph.valid === true) || <div>
                     {this.props.graph.valid}
                 </div>}
@@ -1197,7 +1256,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <MovablePointEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1223,7 +1283,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <MovableLineEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1246,7 +1307,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <PointEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1272,7 +1334,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <LineEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1294,7 +1357,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <FunctionEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1313,7 +1377,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <ParametricEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1333,7 +1398,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <LabelEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1341,7 +1407,8 @@ var InteractionEditor = React.createClass({
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }} />
+                            }}
+                        />
                     </ElementContainer>;
                 } else if (element.type === "rectangle") {
                     return <ElementContainer
@@ -1357,7 +1424,8 @@ var InteractionEditor = React.createClass({
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
                             onDelete={this._deleteElement}
-                            key={element.key}>
+                            key={element.key}
+                    >
                         <RectangleEditor
                             {...element.options}
                             onChange={(newProps) => {
@@ -1365,7 +1433,8 @@ var InteractionEditor = React.createClass({
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
-                            }} />
+                            }}
+                        />
                     </ElementContainer>;
                 }
             }, this)}
@@ -1386,7 +1455,7 @@ var InteractionEditor = React.createClass({
                 </select>
             </div>
         </div>;
-    }
+    },
 });
 
 
@@ -1395,5 +1464,5 @@ module.exports = {
     displayName: "Interaction",
     widget: Interaction,
     editor: InteractionEditor,
-    transform: _.identity
+    transform: _.identity,
 };
