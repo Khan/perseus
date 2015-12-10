@@ -14105,7 +14105,9 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
             // TODO(alex): Remove after backfilling everything to TeX
             isTex: value === "" ||                  // default to TeX if new;
                 _.indexOf(value, "\\") !== -1 ||    // only TeX has backslashes
-                _.indexOf(value, "{") !== -1        // and curly braces
+                _.indexOf(value, "{") !== -1  ||    // and curly braces
+                _.indexOf(value, "+") !== -1  ||    // use TeX if user types +
+                _.indexOf(value, "-") !== -1        // use TeX if user types -
         };
     },
 
