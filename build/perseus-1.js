@@ -8127,7 +8127,7 @@ var WidgetSelect = React.createClass({displayName: 'WidgetSelect',
         });
 
         return React.DOM.select( {onChange:this.handleChange}, 
-            React.DOM.option( {value:""}, "Add a widget","\u2026"),
+            React.DOM.option( {value:""}, "新增一個 widget","\u2026"),
             React.DOM.option( {disabled:true}, "--"),
             _.map(orderedWidgetNames, function(name)  {
                 return React.DOM.option( {value:name, key:name}, 
@@ -14450,7 +14450,7 @@ var IframeEditor = React.createClass({displayName: 'IframeEditor',
         return {
             url: "",
             settings: [{name: "", value: ""}],
-            width: 400,
+            width: 480,
             height: 400
         };
     },
@@ -14461,23 +14461,6 @@ var IframeEditor = React.createClass({displayName: 'IframeEditor',
                 BlurInput( {name:"url",
                            value:this.props.url,
                            onChange:this.change("url")} )
-            ),
-            React.DOM.br(null),
-            React.DOM.label(null, "設定值：",
-                PairsEditor( {name:"settings",
-                           pairs:this.props.settings,
-                           onChange:this.handleSettingsChange} )
-            ),
-            React.DOM.br(null),
-            React.DOM.label(null, "寬度：", 
-                BlurInput( {name:"width",
-                           value:this.props.width,
-                           onChange:this.change("width")} )
-            ),
-            React.DOM.label(null, "高度：", 
-                BlurInput( {name:"height",
-                           value:this.props.height,
-                           onChange:this.change("height")} )
             )
         );
     },
