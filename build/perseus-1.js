@@ -10887,7 +10887,6 @@ var ItemRenderer = React.createClass({displayName: 'ItemRenderer',
     },
 
     componentWillUnmount: function() {
-      console.log('item renderer unmount');
         React.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
         React.unmountComponentAtNode(
@@ -11701,8 +11700,8 @@ var Renderer = React.createClass({displayName: 'Renderer',
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
-            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1) {
-                return id + ' is too big to record attempt content.'
+            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1 || id.indexOf('image') > -1) {
+                return 'no save ' + id +' widget'
             }
             return this.refs[id].toJSON();
         }, this);
