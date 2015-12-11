@@ -4980,7 +4980,7 @@ var Graph = React.createClass({displayName: 'Graph',
         $(graphieDiv).empty();
         var labels = this.props.labels;
         var range = this.props.range;
-        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
+        var graphie = this._graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 
         var gridConfig = this._getGridConfig();
         graphie.snap = this.props.snapStep;
@@ -5099,7 +5099,7 @@ var Graph = React.createClass({displayName: 'Graph',
 
         if (this.props.showProtractor) {
             var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
-            this.protractor = this._graphie.protractor(coord);
+            this.protractor = this._graphie.Protractor(coord);
         }
     },
 
@@ -18878,7 +18878,7 @@ var Measurer = React.createClass({displayName: 'Measurer',
     setupGraphie: function() {
         var graphieDiv = this.refs.graphieDiv.getDOMNode();
         $(graphieDiv).empty();
-        var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
+        var graphie = this.graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 
         var scale = [40, 40];
         var range = [
@@ -18898,7 +18898,7 @@ var Measurer = React.createClass({displayName: 'Measurer',
         }
 
         if (this.props.showProtractor) {
-            this.protractor = graphie.protractor([
+            this.protractor = graphie.Protractor([
                 this.props.protractorX,
                 this.props.protractorY
             ]);
