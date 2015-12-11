@@ -14097,13 +14097,10 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
         var value = this.props.value;
 
         return {
-            // Is the format of `value` TeX or plain text?
-            // TODO(alex): Remove after backfilling everything to TeX
-            isTex: value === "" ||                  // default to TeX if new;
-                _.indexOf(value, "\\") !== -1 ||    // only TeX has backslashes
-                _.indexOf(value, "{") !== -1  ||    // and curly braces
-                _.indexOf(value, "+") !== -1  ||    // use TeX if user types +
-                _.indexOf(value, "-") !== -1        // use TeX if user types -
+          // In Junyi, all expressions are new expression widget, not oldExpression widget.
+          // So isTeX default is true.
+            isTex: true
+
         };
     },
 
