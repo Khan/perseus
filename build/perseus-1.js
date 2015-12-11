@@ -14496,6 +14496,7 @@ var defaultBackgroundImage = {
     width: 0,
     height: 0
 };
+var maxImageSize = 480;
 
 /**
  * Alignment option for captions, relative to specified coordinates.
@@ -14632,7 +14633,7 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
 
     render: function() {
         var imageSettings = React.DOM.div( {className:"image-settings"}, 
-            React.DOM.div(null, "Url:",' ',
+            React.DOM.div(null, "圖片網址:",' ',
                 BlurInput( {value:this.props.backgroundImage.url,
                            onChange:this.onUrlChange} ),
                 InfoTip(null, 
@@ -14642,9 +14643,9 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
             React.DOM.label(null, 
                 React.DOM.input( {type:"checkbox",
                         checked:this.props.useBoxSize,
-                        onChange:this.toggleUseBoxSize} ),"手動調整寬度"
+                        onChange:this.toggleUseBoxSize} ),"手動調整寬度，寬度上限480"
             ),
-            React.DOM.div(null, "Width:",' ',
+            React.DOM.div(null, "寬度:",' ',
                 BlurInput( {value:parseInt(this.props.box[0]),
                            onChange:this.onWidthChange} ),
                 InfoTip(null, 
@@ -14744,7 +14745,7 @@ var ImageEditor = React.createClass({displayName: 'ImageEditor',
         var image = _.clone(this.props.backgroundImage);
         if (this.props.useBoxSize) {
             var w_h_ratio = image.height / image.width;
-            image.width = parseInt(newAlignment);
+            image.width = parseInt(newAlignment) > maxImageSize ? maxImageSize:parseInt(newAlignment);
             image.height = Math.round(image.width * w_h_ratio);
         }
         var box = [image.width, image.height];
