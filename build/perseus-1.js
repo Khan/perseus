@@ -21129,11 +21129,11 @@ var RangeInput = require("../components/range-input.jsx");
 
 var deepEq = require("../util.js").deepEq;
 
-var BAR = "條狀圖",
-    LINE = "折線圖",
-    PIC = "條狀圖 (圖例)",
-    HISTOGRAM = "長條圖",
-    DOTPLOT = "點狀圖";
+var BAR = "bar",
+    LINE = "line",
+    PIC = "pic",
+    HISTOGRAM = "histogram",
+    DOTPLOT = "dotplot";
 
 var DOT_PLOT_POINT_SIZE = 4;
 var DOT_PLOT_POINT_PADDING = 8;
