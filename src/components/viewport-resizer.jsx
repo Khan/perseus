@@ -7,6 +7,8 @@ var React = require("react");
 
 var ButtonGroup = require("react-components/button-group.jsx");
 
+var DEFAULT_VIEWPORT = 'desktop';
+
 // These values for screen sizes come from dominant screen sizes by device type
 // according to screensiz.es and our own Google Analytics reporting (Nov 2015).
 var SCREEN_SIZES = {
@@ -32,7 +34,7 @@ var ViewportResizer = React.createClass({
     },
 
     getInitialState: function() {
-        return {value: 'phone'};
+        return {value: DEFAULT_VIEWPORT};
     },
 
     handleChange: function(value) {
@@ -69,7 +71,7 @@ var ViewportResizer = React.createClass({
     },
 });
 
-ViewportResizer.DEFAULT_WIDTH = SCREEN_SIZES.phone.width;
-ViewportResizer.DEFAULT_HEIGHT = SCREEN_SIZES.phone.height;
+ViewportResizer.DEFAULT_WIDTH = SCREEN_SIZES[DEFAULT_VIEWPORT].width;
+ViewportResizer.DEFAULT_HEIGHT = SCREEN_SIZES[DEFAULT_VIEWPORT].height;
 
 module.exports = ViewportResizer;
