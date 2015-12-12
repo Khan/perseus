@@ -5,7 +5,7 @@
 
 var React = require("react");
 
-var ButtonGroup = require("react-components/button-group.jsx");
+var ButtonGroup = require("react-components/button-group");
 
 var DEFAULT_VIEWPORT = 'desktop';
 

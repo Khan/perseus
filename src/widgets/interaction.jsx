@@ -17,7 +17,7 @@ var Graphie = require("../components/graphie.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
 var MathInput = require("../components/math-input.jsx");
 var NumberInput = require("../components/number-input.jsx");
-var TeX = require("react-components/tex.jsx");
+var TeX = require("react-components/tex");
 var TextInput = require("../components/text-input.jsx");
 
 var Label = Graphie.Label;
