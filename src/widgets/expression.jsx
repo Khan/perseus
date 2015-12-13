@@ -533,11 +533,9 @@ var ExpressionEditor = React.createClass({
         var value = this.props.value;
 
         return {
-            // Is the format of `value` TeX or plain text?
-            // TODO(alex): Remove after backfilling everything to TeX
-            isTex: value === "" ||                  // default to TeX if new;
-                _.indexOf(value, "\\") !== -1 ||    // only TeX has backslashes
-                _.indexOf(value, "{") !== -1        // and curly braces
+            // In Junyi, all expressions are new expression widget, not oldExpression widget.
+            // So isTeX default is true.
+            isTex: true
         };
     },
 
@@ -571,7 +569,7 @@ var ExpressionEditor = React.createClass({
         // focus
         return <div>
             <div><label>
-                Correct answer:{' '}
+                正確答案:{' '}
                 {expression(expressionProps)}
             </label></div>
             {this.state.isTex && <TexButtons
@@ -584,10 +582,10 @@ var ExpressionEditor = React.createClass({
                     form={this.props.form}
                     onChange={this.props.onChange}
                     labelAlignment="right"
-                    label="Answer expression must have the same form." />
+                    label="答案一定要與格式相符" />
                 <InfoTip>
-                    <p>The student's answer must be in the same form.
-                    Commutativity and excess negative signs are ignored.</p>
+                    <p>學生必須輸入相同的算式。
+                    但容許交換律與負號，例如：1+3，可接受3+1或1-(-3)，但不能接受4或2+2。</p>
                 </InfoTip>
             </div>
 
@@ -596,13 +594,12 @@ var ExpressionEditor = React.createClass({
                     simplify={this.props.simplify}
                     onChange={this.props.onChange}
                     labelAlignment="right"
-                    label="Answer expression must be fully expanded and
-                        simplified." />
+                    label="答案一定要化簡、展開。" />
                 <InfoTip>
-                    <p>The student's answer must be fully expanded and
-                    simplified. Answering this equation (x^2+2x+1) with this
+                    <p>答案一定要化簡或展開，例如方程式 (x^2+2x+1) ，如果輸入
+                    (x+1)^2 就會算不對，並且提示學生：
                     factored equation (x+1)^2 will render this response
-                    "Your answer is not fully expanded and simplified."</p>
+                    "你的答案還沒化簡或展開"。</p>
                 </InfoTip>
             </div>
 
@@ -613,26 +610,21 @@ var ExpressionEditor = React.createClass({
                     times={this.props.times}
                     onChange={this.props.onChange}
                     labelAlignment="right"
-                    label="Use × for rendering multiplication instead of a
-                        center dot." />
+                    label="用 × 表示乘號。" />
                 <InfoTip>
-                    <p>For pre-algebra problems this option displays
-                    multiplication as \times instead of \cdot in both the
-                    rendered output and the acceptable formats examples.</p>
+                    <p>算術問題使用 × 表示乘法，代數問題用・表示乘法。</p>
                 </InfoTip>
             </div>
 
             <div>
                 <label>
-                {"Function variables: "}
+                {"函數名稱: "}
                 <input type="text"
                     defaultValue={this.props.functions.join(" ")}
                     onChange={this.handleFunctions} />
                 </label>
                 <InfoTip><p>
-                    Single-letter variables listed here will be
-                    interpreted as functions. This let us know that f(x) means
-                    "f of x" and not "f times x".
+                    列在此處的變數為函數名稱，當我們使用 f(x)，會把它解讀成函數，而不是解釋成 f 乘以 x 。
                 </p></InfoTip>
             </div>
 
@@ -657,7 +649,7 @@ var ExpressionEditor = React.createClass({
 
 module.exports = {
     name: "expression",
-    displayName: "Expression / Equation",
+    displayName: "Expression/數學式",
     getWidget: (enabledFeatures) => {
         // Allow toggling between the two versions of the widget
         return enabledFeatures.useMathQuill ? Expression : OldExpression;
@@ -666,5 +658,5 @@ module.exports = {
     transform: (editorProps) => {
         return _.pick(editorProps, "times", "functions");
     },
-    hidden: true
+    hidden: false
 };

@@ -160,7 +160,7 @@ var TableEditor = React.createClass({
         return <div>
             <div>
                 <label>
-                    {' '}Number of columns:{' '}
+                    {' '}欄數:{' '}
                     <input
                         ref="numberOfColumns"
                         type="text"
@@ -171,7 +171,7 @@ var TableEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    {' '}Number of rows:{' '}
+                    {' '}列數:{' '}
                     <input
                         ref="numberOfRows"
                         type="text"
@@ -181,7 +181,7 @@ var TableEditor = React.createClass({
                 </label>
             </div>
             <div>
-                {' '}Table of answers type:{' '}
+                {' '}答案表格:{' '}
                 <ul>
                     <li>
                         <label>
@@ -189,13 +189,12 @@ var TableEditor = React.createClass({
                                 type="radio"
                                 checked="checked"
                                 readOnly={true} />
-                            Set of values (complete)
+                            設定值
                         </label>
                         <InfoTip>
-                            <p>The student has to fill out all cells in the
-                            table.  For partially filled tables create a table
-                            using the template, and insert text input boxes
-                            as desired.</p>
+                            <p>當表格欄數大於 1 的時候，答案表格中的所有欄位都需有值，也就
+                                是說，學生在作答時需填完所有的欄位，若有不需填完所有欄位的
+                                答案需求時，請再另行增加欄數為 1 的表格進行使用。</p>
                         </InfoTip>
                     </li>
                 </ul>
@@ -312,8 +311,8 @@ var TableEditor = React.createClass({
 
 module.exports = {
     name: "table",
-    displayName: "Table of values",
+    displayName: "Table of values/表格",
     widget: Table,
     editor: TableEditor,
-    hidden: true
+    hidden: false
 };

@@ -176,7 +176,7 @@ var ExampleWidgetEditor = React.createClass({
 module.exports = {
     name: "example-widget",
     displayName: "Example Widget",
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: false,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleWidget,
     editor: ExampleWidgetEditor
 };

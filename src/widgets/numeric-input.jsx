@@ -16,26 +16,26 @@ var Editor = require("../editor.jsx");
 var firstNumericalParse = require("../util.js").firstNumericalParse;
 
 var answerFormButtons = [
-    {title: "Integers", value: "integer", text: "6"},
-    {title: "Decimals", value: "decimal", text: "0.75"},
-    {title: "Proper fractions", value: "proper", text: "\u2157"},
-    {title: "Improper fractions", value: "improper",
+    {title: "整數", value: "integer", text: "6"},
+    {title: "小樹", value: "decimal", text: "0.75"},
+    {title: "真分數", value: "proper", text: "\u2157"},
+    {title: "假分數", value: "improper",
         text: "\u2077\u2044\u2084"},
-    {title: "Mixed numbers", value: "mixed", text: "1\u00BE"},
-    {title: "Numbers with \u03C0", value: "pi", text: "\u03C0"}
+    {title: "帶分數", value: "mixed", text: "1\u00BE"},
+    {title: "有 \u03C0 的數", value: "pi", text: "\u03C0"}
 ];
 
 var formExamples = {
-    "integer": (options) => $._("an integer, like $6$"),
+    "integer": (options) => $._("整數, 例 $6$"),
     "proper": (options) => options.simplify === "optional" ?
-        $._("a *proper* fraction, like $1/2$ or $6/10$") :
-        $._("a *simplified proper* fraction, like $3/5$"),
+        $._("*真* 分數, 例 $1/2$ or $6/10$") :
+        $._("最簡真* 分數, 例 $3/5$"),
     "improper": (options) => options.simplify === "optional" ?
-        $._("an *improper* fraction, like $10/7$ or $14/8$") :
-        $._("a *simplified improper* fraction, like $7/4$"),
-    "mixed": () => $._("a mixed number, like $1\\ 3/4$"),
-    "decimal": () => $._("an *exact* decimal, like $0.75$"),
-    "pi": () => $._("a multiple of pi, like $12\\ \\text{pi}$ or " +
+        $._("*假* 分數, 例 $10/7$ or $14/8$") :
+        $._("*最簡假* 分數, 例 $7/4$"),
+    "mixed": () => $._("帶分數, 例 $1\\ 3/4$"),
+    "decimal": () => $._("*精確的* 小數, 例 $0.75$"),
+    "pi": () => $._("pi 的倍數, 例 $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$")
 };
 
@@ -198,62 +198,50 @@ var NumericInputEditor = React.createClass({
         var answers = this.props.answers.concat(initAnswer(lastStatus));
 
         var unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
-            <label>Unsimplified answers are</label>
+            <label>未化簡的答案是</label>
             <ButtonGroup value={answers[i]["simplify"]}
                          allowEmpty={false}
                          buttons={[
-                            {value: "required", text: "ungraded"},
-                            {value: "optional", text: "accepted"},
-                            {value: "enforced", text: "wrong"}]}
+                            {value: "required", text: "不合適的"},
+                            {value: "optional", text: "可接受的"},
+                            {value: "enforced", text: "錯誤的"}]}
                          onChange={this.updateAnswer(i, "simplify")} />
             <InfoTip>
-                <p>Normally select "ungraded". This will give the
-                user a message saying the answer is correct but not
-                simplified. The user will then have to simplify it and
-                re-enter, but will not be penalized. (5th grade and after)</p>
-                <p>Select "accepted" only if the user is not
-                expected to know how to simplify fractions yet. (Anything
-                prior to 5th grade)</p>
-                <p>Select "wrong" <em>only</em> if we are
-                specifically assessing the ability to simplify.</p>
+                <p>預設是選取「不合適的」。會告訴使用者這個答案是對的但是沒有化簡。
+                使用者必須化簡後再重新送出答案，但不會算錯。(適用於五年級以上)</p>
+                <p>只有當使用者不知道如何化簡分數時才選取「可接受的」。(適用於五年級以下)</p>
+                <p><em>只有</em>在要學會化簡時才選取「錯誤的」。</p>
             </InfoTip>
         </div>;
 
         var suggestedAnswerTypes = (i) => <div>
             <div className="perseus-widget-row">
-                <label>Choose the suggested answer formats</label>
+                <label>選擇建議的答題格式</label>
                 <MultiButtonGroup buttons={answerFormButtons}
                     values={answers[i]["answerForms"]}
                     onChange={this.updateAnswer(i, "answerForms")} />
                 <InfoTip>
-                    <p>Formats will be autoselected for you based on the
-                        given answer; to show no suggested formats and
-                        accept all types, simply have a decimal/integer be
-                        the answer. Values with &pi; will have format "pi",
-                        and values that are fractions will have some subset
-                        (mixed will be "mixed" and "proper"; improper/proper
-                        will both be "improper" and "proper"). If you would
-                        like to specify that it is only a proper fraction
-                        (or only a mixed/improper fraction), deselect the
-                        other format. Except for specific cases, you should
-                        not need to change the autoselected formats.</p>
-                    <p>To restrict the answer to <em>only</em> an improper
-                        fraction (i.e. 7/4), select the
-                        improper fraction and toggle "strict" to true.
-                        This <b>will not</b> accept 1.75 as an answer. </p>
-                    <p>Unless you are testing that specific skill, please
-                        do not restrict the answer format.</p>
+                    <p>這邊選取的是學生在作答時，會顯示的答題建議格式。這邊會根據輸入的答案自動選取建議的格式。
+                        若輸入的答案為「小數、整數」則預設不顯示建議，同時不限制輸入的格式。
+                        若輸入的答案為帶有「π」的數值，則預設會顯示如何輸入 pi 的格式建議。
+                        若輸入的答案為「帶分數」，則預設會顯示帶分數以及真分數的格式建議。
+                        若輸入的答案為「假分數、真分數」，則預設會顯示假分數以及真分數的格式建議。
+                        因此若需要特別只顯示某個格式建議，再取消選取即可，一般使用不需要更動。</p>
+                    <p>例如，如果想要限制答案 <em>只能是</em> 假分數 (譬如 7/4)，選取
+                        「假分數」並把「完全符合」打勾。
+                        這樣就 <b>不會</b> 接受輸入的答案為 1.75。</p>
+                    <p>除非你需要測試學生的某個技能 (例如：分數)，一般使用請不要特別限制輸入的格式。</p>
                 </InfoTip>
             </div>
             <div className="perseus-widget-row">
-                <PropCheckBox label="Strictly match only these formats"
+                <PropCheckBox label="完全符合選取的答題格式"
                     strict={answers[i]["strict"]}
                     onChange={this.updateAnswer.bind(this, i)} />
             </div>
         </div>;
 
         var maxError = (i) => <div className="perseus-widget-row">
-            <NumberInput label="Max error"
+            <NumberInput label="最大誤差"
                 className="max-error"
                 value={answers[i]["maxError"]}
                 onChange={this.updateAnswer(i, "maxError")}
@@ -262,29 +250,27 @@ var NumericInputEditor = React.createClass({
 
 
         var inputSize = <div>
-                <label>Width:{' '} </label>
+                <label>寬度:{' '} </label>
                 <ButtonGroup value={this.props.size} allowEmpty={false}
                     buttons={[
-                        {value: "normal", text: "Normal (80px)"},
-                        {value: "small", text: "Small (40px)"}]}
+                        {value: "normal", text: "一般 (80px)"},
+                        {value: "small", text: "較小 (40px)"}]}
                     onChange={this.change("size")} />
                 <InfoTip>
-                    <p>Use size "Normal" for all text boxes, unless there are
-                    multiple text boxes in one line and the answer area is too
-                    narrow to fit them.</p>
+                    <p>預設使用一般大小，除非需要很多個答案格在同一行，會出現放不下的情況。</p>
                 </InfoTip>
             </div>;
 
         var instructions = {
-            "wrong":    "(address the mistake/misconception)",
-            "ungraded": "(explain in detail to avoid confusion)",
-            "correct":  "(reinforce the user's understanding)"
+            "wrong":    "(說明這個答案的錯誤之處或迷思概念)",
+            "ungraded": "(進一步解釋避免混淆)",
+            "correct":  "(加強使用者對觀念的理解)"
         };
 
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
             var editor = Editor({
                 content: answer.message || "",
-                placeholder: "Why is this answer " + answer.status + "?\t" +
+                placeholder: "為什麼這個答案是" + answer.status + "?\t" +
                     instructions[answer.status],
                 widgetEnabled: false,
                 onChange: (newProps) => {
@@ -453,5 +439,5 @@ module.exports = {
     widget: NumericInput,
     editor: NumericInputEditor,
     transform: propsTransform,
-    hidden: true
+    hidden: false
 };

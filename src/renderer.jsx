@@ -520,6 +520,9 @@ var Renderer = React.createClass({
                 function() { };
 
         var totalGuess = _.map(this.widgetIds, function(id) {
+            if (id.indexOf('lights-puzzle') > -1 || id.indexOf('transformer') > -1) {
+                return id + ' is too big to record attempt content.'
+            }
             return this.refs[id].toJSON();
         }, this);
 

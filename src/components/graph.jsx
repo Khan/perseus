@@ -186,7 +186,7 @@ var Graph = React.createClass({
         $(graphieDiv).empty();
         var labels = this.props.labels;
         var range = this.props.range;
-        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
+        var graphie = this._graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 
         var gridConfig = this._getGridConfig();
         graphie.snap = this.props.snapStep;
@@ -305,7 +305,7 @@ var Graph = React.createClass({
 
         if (this.props.showProtractor) {
             var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
-            this.protractor = this._graphie.protractor(coord);
+            this.protractor = this._graphie.Protractor(coord);
         }
     },
 
@@ -317,7 +317,7 @@ var Graph = React.createClass({
         if (this.props.showRuler) {
             var coord = this.pointsFromNormalized([[0.50, 0.25]])[0];
             var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-            this.ruler = this._graphie.ruler({
+            this.ruler = this._graphie.Ruler({
                 center: coord,
                 label: this.props.rulerLabel,
                 pixelsPerUnit: this._graphie.scale[0],
