@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit c3a79e5f47a88d2e38c141b3c6206c32dc5538f9
-// branch gh-pages
+// commit 84640cd93c226b4e5f2858e94ed45d7ccef985de
+// branch perseus_into_junyi
 !function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -607,6 +607,7 @@ var React = require('react');
 var DragTarget = React.createClass({displayName: 'DragTarget',
     propTypes: {
         onDrop: React.PropTypes.func.isRequired,
+        component: React.PropTypes.component,
         shouldDragHighlight: React.PropTypes.func
     },
     render: function() {
@@ -3489,7 +3490,10 @@ var Tooltip = React.createClass({displayName: 'Tooltip',
         ),
         horizontalAlign: React.PropTypes.oneOf(
             _.keys(HORIZONTAL_ALIGNMNENTS)
-        )
+        ),
+        children: React.PropTypes.arrayOf(
+            React.PropTypes.component
+        ).isRequired
     },
 
     getDefaultProps: function() {
@@ -3763,20 +3767,20 @@ var AnswerAreaEditor = React.createClass({displayName: 'AnswerAreaEditor',
         }, this.props.options));
 
         return React.DOM.div( {className:"perseus-answer-editor"}, 
-            React.DOM.div( {className:"perseus-answer-options"},
-              (this.state.showSolutionArea) && React.DOM.div( {className:cls !== Editor ? "perseus-answer-widget" : ""}, 
-                  editor
-              )
+            React.DOM.div( {className:"perseus-answer-options"}, 
+                this.state.showSolutionArea && React.DOM.div( {className:cls !== Editor ? "perseus-answer-widget" : ""}, 
+                    editor
+                )
             )
         );
     },
 
     getEditorInAnswerArea: function() {
-      if (this.refs !== undefined) {
-        return this.refs.editor;
-      } else {
-        return undefined;
-      } 
+        if (this.refs !== undefined) {
+            return this.refs.editor;
+        } else {
+            return undefined;
+        } 
     },
 
     toJSON: function(skipValidation) {
@@ -4397,7 +4401,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
         return React.DOM.div(null, 
             React.DOM.div( {className:"graph-settings"}, 
                 React.DOM.div( {className:"perseus-widget-row"}, 
-                    React.DOM.div( {className:"perseus-widget-left-col"},  "x軸標籤",
+                    React.DOM.div( {className:"perseus-widget-left-col"},  " x軸標籤",
                         React.DOM.input(  {type:"text",
                                 className:"graph-settings-axis-label",
                                 ref:"labels-0",
@@ -4508,7 +4512,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
                 this.props.showRuler && React.DOM.div(null, 
                     React.DOM.div(null, 
                         React.DOM.label(null, 
-                            ' ',"直尺單位：",' ',
+                            ' ',"直尺單位:",' ',
                             React.DOM.select(
                                 {onChange:this.changeRulerLabel,
                                 value:this.props.rulerLabel} , 
@@ -4534,7 +4538,7 @@ var GraphSettings = React.createClass({displayName: 'GraphSettings',
                     ),
                     React.DOM.div(null, 
                         React.DOM.label(null, 
-                            ' ',"直尺間隔：",' ',
+                            ' ',"直尺間隔:",' ',
                             React.DOM.select(
                                 {onChange:this.changeRulerTicks,
                                 value:this.props.rulerTicks} , 
@@ -5885,7 +5889,6 @@ var MathInput = React.createClass({displayName: 'MathInput',
     },
 
     componentWillUnmount: function() {
-        console.log('unmount~~~~~');
         window.removeEventListener("mousedown", this.handleMouseDown);
         window.removeEventListener("mouseup", this.handleMouseUp);
     },
@@ -12881,7 +12884,7 @@ var CategorizerEditor = React.createClass({displayName: 'CategorizerEditor',
 
     render: function() {
         return React.DOM.div(null, 
-            "類別:", 
+            "類別:",
             TextListEditor(
                 {options:this.props.categories,
                 onChange:function(cat)  {this.change("categories", cat);}.bind(this),
@@ -13069,9 +13072,8 @@ var DropdownEditor = React.createClass({displayName: 'DropdownEditor',
         return React.DOM.div( {className:"perseus-widget-dropdown"}, 
             React.DOM.div(null, "下拉式選單",
                 InfoTip(null, 
-                    React.DOM.p(null, "短敘述的單選題。例如："+
-                    "<",", ", ">","," +' '+
-                    "≤, ≥")
+                    React.DOM.p(null, "短敘述的單選題。例如： ", "<",", ", ">",","+' '+
+                    "≤, ≥ " )
                 )
             ),
             React.DOM.input(
@@ -13080,8 +13082,7 @@ var DropdownEditor = React.createClass({displayName: 'DropdownEditor',
                 value:this.props.placeholder,
                 onChange:this.onPlaceholderChange} ),
             InfoTip(null, 
-                React.DOM.p(null, "這會顯示為下拉式選單的預設值，可以給使用者一些下拉式選單可能答案的指示。"+
-				"例如：是/不是/可能是。")
+                React.DOM.p(null, "這會顯示為下拉式選單的預設值，可以給使用者一些下拉式選單可能答案的指示。例如：是/不是/可能是。")
             ),
             React.DOM.ul(null, 
                 this.props.choices.map(function(choice, i) {
@@ -14096,10 +14097,9 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
         var value = this.props.value;
 
         return {
-          // In Junyi, all expressions are new expression widget, not oldExpression widget.
-          // So isTeX default is true.
+            // In Junyi, all expressions are new expression widget, not oldExpression widget.
+            // So isTeX default is true.
             isTex: true
-
         };
     },
 
@@ -14148,8 +14148,8 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                     labelAlignment:"right",
                     label:"答案一定要與格式相符"} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "學生必須輸入相同的算式。"+
-                    "但容許交換律與負號，例如：1+3，可接收3+1或1-(-3)，但不能接受4或2+2。")
+                    React.DOM.p(null, "學生必須輸入相同的算式。"+' '+
+                    "但容許交換律與負號，例如：1+3，可接受3+1或1-(-3)，但不能接受4或2+2。")
                 )
             ),
 
@@ -14160,9 +14160,9 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                     labelAlignment:"right",
                     label:"答案一定要化簡、展開。"} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "答案一定要化簡或展開"+
-                    "，例如方程式(x^2+2x+1) ，如果輸入"+' '+
+                    React.DOM.p(null, "答案一定要化簡或展開，例如方程式 (x^2+2x+1) ，如果輸入"+' '+
                     "(x+1)^2 就會算不對，並且提示學生："+' '+
+                    "factored equation (x+1)^2 will render this response"+' '+
                     "\"你的答案還沒化簡或展開\"。")
                 )
             ),
@@ -14213,7 +14213,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
 
 module.exports = {
     name: "expression",
-    displayName: "expression/數學式",
+    displayName: "Expression/數學式",
     getWidget: function(enabledFeatures)  {
         // Allow toggling between the two versions of the widget
         return enabledFeatures.useMathQuill ? Expression : OldExpression;
@@ -14453,7 +14453,7 @@ var IframeEditor = React.createClass({displayName: 'IframeEditor',
 
     render: function() {
         return React.DOM.div(null, 
-            React.DOM.label(null, "網址 Url：",
+            React.DOM.label(null, "網址 Url:",
                 BlurInput( {name:"url",
                            value:this.props.url,
                            onChange:this.change("url")} )
@@ -15527,7 +15527,7 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                         }.bind(this)}, 
                     _.map(_.range(1, 7), function(n) {
                         return React.DOM.option( {value:n}, 
-                            n, " 點",n > 1 && "s"
+                            n, " 點"
                         );
                     }),
                     React.DOM.option( {value:UNLIMITED}, "無限制")
@@ -15582,12 +15582,8 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                             )
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "此選項是用來決定答案的符合情況，\"對齊網格\"為頂點位置需符合答案要求，\"對齊內角\"為內角需符合答案要求，\"對齊邊長\"為各邊需符合答案要求。"), ''
-
-                            //React.DOM.p(null, "The interior angle and side measure options"+' '+
-                            //"guide the points to the nearest whole angle or"+' '+
-                            //"side"), 
-                            //" measure respectively.",' '
+                            React.DOM.p(null, "此選項是用來決定答案的符合情況，\"對齊網格\"為頂點位置需符合答案要求，"+' '+
+                                "\"對齊內角\"為內角需符合答案要求，\"對齊邊長\"為各邊需符合答案要求。")
                         )
                     ),
                     React.DOM.div(null, 
@@ -15597,7 +15593,7 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                                 onChange:this.toggleShowAngles} )
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "顯示出各內角的角度。")
+                            React.DOM.p(null, "顯示出各內角的角度")
                         )
                     ),
                     React.DOM.div(null, 
@@ -15607,7 +15603,7 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                                 onChange:this.toggleShowSides} )
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "顯示出各邊的長度。")
+                            React.DOM.p(null, "顯示出各邊的長度")
                         )
                     )
                 );
@@ -15627,7 +15623,7 @@ var InteractiveGraph = React.createClass({displayName: 'InteractiveGraph',
                         }.bind(this)}, 
                     _.map(_.range(1, 7), function(n) {
                         return React.DOM.option( {value:n}, 
-                            n, " 線段",n > 1 && "s"
+                            n, " 線段"
                         );
                     })
                 );
@@ -17540,8 +17536,7 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
                             onChange:this.changeMatchType}, 
                         React.DOM.option( {value:"exact"}, "完全符合"),
                         React.DOM.option( {value:"congruent"}, "全等"),
-                        React.DOM.option( {value:"approx"}, 
-                            "大致上全等"),
+                        React.DOM.option( {value:"approx"}, "大致上全等"),
                         React.DOM.option( {value:"similar"}, "相似")
                     )
                 ),
@@ -17555,12 +17550,14 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
                         ),
                         React.DOM.li(null, 
                             React.DOM.p(null, 
-                                React.DOM.b(null, "大致上全等:"), " 圖形需與答案非常相似，圖形的大小和形狀與答案可誤差於 0.1 個網格單位，且圖形於網格上的位置並無限制。", 
+                                React.DOM.b(null, "大致上全等:"), " 圖形需與答案非常相似，圖形的大小和形狀與答案可誤差於 0.1 個"+' '+
+                                "網格單位，且圖形於網格上的位置並無限制。",
                                 React.DOM.em(null, "(可使用此答案於對齊角度的選項)")
                             )
                         ),
                         React.DOM.li(null, 
-                            React.DOM.p(null, React.DOM.b(null, "相似:"), " 圖形的內角、邊長與答案大致相似，或是圖形大部份邊的性質符合答案，且圖形於網格上的位置並無限制。")
+                            React.DOM.p(null, React.DOM.b(null, "相似:"), " 圖形的內角、邊長與答案大致相似，或是圖形大部份邊的性質符合答案，且"+' '+
+                            "圖形於網格上的位置並無限制。")
                         )
                     )
                 )
@@ -17578,7 +17575,8 @@ var InteractiveGraphEditor = React.createClass({displayName: 'InteractiveGraphEd
                         )
                     ),
                     InfoTip(null, 
-                        React.DOM.p(null, "\"完全符合\"是指圖形於網格上的方向、位置皆需完全符合答案；\"全等\"僅要求角度部份相同即可。")
+                        React.DOM.p(null, "\"完全符合\"是指圖形於網格上的方向、位置皆需完全符合答案；"+' '+
+                        "\"全等\"僅要求角度部份相同即可。")
                     )
                 )
             ),
@@ -18021,7 +18019,7 @@ var InteractiveNumberLineEditor = React.createClass({displayName: 'InteractiveNu
                 React.DOM.p(null, "每一個刻度都會標上刻度線。")
             ),React.DOM.br(null ),
             React.DOM.label(null, 
-                ' ',"刻度之間的分割數量 :",' ',
+                ' ',"刻度之間的分割數量:",' ',
                 React.DOM.input( {defaultValue:'' + this.props.snapDivisions,
                     onBlur:this.onNumBlur.bind(this, "snapDivisions")} )
             ),
@@ -18413,7 +18411,7 @@ var LightsPuzzleEditor = React.createClass({displayName: 'LightsPuzzleEditor',
                     onChange:this._changeHeight} )
             ),
             React.DOM.div(null, 
-                "翻轉圖樣: ",
+                "翻轉圖樣:",
                 React.DOM.select(
                         {value:this.props.flipPattern,
                         onChange:this._handlePatternChange}, 
@@ -18695,7 +18693,7 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
     render: function() {
         return React.DOM.div( {className:"perseus-matcher-editor"}, 
             React.DOM.div(null, 
-                ' ',"正確答案：",' ',
+                ' ',"正確答案:",' ',
                 InfoTip(null, 
                     React.DOM.p(null, "在此輸入配對題組的正確答案。當題目顯示時，會隨機排序卡片的順序。")
                 )
@@ -18715,7 +18713,7 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
                     layout:"vertical"} )
             ),
             React.DOM.span(null, 
-                ' ',"標籤：",' ',
+                ' ',"標籤:",' ',
                 InfoTip(null, 
                     React.DOM.p(null, "此欄位非必填。")
                 )
@@ -18730,12 +18728,12 @@ var MatcherEditor = React.createClass({displayName: 'MatcherEditor',
             ),
             React.DOM.div(null, 
                 PropCheckBox(
-                    {label:"第一欄的欄位順序可重新調整：",
+                    {label:"第一欄的欄位順序可重新調整:",
                     orderMatters:this.props.orderMatters,
                     onChange:this.props.onChange} ),
                 InfoTip(null, 
-                    React.DOM.p(null, "當此功能開啟時，第一欄欄位的順序必須完成符合。"+' '+
-                      "此功能適合使用在證明題的論證步驟與其理由的配對。"),
+                    React.DOM.p(null, "當此功能開啟時，第一欄欄位的順序必須完成符合。"),
+                    React.DOM.p(null, "此功能適合使用在證明題的論證步驟與其理由的配對。"),
                     React.DOM.p(null, "當此功能關閉時，第一欄的欄位會固定下來，只讓使用者調整第二欄欄位的順序。")
                 )
             ),
@@ -18908,7 +18906,7 @@ var Measurer = React.createClass({displayName: 'Measurer',
         }
 
         if (this.props.showRuler) {
-            this.ruler = graphie.Ruler({
+            this.ruler = graphie.ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2
@@ -18985,7 +18983,7 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
         var image = _.extend({}, defaultImage, this.props.image);
 
         return React.DOM.div( {className:"perseus-widget-measurer"}, 
-            React.DOM.div(null, "背景圖片："),
+            React.DOM.div(null, "背景圖片:"),
             React.DOM.div(null, "圖片網址:",' ',
                 React.DOM.input( {type:"text",
                         className:"perseus-widget-measurer-url",
@@ -18993,19 +18991,19 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
                         defaultValue:image.url,
                         onChange:this._changeUrl} ),
             InfoTip(null, 
-                React.DOM.p(null, "插入圖片的連結網址。例如，先將圖片上傳至 http://imgur.com ，再分享其圖片網址 (Direct Link)。 ")
+                React.DOM.p(null, "插入圖片的連結網址。例如，先將圖片上傳至 http://imgur.com ，再分享其圖片網址 (Direct Link)。 " )
             )
             ),
             image.url && React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    NumberInput( {label:"與上方的間隔畫素：",
+                    NumberInput( {label:"與上方的間隔畫素:",
                         placeholder:0,
                         onChange:this._changeTop,
                         value:image.top,
                         useArrowKeys:true} )
                 ),
                 React.DOM.div( {className:"perseus-widget-right-col"}, 
-                    NumberInput( {label:"與右方的間隔畫素：",
+                    NumberInput( {label:"與左方的間隔畫素:",
                         placeholder:0,
                         onChange:this._changeLeft,
                         value:image.left,
@@ -19033,7 +19031,7 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
             this.props.showRuler && React.DOM.div(null, 
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"直尺單位：",' ',
+                    ' ',"直尺單位:",' ',
                     React.DOM.select(
                         {onChange:function(e) 
                             {return this.change("rulerLabel", e.target.value);}.bind(this),
@@ -19060,7 +19058,7 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
             ),
             React.DOM.div(null, 
                 React.DOM.label(null, 
-                    ' ',"每單位分割數：",' ',
+                    ' ',"每單位分割數:",' ',
                     React.DOM.select(
                         {onChange:function(e) 
                             {return this.change("rulerTicks", +e.target.value);}.bind(this),
@@ -19079,7 +19077,7 @@ var MeasurerEditor = React.createClass({displayName: 'MeasurerEditor',
                     useArrowKeys:true} )
             ),
             React.DOM.div(null, 
-                NumberInput( {label:"直尺長度",
+                NumberInput( {label:"直尺長度:",
                     placeholder:10,
                     onChange:this.change("rulerLength"),
                     value:this.props.rulerLength,
@@ -19724,7 +19722,7 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
 
         return React.DOM.div( {className:"perseus-widget-number-line-editor"}, 
             React.DOM.div( {className:"perseus-widget-row"}, 
-                React.DOM.label(null, "正確的 x "),
+                React.DOM.label(null, "正確的 x"),
                 React.DOM.select( {value:this.props.correctRel,
                   onChange:this.onChangeRelation}, 
                     React.DOM.option( {value:"eq"},  " = " ),
@@ -19742,13 +19740,13 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                     placeholder:"答案", size:"normal",
                     useArrowKeys:true} ),
                 InfoTip(null, React.DOM.p(null, 
-                    "這是正確答案，會使用使用者移動的最終位置以及數學關係 (=, <, >, ≤, ≥) 來驗證答案是否正確。"+
-					"若底色變為紅色，代表使用者不可能透過操作得到這個答案。"
+                    "這是正確答案，會使用使用者移動的最終位置以及數學關係 (=, <, >, ≤, ≥) 來驗證答案是否正確。"+' '+
+                    "若底色變為紅色，代表使用者不可能透過操作得到這個答案。"
                 ))
             ),
 
             React.DOM.div( {className:"perseus-widget-row"}, 
-                NumberInput( {label:"初始位置 ",
+                NumberInput( {label:"初始位置",
                     value:this.props.initialX,
                     format:this.props.labelStyle,
                     onChange:this.onNumChange.bind(this, "initialX"),
@@ -19761,7 +19759,7 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                     format:this.props.labelStyle,
                     useArrowKeys:true} ),
                 InfoTip(null, React.DOM.p(null, 
-                    "這控制橘色點在數線上的初始位置，以及在數線上可移動的", React.DOM.strong(null, "範圍")
+                    "這控制橘色點在數線上的初始位置，以及在數線上可移動的 ", React.DOM.strong(null, "範圍"),"。"
                 ))
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
@@ -19783,14 +19781,14 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         onChange:this.onLabelRangeChange.bind(this, 1),
                         useArrowKeys:true} ),
                     InfoTip(null, React.DOM.p(null, 
-                        "這控制左右標籤的位置，預設為移動範圍的兩端。", React.DOM.br(null ),
+                        "這控制左右標籤的位置，預設為移動範圍的兩端。",React.DOM.br(null ),
                         React.DOM.strong(null, "注意:"), " 確保藍色標籤在黑色刻度線上，否則可能會讓使用者困惑。"
                     ))
                 )
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
                 React.DOM.div( {className:"perseus-widget-left-col"}, 
-                    React.DOM.label(null, "標籤格式 "),
+                    React.DOM.label(null, "標籤格式"),
                     ButtonGroup( {allowEmpty:false,
                         value:this.props.labelStyle,
                         buttons:labelStyleEditorButtons,
@@ -19813,7 +19811,7 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                 )
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
-                NumberInput( {label:"分割數量 ",
+                NumberInput( {label:"分割數量",
                     value:this.props.numDivisions || null,
                     format:"decimal",
                     onChange:this.onNumDivisionsChange,
@@ -19829,11 +19827,11 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         onChange:this.onDivisionRangeChange,
                         useArrowKeys:true} ),
                     InfoTip(null, React.DOM.p(null, 
-					"這控制刻度線的數量，後面的範圍設定的是使用者用刻度線控制器可以調整的最大與最小分割數量。", React.DOM.br(null ),
-                    React.DOM.strong(null, "注意:"), "沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。"
+                    "這控制刻度線的數量，後面的範圍設定的是使用者用刻度線控制器可以調整的最大與最小分割數量。",React.DOM.br(null ),
+                    React.DOM.strong(null, "注意:"), " 沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。"
                     ))),
                 !isTickCtrl && React.DOM.span(null, 
-                    NumberInput( {label: "或一刻度為",
+                    NumberInput( {label:"或一刻度為",
                         value:this.props.tickStep || null,
                         format:this.props.labelStyle,
                         onChange:this.onTickStepChange,
@@ -19841,21 +19839,20 @@ var NumberLineEditor = React.createClass({displayName: 'NumberLineEditor',
                         placeholder:width / this.props.numDivisions,
                         useArrowKeys:true} ),
                     InfoTip(null, React.DOM.p(null, 
-                    "這控制刻度線的位置與數量，可以設定分割數量 (2 表示把整個範圍分割成兩半) "+
-                    "或者設定一刻度為多少 (相鄰兩刻度之間的距離)。設定其中一個另一個會自動更新為對應的值。",
-                    React.DOM.br(null ),
-                    React.DOM.strong(null, "注意:"), "沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。"
+                    "這控制刻度線的位置與數量，可以設定分割數量 (2 表示把整個範圍分割成兩半)"+' '+ 
+                    "或者設定一刻度為多少 (相鄰兩刻度之間的距離)。設定其中一個另一個會自動更新為對應的值。 ", React.DOM.br(null ),
+                    React.DOM.strong(null, "注意:"), " 沒有特別檢查藍色的標籤是否會在黑色刻度線上，若不在刻度線上可能會讓使用者困惑。"
                     )))
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
-                NumberInput( {label:"刻度之間的分割數量 ",
+                NumberInput( {label:"刻度之間的分割數量",
                     value:snapDivisions,
                     checkValidity:function(val)  {return val > 0;},
                     format:this.props.labelStyle,
                     onChange:this.onNumChange.bind(this, "snapDivisions"),
                     useArrowKeys:true} ),
                 InfoTip(null, React.DOM.p(null, 
-                    "這控制兩個相鄰的刻度之間，被分成了幾份，也就是使用者可以將橘點移動到的位置。", React.DOM.br(null ),
+                    "這控制兩個相鄰的刻度之間，被分成了幾份，也就是使用者可以將橘點移動到的位置。 ", React.DOM.br(null ),
                     React.DOM.strong(null, "注意:"),"確保分割數量足夠讓使用者回答問題，即答案會落在某分割的位置。"
                 ))
             )
@@ -19989,7 +19986,7 @@ module.exports = {
     widget: NumberLine,
     editor: NumberLineEditor,
     transform: NumberLineTransform,
-    hidden: false
+    hidden: flase
 };
 
 },{"../components/graphie.jsx":125,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../components/range-input.jsx":131,"../interactive2.js":148,"../interactive2/interactive-util.js":149,"../mixins/changeable.jsx":159,"../mixins/jsonify-props.jsx":160,"../util.js":168,"react":115,"react-components/button-group":3,"react-components/info-tip":5}],186:[function(require,module,exports){
@@ -20012,7 +20009,7 @@ var firstNumericalParse = require("../util.js").firstNumericalParse;
 
 var answerFormButtons = [
     {title: "整數", value: "integer", text: "6"},
-    {title: "小數", value: "decimal", text: "0.75"},
+    {title: "小樹", value: "decimal", text: "0.75"},
     {title: "真分數", value: "proper", text: "\u2157"},
     {title: "假分數", value: "improper",
         text: "\u2077\u2044\u2084"},
@@ -20024,7 +20021,7 @@ var formExamples = {
     "integer": function(options)  {return $._("整數, 例 $6$");},
     "proper": function(options)  {return options.simplify === "optional" ?
         $._("*真* 分數, 例 $1/2$ or $6/10$") :
-        $._("*最簡真* 分數, 例 $3/5$");},
+        $._("最簡真* 分數, 例 $3/5$");},
     "improper": function(options)  {return options.simplify === "optional" ?
         $._("*假* 分數, 例 $10/7$ or $14/8$") :
         $._("*最簡假* 分數, 例 $7/4$");},
@@ -20193,7 +20190,7 @@ var NumericInputEditor = React.createClass({displayName: 'NumericInputEditor',
         var answers = this.props.answers.concat(initAnswer(lastStatus));
 
         var unsimplifiedAnswers = function(i)  {return React.DOM.div( {className:"perseus-widget-row"}, 
-            React.DOM.label(null, "未化簡的答案是\n"),
+            React.DOM.label(null, "未化簡的答案是"),
             ButtonGroup( {value:answers[i]["simplify"],
                          allowEmpty:false,
                          buttons:[
@@ -20202,31 +20199,30 @@ var NumericInputEditor = React.createClass({displayName: 'NumericInputEditor',
                             {value: "enforced", text: "錯誤的"}],
                          onChange:this.updateAnswer(i, "simplify")} ),
             InfoTip(null, 
-                React.DOM.p(null, "預設是選取「不合適的」。會告訴使用者這個答案是對的但是沒有化簡。"+
+                React.DOM.p(null, "預設是選取「不合適的」。會告訴使用者這個答案是對的但是沒有化簡。"+' '+
                 "使用者必須化簡後再重新送出答案，但不會算錯。(適用於五年級以上)"),
                 React.DOM.p(null, "只有當使用者不知道如何化簡分數時才選取「可接受的」。(適用於五年級以下)"),
-                React.DOM.p(null, React.DOM.em(null, "只有"), "在要學會化簡時才選取「錯誤的」。")
+                React.DOM.p(null, React.DOM.em(null, "只有"),"在要學會化簡時才選取「錯誤的」。")
             )
         );}.bind(this);
 
         var suggestedAnswerTypes = function(i)  {return React.DOM.div(null, 
             React.DOM.div( {className:"perseus-widget-row"}, 
-                React.DOM.label(null, "選擇建議的答題格式"), //Choose the suggested answer formats
+                React.DOM.label(null, "選擇建議的答題格式"),
                 MultiButtonGroup( {buttons:answerFormButtons,
                     values:answers[i]["answerForms"],
                     onChange:this.updateAnswer(i, "answerForms")} ),
                 InfoTip(null, 
-					React.DOM.p(null, "這邊選取的是學生在作答時，會顯示的答題建議格式。這邊會根據輸入的答案自動選取建議的格式。"+
-						"若輸入的答案為「小數、整數」則預設不顯示建議，同時不限制輸入的格式。"+
-						"若輸入的答案為帶有「π」的數值，則預設會顯示如何輸入 pi 的格式建議。"+
-						"若輸入的答案為「帶分數」，則預設會顯示帶分數以及真分數的格式建議。"+
-						"若輸入的答案為「假分數、真分數」，則預設會顯示假分數以及真分數的格式建議。"+
-						"因此若需要特別只顯示某個格式建議，再取消選取即可，一般使用不需要更動。"),
-                    React.DOM.p(null, "例如，如果想要限制答案", React.DOM.em(null, "只能是"), "假分數"+
-                        "(譬如 7/4)，選取「假分數」並把「完全符合」打勾"+
-                        "這樣就", React.DOM.b(null, "不會"), "接受輸入的答案為 1.75。" ),
-                    React.DOM.p(null, "除非你需要測試學生的某個技能 (例如：分數)，一般使用請不要特別限制輸入的格式")
-
+                    React.DOM.p(null, "這邊選取的是學生在作答時，會顯示的答題建議格式。這邊會根據輸入的答案自動選取建議的格式。"+' '+
+                        "若輸入的答案為「小數、整數」則預設不顯示建議，同時不限制輸入的格式。"+' '+
+                        "若輸入的答案為帶有「π」的數值，則預設會顯示如何輸入 pi 的格式建議。"+' '+
+                        "若輸入的答案為「帶分數」，則預設會顯示帶分數以及真分數的格式建議。"+' '+
+                        "若輸入的答案為「假分數、真分數」，則預設會顯示假分數以及真分數的格式建議。"+' '+
+                        "因此若需要特別只顯示某個格式建議，再取消選取即可，一般使用不需要更動。"),
+                    React.DOM.p(null, "例如，如果想要限制答案 ", React.DOM.em(null, "只能是"), " 假分數 (譬如 7/4)，選取"+' '+
+                        "「假分數」並把「完全符合」打勾。"+' '+
+                        "這樣就 ", React.DOM.b(null, "不會"), " 接受輸入的答案為 1.75。"),
+                    React.DOM.p(null, "除非你需要測試學生的某個技能 (例如：分數)，一般使用請不要特別限制輸入的格式。")
                 )
             ),
             React.DOM.div( {className:"perseus-widget-row"}, 
@@ -20254,11 +20250,6 @@ var NumericInputEditor = React.createClass({displayName: 'NumericInputEditor',
                     onChange:this.change("size")} ),
                 InfoTip(null, 
                     React.DOM.p(null, "預設使用一般大小，除非需要很多個答案格在同一行，會出現放不下的情況。")
-					/*
-					Use size \"Normal\" for all text boxes, unless there are"+' '+
-                    "multiple text boxes in one line and the answer area is too"+' '+
-                    "narrow to fit them.")
-					*/
                 )
             );
 
@@ -21038,9 +21029,8 @@ var OrdererEditor = React.createClass({displayName: 'OrdererEditor',
                     )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, 
-                      "當卡片中的文字較短或是圖形較小時，建議可選用水平方式顯示，垂直方式較適用於較長的文字敘述 (如：證明) 或較大的圖形。"
-                    )
+                    React.DOM.p(null, "當卡片中的文字較短或是圖形較小時，建議可選用水平方式顯示，"+' '+
+                        "垂直方式較適用於較長的文字敘述 (如：證明) 或較大的圖形。")
                 )
             ),
             React.DOM.div(null, 
@@ -21053,7 +21043,7 @@ var OrdererEditor = React.createClass({displayName: 'OrdererEditor',
                     )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, "若卡片內容為文字時，建議選用\"一般大小\"；若卡片內容為圖片時，建議選用\"自動調整\"。")//Use \"Normal\" for text, \"Automatic\" for images.
+                    React.DOM.p(null, "若卡片內容為文字時，建議選用\"一般大小\"；若卡片內容為圖片時，建議選用\"自動調整\"。")
                 )
             )
         );
@@ -21933,7 +21923,9 @@ var PlotterEditor = React.createClass({displayName: 'PlotterEditor',
                         defaultValue:this.props.snapsPerLine} )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, "用以調整學生在拖拉答案時的，y 軸的單位間距前進比例，舉例來說，當此參數設定為 2 之時，每次的拖拉時的前進單位為 1/2 個 y 軸單位間距。一般來說，為求學生作答時的便利性，此值不宜設定太大。")
+                    React.DOM.p(null, "用以調整學生在拖拉答案時的，y 軸的單位間距前進比例，舉例來說，"+' '+
+                        "當此參數設定為 2 之時，每次的拖拉時的前進單位為 1/2 個 y 軸"+' '+
+                        "單位間距。一般來說，為求學生作答時的便利性，此值不宜設定太大。")
                 )
             ),
             React.DOM.div(null, 
@@ -22342,8 +22334,8 @@ var Radio = React.createClass({displayName: 'Radio',
             }
 
             return {
-                values: values
-              };
+                values: values,
+            };
         } else {
             // Nothing checked
             return {
@@ -22653,7 +22645,7 @@ var choiceTransform = function(editorProps)  {
 
 module.exports = {
     name: "radio",
-    displayName: "radio/選擇題",
+    displayName: "Radio/選擇題",
     widget: Radio,
     editor: RadioEditor,
     transform: choiceTransform
@@ -22759,7 +22751,7 @@ var SorterEditor = React.createClass({displayName: 'SorterEditor',
             React.DOM.div(null, 
                 ' ',"正確答案:",' ',
                 InfoTip(null, React.DOM.p(null, 
-					"在這邊輸入正確的排序，右邊的預覽畫面會是隨機的排序，也就是學生會看到的畫面。"
+                    "在這邊輸入正確的排序，右邊的預覽畫面會是隨機的排序，也就是學生會看到的畫面。"
                 ))
             ),
             TextListEditor(
@@ -22778,8 +22770,8 @@ var SorterEditor = React.createClass({displayName: 'SorterEditor',
                     )
                 ),
                 InfoTip(null, 
-                    React.DOM.p(null, 
-					"當卡片中的文字較短或是圖形較小時，建議可選用水平方式顯示，垂直方式較適用於較長的文字敘述 (如：證明) 或較大的圖形。")
+                    React.DOM.p(null, "當卡片中的文字較短或是圖形較小時，建議可選用水平方式顯示，垂直"+' '+
+                        "方式較適用於較長的文字敘述 (如：證明) 或較大的圖形。")
                 )
             ),
             React.DOM.div(null, 
@@ -23006,7 +22998,9 @@ var TableEditor = React.createClass({displayName: 'TableEditor',
                             "設定值"
                         ),
                         InfoTip(null, 
-                            React.DOM.p(null, "當表格欄數大於 1 的時候，答案表格中的所有欄位都需有值，也就是說，學生在作答時需填完所有的欄位，若有不需填完所有欄位的答案需求時，請再另行增加欄數為 1 的表格進行使用。")
+                            React.DOM.p(null, "當表格欄數大於 1 的時候，答案表格中的所有欄位都需有值，也就"+' '+
+                                "是說，學生在作答時需填完所有的欄位，若有不需填完所有欄位的"+' '+
+                                "答案需求時，請再另行增加欄數為 1 的表格進行使用。")
                         )
                     )
                 )
@@ -24372,9 +24366,7 @@ var ToolSettings = React.createClass({displayName: 'ToolSettings',
             
             this.props.allowFixed && this.props.settings.enabled &&
                 InfoTip(null, 
-                    "勾選\"固定\"可防止學生重新定位此工具。Enable 'fixed' to prevent the student from repositioning"+' '+
-                    "the tool. The tool will appear in the position at which it"+' '+
-                    "is placed in the editor below."
+                    "勾選\"固定\"可防止學生重新定位此工具。"
                 )
             
         );
@@ -24412,15 +24404,13 @@ var TransformationExplorerSettings = React.createClass({displayName: 'Transforma
                 ),
                 InfoTip(null, 
                     React.DOM.ul(null, 
-                        //React.DOM.li(null, 
-                        //    React.DOM.b(null, "顯示轉換的過程:"), " Students create"+' '+
-                        //    "transformations with tools on the graph.",' '
-                        //),
                         React.DOM.li(null, 
-                            React.DOM.b(null, "指定轉換參數並即時顯示:"), " 學生可自行指定轉換所需參數，而圖形可即時顯示轉換後的結果。",' '
+                            React.DOM.b(null, "指定轉換參數並即時顯示:"), " 學生可自行指定轉換所需參數，"+' '+
+                            "而圖形可即時顯示轉換後的結果。",' '
                         ),
                         React.DOM.li(null, 
-                            React.DOM.b(null, "指定轉換參數但不即時顯示:"), " 學生可自行指定轉換所需參數，但圖形不即時顯示轉換後的結果。",' '
+                            React.DOM.b(null, "指定轉換參數但不即時顯示:"), " 學生可自行指定轉換所需參數，"+' '+
+                            "但圖形不即時顯示轉換後的結果。",' '
                         )
                     )
                 )
@@ -24664,8 +24654,8 @@ var ToolsBar = React.createClass({displayName: 'ToolsBar',
                     onClick:this.props.onUndoClick,
                     onTouchStart:captureScratchpadTouchStart}, 
                 React.DOM.span( {className:"icon-undo"} ),
-                " ","回復"
-                
+                " ",
+                "回復"
             ),
             React.DOM.div( {className:"clear"})
         );
@@ -25543,7 +25533,8 @@ var TransformerEditor = React.createClass({displayName: 'TransformerEditor',
                     onChange:this.props.onChange} ),
                 InfoTip(null, 
                     React.DOM.p(null, 
-                        "基本上我們並不允許答案為空，但在具有多重填答需求的問題中 (另一個 widget)，此功能是需要的。"
+                        "基本上我們並不允許答案為空，但在具有多重填答需求的問題中"+' '+
+                        "(另一個 widget)，此功能是需要的。"
                     )
                 )
             ),

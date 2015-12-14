@@ -41,7 +41,7 @@ var BaseRadio = React.createClass({
                 "above-scratchpad blank-background"}>
             {this.props.multipleSelect &&
                 <div className="instructions">
-                    <$_>Select all that apply.</$_>
+                    <$_>請選擇所有正確的答案。</$_>
                 </div>}
             {this.props.choices.map(function(choice, i) {
 
@@ -226,12 +226,9 @@ var Radio = React.createClass({
                 }
             }
 
-            return _.extend({}, this.props, {
+            return {
                 values: values,
-                noneOfTheAboveIndex: noneOfTheAboveIndex,
-                noneOfTheAboveSelected: noneOfTheAboveSelected
-              }
-            );
+            };
         } else {
             // Nothing checked
             return {
@@ -296,7 +293,7 @@ _.extend(Radio, {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: rubric.choices[_.indexOf(state.values, true)].clue
             };
         }
     }
@@ -334,7 +331,7 @@ var RadioEditor = React.createClass({
             <div className="perseus-widget-row">
             
                 <div className="perseus-widget-left-col">
-                    <PropCheckBox label="Multiple selections"
+                    <PropCheckBox label="多選題"
                                   labelAlignment="right"
                                   multipleSelect={this.props.multipleSelect}
                                   onChange={this.onMultipleSelectChange} />
@@ -355,7 +352,7 @@ var RadioEditor = React.createClass({
                         ref: "editor" + i,
                         content: choice.content || "",
                         widgetEnabled: false,
-                        placeholder: "Type a choice here...",
+                        placeholder: "請輸入選項內容",
                         onChange: newProps => {
                             if ("content" in newProps) {
                                 this.onContentChange(i, newProps.content);
@@ -365,7 +362,7 @@ var RadioEditor = React.createClass({
                         ref: "clue-editor-" + i,
                         content: choice.clue || "",
                         widgetEnabled: false,
-                        placeholder: $._("Why is this choice " +
+                        placeholder: $._("為什麼這個選項 " +
                             checkedClass + "?"),
                         onChange: newProps => {
                             if ("content" in newProps) {
@@ -401,7 +398,7 @@ var RadioEditor = React.createClass({
                 <a href="#" className="simple-button orange"
                         onClick={this.addChoice}>
                     <span className="icon-plus" />
-                    {' '}Add a choice{' '}
+                    {' '}增加選項{' '}
                 </a>
             </div>
 
@@ -541,7 +538,7 @@ var choiceTransform = (editorProps) => {
 
 module.exports = {
     name: "radio",
-    displayName: "Multiple choice",
+    displayName: "Radio/選擇題",
     widget: Radio,
     editor: RadioEditor,
     transform: choiceTransform

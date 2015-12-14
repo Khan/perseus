@@ -187,7 +187,7 @@ var ExampleGraphieWidgetEditor = React.createClass({
 module.exports = {
     name: "example-graphie-widget",
     displayName: "Example Graphie Widget",
-    hidden: true,   // Hides this widget from the Perseus.Editor widget select
+    hidden: false,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleGraphieWidget,
     editor: ExampleGraphieWidgetEditor
 };

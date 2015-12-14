@@ -139,13 +139,13 @@ var CategorizerEditor = React.createClass({
 
     render: function() {
         return <div>
-            Categories:
+            類別:
             <TextListEditor
                 options={this.props.categories}
                 onChange={(cat) => {this.change("categories", cat);}}
                 layout="horizontal" />
 
-            Items:
+            項目:
             <TextListEditor
                 options={this.props.items}
                 onChange={(items) => {this.change({
@@ -173,12 +173,12 @@ var CategorizerEditor = React.createClass({
 
 module.exports = {
     name: "categorizer",
-    displayName: "Categorizer",
+    displayName: "Categorizer/分類器",
     widget: Categorizer,
     editor: CategorizerEditor,
     transform: (editorProps) => {
         return _.pick(editorProps, "items", "categories");
     },
-    hidden: true
+    hidden: false
 };
 

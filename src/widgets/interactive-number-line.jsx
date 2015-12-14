@@ -341,25 +341,24 @@ var InteractiveNumberLineEditor = React.createClass({
     render: function() {
         return <div>
             <label>
-                {' '}min x: <input defaultValue={'' + this.props.range[0]}
+                {' '}最小 x: <input defaultValue={'' + this.props.range[0]}
                     onBlur={this.onRangeBlur.bind(this, 0)} />
             </label><br />
             <label>
-                {' '}max x: <input defaultValue={'' + this.props.range[1]}
+                {' '}最大 x: <input defaultValue={'' + this.props.range[1]}
                     onBlur={this.onRangeBlur.bind(this, 1)} />
             </label>
             <InfoTip>
-                <p>Change "label styles" below to display the max and min x in
-                different number formats.</p>
+                <p>利用下方的「標籤格式」來改變最大與最小 x 的標籤顯示格式。</p>
             </InfoTip><br />
             <span>
-                {' '}correct:{' '}
+                {' '}正確答案:{' '}
                 <select value={this.props.correctRel}
                         onChange={this.onChange.bind(this, "correctRel")}>
-                    <optgroup label="Equality">
+                    <optgroup label="等式">
                         <option value="eq">x =</option>
                     </optgroup>
-                    <optgroup label="Inequality">
+                    <optgroup label="不等式">
                         <option value="lt">x &lt;</option>
                         <option value="gt">x &gt;</option>
                         <option value="le">x &le;</option>
@@ -370,34 +369,32 @@ var InteractiveNumberLineEditor = React.createClass({
                     onBlur={this.onNumBlur.bind(this, "correctX")} />
             </span><br /><br />
             <label>
-                {' '}label style:{' '}
+                {' '}標籤格式:{' '}
                 <select value={this.props.labelStyle}
                         onChange={this.onChange.bind(this, "labelStyle")}>
-                    <option value="decimal">Decimals</option>
-                    <option value="improper">Improper fractions</option>
-                    <option value="mixed">Mixed numbers</option>
+                    <option value="decimal">小數</option>
+                    <option value="improper">假分數</option>
+                    <option value="mixed">帶分數</option>
                 </select>
                 <PropCheckBox
-                    label="label ticks"
+                    label="顯示刻度代表的數字"
                     labelTicks={this.props.labelTicks}
                     onChange={this.props.onChange} />
             </label><br />
             <label>
-                {' '}tick step: <input defaultValue={'' + this.props.tickStep}
+                {' '}每一刻度之間距離: <input defaultValue={'' + this.props.tickStep}
                     onBlur={this.onNumBlur.bind(this, "tickStep")} />
             </label>
             <InfoTip>
-                <p>A tick mark is placed at every number of steps
-                indicated.</p>
+                <p>每一個刻度都會標上刻度線。</p>
             </InfoTip><br />
             <label>
-                {' '}snap increments per tick:{' '}
+                {' '}刻度之間的分割數量:{' '}
                 <input defaultValue={'' + this.props.snapDivisions}
                     onBlur={this.onNumBlur.bind(this, "snapDivisions")} />
             </label>
             <InfoTip>
-                <p>Ensure the required number of snap increments is provided to
-                answer the question.</p>
+                <p>確保分割數量足夠讓使用者回答問題，即答案會落在某分割的位置。</p>
             </InfoTip>
         </div>;
     },
@@ -442,8 +439,8 @@ var InteractiveNumberLineEditor = React.createClass({
 
 module.exports = {
     name: "interactive-number-line",
-    displayName: "Number line 2",
-    hidden: true,
+    displayName: "Interactive-number-line/互動式數線",
+    hidden: false,
     widget: InteractiveNumberLine,
     editor: InteractiveNumberLineEditor
 };

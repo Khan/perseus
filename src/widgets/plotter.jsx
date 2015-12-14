@@ -682,7 +682,7 @@ var PlotterEditor = React.createClass({
         var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
         return <div className="perseus-widget-plotter-editor">
             <div>
-                Chart type:{' '}
+                圖表種類:{' '}
                 {_.map([BAR, LINE, PIC, HISTOGRAM, DOTPLOT], function(type) {
                     return <label key={type}>
                         <input
@@ -695,8 +695,8 @@ var PlotterEditor = React.createClass({
                 }, this)}
             </div>
             <div>
-                Labels:{' '}
-                {_.map(["x", "y"], function(axis, i) {
+                標籤:{' '}
+                {_.map(["x軸", "y軸"], function(axis, i) {
                     return <label key={axis}>
                         {axis + ":"}
                         <input
@@ -709,11 +709,11 @@ var PlotterEditor = React.createClass({
 
             {setFromScale && <div className="set-from-scale-box">
                 <span className="categories-title">
-                    Set Categories From Scale
+                    批次設定類別 (x軸)
                 </span>
                 <div>
                     <label>
-                        Tick Step:{' '}
+                        間距:{' '}
                         <NumberInput
                             placeholder={1}
                             useArrowKeys={true}
@@ -721,12 +721,12 @@ var PlotterEditor = React.createClass({
                             onChange={this.handleChangeTickStep} />
                     </label>
                     <InfoTip>
-                        <p>The difference between adjacent ticks.</p>
+                        <p>兩個資料點間的間距。</p>
                     </InfoTip>
                 </div>
                 <div>
                     <label>
-                        Range:{' '}
+                        範圍:{' '}
                         <RangeInput
                             placeholder={[0, 10]}
                             useArrowKeys={true}
@@ -736,13 +736,13 @@ var PlotterEditor = React.createClass({
                 </div>
                 <div>
                     <button onClick={this.setCategoriesFromScale}>
-                        Set Categories{' '}
+                        設定{' '}
                     </button>
                 </div>
             </div>}
             <div>
                 <label>
-                    Label Interval:{' '}
+                    標籤範圍:{' '}
                     <NumberInput
                         useArrowKeys={true}
                         value={this.props.labelInterval}
@@ -756,7 +756,7 @@ var PlotterEditor = React.createClass({
             </div>
             {this.props.type === PIC && <div>
                 <label>
-                    Picture:{' '}
+                    圖例:{' '}
                     <input
                         type="text"
                         className="pic-url"
@@ -764,8 +764,7 @@ var PlotterEditor = React.createClass({
                         onKeyPress={this.changePicUrl}
                         onBlur={this.changePicUrl} />
                 <InfoTip>
-                    <p>Use the default picture of Earth, or insert the URL for
-                    a different picture using the "Add image" function.</p>
+                    <p>預設值為地球圖例，若要使用特定圖例，請於此處輸入圖片連結網址。</p>
                 </InfoTip>
                 </label>
                 {this.state.pic &&
@@ -778,7 +777,7 @@ var PlotterEditor = React.createClass({
             </div>}
             <div>
                 <label>
-                    Categories:{' '}
+                    類別 (x軸):{' '}
                     <TextListEditor
                         ref="categories"
                         layout="horizontal"
@@ -788,7 +787,7 @@ var PlotterEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Scale (y):{' '}
+                    組距 (y軸):{' '}
                     <input
                         type="text"
                         onChange={this.changeScale}
@@ -797,7 +796,7 @@ var PlotterEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    Max y:{' '}
+                    最大值 (y軸):{' '}
                     <input
                         type="text"
                         ref="maxY"
@@ -807,21 +806,21 @@ var PlotterEditor = React.createClass({
             </div>
             {canChangeSnaps && <div>
                 <label>
-                    Snaps per line:{' '}
+                    垂直拖拉間距參數:{' '}
                     <input
                         type="text"
                         onChange={this.changeSnaps}
                         defaultValue={this.props.snapsPerLine} />
                 </label>
                 <InfoTip>
-                    <p>Creates the specified number of divisions between the
-                    horizontal lines. Fewer snaps between lines makes the graph
-                    easier for the student to create correctly.</p>
+                    <p>用以調整學生在拖拉答案時的，y 軸的單位間距前進比例，舉例來說，
+                        當此參數設定為 2 之時，每次的拖拉時的前進單位為 1/2 個 y 軸
+                        單位間距。一般來說，為求學生作答時的便利性，此值不宜設定太大。</p>
                 </InfoTip>
             </div>}
             <div>
-                Editing values:{' '}
-                {_.map(["correct", "starting"], function(editing) {
+                圖表編輯值:{' '}
+                {_.map(["答案值", "起始值"], function(editing) {
                     return <label key={editing}>
                         <input
                             type="radio"
@@ -832,10 +831,7 @@ var PlotterEditor = React.createClass({
                     </label>;
                 }, this)}
                 <InfoTip><p>
-                    Use this toggle to switch between editing the correct
-                    answer (what the student will be graded on) and the
-                    starting values (what the student will see plotted when
-                    they start the problem). Note: These cannot be the same.
+                    選用"答案值"編輯此題的圖表答案；選用"起始值"編輯此題作答前的圖表預設樣式。
                 </p></InfoTip>
             </div>
             {this.transferPropsTo(
@@ -992,8 +988,8 @@ var PlotterEditor = React.createClass({
 
 module.exports = {
     name: "plotter",
-    displayName: "Plotter",
+    displayName: "Plotter/統計圖",
     widget: Plotter,
     editor: PlotterEditor,
-    hidden: true
+    hidden: false
 };
