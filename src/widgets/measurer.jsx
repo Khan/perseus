@@ -126,7 +126,7 @@ var Measurer = React.createClass({
         }
 
         if (this.props.showRuler) {
-            this.ruler = graphie.ruler({
+            this.ruler = graphie.Ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2
