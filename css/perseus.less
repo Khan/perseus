@@ -86,7 +86,7 @@
     }
 
     div.paragraph {
-        font-size: 14px;
+        font-size: 20px;
         margin: 22px 0px;
     }
 
@@ -206,6 +206,15 @@
     .image-settings, .misc-settings, .type-settings {
         border-top: 1px solid black;
         padding-top: 5px;
+    }
+
+    div #solutionarea div.paragraph {
+        font-size: inherit;
+        margin: inherit;
+    }
+
+    .checkbox {
+        margin: 0px;
     }
 }
 
@@ -343,6 +352,8 @@
 }
 
 .perseus-widget-container {
+    font-size: 14px;
+
     &.widget-nohighlight {
         transition: all 0.15s;
     }
@@ -433,8 +444,8 @@
     box-sizing: border-box;
     margin-top: 5px;
     padding: 2px;
-    // each button is 35 + 4 px, plus 4 padding, plus 2 border
-    width: 39px*5 + 4px + 2px; // (201)
+    // each button is 41 + 4 px, plus 4 padding, plus 2 border
+    width: 45px*5 + 4px + 2px; // (201)
 
     &.absolute {
         left: -2px;
@@ -450,8 +461,8 @@
 .tex-button {
     display: block;
     float: left;
-    width: 35px;
-    height: 35px;
+    width: 41px;
+    height: 41px;
     margin: 2px;
     border: 1px solid @borderColor;
     background-color: white;

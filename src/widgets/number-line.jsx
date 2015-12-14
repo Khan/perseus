@@ -845,5 +845,5 @@ module.exports = {
     widget: NumberLine,
     editor: NumberLineEditor,
     transform: NumberLineTransform,
-    hidden: flase
+    hidden: false
 };
