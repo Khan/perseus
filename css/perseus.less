@@ -1,0 +1,477 @@
+//
+// Edit this file in the *perseus* repo!
+// (All changes outside the perseus repo will be overwritten)
+//
+
+@import "variables.less";
+
+#perseus {
+    position: relative;
+}
+
+
+// .no-select is used to prevent selection of certain widgets.
+// often, allowing selection makes for an awkward mobile experience
+// where you constantly highlight elements unintentionally.
+.no-select {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+// .blank-background is used to prevent drawing under transparent widgets.
+// drawing under transparent widgets is particularly annoying because if
+// you lift up your pen and put it down again, you can't continue drawing,
+// because you're now clicking on the widget. This is very
+// counterintuitive, so we simply don't let you see anything you draw under
+// a widget.
+.blank-background {
+    background-color: #FDFDFD;  // Keep in sync with KhanUtil._BACKGROUND
+}
+// There is no scratchpad in the answer_area, and it has a different color
+// background, so just make it transparent
+#answer_area .blank-background {
+    background-color: transparent;
+}
+
+.above-scratchpad {
+    position: relative;
+    z-index: @zIndexAboveScratchpad;
+}
+
+// All graphie components placed above the scratchpad should have their
+// background wiped out.
+.graphie.above-scratchpad,
+.graphie-container.above-scratchpad {
+    .blank-background;
+}
+
+// Selectable graphie components make for awkward touch experiences
+.graphie {
+    .no-select;
+}
+
+.interactive-component,
+.interactive-component.above-scratchpad {
+    position: relative;
+    z-index: @zIndexInteractiveComponent;
+}
+
+&,  // and moar specificity...
+#answercontent input[type=text],
+#answercontent input[type=number],
+.framework-perseus input[type=text],
+.framework-perseus input[type=number] {
+    &.perseus-input-size-normal,
+    {
+        width: 80px;
+    }
+
+    &.perseus-input-size-small {
+        width: 40px;
+    }
+}
+
+#examples > div > ul {
+    // React and Perseus.Renderer add an extra layer each to what qtip expects
+    list-style-type: disc;
+}
+
+.framework-perseus {
+    #problemarea {
+        input, button {
+            .interactive-component
+        }
+    }
+
+    div.paragraph {
+        font-size: 14px;
+        margin: 22px 0px;
+    }
+
+    div.instructions {
+        display: block;
+        font-style: italic;
+        font-weight: bold;
+    }
+
+    .paragraph > ul:not(.perseus-widget-radio) {
+        font-size: 14px;
+        margin: -11px 0px 22px 0px;
+        padding-left: 35px;
+    }
+
+    .paragraph > ul:not(.perseus-widget-radio) > li {
+        list-style-type: disc;
+    }
+
+    table {
+        font-size: 14px;  // to match <p>
+
+        th, td {
+            padding: 5px 10px;
+            text-align: left;
+
+            &[align=center] {
+                text-align: center;
+            }
+
+            &[align=right] {
+                text-align: right;
+            }
+        }
+
+        th {
+            border-bottom: 2px solid #ccc;
+            font-weight: bold;
+            padding-bottom: 2px;
+        }
+
+        tr:nth-child(odd) {
+            // Doesn't work in IE8 :(
+            td {
+                background-color: #ededed;
+            }
+        }
+    }
+
+    // place on a div above the inputs
+    .range-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 0px 5px;
+
+        & > input {
+            border: 0;
+            display: inline;
+            text-align: center;
+            width: 30px;
+        }
+
+        & > span {
+            color: #999;
+            font-size: 14px;
+        }
+    }
+
+    .number-input {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0; // override
+        padding: 5px 0; // override
+        text-align: center;
+        width: 40px;
+
+        &.invalid-input {
+            background-color: #ffbaba;
+            outline-color: red;
+        }
+
+        &.number-input-label {
+            margin-left: 5px;
+        }
+
+        &.mini {
+            width: 40px;
+        }
+        &.small {
+            width: 60px;
+        }
+        &.normal {
+            width: 80px;
+        }
+    }
+
+    .graph-settings {
+        .graph-settings-axis-label {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            padding: 5px 5px;
+            width: 70px;
+            float: right;
+            margin: 0 5px;
+        }
+        .graph-settings-background-url {
+            width: 250px;
+        }
+    }
+
+    .graph-settings, .image-settings, .misc-settings {
+        padding-bottom: 5px;
+    }
+
+    .image-settings, .misc-settings, .type-settings {
+        border-top: 1px solid black;
+        padding-top: 5px;
+    }
+}
+
+.framework-perseus table.non-markdown {
+    tr:nth-child(odd) {
+        td {
+            background-color: transparent;
+        }
+    }
+
+    th, td {
+        border-width: 0;
+    }
+}
+
+
+/* Widget CSS */
+
+@import "widgets/expression.less";
+@import "widgets/radio.less";
+@import "widgets/interactive-graph.less";
+@import "widgets/categorization.less";
+@import "widgets/categorizer.less";
+@import "widgets/plotter.less";
+@import "widgets/table.less";
+@import "widgets/dropdown.less";
+@import "widgets/orderer.less";
+@import "widgets/measurer.less";
+@import "widgets/transformer.less";
+@import "widgets/matcher.less";
+@import "widgets/sortable.less";
+@import "widgets/image.less";
+
+.perseus-diff {
+    @borderColor: #E4E4E4;
+    margin: 0 10px;
+
+    .diff-header {
+        font-size: 18px;
+        padding: 10px 0;
+        width: 50%;
+        display: inline-block;
+        &.collapsed {
+            font-size: 14px;
+            padding: 0px;
+        }
+    }
+
+    .diff-body {
+        border-top: 1px solid @borderColor;
+        border-bottom: 1px solid @borderColor;
+    }
+
+    .diff-row {
+        width: 50%;
+        white-space: pre-wrap;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        font-size: 14px;
+        padding-right: 20px;
+        padding-left: 10px;
+        overflow: hidden;
+        &.collapsed {
+            color: #888;
+            cursor: pointer;
+            &:hover {
+                color: #666;
+            }
+
+            &:active {
+                color: #444;
+            }
+        }
+
+        .diff-line {
+            margin-bottom: 20px;
+        }
+    }
+
+    .before {
+        float: left;
+        border-left: 1px solid @borderColor;
+    }
+
+    .after {
+        float: right;
+        border-right: 1px solid @borderColor;
+        border-left: 1px solid @borderColor;
+    }
+
+    .inner-value {
+        height: 100%;
+        padding: 3px;
+    }
+
+    .not-present {
+        display: none;
+    }
+
+    .blank-space {
+        visibility: hidden;
+    }
+
+
+    .added {
+        background-color: #EEFFEE;
+        &.dark {
+            background-color: #AAFFAA;
+        }
+    }
+
+    .removed {
+        background-color: #FFEEEE;
+        &.dark {
+            background-color: #FFAAAA;
+        }
+    }
+
+    .image {
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .image-unchanged {
+        border: 1px solid #AAAAAA;
+    }
+
+    .image-added {
+        border: 2px solid #AAFFAA;
+    }
+
+    .image-removed {
+        border: 2px solid #FFAAAA;
+    }
+}
+
+.perseus-widget-container {
+    &.widget-nohighlight {
+        transition: all 0.15s;
+    }
+
+    &.widget-highlight {
+        @highlight: 0px 0px 9px 2px rgba(255, 165, 0, 1);
+        -webkit-box-shadow: @highlight;
+        -moz-box-shadow:    @highlight;
+        box-shadow:         @highlight;
+        transition: all 0.15s;
+    }
+}
+
+// TODO(joel) - remove?
+.perseus-tooltip {
+    background: #fff;
+    padding: 5px 10px;
+    width: 240px;
+}
+
+// CSS is evil; let's overwrite some styles. T_T
+.perseus-formats-tooltip {
+    .perseus-tooltip;
+    color: #777;
+}
+.framework-perseus .perseus-formats-tooltip .paragraph > ul {
+    padding: 0;
+    margin: -20px 0 -16px 0;
+    > li {
+        list-style-type: none;
+    }
+}
+
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+          box-shadow: @shadow;
+       -o-box-shadow: @shadow;
+      -ms-box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+  -webkit-box-shadow: @shadow;
+}
+
+.perseus-math-input.mq-editable-field.mq-math-mode {
+    // Mimic native text input
+    background: #fff;
+
+    // If the font-size is too small, super/subscripts become hard to input
+    font-size: 18px;
+
+    // Make the click target easier to hit
+    min-width: 100px;
+
+    & > .mq-root-block {
+        // Mimic native text input w/o using -moz/-webkit-apperance: textfield
+        // border-color: rgb(78, 187, 212);
+        border-color: #a4a4a4;
+
+        border-radius: 5px;
+
+        // A bit of extra whitespace here greatly improves legibility
+        padding: 4px;
+    }
+
+    // Fixes for strange default MathQuill styles:
+
+    // Cursor shouldn't actually be touching left border
+    .mq-cursor {
+        padding-left: 0;
+    }
+
+    // Don't gray out implicitly created closing parens
+    .mq-paren.mq-ghost {
+        color: inherit;
+    }
+
+    // Don't put vertical margins on an expression wrapped in parens
+    // because it messes up baseline alignment, e.g. h(x)
+    .mq-paren + span {
+        margin: 0;
+    }
+}
+
+// This style looks a little off in the expression editor. Luckily users don't
+// use the expression editor.
+.math-input-buttons {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 2px;
+    // each button is 35 + 4 px, plus 4 padding, plus 2 border
+    width: 39px*5 + 4px + 2px; // (201)
+
+    &.absolute {
+        left: -2px;
+        position: absolute;
+        top: -3px;
+        z-index: @zIndexCalculator;
+    }
+};
+
+// Math domain color
+@borderColor: #1c758a;
+
+.tex-button {
+    display: block;
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin: 2px;
+    border: 1px solid @borderColor;
+    background-color: white;
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
+
+    &:focus {
+        border: 2px solid @borderColor;
+        outline: none;
+    }
+}
+
+.tex-button-row {
+    margin: 5px 0;
+
+    &:first-child, &:last-child {
+        margin: 0;
+    }
+}

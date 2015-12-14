@@ -1,0 +1,115 @@
+.orderer {
+    position: relative;
+	// HACK (jack): The highlight inline-div around a horizontal
+	// orderer will squash this together unless we set a min-width.
+	// Ideally we'd like to let the width expand based on the size
+	// of it's container (maybe?)
+	min-width: @questionWidth;
+
+    .draggable-box {
+        padding: 13px;
+        min-height: 69px;
+        margin-top: 30px;
+    }
+
+    .card {
+        padding: 0 10px;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+        width: auto;
+
+        img {
+            vertical-align: middle;
+        }
+    }
+
+    &.height-normal.layout-horizontal .card {
+        line-height: 65px;
+        height: 65px;
+    }
+
+    &.height-normal.layout-vertical .card {
+        padding: 5px;
+    }
+
+    &.height-large .card {
+        // TODO(alex): remove after checking that no items use this option
+        line-height: 160px;
+        height: 160px;
+    }
+
+    &.height-auto .card {
+        padding: 0;
+    }
+
+    &.height-auto.layout-horizontal .drag-hint {
+        min-height: 65px;
+        min-width: 22px;
+    }
+
+    .card-wrap {
+        .interactive-component;
+        margin-right: 4px;
+        width: auto;
+        float: left;
+    }
+
+    .bank {
+        margin: 0px 13px;
+
+        .card-wrap {
+            margin-right: 10px;
+            margin-bottom: 8px;
+        }
+    }
+
+    div.paragraph {
+        margin: 0;
+    }
+
+    &.layout-vertical .card-wrap {
+        float: none;
+        text-align: center;
+    }
+
+    &.layout-vertical .bank,  &.layout-vertical .draggable-box {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        float: left;
+        max-width: 50%;
+    }
+
+    &.layout-vertical .bank {
+        padding: 10px 0 0 0;
+        margin: 0;
+
+        .card-wrap {
+            margin-right: 20px;
+        }
+    }
+
+    &.layout-vertical .draggable-box {
+        margin-top: 0;
+        min-height: 170px;
+        padding: 10px;
+
+        .card-wrap:first-child {
+            margin: 0;
+        }
+
+        .card-wrap {
+            margin: 8px 0 0 0;
+        }
+
+        .drag-hint {
+            box-sizing: border-box;
+            min-width: 140px;
+            min-height: 34px;
+        }
+
+        .placeholder {
+            box-sizing: border-box;
+        }
+    }
+}
