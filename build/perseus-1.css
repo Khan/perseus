@@ -55,7 +55,7 @@
   z-index: 3;
 }
 .framework-perseus div.paragraph {
-  font-size: 14px;
+  font-size: 20px;
   margin: 22px 0px;
 }
 .framework-perseus div.instructions {
@@ -157,6 +157,13 @@
 .framework-perseus .type-settings {
   border-top: 1px solid black;
   padding-top: 5px;
+}
+.framework-perseus div #solutionarea div.paragraph {
+  font-size: inherit;
+  margin: inherit;
+}
+.framework-perseus .checkbox {
+  margin: 0px;
 }
 .framework-perseus table.non-markdown tr:nth-child(odd) td {
   background-color: transparent;
@@ -1090,6 +1097,9 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 .perseus-diff .image-removed {
   border: 2px solid #FFAAAA;
 }
+.perseus-widget-container {
+  font-size: 14px;
+}
 .perseus-widget-container.widget-nohighlight {
   transition: all 0.15s;
 }
@@ -1143,7 +1153,7 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
   box-sizing: border-box;
   margin-top: 5px;
   padding: 2px;
-  width: 201px;
+  width: 240px;
 }
 .math-input-buttons.absolute {
   left: -2px;
@@ -1154,8 +1164,8 @@ body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
 .tex-button {
   display: block;
   float: left;
-  width: 35px;
-  height: 35px;
+  width: 41px;
+  height: 41px;
   margin: 2px;
   border: 1px solid #1c758a;
   background-color: white;

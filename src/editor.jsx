@@ -13,7 +13,7 @@ var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression', 
                       'input-number', 'interactive-graph', 'interactive-number-line', 
                       'lights-puzzle', 'measurer', 'number-line', 
-                      'iframe', 'numeric-input', 'orderer', 'plotter', 
+                      'iframe', 'numeric-input', 'plotter', 
                       'radio', 'sorter', 'table', 'transformer', 'matcher'];
 
 var WidgetSelect = React.createClass({
