@@ -95,11 +95,9 @@ var SorterEditor = React.createClass({
 
         return <div>
             <div>
-                {' '}Correct answer:{' '}
+                {' '}正確答案:{' '}
                 <InfoTip><p>
-                    Enter the correct answer (in the correct order) here. The
-                    preview on the right will have the cards in a randomized
-                    order, which is how the student will see them.
+                    在這邊輸入正確的排序，右邊的預覽畫面會是隨機的排序，也就是學生會看到的畫面。
                 </p></InfoTip>
             </div>
             <TextListEditor
@@ -110,26 +108,25 @@ var SorterEditor = React.createClass({
                 layout={this.props.layout} />
             <div>
                 <label>
-                    {' '}Layout:{' '}
+                    {' '}顯示方式:{' '}
                     <select value={this.props.layout}
                             onChange={this.onLayoutChange}>
-                        <option value={HORIZONTAL}>Horizontal</option>
-                        <option value={VERTICAL}>Vertical</option>
+                        <option value={HORIZONTAL}>水平方式</option>
+                        <option value={VERTICAL}>垂直方式</option>
                     </select>
                 </label>
                 <InfoTip>
-                    <p>Use the horizontal layout for short text and small
-                    images. The vertical layout is best for longer text and
-                    larger images.</p>
+                    <p>當卡片中的文字較短或是圖形較小時，建議可選用水平方式顯示，垂直
+                        方式較適用於較長的文字敘述 (如：證明) 或較大的圖形。</p>
                 </InfoTip>
             </div>
             <div>
                 <PropCheckBox
-                    label="Padding:"
+                    label="留白:"
                     padding={this.props.padding}
                     onChange={this.props.onChange} />
                 <InfoTip>
-                    <p>Padding is good for text, but not needed for images.</p>
+                    <p>留白適合用在文字，若為圖片則不需要。</p>
                 </InfoTip>
             </div>
         </div>;
@@ -146,8 +143,8 @@ var SorterEditor = React.createClass({
 
 module.exports = {
     name: "sorter",
-    displayName: "Sorter",
+    displayName: "Sorter/排序",
     widget: Sorter,
     editor: SorterEditor,
-    hidden: true
+    hidden: false
 };

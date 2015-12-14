@@ -30,7 +30,7 @@ var Iframe = React.createClass({
     getDefaultProps: function() {
         return {
             // options: incomplete, incorrect, correct
-            status: "incomplete",
+            status: "correct",
             // optional message
             message: null
         };
@@ -158,11 +158,11 @@ var PairEditor = React.createClass({
 
     render: function() {
         return <fieldset>
-                <label>Name: 
+                <label>名稱: 
                     <BlurInput value={this.props.name}
                            onChange={this.change("name")} />
                 </label>
-                <label>Value:
+                <label>設定值:
                     <BlurInput value={this.props.value}
                            onChange={this.change("value")} />
                 </label>
@@ -218,34 +218,17 @@ var IframeEditor = React.createClass({
         return {
             url: "",
             settings: [{name: "", value: ""}],
-            width: 400,
+            width: 480,
             height: 400
         };
     },
 
     render: function() {
         return <div>
-            <label>Url or Program ID:
+            <label>網址 Url:
                 <BlurInput name="url"
                            value={this.props.url}
                            onChange={this.change("url")} />
-            </label>
-            <br/>
-            <label>Settings:
-                <PairsEditor name="settings"
-                           pairs={this.props.settings}
-                           onChange={this.handleSettingsChange} />
-            </label>
-            <br/>
-            <label>Width: 
-                <BlurInput name="width"
-                           value={this.props.width}
-                           onChange={this.change("width")} />
-            </label>
-            <label>Height: 
-                <BlurInput name="height"
-                           value={this.props.height}
-                           onChange={this.change("height")} />
             </label>
         </div>;
     },
@@ -258,9 +241,9 @@ var IframeEditor = React.createClass({
 
 module.exports = {
     name: "iframe",
-    displayName: "Iframe",
+    displayName: "Iframe/外掛套件",
     widget: Iframe,
     // Let's not expose it to all content creators yet
-    hidden: true,
+    hidden: false,
     editor: IframeEditor
 };

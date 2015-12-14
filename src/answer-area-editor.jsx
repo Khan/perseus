@@ -10,10 +10,14 @@ var WidgetsInAnswerAreaEditor = ['Image'];
 var AnswerAreaEditor = React.createClass({
     getDefaultProps: function() {
         return {
-            type: "input-number",
+            type: "multiple",
             options: {},
             calculator: false
         };
+    },
+
+    getInitialState: function() {
+      return {showSolutionArea: this.props.type === "radio" || this.props.type === "input-number"}
     },
 
     render: function() {
@@ -36,36 +40,27 @@ var AnswerAreaEditor = React.createClass({
 
         return <div className="perseus-answer-editor">
             <div className="perseus-answer-options">
-            <div>
-            </div>
-            <div><label>
-                {' '}Answer type:{' '}
-                <select value={this.props.type}
-                        onChange={e => {
-                            this.props.onChange({
-                                type: e.target.value,
-                                options: {}
-                            }, () => {
-                                this.refs.editor.focus();
-                            });
-                        }}>
-                    <option value="radio">Multiple choice</option>
-                    <option value="input-number">Text input (number)</option>
-                </select>
-            </label>
-            </div>
-            </div>
-            <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
-                {editor}
+                {this.state.showSolutionArea && <div className={cls !== Editor ? "perseus-answer-widget" : ""}>
+                    {editor}
+                </div>}
             </div>
         </div>;
     },
 
+    getEditorInAnswerArea: function() {
+        if (this.refs !== undefined) {
+            return this.refs.editor;
+        } else {
+            return undefined;
+        } 
+    },
+
     toJSON: function(skipValidation) {
         // Could be just _.pick(this.props, "type", "options"); but validation!
+        var editor = this.getEditorInAnswerArea();
         return {
             type: this.props.type,
-            options: this.refs.editor.toJSON(skipValidation),
+            options: editor !== undefined ? this.refs.editor.toJSON(skipValidation) : {},
             calculator: this.props.calculator
         };
     }

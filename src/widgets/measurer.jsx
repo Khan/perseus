@@ -95,7 +95,7 @@ var Measurer = React.createClass({
     setupGraphie: function() {
         var graphieDiv = this.refs.graphieDiv.getDOMNode();
         $(graphieDiv).empty();
-        var graphie = this.graphie = KhanUtil.createGraphie(graphieDiv);
+        var graphie = this.graphie = KhanUtil.currentGraph = KhanUtil.createGraphie(graphieDiv);
 
         var scale = [40, 40];
         var range = [
@@ -115,7 +115,7 @@ var Measurer = React.createClass({
         }
 
         if (this.props.showProtractor) {
-            this.protractor = graphie.protractor([
+            this.protractor = graphie.Protractor([
                 this.props.protractorX,
                 this.props.protractorY
             ]);
@@ -126,7 +126,7 @@ var Measurer = React.createClass({
         }
 
         if (this.props.showRuler) {
-            this.ruler = graphie.ruler({
+            this.ruler = graphie.Ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
                     (range[1][0] + range[1][1]) / 2
@@ -203,35 +203,34 @@ var MeasurerEditor = React.createClass({
         var image = _.extend({}, defaultImage, this.props.image);
 
         return <div className="perseus-widget-measurer">
-            <div>Image displayed under protractor and/or ruler:</div>
-            <div>URL:{' '}
+            <div>背景圖片:</div>
+            <div>圖片網址:{' '}
                 <input type="text"
                         className="perseus-widget-measurer-url"
                         ref="image-url"
                         defaultValue={image.url}
                         onChange={this._changeUrl} />
             <InfoTip>
-                <p>Create an image in graphie, or use the "Add image" function
-                to create a background.</p>
+                <p>插入圖片的連結網址。例如，先將圖片上傳至 http://imgur.com ，再分享其圖片網址 (Direct Link)。 </p>
             </InfoTip>
             </div>
             {image.url && <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
-                    <NumberInput label="Pixels from top:"
+                    <NumberInput label="與上方的間隔畫素:"
                         placeholder={0}
                         onChange={this._changeTop}
                         value={image.top}
                         useArrowKeys={true} />
                 </div>
                 <div className="perseus-widget-right-col">
-                    <NumberInput label="Pixels from left:"
+                    <NumberInput label="與左方的間隔畫素:"
                         placeholder={0}
                         onChange={this._changeLeft}
                         value={image.left}
                         useArrowKeys={true} />
                 </div>
             </div>}
-            <div>Containing area [width, height]:{' '}
+            <div>圖片大小 [寬, 高]:{' '}
                 <RangeInput
                     onChange={this.change("box")}
                     value={this.props.box}
@@ -239,12 +238,12 @@ var MeasurerEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
-                    <PropCheckBox label="Show ruler"
+                    <PropCheckBox label="顯示直尺"
                         showRuler={this.props.showRuler}
                         onChange={this.props.onChange} />
                 </div>
                 <div className="perseus-widget-right-col">
-                    <PropCheckBox label="Show protractor"
+                    <PropCheckBox label="顯示量角器"
                         showProtractor={this.props.showProtractor}
                         onChange={this.props.onChange} />
                 </div>
@@ -252,26 +251,26 @@ var MeasurerEditor = React.createClass({
             {this.props.showRuler && <div>
             <div>
                 <label>
-                    {' '}Ruler label:{' '}
+                    {' '}直尺單位:{' '}
                     <select
                         onChange={(e) =>
                             this.change("rulerLabel", e.target.value)}
                         value={this.props.rulerLabel} >
-                            <option value="">None</option>
-                            <optgroup label="Metric">
+                            <option value="">無</option>
+                            <optgroup label="公制">
                                 {this.renderLabelChoices([
-                                    ["milimeters", "mm"],
-                                    ["centimeters", "cm"],
-                                    ["meters", "m"],
-                                    ["kilometers", "km"]
+                                    ["厘米", "mm"],
+                                    ["公分", "cm"],
+                                    ["公尺", "m"],
+                                    ["公里", "km"]
                                 ])}
                             </optgroup>
-                            <optgroup label="Imperial">
+                            <optgroup label="英制">
                                 {this.renderLabelChoices([
-                                    ["inches", "in"],
-                                    ["feet", "ft"],
-                                    ["yards", "yd"],
-                                    ["miles", "mi"]
+                                    ["英吋", "in"],
+                                    ["英呎", "ft"],
+                                    ["碼", "yd"],
+                                    ["英哩", "mi"]
                                 ])}
                             </optgroup>
                     </select>
@@ -279,7 +278,7 @@ var MeasurerEditor = React.createClass({
             </div>
             <div>
                 <label>
-                    {' '}Ruler ticks:{' '}
+                    {' '}每單位分割數:{' '}
                     <select
                         onChange={(e) =>
                             this.change("rulerTicks", +e.target.value)}
@@ -291,14 +290,14 @@ var MeasurerEditor = React.createClass({
                 </label>
             </div>
             <div>
-                <NumberInput label="Ruler pixels per unit:"
+                <NumberInput label="每單位長的畫素:"
                     placeholder={40}
                     onChange={this.change("rulerPixels")}
                     value={this.props.rulerPixels}
                     useArrowKeys={true} />
             </div>
             <div>
-                <NumberInput label="Ruler length in units:"
+                <NumberInput label="直尺長度:"
                     placeholder={10}
                     onChange={this.change("rulerLength")}
                     value={this.props.rulerLength}
@@ -351,10 +350,10 @@ propUpgrades = {
 
 module.exports = {
     name: "measurer",
-    displayName: "Measurer",
+    displayName: "Measurer/直尺、量角器",
     widget: Measurer,
     editor: MeasurerEditor,
     version: {major: 1, minor: 0},
     propUpgrades: propUpgrades,
-    hidden: true
+    hidden: false
 };

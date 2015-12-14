@@ -153,11 +153,9 @@ var MatcherEditor = React.createClass({
     render: function() {
         return <div className="perseus-matcher-editor">
             <div>
-                {' '}Correct answer:{' '}
+                {' '}正確答案:{' '}
                 <InfoTip>
-                    <p>Enter the correct answers here. The preview on the right
-                    will show the cards in a randomized order, which is how the
-                    student will see them.</p>
+                    <p>在此輸入配對題組的正確答案。當題目顯示時，會隨機排序卡片的順序。</p>
                 </InfoTip>
             </div>
             <div className="ui-helper-clearfix">
@@ -175,9 +173,9 @@ var MatcherEditor = React.createClass({
                     layout="vertical" />
             </div>
             <span>
-                {' '}Labels:{' '}
+                {' '}標籤:{' '}
                 <InfoTip>
-                    <p>These are entirely optional.</p>
+                    <p>此欄位非必填。</p>
                 </InfoTip>
             </span>
             <div>
@@ -190,26 +188,22 @@ var MatcherEditor = React.createClass({
             </div>
             <div>
                 <PropCheckBox
-                    label="Order of the matched pairs matters:"
+                    label="第一欄的欄位順序可重新調整:"
                     orderMatters={this.props.orderMatters}
                     onChange={this.props.onChange} />
                 <InfoTip>
-                    <p>With this option enabled, only the order provided above
-                    will be treated as correct. This is useful when ordering is
-                    significant, such as in the context of a proof.</p>
-                    <p>If disabled, pairwise matching is sufficient. To make
-                    this clear, the left column becomes fixed in the provided
-                    order and only the cards in the right column can be
-                    moved.</p>
+                    <p>當此功能開啟時，第一欄欄位的順序必須完成符合。</p>
+                    <p>此功能適合使用在證明題的論證步驟與其理由的配對。</p>
+                    <p>當此功能關閉時，第一欄的欄位會固定下來，只讓使用者調整第二欄欄位的順序。</p>
                 </InfoTip>
             </div>
             <div>
                 <PropCheckBox
-                    label="Padding:"
+                    label="留白:"
                     padding={this.props.padding}
                     onChange={this.props.onChange} />
                 <InfoTip>
-                    <p>Padding is good for text, but not needed for images.</p>
+                    <p>建議在文字時加入「留白」，圖片模式不要加入。</p>
                 </InfoTip>
             </div>
         </div>;
@@ -237,8 +231,8 @@ var MatcherEditor = React.createClass({
 
 module.exports = {
     name: "matcher",
-    displayName: "Two column matcher",
+    displayName: "Two column matcher/配對題",
     widget: Matcher,
     editor: MatcherEditor,
-    hidden: true
+    hidden: false
 };

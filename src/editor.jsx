@@ -10,7 +10,11 @@ var DragTarget = require("react-components/drag-target");
 var rWidgetSplit = /(\[\[\u2603 [a-z-]+ [0-9]+\]\])/g;
 
 // widgets junyi can use now:
-var widgetsInEditor = ['image'];
+var widgetsInEditor = ['image', 'categorizer', 'dropdown', 'expression', 
+                      'input-number', 'interactive-graph', 'interactive-number-line', 
+                      'lights-puzzle', 'measurer', 'number-line', 
+                      'iframe', 'numeric-input', 'plotter', 
+                      'radio', 'sorter', 'table', 'transformer', 'matcher'];
 
 var WidgetSelect = React.createClass({
     handleChange: function(e) {
@@ -30,13 +34,13 @@ var WidgetSelect = React.createClass({
     },
     render: function() {
         var widgets = Widgets.getPublicWidgets();
-        var junyiValidWidgets = _.pick(widgets, widgetsInEditor[0]);
+        var junyiValidWidgets = _.pick(widgets, widgetsInEditor);
         var orderedWidgetNames = _.sortBy(_.keys(junyiValidWidgets), (name) => {
             return junyiValidWidgets[name].displayName;
         });
 
         return <select onChange={this.handleChange}>
-            <option value="">Add a widget{"\u2026"}</option>
+            <option value="">新增一個 widget{"\u2026"}</option>
             <option disabled>--</option>
             {_.map(orderedWidgetNames, (name) => {
                 return <option value={name} key={name}>
@@ -86,7 +90,7 @@ var WidgetEditor = React.createClass({
         var isUngradedEnabled = (type === "transformer");
         var direction = this.state.showWidget ? "down" : "right";
 
-        var gradedPropBox = <PropCheckBox label="Graded:"
+        var gradedPropBox = <PropCheckBox label="評分:"
                                 graded={upgradedWidgetInfo.graded}
                                 onChange={this.props.onChange} />;
 

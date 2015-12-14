@@ -298,12 +298,10 @@ var InteractiveGraph = React.createClass({
     },
 
     getDefaultProps: function() {
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
-        var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultBoxSize);
-        var snapStep = this.props.snapStep ||
-                   Util.snapStepFromGridStep(gridStep);
+        var range = [[-10, 10], [-10, 10]];
+        var step = [1, 1];
+        var gridStep = Util.getGridStep(range, step, defaultBoxSize);
+        var snapStep = Util.snapStepFromGridStep(gridStep);
         return {
             labels: ["x", "y"],
             range: range,
@@ -368,16 +366,16 @@ var InteractiveGraph = React.createClass({
                             graph: {type: type}
                         });
                     }}>
-                <option value="linear">Linear function</option>
-                <option value="quadratic">Quadratic function</option>
-                <option value="sinusoid">Sinusoid function</option>
-                <option value="circle">Circle</option>
-                <option value="point">Point(s)</option>
-                <option value="linear-system">Linear System</option>
-                <option value="polygon">Polygon</option>
-                <option value="segment">Line Segment(s)</option>
-                <option value="ray">Ray</option>
-                <option value="angle">Angle</option>
+                <option value="linear">線性函數</option>
+                <option value="quadratic">二次函數</option>
+                <option value="sinusoid">正餘弦函數</option>
+                <option value="circle">圓形</option>
+                <option value="point">點</option>
+                <option value="linear-system">聯立方程組</option>
+                <option value="polygon">多邊形</option>
+                <option value="segment">線段</option>
+                <option value="ray">射線</option>
+                <option value="angle">角度</option>
             </select>;
 
             if (this.props.graph.type === "point") {
@@ -397,10 +395,10 @@ var InteractiveGraph = React.createClass({
                         }}>
                     {_.map(_.range(1, 7), function(n) {
                         return <option value={n}>
-                            {n} point{n > 1 && "s"}
+                            {n} 點
                         </option>;
                     })}
-                    <option value={UNLIMITED}>unlimited</option>
+                    <option value={UNLIMITED}>無限制</option>
                 </select>;
             } else if (this.props.graph.type === "polygon") {
                 extraOptions = <div>
@@ -421,13 +419,13 @@ var InteractiveGraph = React.createClass({
                                 this.props.onChange({graph: graph});
                             }}>
                             {_.map(_.range(3, 13), function(n) {
-                                return <option value={n}>{n} sides</option>;
+                                return <option value={n}>{n} 邊</option>;
                             })}
-                            <option value={UNLIMITED}>unlimited sides</option>
+                            <option value={UNLIMITED}>無限制</option>
                         </select>
                     </div>
                     <div>
-                        <label> Snap to{' '}
+                        <label> 對齊{' '}
                             <select
                                 key="polygon-snap"
                                 value={this.props.graph.snapTo}
@@ -440,45 +438,40 @@ var InteractiveGraph = React.createClass({
                                         });
                                     this.props.onChange({graph: graph});
                                 }}>
-                                <option value="grid">grid</option>
+                                <option value="grid">網格</option>
                                 {(this.props.graph.numSides !== UNLIMITED) && [
-                                    <option value="angles">
-                                        {' '}interior angles{' '}
+                                    <option value="interior angles">
+                                        {' '}內角{' '}
                                     </option>,
-                                    <option value="sides">
-                                        {' '}side measures{' '}
+                                    <option value="side measures">
+                                        {' '}邊長{' '}
                                     </option>
                                 ]}
                             </select>
                         </label>
                         <InfoTip>
-                            <p>These options affect the movement of the vertex
-                            points. The grid option will guide the points to
-                            the nearest half step along the grid.</p>
-
-                            <p>The interior angle and side measure options
-                            guide the points to the nearest whole angle or
-                            side</p> measure respectively.{' '}
+                            <p>此選項是用來決定答案的符合情況，"對齊網格"為頂點位置需符合答案要求，
+                                "對齊內角"為內角需符合答案要求，"對齊邊長"為各邊需符合答案要求。</p>
                         </InfoTip>
                     </div>
                     <div>
-                        <label>Show angle measures:{' '}
+                        <label>顯示角度度數:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showAngles}
                                 onChange={this.toggleShowAngles} />
                         </label>
                         <InfoTip>
-                            <p>Displays the interior angle measures.</p>
+                            <p>顯示出各內角的角度</p>
                         </InfoTip>
                     </div>
                     <div>
-                        <label>Show side measures:{' '}
+                        <label>顯示邊長長度:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showSides}
                                 onChange={this.toggleShowSides} />
                         </label>
                         <InfoTip>
-                            <p>Displays the side lengths.</p>
+                            <p>顯示出各邊的長度</p>
                         </InfoTip>
                     </div>
                 </div>;
@@ -498,7 +491,7 @@ var InteractiveGraph = React.createClass({
                         }}>
                     {_.map(_.range(1, 7), function(n) {
                         return <option value={n}>
-                            {n} segment{n > 1 && "s"}
+                            {n} 線段
                         </option>;
                     })}
                 </select>;
@@ -509,14 +502,14 @@ var InteractiveGraph = React.createClass({
                 );
                 extraOptions = <div>
                     <div>
-                        <label>Show angle measure:{' '}
+                        <label>顯示角度值:{' '}
                             <input type="checkbox"
                                 checked={this.props.graph.showAngles}
                                 onChange={this.toggleShowAngles} />
                         </label>
                     </div>
                     <div>
-                        <label>Allow reflex angles:{' '}
+                        <label>允許反角:{' '}
                             <input type="checkbox"
                                 checked={allowReflexAngles}
                                 onChange={newVal => {
@@ -531,16 +524,15 @@ var InteractiveGraph = React.createClass({
                         </label>
                         <InfoTip>
                             <p>
-                                Reflex angles are angles with a measure
-                                greater than 180 degrees.
+                                反角是指大於 180 度的角度。
                             </p>
                             <p>
-                                By default, these should remain enabled.
+                                (預設為允許)
                             </p>
                         </InfoTip>
                     </div>
                     <div>
-                        <label>Snap to increments of{' '}
+                        <label>符合{' '}
                             <NumberInput
                                 key="degree-snap"
                                 placeholder={1}
@@ -553,12 +545,12 @@ var InteractiveGraph = React.createClass({
                                         })
                                     });
                                 }} />
-                            {' '}degrees{' '}
+                            {' '}度{' '}
                         </label>
                     </div>
                     <div>
                         <label>
-                            {' '}With an offset of{' '}
+                            {' '}偏移{' '}
                             <NumberInput
                                 key="angle-offset"
                                 placeholder={0}
@@ -571,7 +563,7 @@ var InteractiveGraph = React.createClass({
                                         })
                                     });
                                 }} />
-                            {' '}degrees{' '}
+                            {' '}度{' '}
                         </label>
                     </div>
                 </div>;
@@ -2311,12 +2303,10 @@ var InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
 
     getDefaultProps: function() {
-        var range = this.props.range || [[-10, 10], [-10, 10]];
-        var step = this.props.step || [1, 1];
-        var gridStep = this.props.gridStep ||
-                   Util.getGridStep(range, step, defaultEditorBoxSize);
-        var snapStep = this.props.snapStep ||
-                   Util.snapStepFromGridStep(gridStep);
+        var range = [[-10, 10], [-10, 10]];
+        var step = [1, 1];
+        var gridStep = Util.getGridStep(range, step, defaultEditorBoxSize);
+        var snapStep = Util.snapStepFromGridStep(gridStep);
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
             labels: ["x", "y"],
@@ -2381,11 +2371,9 @@ var InteractiveGraphEditor = React.createClass({
         }
 
         return <div className="perseus-widget-interactive-graph">
-            <div>Correct answer{' '}
+            <div>正確答案{' '}
                 <InfoTip>
-                    <p>Graph the correct answer in the graph below and ensure
-                    the equation or point coordinates displayed represent the
-                    correct answer.</p>
+                    <p>將正確答案於下圖中繪製出來，請注意所有的函數圖或資料點需表示出正確的答案。</p>
                 </InfoTip>
                 {' '}: {equationString}</div>
 
@@ -2410,43 +2398,34 @@ var InteractiveGraphEditor = React.createClass({
             {this.props.correct.type === "polygon" &&
             <div className="type-settings">
                 <label>
-                    {' '}Student answer must{' '}
+                    {' '}學生的答案必須要{' '}
                     <select
                             value={this.props.correct.match}
                             onChange={this.changeMatchType}>
-                        <option value="exact">match exactly</option>
-                        <option value="congruent">be congruent</option>
-                        <option value="approx">
-                            be approximately congruent</option>
-                        <option value="similar">be similar</option>
+                        <option value="exact">完全符合</option>
+                        <option value="congruent">全等</option>
+                        <option value="approx">大致上全等</option>
+                        <option value="similar">相似</option>
                     </select>
                 </label>
                 <InfoTip>
                     <ul>
                         <li>
-                            <p><b>Match Exactly:</b> Match exactly in size,
-                            orientation, and location on the grid even if it is
-                            not shown in the background.</p>
+                            <p><b>完全符合:</b> 圖形於網格上的大小、方向、位置皆需完全符合答案。</p>
                         </li>
                         <li>
-                            <p><b>Be Congruent:</b> Be congruent in size and
-                            shape, but can be located anywhere on the grid.</p>
+                            <p><b>全等:</b> 圖形的大小和形狀需與答案符合，但圖形於網格上的位置並無限制。</p>
                         </li>
                         <li>
                             <p>
-                                <b>Be Approximately Congruent:</b> Be exactly
-                                similar, and congruent in size and shape to
-                                within 0.1 units, but can be located anywhere
-                                on the grid. <em>Use this with snapping to
-                                angle measure.</em>
+                                <b>大致上全等:</b> 圖形需與答案非常相似，圖形的大小和形狀與答案可誤差於 0.1 個
+                                網格單位，且圖形於網格上的位置並無限制。
+                                <em>(可使用此答案於對齊角度的選項)</em>
                             </p>
                         </li>
                         <li>
-                            <p><b>Be Similar:</b> Be similar with matching
-                            interior angles, and side measures that are
-                            matching or a multiple of the correct side
-                            measures. The figure can be located anywhere on the
-                            grid.</p>
+                            <p><b>相似:</b> 圖形的內角、邊長與答案大致相似，或是圖形大部份邊的性質符合答案，且
+                            圖形於網格上的位置並無限制。</p>
                         </li>
                     </ul>
                 </InfoTip>
@@ -2455,19 +2434,17 @@ var InteractiveGraphEditor = React.createClass({
             <div className="type-settings">
                 <div>
                     <label>
-                        {' '}Student answer must{' '}
+                        {' '}學生的答案必須要{' '}
                         <select
                                 value={this.props.correct.match}
                                 onChange={this.changeMatchType}>
-                            <option value="exact">match exactly</option>
-                            <option value="congruent">be congruent</option>
+                            <option value="exact">完全符合</option>
+                            <option value="congruent">全等</option>
                         </select>
                     </label>
                     <InfoTip>
-                        <p>Congruency requires only that the angle measures are
-                        the same. An exact match implies congruency, but also
-                        requires that the angles have the same orientation and
-                        that the vertices are in the same position.</p>
+                        <p>"完全符合"是指圖形於網格上的方向、位置皆需完全符合答案；
+                        "全等"僅要求角度部份相同即可。</p>
                     </InfoTip>
                 </div>
             </div>}
@@ -2512,8 +2489,8 @@ var InteractiveGraphEditor = React.createClass({
 
 module.exports = {
     name: "interactive-graph",
-    displayName: "Interactive graph",
+    displayName: "Interactive graph/互動式座標圖",
     widget: InteractiveGraph,
     editor: InteractiveGraphEditor,
-    hidden: true
+    hidden: false
 };

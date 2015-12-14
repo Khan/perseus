@@ -204,12 +204,12 @@ var LightsPuzzle = React.createClass({
                 onChange={this._flipTile} />
             <div style={{width: pxWidth}}>
                 <div style={MOVE_COUNT_STYLE}>
-                    Moves: {this.props.moveCount}
+                    移動次數: {this.props.moveCount}
                 </div>
                 <div style={RESET_BUTTON_STYLE}>
                 <input
                     type="button"
-                    value="Reset"
+                    value="重置"
                     onClick={this._reset}
                     className="simple-button" />
                 </div>
@@ -320,20 +320,20 @@ var LightsPuzzleEditor = React.createClass({
     render: function() {
         return <div>
             <div>
-                Width:
+                寬度:
                 <NumberInput
                     value={this._width()}
                     placeholder={5}
                     onChange={this._changeWidth} />
                 {", "}
-                Height:
+                高度:
                 <NumberInput
                     value={this._height()}
                     placeholder={5}
                     onChange={this._changeHeight} />
             </div>
             <div>
-                Flip pattern:
+                翻轉圖樣:
                 <select
                         value={this.props.flipPattern}
                         onChange={this._handlePatternChange}>
@@ -343,17 +343,17 @@ var LightsPuzzleEditor = React.createClass({
                 </select>
             </div>
             <div>
-                Grade incomplete puzzles as wrong:
+                將未完成的謎題視為錯誤:
                 {" "}
                 <PropCheckBox
                     gradeIncompleteAsWrong={this.props.gradeIncompleteAsWrong}
                     onChange={this.props.onChange} />
                     <InfoTip>
-                        By default, incomplete puzzles are graded as empty.
+                        預設未完成的謎題會被當成空白來處理。
                     </InfoTip>
                 </div>
             <div>
-                Starting configuration:
+                起始圖案設定:
             </div>
             <div style={{overflowX: "auto"}}>
                 <TileGrid
@@ -452,8 +452,8 @@ var transformProps = function(editorProps) {
 
 module.exports = {
     name: "lights-puzzle",
-    displayName: "Lights Puzzle",
-    hidden: true,
+    displayName: "Lights Puzzle/點燈謎題",
+    hidden: false,
     widget: LightsPuzzle,
     editor: LightsPuzzleEditor,
     transform: transformProps
