@@ -160,7 +160,7 @@
 }
 .framework-perseus div #solutionarea div.paragraph {
   font-size: inherit;
-  margin: inherit;
+  margin: 0px;
 }
 .framework-perseus .checkbox {
   margin: 0px;
