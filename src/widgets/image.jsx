@@ -62,7 +62,8 @@ var ImageWidget = React.createClass({
                 coordinates: React.PropTypes.arrayOf(React.PropTypes.number),
                 alignment: React.PropTypes.string
             })
-        )
+        ),
+        allowScratchpad: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -70,7 +71,8 @@ var ImageWidget = React.createClass({
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
             backgroundImage: defaultBackgroundImage,
-            labels: []
+            labels: [],
+            allowScratchpad: true
         };
     },
 
@@ -99,7 +101,8 @@ var ImageWidget = React.createClass({
                 box={this.props.box}
                 range={this.props.range}
                 options={_.pick(this.props, "box", "range", "labels")}
-                setup={this.setupGraphie}>
+                setup={this.setupGraphie}
+                allowScratchpad={this.props.allowScratchpad}>
             </Graphie>
         </div>;
     },

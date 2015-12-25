@@ -125,7 +125,8 @@ var Graphie = React.createClass({
             onClick: this.props.onClick,
             onMouseDown: this.props.onMouseDown,
             onMouseUp: this.props.onMouseUp,
-            onMouseMove: this.props.onMouseMove
+            onMouseMove: this.props.onMouseMove,
+            allowScratchpad: this.props.allowScratchpad
         });
         graphie.snap = this.props.options.snapStep || [1, 1];
         this.props.setup(graphie, this.props.options);
