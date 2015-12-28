@@ -162,9 +162,6 @@
   font-size: inherit;
   margin: 0px;
 }
-.framework-perseus .checkbox {
-  margin: 0px;
-}
 .framework-perseus table.non-markdown tr:nth-child(odd) td {
   background-color: transparent;
 }
@@ -298,6 +295,10 @@
   width: 20px;
   margin-left: -20px;
   margin-right: 0;
+  height: 0px;
+}
+.perseus-widget-radio li span.checkbox input {
+  margin: 0px;
 }
 .perseus-widget-radio li div.instructions {
   margin-bottom: 5px;

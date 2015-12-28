@@ -5444,7 +5444,8 @@ var Graphie = React.createClass({displayName: 'Graphie',
             onClick: this.props.onClick,
             onMouseDown: this.props.onMouseDown,
             onMouseUp: this.props.onMouseUp,
-            onMouseMove: this.props.onMouseMove
+            onMouseMove: this.props.onMouseMove,
+            allowScratchpad: this.props.allowScratchpad
         });
         graphie.snap = this.props.options.snapStep || [1, 1];
         this.props.setup(graphie, this.props.options);
@@ -14541,7 +14542,8 @@ var ImageWidget = React.createClass({displayName: 'ImageWidget',
                 coordinates: React.PropTypes.arrayOf(React.PropTypes.number),
                 alignment: React.PropTypes.string
             })
-        )
+        ),
+        allowScratchpad: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -14549,7 +14551,8 @@ var ImageWidget = React.createClass({displayName: 'ImageWidget',
             range: [defaultRange, defaultRange],
             box: [defaultBoxSize, defaultBoxSize],
             backgroundImage: defaultBackgroundImage,
-            labels: []
+            labels: [],
+            allowScratchpad: true
         };
     },
 
@@ -14578,7 +14581,8 @@ var ImageWidget = React.createClass({displayName: 'ImageWidget',
                 box:this.props.box,
                 range:this.props.range,
                 options:_.pick(this.props, "box", "range", "labels"),
-                setup:this.setupGraphie}
+                setup:this.setupGraphie,
+                allowScratchpad: this.props.allowScratchpad}
             )
         );
     },
