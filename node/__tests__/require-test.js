@@ -25,9 +25,9 @@ describe("Node-perseus", function() {
 describe("Node accessibility", function() {
     var Perseus = require("../../build/node-perseus");
 
-    var badItemData = {"question":{"content":"fdsafdsa\n\n[[☃ interactive-graph 1]]\n\n","images":{},"widgets":{"interactive-graph 1":{"type":"interactive-graph","graded":true,"options":{"step":[1,1],"backgroundImage":{"url":null},"markings":"graph","labels":["x","y"],"showProtractor":false,"showRuler":false,"rulerLabel":"","rulerTicks":10,"range":[[-10,10],[-10,10]],"graph":{"type":"linear"},"correct":{"type":"linear","coords":null}},"version":{"major":0,"minor":0}}}},"answerArea":{"type":"multiple","options":{"content":"","images":{},"widgets":{}},"calculator":false},"itemDataVersion":{"major":0,"minor":1},"hints":[{"content":"fdsa","images":{},"widgets":{}}]}; // @Nolint
+    var badItemData = {"question":{"content":"fdsafdsa\n\n[[☃ interactive-graph 1]]\n\n","images":{},"widgets":{"interactive-graph 1":{"type":"interactive-graph","graded":true,"options":{"step":[1,1],"backgroundImage":{"url":null},"markings":"graph","labels":["x","y"],"showProtractor":false,"showRuler":false,"rulerLabel":"","rulerTicks":10,"range":[[-10,10],[-10,10]],"graph":{"type":"linear"},"correct":{"type":"linear","coords":null}},"version":{"major":0,"minor":0}}}},"answerArea":{"calculator":false},"itemDataVersion":{"major":0,"minor":1},"hints":[{"content":"fdsa","images":{},"widgets":{}}]}; // @Nolint
 
-    var goodItemData = {"question":{"content":"fdsadfasdf\n\n![alt text!](hello)\n\n[[☃ radio 1]]\n\n","images":{},"widgets":{"radio 1":{"type":"radio","graded":true,"options":{"choices":[{"content":"f","correct":false},{"content":"f","correct":true}],"randomize":false,"multipleSelect":false,"displayCount":null,"hasNoneOfTheAbove":false,"onePerLine":true,"deselectEnabled":false},"version":{"major":1,"minor":0}}}},"answerArea":{"type":"multiple","options":{"content":"","images":{},"widgets":{}},"calculator":false},"itemDataVersion":{"major":0,"minor":1},"hints":[]}; // @Nolint
+    var goodItemData = {"question":{"content":"fdsadfasdf\n\n![alt text!](hello)\n\n[[☃ radio 1]]\n\n","images":{},"widgets":{"radio 1":{"type":"radio","graded":true,"options":{"choices":[{"content":"f","correct":false},{"content":"f","correct":true}],"randomize":false,"multipleSelect":false,"displayCount":null,"hasNoneOfTheAbove":false,"onePerLine":true,"deselectEnabled":false},"version":{"major":1,"minor":0}}}},"answerArea":{"calculator":false},"itemDataVersion":{"major":0,"minor":1},"hints":[]}; // @Nolint
 
     it("should detect bad widgets", function() {
         assert.deepEqual(
@@ -48,7 +48,7 @@ describe("Node renderability", function() {
     var Perseus = require("../../build/node-perseus");
 
     // These tests were stolen from src/__tests__/renderability-test.jsx
-    var sampleV1MeasurerItem = {"question": {"content": "[[☃ measurer 1]]", "images": {}, "widgets": {"measurer 1": {"type": "measurer", "graded": true, "options": {"box": [480, 480], "image": {}, "showProtractor": true, "showRuler": false, "rulerLabel": "", "rulerTicks": 10, "rulerPixels": 40, "rulerLength": 10}, "version": {"major": 1, "minor": 0}}}}, "answerArea": {"type": "multiple", "options": {"content": "", "images": {}, "widgets": {}}, "calculator": false}, "itemDataVersion": {"major": 0, "minor": 1}, "hints": []}; // @Nolint
+    var sampleV1MeasurerItem = {"question": {"content": "[[☃ measurer 1]]", "images": {}, "widgets": {"measurer 1": {"type": "measurer", "graded": true, "options": {"box": [480, 480], "image": {}, "showProtractor": true, "showRuler": false, "rulerLabel": "", "rulerTicks": 10, "rulerPixels": 40, "rulerLength": 10}, "version": {"major": 1, "minor": 0}}}}, "answerArea": {"calculator": false}, "itemDataVersion": {"major": 0, "minor": 1}, "hints": []}; // @Nolint
 
     var inputOnlyPerseusVersion = {
         '::renderer::': { major: 100, minor: 0 },

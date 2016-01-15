@@ -18,12 +18,6 @@
         }
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
         "calculator": false
     },
     "hints": []

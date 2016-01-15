@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
+react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
+space-infix-ops, react/jsx-closing-bracket-location */
 var assert = require("assert");
 var _ = require("underscore");
 
@@ -24,13 +27,6 @@ var sampleItem = {
         }
     },
     "answerArea": {
-        "type": "multiple",
-        "static": false,
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
         "calculator": false,
         "periodicTable": false
     },
@@ -90,13 +86,6 @@ var sampleGroupItem = {
         }
     },
     "answerArea": {
-        "type": "multiple",
-        "static": false,
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
         "calculator": false,
         "periodicTable": false
     },
@@ -138,13 +127,6 @@ var sampleRadioItem = {
         }
     },
     "answerArea": {
-        "type": "multiple",
-        "static": false,
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
         "calculator": false,
         "periodicTable": false
     },

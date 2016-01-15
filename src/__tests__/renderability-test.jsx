@@ -9,12 +9,6 @@ var sampleItemNoWidgets = {
         "widgets": {},
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -48,29 +42,6 @@ var sampleV0InputNumberItem = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "[[☃ input-number 1]]",
-            "images": {},
-            "widgets": {
-                "input-number 1": {
-                    "type": "input-number",
-                    "graded": true,
-                    "options": {
-                        "value": "0",
-                        "simplify": "required",
-                        "size": "normal",
-                        "inexact": false,
-                        "maxError": 0.1,
-                        "answerType": "number",
-                    },
-                    "version": {
-                        "major": 0,
-                        "minor": 0,
-                    },
-                },
-            },
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -109,12 +80,6 @@ var sampleV1MeasurerItem = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -141,12 +106,6 @@ var sampleImpossibleWidgetsItem = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -181,12 +140,6 @@ var sampleImpossibleInputNumberItem1 = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -219,12 +172,6 @@ var sampleImpossibleInputNumberItem2 = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -255,12 +202,6 @@ var sampleEmptyGroupItem = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -308,12 +249,6 @@ var sampleGroupWithInputNumberItem = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -371,12 +306,6 @@ var sampleGroupWithRadioItem = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {

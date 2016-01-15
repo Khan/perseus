@@ -10,12 +10,6 @@
         "widgets": {}
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
         "calculator": false,
         "periodicTable": false
     },

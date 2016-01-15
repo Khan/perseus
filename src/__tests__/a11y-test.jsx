@@ -10,12 +10,6 @@ var noWidgets = {
         "widgets": {},
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -59,12 +53,6 @@ var oneAccessibleWidget = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -131,12 +119,6 @@ var oneInaccessibleWidget = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -187,12 +169,6 @@ var imageWithAltText = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -243,12 +219,6 @@ var imageWithoutAltText = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {
@@ -294,12 +264,6 @@ var emptyImageWithoutAltText = {
         },
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {},
-        },
         "calculator": false,
     },
     "itemDataVersion": {

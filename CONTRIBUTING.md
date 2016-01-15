@@ -143,12 +143,6 @@ The datastore is the canonical representation of the question. Here's an example
             }
         },
         "answerArea": {
-            "type": "multiple",
-            "options": {
-                "content": "Enter the answer in the blank to the left.",
-                "images": {},
-                "widgets": {}
-            },
             "calculator": false
         },
         "hints": []
@@ -254,7 +248,7 @@ In order to get the information from the editor to the renderer, there is big ch
 
     TOP: StatefulEditorPage -> EditorPage -> ItemEditor -> Editor -> WidgetEditor -> (widget’s editor) : BOTTOM
 
-It’s at the `EditorPage` level that `updateRenderer` takes `EditorPage.serialize` and passes it to `ItemRenderer`, which (on mounting) passes that information to three additional components: `Renderer`, `AnswerAreaRenderer`, and `HintsRenderer`. Each of those in turn identifies the widget type and inserts the information. (In the future, we may streamline this process, delete the `serializeQuestion` function at the widget’s editor level, and simply extract the props of the widget directly.)
+It’s at the `EditorPage` level that `updateRenderer` takes `EditorPage.serialize` and passes it to `ItemRenderer`, which (on mounting) passes that information to two additional components: `Renderer` and `HintsRenderer`. Each of those in turn identifies the widget type and inserts the information. (In the future, we may streamline this process, delete the `serializeQuestion` function at the widget’s editor level, and simply extract the props of the widget directly.)
 
 But you might be wondering, "how does it know to update?" That's why we use a heirarchical paradigm of calling
 

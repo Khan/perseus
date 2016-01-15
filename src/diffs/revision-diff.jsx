@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
+react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
+space-infix-ops, react/jsx-closing-bracket-location */
 // Responsible for combining the text diffs from text-diff and the widget
 // diffs from widget-differ.
 var React = require("react");
@@ -58,12 +61,12 @@ var RevisionDiff = React.createClass({
 
         var sections = [
             {
-                title: "Question Area",
+                title: "Question",
                 path: ["question"]
             },
             {
-                title: "Answer Area",
-                path: ["answerArea", "options"]
+                title: "Question extras",
+                path: ["answerArea"]
             }
         ].concat(
             _.times(hintCount, function(n) {
@@ -79,11 +82,11 @@ var RevisionDiff = React.createClass({
                     path: ["question", "widgets", widget, "options"]
                 };
             })
-        ).concat( 
+        ).concat(
             _.flatten(
                 _.times(hintCount, function(n) {
 
-                var hintWidgets = _.union(hintWidgetsIn(before, n), 
+                var hintWidgets = _.union(hintWidgetsIn(before, n),
                                           hintWidgetsIn(after, n));
 
                 return _.map(hintWidgets, function(widget) {
@@ -94,7 +97,6 @@ var RevisionDiff = React.createClass({
                 });
 
             })
-           
         ));
 
 

@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
+react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
+space-infix-ops, react/jsx-closing-bracket-location, no-unused-vars */
 var assert = require("assert");
 var lens = require("../../../hubble/index.js");
 // TODO(jack): Package MathQuill
@@ -41,12 +44,6 @@ var expressionItem1 = {
         }
     },
     "answerArea": {
-        "type": "multiple",
-        "options": {
-            "content": "",
-            "images": {},
-            "widgets": {}
-        },
         "calculator": false
     },
     "itemDataVersion": {

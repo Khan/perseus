@@ -6,7 +6,6 @@ var ReactDOM = require("react-dom");
 var assert = require("assert");
 var Perseus = require("../perseus.js");
 var Renderer = Perseus.Renderer;
-var AnswerAreaRenderer = Perseus.AnswerAreaRenderer;
 
 var TestUtils = React.addons.TestUtils;
 var delayedPromise = require("../testutils/delayed-promise.jsx");
@@ -15,9 +14,6 @@ var delayedPromise = require("../testutils/delayed-promise.jsx");
 var inputNumber1Item = require("./test-items/input-number-1-item.json");
 var inputNumber2Item = require("./test-items/input-number-2-item.json");
 var tableItem = require("./test-items/table-item.json");
-var answerAreaInputsItem = require(
-    "./test-items/answer-area-inputs-item.json"
-);
 
 // Jasmine requires us to use `pit` to support promises;
 // mocha supports this already with `it`.
@@ -37,20 +33,6 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
         />
     );
     return renderer;
-};
-
-var renderAnswerArea = function(item, apiOptions, enabledFeatures) {
-    var answerAreaRenderer = TestUtils.renderIntoDocument(
-        <AnswerAreaRenderer
-            type={item.answerArea.type}
-            options={item.answerArea.options}
-            calculator={item.answerArea.calculator}
-            problemNum={0}
-            apiOptions={apiOptions}
-            enabledFeatures={enabledFeatures}
-        />
-    );
-    return answerAreaRenderer;
 };
 
 describe("Perseus API", function() {
@@ -104,12 +86,6 @@ describe("Perseus API", function() {
             var renderer = renderQuestionArea(tableItem);
             var numPaths = renderer.getInputPaths().length;
             assert.strictEqual(numPaths, 8);
-        });
-
-        it("should be able to find inputs in the answer-area", function() {
-            var answerAreaRenderer = renderAnswerArea(answerAreaInputsItem);
-            var numPaths = answerAreaRenderer.getInputPaths().length;
-            assert.strictEqual(numPaths, 2);
         });
     });
 

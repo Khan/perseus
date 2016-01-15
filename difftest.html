@@ -68,7 +68,7 @@ require(["ke-deps.js"], function() {
     // require(["build/perseus.debug.js"], initPerseus);
 
     // built on demand
-    require(["src/perseus.js"], initPerseus);
+    require(["live-build/perseus.js"], initPerseus);
 });
 
 function initPerseus(Perseus) {
@@ -82,30 +82,7 @@ var seedContent = {
         "widgets": {}
     },
     "answerArea": {
-        "type": "radio",
-        "options": {
-            "choices": [
-                {
-                    "content": "A line",
-                    "correct": true
-                },
-                {
-                    "content": "A line segment  ",
-                    "correct": false
-                },
-                {
-                    "content": "A point  ",
-                    "correct": false
-                },
-                {
-                    "content": "A ray  ",
-                    "correct": false
-                }
-            ],
-            "randomize": true,
-            "multipleSelect": false
-        },
-        "calculator": false
+        "calculator": true
     },
     "hints": [
         {
@@ -129,29 +106,6 @@ var seedContent2 = {
         "widgets": {}
     },
     "answerArea": {
-        "type": "radio",
-        "options": {
-            "choices": [
-                {
-                    "content": "A line",
-                    "correct": true
-                },
-                {
-                    "content": "A line segment  ",
-                    "correct": false
-                },
-                {
-                    "content": "A point  ",
-                    "correct": false
-                },
-                {
-                    "content": "A ray  ",
-                    "correct": true
-                }
-            ],
-            "randomize": true,
-            "multipleSelect": false
-        },
         "calculator": false
     },
     "hints": [

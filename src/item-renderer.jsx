@@ -1,8 +1,8 @@
+/* eslint-disable react/sort-comp, react/jsx-sort-prop-types, prefer-spread */
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
-var AnswerAreaRenderer = require("./answer-area-renderer.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
 var EnabledFeatures = require("./enabled-features.jsx");
 var HintsRenderer = require("./hints-renderer.jsx");
@@ -11,19 +11,42 @@ var Util = require("./util.js");
 
 var {mapObject} = require("./interactive2/objective_.js");
 
+var RP = React.PropTypes;
+
 var ItemRenderer = React.createClass({
+    propTypes: {
+        apiOptions: RP.any,
+        // Whether this component should control hiding/showing peripheral
+        // item-related components (for list, see item.answerArea below).
+        // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
+        controlPeripherals: RP.bool,
+        enabledFeatures: RP.any,
+        hintsAreaSelector: RP.string,
+        initialHintsVisible: RP.number,
+        item: RP.shape({
+            answerArea: RP.shape({
+                calculator: RP.bool,
+                chi2Table: RP.bool,
+                periodicTable: RP.bool,
+                tTable: RP.bool,
+                zTable: RP.bool,
+            }),
+            hints: RP.arrayOf(RP.object),
+            question: RP.object,
+        }).isRequired,
+        problemNum: RP.number,
+        savedState: RP.any,
+        workAreaSelector: RP.string,
+    },
+
     getDefaultProps: function() {
         return {
-            initialHintsVisible: 0,
-
-            // TODO(joel) - handle this differently. Pass around nodes or
-            // something half reasonable.
-            workAreaSelector: "#workarea",
-            solutionAreaSelector: "#solutionarea",
-            hintsAreaSelector: "#hintsarea",
-
+            apiOptions: {},  // a deep default is done in `this.update()`
+            controlPeripherals: true,
             enabledFeatures: {},  // a deep default is done in `this.update()`
-            apiOptions: {},  // likewise ^
+            hintsAreaSelector: "#hintsarea",
+            initialHintsVisible: 0,
+            workAreaSelector: "#workarea",
         };
     },
 
@@ -32,7 +55,6 @@ var ItemRenderer = React.createClass({
             hintsVisible: this.props.initialHintsVisible,
             questionCompleted: false,
             questionHighlightedWidgets: [],
-            answerHighlightedWidgets: [],
         };
     },
 
@@ -47,7 +69,6 @@ var ItemRenderer = React.createClass({
     componentWillReceiveProps: function(nextProps) {
         this.setState({
             questionHighlightedWidgets: [],
-            answerHighlightedWidgets: [],
         });
     },
 
@@ -59,9 +80,26 @@ var ItemRenderer = React.createClass({
         ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.workAreaSelector));
         ReactDOM.unmountComponentAtNode(
-                document.querySelector(this.props.solutionAreaSelector));
-        ReactDOM.unmountComponentAtNode(
                 document.querySelector(this.props.hintsAreaSelector));
+
+        if (this.props.controlPeripherals) {
+            var answerArea = this.props.item.answerArea || {};
+            if (answerArea.calculator) {
+                $("#calculator").hide();
+            }
+            if (answerArea.periodicTable) {
+                $(".periodic-table-info-box").hide();
+            }
+            if (answerArea.zTable) {
+                $(".z-table-info-box").hide();
+            }
+            if (answerArea.tTable) {
+                $(".t-table-info-box").hide();
+            }
+            if (answerArea.chi2Table) {
+                $(".chi2-table-info-box").hide();
+            }
+        }
     },
 
     update: function() {
@@ -97,24 +135,6 @@ var ItemRenderer = React.createClass({
                 />,
                 document.querySelector(this.props.workAreaSelector));
 
-        this.answerAreaRenderer = ReactDOM.render(
-                <AnswerAreaRenderer
-                    type={this.props.item.answerArea.type}
-                    options={this.props.item.answerArea.options}
-                    calculator={this.props.item.answerArea.calculator || false}
-                    periodicTable={this.props.item.answerArea.periodicTable ||
-                        false}
-                    zTable={this.props.item.answerArea.zTable || false}
-                    tTable={this.props.item.answerArea.tTable || false}
-                    chi2Table={this.props.item.answerArea.chi2Table || false}
-                    problemNum={this.props.problemNum}
-                    onInteractWithWidget={this.handleInteractWithAnswerWidget}
-                    highlightedWidgets={this.state.answerHighlightedWidgets}
-                    enabledFeatures={enabledFeatures}
-                    apiOptions={apiOptions}
-                />,
-                document.querySelector(this.props.solutionAreaSelector));
-
         this.hintsRenderer = ReactDOM.render(
                 <HintsRenderer
                     hints={this.props.item.hints}
@@ -123,6 +143,16 @@ var ItemRenderer = React.createClass({
                     apiOptions={apiOptions}
                 />,
                 document.querySelector(this.props.hintsAreaSelector));
+
+        if (this.props.controlPeripherals) {
+            var answerArea = this.props.item.answerArea || {};
+            $("#calculator").toggle(answerArea.calculator || false);
+            $(".periodic-table-info-box").toggle(
+                answerArea.periodicTable || false);
+            $(".z-table-info-box").toggle(answerArea.zTable || false);
+            $(".t-table-info-box").toggle(answerArea.tTable || false);
+            $(".chi2-table-info-box").toggle(answerArea.chi2Table || false);
+        }
     },
 
     _handleFocusChange: function(newFocus, oldFocus) {
@@ -175,36 +205,17 @@ var ItemRenderer = React.createClass({
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps: function(widgetId, newProps, callback) {
-        var maybeAnswerAreaWidget = widgetId.match(/^answer-(.*)$/);
-
-        if (maybeAnswerAreaWidget) {
-            var answerAreaWidgetId = maybeAnswerAreaWidget[1];
-            this.answerAreaRenderer._setWidgetProps(
-                answerAreaWidgetId,
-                newProps,
-                callback
-            );
-        } else {
-            this.questionRenderer._setWidgetProps(
-                widgetId,
-                newProps,
-                callback
-            );
-        }
+        this.questionRenderer._setWidgetProps(
+            widgetId,
+            newProps,
+            callback
+        );
     },
 
     _handleAPICall: function(functionName, path) {
         // Get arguments to pass to function, including `path`
         var functionArgs = _.rest(arguments);
-
-        // Decide on which caller should handle the API call
-        var caller;
-        var isAnswerArea = path[0].match(/^answer-(.*)$/);
-        if (isAnswerArea) {
-            caller = this.answerAreaRenderer;
-        } else {
-            caller = this.questionRenderer;
-        }
+        var caller = this.questionRenderer;
 
         return caller[functionName].apply(caller, functionArgs);
     },
@@ -214,17 +225,6 @@ var ItemRenderer = React.createClass({
     },
 
     focusPath: function(path) {
-        // TODO(charlie): Find a better way to handle blurring between answer-
-        // and question-area.
-        if (path && path.length > 0) {
-            var focusAnswer = path[0].match(/^answer-(.*)$/);
-            if (focusAnswer) {
-                this.questionRenderer.blur();
-            } else {
-                this.answerAreaRenderer.blur();
-            }
-        }
-
         return this._handleAPICall('focusPath', path);
     },
 
@@ -242,8 +242,7 @@ var ItemRenderer = React.createClass({
 
     getInputPaths: function() {
         var questionAreaInputPaths = this.questionRenderer.getInputPaths();
-        var answerAreaInputPaths = this.answerAreaRenderer.getInputPaths();
-        return questionAreaInputPaths.concat(answerAreaInputPaths);
+        return questionAreaInputPaths;
     },
 
     handleInteractWithWidget: function(widgetId) {
@@ -255,17 +254,8 @@ var ItemRenderer = React.createClass({
         });
     },
 
-    handleInteractWithAnswerWidget: function(widgetId) {
-        var withRemoved = _.difference(this.state.answerHighlightedWidgets,
-                                       [widgetId]);
-        this.setState({
-            answerHighlightedWidgets: withRemoved,
-        });
-    },
-
     focus: function() {
-        return this.questionRenderer.focus() ||
-                this.answerAreaRenderer.focus();
+        return this.questionRenderer.focus();
     },
 
     showHint: function() {
@@ -291,36 +281,22 @@ var ItemRenderer = React.createClass({
      * }
      */
     scoreInput: function() {
-        var qGuessAndScore = this.questionRenderer.guessAndScore();
-        var aGuessAndScore = this.answerAreaRenderer.guessAndScore();
+        var guessAndScore = this.questionRenderer.guessAndScore();
+        var guess = guessAndScore[0];
+        var score = guessAndScore[1];
 
-        var qGuess = qGuessAndScore[0];
-        var qScore = qGuessAndScore[1];
-        var aGuess = aGuessAndScore[0];
-        var aScore = aGuessAndScore[1];
+        // Continue to include an empty guess for the now defunct answer area.
+        // TODO(alex): Check whether we rely on the format here for
+        //             analyzing ProblemLogs. If not, remove this layer.
+        var maxCompatGuess = [guess, []];
+
+        var keScore = Util.keScoreFromPerseusScore(score, maxCompatGuess);
 
         var emptyQuestionAreaWidgets = this.questionRenderer.emptyWidgets();
-        var emptyAnswerAreaWidgets = this.answerAreaRenderer.emptyWidgets();
-        this.setState({
-            questionHighlightedWidgets: emptyQuestionAreaWidgets,
-            answerHighlightedWidgets: emptyAnswerAreaWidgets,
-        });
 
-        var guess;
-        var score;
-        if (qGuess.length === 0) {
-            // No widgets in question. For compatability with old guess format,
-            // leave it out here completely.
-            guess = aGuess;
-            score = aScore;
-        } else {
-            guess = [qGuess, aGuess];
-            score = Util.combineScores(qScore, aScore);
-        }
-
-        var keScore = Util.keScoreFromPerseusScore(score, guess);
         this.setState({
             questionCompleted: keScore.correct,
+            questionHighlightedWidgets: emptyQuestionAreaWidgets,
         });
 
         return keScore;
@@ -329,8 +305,6 @@ var ItemRenderer = React.createClass({
     /**
      * Returns an array of all widget IDs in the order they occur in
      * the question content.
-     *
-     * NOTE: This ignores the answer area.
      */
     getWidgetIds: function() {
         return this.questionRenderer.getWidgetIds();
@@ -340,8 +314,6 @@ var ItemRenderer = React.createClass({
      * Returns an object mapping from widget ID to KE-style score.
      * The keys of this object are the values of the array returned
      * from `getWidgetIds`.
-     *
-     * NOTE: This ignores the answer area.
      */
     scoreWidgets: function() {
         var qScore = this.questionRenderer.scoreWidgets();
@@ -353,8 +325,6 @@ var ItemRenderer = React.createClass({
 
     /**
      * Get a representation of the current state of the item.
-     *
-     * Note: this ignores the answer area.
      */
     getSerializedState: function() {
         return {

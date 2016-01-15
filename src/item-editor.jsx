@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types, react/sort-comp,
+react/jsx-sort-prop-types */
 var React = require('react');
 var _ = require("underscore");
 
-var AnswerAreaEditor = require("./answer-area-editor.jsx");
-var Editor = require("./editor.jsx");
 var ApiOptions = require("./perseus-api.jsx").Options;
+var Editor = require("./editor.jsx");
+var ItemExtrasEditor = require("./item-extras-editor.jsx");
 var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
 var ItemEditor = React.createClass({
@@ -46,7 +48,8 @@ var ItemEditor = React.createClass({
                         onChange={this.handleEditorChange}
                         apiOptions={this.props.apiOptions}
                         showWordCount={true}
-                        {...this.props.question} />
+                        {...this.props.question}
+                    />
                 </div>
 
                 <div
@@ -55,42 +58,30 @@ var ItemEditor = React.createClass({
                 >
                     <div id="problemarea">
                         <div id="workarea" className="workarea" />
-                        <div id="hintsarea"
-                             className="hintsarea"
-                             style={{display: "none"}} />
+                        <div
+                            id="hintsarea"
+                            className="hintsarea"
+                            style={{display: "none"}}
+                        />
                     </div>
                 </div>
             </div>
 
             <div className="perseus-editor-row perseus-answer-container">
                 <div className="perseus-editor-left-cell">
-                    <div className="pod-title">Answer</div>
-                    <AnswerAreaEditor
-                        ref="answerAreaEditor"
-                        onChange={this.handleAnswerAreaChange}
-                        apiOptions={this.props.apiOptions}
-                        {...this.props.answerArea} />
+                    <div className="pod-title">Question extras</div>
+                    <ItemExtrasEditor
+                        ref="itemExtrasEditor"
+                        onChange={this.handleItemExtrasChange}
+                        {...this.props.answerArea}
+                    />
                 </div>
 
                 <div
                     className="perseus-editor-right-cell"
                     style={{width: previewWidth, maxWidth: previewWidth}}
                 >
-                    <div id="answer_area">
-                        <div id="solutionarea" className="solutionarea" />
-                        <div className="answer-buttons">
-                            <input
-                                type="button"
-                                className="simple-button green"
-                                onClick={this.props.onCheckAnswer}
-                                value="Check Answer" />
-                            {this.props.wasAnswered &&
-                                <img src="/images/face-smiley.png"
-                                    className="smiley" />}
-                            {this.props.gradeMessage &&
-                                <span>{this.props.gradeMessage}</span>}
-                        </div>
-                    </div>
+                    <div id="answer_area" />
                 </div>
             </div>
         </div>;
@@ -101,21 +92,19 @@ var ItemEditor = React.createClass({
         this.updateProps({ question }, cb, silent);
     },
 
-    handleAnswerAreaChange: function(newProps, cb, silent) {
+    handleItemExtrasChange: function(newProps, cb, silent) {
         var answerArea = _.extend({}, this.props.answerArea, newProps);
         this.updateProps({ answerArea }, cb, silent);
     },
 
     getSaveWarnings: function() {
-        var issues1 = this.refs.questionEditor.getSaveWarnings();
-        var issues2 = this.refs.answerAreaEditor.getSaveWarnings();
-        return issues1.concat(issues2);
+        return this.refs.questionEditor.getSaveWarnings();
     },
 
     serialize: function(options) {
         return {
             question: this.refs.questionEditor.serialize(options),
-            answerArea: this.refs.answerAreaEditor.serialize(options),
+            answerArea: this.refs.itemExtrasEditor.serialize(options),
             itemDataVersion: ITEM_DATA_VERSION,
         };
     },

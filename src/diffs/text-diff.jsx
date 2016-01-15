@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
+react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
+space-infix-ops, react/jsx-closing-bracket-location */
 var classNames = require("classnames");
 var React = require("react");
 
@@ -34,14 +37,14 @@ var ImageDiffSide = React.createClass({
         return <div>
             {this.props.images.length > 0 &&
                 <div className="diff-header">Images</div>}
-            {_.map(this.props.images, (entry) => {
+            {_.map(this.props.images, (entry, index) => {
                 var className = classNames({
                     "image": true,
                     "image-unchanged": entry.status === "unchanged",
                     "image-added": entry.status === "added",
                     "image-removed": entry.status === "removed"
                 });
-                return <div>
+                return <div key={index}>
                     <img src={entry.value}
                         title={entry.value}
                         className={className} />
@@ -114,17 +117,20 @@ var TextDiff = React.createClass({
 
         return <div>
             <div className="ui-helper-clearfix">
-                {_.map([BEFORE, AFTER], side => {
-                    return <div className={"diff-row " + side} >
+                {_.map([BEFORE, AFTER], (side, index) => {
+                    return <div className={"diff-row " + side} key={index}>
                         {!this.state.collapsed &&
-                            _.map(renderedLines, (line) => {
+                            _.map(renderedLines, (line, lineNum) => {
                                 var changed = line[side].length > 1;
                                 var lineClass = classNames({
                                     "diff-line": true,
                                     "added": side === AFTER && changed,
                                     "removed": side === BEFORE && changed
                                 });
-                                return <div className={lineClass} >
+                                return <div
+                                    className={lineClass}
+                                    key={lineNum}
+                                >
                                     {line[side]}
                                 </div>;
                             })}
@@ -135,9 +141,12 @@ var TextDiff = React.createClass({
                     </div>;
                 })}
             </div>
-            {_.map([BEFORE, AFTER], side => {
-                return <div className={className + " " + side}
-                    onClick={this.handleExpand} >
+            {_.map([BEFORE, AFTER], (side, index) => {
+                return <div
+                    className={className + " " + side}
+                    key={index}
+                    onClick={this.handleExpand}
+                >
                     {this.state.collapsed &&
                     <span>
                         <span className="expand-button" >

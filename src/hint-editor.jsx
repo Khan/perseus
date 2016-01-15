@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
+react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
+space-infix-ops, react/jsx-closing-bracket-location, react/jsx-indent-props */
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
@@ -181,7 +184,6 @@ var CombinedHintsEditor = React.createClass({
                     {' '}Add a hint
                 </button>
                 </div>
-                <div className="perseus-editor-right-cell" />
             </div>
         </div>;
     },

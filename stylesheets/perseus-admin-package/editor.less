@@ -168,15 +168,8 @@
     }
 }
 
-.perseus-answer-editor {
-    .perseus-textarea-pair {
-        min-height: 50px;
-    }
-}
-
 .perseus-answer-options {
     border: @editorBorder;
-    border-bottom: 0;
     padding: @editorPadding;
 }
 
@@ -315,27 +308,6 @@
         }
     }
 
-    // Answer area styles
-    #answer_area {
-        position: relative;
-
-        #solutionarea, .answer-buttons {
-            border: 0; // override ke
-            box-sizing: border-box;
-            margin: 0; // override ke
-            width: 225px;
-        }
-
-        #solutionarea {
-            margin-left: 0; // override ke
-            margin-top: 20px;
-            outline: 1px solid #ccc;
-            // Make too-wide items visually overflow, to indicate
-            // that there is a problem to content creators
-            overflow-x: visible;
-        }
-    }
-
     // Space out the question, answer, and hint areas
     .perseus-question-container > div, .perseus-answer-container > div {
         padding-bottom: 25px;
@@ -421,8 +393,22 @@
     }
 }
 
-.perseus-hints-editor .add-hint {
-    font-size: 13px;
+.perseus-hints-editor {
+    .add-hint {
+        font-size: 13px;
+    }
+
+    // Prevent double-thick border between question area and hint area
+    .perseus-editor-row:first-child .perseus-editor-right-cell {
+        border-top: 0;
+    }
+
+    // Right side of the last hint row is empty ("add hint" button is on the
+    // left) so make sure the second to last hint row has a bottom border to
+    // close the outline.
+    .perseus-editor-row:nth-last-child(2) .perseus-editor-right-cell {
+        border-bottom: @previewBorder;
+    }
 }
 
 // Only apply borders to hints if they immediately follow a hint-editor
