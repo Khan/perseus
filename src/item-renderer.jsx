@@ -59,7 +59,7 @@ var ItemRenderer = React.createClass({
     },
 
     componentDidMount: function() {
-        if (Khan.scratchpad) {
+        if (this.props.controlPeripherals && Khan.scratchpad) {
             Khan.scratchpad.enable();
         }
         this._currentFocus = null;
