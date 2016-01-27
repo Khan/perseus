@@ -192,6 +192,10 @@ var SvgImage = React.createClass({
 
         height: React.PropTypes.number,
 
+        // When the DOM updates to replace the preloader with the image, or
+        // vice-versa, we trigger this callback.
+        onUpdate: React.PropTypes.func,
+
         preloader: React.PropTypes.func,
 
         // By default, this component attempts to be responsive whenever
@@ -224,9 +228,10 @@ var SvgImage = React.createClass({
 
     getDefaultProps: function() {
         return {
+            onUpdate: () => {},
+            responsive: true,
             src: "",
             scale: 1,
-            responsive: true,
         };
     },
 
@@ -520,6 +525,7 @@ var SvgImage = React.createClass({
                             src={this.props.src}
                             imgProps={imageProps}
                             preloader={preloader}
+                            onUpdate={this.props.onUpdate}
                         />
                         {extraGraphie}
                     </FixedToResponsive>
@@ -531,6 +537,7 @@ var SvgImage = React.createClass({
                         src={this.props.src}
                         preloader={preloader}
                         imgProps={imageProps}
+                        onUpdate={this.props.onUpdate}
                     />
                 );
             }
@@ -578,6 +585,7 @@ var SvgImage = React.createClass({
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
+                        onUpdate={this.props.onUpdate}
                         preloader={preloader}
                         imgProps={imageProps}
                     />
@@ -595,6 +603,7 @@ var SvgImage = React.createClass({
                     <ImageLoader
                         src={imageUrl}
                         onLoad={this.onImageLoad}
+                        onUpdate={this.props.onUpdate}
                         preloader={preloader}
                         imgProps={imageProps}
                     />

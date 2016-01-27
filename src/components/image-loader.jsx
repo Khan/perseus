@@ -29,6 +29,11 @@ const ImageLoader = React.createClass({
         imgProps: PropTypes.any,
         onError: PropTypes.func,
         onLoad: PropTypes.func,
+
+        // When the DOM updates to replace the preloader with the image, or
+        // vice-versa, we trigger this callback.
+        onUpdate: PropTypes.func,
+
         preloader: PropTypes.func,
         src: PropTypes.string,
     },
@@ -51,9 +56,13 @@ const ImageLoader = React.createClass({
         }
     },
 
-    componentDidUpdate: function() {
+    componentDidUpdate: function(prevProps, prevState) {
         if (this.state.status === Status.LOADING && !this.img) {
             this.createLoader();
+        }
+
+        if (prevState.status !== this.state.status) {
+            this.props.onUpdate();
         }
     },
 

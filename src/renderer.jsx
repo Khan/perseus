@@ -754,6 +754,7 @@ var Renderer = React.createClass({
                 alt={node.alt}
                 title={node.title}
                 responsive={responsive}
+                onUpdate={this.props.onRender}
                 {...extraAttrs}
             />;
 
