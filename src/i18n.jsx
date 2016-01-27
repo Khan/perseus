@@ -95,11 +95,9 @@ function widgetCallback(widgetInfo, images) {
     }
 }
 
-// Calls findImagesInContent on all of the different content areas
-function findImagesInItemData(itemData) {
-    var images = [];
 
-    var renderers = [itemData.question].concat(itemData.hints);
+function findImagesInRenderers(renderers) {
+    var images = [];
 
     _.each(renderers, (renderer) => {
         traversal.traverseRendererDeep(
@@ -112,8 +110,25 @@ function findImagesInItemData(itemData) {
     });
 
     return images;
+
 }
 
+// Calls findImagesInContent on all of the different content areas for
+// assessment items
+function findImagesInItemData(itemData) {
+    var renderers = [itemData.question].concat(itemData.hints);
+
+    return findImagesInRenderers(renderers);
+}
+
+// Calls findImagesInContent on all of the different content areas for
+// articles
+function findImagesInArticles(perseusContent) {
+    return findImagesInRenderers(perseusContent);
+}
+
+
 module.exports = {
-    findImagesInItemData: findImagesInItemData
+    findImagesInArticles: findImagesInArticles,
+    findImagesInItemData: findImagesInItemData,
 };
