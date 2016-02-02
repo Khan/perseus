@@ -11,6 +11,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
 var ColorPicker = require("./interaction/color-picker.jsx");
 var ConstraintEditor = require("./interaction/constraint-editor.jsx");
+var ConstraintLabel = require("./interaction/constraint-label.jsx");        //WMc new
 var DashPicker = require("./interaction/dash-picker.jsx");
 var ElementContainer = require("./interaction/element-container.jsx");
 var Graphie = require("../components/graphie.jsx");
@@ -263,6 +264,7 @@ var Interaction = React.createClass({
                                  this._eval(element.options.startY)];
                     var end = [this._eval(element.options.endX),
                                this._eval(element.options.endY)];
+                    console.log("arrows: " + element.options.arrows);
                     return <Line
                         key={element.key}
                         start={start}
@@ -452,16 +454,40 @@ var Interaction = React.createClass({
                         }}
                     />;
                 } else if (element.type === "label") {
-                    var coord = [this._eval(element.options.coordX),
-                                 this._eval(element.options.coordY)];
-                    return <Label
-                        key={n + 1}
-                        coord={coord}
-                        text={element.options.label}
-                        style={{
-                            color: element.options.color,
-                        }}
-                    />;
+                   var coordX =                                 //constrain label position
+                        Math.max(this._eval(
+                            element.options.constraintXMin),
+                        Math.min(this._eval(
+                            element.options.constraintXMax),
+                        this._eval(element.options.coordX)));
+                  var coordY =
+                        Math.max(this._eval(
+                            element.options.constraintYMin),
+                        Math.min(this._eval(
+                            element.options.constraintYMax),
+                        this._eval(element.options.coordY)));
+                    var coord = [coordX, coordY];
+                    if (element.options.kind === "text") {      //label kind is text
+                         return <Label
+                            key={n + 1}
+                            coord={coord}
+                            text={element.options.label}
+                            style={{
+                                color: element.options.color,
+                            }}
+                        />;
+                        //}
+                        } else {                                //label kind is eval(expression)
+                        return <Label
+                            key={n + 1}
+                            coord={coord}
+                            text={this._eval(element.options.label).toFixed(element.options.digits)}
+                            //labelDirection={"right"}          //WMc would be nice if this worked
+                            style={{
+                                color: element.options.color,
+                            }}
+                        />;
+                    }
                 } else if (element.type === "rectangle") {
                     return <Rect
                         key={n + 1}
@@ -583,7 +609,7 @@ var LineEditor = React.createClass({
             color: KhanUtil.BLACK,
             strokeDasharray: "",
             arrows: "",
-            strokeWidth: 2,
+            strokeWidth: 5,             //WMc was 2
         };
     },
 
@@ -986,6 +1012,12 @@ var LabelEditor = React.createClass({
             coordY: "0",
             color: KhanUtil.BLACK,
             label: "\\phi",
+            kind: "text", 
+            digits: 2,
+            constraintXMin: "-10",
+            constraintXMax: "10",
+            constraintYMin: "-10",
+            constraintYMax: "10",
         };
     },
 
@@ -1015,6 +1047,7 @@ var LabelEditor = React.createClass({
                 />
                 <TeX>\Large)</TeX>
             </div>
+            <ConstraintLabel {...this.props} />
             <div className="perseus-widget-row">
                 <ColorPicker
                     value={this.props.color}
@@ -1207,6 +1240,7 @@ var InteractionEditor = React.createClass({
 
     _deleteElement: function(index) {
         var element = this.props.elements[index];
+        console.log("index: " + index + "    deleting: " + element);            //WMc
         this.change({elements: _.without(this.props.elements, element)});
     },
 
@@ -1356,7 +1390,7 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementUp.bind(this, n)}
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
+                            onDelete={this._deleteElement.bind(this,n)}
                             key={element.key}
                     >
                         <FunctionEditor
@@ -1376,7 +1410,7 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementUp.bind(this, n)}
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
+                            onDelete={this._deleteElement.bind(this,n)}
                             key={element.key}
                     >
                         <ParametricEditor
@@ -1397,7 +1431,7 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementUp.bind(this, n)}
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
+                            onDelete={this._deleteElement.bind(this,n)}
                             key={element.key}
                     >
                         <LabelEditor
@@ -1423,7 +1457,7 @@ var InteractionEditor = React.createClass({
                                 null : this._moveElementUp.bind(this, n)}
                             onDown={n === this.props.elements.length - 1 ?
                                 null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
+                            onDelete={this._deleteElement.bind(this,n)}
                             key={element.key}
                     >
                         <RectangleEditor
