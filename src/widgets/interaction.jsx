@@ -11,7 +11,7 @@ var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var ArrowPicker = require("./interaction/arrow-picker.jsx");
 var ColorPicker = require("./interaction/color-picker.jsx");
 var ConstraintEditor = require("./interaction/constraint-editor.jsx");
-var ConstraintLabel = require("./interaction/constraint-label.jsx");        //WMc new
+var ConstraintLabel = require("./interaction/constraint-label.jsx");
 var DashPicker = require("./interaction/dash-picker.jsx");
 var ElementContainer = require("./interaction/element-container.jsx");
 var Graphie = require("../components/graphie.jsx");
@@ -264,7 +264,6 @@ var Interaction = React.createClass({
                                  this._eval(element.options.startY)];
                     var end = [this._eval(element.options.endX),
                                this._eval(element.options.endY)];
-                    console.log("arrows: " + element.options.arrows);
                     return <Line
                         key={element.key}
                         start={start}
@@ -273,7 +272,7 @@ var Interaction = React.createClass({
                             stroke: element.options.color,
                             strokeWidth: element.options.strokeWidth,
                             strokeDasharray: element.options.strokeDasharray,
-                            arrows: element.options.arrows,
+                            arrows: element.options.arrows
                         }}
                     />;
                 } else if (element.type === "movable-point") {
@@ -467,7 +466,7 @@ var Interaction = React.createClass({
                             element.options.constraintYMax),
                         this._eval(element.options.coordY)));
                     var coord = [coordX, coordY];
-                    if (element.options.kind === "text") {      //label kind is text
+                    if (element.options.kind === "text") {  //label kind is text
                          return <Label
                             key={n + 1}
                             coord={coord}
@@ -477,12 +476,11 @@ var Interaction = React.createClass({
                             }}
                         />;
                         //}
-                        } else {                                //label kind is eval(expression)
+                        } else {  //label kind is eval(expression)
                         return <Label
                             key={n + 1}
                             coord={coord}
                             text={this._eval(element.options.label).toFixed(element.options.digits)}
-                            //labelDirection={"right"}          //WMc would be nice if this worked
                             style={{
                                 color: element.options.color,
                             }}
@@ -609,7 +607,7 @@ var LineEditor = React.createClass({
             color: KhanUtil.BLACK,
             strokeDasharray: "",
             arrows: "",
-            strokeWidth: 5,             //WMc was 2
+            strokeWidth: 2,
         };
     },
 
@@ -1240,7 +1238,6 @@ var InteractionEditor = React.createClass({
 
     _deleteElement: function(index) {
         var element = this.props.elements[index];
-        console.log("index: " + index + "    deleting: " + element);            //WMc
         this.change({elements: _.without(this.props.elements, element)});
     },
 
@@ -1477,7 +1474,7 @@ var InteractionEditor = React.createClass({
                     <option value="">Add an element{"\u2026"}</option>
                     <option disabled>--</option>
                     <option value="point">Point</option>
-                    <option value="line">Line segment</option>
+                    <option value="line">Line</option>
                     <option value="function">Function plot</option>
                     <option value="parametric">Parametric plot</option>
                     <option value="label">Label</option>
@@ -1485,7 +1482,7 @@ var InteractionEditor = React.createClass({
                     <option value="movable-point">
                         &#x2605; Movable point</option>
                     <option value="movable-line">
-                        &#x2605; Movable line segment</option>
+                        &#x2605; Movable line</option>
                 </select>
             </div>
         </div>;
