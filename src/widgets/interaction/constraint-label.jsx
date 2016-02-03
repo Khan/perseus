@@ -1,3 +1,13 @@
+/**
+ * Constraints and settings for the Interaction widget label element.
+ *
+ * Called from the label editor in interaction.jsx.
+ * Setting for label to be either regular text or evaluated as an expression.
+ * Setting for number of digits to the right of the decimal point for label expressions.
+ * Limits label position to be within X and Y min/max values.
+
+ */
+
 var React = require("react");
 var TeX = require("react-components/tex.jsx");
 
