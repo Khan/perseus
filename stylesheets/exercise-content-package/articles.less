@@ -1,3 +1,5 @@
+@import "util.less";
+
 // Article Renderer
 // TODO(michelle): These are the old article styles. When we transition over
 // to the new styles we should remove these!
@@ -43,6 +45,8 @@
     @textColor: #21242c;
     @paragraphSpacing: 32px;
     .perseus-widget-container {
+        .legacy-typography;
+
         &.widget-float-left,
         &.widget-float-right {
             max-width: 50%;
