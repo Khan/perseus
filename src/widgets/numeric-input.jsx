@@ -621,7 +621,7 @@ var NumericInputEditor = React.createClass({
 
         // Don't bother to make a new answer box unless we are editing the last
         // one.
-        // TODO(michelle): This might not be necessary anymore.
+        // TODO(oliver): This might not be necessary anymore.
         if (choiceIndex === answers.length) {
             var lastAnswer = initAnswer(this.state.lastStatus);
             var answers = answers.concat(lastAnswer);
