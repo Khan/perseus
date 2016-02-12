@@ -43,6 +43,12 @@
 // the above style rules.
 .bibliotron-article.framework-perseus.perseus-article {
     @textColor: #21242c;
+    .body-text() {
+        color: @textColor;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
     @paragraphSpacing: 32px;
     .perseus-widget-container {
         .legacy-typography;
@@ -69,18 +75,21 @@
     }
 
     .perseus-renderer > .paragraph {
-        color: @textColor;
-        font-size: 20px;
-        line-height: 30px;
+        .body-text;
         margin: 0 auto;
         max-width: 688px;
     }
     .perseus-renderer > .paragraph .paragraph {
         // These are actual paragraphs
-        font-size: 20px;
-        line-height: 30px;
+        .body-text;
         margin-bottom: @paragraphSpacing;
         margin-top: 0;
+    }
+    .perseus-renderer > .paragraph ul:not(.perseus-widget-radio) {
+        .body-text;
+    }
+    table {
+        .body-text;
     }
 
     h2 {
