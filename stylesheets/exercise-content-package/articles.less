@@ -132,6 +132,17 @@
     .perseus-widget-explanation-link {
         font-size: 16px;
     }
+
+    // If the article starts with a heading, remove its unnecessary top margin.
+    > .perseus-article:first-child > .clearfix:first-child {
+        > .perseus-renderer:first-child > .paragraph:first-child {
+            h1, h2, h3, h4, h5, h6 {
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
 }
 
 
