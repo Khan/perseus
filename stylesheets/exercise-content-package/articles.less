@@ -133,6 +133,12 @@
         font-size: 16px;
     }
 
+    // Some images use an image widget, but some are just inlined in the
+    // paragraph. Inlined images need legacy typography, too.
+    .svg-image {
+        .legacy-typography;
+    }
+
     // If the article starts with a heading, remove its unnecessary top margin.
     > .perseus-article:first-child > .clearfix:first-child {
         > .perseus-renderer:first-child > .paragraph:first-child {
