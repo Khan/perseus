@@ -6920,11 +6920,7 @@ var buttons = [
             // fraction, typing "/" puts it in the numerator. If not, typing
             // "/" does nothing. In that case, enter a \frac.
             function(input)  {
-                var contents = input.latex();
-                input.typedText("/");
-                if (input.latex() === contents) {
-                    input.cmd("\\frac");
-                }
+              input.cmd("\\frac");
             }
         ];}
     ],

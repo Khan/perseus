@@ -36,9 +36,7 @@ var buttons = [
             // "/" does nothing. In that case, enter a \frac.
             input => {
                 var contents = input.latex();
-                input.typedText("/");
-                if (input.latex() === contents) {
-                    input.cmd("\\frac");
+                input.cmd("\\frac");
                 }
             }
         ]
