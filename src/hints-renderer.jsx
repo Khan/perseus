@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0, react/sort-comp: 0 */
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -8,19 +9,26 @@ var SvgImage = require("./components/svg-image.jsx");
 var HintsRenderer = React.createClass({
     render: function() {
         var hintsVisible = this._hintsVisible();
-        var hints = this.props.hints
+        var hints = [];
+        this.props.hints
             .slice(0, hintsVisible)
-            .map(function(hint, i) {
+            .forEach(function(hint, i) {
                 var shouldBold = i === this.props.hints.length - 1 &&
                                  !(/\*\*/).test(hint.content);
-                return <HintRenderer
-                            bold={shouldBold}
-                            hint={hint}
-                            pos={i}
-                            ref={"hintRenderer" + i}
-                            key={"hintRenderer" + i}
-                            enabledFeatures={this.props.enabledFeatures}
-                            apiOptions={this.props.apiOptions} />;
+                var renderer = <HintRenderer
+                    bold={shouldBold}
+                    hint={hint}
+                    pos={i}
+                    ref={"hintRenderer" + i}
+                    key={"hintRenderer" + i}
+                    enabledFeatures={this.props.enabledFeatures}
+                    apiOptions={this.props.apiOptions}
+                />;
+                if (hint.replace && hints.length > 0) {
+                    hints[hints.length - 1] = renderer;
+                } else {
+                    hints.push(renderer);
+                }
             }, this);
 
         return <div className={this.props.className}>{hints}</div>;

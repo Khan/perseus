@@ -984,6 +984,7 @@ var Editor = React.createClass({
         }
 
         return {
+            replace: this.props.replace,
             content: this.props.content,
             images: this.props.images,
             widgets: widgets,

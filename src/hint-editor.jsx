@@ -28,6 +28,7 @@ var HintEditor = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
+            replace: false,
         };
     },
 
@@ -38,6 +39,7 @@ var HintEditor = React.createClass({
                     widgets={this.props.widgets}
                     content={this.props.content}
                     images={this.props.images}
+                    replace={this.props.replace}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange} />
@@ -104,6 +106,7 @@ var CombinedHintEditor = React.createClass({
                 widgets={this.props.hint.widgets}
                 content={this.props.hint.content}
                 images={this.props.hint.images}
+                replace={this.props.hint.replace}
                 imageUploader={this.props.imageUploader}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
