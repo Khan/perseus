@@ -13971,7 +13971,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: function(editorProps)  {
-        return _.pick(editorProps, "times", "functions");
+        return _.pick(editorProps, "times", "functions", "easybuttons");
     },
     hidden: false
 };
