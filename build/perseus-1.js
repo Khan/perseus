@@ -5626,7 +5626,7 @@ var InputWithExamples = React.createClass({displayName: 'InputWithExamples',
         buttonSet: React.PropTypes.string,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
+        onBlur: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -5950,7 +5950,7 @@ var MathInput = React.createClass({displayName: 'MathInput',
                     // TODO(alex): Add an option to disallow variables, in
                     // which case 'x' should get converted to '\\times'
                     if (this.props.convertDotToTimes) {
-                        value = value.replace(/\\cdot/g, "haha");
+                        value = value.replace(/\\cdot/g, "\\times");
                     } else {
                         value = value.replace(/\\times/g, "\\cdot");
                     }
@@ -13925,7 +13925,7 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                     easybuttons: this.props.easybuttons,
                     onChange:this.props.onChange,
                     labelAlignment:"right",
-                    label:"小學生專用簡化版選項",}),
+                    label:"小學生專用簡化版選項。",}),
                 InfoTip(null,
                     React.DOM.p(null, "只顯示加減乘除、分數按鈕。")
                 )
