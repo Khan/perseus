@@ -13,9 +13,9 @@ var symbStyle = { fontSize: "130%" };
 // on the page rather than reusing an instance (which will cause an error).
 // Also, it's useful for things which might look different depending on the
 // props.
-var buttons = [
 
-    // basics
+var basicbuttons = [
+
     [
         () => [<span style={slightlyBig}>+</span>, "+"],
         () => [<span style={prettyBig}>-</span>, "-"],
@@ -40,7 +40,14 @@ var buttons = [
                 }
             }
         ]
-    ],
+    ]
+
+];
+
+var buttons = [
+
+    // basics
+    basicbuttons[0],
 
     // relations
     [
@@ -83,10 +90,13 @@ var buttons = [
 
 var TexButtons = React.createClass({
     propTypes: {
-        onInsert: React.PropTypes.func.isRequired
+        onInsert: React.PropTypes.func.isRequired,
+        easybuttons: React.PropTypes.bool
     },
     render: function() {
-        var buttonRows = _(buttons).map(row => row.map(symbGen => {
+        var buttonSet = this.props.easybuttons? basicbuttons: buttons;
+
+        var buttonRows = _(buttonSet).map(row => row.map(symbGen => {
             // create a (component, thing we should send to mathquill) pair
             var symbol = symbGen(this.props);
             return <button onClick={() => this.props.onInsert(symbol[1])}
