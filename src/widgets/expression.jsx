@@ -31,18 +31,21 @@ var Expression = React.createClass({
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
-        apiOptions: ApiOptions.propTypes
+        apiOptions: ApiOptions.propTypes,
+        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
         return {
             value: "",
             times: false,
+            easybuttons: false,
             functions: [],
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            easybuttons: false
         };
     },
 
@@ -121,7 +124,8 @@ var Expression = React.createClass({
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
                     onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
+                    onBlur={this._handleBlur} 
+                    easybuttons={this.props.easybuttons} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
@@ -231,282 +235,7 @@ _.extend(Expression, {
     }
 });
 
-// The old, plain-text input expression widget
-var OldExpression = React.createClass({
-    propTypes: {
-        value: React.PropTypes.string,
-        times: React.PropTypes.bool,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        enabledFeatures: EnabledFeatures.propTypes
-    },
 
-    getDefaultProps: function() {
-        return {
-            value: "",
-            times: false,
-            functions: [],
-            onFocus: function() { },
-            onBlur: function() { },
-            enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
-        };
-    },
-
-    getInitialState: function() {
-        return {
-            lastParsedTex: ""
-        };
-    },
-
-    parse: function(value, props) {
-        // TODO(jack): Disable icu for content creators here, or
-        // make it so that solution answers with ','s or '.'s work
-        var options = _.pick(props || this.props, "functions");
-        if (icu && icu.getDecimalFormatSymbols) {
-            _.extend(options, icu.getDecimalFormatSymbols());
-        }
-        return KAS.parse(value, options);
-    },
-
-    componentWillMount: function() {
-        this.updateParsedTex(this.props.value);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this.updateParsedTex(nextProps.value, nextProps);
-    },
-
-    render: function() {
-        var result = this.parse(this.props.value);
-        var shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
-
-        return <span className="perseus-widget-expression-old">
-            <InputWithExamples
-                    ref="input"
-                    value={this.props.value}
-                    onKeyDown={this.handleKeyDown}
-                    onKeyPress={this.handleKeyPress}
-                    onChange={this.handleChange}
-                    examples={this.examples()}
-                    shouldShowExamples={shouldShowExamples}
-                    interceptFocus={this._getInterceptFocus()}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
-            <span className="output">
-                <span className="tex"
-                        style={{opacity: result.parsed ? 1.0 : 0.5}}>
-                    <TeX>{this.state.lastParsedTex}</TeX>
-                </span>
-                <span className="placeholder">
-                    <span ref="error" className="error"
-                            style={{display: "none"}}>
-                        <span className="buddy" />
-                        <span className="message"><span>
-                            {ERROR_MESSAGE}
-                        </span></span>
-                    </span>
-                </span>
-            </span>
-        </span>;
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([], this.refs.input.getInputDOMNode());
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([], this.refs.input.getInputDOMNode());
-    },
-
-    _getInterceptFocus: function() {
-        return this.props.apiOptions.interceptInputFocus ?
-                this._interceptFocus : null;
-    },
-
-    _interceptFocus: function() {
-        var interceptProp = this.props.apiOptions.interceptInputFocus;
-        if (interceptProp) {
-            return interceptProp(
-                this.props.widgetId,
-                this.refs.input.getInputDOMNode()
-            );
-        }
-    },
-
-    errorTimeout: null,
-
-    componentDidMount: function() {
-        this.componentDidUpdate();
-    },
-
-    componentDidUpdate: function() {
-        clearTimeout(this.errorTimeout);
-        if (this.parse(this.props.value).parsed) {
-            this.hideError();
-        } else {
-            this.errorTimeout = setTimeout(this.showError, 2000);
-        }
-    },
-
-    componentWillUnmount: function() {
-        clearTimeout(this.errorTimeout);
-    },
-
-    showError: function() {
-        var apiResult = this.props.apiOptions.onInputError(
-            null, // reserved for some widget identifier
-            this.props.value,
-            ERROR_MESSAGE
-        );
-        if (apiResult !== false) {
-            var $error = $(this.refs.error.getDOMNode());
-            if (!$error.is(":visible")) {
-                $error.css({ top: 50, opacity: 0.1 }).show()
-                    .animate({ top: 0, opacity: 1.0 }, 300);
-            }
-        } else {
-            this.hideError();
-        }
-    },
-
-    hideError: function() {
-        var $error = $(this.refs.error.getDOMNode());
-        if ($error.is(":visible")) {
-            $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
-                $(this).hide();
-            });
-        }
-    },
-
-    /**
-     * The keydown handler handles clearing the error timeout, telling
-     * props.value to update, and intercepting the backspace key when
-     * appropriate...
-     */
-    handleKeyDown: function(event) {
-        var input = this.refs.input.getDOMNode();
-        var text = input.value;
-
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
-        var supported = start !== undefined;
-
-        var which = event.nativeEvent.keyCode;
-
-        if (supported && which === 8 /* backspace */) {
-            if (start === end && text.slice(start - 1, start + 1) === "()") {
-                event.preventDefault();
-                var val = text.slice(0, start - 1) + text.slice(start + 1);
-
-                // this.props.onChange will update the value for us, but
-                // asynchronously, making it harder to set the selection
-                // usefully, so we just set .value directly here as well.
-                input.value = val;
-                input.selectionStart = start - 1;
-                input.selectionEnd = end - 1;
-                this.props.onChange({value: val});
-            }
-        }
-    },
-
-    /**
-     * ...whereas the keypress handler handles the parentheses because keyCode
-     * is more useful for actual character insertions (keypress gives 40 for an
-     * open paren '(' instead of keydown which gives 57, the code for '9').
-     */
-    handleKeyPress: function(event) {
-        var input = this.refs.input.getDOMNode();
-        var text = input.value;
-
-        var start = input.selectionStart;
-        var end = input.selectionEnd;
-        var supported = start !== undefined;
-
-        var which = event.nativeEvent.charCode;
-
-        if (supported && which === 40 /* left paren */) {
-            event.preventDefault();
-
-            var val;
-            if (start === end) {
-                var insertMatched = _.any([" ", ")", ""], function(val) {
-                    return text.charAt(start) === val;
-                });
-
-                val = text.slice(0, start) +
-                        (insertMatched ? "()" : "(") + text.slice(end);
-            } else {
-                val = text.slice(0, start) +
-                        "(" + text.slice(start, end) + ")" + text.slice(end);
-            }
-
-            input.value = val;
-            input.selectionStart = start + 1;
-            input.selectionEnd = end + 1;
-            this.props.onChange({value: val});
-
-        } else if (supported && which === 41 /* right paren */) {
-            if (start === end && text.charAt(start) === ")") {
-                event.preventDefault();
-                input.selectionStart = start + 1;
-                input.selectionEnd = end + 1;
-            }
-        }
-    },
-
-    handleChange: function(newValue) {
-        this.props.onChange({value: newValue});
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    },
-
-    toJSON: function(skipValidation) {
-        return {value: this.props.value};
-    },
-
-    updateParsedTex: function(value, props) {
-        var result = this.parse(value, props);
-        var options = _.pick(this.props, "times");
-        if (result.parsed) {
-            this.setState({lastParsedTex: result.expr.asTex(options)});
-        }
-    },
-
-    simpleValidate: function(rubric, onInputError) {
-        onInputError = onInputError || function() { };
-        return Expression.validate(this.toJSON(), rubric, onInputError);
-    },
-
-    examples: function() {
-        var mult = $._("For $2\\cdot2$, enter **2*2**");
-        if (this.props.times) {
-            mult = mult.replace(/\\cdot/g, "\\times");
-        }
-
-        return [
-            $._("**Acceptable Formats**"),
-            mult,
-            $._("For $3y$, enter **3y** or **3*y**"),
-            $._("For $\\dfrac{1}{x}$, enter **1/x**"),
-            $._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"),
-            $._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"),
-            $._("For $x^{y}$, enter **x^y**"),
-            $._("For $x^{2/3}$, enter **x^(2/3)**"),
-            $._("For $\\sqrt{x}$, enter **sqrt(x)**"),
-            $._("For $\\pi$, enter **pi**"),
-            $._("For $\\sin \\theta$, enter **sin(theta)**"),
-            $._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            $._("For $\\neq$, enter **=/=**")
-        ];
-    },
-
-    statics: {
-        displayMode: "block"
-    }
-});
 
 var ExpressionEditor = React.createClass({
     mixins: [Changeable, JsonifyProps],
@@ -516,7 +245,8 @@ var ExpressionEditor = React.createClass({
         form: React.PropTypes.bool,
         simplify: React.PropTypes.bool,
         times: React.PropTypes.bool,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string)
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        easybuttons: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -525,7 +255,8 @@ var ExpressionEditor = React.createClass({
             form: false,
             simplify: false,
             times: false,
-            functions: ["f", "g", "h"]
+            functions: ["f", "g", "h"],
+            easybuttons: false
         };
     },
 
@@ -560,7 +291,8 @@ var ExpressionEditor = React.createClass({
             times: this.props.times,
             functions: this.props.functions,
             onChange: (newProps) => this.change(newProps),
-            buttonsVisible: "never"
+            buttonsVisible: "never",
+            easybuttons: this.props.easybuttons
         };
 
         var expression = this.state.isTex ? Expression : OldExpression;
@@ -575,7 +307,8 @@ var ExpressionEditor = React.createClass({
             {this.state.isTex && <TexButtons
                 className="math-input-buttons"
                 convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert} />}
+                onInsert={this.handleTexInsert}
+                easybuttons={this.props.easybuttons} />}
 
             <div>
                 <PropCheckBox
@@ -613,6 +346,17 @@ var ExpressionEditor = React.createClass({
                     label="用 × 表示乘號。" />
                 <InfoTip>
                     <p>算術問題使用 × 表示乘法，代數問題用・表示乘法。</p>
+                </InfoTip>
+            </div>
+
+            <div>
+                <PropCheckBox
+                    easybuttons={this.props.easybuttons}
+                    onChange={this.props.onChange}
+                    labelAlignment="right"
+                    label="小學生專用簡化版選項。" />
+                <InfoTip>
+                    <p>只顯示加減乘除、分數按鈕。</p>
                 </InfoTip>
             </div>
 
@@ -656,7 +400,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions");
+        return _.pick(editorProps, "times", "functions", "easybuttons");
     },
     hidden: false
 };
