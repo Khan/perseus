@@ -38,7 +38,7 @@ var basicbuttons = [
                 var contents = input.latex();
                 input.cmd("\\frac");
                 }
-            }
+            
         ]
     ]
 

@@ -1,7 +1,7 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 57a015f704df8358a3537fc0b1324c7b478d54cb
-// branch master
-!function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Perseus=e():"undefined"!=typeof global?global.Perseus=e():"undefined"!=typeof self&&(self.Perseus=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// commit 034b1753507481689e5c7ae69b69af67d849ecc9
+// branch expression
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
 
@@ -1385,7 +1385,8 @@ function baseBind(bindData) {
 module.exports = baseBind;
 
 },{"lodash._basecreate":15,"lodash._setbinddata":9,"lodash._slice":25,"lodash.isobject":18}],15:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -1428,11 +1429,12 @@ if (!nativeCreate) {
 
 module.exports = baseCreate;
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"lodash._isnative":16,"lodash.isobject":18,"lodash.noop":17}],16:[function(require,module,exports){
-module.exports=require(10)
-},{}],17:[function(require,module,exports){
-module.exports=require(11)
-},{}],18:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],17:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],18:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1554,14 +1556,14 @@ function baseCreateWrapper(bindData) {
 module.exports = baseCreateWrapper;
 
 },{"lodash._basecreate":20,"lodash._setbinddata":9,"lodash._slice":25,"lodash.isobject":23}],20:[function(require,module,exports){
-module.exports=require(15)
-},{"lodash._isnative":21,"lodash.isobject":23,"lodash.noop":22}],21:[function(require,module,exports){
-module.exports=require(10)
-},{}],22:[function(require,module,exports){
-module.exports=require(11)
-},{}],23:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":29}],24:[function(require,module,exports){
+arguments[4][15][0].apply(exports,arguments)
+},{"dup":15,"lodash._isnative":21,"lodash.isobject":23,"lodash.noop":22}],21:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],22:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],23:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":29}],24:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1661,7 +1663,8 @@ function identity(value) {
 module.exports = identity;
 
 },{}],27:[function(require,module,exports){
-var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/**
+(function (global){
+/**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -1702,9 +1705,10 @@ support.funcNames = typeof Function.name == 'string';
 
 module.exports = support;
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"lodash._isnative":28}],28:[function(require,module,exports){
-module.exports=require(10)
-},{}],29:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],29:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1765,8 +1769,8 @@ var keys = !nativeKeys ? shimKeys : function(object) {
 module.exports = keys;
 
 },{"lodash._isnative":31,"lodash._shimkeys":32,"lodash.isobject":33}],31:[function(require,module,exports){
-module.exports=require(10)
-},{}],32:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],32:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1807,8 +1811,8 @@ var shimKeys = function(object) {
 module.exports = shimKeys;
 
 },{"lodash._objecttypes":29}],33:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":29}],34:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":29}],34:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -1911,20 +1915,20 @@ var reUnescapedHtml = RegExp('[' + keys(htmlEscapes).join('') + ']', 'g');
 module.exports = reUnescapedHtml;
 
 },{"lodash._htmlescapes":38,"lodash.keys":39}],38:[function(require,module,exports){
-module.exports=require(36)
-},{}],39:[function(require,module,exports){
+arguments[4][36][0].apply(exports,arguments)
+},{"dup":36}],39:[function(require,module,exports){
 arguments[4][30][0].apply(exports,arguments)
-},{"lodash._isnative":40,"lodash._shimkeys":41,"lodash.isobject":43}],40:[function(require,module,exports){
-module.exports=require(10)
-},{}],41:[function(require,module,exports){
-module.exports=require(32)
-},{"lodash._objecttypes":42}],42:[function(require,module,exports){
-module.exports=require(29)
-},{}],43:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":44}],44:[function(require,module,exports){
-module.exports=require(29)
-},{}],45:[function(require,module,exports){
+},{"dup":30,"lodash._isnative":40,"lodash._shimkeys":41,"lodash.isobject":43}],40:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],41:[function(require,module,exports){
+arguments[4][32][0].apply(exports,arguments)
+},{"dup":32,"lodash._objecttypes":42}],42:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"dup":29}],43:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":44}],44:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"dup":29}],45:[function(require,module,exports){
 var _validCSSProps = {
   'alignment-adjust': true,
   'alignment-baseline': true,
@@ -2543,43 +2547,43 @@ module.exports = createCallback;
 
 },{"lodash._basecreatecallback":49,"lodash._baseisequal":68,"lodash.isobject":77,"lodash.keys":79,"lodash.property":83}],49:[function(require,module,exports){
 arguments[4][8][0].apply(exports,arguments)
-},{"lodash._setbinddata":50,"lodash.bind":53,"lodash.identity":65,"lodash.support":66}],50:[function(require,module,exports){
-module.exports=require(9)
-},{"lodash._isnative":51,"lodash.noop":52}],51:[function(require,module,exports){
-module.exports=require(10)
-},{}],52:[function(require,module,exports){
-module.exports=require(11)
-},{}],53:[function(require,module,exports){
+},{"dup":8,"lodash._setbinddata":50,"lodash.bind":53,"lodash.identity":65,"lodash.support":66}],50:[function(require,module,exports){
+arguments[4][9][0].apply(exports,arguments)
+},{"dup":9,"lodash._isnative":51,"lodash.noop":52}],51:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],52:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],53:[function(require,module,exports){
 arguments[4][12][0].apply(exports,arguments)
-},{"lodash._createwrapper":54,"lodash._slice":64}],54:[function(require,module,exports){
+},{"dup":12,"lodash._createwrapper":54,"lodash._slice":64}],54:[function(require,module,exports){
 arguments[4][13][0].apply(exports,arguments)
-},{"lodash._basebind":55,"lodash._basecreatewrapper":59,"lodash._slice":64,"lodash.isfunction":63}],55:[function(require,module,exports){
+},{"dup":13,"lodash._basebind":55,"lodash._basecreatewrapper":59,"lodash._slice":64,"lodash.isfunction":63}],55:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"lodash._basecreate":56,"lodash._setbinddata":50,"lodash._slice":64,"lodash.isobject":77}],56:[function(require,module,exports){
+},{"dup":14,"lodash._basecreate":56,"lodash._setbinddata":50,"lodash._slice":64,"lodash.isobject":77}],56:[function(require,module,exports){
 arguments[4][15][0].apply(exports,arguments)
-},{"lodash._isnative":57,"lodash.isobject":77,"lodash.noop":58}],57:[function(require,module,exports){
-module.exports=require(10)
-},{}],58:[function(require,module,exports){
-module.exports=require(11)
-},{}],59:[function(require,module,exports){
+},{"dup":15,"lodash._isnative":57,"lodash.isobject":77,"lodash.noop":58}],57:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],58:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],59:[function(require,module,exports){
 arguments[4][19][0].apply(exports,arguments)
-},{"lodash._basecreate":60,"lodash._setbinddata":50,"lodash._slice":64,"lodash.isobject":77}],60:[function(require,module,exports){
+},{"dup":19,"lodash._basecreate":60,"lodash._setbinddata":50,"lodash._slice":64,"lodash.isobject":77}],60:[function(require,module,exports){
 arguments[4][15][0].apply(exports,arguments)
-},{"lodash._isnative":61,"lodash.isobject":77,"lodash.noop":62}],61:[function(require,module,exports){
-module.exports=require(10)
-},{}],62:[function(require,module,exports){
-module.exports=require(11)
-},{}],63:[function(require,module,exports){
-module.exports=require(24)
-},{}],64:[function(require,module,exports){
-module.exports=require(25)
-},{}],65:[function(require,module,exports){
-module.exports=require(26)
-},{}],66:[function(require,module,exports){
-module.exports=require(27)
-},{"lodash._isnative":67}],67:[function(require,module,exports){
-module.exports=require(10)
-},{}],68:[function(require,module,exports){
+},{"dup":15,"lodash._isnative":61,"lodash.isobject":77,"lodash.noop":62}],61:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],62:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],63:[function(require,module,exports){
+arguments[4][24][0].apply(exports,arguments)
+},{"dup":24}],64:[function(require,module,exports){
+arguments[4][25][0].apply(exports,arguments)
+},{"dup":25}],65:[function(require,module,exports){
+arguments[4][26][0].apply(exports,arguments)
+},{"dup":26}],66:[function(require,module,exports){
+arguments[4][27][0].apply(exports,arguments)
+},{"dup":27,"lodash._isnative":67}],67:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],68:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2829,8 +2833,8 @@ var arrayPool = [];
 module.exports = arrayPool;
 
 },{}],71:[function(require,module,exports){
-module.exports=require(29)
-},{}],72:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"dup":29}],72:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2858,8 +2862,8 @@ function releaseArray(array) {
 module.exports = releaseArray;
 
 },{"lodash._arraypool":73,"lodash._maxpoolsize":74}],73:[function(require,module,exports){
-module.exports=require(70)
-},{}],74:[function(require,module,exports){
+arguments[4][70][0].apply(exports,arguments)
+},{"dup":70}],74:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -2931,20 +2935,20 @@ var forIn = function(collection, callback, thisArg) {
 module.exports = forIn;
 
 },{"lodash._basecreatecallback":49,"lodash._objecttypes":71}],76:[function(require,module,exports){
-module.exports=require(24)
-},{}],77:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":78}],78:[function(require,module,exports){
-module.exports=require(29)
-},{}],79:[function(require,module,exports){
+arguments[4][24][0].apply(exports,arguments)
+},{"dup":24}],77:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":78}],78:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"dup":29}],79:[function(require,module,exports){
 arguments[4][30][0].apply(exports,arguments)
-},{"lodash._isnative":80,"lodash._shimkeys":81,"lodash.isobject":77}],80:[function(require,module,exports){
-module.exports=require(10)
-},{}],81:[function(require,module,exports){
-module.exports=require(32)
-},{"lodash._objecttypes":82}],82:[function(require,module,exports){
-module.exports=require(29)
-},{}],83:[function(require,module,exports){
+},{"dup":30,"lodash._isnative":80,"lodash._shimkeys":81,"lodash.isobject":77}],80:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],81:[function(require,module,exports){
+arguments[4][32][0].apply(exports,arguments)
+},{"dup":32,"lodash._objecttypes":82}],82:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"dup":29}],83:[function(require,module,exports){
 /**
  * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
  * Build: `lodash modularize modern exports="npm" -o ./npm/`
@@ -3040,57 +3044,57 @@ module.exports = forOwn;
 
 },{"lodash._basecreatecallback":85,"lodash._objecttypes":106,"lodash.keys":107}],85:[function(require,module,exports){
 arguments[4][8][0].apply(exports,arguments)
-},{"lodash._setbinddata":86,"lodash.bind":89,"lodash.identity":103,"lodash.support":104}],86:[function(require,module,exports){
-module.exports=require(9)
-},{"lodash._isnative":87,"lodash.noop":88}],87:[function(require,module,exports){
-module.exports=require(10)
-},{}],88:[function(require,module,exports){
-module.exports=require(11)
-},{}],89:[function(require,module,exports){
+},{"dup":8,"lodash._setbinddata":86,"lodash.bind":89,"lodash.identity":103,"lodash.support":104}],86:[function(require,module,exports){
+arguments[4][9][0].apply(exports,arguments)
+},{"dup":9,"lodash._isnative":87,"lodash.noop":88}],87:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],88:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],89:[function(require,module,exports){
 arguments[4][12][0].apply(exports,arguments)
-},{"lodash._createwrapper":90,"lodash._slice":102}],90:[function(require,module,exports){
+},{"dup":12,"lodash._createwrapper":90,"lodash._slice":102}],90:[function(require,module,exports){
 arguments[4][13][0].apply(exports,arguments)
-},{"lodash._basebind":91,"lodash._basecreatewrapper":96,"lodash._slice":102,"lodash.isfunction":101}],91:[function(require,module,exports){
+},{"dup":13,"lodash._basebind":91,"lodash._basecreatewrapper":96,"lodash._slice":102,"lodash.isfunction":101}],91:[function(require,module,exports){
 arguments[4][14][0].apply(exports,arguments)
-},{"lodash._basecreate":92,"lodash._setbinddata":86,"lodash._slice":102,"lodash.isobject":95}],92:[function(require,module,exports){
+},{"dup":14,"lodash._basecreate":92,"lodash._setbinddata":86,"lodash._slice":102,"lodash.isobject":95}],92:[function(require,module,exports){
 arguments[4][15][0].apply(exports,arguments)
-},{"lodash._isnative":93,"lodash.isobject":95,"lodash.noop":94}],93:[function(require,module,exports){
-module.exports=require(10)
-},{}],94:[function(require,module,exports){
-module.exports=require(11)
-},{}],95:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":106}],96:[function(require,module,exports){
+},{"dup":15,"lodash._isnative":93,"lodash.isobject":95,"lodash.noop":94}],93:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],94:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],95:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":106}],96:[function(require,module,exports){
 arguments[4][19][0].apply(exports,arguments)
-},{"lodash._basecreate":97,"lodash._setbinddata":86,"lodash._slice":102,"lodash.isobject":100}],97:[function(require,module,exports){
+},{"dup":19,"lodash._basecreate":97,"lodash._setbinddata":86,"lodash._slice":102,"lodash.isobject":100}],97:[function(require,module,exports){
 arguments[4][15][0].apply(exports,arguments)
-},{"lodash._isnative":98,"lodash.isobject":100,"lodash.noop":99}],98:[function(require,module,exports){
-module.exports=require(10)
-},{}],99:[function(require,module,exports){
-module.exports=require(11)
-},{}],100:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":106}],101:[function(require,module,exports){
-module.exports=require(24)
-},{}],102:[function(require,module,exports){
-module.exports=require(25)
-},{}],103:[function(require,module,exports){
-module.exports=require(26)
-},{}],104:[function(require,module,exports){
-module.exports=require(27)
-},{"lodash._isnative":105}],105:[function(require,module,exports){
-module.exports=require(10)
-},{}],106:[function(require,module,exports){
-module.exports=require(29)
-},{}],107:[function(require,module,exports){
+},{"dup":15,"lodash._isnative":98,"lodash.isobject":100,"lodash.noop":99}],98:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],99:[function(require,module,exports){
+arguments[4][11][0].apply(exports,arguments)
+},{"dup":11}],100:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":106}],101:[function(require,module,exports){
+arguments[4][24][0].apply(exports,arguments)
+},{"dup":24}],102:[function(require,module,exports){
+arguments[4][25][0].apply(exports,arguments)
+},{"dup":25}],103:[function(require,module,exports){
+arguments[4][26][0].apply(exports,arguments)
+},{"dup":26}],104:[function(require,module,exports){
+arguments[4][27][0].apply(exports,arguments)
+},{"dup":27,"lodash._isnative":105}],105:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],106:[function(require,module,exports){
+arguments[4][29][0].apply(exports,arguments)
+},{"dup":29}],107:[function(require,module,exports){
 arguments[4][30][0].apply(exports,arguments)
-},{"lodash._isnative":108,"lodash._shimkeys":109,"lodash.isobject":110}],108:[function(require,module,exports){
-module.exports=require(10)
-},{}],109:[function(require,module,exports){
-module.exports=require(32)
-},{"lodash._objecttypes":106}],110:[function(require,module,exports){
-module.exports=require(18)
-},{"lodash._objecttypes":106}],111:[function(require,module,exports){
+},{"dup":30,"lodash._isnative":108,"lodash._shimkeys":109,"lodash.isobject":110}],108:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],109:[function(require,module,exports){
+arguments[4][32][0].apply(exports,arguments)
+},{"dup":32,"lodash._objecttypes":106}],110:[function(require,module,exports){
+arguments[4][18][0].apply(exports,arguments)
+},{"dup":18,"lodash._objecttypes":106}],111:[function(require,module,exports){
 var escape = require('lodash.escape');
 
 var _uppercasePattern = /([A-Z])/g;
@@ -5794,9 +5798,8 @@ var MathInput = React.createClass({displayName: 'MathInput',
             buttons = TexButtons(
                 {className:"math-input-buttons absolute",
                 convertDotToTimes:this.props.convertDotToTimes,
-                onInsert:this.insert,
-                easybuttons: this.props.easybuttons
-                } );
+                onInsert:this.insert, 
+                easybuttons:this.props.easybuttons} );
         }
 
         return React.DOM.div( {style:{display: "inline-block"}}, 
@@ -6903,25 +6906,33 @@ var symbStyle = { fontSize: "130%" };
 // props.
 
 var basicbuttons = [
-    [
-    function()  {return [React.DOM.span( {style:slightlyBig}, "+"), "+"];},
-    function()  {return [React.DOM.span( {style:prettyBig}, "-"), "-"];},
 
-    // TODO(joel) - display as \cdot when appropriate
-    function(props)  {
-        if (props.convertDotToTimes) {
-            return [TeX( {style:prettyBig}, "\\times"), "\\times"];
-        } else {
-            return [TeX( {style:prettyBig}, "\\cdot"), "\\cdot"];
-        }
-    },
-    function()  {return [
-        TeX( {style:prettyBig}, "\\frac{□}{□}"),
-        function(input)  {
-          input.cmd("\\frac");
-        }
-    ];}
+    [
+        function()  {return [React.DOM.span( {style:slightlyBig}, "+"), "+"];},
+        function()  {return [React.DOM.span( {style:prettyBig}, "-"), "-"];},
+
+        // TODO(joel) - display as \cdot when appropriate
+        function(props)  {
+            if (props.convertDotToTimes) {
+                return [TeX( {style:prettyBig}, "\\times"), "\\times"];
+            } else {
+                return [TeX( {style:prettyBig}, "\\cdot"), "\\cdot"];
+            }
+        },
+        function()  {return [
+            TeX( {style:prettyBig}, "\\frac{□}{□}"),
+
+            // If there's something in the input that can become part of a
+            // fraction, typing "/" puts it in the numerator. If not, typing
+            // "/" does nothing. In that case, enter a \frac.
+            function(input)  {
+                var contents = input.latex();
+                input.cmd("\\frac");
+                }
+            
+        ];}
     ]
+
 ];
 
 var buttons = [
@@ -6967,7 +6978,6 @@ var buttons = [
     ]
 
 ];
-
 
 var TexButtons = React.createClass({displayName: 'TexButtons',
     propTypes: {
@@ -13613,7 +13623,8 @@ var Expression = React.createClass({displayName: 'Expression',
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
+            easybuttons: false
         };
     },
 
@@ -13692,9 +13703,8 @@ var Expression = React.createClass({displayName: 'Expression',
                     convertDotToTimes:this.props.times,
                     buttonsVisible:this.props.buttonsVisible || "focused",
                     onFocus:this._handleFocus,
-                    onBlur:this._handleBlur,
-                    easybuttons:this.props.easybuttons
-                  } ),
+                    onBlur:this._handleBlur, 
+                    easybuttons:this.props.easybuttons} ),
                 this.state.showErrorTooltip && errorTooltip
             );
         }
@@ -13873,12 +13883,11 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                 "正確答案:",' ',
                 expression(expressionProps)
             )),
-
             this.state.isTex && TexButtons(
                 {className:"math-input-buttons",
                 convertDotToTimes:this.props.times,
                 onInsert:this.handleTexInsert,
-                easybuttons: this.props.easybuttons} ),
+                easybuttons:this.props.easybuttons} ),
 
             React.DOM.div(null, 
                 PropCheckBox(
@@ -13919,14 +13928,13 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
                 )
             ),
 
-            React.DOM.div(null,
+            React.DOM.div(null, 
                 PropCheckBox(
-                    {
-                    easybuttons: this.props.easybuttons,
+                    {easybuttons:this.props.easybuttons,
                     onChange:this.props.onChange,
                     labelAlignment:"right",
-                    label:"小學生專用簡化版選項。",}),
-                InfoTip(null,
+                    label:"小學生專用簡化版選項。"} ),
+                InfoTip(null, 
                     React.DOM.p(null, "只顯示加減乘除、分數按鈕。")
                 )
             ),
@@ -14332,7 +14340,7 @@ var ImageWidget = React.createClass({displayName: 'ImageWidget',
                 range:this.props.range,
                 options:_.pick(this.props, "box", "range", "labels"),
                 setup:this.setupGraphie,
-                allowScratchpad: this.props.allowScratchpad}
+                allowScratchpad:this.props.allowScratchpad}
             )
         );
     },
@@ -25381,7 +25389,5 @@ module.exports = {
     hidden: false
 };
 
-},{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../tex.jsx":167,"../util.js":168,"react":115,"react-components/info-tip":5}]},{},[163])
-(163)
+},{"../components/graph-settings.jsx":121,"../components/graph.jsx":122,"../components/number-input.jsx":129,"../components/prop-check-box.jsx":130,"../tex.jsx":167,"../util.js":168,"react":115,"react-components/info-tip":5}]},{},[163])(163)
 });
-;

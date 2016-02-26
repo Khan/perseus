@@ -124,7 +124,8 @@ var Expression = React.createClass({
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
                     onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
+                    onBlur={this._handleBlur} 
+                    easybuttons={this.props.easybuttons} />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
@@ -399,7 +400,7 @@ module.exports = {
     },
     editor: ExpressionEditor,
     transform: (editorProps) => {
-        return _.pick(editorProps, "times", "functions");
+        return _.pick(editorProps, "times", "functions", "easybuttons");
     },
     hidden: false
 };

@@ -36,7 +36,7 @@ var MathInput = React.createClass({
                 className="math-input-buttons absolute"
                 convertDotToTimes={this.props.convertDotToTimes}
                 onInsert={this.insert} 
-                easybuttons={this.props.easybuttons />;
+                easybuttons={this.props.easybuttons} />;
         }
 
         return <div style={{display: "inline-block"}}>
