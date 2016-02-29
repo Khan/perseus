@@ -209,8 +209,8 @@ var NumberLine = React.createClass({
         initialX = initialX == null ? range[0] : initialX;
 
         return range[0] <  range[1] &&
-               initialX >= range[0] &&
-               initialX <= range[1] &&
+               knumber.sign(initialX - range[0]) >= 0 &&
+               knumber.sign(initialX - range[1]) <= 0 &&
                divisionRange[0] < divisionRange[1] &&
                0 < this.props.numDivisions &&
                0 < this.props.snapDivisions;
