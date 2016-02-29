@@ -596,7 +596,7 @@ var NumberLineEditor = React.createClass({
             React.PropTypes.number
         ).isRequired,
         numDivisions: React.PropTypes.number.isRequired,
-        snapDivisions: React.PropTypes.number.isRequired,
+        snapDivisions: React.PropTypes.number,
 
         tickStep: React.PropTypes.number,
         correctRel: React.PropTypes.oneOf(["lt", "gt", "le", "ge", "eq"]),
@@ -1014,6 +1014,8 @@ var numberLineTransform = (editorProps) => {
     _.extend(props, {
         numLinePosition: numLinePosition,
         numDivisions: numDivisions,
+        // Use getDefaultProps value if null
+        snapDivisions: props.snapDivisions || undefined,
     });
 
     return props;
@@ -1055,6 +1057,8 @@ var staticTransform = (editorProps) => {
         numDivisions: numDivisions,
         // Render the relation in the correct answer
         rel: editorProps.isInequality ? editorProps.correctRel : null,
+        // Use getDefaultProps value if null
+        snapDivisions: props.snapDivisions || undefined,
     });
 
     return props;
