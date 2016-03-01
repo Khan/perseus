@@ -462,6 +462,70 @@
     }
 }
 
+
+// Hide new hints styling everywhere except Bibliotron.
+// This means the new styles won't show up on mobile, which is what we want!
+.bibliotron-exercise .perseus-hint-renderer {
+    border-left: 4px solid #f6f7f7;
+    padding-left: 16px;
+    position: relative;
+    &:focus {
+        border-left-color: #d6d8da;
+        outline: none;
+    }
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    div.paragraph {
+        margin-top: 0px;
+        margin-bottom: 16px;
+    }
+}
+@default3: #00457c;
+@science3: #9e034e;
+@math3: #007d96;
+@economics3: #a75a05;
+@partner3: #208170;
+@humanities3: #be2612;
+@testPrep3: #543b78;
+@cs3: #0d923f;
+.perseus-hint-label {
+    color: @default3;
+    display: none;
+    font-weight: 600;
+    margin-right: 13px;
+    position: absolute;
+    right: 100%;
+    white-space: nowrap;
+}
+.perseus-domain-science .perseus-hint-label {
+    color: @science3;
+}
+.perseus-domain-math .perseus-hint-label {
+    color: @math3;
+}
+.perseus-domain-economics .perseus-hint-label {
+    color: @economics3;
+}
+.perseus-domain-partner .perseus-hint-label {
+    color: @partner3;
+}
+.perseus-domain-humanities .perseus-hint-label {
+    color: @humanities3;
+}
+.perseus-domain-test-prep .perseus-hint-label {
+    color: @testPrep3;
+}
+.perseus-domain-cs .perseus-hint-label {
+    color: @cs3;
+}
+.bibliotron-exercise .perseus-hint-renderer:last-child .perseus-hint-label {
+    display: block;
+}
+
 // TODO(joel) - remove?
 .perseus-tooltip {
     background: #fff;

@@ -1,50 +1,18 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-/* eslint react/prop-types: 0, react/sort-comp: 0 */
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const HintRenderer = require("./hint-renderer.jsx");
+const SvgImage = require("./components/svg-image.jsx");
 
-var HintRenderer = require("./hint-renderer.jsx");
-var SvgImage = require("./components/svg-image.jsx");
 
-var HintsRenderer = React.createClass({
-    render: function() {
-        var hintsVisible = this._hintsVisible();
-        var hints = [];
-        this.props.hints
-            .slice(0, hintsVisible)
-            .forEach(function(hint, i) {
-                var shouldBold = i === this.props.hints.length - 1 &&
-                                 !(/\*\*/).test(hint.content);
-                var renderer = <HintRenderer
-                    bold={shouldBold}
-                    hint={hint}
-                    pos={i}
-                    ref={"hintRenderer" + i}
-                    key={"hintRenderer" + i}
-                    enabledFeatures={this.props.enabledFeatures}
-                    apiOptions={this.props.apiOptions}
-                />;
-                if (hint.replace && hints.length > 0) {
-                    hints[hints.length - 1] = renderer;
-                } else {
-                    hints.push(renderer);
-                }
-            }, this);
-
-        return <div className={this.props.className}>{hints}</div>;
-    },
-
-    _hintsVisible: function() {
-        if (this.props.hintsVisible == null ||
-                this.props.hintsVisible === -1) {
-            return this.props.hints.length;
-        } else {
-            return this.props.hintsVisible;
-        }
+const HintsRenderer = React.createClass({
+    propTypes: {
+        apiOptions: React.PropTypes.any,
+        className: React.PropTypes.string,
+        enabledFeatures: React.PropTypes.any,
+        hints: React.PropTypes.arrayOf(React.PropTypes.any),
+        hintsVisible: React.PropTypes.number,
     },
 
     componentDidMount: function() {
@@ -59,14 +27,23 @@ var HintsRenderer = React.createClass({
 
         // When a new hint is displayed we immediately focus it
         if (prevProps.hintsVisible < this.props.hintsVisible) {
-            var pos = this.props.hintsVisible - 1;
+            const pos = this.props.hintsVisible - 1;
             ReactDOM.findDOMNode(this.refs["hintRenderer" + pos]).focus();
+        }
+    },
+
+    _hintsVisible: function() {
+        if (this.props.hintsVisible == null ||
+                this.props.hintsVisible === -1) {
+            return this.props.hints.length;
+        } else {
+            return this.props.hintsVisible;
         }
     },
 
     _cacheImagesInHint: function(hint) {
         _.each(hint.images, (data, src) => {
-            var image = new Image();
+            const image = new Image();
             image.src = SvgImage.getRealImageUrl(src);
         });
     },
@@ -90,8 +67,8 @@ var HintsRenderer = React.createClass({
     restoreSerializedState: function(state, callback) {
         // We need to wait until all the renderers are finished restoring their
         // state before we fire our callback.
-        var numCallbacks = 1;
-        var fireCallback = () => {
+        let numCallbacks = 1;
+        const fireCallback = () => {
             --numCallbacks;
             if (callback && numCallbacks === 0) {
                 callback();
@@ -99,7 +76,7 @@ var HintsRenderer = React.createClass({
         };
 
         _.each(state, (hintState, i) => {
-            var hintRenderer = this.refs["hintRenderer" + i];
+            const hintRenderer = this.refs["hintRenderer" + i];
             // This is not ideal in that it doesn't restore state
             // if the hint isn't visible, but we can't exactly restore
             // the state to an unmounted renderer, so...
@@ -114,6 +91,37 @@ var HintsRenderer = React.createClass({
         // This makes sure that the callback is fired if there aren't any
         // mounted renderers.
         fireCallback();
+    },
+
+    render: function() {
+
+        const hintsVisible = this._hintsVisible();
+        const hints = [];
+        this.props.hints
+            .slice(0, hintsVisible)
+            .forEach((hint, i) => {
+                const lastHint = i === this.props.hints.length - 1 &&
+                    !(/\*\*/).test(hint.content);
+
+                const renderer = <HintRenderer
+                    lastHint={lastHint}
+                    hint={hint}
+                    pos={i}
+                    totalHints={this.props.hints.length}
+                    ref={"hintRenderer" + i}
+                    key={"hintRenderer" + i}
+                    enabledFeatures={this.props.enabledFeatures}
+                    apiOptions={this.props.apiOptions}
+                />;
+
+                if (hint.replace && hints.length > 0) {
+                    hints[hints.length - 1] = renderer;
+                } else {
+                    hints.push(renderer);
+                }
+            });
+
+        return <div className={this.props.className}>{hints}</div>;
     },
 });
 
