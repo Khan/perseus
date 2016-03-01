@@ -32,6 +32,10 @@ var HintEditor = React.createClass({
         };
     },
 
+    handleChange: function(e) {
+        this.props.onChange({replace:e.target.checked});
+    },
+
     render: function() {
         return <div className="perseus-hint-editor perseus-editor-left-cell">
             <div className="pod-title">Hint</div>
@@ -62,6 +66,11 @@ var HintEditor = React.createClass({
                         <p>The last hint is automatically bolded.</p>
                     </InfoTip>}
                 </span>
+                <input type="checkbox"
+                       checked={this.props.replace}
+                       onChange={this.handleChange}
+                />
+                Replace previous hint
                 <button type="button"
                         className="remove-hint simple-button orange"
                         onClick={this.props.onRemove}>
