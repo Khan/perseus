@@ -708,6 +708,20 @@ var Renderer = React.createClass({
                 return this.renderWidget(node.widgetType, node.id, state);
             }
 
+        } else if (node.type === "blockMath") {
+            // We render math here instead of in perseus-markdown.jsx
+            // because we need to pass it our onRender callback.
+            return <div
+                key={state.key}
+                className="perseus-block-math"
+            >
+                <div className="perseus-block-math-inner">
+                    <TeX onRender={this.props.onRender}>
+                        {node.content}
+                    </TeX>
+                </div>
+            </div>;
+
         } else if (node.type === "math") {
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.

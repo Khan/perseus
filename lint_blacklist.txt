@@ -5,4 +5,5 @@ test/qunit-1.11.0.js
 react-components/
 node/environment.js
 src/sigfigs.jsx
-stylesheets/perseus-admin-package/editor.less
+stylesheets/exercise-content-package/perseus.less
+stylesheets/exercise-content-package/articles.less

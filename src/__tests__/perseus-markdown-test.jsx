@@ -78,13 +78,13 @@ var validateCount = (source, expectedCount) => {
 describe("perseus markdown", () => {
     describe("parser", () => {
         it("should parse math", () => {
-            var parsed = parse("$y = x + 1$");
+            var parsed = parse("math $y = x + 1$");
             validateParse(parsed, [{
                 type: "paragraph",
-                content: [{
-                    type: "math",
-                    content: "y = x + 1",
-                }],
+                content: [
+                    {type: "text", content: "math "},
+                    {type: "math", content: "y = x + 1"},
+                ],
             }]);
 
             var parsed2 = parse("hi $y = x + 1$ there");
@@ -99,45 +99,45 @@ describe("perseus markdown", () => {
         });
 
         it("should parse nested math", () => {
-            var parsed = parse("$y = \\text{$x + 1$}$");
+            var parsed = parse("math $y = \\text{$x + 1$}$");
             validateParse(parsed, [{
                 type: "paragraph",
-                content: [{
-                    type: "math",
-                    content: "y = \\text{$x + 1$}",
-                }],
+                content: [
+                    {type: "text", content: "math "},
+                    {type: "math", content: "y = \\text{$x + 1$}"},
+                ],
             }]);
 
             var parsed2 = parse(
-                "$ x^2 \\text{blah $math \\text{something $more math$} $ } $"
+                "math $ x^2 \\text{blah $math \\text{some $more math$} $ } $"
             );
             validateParse(parsed2, [{
                 type: "paragraph",
-                content: [{
-                    type: "math",
-                    content: " x^2 \\text{blah $math " +
-                        "\\text{something $more math$} $ } ",
-                }],
+                content: [
+                    {type: "text", content: "math "},
+                    {type: "math", content: " x^2 \\text{blah $math " +
+                        "\\text{some $more math$} $ } "},
+                ],
             }]);
         });
 
         it("should allow escaping in math", () => {
-            var parsed = parse("$\\\\$");
+            var parsed = parse("math $\\\\$");
             validateParse(parsed, [{
                 type: "paragraph",
-                content: [{
-                    type: "math",
-                    content: "\\\\",
-                }],
+                content: [
+                    {type: "text", content: "math "},
+                    {type: "math", content: "\\\\"},
+                ],
             }]);
 
-            var parsed2 = parse("$\\$$");
+            var parsed2 = parse("math $\\$$");
             validateParse(parsed2, [{
                 type: "paragraph",
-                content: [{
-                    type: "math",
-                    content: "\\$",
-                }],
+                content: [
+                    {type: "text", content: "math "},
+                    {type: "math", content: "\\$"},
+                ],
             }]);
 
             var parsed3 = parse("${$");
@@ -150,13 +150,13 @@ describe("perseus markdown", () => {
                 ],
             }]);
 
-            var parsed4 = parse("$\\{$");
+            var parsed4 = parse("math $\\{$");
             validateParse(parsed4, [{
                 type: "paragraph",
-                content: [{
-                    type: "math",
-                    content: "\\{",
-                }],
+                content: [
+                    {type: "text", content: "math "},
+                    {type: "math", content: "\\{"},
+                ],
             }]);
 
             var parsed5 = parse("hello $ escaped dollar \\$ $ not math");
@@ -167,6 +167,48 @@ describe("perseus markdown", () => {
                     {type: "math", content: " escaped dollar \\$ "},
                     {type: "text", content: " not math"},
                 ],
+            }]);
+        });
+
+        it("should parse block math", () => {
+            var parsed = parse("$x + y = 7$");
+            validateParse(parsed, [{
+                type: "blockMath",
+                content: "x + y = 7",
+            }]);
+
+            var parsed2 = parse("$x + y = 7$\nnot math");
+            validateParse(parsed2, [{
+                type: "paragraph",
+                content: [
+                    {type: "math", content: "x + y = 7"},
+                    {type: "text", content: "\nnot math"},
+                ],
+            }]);
+
+            var parsed3 = parse("  $x + y = 7$  \n\n    \n$3 + 5 = 7$");
+            validateParse(parsed3, [{
+                type: "blockMath",
+                content: "x + y = 7",
+            }, {
+                type: "blockMath",
+                content: "3 + 5 = 7",
+            }]);
+
+            var parsed4 = parse("    $x + y = 7$");
+            validateParse(parsed4, [{
+                type: "codeBlock",
+                content: "$x + y = 7$",
+                lang: undefined,
+            }]);
+
+            var parsed5 = parse("> $x + y = 7$");
+            validateParse(parsed5, [{
+                type: "blockQuote",
+                content: [{
+                    type: "blockMath",
+                    content: "x + y = 7",
+                }],
             }]);
         });
 
