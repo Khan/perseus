@@ -414,7 +414,7 @@ var Simulator = React.createClass({
             marginLeft: "5px"
         };
 
-        var highlight = "0px 0px 9px 2px rgba(255, 165, 0, 1)";
+        var highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
         var highlightStyle = _.extend({}, inputStyle, {
             WebkitBoxShadow: highlight,
             MozBoxShadow: highlight,
