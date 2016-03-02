@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.

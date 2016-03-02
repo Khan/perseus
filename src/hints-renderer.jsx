@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* eslint react/prop-types: 0, react/sort-comp: 0 */
 var React = require('react');
 var ReactDOM = require("react-dom");

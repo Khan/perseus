@@ -1,4 +1,7 @@
-/* eslint-disable react/prop-types, react/jsx-closing-bracket-location */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var, react/prop-types */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require("react");
 var _ = require("underscore");
 

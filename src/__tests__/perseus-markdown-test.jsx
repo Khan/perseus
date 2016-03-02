@@ -1,4 +1,7 @@
-/* eslint-disable prefer-template, no-console  */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-console, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var assert = require("assert");
 var nodeUtil = require("util");
 var React = require("react");

@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-undef, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* Free implementation of getUserInput. This should be used sparingly, since it
  * just returns all the widget's props rather than picking out those which were
  * input by the user.

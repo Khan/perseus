@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, indent, max-len, no-trailing-spaces, no-var, one-var, prefer-spread */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var _ = require("underscore");
 
 var nestedMap = function(children, func, context) {

@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * A component that displays controls for choosing a viewport size.
  * Renders three buttons: "Phone", "Tablet", and "Desktop".

@@ -1,6 +1,7 @@
-/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
-react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
-space-infix-ops, react/jsx-closing-bracket-location, react/jsx-indent-props */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */

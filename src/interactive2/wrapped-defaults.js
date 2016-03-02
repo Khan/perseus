@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var, prefer-spread, space-before-function-paren */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * Default methods for a wrapped movable.
  */

@@ -1,4 +1,7 @@
-/* eslint-disable react/jsx-sort-prop-types */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var, react/jsx-sort-prop-types */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* globals i18n, $_ */
 var React = require('react');
 var ReactDOM = require("react-dom");

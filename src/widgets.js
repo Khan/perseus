@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-console, no-var, space-before-function-paren */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var _ = require("underscore");
 
 var DEFAULT_ALIGNMENT = "block";
