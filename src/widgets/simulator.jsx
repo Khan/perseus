@@ -364,16 +364,17 @@ var Simulator = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         data: React.PropTypes.arrayOf(React.PropTypes.number),
-        userProportion: React.PropTypes.number,
-        sampleSize: React.PropTypes.number,
         numTrials: React.PropTypes.number,
-        randomSeed: React.PropTypes.number,
-        xAxisLabel: React.PropTypes.string,
-        yAxisLabel: React.PropTypes.string,
         proportionLabel: React.PropTypes.string,
         proportionOrPercentage: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes
+        randomSeed: React.PropTypes.number,
+        sampleSize: React.PropTypes.number,
+        trackInteraction: React.PropTypes.func.isRequired,
+        userProportion: React.PropTypes.number,
+        xAxisLabel: React.PropTypes.string,
+        yAxisLabel: React.PropTypes.string,
     },
 
     getInitialState: function() {
@@ -605,6 +606,7 @@ var Simulator = React.createClass({
         this.props.onChange({
             data: this.generateData()
         });
+        this.props.trackInteraction();
     },
 
     generateData: function(props) {

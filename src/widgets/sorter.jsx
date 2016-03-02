@@ -19,9 +19,10 @@ var Sorter = React.createClass({
     propTypes: {
         correct: React.PropTypes.array,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+        onChange: React.PropTypes.func,
         padding: React.PropTypes.bool,
         problemNum: React.PropTypes.number,
-        onChange: React.PropTypes.func
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -46,9 +47,15 @@ var Sorter = React.createClass({
                 options={options}
                 layout={this.props.layout}
                 padding={this.props.padding}
-                onChange={this.props.onChange}
-                ref="sortable" />
+                onChange={this.handleChange}
+                ref="sortable"
+            />
         </div>;
+    },
+
+    handleChange: function(e) {
+        this.props.onChange(e);
+        this.props.trackInteraction();
     },
 
     getUserInput: function() {

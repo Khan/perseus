@@ -44,13 +44,19 @@ var widgetPropTypes = {
     picUrl: React.PropTypes.string,
 
     plotDimensions: React.PropTypes.arrayOf(React.PropTypes.number),
-    labelInterval: React.PropTypes.number
+    labelInterval: React.PropTypes.number,
+    starting: React.PropTypes.arrayOf(React.PropTypes.number),
+    static: React.PropTypes.bool,
 };
 
 var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 
 var Plotter = React.createClass({
-    propTypes: widgetPropTypes,
+    propTypes: {
+        onChange: React.PropTypes.func.isRequired,
+        trackInteraction: React.PropTypes.func.isRequired,
+        ...widgetPropTypes,
+    },
 
     getDefaultProps: function () {
         return {
@@ -427,7 +433,7 @@ var Plotter = React.createClass({
             var values = _.clone(self.state.values);
             values[i] = y;
             self.setState({values: values});
-            self.props.onChange({ values: values });
+            self.changeAndTrack({ values: values });
 
             scaleBar(i, y);
         };
@@ -457,7 +463,7 @@ var Plotter = React.createClass({
             var values = _.clone(self.state.values);
             values[i] = y;
             self.setState({values: values});
-            self.props.onChange({ values: values });
+            self.changeAndTrack({ values: values });
             return [x, y];
         };
         if (i > 0) {
@@ -565,7 +571,12 @@ var Plotter = React.createClass({
         values[i] = y;
         this.drawPicHeights(values, this.state.values);
         this.setState({values: values});
-        this.props.onChange({ values: values });
+        this.changeAndTrack({ values: values });
+    },
+
+    changeAndTrack: function(data) {
+        this.props.onChange(data);
+        this.props.trackInteraction();
     },
 
     drawPicHeights: function(values, prevValues) {
@@ -693,6 +704,11 @@ var PlotterEditor = React.createClass({
         var setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
                                       this.props.type);
         var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
+        var props = {
+            trackInteraction: () => {},
+            ...this.props,
+        };
+
         return <div className="perseus-widget-plotter-editor">
             <div>
                 Chart type:{' '}
@@ -853,7 +869,7 @@ var PlotterEditor = React.createClass({
                 </p></InfoTip>
             </div>
             <Plotter
-                {...this.props}
+                {...props}
                 starting={this.props[this.state.editing]}
                 onChange={this.handlePlotterChange} />
         </div>;

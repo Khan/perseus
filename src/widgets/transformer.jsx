@@ -1758,6 +1758,10 @@ var AddTransformBar = React.createClass({
 });
 
 var Transformer = React.createClass({
+    propTypes: {
+        trackInteraction: React.PropTypes.func.isRequired,
+    },
+
     getDefaultProps: function() {
         return _.defaults({
             transformations: []
@@ -2449,6 +2453,7 @@ var Transformer = React.createClass({
         this.props.onChange({
             tools: newTools,
         });
+        this.props.trackInteraction();
     },
 
     simpleValidate: function(rubric) {
@@ -2718,7 +2723,9 @@ var TransformerEditor = React.createClass({
                 starting={this.props.starting}
                 correct={this.props.starting}
                 transformations={this.props.correct.transformations}
-                onChange={this.changeTransformer} />
+                onChange={this.changeTransformer}
+                trackInteraction={() => {}}
+            />
         </div>;
     },
 

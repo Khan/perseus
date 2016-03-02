@@ -184,6 +184,7 @@ var NumberLine = React.createClass({
 
         apiOptions: ApiOptions.propTypes,
         static: React.PropTypes.bool,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     mixins: [Changeable],
@@ -391,6 +392,7 @@ var NumberLine = React.createClass({
             highlightStyle={highlightStyle}
             onMove={(coord) => {
                 this.change({numLinePosition: coord[0]});
+                this.props.trackInteraction();
             }}
         />;
     },

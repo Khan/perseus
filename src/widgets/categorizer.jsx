@@ -19,13 +19,14 @@ var Categorizer = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
-        // List of items that are being categorized (along the left side)
-        items: React.PropTypes.arrayOf(React.PropTypes.string),
         // List of categories (across the top)
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
+        // List of items that are being categorized (along the left side)
+        items: React.PropTypes.arrayOf(React.PropTypes.string),
+        trackInteraction: React.PropTypes.func.isRequired,
         // Ordered list of correct answers, mapping items to categories thusly:
         //   values[<items_index>] == <categories_index>
-        values: React.PropTypes.arrayOf(React.PropTypes.number)
+        values: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
@@ -112,6 +113,7 @@ var Categorizer = React.createClass({
         var values = _.clone(this.props.values);
         values[itemNum] = catNum;
         this.change("values", values);
+        this.props.trackInteraction();
     },
 
     simpleValidate: function(rubric) {
@@ -204,6 +206,7 @@ var CategorizerEditor = React.createClass({
                 categories={this.props.categories}
                 values={this.props.values}
                 onChange={(newProps) => {this.props.onChange(newProps);}}
+                trackInteraction={function() {}}
                 />
         </div>;
     },

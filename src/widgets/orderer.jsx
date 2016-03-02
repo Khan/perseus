@@ -207,11 +207,12 @@ var NORMAL = "normal",
 
 var Orderer = React.createClass({
     propTypes: {
-        current: React.PropTypes.array,
-        options: React.PropTypes.array,
         correctOptions: React.PropTypes.array,
+        current: React.PropTypes.array,
         height: React.PropTypes.oneOf([NORMAL, AUTO]),
-        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL])
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+        options: React.PropTypes.array,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -389,6 +390,7 @@ var Orderer = React.createClass({
                 placeholderIndex: null,
                 animating: false
             });
+            this.props.trackInteraction();
         };
 
         // Find the position of the card we should animate to

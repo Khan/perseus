@@ -95,9 +95,6 @@ var getMatrixSize = function(matrix) {
 
 var Matrix = React.createClass({
     propTypes: {
-        matrixBoardSize: React.PropTypes.arrayOf(
-            React.PropTypes.number
-        ).isRequired,
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.oneOfType([
@@ -106,11 +103,15 @@ var Matrix = React.createClass({
                 ])
             )
         ),
-        prefix: React.PropTypes.string,
-        suffix: React.PropTypes.string,
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
-        )
+        ),
+        matrixBoardSize: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        ).isRequired,
+        prefix: React.PropTypes.string,
+        suffix: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -383,6 +384,7 @@ var Matrix = React.createClass({
         this.props.onChange({
             answers: answers
         }, cb);
+        this.props.trackInteraction();
     },
 
     getUserInput: function() {
@@ -489,7 +491,8 @@ var MatrixEditor = React.createClass({
         var matrixProps = _.extend({
             numericInput: true,
             onBlur: () => {},
-            onFocus: () => {}
+            onFocus: () => {},
+            trackInteraction: () => {},
         }, this.props);
         return <div className="perseus-matrix-editor">
             <div className="perseus-widget-row">

@@ -444,6 +444,10 @@ var BaseRadio = React.createClass({
 });
 
 var Radio = React.createClass({
+    propTypes: {
+        trackInteraction: React.PropTypes.func.isRequired,
+    },
+
     getDefaultProps: function() {
         return {
             choices: [{}],
@@ -548,6 +552,7 @@ var Radio = React.createClass({
         this.props.onChange({
             values: checked
         });
+        this.props.trackInteraction();
     },
 
     getUserInput: function() {

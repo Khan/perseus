@@ -291,6 +291,9 @@ var deprecatedProps = {
 
 
 var InteractiveGraph = React.createClass({
+    propTypes: {
+        trackInteraction: React.PropTypes.func.isRequired,
+    },
 
     getInitialState: function() {
         return {
@@ -357,7 +360,7 @@ var InteractiveGraph = React.createClass({
                     value={this.props.graph.type}
                     onChange={e => {
                         var type = e.target.value;
-                        this.props.onChange({
+                        this.onChange({
                             graph: {type: type}
                         });
                     }}>
@@ -380,7 +383,7 @@ var InteractiveGraph = React.createClass({
                         onChange={e => {
                             // Convert numbers, leave UNLIMITED intact:
                             var num = +e.target.value || e.target.value;
-                            this.props.onChange({
+                            this.onChange({
                                 graph: {
                                     type: "point",
                                     numPoints: num,
@@ -411,7 +414,7 @@ var InteractiveGraph = React.createClass({
                                                    // UNLIMITED, which only
                                                    // supports "grid"
                                 });
-                                this.props.onChange({graph: graph});
+                                this.onChange({graph: graph});
                             }}>
                             {_.map(_.range(3, 13), function(n) {
                                 return <option value={n}>{n} sides</option>;
@@ -431,7 +434,7 @@ var InteractiveGraph = React.createClass({
                                             snapTo: e.target.value,
                                             coords: null
                                         });
-                                    this.props.onChange({graph: graph});
+                                    this.onChange({graph: graph});
                                 }}>
                                 <option value="grid">grid</option>
                                 {(this.props.graph.numSides !== UNLIMITED) && [
@@ -481,7 +484,7 @@ var InteractiveGraph = React.createClass({
                         value={this.props.graph.numSegments || 1}
                         onChange={e => {
                             var num = +e.target.value;
-                            this.props.onChange({
+                            this.onChange({
                                 graph: {
                                     type: "segment",
                                     numSegments: num,
@@ -513,7 +516,7 @@ var InteractiveGraph = React.createClass({
                             <input type="checkbox"
                                 checked={allowReflexAngles}
                                 onChange={newVal => {
-                                    this.props.onChange({
+                                    this.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             allowReflexAngles:
                                                     !allowReflexAngles,
@@ -539,7 +542,7 @@ var InteractiveGraph = React.createClass({
                                 placeholder={1}
                                 value={this.props.graph.snapDegrees}
                                 onChange={newVal => {
-                                    this.props.onChange({
+                                    this.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             snapDegrees: Math.abs(newVal),
                                             coords: null
@@ -557,7 +560,7 @@ var InteractiveGraph = React.createClass({
                                 placeholder={0}
                                 value={this.props.graph.angleOffsetDeg}
                                 onChange={newVal => {
-                                    this.props.onChange({
+                                    this.onChange({
                                         graph: _.extend({}, this.props.graph, {
                                             angleOffsetDeg: newVal,
                                             coords: null
@@ -758,7 +761,7 @@ var InteractiveGraph = React.createClass({
                     var graph = _.extend({}, self.props.graph, {
                         coords: _.invoke(points, "coord")
                     });
-                    self.props.onChange({graph: graph});
+                    self.onChange({graph: graph});
                 },
                 normalStyle: {
                     stroke: KhanUtil.INTERACTIVE,
@@ -819,7 +822,7 @@ var InteractiveGraph = React.createClass({
             var graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord(), pointB.coord(), pointC.coord()]
             });
-            this.props.onChange({graph: graph});
+            this.onChange({graph: graph});
             this.updateQuadratic();
         };
 
@@ -909,7 +912,7 @@ var InteractiveGraph = React.createClass({
             var graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord(), pointB.coord()]
             });
-            this.props.onChange({graph: graph});
+            this.onChange({graph: graph});
             this.updateSinusoid();
         };
 
@@ -987,7 +990,7 @@ var InteractiveGraph = React.createClass({
                 center: circle.center,
                 radius: circle.radius
             });
-            this.props.onChange({graph: graph});
+            this.onChange({graph: graph});
         });
     },
 
@@ -1028,7 +1031,7 @@ var InteractiveGraph = React.createClass({
                                 (segment) => _.invoke(segment, "coord")
                             )
                         });
-                        this.props.onChange({graph: graph});
+                        this.onChange({graph: graph});
                     },
                     normalStyle: {
                         stroke: segmentColors[segmentIndex],
@@ -1430,14 +1433,19 @@ var InteractiveGraph = React.createClass({
                 return _.result(point, "coord");
             })
         });
-        this.props.onChange({graph: graph});
+        this.onChange({graph: graph});
     },
 
     clearCoords: function() {
         var graph = _.extend({}, this.props.graph, {
             coords: null
         });
-        this.props.onChange({graph: graph});
+        this.onChange({graph: graph});
+    },
+
+    onChange: function(data) {
+        this.props.onChange(data);
+        this.props.trackInteraction();
     },
 
     addPointControls: function() {
@@ -1477,7 +1485,7 @@ var InteractiveGraph = React.createClass({
                 var graph = _.extend({}, self.props.graph, {
                     coords: _.invoke(self.lines, "coords")
                 });
-                self.props.onChange({graph: graph});
+                self.onChange({graph: graph});
             };
 
             var points = _.map(segment, function(coord, i) {
@@ -1685,7 +1693,7 @@ var InteractiveGraph = React.createClass({
             var graph = _.extend({}, this.props.graph, {
                 coords: this.angle.getClockwiseCoords()
             });
-            this.props.onChange({graph: graph});
+            this.onChange({graph: graph});
         });
     },
 
@@ -1698,14 +1706,14 @@ var InteractiveGraph = React.createClass({
         var graph = _.extend({}, this.props.graph, {
             showAngles: !this.props.graph.showAngles
         });
-        this.props.onChange({graph: graph});
+        this.onChange({graph: graph});
     },
 
     toggleShowSides: function() {
         var graph = _.extend({}, this.props.graph, {
             showSides: !this.props.graph.showSides
         });
-        this.props.onChange({graph: graph});
+        this.onChange({graph: graph});
     },
 
     getUserInput: function() {
@@ -2366,6 +2374,7 @@ var InteractiveGraphEditor = React.createClass({
                 showRuler: this.props.showRuler,
                 rulerLabel: this.props.rulerLabel,
                 rulerTicks: this.props.rulerTicks,
+                trackInteraction: function() {},
                 flexibleType: true,
                 onChange: (newProps) => {
                     var correct = this.props.correct;

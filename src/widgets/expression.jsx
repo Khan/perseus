@@ -81,13 +81,14 @@ var Expression = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
-        value: React.PropTypes.string,
-        times: React.PropTypes.bool,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
         enabledFeatures: EnabledFeatures.propTypes,
-        apiOptions: ApiOptions.propTypes
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        times: React.PropTypes.bool,
+        trackInteraction: React.PropTypes.func.isRequired,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -126,14 +127,15 @@ var Expression = React.createClass({
             // component to handle the static rendering, which is the same
             // component used by InputNumber and NumericInput
             return <InputWithExamples
-                        ref="input"
-                        value={this.props.value}
-                        type={"tex"}
-                        examples={[]}
-                        shouldShowExamples={false}
-                        onChange={this.change("value")}
-                        onFocus={this._handleFocus}
-                        onBlur={this._handleBlur} />;
+                ref="input"
+                value={this.props.value}
+                type={"tex"}
+                examples={[]}
+                shouldShowExamples={false}
+                onChange={this.changeAndTrack}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+            />;
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other
             // tooltips on the site; align to left middle (once possible)
@@ -176,7 +178,7 @@ var Expression = React.createClass({
                     ref="input"
                     className={ApiClassNames.INTERACTIVE}
                     value={this.props.value}
-                    onChange={this.change("value")}
+                    onChange={this.changeAndTrack}
                     convertDotToTimes={this.props.times}
                     buttonsVisible={this.props.buttonsVisible || "focused"}
                     buttonSets={this.props.buttonSets}
@@ -185,6 +187,11 @@ var Expression = React.createClass({
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
+    },
+
+    changeAndTrack: function(e) {
+        this.change("value")(e);
+        this.props.trackInteraction();
     },
 
     _handleFocus: function() {
@@ -726,6 +733,7 @@ var ExpressionEditor = React.createClass({
                         value: obj.value,
 
                         onChange: props => this.updateForm(ix, props),
+                        trackInteraction: () => {},
                 };
 
                 return lens(obj)

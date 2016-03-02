@@ -36,6 +36,7 @@ var GradedGroup = React.createClass({
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
         apiOptions: ApiOptions.propTypes,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -143,6 +144,10 @@ var GradedGroup = React.createClass({
             status: status,
             message: message,
         });
+
+        this.props.trackInteraction({
+            status: status,
+        });
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -227,5 +232,6 @@ module.exports = {
     editor: GradedGroupEditor,
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
+    tracking: "all",
 };
 

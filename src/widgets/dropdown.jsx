@@ -20,10 +20,12 @@ var captureScratchpadTouchStart =
 
 var Dropdown = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
-        selected: React.PropTypes.number,
+        onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes
+        selected: React.PropTypes.number,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -91,6 +93,7 @@ var Dropdown = React.createClass({
     },
 
     _handleChange: function(selected) {
+        this.props.trackInteraction();
         this.props.onChange({selected: selected});
     },
 

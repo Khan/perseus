@@ -170,6 +170,10 @@ Perseus.init({skipMathJax: false}).then(function() {
                 console.log("onFocusChange", newPath, oldPath);
             },
             __staticRender: true,
+            trackInteraction: function (trackData) {
+                console.log("Interaction with", trackData.type,
+                        trackData);
+            },
         },
         componentClass: Perseus.ArticleEditor
     };

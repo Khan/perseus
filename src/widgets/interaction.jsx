@@ -188,6 +188,7 @@ var Interaction = React.createClass({
         variables["x_" + subscript] = coord[0];
         variables["y_" + subscript] = coord[1];
         this.setState({variables: variables});
+        this.props.trackInteraction();
     },
 
     _updateLineLocation: function(options, startCoord) {
@@ -202,6 +203,7 @@ var Interaction = React.createClass({
         variables["x_" + options.endSubscript] = endCoord[0];
         variables["y_" + options.endSubscript] = endCoord[1];
         this.setState({variables: variables});
+        this.props.trackInteraction();
     },
 
     _eval: function(expression, variables) {

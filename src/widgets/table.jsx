@@ -48,13 +48,14 @@ var getRefForPath = function(path) {
 
 var Table = React.createClass({
     propTypes: {
-        editableHeaders: React.PropTypes.bool,
-        headers: React.PropTypes.arrayOf(React.PropTypes.string),
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.string
             )
-        )
+        ),
+        editableHeaders: React.PropTypes.bool,
+        headers: React.PropTypes.arrayOf(React.PropTypes.string),
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -154,6 +155,7 @@ var Table = React.createClass({
         this.props.onChange({
             answers: answers
         });
+        this.props.trackInteraction();
     },
 
     onHeaderChange: function(index, e) {
@@ -337,7 +339,10 @@ var TableEditor = React.createClass({
 
         var tableProps = _.pick(this.props, "headers", "answers", "onChange");
         _.extend(tableProps, {
-            editableHeaders: true
+            editableHeaders: true,
+            onFocus: () => {},
+            onBlur: () => {},
+            trackInteraction: () => {},
         });
 
         return <div>

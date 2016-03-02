@@ -214,6 +214,7 @@ var SvgImage = React.createClass({
         scale: React.PropTypes.number,
         src: React.PropTypes.string.isRequired,
         title: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func,
         width: React.PropTypes.number,
     },
 
@@ -453,6 +454,7 @@ var SvgImage = React.createClass({
         if ($image.width() < this.props.width) {
             Zoom.ZoomService.handleZoomClick(e);
         }
+        this.props.trackInteraction && this.props.trackInteraction();
     },
 
     render: function() {

@@ -58,6 +58,12 @@ module.exports = {
             // Function that takes dimensions and returns a React component
             // to display while an image is loading
             imagePreloader: React.PropTypes.func,
+
+            // Function that takes an object argument. The object should
+            // include type and id, both strings, at least and can optionally
+            // include a boolean "correct" value. This is used for keeping
+            // track of widget interactions.
+            trackInteraction: React.PropTypes.func,
         }).isRequired,
 
         defaults: {

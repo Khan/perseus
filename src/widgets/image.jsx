@@ -85,6 +85,7 @@ var ImageWidget = React.createClass({
         ),
 
         title: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     mixins: [Changeable],
@@ -154,6 +155,7 @@ var ImageWidget = React.createClass({
                             range: this.props.range,
                             labels: this.props.labels,
                         }}
+                        trackInteraction={this.props.trackInteraction}
             />;
         }
 

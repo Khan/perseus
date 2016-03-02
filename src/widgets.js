@@ -7,6 +7,7 @@ var _ = require("underscore");
 var DEFAULT_ALIGNMENT = "block";
 var DEFAULT_SUPPORTED_ALIGNMENTS = ["default"];
 var DEFAULT_STATIC = false;
+var DEFAULT_TRACKING = "";
 
 var widgets = {};
 
@@ -341,6 +342,16 @@ var Widgets = {
     getStaticTransform: function(type) {
         var widgetInfo = widgets[type];
         return widgetInfo && widgetInfo.staticTransform;
+    },
+
+    /**
+     * Returns the tracking option for the widget. The default is "",
+     * which means simply to track interactions once. The other available
+     * option is "all" which means to track all interactions.
+     */
+    getTracking: function(type) {
+        var widgetInfo = widgets[type];
+        return (widgetInfo && widgetInfo.tracking) || DEFAULT_TRACKING;
     },
 };
 

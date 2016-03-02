@@ -34,12 +34,13 @@ var Sequence = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         json:  React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
+            images: React.PropTypes.object,
             widgets: React.PropTypes.object,
-            images: React.PropTypes.object
         })),
-        apiOptions: ApiOptions.propTypes
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -104,6 +105,9 @@ var Sequence = React.createClass({
             if (score.type === "points" && score.total === score.earned) {
                 this.setState({
                     visible: this.state.visible + 1
+                });
+                this.props.trackInteraction({
+                    visible: this.state.visible + 1,
                 });
             }
         }
@@ -273,4 +277,5 @@ module.exports = {
     widget: Sequence,
     editor: SequenceEditor,
     traverseChildWidgets: traverseChildWidgets,
+    tracking: "all",
 };

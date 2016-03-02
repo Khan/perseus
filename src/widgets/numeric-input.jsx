@@ -67,6 +67,7 @@ var NumericInput = React.createClass({
         })),
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -161,6 +162,7 @@ var NumericInput = React.createClass({
         // unsupported on IE 10), I'm calling this sufficient for now.
         if (!this.props.apiOptions.readOnly) {
             this.props.onChange({ currentValue: newValue });
+            this.props.trackInteraction();
         }
     },
 

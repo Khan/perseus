@@ -105,6 +105,56 @@ var isIdPathPrefix = function(prefixArray, wholeArray) {
     });
 };
 
+/**
+ * Wrapper for the trackInteraction apiOption.
+ *
+ * @param trackApi Original API
+ * @param widgetType String name of the widget type
+ * @param widgetID String ID of the widget instance
+ * @param setting string setting for tracking (either "" for track once or
+ *          "all")
+ */
+var InteractionTracker = function(trackApi, widgetType, widgetID, setting) {
+    if (!trackApi) {
+        this.track = this._noop;
+    } else {
+        this._tracked = false;
+        this.trackApi = trackApi;
+        this.widgetType = widgetType;
+        this.widgetID = widgetID;
+        this.setting = setting;
+        this.track = this._track.bind(this);
+    }
+};
+
+/**
+ * Function that actually calls the API to mark the interaction. This is
+ * private. The public version is just `.track` and is bound to this object
+ * for easy use in other context.
+ *
+ * @param extraData Any extra data to track about the event.
+ * @private
+ */
+InteractionTracker.prototype._track = function(extraData) {
+    if (this._tracked && !this.setting) {
+        return;
+    }
+    this._tracked = true;
+    this.trackApi({
+        type: this.widgetType,
+        id: this.widgetID,
+        ...extraData,
+    });
+};
+
+/**
+ * This alternate version of `.track` does nothing as an optimization.
+ *
+ * @private
+ */
+InteractionTracker.prototype._noop = function() {};
+
+
 var Renderer = React.createClass({
     propTypes: {
         alwaysUpdate: React.PropTypes.bool,
@@ -320,17 +370,28 @@ var Renderer = React.createClass({
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
         var reviewModeRubric = null;
-        if (this.props.reviewMode && this.state.widgetInfo[id]) {
-            reviewModeRubric = this.state.widgetInfo[id].options;
+        var widgetInfo = this.state.widgetInfo[id];
+        if (this.props.reviewMode && widgetInfo) {
+            reviewModeRubric = widgetInfo.options;
+        }
+
+        if (!this._interactionTrackers) {
+            this._interactionTrackers = {};
+        }
+
+        var interactionTracker = this._interactionTrackers[id];
+        if (!interactionTracker) {
+            interactionTracker = this._interactionTrackers[id] =
+                new InteractionTracker(this.props.apiOptions.trackInteraction,
+                    widgetInfo && widgetInfo.type, id,
+                Widgets.getTracking(widgetInfo && widgetInfo.type));
         }
 
         return _.extend({}, widgetProps, {
             ref: id,
             widgetId: id,
-            alignment: this.state.widgetInfo[id] &&
-                       this.state.widgetInfo[id].alignment,
-            static: this.state.widgetInfo[id] &&
-                    this.state.widgetInfo[id].static,
+            alignment: widgetInfo && widgetInfo.alignment,
+            static: widgetInfo && widgetInfo.static,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
             apiOptions: this.getApiOptions(this.props),
@@ -342,6 +403,7 @@ var Renderer = React.createClass({
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
             },
+            trackInteraction: interactionTracker.track,
         });
     },
 
