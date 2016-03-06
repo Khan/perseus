@@ -1,5 +1,3 @@
-const _ = require("underscore");
-
 // Regexp defining characters that are valid SMILES characters that this parser
 // can parse.  In addition to serving as a sort of validation, this also keeps
 // out unimplemented features (like cycles and stereochemistry), which use
@@ -20,35 +18,31 @@ function ParseError(message) {
  *
  * Args:
  *     obj: an object, will not be modified
- *     keyOrKeylist: either a key or list of keys whose values will be updated
- *         in the object.  If a list of keys is provided, this represents a
- *         path to a value inside nested objects.  For example, if keyOrKeylist
- *         == "a", then a new object is returned with obj["a"] updated; if
- *         keyOrKeylist == ["a", "b", "c"], then a new object is returned with
- *         obj["a"]["b"]["c"] updated.  Note that if any of the keys is not
- *         already present, this will insert {} as a default value for that
- *         key.
- *     val: the new value to associate with the key or keypath
+ *     keylist: a list of keys whose values will be updated in the object.
+ *         This represents a path to a value inside nested objects.  For
+ *         example, if keylist == ["a", "b", "c"], then a new object is
+ *         returned with obj["a"]["b"]["c"] updated.  Note that if any of the
+ *         keys is not already present, this will insert {} as a default value
+ *         for that key.
+ *     val: the new value to associate with the keypath
  *
  * Return: a new object, which is a shallow copy of the original with the value
- *     at the specified key[path] replaced.
+ *     at the specified keypath replaced.
  */
-function _mset(obj, keyOrKeylist, val) {
+function _mset(obj, keylist, val) {
+    const k0 = keylist[0];
+    const rest = keylist.slice(1);
     let newObj;
-    if (_.isArray(keyOrKeylist)) {
-        const k0 = keyOrKeylist[0];
-        const rest = _.rest(keyOrKeylist);
-        newObj = _.clone(obj) || {};
-        let newVal = val;
-        if (rest.length > 0) {
-            newVal = _mset(newObj[k0], rest, val);
-        }
-        newObj[k0] = newVal;
-        return newObj;
+    if (Array.isArray(obj)) {
+        newObj = [...obj];
+    } else {
+        newObj = {...(obj || {})};
     }
-
-    newObj = _.clone(obj);
-    newObj[keyOrKeylist] = val;
+    let newVal = val;
+    if (rest.length > 0) {
+        newVal = _mset(newObj[k0], rest, val);
+    }
+    newObj[k0] = newVal;
     return newObj;
 }
 
@@ -66,7 +60,7 @@ function _mset(obj, keyOrKeylist, val) {
  *     path incremeneted.
  */
 function _inc(obj, keylist) {
-    const val = _.reduce(keylist, function(acc, elt) {
+    const val = keylist.reduce(function(acc, elt) {
         return acc[elt];
     }, obj);
 
@@ -119,7 +113,7 @@ function sliceFromMatchingCloseParen(smiles, parenStack) {
     }
 
     if (firstChar ===  ")") {
-        return sliceFromMatchingCloseParen(rest, _.rest(parenStack));
+        return sliceFromMatchingCloseParen(rest, parenStack.slice(1));
     }
 
     return sliceFromMatchingCloseParen(rest, parenStack);
@@ -136,7 +130,7 @@ function parseParenthesizedExpression(smiles, ctx) {
     const firstChar = smiles[0];
     const rest = smiles.slice(1);
     if (firstChar === "(") {
-        let newCtx = _mset(ctx, "parens", ctx.parens + "(");
+        let newCtx = {...ctx, parens: ctx.parens + "("};
         // increment the branch index
         newCtx = _inc(ctx, ["idx", ctx.idx.length - 1, 1]);
 
@@ -150,16 +144,17 @@ function parseParenthesizedExpression(smiles, ctx) {
             // layout engine should figure out continuity.
             inBranchIdx = 0;
         }
-        let parenCtx = _mset(newCtx, "idx",
-                             newCtx.idx.concat([[inBranchIdx, 0]]));
-        parenCtx = _mset(parenCtx,
-                         "parens", parenCtx.parens.concat("("));
+        const parenCtx = {
+            ...newCtx,
+            idx: newCtx.idx.concat([[inBranchIdx, 0]]),
+            parens: newCtx.parens.concat("("),
+        };
         const parenExpr = parse(rest, parenCtx);
         const remainder = parse(
             sliceFromMatchingCloseParen(rest, ["("]), newCtx);
         return [parenExpr].concat(remainder);
     } else if (firstChar === ")") {
-        if (_.last(ctx.parens) !== "(") {
+        if (ctx.parens[ctx.parens.length - 1] !== "(") {
             throw new ParseError("Mismatched parentheses");
         }
         return null;
@@ -221,10 +216,10 @@ function parseAtom(smiles, ctx) {
 
     // increment the atom counter and reset the branch counter
     const newCtx = _mset(ctx, ["idx", ctx.idx.length - 1],
-                       [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
+                         [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
     let restOfMolecule = parse(
         rest, _mset(newCtx, ["bond", "bondType"], "single"));
-    if (!_.isArray(restOfMolecule) && !!restOfMolecule) {
+    if (!Array.isArray(restOfMolecule) && !!restOfMolecule) {
         //TODO(colin): fix this awkwardness.
         restOfMolecule = [restOfMolecule];
     }

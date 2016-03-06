@@ -1,5 +1,3 @@
-const _ = require("underscore");
-
 /**
  * Draw some text into a 2D canvas drawing context.
  *
@@ -157,7 +155,7 @@ function compareElements(item0, item1) {
  * Draw an array of rendering instructions into a 2D canvas drawing context.
  */
 function draw(ctx, items) {
-    _.each(items.sort(compareElements), drawItem(ctx));
+    items.sort(compareElements).forEach(drawItem(ctx));
 }
 
 

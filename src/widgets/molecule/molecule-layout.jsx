@@ -9,7 +9,6 @@
  * For instance, an oxygen atom might be rendered as
  * {type: "text", value: "O", pos: [0, 0], idx: "1,0"}
  */
-const _ = require("underscore");
 
 // Default length of the bond.  This currently corresponds directly to pixels
 // in the renderer, but we may want this just to be arbitrary in the future.
@@ -54,7 +53,7 @@ function polarAdd(origin, angle, length) {
  */
 function atomLayout(atom, atoms, bonds, rotationAngle) {
     let textValue = atom.symbol;
-    if (textValue === "C" && (_.keys(atoms).length !== 1)) {
+    if (textValue === "C" && (Object.keys(atoms).length !== 1)) {
         // By convention, don't render the C for carbon in a chain.
         textValue = null;
     }
@@ -70,13 +69,13 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
         atom.baseAngle = -30 + rotationAngle;
         return {type: "text", value: textValue, pos: pos, idx: atom.idx};
     }
-    // If we're not atom 0, we're guaranteed to have a neighbor who's already
-    // positioned.
+    // If we're an atom with any other index than the case just handled, we're
+    // guaranteed to have a neighbor who has a defined position.
     const prevPositionedAtom = atoms[
-        _.find(atom.connections, function(c) { return atoms[c].pos; })];
+        atom.connections.find(function(c) { return atoms[c].pos; })];
 
     // Find this atom's index in the previous atom's connections
-    const myIndex = _.indexOf(prevPositionedAtom.connections, atom.idx);
+    const myIndex = prevPositionedAtom.connections.indexOf(atom.idx);
 
     let baseAngleIncrement = 60;
     let angleIncrement = 120;
@@ -86,11 +85,10 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
         // with ~110 degree angles in 3D.
         angleIncrement = 90;
         baseAngleIncrement = 90;
-    } else if (_.where(bonds, {bondType: "triple", to: atom.idx}).length > 0 ||
-               _.where(bonds, {
-                   bondType: "triple",
-                   to: prevPositionedAtom.idx,
-               }).length > 0) {
+    } else if (bonds.find((bond) => (bond.bondType === "triple" &&
+                                     bond.to === atom.idx)) ||
+               bonds.find((bond) => (bond.bondType === "triple" &&
+                                     bond.to === prevPositionedAtom.idx))) {
         // Triple bonds have a bond angle of 180 degrees, so don't change the
         // direction in which we made the previous bond.
         angleIncrement = 0;
@@ -230,7 +228,7 @@ function convertTree(atoms, bonds, tree) {
         const treeIdx = idxString(tree.idx);
         atoms[treeIdx] = {idx: treeIdx, symbol: tree.symbol, connections: []};
         if (tree.bonds) {
-            _.each(tree.bonds, function(b) {
+            tree.bonds.forEach(function(b) {
                 const toIdx = idxString(b.to.idx);
                 atoms[treeIdx].connections.push(toIdx);
                 bonds.push({from: treeIdx, to: toIdx, bondType: b.bondType});
@@ -272,7 +270,7 @@ function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds,
 
     const queuedAtomIdx = atomProcessingQueue.shift();
     const atom = atoms[queuedAtomIdx];
-    _.each(atom.connections, function(c) {
+    atom.connections.forEach(function(c) {
         if (!atoms[c].pos) {
             atomProcessingQueue.push(c);
         }
@@ -303,7 +301,7 @@ function bondLayoutHelper(outputs, atoms, bonds) {
         return outputs;
     }
     return bondLayoutHelper(outputs.concat(bondLayout(bonds[0], atoms)),
-                            atoms, _.rest(bonds));
+                            atoms, bonds.slice(1));
 }
 
 /**

@@ -1,5 +1,4 @@
 const React = require("react");
-const _ = require("underscore");
 
 const Changeable = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -58,30 +57,18 @@ const Molecule = React.createClass({
     },
 
     setCanvasBounds: function(canvas, items) {
-        const xmax = _.max(items, function(item) {
-            if (!item.pos) {
-                return -Infinity;
-            }
-            return item.pos[0];
-        }).pos[0];
-        const ymax = _.max(items, function(item) {
-            if (!item.pos) {
-                return -Infinity;
-            }
-            return item.pos[1];
-        }).pos[1];
-        const xmin = _.min(items, function(item) {
-            if (!item.pos) {
-                return Infinity;
-            }
-            return item.pos[0];
-        }).pos[0];
-        const ymin = _.min(items, function(item) {
-            if (!item.pos) {
-                return Infinity;
-            }
-            return item.pos[1];
-        }).pos[1];
+        const xmax = Math.max(...items.map((item) =>
+            item.pos ? item.pos[0] : -Infinity
+        ));
+        const ymax = Math.max(...items.map((item) =>
+            item.pos ? item.pos[1] : -Infinity
+        ));
+        const xmin = Math.min(...items.map((item) =>
+            item.pos ? item.pos[0] : Infinity
+        ));
+        const ymin = Math.min(...items.map((item) =>
+            item.pos ? item.pos[1] : Infinity
+        ));
         const width = xmax - xmin + 2 * borderSize;
         const height = ymax - ymin + 2 * borderSize;
         canvas.width = width;

@@ -1,5 +1,4 @@
 const React = require("react");
-const _ = require("underscore");
 
 const Changeable = require("../mixins/changeable.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
@@ -98,7 +97,7 @@ const ReactionDiagramWidget = React.createClass({
 
     render: function() {
         return <div className="reaction" ref="reaction">
-            {_.map(this.props.smiles, function(s, i) {
+            {this.props.smiles.map((s, i) => {
                 const id = this.props.widgetId + "-" + i;
                 return <div key={id} className="molecule-container">
                     <Molecule
@@ -113,7 +112,7 @@ const ReactionDiagramWidget = React.createClass({
                          index={i}
                      />}
                 </div>;
-            }.bind(this))}
+            })}
         </div>;
     },
 });
@@ -137,7 +136,7 @@ const ReactionDiagramWidgetEditor = React.createClass({
 
     updateMolecule: function(idx) {
         return function(newValue) {
-            const newSmiles = _.clone(this.props.smiles);
+            const newSmiles = [...this.props.smiles];
             newSmiles[idx] = newValue;
             this.change({smiles: newSmiles});
         }.bind(this);
@@ -145,18 +144,19 @@ const ReactionDiagramWidgetEditor = React.createClass({
 
     updateRotation: function(idx) {
         return function(newValue) {
-            const newRot = _.clone(this.props.rotationAngle);
+            const newRot = [...this.props.rotationAngle];
             newRot[idx] = newValue;
             this.change({rotationAngle: newRot});
         }.bind(this);
     },
 
     updateSeparators: function(idx, propName) {
-        return function(newValue) {
-            const newSep = _.map(this.props.separators, _.clone);
+        return (newValue) => {
+            const newSep = this.props.separators.map(
+                sep => {return {...sep};});
             newSep[idx][propName] = newValue;
             this.change({separators: newSep});
-        }.bind(this);
+        };
     },
 
     render: function() {
