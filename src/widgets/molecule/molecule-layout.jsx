@@ -9,10 +9,11 @@
  * For instance, an oxygen atom might be rendered as
  * {type: "text", value: "O", pos: [0, 0], idx: "1,0"}
  */
+const _ = require("underscore");
 
 // Default length of the bond.  This currently corresponds directly to pixels
 // in the renderer, but we may want this just to be arbitrary in the future.
-var bondLength = 30;
+const bondLength = 30;
 
 /**
  * Compute a coordinate by moving an angle and length from an origin point.
@@ -26,10 +27,10 @@ var bondLength = 30;
  *     a two-element list containing the [x, y] coordinates of the point.
  */
 function polarAdd(origin, angle, length) {
-    var x = origin[0];
-    var y = origin[1];
-    return [x + Math.cos(angle*2*Math.PI/360)*length,
-            y + -1.0*Math.sin(angle*2*Math.PI/360)*length];
+    const x = origin[0];
+    const y = origin[1];
+    return [x + Math.cos(angle * 2 * Math.PI / 360) * length,
+            y + -1.0 * Math.sin(angle * 2 * Math.PI / 360) * length];
 }
 
 /**
@@ -48,11 +49,11 @@ function polarAdd(origin, angle, length) {
  *     rotationAngle: a constant rotation for the whole molecule (in degrees)
  *
  * Return:
- *     a rendering instruction for the atom, containing a type (text), the text to
- *     render, the position, and the atom index
+ *     a rendering instruction for the atom, containing a type (text), the text
+ *     to render, the position, and the atom index
  */
 function atomLayout(atom, atoms, bonds, rotationAngle) {
-    var textValue = atom.symbol;
+    let textValue = atom.symbol;
     if (textValue === "C" && (_.keys(atoms).length !== 1)) {
         // By convention, don't render the C for carbon in a chain.
         textValue = null;
@@ -61,7 +62,7 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
     if (atom.idx === "1,0") {
         // The first atom is special-cased because there are no neighbors for
         // relative positioning.
-        var pos = [0, 0];
+        const pos = [0, 0];
         atom.pos = pos;
         // Conventionally, molecules are rendered where the first bond is not
         // horizontal, but at a 30 degree angle, so subtract 30 degrees for the
@@ -69,14 +70,16 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
         atom.baseAngle = -30 + rotationAngle;
         return {type: "text", value: textValue, pos: pos, idx: atom.idx};
     }
-    // If we're not atom 0, we're guaranteed to have a neighbor who's already positioned.
-    var prevPositionedAtom = atoms[_.find(atom.connections, function(c) { return atoms[c].pos; })];
+    // If we're not atom 0, we're guaranteed to have a neighbor who's already
+    // positioned.
+    const prevPositionedAtom = atoms[
+        _.find(atom.connections, function(c) { return atoms[c].pos; })];
 
     // Find this atom's index in the previous atom's connections
-    var myIndex = _.indexOf(prevPositionedAtom.connections, atom.idx);
+    const myIndex = _.indexOf(prevPositionedAtom.connections, atom.idx);
 
-    var baseAngleIncrement = 60;
-    var angleIncrement = 120;
+    let baseAngleIncrement = 60;
+    let angleIncrement = 120;
     if (prevPositionedAtom.connections.length === 4) {
         // By convention, if an atom has 4 bonds, we represent it with 90
         // degree angles in 2D, even though it would have tetrahedral geometry
@@ -84,16 +87,19 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
         angleIncrement = 90;
         baseAngleIncrement = 90;
     } else if (_.where(bonds, {bondType: "triple", to: atom.idx}).length > 0 ||
-               _.where(bonds, {bondType: "triple", to: prevPositionedAtom.idx}).length > 0) {
+               _.where(bonds, {
+                   bondType: "triple",
+                   to: prevPositionedAtom.idx,
+               }).length > 0) {
         // Triple bonds have a bond angle of 180 degrees, so don't change the
         // direction in which we made the previous bond.
         angleIncrement = 0;
         baseAngleIncrement = 0;
     }
 
-    var angle = 0;
-    var idxPath = prevPositionedAtom.idx.split(":");
-    var lastAtomIdx = idxPath[idxPath.length - 1].split(",")[0];
+    let angle = 0;
+    const idxPath = prevPositionedAtom.idx.split(":");
+    const lastAtomIdx = idxPath[idxPath.length - 1].split(",")[0];
 
     // Conventionally, a single chain of atoms is rendered as a zig-zag pattern
     // with 120 degree angles.  This means we need to flip the angle every
@@ -102,12 +108,14 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
     // TODO(colin): don't depend on the parser's indexing scheme and just track
     // this entirely in the layout engine.
     if (parseInt(lastAtomIdx) % 2 !== 0) {
-        angle = prevPositionedAtom.baseAngle - (baseAngleIncrement - angleIncrement*myIndex);
+        angle = prevPositionedAtom.baseAngle - (
+            baseAngleIncrement - angleIncrement * myIndex);
     } else {
-        angle = prevPositionedAtom.baseAngle + (baseAngleIncrement - angleIncrement*myIndex);
+        angle = prevPositionedAtom.baseAngle + (
+            baseAngleIncrement - angleIncrement * myIndex);
     }
 
-    var pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
+    const pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
 
     atom.pos = pos;
     atom.baseAngle = angle;
@@ -133,9 +141,9 @@ function atomLayout(atom, atoms, bonds, rotationAngle) {
  * might not have that problem.
  */
 function maybeShrinkLines(fromAtom, toAtom) {
-    var shrinkFactor = 0.25;
-    var fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
-    var toPos = [toAtom.pos[0], toAtom.pos[1]];
+    const shrinkFactor = 0.25;
+    let fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
+    let toPos = [toAtom.pos[0], toAtom.pos[1]];
     if (fromAtom.symbol !== "C") {
         fromPos = [
             toAtom.pos[0] -
@@ -171,10 +179,14 @@ function maybeShrinkLines(fromAtom, toAtom) {
  *     (line:{single,double,triple}) and the line's endpoints
  */
 function bondLayout(bond, atoms) {
-    var fromAtom = atoms[bond.from];
-    var toAtom = atoms[bond.to];
-    var startAndEndPos = maybeShrinkLines(fromAtom, toAtom);
-    return {type: "line:" + bond.bondType, startPos: startAndEndPos[0], endPos: startAndEndPos[1] };
+    const fromAtom = atoms[bond.from];
+    const toAtom = atoms[bond.to];
+    const startAndEndPos = maybeShrinkLines(fromAtom, toAtom);
+    return {
+        type: "line:" + bond.bondType,
+        startPos: startAndEndPos[0],
+        endPos: startAndEndPos[1],
+    };
 }
 
 
@@ -215,11 +227,11 @@ function convertTree(atoms, bonds, tree) {
         return [atoms, bonds];
     }
     if (tree.type === "atom") {
-        var treeIdx = idxString(tree.idx);
+        const treeIdx = idxString(tree.idx);
         atoms[treeIdx] = {idx: treeIdx, symbol: tree.symbol, connections: []};
         if (tree.bonds) {
             _.each(tree.bonds, function(b) {
-                var toIdx = idxString(b.to.idx);
+                const toIdx = idxString(b.to.idx);
                 atoms[treeIdx].connections.push(toIdx);
                 bonds.push({from: treeIdx, to: toIdx, bondType: b.bondType});
                 convertTree(atoms, bonds, b.to);
@@ -252,21 +264,22 @@ function convertTree(atoms, bonds, tree) {
  * Return:
  *     an array of rendering instructions for all the atoms in the molecule
  */
-function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds, rotationAngle) {
+function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds,
+                          rotationAngle) {
     if (atomProcessingQueue.length === 0) {
         return outputs;
     }
 
-    var queuedAtomIdx = atomProcessingQueue.shift();
-    var atom = atoms[queuedAtomIdx];
+    const queuedAtomIdx = atomProcessingQueue.shift();
+    const atom = atoms[queuedAtomIdx];
     _.each(atom.connections, function(c) {
         if (!atoms[c].pos) {
             atomProcessingQueue.push(c);
         }
     });
-    return atomLayoutHelper(outputs.concat(atomLayout(atom, atoms, bonds, rotationAngle)),
-                            atomProcessingQueue, atoms, bonds, rotationAngle);
-
+    return atomLayoutHelper(
+        outputs.concat(atomLayout(atom, atoms, bonds, rotationAngle)),
+        atomProcessingQueue, atoms, bonds, rotationAngle);
 }
 
 /**
@@ -306,10 +319,10 @@ function bondLayoutHelper(outputs, atoms, bonds) {
  *     molecule suitable for processing by the renderer
  */
 function layout(tree, rotationAngle) {
-    var converted = convertTree({}, [], tree);
-    var atoms = converted[0];
-    var bonds = converted[1];
-    var outputs = atomLayoutHelper([], ["1,0"], atoms, bonds, rotationAngle);
+    const converted = convertTree({}, [], tree);
+    const atoms = converted[0];
+    const bonds = converted[1];
+    const outputs = atomLayoutHelper([], ["1,0"], atoms, bonds, rotationAngle);
     return bondLayoutHelper(outputs, atoms, bonds);
 }
 

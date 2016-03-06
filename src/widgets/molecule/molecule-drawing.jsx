@@ -1,4 +1,4 @@
-var _ = require("underscore");
+const _ = require("underscore");
 
 /**
  * Draw some text into a 2D canvas drawing context.
@@ -16,7 +16,8 @@ function drawText(ctx, item) {
     if (item.value === null) { return; }
     ctx.fillStyle = styles.fgColor;
     ctx.font = styles.font;
-    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx/2 + 1, item.pos[1] + styles.fontSizePx/2);
+    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1,
+                 item.pos[1] + styles.fontSizePx / 2);
 }
 
 
@@ -37,8 +38,8 @@ function drawText(ctx, item) {
  */
 function drawDoubleLine(ctx, item) {
     // Outer line that forms both of the bond lines.
-    var path = new Path2D();
-    ctx.lineWidth = 5*styles.lineWidth;
+    let path = new Path2D();
+    ctx.lineWidth = 5 * styles.lineWidth;
     ctx.strokeStyle = styles.fgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -46,7 +47,7 @@ function drawDoubleLine(ctx, item) {
 
     // Inner white line that separates the two bond lines.
     path = new Path2D();
-    ctx.lineWidth = 3*styles.lineWidth;
+    ctx.lineWidth = 3 * styles.lineWidth;
     ctx.strokeStyle = styles.bgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -74,8 +75,8 @@ function drawTripleLine(ctx, item) {
     // functions.
 
     // Outer line that will form the two outer bond lines.
-    var path = new Path2D();
-    ctx.lineWidth = 7*styles.lineWidth;
+    let path = new Path2D();
+    ctx.lineWidth = 7 * styles.lineWidth;
     ctx.strokeStyle = styles.fgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -83,7 +84,7 @@ function drawTripleLine(ctx, item) {
 
     // Middle white line that separates the bonds
     path = new Path2D();
-    ctx.lineWidth = 5*styles.lineWidth;
+    ctx.lineWidth = 5 * styles.lineWidth;
     ctx.strokeStyle = styles.bgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -105,7 +106,7 @@ function drawTripleLine(ctx, item) {
  *     }
  */
 function drawLine(ctx, item) {
-    var path = new Path2D();
+    const path = new Path2D();
     ctx.lineWidth = styles.lineWidth;
     ctx.strokeStyle = styles.fgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
@@ -118,7 +119,7 @@ function drawLine(ctx, item) {
  * Lookup table that maps drawing instruction types to the functions that
  * render them.
  */
-var drawingFuncs = {
+const drawingFuncs = {
     text: drawText,
     "line:single": drawLine,
     "line:double": drawDoubleLine,
@@ -137,7 +138,7 @@ function drawItem(ctx) {
  *
  * Types with lower priorities are drawn first.
  */
-var ordering = {
+const ordering = {
     "line:single": 0,
     "line:double": 0,
     "line:triple": 0,
@@ -160,7 +161,7 @@ function draw(ctx, items) {
 }
 
 
-var styles = {
+const styles = {
     bgColor: 'rgb(255, 255, 255)',
     fgColor: 'rgb(0, 0, 0)',
     fontSizePx: 12,

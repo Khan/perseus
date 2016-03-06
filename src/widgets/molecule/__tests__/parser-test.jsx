@@ -1,41 +1,41 @@
-var assert = require("assert");
+const assert = require("assert");
 
-var SmilesParser = require("../smiles-parser.js");
-var parser = SmilesParser.parse;
-var ParseError = SmilesParser.ParseError;
+const SmilesParser = require("../smiles-parser.jsx");
+const parser = SmilesParser.parse;
+const ParseError = SmilesParser.ParseError;
 
 describe("SMILES parser", () => {
     describe("single atom parsing", () => {
         it("should parse a single bare atom", () => {
-            var parsed = parser("C");
+            const parsed = parser("C");
             assert.deepEqual(
                 parsed, {
                     type: "atom",
                     symbol: "C",
                     bonds: null,
-                    idx: [[1,0]],
+                    idx: [[1, 0]],
                 });
         });
 
         it("should parse a bracketed atom", () => {
-            var parsed = parser("[At]");
+            const parsed = parser("[At]");
             assert.deepEqual(
                 parsed, {
                     type: "atom",
                     symbol: "At",
                     bonds: null,
-                    idx: [[1,0]],
+                    idx: [[1, 0]],
                 });
         });
 
         it("should parse certain common two-letter atoms", () => {
-            var parsed = parser("Br");
+            const parsed = parser("Br");
             assert.deepEqual(
                 parsed, {
                     type: "atom",
                     symbol: "Br",
                     bonds: null,
-                    idx: [[1, 0]]
+                    idx: [[1, 0]],
                 });
         });
 
@@ -46,15 +46,15 @@ describe("SMILES parser", () => {
 
     describe("bond parsing", () => {
         it("should parse a single bond", () => {
-            var parsed = parser("CC");
-            var expectedBond = {
+            const parsed = parser("CC");
+            const expectedBond = {
                 type: "bond",
                 bondType: "single",
                 to: {
                     type: "atom",
                     symbol: "C",
                     bonds: null,
-                    idx: [[2,0]],
+                    idx: [[2, 0]],
                 },
             };
             assert.deepEqual(
@@ -62,20 +62,20 @@ describe("SMILES parser", () => {
                     type: "atom",
                     symbol: "C",
                     bonds: [expectedBond],
-                    idx: [[1,0]],
+                    idx: [[1, 0]],
                 });
         });
 
         it("should parse a double bond", () => {
-            var parsed = parser("C=C");
-            var expectedBond = {
+            const parsed = parser("C=C");
+            const expectedBond = {
                 type: "bond",
                 bondType: "double",
                 to: {
                     type: "atom",
                     symbol: "C",
                     bonds: null,
-                    idx: [[2,0]],
+                    idx: [[2, 0]],
                 },
             };
             assert.deepEqual(
@@ -83,20 +83,20 @@ describe("SMILES parser", () => {
                     type: "atom",
                     symbol: "C",
                     bonds: [expectedBond],
-                    idx: [[1,0]],
+                    idx: [[1, 0]],
                 });
         });
 
         it("should parse a triple bond", () => {
-            var parsed = parser("C#C");
-            var expectedBond = {
+            const parsed = parser("C#C");
+            const expectedBond = {
                 type: "bond",
                 bondType: "triple",
                 to: {
                     type: "atom",
                     symbol: "C",
                     bonds: null,
-                    idx: [[2,0]],
+                    idx: [[2, 0]],
                 },
             };
             assert.deepEqual(
@@ -104,14 +104,14 @@ describe("SMILES parser", () => {
                     type: "atom",
                     symbol: "C",
                     bonds: [expectedBond],
-                    idx: [[1,0]],
+                    idx: [[1, 0]],
                 });
         });
     });
 
     describe("branch parsing", () => {
         it("should parse a branch", () => {
-            var parsed = parser("C(C)C");
+            const parsed = parser("C(C)C");
             assert.strictEqual(
                 parsed.bonds.length, 2);
             assert.strictEqual(
@@ -120,13 +120,13 @@ describe("SMILES parser", () => {
                 parsed.bonds[1].type, "bond");
 
             assert.deepEqual(
-                parsed.bonds[0].to.idx, [[1,1], [0,0]]);
+                parsed.bonds[0].to.idx, [[1, 1], [0, 0]]);
             assert.deepEqual(
-                parsed.bonds[1].to.idx, [[2,0]]);
+                parsed.bonds[1].to.idx, [[2, 0]]);
         });
 
         it("should apply bond modifiers only to one branch", () => {
-            var parsed = parser("C(=O)C");
+            let parsed = parser("C(=O)C");
             assert.strictEqual(
                 parsed.bonds.length, 2);
             assert.strictEqual(

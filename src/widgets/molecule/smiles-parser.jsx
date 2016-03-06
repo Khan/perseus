@@ -1,15 +1,15 @@
-var _ = require("underscore");
+const _ = require("underscore");
 
 // Regexp defining characters that are valid SMILES characters that this parser
 // can parse.  In addition to serving as a sort of validation, this also keeps
 // out unimplemented features (like cycles and stereochemistry), which use
 // additional characters.
-var smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
+const smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
 
 // Regexp defining what characters are valid as atom names.  This includes
 // common 1-character elements, Cl and Br for convenience, and the open
 // bracket, which can be used to include anything as an atom name.
-var atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
+const atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
 
 function ParseError(message) {
     this.message = message;
@@ -34,11 +34,12 @@ function ParseError(message) {
  *     at the specified key[path] replaced.
  */
 function _mset(obj, keyOrKeylist, val) {
+    let newObj;
     if (_.isArray(keyOrKeylist)) {
-        var k0 = keyOrKeylist[0];
-        var rest = _.rest(keyOrKeylist);
-        var newObj = _.clone(obj) || {};
-        var newVal = val;
+        const k0 = keyOrKeylist[0];
+        const rest = _.rest(keyOrKeylist);
+        newObj = _.clone(obj) || {};
+        let newVal = val;
         if (rest.length > 0) {
             newVal = _mset(newObj[k0], rest, val);
         }
@@ -46,7 +47,7 @@ function _mset(obj, keyOrKeylist, val) {
         return newObj;
     }
 
-    var newObj = _.clone(obj);
+    newObj = _.clone(obj);
     newObj[keyOrKeylist] = val;
     return newObj;
 }
@@ -65,7 +66,7 @@ function _mset(obj, keyOrKeylist, val) {
  *     path incremeneted.
  */
 function _inc(obj, keylist) {
-    var val = _.reduce(keylist, function(acc, elt) {
+    const val = _.reduce(keylist, function(acc, elt) {
         return acc[elt];
     }, obj);
 
@@ -83,8 +84,8 @@ function validate(smiles) {
  * next bond created has this modifier.
  */
 function parseBondModifier(smiles, ctx) {
-    var firstChar = smiles[0];
-    var rest = smiles.slice(1);
+    const firstChar = smiles[0];
+    const rest = smiles.slice(1);
     if (firstChar === "=") {
         return parse(rest, _mset(ctx, ["bond", "bondType"], "double"));
     } else if (firstChar === "#") {
@@ -110,8 +111,8 @@ function sliceFromMatchingCloseParen(smiles, parenStack) {
         throw new ParseError("Mismatched parentheses");
     }
 
-    var firstChar = smiles[0];
-    var rest = smiles.slice(1);
+    const firstChar = smiles[0];
+    const rest = smiles.slice(1);
 
     if (firstChar === "(") {
         return sliceFromMatchingCloseParen(rest, parenStack.concat(firstChar));
@@ -132,14 +133,14 @@ function sliceFromMatchingCloseParen(smiles, parenStack) {
  * backbone) that should be added to the previous atom's bond list.
  */
 function parseParenthesizedExpression(smiles, ctx) {
-    var firstChar = smiles[0];
-    var rest = smiles.slice(1);
+    const firstChar = smiles[0];
+    const rest = smiles.slice(1);
     if (firstChar === "(") {
-        var newCtx = _mset(ctx, "parens", ctx.parens + "(");
+        let newCtx = _mset(ctx, "parens", ctx.parens + "(");
         // increment the branch index
         newCtx = _inc(ctx, ["idx", ctx.idx.length - 1, 1]);
 
-        var inBranchIdx = -1;
+        let inBranchIdx = -1;
         if (ctx.idx[ctx.idx.length - 1][0] % 2 === 0) {
             // HACK(colin): this is so that we preserve the odd/even series in
             // indices in branches; the layout engine uses this to select
@@ -149,10 +150,13 @@ function parseParenthesizedExpression(smiles, ctx) {
             // layout engine should figure out continuity.
             inBranchIdx = 0;
         }
-        var parenCtx = _mset(newCtx, "idx", newCtx.idx.concat([[inBranchIdx, 0]]));
-        parenCtx = _mset(parenCtx, "parens", parenCtx.parens.concat("("));
-        var parenExpr = parse(rest, parenCtx);
-        var remainder = parse(sliceFromMatchingCloseParen(rest, ["("]), newCtx);
+        let parenCtx = _mset(newCtx, "idx",
+                             newCtx.idx.concat([[inBranchIdx, 0]]));
+        parenCtx = _mset(parenCtx,
+                         "parens", parenCtx.parens.concat("("));
+        const parenExpr = parse(rest, parenCtx);
+        const remainder = parse(
+            sliceFromMatchingCloseParen(rest, ["("]), newCtx);
         return [parenExpr].concat(remainder);
     } else if (firstChar === ")") {
         if (_.last(ctx.parens) !== "(") {
@@ -172,17 +176,17 @@ function parseParenthesizedExpression(smiles, ctx) {
  * molecule.
  */
 function readAtomSymbol(smiles, _ctx) {
-    var sym = null;
-    var rest = null;
+    let sym = null;
+    let rest = null;
     if (smiles[0] === "[") {
-        var closingIdx = smiles.indexOf("]");
+        const closingIdx = smiles.indexOf("]");
         if (closingIdx === -1) {
             return ["", smiles];
         }
         sym = smiles.slice(1, closingIdx);
         rest = smiles.slice(closingIdx + 1);
     } else {
-        var match = atomRe.exec(smiles);
+        const match = atomRe.exec(smiles);
         sym = match[1];
         rest = smiles.slice(sym.length);
     }
@@ -197,12 +201,12 @@ function readAtomSymbol(smiles, _ctx) {
  * destination of the bond if this is not the first atom.
  */
 function parseAtom(smiles, ctx) {
-    var symbolInfo = readAtomSymbol(smiles, ctx);
-    var atom = symbolInfo[0];
+    const symbolInfo = readAtomSymbol(smiles, ctx);
+    const atom = symbolInfo[0];
     if (atom === "") {
         return ["error", "Unable to parse bracketed atom."];
     }
-    var rest = symbolInfo[1];
+    const rest = symbolInfo[1];
 
     // Atoms are indexed by a list of two-element lists.  In each two-element
     // list, the first element is the atom counter, and the second element is
@@ -216,15 +220,15 @@ function parseAtom(smiles, ctx) {
     //     Next atom in the main chain: [[x + 1, 0]]
 
     // increment the atom counter and reset the branch counter
-    var newCtx = _mset(ctx, ["idx", ctx.idx.length - 1],
+    const newCtx = _mset(ctx, ["idx", ctx.idx.length - 1],
                        [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
-    var restOfMolecule = parse(
+    let restOfMolecule = parse(
         rest, _mset(newCtx, ["bond", "bondType"], "single"));
-    if (! _.isArray(restOfMolecule) && !!restOfMolecule) {
+    if (!_.isArray(restOfMolecule) && !!restOfMolecule) {
         //TODO(colin): fix this awkwardness.
         restOfMolecule = [restOfMolecule];
     }
-    var atomObj = {
+    const atomObj = {
         type: "atom",
         symbol: atom,
         bonds: restOfMolecule,
