@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require('react');
 var _ = require("underscore");
 
@@ -12,13 +16,14 @@ var seededRNG = require("../util.js").seededRNG;
 
 var Matcher = React.createClass({
     propTypes: {
-        left: React.PropTypes.array,
-        right: React.PropTypes.array,
         labels: React.PropTypes.array,
+        left: React.PropTypes.array,
+        onChange: React.PropTypes.func,
         orderMatters: React.PropTypes.bool,
         padding: React.PropTypes.bool,
         problemNum: React.PropTypes.number,
-        onChange: React.PropTypes.func
+        right: React.PropTypes.array,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -70,8 +75,9 @@ var Matcher = React.createClass({
                     disabled={!this.props.orderMatters}
                     constraints={constraints}
                     onMeasure={this.onMeasureLeft}
-                    onChange={this.props.onChange}
-                    ref="left" />
+                    onChange={this.changeAndTrack}
+                    ref="left"
+                />
             </div>
             <div className="column">
                 {showLabels && <div className="column-label">
@@ -83,10 +89,16 @@ var Matcher = React.createClass({
                     padding={this.props.padding}
                     constraints={constraints}
                     onMeasure={this.onMeasureRight}
-                    onChange={this.props.onChange}
-                    ref="right" />
+                    onChange={this.changeAndTrack}
+                    ref="right"
+                />
             </div>
         </div>;
+    },
+
+    changeAndTrack: function(e) {
+        this.props.onChange(e);
+        this.props.trackInteraction();
     },
 
     onMeasureLeft: function(dimensions) {

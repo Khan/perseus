@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, max-len, no-console, no-unused-vars, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var InfoTip = require("react-components/info-tip.jsx");
 var React = require('react');
 var ReactDOM = require("react-dom");
@@ -203,11 +207,12 @@ var NORMAL = "normal",
 
 var Orderer = React.createClass({
     propTypes: {
-        current: React.PropTypes.array,
-        options: React.PropTypes.array,
         correctOptions: React.PropTypes.array,
+        current: React.PropTypes.array,
         height: React.PropTypes.oneOf([NORMAL, AUTO]),
-        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL])
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+        options: React.PropTypes.array,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -385,6 +390,7 @@ var Orderer = React.createClass({
                 placeholderIndex: null,
                 animating: false
             });
+            this.props.trackInteraction();
         };
 
         // Find the position of the card we should animate to

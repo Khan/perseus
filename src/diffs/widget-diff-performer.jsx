@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-undef, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var UNCHANGED = "unchanged";
 var CHANGED = "changed";
 var ADDED = "added";

@@ -1,4 +1,7 @@
-/* eslint-disable prefer-template */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * Traverses a {content, widgets, images} renderer props object,
  * such as `itemData.question`

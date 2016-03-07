@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable brace-style, comma-dangle, indent, no-redeclare, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-unary-ops */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require("react");
 var _ = require("underscore");
 
@@ -854,6 +858,10 @@ DEFAULT_GRAPHER_PROPS.availableTypes = [DEFAULT_GRAPHER_PROPS.plot.type];
 
 /* Widget and editor. */
 var Grapher = React.createClass({
+    propTypes: {
+        trackInteraction: React.PropTypes.func.isRequired,
+    },
+
     getDefaultProps: function() {
         return DEFAULT_GRAPHER_PROPS;
     },
@@ -914,6 +922,7 @@ var Grapher = React.createClass({
         this.props.onChange({
             plot: plot
         });
+        this.props.trackInteraction();
     },
 
     handleActiveTypeChange: function(newType) {
@@ -1012,7 +1021,8 @@ var GrapherEditor = React.createClass({
                         correct = newProps.plot;
                     }
                     this.props.onChange({correct: correct}, cb);
-                }
+                },
+                trackInteraction: function() {},
             };
 
             graph = <Grapher {...graphProps} />;

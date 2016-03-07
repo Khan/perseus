@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /*eslint-disable no-console */
 /* globals KA */
 var $ = require("jquery");
@@ -100,6 +104,56 @@ var isIdPathPrefix = function(prefixArray, wholeArray) {
         return _.isEqual(elem, wholeArray[i]);
     });
 };
+
+/**
+ * Wrapper for the trackInteraction apiOption.
+ *
+ * @param trackApi Original API
+ * @param widgetType String name of the widget type
+ * @param widgetID String ID of the widget instance
+ * @param setting string setting for tracking (either "" for track once or
+ *          "all")
+ */
+var InteractionTracker = function(trackApi, widgetType, widgetID, setting) {
+    if (!trackApi) {
+        this.track = this._noop;
+    } else {
+        this._tracked = false;
+        this.trackApi = trackApi;
+        this.widgetType = widgetType;
+        this.widgetID = widgetID;
+        this.setting = setting;
+        this.track = this._track.bind(this);
+    }
+};
+
+/**
+ * Function that actually calls the API to mark the interaction. This is
+ * private. The public version is just `.track` and is bound to this object
+ * for easy use in other context.
+ *
+ * @param extraData Any extra data to track about the event.
+ * @private
+ */
+InteractionTracker.prototype._track = function(extraData) {
+    if (this._tracked && !this.setting) {
+        return;
+    }
+    this._tracked = true;
+    this.trackApi({
+        type: this.widgetType,
+        id: this.widgetID,
+        ...extraData,
+    });
+};
+
+/**
+ * This alternate version of `.track` does nothing as an optimization.
+ *
+ * @private
+ */
+InteractionTracker.prototype._noop = function() {};
+
 
 var Renderer = React.createClass({
     propTypes: {
@@ -316,17 +370,28 @@ var Renderer = React.createClass({
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
         var reviewModeRubric = null;
-        if (this.props.reviewMode && this.state.widgetInfo[id]) {
-            reviewModeRubric = this.state.widgetInfo[id].options;
+        var widgetInfo = this.state.widgetInfo[id];
+        if (this.props.reviewMode && widgetInfo) {
+            reviewModeRubric = widgetInfo.options;
+        }
+
+        if (!this._interactionTrackers) {
+            this._interactionTrackers = {};
+        }
+
+        var interactionTracker = this._interactionTrackers[id];
+        if (!interactionTracker) {
+            interactionTracker = this._interactionTrackers[id] =
+                new InteractionTracker(this.props.apiOptions.trackInteraction,
+                    widgetInfo && widgetInfo.type, id,
+                Widgets.getTracking(widgetInfo && widgetInfo.type));
         }
 
         return _.extend({}, widgetProps, {
             ref: id,
             widgetId: id,
-            alignment: this.state.widgetInfo[id] &&
-                       this.state.widgetInfo[id].alignment,
-            static: this.state.widgetInfo[id] &&
-                    this.state.widgetInfo[id].static,
+            alignment: widgetInfo && widgetInfo.alignment,
+            static: widgetInfo && widgetInfo.static,
             problemNum: this.props.problemNum,
             enabledFeatures: this.props.enabledFeatures,
             apiOptions: this.getApiOptions(this.props),
@@ -338,6 +403,7 @@ var Renderer = React.createClass({
             onChange: (newProps, cb) => {
                 this._setWidgetProps(id, newProps, cb);
             },
+            trackInteraction: interactionTracker.track,
         });
     },
 
@@ -703,6 +769,20 @@ var Renderer = React.createClass({
                 this.widgetIds.push(node.id);
                 return this.renderWidget(node.widgetType, node.id, state);
             }
+
+        } else if (node.type === "blockMath") {
+            // We render math here instead of in perseus-markdown.jsx
+            // because we need to pass it our onRender callback.
+            return <div
+                key={state.key}
+                className="perseus-block-math"
+            >
+                <div className="perseus-block-math-inner">
+                    <TeX onRender={this.props.onRender}>
+                        {node.content}
+                    </TeX>
+                </div>
+            </div>;
 
         } else if (node.type === "math") {
             // We render math here instead of in perseus-markdown.jsx

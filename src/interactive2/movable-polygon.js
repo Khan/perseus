@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, max-len, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * Creates and adds a polygon to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.

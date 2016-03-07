@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var classNames = require("classnames");
 var React = require("react");
 var _ = require("underscore");
@@ -32,6 +36,7 @@ var GradedGroup = React.createClass({
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
         apiOptions: ApiOptions.propTypes,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -139,6 +144,10 @@ var GradedGroup = React.createClass({
             status: status,
             message: message,
         });
+
+        this.props.trackInteraction({
+            status: status,
+        });
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -223,5 +232,6 @@ module.exports = {
     editor: GradedGroupEditor,
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
+    tracking: "all",
 };
 

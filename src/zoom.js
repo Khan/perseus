@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, max-len, no-var, space-before-function-paren */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 // Derived from the MIT-licensed:
 // https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/js/zoom.js
 

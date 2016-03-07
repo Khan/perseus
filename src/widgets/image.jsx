@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 // TODO(kevindangoor) fix these lint errors
 /*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
     react/jsx-closing-bracket-location
@@ -81,6 +85,7 @@ var ImageWidget = React.createClass({
         ),
 
         title: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     mixins: [Changeable],
@@ -150,6 +155,7 @@ var ImageWidget = React.createClass({
                             range: this.props.range,
                             labels: this.props.labels,
                         }}
+                        trackInteraction={this.props.trackInteraction}
             />;
         }
 

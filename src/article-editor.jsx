@@ -1,5 +1,7 @@
-/* eslint-disable react/prop-types, react/sort-comp, no-alert, prefer-template,
-react/jsx-closing-bracket-location */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-alert, no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require('react');
 var _ = require("underscore");
 

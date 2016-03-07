@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, indent, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * Calculates whether a perseus item is renderable by a specific
  * perseus-item-data version.

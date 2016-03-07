@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -44,13 +48,14 @@ var getRefForPath = function(path) {
 
 var Table = React.createClass({
     propTypes: {
-        editableHeaders: React.PropTypes.bool,
-        headers: React.PropTypes.arrayOf(React.PropTypes.string),
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.string
             )
-        )
+        ),
+        editableHeaders: React.PropTypes.bool,
+        headers: React.PropTypes.arrayOf(React.PropTypes.string),
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -150,6 +155,7 @@ var Table = React.createClass({
         this.props.onChange({
             answers: answers
         });
+        this.props.trackInteraction();
     },
 
     onHeaderChange: function(index, e) {
@@ -333,7 +339,10 @@ var TableEditor = React.createClass({
 
         var tableProps = _.pick(this.props, "headers", "answers", "onChange");
         _.extend(tableProps, {
-            editableHeaders: true
+            editableHeaders: true,
+            onFocus: () => {},
+            onBlur: () => {},
+            trackInteraction: () => {},
         });
 
         return <div>

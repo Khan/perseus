@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var classNames = require("classnames");
 var React = require("react");
 var ReactDOM = require("react-dom");
@@ -91,9 +95,6 @@ var getMatrixSize = function(matrix) {
 
 var Matrix = React.createClass({
     propTypes: {
-        matrixBoardSize: React.PropTypes.arrayOf(
-            React.PropTypes.number
-        ).isRequired,
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.oneOfType([
@@ -102,11 +103,15 @@ var Matrix = React.createClass({
                 ])
             )
         ),
-        prefix: React.PropTypes.string,
-        suffix: React.PropTypes.string,
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
-        )
+        ),
+        matrixBoardSize: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        ).isRequired,
+        prefix: React.PropTypes.string,
+        suffix: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -379,6 +384,7 @@ var Matrix = React.createClass({
         this.props.onChange({
             answers: answers
         }, cb);
+        this.props.trackInteraction();
     },
 
     getUserInput: function() {
@@ -485,7 +491,8 @@ var MatrixEditor = React.createClass({
         var matrixProps = _.extend({
             numericInput: true,
             onBlur: () => {},
-            onFocus: () => {}
+            onFocus: () => {},
+            trackInteraction: () => {},
         }, this.props);
         return <div className="perseus-matrix-editor">
             <div className="perseus-widget-row">

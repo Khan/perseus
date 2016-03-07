@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, semi, space-before-function-paren */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var classNames = require("classnames");
 var FancySelect = require("../components/fancy-select.jsx");
 var InfoTip = require("react-components/info-tip.jsx");
@@ -16,10 +20,12 @@ var captureScratchpadTouchStart =
 
 var Dropdown = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
-        selected: React.PropTypes.number,
+        onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes
+        selected: React.PropTypes.number,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -87,6 +93,7 @@ var Dropdown = React.createClass({
     },
 
     _handleChange: function(selected) {
+        this.props.trackInteraction();
         this.props.onChange({selected: selected});
     },
 

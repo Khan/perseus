@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* globals KA */
 var classNames = require("classnames");
 var React = require("react");
@@ -210,6 +214,7 @@ var SvgImage = React.createClass({
         scale: React.PropTypes.number,
         src: React.PropTypes.string.isRequired,
         title: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func,
         width: React.PropTypes.number,
     },
 
@@ -449,6 +454,7 @@ var SvgImage = React.createClass({
         if ($image.width() < this.props.width) {
             Zoom.ZoomService.handleZoomClick(e);
         }
+        this.props.trackInteraction && this.props.trackInteraction();
     },
 
     render: function() {

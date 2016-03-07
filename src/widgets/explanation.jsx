@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -5,6 +9,7 @@ var _ = require("underscore");
 var Changeable = require("../mixins/changeable.jsx");
 var Editor = require("../editor.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+var PerseusApi = require("../perseus-api.jsx");
 var Renderer = require("../renderer.jsx");
 var TextInput = require("../components/text-input.jsx");
 
@@ -20,9 +25,11 @@ var Explanation = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
-        showPrompt: React.PropTypes.string,
-        hidePrompt: React.PropTypes.string,
+        apiOptions: PerseusApi.Options.propTypes,
         explanation: React.PropTypes.string,
+        hidePrompt: React.PropTypes.string,
+        showPrompt: React.PropTypes.string,
+        trackInteraction: React.PropTypes.func.isRequired,
         widgets: React.PropTypes.object,
     },
 
@@ -41,6 +48,7 @@ var Explanation = React.createClass({
         this.setState({
             expanded: !this.state.expanded
         });
+        this.props.trackInteraction();
     },
 
     // After rendering, we want to measure the height of the explanation so we
@@ -92,8 +100,10 @@ var Explanation = React.createClass({
                     overflow: this.state.expanded ? "visible" : "hidden"
                 }} ref="content">
                 <Renderer
+                    apiOptions={this.props.apiOptions}
                     content={this.props.explanation}
-                    widgets={this.props.widgets} />
+                    widgets={this.props.widgets}
+                />
             </div>
         </div>;
     },

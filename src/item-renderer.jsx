@@ -1,4 +1,7 @@
-/* eslint-disable react/sort-comp, react/jsx-sort-prop-types, prefer-spread */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var, prefer-spread */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");

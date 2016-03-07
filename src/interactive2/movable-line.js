@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, max-len, no-redeclare, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * MovableLine
  */

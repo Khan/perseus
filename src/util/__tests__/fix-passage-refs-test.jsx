@@ -1,6 +1,7 @@
-/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
-react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
-space-infix-ops, react/jsx-closing-bracket-location */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var assert = require("assert");
 var _ = require("underscore");
 

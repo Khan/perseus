@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var _ = require("underscore");
 
 var SimpleMarkdown = require("simple-markdown");
@@ -23,14 +27,30 @@ var Util = require("./util.js");
  *
  * Non-regex matchers like this are now a first-class
  * concept in simple-markdown. Yay!
+ *
+ * This can also match block-math, which is math alone in a paragraph.
  */
-var mathMatch = (source) => {
+var mathMatcher = (source, state, isBlock) => {
     var length = source.length;
-    // our source must start with a "$"
-    if (length === 0 || source[0] !== "$") {
+    var index = 0;
+
+    // When looking for blocks, skip over leading spaces
+    if (isBlock) {
+        if (state.inline) {
+            return null;
+        }
+        while (index < length && source[index] === " ") {
+            index++;
+        }
+    }
+
+    // Our source must start with a "$"
+    if (!(index < length && source[index] === "$")) {
         return null;
     }
-    var index = 1;
+
+    index++;
+    var startIndex = index;
     var braceLevel = 0;
 
     // Loop through the source, looking for a closing '$'
@@ -50,8 +70,14 @@ var mathMatch = (source) => {
             // braces `\{`
             index++;
 
-        } else if (braceLevel <= 0 &&
-                character === "$") {
+        } else if (braceLevel <= 0 && character === "$") {
+
+            var endIndex = index + 1;
+            if (isBlock) {
+                // Look for two trailing newlines after the closing `$`
+                var match = /^(?: *\n){2,}/.exec(source.slice(endIndex));
+                endIndex = match ? endIndex + match[0].length : null;
+            }
 
             // Return an array that looks like the results of a
             // regex's .exec function:
@@ -59,10 +85,13 @@ var mathMatch = (source) => {
             // capture[1] is the first "paren" match, which is the
             //   content of the math here, as if we wrote the regex
             //   /\$([^\$]*)\$/
-            return [
-                source.substring(0, index + 1),
-                source.substring(1, index)
-            ];
+            if (endIndex) {
+                return [
+                    source.substring(0, endIndex),
+                    source.substring(startIndex, index),
+                ];
+            }
+            return null;
 
         } else if (character === "{") {
             braceLevel++;
@@ -86,6 +115,8 @@ var mathMatch = (source) => {
     // we didn't find a closing `$`
     return null;
 };
+var mathMatch = (source, state) => mathMatcher(source, state, false);
+var blockMathMatch = (source, state) => mathMatcher(source, state, true);
 
 var TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\| +(.*) +\\|\\| *\\n" +
@@ -106,7 +137,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         parse: (capture, parse, state) => {
             return {
                 col1: parse(capture[1], state),
-                col2: parse(capture[2], state)
+                col2: parse(capture[2], state),
             };
         },
         react: (node, output, state) => {
@@ -191,7 +222,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                 </div>
                 <div>{tableOutput}</div>
             </div>;
-        }
+        },
     },
     widget: {
         order: SimpleMarkdown.defaultRules.link.order - 0.75,
@@ -199,7 +230,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         parse: (capture, parse, state) => {
             return {
                 id: capture[1],
-                widgetType: capture[2]
+                widgetType: capture[2],
             };
         },
         react: (node, output, state) => {
@@ -209,14 +240,14 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             return <em key={state.key}>
                 [Widget: {node.id}]
             </em>;
-        }
+        },
     },
-    math: {
-        order: SimpleMarkdown.defaultRules.link.order - 0.25,
-        match: mathMatch,
+    blockMath: {
+        order: SimpleMarkdown.defaultRules.codeBlock.order + 0.5,
+        match: blockMathMatch,
         parse: (capture, parse, state) => {
             return {
-                content: capture[1]
+                content: capture[1],
             };
         },
         react: (node, output, state) => {
@@ -224,7 +255,22 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // it needs to pass in an `onRender` callback prop. This
             // is just a stub for testing.
             return <TeX key={state.key}>{node.content}</TeX>;
-        }
+        },
+    },
+    math: {
+        order: SimpleMarkdown.defaultRules.link.order - 0.25,
+        match: mathMatch,
+        parse: (capture, parse, state) => {
+            return {
+                content: capture[1],
+            };
+        },
+        react: (node, output, state) => {
+            // The actual output is handled in the renderer, because
+            // it needs to pass in an `onRender` callback prop. This
+            // is just a stub for testing.
+            return <TeX key={state.key}>{node.content}</TeX>;
+        },
     },
     fence: _.extend({}, SimpleMarkdown.defaultRules.fence, {
         parse: (capture, parse, state) => {
@@ -258,8 +304,9 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             // output function, but right now that breaks the parser.
             if (node.lang === "alt") {
                 return <div
-                        key={state.key}
-                        className="perseus-markdown-alt perseus-sr-only">
+                    key={state.key}
+                    className="perseus-markdown-alt perseus-sr-only"
+                >
                     {output(node.content, state)}
                 </div>;
             } else {
@@ -269,7 +316,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
                     state
                 );
             }
-        }
+        },
     }),
 });
 

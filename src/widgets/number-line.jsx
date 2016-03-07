@@ -1,3 +1,8 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var, react/jsx-sort-prop-types */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+/* globals i18n, $_ */
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -29,14 +34,14 @@ var reverseRel = {
     ge: "le",
     gt: "lt",
     le: "ge",
-    lt: "gt"
+    lt: "gt",
 };
 
 var toggleStrictRel = {
     ge: "gt",
     gt: "ge",
     le: "lt",
-    lt: "le"
+    lt: "le",
 };
 
 function formatImproper(n, d) {
@@ -75,15 +80,15 @@ var _label = (graphie, labelStyle, pos, value, base) => {
         return graphie.label([pos, -0.53],
             Math.round(value * 100) / 100, "center");
     } else if (labelStyle === "improper") {
-        var frac = KhanUtil.toFraction(value);
+        const frac = KhanUtil.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatImproper(frac[0], frac[1]), "center");
     } else if (labelStyle === "mixed") {
-        var frac = KhanUtil.toFraction(value);
+        const frac = KhanUtil.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatMixed(frac[0], frac[1]), "center");
     } else if (labelStyle === "non-reduced") {
-        var frac = KhanUtil.toFraction(value);
+        const frac = KhanUtil.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatNonReduced(frac[0], frac[1], base), "center");
     }
@@ -100,7 +105,6 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     // For convenience, extract some props into separate variables
     var range = props.range;
     var labelRange = props.labelRange;
-    var range = props.range;
     var leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
     var rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
@@ -108,8 +112,8 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     var base;
     if (props.labelStyle === "non-reduced") {
         var fractions = [leftLabel, rightLabel];
-        for (var i = 0; i <= props.numDivisions; i++) {
-            var x = range[0] + i * props.tickStep;
+        for (let i = 0; i <= props.numDivisions; i++) {
+            const x = range[0] + i * props.tickStep;
             fractions.push(x);
         }
         var getDenom = (x) => knumber.toFraction(x)[1];
@@ -120,8 +124,8 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     }
 
     // Draw and save the tick marks and tick labels
-    for (var i = 0; i <= props.numDivisions; i++) {
-        var x = range[0] + i * props.tickStep;
+    for (let i = 0; i <= props.numDivisions; i++) {
+        const x = range[0] + i * props.tickStep;
         results.push(graphie.line([x, -0.2], [x, 0.2]));
 
         var labelTicks = props.labelTicks;
@@ -142,7 +146,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     graphie.style(
         {
             stroke: KhanUtil.DYNAMIC,
-            strokeWidth: 3.5
+            strokeWidth: 3.5,
         },
         () => {
             results.push(graphie.line([leftLabel, -0.2], [leftLabel, 0.2]));
@@ -155,12 +159,10 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
 
 
 var NumberLine = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
-        labelRange: React.PropTypes.array.isRequired,
+        labelRange: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         labelStyle: React.PropTypes.string.isRequired,
         labelTicks: React.PropTypes.bool.isRequired,
 
@@ -174,8 +176,18 @@ var NumberLine = React.createClass({
         isInequality: React.PropTypes.bool.isRequired,
 
         numLinePosition: React.PropTypes.number.isRequired,
-        rel: React.PropTypes.oneOf(["lt", "gt", "le", "ge"])
+        rel: React.PropTypes.oneOf(["lt", "gt", "le", "ge"]),
+
+        onFocus: React.PropTypes.func.isRequired,
+        onBlur: React.PropTypes.func.isRequired,
+        onChange: React.PropTypes.func.isRequired,
+
+        apiOptions: ApiOptions.propTypes,
+        static: React.PropTypes.bool,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -189,7 +201,7 @@ var NumberLine = React.createClass({
             numLinePosition: 0,
             snapDivisions: 2,
             rel: "ge",
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -201,72 +213,11 @@ var NumberLine = React.createClass({
         initialX = initialX == null ? range[0] : initialX;
 
         return range[0] <  range[1] &&
-               initialX >= range[0] &&
-               initialX <= range[1] &&
+               knumber.sign(initialX - range[0]) >= 0 &&
+               knumber.sign(initialX - range[1]) <= 0 &&
                divisionRange[0] < divisionRange[1] &&
                0 < this.props.numDivisions &&
                0 < this.props.snapDivisions;
-    },
-
-    render: function() {
-        var divisionRange = this.props.divisionRange;
-        var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
-        var invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
-                this.props.numDivisions > divisionRange[1];
-
-        var inequalityControls = <div>
-            <input
-                type="button"
-                className="simple-button"
-                value={i18n._("Switch direction")}
-                onClick={this.handleReverse} />
-            <input
-                type="button"
-                className="simple-button"
-                value={_(["le", "ge"]).contains(this.props.rel) ?
-                        i18n._("Make circle open") :
-                        i18n._("Make circle filled")}
-                onClick={this.handleToggleStrict} />
-        </div>;
-
-        var tickCtrl;
-        if (this.props.isTickCtrl) {
-            var Input;
-            if (this.props.apiOptions.staticRender) {
-                Input = MathOutput;
-            } else {
-                Input = NumberInput;
-            }
-            tickCtrl = <label><$_>Number of divisions:</$_>{" "}
-                <Input
-                    ref={"tick-ctrl"}
-                    value={this.props.numDivisions || divisionRange[0]}
-                    checkValidity={(val) =>
-                        val >= divisionRange[0] && val <= divisionRange[1]}
-                    onChange={this.onNumDivisionsChange}
-                    onFocus={this._handleTickCtrlFocus}
-                    onBlur={this._handleTickCtrlBlur}
-                    useArrowKeys={true} />
-            </label>;
-        }
-
-        return <div className={"perseus-widget " +
-                "perseus-widget-interactive-number-line"}>
-            {tickCtrl}
-            {!this.isValid() ?
-                <div className="perseus-error">
-                    Invalid number line configuration.
-                </div> :
-                (this.props.isTickCtrl && invalidNumDivisions ?
-                    <div className="perseus-error">
-                        <$_ divRangeString={divRangeString}>
-                            Please make sure the number of divisions is in the
-                            range %(divRangeString)s.
-                        </$_>
-                    </div> : this._renderGraphie())}
-            {!this.props.static && this.props.isInequality &&
-                inequalityControls}
-        </div>;
     },
 
     onNumDivisionsChange: function(numDivisions, cb) {
@@ -282,7 +233,7 @@ var NumberLine = React.createClass({
         // If the number of divisions isn't blank, update the number line
         if (numDivisions) {
             var nextProps = _.extend({}, this.props, {
-                tickStep: width / numDivisions
+                tickStep: width / numDivisions,
             });
 
             var newNumLinePosition = this.snapNumLinePosition(
@@ -293,7 +244,7 @@ var NumberLine = React.createClass({
             this.props.onChange({
                 divisionRange: divRange,
                 numDivisions: numDivisions,
-                numLinePosition: newNumLinePosition
+                numLinePosition: newNumLinePosition,
             }, cb);
         }
     },
@@ -363,25 +314,28 @@ var NumberLine = React.createClass({
 
         // TODO(aria): Maybe save this as `this.calculatedProps`?
         var props = _.extend({}, this.props, {
-            tickStep: width / this.props.numDivisions
+            tickStep: width / this.props.numDivisions,
         });
 
         return <Graphie
-                ref="graphie"
-                box={[460, 80]}
-                options={options}
-                onMouseDown={(coord) => {
-                    this.refs.graphie.movables.numberLinePoint.grab(coord);
-                }}
-                setup={this._setupGraphie}>
-            <TickMarks {..._.pick(props, [
-                "range",
-                "numDivisions",
-                "labelTicks",
-                "labelStyle",
-                "labelRange",
-                "tickStep"
-            ])} />
+            ref="graphie"
+            box={[460, 80]}
+            options={options}
+            onMouseDown={(coord) => {
+                this.refs.graphie.movables.numberLinePoint.grab(coord);
+            }}
+            setup={this._setupGraphie}
+        >
+            <TickMarks
+                {..._.pick(props, [
+                    "range",
+                    "numDivisions",
+                    "labelTicks",
+                    "labelStyle",
+                    "labelRange",
+                    "tickStep",
+                ])}
+            />
             {this._renderInequality(props)}
             {this._renderNumberLinePoint(props)}
         </Graphie>;
@@ -392,7 +346,7 @@ var NumberLine = React.createClass({
         var right = props.range[1];
         var snapX = props.tickStep / props.snapDivisions;
 
-        x = bound(numLinePosition, left, right);
+        let x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
         assert(_.isFinite(x));
         return x;
@@ -414,11 +368,11 @@ var NumberLine = React.createClass({
         var normalStyle = {
             fill: fill,
             stroke: props.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE,
-            "stroke-width": isOpen ? 3 : 1
+            "stroke-width": isOpen ? 3 : 1,
         };
         var highlightStyle = {
             fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTING,
-            "stroke-width": isOpen ? 3 : 1
+            "stroke-width": isOpen ? 3 : 1,
         };
 
         return <MovablePoint
@@ -432,13 +386,15 @@ var NumberLine = React.createClass({
                 (coord, prevCoord) => {  // snap X
                     var x = this.snapNumLinePosition(props, coord[0]);
                     return [x, coord[1]];
-                }
+                },
             ]}
             normalStyle={normalStyle}
             highlightStyle={highlightStyle}
             onMove={(coord) => {
                 this.change({numLinePosition: coord[0]});
-            }} />;
+                this.props.trackInteraction();
+            }}
+        />;
     },
 
     handleReverse: function() {
@@ -452,7 +408,7 @@ var NumberLine = React.createClass({
     },
 
     _getInequalityEndpoint: function(props) {
-        var isGreater = _(["ge","gt"]).contains(props.rel);
+        var isGreater = _(["ge", "gt"]).contains(props.rel);
         var widthInPixels = 400;
         var range = props.range;
         var scale = (range[1] - range[0]) / widthInPixels;
@@ -469,13 +425,14 @@ var NumberLine = React.createClass({
             var style = {
                 arrows: "->",
                 stroke: KhanUtil.DYNAMIC,
-                strokeWidth: 3.5
+                strokeWidth: 3.5,
             };
 
             return <Line
                 start={[props.numLinePosition, 0]}
                 end={end}
-                style={style} />;
+                style={style}
+            />;
         } else {
             return null;
         }
@@ -499,7 +456,7 @@ var NumberLine = React.createClass({
 
         graphie.init({
             range: [[left, right], [bottom, top]],
-            scale: [1 / scale, 40]
+            scale: [1 / scale, 40],
         });
 
         // Draw the number line
@@ -513,13 +470,79 @@ var NumberLine = React.createClass({
             numLinePosition: this.props.numLinePosition,
             rel: this.props.isInequality ? this.props.rel : "eq",
             numDivisions: this.props.numDivisions,
-            divisionRange: this.props.divisionRange
+            divisionRange: this.props.divisionRange,
         };
     },
 
     simpleValidate: function(rubric) {
         return NumberLine.validate(this.getUserInput(), rubric);
-    }
+    },
+
+    render: function() {
+        var divisionRange = this.props.divisionRange;
+        var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+        var invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
+                this.props.numDivisions > divisionRange[1];
+
+        var inequalityControls = <div>
+            <input
+                type="button"
+                className="simple-button"
+                value={i18n._("Switch direction")}
+                onClick={this.handleReverse}
+            />
+            <input
+                type="button"
+                className="simple-button"
+                value={_(["le", "ge"]).contains(this.props.rel) ?
+                        i18n._("Make circle open") :
+                        i18n._("Make circle filled")}
+                onClick={this.handleToggleStrict}
+            />
+        </div>;
+
+        var tickCtrl;
+        if (this.props.isTickCtrl) {
+            var Input;
+            if (this.props.apiOptions.staticRender) {
+                Input = MathOutput;
+            } else {
+                Input = NumberInput;
+            }
+            tickCtrl = <label>
+                <$_>Number of divisions:</$_>{" "}
+                <Input
+                    ref={"tick-ctrl"}
+                    value={this.props.numDivisions || divisionRange[0]}
+                    checkValidity={(val) =>
+                        val >= divisionRange[0] && val <= divisionRange[1]}
+                    onChange={this.onNumDivisionsChange}
+                    onFocus={this._handleTickCtrlFocus}
+                    onBlur={this._handleTickCtrlBlur}
+                    useArrowKeys={true}
+                />
+            </label>;
+        }
+
+        return <div className={"perseus-widget " +
+            "perseus-widget-interactive-number-line"}
+        >
+            {tickCtrl}
+            {!this.isValid() ?
+                <div className="perseus-error">
+                    Invalid number line configuration.
+                </div> :
+                (this.props.isTickCtrl && invalidNumDivisions ?
+                    <div className="perseus-error">
+                        <$_ divRangeString={divRangeString}>
+                            Please make sure the number of divisions is in the
+                            range %(divRangeString)s.
+                        </$_>
+                    </div> : this._renderGraphie())}
+            {!this.props.static && this.props.isInequality &&
+                inequalityControls}
+        </div>;
+    },
 });
 
 
@@ -539,295 +562,77 @@ _.extend(NumberLine, {
         if (state.isTickCrtl && outsideAllowedRange) {
             return {
                 type: "invalid",
-                message: "Number of divisions is outside the allowed range."
+                message: "Number of divisions is outside the allowed range.",
             };
         } else if (correctPos && correctRel === state.rel) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else if (state.numLinePosition === start && state.rel === startRel) {
             // We're where we started.
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 
 var NumberLineEditor = React.createClass({
-    getDefaultProps: function() {
-        return {
-            range: [0, 10],
-            labelRange: [null, null],
-            divisionRange: [1, 12],
-            labelStyle: "decimal",
-            labelTicks: true,
-            numDivisions: 5,
-            tickStep: null,
-            snapDivisions: 2,
-            correctRel: "eq",
-            correctX: null,
-            initialX: null
-        };
+    propTypes: {
+        range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+
+        labelRange: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+        labelStyle: React.PropTypes.string.isRequired,
+        labelTicks: React.PropTypes.bool,
+
+        divisionRange: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        ).isRequired,
+        numDivisions: React.PropTypes.number.isRequired,
+        snapDivisions: React.PropTypes.number,
+
+        tickStep: React.PropTypes.number,
+        correctRel: React.PropTypes.oneOf(["lt", "gt", "le", "ge", "eq"]),
+        correctX: React.PropTypes.number,
+        initialX: React.PropTypes.number,
+        isTickCtrl: React.PropTypes.bool,
+
+        onChange: React.PropTypes.func.isRequired,
+
+        static: React.PropTypes.bool,
     },
 
     mixins: [EditorJsonify],
 
-    render: function() {
-        var range = this.props.range;
-        var labelRange = this.props.labelRange;
-        var divisionRange = this.props.divisionRange;
+    getDefaultProps: function() {
+        return {
+            range: [0, 10],
 
-        range[0] = +range[0]; range[1] = +range[1];
+            labelRange: [null, null],
+            labelStyle: "decimal",
+            labelTicks: true,
 
-        var width = range[1] - range[0];
-        var numDivisions = this.props.numDivisions;
-        var snapDivisions = this.props.snapDivisions;
-        var tickStep = this.props.tickStep;
-        var isTickCtrl = this.props.isTickCtrl;
+            divisionRange: [1, 12],
+            numDivisions: 5,
+            snapDivisions: 2,
 
-        if (!isTickCtrl) {
-            // this will help constrain the answer to what is reachable
-            step = tickStep ? tickStep / snapDivisions :
-                  (width / numDivisions) / snapDivisions;
-        } else {
-            // but if tickCtrl is on, the range of what is reachable is
-            // rather large, and it becomes obnoxious to check for this
-            step = null;
-        }
-
-        var labelStyleEditorButtons = [
-              {value: "decimal", content: "0.75", title: "Decimals",},
-              {value: "improper", content: "\u2077\u2044\u2084",
-                title: "Improper fractions"},
-              {value: "mixed", content: "1\u00BE",
-                title: "Mixed numbers"},
-              {value: "non-reduced", content: "\u2078\u2044\u2084",
-                title: "Non-reduced"}];
-
-        return <div className="perseus-widget-number-line-editor">
-            <div className="perseus-widget-row">
-                Correct x
-                {" "}
-                <select value={this.props.correctRel}
-                  onChange={this.onChangeRelation}>
-                    <option value="eq"> = </option>
-                    <option value="lt"> &lt; </option>
-                    <option value="gt"> &gt; </option>
-                    <option value="le"> &le; </option>
-                    <option value="ge"> &ge; </option>
-                </select>
-                {" "}
-                <NumberInput
-                    value={this.props.correctX}
-                    format={this.props.labelStyle}
-                    onChange={this.onNumChange.bind(this, "correctX")}
-                    checkValidity={val =>
-                        val >= range[0] && val <= range[1] &&
-                        (!step || knumber.isInteger((val - range[0]) / step))
-                    }
-                    placeholder="answer" size="normal"
-                    useArrowKeys={true} />
-                <InfoTip><p>
-                    This is the correct answer. The answer is validated
-                    (as right or wrong) by using only the end position of the
-                    point and the relation (=, &lt;, &gt;, &le;, &ge;).
-                </p></InfoTip>
-            </div>
-
-            <div className="perseus-widget-row">
-                {this.props.static ?
-                    <label>
-                        {/* Don't display initial position input in static mode
-                            since it isn't used. */}
-                        Range:
-                    </label> :
-                    <label>
-                        Position:
-                        {" "}
-                        <NumberInput
-                            value={this.props.initialX}
-                            format={this.props.labelStyle}
-                            onChange={this.onNumChange.bind(this, "initialX")}
-                            placeholder={range[0]}
-                            checkValidity={(val) => {
-                                return (val >= range[0]) && (val <= range[1]);
-                            }}
-                            useArrowKeys={true} />
-                        {" \u2208 " /* element of (little E) symbol */}
-                    </label>}
-
-                <RangeInput
-                    value={range}
-                    onChange={this.onRangeChange}
-                    format={this.props.labelStyle}
-                    useArrowKeys={true} />
-                <InfoTip><p>
-                    This controls the initial position of the point along the
-                    number line and the <strong>range</strong>, the position
-                    of the endpoints of the number line. Setting the range
-                    constrains the position of the answer and the labels.
-                </p><p>
-                    In static mode, the initial position of the point is
-                    determined by Correct x instead of position.
-                </p></InfoTip>
-            </div>
-            <div className="perseus-widget-row">
-                <div className="perseus-widget-left-col">
-                    Labels:
-                    {" "}
-                    <NumberInput
-                        value={labelRange[0]} placeholder={range[0]}
-                        format={this.props.labelStyle}
-                        checkValidity={val =>
-                            val >= range[0] && val <= range[1]}
-                        onChange={this.onLabelRangeChange.bind(this, 0)}
-                        useArrowKeys={true} />
-                    <span> &amp; </span>
-                    <NumberInput
-                        value={labelRange[1]} placeholder={range[1]}
-                        format={this.props.labelStyle}
-                        checkValidity={val =>
-                            val >= range[0] && val <= range[1]}
-                        onChange={this.onLabelRangeChange.bind(this, 1)}
-                        useArrowKeys={true} />
-                    <InfoTip><p>
-                        This controls the position of the left / right labels.
-                        By default, the labels are set by the range <br />
-                        <strong>Note:</strong> Ensure that the labels line up
-                        with the tick marks, or it may be confusing for users.
-                    </p></InfoTip>
-                </div>
-            </div>
-            <div className="perseus-widget-row">
-                Style:
-                {" "}
-                <ButtonGroup
-                    allowEmpty={false}
-                    value={this.props.labelStyle}
-                    buttons={labelStyleEditorButtons}
-                    onChange={this.onLabelStyleChange} />
-                <InfoTip><p>
-                    This controls the styling of the labels for the two
-                    main labels as well as all the tick mark labels,
-                    if applicable. Your choices are decimal,
-                    improper fractions, mixed fractions, and non-reduced
-                    fractions.
-                </p></InfoTip>
-            </div>
-            <div className="perseus-widget-row">
-                {!this.props.static &&
-                    <div className="perseus-widget-left-col">
-                        <PropCheckBox
-                            label="Show tick controller"
-                            isTickCtrl={this.props.isTickCtrl}
-                            onChange={this.props.onChange} />
-                    </div>
-                }
-                <div className="perseus-widget-right-col">
-                    <PropCheckBox
-                        label="Show label ticks"
-                        labelTicks={this.props.labelTicks}
-                        onChange={this.props.onChange} />
-                </div>
-            </div>
-            <div className="perseus-widget-row">
-                {isTickCtrl && <span>
-                    <label>
-                        Start num divisions at
-                        {" "}
-                        <NumberInput
-                            value={this.props.numDivisions || null}
-                            format={"decimal"}
-                            onChange={this.onNumDivisionsChange}
-                            checkValidity={(val) => {
-                                return (val >= divisionRange[0]) &&
-                                    (val <= divisionRange[1]);
-                            }}
-                            placeholder={width / this.props.tickStep}
-                            useArrowKeys={true} />
-                    </label>
-                    <InfoTip><p>
-                        This controls the number (and position) of the tick
-                        marks. The number of divisions is constrained to
-                        {" " + divisionRange[0] + EN_DASH + divisionRange[1]}.
-                        <br />
-                        <strong>Note:</strong> The user will be able to specify
-                        the number of divisions in a number input.
-                    </p></InfoTip></span>}
-                {!isTickCtrl && <span>
-                    <label>
-                        Num divisions:
-                        {" "}
-                        <NumberInput
-                            value={this.props.numDivisions || null}
-                            format={"decimal"}
-                            onChange={this.onNumDivisionsChange}
-                            checkValidity={(val) => {
-                                return (val >= divisionRange[0]) &&
-                                    (val <= divisionRange[1]);
-                            }}
-                            placeholder={width / this.props.tickStep}
-                            useArrowKeys={true} />
-                    </label>
-                    {" "}
-                    <label>
-                        or tick step:
-                        {" "}
-                        <NumberInput
-                            value={this.props.tickStep || null}
-                            format={this.props.labelStyle}
-                            onChange={this.onTickStepChange}
-                            checkValidity={(val) => {
-                                return val > 0 && val <= width;
-                            }}
-                            placeholder={width / this.props.numDivisions}
-                            useArrowKeys={true} />
-                    </label>
-                    <InfoTip><p>
-                        This controls the number (and position) of the tick
-                        marks; you can either set the number of divisions (2
-                        divisions would split the entire range in two halves),
-                        or the tick step (the distance between ticks) and the
-                        other value will be updated accordingly. <br />
-                        <strong>Note:</strong> There is no check to see if
-                        labels coordinate with the tick marks, which may be
-                        confusing for users if the blue labels and black ticks
-                        are off-step.
-                    </p></InfoTip></span>}
-            </div>
-            <div className="perseus-widget-row">
-                <label>
-                    Snap increments per tick:
-                    {" "}
-                    <NumberInput
-                        value={snapDivisions}
-                        checkValidity={(val) => val > 0}
-                        format={this.props.labelStyle}
-                        onChange={this.onNumChange.bind(this, "snapDivisions")}
-                        useArrowKeys={true} />
-                </label>
-                <InfoTip><p>
-                    This determines the number of different places the point
-                    will snap between two adjacent tick marks. <br />
-                    <strong>Note:</strong>Ensure the required number of
-                    snap increments is provided to answer the question.
-                </p></InfoTip>
-            </div>
-
-        </div>;
+            tickStep: null,
+            correctRel: "eq",
+            correctX: null,
+            initialX: null,
+        };
     },
 
     onRangeChange: function(range) {
@@ -841,7 +646,7 @@ var NumberLineEditor = React.createClass({
 
     onLabelRangeChange: function(i, num) {
         var labelRange = this.props.labelRange.slice();
-        var otherNum = labelRange[1-i];
+        var otherNum = labelRange[1 - i];
 
         if (num == null || otherNum == null) {
             labelRange[i] = num;
@@ -906,7 +711,7 @@ var NumberLineEditor = React.createClass({
     },
 
     onChangeRelation: function(e) {
-        value = e.target.value;
+        const value = e.target.value;
         this.props.onChange({
             correctRel: value,
             isInequality: value !== "eq",
@@ -915,9 +720,270 @@ var NumberLineEditor = React.createClass({
 
     onLabelStyleChange: function(labelStyle) {
         this.props.onChange({
-            labelStyle: labelStyle
+            labelStyle: labelStyle,
         });
-    }
+    },
+
+    render: function() {
+        var range = this.props.range;
+        var labelRange = this.props.labelRange;
+        var divisionRange = this.props.divisionRange;
+
+        range[0] = +range[0]; range[1] = +range[1];
+
+        var width = range[1] - range[0];
+        var numDivisions = this.props.numDivisions;
+        var snapDivisions = this.props.snapDivisions;
+        var tickStep = this.props.tickStep;
+        var isTickCtrl = this.props.isTickCtrl;
+
+        let step;
+        if (!isTickCtrl) {
+            // this will help constrain the answer to what is reachable
+            step = tickStep ? tickStep / snapDivisions :
+                  (width / numDivisions) / snapDivisions;
+        } else {
+            // but if tickCtrl is on, the range of what is reachable is
+            // rather large, and it becomes obnoxious to check for this
+            step = null;
+        }
+
+        var labelStyleEditorButtons = [
+              {value: "decimal", content: "0.75", title: "Decimals"},
+              {value: "improper", content: "\u2077\u2044\u2084",
+                title: "Improper fractions"},
+              {value: "mixed", content: "1\u00BE",
+                title: "Mixed numbers"},
+              {value: "non-reduced", content: "\u2078\u2044\u2084",
+                title: "Non-reduced"},
+        ];
+
+        return <div className="perseus-widget-number-line-editor">
+            <div className="perseus-widget-row">
+                Correct x
+                {" "}
+                <select
+                    value={this.props.correctRel}
+                    onChange={this.onChangeRelation}
+                >
+                    <option value="eq"> = </option>
+                    <option value="lt"> &lt; </option>
+                    <option value="gt"> &gt; </option>
+                    <option value="le"> &le; </option>
+                    <option value="ge"> &ge; </option>
+                </select>
+                {" "}
+                <NumberInput
+                    value={this.props.correctX}
+                    format={this.props.labelStyle}
+                    onChange={this.onNumChange.bind(this, "correctX")}
+                    checkValidity={val =>
+                        val >= range[0] && val <= range[1] &&
+                        (!step || knumber.isInteger((val - range[0]) / step))
+                    }
+                    placeholder="answer" size="normal"
+                    useArrowKeys={true}
+                />
+                <InfoTip><p>
+                    This is the correct answer. The answer is validated
+                    (as right or wrong) by using only the end position of the
+                    point and the relation (=, &lt;, &gt;, &le;, &ge;).
+                </p></InfoTip>
+            </div>
+
+            <div className="perseus-widget-row">
+                {this.props.static ?
+                    <label>
+                        {/* Don't display initial position input in static mode
+                            since it isn't used. */}
+                        Range:
+                    </label> :
+                    <label>
+                        Position:
+                        {" "}
+                        <NumberInput
+                            value={this.props.initialX}
+                            format={this.props.labelStyle}
+                            onChange={this.onNumChange.bind(this, "initialX")}
+                            placeholder={range[0]}
+                            checkValidity={(val) => {
+                                return (val >= range[0]) && (val <= range[1]);
+                            }}
+                            useArrowKeys={true}
+                        />
+                        {" \u2208 " /* element of (little E) symbol @Nolint */}
+                    </label>}
+
+                <RangeInput
+                    value={range}
+                    onChange={this.onRangeChange}
+                    format={this.props.labelStyle}
+                    useArrowKeys={true}
+                />
+                <InfoTip><p>
+                    This controls the initial position of the point along the
+                    number line and the <strong>range</strong>, the position
+                    of the endpoints of the number line. Setting the range
+                    constrains the position of the answer and the labels.
+                </p><p>
+                    In static mode, the initial position of the point is
+                    determined by Correct x instead of position.
+                </p></InfoTip>
+            </div>
+            <div className="perseus-widget-row">
+                <div className="perseus-widget-left-col">
+                    Labels:
+                    {" "}
+                    <NumberInput
+                        value={labelRange[0]} placeholder={range[0]}
+                        format={this.props.labelStyle}
+                        checkValidity={val =>
+                            val >= range[0] && val <= range[1]}
+                        onChange={this.onLabelRangeChange.bind(this, 0)}
+                        useArrowKeys={true}
+                    />
+                    <span> &amp; </span>
+                    <NumberInput
+                        value={labelRange[1]} placeholder={range[1]}
+                        format={this.props.labelStyle}
+                        checkValidity={val =>
+                            val >= range[0] && val <= range[1]}
+                        onChange={this.onLabelRangeChange.bind(this, 1)}
+                        useArrowKeys={true}
+                    />
+                    <InfoTip><p>
+                        This controls the position of the left / right labels.
+                        By default, the labels are set by the range <br />
+                        <strong>Note:</strong> Ensure that the labels line up
+                        with the tick marks, or it may be confusing for users.
+                    </p></InfoTip>
+                </div>
+            </div>
+            <div className="perseus-widget-row">
+                Style:
+                {" "}
+                <ButtonGroup
+                    allowEmpty={false}
+                    value={this.props.labelStyle}
+                    buttons={labelStyleEditorButtons}
+                    onChange={this.onLabelStyleChange}
+                />
+                <InfoTip><p>
+                    This controls the styling of the labels for the two
+                    main labels as well as all the tick mark labels,
+                    if applicable. Your choices are decimal,
+                    improper fractions, mixed fractions, and non-reduced
+                    fractions.
+                </p></InfoTip>
+            </div>
+            <div className="perseus-widget-row">
+                {!this.props.static &&
+                    <div className="perseus-widget-left-col">
+                        <PropCheckBox
+                            label="Show tick controller"
+                            isTickCtrl={this.props.isTickCtrl}
+                            onChange={this.props.onChange}
+                        />
+                    </div>
+                }
+                <div className="perseus-widget-right-col">
+                    <PropCheckBox
+                        label="Show label ticks"
+                        labelTicks={this.props.labelTicks}
+                        onChange={this.props.onChange}
+                    />
+                </div>
+            </div>
+            <div className="perseus-widget-row">
+                {isTickCtrl && <span>
+                    <label>
+                        Start num divisions at
+                        {" "}
+                        <NumberInput
+                            value={this.props.numDivisions || null}
+                            format={"decimal"}
+                            onChange={this.onNumDivisionsChange}
+                            checkValidity={(val) => {
+                                return (val >= divisionRange[0]) &&
+                                    (val <= divisionRange[1]);
+                            }}
+                            placeholder={width / this.props.tickStep}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                    <InfoTip><p>
+                        This controls the number (and position) of the tick
+                        marks. The number of divisions is constrained to
+                        {" " + divisionRange[0] + EN_DASH + divisionRange[1]}.
+                        <br />
+                        <strong>Note:</strong> The user will be able to specify
+                        the number of divisions in a number input.
+                    </p></InfoTip></span>}
+                {!isTickCtrl && <span>
+                    <label>
+                        Num divisions:
+                        {" "}
+                        <NumberInput
+                            value={this.props.numDivisions || null}
+                            format={"decimal"}
+                            onChange={this.onNumDivisionsChange}
+                            checkValidity={(val) => {
+                                return (val >= divisionRange[0]) &&
+                                    (val <= divisionRange[1]);
+                            }}
+                            placeholder={width / this.props.tickStep}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                    {" "}
+                    <label>
+                        or tick step:
+                        {" "}
+                        <NumberInput
+                            value={this.props.tickStep || null}
+                            format={this.props.labelStyle}
+                            onChange={this.onTickStepChange}
+                            checkValidity={(val) => {
+                                return val > 0 && val <= width;
+                            }}
+                            placeholder={width / this.props.numDivisions}
+                            useArrowKeys={true}
+                        />
+                    </label>
+                    <InfoTip><p>
+                        This controls the number (and position) of the tick
+                        marks; you can either set the number of divisions (2
+                        divisions would split the entire range in two halves),
+                        or the tick step (the distance between ticks) and the
+                        other value will be updated accordingly. <br />
+                        <strong>Note:</strong> There is no check to see if
+                        labels coordinate with the tick marks, which may be
+                        confusing for users if the blue labels and black ticks
+                        are off-step.
+                    </p></InfoTip></span>}
+            </div>
+            <div className="perseus-widget-row">
+                <label>
+                    Snap increments per tick:
+                    {" "}
+                    <NumberInput
+                        value={snapDivisions}
+                        checkValidity={(val) => val > 0}
+                        format={this.props.labelStyle}
+                        onChange={this.onNumChange.bind(this, "snapDivisions")}
+                        useArrowKeys={true}
+                    />
+                </label>
+                <InfoTip><p>
+                    This determines the number of different places the point
+                    will snap between two adjacent tick marks. <br />
+                    <strong>Note:</strong>Ensure the required number of
+                    snap increments is provided to answer the question.
+                </p></InfoTip>
+            </div>
+
+        </div>;
+    },
 });
 
 var numberLineTransform = (editorProps) => {
@@ -932,7 +998,7 @@ var numberLineTransform = (editorProps) => {
         "snapDivisions",
 
         "isTickCtrl",
-        "isInequality"
+        "isInequality",
     ]);
 
     var numLinePosition = (editorProps.initialX != null) ?
@@ -952,7 +1018,9 @@ var numberLineTransform = (editorProps) => {
 
     _.extend(props, {
         numLinePosition: numLinePosition,
-        numDivisions: numDivisions
+        numDivisions: numDivisions,
+        // Use getDefaultProps value if null
+        snapDivisions: props.snapDivisions || undefined,
     });
 
     return props;
@@ -994,6 +1062,8 @@ var staticTransform = (editorProps) => {
         numDivisions: numDivisions,
         // Render the relation in the correct answer
         rel: editorProps.isInequality ? editorProps.correctRel : null,
+        // Use getDefaultProps value if null
+        snapDivisions: props.snapDivisions || undefined,
     });
 
     return props;

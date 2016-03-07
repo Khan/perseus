@@ -1,5 +1,7 @@
-/* eslint-disable react/prop-types, react/sort-comp, prefer-template,
-react/jsx-sort-prop-types, no-console, react/jsx-closing-bracket-location */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-console, no-var, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require('react');
 var ReactDOM = require("react-dom");
 var ReactCreateFragment = require("react-addons-create-fragment");
@@ -984,6 +986,7 @@ var Editor = React.createClass({
         }
 
         return {
+            replace: this.props.replace,
             content: this.props.content,
             images: this.props.images,
             widgets: widgets,

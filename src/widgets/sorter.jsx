@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React          = require('react');
 var InfoTip        = require("react-components/info-tip.jsx");
 var _ = require("underscore");
@@ -15,9 +19,10 @@ var Sorter = React.createClass({
     propTypes: {
         correct: React.PropTypes.array,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
+        onChange: React.PropTypes.func,
         padding: React.PropTypes.bool,
         problemNum: React.PropTypes.number,
-        onChange: React.PropTypes.func
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -42,9 +47,15 @@ var Sorter = React.createClass({
                 options={options}
                 layout={this.props.layout}
                 padding={this.props.padding}
-                onChange={this.props.onChange}
-                ref="sortable" />
+                onChange={this.handleChange}
+                ref="sortable"
+            />
         </div>;
+    },
+
+    handleChange: function(e) {
+        this.props.onChange(e);
+        this.props.trackInteraction();
     },
 
     getUserInput: function() {

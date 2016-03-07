@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-trailing-spaces, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /**
  * A wrapper for a component that would otherwise have a fixed width and
  * height, that magically makes it reponsive while preserving its aspect ratio.

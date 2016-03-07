@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-unused-vars, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var _ = require("underscore");
 var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");

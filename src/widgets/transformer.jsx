@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable camelcase, comma-dangle, indent, no-redeclare, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
@@ -1754,6 +1758,10 @@ var AddTransformBar = React.createClass({
 });
 
 var Transformer = React.createClass({
+    propTypes: {
+        trackInteraction: React.PropTypes.func.isRequired,
+    },
+
     getDefaultProps: function() {
         return _.defaults({
             transformations: []
@@ -2445,6 +2453,7 @@ var Transformer = React.createClass({
         this.props.onChange({
             tools: newTools,
         });
+        this.props.trackInteraction();
     },
 
     simpleValidate: function(rubric) {
@@ -2714,7 +2723,9 @@ var TransformerEditor = React.createClass({
                 starting={this.props.starting}
                 correct={this.props.starting}
                 transformations={this.props.correct.transformations}
-                onChange={this.changeTransformer} />
+                onChange={this.changeTransformer}
+                trackInteraction={() => {}}
+            />
         </div>;
     },
 

@@ -1,6 +1,7 @@
-/* eslint-disable react/prop-types, react/sort-comp, comma-dangle,
-react/jsx-sort-prop-types, no-undef, react/forbid-prop-types, indent,
-space-infix-ops, react/jsx-closing-bracket-location, react/jsx-indent-props */
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
@@ -28,7 +29,12 @@ var HintEditor = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
+            replace: false,
         };
+    },
+
+    handleChange: function(e) {
+        this.props.onChange({replace:e.target.checked});
     },
 
     render: function() {
@@ -38,6 +44,7 @@ var HintEditor = React.createClass({
                     widgets={this.props.widgets}
                     content={this.props.content}
                     images={this.props.images}
+                    replace={this.props.replace}
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange} />
@@ -60,6 +67,11 @@ var HintEditor = React.createClass({
                         <p>The last hint is automatically bolded.</p>
                     </InfoTip>}
                 </span>
+                <input type="checkbox"
+                       checked={this.props.replace}
+                       onChange={this.handleChange}
+                />
+                Replace previous hint
                 <button type="button"
                         className="remove-hint simple-button orange"
                         onClick={this.props.onRemove}>
@@ -104,6 +116,7 @@ var CombinedHintEditor = React.createClass({
                 widgets={this.props.hint.widgets}
                 content={this.props.hint.content}
                 images={this.props.hint.images}
+                replace={this.props.hint.replace}
                 imageUploader={this.props.imageUploader}
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}

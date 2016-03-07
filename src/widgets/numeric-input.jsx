@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable brace-style, comma-dangle, indent, no-redeclare, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var classNames = require("classnames");
 var React = require('react');
 var _ = require("underscore");
@@ -63,6 +67,7 @@ var NumericInput = React.createClass({
         })),
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
+        trackInteraction: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
@@ -157,6 +162,7 @@ var NumericInput = React.createClass({
         // unsupported on IE 10), I'm calling this sufficient for now.
         if (!this.props.apiOptions.readOnly) {
             this.props.onChange({ currentValue: newValue });
+            this.props.trackInteraction();
         }
     },
 

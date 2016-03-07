@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var InfoTip = require("react-components/info-tip.jsx");
 var React = require("react");
 var ReactDOM = require("react-dom");
@@ -360,16 +364,17 @@ var Simulator = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         data: React.PropTypes.arrayOf(React.PropTypes.number),
-        userProportion: React.PropTypes.number,
-        sampleSize: React.PropTypes.number,
         numTrials: React.PropTypes.number,
-        randomSeed: React.PropTypes.number,
-        xAxisLabel: React.PropTypes.string,
-        yAxisLabel: React.PropTypes.string,
         proportionLabel: React.PropTypes.string,
         proportionOrPercentage: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes
+        randomSeed: React.PropTypes.number,
+        sampleSize: React.PropTypes.number,
+        trackInteraction: React.PropTypes.func.isRequired,
+        userProportion: React.PropTypes.number,
+        xAxisLabel: React.PropTypes.string,
+        yAxisLabel: React.PropTypes.string,
     },
 
     getInitialState: function() {
@@ -410,7 +415,7 @@ var Simulator = React.createClass({
             marginLeft: "5px"
         };
 
-        var highlight = "0px 0px 9px 2px rgba(255, 165, 0, 1)";
+        var highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
         var highlightStyle = _.extend({}, inputStyle, {
             WebkitBoxShadow: highlight,
             MozBoxShadow: highlight,
@@ -601,6 +606,7 @@ var Simulator = React.createClass({
         this.props.onChange({
             data: this.generateData()
         });
+        this.props.trackInteraction();
     },
 
     generateData: function(props) {

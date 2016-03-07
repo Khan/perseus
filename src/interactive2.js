@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var Movable = require("./interactive2/movable.js");
 var MovablePoint = require("./interactive2/movable-point.js");
 var MovableLine = require("./interactive2/movable-line.js");

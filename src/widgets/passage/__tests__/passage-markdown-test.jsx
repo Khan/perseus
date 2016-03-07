@@ -1,3 +1,7 @@
+/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+/* eslint-disable comma-dangle, no-console, no-undef, no-var */
+/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 var assert = require("assert");
 var React = require("react");
 var _ = require("underscore");
