@@ -392,7 +392,13 @@ var TransformOps = {
             this.refs.transform.setInputValue(path, value, cb);
         },
         getInputPaths: function() {
-            return this.refs.transform.getInputPaths();
+            // If we're in dynamic mode, then the list items are made up of
+            // static text.
+            if (this.props.mode === "dynamic") {
+                return [];
+            } else {
+                return this.refs.transform.getInputPaths();
+            }
         }
     })
 };
@@ -2527,6 +2533,12 @@ var Transformer = React.createClass({
     },
 
     getInputPaths: function() {
+        // If we're in static mode, then there is no transformation list, and,
+        // as a result, no input paths.
+        if (this.props.listMode === "static") {
+            return [];
+        }
+
         var inputPaths = [];
         _.each(this.props.transformations, (transformation, i) => {
             var transformation = this._getTransformationForID(i);
@@ -2567,11 +2579,28 @@ var Transformer = React.createClass({
     },
 
     focusInputPath: function(path) {
+        // Since the transformer exposes the input API, it needs to be robust
+        // to empty paths. We don't expect this to happen, as entire-widget
+        // focusing is typically done through the focus() method, which already
+        // handles the empty path case properly, but it's better to be safe
+        // here.
+        if (path.length === 0) {
+            return false;
+        }
+
         assert(path.length >= 2);
         return this._passToInner('focusInputPath', path);
     },
 
     blurInputPath: function(path) {
+        // Since the transformer exposes the input API, it needs to be robust
+        // to empty paths (which indicate a blurring of the entire widget,
+        // e.g., when switching from interacting with the transformer to
+        // interacting with some other widget).
+        if (path.length === 0) {
+            return false;
+        }
+
         assert(path.length >= 2);
         return this._passToInner('blurInputPath', path);
     },
