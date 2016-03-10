@@ -409,8 +409,12 @@ var SvgImage = React.createClass({
                     label: elem,
                     useMath: labelData.typesetAsMath,
                 });
-            } else {
+            } else if (labelData.coordinates) {
                 // Create labels from the data
+                // TODO(charlie): Some erroneous labels are being sent down
+                // without coordinates. They don't seem to have any content, so
+                // it seems fine to just ignore them (rather than error), but
+                // we should figure out why this is happening.
                 var label = graphie.label(
                     labelData.coordinates,
                     labelData.content,
