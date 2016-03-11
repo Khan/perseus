@@ -68,6 +68,7 @@ var NumericInput = React.createClass({
         labelText: React.PropTypes.string,
         reviewModeRubric: React.PropTypes.object,
         trackInteraction: React.PropTypes.func.isRequired,
+        widgetId: React.PropTypes.string.isRequired,
     },
 
     getDefaultProps: function() {
@@ -142,7 +143,9 @@ var NumericInput = React.createClass({
             examples={this.examples()}
             shouldShowExamples={this.shouldShowExamples()}
             onFocus={this._handleFocus}
-            onBlur={this._handleBlur} />;
+            onBlur={this._handleBlur}
+            id={this.props.widgetId}
+        />;
 
         if (answerBlurb) {
             return <span className="perseus-input-with-answer-blurb">

@@ -66,7 +66,10 @@ var WidgetContainer = React.createClass({
         // after toggling static mode.
         return <div className={className}
                 style={isStatic ? staticContainerStyles : {}}>
-            <WidgetType {...this.state.widgetProps} ref="widget" />
+            <WidgetType
+                {...this.state.widgetProps}
+                ref="widget"
+            />
             {isStatic && <div style={staticOverlayStyles} />}
         </div>;
     },

@@ -89,6 +89,7 @@ var Expression = React.createClass({
         times: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
+        widgetId: React.PropTypes.string.isRequired,
     },
 
     getDefaultProps: function() {
@@ -135,6 +136,7 @@ var Expression = React.createClass({
                 onChange={this.changeAndTrack}
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
+                id={this.props.widgetId}
             />;
         } else {
             // TODO(alex): Style this tooltip to be more consistent with other
@@ -399,7 +401,8 @@ var OldExpression = React.createClass({
         value: React.PropTypes.string,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        enabledFeatures: EnabledFeatures.propTypes
+        enabledFeatures: EnabledFeatures.propTypes,
+        widgetId: React.PropTypes.string.isRequired,
     },
 
     getDefaultProps: function() {
@@ -459,15 +462,17 @@ var OldExpression = React.createClass({
                 </span>
             </span>
             <InputWithExamples
-                    ref="input"
-                    value={this.props.value}
-                    onKeyDown={this.handleKeyDown}
-                    onKeyPress={this.handleKeyPress}
-                    onChange={this.handleChange}
-                    examples={this.examples()}
-                    shouldShowExamples={shouldShowExamples}
-                    onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
+                ref="input"
+                value={this.props.value}
+                onKeyDown={this.handleKeyDown}
+                onKeyPress={this.handleKeyPress}
+                onChange={this.handleChange}
+                examples={this.examples()}
+                shouldShowExamples={shouldShowExamples}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+            />
         </span>;
     },
 
