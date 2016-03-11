@@ -24,7 +24,7 @@ build: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $
 
 $(PERSEUS_BUILD_JS): install
 	mkdir -p build
-	./node_modules/.bin/webpack
+	NODE_ENV=production ./node_modules/.bin/webpack
 	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
@@ -32,7 +32,7 @@ $(PERSEUS_BUILD_JS): install
 
 $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
-	INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.node-perseus.js
+	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.node-perseus.js
 	mv build/node-perseus.js build/node-perseus.js.tmp
 	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_NODE_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
@@ -42,7 +42,7 @@ $(PERSEUS_NODE_BUILD_JS): install
 
 $(PERSEUS_EDITOR_BUILD_JS): install
 	mkdir -p build
-	INCLUDE_EDITORS=true ./node_modules/.bin/webpack
+	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack
 	mv $@ $@.tmp
 	echo '/*! Perseus with editors | http://github.com/Khan/perseus */' > $@
 	echo "// commit `git rev-parse HEAD`" >> $@
@@ -107,22 +107,9 @@ else
 SUBMODULE_UPDATE := @echo "submodules already initialized"
 endif
 
-# just to make the upgrade process over switching from injected rcss to
-# real rcss smooth
-ifeq ("$(wildcard node_modules/rcss/package.json)","")
-CLEAN_RCSS := rm -rf node_modules/rcss
-else
-ifeq ("$(wildcard node_modules/rcss/index.js)","")
-CLEAN_RCSS := rm -rf node_modules/rcss
-else
-CLEAN_RCSS := @echo "rcss already upgraded"
-endif
-endif
-
 install:
 ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	$(SUBMODULE_UPDATE)
-	$(CLEAN_RCSS)
 	npm install
 	rm -rf node_modules/react-components
 	ln -s ../react-components/js node_modules/react-components
@@ -130,9 +117,6 @@ ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	ln -s ../kmath node_modules/kmath
 	rm -rf node_modules/simple-markdown
 	ln -s ../simple-markdown node_modules/simple-markdown
-	rm -rf node_modules/jquery
-	mkdir -p node_modules/jquery
-	echo "module.exports = window.$$" > node_modules/jquery/index.js
 # very hacks to prevent simple-markdown from pulling in a separate version of react.
 # basically, we need its require("react") to resolve to perseus' react, instead of
 # one in its node_modules (yuck!) (same for "underscore")
