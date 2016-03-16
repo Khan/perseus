@@ -19,6 +19,7 @@ module.exports = {
     Editor:                 require("./editor.jsx"),
     EditorPage:             require("./editor-page.jsx"),
     ItemRenderer:           require("./item-renderer.jsx"),
+    ServerItemRenderer:     require("./server-item-renderer.jsx"),
     HintsRenderer:          require("./hints-renderer.jsx"),
     Renderer:               require("./renderer.jsx"),
     RevisionDiff:           require("./diffs/revision-diff.jsx"),
