@@ -447,6 +447,15 @@
         margin: auto;
         padding: @cellPadding;
     }
+
+    .bibliotron-article.framework-perseus.perseus-article {
+        // Match Bibliotron's .box-sizing-border-box-reset, so that the Perseus
+        // editor and webapp behave even more similarly.
+        box-sizing: border-box;
+        * {
+            box-sizing: inherit;
+        }
+    }
 }
 
 //

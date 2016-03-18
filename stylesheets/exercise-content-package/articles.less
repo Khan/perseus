@@ -187,6 +187,22 @@
             }
         }
     }
+
+    .perseus-renderer > .paragraph .perseus-formats-tooltip {
+        padding: 8px 12px;
+
+        .paragraph {
+            margin-bottom: 0;
+
+            // We don't _expect_ a radio in a tooltip.
+            // We just need the specificity in order to override body text.
+            ul:not(.perseus-widget-radio) {
+                font-size: 15px;
+                line-height: 1.5;
+                margin: 0;
+            }
+        }
+    }
 }
 
 
