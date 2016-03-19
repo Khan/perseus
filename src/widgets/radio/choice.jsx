@@ -1,32 +1,30 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* global i18n */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
-var React = require('react');
-var classNames = require("classnames");
+const _ = require("underscore");
+const React = require('react');
+const classNames = require("classnames");
 
-var ApiClassNames = require("../../perseus-api.jsx").ClassNames;
+const ApiClassNames = require("../../perseus-api.jsx").ClassNames;
 
-var ToggleableRadioButton = require("./toggleable-radio-button.jsx");
+const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 
 
-var Choice = React.createClass({
+const Choice = React.createClass({
     propTypes: {
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
-        clue: React.PropTypes.object,
+        clue: React.PropTypes.node,
         content: React.PropTypes.node,
+        correct: React.PropTypes.bool,
+        deselectEnabled: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         groupName: React.PropTypes.string,
-        showClue: React.PropTypes.bool,
-        type: React.PropTypes.string,
         onChecked: React.PropTypes.func.isRequired,
-        deselectEnabled: React.PropTypes.bool,
         // This indicates the position of the choice relative to others
         // (so that we can display a nice little (A), (B), etc. next to it)
-        pos: React.PropTypes.number
+        pos: React.PropTypes.number,
+        showClue: React.PropTypes.bool,
+        type: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -36,16 +34,16 @@ var Choice = React.createClass({
             disabled: false,
             showClue: false,
             type: 'radio',
-            pos: 0
+            pos: 0,
         };
     },
 
     render: function() {
         // NOTE(jeresig): This is not i18n appropriate and should probably be
         // changed to a map of common options that are properly translated.
-        var letter = String.fromCharCode(65 + this.props.pos);
+        const letter = String.fromCharCode(65 + this.props.pos);
 
-        var a11yText = () => {
+        const a11yText = () => {
             // If the option was checked we need to reveal more context about
             // what the result was (correct/incorrect)
             if (this.props.checked) {
@@ -71,33 +69,37 @@ var Choice = React.createClass({
             return i18n._("(Choice %(letter)s)", {letter: letter});
         };
 
-        var className = classNames(this.props.className, "checkbox-label");
+        const className = classNames(this.props.className, "checkbox-label");
 
         // There's two different input components we could use (the builtin
         // input component, or the ToggleableRadioButton component). These are
         // the props that we will pass to either.
-        var commonInputProps = {
+        const commonInputProps = {
             type: this.props.type,
             name: this.props.groupName,
             checked: this.props.checked,
             disabled: this.props.disabled,
         };
 
-        var input = null;
+        let input = null;
         if (this.props.type === "radio" && this.props.deselectEnabled) {
             // This is a special radio button that allows a user to deselect
             // it by merely clicking/selecting it again.
             input = (
                 <ToggleableRadioButton
                     onChecked={this.props.onChecked}
-                    {...commonInputProps} />);
+                    {...commonInputProps}
+                />
+            );
         } else {
             input = (
                 <input
                     onChange={(event) => {
                         this.props.onChecked(event.target.checked);
                     }}
-                    {...commonInputProps} />);
+                    {...commonInputProps}
+                />
+            );
         }
 
         return <label className={className}>
@@ -120,7 +122,8 @@ var Choice = React.createClass({
                             ApiClassNames.RADIO.OPTION_CONTENT + " " +
                             ApiClassNames.INTERACTIVE
                         }
-                        style={{ cursor: "default" }}>
+                        style={{ cursor: "default" }}
+                    >
                         <div>
                             {this.props.content}
                         </div>
@@ -132,7 +135,7 @@ var Choice = React.createClass({
                     </div>}
             </div>
         </label>;
-    }
+    },
 });
 
 module.exports = Choice;

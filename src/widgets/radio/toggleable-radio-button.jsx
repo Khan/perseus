@@ -1,9 +1,5 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
 
 /**
@@ -25,16 +21,16 @@ var _ = require("underscore");
  *   handleKeyDown (A), handleClick (B), handleChange (B), handleKeyUp (B)
  * - Clicking with mac screenreader: handleClick, handleChange
  */
-var ToggleableRadioButton = React.createClass({
+const ToggleableRadioButton = React.createClass({
     propTypes: {
+        // Whether the radio button should be checked or unchecked (this is a
+        // controlled component).
+        checked: React.PropTypes.bool.isRequired,
+
         // A function that will be called whenever the radio button is checked
         // or unchecked. It's possible for this to be called twice for a single
         // checking or unchecking.
         onChecked: React.PropTypes.func.isRequired,
-
-        // Whether the radio button should be checked or unchecked (this is a
-        // controlled component).
-        checked: React.PropTypes.bool.isRequired,
     },
 
     handleClick: function(event) {
@@ -79,7 +75,7 @@ var ToggleableRadioButton = React.createClass({
     },
 
     render: function() {
-        var inputProps = _.extend({}, this.props, {
+        const inputProps = _.extend({}, this.props, {
             type: "radio",
             onChange: this.handleChange,
             onClick: this.handleClick,

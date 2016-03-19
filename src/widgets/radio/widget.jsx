@@ -1,21 +1,32 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* global i18n */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Renderer = require("../../renderer.jsx");
-var PassageRef = require("../passage-ref.jsx");
-var Util = require("../../util.js");
+const Renderer = require("../../renderer.jsx");
+const PassageRef = require("../passage-ref.jsx");
+const Util = require("../../util.js");
 
-var BaseRadio = require("./base-radio.jsx");
+const BaseRadio = require("./base-radio.jsx");
 
 
-var Radio = React.createClass({
+const Radio = React.createClass({
     propTypes: {
+        apiOptions: BaseRadio.propTypes.apiOptions,
+        choices: BaseRadio.propTypes.choices,
+
+        deselectEnabled: React.PropTypes.bool,
+        displayCount: React.PropTypes.any,
+        interWidgets: React.PropTypes.func,
+        multipleSelect: React.PropTypes.bool,
+        onChange: React.PropTypes.func.isRequired,
+
+        onePerLine: BaseRadio.propTypes.onePerLine,
+
+        questionCompleted: React.PropTypes.bool,
+        reviewModeRubric: BaseRadio.propTypes.reviewModeRubric,
         trackInteraction: React.PropTypes.func.isRequired,
+        values: React.PropTypes.arrayOf(React.PropTypes.bool),
     },
 
     getDefaultProps: function() {
@@ -27,49 +38,16 @@ var Radio = React.createClass({
         };
     },
 
-    render: function() {
-        var choices = this.props.choices;
-        var values = this.props.values || _.map(choices, () => false);
-
-        choices = _.map(choices, (choice, i) => {
-            var content = (choice.isNoneOfTheAbove && !choice.content) ?
-                // we use i18n._ instead of $_ here because the content
-                // sent to a renderer needs to be a string, not a react
-                // node (/renderable/fragment).
-                i18n._("None of the above") :
-                choice.content;
-            return {
-                content: this._renderRenderer(content),
-                checked: values[i],
-                correct: this.props.questionCompleted && values[i],
-                clue: this._renderRenderer(choice.clue),
-                isNoneOfTheAbove: choice.isNoneOfTheAbove
-            };
-        });
-        choices = this.enforceOrdering(choices);
-
-        return <BaseRadio
-            ref="baseRadio"
-            labelWrap={true}
-            onePerLine={this.props.onePerLine}
-            multipleSelect={this.props.multipleSelect}
-            choices={choices}
-            onCheckedChange={this.onCheckedChange}
-            reviewModeRubric={this.props.reviewModeRubric}
-            deselectEnabled={this.props.deselectEnabled}
-            apiOptions={this.props.apiOptions} />;
-    },
-
     _renderRenderer: function(content) {
         content = content || "";
 
-        var nextPassageRefId = 1;
-        var widgets = {};
+        let nextPassageRefId = 1;
+        const widgets = {};
 
-        var modContent = content.replace(
+        const modContent = content.replace(
             /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
             (match, passageNum, refNum, summaryText) => {
-                var widgetId = "passage-ref " + nextPassageRefId;
+                const widgetId = "passage-ref " + nextPassageRefId;
                 nextPassageRefId++;
 
                 widgets[widgetId] = {
@@ -80,7 +58,7 @@ var Radio = React.createClass({
                         referenceNumber: parseInt(refNum),
                         summaryText: summaryText,
                     },
-                    version: PassageRef.version
+                    version: PassageRef.version,
                 };
 
                 return "[[" + Util.snowman + " " + widgetId + "]]";
@@ -96,11 +74,12 @@ var Radio = React.createClass({
         // state, but since all we're doing is outputting
         // "None of the above", that is okay.
         return <Renderer
-                key="choiceContentRenderer"
-                content={modContent}
-                widgets={widgets}
-                interWidgets={this._interWidgets}
-                alwaysUpdate={true} />;
+            key="choiceContentRenderer"
+            content={modContent}
+            widgets={widgets}
+            interWidgets={this._interWidgets}
+            alwaysUpdate={true}
+        />;
     },
 
     _interWidgets: function(filterCriterion, localResults) {
@@ -120,7 +99,7 @@ var Radio = React.createClass({
 
     onCheckedChange: function(checked) {
         this.props.onChange({
-            values: checked
+            values: checked,
         });
         this.props.trackInteraction();
     },
@@ -130,13 +109,13 @@ var Radio = React.createClass({
         // timeline implementers: this used to be {value: i} before multiple
         // select was added)
         if (this.props.values) {
-            var noneOfTheAboveIndex = null;
-            var noneOfTheAboveSelected = false;
+            let noneOfTheAboveIndex = null;
+            let noneOfTheAboveSelected = false;
 
-            var values = this.props.values.slice();
+            const values = this.props.values.slice();
 
-            for (var i = 0; i < this.props.values.length; i++) {
-                var index = this.props.choices[i].originalIndex;
+            for (let i = 0; i < this.props.values.length; i++) {
+                const index = this.props.choices[i].originalIndex;
                 values[index] = this.props.values[i];
 
                 if (this.props.choices[i].isNoneOfTheAbove) {
@@ -151,12 +130,12 @@ var Radio = React.createClass({
             return {
                 values: values,
                 noneOfTheAboveIndex: noneOfTheAboveIndex,
-                noneOfTheAboveSelected: noneOfTheAboveSelected
+                noneOfTheAboveSelected: noneOfTheAboveSelected,
             };
         } else {
             // Nothing checked
             return {
-                values: _.map(this.props.choices, () => false)
+                values: _.map(this.props.choices, () => false),
             };
         }
     },
@@ -166,37 +145,71 @@ var Radio = React.createClass({
     },
 
     enforceOrdering: function(choices) {
-        var content = _.pluck(choices, "content");
+        const content = _.pluck(choices, "content");
         if (_.isEqual(content, [i18n._("False"), i18n._("True")]) ||
             _.isEqual(content, [i18n._("No"), i18n._("Yes")])) {
             return ([choices[1]]).concat([choices[0]]);
         }
         return choices;
-    }
+    },
+
+    render: function() {
+        let choices = this.props.choices;
+        const values = this.props.values || _.map(choices, () => false);
+
+        choices = _.map(choices, (choice, i) => {
+            const content = (choice.isNoneOfTheAbove && !choice.content) ?
+                // we use i18n._ instead of $_ here because the content
+                // sent to a renderer needs to be a string, not a react
+                // node (/renderable/fragment).
+                i18n._("None of the above") :
+                choice.content;
+            return {
+                content: this._renderRenderer(content),
+                checked: values[i],
+                correct: this.props.questionCompleted && values[i],
+                clue: this._renderRenderer(choice.clue),
+                isNoneOfTheAbove: choice.isNoneOfTheAbove,
+            };
+        });
+        choices = this.enforceOrdering(choices);
+
+        return <BaseRadio
+            ref="baseRadio"
+            labelWrap={true}
+            onePerLine={this.props.onePerLine}
+            multipleSelect={this.props.multipleSelect}
+            choices={choices}
+            onCheckedChange={this.onCheckedChange}
+            reviewModeRubric={this.props.reviewModeRubric}
+            deselectEnabled={this.props.deselectEnabled}
+            apiOptions={this.props.apiOptions}
+        />;
+    },
 });
 
 _.extend(Radio, {
     validate: function(state, rubric) {
-        var numSelected = _.reduce(state.values, function(sum, selected) {
-            return sum + ((selected) ? 1 : 0); }
-        , 0);
+        const numSelected = _.reduce(state.values, function(sum, selected) {
+            return sum + ((selected) ? 1 : 0);
+        }, 0);
 
         if (numSelected === 0) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         // If NOTA and some other answer are checked, ...
         } else if (state.noneOfTheAboveSelected && numSelected > 1) {
             return {
                 type: "invalid",
                 message: i18n._("'None of the above' may not be selected " +
-                                    "when other answers are selected.")
-             };
+                                    "when other answers are selected."),
+            };
         } else {
             /* jshint -W018 */
-            var correct = _.all(state.values, function(selected, i) {
-                var isCorrect;
+            const correct = _.all(state.values, function(selected, i) {
+                let isCorrect;
                 if (state.noneOfTheAboveIndex === i) {
                     isCorrect = _.all(rubric.choices, function(choice, j) {
                         return i === j || !choice.correct;
@@ -212,10 +225,10 @@ _.extend(Radio, {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 module.exports = Radio;
