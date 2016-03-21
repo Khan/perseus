@@ -7,4 +7,5 @@ node/environment.js
 src/sigfigs.jsx
 stylesheets/exercise-content-package/perseus.less
 stylesheets/exercise-content-package/articles.less
+stylesheets/perseus-admin-package/editor.less
 stylesheets/perseus-admin-package/perseus.less

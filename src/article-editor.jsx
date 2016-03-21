@@ -1,25 +1,33 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-alert, no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+"use strict";
 
-var React = require('react');
-var _ = require("underscore");
+/**
+ * An article editor. Articles are long-form pieces of content, composed of
+ * multiple (Renderer) sections concatenated together.
+ */
 
-var ApiOptions = require("./perseus-api.jsx").Options;
-var ArticleRenderer = require("./article-renderer.jsx");
-var Editor = require("./editor.jsx");
-var EnabledFeatures = require("./enabled-features.jsx");
-var JsonEditor = require("./json-editor.jsx");
-var ViewportResizer = require("./components/viewport-resizer.jsx");
+const React = require('react');
+const _ = require("underscore");
 
-var rendererProps = React.PropTypes.shape({
+const ApiOptions = require("./perseus-api.jsx").Options;
+const ArticleRenderer = require("./article-renderer.jsx");
+const Editor = require("./editor.jsx");
+const EnabledFeatures = require("./enabled-features.jsx");
+const JsonEditor = require("./json-editor.jsx");
+
+const rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
     widgets: React.PropTypes.object,
     images: React.PropTypes.object,
 });
 
-var SectionControlButton = React.createClass({
+const SectionControlButton = React.createClass({
+    propTypes: {
+        icon: React.PropTypes.string.isRequired,
+        onClick: React.PropTypes.func.isRequired,
+        title: React.PropTypes.string.isRequired,
+    },
     render: function() {
+        const { icon, onClick, title } = this.props;
         return <a
             href="#"
             className={
@@ -30,96 +38,54 @@ var SectionControlButton = React.createClass({
             }
             onClick={(e) => {
                 e.preventDefault();
-                this.props.onClick();
+                onClick();
             }}
+            title={title}
         >
-            <span className={this.props.icon} />
+            <span className={icon} />
         </a>;
     },
 });
 
-var ArticleEditor = React.createClass({
-
+const ArticleEditor = React.createClass({
     propTypes: {
-        apiOptions: React.PropTypes.object,
+        apiOptions: React.PropTypes.shape({}),
         enabledFeatures: EnabledFeatures.propTypes,
         imageUploader: React.PropTypes.func,
         json: React.PropTypes.oneOfType([
             rendererProps,
             React.PropTypes.arrayOf(rendererProps),
         ]),
+        mode: React.PropTypes.oneOf(["diff", "edit", "json", "preview"]),
         onChange: React.PropTypes.func.isRequired,
+        screen: React.PropTypes.oneOf(["desktop", "mobile"]),
+        sectionImageUploadGenerator: React.PropTypes.func,
         useNewStyles: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            json: [{}],
             enabledFeatures: {
                 toolTipFormats: true,
                 useMathQuill: true,
             },
-        };
-    },
-
-    getInitialState: function() {
-        return {
+            json: [{}],
             mode: "edit",
-            previewWidth: ViewportResizer.DEFAULT_WIDTH,
+            screen: "desktop",
+            sectionImageUploadGenerator: () => <span />,
             useNewStyles: false,
         };
     },
 
-    render: function() {
-
-        return <div className="framework-perseus perseus-article-editor">
-            <div style={{marginBottom: 10}}>
-                <label>
-                    Mode:{" "}
-                    <select
-                        value={this.state.mode}
-                        onChange={this._changeMode}
-                    >
-                        <option value="edit">Edit</option>
-                        <option value="preview">Preview</option>
-                        <option value="json">Developer JSON</option>
-                    </select>
-                    {(this.state.mode === "json") &&
-                        <span style={{marginLeft: 10}}>
-                            Warning: Editing in this mode can lead to broken
-                            articles.
-                        </span>
-                    }
-                </label>
-                {(this.state.mode !== "json") &&
-                    <span>
-                        {" "}
-                        <ViewportResizer
-                            onViewportSizeChanged={
-                                this._handleViewportSizeChanged}
-                        />
-                    </span>
-                }
-            </div>
-
-            {(this.state.mode === "edit") &&
-                this._renderEditor()
-            }
-
-            {(this.state.mode === "preview") &&
-                this._renderPreviewMode()
-            }
-
-            {(this.state.mode === "json") &&
-                <div>
-                    <JsonEditor
-                        multiLine={true}
-                        value={this.props.json}
-                        onChange={this._handleJsonChange}
-                    />
-                </div>
-            }
-        </div>;
+    _getPreviewWidth: function() {
+        const { screen } = this.props;
+        if (screen === "mobile") {
+            return 320;
+        } else if (screen === "desktop") {
+            return 1200;
+        } else {
+            return "100%";
+        }
     },
 
     _sections: function() {
@@ -129,14 +95,14 @@ var ArticleEditor = React.createClass({
     },
 
     _renderEditor: function() {
-        return <div>
+        return <div style={{display: "inline-block"}}>
             {this._renderSections()}
             {this._renderAddSection()}
         </div>;
     },
 
     _renderSections: function() {
-        var apiOptions = _.extend(
+        const apiOptions = _.extend(
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
@@ -147,7 +113,8 @@ var ArticleEditor = React.createClass({
             }
         );
 
-        var sections = this._sections();
+        const sections = this._sections();
+        const previewWidth = this._getPreviewWidth();
 
         return <div className="perseus-editor-table">
             {sections.map((section, i) => {
@@ -168,6 +135,7 @@ var ArticleEditor = React.createClass({
                                         onClick={() => {
                                             this._handleMoveSectionLater(i);
                                         }}
+                                        title="Move this section down"
                                     />
                                     }
                                     {(i > 0) &&
@@ -176,54 +144,60 @@ var ArticleEditor = React.createClass({
                                         onClick={() => {
                                             this._handleMoveSectionEarlier(i);
                                         }}
+                                        title="Move this section up"
                                     />
                                     }
                                     <SectionControlButton
                                         icon="icon-trash"
                                         onClick={() => {
-                                            var msg = "Are you sure you " +
-                                                "want to remove section " +
+                                            const msg = "Are you sure you " +
+                                                "want to delete section " +
                                                 (i + 1) + "?";
+                                            /* eslint-disable no-alert */
                                             if (confirm(msg)) {
                                                 this._handleRemoveSection(i);
                                             }
+                                            /* eslint-enable no-alert */
                                         }}
+                                        title="Delete this section"
                                     />
                                     <SectionControlButton
                                         icon="icon-plus"
                                         onClick={() => {
                                             this._handleAddSectionAfter(i);
                                         }}
+                                        title={
+                                            "Add a new section after this one"
+                                        }
                                     />
+                                    {this.props.sectionImageUploadGenerator(i)}
                                 </div>
                             </div>
                             <Editor
                                 {...section}
-                                ref={"editor" + i}
-                                placeholder="Type your section text here..."
+                                apiOptions={apiOptions}
+                                enabledFeatures={this.props.enabledFeatures}
                                 imageUploader={this.props.imageUploader}
                                 onChange={
                                     _.partial(this._handleEditorChange, i)
                                 }
-                                apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures}
+                                placeholder="Type your section text here..."
+                                ref={"editor" + i}
                             />
                         </div>
 
                         <div
                             className="perseus-editor-right-cell"
                             style={{
-                                width: this.state.previewWidth,
-                                maxWidth: this.state.previewWidth,
+                                width: previewWidth,
+                                maxWidth: previewWidth,
                             }}
                         >
                             <ArticleRenderer
+                                apiOptions={apiOptions}
+                                enabledFeatures={this.props.enabledFeatures}
                                 json={section}
                                 ref={"renderer" + i}
-                                apiOptions={apiOptions}
-                                enabledFeatures={
-                                    this.props.enabledFeatures
-                                }
                                 useNewStyles={this.props.useNewStyles}
                             />
                         </div>
@@ -231,14 +205,6 @@ var ArticleEditor = React.createClass({
                 ];
             })}
         </div>;
-    },
-
-    _handleViewportSizeChanged: function(width, height) {
-        // TODO(david): Also adjust the height of the viewport in our mobile
-        //     preview. Perhaps have a horizontal line or frame to indicate how
-        //     tall the device would be. Would need to take into account height
-        //     of site header and any other top-level Chrome.
-        this.setState({previewWidth: width});
     },
 
     _renderAddSection: function() {
@@ -260,29 +226,21 @@ var ArticleEditor = React.createClass({
     },
 
     _renderPreviewMode: function() {
+        const previewWidth = this._getPreviewWidth();
         return <div
             className="article-preview-container"
             style={{
-                width: this.state.previewWidth,
-                maxWidth: this.state.previewWidth,
+                width: previewWidth,
+                maxWidth: previewWidth,
             }}
         >
             <ArticleRenderer
-                json={this.props.json}
                 apiOptions={this.props.apiOptions}
                 enabledFeatures={this.props.enabledFeatures}
+                json={this.props.json}
                 useNewStyles={this.props.useNewStyles}
             />
         </div>;
-    },
-
-    _changeMode: function(e) {
-        var newMode = e.target.value;
-        this.props.onChange({
-            json: this.serialize(),
-        }, () => {
-            this.setState({mode: newMode});
-        });
     },
 
     _handleJsonChange: function(newJson) {
@@ -290,7 +248,7 @@ var ArticleEditor = React.createClass({
     },
 
     _handleEditorChange: function(i, newProps) {
-        var sections = _.clone(this._sections());
+        const sections = _.clone(this._sections());
         sections[i] = _.extend({}, sections[i], newProps);
         this.props.onChange({json: sections});
     },
@@ -299,8 +257,8 @@ var ArticleEditor = React.createClass({
         if (i === 0) {
             return;
         }
-        var sections = _.clone(this._sections());
-        var section = sections[i];
+        const sections = _.clone(this._sections());
+        const section = sections[i];
         sections.splice(i, 1);
         sections.splice(i - 1, 0, section);
         this.props.onChange({
@@ -309,11 +267,11 @@ var ArticleEditor = React.createClass({
     },
 
     _handleMoveSectionLater: function(i) {
-        var sections = _.clone(this._sections());
+        const sections = _.clone(this._sections());
         if (i + 1 === sections.length) {
             return;
         }
-        var section = sections[i];
+        const section = sections[i];
         sections.splice(i, 1);
         sections.splice(i + 1, 0, section);
         this.props.onChange({
@@ -324,14 +282,14 @@ var ArticleEditor = React.createClass({
     _handleAddSectionAfter: function(i) {
         // We do a full serialization here because we
         // might be copying widgets:
-        var sections = _.clone(this.serialize());
+        const sections = _.clone(this.serialize());
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
         // To enable this, we preserve the widgets
         // object for the new section, but wipe out
         // the content.
-        var newSection = (i >= 0) ? {
+        const newSection = (i >= 0) ? {
             widgets: sections[i].widgets,
         } : {};
         sections.splice(i + 1, 0, newSection);
@@ -341,7 +299,7 @@ var ArticleEditor = React.createClass({
     },
 
     _handleRemoveSection: function(i) {
-        var sections = _.clone(this._sections());
+        const sections = _.clone(this._sections());
         sections.splice(i, 1);
         this.props.onChange({
             json: sections,
@@ -349,18 +307,45 @@ var ArticleEditor = React.createClass({
     },
 
     serialize: function() {
-        if (this.state.mode === "edit") {
+        if (this.props.mode === "edit") {
             return this._sections().map((section, i) => {
                 return this.refs["editor" + i].serialize();
             });
-        } else if (this.state.mode === "preview" ||
-                this.state.mode === "json") {
+        } else if (this.props.mode === "preview" ||
+                this.props.mode === "json") {
             return this.props.json;
         } else {
             throw new Error("Could not serialize; mode " +
-                this.state.mode + " not found"
+                this.props.mode + " not found"
             );
         }
+    },
+
+    render: function() {
+        return <div className="framework-perseus perseus-article-editor">
+            {(this.props.mode === "json") &&
+            <div className="json-editor-warning">
+                <span>
+                    Warning: Editing in this mode can lead to broken articles!
+                </span>
+            </div>}
+
+            {(this.props.mode === "edit") &&
+                this._renderEditor()
+            }
+
+            {(this.props.mode === "preview") &&
+                this._renderPreviewMode()
+            }
+
+            {(this.props.mode === "json") &&
+                <JsonEditor
+                    multiLine={true}
+                    onChange={this._handleJsonChange}
+                    value={this.props.json}
+                />
+            }
+        </div>;
     },
 });
 

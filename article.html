@@ -179,9 +179,9 @@ Perseus.init({skipMathJax: false}).then(function() {
         componentClass: Perseus.ArticleEditor
     };
 
-    var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
+    var StatefulArticleEditor = React.createFactory(Perseus.StatefulArticleEditor);
     editor = ReactDOM.render(
-        StatefulEditorPage(editorProps, null),
+        StatefulArticleEditor(editorProps, null),
         document.getElementById("perseus-container")
     );
 
