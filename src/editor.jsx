@@ -72,9 +72,9 @@ var WidgetSelect = React.createClass({
         var orderedWidgetNames = _.sortBy(_.keys(widgets), (name) => {
             return widgets[name].displayName;
         });
-
+        var addWidgetString = "Add a widget\u2026";
         return <select value="" onChange={this.handleChange}>
-            <option value="">Add a widget{"\u2026"}</option>
+            <option value="">{addWidgetString}</option>
             <option disabled>--</option>
             {_.map(orderedWidgetNames, (name) => {
                 return <option key={name} value={name}>
@@ -890,8 +890,9 @@ var Editor = React.createClass({
                 onChange={this._addWidget}
             />;
 
+            var insertTemplateString = "Insert template\u2026";
             templatesDropDown = <select onChange={this.addTemplate}>
-                <option value="">Insert template{"\u2026"}</option>
+                <option value="">{insertTemplateString}</option>
                 <option disabled>--</option>
                 <option value="table">Table</option>
                 <option value="titledTable">Titled table</option>

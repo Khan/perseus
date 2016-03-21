@@ -60,7 +60,7 @@ var ViewportResizer = React.createClass({
         </span>;
 
         // TODO(david): Allow input of custom viewport sizes.
-        return <label className="viewport-resizer">
+        return <span className="viewport-resizer">
             Viewport:{" "}
             <ButtonGroup value={this.state.value}
                 allowEmpty={false}
@@ -71,7 +71,7 @@ var ViewportResizer = React.createClass({
                 ]}
                 onChange={this.handleChange}
             />
-        </label>;
+        </span>;
     },
 });
 
