@@ -1,26 +1,38 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/prop-types */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
+"use strict";
 
-var React = require("react");
-var _ = require("underscore");
+/**
+ * An article renderer. Articles are long-form pieces of content,
+ * composed of multiple (Renderer) sections concatenated together.
+ */
 
-var ApiOptions = require("./perseus-api.jsx").Options;
-var Renderer = require("./renderer.jsx");
+const React = require("react");
 
-var rendererProps = React.PropTypes.shape({
+const ApiOptions = require("./perseus-api.jsx").Options;
+const Renderer = require("./renderer.jsx");
+
+const rendererProps = React.PropTypes.shape({
     content: React.PropTypes.string,
     widgets: React.PropTypes.object,
     images: React.PropTypes.object,
 });
 
-var ArticleRenderer = React.createClass({
-
+const ArticleRenderer = React.createClass({
     propTypes: {
+        apiOptions: React.PropTypes.shape({}),
+        enabledFeatures: React.PropTypes.shape({}),
         json: React.PropTypes.oneOfType([
             rendererProps,
             React.PropTypes.arrayOf(rendererProps),
         ]).isRequired,
+
+        // Whether to use the new Bibliotron styles for articles
+        useNewStyles: React.PropTypes.bool,
+    },
+
+    getDefaultProps: function() {
+        return {
+            useNewStyles: false,
+        };
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -28,24 +40,25 @@ var ArticleRenderer = React.createClass({
     },
 
     _sections: function() {
-        return _.isArray(this.props.json) ?
+        return Array.isArray(this.props.json) ?
             this.props.json :
             [this.props.json];
     },
 
     render: function() {
-        var apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions,
-            {
-                isArticle: true,
-            }
-        );
+        const apiOptions = {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+            isArticle: true,
+        };
 
+        let className = "framework-perseus perseus-article";
+        if (this.props.useNewStyles) {
+            className += " bibliotron-article";
+        }
 
         // TODO(alex): Add mobile api functions and pass them down here
-        var sections = this._sections().map((section, i) => {
+        const sections = this._sections().map((section, i) => {
             return <div key={i} className="clearfix">
                 <Renderer
                     {...section}
@@ -57,7 +70,7 @@ var ArticleRenderer = React.createClass({
             </div>;
         });
 
-        return <div className="framework-perseus perseus-article">
+        return <div className={className}>
             {sections}
         </div>;
     },

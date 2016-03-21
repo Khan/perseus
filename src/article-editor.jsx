@@ -49,6 +49,7 @@ var ArticleEditor = React.createClass({
             React.PropTypes.arrayOf(rendererProps),
         ]),
         onChange: React.PropTypes.func.isRequired,
+        useNewStyles: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -65,6 +66,7 @@ var ArticleEditor = React.createClass({
         return {
             mode: "edit",
             previewWidth: ViewportResizer.DEFAULT_WIDTH,
+            useNewStyles: false,
         };
     },
 
@@ -222,6 +224,7 @@ var ArticleEditor = React.createClass({
                                 enabledFeatures={
                                     this.props.enabledFeatures
                                 }
+                                useNewStyles={this.props.useNewStyles}
                             />
                         </div>
                     </div>,
@@ -268,6 +271,7 @@ var ArticleEditor = React.createClass({
                 json={this.props.json}
                 apiOptions={this.props.apiOptions}
                 enabledFeatures={this.props.enabledFeatures}
+                useNewStyles={this.props.useNewStyles}
             />
         </div>;
     },
