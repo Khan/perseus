@@ -13831,11 +13831,11 @@ var ExpressionEditor = React.createClass({displayName: 'ExpressionEditor',
     getDefaultProps: function() {
         return {
             value: "",
-            form: false,
+            form: true,
             simplify: false,
-            times: false,
+            times: true,
             functions: ["f", "g", "h"],
-            easybuttons: false
+            easybuttons: true
         };
     },
 
