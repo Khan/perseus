@@ -15,7 +15,7 @@ var Util = require("../util.js");
 var ApiOptions   = require("../perseus-api.jsx").Options;
 var BlurInput    = require("react-components/blur-input.jsx");
 var Editor       = require("../editor.jsx");
-var InfoTip      = require("react-components/info-tip.jsx");
+var InfoTip      = require("../components/info-tip.jsx");
 var Renderer     = require("../renderer.jsx");
 
 var Changeable    = require("../mixins/changeable.jsx");

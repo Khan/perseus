@@ -3,7 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 var React = require("react");
 var ReactDOM = require("react-dom");
 var SortableArea     = require("react-components/sortable.jsx");

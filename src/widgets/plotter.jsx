@@ -1,10 +1,10 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, max-len, no-redeclare, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
+/* eslint-disable comma-dangle, indent, max-len, no-redeclare, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren, react/prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
 var ReactDOM = require("react-dom");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 var BlurInput = require("react-components/blur-input.jsx");
 var _ = require("underscore");
 
@@ -27,7 +27,7 @@ var BAR = "bar",
 var DOT_PLOT_POINT_SIZE = 4;
 var DOT_PLOT_POINT_PADDING = 8;
 
-var widgetPropTypes = {
+const widgetPropTypes = {
     type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
     categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
@@ -55,7 +55,8 @@ var Plotter = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         trackInteraction: React.PropTypes.func.isRequired,
-        ...widgetPropTypes,
+        // TODO(alex): Figure out why lint chokes on this line
+        // ...widgetPropTypes,
     },
 
     getDefaultProps: function () {

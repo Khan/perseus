@@ -2,7 +2,7 @@
 /* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 var React = require("react");
 var ReactDOM = require("react-dom");
 var _ = require("underscore");

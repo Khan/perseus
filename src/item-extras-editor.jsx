@@ -4,7 +4,7 @@
 
 var React = require('react');
 
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("./components/info-tip.jsx");
 
 var ItemExtrasEditor = React.createClass({
     propTypes: {

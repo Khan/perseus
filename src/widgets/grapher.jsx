@@ -7,7 +7,7 @@ var _ = require("underscore");
 
 var ButtonGroup      = require("react-components/button-group.jsx");
 var GraphSettings    = require("../components/graph-settings.jsx");
-var InfoTip          = require("react-components/info-tip.jsx");
+var InfoTip          = require("../components/info-tip.jsx");
 var Interactive2     = require("../interactive2.js");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var SvgImage         = require("../components/svg-image.jsx");

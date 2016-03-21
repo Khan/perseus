@@ -3,7 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React          = require('react');
-var InfoTip        = require("react-components/info-tip.jsx");
+var InfoTip        = require("../components/info-tip.jsx");
 var _ = require("underscore");
 
 var PropCheckBox   = require("../components/prop-check-box.jsx");

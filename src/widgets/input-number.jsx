@@ -8,7 +8,7 @@ var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var BlurInput         = require("react-components/blur-input.jsx");
-var InfoTip           = require("react-components/info-tip.jsx");
+var InfoTip           = require("../components/info-tip.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");

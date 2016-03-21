@@ -7,7 +7,7 @@ var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Editor = require("../editor.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 var MathOutput = require("../components/math-output.jsx");
 var NumberInput  = require("../components/number-input.jsx");
 var Renderer = require("../renderer.jsx");

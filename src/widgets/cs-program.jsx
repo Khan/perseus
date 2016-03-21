@@ -12,7 +12,7 @@ var _ = require("underscore");
 var BlurInput = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
 var updateQueryString = require("../util.js").updateQueryString;
 

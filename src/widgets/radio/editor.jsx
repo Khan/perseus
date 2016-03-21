@@ -10,7 +10,7 @@ var Changeable = require("../../mixins/changeable.jsx");
 var Editor = require("../../editor.jsx");
 var PropCheckBox = require("../../components/prop-check-box.jsx");
 
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../../components/info-tip.jsx");
 var BaseRadio = require("./base-radio.jsx");
 
 

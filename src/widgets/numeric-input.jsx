@@ -10,7 +10,7 @@ var Changeable    = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var ButtonGroup = require("react-components/button-group.jsx");
-var InfoTip = require("react-components/info-tip.jsx");
+var InfoTip = require("../components/info-tip.jsx");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var MultiButtonGroup = require("react-components/multi-button-group.jsx");
 var NumberInput = require("../components/number-input.jsx");

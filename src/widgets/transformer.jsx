@@ -8,7 +8,7 @@ var _ = require("underscore");
 
 var Graph         = require("../components/graph.jsx");
 var GraphSettings = require("../components/graph-settings.jsx");
-var InfoTip       = require("react-components/info-tip.jsx");
+var InfoTip       = require("../components/info-tip.jsx");
 var NumberInput   = require("../components/number-input.jsx");
 var MathOutput    = require("../components/math-output.jsx");
 var PropCheckBox  = require("../components/prop-check-box.jsx");
