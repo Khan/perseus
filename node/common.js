@@ -29,6 +29,10 @@ if (!window.getSelection) {
 var _ = require("../lib/underscore.js");
 global._ = window._ = _;
 
+// Add window.btoa polyfill
+var btoa = require("btoa");
+global.btoa = window.btoa = btoa;
+
 // Create a function to copy globals from `window` to `global`
 var jsdomWindowProps = _.clone(global.window);
 var updateGlobals = function() {
