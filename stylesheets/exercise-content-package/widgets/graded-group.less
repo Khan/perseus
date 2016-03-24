@@ -8,19 +8,19 @@
         // its text still ends up all on the left.
         width: 100%;
 
-        margin-left: -5px;
+        margin-left: 3px;
         padding-left: 5px;
 
         // The border colors are darkened by 10% for the checkmark / x icons
         // in graded-group.jsx
         &.answer-correct {
             border-left: 3px solid @green;
-            margin-left: -8px;
+            margin-left: 0;
         }
 
         &.answer-incorrect {
             border-left: 3px solid darken(@red, 10%);
-            margin-left: -8px;
+            margin-left: 0;
         }
 
         .group-icon {
@@ -28,7 +28,9 @@
             position: absolute;
             top: 50%;
             top: ~"calc(50% - 7px)";
-            margin-left: -25px;
+            left: -19px;
+            text-align: center;
+            width: 16px;
         }
     }
 }

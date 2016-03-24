@@ -109,11 +109,11 @@ const StatefulArticleEditor = React.createClass({
 
 const styles = {
     controlBar: {
-        marginBottom: 5,
+        marginBottom: 25,
         marginTop: 5,
     },
     controls: {
-        marginLeft: 10,
+        marginRight: 10,
     },
     controlSelected: {
         cursor: "default",
@@ -123,8 +123,6 @@ const styles = {
         cursor: "pointer",
     },
     editor: {
-        marginLeft: 10,
-        marginRight: 10,
         marginTop: -20,
     },
 };

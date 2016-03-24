@@ -424,22 +424,16 @@
 
 // Article Editor
 .perseus-article-editor {
-    display: inline-block;
     margin-bottom: 20px;
     margin-top: 20px;
 
-    .json-editor-warning {
-        margin-bottom: 10px;
-        text-align: center;
-        width: 688px;
+    .perseus-editor-table {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .perseus-single-editor {
         margin-bottom: 10px;
-    }
-
-    .viewport-resizer {
-        display: inline-block;
     }
 
     .section-control-button, .step-control-button {
@@ -452,10 +446,59 @@
         min-width: 360px;
     }
 
-    .article-preview-container {
+    .mobile-preview, .desktop-preview,
+    .editor-preview, .standalone-preview {
         box-sizing: border-box;
+    }
+
+    .mobile-preview {
+        border: 1px solid rgba(0, 0, 0, 0.29);
+        // Account for border
+        max-width: 322px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.29);
+        padding: 32px 16px;
+    }
+
+    .desktop-preview {
+        border: 1px solid transparent;
+        padding: 32px 20px;
+    }
+
+    .editor-preview {
+        display: table-cell;
+
+        &.full-width {
+            width: 100%;
+        }
+
+        .desktop-preview {
+            border: 1px solid rgba(0, 0, 0, 0.29);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.29);
+            width: 100%;
+        }
+    }
+
+    .standalone-preview {
+        .mobile-preview, .desktop-preview {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .json-editor {
         margin: auto;
-        padding: @cellPadding;
+        max-width: 688px;
+    }
+
+    .perseus-json-editor {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .json-editor-warning {
+        margin-bottom: 10px;
+        text-align: center;
     }
 
     .bibliotron-article.framework-perseus.perseus-article {

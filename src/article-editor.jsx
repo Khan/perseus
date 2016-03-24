@@ -77,17 +77,6 @@ const ArticleEditor = React.createClass({
         };
     },
 
-    _getPreviewWidth: function() {
-        const { screen } = this.props;
-        if (screen === "mobile") {
-            return 320;
-        } else if (screen === "desktop") {
-            return 1200;
-        } else {
-            return "100%";
-        }
-    },
-
     _sections: function() {
         return _.isArray(this.props.json) ?
             this.props.json :
@@ -95,26 +84,24 @@ const ArticleEditor = React.createClass({
     },
 
     _renderEditor: function() {
-        return <div style={{display: "inline-block"}}>
-            {this._renderSections()}
-            {this._renderAddSection()}
-        </div>;
-    },
+        const {
+            enabledFeatures,
+            imageUploader,
+            screen,
+            sectionImageUploadGenerator,
+            useNewStyles,
+        } = this.props;
 
-    _renderSections: function() {
-        const apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions,
-            {
-                // Alignment options are always available in article editors
-                showAlignmentOptions: true,
-                isArticle: true,
-            }
-        );
+        const apiOptions = {
+            ...ApiOptions.defaults,
+            ...this.props.apiOptions,
+
+            // Alignment options are always available in article editors
+            showAlignmentOptions: true,
+            isArticle: true,
+        };
 
         const sections = this._sections();
-        const previewWidth = this._getPreviewWidth();
 
         return <div className="perseus-editor-table">
             {sections.map((section, i) => {
@@ -170,14 +157,14 @@ const ArticleEditor = React.createClass({
                                             "Add a new section after this one"
                                         }
                                     />
-                                    {this.props.sectionImageUploadGenerator(i)}
+                                    {sectionImageUploadGenerator(i)}
                                 </div>
                             </div>
                             <Editor
                                 {...section}
                                 apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures}
-                                imageUploader={this.props.imageUploader}
+                                enabledFeatures={enabledFeatures}
+                                imageUploader={imageUploader}
                                 onChange={
                                     _.partial(this._handleEditorChange, i)
                                 }
@@ -187,23 +174,23 @@ const ArticleEditor = React.createClass({
                         </div>
 
                         <div
-                            className="perseus-editor-right-cell"
-                            style={{
-                                width: previewWidth,
-                                maxWidth: previewWidth,
-                            }}
+                            className={"editor-preview " +
+                                (screen === "desktop" ? "full-width" : "")}
                         >
-                            <ArticleRenderer
-                                apiOptions={apiOptions}
-                                enabledFeatures={this.props.enabledFeatures}
-                                json={section}
-                                ref={"renderer" + i}
-                                useNewStyles={this.props.useNewStyles}
-                            />
+                            <div className={screen + "-preview"}>
+                                <ArticleRenderer
+                                    apiOptions={apiOptions}
+                                    enabledFeatures={enabledFeatures}
+                                    json={section}
+                                    ref={"renderer" + i}
+                                    useNewStyles={useNewStyles}
+                                />
+                            </div>
                         </div>
                     </div>,
                 ];
             })}
+            {this._renderAddSection()}
         </div>;
     },
 
@@ -226,20 +213,15 @@ const ArticleEditor = React.createClass({
     },
 
     _renderPreviewMode: function() {
-        const previewWidth = this._getPreviewWidth();
-        return <div
-            className="article-preview-container"
-            style={{
-                width: previewWidth,
-                maxWidth: previewWidth,
-            }}
-        >
-            <ArticleRenderer
-                apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures}
-                json={this.props.json}
-                useNewStyles={this.props.useNewStyles}
-            />
+        return <div className="standalone-preview">
+            <div className={this.props.screen + "-preview"}>
+                <ArticleRenderer
+                    apiOptions={this.props.apiOptions}
+                    enabledFeatures={this.props.enabledFeatures}
+                    json={this.props.json}
+                    useNewStyles={this.props.useNewStyles}
+                />
+            </div>
         </div>;
     },
 
@@ -323,13 +305,6 @@ const ArticleEditor = React.createClass({
 
     render: function() {
         return <div className="framework-perseus perseus-article-editor">
-            {(this.props.mode === "json") &&
-            <div className="json-editor-warning">
-                <span>
-                    Warning: Editing in this mode can lead to broken articles!
-                </span>
-            </div>}
-
             {(this.props.mode === "edit") &&
                 this._renderEditor()
             }
@@ -339,11 +314,19 @@ const ArticleEditor = React.createClass({
             }
 
             {(this.props.mode === "json") &&
-                <JsonEditor
-                    multiLine={true}
-                    onChange={this._handleJsonChange}
-                    value={this.props.json}
-                />
+                <div className="json-editor">
+                    <div className="json-editor-warning">
+                        <span>
+                            Warning: Editing in this mode
+                            can lead to broken articles!
+                        </span>
+                    </div>
+                    <JsonEditor
+                        multiLine={true}
+                        onChange={this._handleJsonChange}
+                        value={this.props.json}
+                    />
+                </div>
             }
         </div>;
     },
