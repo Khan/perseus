@@ -64,19 +64,20 @@
   font-weight: bold;
 }
 .framework-perseus .paragraph > ul:not(.perseus-widget-radio) {
-  font-size: 14px;
+  font-size: 20px;
   margin: -11px 0px 22px 0px;
   padding-left: 35px;
 }
 .framework-perseus .paragraph > ul:not(.perseus-widget-radio) > li {
   list-style-type: disc;
+  line-height: 1.5;
 }
 .framework-perseus table {
-  font-size: 14px;
+  font-size: 20px;
 }
 .framework-perseus table th,
 .framework-perseus table td {
-  padding: 5px 10px;
+  padding: 5px 20px;
   text-align: left;
 }
 .framework-perseus table th[align=center],
