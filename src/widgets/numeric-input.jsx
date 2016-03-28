@@ -145,6 +145,7 @@ var NumericInput = React.createClass({
             onFocus={this._handleFocus}
             onBlur={this._handleBlur}
             id={this.props.widgetId}
+            disabled={this.props.apiOptions.readOnly}
         />;
 
         if (answerBlurb) {
@@ -158,15 +159,8 @@ var NumericInput = React.createClass({
     },
 
     handleChange: function(newValue) {
-        // TODO(johnsullivan): It would be better to support this lower down so
-        // that the input element actually gets marked with the disabled
-        // attribute. Because of how many layers of widgets are below us
-        // though, and because we're using CSS to disable click events (only
-        // unsupported on IE 10), I'm calling this sufficient for now.
-        if (!this.props.apiOptions.readOnly) {
-            this.props.onChange({ currentValue: newValue });
-            this.props.trackInteraction();
-        }
+        this.props.onChange({ currentValue: newValue });
+        this.props.trackInteraction();
     },
 
     _getInputType: function() {

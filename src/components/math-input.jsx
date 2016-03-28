@@ -23,7 +23,7 @@ var MathInput = React.createClass({
         buttonSets: TexButtons.buttonSetsType.isRequired,
         labelText: React.PropTypes.string,
         onFocus: PT.func,
-        onBlur: PT.func
+        onBlur: PT.func,
     },
 
     render: function() {

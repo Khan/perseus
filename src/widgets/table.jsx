@@ -127,6 +127,7 @@ var Table = React.createClass({
                                     ref={getRefForPath(getInputPath(r, c))}
                                     type="text"
                                     value={this.props.answers[r][c]}
+                                    disabled={this.props.apiOptions.readOnly}
                                     onFocus={_.partial(
                                         this._handleFocus, getInputPath(r, c)
                                     )}

@@ -437,6 +437,7 @@ var Simulator = React.createClass({
                 style={style}
                 value={this.calculateDisplayProportion()}
                 checkValidity={this.checkProportionValidity}
+                disabled={this.props.apiOptions.readOnly}
                 onChange={this.handleUserProportionChange}
                 onFocus={() => this.props.onFocus(["userProportion"])}
                 onBlur={() => this.props.onBlur(["userProportion"])} />
@@ -452,6 +453,7 @@ var Simulator = React.createClass({
                 style={style}
                 value={this.props.sampleSize}
                 checkValidity={(val) => val >= 0}
+                disabled={this.props.apiOptions.readOnly}
                 onChange={this.handleSampleSizeChange}
                 onFocus={() => this.props.onFocus(["sampleSize"])}
                 onBlur={() => this.props.onBlur(["sampleSize"])} />
@@ -519,6 +521,7 @@ var Simulator = React.createClass({
         var startButton = <button
                 className="simple-button"
                 style={buttonStyle}
+                disabled={this.props.apiOptions.readOnly}
                 onClick={this.handleRunSimulation}>
             <$_>Run simulation</$_>
         </button>;

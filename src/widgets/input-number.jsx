@@ -148,6 +148,7 @@ var InputNumber = React.createClass({
             onFocus={this._handleFocus}
             onBlur={this._handleBlur}
             id={this.props.widgetId}
+            disabled={this.props.apiOptions.readOnly}
         />;
 
         if (answerBlurb) {

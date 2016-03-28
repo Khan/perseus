@@ -13,12 +13,14 @@ var TextInput = React.createClass({
         className: React.PropTypes.string,
         labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        onBlur: React.PropTypes.func,
+        disabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
+            disabled: false,
         };
     },
 
@@ -26,6 +28,7 @@ var TextInput = React.createClass({
         return <input
             {...this.props}
             type="text"
+            disabled={this.props.disabled}
             aria-label={this.props.labelText}
             onChange={(e) => this.props.onChange(e.target.value)} />;
     },

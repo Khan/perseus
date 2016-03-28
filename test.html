@@ -207,6 +207,8 @@ Perseus.init({skipMathJax: false}).then(function() {
             _.delay(callback, 1000, "http://fake.image.url");
         },
         apiOptions: {
+            // Things prefixed with __ are just just disabled: it's easier to
+            // add __ than to comment out multi-line things!
             fancyDropdowns: true,
             __onInputError: function() {
                 var args = _.toArray(arguments);
@@ -222,6 +224,7 @@ Perseus.init({skipMathJax: false}).then(function() {
                 console.log("onFocusChange", newPath, oldPath);
             },
             __staticRender: true,
+            __readOnly: true,
         },
         componentClass: Perseus.EditorPage
     });

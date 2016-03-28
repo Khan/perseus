@@ -68,6 +68,7 @@ var Dropdown = React.createClass({
                     onChange={this._handleChangeEvent}
                     onTouchStart={captureScratchpadTouchStart}
                     className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                    disabled={this.props.apiOptions.readOnly}
                     value={this.props.selected}>
                 <option value={0} disabled>
                     {this.props.placeholder}

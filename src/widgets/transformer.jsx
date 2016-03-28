@@ -1667,6 +1667,7 @@ var ToolButton = React.createClass({
         return <button
                 type="button"
                 className={classes}
+                disabled={this.props.disabled}
                 onClick={this.props.onClick}
                 onTouchStart={captureScratchpadTouchStart}>
             {this.props.children}
@@ -1686,6 +1687,7 @@ var ToolsBar = React.createClass({
             if (this.props.enabled[type]) {
                 return <ToolButton
                         key={type}
+                        disabled={this.props.apiOptions.readOnly}
                         toggled={this.state.selected === type}
                         onClick={this.changeSelected.bind(this, type)}>
                     {tool.verbName}
@@ -1700,6 +1702,7 @@ var ToolsBar = React.createClass({
             <button
                     className="transformer-undo-button simple-button"
                     type="button"
+                    disabled={this.props.apiOptions.readOnly}
                     onClick={this.props.onUndoClick}
                     onTouchStart={captureScratchpadTouchStart}>
                 <span className="icon-undo" />
@@ -1733,6 +1736,7 @@ var AddTransformBar = React.createClass({
                 return <ToolButton
                         key={type}
                         toggled={false}
+                        disabled={this.props.apiOptions.readOnly}
                         onClick={this.changeSelected.bind(this, type)}>
                     <span className="icon-plus" />
                     {" "}
@@ -1747,6 +1751,7 @@ var AddTransformBar = React.createClass({
                     className="transformer-undo-button simple-button"
                     type="button"
                     onClick={this.props.onUndoClick}
+                    disabled={this.props.apiOptions.readOnly}
                     onTouchStart={captureScratchpadTouchStart}>
                 <span className="icon-undo" />
                 {" "}
@@ -1797,6 +1802,7 @@ var Transformer = React.createClass({
             <ToolsBarClass
                 ref="toolsBar"
                 enabled={pluckObject(this.props.tools, "enabled")}
+                apiOptions={this.props.apiOptions}
                 addTool={this.addTool}
                 removeTool={this.removeTool}
                 onUndoClick={this.handleUndoClick} />

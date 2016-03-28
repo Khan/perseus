@@ -33,6 +33,7 @@ var InputWithExamples = React.createClass({
         labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
         onBlur: React.PropTypes.func,
+        disabled: React.PropTypes.bool,
 
         // A unique string identifying this InputWithExamples
         id: React.PropTypes.string.isRequired,
@@ -43,7 +44,8 @@ var InputWithExamples = React.createClass({
             type: TEXT,
             shouldShowExamples: true,
             onFocus: function() { },
-            onBlur: function() { }
+            onBlur: function() { },
+            disabled: false,
         };
     },
 
@@ -85,7 +87,8 @@ var InputWithExamples = React.createClass({
             labelText: this.props.labelText,
             value: this.props.value,
             onFocus: this._handleFocus,
-            onBlur: this._handleBlur
+            onBlur: this._handleBlur,
+            disabled: this.props.disabled,
         };
 
         if (this.props.type === TEX) {

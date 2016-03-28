@@ -89,8 +89,11 @@ var Explanation = React.createClass({
     render: function() {
         return <div className="perseus-widget-explanation">
             <a className="perseus-widget-explanation-link"
-                href="javascript:void(0)"
-                onClick={this._onClick}>
+                /* Disable the link when read-only, so it doesn't look
+                 * clickable */
+                href={this.props.apiOptions.readOnly ?
+                      null : "javascript:void(0)"}
+                onClick={this.props.apiOptions.readOnly ? null : this._onClick}>
 
                 {this.state.expanded ?
                     this.props.hidePrompt : this.props.showPrompt}

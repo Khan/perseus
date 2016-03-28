@@ -196,6 +196,7 @@ var Matrix = React.createClass({
                                     width: INPUT_WIDTH,
                                     margin: INPUT_MARGIN
                                 },
+                                disabled: this.props.apiOptions.readOnly,
                                 onFocus: () => {
                                     // We store this locally so that we can use
                                     // the new information in the `onBlur`

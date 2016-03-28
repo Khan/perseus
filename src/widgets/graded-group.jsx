@@ -103,6 +103,7 @@ var GradedGroup = React.createClass({
                 type="button"
                 value="Check Answer"
                 className="simple-button"
+                disabled={this.props.apiOptions.readOnly}
                 onClick={this._checkAnswer} />
         </div>;
     },
