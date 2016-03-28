@@ -2,6 +2,7 @@
 /* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* globals KA */
 var _ = require("underscore");
 
 var SimpleMarkdown = require("simple-markdown");
@@ -296,6 +297,28 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             } else {
                 return node;
             }
+        },
+    }),
+    // Extend the SimpleMarkdown link parser to make the link
+    // zero-rating-friendly if necessary. No changes will be made for
+    // non-zero-rated requests, but zero-rated requests will be re-pointed at
+    // either the zero-rated version of khanacademy.org or the external link
+    // warning interstitial.
+    link: _.extend({}, SimpleMarkdown.defaultRules.link, {
+        react: function(node, output, state) {
+            const link = SimpleMarkdown.defaultRules.link.react(node, output,
+                                                                state);
+            if (typeof KA === "undefined" || !KA.isZeroRated) {
+                return link;
+            }
+
+            let href = link.props.href;
+            if (href.match(/https?:\/\/[^\/]*khanacademy.org/)) {
+                href = href.replace('khanacademy.org', 'zero.khanacademy.org');
+            } else {
+                href = '/zero/external-link?url=' + encodeURIComponent(href);
+            }
+            return React.cloneElement(link, {...link.props, href});
         },
     }),
     codeBlock: _.extend({}, SimpleMarkdown.defaultRules.codeBlock, {
