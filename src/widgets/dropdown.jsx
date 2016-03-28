@@ -50,11 +50,15 @@ var Dropdown = React.createClass({
             </FancySelect>;
 
         } else {
+            var style = {
+                fontSize: "120%"
+            };
             return <select
                         onChange={this._handleChangeEvent}
                         onTouchStart={captureScratchpadTouchStart}
                         className="perseus-widget-dropdown"
-                        value={this.props.selected}>
+                        value={this.props.selected}
+                        style={style}>
                 <option value={0} disabled>
                     {this.props.placeholder}
                 </option>
