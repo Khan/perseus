@@ -12996,11 +12996,15 @@ var Dropdown = React.createClass({displayName: 'Dropdown',
             );
 
         } else {
+            var style = {
+                fontSize: "120%"
+            };
             return React.DOM.select(
                         {onChange:this._handleChangeEvent,
                         onTouchStart:captureScratchpadTouchStart,
                         className:"perseus-widget-dropdown",
-                        value:this.props.selected}, 
+                        value:this.props.selected,
+                        style:style}, 
                 React.DOM.option( {value:0, disabled:true}, 
                     this.props.placeholder
                 ),
