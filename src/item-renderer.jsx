@@ -18,7 +18,10 @@ var RP = React.PropTypes;
 
 var ItemRenderer = React.createClass({
     propTypes: {
-        apiOptions: RP.any,
+        apiOptions: RP.shape({
+            answerableCallback: RP.func,
+            onFocusChange: RP.func,
+        }),
         // Whether this component should control hiding/showing peripheral
         // item-related components (for list, see item.answerArea below).
         // TODO(alex): Generalize this to an 'expectsToBeInTemplate' prop
@@ -155,6 +158,12 @@ var ItemRenderer = React.createClass({
             $(".z-table-info-box").toggle(answerArea.zTable || false);
             $(".t-table-info-box").toggle(answerArea.tTable || false);
             $(".chi2-table-info-box").toggle(answerArea.chi2Table || false);
+        }
+
+        if (apiOptions.answerableCallback) {
+            const isAnswerable =
+                this.questionRenderer.emptyWidgets().length === 0;
+            apiOptions.answerableCallback(isAnswerable);
         }
     },
 
