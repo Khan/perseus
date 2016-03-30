@@ -36,6 +36,7 @@ module.exports = {
         propTypes: React.PropTypes.shape({
             isArticle: React.PropTypes.bool.isRequired,
             fancyDropdowns: React.PropTypes.bool.isRequired,
+            responsiveStyling: React.PropTypes.bool.isRequired,
             onInputError: React.PropTypes.func.isRequired,
             onFocusChange: React.PropTypes.func.isRequired,
             staticRender: React.PropTypes.bool.isRequired,
@@ -69,6 +70,7 @@ module.exports = {
         defaults: {
             isArticle: false,
             fancyDropdowns: false,
+            responsiveStyling: false,
             onInputError: function() { },
             onFocusChange: function() { },
             staticRender: false,
@@ -81,6 +83,7 @@ module.exports = {
     ClassNames: {
         RENDERER: "perseus-renderer",
         TWO_COLUMN_RENDERER: "perseus-renderer-two-columns",
+        RESPONSIVE_RENDERER: "perseus-renderer-responsive",
         INPUT: "perseus-input",
         FOCUSED: "perseus-focused",
         RADIO: {

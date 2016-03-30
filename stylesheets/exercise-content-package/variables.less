@@ -6,6 +6,24 @@
 @gray:                  #aaa;
 @red:                   #ffbaba;
 @questionWidth:         480px;
+@grayLight:             #aaa;
+@grayLighter:           #ddd;
+@learnstormBlue: #4898fc;
+
+// Media query breakpoints
+// --------------------------------------------------
+
+// Kept in sync from Pure's default breakpoints: http://purecss.io/grids/
+
+@pure-sm-min: 568px;
+@pure-md-min: 768px;
+@pure-lg-min: 1024px;
+@pure-xl-min: 1280px;
+
+@pure-xs-max: (@pure-sm-min - 1);
+@pure-sm-max: (@pure-md-min - 1);
+@pure-md-max: (@pure-lg-min - 1);
+@pure-lg-max: (@pure-xl-min - 1);
 
 // SAT variables
 @satBlue:               #0084ce;
@@ -24,3 +42,6 @@
 @zIndexInteractiveComponent: @zIndexAboveScratchpad + 1;
 @zIndexCurrentlyDragging: @zIndexInteractiveComponent + 1;
 @zIndexCalculator: @zIndexCurrentlyDragging + 1;
+
+// Responsive variables
+@phoneMargin: 16px;

@@ -1304,6 +1304,9 @@ var Renderer = React.createClass({
         var className = this._isTwoColumn ?
         ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
             ApiClassNames.RENDERER;
+        if (this.props.apiOptions.responsiveStyling) {
+            className += " " + ApiClassNames.RESPONSIVE_RENDERER;
+        }
 
         this.lastRenderedMarkdown = <div className={className}>
             {markdownContents}

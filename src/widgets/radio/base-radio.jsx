@@ -65,6 +65,7 @@ const BaseRadio = React.createClass({
     propTypes: {
         apiOptions: React.PropTypes.shape({
             readOnly: React.PropTypes.bool,
+            responsiveStyling: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -123,7 +124,9 @@ const BaseRadio = React.createClass({
                 <$_>Please choose from one of the following options.</$_>
             }</legend>
             <ul className={"perseus-widget-radio " +
-                "above-scratchpad blank-background"}
+                "above-scratchpad blank-background" +
+                (this.props.apiOptions.responsiveStyling ?
+                 " perseus-widget-radio-responsive" : "")}
             >
                 {this.props.multipleSelect &&
                     <div className="instructions">
