@@ -116,6 +116,16 @@ const ArticleEditor = React.createClass({
                                         float: "right",
                                     }}
                                 >
+                                    {sectionImageUploadGenerator(i)}
+                                    <SectionControlButton
+                                        icon="icon-plus"
+                                        onClick={() => {
+                                            this._handleAddSectionAfter(i);
+                                        }}
+                                        title={
+                                            "Add a new section after this one"
+                                        }
+                                    />
                                     {(i + 1 < sections.length) &&
                                     <SectionControlButton
                                         icon="icon-circle-arrow-down"
@@ -148,16 +158,6 @@ const ArticleEditor = React.createClass({
                                         }}
                                         title="Delete this section"
                                     />
-                                    <SectionControlButton
-                                        icon="icon-plus"
-                                        onClick={() => {
-                                            this._handleAddSectionAfter(i);
-                                        }}
-                                        title={
-                                            "Add a new section after this one"
-                                        }
-                                    />
-                                    {sectionImageUploadGenerator(i)}
                                 </div>
                             </div>
                             <Editor
