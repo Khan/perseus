@@ -11,6 +11,7 @@ var EnabledFeatures = require("./enabled-features.jsx");
 var HintsRenderer = require("./hints-renderer.jsx");
 var Renderer = require("./renderer.jsx");
 var Util = require("./util.js");
+var getHintsPlacement = require("./get-hints-placement.jsx");
 
 var {mapObject} = require("./interactive2/objective_.js");
 
@@ -124,6 +125,26 @@ var ItemRenderer = React.createClass({
             }
         );
 
+        const hintsArea = <HintsRenderer
+            key="hints"
+            ref={inst => this.hintsRenderer = inst}
+            hints={this.props.item.hints}
+            hintsVisible={this.state.hintsVisible}
+            enabledFeatures={enabledFeatures}
+            apiOptions={apiOptions}
+        />;
+
+        let hintsPlacement = null;
+        if (enabledFeatures.dynamicHintsArea) {
+            // For the DynamicHintsArea feature, the hints are rendered within
+            // the questionRenderer, so we leave `hintsAreaSelector` alone.
+            hintsPlacement = getHintsPlacement(this.props.item);
+        } else {
+            ReactDOM.render(
+                hintsArea,
+                document.querySelector(this.props.hintsAreaSelector));
+        }
+
         // Since the item renderer works by rendering things into three divs
         // that have completely different places in the DOM, we have to do this
         // strangeness instead of relying on React's normal render() method.
@@ -134,21 +155,14 @@ var ItemRenderer = React.createClass({
                     onInteractWithWidget={this.handleInteractWithWidget}
                     highlightedWidgets={this.state.questionHighlightedWidgets}
                     enabledFeatures={enabledFeatures}
+                    hintsPlacement={hintsPlacement}
+                    hintsArea={enabledFeatures.dynamicHintsArea && hintsArea}
                     apiOptions={apiOptions}
                     questionCompleted={this.state.questionCompleted}
                     savedState={this.props.savedState}
                     {...this.props.item.question}
                 />,
                 document.querySelector(this.props.workAreaSelector));
-
-        this.hintsRenderer = ReactDOM.render(
-                <HintsRenderer
-                    hints={this.props.item.hints}
-                    hintsVisible={this.state.hintsVisible}
-                    enabledFeatures={enabledFeatures}
-                    apiOptions={apiOptions}
-                />,
-                document.querySelector(this.props.hintsAreaSelector));
 
         if (this.props.controlPeripherals) {
             var answerArea = this.props.item.answerArea || {};

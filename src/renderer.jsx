@@ -17,6 +17,7 @@ var SvgImage = require("./components/svg-image.jsx");
 var TeX = require("react-components/tex.jsx");
 var WidgetContainer = require("./widget-container.jsx");
 var Widgets = require("./widgets.js");
+var getHintsIndex = require("./get-hints-index.jsx");
 
 var Util = require("./util.js");
 var EnabledFeatures = require("./enabled-features.jsx");
@@ -161,6 +162,10 @@ var Renderer = React.createClass({
         apiOptions: React.PropTypes.any,
         enabledFeatures: EnabledFeatures.propTypes,
         highlightedWidgets: React.PropTypes.arrayOf(React.PropTypes.any),
+        // NOTE(jared): these hints props are only (currently) used for the
+        // renderer rendered by an ItemRenderer
+        hintsArea: React.PropTypes.node,
+        hintsPlacement: React.PropTypes.string,
         ignoreMissingWidgets: React.PropTypes.bool,
         images: React.PropTypes.any,
         interWidgets: React.PropTypes.func,
@@ -235,6 +240,9 @@ var Renderer = React.createClass({
         var oldHighlightedWidgets = this.props.highlightedWidgets;
         var newHighlightedWidgets = nextProps.highlightedWidgets;
 
+        // TODO(jared): This seems to be a perfect overlap with
+        // "shouldComponentUpdate" -- can we just remove this
+        // componentWillUpdate and the reuseMarkdown attr?
         this.reuseMarkdown = !oldJipt && !newJipt &&
             oldContent === newContent &&
                 // yes, this is identity array comparison, but these are passed
@@ -246,7 +254,8 @@ var Renderer = React.createClass({
                 // whether a widget should be highlighted in the common case
                 // where this array hasn't changed, so we just redo the whole
                 // render if this changed
-            oldHighlightedWidgets === newHighlightedWidgets;
+            oldHighlightedWidgets === newHighlightedWidgets &&
+            nextProps.hintsArea === this.props.hintsArea;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -1306,6 +1315,15 @@ var Renderer = React.createClass({
             ApiClassNames.RENDERER;
         if (this.props.apiOptions.responsiveStyling) {
             className += " " + ApiClassNames.RESPONSIVE_RENDERER;
+        }
+
+        if (this.props.enabledFeatures.dynamicHintsArea &&
+                this.props.hintsArea) {
+            markdownContents.splice(
+                getHintsIndex(parsedMarkdown, this.props.hintsPlacement),
+                0,
+                this.props.hintsArea
+            );
         }
 
         this.lastRenderedMarkdown = <div className={className}>
