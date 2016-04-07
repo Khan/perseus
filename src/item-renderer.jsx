@@ -21,6 +21,7 @@ var ItemRenderer = React.createClass({
     propTypes: {
         apiOptions: RP.shape({
             answerableCallback: RP.func,
+            interactionCallback: RP.func,
             onFocusChange: RP.func,
         }),
         // Whether this component should control hiding/showing peripheral
@@ -278,6 +279,9 @@ var ItemRenderer = React.createClass({
             questionCompleted: false,
             questionHighlightedWidgets: withRemoved,
         });
+        if (this.props.apiOptions.interactionCallback) {
+            this.props.apiOptions.interactionCallback();
+        }
     },
 
     focus: function() {
