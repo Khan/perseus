@@ -341,11 +341,25 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             }
         },
     }),
+    list: _.extend({}, SimpleMarkdown.defaultRules.list, {
+        match: (source, state, prevCapture) => {
+            // Since lists can contain double newlines and we have special
+            // handling of double newlines while parsing jipt content, just
+            // disable the list parser.
+            if (state.isJipt) {
+                return null;
+            } else {
+                return SimpleMarkdown.defaultRules.list.match(
+                    source, state, prevCapture);
+            }
+        },
+    }),
 });
 
 var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source, state) => {
     var paragraphedSource = source + "\n\n";
+
     return builtParser(paragraphedSource, _.extend(
         { inline: false },
         state

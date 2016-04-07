@@ -373,6 +373,54 @@ describe("perseus markdown", () => {
                 ],
             }]);
         });
+
+        it("should ignore lists in jipt mode", () => {
+            var parsed = parse(
+                "1. test\n\n" +
+                "2. boo\n\n",
+                { isJipt: true }
+            );
+
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "1",
+                }, {
+                    type: "text",
+                    content: ". test",
+                }],
+            }, {
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "2",
+                }, {
+                    type: "text",
+                    content: ". boo",
+                }],
+            }]);
+
+            parsed = parse(
+                "* test\n\n" +
+                "* boo\n\n",
+                { isJipt: true }
+            );
+
+            validateParse(parsed, [{
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "* test",
+                }],
+            }, {
+                type: "paragraph",
+                content: [{
+                    type: "text",
+                    content: "* boo",
+                }],
+            }]);
+        });
     });
 
     describe("output", () => {
