@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -41,7 +41,7 @@ var NO_ANSWERS_WARNING = [
     "won't you please?",
     "A few digits will do -",
     "might I suggest some threes?",
-    ].join("\n");
+].join("\n");
 var NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be too " +
     "hard because the expression has no correct answer.";
 var SIMPLIFY_WARNING = str => {

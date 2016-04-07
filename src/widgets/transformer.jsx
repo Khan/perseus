@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, indent, no-redeclare, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
+/* eslint-disable camelcase, no-redeclare, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -890,10 +890,10 @@ var Transformations = {
                     value={this.state.scale}
                     useArrowKeys={true}
                     onChange={(val) => {
-                            this.setState({scale: val}, () => {
-                                this.props.onChange();
-                            });
-                        }}
+                        this.setState({scale: val}, () => {
+                            this.props.onChange();
+                        });
+                    }}
                     onFocus={_.partial(this.props.onFocus, "scale")}
                     onBlur={_.partial(this.props.onBlur, "scale")} />;
                 return <div>
@@ -1080,8 +1080,9 @@ var ShapeTypes = {
         var typeOptions = options.shape.options ||
                 ShapeTypes.defaultOptions(types);
 
-        var shapes = ShapeTypes._mapTypes(types, points,
-                function(type, points, i) {
+        var shapes = ShapeTypes._mapTypes(types, points, function(
+            type, points, i) {
+
             var shapeOptions = _.extend({}, options, typeOptions[i]);
             return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
@@ -1212,14 +1213,14 @@ var ShapeTypes = {
             };
         } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
-                    _.extend({}, options, lineCoords, {
-                movePointsWithLine: true,
-                fixed: true,
-                constraints: {
+                _.extend({}, options, lineCoords, {
+                    movePointsWithLine: true,
                     fixed: true,
-                },
-                extendLine: (type === "line"),
-            }));
+                    constraints: {
+                        fixed: true,
+                    },
+                    extendLine: (type === "line"),
+                }));
 
             // TODO(jack): Hide points on uneditable lines when translation
             // is a vector.
@@ -1939,8 +1940,7 @@ var Transformer = React.createClass({
         }
 
         // Move the reflectButton and reflectRotateHandle with the line
-        $(reflectLine).on("move",
-                function() {
+        $(reflectLine).on("move", function() {
             reflectButton.update();
             $(reflectButton).trigger("move"); // update the rotation handle,
                     // which watches for this in util/interactive.js.
@@ -2381,8 +2381,9 @@ _.extend(Transformer, {
         // Check for any required transformations
         for (var type in Transformations) {
             if (rubric.tools[type].required) {
-                var isUsed = _.any(_.map(guess.transformations,
-                        function(transform) {
+                var isUsed = _.any(_.map(guess.transformations, function(
+                    transform) {
+
                     // Required transformations must appear in the
                     // transformation list, and must not be no-ops
                     return (transform.type === type) &&
@@ -2394,9 +2395,9 @@ _.extend(Transformer, {
                     return {
                         type: "invalid",
                         message: i18n._("Your transformation must use a " +
-                                "%(type)s.", {
-                            type: Transformations[type].lowerNounName,
-                        }),
+                            "%(type)s.", {
+                                type: Transformations[type].lowerNounName,
+                            }),
                     };
                 }
             }

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var */
+/* eslint-disable no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -15,8 +15,9 @@ var createMock = function() {
     movable.modify = function(options) {
         Movable.prototype.modify.call(movable, _.omit(options, 'mouseTarget'));
     };
-    _.each(["onMoveStart", "onMove", "onMoveEnd", "onClick"],
-            function(eventName) {
+    _.each(["onMoveStart", "onMove", "onMoveEnd", "onClick"], function(
+        eventName) {
+
         movable[eventName] = function(coord, prevCoord) {
             this._fireEvent(this.state[eventName], coord, prevCoord);
         };

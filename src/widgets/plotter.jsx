@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-redeclare, no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-redeclare, no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -238,17 +238,17 @@ var Plotter = React.createClass({
             .addClass("rotate");
     },
 
-	labelCategory: function(x, category) {
-		var graphie = this.graphie;
-		category = category + "";
-		var isTeX = false;
-		var mathyCategory = category.match(/^\$(.*)\$$/);
-		if (mathyCategory) {
-			category = mathyCategory[1];
-			isTeX = true;
-		}
-		graphie.label([x, 0], category, "below", isTeX);
-	},
+    labelCategory: function(x, category) {
+        var graphie = this.graphie;
+        category = category + "";
+        var isTeX = false;
+        var mathyCategory = category.match(/^\$(.*)\$$/);
+        if (mathyCategory) {
+            category = mathyCategory[1];
+            isTeX = true;
+        }
+        graphie.label([x, 0], category, "below", isTeX);
+    },
 
     setupCategories: function(config) {
         var self = this;
@@ -480,14 +480,14 @@ var Plotter = React.createClass({
         var graphie = this.graphie;
         return this.setupTiledPlot(i, 1, config, (x, y) => {
             return graphie.ellipse([x, y],
-                 [
-                     DOT_PLOT_POINT_SIZE / graphie.scale[0],
-                     DOT_PLOT_POINT_SIZE / graphie.scale[1],
-                 ],
-                 {
+                [
+                    DOT_PLOT_POINT_SIZE / graphie.scale[0],
+                    DOT_PLOT_POINT_SIZE / graphie.scale[1],
+                ],
+                {
                     fill: KhanColors.INTERACTIVE,
                     stroke: KhanColors.INTERACTIVE,
-                 });
+                });
         });
     },
 
@@ -588,8 +588,8 @@ var Plotter = React.createClass({
                         pic.animate({
                             "stroke-width": 8,
                         }, 75, () => pic.animate({
-                                "stroke-width": 2,
-                            }, 75));
+                            "stroke-width": 2,
+                        }, 75));
                     }
                 }
                 $(pic[0]).css({display: show ? "inline" : "none"});

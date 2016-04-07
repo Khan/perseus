@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var */
+/* eslint-disable no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
@@ -8,10 +8,10 @@ var stringArrayDiff = require("../string-array-diff.jsx");
 describe("string array diff", function() {
     it("diffs an empty diff", function() {
         expect(stringArrayDiff([], [])).toEqual(
-                  {
-                      before: [],
-                      after: [],
-                  });
+            {
+                before: [],
+                after: [],
+            });
     });
 
     it("diffs the same values", function() {

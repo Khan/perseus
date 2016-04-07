@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -219,7 +219,8 @@ var FunctionGrapher = React.createClass({
                             graph);
                     }
                     return true;
-            }]} normalStyle={dashed}
+                },
+            ]} normalStyle={dashed}
                 highlightStyle={dashed}>
                 {_.map(asymptote, (coord) =>
                     <MovablePoint coord={coord}

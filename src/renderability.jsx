@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -17,8 +17,9 @@ var _ = require("underscore");
 var Traversal = require("./traversal.jsx");
 var Widgets = require("./widgets.js");
 
-var isUpgradedWidgetInfoRenderableBy =
-        function(widgetInfo, widgetRendererVersion) {
+var isUpgradedWidgetInfoRenderableBy = function(
+    widgetInfo, widgetRendererVersion) {
+
     if (widgetRendererVersion == null) {
         // If the widget does not exist in this version, this will
         // be null, and that version of perseus cannot render the
@@ -40,8 +41,7 @@ var isUpgradedWidgetInfoRenderableBy =
     }
 };
 
-var isRawWidgetInfoRenderableBy = function(widgetInfo,
-        rendererContentVersion) {
+var isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion) {
     // Empty/non-existant widgets are always safe to render
     if (widgetInfo == null || widgetInfo.type == null) {
         return true;
@@ -58,8 +58,9 @@ var isRawWidgetInfoRenderableBy = function(widgetInfo,
     );
 };
 
-var isRendererContentRenderableBy =
-        function(rendererOptions, rendererContentVersion) {
+var isRendererContentRenderableBy = function(
+    rendererOptions, rendererContentVersion) {
+
     var isRenderable = true;
     Traversal.traverseRendererDeep(
         rendererOptions,

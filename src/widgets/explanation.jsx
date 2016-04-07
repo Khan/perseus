@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -94,7 +94,8 @@ var Explanation = React.createClass({
                 {this.state.expanded ?
                     this.props.hidePrompt : this.props.showPrompt}
             </a>
-            <div className="perseus-widget-explanation-content" style={{
+            <div className="perseus-widget-explanation-content"
+                style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
                     overflow: this.state.expanded ? "visible" : "hidden",
                 }} ref="content">

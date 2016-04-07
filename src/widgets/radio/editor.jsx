@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -191,8 +191,7 @@ var RadioEditor = React.createClass({
     onMultipleSelectChange: function(allowMultiple) {
         allowMultiple = allowMultiple.multipleSelect;
 
-        var numSelected = _.reduce(this.props.choices,
-                function(memo, choice) {
+        var numSelected = _.reduce(this.props.choices, function(memo, choice) {
             return choice.correct ? memo + 1 : memo;
         }, 0);
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, eol-last, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable camelcase, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -415,8 +415,9 @@ var ShapeTypes = {
         var typeOptions = options.shape.options ||
                 ShapeTypes.defaultOptions(types);
 
-        var shapes = ShapeTypes._mapTypes(types, points,
-                function(type, points, i) {
+        var shapes = ShapeTypes._mapTypes(types, points, function(
+            type, points, i) {
+
             var shapeOptions = _.extend({}, options, typeOptions[i]);
             return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
@@ -547,14 +548,14 @@ var ShapeTypes = {
             };
         } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
-                    _.extend({}, options, lineCoords, {
-                movePointsWithLine: true,
-                fixed: true,
-                constraints: {
+                _.extend({}, options, lineCoords, {
+                    movePointsWithLine: true,
                     fixed: true,
-                },
-                extendLine: (type === "line"),
-            }));
+                    constraints: {
+                        fixed: true,
+                    },
+                    extendLine: (type === "line"),
+                }));
 
             // TODO(jack): Hide points on uneditable lines when translation
             // is a vector.

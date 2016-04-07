@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, one-var */
+/* eslint-disable no-undef, no-var, one-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -95,8 +95,8 @@ var draw = {
                     function() {
                         return graphie.label([0, 0], "", "center",
                             state.labelStyle);
-                        }
-                    );
+                    }
+                );
             }
 
             _.each(self.state._labeledAngles, function(label, i) {
@@ -263,8 +263,7 @@ var constraints = {
             });
 
             // bound the delta by the calculated bounds
-            var boundedDelta = _.reduce(deltaBounds,
-                    function(delta, bound) {
+            var boundedDelta = _.reduce(deltaBounds, function(delta, bound) {
                 var lower = bound[0];
                 var upper = bound[1];
                 var deltaX = Math.max(lower[0], Math.min(upper[0], delta[0]));

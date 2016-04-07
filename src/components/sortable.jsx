@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable max-len, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -98,11 +98,11 @@ var Draggable = React.createClass({
 
     render: function() {
         var className = [
-                PREFIX + "-card",
-                PREFIX + "-draggable",
-                PREFIX + "-" + this.props.type,
-                ApiClassNames.INTERACTIVE,
-            ].join(" ");
+            PREFIX + "-card",
+            PREFIX + "-draggable",
+            PREFIX + "-" + this.props.type,
+            ApiClassNames.INTERACTIVE,
+        ].join(" ");
 
         var style = {
             position: "static",
@@ -437,7 +437,7 @@ var Sortable = React.createClass({
         });
 
         this.setState({items: items});
-     },
+    },
 
     onMouseMove: function(key) {
         // Dragging: Rearrange items based on draggable's position

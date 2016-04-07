@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-trailing-spaces, no-undef, no-var */
+/* eslint-disable no-trailing-spaces, no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
@@ -25,18 +25,18 @@ describe("split diff", function() {
     });
 
     it("keeps things on the same line when splitting a changed value",
-         function() {
-         expect(splitDiff([{ value: "hello" },
-                           { value: "goodbye", removed: true }]))
-             .toEqual([[{ value: "hello" },
-                        { value: "goodbye", removed: true }]]);
-    });
+        function() {
+            expect(splitDiff([{ value: "hello" },
+                              { value: "goodbye", removed: true }]))
+                .toEqual([[{ value: "hello" },
+                           { value: "goodbye", removed: true }]]);
+        });
 
     it("splits a string with a change and a newline", function() {
-         expect(splitDiff([{ value: "hello" },
-                           { value: "good\nbye", removed: true }]))
-             .toEqual([[{ value: "hello" },
-                        { value: "good", removed: true }],
-                       [{ value: "bye", removed: true }]]);
+        expect(splitDiff([{ value: "hello" },
+                          { value: "good\nbye", removed: true }]))
+            .toEqual([[{ value: "hello" },
+                       { value: "good", removed: true }],
+                      [{ value: "bye", removed: true }]]);
     });
 });

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, indent, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -73,22 +73,22 @@ var ExpressionEditor = React.createClass({
         var answerOptions = this.props.answerForms
             .map((obj, ix) => {
                 var expressionProps = {
-                        // note we're using
-                        // *this.props*.{times,functions,buttonSets} since each
-                        // answer area has the same settings for those
-                        times: this.props.times,
-                        functions: this.props.functions,
-                        buttonSets: this.props.buttonSets,
+                    // note we're using
+                    // *this.props*.{times,functions,buttonSets} since each
+                    // answer area has the same settings for those
+                    times: this.props.times,
+                    functions: this.props.functions,
+                    buttonSets: this.props.buttonSets,
 
-                        buttonsVisible: "focused",
-                        form: obj.form,
-                        simplify: obj.simplify,
-                        value: obj.value,
+                    buttonsVisible: "focused",
+                    form: obj.form,
+                    simplify: obj.simplify,
+                    value: obj.value,
 
-                        onChange: props => this.updateForm(ix, props),
-                        trackInteraction: () => {},
+                    onChange: props => this.updateForm(ix, props),
+                    trackInteraction: () => {},
 
-                        widgetId: this.props.widgetId + "-" + ix,
+                    widgetId: this.props.widgetId + "-" + ix,
                 };
 
                 return lens(obj)

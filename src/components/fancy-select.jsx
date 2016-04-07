@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -66,11 +66,11 @@ var FancySelect = React.createClass({
         // selected, so that the page doesn't have to re-flow when changing
         // select items.
         var optionSizer = <span style={{
-                    display: "inline-block",
-                    float: "left",
-                    visibility: "hidden",
-                    height: 0,
-                }}>
+            display: "inline-block",
+            float: "left",
+            visibility: "hidden",
+            height: 0,
+        }}>
             {React.Children.map(this.props.children, (option) => {
                 return <div className="fancy-select-value-hidden"
                             style={{height: 0}}>
@@ -200,14 +200,14 @@ var FancySelect = React.createClass({
         // is rotated. Maybe "onorientationchange"? Not sure if that is fired
         // in a webview though.
         if (active) {
-          var nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
-          var distToBottom = window.innerHeight - nodeBox.bottom;
-          // One of the children is the placeholder
-          var numOptions = React.Children.count(this.props.children) - 1;
-          var overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
-          if (overflow > 0) {
-            nodeOffset = -overflow;
-          }
+            var nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
+            var distToBottom = window.innerHeight - nodeBox.bottom;
+            // One of the children is the placeholder
+            var numOptions = React.Children.count(this.props.children) - 1;
+            var overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
+            if (overflow > 0) {
+                nodeOffset = -overflow;
+            }
         }
 
         this.setState({

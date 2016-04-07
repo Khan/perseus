@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React        = require('react');
@@ -76,7 +76,8 @@ var Measurer = React.createClass({
     },
 
     componentDidUpdate: function(prevProps) {
-        var shouldSetupGraphie = _.any([
+        var shouldSetupGraphie = _.any(
+            [
                 "box", "showProtractor", "showRuler", "rulerLabel",
                 "rulerTicks", "rulerPixels", "rulerLength",
             ],

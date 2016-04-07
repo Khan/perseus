@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var InfoTip = require("../components/info-tip.jsx");
@@ -288,10 +288,9 @@ var Histogram = React.createClass({
 
                 var tickHeight = 8;
                 graphie.line([x, 0], [x, - tickHeight / scale[1]], {
-                        stroke: "#000",
-                        strokeWidth: 1,
-                    }
-                );
+                    stroke: "#000",
+                    strokeWidth: 1,
+                });
             });
         }
 

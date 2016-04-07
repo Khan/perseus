@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-redeclare, no-undef, no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -1006,54 +1006,54 @@ var InteractiveGraph = React.createClass({
 
         var segmentColors = [KhanColors.INTERACTIVE, KhanColors.GREEN];
         var points = this.points = _.map(coords,
-                (segmentCoords, segmentIndex) => {
-            var segmentPoints = _.map(segmentCoords, (coord, i) => {
-                return Interactive2.addMovablePoint(graphie, {
-                    coord: coord,
-                    constraints: [
-                        Interactive2.MovablePoint.constraints.bound(),
-                        Interactive2.MovablePoint.constraints.snap(),
-                        (coord) => {
-                            if (!segmentPoints) {
-                                // points hasn't been defined yet because
-                                // we're still creating them
-                                return;
-                            }
-                            return !kpoint.equal(
-                                coord,
-                                segmentPoints[1 - i].coord()
-                            );
+            (segmentCoords, segmentIndex) => {
+                var segmentPoints = _.map(segmentCoords, (coord, i) => {
+                    return Interactive2.addMovablePoint(graphie, {
+                        coord: coord,
+                        constraints: [
+                            Interactive2.MovablePoint.constraints.bound(),
+                            Interactive2.MovablePoint.constraints.snap(),
+                            (coord) => {
+                                if (!segmentPoints) {
+                                    // points hasn't been defined yet because
+                                    // we're still creating them
+                                    return;
+                                }
+                                return !kpoint.equal(
+                                    coord,
+                                    segmentPoints[1 - i].coord()
+                                );
+                            },
+                        ],
+                        onMove: () => {
+                            var graph = _.extend({}, this.props.graph, {
+                                coords: _.map(
+                                    this.points,
+                                    (segment) => _.invoke(segment, "coord")
+                                ),
+                            });
+                            this.onChange({graph: graph});
                         },
-                    ],
-                    onMove: () => {
-                        var graph = _.extend({}, this.props.graph, {
-                            coords: _.map(
-                                this.points,
-                                (segment) => _.invoke(segment, "coord")
-                            ),
-                        });
-                        this.onChange({graph: graph});
-                    },
+                        normalStyle: {
+                            stroke: segmentColors[segmentIndex],
+                            fill: segmentColors[segmentIndex],
+                        },
+                    });
+                });
+                return segmentPoints;
+            });
+
+        var lines = this.lines = _.map(points,
+            (segmentPoints, segmentIndex) => {
+                return Interactive2.addMovableLine(graphie, {
+                    points: segmentPoints,
+                    static: true,
+                    extendLine: true,
                     normalStyle: {
                         stroke: segmentColors[segmentIndex],
-                        fill: segmentColors[segmentIndex],
                     },
                 });
             });
-            return segmentPoints;
-        });
-
-        var lines = this.lines = _.map(points,
-                (segmentPoints, segmentIndex) => {
-            return Interactive2.addMovableLine(graphie, {
-                points: segmentPoints,
-                static: true,
-                extendLine: true,
-                normalStyle: {
-                    stroke: segmentColors[segmentIndex],
-                },
-            });
-        });
     },
 
     removeLinearSystemControls: function() {
@@ -1326,8 +1326,8 @@ var InteractiveGraph = React.createClass({
 
                 // Avoid degenerate triangles
                 if (_.any(innerAngles, function(angle) {
-                            return leq(angle, 1);
-                        })) {
+                    return leq(angle, 1);
+                })) {
                     return false;
                 }
 

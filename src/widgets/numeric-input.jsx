@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable indent, no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -269,7 +269,7 @@ _.extend(NumericInput, {
                     forms: (answer.strict && answer.answerForms &&
                             answer.answerForms.length !== 0) ?
                             answer.answerForms : allAnswerForms,
-            });
+                });
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
@@ -304,9 +304,9 @@ _.extend(NumericInput, {
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
             match = _.find(otherAnswers, (answer) => {
-                 var validate = createValidator(answer);
-                 return validate(currentValue).correct;
-             });
+                var validate = createValidator(answer);
+                return validate(currentValue).correct;
+            });
             result = {
                 empty: match ? match.status === "ungraded" : false,
                 correct: match ? match.status === "correct" : false,
