@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, prefer-spread, space-before-function-paren */
+/* eslint-disable no-var, prefer-spread, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -17,7 +17,7 @@ var kvector = require("kmath").vector;
  */
 var PASS_TO_RAPHAEL = [
     "attr",
-    "animate"
+    "animate",
 ];
 
 var WrappedDefaults = _.extend({
@@ -74,7 +74,7 @@ var WrappedDefaults = _.extend({
 
     show: function() {
         this.visibleShape.show();
-    }
+    },
 }, objective_.mapObjectFromArray(PASS_TO_RAPHAEL, function(attribute) {
     return function() {
         this.visibleShape[attribute].apply(this.visibleShape, arguments);

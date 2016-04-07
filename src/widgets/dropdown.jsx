@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -31,7 +31,7 @@ var Dropdown = React.createClass({
             choices: [],
             selected: 0,
             placeholder: "",
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -40,7 +40,7 @@ var Dropdown = React.createClass({
 
         var selectClasses = classNames({
             "perseus-widget-dropdown": true,
-            "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns
+            "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns,
         });
 
         if (this.props.apiOptions.fancyDropdowns) {
@@ -102,7 +102,7 @@ var Dropdown = React.createClass({
 
     simpleValidate: function(rubric) {
         return Dropdown.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Dropdown, {
@@ -111,7 +111,7 @@ _.extend(Dropdown, {
         if (selected === 0) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
             var correct = rubric.choices[selected - 1].correct;
@@ -119,16 +119,16 @@ _.extend(Dropdown, {
                 type: "points",
                 earned: correct ? 1 : 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 var propTransform = (editorProps) => {
     return {
         placeholder: editorProps.placeholder,
-        choices: _.map(editorProps.choices, (choice) => choice.content)
+        choices: _.map(editorProps.choices, (choice) => choice.content),
     };
 };
 
@@ -138,5 +138,5 @@ module.exports = {
     defaultAlignment: "inline-block",
     accessible: true,
     widget: Dropdown,
-    transform: propTransform
+    transform: propTransform,
 };

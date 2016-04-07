@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -17,13 +17,13 @@ const InteractiveGraph = require("./interactive-graph.jsx").widget;
 const defaultBoxSize = 400;
 const defaultEditorBoxSize = 340;
 const defaultBackgroundImage = {
-    url: null
+    url: null,
 };
 
 var deprecatedProps = {
     showGraph: function(props) {
         return {markings: props.showGraph ? "graph" : "none"};
-    }
+    },
 };
 
 const InteractiveGraphEditor = React.createClass({
@@ -44,8 +44,8 @@ const InteractiveGraphEditor = React.createClass({
             rulerTicks: 10,
             correct: {
                 type: "linear",
-                coords: null
-            }
+                coords: null,
+            },
         };
     },
 
@@ -94,7 +94,7 @@ const InteractiveGraphEditor = React.createClass({
                         correct = newProps.graph;
                     }
                     this.props.onChange({correct: correct});
-                }
+                },
             };
             graph = <InteractiveGraph {...graphProps} />;
             equationString = InteractiveGraph.getEquationString(graphProps);
@@ -199,7 +199,7 @@ const InteractiveGraphEditor = React.createClass({
 
     changeMatchType: function(e) {
         var correct = _.extend({}, this.props.correct, {
-            match: e.target.value
+            match: e.target.value,
         });
         this.props.onChange({correct: correct});
     },
@@ -216,7 +216,7 @@ const InteractiveGraphEditor = React.createClass({
                 // TODO(alpert): Allow specifying flexibleType (whether the
                 // graph type should be a choice or not)
                 graph: {type: correct.type},
-                correct: correct
+                correct: correct,
             });
 
             _.each(["allowReflexAngles", "angleOffsetDeg", "numPoints",
@@ -229,7 +229,7 @@ const InteractiveGraphEditor = React.createClass({
                     });
         }
         return json;
-    }
+    },
 });
 
 module.exports = InteractiveGraphEditor;

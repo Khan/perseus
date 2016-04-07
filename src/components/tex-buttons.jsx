@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React     = require("react");
@@ -25,7 +25,7 @@ var basic = [
         if (props.convertDotToTimes) {
             return [
                 <TeX key="times" style={prettyBig}>\times</TeX>,
-                "\\times"
+                "\\times",
             ];
         } else {
             return [<TeX key="times" style={prettyBig}>\cdot</TeX>, "\\cdot"];
@@ -43,15 +43,15 @@ var basic = [
             if (input.latex() === contents) {
                 input.cmd("\\frac");
             }
-        }
-    ]
+        },
+    ],
 ];
 
 var buttonSets = {
     basic,
 
     "basic+div": basic.concat([
-        () => [<TeX key="div">\div</TeX>, "\\div"]
+        () => [<TeX key="div">\div</TeX>, "\\div"],
     ]),
 
     trig: [
@@ -59,7 +59,7 @@ var buttonSets = {
         () => [<TeX key="cos">\cos</TeX>, "\\cos"],
         () => [<TeX key="tan">\tan</TeX>, "\\tan"],
         () => [<TeX key="theta" style={symbStyle}>\theta</TeX>, "\\theta"],
-        () => [<TeX key="pi" style={symbStyle}>\phi</TeX>, "\\phi"]
+        () => [<TeX key="pi" style={symbStyle}>\phi</TeX>, "\\phi"],
     ],
 
     prealgebra: [
@@ -79,7 +79,7 @@ var buttonSets = {
                 if (input.latex() === contents) {
                     input.typedText("a^b");
                 }
-            }
+            },
         ],
         () => [<TeX key="pi" style={slightlyBig}>\pi</TeX>, "\\pi"],
     ],
@@ -118,7 +118,7 @@ var buttonSetsType = React.PropTypes.arrayOf(
 var TexButtons = React.createClass({
     propTypes: {
         sets: buttonSetsType.isRequired,
-        onInsert: React.PropTypes.func.isRequired
+        onInsert: React.PropTypes.func.isRequired,
     },
 
     render: function() {
@@ -156,8 +156,8 @@ var TexButtons = React.createClass({
 
     statics: {
         buttonSets,
-        buttonSetsType
-    }
+        buttonSetsType,
+    },
 });
 
 module.exports = TexButtons;

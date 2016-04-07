@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, space-infix-ops */
+/* eslint-disable max-len, no-undef, no-var, react/jsx-closing-bracket-location, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -22,7 +22,7 @@ describe("NumberInput", function() {
 
         var props = _.extend({
             value: STARTING_VALUE,
-            onChange: handleChange
+            onChange: handleChange,
         }, extraProps);
 
         var node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
@@ -40,7 +40,7 @@ describe("NumberInput", function() {
 
     it("should use placeholder value if blank and has placeholder", () => {
         testInputResult("", 15, {
-            placeholder: 15
+            placeholder: 15,
         });
     });
 
@@ -70,7 +70,7 @@ describe("NumberInput", function() {
             key: "ArrowUp",
             startingValue: 0,
             endingValue: 1,
-            keysEnabled: true
+            keysEnabled: true,
         });
     });
 
@@ -79,7 +79,7 @@ describe("NumberInput", function() {
             key: "ArrowDown",
             startingValue: 0,
             endingValue: -1,
-            keysEnabled: true
+            keysEnabled: true,
         });
     });
 
@@ -88,14 +88,14 @@ describe("NumberInput", function() {
             key: "ArrowDown",
             startingValue: 1/2,
             endingValue: 1/2,
-            keysEnabled: true
+            keysEnabled: true,
         });
 
         testArrowKeys({
             key: "ArrowUp",
             startingValue: 0.5,
             endingValue: 0.5,
-            keysEnabled: true
+            keysEnabled: true,
         });
     });
 
@@ -104,7 +104,7 @@ describe("NumberInput", function() {
             key: "ArrowUp",
             startingValue: 0,
             endingValue: 0,
-            keysEnabled: false
+            keysEnabled: false,
         });
     });
 

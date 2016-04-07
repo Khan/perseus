@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /*
@@ -52,7 +52,7 @@ function parseNextExpression(tex, currentIndex, handler) {
 
     return {
         endpoint: endpoint,
-        expression: parsedExp
+        expression: parsedExp,
     };
 }
 
@@ -161,5 +161,5 @@ function parseTex(tex) {
 
 module.exports = {
     parseTex: parseTex,
-    modifyTex: modifyTex
+    modifyTex: modifyTex,
 };

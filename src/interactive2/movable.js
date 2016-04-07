@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-var */
+/* eslint-disable no-redeclare, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -31,7 +31,7 @@ var FUNCTION_ARRAY_OPTIONS = [
     "onMoveStart",
     "onMove",
     "onMoveEnd",
-    "onClick"
+    "onClick",
 ];
 
 // Default "props" and "state". Both are added to this.state and
@@ -41,14 +41,14 @@ var FUNCTION_ARRAY_OPTIONS = [
 // Things that the user might want to change should be on "props",
 // while things used to render the movable should be on "state".
 var DEFAULT_PROPS = {
-    cursor: null
+    cursor: null,
 };
 var DEFAULT_STATE = {
     added: false,
     isHovering: false,
     isMouseOver: false,
     isDragging: false,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
 var Movable = function(graphie, options) {
@@ -56,8 +56,8 @@ var Movable = function(graphie, options) {
         graphie: graphie,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movable")
-        }
+            id: _.uniqueId("movable"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -86,7 +86,7 @@ _.extend(Movable.prototype, {
             onMoveStart: [],
             onMove: [],
             onMoveEnd: [],
-            onClick: []
+            onClick: [],
 
         // We only update props here, because we want things on state to
         // be persistent, and updated appropriately in modify()
@@ -273,7 +273,7 @@ _.extend(Movable.prototype, {
         if (this.state.mouseTarget) {
             this.state.mouseTarget.toFront();
         }
-    }
+    },
 });
 
 module.exports = Movable;

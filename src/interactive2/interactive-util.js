@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -127,7 +127,7 @@ var InteractiveUtil = {
             canUse3dTransform = computeCanUse3dTransform();
         }
         return canUse3dTransform;
-    }
+    },
 };
 
 module.exports = InteractiveUtil;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -15,7 +15,7 @@ var MatcherEditor = React.createClass({
         right: React.PropTypes.array,
         labels: React.PropTypes.array,
         orderMatters: React.PropTypes.bool,
-        padding: React.PropTypes.bool
+        padding: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -24,7 +24,7 @@ var MatcherEditor = React.createClass({
             right: ["$1$", "$2$", "$3$"],
             labels: ["test", "label"],
             orderMatters: false,
-            padding: true
+            padding: true,
         };
     },
 
@@ -103,7 +103,7 @@ var MatcherEditor = React.createClass({
         if (this.props.left.length !== this.props.right.length) {
             return [
                 "The two halves of the matcher have different numbers" +
-                " of cards."
+                " of cards.",
             ];
         }
         return [];
@@ -113,7 +113,7 @@ var MatcherEditor = React.createClass({
         return _.pick(this.props,
             "left", "right", "labels", "orderMatters", "padding"
         );
-    }
+    },
 });
 
 module.exports = MatcherEditor;

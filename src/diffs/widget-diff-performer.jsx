@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var */
+/* eslint-disable no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var UNCHANGED = "unchanged";
@@ -26,7 +26,7 @@ var valueEntry = function(before, after, key) {
         before: JSON.stringify(before),
         children: [],
         key: key,
-        status: status
+        status: status,
     };
 };
 
@@ -57,7 +57,7 @@ var objectEntry = function(before, after, key) {
         before: "",
         children: children,
         key: key,
-        status: status
+        status: status,
     };
 };
 

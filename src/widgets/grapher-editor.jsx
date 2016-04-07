@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-redeclare, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -27,7 +27,7 @@ const GrapherEditor = React.createClass({
         return {
             correct: DEFAULT_GRAPHER_PROPS.plot,
             graph: DEFAULT_GRAPHER_PROPS.graph,
-            availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes
+            availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes,
         };
     },
 
@@ -35,7 +35,7 @@ const GrapherEditor = React.createClass({
         var graph;
         var equationString;
         var graph = _.extend(this.props.graph, {
-            box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE]
+            box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE],
         });
 
         if (this.props.graph.valid === true) {
@@ -111,7 +111,7 @@ const GrapherEditor = React.createClass({
         }
         this.props.onChange({
             availableTypes: newAvailableTypes,
-            correct: correct
+            correct: correct,
         });
     },
 
@@ -120,7 +120,7 @@ const GrapherEditor = React.createClass({
                 .pick("correct", "availableTypes")
                 .extend({ graph: _.omit(this.props.graph, "box") })
                 .value();
-    }
+    },
 });
 
 module.exports = GrapherEditor;

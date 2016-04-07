@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-var */
+/* eslint-disable no-redeclare, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -80,14 +80,14 @@ var DEFAULT_PROPS = {
     pointSize: 4,
     static: false,
     cursor: "move",
-    normalStyle: null,    // turned into an object in this.modify
-    highlightStyle: null  // likewise
+    normalStyle: null,     // turned into an object in this.modify
+    highlightStyle: null,  // likewise
 };
 var DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
 var MovablePoint = function(graphie, movable, options) {
@@ -96,8 +96,8 @@ var MovablePoint = function(graphie, movable, options) {
         movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movablePoint")
-        }
+            id: _.uniqueId("movablePoint"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -171,13 +171,13 @@ _.extend(MovablePoint.prototype, {
         state.normalStyle = _.extend({
             fill: normalColor,
             stroke: normalColor,
-            scale: 1
+            scale: 1,
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
             fill: KhanColors.INTERACTING,
             stroke: KhanColors.INTERACTING,
-            scale: 2
+            scale: 2,
         }, state.highlightStyle);
 
         if (!state.static) {
@@ -186,7 +186,7 @@ _.extend(MovablePoint.prototype, {
                 var center = self.state.coord;
                 var radii = graphie.unscaleVector(15);
                 var options = {
-                    mouselayer: true
+                    mouselayer: true,
                 };
                 state.mouseTarget = new WrappedEllipse(graphie, center, radii,
                     options);
@@ -220,7 +220,7 @@ _.extend(MovablePoint.prototype, {
                 self._fireEvent(state.onMoveEnd, state.coord, startCoord);
                 state.hasMoved = false;
                 self.draw();
-            }
+            },
         }));
 
         // Trigger an add event if this hasn't been added before
@@ -339,7 +339,7 @@ _.extend(MovablePoint.prototype, {
     grab: function(coord) {
         this.movable.grab(coord);
         this.moveTo(coord);
-    }
+    },
 });
 
 module.exports = MovablePoint;

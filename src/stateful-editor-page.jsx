@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -17,12 +17,12 @@ var EditorPage = require("./editor-page.jsx");
 var StatefulEditorPage = React.createClass({
 
     propTypes: {
-        componentClass: React.PropTypes.func
+        componentClass: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
-            componentClass: EditorPage
+            componentClass: EditorPage,
         };
     },
 
@@ -33,7 +33,7 @@ var StatefulEditorPage = React.createClass({
     getInitialState: function() {
         return _({}).extend(_.omit(this.props, 'componentClass'), {
             onChange: this.handleChange,
-            ref: "editor"
+            ref: "editor",
         });
     },
 
@@ -67,7 +67,7 @@ var StatefulEditorPage = React.createClass({
 
     scorePreview: function() {
         return this.refs.editor.scorePreview();
-    }
+    },
 });
 
 module.exports = StatefulEditorPage;

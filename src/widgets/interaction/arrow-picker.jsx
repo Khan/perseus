@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+/* eslint-disable indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var ButtonGroup = require("react-components/button-group.jsx");
@@ -8,12 +8,12 @@ var React = require("react");
 var ArrowPicker = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
         };
     },
 
@@ -29,7 +29,7 @@ var ArrowPicker = React.createClass({
                 {value: "<->", content: <span>&#x2194;</span>}
                 */]}
             onChange={this.props.onChange} />;
-    }
+    },
 });
 
 module.exports = ArrowPicker;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React         = require("react");
@@ -13,26 +13,26 @@ var MathOutput = React.createClass({
     propTypes: {
         value: React.PropTypes.oneOfType([
             React.PropTypes.string,
-            React.PropTypes.number
+            React.PropTypes.number,
         ]),
         className: React.PropTypes.string,
         labelText: React.PropTypes.string,
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func
+        onBlur: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
             value: "",
             onFocus: function() { },
-            onBlur: function() { }
+            onBlur: function() { },
         };
     },
 
     getInitialState: function() {
         return {
             focused: false,
-            selectorNamespace: _.uniqueId("math-output")
+            selectorNamespace: _.uniqueId("math-output"),
         };
     },
 
@@ -61,7 +61,7 @@ var MathOutput = React.createClass({
 
     render: function() {
         var divStyle = {
-            textAlign: "center"
+            textAlign: "center",
         };
 
         return <span ref="input"
@@ -86,7 +86,7 @@ var MathOutput = React.createClass({
             this.props.onFocus();
             this._bindBlurHandler();
             this.setState({
-                focused: true
+                focused: true,
             });
         }
     },
@@ -96,7 +96,7 @@ var MathOutput = React.createClass({
             this.props.onBlur();
             this._unbindBlurHandler();
             this.setState({
-                focused: false
+                focused: false,
             });
         }
     },
@@ -117,7 +117,7 @@ var MathOutput = React.createClass({
 
     componentWillUnmount: function() {
         this._unbindBlurHandler();
-    }
+    },
 });
 
 module.exports = MathOutput;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, max-len, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
+/* eslint-disable eol-last, max-len, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -36,7 +36,7 @@ function padArray(array, n, value) {
 const editorDefaults = {
     scaleY: 1,
     maxY: 10,
-    snapsPerLine: 2
+    snapsPerLine: 2,
 };
 
 const widgetPropTypes = {
@@ -44,7 +44,7 @@ const widgetPropTypes = {
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
     categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
         React.PropTypes.number,
-        React.PropTypes.string
+        React.PropTypes.string,
     ])),
 
     scaleY: React.PropTypes.number,
@@ -80,7 +80,7 @@ const PlotterEditor = React.createClass({
             picUrl: Khan.imageBase + "badges/earth-small.png",
 
             plotDimensions: [275, 200],
-            labelInterval: 1
+            labelInterval: 1,
         });
     },
 
@@ -91,7 +91,7 @@ const PlotterEditor = React.createClass({
             loadedUrl: null,
             minX: null,
             maxX: null,
-            tickStep: null
+            tickStep: null,
         };
     },
 
@@ -110,7 +110,7 @@ const PlotterEditor = React.createClass({
             pic.onload = () => {
                 this.setState({
                     pic: pic,
-                    loadedUrl: url
+                    loadedUrl: url,
                 });
             };
         }
@@ -293,20 +293,20 @@ const PlotterEditor = React.createClass({
 
     handleChangeTickStep: function(value) {
         this.setState({
-            tickStep: value
+            tickStep: value,
         });
     },
 
     handleChangeRange: function(newValue) {
         this.setState({
             minX: newValue[0],
-            maxX: newValue[1]
+            maxX: newValue[1],
         });
     },
 
     changeLabelInterval: function(value) {
         this.props.onChange({
-            labelInterval: value
+            labelInterval: value,
         });
     },
 
@@ -361,7 +361,7 @@ const PlotterEditor = React.createClass({
         this.props.onChange({
             categories: categories,
             correct: padArray(this.props.correct, n, value),
-            starting: padArray(this.props.starting, n, value)
+            starting: padArray(this.props.starting, n, value),
         });
     },
 
@@ -379,7 +379,7 @@ const PlotterEditor = React.createClass({
             scaleY: newScale,
             maxY: maxY,
             correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale)
+            starting: _.map(this.props.starting, scale),
         });
 
         ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
@@ -387,13 +387,13 @@ const PlotterEditor = React.createClass({
 
     changeMax: function(e) {
         this.props.onChange({
-            maxY: +e.target.value || editorDefaults.maxY
+            maxY: +e.target.value || editorDefaults.maxY,
         });
     },
 
     changeSnaps: function(e) {
         this.props.onChange({
-            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine
+            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
         });
     },
 
@@ -432,7 +432,7 @@ const PlotterEditor = React.createClass({
         }
 
         return json;
-    }
+    },
 });
 
 module.exports = PlotterEditor;

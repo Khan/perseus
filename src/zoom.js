@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-var, space-before-function-paren */
+/* eslint-disable max-len, no-var, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Derived from the MIT-licensed:
@@ -42,7 +42,7 @@ function transitionEnd() {
     for (var name in transEndEventNames) {
         if (el.style[name] !== undefined) {
             return {
-                end: transEndEventNames[name]
+                end: transEndEventNames[name],
             };
         }
     }

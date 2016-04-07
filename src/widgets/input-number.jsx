@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -22,35 +22,35 @@ var EnabledFeatures = require("../enabled-features.jsx");
 var answerTypes = {
     number: {
         name: "Numbers",
-        forms: "integer, decimal, proper, improper, mixed"
+        forms: "integer, decimal, proper, improper, mixed",
     },
     decimal: {
         name: "Decimals",
-        forms: "decimal"
+        forms: "decimal",
     },
     integer: {
         name: "Integers",
-        forms: "integer"
+        forms: "integer",
     },
     rational: {
         name: "Fractions and mixed numbers",
-        forms: "integer, proper, improper, mixed"
+        forms: "integer, proper, improper, mixed",
     },
     improper: {
         name: "Improper numbers (no mixed)",
-        forms: "integer, proper, improper"
+        forms: "integer, proper, improper",
     },
     mixed: {
         name: "Mixed numbers (no improper)",
-        forms: "integer, proper, mixed"
+        forms: "integer, proper, mixed",
     },
     percent: {
         name: "Numbers or percents",
-        forms: "integer, decimal, proper, improper, mixed, percent"
+        forms: "integer, decimal, proper, improper, mixed, percent",
     },
     pi: {
-        name: "Numbers with pi", forms: "pi"
-    }
+        name: "Numbers with pi", forms: "pi",
+    },
 };
 
 var formExamples = {
@@ -81,7 +81,7 @@ var formExamples = {
     "pi": function(options) {
         return i18n._("a multiple of pi, like $12\\ \\text{pi}$ or " +
                 "$2/3\\ \\text{pi}$");
-    }
+    },
 };
 
 var InputNumber = React.createClass({
@@ -100,7 +100,7 @@ var InputNumber = React.createClass({
             size: "normal",
             answerType: "number",
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -225,13 +225,13 @@ var InputNumber = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            currentValue: newValue
+            currentValue: newValue,
         }, cb);
     },
 
     getUserInput: function() {
         return {
-            currentValue: this.props.currentValue
+            currentValue: this.props.currentValue,
         };
     },
 
@@ -253,7 +253,7 @@ var InputNumber = React.createClass({
         }, this);
 
         return [i18n._("**Your answer should be** ")].concat(examples);
-    }
+    },
 });
 
 _.extend(InputNumber, {
@@ -266,7 +266,7 @@ _.extend(InputNumber, {
                 simplify: rubric.simplify,
                 inexact: rubric.inexact || undefined,
                 maxError: rubric.maxError,
-                forms: answerTypes[rubric.answerType].forms
+                forms: answerTypes[rubric.answerType].forms,
             });
 
         // We may have received TeX; try to parse it before grading.
@@ -285,17 +285,17 @@ _.extend(InputNumber, {
             );
             return {
                 type: "invalid",
-                message: (apiResult === false) ? null : result.message
+                message: (apiResult === false) ? null : result.message,
             };
         } else {
             return {
                 type: "points",
                 earned: result.correct ? 1 : 0,
                 total: 1,
-                message: result.message
+                message: result.message,
             };
         }
-    }
+    },
 });
 
 /**

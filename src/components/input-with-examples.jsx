@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -100,7 +100,7 @@ var InputWithExamples = React.createClass({
             buttonSet: this.props.buttonSet,
             buttonsVisible: this.props.buttonsVisible,
             onChange: this.props.onChange,
-            onTouchStart: captureScratchpadTouchStart
+            onTouchStart: captureScratchpadTouchStart,
         });
 
         // And add final props that are MATH- and TEXT-specific
@@ -177,7 +177,7 @@ var InputWithExamples = React.createClass({
         this.props.onFocus();
         this.setState({
             focused: true,
-            showExamples: true
+            showExamples: true,
         });
     },
 
@@ -193,7 +193,7 @@ var InputWithExamples = React.createClass({
         this.props.onBlur();
         this.setState({
             focused: false,
-            showExamples: false
+            showExamples: false,
         });
     },
 
@@ -207,7 +207,7 @@ var InputWithExamples = React.createClass({
 
     handleChange: function(e) {
         this.props.onChange(e.target.value);
-    }
+    },
 });
 
 module.exports = InputWithExamples;

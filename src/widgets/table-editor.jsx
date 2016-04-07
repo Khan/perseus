@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -23,7 +23,7 @@ const TableEditor = React.createClass({
             React.PropTypes.arrayOf(
                 React.PropTypes.string
             )
-        )
+        ),
     },
 
     getDefaultProps: function() {
@@ -36,7 +36,7 @@ const TableEditor = React.createClass({
             headers: [""],
             rows: defaultRows,
             columns: defaultColumns,
-            answers: blankAnswers
+            answers: blankAnswers,
         };
     },
 
@@ -137,7 +137,7 @@ const TableEditor = React.createClass({
             rows: rows,
             columns: columns,
             answers: answers,
-            headers: headers
+            headers: headers,
         });
     },
 
@@ -145,9 +145,9 @@ const TableEditor = React.createClass({
         var json = _.pick(this.props, "headers", "rows", "columns");
 
         return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone)
+            answers: _.map(this.props.answers, _.clone),
         });
-    }
+    },
 });
 
 module.exports = TableEditor;

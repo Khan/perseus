@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-unused-vars, no-var */
+/* eslint-disable no-unused-vars, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -34,7 +34,7 @@ var MovablePoint = GraphieClasses.createClass({
 
     grab: function(coord) {
         this.point.grab(coord);
-    }
+    },
 });
 
 // Include helper methods, such as MovablePoint.constrain.snap()
@@ -49,7 +49,7 @@ var MovableLine = GraphieClasses.createClass({
         // Add MovablePoint children
         var points = _.pluck(this.props.children, "point");
         var props = _.extend({}, this.props, {
-            points: points
+            points: points,
         });
         this.line = Interactive2.addMovableLine(graphie, props);
     },
@@ -58,7 +58,7 @@ var MovableLine = GraphieClasses.createClass({
         // Add MovablePoint children
         var points = _.pluck(this.props.children, "point");
         var props = _.extend({}, this.props, {
-            points: points
+            points: points,
         });
         this.line.modify(props);
     },
@@ -69,7 +69,7 @@ var MovableLine = GraphieClasses.createClass({
 
     toFront: function() {
         this.line.toFront();
-    }
+    },
 });
 
 // Include helper methods, such as MovableLine.constrain.snap()
@@ -113,7 +113,7 @@ var Line = GraphieClasses.createClass({
 
     toFront: function() {
         this.line.toFront();
-    }
+    },
 });
 
 var Parabola = GraphieClasses.createClass({
@@ -140,7 +140,7 @@ var Parabola = GraphieClasses.createClass({
 
     toFront: function() {
         this.parabola.toFront();
-    }
+    },
 });
 
 var Sinusoid = GraphieClasses.createClass({
@@ -168,7 +168,7 @@ var Sinusoid = GraphieClasses.createClass({
 
     toFront: function() {
         this.sinusoid.toFront();
-    }
+    },
 });
 
 var Plot = GraphieClasses.createSimpleClass((graphie, props) => {
@@ -209,7 +209,7 @@ var Path = GraphieClasses.createClass({
 
     toFront: function() {
         this.path.toFront();
-    }
+    },
 });
 
 var Arc = GraphieClasses.createSimpleClass((graphie, props) => {
@@ -256,5 +256,5 @@ module.exports = {
     PlotParametric: PlotParametric,
     Point: Point,
     Sinusoid: Sinusoid,
-    Rect: Rect
+    Rect: Rect,
 };

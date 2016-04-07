@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -61,7 +61,7 @@ var Iframe = React.createClass({
         var status = (data.testsPassed ? "correct" : "incorrect");
         this.change({
             status: status,
-            message: data.message
+            message: data.message,
         });
     },
     componentDidMount: function() {
@@ -75,7 +75,7 @@ var Iframe = React.createClass({
     render: function() {
         var style = {
             width: this.props.width,
-            height: this.props.height
+            height: this.props.height,
         };
         var url = this.props.url;
 
@@ -130,7 +130,7 @@ var Iframe = React.createClass({
 
     simpleValidate: function(rubric) {
         return Iframe.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -146,22 +146,22 @@ _.extend(Iframe, {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: state.message || null
+                message: state.message || null,
             };
         } else if (state.status === "incorrect") {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: state.message || null
+                message: state.message || null,
             };
         } else {
             return {
                 type: "invalid",
-                message: "Keep going, you're not there yet!"
+                message: "Keep going, you're not there yet!",
             };
         }
-    }
+    },
 });
 
 module.exports = {

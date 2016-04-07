@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -17,7 +17,7 @@ var QuestionParagraph = React.createClass({
                 data-perseus-paragraph-index={this.props.paragraphIndex}>
             {this.props.children}
         </div>;
-    }
+    },
 });
 
 module.exports = QuestionParagraph;

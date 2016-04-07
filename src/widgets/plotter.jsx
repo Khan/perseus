@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-redeclare, no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable indent, no-redeclare, no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -27,7 +27,7 @@ const widgetPropTypes = {
     labels: React.PropTypes.arrayOf(React.PropTypes.string),
     categories: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
         React.PropTypes.number,
-        React.PropTypes.string
+        React.PropTypes.string,
     ])),
 
     scaleY: React.PropTypes.number,
@@ -67,13 +67,13 @@ var Plotter = React.createClass({
             picUrl: "",
 
             plotDimensions: [380, 300],
-            labelInterval: 1
+            labelInterval: 1,
         };
     },
 
     getInitialState: function() {
         return {
-            values: this.props.starting || [1]
+            values: this.props.starting || [1],
         };
     },
 
@@ -137,7 +137,7 @@ var Plotter = React.createClass({
             lines: [],
             bars: [],
             points: [],
-            dividers: []
+            dividers: [],
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
@@ -187,10 +187,10 @@ var Plotter = React.createClass({
 
         graphie.init({
             range: [[-3 * padX, c.dimX + padX], [-3 * padY, c.dimY + padY]],
-            scale: c.scale
+            scale: c.scale,
         });
         graphie.addMouseLayer({
-            allowScratchpad: true
+            allowScratchpad: true,
         });
 
         if (!isTiledPlot) {
@@ -262,7 +262,7 @@ var Plotter = React.createClass({
                     index: i,
                     startHeight: self.state.values[i],
                     config: config,
-                    isHistogram: true
+                    isHistogram: true,
                 });
             });
 
@@ -273,7 +273,7 @@ var Plotter = React.createClass({
                 self.labelCategory(x, category);
                 var tickHeight = 6 / c.scale[1];
                 graphie.style({
-                    stroke: "#000", strokeWidth: 2, opacity: 1.0
+                    stroke: "#000", strokeWidth: 2, opacity: 1.0,
                 }, function() {
                     graphie.line([x, -tickHeight], [x, 0]);
                 });
@@ -288,7 +288,7 @@ var Plotter = React.createClass({
                         index: i,
                         startHeight: startHeight,
                         config: config,
-                        isHistogram: false
+                        isHistogram: false,
                     });
                 } else if (self.props.type === LINE) {
                     x = self.setupLine(i, startHeight, config);
@@ -320,7 +320,7 @@ var Plotter = React.createClass({
                 }
 
                 graphie.style({
-                    stroke: "#000", strokeWidth: 2, opacity: 1.0
+                    stroke: "#000", strokeWidth: 2, opacity: 1.0,
                 }, function() {
                     graphie.line([x, tickStart], [x, tickEnd]);
                 });
@@ -375,14 +375,14 @@ var Plotter = React.createClass({
         };
 
         graphie.style({
-            stroke: "none", fill: KhanColors.LIGHT_BLUE, opacity: 1.0
+            stroke: "none", fill: KhanColors.LIGHT_BLUE, opacity: 1.0,
         }, function() {
             config.graph.bars[i] = graphie.path([
                 [x - barHalfWidth, 0],
                 [x - barHalfWidth, config.scaleY],
                 [x + barHalfWidth, config.scaleY],
                 [x + barHalfWidth, 0],
-                [x - barHalfWidth, 0]
+                [x - barHalfWidth, 0],
             ]);
         });
 
@@ -390,11 +390,11 @@ var Plotter = React.createClass({
             if (i > 0) {
                 // Don't draw a divider to the left of the first bucket
                 graphie.style({
-                    stroke: "#000", strokeWidth: 1, opacity: 0.3
+                    stroke: "#000", strokeWidth: 1, opacity: 0.3,
                 }, function() {
                     config.graph.dividers.push(graphie.path([
                         [x - barHalfWidth, 0],
-                        [x - barHalfWidth, config.scaleY]
+                        [x - barHalfWidth, config.scaleY],
                     ]));
                 });
             }
@@ -405,7 +405,7 @@ var Plotter = React.createClass({
             coordZ: [x + barHalfWidth, startHeight],
             snapY: config.scaleY / self.props.snapsPerLine,
             constraints: {
-                constrainX: true
+                constrainX: true,
             },
             normalStyle: {
                 "stroke": KhanColors.INTERACTIVE,
@@ -444,11 +444,11 @@ var Plotter = React.createClass({
         c.graph.points[i] = graphie.addMovablePoint({
             coord: [x, startHeight],
             constraints: {
-                constrainX: true
+                constrainX: true,
             },
             normalStyle: {
                 fill: KhanColors.INTERACTIVE,
-                stroke: KhanColors.INTERACTIVE
+                stroke: KhanColors.INTERACTIVE,
             },
             snapY: c.scaleY / self.props.snapsPerLine,
         });
@@ -465,12 +465,12 @@ var Plotter = React.createClass({
                 pointA: c.graph.points[i - 1],
                 pointZ: c.graph.points[i],
                 constraints: {
-                    fixed: true
+                    fixed: true,
                 },
                 normalStyle: {
                     stroke: "#9ab8ed",
-                    "stroke-width": 2
-                }
+                    "stroke-width": 2,
+                },
             });
         }
         return x;
@@ -482,11 +482,11 @@ var Plotter = React.createClass({
             return graphie.ellipse([x, y],
                  [
                      DOT_PLOT_POINT_SIZE / graphie.scale[0],
-                     DOT_PLOT_POINT_SIZE / graphie.scale[1]
+                     DOT_PLOT_POINT_SIZE / graphie.scale[1],
                  ],
                  {
                     fill: KhanColors.INTERACTIVE,
-                    stroke: KhanColors.INTERACTIVE
+                    stroke: KhanColors.INTERACTIVE,
                  });
         });
     },
@@ -586,9 +586,9 @@ var Plotter = React.createClass({
                     var wasJustShown = show && !wasShown;
                     if (wasJustShown) {
                         pic.animate({
-                            "stroke-width": 8
+                            "stroke-width": 8,
                         }, 75, () => pic.animate({
-                                "stroke-width": 2
+                                "stroke-width": 2,
                             }, 75));
                     }
                 }
@@ -603,7 +603,7 @@ var Plotter = React.createClass({
 
     simpleValidate: function(rubric) {
         return Plotter.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Plotter, {
@@ -611,17 +611,17 @@ _.extend(Plotter, {
         if (deepEq(guess, rubric.starting)) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: deepEq(guess, rubric.correct) ? 1 : 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 // We don't need to change any of the original props for static mode

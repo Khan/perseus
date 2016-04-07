@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -97,9 +97,9 @@ var change = function(newPropsOrSinglePropName,
 
 var Changeable = {
     propTypes: {
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
     },
-    change: change
+    change: change,
 };
 
 module.exports = Changeable;

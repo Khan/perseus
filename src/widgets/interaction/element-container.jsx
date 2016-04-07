@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -7,13 +7,13 @@ var React = require("react");
 var ElementContainer = React.createClass({
     propTypes: {
         initiallVisible: React.PropTypes.bool,
-        title: React.PropTypes.node
+        title: React.PropTypes.node,
     },
 
     getDefaultProps: function() {
         return {
             initiallyVisible: false,
-            title: "More"
+            title: "More",
         };
     },
 
@@ -23,7 +23,7 @@ var ElementContainer = React.createClass({
             title: "More",
             onUp: null,
             onDown: null,
-            onDelete: null
+            onDelete: null,
         };
     },
 
@@ -64,7 +64,7 @@ var ElementContainer = React.createClass({
     toggle: function(e) {
         e.preventDefault();
         this.setState({show: !this.state.show});
-    }
+    },
 });
 
 module.exports = ElementContainer;

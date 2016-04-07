@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -13,12 +13,12 @@ var mdOutput = PerseusMarkdown.basicOutput;
 
 var SimpleMarkdownTester = React.createClass({
     propTypes: {
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
         };
     },
 
@@ -60,7 +60,7 @@ var SimpleMarkdownTester = React.createClass({
      */
     simpleValidate: function(rubric) {
         return SimpleMarkdownTester.validate(this.toJSON(), rubric);
-    }
+    },
 });
 
 
@@ -79,9 +79,9 @@ _.extend(SimpleMarkdownTester, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 /**
@@ -92,5 +92,5 @@ module.exports = {
     displayName: "Simple Markdown Tester",
     hidden: true,   // Hides this widget from the Perseus.Editor widget select
     widget: SimpleMarkdownTester,
-    transform: _.identity
+    transform: _.identity,
 };

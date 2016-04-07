@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, one-var, space-unary-ops */
+/* eslint-disable no-var, one-var, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -12,7 +12,7 @@ var kpoint = require("kmath").point;
 var DEFAULT_BOX_SIZE = 400;
 var DEFAULT_EDITOR_BOX_SIZE = 340;
 var DEFAULT_BACKGROUND_IMAGE = {
-    url: null
+    url: null,
 };
 
 // TODO(charlie): These really need to go into a utility file as they're being
@@ -96,9 +96,9 @@ var PlotDefaults = {
 
     getPropsForCoeffs: function(coeffs) {
         return {
-            fn: _.partial(this.getFunctionForCoeffs, coeffs)
+            fn: _.partial(this.getFunctionForCoeffs, coeffs),
         };
-    }
+    },
 };
 
 var Linear = _.extend({}, PlotDefaults, {
@@ -131,7 +131,7 @@ var Linear = _.extend({}, PlotDefaults, {
         var coeffs = this.getCoefficients(coords);
         var m = coeffs[0], b = coeffs[1];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
-    }
+    },
 });
 
 var Quadratic = _.extend({}, PlotDefaults, {
@@ -166,7 +166,7 @@ var Quadratic = _.extend({}, PlotDefaults, {
         return {
             a: coeffs[0],
             b: coeffs[1],
-            c: coeffs[2]
+            c: coeffs[2],
         };
     },
 
@@ -175,7 +175,7 @@ var Quadratic = _.extend({}, PlotDefaults, {
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
         return "y = " + a.toFixed(3) + "x^2 + " + b.toFixed(3) +
                "x + " + c.toFixed(3);
-    }
+    },
 });
 
 var Sinusoid = _.extend({}, PlotDefaults, {
@@ -207,7 +207,7 @@ var Sinusoid = _.extend({}, PlotDefaults, {
             a: coeffs[0],
             b: coeffs[1],
             c: coeffs[2],
-            d: coeffs[3]
+            d: coeffs[3],
         };
     },
 
@@ -221,7 +221,7 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     areEqual: function(coeffs1, coeffs2) {
         return Util.deepEq(canonicalSineCoefficients(coeffs1),
                 canonicalSineCoefficients(coeffs2));
-    }
+    },
 });
 
 var Tangent = _.extend({}, PlotDefaults, {
@@ -256,7 +256,7 @@ var Tangent = _.extend({}, PlotDefaults, {
     areEqual: function(coeffs1, coeffs2) {
         return Util.deepEq(canonicalTangentCoefficients(coeffs1),
                 canonicalTangentCoefficients(coeffs2));
-    }
+    },
 });
 
 var Exponential = _.extend({}, PlotDefaults, {
@@ -337,7 +337,7 @@ var Exponential = _.extend({}, PlotDefaults, {
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
         return "y = " + a.toFixed(3) + "e^(" + b.toFixed(3) + "x) + " +
             c.toFixed(3);
-    }
+    },
 });
 
 var Logarithm = _.extend({}, PlotDefaults, {
@@ -406,7 +406,7 @@ var Logarithm = _.extend({}, PlotDefaults, {
         var a = coeffs[0], b = coeffs[1], c = coeffs[2];
         return "y = ln(" + a.toFixed(3) + "x + " + b.toFixed(3) + ") + " +
             c.toFixed(3);
-    }
+    },
 });
 
 var AbsoluteValue = _.extend({}, PlotDefaults, {
@@ -450,7 +450,7 @@ var AbsoluteValue = _.extend({}, PlotDefaults, {
         return "y = " + m.toFixed(3) + "| x - " +
             horizontalOffset.toFixed(3) + "| + " +
             verticalOffset.toFixed(3);
-    }
+    },
 });
 
 /* Utility functions for dealing with graphing interfaces. */
@@ -461,7 +461,7 @@ var functionTypeMapping = {
     "tangent": Tangent,
     "exponential": Exponential,
     "logarithm": Logarithm,
-    "absolute_value": AbsoluteValue
+    "absolute_value": AbsoluteValue,
 };
 
 var allTypes = _.keys(functionTypeMapping);
@@ -477,7 +477,7 @@ var GrapherUtil = {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
 
@@ -485,7 +485,7 @@ var GrapherUtil = {
         if (state.coords == null) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         }
 
@@ -499,21 +499,21 @@ var GrapherUtil = {
         if (guessCoeffs == null || correctCoeffs == null) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else if (grader.areEqual(guessCoeffs, correctCoeffs)) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
     },
@@ -590,7 +590,7 @@ var GrapherUtil = {
             type,
             asymptote: this.maybePointsFromNormalized(model.defaultAsymptote,
                 graph.range, graph.step, snapStep),
-            coords: null
+            coords: null,
         };
     },
 
@@ -604,9 +604,9 @@ var GrapherUtil = {
             Util.snapStepFromGridStep(gridStep);
         return {
             gridStep: gridStep,
-            snapStep: snapStep
+            snapStep: snapStep,
         };
-    }
+    },
 };
 
 var DEFAULT_GRAPHER_PROPS = {};
@@ -620,7 +620,7 @@ DEFAULT_GRAPHER_PROPS.graph = {
     markings: "graph",
     rulerLabel: "",
     rulerTicks: 10,
-    valid: true
+    valid: true,
 };
 
 DEFAULT_GRAPHER_PROPS.plot = GrapherUtil.defaultPlotProps("linear",
@@ -633,7 +633,7 @@ function typeToButton(type) {
     return {
         value: type,
         title: capitalized,
-        content: <img src={functionForType(type).url} alt={capitalized} />
+        content: <img src={functionForType(type).url} alt={capitalized} />,
     };
 }
 

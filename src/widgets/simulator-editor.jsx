@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, react/jsx-closing-bracket-location, react/jsx-no-undef, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable eol-last, react/jsx-closing-bracket-location, react/jsx-no-undef, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -21,7 +21,7 @@ const SimulatorEditor = React.createClass({
         yAxisLabel: React.PropTypes.string,
         numTrials: React.PropTypes.number,
         proportionLabel: React.PropTypes.string,
-        proportionOrPercentage: React.PropTypes.string
+        proportionOrPercentage: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -30,7 +30,7 @@ const SimulatorEditor = React.createClass({
             yAxisLabel: "Number of times seen",
             numTrials: 100,
             proportionLabel: "Underlying proportion",
-            proportionOrPercentage: "proportion"
+            proportionOrPercentage: "proportion",
         };
     },
 
@@ -110,7 +110,7 @@ const SimulatorEditor = React.createClass({
 
     handleTargetValueChange: function(propName, e) {
         this.change(propName, e.target.value);
-    }
+    },
 });
 
 module.exports = SimulatorEditor;

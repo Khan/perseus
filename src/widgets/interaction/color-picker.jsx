@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var ButtonGroup = require("react-components/button-group.jsx");
@@ -18,13 +18,13 @@ var ColorPicker = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
         lightColors: React.PropTypes.bool,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
             value: KhanColors.BLACK,
-            lightColors: false
+            lightColors: false,
         };
     },
 
@@ -38,11 +38,11 @@ var ColorPicker = React.createClass({
                     content: <span><span
                         className="colorpicker-circle"
                         style={{background: color}}>
-                    </span>&nbsp;</span>
+                    </span>&nbsp;</span>,
                 };
             })}
             onChange={this.props.onChange} />;
-    }
+    },
 });
 
 module.exports = ColorPicker;

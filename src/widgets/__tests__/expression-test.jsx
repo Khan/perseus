@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location */
+/* eslint-disable no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -29,30 +29,30 @@ var expressionItem1 = {
                     "simplify": false,
                     "times": false,
                     "buttonSets": [
-                        "basic"
+                        "basic",
                     ],
                     "functions": [
                         "f",
                         "g",
-                        "h"
+                        "h",
                     ],
-                    "buttonsVisible": "never"
+                    "buttonsVisible": "never",
                 },
                 "version": {
                     "major": 0,
-                    "minor": 1
-                }
-            }
-        }
+                    "minor": 1,
+                },
+            },
+        },
     },
     "answerArea": {
-        "calculator": false
+        "calculator": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var expressionItem2 = lens(expressionItem1)
@@ -62,26 +62,26 @@ var expressionItem2 = lens(expressionItem1)
                 "considered": "correct",
                 "form": false,
                 "simplify": false,
-                "value": "123-x"
+                "value": "123-x",
             },
             {
                 "considered": "correct",
                 "form": false,
                 "simplify": false,
-                "value": "x-123"
-            }
+                "value": "x-123",
+            },
         ],
         "times": false,
         "buttonSets": ["basic"],
         "functions": [
             "f",
             "g",
-            "h"
+            "h",
         ],
     })
     .set(["question", "widgets", "expression 1", "version"], {
         "major": 1,
-        "minor": 0
+        "minor": 0,
     })
     .freeze();
 
@@ -92,32 +92,32 @@ var expressionItem3 = lens(expressionItem1)
                 "considered": "ungraded",
                 "form": false,
                 "simplify": false,
-                "value": "1"
+                "value": "1",
             },
             {
                 "considered": "incorrect",
                 "form": false,
                 "simplify": false,
-                "value": "2"
+                "value": "2",
             },
             {
                 "considered": "correct",
                 "form": false,
                 "simplify": false,
-                "value": "3"
-            }
+                "value": "3",
+            },
         ],
         "times": false,
         "buttonSets": ["basic"],
         "functions": [
             "f",
             "g",
-            "h"
+            "h",
         ],
     })
     .set(["question", "widgets", "expression 1", "version"], {
         "major": 1,
-        "minor": 0
+        "minor": 0,
     })
     .freeze();
 
@@ -126,11 +126,11 @@ var expressionItem4 = lens(expressionItem3)
         .merge([0], {
             "value": "\\left(x+2\\right)\\left(x-2\\right)",
             "form": true,
-            "considered": "incorrect"
+            "considered": "incorrect",
         })
         .merge([1], {
             "value": "x^2-4",
-            "considered": "correct"
+            "considered": "correct",
         })
         .del([2])
     .deZoom()
@@ -188,7 +188,7 @@ var makeRender = item => {
         useMathQuill: true,
         // right now we need to either specify all enabledFeatures or none, so
         // we specify this here:
-        toolTipFormats: true
+        toolTipFormats: true,
     });
     return delayedPromise().then(() => renderer);
 };
@@ -240,7 +240,7 @@ describe("Expression Widget", function() {
         it("should recognize either of two possibilities", function() {
             var renderer = renderQuestionArea(expressionItem2, {}, {
                 useMathQuill: true,
-                toolTipFormats: true
+                toolTipFormats: true,
             });
 
             // TODO(joel) - clear input instead of making a new renderer every

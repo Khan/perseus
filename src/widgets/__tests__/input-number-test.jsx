@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var */
+/* eslint-disable no-undef, no-unused-vars, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -22,7 +22,7 @@ describe("input-number", function() {
             size: "normal",
             inexact: false,
             maxError: 0.1,
-            answerType: "number"
+            answerType: "number",
         };
         var widgetProps = transform(editorProps);
         assert.strictEqual(_.has(widgetProps, "value"), false);

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -11,7 +11,7 @@ const KhanMath = require("../util/math.js");
 
 var DEFAULT_OPTIONS = {
     thickness: 2,
-    mouselayer: false
+    mouselayer: false,
 };
 
 var WrappedLine = function(graphie, start, end, options) {
@@ -34,7 +34,7 @@ var WrappedLine = function(graphie, start, end, options) {
         initialLength: kpoint.distanceToPoint(
             graphie.scalePoint(initialStart),
             graphie.scalePoint(initialEnd)
-        )
+        ),
     });
 
     // Add to appropriate graphie layer
@@ -77,7 +77,7 @@ _.extend(WrappedLine.prototype, WrappedDefaults, {
                              "rotate(" + angle + "deg) " +
                              "scaleX(" + scale + ") scaleY(1)";
         this.transform(transformation);
-    }
+    },
 });
 
 module.exports = WrappedLine;

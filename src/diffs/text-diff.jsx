@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -31,7 +31,7 @@ var classFor = function(entry, ifAdded, ifRemoved) {
 var ImageDiffSide = React.createClass({
     propTypes: {
         side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-        images: React.PropTypes.array.isRequired
+        images: React.PropTypes.array.isRequired,
     },
 
     render: function() {
@@ -43,7 +43,7 @@ var ImageDiffSide = React.createClass({
                     "image": true,
                     "image-unchanged": entry.status === "unchanged",
                     "image-added": entry.status === "added",
-                    "image-removed": entry.status === "removed"
+                    "image-removed": entry.status === "removed",
                 });
                 return <div key={index}>
                     <img src={entry.value}
@@ -52,33 +52,33 @@ var ImageDiffSide = React.createClass({
                 </div>;
             })}
         </div>;
-    }
+    },
 });
 
 var TextDiff = React.createClass({
     propTypes: {
         before: React.PropTypes.string,
         after: React.PropTypes.string,
-        title: React.PropTypes.string
+        title: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
             before: "",
             after: "",
-            title: ""
+            title: "",
         };
     },
 
     getInitialState: function() {
         return {
-            collapsed: this.props.before === this.props.after
+            collapsed: this.props.before === this.props.after,
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            collapsed: nextProps.before === nextProps.after
+            collapsed: nextProps.before === nextProps.after,
         });
     },
 
@@ -113,7 +113,7 @@ var TextDiff = React.createClass({
 
         var className = classNames({
             "diff-row": true,
-            "collapsed": this.state.collapsed
+            "collapsed": this.state.collapsed,
         });
 
         return <div>
@@ -126,7 +126,7 @@ var TextDiff = React.createClass({
                                 var lineClass = classNames({
                                     "diff-line": true,
                                     "added": side === AFTER && changed,
-                                    "removed": side === BEFORE && changed
+                                    "removed": side === BEFORE && changed,
                                 });
                                 return <div
                                     className={lineClass}
@@ -161,7 +161,7 @@ var TextDiff = React.createClass({
 
     handleExpand: function() {
         this.setState({ collapsed: false });
-    }
+    },
 });
 
 module.exports = TextDiff;

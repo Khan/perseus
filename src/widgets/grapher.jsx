@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -41,7 +41,7 @@ function isFlipped(newCoord, oldCoord, line) {
 
 /* Styles */
 var typeSelectorStyle = {
-    padding: "5px 5px"
+    padding: "5px 5px",
 };
 
 /* Graphing interface. */
@@ -69,10 +69,10 @@ var FunctionGrapher = React.createClass({
         return {
             graph: {
                 range: [[-10, 10], [-10, 10]],
-                step: [1, 1]
+                step: [1, 1],
             },
             coords: null,
-            asymptote: null
+            asymptote: null,
         };
     },
 
@@ -114,7 +114,7 @@ var FunctionGrapher = React.createClass({
                         }
 
                         return isFunction;
-                    }
+                    },
                 ]}
                 onMove={(newCoord, oldCoord) => {
                     var coords;
@@ -131,7 +131,7 @@ var FunctionGrapher = React.createClass({
                     }
                     coords[i] = newCoord;
                     this.props.onChange({
-                        coords: coords
+                        coords: coords,
                     });
                 }} />;
         };
@@ -152,13 +152,13 @@ var FunctionGrapher = React.createClass({
                     className={"perseus-widget " + "perseus-widget-grapher"}
                     style={{
                         width: box[0],
-                        height: this.props.flexibleType ? "auto" : box[1]
+                        height: this.props.flexibleType ? "auto" : box[1],
                     }}>
                 <div
                     className="graphie-container above-scratchpad"
                     style={{
                         width: box[0],
-                        height: box[1]
+                        height: box[1],
                     }}>
                 {image}
                 <Graphie {...this.props.graph}>
@@ -193,7 +193,7 @@ var FunctionGrapher = React.createClass({
         var graph = this.props.graph;
         var asymptote = this._asymptote();
         var dashed = {
-            strokeDasharray: "- "
+            strokeDasharray: "- ",
         };
         return asymptote &&
             <MovableLine onMove={(newCoord, oldCoord) => {
@@ -202,7 +202,7 @@ var FunctionGrapher = React.createClass({
                 var newAsymptote = _.map(this._asymptote(), (coord) =>
                     kvector.add(coord, delta));
                 this.props.onChange({
-                    asymptote: newAsymptote
+                    asymptote: newAsymptote,
                 });
             }} constraints={[
                 Interactive2.MovableLine.constraints.bound(),
@@ -228,7 +228,7 @@ var FunctionGrapher = React.createClass({
                         extendLine={true} />
                 )}
         </MovableLine>;
-    }
+    },
 });
 
 /* Widget and editor. */
@@ -262,7 +262,7 @@ var Grapher = React.createClass({
         var options = _.extend({}, this.props.graph,
             GrapherUtil.getGridAndSnapSteps(this.props.graph));
         _.extend(options, {
-            gridConfig: this._getGridConfig(options)
+            gridConfig: this._getGridConfig(options),
         });
 
         // The `graph` prop will eventually be passed to the <Graphie>
@@ -277,7 +277,7 @@ var Grapher = React.createClass({
                 snapStep: options.snapStep,
                 backgroundImage: options.backgroundImage,
                 options: options,
-                setup: this._setupGraphie
+                setup: this._setupGraphie,
             },
             onChange: this.handlePlotChanges,
             model: type && functionForType(type),
@@ -295,7 +295,7 @@ var Grapher = React.createClass({
     handlePlotChanges: function(newPlot) {
         var plot = _.extend({}, this.props.plot, newPlot);
         this.props.onChange({
-            plot: plot
+            plot: plot,
         });
         this.props.trackInteraction();
     },
@@ -305,7 +305,7 @@ var Grapher = React.createClass({
         var plot = _.extend({}, this.props.plot,
             GrapherUtil.defaultPlotProps(newType, graph));
         this.props.onChange({
-            plot: plot
+            plot: plot,
         });
     },
 
@@ -330,7 +330,7 @@ var Grapher = React.createClass({
                 snapStep: options.snapStep,
                 tickStep: _.pluck(options.gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(options.gridConfig, "unityLabel")
+                unityLabels: _.pluck(options.gridConfig, "unityLabel"),
             });
             graphie.label([0, options.range[1][1]], options.labels[1],
                 "above");
@@ -343,12 +343,12 @@ var Grapher = React.createClass({
                 gridStep: options.gridStep,
                 axes: false,
                 ticks: false,
-                labels: false
+                labels: false,
             });
         } else if (options.markings === "none") {
             graphie.init({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale")
+                scale: _.pluck(options.gridConfig, "scale"),
             });
         }
     },
@@ -361,13 +361,13 @@ var Grapher = React.createClass({
         return this.props.plot;
     },
 
-    focus: $.noop
+    focus: $.noop,
 });
 
 var propTransform = (editorProps) => {
     var widgetProps = _.pick(editorProps, "availableTypes");
     widgetProps.graph = _.extend(editorProps.graph, {
-        box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE]
+        box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE],
     });
 
     // If there's only one type, the graph type is deterministic

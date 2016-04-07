@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var */
+/* eslint-disable indent, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -85,5 +85,5 @@ var isItemRenderableBy = function(itemData, rendererContentVersion) {
 };
 
 module.exports = {
-    isItemRenderableByVersion: isItemRenderableBy
+    isItemRenderableByVersion: isItemRenderableBy,
 };

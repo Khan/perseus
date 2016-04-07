@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-redeclare, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, no-redeclare, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -25,7 +25,7 @@ const answerFormButtons = [
     {title: "Improper fractions", value: "improper",
         content: "\u2077\u2044\u2084"},
     {title: "Mixed numbers", value: "mixed", content: "1\u00BE"},
-    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"}
+    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
 const initAnswer = (status) => {
@@ -36,7 +36,7 @@ const initAnswer = (status) => {
         simplify: "required",
         answerForms: [],
         strict: false,
-        maxError: null
+        maxError: null,
     };
 };
 
@@ -55,7 +55,7 @@ const NumericInputEditor = React.createClass({
     getInitialState: function() {
         return {
             lastStatus: "wrong",
-            showOptions: _.map(this.props.answers, () => false)
+            showOptions: _.map(this.props.answers, () => false),
         };
     },
 
@@ -183,7 +183,7 @@ const NumericInputEditor = React.createClass({
         var instructions = {
             "wrong":    "(address the mistake/misconception)",
             "ungraded": "(explain in detail to avoid confusion)",
-            "correct":  "(reinforce the user's understanding)"
+            "correct":  "(reinforce the user's understanding)",
         };
 
         var generateInputAnswerEditors = () => answers.map((answer, i) => {
@@ -226,7 +226,7 @@ const NumericInputEditor = React.createClass({
                             }
                             this.updateAnswer(i, {
                                 value: firstNumericalParse(newValue),
-                                answerForms: forms
+                                answerForms: forms,
                             });
                         }}
                         onChange={(newValue) => {
@@ -322,7 +322,7 @@ const NumericInputEditor = React.createClass({
 
         this.updateAnswer(choiceIndex, {
             status: newStatus,
-            simplify: newStatus === "correct" ? "required" : "accepted"
+            simplify: newStatus === "correct" ? "required" : "accepted",
         });
     },
 

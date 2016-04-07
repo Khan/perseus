@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable indent, max-len, no-irregular-whitespace, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -18,7 +18,7 @@ var PREFIX = "perseus-sortable";
 var Placeholder = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
-        height: React.PropTypes.number.isRequired
+        height: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -30,7 +30,7 @@ var Placeholder = React.createClass({
         }
 
         return <li className={className} style={style} />;
-    }
+    },
 });
 
 
@@ -56,12 +56,12 @@ var Draggable = React.createClass({
         onMouseDown: React.PropTypes.func.isRequired,
         onMouseMove: React.PropTypes.func.isRequired,
         onMouseUp: React.PropTypes.func.isRequired,
-        onAnimationEnd: React.PropTypes.func.isRequired
+        onAnimationEnd: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            type: STATIC
+            type: STATIC,
         };
     },
 
@@ -69,7 +69,7 @@ var Draggable = React.createClass({
         return {
             startPosition: {left: 0, top: 0},
             startMouse: {left: 0, top: 0},
-            mouse: {left: 0, top: 0}
+            mouse: {left: 0, top: 0},
         };
     },
 
@@ -92,7 +92,7 @@ var Draggable = React.createClass({
                   this.state.startMouse.left,
             top: this.state.startPosition.top +
                  this.state.mouse.top -
-                 this.state.startMouse.top
+                 this.state.startMouse.top,
         };
     },
 
@@ -101,11 +101,11 @@ var Draggable = React.createClass({
                 PREFIX + "-card",
                 PREFIX + "-draggable",
                 PREFIX + "-" + this.props.type,
-                ApiClassNames.INTERACTIVE
+                ApiClassNames.INTERACTIVE,
             ].join(" ");
 
         var style = {
-            position: "static"
+            position: "static",
         };
 
         if (this.props.type === DRAGGING || this.props.type === ANIMATING) {
@@ -154,7 +154,7 @@ var Draggable = React.createClass({
             $(ReactDOM.findDOMNode(this)).animate(this.props.endPosition, {
                 duration: Math.max(duration, 1),
                 // Animating -> Static
-                complete: this.props.onAnimationEnd
+                complete: this.props.onAnimationEnd,
             });
         } else if (this.props.type === STATIC) {
             // Ensure that any animations are done
@@ -191,7 +191,7 @@ var Draggable = React.createClass({
             this.setState({
                 startPosition: $(ReactDOM.findDOMNode(this)).position(),
                 startMouse: loc,
-                mouse: loc
+                mouse: loc,
             }, function() {
                 this.bindMouseMoveUp();
 
@@ -228,7 +228,7 @@ var Draggable = React.createClass({
             // Dragging -> Animating
             this.props.onMouseUp();
         }
-    }
+    },
 });
 
 
@@ -245,7 +245,7 @@ var Sortable = React.createClass({
         constraints: React.PropTypes.object,
         onMeasure: React.PropTypes.func,
         margin: React.PropTypes.number,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -256,13 +256,13 @@ var Sortable = React.createClass({
             constraints: {},
             onMeasure: function() {},
             margin: 5,
-            onChange: function() {}
+            onChange: function() {},
         };
     },
 
     getInitialState: function() {
         return {
-            items: this.itemsFromProps(this.props)
+            items: this.itemsFromProps(this.props),
         };
     },
 
@@ -273,7 +273,7 @@ var Sortable = React.createClass({
 
             // Regenerate items
             this.setState({
-                items: this.itemsFromProps(nextProps)
+                items: this.itemsFromProps(nextProps),
             });
 
         } else if (nextProps.layout !== prevProps.layout ||
@@ -283,7 +283,7 @@ var Sortable = React.createClass({
 
             // Clear item measurements
             this.setState({
-                items: this.clearItemMeasurements(this.state.items)
+                items: this.clearItemMeasurements(this.state.items),
             });
         }
     },
@@ -304,7 +304,7 @@ var Sortable = React.createClass({
                 type: type,
                 endPosition: {},
                 width: 0,
-                height: 0
+                height: 0,
             };
         });
     },
@@ -313,7 +313,7 @@ var Sortable = React.createClass({
         return _.map(items, function(item) {
             return _.extend(item, {
                 width: 0,
-                height: 0
+                height: 0,
             });
         });
     },
@@ -368,7 +368,7 @@ var Sortable = React.createClass({
     remeasureItems: _.debounce(function() {
         this.setState({
             // Clear item measurements
-            items: this.clearItemMeasurements(this.state.items)
+            items: this.clearItemMeasurements(this.state.items),
         }, this.measureItems);
     }, 20),
 
@@ -515,7 +515,7 @@ var Sortable = React.createClass({
 
     getOptions: function() {
         return _.pluck(this.state.items, "option");
-    }
+    },
 });
 
 module.exports = Sortable;

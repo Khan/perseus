@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, semi, space-before-function-paren */
+/* eslint-disable eol-last, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, semi, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -15,9 +15,9 @@ var DropdownEditor = React.createClass({
     propTypes: {
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
-            correct: React.PropTypes.bool
+            correct: React.PropTypes.bool,
         })),
-        placeholder: React.PropTypes.string
+        placeholder: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -25,8 +25,8 @@ var DropdownEditor = React.createClass({
             placeholder: "",
             choices: [{
                 content: "",
-                correct: false
-            }]
+                correct: false,
+            }],
         };
     },
 
@@ -101,7 +101,7 @@ var DropdownEditor = React.createClass({
     onCorrectChange: function(choiceIndex) {
         var choices = _.map(this.props.choices, function (choice, i) {
             return _.extend({}, choice, {
-                correct: i === choiceIndex
+                correct: i === choiceIndex,
             });
         });
         this.props.onChange({choices: choices});
@@ -121,7 +121,7 @@ var DropdownEditor = React.createClass({
         var choices = this.props.choices;
         var blankChoice = {content: "", correct: false};
         this.props.onChange({
-            choices: choices.concat([blankChoice])
+            choices: choices.concat([blankChoice]),
         }, this.focus.bind(this, choices.length));
     },
 
@@ -130,14 +130,14 @@ var DropdownEditor = React.createClass({
         var choices = _(this.props.choices).clone();
         choices.splice(choiceIndex, 1);
         this.props.onChange({
-            choices: choices
+            choices: choices,
         });
     },
 
     focus: function(i) {
         ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
         return true;
-    }
+    },
 });
 
 module.exports = DropdownEditor;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -11,7 +11,7 @@ var END_REF_PREFIX = "end-ref-";
 var REF_STYLE = {
     display: "inline-block",
     width: 0,
-    visibility: "hidden"
+    visibility: "hidden",
 };
 
 var LABEL_OUTER_STYLE = {
@@ -78,7 +78,7 @@ var rules = {
                 id: id,
                 // our text is what to output. if there is only one footnote,
                 // it's a *; otherwise it's a superscript number
-                text: id === 1 ? "*" : ("" + id)
+                text: id === 1 ? "*" : ("" + id),
             };
 
             // If the previous footnote was a *, we need to adjust it to be
@@ -93,7 +93,7 @@ var rules = {
         },
         react: (node, output, state) => {
             return <sup key={state.key}>{node.text}</sup>;
-        }
+        },
     },
     refStart: {
         order: SimpleMarkdown.defaultRules.escape.order + .2,
@@ -133,7 +133,7 @@ var rules = {
                 // but captures the full ref text internally :D
                 return [
                     capture[0],
-                    refText
+                    refText,
                 ];
             } else {
                 return null;
@@ -181,7 +181,7 @@ var rules = {
                 ref={START_REF_PREFIX + node.ref}
                 key={START_REF_PREFIX + node.ref}
                 refContent={refContent} />;
-        }
+        },
     },
     refEnd: {
         order: SimpleMarkdown.defaultRules.escape.order + .3,
@@ -195,7 +195,7 @@ var rules = {
 
             var ref = state.currentRef.pop() || null;
             return {
-                ref: ref
+                ref: ref,
             };
         },
         react: (node, output, state) => {
@@ -209,7 +209,7 @@ var rules = {
                 // inside of refContent), don't output a ref
                 return null;
             }
-        }
+        },
     },
     squareLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + .4,
@@ -239,9 +239,9 @@ var rules = {
                         [Marker for question %(number)s]
                     </$_>
                 </span>,
-                (node.space ? "\u00A0" : null)
+                (node.space ? "\u00A0" : null),
             ];
-        }
+        },
     },
     circleLabel: {
         order: SimpleMarkdown.defaultRules.escape.order + .5,
@@ -268,9 +268,9 @@ var rules = {
                         [Circle marker %(number)s]
                     </$_>
                 </span>,
-                (node.space ? "\u00A0" : null)
+                (node.space ? "\u00A0" : null),
             ];
-        }
+        },
     },
     squareBracketRef: {
         order: SimpleMarkdown.defaultRules.escape.order + .6,
@@ -297,9 +297,9 @@ var rules = {
                         [Sentence %(number)s]
                     </$_>
                 </span>,
-                (node.space ? "\u00A0" : null)
+                (node.space ? "\u00A0" : null),
             ];
-        }
+        },
     },
     strong: SimpleMarkdown.defaultRules.strong,
     u: SimpleMarkdown.defaultRules.u,
@@ -312,7 +312,7 @@ var INITIAL_PARSE_STATE = {
     currentRef: [],
     useRefs: true,
     lastRef: 0,
-    lastFootnote: {id: 0, text: ""}
+    lastFootnote: {id: 0, text: ""},
 };
 var builtParser = SimpleMarkdown.parserFor(rules);
 var parse = (source, state) => {

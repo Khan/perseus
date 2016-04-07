@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -16,14 +16,14 @@ const SorterEditor = React.createClass({
     propTypes: {
         correct: React.PropTypes.array,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: React.PropTypes.bool
+        padding: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             correct: ["$x$", "$y$", "$z$"],
             layout: HORIZONTAL,
-            padding: true
+            padding: true,
         };
     },
 
@@ -78,7 +78,7 @@ const SorterEditor = React.createClass({
 
     serialize: function() {
         return _.pick(this.props, "correct", "layout", "padding");
-    }
+    },
 });
 
 module.exports = SorterEditor;

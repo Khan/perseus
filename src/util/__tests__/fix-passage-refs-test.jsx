@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -18,24 +18,24 @@ var sampleItem = {
                 "static": false,
                 "options": {
                     "passageNumber": 1,
-                    "referenceNumber": 1
+                    "referenceNumber": 1,
                 },
                 "version": {
                     "major": 0,
-                    "minor": 1
-                }
-            }
-        }
+                    "minor": 1,
+                },
+            },
+        },
     },
     "answerArea": {
         "calculator": false,
-        "periodicTable": false
+        "periodicTable": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleGroupItem = {
@@ -57,19 +57,19 @@ var sampleGroupItem = {
                             "static": false,
                             "options": {
                                 "passageNumber": 1,
-                                "referenceNumber": 1
+                                "referenceNumber": 1,
                             },
                             "version": {
                                 "major": 0,
-                                "minor": 1
-                            }
-                        }
-                    }
+                                "minor": 1,
+                            },
+                        },
+                    },
                 },
                 "version": {
                     "major": 0,
-                    "minor": 0
-                }
+                    "minor": 0,
+                },
             },
             "passage-ref 1": {
                 "type": "passage-ref",
@@ -77,24 +77,24 @@ var sampleGroupItem = {
                 "static": false,
                 "options": {
                     "passageNumber": 1,
-                    "referenceNumber": 1
+                    "referenceNumber": 1,
                 },
                 "version": {
                     "major": 0,
-                    "minor": 1
-                }
-            }
-        }
+                    "minor": 1,
+                },
+            },
+        },
     },
     "answerArea": {
         "calculator": false,
-        "periodicTable": false
+        "periodicTable": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var sampleRadioItem = {
@@ -109,33 +109,33 @@ var sampleRadioItem = {
                 "options": {
                     "choices": [
                         {
-                            "content": "{{passage-ref 1 2}} (\"hi ... there\")"
+                            "content": "{{passage-ref 1 2}} (\"hi ... there\")",
                         },
-                        {}
+                        {},
                     ],
                     "randomize": false,
                     "multipleSelect": false,
                     "displayCount": null,
                     "hasNoneOfTheAbove": false,
                     "onePerLine": true,
-                    "deselectEnabled": false
+                    "deselectEnabled": false,
                 },
                 "version": {
                     "major": 1,
-                    "minor": 0
-                }
-            }
-        }
+                    "minor": 0,
+                },
+            },
+        },
     },
     "answerArea": {
         "calculator": false,
-        "periodicTable": false
+        "periodicTable": false,
     },
     "itemDataVersion": {
         "major": 0,
-        "minor": 1
+        "minor": 1,
     },
-    "hints": []
+    "hints": [],
 };
 
 var clonedSampleItem = _.clone(sampleItem);
@@ -164,13 +164,13 @@ describe("fix-passage-refs", () => {
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1,
-                    "summaryText": "hi ... there"
+                    "summaryText": "hi ... there",
                 },
                 "version": {
                     "major": 0,
                     // TODO(aria): Update this when we do minor updates as
                     // a part of version upgrading
-                    "minor": 1
+                    "minor": 1,
                 },
                 "alignment": "default",
             }
@@ -194,13 +194,13 @@ describe("fix-passage-refs", () => {
                 "options": {
                     "passageNumber": 1,
                     "referenceNumber": 1,
-                    "summaryText": "hi ... there"
+                    "summaryText": "hi ... there",
                 },
                 "version": {
                     "major": 0,
                     // TODO(aria): Update this when we merge the passage-ref
                     // changes
-                    "minor": 1
+                    "minor": 1,
                 },
                 "alignment": "default",
             }

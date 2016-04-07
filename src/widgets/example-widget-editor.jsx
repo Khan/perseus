@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -16,13 +16,13 @@ var ExampleWidgetEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
-            correct: ""
+            correct: "",
         };
     },
 
     handleAnswerChange: function(event) {
         this.change({
-            correct: event.target.value
+            correct: event.target.value,
         });
     },
 
@@ -41,7 +41,7 @@ var ExampleWidgetEditor = React.createClass({
     focus: function() {
         this.refs.input.focus();
         return true;
-    }
+    },
 });
 
 module.exports = ExampleWidgetEditor;

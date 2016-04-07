@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -57,7 +57,7 @@ var MatrixEditor = React.createClass({
         suffix: React.PropTypes.string,
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
-        )
+        ),
     },
 
     getDefaultProps: function() {
@@ -66,7 +66,7 @@ var MatrixEditor = React.createClass({
             answers: [[]],
             prefix: "",
             suffix: "",
-            cursorPosition: [0, 0]
+            cursorPosition: [0, 0],
         };
     },
 
@@ -117,7 +117,7 @@ var MatrixEditor = React.createClass({
         if (range[0] !== null && range[1] !== null) {
             range = [
                 Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
-                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE))
+                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
             ];
             var answers = _(Math.min(range[0], matrixSize[0])).times(row => {
                 return _(Math.min(range[1], matrixSize[1])).times(col => {
@@ -126,10 +126,10 @@ var MatrixEditor = React.createClass({
             });
             this.props.onChange({
                 matrixBoardSize: range,
-                answers: answers
+                answers: answers,
             });
         }
-    }
+    },
 });
 
 module.exports = MatrixEditor;

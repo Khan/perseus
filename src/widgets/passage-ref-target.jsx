@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -13,12 +13,12 @@ var PassageRefTarget = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
-        content: React.PropTypes.string
+        content: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            content: ""
+            content: "",
         };
     },
 
@@ -33,7 +33,7 @@ var PassageRefTarget = React.createClass({
 
     simpleValidate: function(rubric) {
         return PassageRefTarget.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(PassageRefTarget, {
@@ -42,9 +42,9 @@ _.extend(PassageRefTarget, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -56,5 +56,5 @@ module.exports = {
     transform: (editorProps) => {
         return _.pick(editorProps, "content");
     },
-    version: {major: 0, minor: 0}
+    version: {major: 0, minor: 0},
 };

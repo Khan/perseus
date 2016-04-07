@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -19,7 +19,7 @@ const PassageEditor = React.createClass({
         passageTitle: React.PropTypes.string,
         passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
-        showLineNumbers: React.PropTypes.bool
+        showLineNumbers: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -27,7 +27,7 @@ const PassageEditor = React.createClass({
             passageTitle: "",
             passageText: "",
             footnotes: "",
-            showLineNumbers: true
+            showLineNumbers: true,
         };
     },
 

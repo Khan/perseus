@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-redeclare, no-var */
+/* eslint-disable max-len, no-redeclare, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -24,7 +24,7 @@ var FUNCTION_ARRAY_OPTIONS = [
     "onMoveStart",
     "constraints",
     "onMove",
-    "onMoveEnd"
+    "onMoveEnd",
 ];
 
 // Default "props" and "state". Both are added to this.state and
@@ -40,11 +40,11 @@ var DEFAULT_PROPS = {
     normalStyle: null,     // turned into an object in this.modify
     highlightStyle: null,  // likewise
     extendLine: false,
-    extendRay: false
+    extendRay: false,
 };
 var DEFAULT_STATE = {
     visibleShape: null,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
 var MovableLine = function(graphie, movable, options) {
@@ -56,8 +56,8 @@ var MovableLine = function(graphie, movable, options) {
         movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movableLine")
-        }
+            id: _.uniqueId("movableLine"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -127,12 +127,12 @@ _.extend(MovableLine.prototype, {
                                            KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({
             stroke: normalColor,
-            "stroke-width": 2
+            "stroke-width": 2,
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
             stroke: KhanColors.INTERACTING,
-            "stroke-width": 3
+            "stroke-width": 3,
         }, state.highlightStyle);
 
         if (!state.static) {
@@ -140,7 +140,7 @@ _.extend(MovableLine.prototype, {
             if (!state.mouseTarget) {
                 var options = {
                     thickness: 30,
-                    mouselayer: true
+                    mouselayer: true,
                 };
                 state.mouseTarget = new WrappedLine(graphie, this.coord(0),
                     this.coord(1), options);
@@ -275,7 +275,7 @@ _.extend(MovableLine.prototype, {
 
     mouseTarget: function() {
         return this.movable.mouseTarget();
-    }
+    },
 });
 
 module.exports = MovableLine;

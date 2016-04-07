@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -33,7 +33,7 @@ var MathInput = React.createClass({
             // mathquill usually adds these itself but react removes them when
             // updating the component.
             "mq-editable-field": true,
-            "mq-math-mode": true
+            "mq-math-mode": true,
         });
 
         if (this.props.className) {
@@ -115,7 +115,7 @@ var MathInput = React.createClass({
         return {
             value: "",
             convertDotToTimes: false,
-            buttonsVisible: 'focused'
+            buttonsVisible: 'focused',
         };
     },
 
@@ -234,8 +234,8 @@ var MathInput = React.createClass({
                     // up to (no numerator or exponent). For ease of use,
                     // interpret this as an attempt to create an exponent.
                     mathField.typedText("^");
-                }
-            }
+                },
+            },
         });
 
         // Ideally, we would be able to pass an initial value directly into
@@ -259,7 +259,7 @@ var MathInput = React.createClass({
     blur: function() {
         this.mathField().blur();
         this.setState({ focused: false });
-    }
+    },
 });
 
 module.exports = MathInput;

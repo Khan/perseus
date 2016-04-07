@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var InfoTip = require("../components/info-tip.jsx");
@@ -20,7 +20,7 @@ var {
     Label,
     Line,
     MovablePoint,
-    MovableLine
+    MovableLine,
 } = Graphie;
 var NumberInput  = require("../components/number-input.jsx");
 var MathOutput  = require("../components/math-output.jsx");
@@ -39,7 +39,7 @@ var Histogram = React.createClass({
         data: React.PropTypes.arrayOf(React.PropTypes.number),
         xAxisLabel: React.PropTypes.string,
         yAxisLabel: React.PropTypes.string,
-        box: React.PropTypes.arrayOf(React.PropTypes.number)
+        box: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
@@ -47,13 +47,13 @@ var Histogram = React.createClass({
             data: null,
             xAxisLabel: "Proportion (%)",
             yAxisLabel: "Number of times seen",
-            box: [defaultBoxSize, defaultBoxSize]
+            box: [defaultBoxSize, defaultBoxSize],
         };
     },
 
     getInitialState: function() {
         return {
-            threshold: this._getInitialThreshold(this._range())
+            threshold: this._getInitialThreshold(this._range()),
         };
     },
 
@@ -63,7 +63,7 @@ var Histogram = React.createClass({
         var nextRange = this._range(nextProps);
         if (!Util.deepEq(oldRange, nextRange)) {
             this.setState({
-                threshold: this._getInitialThreshold(nextRange)
+                threshold: this._getInitialThreshold(nextRange),
             });
         }
     },
@@ -126,8 +126,8 @@ var Histogram = React.createClass({
                 unscaled: true,
                 style: {
                     fill: KhanColors.LIGHT_RED,
-                    stroke: KhanColors.RED
-                }
+                    stroke: KhanColors.RED,
+                },
             };
 
             return <Arc {...options} />;
@@ -144,7 +144,7 @@ var Histogram = React.createClass({
                 unscaled: true,
                 style: {
                     fill: KhanColors.LIGHT_BLUE,
-                    stroke: KhanColors.BLUE
+                    stroke: KhanColors.BLUE,
                 },
             };
 
@@ -165,8 +165,8 @@ var Histogram = React.createClass({
                 tex: false,
                 unscaled: true,
                 style: {
-                    fontSize: "12px"
-                }
+                    fontSize: "12px",
+                },
             };
             return <Label {...options} />;
         };
@@ -174,7 +174,7 @@ var Histogram = React.createClass({
         return [
             proportionBelow > 0 && plotBelowCircle(),
             proportionBelow < 1 && plotAboveCircle(),
-            plotLabel()
+            plotLabel(),
         ];
     },
 
@@ -197,13 +197,13 @@ var Histogram = React.createClass({
                     i <= this.state.threshold;
             var style = {
                 fill: (isBelow) ?  KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
-                stroke: (isBelow) ? KhanColors.RED : KhanColors.BLUE
+                stroke: (isBelow) ? KhanColors.RED : KhanColors.BLUE,
             };
             var coords = [
                 [i, 0],
                 [i, count],
                 [i + barWidth, count],
-                [i + barWidth, 0]
+                [i + barWidth, 0],
             ];
             return <Path key={i} coords={coords} style={style} />;
         };
@@ -222,13 +222,13 @@ var Histogram = React.createClass({
             range: range,
             data: data,
             scale: [Util.scaleFromExtent(range[0], this.props.box[0]),
-                        Util.scaleFromExtent(range[1], this.props.box[1])]
+                        Util.scaleFromExtent(range[1], this.props.box[1])],
         };
 
         var axisStyle = {
             stroke: "#000",
             strokeWidth: 1,
-            opacity: 1.0
+            opacity: 1.0,
         };
         var origin = [range[0][0], 0];
         var bottomRight = [range[0][1], 0];
@@ -273,7 +273,7 @@ var Histogram = React.createClass({
             graphie.line([range[0][0], y], [range[0][1], y], {
                 stroke: "#000",
                 strokeWidth: 1,
-                opacity: 0.3
+                opacity: 0.3,
             });
         });
 
@@ -289,7 +289,7 @@ var Histogram = React.createClass({
                 var tickHeight = 8;
                 graphie.line([x, 0], [x, - tickHeight / scale[1]], {
                         stroke: "#000",
-                        strokeWidth: 1
+                        strokeWidth: 1,
                     }
                 );
             });
@@ -299,7 +299,7 @@ var Histogram = React.createClass({
         var axisStyle = {
             stroke: "#000",
             strokeWidth: 2,
-            opacity: 1.0
+            opacity: 1.0,
         };
         var origin = [range[0][0], 0];
         var topLeft = [range[0][0], range[1][1]];
@@ -324,7 +324,7 @@ var Histogram = React.createClass({
 
     handleMouseInteraction: function(point) {
         this.setState({
-            threshold: point[0]
+            threshold: point[0],
         });
     },
 
@@ -358,7 +358,7 @@ var Histogram = React.createClass({
         // We pick a pretty-looking threshold, 1/3 of the way along the axis
         var xRange = range[0];
         return xRange[0] + (xRange[1] - xRange[0]) / 3;
-    }
+    },
 });
 
 var Simulator = React.createClass({
@@ -380,7 +380,7 @@ var Simulator = React.createClass({
 
     getInitialState: function() {
         return {
-            invalidInput: false
+            invalidInput: false,
         };
     },
 
@@ -395,7 +395,7 @@ var Simulator = React.createClass({
             yAxisLabel: "Number of times seen",
             proportionLabel: "Underlying proportion",
             proportionOrPercentage: "proportion",
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
@@ -413,7 +413,7 @@ var Simulator = React.createClass({
 
     render: function() {
         var inputStyle = {
-            marginLeft: "5px"
+            marginLeft: "5px",
         };
 
         var highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
@@ -421,10 +421,10 @@ var Simulator = React.createClass({
             WebkitBoxShadow: highlight,
             MozBoxShadow: highlight,
             boxShadow: highlight,
-            transition: "all 0.15s"
+            transition: "all 0.15s",
         });
         var unhighlightStyle = _.extend({}, inputStyle, {
-            transition: "all 0.15s"
+            transition: "all 0.15s",
         });
         var style = (this.state.invalidInput) ? highlightStyle
                                               : unhighlightStyle;
@@ -507,17 +507,17 @@ var Simulator = React.createClass({
             },
             {
                 title: "Sample size:",
-                value: sampleSizeInput
+                value: sampleSizeInput,
             },
             {
                 title: "Number of trials:",
-                value: numTrialsDisplay
-            }
+                value: numTrialsDisplay,
+            },
         ];
 
         // The 'Run Simulation' button
         var buttonStyle = {
-            margin: "20px 0"
+            margin: "20px 0",
         };
         var startButton = <button
                 className="simple-button"
@@ -529,7 +529,7 @@ var Simulator = React.createClass({
 
         // When we plot data, ticks on the x-axis require some vertical padding
         var histogramStyle = {
-            paddingBottom: (this.props.data) ? 40 : 0
+            paddingBottom: (this.props.data) ? 40 : 0,
         };
         var histogram = <div style={histogramStyle}>
             <Histogram data={this.props.data}
@@ -579,7 +579,7 @@ var Simulator = React.createClass({
             userProportion = Math.min(1.0, Math.max(0.0, userProportion));
         }
         this.props.onChange({
-            userProportion: userProportion
+            userProportion: userProportion,
         }, cb);
     },
 
@@ -589,7 +589,7 @@ var Simulator = React.createClass({
                 Math.max(0, Math.floor(sampleSize)));
         }
         this.props.onChange({
-            sampleSize: sampleSize
+            sampleSize: sampleSize,
         }, cb);
     },
 
@@ -599,16 +599,16 @@ var Simulator = React.createClass({
                 this.props.userProportion == null ||
                 this.props.sampleSize == null) {
             this.setState({
-                invalidInput: true
+                invalidInput: true,
             });
             return;
         } else {
             this.setState({
-                invalidInput: false
+                invalidInput: false,
             });
         }
         this.props.onChange({
-            data: this.generateData()
+            data: this.generateData(),
         });
         this.props.trackInteraction();
     },
@@ -682,7 +682,7 @@ var Simulator = React.createClass({
 
     simpleValidate: function(rubric) {
         return Simulator.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Simulator, {
@@ -691,9 +691,9 @@ _.extend(Simulator, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 var propTransform = (editorProps) => {
@@ -706,5 +706,5 @@ module.exports = {
     name: "simulator",
     displayName: "Simulator",
     widget: Simulator,
-    transform: propTransform
+    transform: propTransform,
 };

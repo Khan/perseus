@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -11,13 +11,13 @@ var _ = require("underscore");
  */
 var PropCheckBox = React.createClass({
     propTypes: {
-        labelAlignment: React.PropTypes.oneOf(["left", "right"])
+        labelAlignment: React.PropTypes.oneOf(["left", "right"]),
     },
 
     DEFAULT_PROPS: {
         label: null,
         onChange: null,
-        labelAlignment: "left"
+        labelAlignment: "left",
     },
 
     getDefaultProps: function() {
@@ -57,7 +57,7 @@ var PropCheckBox = React.createClass({
         var changes = {};
         changes[propName] = !this.props[propName];
         this.props.onChange(changes);
-    }
+    },
 });
 
 module.exports = PropCheckBox;

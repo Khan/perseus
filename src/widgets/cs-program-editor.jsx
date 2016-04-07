@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-console, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
+/* eslint-disable eol-last, no-console, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -24,13 +24,13 @@ var PairEditor = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
             name:  "",
-            value: ""
+            value: "",
         };
     },
 
@@ -45,7 +45,7 @@ var PairEditor = React.createClass({
                            onChange={this.change("value")} />
                 </label>
             </fieldset>;
-    }
+    },
 });
 
 /**
@@ -58,8 +58,8 @@ var PairsEditor = React.createClass({
     propTypes: {
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
-            value: React.PropTypes.string
-        })).isRequired
+            value: React.PropTypes.string,
+        })).isRequired,
     },
 
     render: function() {
@@ -82,7 +82,7 @@ var PairsEditor = React.createClass({
             pairs.push({name: "", value: ""});
         }
         this.change("pairs", pairs);
-    }
+    },
 });
 
 var KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^\/]+\/(\d+)/;
@@ -179,7 +179,7 @@ var CSProgramEditor = React.createClass({
                     programID: programID,
                 });
             });
-    }
+    },
 });
 
 module.exports = CSProgramEditor;

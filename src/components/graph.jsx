@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -13,7 +13,7 @@ var SvgImage = require("../components/svg-image.jsx");
 
 var defaultBoxSize = 400;
 var defaultBackgroundImage = {
-    url: null
+    url: null,
 };
 
 /* Style objects */
@@ -29,12 +29,12 @@ var defaultInstructionsStyle = {
     zIndex: 1,
     transition: 'opacity .25s ease-in-out',
     '-moz-transition': 'opacity .25s ease-in-out',
-    '-webkit-transition': 'opacity .25s ease-in-out'
+    '-webkit-transition': 'opacity .25s ease-in-out',
 };
 
 var instructionsTextStyle = {
     position: 'relative',
-    top: '25%'
+    top: '25%',
 };
 
 function numSteps(range, step) {
@@ -55,7 +55,7 @@ var Graph = React.createClass({
         snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
         markings: React.PropTypes.string,
         backgroundImage: React.PropTypes.shape({
-            url: React.PropTypes.string
+            url: React.PropTypes.string,
         }),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
@@ -63,7 +63,7 @@ var Graph = React.createClass({
         rulerTicks: React.PropTypes.number,
         onGraphieUpdated: React.PropTypes.func,
         instructions: React.PropTypes.string,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
@@ -105,7 +105,7 @@ var Graph = React.createClass({
                     className="graphie-container above-scratchpad"
                     style={{
                         width: this.props.box[0],
-                        height: this.props.box[1]
+                        height: this.props.box[1],
                     }}
                     onMouseOut={this.onMouseOut}
                     onMouseOver={this.onMouseOver}
@@ -200,7 +200,7 @@ var Graph = React.createClass({
                 gridStep: this.props.gridStep,
                 tickStep: _.pluck(gridConfig, "tickStep"),
                 labelStep: 1,
-                unityLabels: _.pluck(gridConfig, "unityLabel")
+                unityLabels: _.pluck(gridConfig, "unityLabel"),
             });
             graphie.label([0, range[1][1]], labels[1], "above");
             graphie.label([range[0][1], 0], labels[0], "right");
@@ -211,12 +211,12 @@ var Graph = React.createClass({
                 gridStep: this.props.gridStep,
                 axes: false,
                 ticks: false,
-                labels: false
+                labels: false,
             });
         } else if (this.props.markings === "none") {
             graphie.init({
                 range: range,
-                scale: _.pluck(gridConfig, "scale")
+                scale: _.pluck(gridConfig, "scale"),
             });
         }
 
@@ -232,7 +232,7 @@ var Graph = React.createClass({
             $instructionsWrapper.css("opacity", visible);
 
             var $instructions = $("<span/>", {
-                text: this.props.instructions
+                text: this.props.instructions,
             });
             _.each(instructionsTextStyle, function(value, key) {
                 $instructions.css(key, value);
@@ -273,7 +273,7 @@ var Graph = React.createClass({
             onMouseOut: onMouseOut,
             onMouseUp: this.props.onMouseUp,
             onMouseMove: this.props.onMouseMove,
-            allowScratchpad: true
+            allowScratchpad: true,
         });
 
         this._updateProtractor();
@@ -326,7 +326,7 @@ var Graph = React.createClass({
                 label: this.props.rulerLabel,
                 pixelsPerUnit: this._graphie.scale[0],
                 ticksPerUnit: this.props.rulerTicks,
-                units: Math.round(0.8 * extent)
+                units: Math.round(0.8 * extent),
             });
         }
     },
@@ -335,7 +335,7 @@ var Graph = React.createClass({
         return _.pick(this.props, 'range', 'step', 'markings', 'labels',
                       'backgroundImage', 'showProtractor', 'showRuler',
                       'rulerLabel', 'rulerTicks', 'gridStep', 'snapStep');
-    }
+    },
 });
 
 module.exports = Graph;

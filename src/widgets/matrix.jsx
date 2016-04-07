@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -24,13 +24,13 @@ var stringArrayOfSize = require("../util.js").stringArrayOfSize;
 var MOBILE_DIMENSIONS = {
     INPUT_MARGIN: 4,
     INPUT_HEIGHT: 38,
-    INPUT_WIDTH: 82
+    INPUT_WIDTH: 82,
 };
 
 var NORMAL_DIMENSIONS = {
     INPUT_MARGIN: 3,
     INPUT_HEIGHT: 30,
-    INPUT_WIDTH: 40
+    INPUT_WIDTH: 40,
 };
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
@@ -92,7 +92,7 @@ var Matrix = React.createClass({
             React.PropTypes.arrayOf(
                 React.PropTypes.oneOfType([
                     React.PropTypes.string,
-                    React.PropTypes.number
+                    React.PropTypes.number,
                 ])
             )
         ),
@@ -114,13 +114,13 @@ var Matrix = React.createClass({
             prefix: "",
             suffix: "",
             cursorPosition: [0, 0],
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
     getInitialState: function() {
         return {
-            enterTheMatrix: 0
+            enterTheMatrix: 0,
         };
     },
 
@@ -164,14 +164,14 @@ var Matrix = React.createClass({
                 <div
                     className={"matrix-bracket bracket-left"}
                     style={{
-                        height: bracketHeight
+                        height: bracketHeight,
                     }}>
                 </div>
                 <div
                     className={"matrix-bracket bracket-right"}
                     style={{
                         height: bracketHeight,
-                        left: bracketOffset
+                        left: bracketOffset,
                     }}>
                 </div>
                 {_(maxRows).times(row => {
@@ -187,7 +187,7 @@ var Matrix = React.createClass({
                                 style: {
                                     height: INPUT_HEIGHT,
                                     width: INPUT_WIDTH,
-                                    margin: INPUT_MARGIN
+                                    margin: INPUT_MARGIN,
                                 },
                                 disabled: this.props.apiOptions.readOnly,
                                 onFocus: () => {
@@ -200,7 +200,7 @@ var Matrix = React.createClass({
                                     // focus events.
                                     this.cursorPosition = [row, col];
                                     this.props.onChange({
-                                        cursorPosition: [row, col]
+                                        cursorPosition: [row, col],
                                     }, () => {
                                         // This isn't a user interaction, so
                                         // return false to signal that the
@@ -213,7 +213,7 @@ var Matrix = React.createClass({
                                     if (row === this.cursorPosition[0] &&
                                         col === this.cursorPosition[1]) {
                                         this.props.onChange({
-                                            cursorPosition: [0, 0]
+                                            cursorPosition: [0, 0],
                                         }, () => {
                                             // This isn't a user interaction,
                                             // so return false to signal that
@@ -228,7 +228,7 @@ var Matrix = React.createClass({
                                 },
                                 onChange: (value) => {
                                     this.onValueChange(row, col, value);
-                                }
+                                },
                             };
 
                             var MatrixInput;
@@ -364,7 +364,7 @@ var Matrix = React.createClass({
 
         if (enterTheMatrix != null) {
             this.setState({
-                enterTheMatrix: enterTheMatrix
+                enterTheMatrix: enterTheMatrix,
             });
         }
     },
@@ -376,20 +376,20 @@ var Matrix = React.createClass({
         }
         answers[row][column] = value;
         this.props.onChange({
-            answers: answers
+            answers: answers,
         }, cb);
         this.props.trackInteraction();
     },
 
     getUserInput: function() {
         return {
-            answers: this.props.answers
+            answers: this.props.answers,
         };
     },
 
     simpleValidate: function(rubric) {
         return Matrix.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Matrix, {
@@ -430,7 +430,7 @@ _.extend(Matrix, {
         if (hasEmptyCell) {
             return {
                 type: "invalid",
-                message: i18n._("Make sure you fill in all cells in the matrix.")
+                message: i18n._("Make sure you fill in all cells in the matrix."),
             };
         }
 
@@ -439,7 +439,7 @@ _.extend(Matrix, {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
 
@@ -447,9 +447,9 @@ _.extend(Matrix, {
             type: "points",
             earned: incorrect ? 0 : 1,
             total: 1,
-            message: message
+            message: message,
         };
-    }
+    },
 });
 
 var propTransform = (editorProps) => {
@@ -459,7 +459,7 @@ var propTransform = (editorProps) => {
     });
     editorProps = _.pick(editorProps, "matrixBoardSize", "prefix", "suffix");
     return _.extend(editorProps, {
-        answers: blankAnswers
+        answers: blankAnswers,
     });
 };
 

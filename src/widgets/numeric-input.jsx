@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable indent, no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -27,7 +27,7 @@ var answerFormButtons = [
     {title: "Improper fractions", value: "improper",
         content: "\u2077\u2044\u2084"},
     {title: "Mixed numbers", value: "mixed", content: "1\u00BE"},
-    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"}
+    {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
 var formExamples = {
@@ -41,7 +41,7 @@ var formExamples = {
     "mixed": () => i18n._("a mixed number, like $1\\ 3/4$"),
     "decimal": () => i18n._("an *exact* decimal, like $0.75$"),
     "pi": () => i18n._("a multiple of pi, like $12\\ \\text{pi}$ or " +
-                "$2/3\\ \\text{pi}$")
+                "$2/3\\ \\text{pi}$"),
 };
 
 var NumericInput = React.createClass({
@@ -55,7 +55,7 @@ var NumericInput = React.createClass({
             name: React.PropTypes.string.isRequired,
             simplify: React.PropTypes.oneOf([
                 "required",
-                "optional"
+                "optional",
             ]).isRequired,
         })),
         keypadConfiguration: keypadConfigurationPropType,
@@ -215,7 +215,7 @@ var NumericInput = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            currentValue: newValue
+            currentValue: newValue,
         }, cb);
     },
 
@@ -242,7 +242,7 @@ var NumericInput = React.createClass({
                         _.map(_.keys(formExamples), (name) => {
                             return {
                                 name: name,
-                                simplify: "required"
+                                simplify: "required",
                             };
                         });
 
@@ -251,7 +251,7 @@ var NumericInput = React.createClass({
         });
 
         return [i18n._("**Your answer should be** ")].concat(examples);
-    }
+    },
 });
 
 _.extend(NumericInput, {
@@ -268,7 +268,7 @@ _.extend(NumericInput, {
                     maxError: answer.maxError,
                     forms: (answer.strict && answer.answerForms &&
                             answer.answerForms.length !== 0) ?
-                            answer.answerForms : allAnswerForms
+                            answer.answerForms : allAnswerForms,
             });
 
         // We may have received TeX; try to parse it before grading.
@@ -311,7 +311,7 @@ _.extend(NumericInput, {
                 empty: match ? match.status === "ungraded" : false,
                 correct: match ? match.status === "correct" : false,
                 message: match ? match.message : null,
-                guess: currentValue
+                guess: currentValue,
             };
         }
 
@@ -320,17 +320,17 @@ _.extend(NumericInput, {
         if (result.empty) {
             return {
                 type: "invalid",
-                message: result.message
+                message: result.message,
             };
         } else {
             return {
                 type: "points",
                 earned: result.correct ? 1 : 0,
                 total: 1,
-                message: result.message
+                message: result.message,
             };
         }
-    }
+    },
 });
 
 var unionAnswerForms = function(answerFormsList) {
@@ -424,11 +424,11 @@ var propsTransform = function(editorProps) {
                     return _.map(answer.answerForms, (form) => {
                         return {
                             simplify: answer.simplify,
-                            name: form
+                            name: form,
                         };
                     });
                 })
-            )
+            ),
         }
     );
     return {
@@ -443,5 +443,5 @@ module.exports = {
     defaultAlignment: "inline-block",
     accessible: true,
     widget: NumericInput,
-    transform: propsTransform
+    transform: propsTransform,
 };

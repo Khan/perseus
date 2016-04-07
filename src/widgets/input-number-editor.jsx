@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -14,35 +14,35 @@ const InfoTip           = require("../components/info-tip.jsx");
 var answerTypes = {
     number: {
         name: "Numbers",
-        forms: "integer, decimal, proper, improper, mixed"
+        forms: "integer, decimal, proper, improper, mixed",
     },
     decimal: {
         name: "Decimals",
-        forms: "decimal"
+        forms: "decimal",
     },
     integer: {
         name: "Integers",
-        forms: "integer"
+        forms: "integer",
     },
     rational: {
         name: "Fractions and mixed numbers",
-        forms: "integer, proper, improper, mixed"
+        forms: "integer, proper, improper, mixed",
     },
     improper: {
         name: "Improper numbers (no mixed)",
-        forms: "integer, proper, improper"
+        forms: "integer, proper, improper",
     },
     mixed: {
         name: "Mixed numbers (no improper)",
-        forms: "integer, proper, mixed"
+        forms: "integer, proper, mixed",
     },
     percent: {
         name: "Numbers or percents",
-        forms: "integer, decimal, proper, improper, mixed, percent"
+        forms: "integer, decimal, proper, improper, mixed, percent",
     },
     pi: {
-        name: "Numbers with pi", forms: "pi"
-    }
+        name: "Numbers with pi", forms: "pi",
+    },
 };
 
 const InputNumberEditor = React.createClass({
@@ -52,7 +52,7 @@ const InputNumberEditor = React.createClass({
         size: React.PropTypes.oneOf(['normal', 'small']),
         inexact: React.PropTypes.bool,
         maxError: React.PropTypes.number,
-        answerType: React.PropTypes.string
+        answerType: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -62,7 +62,7 @@ const InputNumberEditor = React.createClass({
             size: "normal",
             inexact: false,
             maxError: 0.1,
-            answerType: "number"
+            answerType: "number",
         };
     },
 
@@ -179,7 +179,7 @@ const InputNumberEditor = React.createClass({
         return _.pick(this.props,
                 "value", "simplify", "size", "inexact", "maxError",
                 "answerType");
-    }
+    },
 });
 
 module.exports = InputNumberEditor;

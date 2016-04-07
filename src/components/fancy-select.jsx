@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -26,7 +26,7 @@ var ITEM_HEIGHT = 48;
 var FancyOption = React.createClass({
     render: function() {
         throw new Error("FancyOption shouldn't ever be actually rendered");
-    }
+    },
 });
 
 var FancySelect = React.createClass({
@@ -34,12 +34,12 @@ var FancySelect = React.createClass({
     propTypes: {
         value: React.PropTypes.any.isRequired,
         className: React.PropTypes.string,
-        onChange: React.PropTypes.func
+        onChange: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
-            onChange: () => { }
+            onChange: () => { },
         };
     },
 
@@ -69,7 +69,7 @@ var FancySelect = React.createClass({
                     display: "inline-block",
                     float: "left",
                     visibility: "hidden",
-                    height: 0
+                    height: 0,
                 }}>
             {React.Children.map(this.props.children, (option) => {
                 return <div className="fancy-select-value-hidden"
@@ -91,7 +91,7 @@ var FancySelect = React.createClass({
         var selectBoxClassName = classNames({
             "fancy-select": true,
             active: this.state.active,
-            closed: this.state.closed
+            closed: this.state.closed,
         });
 
         var selectBox = <div className={selectBoxClassName}
@@ -122,7 +122,7 @@ var FancySelect = React.createClass({
                 "fancy-option": true,
                 active: this.state.active,
                 closed: this.state.closed,
-                selected: option.props.value === this.props.value
+                selected: option.props.value === this.props.value,
             });
             if (option.props.className) {
                 className += " " + option.props.className;
@@ -142,7 +142,7 @@ var FancySelect = React.createClass({
                 WebkitTransform: translate,
                 transform: translate,
                 WebkitTransition: transition,
-                transition: transition
+                transition: transition,
             });
 
             return <li
@@ -153,7 +153,7 @@ var FancySelect = React.createClass({
                         this.props.onChange(option.props.value, option);
                         this.setState({
                             active: false,
-                            closed: true
+                            closed: true,
                         });
                     }}>
                 {option.props.children}
@@ -163,7 +163,7 @@ var FancySelect = React.createClass({
         var optionsBoxClassName = classNames({
             "fancy-select-options": true,
             active: this.state.active,
-            closed: this.state.closed
+            closed: this.state.closed,
         });
 
         var height = DROPDOWN_OFFSET * childCount;

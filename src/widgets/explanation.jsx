@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -42,7 +42,7 @@ var Explanation = React.createClass({
 
     _onClick: function() {
         this.setState({
-            expanded: !this.state.expanded
+            expanded: !this.state.expanded,
         });
         this.props.trackInteraction();
     },
@@ -69,7 +69,7 @@ var Explanation = React.createClass({
         // up calling componentDidUpdate in an infinite loop!
         if (contentHeight !== this.state.contentHeight) {
             this.setState({
-                contentHeight: contentHeight
+                contentHeight: contentHeight,
             });
         }
     },
@@ -96,7 +96,7 @@ var Explanation = React.createClass({
             </a>
             <div className="perseus-widget-explanation-content" style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
-                    overflow: this.state.expanded ? "visible" : "hidden"
+                    overflow: this.state.expanded ? "visible" : "hidden",
                 }} ref="content">
                 <Renderer
                     apiOptions={this.props.apiOptions}
@@ -113,7 +113,7 @@ var Explanation = React.createClass({
 
     simpleValidate: function(rubric) {
         return Explanation.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Explanation, {
@@ -122,9 +122,9 @@ _.extend(Explanation, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -132,5 +132,5 @@ module.exports = {
     displayName: "Explanation (for hints)",
     defaultAlignment: "inline",
     widget: Explanation,
-    transform: _.identity
+    transform: _.identity,
 };

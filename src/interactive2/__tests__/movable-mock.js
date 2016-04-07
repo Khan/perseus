@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var */
+/* eslint-disable indent, no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -10,7 +10,7 @@ var Movable = require("../movable.js");
 
 var createMock = function() {
     var movable = new Movable(null, {
-        mouseTarget: null
+        mouseTarget: null,
     });
     movable.modify = function(options) {
         Movable.prototype.modify.call(movable, _.omit(options, 'mouseTarget'));

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var, one-var */
+/* eslint-disable indent, no-undef, no-var, one-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -29,7 +29,7 @@ var add = {
 
     pointsToFront: function(state) {
         _.invoke(state.points, "toFront");
-    }
+    },
 };
 
 add.standard = [add.constrain, add.pointsToFront];
@@ -37,7 +37,7 @@ add.standard = [add.constrain, add.pointsToFront];
 var modify = {
     draw: function() {
         this.draw();
-    }
+    },
 };
 
 modify.standard = [modify.draw];
@@ -109,7 +109,7 @@ var draw = {
                     showRightAngleMarker: state.showRightAngleMarkers[i],
                     numArcs: state.numArcs[i],
                     clockwise: isClockwise,
-                    style: state.labelStyle
+                    style: state.labelStyle,
                 }));
             });
         }
@@ -135,7 +135,7 @@ var draw = {
                     numArrows: state.numArrows[i],
                     numTicks: state.numTicks[i],
                     clockwise: isClockwise,
-                    style: state.labelStyle
+                    style: state.labelStyle,
                 }));
             });
         }
@@ -160,7 +160,7 @@ var draw = {
                     label: label,
                     text: state.vertexLabels[i],
                     clockwise: isClockwise,
-                    style: state.labelStyle
+                    style: state.labelStyle,
                 }));
             });
         }
@@ -181,7 +181,7 @@ var draw = {
                 50
             );
         }
-    }
+    },
 };
 
 draw.standard = [draw.basic, draw.labels, draw.highlight];
@@ -202,7 +202,7 @@ var remove = {
                 _.invoke(labelType, "remove");
             }
         });
-    }
+    },
 };
 
 remove.standard = [remove.basic, remove.labels];
@@ -244,11 +244,11 @@ var constraints = {
             // Calculate the bounds for both points
             var absoluteLower = graphie.unscalePoint([
                 paddingPx,
-                graphie.ypixels - paddingPx
+                graphie.ypixels - paddingPx,
             ]);
             var absoluteUpper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
-                paddingPx
+                paddingPx,
             ]);
             if (snap) {
                 absoluteLower = kpoint.ceilTo(absoluteLower, snap);
@@ -274,7 +274,7 @@ var constraints = {
 
             return kvector.add(prevCoord, boundedDelta);
         };
-    }
+    },
 };
 
 constraints.standard = null;
@@ -289,7 +289,7 @@ var onMove = {
                 actualDelta
             ));
         });
-    }
+    },
 };
 
 onMove.standard = null;
@@ -305,5 +305,5 @@ module.exports = {
     constraints: constraints,
     onMove: onMove,
     onMoveEnd: {standard: null},
-    onClick: {standard: null}
+    onClick: {standard: null},
 };

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -21,7 +21,7 @@ var ConstraintEditor = React.createClass({
         constraintXMin: React.PropTypes.string,
         constraintXMax: React.PropTypes.string,
         constraintYMin: React.PropTypes.string,
-        constraintYMax: React.PropTypes.string
+        constraintYMax: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
@@ -32,7 +32,7 @@ var ConstraintEditor = React.createClass({
             constraintXMin: "-10",
             constraintXMax: "10",
             constraintYMin: "-10",
-            constraintYMax: "10"
+            constraintYMax: "10",
         };
     },
 
@@ -105,7 +105,7 @@ var ConstraintEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    }
+    },
 });
 
 module.exports = ConstraintEditor;

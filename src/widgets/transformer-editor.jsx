@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, comma-dangle, eol-last, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable camelcase, eol-last, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -28,7 +28,7 @@ function arraySum(array) {
 }
 
 var defaultBackgroundImage = {
-    url: null
+    url: null,
 };
 
 /* Scales a distance from the default range of
@@ -69,7 +69,7 @@ var defaultGraphProps = function(setProps, boxSize) {
         valid: true,
         backgroundImage: defaultBackgroundImage,
         markings: "grid",
-        showProtractor: false
+        showProtractor: false,
     };
 };
 
@@ -83,32 +83,32 @@ var defaultTransformerProps = {
         translation: {
             enabled: true,
             required: false,
-            constraints: {}
+            constraints: {},
         },
         rotation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [1, 6]
+            coord: [1, 6],
         },
         reflection: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coords: [[2, -4], [2, 2]]
+            coords: [[2, -4], [2, 2]],
         },
         dilation: {
             enabled: true,
             required: false,
             constraints: {
-                fixed: false
+                fixed: false,
             },
-            coord: [6, 6]
-        }
+            coord: [6, 6],
+        },
     },
     drawSolutionShape: true,
     starting: {
@@ -116,21 +116,21 @@ var defaultTransformerProps = {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
+        transformations: [],
     },
     correct: {
         shape: {
             type: "polygon-3",
             coords: [[2, 2], [2, 6], [7, 2]],
         },
-        transformations: []
-    }
+        transformations: [],
+    },
 };
 
 const ToolSettings = React.createClass({
     getDefaultProps: function() {
         return {
-            allowFixed: true
+            allowFixed: true,
         };
     },
 
@@ -175,9 +175,9 @@ const ToolSettings = React.createClass({
     changeConstraints: function(changed) {
         var newConstraints = _.extend({}, this.props.constraints, changed);
         this.props.onChange({
-            constraints: newConstraints
+            constraints: newConstraints,
         });
-    }
+    },
 });
 
 var TransformationExplorerSettings = React.createClass({
@@ -255,7 +255,7 @@ var TransformationExplorerSettings = React.createClass({
 
         this.props.onChange({
             graphMode: modes[0],
-            listMode: modes[1]
+            listMode: modes[1],
         });
     },
 
@@ -266,10 +266,10 @@ var TransformationExplorerSettings = React.createClass({
                     change);
 
             this.props.onChange({
-                tools: newTools
+                tools: newTools,
             });
         };
-    }
+    },
 });
 var ShapeTypes = {
     getPointCountForType: function(type) {
@@ -380,14 +380,14 @@ var ShapeTypes = {
                 normalStyle: options.normalPointStyle,
                 highlightStyle: options.highlightPointStyle,
                 constraints: {
-                    fixed: !options.translatable && !options.editable
+                    fixed: !options.translatable && !options.editable,
                 },
                 visible: options.showPoints,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 bounded: false, // Don't bound it when placing it on the graph
                 onMove: onMove,
-                onMoveEnd: onMoveEnd
+                onMoveEnd: onMoveEnd,
             });
 
             // Bound it when moving
@@ -452,7 +452,7 @@ var ShapeTypes = {
             return {
                 type: types,
                 coords: coords,
-                options: getOptions()
+                options: getOptions(),
             };
         };
 
@@ -462,7 +462,7 @@ var ShapeTypes = {
             update: update,
             remove: remove,
             toJSON: toJSON,
-            getOptions: getOptions
+            getOptions: getOptions,
         };
     },
 
@@ -539,11 +539,11 @@ var ShapeTypes = {
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
                 points: points,
-                constrainToGraph: false
+                constrainToGraph: false,
             }));
             return {
                 update: polygon.transform.bind(polygon),
-                remove: polygon.remove.bind(polygon)
+                remove: polygon.remove.bind(polygon),
             };
         } else if (type === "line" || type === "lineSegment") {
             var line = graphie.addMovableLineSegment(
@@ -551,9 +551,9 @@ var ShapeTypes = {
                 movePointsWithLine: true,
                 fixed: true,
                 constraints: {
-                    fixed: true
+                    fixed: true,
                 },
-                extendLine: (type === "line")
+                extendLine: (type === "line"),
             }));
 
             // TODO(jack): Hide points on uneditable lines when translation
@@ -562,7 +562,7 @@ var ShapeTypes = {
             // translation handle for the line.
             return {
                 update: line.transform.bind(line, true),
-                remove: line.remove.bind(line)
+                remove: line.remove.bind(line),
             };
         } else if (type === "angle") {
             // If this angle is editable, we want to be able to make angles
@@ -577,7 +577,7 @@ var ShapeTypes = {
                 fixed: true,
                 points: points,
                 normalStyle: options.normalStyle,
-                reflex: options.reflex
+                reflex: options.reflex,
             });
 
             // Hide non-vertex points on uneditable angles
@@ -590,14 +590,14 @@ var ShapeTypes = {
                 remove: angle.remove.bind(angle),
                 getOptions: function() {
                     return {
-                        reflex: angle.isReflex()
+                        reflex: angle.isReflex(),
                     };
-                }
+                },
             };
         } else if (type === "circle") {
             var perimeter = {
                 // temporary object for the first removal
-                remove: _.identity
+                remove: _.identity,
             };
             var redrawPerim = function() {
                 var coord0 = points[0].coord || points[0];
@@ -621,13 +621,13 @@ var ShapeTypes = {
                     // Not _.bind because the remove function changes
                     // when the perimeter is redrawn
                     perimeter.remove();
-                }
+                },
             };
         } else if (type === "point") {
             // do nothing
             return {
                 update: null,
-                remove: null
+                remove: null,
             };
         } else {
             throw new Error("Invalid shape type " + type);
@@ -637,20 +637,20 @@ var ShapeTypes = {
     _combine: function(type, coords) {
         return {
             type: type,
-            coords: coords
+            coords: coords,
         };
     },
 
     polygon: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     line: {
-        equal: kline.equal
+        equal: kline.equal,
     },
 
     lineSegment: {
-        equal: orderInsensitiveCoordsEqual
+        equal: orderInsensitiveCoordsEqual,
     },
 
     angle: {
@@ -673,8 +673,8 @@ var ShapeTypes = {
         },
 
         defaultOptions: {
-            reflex: false
-        }
+            reflex: false,
+        },
     },
 
     circle: {
@@ -683,12 +683,12 @@ var ShapeTypes = {
             var radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
             return kpoint.equal(points1[0], points2[0]) &&
                 knumber.equal(radius1, radius2);
-        }
+        },
     },
 
     point: {
-        equal: kpoint.equal
-    }
+        equal: kpoint.equal,
+    },
 };
 
 var TransformationsShapeEditor = React.createClass({
@@ -757,8 +757,8 @@ var TransformationsShapeEditor = React.createClass({
             shape: {
                 type: types,
                 coords: coords,
-                options: ShapeTypes.defaultOptions(types)
-            }
+                options: ShapeTypes.defaultOptions(types),
+            },
         });
     },
 
@@ -774,7 +774,7 @@ var TransformationsShapeEditor = React.createClass({
 
     updateCoords: function() {
         this.props.onChange({
-            shape: this.shape.toJSON()
+            shape: this.shape.toJSON(),
         });
     },
 
@@ -783,7 +783,7 @@ var TransformationsShapeEditor = React.createClass({
             editable: true,
             snap: graphie.snap,
             shape: this.props.shape,
-            onMoveEnd: this.updateCoords
+            onMoveEnd: this.updateCoords,
         });
     },
 
@@ -876,7 +876,7 @@ var TransformerEditor = React.createClass({
     changeGraph: function(graphChanges, callback) {
         var newGraph = _.extend({}, this.props.graph, graphChanges);
         this.props.onChange({
-            graph: newGraph
+            graph: newGraph,
         }, callback);
     },
 
@@ -885,7 +885,7 @@ var TransformerEditor = React.createClass({
     changeStarting: function(startingChanges) {
         var newStarting = _.extend({}, this.props.starting, startingChanges);
         this.props.onChange({
-            starting: newStarting
+            starting: newStarting,
         });
     },
 
@@ -893,7 +893,7 @@ var TransformerEditor = React.createClass({
     changeTransformer: function(changes, callback) {
         if (changes.transformations) {
             changes.correct = {
-                transformations: changes.transformations
+                transformations: changes.transformations,
             };
             delete changes.transformations;
         }
@@ -905,7 +905,7 @@ var TransformerEditor = React.createClass({
         json.correct = json.answer;
         delete json.answer;
         return json;
-    }
+    },
 });
 
 module.exports = TransformerEditor;

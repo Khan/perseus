@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -22,25 +22,25 @@ var TextListEditor = React.createClass({
     propTypes: {
         options: React.PropTypes.array,
         layout: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
             options: [],
-            layout: "horizontal"
+            layout: "horizontal",
         };
     },
 
     getInitialState: function() {
         return {
-            items: this.props.options.concat("")
+            items: this.props.options.concat(""),
         };
     },
 
     componentWillReceiveProps: function(nextProps) {
         this.setState({
-            items: nextProps.options.concat("")
+            items: nextProps.options.concat(""),
         });
     },
 
@@ -48,7 +48,7 @@ var TextListEditor = React.createClass({
         var className = [
             "perseus-text-list-editor",
             "ui-helper-clearfix",
-            "layout-" + this.props.layout
+            "layout-" + this.props.layout,
         ].join(" ");
 
         var inputs = _.map(this.state.items, function(item, i) {
@@ -128,7 +128,7 @@ var TextListEditor = React.createClass({
                 });
             }
         }
-    }
+    },
 });
 
 module.exports = TextListEditor;

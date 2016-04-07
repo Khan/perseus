@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -31,14 +31,14 @@ var Matcher = React.createClass({
             orderMatters: false,
             padding: true,
             problemNum: 0,
-            onChange: function() {}
+            onChange: function() {},
         };
     },
 
     getInitialState: function() {
         return {
             leftHeight: 0,
-            rightHeight: 0
+            rightHeight: 0,
         };
     },
 
@@ -111,13 +111,13 @@ var Matcher = React.createClass({
     getUserInput: function() {
         return {
             left: this.refs.left.getOptions(),
-            right: this.refs.right.getOptions()
+            right: this.refs.right.getOptions(),
         };
     },
 
     simpleValidate: function(rubric) {
         return Matcher.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -130,9 +130,9 @@ _.extend(Matcher, {
             type: "points",
             earned: correct ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -21,7 +21,7 @@ var defaultBoxSize = 340;
 var defaultBackgroundImage = {
     url: null,
     width: 0,
-    height: 0
+    height: 0,
 };
 
 function numSteps(range, step) {
@@ -44,14 +44,14 @@ var GraphSettings = React.createClass({
         snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
         valid: React.PropTypes.oneOfType([
             React.PropTypes.bool,
-            React.PropTypes.string
+            React.PropTypes.string,
         ]),
         backgroundImage: React.PropTypes.object,
         markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
-        rulerTicks: React.PropTypes.number
+        rulerTicks: React.PropTypes.number,
     },
 
     getInitialState: function() {
@@ -61,7 +61,7 @@ var GraphSettings = React.createClass({
             snapStepTextbox: this.props.snapStep,
             stepTextbox: this.props.step,
             rangeTextbox: this.props.range,
-            backgroundImage: _.clone(this.props.backgroundImage)
+            backgroundImage: _.clone(this.props.backgroundImage),
         };
     },
 
@@ -80,7 +80,7 @@ var GraphSettings = React.createClass({
             showProtractor: false,
             showRuler: false,
             rulerLabel: "",
-            rulerTicks: 10
+            rulerTicks: 10,
         };
     },
 
@@ -215,7 +215,7 @@ var GraphSettings = React.createClass({
                                             ["milimeters", "mm"],
                                             ["centimeters", "cm"],
                                             ["meters", "m"],
-                                            ["kilometers", "km"]
+                                            ["kilometers", "km"],
                                         ])}
                                     </optgroup>
                                     <optgroup label="Imperial">
@@ -223,7 +223,7 @@ var GraphSettings = React.createClass({
                                             ["inches", "in"],
                                             ["feet", "ft"],
                                             ["yards", "yd"],
-                                            ["miles", "mi"]
+                                            ["miles", "mi"],
                                         ])}
                                     </optgroup>
                             </select>
@@ -294,7 +294,7 @@ var GraphSettings = React.createClass({
             range: range,
             name: "Snap step",
             minTicks: 5,
-            maxTicks: 60
+            maxTicks: 60,
         });
     },
 
@@ -304,7 +304,7 @@ var GraphSettings = React.createClass({
             range: range,
             name: "Grid step",
             minTicks: 3,
-            maxTicks: 60
+            maxTicks: 60,
         });
     },
 
@@ -314,7 +314,7 @@ var GraphSettings = React.createClass({
             range: range,
             name: "Step",
             minTicks: 3,
-            maxTicks: 20
+            maxTicks: 20,
         });
     },
 
@@ -395,7 +395,7 @@ var GraphSettings = React.createClass({
             stepTextbox: step,
             gridStepTextbox: gridStep,
             snapStepTextbox: snapStep,
-            rangeTextbox: ranges
+            rangeTextbox: ranges,
         }, this.changeGraph);
     },
 
@@ -413,7 +413,7 @@ var GraphSettings = React.createClass({
             gridStepTextbox: gridStep,
             snapStepTextbox: _.map(gridStep, function(step) {
                 return step / 2;
-            })
+            }),
         }, this.changeGraph);
     },
 
@@ -443,11 +443,11 @@ var GraphSettings = React.createClass({
                 step: step,
                 gridStep: gridStep,
                 snapStep: snapStep,
-                backgroundImage: image
+                backgroundImage: image,
             });
         } else {
             this.change({
-                valid: validationResult  // a string message, not false
+                valid: validationResult,  // a string message, not false
             });
         }
     },
@@ -464,7 +464,7 @@ var GraphSettings = React.createClass({
             image.width = width;
             image.height = height;
             this.setState({
-                backgroundImage: image
+                backgroundImage: image,
             }, this.changeGraph);
         };
 
@@ -488,7 +488,7 @@ var GraphSettings = React.createClass({
 
     changeRulerTicks: function(e) {
         this.change({rulerTicks: +e.target.value});
-    }
+    },
 });
 
 module.exports = GraphSettings;

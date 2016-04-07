@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-trailing-spaces, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
+/* eslint-disable no-trailing-spaces, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -47,7 +47,7 @@ var FixedToResponsive = React.createClass({
         //     (fixed height / fixed width) * display width = display height
         // Based on http://refills.bourbon.io/components/#video && medium.com
         var spacer = <div style={{
-            paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%'
+            paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%',
         }} />;
 
         // Prevent child components from growing (aka "the Peter Pan effect")
@@ -65,7 +65,7 @@ var FixedToResponsive = React.createClass({
             {spacer}
             {this.props.children}
         </div>;
-    }
+    },
 });
 
 module.exports = FixedToResponsive;

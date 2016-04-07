@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React        = require('react');
@@ -11,7 +11,7 @@ const GraphUtils = require("../util/graph-utils.js");
 var defaultImage = {
     url: null,
     top: 0,
-    left: 0
+    left: 0,
 };
 
 var Measurer = React.createClass({
@@ -20,7 +20,7 @@ var Measurer = React.createClass({
         image: React.PropTypes.shape({
             url: React.PropTypes.string,
             top: React.PropTypes.number,
-            left: React.PropTypes.number
+            left: React.PropTypes.number,
         }),
         showProtractor: React.PropTypes.bool,
         protractorX: React.PropTypes.number,
@@ -29,7 +29,7 @@ var Measurer = React.createClass({
         rulerLabel: React.PropTypes.string,
         rulerTicks: React.PropTypes.number,
         rulerPixels: React.PropTypes.number,
-        rulerLength: React.PropTypes.number
+        rulerLength: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -43,7 +43,7 @@ var Measurer = React.createClass({
             rulerLabel: "",
             rulerTicks: 10,
             rulerPixels: 40,
-            rulerLength: 10
+            rulerLength: 10,
         };
     },
 
@@ -64,7 +64,7 @@ var Measurer = React.createClass({
                     src={image.url}
                     style={{
                         top: image.top,
-                        left: image.left
+                        left: image.left,
                     }} />
             }
             <div className="graphie" ref="graphieDiv" />
@@ -78,7 +78,7 @@ var Measurer = React.createClass({
     componentDidUpdate: function(prevProps) {
         var shouldSetupGraphie = _.any([
                 "box", "showProtractor", "showRuler", "rulerLabel",
-                "rulerTicks", "rulerPixels", "rulerLength"
+                "rulerTicks", "rulerPixels", "rulerLength",
             ],
             function(prop) {
                 return prevProps[prop] !== this.props[prop];
@@ -99,14 +99,14 @@ var Measurer = React.createClass({
         var scale = [40, 40];
         var range = [
             [0, this.props.box[0] / scale[0]],
-            [0, this.props.box[1] / scale[1]]
+            [0, this.props.box[1] / scale[1]],
         ];
         graphie.init({
             range: range,
-            scale: scale
+            scale: scale,
         });
         graphie.addMouseLayer({
-            allowScratchpad: true
+            allowScratchpad: true,
         });
 
         if (this.protractor) {
@@ -116,7 +116,7 @@ var Measurer = React.createClass({
         if (this.props.showProtractor) {
             this.protractor = graphie.protractor([
                 this.props.protractorX,
-                this.props.protractorY
+                this.props.protractorY,
             ]);
         }
 
@@ -128,12 +128,12 @@ var Measurer = React.createClass({
             this.ruler = graphie.ruler({
                 center: [
                     (range[0][0] + range[0][1]) / 2,
-                    (range[1][0] + range[1][1]) / 2
+                    (range[1][0] + range[1][1]) / 2,
                 ],
                 label: this.props.rulerLabel,
                 pixelsPerUnit: this.props.rulerPixels,
                 ticksPerUnit: this.props.rulerTicks,
-                units: this.props.rulerLength
+                units: this.props.rulerLength,
             });
         }
     },
@@ -147,7 +147,7 @@ var Measurer = React.createClass({
         return Measurer.validate(this.getUserInput(), rubric);
     },
 
-    focus: $.noop
+    focus: $.noop,
 });
 
 
@@ -157,9 +157,9 @@ _.extend(Measurer, {
             type: "points",
             earned: 1,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 var propUpgrades = {
@@ -170,12 +170,12 @@ var propUpgrades = {
                 image: {
                     url: v0props.imageUrl,
                     top: v0props.imageTop,
-                    left: v0props.imageLeft
-                }
+                    left: v0props.imageLeft,
+                },
             })
             .value();
         return v1props;
-    }
+    },
 };
 
 module.exports = {
@@ -183,5 +183,5 @@ module.exports = {
     displayName: "Measurer",
     widget: Measurer,
     version: {major: 1, minor: 0},
-    propUpgrades: propUpgrades
+    propUpgrades: propUpgrades,
 };

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, max-len, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable eol-last, max-len, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -19,19 +19,19 @@ const OrdererEditor = React.createClass({
         otherOptions: React.PropTypes.array,
         height: React.PropTypes.oneOf([NORMAL, AUTO]),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
             correctOptions: [
-                {content: "$x$"}
+                {content: "$x$"},
             ],
             otherOptions: [
-                {content: "$y$"}
+                {content: "$y$"},
             ],
             height: NORMAL,
-            layout: HORIZONTAL
+            layout: HORIZONTAL,
         };
     },
 
@@ -137,9 +137,9 @@ const OrdererEditor = React.createClass({
             correctOptions: this.props.correctOptions,
             otherOptions: this.props.otherOptions,
             height: this.props.height,
-            layout: this.props.layout
+            layout: this.props.layout,
         };
-    }
+    },
 });
 
 module.exports = OrdererEditor;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -28,7 +28,7 @@ const GroupEditor = React.createClass({
             images: {},
             // `undefined` instead of `null` so that getDefaultProps works for
             // `the GroupMetadataEditor`
-            metadata: undefined
+            metadata: undefined,
         };
     },
 
@@ -63,7 +63,7 @@ const GroupEditor = React.createClass({
 
     serialize: function() {
         return _.extend({}, this.refs.editor.serialize(), {
-            metadata: this.props.metadata
+            metadata: this.props.metadata,
         });
     },
 });

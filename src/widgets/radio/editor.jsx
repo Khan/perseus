@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable indent, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -20,7 +20,7 @@ var ChoiceEditor = React.createClass({
         showDelete: React.PropTypes.bool,
         onClueChange: React.PropTypes.func,
         onContentChange: React.PropTypes.func,
-        onDelete: React.PropTypes.func
+        onDelete: React.PropTypes.func,
     },
 
     render: function() {
@@ -65,7 +65,7 @@ var ChoiceEditor = React.createClass({
             </div>
             {this.props.showDelete && deleteLink}
         </div>;
-    }
+    },
 });
 
 
@@ -76,7 +76,7 @@ var RadioEditor = React.createClass({
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
-            correct: React.PropTypes.bool
+            correct: React.PropTypes.bool,
         })),
         displayCount: React.PropTypes.number,
         randomize: React.PropTypes.bool,
@@ -165,7 +165,7 @@ var RadioEditor = React.createClass({
                             onDelete={this.onDelete.bind(this, i)}
                             showDelete={this.props.choices.length >= 2} />,
                         isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                        checked: choice.correct
+                        checked: choice.correct,
                     };
                 }, this)}
                 onCheckedChange={this.onCheckedChange} />
@@ -199,17 +199,17 @@ var RadioEditor = React.createClass({
         if (!allowMultiple && numSelected > 1) {
             var choices = _.map(this.props.choices, function(choice) {
                 return _.defaults({
-                    correct: false
+                    correct: false,
                 }, choice);
             });
             this.props.onChange({
                 multipleSelect: allowMultiple,
-                choices: choices
+                choices: choices,
             });
 
         } else {
             this.props.onChange({
-                multipleSelect: allowMultiple
+                multipleSelect: allowMultiple,
             });
         }
     },
@@ -228,7 +228,7 @@ var RadioEditor = React.createClass({
     onContentChange: function(choiceIndex, newContent) {
         var choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            content: newContent
+            content: newContent,
         });
         this.props.onChange({choices: choices});
     },
@@ -236,7 +236,7 @@ var RadioEditor = React.createClass({
     onClueChange: function(choiceIndex, newClue) {
         var choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            clue: newClue
+            clue: newClue,
         });
         if (newClue === "") {
             delete choices[choiceIndex].clue;
@@ -270,7 +270,7 @@ var RadioEditor = React.createClass({
 
         this.props.onChange({
             choices: choices,
-            hasNoneOfTheAbove: noneOfTheAbove || this.props.hasNoneOfTheAbove
+            hasNoneOfTheAbove: noneOfTheAbove || this.props.hasNoneOfTheAbove,
         }, () => {
             this.refs[`choice-editor${addIndex}`]
                 .refs['content-editor'].focus();
@@ -297,7 +297,7 @@ var RadioEditor = React.createClass({
         return _.pick(this.props, "choices", "randomize", "multipleSelect",
             "displayCount", "hasNoneOfTheAbove", "onePerLine",
             "deselectEnabled");
-    }
+    },
 });
 
 module.exports = RadioEditor;

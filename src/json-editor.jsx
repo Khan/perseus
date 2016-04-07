@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -9,7 +9,7 @@ var JsonEditor = React.createClass({
     getInitialState: function() {
         return {
             currentValue: JSON.stringify(this.props.value, null, 4),
-            valid: true
+            valid: true,
         };
     },
 
@@ -67,14 +67,14 @@ var JsonEditor = React.createClass({
             // being called before setState has gone through
             this.setState({
                 currentValue: nextString,
-                valid: true
+                valid: true,
             }, function() {
                 this.props.onChange(json);
             });
         } catch (ex) {
             this.setState({
                 currentValue: nextString,
-                valid: false
+                valid: false,
             });
         }
     },
@@ -94,17 +94,17 @@ var JsonEditor = React.createClass({
             // being called before setState has gone through
             this.setState({
                 currentValue: JSON.stringify(json, null, 4),
-                valid: true
+                valid: true,
             }, function() {
                 this.props.onChange(json);
             });
         } catch (ex) {
             this.setState({
                 currentValue: JSON.stringify(this.props.value, null, 4),
-                valid: true
+                valid: true,
             });
         }
-    }
+    },
 });
 
 module.exports = JsonEditor;

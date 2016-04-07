@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -13,7 +13,7 @@ var kpoint = require("kmath").point;
 var add = {
     constrain: function() {
         this.constrain();
-    }
+    },
 };
 
 add.standard = [add.constrain];
@@ -22,7 +22,7 @@ add.standard = [add.constrain];
 var modify = {
     draw: function() {
         this.draw();
-    }
+    },
 };
 
 modify.standard = [modify.draw];
@@ -34,11 +34,11 @@ var draw = {
         if (!this.state.visibleShape) {
             var radii = [
                 this.pointSize() / graphie.scale[0],
-                this.pointSize() / graphie.scale[1]
+                this.pointSize() / graphie.scale[1],
             ];
             var options = {
                 maxScale: Math.max(
-                    this.highlightStyle().scale, this.normalStyle().scale)
+                    this.highlightStyle().scale, this.normalStyle().scale),
             };
             this.state.visibleShape = new WrappedEllipse(graphie, this.coord(),
                 radii, options);
@@ -73,7 +73,7 @@ var draw = {
                 50
             );
         }
-    }
+    },
 };
 
 draw.standard = [draw.basic, draw.highlight];
@@ -85,7 +85,7 @@ var remove = {
             this.state.visibleShape.remove();
             this.state.visibleShape = null;
         }
-    }
+    },
 };
 
 remove.standard = remove.basic;
@@ -123,11 +123,11 @@ var constraints = {
 
             var lower = graphie.unscalePoint([
                 paddingPx,
-                graphie.ypixels - paddingPx
+                graphie.ypixels - paddingPx,
             ]);
             var upper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
-                paddingPx
+                paddingPx,
             ]);
             if (snap) {
                 lower = kpoint.ceilTo(lower, snap);
@@ -137,7 +137,7 @@ var constraints = {
             var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
             return [coordX, coordY];
         };
-    }
+    },
 };
 
 constraints.standard = null;
@@ -152,5 +152,5 @@ module.exports = {
     constraints: constraints,
     onMove: {standard: null},
     onMoveEnd: {standard: null},
-    onClick: {standard: null}
+    onClick: {standard: null},
 };

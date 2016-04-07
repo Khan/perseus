@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -24,7 +24,7 @@ var StepControlButton = React.createClass({
                 }}>
             <span className={this.props.icon} />
         </a>;
-    }
+    },
 });
 
 const SequenceEditor = React.createClass({
@@ -32,7 +32,7 @@ const SequenceEditor = React.createClass({
         json:  React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             widgets: React.PropTypes.object,
-            images: React.PropTypes.object
+            images: React.PropTypes.object,
         })),
         apiOptions: ApiOptions.propTypes,
         onChange: React.PropTypes.func.isRequired,
@@ -44,7 +44,7 @@ const SequenceEditor = React.createClass({
                 content: "",
                 widgets: {},
                 images: {},
-            }]
+            }],
         };
     },
 
@@ -55,7 +55,7 @@ const SequenceEditor = React.createClass({
                     Step {i+1}
                     <div style={{
                         display: "inline-block",
-                        float: "right"
+                        float: "right",
                     }}>
                         {(i + 1 < this.props.json.length) &&
                             <StepControlButton
@@ -110,7 +110,7 @@ const SequenceEditor = React.createClass({
         return {
             json: _.times(this.props.json.length, (i) => {
                 return this.refs["editor" + i].serialize();
-            })
+            }),
         };
     },
 
@@ -123,7 +123,7 @@ const SequenceEditor = React.createClass({
         steps.splice(i, 1);
         steps.splice(i - 1, 0, step);
         this.props.onChange({
-            json: steps
+            json: steps,
         });
     },
 
@@ -136,7 +136,7 @@ const SequenceEditor = React.createClass({
         steps.splice(i, 1);
         steps.splice(i + 1, 0, step);
         this.props.onChange({
-            json: steps
+            json: steps,
         });
     },
 
@@ -151,11 +151,11 @@ const SequenceEditor = React.createClass({
         // object for the new section, but wipe out
         // the content.
         var newStep = (i >= 0) ? {
-            widgets: steps[i].widgets
+            widgets: steps[i].widgets,
         } : {};
         steps.splice(i + 1, 0, newStep);
         this.props.onChange({
-            json: steps
+            json: steps,
         });
     },
 
@@ -163,7 +163,7 @@ const SequenceEditor = React.createClass({
         var steps = _.clone(this.props.json);
         steps.splice(i, 1);
         this.props.onChange({
-            json: steps
+            json: steps,
         });
     },
 });

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -32,7 +32,7 @@ var TextInput = React.createClass({
         // Translating from the js event e to the value
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
-    }
+    },
 });
 
 /**
@@ -42,12 +42,12 @@ var TextInput = React.createClass({
  */
 var ExampleWidget = React.createClass({
     propTypes: {
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: ""
+            value: "",
         };
     },
 
@@ -91,7 +91,7 @@ var ExampleWidget = React.createClass({
      */
     simpleValidate: function(rubric) {
         return ExampleWidget.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -110,24 +110,24 @@ _.extend(ExampleWidget, {
             return {
                 type: "invalid",
                 message: "It looks like you haven't answered all of the " +
-                    "question yet."
+                    "question yet.",
             };
         } else if (value === rubric.correct) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 /**

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var jsdiff = require("../../lib/jsdiff");
@@ -20,7 +20,7 @@ var statusFor = function(chunk) {
 var splitUpChunk = (chunk) => _.map(chunk.value, (value) => {
     return {
         value: value,
-        status: statusFor(chunk)
+        status: statusFor(chunk),
     };
 });
 
@@ -66,7 +66,7 @@ var stringArrayDiff = function(a, b) {
 
     return {
         before: _.filter(flattened, (entry) => entry.status !== "added"),
-        after: _.filter(flattened, (entry) => entry.status !== "removed")
+        after: _.filter(flattened, (entry) => entry.status !== "removed"),
     };
 };
 

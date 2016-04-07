@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -154,7 +154,7 @@ var Table = React.createClass({
         var answers = _.map(this.props.answers, _.clone);
         answers[row][column] = e.target.value;
         this.props.onChange({
-            answers: answers
+            answers: answers,
         });
         this.props.trackInteraction();
     },
@@ -163,7 +163,7 @@ var Table = React.createClass({
         var headers = this.props.headers.slice();
         headers[index] = e.content;
         this.props.onChange({
-            headers: headers
+            headers: headers,
         });
     },
 
@@ -234,9 +234,9 @@ var Table = React.createClass({
         var answers = _.map(this.props.answers, _.clone);
         answers[row][column] = newValue;
         this.props.onChange({
-            answers: answers
+            answers: answers,
         }, cb);
-    }
+    },
 });
 
 _.extend(Table, {
@@ -258,7 +258,7 @@ _.extend(Table, {
         if (hasEmptyCell || !supplied.length) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         }
         if (supplied.length !== solution.length) {
@@ -266,7 +266,7 @@ _.extend(Table, {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
         var createValidator = KhanAnswerTypes
@@ -280,7 +280,7 @@ _.extend(Table, {
                     var cellSolution = rowSolution[i];
                     var validator = createValidator(
                             cellSolution, {
-                                simplify: true
+                                simplify: true,
                             });
                     var result = validator(cellSupplied);
                     if (result.message) {
@@ -299,9 +299,9 @@ _.extend(Table, {
             type: "points",
             earned: allCorrect ? 1 : 0,
             total: 1,
-            message: message
+            message: message,
         };
-    }
+    },
 });
 
 var propTransform = (editorProps) => {
@@ -312,7 +312,7 @@ var propTransform = (editorProps) => {
         return Util.stringArrayOfSize(columns);
     });
     return _.extend({}, editorProps, {
-        answers: blankAnswers
+        answers: blankAnswers,
     });
 };
 
@@ -321,5 +321,5 @@ module.exports = {
     displayName: "Table of values",
     accessible: true,
     widget: Table,
-    transform: propTransform
+    transform: propTransform,
 };

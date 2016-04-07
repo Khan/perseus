@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -73,7 +73,7 @@ var CSProgram = React.createClass({
         var status = (data.testsPassed ? "correct" : "incorrect");
         this.change({
             status: status,
-            message: data.message
+            message: data.message,
         });
     },
 
@@ -93,7 +93,7 @@ var CSProgram = React.createClass({
         var url = getUrlFromProgramID(this.props.programID);
         var className;
         var style = {
-            height: this.props.height
+            height: this.props.height,
         };
 
         if (this.props.showEditor) {
@@ -139,7 +139,7 @@ var CSProgram = React.createClass({
     simpleValidate: function(rubric) {
         return Scratchpad.validate({
             status: this.props.status,
-            message: this.props.message
+            message: this.props.message,
         }, rubric);
     },
 
@@ -153,22 +153,22 @@ var CSProgram = React.createClass({
                     type: "points",
                     earned: 1,
                     total: 1,
-                    message: state.message || null
+                    message: state.message || null,
                 };
             } else if (state.status === "incorrect") {
                 return {
                     type: "points",
                     earned: 0,
                     total: 1,
-                    message: state.message || null
+                    message: state.message || null,
                 };
             } else {
                 return {
                     type: "invalid",
-                    message: "Keep going, you're not there yet!"
+                    message: "Keep going, you're not there yet!",
                 };
             }
-        }
+        },
     },
 });
 

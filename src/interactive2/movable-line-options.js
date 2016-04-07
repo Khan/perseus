@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var */
+/* eslint-disable indent, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -68,7 +68,7 @@ var createArrow = function(graph, style) {
         center,
         [0, -0.25],
         [-2.75, -2.5],
-        [-3, -4]
+        [-3, -4],
     ];
 
     // Scale points by 1.4 around (0.75, 0)
@@ -96,13 +96,13 @@ var createArrow = function(graph, style) {
     var unscaledPoints = _.map(points, graph.unscalePoint);
     var options = {
         center: graph.unscalePoint(center),
-        createPath: createCubicPath
+        createPath: createCubicPath,
     };
     var arrowHead = new WrappedPath(graph, unscaledPoints, options);
     arrowHead.attr(_.extend({
         "stroke-linejoin": "round",
         "stroke-linecap": "round",
-        "stroke-dasharray": ""
+        "stroke-dasharray": "",
     }, style));
 
     // Add custom function for transforming arrowheads that accounts for
@@ -132,7 +132,7 @@ var add = {
 
     pointsToFront: function(state) {
         _.invoke(state.points, "toFront");
-    }
+    },
 };
 
 add.standard = [add.draw, add.pointsToFront];
@@ -140,7 +140,7 @@ add.standard = [add.draw, add.pointsToFront];
 var modify = {
     draw: function() {
         this.draw();
-    }
+    },
 };
 
 modify.standard = [modify.draw];
@@ -153,7 +153,7 @@ var draw = {
 
         if (!this.state.visibleShape) {
             var options = {
-                thickness: 10
+                thickness: 10,
             };
             this.state.visibleShape = new WrappedLine(graphie, start, end,
                 options);
@@ -226,7 +226,7 @@ var draw = {
                 50
             );
         }
-    }
+    },
 };
 
 draw.standard = [draw.basic, draw.arrows, draw.highlight];
@@ -244,7 +244,7 @@ var remove = {
             _.invoke(this._arrows, "remove");
         }
         this._arrows = null;
-    }
+    },
 };
 
 remove.standard = [remove.basic, remove.arrows];
@@ -288,11 +288,11 @@ var constraints = {
             // Calculate the bounds for both points
             var absoluteLower = graphie.unscalePoint([
                 paddingPx,
-                graphie.ypixels - paddingPx
+                graphie.ypixels - paddingPx,
             ]);
             var absoluteUpper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
-                paddingPx
+                paddingPx,
             ]);
             if (snap) {
                 absoluteLower = kpoint.ceilTo(absoluteLower, snap);
@@ -318,7 +318,7 @@ var constraints = {
 
             return kvector.add(prevCoord, boundedDelta);
         };
-    }
+    },
 };
 
 constraints.standard = null;
@@ -333,7 +333,7 @@ var onMove = {
                 actualDelta
             ));
         });
-    }
+    },
 };
 
 onMove.standard = null;

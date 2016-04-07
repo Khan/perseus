@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-var */
+/* eslint-disable max-len, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -41,13 +41,13 @@ var DEFAULT_PROPS = {
     cursor: "move",
     normalStyle: null,    // turned into an object in this.modify
     highlightStyle: null, // likewise
-    labelStyle: null      // likewise
+    labelStyle: null,     // likewise
 };
 var DEFAULT_STATE = {
     added: false,
     hasMoved: false,
     visibleShape: null,
-    mouseTarget: null
+    mouseTarget: null,
 };
 
 var MovablePolygon = function(graphie, movable, options) {
@@ -59,8 +59,8 @@ var MovablePolygon = function(graphie, movable, options) {
         movable: movable,
         state: {
             // Set here because this must be unique for each instance
-            id: _.uniqueId("movablePolygon")
-        }
+            id: _.uniqueId("movablePolygon"),
+        },
     });
 
     // We only set DEFAULT_STATE once, here
@@ -133,20 +133,20 @@ _.extend(MovablePolygon.prototype, {
             "stroke-width": 2,
             "fill-opacity": 0,
             "fill": normalColor,
-            "stroke": normalColor
+            "stroke": normalColor,
         }, options.normalStyle);
 
         state.highlightStyle = _.extend({}, {
             "stroke": KhanColors.INTERACTING,
             "stroke-width": 2,
             "fill": KhanColors.INTERACTING,
-            "fill-opacity": 0.05
+            "fill-opacity": 0.05,
         }, state.highlightStyle);
 
         state.labelStyle = _.extend({}, {
             "stroke": KhanColors.DYNAMIC,
             "stroke-width": 1,
-            "color": KhanColors.DYNAMIC
+            "color": KhanColors.DYNAMIC,
         }, state.labelStyle);
 
         if (!state.static) {
@@ -321,7 +321,7 @@ _.extend(MovablePolygon.prototype, {
 
     mouseTarget: function() {
         return this.movable.mouseTarget();
-    }
+    },
 });
 
 module.exports = MovablePolygon;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -15,12 +15,12 @@ var RangeInput = React.createClass({
         value: React.PropTypes.array.isRequired,
         onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.array,
-        checkValidity: React.PropTypes.func
+        checkValidity: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
-            placeholder: [null, null]
+            placeholder: [null, null],
         };
     },
 
@@ -51,7 +51,7 @@ var RangeInput = React.createClass({
         } else {
             this.props.onChange([value[0], newVal]);
         }
-    }
+    },
 
 });
 

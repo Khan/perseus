@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, max-len, no-trailing-spaces, no-var, one-var, prefer-spread */
+/* eslint-disable indent, max-len, no-trailing-spaces, no-var, one-var, prefer-spread */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -27,7 +27,7 @@ var Util = {
         type: "points",
         earned: 0,
         total: 0,
-        message: null
+        message: null,
     },
 
     seededRNG: function(seed) {
@@ -121,7 +121,7 @@ var Util = {
                 type: "points",
                 earned: scoreA.earned + scoreB.earned,
                 total: scoreA.total + scoreB.total,
-                message: message
+                message: message,
             };
 
         } else if (scoreA.type === "points" && scoreB.type === "invalid") {
@@ -141,7 +141,7 @@ var Util = {
 
             return {
                 type: "invalid",
-                message: message
+                message: message,
             };
         }
     },
@@ -152,14 +152,14 @@ var Util = {
                 empty: false,
                 correct: score.earned >= score.total,
                 message: score.message,
-                guess: guess
+                guess: guess,
             };
         } else if (score.type === "invalid") {
             return {
                 empty: true,
                 correct: false,
                 message: score.message,
-                guess: guess
+                guess: guess,
             };
         } else {
             throw new Error("Invalid score type: " + score.type);
@@ -180,7 +180,7 @@ var Util = {
             }, {
                 simplify: "optional",
                 inexact: true,
-                forms: "integer, proper, improper, pi, log, mixed, decimal"
+                forms: "integer, proper, improper, pi, log, mixed, decimal",
             });
 
         val(text);
@@ -216,7 +216,7 @@ var Util = {
         return {
             scale: scale,
             tickStep: absTickStep / gridStep,
-            unityLabel: unityLabel
+            unityLabel: unityLabel,
         };
     },
 
@@ -369,7 +369,7 @@ var Util = {
                 // back down again.
                 setTimeout(this.props.onChange, 0, newProps);
             }
-        }
+        },
     },
 
     /**
@@ -504,13 +504,13 @@ var Util = {
 
     touchHandlers: {
         pointerDown: false,
-        currentTouchIdentifier: null
+        currentTouchIdentifier: null,
     },
 
     resetTouchHandlers: function() {
         _.extend(Util.touchHandlers, {
             pointerDown: false,
-            currentTouchIdentifier: null
+            currentTouchIdentifier: null,
         });
     },
 
@@ -551,7 +551,7 @@ var Util = {
         if (touchOrEvent) {
             return {
                 left: touchOrEvent.pageX,
-                top: touchOrEvent.pageY
+                top: touchOrEvent.pageY,
             };
         }
     },
@@ -607,8 +607,8 @@ var Util = {
                 string: text.substring(startPos, endPos + 1),
                 pos: {
                     start: startPos,
-                    end: endPos
-                }
+                    end: endPos,
+                },
             };
         },
 
@@ -621,8 +621,8 @@ var Util = {
         moveCursor: function(textarea, pos) {
             textarea.selectionStart = pos;
             textarea.selectionEnd = pos;
-        }
-    }
+        },
+    },
 };
 
 Util.random = Util.seededRNG(new Date().getTime() & 0xffffffff);

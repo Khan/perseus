@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable eol-last, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -12,12 +12,12 @@ const PassageRefTargetEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        content: React.PropTypes.string
+        content: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            content: ""
+            content: "",
         };
     },
 
@@ -32,7 +32,7 @@ const PassageRefTargetEditor = React.createClass({
 
     handleContentChange: function(e) {
         this.change({content: e.target.value});
-    }
+    },
 });
 
 module.exports = PassageRefTargetEditor;

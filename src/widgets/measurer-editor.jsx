@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React        = require('react');
@@ -16,7 +16,7 @@ const RangeInput    = require("../components/range-input.jsx");
 const defaultImage = {
     url: null,
     top: 0,
-    left: 0
+    left: 0,
 };
 
 const MeasurerEditor = React.createClass({
@@ -28,14 +28,14 @@ const MeasurerEditor = React.createClass({
         image: React.PropTypes.shape({
             url: React.PropTypes.string,
             top: React.PropTypes.number,
-            left: React.PropTypes.number
+            left: React.PropTypes.number,
         }),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
         rulerTicks: React.PropTypes.number,
         rulerPixels: React.PropTypes.number,
-        rulerLength: React.PropTypes.number
+        rulerLength: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -47,7 +47,7 @@ const MeasurerEditor = React.createClass({
             rulerLabel: "",
             rulerTicks: 10,
             rulerPixels: 40,
-            rulerLength: 10
+            rulerLength: 10,
         };
     },
 
@@ -119,7 +119,7 @@ const MeasurerEditor = React.createClass({
                                     ["milimeters", "mm"],
                                     ["centimeters", "cm"],
                                     ["meters", "m"],
-                                    ["kilometers", "km"]
+                                    ["kilometers", "km"],
                                 ])}
                             </optgroup>
                             <optgroup label="Imperial">
@@ -127,7 +127,7 @@ const MeasurerEditor = React.createClass({
                                     ["inches", "in"],
                                     ["feet", "ft"],
                                     ["yards", "yd"],
-                                    ["miles", "mi"]
+                                    ["miles", "mi"],
                                 ])}
                             </optgroup>
                     </select>
@@ -195,7 +195,7 @@ const MeasurerEditor = React.createClass({
             var [name, value] = nameAndValue;
             return <option key={value} value={value}>{name}</option>;
         });
-    }
+    },
 });
 
 module.exports = MeasurerEditor;

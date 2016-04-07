@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var Util = require("../util.js");
@@ -27,7 +27,7 @@ _.extend(GraphieMovable.prototype, {
     add: abstractMethod,
     modify: abstractMethod,
     remove: abstractMethod,
-    toFront: function() { /* no op */ }
+    toFront: function() { /* no op */ },
 });
 
 
@@ -39,7 +39,7 @@ var rewriteProps = function(props, childrenArray) {
     // childrenArray is always an array here because this is only called
     // from createClass, which initializes childrenArray as _.rest(arguments)
     return _.extend({}, props, {
-        children: _.filter(_.flatten(childrenArray), _.identity)
+        children: _.filter(_.flatten(childrenArray), _.identity),
     });
 };
 
@@ -120,7 +120,7 @@ var createSimpleClass = function(addFunction) {
                     elem.toFront();
                 }
             });
-        }
+        },
     });
 };
 
@@ -128,5 +128,5 @@ var createSimpleClass = function(addFunction) {
 module.exports = {
     GraphieMovable: GraphieMovable,
     createClass: createClass,
-    createSimpleClass: createSimpleClass
+    createSimpleClass: createSimpleClass,
 };

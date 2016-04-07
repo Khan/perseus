@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+/* eslint-disable max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -35,7 +35,7 @@ var NumberInput = React.createClass({
         format: React.PropTypes.string,
         placeholder: React.PropTypes.oneOfType([
             React.PropTypes.string,
-            React.PropTypes.number
+            React.PropTypes.number,
         ]),
         onChange: React.PropTypes.func.isRequired,
         onFormatChange: React.PropTypes.func,
@@ -51,13 +51,13 @@ var NumberInput = React.createClass({
             format: null,
             onFormatChange: () => null,
             checkValidity: () => true,
-            useArrowKeys: false
+            useArrowKeys: false,
         };
     },
 
     getInitialState: function() {
         return {
-            format: this.props.format
+            format: this.props.format,
         };
     },
 
@@ -67,7 +67,7 @@ var NumberInput = React.createClass({
             "invalid-input": !this._checkValidity(this.props.value),
             "mini": this.props.size === "mini",
             "small": this.props.size === "small",
-            "normal": this.props.size === "normal"
+            "normal": this.props.size === "normal",
         });
         if (this.props.className != null) {
             classes = classes + " " + this.props.className;
@@ -208,7 +208,7 @@ var NumberInput = React.createClass({
 
     _setValue: function(val, format) {
         $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
-    }
+    },
 });
 
 module.exports = NumberInput;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -29,13 +29,13 @@ var Sequence = React.createClass({
                 content: "",
                 widgets: {},
                 images: {},
-            }]
+            }],
         };
     },
 
     getInitialState: function() {
         return {
-            visible: 1
+            visible: 1,
         };
     },
 
@@ -60,8 +60,8 @@ var Sequence = React.createClass({
                 graded: true,
                 version: {major: 0, minor: 0},
                 options: _.extend({}, step, {
-                    icon: i < this.state.visible - 1 ? icon : null
-                })
+                    icon: i < this.state.visible - 1 ? icon : null,
+                }),
             };
         });
 
@@ -84,14 +84,14 @@ var Sequence = React.createClass({
 
             if (score.type === "points" && score.total === score.earned) {
                 this.setState({
-                    visible: this.state.visible + 1
+                    visible: this.state.visible + 1,
                 });
                 this.props.trackInteraction({
                     visible: this.state.visible + 1,
                 });
             }
         }
-    }
+    },
 });
 
 var traverseChildWidgets = function(

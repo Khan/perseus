@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -19,37 +19,37 @@ var CELL_PADDING = 5;
 
 var TABLE_STYLE = {
     display: "table",
-    tableLayout: "fixed"
+    tableLayout: "fixed",
 };
 
 var ROW_STYLE = {
-    display: "table-row"
+    display: "table-row",
 };
 
 var CELL_STYLE = {
     display: "table-cell",
-    padding: CELL_PADDING
+    padding: CELL_PADDING,
 };
 
 var BASE_TILE_STYLE = {
     borderRadius: 10,
-    cursor: "pointer"
+    cursor: "pointer",
 };
 
 var PATTERNS = {
     plus: () => [
         [false, true, false],
         [true,  true, true ],
-        [false, true, false]
+        [false, true, false],
     ],
     x: () => [
         [true,  false, true ],
         [false, true,  false],
-        [true,  false, true ]
+        [true,  false, true ],
     ],
     "plus/x": (iter) => {
         return (iter % 2) ? PATTERNS.x() : PATTERNS.plus();
-    }
+    },
 };
 
 /**
@@ -76,7 +76,7 @@ var flipTilesPredicate = (oldCells, predicate) => {
 var Tile = React.createClass({
     propTypes: {
         value: React.PropTypes.bool.isRequired,
-        size: React.PropTypes.number.isRequired
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -84,7 +84,7 @@ var Tile = React.createClass({
         var style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
             height: this.props.size,
-            backgroundColor: color
+            backgroundColor: color,
         });
         return <div
             style={style}
@@ -102,7 +102,7 @@ var TileGrid = React.createClass({
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ).isRequired,
-        size: React.PropTypes.number.isRequired
+        size: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -133,7 +133,7 @@ const LightsPuzzleEditor = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
         flipPattern: React.PropTypes.string.isRequired,
-        gradeIncompleteAsWrong: React.PropTypes.bool.isRequired
+        gradeIncompleteAsWrong: React.PropTypes.bool.isRequired,
     },
 
     getDefaultProps: function() {
@@ -141,10 +141,10 @@ const LightsPuzzleEditor = React.createClass({
             startCells: [
                 [false, false, false],
                 [false, false, false],
-                [false, false, false]
+                [false, false, false],
             ],
             flipPattern: "plus",
-            gradeIncompleteAsWrong: false
+            gradeIncompleteAsWrong: false,
         };
     },
 
@@ -241,7 +241,7 @@ const LightsPuzzleEditor = React.createClass({
         });
 
         this.change({startCells: newCells});
-    }
+    },
 });
 
 module.exports = LightsPuzzleEditor;

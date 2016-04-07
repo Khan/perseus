@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -70,5 +70,5 @@ var mapObjectFromArray = function(arr, lambda) {
 module.exports = {
     pluck: pluck,
     mapObject: mapObject,
-    mapObjectFromArray: mapObjectFromArray
+    mapObjectFromArray: mapObjectFromArray,
 };

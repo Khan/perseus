@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
+/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -156,7 +156,7 @@ var OldUnitInput = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            value: newValue
+            value: newValue,
         }, cb);
     },
 
@@ -266,7 +266,7 @@ _.extend(OldUnitInput, {
             total: 1,
             message,
         };
-    }
+    },
 });
 
 module.exports = {

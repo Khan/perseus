@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* A div that shows/hides its children.
@@ -10,13 +10,13 @@ var React = require("react");
 var MoreOptions = React.createClass({
     getDefaultProps: function() {
         return {
-            show: false
+            show: false,
         };
     },
 
     getInitialState: function() {
         return {
-            show: this.props.show
+            show: this.props.show,
         };
     },
 
@@ -34,7 +34,7 @@ var MoreOptions = React.createClass({
 
     toggle: function() {
         this.setState({show: !this.state.show});
-    }
+    },
 });
 
 module.exports = MoreOptions;

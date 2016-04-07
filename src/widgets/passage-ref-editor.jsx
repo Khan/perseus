@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable eol-last, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -65,7 +65,7 @@ const PassageRefEditor = React.createClass({
                 </label>
             </div>
         </div>;
-    }
+    },
 });
 
 module.exports = PassageRefEditor;

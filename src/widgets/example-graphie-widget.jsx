@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -31,7 +31,7 @@ var ExampleGraphieWidget = React.createClass({
 
     propTypes: {
         graph: React.PropTypes.object.isRequired,
-        coord: React.PropTypes.arrayOf(React.PropTypes.number)
+        coord: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
@@ -48,8 +48,8 @@ var ExampleGraphieWidget = React.createClass({
                 valid: true,
                 backgroundImage: null,
                 markings: "grid",
-                showProtractor: false
-            }
+                showProtractor: false,
+            },
         };
     },
 
@@ -65,7 +65,7 @@ var ExampleGraphieWidget = React.createClass({
                     coord={this.props.coord || [0, 0]}
                     constraints={[
                         MovablePoint.constraints.snap(),
-                        MovablePoint.constraints.bound()
+                        MovablePoint.constraints.bound(),
                     ]}
                     onMove={this.movePoint} />
         </Graphie>;
@@ -73,7 +73,7 @@ var ExampleGraphieWidget = React.createClass({
 
     movePoint: function(newCoord) {
         this.change({
-            coord: newCoord
+            coord: newCoord,
         });
     },
 
@@ -97,14 +97,14 @@ var ExampleGraphieWidget = React.createClass({
             gridStep: options.gridStep,
             tickStep: _.pluck(gridConfig, "tickStep"),
             labelStep: 1,
-            unityLabels: _.pluck(gridConfig, "unityLabel")
+            unityLabels: _.pluck(gridConfig, "unityLabel"),
         });
         graphie.label([0, options.range[1][1]], options.labels[1], "above");
     },
 
     simpleValidate: function(rubric) {
         return ExampleGraphieWidget.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -116,24 +116,24 @@ _.extend(ExampleGraphieWidget, {
         if (state.coord == null) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         } else if (kpoint.equal(state.coord, rubric.correct)) {
             return {
                 type: "points",
                 earned: 1,
                 total: 1,
-                message: null
+                message: null,
             };
         } else {
             return {
                 type: "points",
                 earned: 0,
                 total: 1,
-                message: null
+                message: null,
             };
         }
-    }
+    },
 });
 
 /**

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -12,7 +12,7 @@ var _ = require("underscore");
 
 var PossibleAnswers = React.createClass({
     propTypes: {
-        answers: React.PropTypes.arrayOf(React.PropTypes.string)
+        answers: React.PropTypes.arrayOf(React.PropTypes.string),
     },
     render: function() {
         // It's redundant to show duplicate answers.
@@ -30,7 +30,7 @@ var PossibleAnswers = React.createClass({
             <dt>Correct Answer</dt>
             {answerComponents}
         </dl>;
-    }
+    },
 });
 
 module.exports = PossibleAnswers;

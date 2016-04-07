@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, one-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, react/forbid-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -28,7 +28,7 @@ var Sorter = React.createClass({
             layout: HORIZONTAL,
             padding: true,
             problemNum: 0,
-            onChange: function() {}
+            onChange: function() {},
         };
     },
 
@@ -61,7 +61,7 @@ var Sorter = React.createClass({
 
     simpleValidate: function(rubric) {
         return Sorter.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -73,9 +73,9 @@ _.extend(Sorter, {
             type: "points",
             earned: correct ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

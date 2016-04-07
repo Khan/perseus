@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -111,7 +111,7 @@ var PassageRef = React.createClass({
             } else {
                 this.setState({
                     lineRange: null,
-                    content: null
+                    content: null,
                 });
             }
         }
@@ -119,7 +119,7 @@ var PassageRef = React.createClass({
 
     simpleValidate: function(rubric) {
         return PassageRef.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(PassageRef, {
@@ -128,9 +128,9 @@ _.extend(PassageRef, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -145,5 +145,5 @@ module.exports = {
             "summaryText"
         );
     },
-    version: {major: 0, minor: 1}
+    version: {major: 0, minor: 1},
 };

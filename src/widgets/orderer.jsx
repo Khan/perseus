@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, max-len, no-console, no-unused-vars, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable max-len, no-console, no-unused-vars, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -14,7 +14,7 @@ var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var PlaceholderCard = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
-        height: React.PropTypes.number.isRequired
+        height: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -25,7 +25,7 @@ var PlaceholderCard = React.createClass({
                 className="card placeholder"
                 style={{height: this.props.height}} />
         </div>;
-    }
+    },
 });
 
 var DragHintCard = React.createClass({
@@ -33,14 +33,14 @@ var DragHintCard = React.createClass({
         return <div className={"card-wrap " + ApiClassNames.INTERACTIVE}>
             <div className="card drag-hint" />
         </div>;
-    }
+    },
 });
 
 var PropTypes = {
     position: React.PropTypes.shape({
         left: React.PropTypes.number,
-        top: React.PropTypes.number
-    })
+        top: React.PropTypes.number,
+    }),
 };
 
 var Card = React.createClass({
@@ -58,13 +58,13 @@ var Card = React.createClass({
         startMouse: PropTypes.position,
         startOffset: PropTypes.position,
         animateTo: PropTypes.position,
-        onAnimationEnd: React.PropTypes.func
+        onAnimationEnd: React.PropTypes.func,
     },
 
     getDefaultProps: function() {
         return {
             stack: false,
-            animating: false
+            animating: false,
         };
     },
 
@@ -195,7 +195,7 @@ var Card = React.createClass({
             this.unbindMouseMoveUp();
             this.props.onMouseUp && this.props.onMouseUp(loc);
         }
-    }
+    },
 });
 
 var NORMAL = "normal",
@@ -219,7 +219,7 @@ var Orderer = React.createClass({
             options: [],
             correctOptions: [],
             height: NORMAL,
-            layout: HORIZONTAL
+            layout: HORIZONTAL,
         };
     },
 
@@ -351,7 +351,7 @@ var Orderer = React.createClass({
             dragHeight: $draggable.height(),
             grabPos: loc,
             mousePos: loc,
-            offsetPos: $draggable.position()
+            offsetPos: $draggable.position(),
         });
     },
 
@@ -373,20 +373,20 @@ var Orderer = React.createClass({
                 var newCard = {
                     content: this.state.dragContent,
                     key: _.uniqueId("perseus_draggable_card_"),
-                    width: this.state.dragWidth
+                    width: this.state.dragWidth,
                 };
 
                 list.splice(index, 0, newCard);
             }
 
             this.props.onChange({
-                current: list
+                current: list,
             });
             this.setState({
                 current: list,
                 dragging: false,
                 placeholderIndex: null,
-                animating: false
+                animating: false,
             });
             this.props.trackInteraction();
         };
@@ -420,7 +420,7 @@ var Orderer = React.createClass({
                 animateTo: finalOffset,
                 onAnimationEnd: onAnimationEnd,
                 animating: true,
-                dragging: false
+                dragging: false,
             });
         }
     },
@@ -440,7 +440,7 @@ var Orderer = React.createClass({
 
         this.setState({
             mousePos: loc,
-            placeholderIndex: index
+            placeholderIndex: index,
         });
     },
 
@@ -513,7 +513,7 @@ var Orderer = React.createClass({
 
     simpleValidate: function(rubric) {
         return Orderer.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Orderer, {
@@ -521,7 +521,7 @@ _.extend(Orderer, {
         if (state.current.length === 0) {
             return {
                 type: "invalid",
-                message: null
+                message: null,
             };
         }
 
@@ -534,9 +534,9 @@ _.extend(Orderer, {
             type: "points",
             earned: correct ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

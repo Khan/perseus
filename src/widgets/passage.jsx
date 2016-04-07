@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -18,7 +18,7 @@ var Passage = React.createClass({
         passageTitle: React.PropTypes.string,
         passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
-        showLineNumbers: React.PropTypes.bool
+        showLineNumbers: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -26,7 +26,7 @@ var Passage = React.createClass({
             passageTitle: "",
             passageText: "",
             footnotes: "",
-            showLineNumbers: true
+            showLineNumbers: true,
         };
     },
 
@@ -93,7 +93,7 @@ var Passage = React.createClass({
                     </h4>,
                     <div key="footnotes" className="footnotes">
                         {this._renderFootnotes()}
-                    </div>
+                    </div>,
                 ]}
                 <div className="perseus-sr-only">
                     <$_>End of reading passage.</$_>
@@ -292,7 +292,7 @@ var Passage = React.createClass({
 
     simpleValidate: function(rubric) {
         return Passage.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 _.extend(Passage, {
@@ -301,9 +301,9 @@ _.extend(Passage, {
             type: "points",
             earned: 0,
             total: 0,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {
@@ -313,5 +313,5 @@ module.exports = {
     transform: (editorProps) => {
         return _.pick(editorProps, "passageTitle", "passageText", "footnotes",
             "showLineNumbers");
-    }
+    },
 };

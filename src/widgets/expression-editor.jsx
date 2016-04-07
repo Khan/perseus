@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, indent, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, indent, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -24,7 +24,7 @@ var answerFormType = React.PropTypes.shape({
     considered: React.PropTypes.oneOf(CONSIDERED).isRequired,
     value: React.PropTypes.string.isRequired,
     form: React.PropTypes.bool.isRequired,
-    simplify: React.PropTypes.bool.isRequired
+    simplify: React.PropTypes.bool.isRequired,
 });
 
 var ExpressionEditor = React.createClass({
@@ -34,7 +34,7 @@ var ExpressionEditor = React.createClass({
         answerForms: React.PropTypes.arrayOf(answerFormType),
         times: React.PropTypes.bool,
         buttonSets: TexButtons.buttonSetsType,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string)
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {
@@ -42,7 +42,7 @@ var ExpressionEditor = React.createClass({
             answerForms: [],
             times: false,
             buttonSets: ["basic"],
-            functions: ["f", "g", "h"]
+            functions: ["f", "g", "h"],
         };
     },
 
@@ -96,7 +96,7 @@ var ExpressionEditor = React.createClass({
                         draggable: true,
                         onChange: props => this.updateForm(ix, props),
                         onDelete: () => this.handleRemoveForm(ix),
-                        expressionProps: expressionProps
+                        expressionProps: expressionProps,
                     })
                     .freeze();
             })
@@ -343,7 +343,7 @@ var ExpressionEditor = React.createClass({
         var newProps = {};
         newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
         this.props.onChange(newProps);
-    }
+    },
 });
 
 // Find the next element in arr after val, wrapping around to the first.
@@ -367,7 +367,7 @@ var AnswerOption = React.createClass({
         simplify: React.PropTypes.bool.isRequired,
 
         onChange: React.PropTypes.func.isRequired,
-        onDelete: React.PropTypes.func.isRequired
+        onDelete: React.PropTypes.func.isRequired,
     },
 
     getInitialState: function() {

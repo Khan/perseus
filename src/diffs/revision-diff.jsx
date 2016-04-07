@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, space-infix-ops */
+/* eslint-disable indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -44,7 +44,7 @@ var isWidget = obj => _.isObject(obj) && !("content" in obj);
 var RevisionDiff = React.createClass({
     propTypes: {
         beforeItem: React.PropTypes.object.isRequired,
-        afterItem: React.PropTypes.object.isRequired
+        afterItem: React.PropTypes.object.isRequired,
     },
 
     render: function() {
@@ -63,24 +63,24 @@ var RevisionDiff = React.createClass({
         var sections = [
             {
                 title: "Question",
-                path: ["question"]
+                path: ["question"],
             },
             {
                 title: "Question extras",
-                path: ["answerArea"]
-            }
+                path: ["answerArea"],
+            },
         ].concat(
             _.times(hintCount, function(n) {
                 return {
                     title: "Hint #" + (n + 1),
-                    path: ["hints", n]
+                    path: ["hints", n],
                 };
             })
         ).concat(
             _.map(widgets, function(widget) {
                 return {
                     title: widget,
-                    path: ["question", "widgets", widget, "options"]
+                    path: ["question", "widgets", widget, "options"],
                 };
             })
         ).concat(
@@ -93,7 +93,7 @@ var RevisionDiff = React.createClass({
                 return _.map(hintWidgets, function(widget) {
                     return {
                         title: "Hint #"+(n+1)+"."+widget,
-                        path: ["hints", n, "widgets", widget, "options"]
+                        path: ["hints", n, "widgets", widget, "options"],
                     };
                 });
 
@@ -137,7 +137,7 @@ var RevisionDiff = React.createClass({
         });
 
         return <div>{result}</div>;
-    }
+    },
 });
 
 module.exports = RevisionDiff;

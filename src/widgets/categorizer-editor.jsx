@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -19,7 +19,7 @@ var CategorizerEditor = React.createClass({
         items: React.PropTypes.arrayOf(React.PropTypes.string),
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
         values: React.PropTypes.arrayOf(React.PropTypes.number),
-        randomizeItems: React.PropTypes.bool
+        randomizeItems: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
@@ -27,7 +27,7 @@ var CategorizerEditor = React.createClass({
             items: [],
             categories: [],
             values: [],
-            randomizeItems: false
+            randomizeItems: false,
         };
     },
 
@@ -60,7 +60,7 @@ var CategorizerEditor = React.createClass({
                         // its corresponding item if an item is deleted from
                         // the middle. Inconvenient, but it's at least possible
                         // for content creators to catch and fix.
-                        values: _.first(this.props.values, items.length)
+                        values: _.first(this.props.values, items.length),
                     });}}
                 layout="vertical" />
 

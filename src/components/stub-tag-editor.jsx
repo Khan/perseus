@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -23,12 +23,12 @@ var EMPTY_ARRAY = [];
 var StubTagEditor = React.createClass({
     propTypes: {
         value: React.PropTypes.arrayOf(React.PropTypes.string),
-        onChange: React.PropTypes.func.isRequired
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            value: EMPTY_ARRAY
+            value: EMPTY_ARRAY,
         };
     },
 
@@ -44,7 +44,7 @@ var StubTagEditor = React.createClass({
                 layout="vertical"
                 onChange={this.props.onChange} />
         </div>;
-    }
+    },
 });
 
 module.exports = StubTagEditor;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-console, no-undef, no-var */
+/* eslint-disable no-console, no-undef, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -69,7 +69,7 @@ describe("passage markdown", () => {
                 content: [
                     {
                         type: "text",
-                        content: "this is a "
+                        content: "this is a ",
                     },
                     {
                         type: "refStart",
@@ -79,18 +79,18 @@ describe("passage markdown", () => {
                             content: [
                                 {type: "text", content: "(\u201Cref\u201D"},
                                 {type: "text", content: ")"},
-                            ]
+                            ],
                         }],
                     },
                     {
                         type: "text",
-                        content: "ref"
+                        content: "ref",
                     },
                     {
                         type: "refEnd",
-                        ref: 1
+                        ref: 1,
                     },
-                ]
+                ],
             }]);
         });
 
@@ -122,7 +122,7 @@ describe("passage markdown", () => {
                                 },
                                 {
                                     type: "text",
-                                    content: "inside of another ref"
+                                    content: "inside of another ref",
                                 },
                                 {
                                     type: "refEnd",
@@ -135,7 +135,7 @@ describe("passage markdown", () => {
                                 {
                                     type: "text",
                                     content: ")",
-                                }
+                                },
                             ],
                         }],
                     },
@@ -187,14 +187,14 @@ describe("passage markdown", () => {
                 content: [
                     {
                         type: "text",
-                        content: "this is a footnote"
+                        content: "this is a footnote",
                     },
                     {
                         type: "passageFootnote",
                         id: 1,
-                        text: "*"
+                        text: "*",
                     },
-                ]
+                ],
             }]);
         });
 
@@ -205,27 +205,27 @@ describe("passage markdown", () => {
                 content: [
                     {
                         type: "text",
-                        content: "a"
+                        content: "a",
                     },
                     {
                         type: "passageFootnote",
                         id: 1,
-                        text: "1"
+                        text: "1",
                     },
                     {
                         type: "text",
-                        content: "b"
+                        content: "b",
                     },
                     {
                         type: "passageFootnote",
                         id: 2,
-                        text: "2"
+                        text: "2",
                     },
                     {
                         type: "text",
-                        content: "c"
+                        content: "c",
                     },
-                ]
+                ],
             }]);
         });
 
@@ -240,42 +240,42 @@ describe("passage markdown", () => {
                     content: [
                         {
                             type: "text",
-                            content: "para 1 has this footnote"
+                            content: "para 1 has this footnote",
                         },
                         {
                             type: "passageFootnote",
                             id: 1,
-                            text: "1"
+                            text: "1",
                         },
-                    ]
+                    ],
                 },
                 {
                     type: "paragraph",
                     content: [
                         {
                             type: "text",
-                            content: "para 2 has two"
+                            content: "para 2 has two",
                         },
                         {
                             type: "passageFootnote",
                             id: 2,
-                            text: "2"
+                            text: "2",
                         },
                         {
                             type: "text",
-                            content: " more"
+                            content: " more",
                         },
                         {
                             type: "passageFootnote",
                             id: 3,
-                            text: "3"
+                            text: "3",
                         },
                         {
                             type: "text",
-                            content: " footnotes"
+                            content: " footnotes",
                         },
-                    ]
-                }
+                    ],
+                },
             ]);
         });
     });
@@ -291,11 +291,11 @@ describe("passage markdown", () => {
                     {
                         type: "squareLabel",
                         space: true,
-                        content: "1"
+                        content: "1",
                     },
                     {
                         type: "text",
-                        content: "Hi"
+                        content: "Hi",
                     },
                 ],
             }]);
@@ -311,11 +311,11 @@ describe("passage markdown", () => {
                     {
                         type: "circleLabel",
                         space: true,
-                        content: "2"
+                        content: "2",
                     },
                     {
                         type: "text",
-                        content: "Hi"
+                        content: "Hi",
                     },
                 ],
             }]);
@@ -331,11 +331,11 @@ describe("passage markdown", () => {
                     {
                         type: "squareBracketRef",
                         space: true,
-                        content: "3"
+                        content: "3",
                     },
                     {
                         type: "text",
-                        content: "Hi"
+                        content: "Hi",
                     },
                 ],
             }]);

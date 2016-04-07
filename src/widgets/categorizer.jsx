@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -30,13 +30,13 @@ var Categorizer = React.createClass({
         return {
             items: [],
             categories: [],
-            values: []
+            values: [],
         };
     },
 
     getInitialState: function() {
         return {
-            uniqueId: _.uniqueId("perseus_radio_")
+            uniqueId: _.uniqueId("perseus_radio_"),
         };
     },
 
@@ -115,7 +115,7 @@ var Categorizer = React.createClass({
 
     simpleValidate: function(rubric) {
         return Categorizer.validate(this.getUserInput(), rubric);
-    }
+    },
 });
 
 
@@ -134,16 +134,17 @@ _.extend(Categorizer, {
         if (!completed) {
             return {
                 type: "invalid",
-                message: i18n._("Make sure you select something for every row.")
+                message:
+                    i18n._("Make sure you select something for every row."),
             };
         }
         return {
             type: "points",
             earned: allCorrect ? 1 : 0,
             total: 1,
-            message: null
+            message: null,
         };
-    }
+    },
 });
 
 module.exports = {

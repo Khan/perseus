@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -20,13 +20,13 @@ const PairEditor = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string,
-        value: React.PropTypes.string
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
             name:  "",
-            value: ""
+            value: "",
         };
     },
 
@@ -41,7 +41,7 @@ const PairEditor = React.createClass({
                            onChange={this.change("value")} />
             </label>
         </fieldset>;
-    }
+    },
 });
 
 /**
@@ -54,8 +54,8 @@ var PairsEditor = React.createClass({
     propTypes: {
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
-            value: React.PropTypes.string
-        })).isRequired
+            value: React.PropTypes.string,
+        })).isRequired,
     },
 
     render: function() {
@@ -78,7 +78,7 @@ var PairsEditor = React.createClass({
             pairs.push({name: "", value: ""});
         }
         this.change("pairs", pairs);
-    }
+    },
 });
 
 /**
@@ -134,7 +134,7 @@ var IframeEditor = React.createClass({
 
     handleSettingsChange: function(settings) {
         this.change({settings: settings.pairs});
-    }
+    },
 });
 
 module.exports = IframeEditor;

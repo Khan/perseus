@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, indent, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable indent, no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -40,7 +40,7 @@ var NO_ANSWERS_WARNING = [
     "Put something in there",
     "won't you please?",
     "A few digits will do -",
-    "might I suggest some threes?"
+    "might I suggest some threes?",
     ].join("\n");
 var NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be too " +
     "hard because the expression has no correct answer.";
@@ -102,14 +102,14 @@ var Expression = React.createClass({
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
     getInitialState: function() {
         return {
             showErrorTooltip: false,
-            showErrorText: false
+            showErrorText: false,
         };
     },
 
@@ -173,7 +173,7 @@ var Expression = React.createClass({
                         onClick={() => {
                             // TODO(alex): Better error feedback for mobile
                             this.setState({
-                                showErrorText: !this.state.showErrorText
+                                showErrorText: !this.state.showErrorText,
                             });
                         }} />
                     <div className="error-text">
@@ -184,7 +184,7 @@ var Expression = React.createClass({
 
             var className = classNames({
                 "perseus-widget-expression": true,
-                "show-error-tooltip": this.state.showErrorTooltip
+                "show-error-tooltip": this.state.showErrorTooltip,
             });
 
             return <span className={className}>
@@ -288,7 +288,7 @@ var Expression = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         this.props.onChange({
-            value: newValue
+            value: newValue,
         }, cb);
     },
 
@@ -304,7 +304,7 @@ var Expression = React.createClass({
     simpleValidate: function(rubric, onInputError) {
         onInputError = onInputError || function() { };
         return Expression.validate(this.getUserInput(), rubric, onInputError);
-    }
+    },
 });
 
 /* Content creators input a list of answers which are matched from top to
@@ -341,7 +341,7 @@ _.extend(Expression, {
                 KAS.parse(answer.value, rubric).expr,
                 _({}).extend(options, {
                     simplify: answer.simplify,
-                    form: answer.form
+                    form: answer.form,
                 })
             );
         };
@@ -371,7 +371,7 @@ _.extend(Expression, {
                 // If everything graded as empty, it's invalid.
                 return {
                     type: "invalid",
-                    message: null
+                    message: null,
                 };
             } else {
                 // We fell through all the possibilities and we're not empty,
@@ -379,7 +379,7 @@ _.extend(Expression, {
                 return {
                     type: "points",
                     earned: 0,
-                    total: 1
+                    total: 1,
                 };
             }
 
@@ -392,7 +392,7 @@ _.extend(Expression, {
             );
             return {
                 type: "invalid",
-                message: apiResult === false ? null : message
+                message: apiResult === false ? null : message,
             };
 
         // The user's input matched one of the answers - is it correct or
@@ -406,10 +406,10 @@ _.extend(Expression, {
                 type: "points",
                 earned: matchingAnswer.considered === "correct" ? 1 : 0,
                 total: 1,
-                message: message
+                message: message,
             };
         }
-    }
+    },
 });
 
 // The old, plain-text input expression widget
@@ -430,13 +430,13 @@ var OldExpression = React.createClass({
             onFocus: function() { },
             onBlur: function() { },
             enabledFeatures: EnabledFeatures.defaults,
-            apiOptions: ApiOptions.defaults
+            apiOptions: ApiOptions.defaults,
         };
     },
 
     getInitialState: function() {
         return {
-            lastParsedTex: ""
+            lastParsedTex: "",
         };
     },
 
@@ -678,9 +678,9 @@ var OldExpression = React.createClass({
             i18n._("For $\\pi$, enter **pi**"),
             i18n._("For $\\sin \\theta$, enter **sin(theta)**"),
             i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
-            i18n._("For $\\neq$, enter **=/=**")
+            i18n._("For $\\neq$, enter **=/=**"),
         ];
-    }
+    },
 });
 
 /**
@@ -782,8 +782,8 @@ var propUpgrades = {
             simplify: v0props.simplify,
             value: v0props.value,
             key: 0,
-        }]
-    })
+        }],
+    }),
 };
 
 module.exports = {
