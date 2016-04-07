@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -50,7 +50,8 @@ var CategorizerEditor = React.createClass({
             Items:
             <TextListEditor
                 options={this.props.items}
-                onChange={(items) => {this.change({
+                onChange={(items) => {
+                    this.change({
                         items: items,
                         // TODO(eater): This truncates props.values so there
                         // are never more correct answers than items, ensuring

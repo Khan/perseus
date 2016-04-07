@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, no-var, one-var, space-unary-ops */
+/* eslint-disable comma-dangle, no-var, one-var, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -501,8 +501,7 @@ var GrapherUtil = {
                 type: "invalid",
                 message: null
             };
-        }
-        else if (grader.areEqual(guessCoeffs, correctCoeffs)) {
+        } else if (grader.areEqual(guessCoeffs, correctCoeffs)) {
             return {
                 type: "points",
                 earned: 1,

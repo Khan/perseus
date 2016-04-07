@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -286,8 +286,7 @@ _.extend(NumericInput, {
             if (rubric.coefficient) {
                 if (!localValue) {
                     localValue = 1;
-                }
-                else if (localValue === "-") {
+                } else if (localValue === "-") {
                     localValue = -1;
                 }
             }
