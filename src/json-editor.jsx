@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -45,7 +45,7 @@ var JsonEditor = React.createClass({
             var v = e.target.value;
             var textBefore = v.substring(0, cursorPos);
             var textAfter = v.substring(cursorPos, v.length);
-            e.target.value = textBefore+ "    " +textAfter;
+            e.target.value = textBefore + "    " + textAfter;
             e.target.selectionStart = textBefore.length + 4;
             e.target.selectionEnd = textBefore.length + 4;
 

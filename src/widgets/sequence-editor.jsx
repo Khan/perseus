@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -52,7 +52,7 @@ const SequenceEditor = React.createClass({
         return <div className="perseus-sequence-editor">
             {_.map(this.props.json, (json, i) => {
                 return <div key={i}>
-                    Step {i+1}
+                    Step {i + 1}
                     <div style={{
                         display: "inline-block",
                         float: "right",

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -390,7 +390,7 @@ var Interaction = React.createClass({
                     var varValues = _.object(vars,
                         _.map(vars, (v) => this.state.variables[v]));
 
-                    var range=[this._eval(element.options.rangeMin,
+                    var range = [this._eval(element.options.rangeMin,
                         this.state.variables),
                         this._eval(element.options.rangeMax,
                         this.state.variables)];

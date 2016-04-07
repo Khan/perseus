@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, no-redeclare, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren, space-infix-ops */
+/* eslint-disable camelcase, no-redeclare, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -2083,7 +2083,7 @@ var Transformer = React.createClass({
                 self.doTransform({
                     type: "dilation",
                     center: self.dilationCircle.centerPoint.coord,
-                    scale: newRadius/oldRadius,
+                    scale: newRadius / oldRadius,
                 });
             },
             circleNormalStyle: {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, space-infix-ops */
+/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -92,7 +92,7 @@ var RevisionDiff = React.createClass({
 
                     return _.map(hintWidgets, function(widget) {
                         return {
-                            title: "Hint #"+(n+1)+"."+widget,
+                            title: "Hint #" + (n + 1) + "." + widget,
                             path: ["hints", n, "widgets", widget, "options"],
                         };
                     });

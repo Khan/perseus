@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -1287,7 +1287,9 @@ var InteractiveGraph = React.createClass({
                     for (var j = -1; j <= 0; j++) {
                         var segment = segments[rel(j)];
                         var others = _.without(segments,
-                            segment, segments[rel(j-1)], segments[rel(j+1)]);
+                            segment,
+                            segments[rel(j - 1)],
+                            segments[rel(j + 1)]);
 
                         for (var k = 0; k < others.length; k++) {
                             var other = others[k];
@@ -1347,7 +1349,7 @@ var InteractiveGraph = React.createClass({
 
                 var offset = this.graphie.polar(
                     side,
-                    outerAngle + (onLeft? 1 : -1) * innerAngles[0]
+                    outerAngle + (onLeft ? 1 : -1) * innerAngles[0]
                 );
 
                 return this.graphie.addPoints(coords[rel(-1)], offset);
@@ -1860,7 +1862,7 @@ _.extend(InteractiveGraph, {
 
             // TODO(alex): Generalize this to more than just triangles so that
             // all polygons have whole number side lengths if snapping to sides
-            var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7: 4;
+            var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7 : 4;
 
             // Generate coords of a regular polygon with n sides
             coords = _.times(n, function(i) {

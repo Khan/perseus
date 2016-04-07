@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -73,7 +73,7 @@ var PairsEditor = React.createClass({
         var pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
 
-        var lastPair = pairs[pairs.length-1];
+        var lastPair = pairs[pairs.length - 1];
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -228,7 +228,7 @@ var ExpressionEditor = React.createClass({
 
             _(this.props.answerForms).each((form, ix) => {
                 if (this.props.value === "") {
-                    issues.push(`Answer ${ix+1} is empty`);
+                    issues.push(`Answer ${ix + 1} is empty`);
                 } else {
                     // note we're not using icu for content creators
                     var expression = KAS.parse(form.value);

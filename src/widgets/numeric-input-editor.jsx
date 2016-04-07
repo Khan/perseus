@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-redeclare, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-infix-ops */
+/* eslint-disable eol-last, no-redeclare, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -370,7 +370,7 @@ const NumericInputEditor = React.createClass({
             var formatError = (answer.strict &&
                 (!answer.answerForms || answer.answerForms.length === 0));
             if (formatError) {
-                warnings.push(`Answer ${i+1} is set to string format ` +
+                warnings.push(`Answer ${i + 1} is set to string format ` +
                               "matching, but no format was selected");
             }
         });

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-undef, no-var, react/jsx-closing-bracket-location, space-infix-ops */
+/* eslint-disable max-len, no-undef, no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -86,8 +86,8 @@ describe("NumberInput", function() {
     it("does not increment and decrement non-integers", function() {
         testArrowKeys({
             key: "ArrowDown",
-            startingValue: 1/2,
-            endingValue: 1/2,
+            startingValue: 1 / 2,
+            endingValue: 1 / 2,
             keysEnabled: true,
         });
 
