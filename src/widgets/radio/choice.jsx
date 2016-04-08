@@ -4,13 +4,14 @@ const _ = require("underscore");
 const React = require('react');
 const classNames = require("classnames");
 
-const ApiClassNames = require("../../perseus-api.jsx").ClassNames;
+const { ClassNames, Options } = require("../../perseus-api.jsx");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 
 
 const Choice = React.createClass({
     propTypes: {
+        apiOptions: Options.propTypes,
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
         clue: React.PropTypes.node,
@@ -102,7 +103,13 @@ const Choice = React.createClass({
             );
         }
 
-        return <label className={className}>
+        const fadeOutLabelWhenDisabled =
+            this.props.disabled && this.props.apiOptions.responsiveStyling;
+
+        return <label
+            className={className}
+            style={{opacity: fadeOutLabelWhenDisabled ? 0.5 : 1.0}}
+        >
             {input}
             <div className="description">
                 <div className="checkbox-and-option">
@@ -119,8 +126,8 @@ const Choice = React.createClass({
                         so this works around that. Unfortunately, it is
                         simplest to just work around that everywhere. */}
                     <span className={
-                            ApiClassNames.RADIO.OPTION_CONTENT + " " +
-                            ApiClassNames.INTERACTIVE
+                            ClassNames.RADIO.OPTION_CONTENT + " " +
+                            ClassNames.INTERACTIVE
                         }
                         style={{ cursor: "default" }}
                     >

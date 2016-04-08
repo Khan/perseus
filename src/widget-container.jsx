@@ -42,15 +42,15 @@ var WidgetContainer = React.createClass({
 
         className += " widget-" + alignment;
 
+        var apiOptions = this.state.widgetProps.apiOptions;
+
         // Hack to prevent interaction with static widgets: we overlay a big
         // div on top of the widget and overflow: hidden the container.
         // Ideally widgets themselves should know how to prevent interaction.
-        var isStatic =
-            this.state.widgetProps.static ||
-            this.state.widgetProps.apiOptions.readOnly;
+        var isStatic = this.state.widgetProps.static || apiOptions.readOnly;
         var staticContainerStyles = {
             position: 'relative',
-            overflow: 'hidden',
+            overflow: 'visible',
         };
         var staticOverlayStyles = {
             width: '100%',

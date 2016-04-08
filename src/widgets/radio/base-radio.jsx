@@ -146,6 +146,7 @@ const BaseRadio = React.createClass({
                     let Element = Choice;
                     const elementProps = {
                         ref: `radio${i}`,
+                        apiOptions: this.props.apiOptions,
                         checked: choice.checked,
                         correct: (rubric && rubric.choices[i].correct),
                         clue: choice.clue,
