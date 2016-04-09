@@ -4,6 +4,7 @@
 
 const React = require('react');
 const Renderer = require("./renderer.jsx");
+const classnames = require('classnames');
 const i18n = window.i18n;
 
 /* Renders just a hint preview */
@@ -27,11 +28,15 @@ const HintRenderer = React.createClass({
         const {
             hint,
             lastHint,
+            lastRendered,
             pos,
             totalHints,
         } = this.props;
-        const classNames = lastHint ? "perseus-hint-renderer last-hint" :
-            "perseus-hint-renderer";
+        const classNames = classnames(
+            'perseus-hint-renderer',
+            lastHint && 'last-hint',
+            lastRendered && 'last-rendered'
+        );
 
         return <div className={classNames} tabIndex="-1">
             <span className="perseus-sr-only">

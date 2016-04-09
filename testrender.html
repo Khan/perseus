@@ -3,6 +3,7 @@
 <head>
 
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Perseus render</title>
 
 <link rel="stylesheet" type="text/css" href="/ke/css/khan-site.css" />
@@ -16,7 +17,7 @@
 </head>
 <body>
 
-<div id="problem-and-answer" class="current-card framework-perseus vertical-shadow" style="width: 797px; margin: 20px;">
+<div id="problem-and-answer" class="bibliotron-exercise current-card framework-perseus vertical-shadow" style="width: 797px; margin: 20px;">
     <div id="problemarea">
         <div id="workarea"></div>
         <div id="hintsarea"></div>
@@ -162,7 +163,12 @@ Perseus.init({}).then(function() {
             toolTipFormats: true,
             dynamicHintsArea: true,
         },
-        apiOptions: {responsiveStyling: true},
+        apiOptions: {
+            responsiveStyling: true,
+            getAnotherHint: () => {
+                window.itemRenderer.showHint();
+            },
+        },
     }, null), itemMountNode);
     window.itemRenderer.focus();
 }).then(function() {

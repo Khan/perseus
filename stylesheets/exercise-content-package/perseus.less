@@ -488,6 +488,25 @@
         margin-bottom: 32px;
     }
 }
+
+@media (max-width: @pure-sm-max) {
+    .bibliotron-exercise .perseus-hint-renderer {
+        &.last-hint {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// TODO(jared): change these styles once design has finalized
+.perseus-show-another-hint {
+    background-color: transparent;
+    font-size: 100%;
+    border: none;
+    padding: 5px 10px 5px 0;
+    color: @kaGreen;
+    margin: 10px 0;
+}
+
 @default3: #00457c;
 @science3: #9e034e;
 @math3: #007d96;
@@ -526,8 +545,14 @@
 .perseus-domain-cs .perseus-hint-label {
     color: @cs3;
 }
-.bibliotron-exercise .perseus-hint-renderer:last-child .perseus-hint-label {
+.bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
     display: block;
+}
+
+@media (max-width: @pure-sm-max) {
+    .bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
+        display: none;
+    }
 }
 
 // TODO(joel) - remove?

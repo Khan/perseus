@@ -20,6 +20,7 @@ var RP = React.PropTypes;
 var ItemRenderer = React.createClass({
     propTypes: {
         apiOptions: RP.shape({
+            getAnotherHint: RP.func,
             answerableCallback: RP.func,
             interactionCallback: RP.func,
             onFocusChange: RP.func,

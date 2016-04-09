@@ -1,6 +1,7 @@
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
+const i18n = window.i18n;
 
 const HintRenderer = require("./hint-renderer.jsx");
 const SvgImage = require("./components/svg-image.jsx");
@@ -102,9 +103,11 @@ const HintsRenderer = React.createClass({
             .forEach((hint, i) => {
                 const lastHint = i === this.props.hints.length - 1 &&
                     !(/\*\*/).test(hint.content);
+                const lastRendered = i === hintsVisible - 1;
 
                 const renderer = <HintRenderer
                     lastHint={lastHint}
+                    lastRendered={lastRendered}
                     hint={hint}
                     pos={i}
                     totalHints={this.props.hints.length}
@@ -121,7 +124,28 @@ const HintsRenderer = React.createClass({
                 }
             });
 
-        return <div className={this.props.className}>{hints}</div>;
+        const showGetAnotherHint = (
+            this.props.apiOptions.getAnotherHint &&
+            hintsVisible > 0 &&
+            hintsVisible < this.props.hints.length
+        );
+
+        return <div className={this.props.className}>
+            {hints}
+            {showGetAnotherHint &&
+                <button
+                    rel="button"
+                    className="perseus-show-another-hint"
+                    onClick={evt => {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        this.props.apiOptions.getAnotherHint();
+                    }}
+                >
+                    {i18n._("Get another hint")
+                    } ({hintsVisible}/{this.props.hints.length})
+                </button>}
+        </div>;
     },
 });
 

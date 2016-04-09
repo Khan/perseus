@@ -22,6 +22,13 @@
  *    the input (but is not necessarily an `<input>` element).
  *    When focus changes to or from nothing being selected, `path`
  *    will be null.
+ *  * interactionCallback: Called when the user interacts with a widget.
+ *  * answerableCallback: Called with the current `answerability` of the
+ *    problem, e.g. whether all required fields have input.
+ *  * getAnotherHint: If provided, a button is rendered at the bottom of the
+ *    hints (only when at least one hint has been shown, and not all hints
+ *    have been shown) allowing the user to take another hint. This function
+ *    is then called when the user clicks the button.
  *
  * Stable CSS ClassNames:
  * These are css class names that will continue to preserve their
@@ -43,6 +50,10 @@ module.exports = {
             GroupMetadataEditor: React.PropTypes.func.isRequired,
             showAlignmentOptions: React.PropTypes.bool.isRequired,
             readOnly: React.PropTypes.bool.isRequired,
+
+            answerableCallback: React.PropTypes.func,
+            getAnotherHint: React.PropTypes.func,
+            interactionCallback: React.PropTypes.func,
 
             // A function that takes in the relative problem number (starts at
             // 0 and is incremented for each group widget), and the ID of the
