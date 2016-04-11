@@ -2,6 +2,8 @@
 /* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* global i18n:false */
+
 var classNames = require("classnames");
 var React = require('react');
 var _ = require("underscore");

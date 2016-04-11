@@ -1,6 +1,8 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, no-undef, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable camelcase, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+/* global i18n:false */
 
 var React = require('react');
 var ReactDOM = require("react-dom");
