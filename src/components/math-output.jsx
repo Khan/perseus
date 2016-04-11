@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React         = require("react");
@@ -104,7 +104,8 @@ var MathOutput = React.createClass({
     _bindBlurHandler: function() {
         $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
-            var $closestWidget = $(e.target).closest(ReactDOM.findDOMNode(this));
+            var $closestWidget =
+                $(e.target).closest(ReactDOM.findDOMNode(this));
             if (!$closestWidget.length) {
                 this.blur();
             }

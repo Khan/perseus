@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, semi, space-before-function-paren */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, semi, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -49,9 +49,9 @@ var DropdownEditor = React.createClass({
                     value={this.props.placeholder}
                     onChange={this.onPlaceholderChange} />
                 <InfoTip>
-                    <p>This value will appear as the drop down default. It should
-                    give the user some indication of the values available in the
-                    drop down itself, e.g., Yes/No/Maybe.</p>
+                    <p>This value will appear as the drop down default. It
+                    should give the user some indication of the values available
+                    in the drop down itself, e.g., Yes/No/Maybe.</p>
                 </InfoTip>
             </div>
             <div className="clearfix"></div>

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -179,14 +179,16 @@ _.extend(MovablePolygon.prototype, {
             onMove: function(mouseCoord, prevMouseCoord) {
                 var delta = kvector.subtract(mouseCoord, prevMouseCoord);
                 self._totalDelta = kvector.add(self._totalDelta, delta);
-                var refCoord = kvector.add(self._initialRefCoord, self._totalDelta);
+                var refCoord = kvector.add(
+                    self._initialRefCoord, self._totalDelta);
 
                 refCoord = self._applyConstraints(refCoord, self._prevRefCoord);
                 if (refCoord === false) {
                     return;
                 }
 
-                self._fireEvent(self.state.onMove, refCoord, self._prevRefCoord);
+                self._fireEvent(self.state.onMove,
+                    refCoord, self._prevRefCoord);
                 self._prevRefCoord = refCoord;
             },
             onMoveEnd: function() {

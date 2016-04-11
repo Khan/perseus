@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -96,7 +96,8 @@ var TextListEditor = React.createClass({
             } else {
                 items.splice(index, 1);
                 this.setState({items: items}, function() {
-                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+                    ReactDOM.findDOMNode(
+                        this.refs["input_" + focusIndex]).focus();
                 });                
             }
 
@@ -124,7 +125,8 @@ var TextListEditor = React.createClass({
             } else {
                 items.splice(focusIndex, 0, "");
                 this.setState({items: items}, function() {
-                    ReactDOM.findDOMNode(this.refs["input_" + focusIndex]).focus();
+                    ReactDOM.findDOMNode(
+                        this.refs["input_" + focusIndex]).focus();
                 });
             }
         }

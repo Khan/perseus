@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, max-len, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -40,8 +40,8 @@ const OrdererEditor = React.createClass({
                <div>
                    {' '}Correct answer:{' '}
                    <InfoTip><p>
-                       Place the cards in the correct order. The same card can be
-                       used more than once in the answer but will only be
+                       Place the cards in the correct order. The same card can
+                       be used more than once in the answer but will only be
                        displayed once at the top of a stack of identical cards.
                    </p></InfoTip>
                </div>
@@ -72,8 +72,8 @@ const OrdererEditor = React.createClass({
                    </label>
                    <InfoTip>
                        <p>Use the horizontal layout for short text and small
-                           images. The vertical layout is best for longer text (e.g.
-                                                                                  proofs).</p>
+                           images. The vertical layout is best for longer text
+                           (e.g. proofs).</p>
                    </InfoTip>
                </div>
                <div>

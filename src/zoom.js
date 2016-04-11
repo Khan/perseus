@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var, space-before-function-paren */
+/* eslint-disable no-var, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Derived from the MIT-licensed:
@@ -197,7 +197,8 @@ ZoomService.prototype._touchStart = function(e) {
 ZoomService.prototype._touchMove = function(e) {
     // Our jQuery doesn't include `touches` in its event
     // TODO(kevindangoor) Remove `originalEvent` once jQuery is updated
-    if (Math.abs(e.originalEvent.touches[0].pageY - this._initialTouchPosition) > 10) {
+    if (Math.abs(e.originalEvent.touches[0].pageY -
+            this._initialTouchPosition) > 10) {
         this._activeZoomClose();
         $(e.target).off('touchmove.zoom');
     }
@@ -226,8 +227,8 @@ Zoom.prototype.zoomImage = function() {
     var $zoomedImage = $(img);
 
     img.onload = function() {
-        // Load the image without specifying height and width so that we can find
-        // the true height and width.
+        // Load the image without specifying height and width so that we can
+        // find the true height and width.
         this._fullHeight = Number(img.height);
         this._fullWidth = Number(img.width);
 

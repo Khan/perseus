@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -50,7 +50,8 @@ var TextInput = React.createClass({
     },
 
     setSelectionRange: function(selectionStart, selectionEnd) {
-        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+        ReactDOM.findDOMNode(this).setSelectionRange(
+            selectionStart, selectionEnd);
     },
 
     getSelectionStart: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-console, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-console, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -406,7 +406,8 @@ var Orderer = React.createClass({
             }, this);
         } else if (this.refs.placeholder != null) {
             // Otherwise, go to the position that the placeholder is at
-            finalOffset = $(ReactDOM.findDOMNode(this.refs.placeholder)).position();
+            finalOffset =
+                $(ReactDOM.findDOMNode(this.refs.placeholder)).position();
         }
 
         if (finalOffset == null) {
@@ -450,8 +451,10 @@ var Orderer = React.createClass({
             $dragList = $(ReactDOM.findDOMNode(this.refs.dragList)),
             leftEdge = $dragList.offset().left,
             topEdge = $dragList.offset().top,
-            midWidth = $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge,
-            midHeight = $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge,
+            midWidth =
+                $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge,
+            midHeight =
+                $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge,
             index = 0,
             sumWidth = 0,
             sumHeight = 0;

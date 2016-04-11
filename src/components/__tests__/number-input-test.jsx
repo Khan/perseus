@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location */
+/* eslint-disable no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -26,7 +26,8 @@ describe("NumberInput", function() {
         }, extraProps);
 
         var node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
-        TestUtils.Simulate.change(ReactDOM.findDOMNode(node), {target: {value: input}});
+        TestUtils.Simulate.change(
+            ReactDOM.findDOMNode(node), {target: {value: input}});
         assert.deepEqual(newVal, result);
     };
 

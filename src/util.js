@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-trailing-spaces, no-var, one-var, prefer-spread */
+/* eslint-disable no-trailing-spaces, no-var, one-var, prefer-spread */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -320,7 +320,8 @@ var Util = {
      *      tickStepFromNumTicks(50, 6) // returns 10
      */
     tickStepFromNumTicks: function(span, numTicks) {
-        var step = Math.pow(10, Math.floor(Math.log(span / numTicks) / Math.LN10));
+        var step = Math.pow(10,
+            Math.floor(Math.log(span / numTicks) / Math.LN10));
         var err = numTicks / span * step;
 
         // Filter ticks to get closer to the desired count.
@@ -520,7 +521,8 @@ var Util = {
         if (Util.touchHandlers.pointerDown) {
             // Look for the touch matching the one we're tracking; ignore others
             if (Util.touchHandlers.currentTouchIdentifier != null) {
-                var len = event.changedTouches ? event.changedTouches.length : 0;
+                var len = event.changedTouches ?
+                    event.changedTouches.length : 0;
                 for (var i = 0; i < len; i++) {
                     if (event.changedTouches[i].identifier ===
                             Util.touchHandlers.currentTouchIdentifier) {
@@ -542,7 +544,8 @@ var Util = {
             Util.touchHandlers.pointerDown = true;
             if (event.changedTouches) {
                 touchOrEvent = event.changedTouches[0];
-                Util.touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
+                Util.touchHandlers.currentTouchIdentifier =
+                    touchOrEvent.identifier;
             } else {
                 touchOrEvent = event;
             }
@@ -595,13 +598,16 @@ var Util = {
          * Gets the word right before where the textarea cursor is
          *
          * @param {Element} textarea - The textarea DOM element
-         * @return {JSON} - An object with the word and its starting and ending positions in the textarea
+         * @return {JSON} - An object with the word and its starting and ending
+         * positions in the textarea
          */
         getWordBeforeCursor: function(textarea) {
             var text = textarea.value;
 
             var endPos = textarea.selectionStart - 1;
-            var startPos = Math.max(text.lastIndexOf("\n", endPos), text.lastIndexOf(' ', endPos)) + 1;
+            var startPos = Math.max(
+                text.lastIndexOf("\n", endPos),
+                text.lastIndexOf(' ', endPos)) + 1;
 
             return {
                 string: text.substring(startPos, endPos + 1),

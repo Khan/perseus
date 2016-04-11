@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -98,7 +98,8 @@ var NumberInput = React.createClass({
      * If empty, it returns the placeholder (if it is a number) or null
      */
     getValue: function() {
-        return this.parseInputValue(ReactDOM.findDOMNode(this.refs.input).value);
+        return this.parseInputValue(
+            ReactDOM.findDOMNode(this.refs.input).value);
     },
 
     /* Return the current string value of this input */
@@ -128,7 +129,8 @@ var NumberInput = React.createClass({
     },
 
     setSelectionRange: function(selectionStart, selectionEnd) {
-        ReactDOM.findDOMNode(this).setSelectionRange(selectionStart, selectionEnd);
+        ReactDOM.findDOMNode(this).setSelectionRange(
+            selectionStart, selectionEnd);
     },
 
     getSelectionStart: function() {
@@ -207,7 +209,8 @@ var NumberInput = React.createClass({
     },
 
     _setValue: function(val, format) {
-        $(ReactDOM.findDOMNode(this.refs.input)).val(toNumericString(val, format));
+        $(ReactDOM.findDOMNode(this.refs.input)).val(
+            toNumericString(val, format));
     },
 });
 

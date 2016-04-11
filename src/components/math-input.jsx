@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -136,8 +136,8 @@ var MathInput = React.createClass({
     },
 
     mathField: function(options) {
-        // The MathQuill API is now "versioned" through its own "InterVer" system.
-        // See: https://github.com/mathquill/mathquill/pull/459
+        // The MathQuill API is now "versioned" through its own "InterVer"
+        // system. See: https://github.com/mathquill/mathquill/pull/459
         var MQ = MathQuill.getInterface(2);
 
         // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
@@ -169,8 +169,8 @@ var MathInput = React.createClass({
             // or (in)equalities.
             charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
 
-            // Prevent excessive super/subscripts or fractions from being created
-            // without operands, e.g. when somebody holds down a key
+            // Prevent excessive super/subscripts or fractions from being
+            // created without operands, e.g. when somebody holds down a key
             supSubsRequireOperand: true,
 
             // The name of this option is somewhat misleading, as tabbing in

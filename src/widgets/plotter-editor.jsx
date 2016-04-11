@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, max-len, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
+/* eslint-disable eol-last, no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -331,7 +331,8 @@ const PlotterEditor = React.createClass({
         }
 
         if (categories) {
-            ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
+            ReactDOM.findDOMNode(this.refs.categories).value =
+                categories.join(", ");
         }
     },
 
@@ -420,7 +421,8 @@ const PlotterEditor = React.createClass({
 
         this.changeCategories(categories);
 
-        ReactDOM.findDOMNode(this.refs.categories).value = categories.join(", ");
+        ReactDOM.findDOMNode(this.refs.categories).value =
+            categories.join(", ");
     },
 
     serialize: function() {
