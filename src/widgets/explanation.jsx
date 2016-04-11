@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -51,7 +51,7 @@ var Explanation = React.createClass({
     // know what to animate the height to/from when showing/hiding the
     // explanation.
     _updateHeight: function() {
-        contentElement = ReactDOM.findDOMNode(this.refs.content);
+        var contentElement = ReactDOM.findDOMNode(this.refs.content);
 
         // Add up the heights of all the the child nodes
         var contentHeight = Array.prototype.reduce.call(

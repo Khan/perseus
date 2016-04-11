@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-undef, no-var */
+/* eslint-disable no-console, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -10,7 +10,7 @@ var PassageMarkdown = require("../passage-markdown.jsx");
 var parse = PassageMarkdown.parse;
 var rules = PassageMarkdown._rulesForTesting;
 
-validateParse = (parsed, expected) => {
+var validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
         var parsedStr = JSON.stringify(parsed, null, 4);
         var expectedStr = JSON.stringify(expected, null, 4);

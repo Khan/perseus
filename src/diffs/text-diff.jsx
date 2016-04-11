@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -88,8 +88,8 @@ var TextDiff = React.createClass({
 
         var lines = splitDiff(diffed);
 
-        beforeImages = imagesInString(this.props.before);
-        afterImages = imagesInString(this.props.after);
+        var beforeImages = imagesInString(this.props.before);
+        var afterImages = imagesInString(this.props.after);
 
         var images = stringArrayDiff(beforeImages, afterImages);
 

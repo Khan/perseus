@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -305,7 +305,7 @@ _.extend(NumericInput, {
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            match = _.find(otherAnswers, (answer) => {
+            var match = _.find(otherAnswers, (answer) => {
                 var validate = createValidator(answer);
                 return validate(currentValue).correct;
             });
