@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, one-var */
+/* eslint-disable no-var, one-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -8,6 +8,7 @@
 
 var kpoint = require("kmath").point;
 var kvector = require("kmath").vector;
+var _ = require("underscore");
 
 function sum(array) {
     return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);

@@ -6,6 +6,9 @@
  * just returns all the widget's props rather than picking out those which were
  * input by the user.
  */
+
+var _ = require("underscore");
+
 var WIDGET_PROP_BLACKLIST = require("./widget-prop-blacklist.jsx");
 
 var WidgetJsonifyDeprecated = {

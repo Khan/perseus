@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location */
+/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -9,8 +9,8 @@ var MathQuill = window.MathQuill;
 var MQ = MathQuill.getInterface(2);
 var Perseus = require("../../perseus.js");
 var React = require("react");
-
 var ReactDOM = require("react-dom");
+var _ = require("underscore");
 
 var TestUtils = React.addons.TestUtils;
 var delayedPromise = require("../../testutils/delayed-promise.jsx");

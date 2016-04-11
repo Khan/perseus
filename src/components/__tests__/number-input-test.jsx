@@ -1,11 +1,11 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-undef, no-var, react/jsx-closing-bracket-location */
+/* eslint-disable max-len, no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
 var React = require("react");
-
 var ReactDOM = require("react-dom");
+var _ = require("underscore");
 
 var NumberInput = require("../number-input.jsx");
 var TestUtils = React.addons.TestUtils;
