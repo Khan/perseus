@@ -1,7 +1,8 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-trailing-spaces, no-undef, no-var */
+/* eslint-disable no-trailing-spaces, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+/* global beforeEach:false, expect:false */
 
 describe("widget-diff-performer", function() {
     var diff;
