@@ -1,15 +1,12 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
 var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
-var InteractiveUtil = require("../interactive2/interactive-util.js");
 
 const KhanColors = require("../util/colors.js");
-
-var assert = InteractiveUtil.assert;
 
 var MovablePoint = GraphieClasses.createClass({
     displayName: "MovablePoint",

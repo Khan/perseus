@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -7,11 +7,8 @@
  */
 
 var assert = require("assert");
-var React = require('react');
 var _ = require("underscore");
 var InputNumber = require("../input-number.jsx");
-
-var TestUtils = React.addons.TestUtils;
 
 var transform = InputNumber.transform;
 

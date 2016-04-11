@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -24,7 +24,6 @@ var DeprecationMixin = Util.DeprecationMixin;
 var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
 var defaultBoxSize = 400;
-var defaultEditorBoxSize = 340;
 var defaultBackgroundImage = {
     url: null,
 };
@@ -784,7 +783,7 @@ var InteractiveGraph = React.createClass({
             lineConfig.extendRay = true;
         }
 
-        var line = self.line = Interactive2.addMovableLine(
+        self.line = Interactive2.addMovableLine(
             graphie,
             lineConfig
         );
@@ -1045,7 +1044,7 @@ var InteractiveGraph = React.createClass({
                 return segmentPoints;
             });
 
-        var lines = this.lines = _.map(points,
+        this.lines = _.map(points,
             (segmentPoints, segmentIndex) => {
                 return Interactive2.addMovableLine(graphie, {
                     points: segmentPoints,

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -26,11 +26,10 @@ const { configureKeypad } = require("../../math-input").actions;
 const { keypadConfigurationPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
-var lens = require("../../hubble/index.js");
-
 var ERROR_MESSAGE = i18n._("Sorry, I don't understand that!");
 
 // TODON'T(emily): Don't delete these.
+/* eslint-disable no-unused-vars */
 var NO_ANSWERS_WARNING = [
     "An expression without an answer",
     "is no expression to me.",
@@ -52,6 +51,7 @@ var PARSE_WARNING = str => `"${str}" <- you sure that's math?`;
 var NOT_SPECIFIED_WARNING = ix => {
     return `mind filling in answer ${ix}? (the blank one)`;
 };
+/* eslint-enable no-unused-vars */
 
 var insertBraces = value => {
     // HACK(alex): Make sure that all LaTeX super/subscripts are wrapped

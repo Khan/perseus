@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var InfoTip = require("../components/info-tip.jsx");
@@ -16,7 +16,6 @@ var Graphie = require("../components/graphie.jsx");
 var {
     Path,
     Arc,
-    Circle,
     Label,
     Line,
     MovablePoint,
@@ -24,7 +23,6 @@ var {
 } = Graphie;
 var NumberInput  = require("../components/number-input.jsx");
 var MathOutput  = require("../components/math-output.jsx");
-var seededRNG    = require("../util.js").seededRNG;
 var Util         = require("../util.js");
 var knumber      = require("kmath").number;
 const KhanColors = require("../util/colors.js");
@@ -32,7 +30,6 @@ const KhanMath = require("../util/math.js");
 
 var defaultBoxSize = 400;
 var maxSampleSize = 1000;
-var maxTrials = 5000;
 
 var Histogram = React.createClass({
     propTypes: {
@@ -181,7 +178,6 @@ var Histogram = React.createClass({
     /* Renders the actual bars of the histogram. */
     _renderData: function() {
         var data = this.props.data;
-        var range = this._range();
 
         // Plot bars
         var barWidth = 1;

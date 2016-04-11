@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location */
+/* eslint-disable no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -150,6 +150,7 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
     return renderer;
 };
 
+/* eslint-disable no-unused-vars */
 var findMathQuill = function(renderer) {
     var base = ReactDOM.findDOMNode(renderer);
     var span = base.querySelector(".mq-editable-field");
@@ -158,6 +159,7 @@ var findMathQuill = function(renderer) {
     assert.notEqual(mathQuillField, null);
     return mathQuillField;
 };
+/* eslint-enable no-unused-vars */
 
 var findMathQuillTextArea = function(renderer) {
     var base = ReactDOM.findDOMNode(renderer);
@@ -238,11 +240,6 @@ describe("Expression Widget", function() {
 
     describe("multiple answers", function() {
         it("should recognize either of two possibilities", function() {
-            var renderer = renderQuestionArea(expressionItem2, {}, {
-                useMathQuill: true,
-                toolTipFormats: true,
-            });
-
             // TODO(joel) - clear input instead of making a new renderer every
             // time!
             return makeRender(expressionItem2).then(renderer => {

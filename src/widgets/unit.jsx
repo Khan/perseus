@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -21,7 +21,6 @@ var MathOutput   = require("../components/math-output.jsx");
 var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
 
 var ALL = "all";
-var SOME = "some";
 var MAX_SIGFIGS = 10;
 
 var countSigfigs = function(value) {

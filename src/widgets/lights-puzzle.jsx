@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -8,8 +8,6 @@ var React = require('react');
 var _ = require("underscore");
 var Changeable = require("../mixins/changeable.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-
-var MAX_SIZE = 8;
 
 // Styling
 var CELL_PADDING = 5;
@@ -45,6 +43,7 @@ var RESET_BUTTON_STYLE = {
 
 var MAIN_TILE_SIZE = 50;
 
+/* eslint-disable no-unused-vars */
 var mapCells = (cells, func) => {
     return _.map(cells, (row, y) => {
         return _.map(row, (value, x) => {
@@ -60,6 +59,7 @@ var genCells = (height, width, func) => {
         });
     });
 };
+/* eslint-enable no-unused-vars */
 
 var PATTERNS = {
     plus: () => [
@@ -75,17 +75,6 @@ var PATTERNS = {
     "plus/x": (iter) => {
         return (iter % 2) ? PATTERNS.x() : PATTERNS.plus();
     },
-};
-
-
-/**
- * Clamps value to an integer in the range [min, max]
- */
-var clampToInt = function(value, min, max) {
-    value = Math.floor(value);
-    value = Math.max(value, min);
-    value = Math.min(value, max);
-    return value;
 };
 
 // A single glowy cell

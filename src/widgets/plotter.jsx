@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -45,12 +45,12 @@ const widgetPropTypes = {
 };
 
 var Plotter = React.createClass({
-    propTypes: {
+    propTypes: _.extend({
         onChange: React.PropTypes.func.isRequired,
         trackInteraction: React.PropTypes.func.isRequired,
         // TODO(alex): Figure out why lint chokes on this line
         // ...widgetPropTypes,
-    },
+    }, widgetPropTypes),
 
     getDefaultProps: function () {
         return {
