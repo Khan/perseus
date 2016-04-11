@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -250,10 +250,10 @@ var Interaction = React.createClass({
                         color={element.options.color}
                     />;
                 } else if (element.type === "line") {
-                    var start = [this._eval(element.options.startX),
-                                 this._eval(element.options.startY)];
-                    var end = [this._eval(element.options.endX),
-                               this._eval(element.options.endY)];
+                    const start = [this._eval(element.options.startX),
+                                   this._eval(element.options.startY)];
+                    const end = [this._eval(element.options.endX),
+                                 this._eval(element.options.endY)];
                     return <Line
                         key={element.key}
                         start={start}
@@ -268,7 +268,7 @@ var Interaction = React.createClass({
                 } else if (element.type === "movable-point") {
                     // TODO(eater): Would be nice if the constraint system
                     // were more flexible.
-                    var constraints = [(coord) => {
+                    const constraints = [(coord) => {
                         var coordX =
                             Math.max(this._eval(
                                 element.options.constraintXMin),
@@ -320,7 +320,7 @@ var Interaction = React.createClass({
                     // were more flexible.
                     // TODO(eater): Don't duplicate this code from
                     // movable-point above
-                    var constraints = [(coord) => {
+                    const constraints = [(coord) => {
                         var coordX =
                             Math.max(this._eval(
                                 element.options.constraintXMin),
@@ -351,13 +351,13 @@ var Interaction = React.createClass({
                                 {x: coord[0]})];
                         });
                     }
-                    var start = [
+                    const start = [
                         this.state.variables["x_" +
                                 element.options.startSubscript],
                         this.state.variables["y_" +
                                 element.options.startSubscript],
                     ];
-                    var end = [
+                    const end = [
                         this.state.variables["x_" +
                                 element.options.endSubscript],
                         this.state.variables["y_" +
@@ -380,17 +380,17 @@ var Interaction = React.createClass({
                                 normalStyle={{stroke: "none", fill: "none"}} />
                         </MovableLine>;
                 } else if (element.type === "function") {
-                    var fn = (x) => {
+                    const fn = (x) => {
                         return this._eval(element.options.value, {x: x});
                     };
                     // find all the variables referenced by this function
-                    var vars = _.without(this._extractVars(
+                    const vars = _.without(this._extractVars(
                         KASparse(element.options.value).expr), "x");
                     // and find their values, so we redraw if any change
-                    var varValues = _.object(vars,
+                    const varValues = _.object(vars,
                         _.map(vars, (v) => this.state.variables[v]));
 
-                    var range = [this._eval(element.options.rangeMin,
+                    const range = [this._eval(element.options.rangeMin,
                         this.state.variables),
                         this._eval(element.options.rangeMax,
                         this.state.variables)];
@@ -409,21 +409,21 @@ var Interaction = React.createClass({
                         }}
                     />;
                 } else if (element.type === "parametric") {
-                    var fn = (t) => {
+                    const fn = (t) => {
                         return [
                             this._eval(element.options.x, {t: t}),
                             this._eval(element.options.y, {t: t})];
                     };
                     // find all the variables referenced by this function
-                    var vars = _.without(this._extractVars(
+                    const vars = _.without(this._extractVars(
                         KASparse(element.options.x).expr).concat(
                         this._extractVars(
                         KASparse(element.options.y).expr)), "t");
                     // and find their values, so we redraw if any change
-                    var varValues = _.object(vars,
+                    const varValues = _.object(vars,
                         _.map(vars, (v) => this.state.variables[v]));
 
-                    var range = [this._eval(element.options.rangeMin,
+                    const range = [this._eval(element.options.rangeMin,
                         this.state.variables),
                         this._eval(element.options.rangeMax,
                         this.state.variables)];

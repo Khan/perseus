@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -185,7 +185,7 @@ _.extend(MovablePoint.prototype, {
             if (!state.mouseTarget) {
                 var center = self.state.coord;
                 var radii = graphie.unscaleVector(15);
-                var options = {
+                const options = {
                     mouselayer: true,
                 };
                 state.mouseTarget = new WrappedEllipse(graphie, center, radii,

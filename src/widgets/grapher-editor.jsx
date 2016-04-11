@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -32,7 +32,6 @@ const GrapherEditor = React.createClass({
     },
 
     render: function() {
-        var graph;
         var equationString;
         var graph = _.extend(this.props.graph, {
             box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE],
@@ -107,7 +106,7 @@ const GrapherEditor = React.createClass({
         if (!_.contains(newAvailableTypes, this.props.correct.type)) {
             var graph = this.props.graph;
             var newType = GrapherUtil.chooseType(newAvailableTypes);
-            var correct = GrapherUtil.defaultPlotProps(newType, graph);
+            correct = GrapherUtil.defaultPlotProps(newType, graph);
         }
         this.props.onChange({
             availableTypes: newAvailableTypes,

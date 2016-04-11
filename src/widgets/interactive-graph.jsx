@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-unused-vars, no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -658,7 +658,7 @@ var InteractiveGraph = React.createClass({
                 this.points.push(point);
 
                 // interactive2 allows us to grab the point
-                var idx = this.points.length - 1;
+                const idx = this.points.length - 1;
                 this.points[idx].grab(coord);
 
                 this.updateCoordsFromPoints();
@@ -672,7 +672,7 @@ var InteractiveGraph = React.createClass({
                 );
                 this.points.push(point);
 
-                var idx = this.points.length - 1;
+                const idx = this.points.length - 1;
                 this.points[idx].grab(coord);
 
                 // We don't call updateCoordsFromPoints for
@@ -1336,7 +1336,7 @@ var InteractiveGraph = React.createClass({
                 var knownSide = magnitude(vector(coords[rel(-1)],
                     coords[rel(1)]));
 
-                var onLeft = sign(ccw(
+                const onLeft = sign(ccw(
                     coords[rel(-1)], coords[rel(1)], coords[i]
                 )) === 1;
 
@@ -1344,10 +1344,10 @@ var InteractiveGraph = React.createClass({
                 var side = Math.sin(innerAngles[1] * Math.PI / 180) /
                     Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
 
-                var outerAngle = GraphUtils.findAngle(coords[rel(1)],
+                const outerAngle = GraphUtils.findAngle(coords[rel(1)],
                     coords[rel(-1)]);
 
-                var offset = this.graphie.polar(
+                const offset = this.graphie.polar(
                     side,
                     outerAngle + (onLeft ? 1 : -1) * innerAngles[0]
                 );
@@ -1380,14 +1380,14 @@ var InteractiveGraph = React.createClass({
                 var innerAngle = lawOfCosines(sides[0],
                     sides[2], sides[1]);
 
-                var outerAngle = GraphUtils.findAngle(coords[rel(1)],
+                const outerAngle = GraphUtils.findAngle(coords[rel(1)],
                     coords[rel(-1)]);
 
-                var onLeft = sign(ccw(
+                const onLeft = sign(ccw(
                     coords[rel(-1)], coords[rel(1)], coords[i]
                 )) === 1;
 
-                var offset = this.graphie.polar(
+                const offset = this.graphie.polar(
                     sides[0],
                     outerAngle + (onLeft ? 1 : -1) * innerAngle
                 );
@@ -1823,7 +1823,7 @@ _.extend(InteractiveGraph, {
             var range = [[-10, 10], [-10, 10]];
             coords = InteractiveGraph.normalizeCoords(coords, range);
 
-            var coords = InteractiveGraph.pointsFromNormalized(props, coords);
+            coords = InteractiveGraph.pointsFromNormalized(props, coords);
             return coords;
         }
     },
@@ -2124,8 +2124,8 @@ _.extend(InteractiveGraph, {
 
         if (state.type === rubric.correct.type && hasValue) {
             if (state.type === "linear") {
-                var guess = state.coords;
-                var correct = rubric.correct.coords;
+                const guess = state.coords;
+                const correct = rubric.correct.coords;
                 // If both of the guess points are on the correct line, it's
                 // correct.
                 if (collinear(correct[0], correct[1], guess[0]) &&
@@ -2138,8 +2138,8 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "linear-system") {
-                var guess = state.coords;
-                var correct = rubric.correct.coords;
+                const guess = state.coords;
+                const correct = rubric.correct.coords;
 
                 if ((
                         collinear(correct[0][0], correct[0][1], guess[0][0]) &&
@@ -2162,8 +2162,8 @@ _.extend(InteractiveGraph, {
 
             } else if (state.type === "quadratic") {
                 // If the parabola coefficients match, it's correct.
-                var guessCoeffs = this.getQuadraticCoefficients(state.coords);
-                var correctCoeffs = this.getQuadraticCoefficients(
+                const guessCoeffs = this.getQuadraticCoefficients(state.coords);
+                const correctCoeffs = this.getQuadraticCoefficients(
                         rubric.correct.coords);
                 if (deepEq(guessCoeffs, correctCoeffs)) {
                     return {
@@ -2174,9 +2174,9 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "sinusoid") {
-                var guessCoeffs = this.getSinusoidCoefficients(
+                const guessCoeffs = this.getSinusoidCoefficients(
                     state.coords);
-                var correctCoeffs = this.getSinusoidCoefficients(
+                const correctCoeffs = this.getSinusoidCoefficients(
                         rubric.correct.coords);
 
                 var canonicalGuessCoeffs = canonicalSineCoefficients(
@@ -2203,8 +2203,8 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "point") {
-                var guess = state.coords;
-                var correct = InteractiveGraph.getPointCoords(
+                let guess = state.coords;
+                let correct = InteractiveGraph.getPointCoords(
                         rubric.correct, component);
                 guess = guess.slice();
                 correct = correct.slice();
@@ -2223,10 +2223,10 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "polygon") {
-                var guess = state.coords.slice();
-                var correct = rubric.correct.coords.slice();
+                const guess = state.coords.slice();
+                const correct = rubric.correct.coords.slice();
 
-                var match;
+                let match;
                 if (rubric.correct.match === "similar") {
                     match = similar(guess, correct, Number.POSITIVE_INFINITY);
                 } else if (rubric.correct.match === "congruent") {
@@ -2248,8 +2248,8 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "segment") {
-                var guess = state.coords.slice();
-                var correct = rubric.correct.coords.slice();
+                let guess = state.coords.slice();
+                let correct = rubric.correct.coords.slice();
                 guess = _.invoke(guess, "sort").sort();
                 correct = _.invoke(correct, "sort").sort();
                 if (deepEq(guess, correct)) {
@@ -2261,8 +2261,8 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "ray") {
-                var guess = state.coords;
-                var correct = rubric.correct.coords;
+                const guess = state.coords;
+                const correct = rubric.correct.coords;
                 if (deepEq(guess[0], correct[0]) &&
                         collinear(correct[0], correct[1], guess[1])) {
                     return {
@@ -2273,10 +2273,10 @@ _.extend(InteractiveGraph, {
                     };
                 }
             } else if (state.type === "angle") {
-                var guess = state.coords;
-                var correct = rubric.correct.coords;
+                const guess = state.coords;
+                const correct = rubric.correct.coords;
 
-                var match;
+                let match;
                 if (rubric.correct.match === "congruent") {
                     var angles = _.map([guess, correct], function(coords) {
                         var angle = GraphUtils.findAngle(

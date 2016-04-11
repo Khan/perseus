@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-redeclare, no-var */
+/* eslint-disable max-len, no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -138,7 +138,7 @@ _.extend(MovableLine.prototype, {
         if (!state.static) {
             // the invisible shape in front of the line that gets mouse events
             if (!state.mouseTarget) {
-                var options = {
+                const options = {
                     thickness: 30,
                     mouselayer: true,
                 };

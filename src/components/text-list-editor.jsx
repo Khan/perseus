@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable max-len, no-redeclare, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable max-len, no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -85,8 +85,8 @@ var TextListEditor = React.createClass({
         if (which === 8 /* backspace */ && this.state.items[index] === "") {
             event.preventDefault();
 
-            var items = _.clone(this.state.items);
-            var focusIndex = (index === 0) ? 0 : index - 1;
+            const items = _.clone(this.state.items);
+            const focusIndex = (index === 0) ? 0 : index - 1;
 
             if (index === items.length - 1 &&
                     (index === 0 || items[focusIndex] !== "")) {
@@ -106,7 +106,7 @@ var TextListEditor = React.createClass({
                 index === this.state.items.length - 2) {
             event.preventDefault();
 
-            var items = _.clone(this.state.items);
+            const items = _.clone(this.state.items);
             items.splice(index, 1);
             this.setState({items: items});
             this.props.onChange(_.compact(items));
@@ -115,8 +115,8 @@ var TextListEditor = React.createClass({
         } else if (which === 13 /* enter */) {
             event.preventDefault();
 
-            var items = _.clone(this.state.items);
-            var focusIndex = index + 1;
+            const items = _.clone(this.state.items);
+            const focusIndex = index + 1;
 
             if (index === items.length - 2) {
                 // ...unless the empty input is just below.

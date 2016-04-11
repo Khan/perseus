@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -10,7 +10,6 @@ var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable = require("../mixins/changeable.jsx");
-var ApiOptions = require("../perseus-api.jsx").Options;
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 const KhanAnswerTypes = require("../util/answer-types.js");
 
@@ -24,8 +23,6 @@ const { KeypadInput } = require("../../math-input").components;
 const { configureKeypad } = require("../../math-input").actions;
 const { keypadConfigurationPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
-
-var EnabledFeatures = require("../enabled-features.jsx");
 
 var lens = require("../../hubble/index.js");
 

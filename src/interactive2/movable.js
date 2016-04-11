@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -180,12 +180,9 @@ _.extend(Movable.prototype, {
 
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
-            var $mouseTarget;
-            if (state.mouseTarget.getMouseTarget) {
-                $mouseTarget = $(state.mouseTarget.getMouseTarget());
-            } else {
-                $mouseTarget = $(state.mouseTarget[0]);
-            }
+            const $mouseTarget = state.mouseTarget.getMouseTarget ?
+                $(state.mouseTarget.getMouseTarget()) :
+                $(state.mouseTarget[0]);
 
             var isMouse = !('ontouchstart' in window);
 
@@ -225,12 +222,9 @@ _.extend(Movable.prototype, {
         }
 
         if (state.mouseTarget && state.cursor !== undefined) {
-            var $mouseTarget;
-            if (state.mouseTarget.getMouseTarget) {
-                $mouseTarget = $(state.mouseTarget.getMouseTarget());
-            } else {
-                $mouseTarget = $(state.mouseTarget[0]);
-            }
+            const $mouseTarget = state.mouseTarget.getMouseTarget ?
+                $(state.mouseTarget.getMouseTarget()) :
+                $(state.mouseTarget[0]);
 
             // "" removes the css cursor if state.cursor is null
             $mouseTarget.css("cursor", state.cursor || "");

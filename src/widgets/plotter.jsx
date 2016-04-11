@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-unused-vars, no-var, one-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -358,14 +358,16 @@ var Plotter = React.createClass({
                     rightDivider = config.graph.dividers[i];
 
                 if (leftDivider) {
-                    var divHeight = Math.min(self.state.values[i - 1], height);
+                    const divHeight = Math.min(
+                        self.state.values[i - 1], height);
                     leftDivider.scale(
                         1, Math.max(0.01, divHeight / config.scaleY),
                         center[0], center[1]);
                 }
 
                 if (rightDivider) {
-                    var divHeight = Math.min(self.state.values[i + 1], height);
+                    const divHeight = Math.min(
+                        self.state.values[i + 1], height);
                     rightDivider.scale(
                         1, Math.max(0.01, divHeight / config.scaleY),
                         center[0], center[1]

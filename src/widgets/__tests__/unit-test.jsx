@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-redeclare, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -32,41 +32,51 @@ describe("displaySigFigs", () => {
 
 describe("Unit Widget Grading", () => {
     it("accepts correct answers", () => {
-        var maybeValid = UnitWidget.validate("5 tbsp", {
-            value: "5 tbsp",
-            accepting: "all",
-            sigfigs: 1,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("5 tbsp", {
+                value: "5 tbsp",
+                accepting: "all",
+                sigfigs: 1,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("0.0739 L", {
-            value: "5.00 tbsp",
-            accepting: "all",
-            sigfigs: 3,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("0.0739 L", {
+                value: "5.00 tbsp",
+                accepting: "all",
+                sigfigs: 3,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("5.00 tbsp", {
-            value: "0.0739 L",
-            accepting: "all",
-            sigfigs: 3,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("5.00 tbsp", {
+                value: "0.0739 L",
+                accepting: "all",
+                sigfigs: 3,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("1124 lb", {
-            value: "5000 N",
-            accepting: "all",
-            sigfigs: 4,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("1124 lb", {
+                value: "5000 N",
+                accepting: "all",
+                sigfigs: 4,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
 
-        var maybeValid = UnitWidget.validate("1124 lb", {
-            value: "5000 N",
-            accepting: "some",
-            acceptingUnits: ["lb"],
-            sigfigs: 4,
-        });
-        assert.equal(maybeValid.earned, 1);
+        {
+            const maybeValid = UnitWidget.validate("1124 lb", {
+                value: "5000 N",
+                accepting: "some",
+                acceptingUnits: ["lb"],
+                sigfigs: 4,
+            });
+            assert.equal(maybeValid.earned, 1);
+        }
     });
 
     it("handles loss of precision gracefully", () => {
@@ -90,21 +100,25 @@ describe("Unit Widget Grading", () => {
     });
 
     it("flags incorrect sigfigs", () => {
-        var maybeValid = UnitWidget.validate("5.0 tbsp", {
-            value: "5 tbsp",
-            accepting: "all",
-            sigfigs: 1,
-        });
-        assert.equal(maybeValid.earned, 0);
-        assert.equal(maybeValid.message, "Check your significant figures.");
+        {
+            const maybeValid = UnitWidget.validate("5.0 tbsp", {
+                value: "5 tbsp",
+                accepting: "all",
+                sigfigs: 1,
+            });
+            assert.equal(maybeValid.earned, 0);
+            assert.equal(maybeValid.message, "Check your significant figures.");
+        }
 
-        var maybeValid = UnitWidget.validate("5 tbsp", {
-            value: "5.0 tbsp",
-            accepting: "all",
-            sigfigs: 2,
-        });
-        assert.equal(maybeValid.earned, 0);
-        assert.equal(maybeValid.message, "Check your significant figures.");
+        {
+            const maybeValid = UnitWidget.validate("5 tbsp", {
+                value: "5.0 tbsp",
+                accepting: "all",
+                sigfigs: 2,
+            });
+            assert.equal(maybeValid.earned, 0);
+            assert.equal(maybeValid.message, "Check your significant figures.");
+        }
     });
 
     it("flags numerically incorrect answers", () => {

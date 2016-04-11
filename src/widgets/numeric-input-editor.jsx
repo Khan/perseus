@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-redeclare, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -342,7 +342,7 @@ const NumericInputEditor = React.createClass({
         // TODO(oliver): This might not be necessary anymore.
         if (choiceIndex === answers.length) {
             var lastAnswer = initAnswer(this.state.lastStatus);
-            var answers = answers.concat(lastAnswer);
+            answers = answers.concat(lastAnswer);
         }
 
         answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
