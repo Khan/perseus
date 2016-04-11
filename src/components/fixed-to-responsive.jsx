@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-trailing-spaces, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -10,7 +10,7 @@
  *
  * Can wrap multiple components with the same dimensions at the same time;
  * these will be overlaid on top of each other.
- * 
+ *
  * Usage:
  * <FixedToResponsive width={400} height={400}>
  *     <img src="bottom-layer.png" />

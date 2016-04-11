@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-trailing-spaces, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -98,7 +98,7 @@ var TextListEditor = React.createClass({
                 this.setState({items: items}, function() {
                     ReactDOM.findDOMNode(
                         this.refs["input_" + focusIndex]).focus();
-                });                
+                });
             }
 
         // Deleting the last character in the second-to-last input removes it
