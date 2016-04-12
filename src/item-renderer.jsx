@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, prefer-spread */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -269,7 +269,7 @@ var ItemRenderer = React.createClass({
         var functionArgs = _.rest(arguments);
         var caller = this.questionRenderer;
 
-        return caller[functionName].apply(caller, functionArgs);
+        return caller[functionName](...functionArgs);
     },
 
     setInputValue: function(path, newValue, focus) {

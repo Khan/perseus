@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -74,7 +74,7 @@ function intersects(ab, cd) {
     ];
 
     var orientations = _.map(triplets, function(triplet) {
-        return sign(ccw.apply(null, triplet));
+        return sign(ccw(...triplet));
     });
 
     if (orientations[0] !== orientations[1] &&
@@ -83,7 +83,7 @@ function intersects(ab, cd) {
     }
 
     for (var i = 0; i < 4; i++) {
-        if (orientations[i] === 0 && pointInRect.apply(null, triplets[i])) {
+        if (orientations[i] === 0 && pointInRect(...triplets[i])) {
             return true;
         }
     }
@@ -112,7 +112,7 @@ function dotProduct(a, b) {
 function sideLengths(coords) {
     var segments = _.zip(coords, rotate(coords));
     return _.map(segments, function(segment) {
-        return magnitude(vector.apply(null, segment));
+        return magnitude(vector(...segment));
     });
 }
 
@@ -124,7 +124,7 @@ function angleMeasures(coords) {
         var p = vector(triplet[1], triplet[0]);
         var q = vector(triplet[2], triplet[1]);
         var raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
-        return sign(ccw.apply(null, triplet)) > 0 ? raw : -raw;
+        return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
     var sum = _.reduce(offsets, function(memo, arg) { return memo + arg; }, 0);
@@ -1363,7 +1363,7 @@ var InteractiveGraph = React.createClass({
                     [coords[i], coords[rel(1)]],
                     [coords[rel(-1)], coords[rel(1)]],
                 ], function(coords) {
-                    return magnitude(vector.apply(null, coords));
+                    return magnitude(vector(...coords));
                 });
 
                 _.each([0, 1], function(j) {
@@ -1936,7 +1936,7 @@ _.extend(InteractiveGraph, {
             [0.5, 0.50],
         ]);
 
-        var radius = magnitude(vector.apply(null, coords));
+        var radius = magnitude(vector(...coords));
 
         // Adjust the lower point by angleOffsetDeg degrees
         coords[0] = [
@@ -2284,7 +2284,7 @@ _.extend(InteractiveGraph, {
                             coords[2], coords[0], coords[1]);
                         return (angle + 360) % 360;
                     });
-                    match = eq.apply(null, angles);
+                    match = eq(...angles);
                 } else { /* exact */
                     match = deepEq(guess[1], correct[1]) &&
                             collinear(correct[1], correct[0], guess[0]) &&

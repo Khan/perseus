@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, prefer-spread */
+/* eslint-disable no-var, one-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -93,7 +93,7 @@ var Util = {
 
             while ((match = r.exec(str))) {
                 output.push(str.slice(lastIndex, match.index));
-                output.push.apply(output, match.slice(1));
+                output.push(...match.slice(1));
                 lastIndex = match.index + match[0].length;
             }
 
