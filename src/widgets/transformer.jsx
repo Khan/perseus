@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, prefer-spread, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -1327,10 +1327,12 @@ var ShapeTypes = {
                 return false;
             }
 
+            /* eslint-disable camelcase */
             var line1_0 = [points1[1], points1[0]];
             var line1_2 = [points1[1], points1[2]];
             var line2_0 = [points2[1], points2[0]];
             var line2_2 = [points2[1], points2[2]];
+            /* eslint-enable camelcase */
 
             var equalUnflipped = kray.equal(line1_0, line2_0) &&
                     kray.equal(line1_2, line2_2);

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable camelcase, eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -660,10 +660,12 @@ var ShapeTypes = {
                 return false;
             }
 
+            /* eslint-disable camelcase */
             var line1_0 = [points1[1], points1[0]];
             var line1_2 = [points1[1], points1[2]];
             var line2_0 = [points2[1], points2[0]];
             var line2_2 = [points2[1], points2[2]];
+            /* eslint-enable camelcase */
 
             var equalUnflipped = kray.equal(line1_0, line2_0) &&
                     kray.equal(line1_2, line2_2);
