@@ -4,14 +4,20 @@ const _ = require("underscore");
 const React = require('react');
 const classNames = require("classnames");
 
-const { ClassNames, Options } = require("../../perseus-api.jsx");
+const { ClassNames } = require("../../perseus-api.jsx");
 
 const ToggleableRadioButton = require("./toggleable-radio-button.jsx");
 
 
 const Choice = React.createClass({
     propTypes: {
-        apiOptions: Options.propTypes,
+        // TODO(kevinb) use Options.propTypes from perseus-api.jsx
+        // This change will also require make sure that item-renderer.jsx and
+        // server-item-renderer.jsx have appropriate defaults for apiOptions
+        // because many of the properties on Options.propTypes are required.
+        apiOptions: React.PropTypes.shape({
+            responsiveStyling: React.PropTypes.bool,
+        }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
         clue: React.PropTypes.node,
