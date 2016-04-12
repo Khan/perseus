@@ -142,6 +142,9 @@ const HintsRenderer = React.createClass({
                         this.props.apiOptions.getAnotherHint();
                     }}
                 >
+                    <span className="perseus-show-another-hint-plus">
+                      +
+                    </span>
                     {i18n._("Get another hint")
                     } ({hintsVisible}/{this.props.hints.length})
                 </button>}

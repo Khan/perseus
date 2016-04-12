@@ -32,21 +32,26 @@ const HintRenderer = React.createClass({
             pos,
             totalHints,
         } = this.props;
+        const newHintStyles = this.props.enabledFeatures.newHintStyles;
         const classNames = classnames(
             'perseus-hint-renderer',
+            newHintStyles && 'perseus-hint-renderer-new',
             lastHint && 'last-hint',
             lastRendered && 'last-rendered'
         );
 
         return <div className={classNames} tabIndex="-1">
-            <span className="perseus-sr-only">
+            {!newHintStyles && <span className="perseus-sr-only">
                 {i18n._("Hint #%(pos)s", {pos: pos + 1})}
-            </span>
-            {totalHints && pos != null && <span
+            </span>}
+            {!newHintStyles && totalHints && pos != null && <span
                 className="perseus-hint-label"
             >
                 {`${pos + 1} / ${totalHints}`}
             </span>}
+            {newHintStyles && <div className="perseus-hint-label-new">
+                {i18n._("Hint %(pos)s", {pos: pos + 1})}
+            </div>}
             <Renderer
                 ref="renderer"
                 widgets={hint.widgets}
