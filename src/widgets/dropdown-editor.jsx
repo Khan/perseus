@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, semi, space-before-function-paren */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -57,7 +57,7 @@ var DropdownEditor = React.createClass({
             <div className="clearfix"></div>
             <ul className="dropdown-choices">
                 {this.props.choices.map(function(choice, i) {
-                    var checkedClass = choice.correct ? 'correct' : 'incorrect'
+                    var checkedClass = choice.correct ? 'correct' : 'incorrect';
 
                     return <li key={"" + i}>
                         <div>
