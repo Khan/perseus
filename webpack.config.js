@@ -15,7 +15,7 @@ module.exports = {
                 loader: "json-loader"
             },
             {
-                test: /\.jsx$/,
+                test: /\.jsx?$/,
                 include: [
                     path.join(__dirname, "src/"),
                     path.join(__dirname, "node_modules/react-components/"),
