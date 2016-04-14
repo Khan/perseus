@@ -8,6 +8,10 @@
 var React = require("react");
 
 var MoreOptions = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+    },
+
     getDefaultProps: function() {
         return {
             show: false,

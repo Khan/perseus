@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -23,6 +23,7 @@ var React = require("react");
 var FixedToResponsive = React.createClass({
 
     propTypes: {
+        children: React.PropTypes.node,
         width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
         className: React.PropTypes.string,

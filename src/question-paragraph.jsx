@@ -5,6 +5,10 @@
 var React = require('react');
 
 var QuestionParagraph = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+    },
+
     render: function() {
         var className = (this.props.className) ?
             "paragraph " + this.props.className :

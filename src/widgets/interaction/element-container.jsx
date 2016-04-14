@@ -6,6 +6,7 @@ var React = require("react");
 
 var ElementContainer = React.createClass({
     propTypes: {
+        children: React.PropTypes.node,
         initiallVisible: React.PropTypes.bool,
         title: React.PropTypes.node,
     },

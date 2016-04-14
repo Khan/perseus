@@ -1413,6 +1413,10 @@ var TransformationList = React.createClass({
 });
 
 var ToolButton = React.createClass({
+    propTypes: {
+        children: React.PropTypes.node,
+    },
+
     render: function() {
         var classes = this.props.toggled ?
             "simple-button exercise-orange toggled highlighted-tool-button" :
