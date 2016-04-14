@@ -1,6 +1,8 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+/* global $_:false */
 
 var React = require("react");
 var SimpleMarkdown = require("simple-markdown");

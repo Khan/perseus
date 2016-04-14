@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -7,7 +7,7 @@
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
 // value?
 
-/* global i18n:false */
+/* global i18n:false, $_:false */
 
 var lens = require("../../hubble/index.js");
 var React = require("react");

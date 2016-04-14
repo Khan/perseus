@@ -1,6 +1,8 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, react/jsx-closing-bracket-location, react/jsx-no-undef, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable eol-last, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+/* global $_:false */
 
 const React = require("react");
 const _ = require("underscore");
