@@ -217,8 +217,8 @@ var IframeEditor = React.createClass({
         return {
             url: "",
             settings: [{name: "", value: ""}],
-            width: 600,
-            height: 360
+            width: 560,
+            height: 320
         };
     },
 
