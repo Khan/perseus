@@ -1,6 +1,6 @@
 /*! Perseus | http://github.com/Khan/perseus */
-// commit 5cb0ac79bc81278a0962cc2ede9d0066eca3555b
-// branch modify_perseus_css
+// commit bcf95ec4fcabd1216e306f3ed0f9d7f9471e5fef
+// branch bugfix_iframe
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Perseus = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*
 Software License Agreement (BSD License)
@@ -14060,9 +14060,8 @@ var Iframe = React.createClass({displayName: 'Iframe',
         var url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
-        if (url.length && url.indexOf("http") !== 0) {
-            url = "http://khanacademy.org/cs/program/" + url +
-                    "/embedded?buttons=no&embed=yes&editor=no&author=no";
+        if (url && url.length && url.indexOf("http") !== 0) {
+            url = "https://www.youtube.com/embed/" + url;
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", window.location.origin);
         }
