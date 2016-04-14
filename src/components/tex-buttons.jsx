@@ -39,7 +39,8 @@ var basicbuttons = [
                 input.cmd("\\frac");
                 }
             
-        ]
+        ],
+        () => [<TeX style={slightlyBig}>{"\\div"}</TeX>, "\\div"]
     ]
 
 ];
