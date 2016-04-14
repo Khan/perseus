@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-unused-vars, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -13,7 +13,6 @@ var _ = require("underscore");
 
 var Util = require("../util.js");
 var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var Graphie = require("../components/graphie.jsx");
@@ -137,50 +136,6 @@ _.extend(ExampleGraphieWidget, {
     }
 });
 
-
-/**
- * This is the widget's editor. This is what shows up on the left side
- * of the screen in test.html. Only the question writer sees this.
- */
-var ExampleGraphieWidgetEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
-    getDefaultProps: function() {
-        return {
-            correct: [4, 4],
-            graph: {
-                box: [340, 340],
-                labels: ["x", "y"],
-                range: [[-10, 10], [-10, 10]],
-                step: [1, 1],
-                gridStep: [1, 1],
-                valid: true,
-                backgroundImage: null,
-                markings: "grid",
-                showProtractor: false
-            }
-        };
-    },
-
-    render: function() {
-        return <div>
-            <ExampleGraphieWidget
-                graph={this.props.graph}
-                coord={this.props.correct}
-                onChange={this.handleChange} />
-        </div>;
-    },
-
-    handleChange: function(newProps) {
-        if (newProps.coord) {
-            this.change({
-                correct: newProps.coord
-            });
-        }
-    }
-});
-
-
 /**
  * For this widget to work, we must export it.
  * We also must require() this file in src/all-widgets.js
@@ -190,5 +145,4 @@ module.exports = {
     displayName: "Example Graphie Widget",
     hidden: true,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleGraphieWidget,
-    editor: ExampleGraphieWidgetEditor
 };

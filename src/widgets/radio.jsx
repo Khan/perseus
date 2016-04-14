@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -7,7 +7,6 @@ var _ = require("underscore");
 var shuffle = require("../util.js").shuffle;
 
 var Radio = require("./radio/widget.jsx");
-var RadioEditor = require("./radio/editor.jsx");
 
 var _choiceTransform = (editorProps, problemNum) => {
     var _maybeRandomize = function(array) {
@@ -101,7 +100,6 @@ module.exports = {
     displayName: "Multiple choice",
     accessible: true,
     widget: Radio,
-    editor: RadioEditor,
     transform: radioTransform,
     staticTransform: staticTransform,
     version: { major: 1, minor: 0 },

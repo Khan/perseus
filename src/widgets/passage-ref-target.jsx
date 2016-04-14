@@ -6,7 +6,6 @@ var React = require("react");
 var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var Renderer = require("../renderer.jsx");
 
@@ -48,39 +47,11 @@ _.extend(PassageRefTarget, {
     }
 });
 
-var PassageRefTargetEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
-    propTypes: {
-        content: React.PropTypes.string
-    },
-
-    getDefaultProps: function() {
-        return {
-            content: ""
-        };
-    },
-
-    render: function() {
-        return <div>
-            Content:
-            <input type="text"
-                value={this.props.content}
-                onChange={this.handleContentChange} />
-        </div>;
-    },
-
-    handleContentChange: function(e) {
-        this.change({content: e.target.value});
-    }
-});
-
 module.exports = {
     name: "passage-ref-target",
     displayName: "PassageRefTarget",
     defaultAlignment: "inline",
     widget: PassageRefTarget,
-    editor: PassageRefTargetEditor,
     hidden: true,
     transform: (editorProps) => {
         return _.pick(editorProps, "content");

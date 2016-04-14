@@ -9,17 +9,13 @@
 var React = require("react");
 var _ = require("underscore");
 
-var BlurInput = require("react-components/blur-input.jsx");
 var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
-var InfoTip = require("../components/info-tip.jsx");
 
 // Current default is 720p, based on the typical videos we upload currently
 var DEFAULT_WIDTH = 1280;
 var DEFAULT_HEIGHT = 720;
 
-var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 var KA_EMBED = "https://{hostname}/embed_video?slug={slug}" +
                "&internal_video_only=1";
 var IS_URL = /^https?:\/\//;
@@ -98,64 +94,10 @@ _.extend(Video, {
     },
 });
 
-/**
- * Turns Khan Academy URLs into the KA slugs, if possible. Any other URLs are
- * returned unchanged.
- */
-function getSlugFromUrl(url) {
-    var match = KA_VIDEO_URL.exec(url);
-    if (match) {
-        return match[1];
-    }
-    return url;
-}
-
-/**
- * This is the main editor for this widget, to specify all the options.
- */
-var VideoEditor = React.createClass({
-
-    propTypes: {
-        location: React.PropTypes.string,
-        onChange: React.PropTypes.func,
-    },
-
-    mixins: [Changeable, EditorJsonify],
-
-    getDefaultProps: function() {
-        return {
-            location: "",
-        };
-    },
-
-    _handleUrlChange: function(url) {
-        this.props.onChange({location: getSlugFromUrl(url)});
-    },
-
-    render: function() {
-        return <div>
-            <label>URL or KA Video Slug:{' '}
-                <BlurInput
-                    name="location"
-                    value={this.props.location}
-                    style={{width: 290}}
-                    onChange={this._handleUrlChange}
-                />
-                <InfoTip>
-                    You can paste any URL here. KA video URLs will
-                    be converted to just the slug.
-                </InfoTip>
-            </label>
-        </div>;
-    },
-});
-
-
 module.exports = {
     name: "video",
     displayName: "Video",
     defaultAlignment: "block",
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     widget: Video,
-    editor: VideoEditor,
 };

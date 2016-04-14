@@ -1,36 +1,15 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
 var _ = require("underscore");
 
 var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var PerseusMarkdown = require("../perseus-markdown.jsx");
 var mdParse = PerseusMarkdown.parse;
 var mdOutput = PerseusMarkdown.basicOutput;
-
-var TextArea = React.createClass({
-    render: function() {
-        return <textarea
-            ref="input"
-            value={this.props.value || ""}
-            onChange={this.changeValue} />;
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    },
-
-    changeValue: function(e) {
-        // Translating from the js event e to the value
-        // of the textbox to send to onChange
-        this.props.onChange(e.target.value);
-    }
-});
 
 var SimpleMarkdownTester = React.createClass({
     propTypes: {
@@ -105,41 +84,6 @@ _.extend(SimpleMarkdownTester, {
     }
 });
 
-
-/**
- * This is the widget's editor. This is what shows up on the left side
- * of the screen in test.html. Only the question writer sees this.
- */
-var SimpleMarkdownTesterEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
-    getDefaultProps: function() {
-        return {
-            value: ""
-        };
-    },
-
-    render: function() {
-        return <div>
-            <label>
-                <div>Simple markdown contents:</div>
-                <div>
-                    <TextArea
-                        value={this.props.value}
-                        onChange={this.change("value")}
-                        ref="input" />
-                </div>
-            </label>
-        </div>;
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    }
-});
-
-
 /**
  * For this widget to work, we must require() this file in src/all-widgets.js
  */
@@ -148,6 +92,5 @@ module.exports = {
     displayName: "Simple Markdown Tester",
     hidden: true,   // Hides this widget from the Perseus.Editor widget select
     widget: SimpleMarkdownTester,
-    editor: SimpleMarkdownTesterEditor,
     transform: _.identity
 };

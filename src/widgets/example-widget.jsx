@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-trailing-spaces, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -13,7 +13,6 @@
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var _ = require("underscore");
 
 var TextInput = React.createClass({
@@ -131,45 +130,6 @@ _.extend(ExampleWidget, {
     }
 });
 
-
-/**
- * This is the widget's editor. This is what shows up on the left side
- * of the screen in test.html. Only the question writer sees this.
- */
-var ExampleWidgetEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
-    getDefaultProps: function() {
-        return {
-            correct: ""
-        };
-    },
-
-    handleAnswerChange: function(event) {
-        this.change({
-            correct: event.target.value
-        });
-    },
-
-    render: function() {
-        return <div>
-            <label>
-                Correct answer:
-                <input
-                    value={this.props.correct}
-                    onChange={this.handleAnswerChange}
-                    ref="input" />
-            </label>
-        </div>;
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    }
-});
-
-
 /**
  * For this widget to work, we must require() this file in src/all-widgets.js
  */
@@ -179,9 +139,8 @@ module.exports = {
 
     // Tell the renderer what type of `display:` style we would like
     // for the component wrapping this one.
-    defaultAlignment: "inline-block", 
-    
+    defaultAlignment: "inline-block",
+
     hidden: true,   // Hides this widget from the Perseus.Editor widget select
     widget: ExampleWidget,
-    editor: ExampleWidgetEditor
 };

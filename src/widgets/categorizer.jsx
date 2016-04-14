@@ -1,18 +1,15 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable brace-style, comma-dangle, indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
 var classNames = require("classnames");
 var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 var _ = require("underscore");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var PropCheckBox = require("../components/prop-check-box.jsx");
 var Renderer = require("../renderer.jsx");
-var TextListEditor = require("../components/text-list-editor.jsx");
 var Util = require("../util.js");
 
 var Categorizer = React.createClass({
@@ -149,74 +146,10 @@ _.extend(Categorizer, {
     }
 });
 
-
-var CategorizerEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
-    propTypes: {
-        items: React.PropTypes.arrayOf(React.PropTypes.string),
-        categories: React.PropTypes.arrayOf(React.PropTypes.string),
-        values: React.PropTypes.arrayOf(React.PropTypes.number),
-        randomizeItems: React.PropTypes.bool
-    },
-
-    getDefaultProps: function() {
-        return {
-            items: [],
-            categories: [],
-            values: [],
-            randomizeItems: false
-        };
-    },
-
-    render: function() {
-        return <div>
-            <div className="perseus-widget-row">
-                <PropCheckBox
-                    label="Randomize item order"
-                    labelAlignment="right"
-                    randomizeItems={this.props.randomizeItems}
-                    onChange={this.props.onChange} />
-            </div>
-
-            Categories:
-            <TextListEditor
-                options={this.props.categories}
-                onChange={(cat) => {this.change("categories", cat);}}
-                layout="horizontal" />
-
-            Items:
-            <TextListEditor
-                options={this.props.items}
-                onChange={(items) => {this.change({
-                        items: items,
-                        // TODO(eater): This truncates props.values so there
-                        // are never more correct answers than items, ensuring
-                        // the widget is possible to answer correctly.
-                        // It doesn't necessarly keep each answer with
-                        // its corresponding item if an item is deleted from
-                        // the middle. Inconvenient, but it's at least possible
-                        // for content creators to catch and fix.
-                        values: _.first(this.props.values, items.length)
-                    });}}
-                layout="vertical" />
-
-            <Categorizer
-                items={this.props.items}
-                categories={this.props.categories}
-                values={this.props.values}
-                onChange={(newProps) => {this.props.onChange(newProps);}}
-                trackInteraction={function() {}}
-                />
-        </div>;
-    },
-});
-
 module.exports = {
     name: "categorizer",
     displayName: "Categorizer",
     widget: Categorizer,
-    editor: CategorizerEditor,
     transform: (editorProps) => {
         return _.pick(editorProps, "items", "categories", "randomizeItems");
     },

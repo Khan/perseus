@@ -1,9 +1,5 @@
 const React = require("react");
 
-const Changeable = require("../mixins/changeable.jsx");
-const EditorJsonify = require("../mixins/editor-jsonify.jsx");
-const NumberInput = require("../components/number-input.jsx");
-const TextInput = require("../components/text-input.jsx");
 
 const draw = require("./molecule/molecule-drawing.jsx");
 const {layout} = require("./molecule/molecule-layout.jsx");
@@ -150,52 +146,10 @@ const MoleculeWidget = React.createClass({
     },
 });
 
-const MoleculeWidgetEditor = React.createClass({
-    propTypes: {
-        rotationAngle: React.PropTypes.number,
-        smiles: React.PropTypes.string,
-    },
-
-    mixins: [Changeable, EditorJsonify],
-
-    updateMolecule: function(newValue) {
-        this.change({smiles: newValue});
-    },
-
-    updateRotation: function(newValue) {
-        this.change({rotationAngle: newValue});
-    },
-
-    render: function() {
-        return <div>
-            <div>
-                {/* TODO(colin): instead of nbsp hacks, use styles to get the
-                    spacing right. */}
-                <label>SMILES:&nbsp;
-                    <TextInput
-                        onChange={this.updateMolecule}
-                        value={this.props.smiles}
-                    />
-                </label>
-            </div>
-            <div>
-                <label>Rotation (deg):&nbsp;
-                    <NumberInput
-                        onChange={this.updateRotation}
-                        value={this.props.rotationAngle}
-                    />
-                </label>
-            </div>
-        </div>;
-    },
-
-});
-
 module.exports = {
     name: "molecule-renderer",
     displayName: "Molecule renderer",
     hidden: false,
     widget: MoleculeWidget,
-    editor: MoleculeWidgetEditor,
     molecule: Molecule,
 };

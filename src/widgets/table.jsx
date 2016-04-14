@@ -1,15 +1,12 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
 var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
-var Editor = require("../editor.jsx");
-var InfoTip = require("../components/info-tip.jsx");
 var MathOutput = require("../components/math-output.jsx");
-var NumberInput  = require("../components/number-input.jsx");
 var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
 
@@ -54,6 +51,8 @@ var Table = React.createClass({
             )
         ),
         editableHeaders: React.PropTypes.bool,
+        // The editor to use when editableHeaders is enabled
+        Editor: React.PropTypes.func,
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
         trackInteraction: React.PropTypes.func.isRequired,
     },
@@ -100,7 +99,7 @@ var Table = React.createClass({
                     _.map(headers, (header, i) => {
                         if (this.props.editableHeaders) {
                             return <th key={i}>
-                                <Editor
+                                <this.props.Editor
                                     ref={"columnHeader" + i}
                                     content={header}
                                     widgetEnabled={false}
@@ -304,144 +303,6 @@ _.extend(Table, {
     }
 });
 
-var TableEditor = React.createClass({
-    propTypes: {
-        rows: React.PropTypes.number,
-        columns: React.PropTypes.number,
-        headers: React.PropTypes.arrayOf(React.PropTypes.string),
-        answers: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(
-                React.PropTypes.string
-            )
-        )
-    },
-
-    getDefaultProps: function() {
-        var defaultRows = 4;
-        var defaultColumns = 1;
-        var blankAnswers = _(defaultRows).times(function() {
-            return Util.stringArrayOfSize(defaultColumns);
-        });
-        return {
-            headers: [""],
-            rows: defaultRows,
-            columns: defaultColumns,
-            answers: blankAnswers
-        };
-    },
-
-    focus: function() {
-        ReactDOM.findDOMNode(this.refs.numberOfColumns).focus();
-    },
-
-    render: function() {
-        var rows = this.props.rows;
-        var cols = this.props.columns;
-
-        var tableProps = _.pick(this.props, "headers", "answers", "onChange");
-        _.extend(tableProps, {
-            editableHeaders: true,
-            onFocus: () => {},
-            onBlur: () => {},
-            trackInteraction: () => {},
-        });
-
-        return <div>
-            <div className="perseus-widget-row">
-                <label>
-                    Number of columns:
-                    {" "}
-                    <NumberInput
-                        ref="numberOfColumns"
-                        value={this.props.columns}
-                        onChange={(val) => {
-                            if (val) {
-                                this.onSizeInput(this.props.rows, val);
-                            }
-                        }}
-                        useArrowKeys={true} />
-                </label>
-            </div>
-            <div className="perseus-widget-row">
-                <label>
-                    Number of rows:
-                    {" "}
-                    <NumberInput
-                        ref="numberOfRows"
-                        value={this.props.rows}
-                        onChange={(val) => {
-                            if (val) {
-                                this.onSizeInput(val, this.props.columns);
-                            }
-                        }}
-                        useArrowKeys={true} />
-                </label>
-            </div>
-            <div>
-                {' '}Table of answers:{' '}
-                <InfoTip>
-                    <p>The student has to fill out all cells in the
-                    table.  For partially filled tables create a table
-                    using the template, and insert text input boxes
-                    as desired.</p>
-                </InfoTip>
-            </div>
-            <div>
-                <Table {...tableProps} />
-            </div>
-        </div>;
-    },
-
-    onSizeInput: function(numRawRows, numRawColumns) {
-        var rows = +numRawRows || 0;
-        var columns = +numRawColumns || 0;
-        rows = Math.min(Math.max(1, rows), 30);
-        columns = Math.min(Math.max(1, columns), 6);
-        var oldColumns = this.props.columns;
-        var oldRows = this.props.rows;
-
-        var answers = this.props.answers;
-        // Truncate if necessary; else, append
-        if (rows <= oldRows) {
-            answers.length = rows;
-        } else {
-            _(rows - oldRows).times(function() {
-                answers.push(Util.stringArrayOfSize(oldColumns));
-            });
-        }
-
-        function fixColumnSizing(array) {
-            // Truncate if necessary; else, append
-            if (columns <= oldColumns) {
-                array.length = columns;
-            } else {
-                _(columns - oldColumns).times(function() {
-                    array.push("");
-                });
-            }
-        }
-
-        var headers = this.props.headers;
-        fixColumnSizing(headers);
-        _.each(answers, fixColumnSizing);
-
-        this.props.onChange({
-            rows: rows,
-            columns: columns,
-            answers: answers,
-            headers: headers
-        });
-    },
-
-    serialize: function() {
-        var json = _.pick(this.props, "headers", "rows", "columns");
-
-        return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone)
-        });
-    }
-});
-
 var propTransform = (editorProps) => {
     // Remove answers before passing to widget
     var rows = editorProps.answers.length;
@@ -459,6 +320,5 @@ module.exports = {
     displayName: "Table of values",
     accessible: true,
     widget: Table,
-    editor: TableEditor,
     transform: propTransform
 };

@@ -1,15 +1,10 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable comma-dangle, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
 var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-
-var NumberInput = require("../components/number-input.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var InfoTip = require("../components/info-tip.jsx");
 
 var MAX_SIZE = 8;
 
@@ -280,126 +275,6 @@ var LightsPuzzle = React.createClass({
     }
 });
 
-// The widget editor
-var LightsPuzzleEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
-    propTypes: {
-        startCells: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(React.PropTypes.bool)
-        ),
-        flipPattern: React.PropTypes.string.isRequired,
-        gradeIncompleteAsWrong: React.PropTypes.bool.isRequired
-    },
-
-    getDefaultProps: function() {
-        return {
-            startCells: [
-                [false, false, false],
-                [false, false, false],
-                [false, false, false]
-            ],
-            flipPattern: "plus",
-            gradeIncompleteAsWrong: false
-        };
-    },
-
-    _height: function() {
-        return this.props.startCells.length;
-    },
-
-    _width: function() {
-        if (this.props.startCells.length !== 0) {
-            return this.props.startCells[0].length;
-        } else {
-            return 0; // default to 0
-        }
-    },
-
-    render: function() {
-        return <div>
-            <div>
-                Width:
-                <NumberInput
-                    value={this._width()}
-                    placeholder={5}
-                    onChange={this._changeWidth} />
-                {", "}
-                Height:
-                <NumberInput
-                    value={this._height()}
-                    placeholder={5}
-                    onChange={this._changeHeight} />
-            </div>
-            <div>
-                Flip pattern:
-                <select
-                        value={this.props.flipPattern}
-                        onChange={this._handlePatternChange}>
-                    {_.map(_.keys(PATTERNS), (pattern, i) => {
-                        return <option value={pattern} key={i}>
-                            {pattern}
-                        </option>;
-                    })}
-                </select>
-            </div>
-            <div>
-                Grade incomplete puzzles as wrong:
-                {" "}
-                <PropCheckBox
-                    gradeIncompleteAsWrong={this.props.gradeIncompleteAsWrong}
-                    onChange={this.props.onChange} />
-                    <InfoTip>
-                        By default, incomplete puzzles are graded as empty.
-                    </InfoTip>
-                </div>
-            <div>
-                Starting configuration:
-            </div>
-            <div style={{overflowX: "auto"}}>
-                <TileGrid
-                    cells={this.props.startCells}
-                    size={50}
-                    onChange={this._switchTile} />
-            </div>
-        </div>;
-    },
-
-    _handlePatternChange: function(e) {
-        this.change("flipPattern", e.target.value);
-    },
-
-    _changeWidth: function(newWidth) {
-        newWidth = clampToInt(newWidth, 1, MAX_SIZE);
-        this._truncateCells(newWidth, this._height());
-    },
-
-    _changeHeight: function(newHeight) {
-        newHeight = clampToInt(newHeight, 1, MAX_SIZE);
-        this._truncateCells(this._width(), newHeight);
-    },
-
-    _truncateCells: function(newWidth, newHeight) {
-        var newCells = _.times(newHeight, (y) => {
-            return _.times(newWidth, (x) => {
-                // explicitly cast the result to a boolean with !!
-                return !!(this.props.startCells[y] &&
-                        this.props.startCells[y][x]);
-            });
-        });
-
-        this.change({startCells: newCells});
-    },
-
-    _switchTile: function(tileY, tileX) {
-        var newCells = flipTilesPredicate(this.props.startCells, (y, x) => {
-            return y === tileY && x === tileX;
-        });
-
-        this.change({startCells: newCells});
-    }
-});
-
 // grading function
 var validate = function(rubric, state) {
     var empty = _.all(state.cells, (row, y) => {
@@ -456,6 +331,5 @@ module.exports = {
     displayName: "Lights Puzzle",
     hidden: true,
     widget: LightsPuzzle,
-    editor: LightsPuzzleEditor,
     transform: transformProps
 };

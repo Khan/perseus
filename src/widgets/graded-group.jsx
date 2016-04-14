@@ -8,7 +8,6 @@ var _ = require("underscore");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable   = require("../mixins/changeable.jsx");
-var Editor = require("../editor.jsx");
 var Renderer = require("../renderer.jsx");
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -181,47 +180,6 @@ var GradedGroup = React.createClass({
     },
 });
 
-var GradedGroupEditor = React.createClass({
-    mixins: [Changeable],
-
-    propTypes: {
-        content: React.PropTypes.string,
-        widgets: React.PropTypes.object,
-        images: React.PropTypes.object,
-        apiOptions: ApiOptions.propTypes,
-    },
-
-    getDefaultProps: function() {
-        return {
-            content: "",
-            widgets: {},
-            images: {},
-        };
-    },
-
-    render: function() {
-        return <div className="perseus-group-editor">
-            <Editor
-                ref="editor"
-                content={this.props.content}
-                widgets={this.props.widgets}
-                apiOptions={this.props.apiOptions}
-                images={this.props.images}
-                widgetEnabled={true}
-                immutableWidgets={false}
-                onChange={this.props.onChange} />
-        </div>;
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.editor.getSaveWarnings();
-    },
-
-    serialize: function() {
-        return this.refs.editor.serialize();
-    },
-});
-
 var traverseChildWidgets = function(props, traverseRenderer) {
     return _.extend({}, props, traverseRenderer(props));
 };
@@ -230,7 +188,6 @@ module.exports = {
     name: "graded-group",
     displayName: "Graded Group",
     widget: GradedGroup,
-    editor: GradedGroupEditor,
     traverseChildWidgets: traverseChildWidgets,
     hidden: false,
     tracking: "all",

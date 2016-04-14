@@ -6,11 +6,7 @@ var React = require("react");
 var _ = require("underscore");
 
 var Changeable   = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
-var InfoTip = require("../components/info-tip.jsx");
-var NumberInput = require("../components/number-input.jsx");
 var PerseusMarkdown = require("../perseus-markdown.jsx");
-var TextInput = require("../components/text-input.jsx");
 var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 var EN_DASH = "\u2013";
@@ -137,69 +133,11 @@ _.extend(PassageRef, {
     }
 });
 
-var PassageRefEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
-    propTypes: {
-        passageNumber: React.PropTypes.number,
-        referenceNumber: React.PropTypes.number,
-        summaryText: React.PropTypes.string,
-    },
-
-    getDefaultProps: function() {
-        return {
-            passageNumber: 1,
-            referenceNumber: 1,
-            summaryText: "",
-        };
-    },
-
-    render: function() {
-        return <div>
-            <div>
-                <label>
-                    {"Passage Number: "}
-                    <NumberInput
-                        value={this.props.passageNumber}
-                        onChange={this.change("passageNumber")} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    {"Reference Number: "}
-                    <NumberInput
-                        value={this.props.referenceNumber}
-                        onChange={this.change("referenceNumber")} />
-                </label>
-            </div>
-            <div>
-                <label>
-                    {"Summary Text: "}
-                    <TextInput
-                        value={this.props.summaryText}
-                        onChange={this.change("summaryText")} />
-                    <InfoTip>
-                        <p>
-                            Short summary of the referenced section. This
-                            will be included in parentheses and quotes
-                            automatically.
-                        </p>
-                        <p>
-                            Ex: The start ... the end
-                        </p>
-                    </InfoTip>
-                </label>
-            </div>
-        </div>;
-    }
-});
-
 module.exports = {
     name: "passage-ref",
     displayName: "PassageRef",
     defaultAlignment: "inline",
     widget: PassageRef,
-    editor: PassageRefEditor,
     transform: (editorProps) => {
         return _.pick(editorProps,
             "passageNumber",
