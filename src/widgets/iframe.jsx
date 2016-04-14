@@ -69,9 +69,8 @@ var Iframe = React.createClass({
         var url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
-        if (url.length && url.indexOf("http") !== 0) {
-            url = "http://khanacademy.org/cs/program/" + url +
-                    "/embedded?buttons=no&embed=yes&editor=no&author=no";
+        if (url && url.length && url.indexOf("http") !== 0) {
+            url = "https://www.youtube.com/embed/" + url;
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", window.location.origin);
         }
@@ -218,8 +217,8 @@ var IframeEditor = React.createClass({
         return {
             url: "",
             settings: [{name: "", value: ""}],
-            width: 480,
-            height: 400
+            width: 560,
+            height: 320
         };
     },
 
