@@ -6930,7 +6930,8 @@ var basicbuttons = [
                 input.cmd("\\frac");
                 }
             
-        ];}
+        ];},
+        function() {return [TeX( {style:slightlyBig}, "\\div"), "\\div"];}
     ]
 
 ];
