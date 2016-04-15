@@ -2,17 +2,17 @@
 // need
 
 // Helper function for loading react; see comment when we load react
-var withNavigator = function(lambda) {
-    var oldNavigator = global.navigator;
+const withNavigator = function(lambda) {
+    const oldNavigator = global.navigator;
     global.navigator = { userAgent: "Node" };
-    var result = lambda();
+    const result = lambda();
     global.navigator = oldNavigator;
     return result;
 };
 
 // Fake being a web browser
 global.document = global.jsdom.jsdom();
-var window = global.window = document.defaultView; // @Nolint
+const window = global.window = document.defaultView; // @Nolint
 
 // Mock out window.getSelection for react
 // TODO(jack): Remove this once
@@ -26,16 +26,16 @@ if (!window.getSelection) {
     };
 }
 
-var _ = require("../lib/underscore.js");
+const _ = require("../lib/underscore.js");
 global._ = window._ = _;
 
 // Add window.btoa polyfill
-var btoa = require("btoa");
+const btoa = require("btoa");
 global.btoa = window.btoa = btoa;
 
 // Create a function to copy globals from `window` to `global`
-var jsdomWindowProps = _.clone(global.window);
-var updateGlobals = function() {
+const jsdomWindowProps = _.clone(global.window);
+const updateGlobals = function() {
     // Update only things we add to window, but not properties created by
     // jsdom, since making those globals can confuse jsdom.
     // We can't use a plain _.each(global.window) here because window has
@@ -62,6 +62,8 @@ updateGlobals();
 // First-party global dependencies
 require("../ke/local-only/i18n.js");
 updateGlobals();
+
+global.__EDITOR__ = true;
 
 module.exports = {
     updateGlobals: updateGlobals,

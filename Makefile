@@ -8,18 +8,19 @@ API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
 PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
 PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
+PERSEUS_EDITOR_BUILD_JS=build/editor-perseus.js
 PERSEUS_VERSION_FILE=build/perseus-$(API_VERSION_MAJOR)-item-version.js
 
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
 	@echo "make server-offline PORT=9000 # runs the perseus server"
-	@echo "make build                    # compiles into $(PERSEUS_BUILD_JS) and $(PERSEUS_BUILD_CSS)"
+	@echo "make build                    # compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), and $(PERSEUS_EDITOR_BUILD_JS)"
 	@echo "make subperseus               # build perseus into webapp"
 	@echo "make clean                    # delete all compilation artifacts"
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
+build: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
 
 $(PERSEUS_BUILD_JS): install
 	mkdir -p build
@@ -31,13 +32,23 @@ $(PERSEUS_BUILD_JS): install
 
 $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
-	./node_modules/.bin/webpack --config webpack.config.node-perseus.js
+	INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.node-perseus.js
 	mv build/node-perseus.js build/node-perseus.js.tmp
 	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_NODE_BUILD_JS)
 	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
 	cat build/node-perseus.js.tmp >> $(PERSEUS_NODE_BUILD_JS)
 	rm build/node-perseus.js.tmp
+
+$(PERSEUS_EDITOR_BUILD_JS): install
+	mkdir -p build
+	INCLUDE_EDITORS=true ./node_modules/.bin/webpack
+	mv $@ $@.tmp
+	echo '/*! Perseus with editors | http://github.com/Khan/perseus */' > $@
+	echo "// commit `git rev-parse HEAD`" >> $@
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	cat $@.tmp >> $@
+	rm $@.tmp
 
 $(PERSEUS_BUILD_CSS): install
 	mkdir -p build
@@ -68,7 +79,7 @@ all: subperseus
 
 subperseus-ios: clean install build put-js-ios
 
-subperseus: clean install shorttest build shortnodetest webapp-put
+subperseus: clean install shorttest build shortnodetest shorteditortest webapp-put
 
 forcesubperseus: clean install build webapp-put
 
@@ -78,6 +89,7 @@ put-js-ios: build
 webapp-put: build
 	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
 	cp $(PERSEUS_NODE_BUILD_JS) "$(WEBAPP)/tools/"
+	cp $(PERSEUS_EDITOR_BUILD_JS) "$(WEBAPP)/javascript/perseus-editor-package/"
 	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
 	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
 	cp $(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/"
@@ -157,6 +169,10 @@ nodetest: $(PERSEUS_NODE_BUILD_JS)
 	./node_modules/.bin/mocha --reporter dot node/__tests__/require-test.js
 shortnodetest: $(PERSEUS_NODE_BUILD_JS)
 	./node_modules/.bin/mocha --reporter dot node/__tests__/require-test.js
+editortest: $(PERSEUS_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS)
+	./node_modules/.bin/mocha --reporter spec -r node/environment.js node/__tests__/editor-test.js
+shorteditortest: $(PERSEUS_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS)
+	./node_modules/.bin/mocha --reporter dot -r node/environment.js node/__tests__/editor-test.js
 
 build/ke.js:
 	(cd ke && ../node_modules/.bin/r.js -o requirejs.config.js out=../build/ke.js)

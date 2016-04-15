@@ -1,10 +1,12 @@
-var path = require("path");
+const path = require("path");
+
+const includeEditor = process.env.INCLUDE_EDITORS === "true";
 
 module.exports = {
-    entry: "./src/perseus.js",
+    entry: "./src/" + (includeEditor ? "editor-" : "") + "perseus.js",
     output: {
         path: "./build",
-        filename: "perseus.js",
+        filename: (includeEditor ? "editor-" : "") + "perseus.js",
         library: "Perseus",
         libraryTarget: "umd",
     },
@@ -12,7 +14,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.json$/,
-                loader: "json-loader"
+                loader: "json-loader",
             },
             {
                 test: /\.jsx?$/,
@@ -21,10 +23,10 @@ module.exports = {
                     path.join(__dirname, "node_modules/react-components/"),
                 ],
                 // https://github.com/webpack/webpack/issues/119
-                loader: path.join(__dirname, "node/jsx-loader.js")
+                loader: path.join(__dirname, "node/jsx-loader.js"),
             },
             {
-                test: /\.jison$/, loader: "jison-loader"
+                test: /\.jison$/, loader: "jison-loader",
             },
         ],
     },

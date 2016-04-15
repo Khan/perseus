@@ -1,23 +1,78 @@
 // Modified version of https://github.com/petehunt/jsx-loader to use jsx-i18n
 
-var loaderUtils = require("loader-utils");
-var babel = require("babel-core");
-var options = require("./babel-options.js");
-var _ = require("../lib/underscore.js");
+const loaderUtils = require("loader-utils");
+const babel = require("babel-core");
+var options = require("./babel-options.js"); // @Nolint(can't use let)
+const _ = require("../lib/underscore.js");
+const UglifyJS = require("uglify-js");
 
+const includeEditor = process.env.INCLUDE_EDITORS === "true";
 options = JSON.parse(JSON.stringify(options));  // copy before modifying
 
 module.exports = function(source) {
     this.cacheable && this.cacheable();
 
-    var sourceFilename = loaderUtils.getRemainingRequest(this);
-    var current = loaderUtils.getCurrentRequest(this);
+    const sourceFilename = loaderUtils.getRemainingRequest(this);
+    const current = loaderUtils.getCurrentRequest(this);
 
-    var query = loaderUtils.parseQuery(this.query);
+    const query = loaderUtils.parseQuery(this.query);
 
     options = _.extend({}, options, { sourceMaps: query.sourceMap });
 
-    var transform = babel.transform(source, options);
+    const transform = babel.transform(source, options);
+
+    if (includeEditor) {
+        // TODO(emily): Do this with a real AST transform.
+        transform.code = transform.code.replace(/__EDITOR__/g, "true");
+    } else {
+        // When removing editors, we use uglifyjs to strip out dead code from
+        // __EDITOR__ being false.
+        // TODO(emily): Figure out how to do dead code elimination that doesn't
+        // mess with the code as much as this does.
+        transform.code = UglifyJS.minify(transform.code, {
+            // transform.code is a string, not a filename
+            fromString: true,
+
+            // Keep comments in the output, and beautify it to undo the
+            // minification from the compress step.
+            output: {
+                comments: true,
+                beautify: true,
+            },
+            // Don't mangle (rename variables)
+            mangle: false,
+            // Perform some compression:
+            compress: {
+                // These 3 options are needed to actually remove the dead code
+                // from setting __EDITOR__ to false.
+                dead_code: true,
+                conditionals: true,
+                evaluate: true,
+
+                // Globally set __EDITOR__ to false.
+                global_defs: {
+                    __EDITOR__: false,
+                },
+
+                // Disable all other compression options.
+                sequences: false,
+                properties: false,
+                drop_debugger: false,
+                unsafe: false,
+                comparisons: false,
+                booleans: false,
+                loops: false,
+                unused: false,
+                hoist_funs: false,
+                hoist_vars: false,
+                if_return: false,
+                join_vars: false,
+                cascade: false,
+                side_effects: false,
+                warnings: false,
+            },
+        }).code;
+    }
 
     if (transform.map) {
         transform.sourceMap.sources = [sourceFilename];

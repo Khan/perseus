@@ -25,6 +25,7 @@
     "node-jsx": "git://github.com/spicyj/node-jsx#0.12.0-rc1",
     "react-tools": "0.12.0-rc1",
     "requirejs": "~2.1.11",
+    "uglify-js": "^2.6.2",
     "webpack": "~1.4.3",
     "webpack-dev-server": "~1.6.5"
   },

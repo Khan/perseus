@@ -1,3 +1,3 @@
 require("../node/require.js");
 
-module.exports = require("./perseus.js");
+module.exports = require("./editor-perseus.js");

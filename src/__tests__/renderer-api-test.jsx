@@ -8,8 +8,8 @@ var _ = require("underscore");
 var ReactDOM = require("react-dom");
 
 var assert = require("assert");
-var Perseus = require("../perseus.js");
-var Renderer = Perseus.Renderer;
+var Renderer = require("../renderer.jsx");
+var ClassNames = require("../perseus-api.jsx").ClassNames;
 
 var TestUtils = React.addons.TestUtils;
 var delayedPromise = require("../testutils/delayed-promise.jsx");
@@ -139,7 +139,7 @@ describe("Perseus API", function() {
                     // but if you do, you must up the perseus api [major]
                     // version
                     assert.strictEqual(
-                        Perseus.ClassNames.INPUT,
+                        ClassNames.INPUT,
                         "perseus-input");
 
                     var renderer = renderQuestionArea(inputNumber1Item);
@@ -147,7 +147,7 @@ describe("Perseus API", function() {
                     var input = ReactDOM.findDOMNode(renderer)
                             .querySelector('input');
                     assert.strictEqual(
-                        $(input).hasClass(Perseus.ClassNames.INPUT),
+                        $(input).hasClass(ClassNames.INPUT),
                         true
                     );
 
@@ -165,7 +165,7 @@ describe("Perseus API", function() {
                     // but if you do, you must up the perseus api [major]
                     // version
                     assert.strictEqual(
-                        Perseus.ClassNames.FOCUSED,
+                        ClassNames.FOCUSED,
                         "perseus-focused"
                     );
 
@@ -178,19 +178,19 @@ describe("Perseus API", function() {
                             .querySelector('input');
 
                     assert.strictEqual(
-                        $(input).hasClass(Perseus.ClassNames.FOCUSED),
+                        $(input).hasClass(ClassNames.FOCUSED),
                         false
                     );
 
                     TestUtils.Simulate.focus(input);
                     assert.strictEqual(
-                        $(input).hasClass(Perseus.ClassNames.FOCUSED),
+                        $(input).hasClass(ClassNames.FOCUSED),
                         true
                     );
 
                     TestUtils.Simulate.blur(input);
                     assert.strictEqual(
-                        $(input).hasClass(Perseus.ClassNames.FOCUSED),
+                        $(input).hasClass(ClassNames.FOCUSED),
                         false
                     );
                 }
