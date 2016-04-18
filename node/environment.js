@@ -1,7 +1,7 @@
 require("../lib/babel-polyfills.min.js");
 var _ = require("../lib/underscore.js");
 var options = require("./babel-options.js");
-options = _.extend({}, options, { extensions: [".jsx"] });
+options = _.extend({}, options, { extensions: [".js", ".jsx"] });
 require("babel-core/register")(options);
 
 var jsdom = require("jsdom");
