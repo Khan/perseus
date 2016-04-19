@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -15,6 +15,11 @@ var ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
  */
 var ExampleGraphieWidgetEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
+
+    propTypes: {
+        correct: React.PropTypes.arrayOf(React.PropTypes.number),
+        graph: React.PropTypes.object,
+    },
 
     getDefaultProps: function() {
         return {

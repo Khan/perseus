@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp, space-after-keywords */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -31,17 +31,22 @@ var getNumericFormat = KhanMath.getNumericFormat;
  */
 var NumberInput = React.createClass({
     propTypes: {
+        className: React.PropTypes.string,
         value: React.PropTypes.number,
         format: React.PropTypes.string,
         placeholder: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.number,
         ]),
+        onBlur: React.PropTypes.func,
         onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        onKeyDown: React.PropTypes.func,
         onFormatChange: React.PropTypes.func,
         checkValidity: React.PropTypes.func,
         size: React.PropTypes.string,
         label: React.PropTypes.oneOf(["put your labels outside your inputs!"]),
+        useArrowKeys: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {

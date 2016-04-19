@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -294,6 +294,27 @@ var deprecatedProps = {
 
 var InteractiveGraph = React.createClass({
     propTypes: {
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+        }),
+        box: React.PropTypes.array.isRequired,
+        flexibleType: React.PropTypes.bool,
+        graph: React.PropTypes.object,
+        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+        markings: React.PropTypes.string,
+        onChange: React.PropTypes.func,
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(
+                React.PropTypes.number
+            )
+        ),
+        rulerLabel: React.PropTypes.string,
+        rulerTicks: React.PropTypes.number,
+        showProtractor: React.PropTypes.bool,
+        showRuler: React.PropTypes.bool,
+        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        step: React.PropTypes.arrayOf(React.PropTypes.number),
         trackInteraction: React.PropTypes.func.isRequired,
     },
 

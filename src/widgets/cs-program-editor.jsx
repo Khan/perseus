@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-console, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable eol-last, no-console, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -107,6 +107,14 @@ function isolateProgramID(programUrl) {
 var CSProgramEditor = React.createClass({
 
     mixins: [Changeable, EditorJsonify],
+
+    propTypes: {
+        onChange: React.PropTypes.func.isRequired,
+        programID: React.PropTypes.string,
+        settings: React.PropTypes.array,
+        showButtons: React.PropTypes.bool,
+        showEditor: React.PropTypes.bool,
+    },
 
     getDefaultProps: function() {
         return {

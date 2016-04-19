@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -14,6 +14,7 @@ var MatcherEditor = React.createClass({
         left: React.PropTypes.array,
         right: React.PropTypes.array,
         labels: React.PropTypes.array,
+        onChange: React.PropTypes.func.isRequired,
         orderMatters: React.PropTypes.bool,
         padding: React.PropTypes.bool,
     },

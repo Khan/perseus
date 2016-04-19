@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -86,6 +86,9 @@ var Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadConfiguration: keypadConfigurationPropType,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        onBlur: React.PropTypes.func,
         times: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
@@ -414,6 +417,10 @@ _.extend(Expression, {
 // The old, plain-text input expression widget
 var OldExpression = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        onBlur: React.PropTypes.func,
         value: React.PropTypes.string,
         times: React.PropTypes.bool,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),

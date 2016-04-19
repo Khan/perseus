@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -7,7 +7,10 @@ var React = require("react");
 var ElementContainer = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
-        initiallVisible: React.PropTypes.bool,
+        initiallyVisible: React.PropTypes.bool,
+        onDelete: React.PropTypes.func,
+        onDown: React.PropTypes.func,
+        onUp: React.PropTypes.func,
         title: React.PropTypes.node,
     },
 

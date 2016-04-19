@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -7,6 +7,9 @@ var React = require('react');
 var QuestionParagraph = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
+        className: React.PropTypes.string,
+        paragraphIndex: React.PropTypes.number,
+        translationIndex: React.PropTypes.number,
     },
 
     render: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -64,6 +64,9 @@ var Graph = React.createClass({
         onGraphieUpdated: React.PropTypes.func,
         instructions: React.PropTypes.string,
         onClick: React.PropTypes.func,
+        onMouseDown: React.PropTypes.func,
+        onMouseUp: React.PropTypes.func,
+        onMouseMove: React.PropTypes.func,
     },
 
     getDefaultProps: function() {

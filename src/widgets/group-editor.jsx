@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -18,6 +18,7 @@ const GroupEditor = React.createClass({
         widgets: React.PropTypes.object,
         images: React.PropTypes.object,
         metadata: React.PropTypes.any,
+        onChange: React.PropTypes.func.isRequired,
         apiOptions: ApiOptions.propTypes,
     },
 

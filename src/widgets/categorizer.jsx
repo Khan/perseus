@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -22,6 +22,9 @@ var Categorizer = React.createClass({
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
         // List of items that are being categorized (along the left side)
         items: React.PropTypes.arrayOf(React.PropTypes.string),
+        problemNum: React.PropTypes.number,
+        randomizeItems: React.PropTypes.bool,
+        static: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         // Ordered list of correct answers, mapping items to categories thusly:
         //   values[<items_index>] == <categories_index>

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -75,6 +75,7 @@ var flipTilesPredicate = (oldCells, predicate) => {
 // A single glowy cell
 var Tile = React.createClass({
     propTypes: {
+        onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.bool.isRequired,
         size: React.PropTypes.number.isRequired,
     },
@@ -102,6 +103,7 @@ var TileGrid = React.createClass({
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ).isRequired,
+        onChange: React.PropTypes.func.isRequired,
         size: React.PropTypes.number.isRequired,
     },
 
@@ -134,6 +136,7 @@ const LightsPuzzleEditor = React.createClass({
         ),
         flipPattern: React.PropTypes.string.isRequired,
         gradeIncompleteAsWrong: React.PropTypes.bool.isRequired,
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {

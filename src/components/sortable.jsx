@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -19,6 +19,10 @@ var Placeholder = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
+        margin: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string,
+        ]),
     },
 
     render: function() {
@@ -57,6 +61,12 @@ var Draggable = React.createClass({
         onMouseMove: React.PropTypes.func.isRequired,
         onMouseUp: React.PropTypes.func.isRequired,
         onAnimationEnd: React.PropTypes.func.isRequired,
+        width: React.PropTypes.number,
+        height: React.PropTypes.number,
+        margin: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string,
+        ]),
     },
 
     getDefaultProps: function() {

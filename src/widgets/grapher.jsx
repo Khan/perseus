@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -46,6 +46,14 @@ var typeSelectorStyle = {
 
 /* Graphing interface. */
 var FunctionGrapher = React.createClass({
+    propTypes: {
+        flexibleType: React.PropTypes.bool,
+        graph: React.PropTypes.object,
+        model: React.PropTypes.object,
+        onChange: React.PropTypes.func.isRequired,
+        static: React.PropTypes.bool,
+    },
+
     mixins: [Changeable],
 
     _coords: function(props) {
@@ -235,6 +243,11 @@ var FunctionGrapher = React.createClass({
 /* Widget and editor. */
 var Grapher = React.createClass({
     propTypes: {
+        availableTypes: React.PropTypes.arrayOf(React.PropTypes.string),
+        graph: React.PropTypes.object,
+        onChange: React.PropTypes.func.isRequired,
+        plot: React.PropTypes.object,
+        static: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 

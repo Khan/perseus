@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* A div that shows/hides its children.
@@ -10,6 +10,7 @@ var React = require("react");
 var MoreOptions = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
+        show: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -191,6 +191,7 @@ var MovablePointEditor = React.createClass({
         constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
         constraintFn: React.PropTypes.string,
+        varSubscript: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -254,6 +255,8 @@ var MovableLineEditor = React.createClass({
         constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
         constraintFn: React.PropTypes.string,
+        startSubscript: React.PropTypes.number,
+        endSubscript: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -337,11 +340,12 @@ var FunctionEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
+        funcName: React.PropTypes.string,
         value: React.PropTypes.string,
         rangeMin: React.PropTypes.string,
         rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
-        strokeDashArray: React.PropTypes.string,
+        strokeDasharray: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
     },
 
@@ -419,7 +423,7 @@ var ParametricEditor = React.createClass({
         rangeMin: React.PropTypes.string,
         rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
-        strokeDashArray: React.PropTypes.string,
+        strokeDasharray: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
     },
 

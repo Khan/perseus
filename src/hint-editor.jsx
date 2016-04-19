@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* Collection of classes for rendering the hint editor area,
@@ -23,7 +23,16 @@ var InfoTip = require("./components/info-tip.jsx");
  */
 var HintEditor = React.createClass({
     propTypes: {
+        content: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
+        images: React.PropTypes.object,
+        isFirst: React.PropTypes.bool,
+        isLast: React.PropTypes.bool,
+        onChange: React.PropTypes.func.isRequired,
+        onMove: React.PropTypes.func,
+        onRemove: React.PropTypes.func,
+        replace: React.PropTypes.bool,
+        widgets: React.PropTypes.object,
     },
 
     getDefaultProps: function() {
@@ -99,7 +108,14 @@ var HintEditor = React.createClass({
 var CombinedHintEditor = React.createClass({
     propTypes: {
         enabledFeatures: React.PropTypes.any,
+        hint: React.PropTypes.any,
         imageUploader: React.PropTypes.func,
+        isFirst: React.PropTypes.bool,
+        isLast: React.PropTypes.bool,
+        onChange: React.PropTypes.func.isRequired,
+        onMove: React.PropTypes.func,
+        onRemove: React.PropTypes.func,
+        pos: React.PropTypes.number,
         previewWidth: React.PropTypes.number.isRequired,
     },
 
@@ -161,7 +177,9 @@ var CombinedHintEditor = React.createClass({
 var CombinedHintsEditor = React.createClass({
     propTypes: {
         enabledFeatures: React.PropTypes.any,
+        hints: React.PropTypes.arrayOf(React.PropTypes.any),
         imageUploader: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
         previewWidth: React.PropTypes.number.isRequired,
     },
 

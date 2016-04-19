@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -13,6 +13,11 @@ var Changeable = require("../mixins/changeable.jsx");
 var EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 var TextArea = React.createClass({
+    propTypes: {
+        onChange: React.PropTypes.func.isRequired,
+        value: React.PropTypes.string,
+    },
+
     render: function() {
         return <textarea
             ref="input"
@@ -34,6 +39,10 @@ var TextArea = React.createClass({
 
 var SimpleMarkdownTesterEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
+
+    propTypes: {
+        value: React.PropTypes.string,
+    },
 
     getDefaultProps: function() {
         return {

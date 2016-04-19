@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -128,6 +128,14 @@ var defaultTransformerProps = {
 };
 
 const ToolSettings = React.createClass({
+    propTypes: {
+        allowFixed: React.PropTypes.bool,
+        constraints: React.PropTypes.object,
+        name: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        settings: React.PropTypes.object.isRequired,
+    },
+
     getDefaultProps: function() {
         return {
             allowFixed: true,
@@ -181,6 +189,13 @@ const ToolSettings = React.createClass({
 });
 
 var TransformationExplorerSettings = React.createClass({
+    propTypes: {
+        drawSolutionShape: React.PropTypes.bool,
+        graphMode: React.PropTypes.string,
+        listMode: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        tools: React.PropTypes.object.isRequired,
+    },
     render: function() {
 
         return <div className="transformer-settings">
@@ -695,6 +710,12 @@ var ShapeTypes = {
 };
 
 var TransformationsShapeEditor = React.createClass({
+    propTypes: {
+        graph: React.PropTypes.object,
+        onChange: React.PropTypes.func.isRequired,
+        shape: React.PropTypes.object,
+    },
+
     render: function() {
         return <div>
             <Graph
@@ -793,6 +814,18 @@ var TransformationsShapeEditor = React.createClass({
 });
 
 var TransformerEditor = React.createClass({
+    propTypes: {
+        correct: React.PropTypes.object,
+        drawSolutionShape: React.PropTypes.bool,
+        gradeEmpty: React.PropTypes.bool,
+        graph: React.PropTypes.object,
+        graphMode: React.PropTypes.string,
+        listMode: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        starting: React.PropTypes.object,
+        tools: React.PropTypes.object,
+    },
+
     // TODO (jack): These should be refactored into a nice object at the top
     // so that we don't have all this duplication
     getDefaultProps: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -13,7 +13,12 @@ var PassageRefTarget = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
+        // We don't use ApiOptions.propTypes or EnabledFeatures.PropTypes here
+        // because they require the props and they're optional for this
+        // component.
+        apiOptions: React.PropTypes.object,
         content: React.PropTypes.string,
+        enabledFeatures: React.PropTypes.object,
     },
 
     getDefaultProps: function() {

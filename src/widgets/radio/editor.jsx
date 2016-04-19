@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -73,6 +73,9 @@ var RadioEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        // We don't use ApiOptions.propTypes here because it requires the props
+        // and they're optional for this component.
+        apiOptions: React.PropTypes.object,
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
@@ -85,6 +88,7 @@ var RadioEditor = React.createClass({
         onePerLine: React.PropTypes.bool,
         deselectEnabled: React.PropTypes.bool,
         static: React.PropTypes.bool,
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {

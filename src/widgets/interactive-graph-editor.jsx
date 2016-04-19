@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -28,6 +28,30 @@ var deprecatedProps = {
 
 const InteractiveGraphEditor = React.createClass({
     className: "perseus-widget-interactive-graph",
+
+    propTypes: {
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+        }),
+        box: React.PropTypes.array.isRequired,
+        correct: React.PropTypes.object,
+        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+        markings: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(
+                React.PropTypes.number
+            )
+        ),
+        rulerLabel: React.PropTypes.string,
+        rulerTicks: React.PropTypes.number,
+        showProtractor: React.PropTypes.bool,
+        showRuler: React.PropTypes.bool,
+        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        step: React.PropTypes.arrayOf(React.PropTypes.number),
+        valid: React.PropTypes.bool,
+    },
 
     getDefaultProps: function() {
         return {

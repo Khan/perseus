@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -55,6 +55,31 @@ const ImageEditor = React.createClass({
             var url = this.props.backgroundImage.url;
             this.onUrlChange(url, true);
         });
+    },
+
+    propTypes: {
+        alt: React.PropTypes.string,
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+        }),
+
+        caption: React.PropTypes.string,
+
+        labels: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                content: React.PropTypes.string,
+                coordinates: React.PropTypes.arrayOf(React.PropTypes.number),
+                alignment: React.PropTypes.string,
+            })
+        ),
+
+        onChange: React.PropTypes.func.isRequired,
+
+        range: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.number)
+        ),
+
+        title: React.PropTypes.string,
     },
 
     getDefaultProps: function() {

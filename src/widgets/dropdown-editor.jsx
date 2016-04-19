@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -17,6 +17,7 @@ var DropdownEditor = React.createClass({
             content: React.PropTypes.string,
             correct: React.PropTypes.bool,
         })),
+        onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.string,
     },
 

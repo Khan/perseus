@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -43,6 +43,10 @@ var OldUnitInput = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
         value: React.PropTypes.string,
     },
 

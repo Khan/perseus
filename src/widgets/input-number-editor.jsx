@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -53,6 +53,7 @@ const InputNumberEditor = React.createClass({
         inexact: React.PropTypes.bool,
         maxError: React.PropTypes.number,
         answerType: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {

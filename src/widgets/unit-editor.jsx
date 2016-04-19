@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -37,6 +37,10 @@ var primUnits = function(expr) {
 // In the future I plan for this to show an example of a thing that would be
 // accepted in that unit.
 var UnitExample = React.createClass({
+    propTypes: {
+        name: React.PropTypes.string,
+    },
+
     render: function() {
         var icon;
         if (this.state.valid) {
@@ -108,6 +112,7 @@ const UnitInputEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {
+        onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
         acceptingUnits: React.PropTypes.arrayOf(React.PropTypes.string),
         accepting: React.PropTypes.oneOf([ALL, SOME]),

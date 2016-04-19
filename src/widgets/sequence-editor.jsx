@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -9,6 +9,11 @@ const ApiOptions = require("../perseus-api.jsx").Options;
 const Editor = require("../editor.jsx");
 
 var StepControlButton = React.createClass({
+    propTypes: {
+        onClick: React.PropTypes.func.isRequired,
+        icon: React.PropTypes.string.isRequired,
+    },
+
     render: function() {
         return <a
                 href="#"

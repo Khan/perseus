@@ -3,9 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(kevindangoor) fix these lint errors
-/*eslint-disable react/sort-comp, react/jsx-indent-props, react/prop-types,
-    react/jsx-closing-bracket-location
-*/
+/* eslint-disable react/sort-comp, react/jsx-indent-props, react/jsx-closing-bracket-location */
 
 var React = require("react");
 var _ = require("underscore");

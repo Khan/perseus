@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -20,7 +20,9 @@ var Passage = React.createClass({
         passageTitle: React.PropTypes.string,
         passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
+        interWidgets: React.PropTypes.func,
         showLineNumbers: React.PropTypes.bool,
+        widgetId: React.PropTypes.string,
     },
 
     getDefaultProps: function() {

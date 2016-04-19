@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -98,13 +98,19 @@ var Matrix = React.createClass({
                 ])
             )
         ),
+        apiOptions: ApiOptions.propTypes,
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
         ),
         matrixBoardSize: React.PropTypes.arrayOf(
             React.PropTypes.number
         ).isRequired,
+        numericInput: React.PropTypes.bool,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
         prefix: React.PropTypes.string,
+        static: React.PropTypes.bool,
         suffix: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
     },

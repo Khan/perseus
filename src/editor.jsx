@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-console, no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -51,6 +51,10 @@ var makeStartWithAParagraphAlways = (content) => {
 };
 
 var WidgetSelect = React.createClass({
+    propTypes: {
+        onChange: React.PropTypes.func,
+    },
+
     shouldComponentUpdate: function() {
         return false;
     },
@@ -311,8 +315,22 @@ var imageUrlsFromContent = function(content) {
 
 var Editor = React.createClass({
     propTypes: {
-        imageUploader: React.PropTypes.func,
         apiOptions: ApiOptions.propTypes,
+        className: React.PropTypes.string,
+        content: React.PropTypes.string,
+        disabled: React.PropTypes.bool,
+        // We don't use EnabledFeatures.propTypes here because it requires the
+        // props and they're optional for this component.
+        enabledFeatures: React.PropTypes.object,
+        images: React.PropTypes.object,
+        imageUploader: React.PropTypes.func,
+        immutableWidgets: React.PropTypes.bool,
+        onChange: React.PropTypes.func.isRequired,
+        placeholder: React.PropTypes.string,
+        replace: React.PropTypes.bool,
+        showWordCount: React.PropTypes.bool,
+        widgets: React.PropTypes.object,
+        widgetEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {

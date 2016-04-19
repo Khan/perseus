@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -32,9 +32,12 @@ var ExpressionEditor = React.createClass({
 
     propTypes: {
         answerForms: React.PropTypes.arrayOf(answerFormType),
+        onChange: React.PropTypes.func.isRequired,
         times: React.PropTypes.bool,
         buttonSets: TexButtons.buttonSetsType,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        value: React.PropTypes.string,
+        widgetId: React.PropTypes.string,
     },
 
     getDefaultProps: function() {

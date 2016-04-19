@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -22,6 +22,13 @@ const {
 
 const GrapherEditor = React.createClass({
     mixins: [Changeable],
+
+    propTypes: {
+        availableTypes: React.PropTypes.arrayOf(React.PropTypes.string),
+        correct: React.PropTypes.object,
+        graph: React.PropTypes.object,
+        onChange: React.PropTypes.func.isRequired,
+    },
 
     getDefaultProps: function() {
         return {

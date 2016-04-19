@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -365,6 +365,9 @@ var Simulator = React.createClass({
         apiOptions: ApiOptions.propTypes,
         data: React.PropTypes.arrayOf(React.PropTypes.number),
         numTrials: React.PropTypes.number,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
         proportionLabel: React.PropTypes.string,
         proportionOrPercentage: React.PropTypes.string,
         randomSeed: React.PropTypes.number,

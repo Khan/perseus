@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -51,10 +51,14 @@ var Table = React.createClass({
                 React.PropTypes.string
             )
         ),
+        apiOptions: ApiOptions.propTypes,
         editableHeaders: React.PropTypes.bool,
         // The editor to use when editableHeaders is enabled
         Editor: React.PropTypes.func,
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
         trackInteraction: React.PropTypes.func.isRequired,
     },
 

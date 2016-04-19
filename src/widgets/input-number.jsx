@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/prop-types, react/sort-comp */
+/* eslint-disable no-var, react/forbid-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -89,10 +89,15 @@ var formExamples = {
 var InputNumber = React.createClass({
     propTypes: {
         answerType: React.PropTypes.oneOf(Object.keys(answerTypes)),
+        apiOptions: ApiOptions.propTypes,
         currentValue: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
         keypadConfiguration: keypadConfigurationPropType,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
         reviewModeRubric: React.PropTypes.object,
+        size: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
     },
 

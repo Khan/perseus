@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -325,6 +325,15 @@ var TransformOps = {
 
     /* A react representation of this transform object */
     ListItem: React.createClass({
+        propTypes: {
+            apiOptions: ApiOptions.propTypes,
+            mode: React.PropTypes.string.isRequired,
+            onBlur: React.PropTypes.func,
+            onChange: React.PropTypes.func,
+            onFocus: React.PropTypes.func,
+            transform: React.PropTypes.object.isRequired,
+        },
+
         render: function() {
             if (this.props.mode === "dynamic") {
                 return <div>
@@ -437,6 +446,13 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                apiOptions: ApiOptions.propTypes,
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+                vector: React.PropTypes.arrayOf(React.PropTypes.number),
+            },
             getInitialState: function() {
                 return {
                     vector: this.props.vector || [null, null],
@@ -554,6 +570,14 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                angleDeg: React.PropTypes.number,
+                apiOptions: ApiOptions.propTypes,
+                center: React.PropTypes.arrayOf(React.PropTypes.number),
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+            },
             getInitialState: function() {
                 return {
                     center: this.props.center || [null, null],
@@ -698,6 +722,14 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                apiOptions: ApiOptions.propTypes,
+                line: React.PropTypes.arrayOf(React.PropTypes.arrayOf(
+                    React.PropTypes.number)),
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+            },
             getInitialState: function() {
                 return {
                     line: this.props.line || [[null, null], [null, null]],
@@ -838,6 +870,14 @@ var Transformations = {
             </$_>;
         },
         Input: React.createClass({
+            propTypes: {
+                apiOptions: ApiOptions.propTypes,
+                center: React.PropTypes.arrayOf(React.PropTypes.number),
+                onBlur: React.PropTypes.func,
+                onChange: React.PropTypes.func,
+                onFocus: React.PropTypes.func,
+                scale: React.PropTypes.number,
+            },
             getInitialState: function() {
                 return {
                     center: this.props.center || [null, null],
@@ -1364,6 +1404,15 @@ var ShapeTypes = {
 var TransformationListItem = TransformOps.ListItem;
 
 var TransformationList = React.createClass({
+    propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        mode: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
+        transformations: React.PropTypes.arrayOf(React.PropTypes.object),
+    },
+
     render: function() {
         if (this.props.mode === "static") {
             return <span />;  // don't render anything
@@ -1415,6 +1464,9 @@ var TransformationList = React.createClass({
 var ToolButton = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
+        disabled: React.PropTypes.bool,
+        onClick: React.PropTypes.func,
+        toggled: React.PropTypes.bool,
     },
 
     render: function() {
@@ -1434,6 +1486,14 @@ var ToolButton = React.createClass({
 });
 
 var ToolsBar = React.createClass({
+    propTypes: {
+        addTool: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
+        enabled: React.PropTypes.object,
+        onUndoClick: React.PropTypes.func,
+        removeTool: React.PropTypes.func,
+    },
+
     getInitialState: function() {
         return {
             selected: null,
@@ -1488,6 +1548,13 @@ var ToolsBar = React.createClass({
 });
 
 var AddTransformBar = React.createClass({
+    propTypes: {
+        addTool: React.PropTypes.func,
+        apiOptions: ApiOptions.propTypes,
+        enabled: React.PropTypes.object,
+        onUndoClick: React.PropTypes.func,
+    },
+
     render: function() {
         var tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
@@ -1528,7 +1595,19 @@ var AddTransformBar = React.createClass({
 
 var Transformer = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
+        correct: React.PropTypes.object,
+        drawSolutionShape: React.PropTypes.bool,
+        graph: React.PropTypes.object,
+        graphMode: React.PropTypes.string,
+        listMode: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func,
+        onFocus: React.PropTypes.func,
+        starting: React.PropTypes.object,
+        tools: React.PropTypes.object,
         trackInteraction: React.PropTypes.func.isRequired,
+        transformations: React.PropTypes.array,
     },
 
     getDefaultProps: function() {
