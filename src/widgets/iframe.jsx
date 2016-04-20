@@ -32,7 +32,8 @@ var Iframe = React.createClass({
             // options: incomplete, incorrect, correct
             status: "correct",
             // optional message
-            message: null
+            message: null,
+            allowFullScreen: true
         };
     },
 
@@ -92,7 +93,8 @@ var Iframe = React.createClass({
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return <iframe sandbox="allow-same-origin allow-scripts"
-                       style={style} src={url} />;
+                       style={style} src={url} 
+                       allowFullScreen={this.props.allowFullScreen}/>;
     },
 
     simpleValidate: function(rubric) {
