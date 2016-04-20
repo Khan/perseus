@@ -136,11 +136,15 @@ var MathInput = React.createClass({
     },
 
     mathField: function(options) {
+        // The MathQuill API is now "versioned" through its own "InterVer" system.
+        // See: https://github.com/mathquill/mathquill/pull/459
+        var MQ = MathQuill.getInterface(2);
+
         // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
         // seeing that node for the first time, then returns the associated
         // MathQuill object for that node. It is stable - will always return
         // the same object when called on the same DOM node.
-        return MathQuill.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
+        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
     },
 
     componentWillUnmount: function() {
@@ -152,26 +156,23 @@ var MathInput = React.createClass({
         window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("mouseup", this.handleMouseUp);
 
-        // These options can currently only be set globally. (Hopefully this
-        // will change at some point.) They appear safe to set multiple times.
-
-        // LaTeX commands that, when typed, are immediately replaced by the
-        // appropriate symbol. This does not include ln, log, or any of the
-        // trig functions; those are always interpreted as commands.
-        MathQuill.addAutoCommands("pi theta phi sqrt nthroot");
-
-        // Pop the cursor out of super/subscripts on arithmetic operators or
-        // (in)equalities.
-        MathQuill.addCharsThatBreakOutOfSupSub("+-*/=<>≠≤≥");
-
-        // Prevent excessive super/subscripts or fractions from being created
-        // without operands, e.g. when somebody holds down a key
-        MathQuill.disableCharsWithoutOperand("^_/");
-
         var initialized = false;
 
         // Initialize MathQuill.MathField instance
         this.mathField({
+            // LaTeX commands that, when typed, are immediately replaced by the
+            // appropriate symbol. This does not include ln, log, or any of the
+            // trig functions; those are always interpreted as commands.
+            autoCommands: "pi theta phi sqrt nthroot",
+
+            // Pop the cursor out of super/subscripts on arithmetic operators
+            // or (in)equalities.
+            charsThatBreakOutOfSupSub: "+-*/=<>≠≤≥",
+
+            // Prevent excessive super/subscripts or fractions from being created
+            // without operands, e.g. when somebody holds down a key
+            supSubsRequireOperand: true,
+
             // The name of this option is somewhat misleading, as tabbing in
             // MathQuill breaks you out of a nested context (fraction/script)
             // if you're in one, but moves focus to the next input if you're

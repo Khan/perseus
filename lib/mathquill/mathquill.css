@@ -1,6 +1,6 @@
 /*
- * MathQuill: http://mathquill.com
- * by Jay and Han (laughinghan@gmail.com)
+ * MathQuill v0.10.1               http://mathquill.com
+ * by Han, Jeanine, and Mary  maintainers@mathquill.com
  *
  * This Source Code Form is subject to the terms of the
  * Mozilla Public License, v. 2.0. If a copy of the MPL
@@ -9,23 +9,12 @@
  */
 @font-face {
   font-family: Symbola;
-  src: url(font/Symbola.eot);
-  src: local("Symbola Regular"), local("Symbola"), url(font/Symbola.ttf) format("truetype"), url(font/Symbola.otf) format("opentype"), url(font/Symbola.svg#Symbola) format("svg");
+  src: url(/fonts/Symbola.eot);
+  src: local("Symbola Regular"), local("Symbola"), url(/fonts/Symbola.woff2) format("woff2"), url(/fonts/Symbola.woff) format("woff"), url(/fonts/Symbola.ttf) format("truetype"), url(/fonts/Symbola.otf) format("opentype"), url(/fonts/Symbola.svg#Symbola) format("svg");
 }
 .mq-editable-field {
   display: -moz-inline-box;
   display: inline-block;
-}
-.mq-editable-field .mq-root-block {
-  display: -moz-inline-box;
-  display: inline-block;
-  width: 100%;
-  white-space: pre;
-  overflow: hidden;
-  vertical-align: middle;
-}
-.mq-editable-field .mq-root-block:after {
-  content: '';
 }
 .mq-editable-field .mq-cursor {
   border-left: 1px solid black;
@@ -39,20 +28,12 @@
 .mq-editable-field .mq-cursor.mq-blink {
   visibility: hidden;
 }
-.mq-editable-field .mq-root-block {
-  display: -moz-inline-box;
-  display: inline-block;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.mq-editable-field .mq-root-block,
-.mq-math-mode .mq-editable-field .mq-root-block {
+.mq-editable-field,
+.mq-math-mode .mq-editable-field {
   border: 1px solid gray;
-  padding: 2px;
 }
-.mq-editable-field .mq-root-block.mq-focused,
-.mq-math-mode .mq-editable-field .mq-root-block.mq-focused {
+.mq-editable-field.mq-focused,
+.mq-math-mode .mq-editable-field.mq-focused {
   -webkit-box-shadow: #8bd 0 0 1px 2px, inset #6ae 0 0 2px 0;
   -moz-box-shadow: #8bd 0 0 1px 2px, inset #6ae 0 0 2px 0;
   box-shadow: #8bd 0 0 1px 2px, inset #6ae 0 0 2px 0;
@@ -94,6 +75,19 @@
   overflow-x: auto;
   overflow-y: hidden;
 }
+.mq-root-block,
+.mq-math-mode .mq-root-block {
+  display: -moz-inline-box;
+  display: inline-block;
+  width: 100%;
+  padding: 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
 .mq-math-mode {
   font-variant: normal;
   font-weight: normal;
@@ -123,6 +117,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  box-sizing: border-box;
 }
 .mq-math-mode .mq-empty {
   background: #ccc;
@@ -134,7 +129,13 @@
   background: transparent;
 }
 .mq-math-mode .mq-text-mode {
-  font-size: 87%;
+  display: inline-block;
+}
+.mq-math-mode .mq-text-mode.mq-hasCursor {
+  box-shadow: inset darkgray 0 .1em .2em;
+  padding: 0 .1em;
+  margin: 0 -0.1em;
+  min-width: 1ex;
 }
 .mq-math-mode .mq-font {
   font: 1em "Times New Roman", Symbola, serif;
@@ -152,15 +153,15 @@
 .mq-math-mode i.mq-font {
   font-style: italic;
 }
-.mq-math-mode var.mq-florin {
-  display: -moz-inline-box;
-  display: inline-block;
-  width: .3em;
-  position: relative;
-  left: -0.1em;
+.mq-math-mode var.mq-f {
+  margin-right: 0.2em;
+  margin-left: 0.1em;
+}
+.mq-math-mode .mq-roman var.mq-f {
+  margin: 0;
 }
 .mq-math-mode big {
-  font-size: 125%;
+  font-size: 200%;
 }
 .mq-math-mode .mq-roman {
   font-style: normal;
@@ -185,6 +186,7 @@
   display: inline-block;
 }
 .mq-math-mode .mq-supsub {
+  text-align: left;
   font-size: 90%;
   vertical-align: -0.5em;
 }
@@ -197,7 +199,7 @@
 }
 .mq-math-mode .mq-supsub.mq-sup-only .mq-sup {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: text-bottom;
 }
 .mq-math-mode .mq-supsub .mq-sup {
   display: block;
@@ -214,13 +216,6 @@
 }
 .mq-math-mode .mq-supsub .mq-fraction {
   font-size: 70%;
-  vertical-align: -0.4em;
-}
-.mq-math-mode .mq-supsub .mq-numerator {
-  padding-bottom: 0;
-}
-.mq-math-mode .mq-supsub .mq-denominator {
-  padding-top: 0;
 }
 .mq-math-mode sup.mq-nthroot {
   font-size: 80%;
@@ -231,12 +226,12 @@
 }
 .mq-math-mode .mq-paren {
   padding: 0 .1em;
-  vertical-align: bottom;
-  -webkit-transform-origin: bottom center;
-  -moz-transform-origin: bottom center;
-  -ms-transform-origin: bottom center;
-  -o-transform-origin: bottom center;
-  transform-origin: bottom center;
+  vertical-align: top;
+  -webkit-transform-origin: center .06em;
+  -moz-transform-origin: center .06em;
+  -ms-transform-origin: center .06em;
+  -o-transform-origin: center .06em;
+  transform-origin: center .06em;
 }
 .mq-math-mode .mq-paren.mq-ghost {
   color: silver;
@@ -252,21 +247,22 @@
 .mq-math-mode .mq-array > span {
   display: block;
 }
-.mq-math-mode .mq-un-italicized {
+.mq-math-mode .mq-operator-name {
   font-family: Symbola, "Times New Roman", serif;
   line-height: .9;
   font-style: normal;
 }
-.mq-math-mode var.mq-un-italicized.mq-first {
+.mq-math-mode var.mq-operator-name.mq-first {
   padding-left: .2em;
 }
-.mq-math-mode var.mq-un-italicized.mq-last {
+.mq-math-mode var.mq-operator-name.mq-last,
+.mq-math-mode .mq-supsub.mq-after-operator-name {
   padding-right: .2em;
 }
 .mq-math-mode .mq-fraction {
   font-size: 90%;
   text-align: center;
-  vertical-align: -0.5em;
+  vertical-align: -0.4em;
   padding: 0 .2em;
 }
 .mq-math-mode .mq-fraction,
@@ -286,20 +282,17 @@
 }
 .mq-math-mode .mq-numerator {
   padding: 0 0.1em;
-  margin-bottom: -0.1em;
 }
 .mq-math-mode .mq-denominator {
   border-top: 1px solid;
   float: right;
   width: 100%;
-  padding: .1em .1em 0 .1em;
-  margin-right: -0.1em;
-  margin-left: -0.1em;
+  padding: 0.1em;
 }
 .mq-math-mode .mq-sqrt-prefix {
   padding-top: 0;
   position: relative;
-  top: .1em;
+  top: 0.1em;
   vertical-align: top;
   -webkit-transform-origin: top;
   -moz-transform-origin: top;
@@ -313,6 +306,7 @@
   padding-left: .15em;
   padding-right: .2em;
   margin-right: .1em;
+  padding-top: 1px;
 }
 .mq-math-mode .mq-vector-prefix {
   display: block;
@@ -325,6 +319,8 @@
   display: block;
 }
 .mq-math-mode .mq-large-operator {
+  vertical-align: -0.2em;
+  padding: .2em;
   text-align: center;
 }
 .mq-math-mode .mq-large-operator .mq-from,
@@ -345,6 +341,28 @@
 .mq-math-mode .mq-editable-field {
   cursor: text;
   font-family: Symbola, "Times New Roman", serif;
+}
+.mq-math-mode .mq-overarrow {
+  border-top: 1px solid black;
+  margin-top: 1px;
+  padding-top: 0.2em;
+}
+.mq-math-mode .mq-overarrow:before {
+  display: block;
+  position: relative;
+  top: -0.34em;
+  font-size: 0.5em;
+  line-height: 0em;
+  content: '\27A4';
+  text-align: right;
+}
+.mq-math-mode .mq-overarrow.mq-arrow-left:before {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
 }
 .mq-math-mode .mq-selection,
 .mq-editable-field .mq-selection,
@@ -397,7 +415,14 @@
   user-select: text;
   position: absolute;
   clip: rect(1em 1em 1em 1em);
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
   resize: none;
+  width: 1px;
+  height: 1px;
 }
 .mq-math-mode .mq-matrixed {
   background: white;

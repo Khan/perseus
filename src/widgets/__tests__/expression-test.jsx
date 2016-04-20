@@ -6,6 +6,7 @@ var assert = require("assert");
 var lens = require("../../../hubble/index.js");
 // TODO(jack): Package MathQuill
 var MathQuill = window.MathQuill;
+var MQ = MathQuill.getInterface(2);
 var Perseus = require("../../perseus.js");
 var React = require("react");
 
@@ -153,7 +154,7 @@ var findMathQuill = function(renderer) {
     var base = ReactDOM.findDOMNode(renderer);
     var span = base.querySelector(".mq-editable-field");
     assert.notEqual(span, null);
-    var mathQuillField = MathQuill.MathField(span);
+    var mathQuillField = MQ.MathField(span);
     assert.notEqual(mathQuillField, null);
     return mathQuillField;
 };
