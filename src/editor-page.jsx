@@ -216,6 +216,7 @@ var EditorPage = React.createClass({
                     imageUploader={this.props.imageUploader}
                     onChange={this.handleChange}
                     previewWidth={this.state.previewWidth}
+                    enabledFeatures={this.props.enabledFeatures}
                 />
             }
         </div>;

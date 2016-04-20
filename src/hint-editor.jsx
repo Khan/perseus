@@ -98,6 +98,7 @@ var HintEditor = React.createClass({
 /* A single hint-row containing a hint editor and preview */
 var CombinedHintEditor = React.createClass({
     propTypes: {
+        enabledFeatures: React.PropTypes.any,
         imageUploader: React.PropTypes.func,
         previewWidth: React.PropTypes.number.isRequired,
     },
@@ -130,7 +131,8 @@ var CombinedHintEditor = React.createClass({
                 <HintRenderer
                     hint={this.props.hint}
                     bold={shouldBold}
-                    pos={this.props.pos} />
+                    pos={this.props.pos}
+                    enabledFeatures={this.props.enabledFeatures} />
             </div>
         </div>;
     },
@@ -158,6 +160,7 @@ var CombinedHintEditor = React.createClass({
  */
 var CombinedHintsEditor = React.createClass({
     propTypes: {
+        enabledFeatures: React.PropTypes.any,
         imageUploader: React.PropTypes.func,
         previewWidth: React.PropTypes.number.isRequired,
     },
@@ -183,7 +186,8 @@ var CombinedHintsEditor = React.createClass({
                         onChange={this.handleHintChange.bind(this, i)}
                         onRemove={this.handleHintRemove.bind(this, i)}
                         onMove={this.handleHintMove.bind(this, i)}
-                        previewWidth={this.props.previewWidth} />;
+                        previewWidth={this.props.previewWidth}
+                        enabledFeatures={this.props.enabledFeatures} />;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">
