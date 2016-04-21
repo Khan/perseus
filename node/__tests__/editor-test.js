@@ -5,7 +5,7 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 
 const EditorPerseus = require("../../build/editor-perseus.js");
-const Perseus = require("../../build/perseus-5.js");
+const Perseus = require("../../build/perseus-6.js");
 
 describe("No-editor-perseus", function() {
     it("exposes renderers and init", function() {
