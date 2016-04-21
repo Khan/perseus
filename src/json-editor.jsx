@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -9,7 +9,7 @@ var JsonEditor = React.createClass({
 
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
-        value: React.PropTypes.object,
+        value: React.PropTypes.any,
     },
 
     getInitialState: function() {

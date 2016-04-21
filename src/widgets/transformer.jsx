@@ -1489,7 +1489,7 @@ var ToolsBar = React.createClass({
     propTypes: {
         addTool: React.PropTypes.func,
         apiOptions: ApiOptions.propTypes,
-        enabled: React.PropTypes.object,
+        enabled: React.PropTypes.objectOf(React.PropTypes.bool),
         onUndoClick: React.PropTypes.func,
         removeTool: React.PropTypes.func,
     },
@@ -1551,7 +1551,7 @@ var AddTransformBar = React.createClass({
     propTypes: {
         addTool: React.PropTypes.func,
         apiOptions: ApiOptions.propTypes,
-        enabled: React.PropTypes.object,
+        enabled: React.PropTypes.objectOf(React.PropTypes.bool),
         onUndoClick: React.PropTypes.func,
     },
 

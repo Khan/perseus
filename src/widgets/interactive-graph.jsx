@@ -297,7 +297,7 @@ var InteractiveGraph = React.createClass({
         backgroundImage: React.PropTypes.shape({
             url: React.PropTypes.string,
         }),
-        box: React.PropTypes.array.isRequired,
+        box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         flexibleType: React.PropTypes.bool,
         graph: React.PropTypes.object,
         gridStep: React.PropTypes.arrayOf(React.PropTypes.number),

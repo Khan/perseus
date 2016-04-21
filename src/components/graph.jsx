@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -43,7 +43,7 @@ function numSteps(range, step) {
 
 var Graph = React.createClass({
     propTypes: {
-        box: React.PropTypes.array.isRequired,
+        box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
         range: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -32,7 +32,10 @@ var classFor = function(entry, ifAdded, ifRemoved) {
 var ImageDiffSide = React.createClass({
     propTypes: {
         side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
-        images: React.PropTypes.array.isRequired,
+        images: React.PropTypes.arrayOf(React.PropTypes.shape({
+            status: React.PropTypes.string.isRequired,
+            value: React.PropTypes.string.isRequired,
+        })).isRequired,
     },
 
     render: function() {

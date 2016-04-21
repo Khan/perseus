@@ -55,7 +55,10 @@ var Draggable = React.createClass({
     propTypes: {
         type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
         content: React.PropTypes.string.isRequired,
-        endPosition: React.PropTypes.object.isRequired,
+        endPosition: React.PropTypes.shape({
+            left: React.PropTypes.number,
+            top: React.PropTypes.number,
+        }).isRequired,
         onRender: React.PropTypes.func.isRequired,
         onMouseDown: React.PropTypes.func.isRequired,
         onMouseMove: React.PropTypes.func.isRequired,
@@ -248,7 +251,7 @@ var HORIZONTAL = "horizontal",
 // The main sortable component.
 var Sortable = React.createClass({
     propTypes: {
-        options: React.PropTypes.array.isRequired,
+        options: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         padding: React.PropTypes.bool,
         disabled: React.PropTypes.bool,

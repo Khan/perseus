@@ -111,7 +111,10 @@ var CSProgramEditor = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         programID: React.PropTypes.string,
-        settings: React.PropTypes.array,
+        settings: React.PropTypes.arrayOf(React.PropTypes.shape({
+            name: React.PropTypes.string,
+            value: React.PropTypes.string,
+        })),
         showButtons: React.PropTypes.bool,
         showEditor: React.PropTypes.bool,
     },

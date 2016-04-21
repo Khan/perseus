@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -13,13 +13,13 @@ var seededRNG = require("../util.js").seededRNG;
 
 var Matcher = React.createClass({
     propTypes: {
-        labels: React.PropTypes.array,
-        left: React.PropTypes.array,
+        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+        left: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func,
         orderMatters: React.PropTypes.bool,
         padding: React.PropTypes.bool,
         problemNum: React.PropTypes.number,
-        right: React.PropTypes.array,
+        right: React.PropTypes.arrayOf(React.PropTypes.string),
         trackInteraction: React.PropTypes.func.isRequired,
     },
 

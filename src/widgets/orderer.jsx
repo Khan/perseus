@@ -62,7 +62,7 @@ var Card = React.createClass({
 
         mouse: PropTypes.position,
 
-        content: React.PropTypes.object,
+        content: React.PropTypes.string,
         fakeRef: React.PropTypes.string,
     },
 

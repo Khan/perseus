@@ -11,9 +11,9 @@ var TextListEditor = require("../components/text-list-editor.jsx");
 
 var MatcherEditor = React.createClass({
     propTypes: {
-        left: React.PropTypes.array,
-        right: React.PropTypes.array,
-        labels: React.PropTypes.array,
+        left: React.PropTypes.arrayOf(React.PropTypes.string),
+        right: React.PropTypes.arrayOf(React.PropTypes.string),
+        labels: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func.isRequired,
         orderMatters: React.PropTypes.bool,
         padding: React.PropTypes.bool,

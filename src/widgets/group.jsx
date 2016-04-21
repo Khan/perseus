@@ -16,7 +16,7 @@ var Group = React.createClass({
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
         images: React.PropTypes.object,
-        icon: React.PropTypes.object,
+        icon: React.PropTypes.node,
         interWidgets: React.PropTypes.func,
         onBlur: React.PropTypes.func,
         onFocus: React.PropTypes.func,

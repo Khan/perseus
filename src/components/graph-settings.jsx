@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -45,7 +45,9 @@ var GraphSettings = React.createClass({
             React.PropTypes.bool,
             React.PropTypes.string,
         ]),
-        backgroundImage: React.PropTypes.object,
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+        }),
         markings: React.PropTypes.oneOf(["graph", "grid", "none"]),
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,

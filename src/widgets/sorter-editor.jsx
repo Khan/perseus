@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -14,7 +14,7 @@ const VERTICAL = "vertical";
 
 const SorterEditor = React.createClass({
     propTypes: {
-        correct: React.PropTypes.array,
+        correct: React.PropTypes.arrayOf(React.PropTypes.string),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         onChange: React.PropTypes.func.isRequired,
         padding: React.PropTypes.bool,
