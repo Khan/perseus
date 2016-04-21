@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Responsible for combining the text diffs from text-diff and the widget
@@ -44,8 +44,8 @@ var isWidget = obj => _.isObject(obj) && !("content" in obj);
 
 var RevisionDiff = React.createClass({
     propTypes: {
-        beforeItem: React.PropTypes.object.isRequired,
-        afterItem: React.PropTypes.object.isRequired,
+        beforeItem: React.PropTypes.any.isRequired,
+        afterItem: React.PropTypes.any.isRequired,
     },
 
     render: function() {

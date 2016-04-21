@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -38,7 +38,7 @@ var CSProgram = React.createClass({
         programID: React.PropTypes.string,
         width: React.PropTypes.number,
         height: React.PropTypes.number,
-        settings: React.PropTypes.array,
+        settings: React.PropTypes.arrayOf(React.PropTypes.object),
         showEditor: React.PropTypes.bool,
         showButtons: React.PropTypes.bool,
         status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),

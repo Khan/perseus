@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -255,7 +255,7 @@ var Sortable = React.createClass({
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         padding: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        constraints: React.PropTypes.object,
+        constraints: React.PropTypes.any,
         onMeasure: React.PropTypes.func,
         margin: React.PropTypes.number,
         onChange: React.PropTypes.func,

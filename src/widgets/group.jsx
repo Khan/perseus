@@ -20,7 +20,7 @@ var Group = React.createClass({
         interWidgets: React.PropTypes.func,
         onBlur: React.PropTypes.func,
         onFocus: React.PropTypes.func,
-        reviewModeRubric: React.PropTypes.object,
+        reviewModeRubric: React.PropTypes.any,
         widgetId: React.PropTypes.string,
         widgets: React.PropTypes.object,
     },

@@ -29,7 +29,7 @@ var Iframe = React.createClass({
         width: React.PropTypes.string,
         height: React.PropTypes.string,
         url: React.PropTypes.string,
-        settings: React.PropTypes.array,
+        settings: React.PropTypes.arrayOf(React.PropTypes.object),
         status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
         message: React.PropTypes.string,
         allowFullScreen: React.PropTypes.bool,

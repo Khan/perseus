@@ -321,7 +321,7 @@ var Editor = React.createClass({
         disabled: React.PropTypes.bool,
         // We don't use EnabledFeatures.propTypes here because it requires the
         // props and they're optional for this component.
-        enabledFeatures: React.PropTypes.object,
+        enabledFeatures: React.PropTypes.any,
         images: React.PropTypes.object,
         imageUploader: React.PropTypes.func,
         immutableWidgets: React.PropTypes.bool,

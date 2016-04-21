@@ -75,7 +75,7 @@ var RadioEditor = React.createClass({
     propTypes: {
         // We don't use ApiOptions.propTypes here because it requires the props
         // and they're optional for this component.
-        apiOptions: React.PropTypes.object,
+        apiOptions: React.PropTypes.any,
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             clue: React.PropTypes.string,
