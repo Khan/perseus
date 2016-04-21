@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -96,7 +96,8 @@ var InputNumber = React.createClass({
         onBlur: React.PropTypes.func,
         onChange: React.PropTypes.func,
         onFocus: React.PropTypes.func,
-        reviewModeRubric: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        reviewModeRubric: React.PropTypes.any,
         size: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
     },

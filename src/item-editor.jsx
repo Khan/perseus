@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -12,14 +12,16 @@ var ITEM_DATA_VERSION = require("./version.json").itemDataVersion;
 
 var ItemEditor = React.createClass({
     propTypes: {
-        answerArea: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        answerArea: React.PropTypes.any,
         imageUploader: React.PropTypes.func,
         onChange: React.PropTypes.func,
         wasAnswered: React.PropTypes.bool,
         gradeMessage: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
         previewWidth: React.PropTypes.number.isRequired,
-        question: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        question: React.PropTypes.any,
     },
 
     getDefaultProps: function() {

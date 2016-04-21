@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -17,6 +17,7 @@ var ViewportResizer = require("./components/viewport-resizer.jsx");
 
 var EditorPage = React.createClass({
     propTypes: {
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
         answerArea: React.PropTypes.any, // related to the question
 
         // We don't specify a more specific type here because it's valid
@@ -49,6 +50,7 @@ var EditorPage = React.createClass({
         onChange: React.PropTypes.func,
 
         // Initial value of the question being edited
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
         question: React.PropTypes.any,
     },
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -15,14 +15,16 @@ var Group = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
-        images: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        images: React.PropTypes.any,
         icon: React.PropTypes.node,
         interWidgets: React.PropTypes.func,
         onBlur: React.PropTypes.func,
         onFocus: React.PropTypes.func,
         reviewModeRubric: React.PropTypes.any,
         widgetId: React.PropTypes.string,
-        widgets: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        widgets: React.PropTypes.any,
     },
 
     getDefaultProps: function() {

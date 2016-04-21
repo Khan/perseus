@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -16,7 +16,8 @@ var BaseRadio = require("./base-radio.jsx");
 
 var ChoiceEditor = React.createClass({
     propTypes: {
-        choice: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        choice: React.PropTypes.any,
         showDelete: React.PropTypes.bool,
         onClueChange: React.PropTypes.func,
         onContentChange: React.PropTypes.func,

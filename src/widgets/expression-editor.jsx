@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable eol-last, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -361,7 +361,8 @@ var AnswerOption = React.createClass({
 
     propTypes: {
         considered: React.PropTypes.oneOf(CONSIDERED).isRequired,
-        expressionProps: React.PropTypes.object.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        expressionProps: React.PropTypes.any.isRequired,
 
         // Must the answer have the same form as this answer.
         form: React.PropTypes.bool.isRequired,

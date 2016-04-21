@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -32,8 +32,10 @@ var GradedGroup = React.createClass({
 
     propTypes: {
         content: React.PropTypes.string,
-        widgets: React.PropTypes.object,
-        images: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        widgets: React.PropTypes.any,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        images: React.PropTypes.any,
         apiOptions: ApiOptions.propTypes,
         trackInteraction: React.PropTypes.func.isRequired,
         onBlur: React.PropTypes.func,

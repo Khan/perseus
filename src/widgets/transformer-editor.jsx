@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -130,10 +130,12 @@ var defaultTransformerProps = {
 const ToolSettings = React.createClass({
     propTypes: {
         allowFixed: React.PropTypes.bool,
-        constraints: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        constraints: React.PropTypes.any,
         name: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
-        settings: React.PropTypes.object.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        settings: React.PropTypes.any.isRequired,
     },
 
     getDefaultProps: function() {
@@ -194,7 +196,8 @@ var TransformationExplorerSettings = React.createClass({
         graphMode: React.PropTypes.string,
         listMode: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
-        tools: React.PropTypes.object.isRequired,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        tools: React.PropTypes.any.isRequired,
     },
     render: function() {
 
@@ -711,9 +714,11 @@ var ShapeTypes = {
 
 var TransformationsShapeEditor = React.createClass({
     propTypes: {
-        graph: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
         onChange: React.PropTypes.func.isRequired,
-        shape: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        shape: React.PropTypes.any,
     },
 
     render: function() {
@@ -815,15 +820,19 @@ var TransformationsShapeEditor = React.createClass({
 
 var TransformerEditor = React.createClass({
     propTypes: {
-        correct: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        correct: React.PropTypes.any,
         drawSolutionShape: React.PropTypes.bool,
         gradeEmpty: React.PropTypes.bool,
-        graph: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
         graphMode: React.PropTypes.string,
         listMode: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
-        starting: React.PropTypes.object,
-        tools: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        starting: React.PropTypes.any,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        tools: React.PropTypes.any,
     },
 
     // TODO (jack): These should be refactored into a nice object at the top

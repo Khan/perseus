@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* Collection of classes for rendering the hint editor area,
@@ -25,14 +25,16 @@ var HintEditor = React.createClass({
     propTypes: {
         content: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
-        images: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        images: React.PropTypes.any,
         isFirst: React.PropTypes.bool,
         isLast: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
         onMove: React.PropTypes.func,
         onRemove: React.PropTypes.func,
         replace: React.PropTypes.bool,
-        widgets: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        widgets: React.PropTypes.any,
     },
 
     getDefaultProps: function() {

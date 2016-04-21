@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -48,8 +48,10 @@ var typeSelectorStyle = {
 var FunctionGrapher = React.createClass({
     propTypes: {
         flexibleType: React.PropTypes.bool,
-        graph: React.PropTypes.object,
-        model: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        model: React.PropTypes.any,
         onChange: React.PropTypes.func.isRequired,
         static: React.PropTypes.bool,
     },
@@ -244,9 +246,11 @@ var FunctionGrapher = React.createClass({
 var Grapher = React.createClass({
     propTypes: {
         availableTypes: React.PropTypes.arrayOf(React.PropTypes.string),
-        graph: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
         onChange: React.PropTypes.func.isRequired,
-        plot: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        plot: React.PropTypes.any,
         static: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
     },

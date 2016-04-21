@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-console, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -210,12 +210,15 @@ var NORMAL = "normal",
 
 var Orderer = React.createClass({
     propTypes: {
-        correctOptions: React.PropTypes.array,
-        current: React.PropTypes.array,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        correctOptions: React.PropTypes.arrayOf(React.PropTypes.any),
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        current: React.PropTypes.arrayOf(React.PropTypes.any),
         height: React.PropTypes.oneOf([NORMAL, AUTO]),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         onChange: React.PropTypes.func.isRequired,
-        options: React.PropTypes.array,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        options: React.PropTypes.arrayOf(React.PropTypes.any),
         trackInteraction: React.PropTypes.func.isRequired,
     },
 

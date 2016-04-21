@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -299,7 +299,8 @@ var InteractiveGraph = React.createClass({
         }),
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         flexibleType: React.PropTypes.bool,
-        graph: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
         gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
         markings: React.PropTypes.string,

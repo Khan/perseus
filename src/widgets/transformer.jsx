@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -331,7 +331,9 @@ var TransformOps = {
             onBlur: React.PropTypes.func,
             onChange: React.PropTypes.func,
             onFocus: React.PropTypes.func,
-            transform: React.PropTypes.object.isRequired,
+            // TODO(JJC1138): This could be replaced with a more specific prop
+            // spec:
+            transform: React.PropTypes.any.isRequired,
         },
 
         render: function() {
@@ -1596,18 +1598,23 @@ var AddTransformBar = React.createClass({
 var Transformer = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
-        correct: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        correct: React.PropTypes.any,
         drawSolutionShape: React.PropTypes.bool,
-        graph: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
         graphMode: React.PropTypes.string,
         listMode: React.PropTypes.string,
         onBlur: React.PropTypes.func,
         onChange: React.PropTypes.func,
         onFocus: React.PropTypes.func,
-        starting: React.PropTypes.object,
-        tools: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        starting: React.PropTypes.any,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        tools: React.PropTypes.any,
         trackInteraction: React.PropTypes.func.isRequired,
-        transformations: React.PropTypes.array,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        transformations: React.PropTypes.arrayOf(React.PropTypes.any),
     },
 
     getDefaultProps: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable eol-last, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable eol-last, no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -18,7 +18,8 @@ var ExampleGraphieWidgetEditor = React.createClass({
 
     propTypes: {
         correct: React.PropTypes.arrayOf(React.PropTypes.number),
-        graph: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        graph: React.PropTypes.any,
     },
 
     getDefaultProps: function() {

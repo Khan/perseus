@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -26,7 +26,8 @@ var Explanation = React.createClass({
         hidePrompt: React.PropTypes.string,
         showPrompt: React.PropTypes.string,
         trackInteraction: React.PropTypes.func.isRequired,
-        widgets: React.PropTypes.object,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        widgets: React.PropTypes.any,
     },
 
     getDefaultProps: function() {
