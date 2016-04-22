@@ -5,7 +5,7 @@ const i18n = window.i18n;
 
 const HintRenderer = require("./hint-renderer.jsx");
 const SvgImage = require("./components/svg-image.jsx");
-
+const EnabledFeatures = require("./enabled-features.jsx");
 
 const HintsRenderer = React.createClass({
     propTypes: {
@@ -14,6 +14,12 @@ const HintsRenderer = React.createClass({
         enabledFeatures: React.PropTypes.any,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
         hintsVisible: React.PropTypes.number,
+    },
+
+    getDefaultProps: function() {
+        return {
+            enabledFeatures: EnabledFeatures.defaults,
+        };
     },
 
     componentDidMount: function() {
