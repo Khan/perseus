@@ -173,112 +173,121 @@
     }
 }
 
-// Styles specifically for mobile
-body.mobile {
-    .framework-perseus #problemarea input[type=radio],
-    .framework-perseus #problemarea input[type=checkbox] {
-        float: left;
-        margin-right: 7px;
-    }
-    .perseus-widget-radio {
-        background: none;
-        color: @gray;
-        margin-left: 0;
-
-        span.checkbox {
-            .perseus-interactive;
-            position: absolute;
-            margin-right: 26px;
-            display: block;
-            top: 50%;
-            margin: -14px 0 0 0;
-            width: auto;
-        }
-
-        // General styles for the li
-        .perseus-radio-option {
-            background: white;
-            position: relative;
-            border: 2px solid @gray;
-            border-radius: 28px;
-            box-sizing: border-box;
-            cursor: pointer;
-            display: block;
-            font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
+// Styles specifically for tablet native. We have updated radio button phone
+// styling, but not yet for native. This is the old native styling
+// (old as of 4/25) -- perhaps we will update these if/when we get updated
+// tablet exercise designs.
+// TODO(david): Avoid using min-width -- we've been trying to use max-width
+//     everywhere.
+@media (min-width: @pure-md-min) {
+    body.mobile {
+        .framework-perseus #problemarea input[type=radio],
+        .framework-perseus #problemarea input[type=checkbox] {
+            float: left;
             margin-left: 0;
-            margin-bottom: 10px;
-            overflow: hidden;
-            padding: 8px 10px !important; // Being overwritten by khan-exercises.css
+            margin-right: 7px;
+        }
+        .perseus-widget-radio {
+            background: none;
+            color: @gray;
+            margin-left: 0;
 
-            &:active {
-                background-color: @blue;
-                border-color: @blue;
-                color: white;
-
-                input[type=radio],
-                input[type=checkbox] {
-                    border-color: @gray;
-                    background-color: white;
-                }
+            span.checkbox {
+                .perseus-interactive;
+                position: absolute;
+                margin-right: 26px;
+                display: block;
+                top: 50%;
+                margin: -14px 0 0 0;
+                width: auto;
             }
 
-            &.perseus-radio-selected {
-                border-color: @blue;
-                color: @blue;
-                font-weight: bold;
+            // General styles for the li
+            .perseus-radio-option {
+                background: white;
+                position: relative;
+                border: 2px solid @gray;
+                border-radius: 28px;
+                box-sizing: border-box;
+                cursor: pointer;
+                display: block;
+                font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
+                margin-left: 0;
+                margin-bottom: 10px;
+                overflow: hidden;
+                padding: 8px 10px !important; // Being overwritten by khan-exercises.css
 
                 &:active {
+                    background-color: @blue;
+                    border-color: @blue;
                     color: white;
+
+                    input[type=radio],
+                    input[type=checkbox] {
+                        border-color: @gray;
+                        background-color: white;
+                    }
+                }
+
+                &.perseus-radio-selected {
+                    border-color: @blue;
+                    color: @blue;
+                    font-weight: bold;
+
+                    &:active {
+                        color: white;
+                    }
+                }
+
+                .perseus-radio-option-content {
+                    margin-left: 40px;
+                    display: inline-block;
                 }
             }
 
-            .perseus-radio-option-content {
-                margin-left: 40px;
-                display: inline-block;
+            input[type=radio],
+            input[type=checkbox] {
+                -webkit-appearance: none;
+                appearance: none;
+                border: 2px solid @gray;
+                border-radius: 25px;
+                float: left;
             }
-        }
 
-        input[type=radio],
-        input[type=checkbox] {
-            -webkit-appearance: none;
-            appearance: none;
-            border: 2px solid @gray;
-            border-radius: 25px;
-            float: left;
-        }
-
-        input[type=radio] {
-            height: 25px;
-            margin-right: 10px;
-            outline: none;
-            width: 25px;
-            &:checked {
-                background: @blue;
-                border: 2px solid @blue;
+            input[type=radio] {
+                height: 25px;
+                margin-right: 10px;
+                outline: none;
+                width: 25px;
+                &:checked {
+                    background: @blue;
+                    border: 2px solid @blue;
+                }
             }
-        }
 
-        input[type=checkbox] {
-            position: absolute;
-            outline: none;
+            input[type=checkbox] {
+                position: absolute;
+                outline: none;
 
-            &:before {
-                color: @gray;
-                font: 15pt "FontAwesome";
-                left: 0;
-                position: relative;
-                top: 1px;
-            }
-            &:checked {
-                border-color: @blue;
                 &:before {
-                    color: @blue;
-                    content: "\f00c";
+                    color: @gray;
+                    font: 15pt "FontAwesome";
+                    left: 0;
+                    position: relative;
+                    top: 1px;
+                }
+                &:checked {
+                    border-color: @blue;
+                    &:before {
+                        color: @blue;
+                        content: "\f00c";
+                    }
                 }
             }
         }
     }
 }
+
 
 // body.sat-section matches when we're inside the SAT Alpha product, and
 // #sat-mission matches when we're inside the SAT MVP product.
