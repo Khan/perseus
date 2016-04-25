@@ -64,7 +64,7 @@ server: install server-offline
 
 server-offline:
 	(sleep 1; echo; echo http://localhost:$(PORT)/test.html) &
-	./node_modules/.bin/webpack-dev-server --port $(PORT) --output-public-path live-build/ --devtool inline-source-map src/perseus.js
+	INCLUDE_EDITORS=true ./node_modules/.bin/webpack-dev-server --port $(PORT) --output-public-path live-build/ --devtool inline-source-map src/editor-perseus.js
 
 demo:
 	git checkout gh-pages
