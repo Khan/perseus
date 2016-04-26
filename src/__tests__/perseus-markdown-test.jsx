@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var assert = require("assert");
@@ -63,8 +63,10 @@ var htmlFromMarkdown = function(source) {
 var assertParsesToReact = function(source, html) {
     var actualHtml = htmlFromMarkdown(source);
     if (actualHtml !== html) {
+        /* eslint-disable no-console */
         console.warn(actualHtml);
         console.warn(html);
+        /* eslint-enable no-console */
     }
     assert.strictEqual(actualHtml, html);
 };
