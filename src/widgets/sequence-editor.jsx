@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-alert, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -82,9 +82,11 @@ const SequenceEditor = React.createClass({
                                 var msg = "Are you sure you " +
                                     "want to remove step " +
                                     (i + 1) + "?";
+                                /* eslint-disable no-alert */
                                 if (confirm(msg)) {
                                     this._handleRemoveStep(i);
                                 }
+                                /* eslint-enable no-alert */
                             }} />
                         <StepControlButton
                             icon="icon-plus"
