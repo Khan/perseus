@@ -5,22 +5,26 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 
 const EditorPerseus = require("../../build/editor-perseus.js");
-const Perseus = require("../../build/perseus-6.js");
+const Perseus = require("../../build/perseus.js");
 
 describe("No-editor-perseus", function() {
-    it("exposes renderers and init", function() {
+    it("exposes renderers, versions, and init", function() {
         assert.ok(Perseus.Renderer);
         assert.ok(Perseus.ArticleRenderer);
         assert.ok(Perseus.ItemRenderer);
         assert.ok(Perseus.ServerItemRenderer);
         assert.ok(Perseus.HintsRenderer);
+        assert.ok(Perseus.apiVersion);
+        assert.ok(Perseus.itemDataVersion);
         assert.ok(Perseus.init);
     });
 
     it("doesn't expose editors and extra bits", function() {
         assert(!("Editor" in Perseus));
-        assert(!("apiVersion" in Perseus));
+        assert(!("RevisionDiff" in Perseus));
         assert(!("i18n" in Perseus));
+        assert(!("accessibility" in Perseus));
+        assert(!("ViewportResizer" in Perseus));
     });
 
     it("renders with react", function() {
@@ -60,10 +64,14 @@ describe("Editor-perseus", function() {
         assert.ok(EditorPerseus.ItemRenderer);
         assert.ok(EditorPerseus.ServerItemRenderer);
         assert.ok(EditorPerseus.HintsRenderer);
+        assert.ok(EditorPerseus.apiVersion);
+        assert.ok(EditorPerseus.itemDataVersion);
         assert.ok(EditorPerseus.init);
 
         assert.ok(EditorPerseus.Editor);
-        assert.ok(EditorPerseus.apiVersion);
+        assert.ok(EditorPerseus.RevisionDiff);
         assert.ok(EditorPerseus.i18n);
+        assert.ok(EditorPerseus.accessibility);
+        assert.ok(EditorPerseus.ViewportResizer);
     });
 });

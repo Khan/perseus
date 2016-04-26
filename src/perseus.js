@@ -1,6 +1,10 @@
+const version = require("./version.json");
+
 require("./all-widgets.js");
 
 module.exports = {
+    apiVersion:             version.apiVersion,
+    itemDataVersion:        version.itemDataVersion,
     init:                   require("./init.js"),
     ArticleRenderer:        require("./article-renderer.jsx"),
     ItemRenderer:           require("./item-renderer.jsx"),

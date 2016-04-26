@@ -1,9 +1,6 @@
 const Perseus = require("./perseus.js");
-const version = require("./version.json");
 
 module.exports = {
-    apiVersion:             version.apiVersion,
-    itemDataVersion:        version.itemDataVersion,
     itemVersion:            require("./item-version"),
     RevisionDiff:           require("./diffs/revision-diff.jsx"),
     StatefulArticleEditor:  require("./stateful-article-editor.jsx"),

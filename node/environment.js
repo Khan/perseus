@@ -1,8 +1,14 @@
 require("../lib/babel-polyfills.min.js");
 var _ = require("../lib/underscore.js");
+
+var path = require("path");
+var src = path.normalize(path.join(__dirname, "..", "src"));
+
 var options = require("./babel-options.js");
 options = _.extend({}, options, {
-    only: /src|react-components/,
+    // Generate a regexp that matches files we want to babelify. For now, this
+    // is things in src/ and react-components
+    only: new RegExp(src + "|react-components"),
     extensions: [".js", ".jsx"],
 });
 require("babel-core/register")(options);

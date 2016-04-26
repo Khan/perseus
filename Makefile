@@ -1,44 +1,46 @@
-.PHONY: help build serve server server-offline all subperseus forcesubperseus webapp-put install clean lint test jest
+.PHONY: help build fastbuild serve server server-offline install clean lint test shorttest nodetest shortnodetest editortest shorteditortest jest
 PORT=9000
-WEBAPP=../webapp
-IOS=../iOS
 SUPPRESSINSTALL=FALSE
 
-API_VERSION_MAJOR:=$(shell node node/echo-major-api-version.js)
-PERSEUS_BUILD_JS=build/perseus-$(API_VERSION_MAJOR).js
-PERSEUS_BUILD_CSS=build/perseus-$(API_VERSION_MAJOR).css
+PERSEUS_BUILD_JS=build/perseus.js
+PERSEUS_BUILD_CSS=build/perseus.css
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
 PERSEUS_EDITOR_BUILD_JS=build/editor-perseus.js
-PERSEUS_VERSION_FILE=build/perseus-$(API_VERSION_MAJOR)-item-version.js
+PERSEUS_VERSION_FILE=build/perseus-item-version.js
 
 help:
 	@echo "make server PORT=9000         # runs the perseus server"
 	@echo "make server-offline PORT=9000 # runs the perseus server"
-	@echo "make build                    # compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), and $(PERSEUS_EDITOR_BUILD_JS)"
-	@echo "make subperseus               # build perseus into webapp"
+	@echo "make fastbuild                # runs tests and compiles into $(PERSEUS_BUILD_JS), $(PERSEUS_BUILD_CSS), $(PERSEUS_NODE_BUILD_JS), and $(PERSEUS_EDITOR_BUILD_JS)"
+	@echo "make build                    # like build, but doesn't run tests"
 	@echo "make clean                    # delete all compilation artifacts"
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
+build: clean install shorttest fastbuild shortnodetest shorteditortest
+fastbuild: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
 
 $(PERSEUS_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production ./node_modules/.bin/webpack
-	echo '/*! Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_BUILD_JS)
-	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_BUILD_JS)
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_BUILD_JS)
-	cat build/perseus.js >> $(PERSEUS_BUILD_JS)
+	mv $@ $@.tmp
+	echo '/*! Perseus | http://github.com/Khan/perseus */' > $@
+	echo "// commit `git rev-parse HEAD`" >> $@
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	echo "// @gene""rated" >> $@
+	cat $@.tmp >> $@
+	rm $@.tmp
 
 $(PERSEUS_NODE_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.node-perseus.js
-	mv build/node-perseus.js build/node-perseus.js.tmp
-	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $(PERSEUS_NODE_BUILD_JS)
-	echo "// commit `git rev-parse HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $(PERSEUS_NODE_BUILD_JS)
-	cat build/node-perseus.js.tmp >> $(PERSEUS_NODE_BUILD_JS)
-	rm build/node-perseus.js.tmp
+	mv $@ $@.tmp
+	echo '/*! Nodeified Perseus | http://github.com/Khan/perseus */' > $@
+	echo "// commit `git rev-parse HEAD`" >> $@
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	echo "// @gene""rated" >> $@
+	cat $@.tmp >> $@
+	rm $@.tmp
 
 $(PERSEUS_EDITOR_BUILD_JS): install
 	mkdir -p build
@@ -47,19 +49,27 @@ $(PERSEUS_EDITOR_BUILD_JS): install
 	echo '/*! Perseus with editors | http://github.com/Khan/perseus */' > $@
 	echo "// commit `git rev-parse HEAD`" >> $@
 	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	echo "// @gene""rated" >> $@
 	cat $@.tmp >> $@
 	rm $@.tmp
 
 $(PERSEUS_BUILD_CSS): install
 	mkdir -p build
-	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less $(PERSEUS_BUILD_CSS)
+	echo '// Perseus CSS' > $@
+	echo "// commit `git rev-parse HEAD`" >> $@
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	echo "// @gene""rated" >> $@
+	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less >> $@
 
 $(PERSEUS_VERSION_FILE): install
 	mkdir -p build
-	node node/create-item-version-file.js >> $(PERSEUS_VERSION_FILE)
+	echo '// Perseus Version File' > $@
+	echo "// commit `git rev-parse HEAD`" >> $@
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	echo "// @gene""rated" >> $@
+	node node/create-item-version-file.js >> $@
 
 serve: server
-
 server: install server-offline
 
 server-offline:
@@ -74,26 +84,6 @@ demo:
 	git commit -nm 'demo update'
 	git checkout master
 	git push -f origin gh-pages:gh-pages
-
-all: subperseus
-
-subperseus-ios: clean install build put-js-ios
-
-subperseus: clean install shorttest build shortnodetest shorteditortest webapp-put
-
-forcesubperseus: clean install build webapp-put
-
-put-js-ios: build
-	cp $(PERSEUS_BUILD_JS) "$(IOS)/Resources/webview/javascript/perseus-package/perseus.js"
-
-webapp-put: build
-	cp $(PERSEUS_BUILD_JS) "$(WEBAPP)/javascript/perseus-package/"
-	cp $(PERSEUS_NODE_BUILD_JS) "$(WEBAPP)/tools/"
-	cp $(PERSEUS_EDITOR_BUILD_JS) "$(WEBAPP)/javascript/perseus-editor-package/"
-	cp stylesheets/perseus-admin-package/* "$(WEBAPP)/stylesheets/perseus-admin-package"
-	cp $(PERSEUS_BUILD_CSS) "$(WEBAPP)/stylesheets/exercise-content-package/"
-	cp $(PERSEUS_VERSION_FILE) "$(WEBAPP)/javascript/perseus-admin-package/"
-
 
 # Pull submodules if they are empty.
 # This should make first-time installation easier.
@@ -130,7 +120,7 @@ clean:
 	-rm -rf build/*
 
 lint:
-	~/Khan/devtools/khan-linter/runlint.py
+	~/khan/devtools/khan-linter/runlint.py
 
 FIND_TESTS_1 := find -E src -type f -regex '.*/__tests__/.*\.jsx?'
 FIND_TESTS_2 := find src -type f -regex '.*/__tests__/.*\.jsx?'
