@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp, space-after-keywords */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var classNames = require("classnames");
@@ -147,7 +147,7 @@ var NumberInput = React.createClass({
     },
 
     _checkValidity: function(value) {
-        if(value == null) {
+        if (value == null) {
             return true;
         }
 
