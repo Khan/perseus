@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -285,7 +285,7 @@ var Histogram = React.createClass({
                 graphie.label([x, 0], knumber.round(x, 2), "below", true);
 
                 var tickHeight = 8;
-                graphie.line([x, 0], [x, - tickHeight / scale[1]], {
+                graphie.line([x, 0], [x, -tickHeight / scale[1]], {
                     stroke: "#000",
                     strokeWidth: 1,
                 });
@@ -305,7 +305,7 @@ var Histogram = React.createClass({
         // Add axis labels
         var xMid = range[0][0] + (xWidth / 2);
         var xOffset = (data) ? 25 : 0;
-        graphie.label([xMid, - xOffset / scale[1]],
+        graphie.label([xMid, -xOffset / scale[1]],
             options.xAxisLabel,
             "below", false)
             .css("font-weight", "bold");

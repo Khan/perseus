@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, space-unary-ops */
+/* eslint-disable no-var, one-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -151,7 +151,7 @@ var Quadratic = _.extend({}, PlotDefaults, {
 
         // Use these to calculate familiar a, b, c
         var a = (p2[1] - k) / ((p2[0] - h) * (p2[0] - h));
-        var b = - 2 * h * a;
+        var b = -2 * h * a;
         var c = a * h * h + k;
 
         return [a, b, c];
@@ -387,7 +387,7 @@ var Logarithm = _.extend({}, PlotDefaults, {
         var flip = (coord) => [coord[1], coord[0]];
         var inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip),
             _.map(asymptote, flip));
-        var c = - inverseCoeffs[2] / inverseCoeffs[0];
+        var c = -inverseCoeffs[2] / inverseCoeffs[0];
         var b = 1 / inverseCoeffs[0];
         var a = 1 / inverseCoeffs[1];
         return [a, b, c];

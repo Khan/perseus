@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-unary-ops */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -262,7 +262,7 @@ var GraphSettings = React.createClass({
         var numbers = _.every(range, function(num) {
             return _.isFinite(num);
         });
-        if (! numbers) {
+        if (!numbers) {
             return "Range must be a valid number";
         }
         if (range[0] >= range[1]) {
@@ -274,7 +274,7 @@ var GraphSettings = React.createClass({
     validateStepValue: function(settings) {
         var { step, range, name, minTicks, maxTicks } = settings;
 
-        if (! _.isFinite(step)) {
+        if (!_.isFinite(step)) {
             return name + " must be a valid number";
         }
         var nSteps = numSteps(range, step);
