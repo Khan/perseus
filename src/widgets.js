@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, space-before-function-paren */
+/* eslint-disable no-var, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -137,6 +137,7 @@ var Widgets = {
                         newEditorProps
                     );
 
+                /* eslint-disable no-console */
                 } else if ((typeof console !== 'undefined') && console.warn) {
                     // This is a warning because it is unlikely to be hit in
                     // local testing, and a warning is slightly less scary in
@@ -147,6 +148,8 @@ var Widgets = {
                         "major version `" + nextVersion + "` found. This " +
                         "is necessary to render this `" + type + "` correctly."
                     );
+                    /* eslint-enable no-console */
+
                     // But try to keep going anyways (yolo!)
                     // (Throwing an error here would just break the page
                     // silently anyways, so that doesn't seem much better

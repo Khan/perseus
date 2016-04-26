@@ -2,7 +2,6 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-/*eslint-disable no-console */
 /* globals KA */
 var $ = require("jquery");
 var React = require('react');
@@ -470,9 +469,11 @@ var Renderer = React.createClass({
         if (serializedWidgetIds.length !== widgetPropIds.length ||
                 _.intersection(serializedWidgetIds, widgetPropIds).length !==
                     serializedWidgetIds.length) {
+            /* eslint-disable no-console */
             console.error("Refusing to restore bad serialized state:",
                           serializedState, "Current props:",
                           this.state.widgetProps);
+            /* eslint-enable no-console */
             return;
         }
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -157,7 +157,9 @@ var Card = React.createClass({
         // Event handlers should be unbound before component unmounting, but
         // just in case...
         if (this.mouseMoveUpBound) {
+            /* eslint-disable no-console */
             console.warn("Removing an element with bound event handlers.");
+            /* eslint-enable no-console */
 
             this.unbindMouseMoveUp();
             Util.resetTouchHandlers();
