@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -59,7 +59,7 @@ var defaultBackgroundImage = {
  * }
  */
 function pluckObject(object, subKey) {
-    return _.object(_.map(object, function (value, key) {
+    return _.object(_.map(object, function(value, key) {
         return [key, value[subKey]];
     }));
 }
@@ -1789,7 +1789,7 @@ var Transformer = React.createClass({
             editable: false,
             showPoints: (this.props.graphMode !== "static"),
             translatable: translatable,
-            onMove: function (dX, dY) {
+            onMove: function(dX, dY) {
                 dX = KhanMath.roundToNearest(graphie.snap[0], dX);
                 dY = KhanMath.roundToNearest(graphie.snap[1], dY);
                 self.addTransform({
@@ -1887,7 +1887,7 @@ var Transformer = React.createClass({
     // Snaps a coord to this.graphie()'s snap
     snapCoord: function(coord) {
         var graphie = this.graphie();
-        return _.map(coord, function (val, dim) {
+        return _.map(coord, function(val, dim) {
             return KhanMath.roundToNearest(graphie.snap[dim], val);
         });
     },
@@ -2323,7 +2323,7 @@ var Transformer = React.createClass({
     getCoords: function() {
         var startCoords = this.props.starting.shape.coords;
         var transforms = this.props.transformations;
-        return _.reduce(transforms, function (coords, transform) {
+        return _.reduce(transforms, function(coords, transform) {
             return _.map(coords, TransformOps.apply(transform));
         }, startCoords);
     },
@@ -2471,7 +2471,7 @@ var Transformer = React.createClass({
 });
 
 _.extend(Transformer, {
-    validate: function (guess, rubric) {
+    validate: function(guess, rubric) {
         // Check for any required transformations
         for (var type in Transformations) {
             if (rubric.tools[type].required) {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -245,8 +245,8 @@ var Table = React.createClass({
 
 _.extend(Table, {
     validate: function(state, rubric) {
-        var filterNonEmpty = function (table) {
-            return _.filter(table, function (row) {
+        var filterNonEmpty = function(table) {
+            return _.filter(table, function(row) {
 
                 // Check if row has a cell that is nonempty
                 return _.some(row, _.identity);
@@ -276,11 +276,11 @@ _.extend(Table, {
         var createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
         var message = null;
-        var allCorrect = _.every(solution, function (rowSolution) {
+        var allCorrect = _.every(solution, function(rowSolution) {
             var i;
             for (i = 0; i < supplied.length; i++) {
                 var rowSupplied = supplied[i];
-                var correct = _.every(rowSupplied, function (cellSupplied, i) {
+                var correct = _.every(rowSupplied, function(cellSupplied, i) {
                     var cellSolution = rowSolution[i];
                     var validator = createValidator(
                             cellSolution, {

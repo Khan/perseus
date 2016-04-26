@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -66,7 +66,7 @@ var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 const PlotterEditor = React.createClass({
     propTypes: widgetPropTypes,
 
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return _.extend({}, editorDefaults, {
             correct: [1],
             starting: [1],

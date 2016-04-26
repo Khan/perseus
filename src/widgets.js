@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, space-before-function-paren */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -302,8 +302,8 @@ var Widgets = {
      * invalid.
      */
     // TODO(alex): Change this to run as a testcase (vs. being run at runtime)
-    validateAlignments: function () {
-        _.each(widgets, function (widgetInfo) {
+    validateAlignments: function() {
+        _.each(widgets, function(widgetInfo) {
             if (widgetInfo.defaultAlignment &&
                 !_.contains(Widgets.validAlignments,
                             widgetInfo.defaultAlignment)) {

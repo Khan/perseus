@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -52,7 +52,7 @@ var Plotter = React.createClass({
         // ...widgetPropTypes,
     }, widgetPropTypes),
 
-    getDefaultProps: function () {
+    getDefaultProps: function() {
         return {
             type: BAR,
             labels: ["", ""],
@@ -98,7 +98,7 @@ var Plotter = React.createClass({
         var props = ["type", "labels", "categories", "scaleY", "maxY",
             "snapsPerLine", "picUrl", "labelInterval", "static"];
 
-        this.shouldSetupGraphie = _.any(props, function (prop) {
+        this.shouldSetupGraphie = _.any(props, function(prop) {
             return !_.isEqual(this.props[prop], nextProps[prop]);
         }, this);
 
@@ -169,7 +169,7 @@ var Plotter = React.createClass({
         }
 
         c.dimY = Math.ceil(self.props.maxY / c.scaleY) * c.scaleY;
-        c.scale = _.map([c.dimX, c.dimY], function (dim, i) {
+        c.scale = _.map([c.dimX, c.dimY], function(dim, i) {
             return plotDimensions[i] / dim;
         });
         if (isTiledPlot) {
@@ -279,7 +279,7 @@ var Plotter = React.createClass({
                 });
             });
         } else {
-            _.each(self.props.categories, function (category, i) {
+            _.each(self.props.categories, function(category, i) {
                 var startHeight = self.state.values[i];
                 var x;
 
@@ -609,7 +609,7 @@ var Plotter = React.createClass({
 });
 
 _.extend(Plotter, {
-    validate: function (guess, rubric) {
+    validate: function(guess, rubric) {
         if (deepEq(guess, rubric.starting)) {
             return {
                 type: "invalid",

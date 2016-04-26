@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, space-before-function-paren */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // Derived from the MIT-licensed:
@@ -91,7 +91,7 @@ $(function() {
 function ZoomService() {
 }
 
-ZoomService.prototype._initialize = function () {
+ZoomService.prototype._initialize = function() {
     // Check to see if the service is already initialized
     if (this._$document) {
         return;

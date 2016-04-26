@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -319,7 +319,7 @@ var Matrix = React.createClass({
         this.onValueChange(row, col, value, callback);
     },
 
-    handleKeyDown: function (row, col, e) {
+    handleKeyDown: function(row, col, e) {
         var maxRow = this.props.matrixBoardSize[0];
         var maxCol = this.props.matrixBoardSize[1];
         var enterTheMatrix = null;

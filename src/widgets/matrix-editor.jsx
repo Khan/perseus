@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -114,7 +114,7 @@ var MatrixEditor = React.createClass({
         </div>;
     },
 
-    onMatrixBoardSizeChange: function (range) {
+    onMatrixBoardSizeChange: function(range) {
         var matrixSize = getMatrixSize(this.props.answers);
         if (range[0] !== null && range[1] !== null) {
             range = [

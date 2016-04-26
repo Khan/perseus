@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -100,7 +100,7 @@ var DropdownEditor = React.createClass({
     },
 
     onCorrectChange: function(choiceIndex) {
-        var choices = _.map(this.props.choices, function (choice, i) {
+        var choices = _.map(this.props.choices, function(choice, i) {
             return _.extend({}, choice, {
                 correct: i === choiceIndex,
             });

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, space-before-function-paren */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -26,7 +26,7 @@ var WrappedDefaults = _.extend({
         this.wrapper.style[prefixedTransform] = transformation;
     },
 
-    toFront: function () {
+    toFront: function() {
         var parentNode = this.wrapper.parentNode;
         // TODO(emily): Sometimes, we call `.remove()` but then hold a
         // reference to this object, and sometimes call `.toFront` on it.
@@ -37,7 +37,7 @@ var WrappedDefaults = _.extend({
         }
     },
 
-    toBack: function () {
+    toBack: function() {
         var parentNode = this.wrapper.parentNode;
         if (parentNode.firstChild !== this.wrapper) {
             parentNode.insertBefore(

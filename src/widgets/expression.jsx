@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -795,7 +795,7 @@ var propUpgrades = {
 module.exports = {
     name: "expression",
     displayName: "Expression / Equation",
-    getDefaultAlignment: function (enabledFeatures) {
+    getDefaultAlignment: function(enabledFeatures) {
         // Each version of the widget has different alignments
         return enabledFeatures.useMathQuill ? "inline-block" : "block";
     },

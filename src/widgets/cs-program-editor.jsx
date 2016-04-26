@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -168,7 +168,7 @@ var CSProgramEditor = React.createClass({
         this.change({settings: settings.pairs});
     },
 
-    _handleProgramIDChange: function (programID) {
+    _handleProgramIDChange: function(programID) {
         programID = isolateProgramID(programID);
 
         $.getJSON("https://www.khanacademy.org/api/internal/scratchpads/" +
