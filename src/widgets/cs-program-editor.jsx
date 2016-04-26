@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp, space-before-function-paren */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -181,9 +181,6 @@ var CSProgramEditor = React.createClass({
                 });
             })
             .fail((jqxhr, textStatus, error) => {
-                console.error("Error retrieving scratchpad info for " +
-                    "program ID ", programID);
-                console.error(textStatus + ", " + error);
                 this.change({
                     width: DEFAULT_WIDTH,
                     height: DEFAULT_HEIGHT,

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-console, no-var, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -563,9 +563,6 @@ var Editor = React.createClass({
 
         localStorage.perseusLastCopiedText = selectedText;
         localStorage.perseusLastCopiedWidgets = JSON.stringify(widgetData);
-
-        console.log(
-            `Widgets copied: ${localStorage.perseusLastCopiedWidgets}`);
     },
 
     _maybePasteWidgets: function(e) {
