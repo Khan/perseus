@@ -18,9 +18,9 @@ const externalVals = {
     "underscore": "_",
     "jquery": "jQuery",
 
-    // RCSS and classnames can be required from webapp, but in dev we just want
-    // to bundle them.
-    "rcss": prod,
+    // Aphrodite and classnames can be required from webapp, but in dev we just
+    // want to bundle them.
+    "aphrodite": prod,
     "classnames": prod,
 
     // react-components should always be bundled, because we can't require it
@@ -43,11 +43,11 @@ const externals = function(context, request, callback) {
     if (externalVals.hasOwnProperty(request)) {
         if (prod) {
             // In production, make react*, underscore, jquery,
-            // classnames, and rcss use normal require()s, but bundle
+            // classnames, and aphrodite use normal require()s, but bundle
             // react-components.
             callback(null, !!externalVals[request]);
         } else if (externalVals[request] === false) {
-            // In dev, bundle rcss, react-components, and classnames
+            // In dev, bundle aphrodite, react-components, and classnames
             callback(null, false);
         } else {
             // In dev, pull react*, underscore, and jquery out of globals based
