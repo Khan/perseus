@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/no-did-update-set-state, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -462,7 +462,9 @@ var Transformations = {
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({vector: this.props.vector});
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
             render: function() {
@@ -588,10 +590,12 @@ var Transformations = {
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({
                         center: this.props.center,
                         angleDeg: this.props.angleDeg,
                     });
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
             render: function() {
@@ -739,7 +743,9 @@ var Transformations = {
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({line: this.props.line});
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
             render: function() {
@@ -888,10 +894,12 @@ var Transformations = {
             },
             componentDidUpdate: function(prevProps) {
                 if (!deepEq(this.props, prevProps)) {
+                    /* eslint-disable react/no-did-update-set-state */
                     this.setState({
                         center: this.props.center,
                         scale: this.props.scale,
                     });
+                    /* eslint-enable react/no-did-update-set-state */
                 }
             },
             render: function() {
