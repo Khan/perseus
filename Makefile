@@ -110,7 +110,7 @@ endif
 install:
 ifneq ("$(SUPPRESSINSTALL)","TRUE")
 	$(SUBMODULE_UPDATE)
-	npm install
+	cnpm install
 	rm -rf node_modules/react-components
 	ln -s ../react-components/js node_modules/react-components
 	rm -rf node_modules/kmath

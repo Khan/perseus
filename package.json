@@ -7,7 +7,10 @@
   },
   "dependencies": {
     "classnames": "~1.1.4",
-    "rcss": "khan/RCSS#9e5ec9614e391d28a621297a63bc2d850eae89e8"
+    "leven": "^2.0.0",
+    "rcss": "khan/RCSS#9e5ec9614e391d28a621297a63bc2d850eae89e8",
+    "recast": "^0.11.5",
+    "source-map": "^0.5.5"
   },
   "devDependencies": {
     "babel-core": "5.4.7",
