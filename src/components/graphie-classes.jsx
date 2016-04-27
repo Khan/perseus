@@ -2,10 +2,10 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var Util = require("../util.js");
-var nestedMap = Util.nestedMap;
-var deepEq = Util.deepEq;
-var _ = require("underscore");
+const Util = require("../util.js");
+const nestedMap = Util.nestedMap;
+const deepEq = Util.deepEq;
+const _ = require("underscore");
 
 /**
  * A base class for all Graphie Movables
@@ -17,7 +17,7 @@ function GraphieMovable(descriptor) {
     _.extend(this, descriptor);
 }
 
-var abstractMethod = function() {
+const abstractMethod = function() {
     throw new Error("Abstract method! Must be implemented by Graphie Movable" +
             this.constructor.displayName);
 };
@@ -34,7 +34,7 @@ _.extend(GraphieMovable.prototype, {
 /**
  * returns cloned props modified with `children: childrenArray`
  */
-var rewriteProps = function(props, childrenArray) {
+const rewriteProps = function(props, childrenArray) {
     // Clone the props and add `children:`
     // childrenArray is always an array here because this is only called
     // from createClass, which initializes childrenArray as _.rest(arguments)
@@ -47,8 +47,8 @@ var rewriteProps = function(props, childrenArray) {
 /**
  * Create a custom GraphieMovable class
  */
-var createClass = function(spec) {
-    var GraphieClass = function(props) {
+const createClass = function(spec) {
+    const GraphieClass = function(props) {
         if (!(this instanceof GraphieClass)) {
             throw new Error("Use createElement or JSX with graphie movables");
         }
@@ -85,7 +85,7 @@ var createClass = function(spec) {
  * Commonly used elements should use the fully-fledged createClass
  * and implement an efficient modify() operation.
  */
-var createSimpleClass = function(addFunction) {
+const createSimpleClass = function(addFunction) {
     return createClass({
         displayName: addFunction.name || _.uniqueId("GraphieSimpleClass"),
         movableProps: ["children"],

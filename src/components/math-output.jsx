@@ -2,14 +2,14 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React         = require("react");
-var ReactDOM      = require("react-dom");
-var _             = require("underscore");
-var TeX           = require("react-components/tex.jsx");
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ModifyTex     = require("../tex-wrangler.js").modifyTex;
+const React         = require("react");
+const ReactDOM      = require("react-dom");
+const _             = require("underscore");
+const TeX           = require("react-components/tex.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ModifyTex     = require("../tex-wrangler.js").modifyTex;
 
-var MathOutput = React.createClass({
+const MathOutput = React.createClass({
     propTypes: {
         value: React.PropTypes.oneOfType([
             React.PropTypes.string,
@@ -37,7 +37,7 @@ var MathOutput = React.createClass({
     },
 
     _getInputClassName: function() {
-        var className = "math-output " + ApiClassNames.INPUT + " " +
+        const className = "math-output " + ApiClassNames.INPUT + " " +
             ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
@@ -50,7 +50,7 @@ var MathOutput = React.createClass({
 
     _getDisplayValue: function(value) {
         // Cast from (potentially a) number to string
-        var displayText;
+        const displayText;
         if (value != null) {
             displayText = "" + value;
         } else {
@@ -60,7 +60,7 @@ var MathOutput = React.createClass({
     },
 
     render: function() {
-        var divStyle = {
+        const divStyle = {
             textAlign: "center",
         };
 
@@ -104,7 +104,7 @@ var MathOutput = React.createClass({
     _bindBlurHandler: function() {
         $(document).bind("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
-            var $closestWidget =
+            const $closestWidget =
                 $(e.target).closest(ReactDOM.findDOMNode(this));
             if (!$closestWidget.length) {
                 this.blur();

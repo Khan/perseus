@@ -10,7 +10,7 @@
  * TODO(aria): Move this out of interactive2
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
 /**
  * Does a pluck on keys inside objects in an object
@@ -29,7 +29,7 @@ var _ = require("underscore");
  *     rotation: false
  * }
  */
-var pluck = function(table, subKey) {
+const pluck = function(table, subKey) {
     return _.object(_.map(table, function(value, key) {
         return [key, value[subKey]];
     }));
@@ -43,8 +43,8 @@ var pluck = function(table, subKey) {
  *   });
  * {a: 2, b: 3}
  */
-var mapObject = function(obj, lambda) {
-    var result = {};
+const mapObject = function(obj, lambda) {
+    const result = {};
     _.each(_.keys(obj), function(key) {
         result[key] = lambda(obj[key], key);
     });
@@ -59,8 +59,8 @@ var mapObject = function(obj, lambda) {
  *   });
  * {a: 'aa', b: 'bb'}
  */
-var mapObjectFromArray = function(arr, lambda) {
-    var result = {};
+const mapObjectFromArray = function(arr, lambda) {
+    const result = {};
     _.each(arr, function(elem) {
         result[elem] = lambda(elem);
     });

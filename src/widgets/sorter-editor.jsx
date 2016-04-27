@@ -29,7 +29,7 @@ const SorterEditor = React.createClass({
     },
 
     render: function() {
-        var editor = this;
+        const editor = this;
 
         return <div>
             <div>

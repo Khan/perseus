@@ -15,12 +15,12 @@
  * It also gives a nicer interface for the group metadata editor
  * in local demo mode.
  */
-var React = require("react");
+const React = require("react");
 
-var TextListEditor = require("./text-list-editor.jsx");
-var EMPTY_ARRAY = [];
+const TextListEditor = require("./text-list-editor.jsx");
+const EMPTY_ARRAY = [];
 
-var StubTagEditor = React.createClass({
+const StubTagEditor = React.createClass({
     propTypes: {
         value: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func.isRequired,

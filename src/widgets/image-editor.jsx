@@ -26,7 +26,7 @@ const defaultBackgroundImage = {
 /**
  * Alignment option for captions, relative to specified coordinates.
  */
-var captionAlignments = [
+const captionAlignments = [
     "center",
     "above",
     "above right",
@@ -52,7 +52,7 @@ const ImageEditor = React.createClass({
     componentDidMount: function() {
         // defer this because it can call a change handler synchronously
         _.defer(() => {
-            var url = this.props.backgroundImage.url;
+            const url = this.props.backgroundImage.url;
             this.onUrlChange(url, true);
         });
     },
@@ -102,9 +102,9 @@ const ImageEditor = React.createClass({
     },
 
     render: function() {
-        var backgroundImage = this.props.backgroundImage;
+        const backgroundImage = this.props.backgroundImage;
 
-        var imageSettings = <div className="image-settings">
+        const imageSettings = <div className="image-settings">
             <div>
                 <label>
                     <div>
@@ -143,7 +143,7 @@ const ImageEditor = React.createClass({
             </div>
         </div>;
 
-        var advancedSettings = <div className="graph-settings">
+        const advancedSettings = <div className="graph-settings">
             <div>
                 <label>Graphie X range:{' '}
                     <RangeInput
@@ -196,7 +196,7 @@ const ImageEditor = React.createClass({
             </div>
         </div>;
 
-        var showHideAdvancedSettings = <div>
+        const showHideAdvancedSettings = <div>
             <a href="#" onClick={this._toggleAdvancedSettings}>
                 {this.state.showAdvancedSettings ? "Hide " : "Show "}
                 advanced settings
@@ -269,8 +269,8 @@ const ImageEditor = React.createClass({
 
     addLabel: function(e) {
         e.preventDefault();
-        var labels = this.props.labels.slice();
-        var label = blankLabel();
+        const labels = this.props.labels.slice();
+        const label = blankLabel();
         labels.push(label);
         this.props.onChange({
             labels: labels,
@@ -279,13 +279,13 @@ const ImageEditor = React.createClass({
 
     removeLabel: function(labelIndex, e) {
         e.preventDefault();
-        var labels = _(this.props.labels).clone();
+        const labels = _(this.props.labels).clone();
         labels.splice(labelIndex, 1);
         this.props.onChange({labels: labels});
     },
 
     onCoordinateChange: function(labelIndex, newCoordinates) {
-        var labels = this.props.labels.slice();
+        const labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
             coordinates: newCoordinates,
         });
@@ -293,8 +293,8 @@ const ImageEditor = React.createClass({
     },
 
     onContentChange: function(labelIndex, e) {
-        var newContent = e.target.value;
-        var labels = this.props.labels.slice();
+        const newContent = e.target.value;
+        const labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
             content: newContent,
         });
@@ -302,8 +302,8 @@ const ImageEditor = React.createClass({
     },
 
     onAlignmentChange: function(labelIndex, e) {
-        var newAlignment = e.target.value;
-        var labels = this.props.labels.slice();
+        const newAlignment = e.target.value;
+        const labels = this.props.labels.slice();
         labels[labelIndex] = _.extend({}, labels[labelIndex], {
             alignment: newAlignment,
         });
@@ -320,11 +320,11 @@ const ImageEditor = React.createClass({
             return;
         }
 
-        var image = _.clone(this.props.backgroundImage);
+        const image = _.clone(this.props.backgroundImage);
         image.url = url;
         image.width = width;
         image.height = height;
-        var box = [image.width, image.height];
+        const box = [image.width, image.height];
         this.props.onChange({
             backgroundImage: image,
             box: box,
@@ -360,13 +360,13 @@ const ImageEditor = React.createClass({
     },
 
     onRangeChange: function(type, newRange) {
-        var range = this.props.range.slice();
+        const range = this.props.range.slice();
         range[type] = newRange;
         this.props.onChange({range: range});
     },
 
     getSaveWarnings: function() {
-        var warnings = [];
+        const warnings = [];
 
         if (this.props.backgroundImage.url && !this.props.alt) {
             warnings.push("No alt text");

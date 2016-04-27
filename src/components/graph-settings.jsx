@@ -2,22 +2,22 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Changeable  = require("../mixins/changeable.jsx");
+const Changeable  = require("../mixins/changeable.jsx");
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var InfoTip = require("../components/info-tip.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var RangeInput = require("../components/range-input.jsx");
-var TeX = require("react-components/tex.jsx");
-var Util = require("../util.js");
+const ButtonGroup = require("react-components/button-group.jsx");
+const InfoTip = require("../components/info-tip.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
+const RangeInput = require("../components/range-input.jsx");
+const TeX = require("react-components/tex.jsx");
+const Util = require("../util.js");
 const KhanMath = require("../util/math.js");
 
-var defaultBoxSize = 340;
-var defaultBackgroundImage = {
+const defaultBoxSize = 340;
+const defaultBackgroundImage = {
     url: null,
     width: 0,
     height: 0,
@@ -27,7 +27,7 @@ function numSteps(range, step) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-var GraphSettings = React.createClass({
+const GraphSettings = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -86,7 +86,7 @@ var GraphSettings = React.createClass({
     },
 
     render: function() {
-        var scale = [
+        const scale = [
             KhanMath.roundTo(2,
                 Util.scaleFromExtent(this.props.range[0], this.props.box[0])),
             KhanMath.roundTo(2,
@@ -259,7 +259,7 @@ var GraphSettings = React.createClass({
 
 
     validRange: function(range) {
-        var numbers = _.every(range, function(num) {
+        const numbers = _.every(range, function(num) {
             return _.isFinite(num);
         });
         if (!numbers) {
@@ -272,12 +272,12 @@ var GraphSettings = React.createClass({
     },
 
     validateStepValue: function(settings) {
-        var { step, range, name, minTicks, maxTicks } = settings;
+        const { step, range, name, minTicks, maxTicks } = settings;
 
         if (!_.isFinite(step)) {
             return name + " must be a valid number";
         }
-        var nSteps = numSteps(range, step);
+        const nSteps = numSteps(range, step);
         if (nSteps < minTicks) {
             return name + " is too large, there must be at least " +
                minTicks + " ticks.";
@@ -325,7 +325,7 @@ var GraphSettings = React.createClass({
             return true;
         }
 
-        var validSize = image.width <= 450 && image.height <= 450;
+        const validSize = image.width <= 450 && image.height <= 450;
 
         if (!validSize) {
             return "Image must be smaller than 450px x 450px.";
@@ -334,37 +334,37 @@ var GraphSettings = React.createClass({
     },
 
     validateGraphSettings: function(range, step, gridStep, snapStep, image) {
-        var self = this;
-        var msg;
-        var goodRange = _.every(range, function(range) {
+        const self = this;
+        const msg;
+        const goodRange = _.every(range, function(range) {
             msg = self.validRange(range);
             return msg === true;
         });
         if (!goodRange) {
             return msg;
         }
-        var goodStep = _.every(step, function(step, i) {
+        const goodStep = _.every(step, function(step, i) {
             msg = self.validStep(step, range[i]);
             return msg === true;
         });
         if (!goodStep) {
             return msg;
         }
-        var goodGridStep = _.every(gridStep, function(gridStep, i) {
+        const goodGridStep = _.every(gridStep, function(gridStep, i) {
             msg = self.validGridStep(gridStep, range[i]);
             return msg === true;
         });
         if (!goodGridStep) {
             return msg;
         }
-        var goodSnapStep = _.every(snapStep, function(snapStep, i) {
+        const goodSnapStep = _.every(snapStep, function(snapStep, i) {
             msg = self.validSnapStep(snapStep, range[i]);
             return msg === true;
         });
         if (!goodSnapStep) {
             return msg;
         }
-        var goodImageSize = this.validBackgroundImageSize(image);
+        const goodImageSize = this.validBackgroundImageSize(image);
         if (goodImageSize !== true) {
             msg = goodImageSize;
             return msg;
@@ -373,19 +373,19 @@ var GraphSettings = React.createClass({
     },
 
     changeLabel: function(i, e) {
-        var val = e.target.value;
-        var labels = this.state.labelsTextbox.slice();
+        const val = e.target.value;
+        const labels = this.state.labelsTextbox.slice();
         labels[i] = val;
         this.setState({ labelsTextbox: labels }, this.changeGraph);
     },
 
     changeRange: function(i, values) {
-        var ranges = this.state.rangeTextbox.slice();
+        const ranges = this.state.rangeTextbox.slice();
         ranges[i] = values;
-        var step = this.state.stepTextbox.slice();
-        var gridStep = this.state.gridStepTextbox.slice();
-        var snapStep = this.state.snapStepTextbox.slice();
-        var scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
+        const step = this.state.stepTextbox.slice();
+        const gridStep = this.state.gridStepTextbox.slice();
+        const snapStep = this.state.snapStepTextbox.slice();
+        const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
         if (this.validRange(ranges[i]) === true) {
             step[i] = Util.tickStepFromExtent(
                     ranges[i], this.props.box[i]);
@@ -419,21 +419,21 @@ var GraphSettings = React.createClass({
     },
 
     changeGraph: function() {
-        var labels = this.state.labelsTextbox;
-        var range = _.map(this.state.rangeTextbox, function(range) {
+        const labels = this.state.labelsTextbox;
+        const range = _.map(this.state.rangeTextbox, function(range) {
             return _.map(range, Number);
         });
-        var step = _.map(this.state.stepTextbox, Number);
-        var gridStep = this.state.gridStepTextbox;
-        var snapStep = this.state.snapStepTextbox;
-        var image = this.state.backgroundImage;
+        const step = _.map(this.state.stepTextbox, Number);
+        const gridStep = this.state.gridStepTextbox;
+        const snapStep = this.state.snapStepTextbox;
+        const image = this.state.backgroundImage;
 
         // validationResult is either:
         //   true -> the settings are valid
         //   a string -> the settings are invalid, and the explanation
         //               is contained in the string
         // TODO(aria): Refactor this to not be confusing
-        var validationResult = this.validateGraphSettings(range, step,
+        const validationResult = this.validateGraphSettings(range, step,
                 gridStep, snapStep, image);
 
         if (validationResult === true) {  // either true or a string
@@ -459,8 +459,8 @@ var GraphSettings = React.createClass({
             return;
         }
 
-        var setUrl = (url, width, height) => {
-            var image = _.clone(this.props.backgroundImage);
+        const setUrl = (url, width, height) => {
+            const image = _.clone(this.props.backgroundImage);
             image.url = url;
             image.width = width;
             image.height = height;
@@ -469,7 +469,7 @@ var GraphSettings = React.createClass({
             }, this.changeGraph);
         };
 
-        var url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
+        const url = ReactDOM.findDOMNode(this.refs["bg-url"]).value;
         if (url) {
             Util.getImageSize(url, (width, height) => {
                 if (this.isMounted()) {

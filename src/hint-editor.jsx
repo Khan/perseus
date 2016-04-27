@@ -6,12 +6,12 @@
  * hint editor boxes, and hint previews
  */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Editor = require("./editor.jsx");
-var HintRenderer = require("./hint-renderer.jsx");
-var InfoTip = require("./components/info-tip.jsx");
+const Editor = require("./editor.jsx");
+const HintRenderer = require("./hint-renderer.jsx");
+const InfoTip = require("./components/info-tip.jsx");
 
 /* Renders a hint editor box
  *
@@ -21,7 +21,7 @@ var InfoTip = require("./components/info-tip.jsx");
  *  ~ the "remove this hint" box
  *  ~ the move hint up/down arrows
  */
-var HintEditor = React.createClass({
+const HintEditor = React.createClass({
     propTypes: {
         content: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
@@ -107,7 +107,7 @@ var HintEditor = React.createClass({
 
 
 /* A single hint-row containing a hint editor and preview */
-var CombinedHintEditor = React.createClass({
+const CombinedHintEditor = React.createClass({
     propTypes: {
         enabledFeatures: React.PropTypes.any,
         hint: React.PropTypes.any,
@@ -122,9 +122,9 @@ var CombinedHintEditor = React.createClass({
     },
 
     render: function() {
-        var shouldBold = this.props.isLast &&
+        const shouldBold = this.props.isLast &&
                          !(/\*\*/).test(this.props.hint.content);
-        var previewWidth = this.props.previewWidth;
+        const previewWidth = this.props.previewWidth;
 
         return <div className={"perseus-combined-hint-editor " +
                     "perseus-editor-row"}>
@@ -176,7 +176,7 @@ var CombinedHintEditor = React.createClass({
  *  ~ All the hint previews
  *  ~ The "add a hint" button
  */
-var CombinedHintsEditor = React.createClass({
+const CombinedHintsEditor = React.createClass({
     propTypes: {
         enabledFeatures: React.PropTypes.any,
         hints: React.PropTypes.arrayOf(React.PropTypes.any),
@@ -193,8 +193,8 @@ var CombinedHintsEditor = React.createClass({
     },
 
     render: function() {
-        var hints = this.props.hints;
-        var hintElems = _.map(hints, function(hint, i) {
+        const hints = this.props.hints;
+        const hintElems = _.map(hints, function(hint, i) {
             return <CombinedHintEditor
                         ref={"hintEditor" + i}
                         key={"hintEditor" + i}
@@ -227,7 +227,7 @@ var CombinedHintsEditor = React.createClass({
 
     handleHintChange: function(i, newProps, cb, silent) {
         // TODO(joel) - lens
-        var hints = _(this.props.hints).clone();
+        const hints = _(this.props.hints).clone();
         hints[i] = _.extend(
             {},
             this.serializeHint(i, {keepDeletedWidgets: true}),
@@ -238,14 +238,14 @@ var CombinedHintsEditor = React.createClass({
     },
 
     handleHintRemove: function(i) {
-        var hints = _(this.props.hints).clone();
+        const hints = _(this.props.hints).clone();
         hints.splice(i, 1);
         this.props.onChange({hints: hints});
     },
 
     handleHintMove: function(i, dir) {
-        var hints = _(this.props.hints).clone();
-        var hint = hints.splice(i, 1)[0];
+        const hints = _(this.props.hints).clone();
+        const hint = hints.splice(i, 1)[0];
         hints.splice(i + dir, 0, hint);
         this.props.onChange({hints: hints}, () => {
             this.refs["hintEditor" + (i + dir)].focus();
@@ -253,9 +253,9 @@ var CombinedHintsEditor = React.createClass({
     },
 
     addHint: function() {
-        var hints = _(this.props.hints).clone().concat([{ content: "" }]);
+        const hints = _(this.props.hints).clone().concat([{ content: "" }]);
         this.props.onChange({hints: hints}, () => {
-            var i = hints.length - 1;
+            const i = hints.length - 1;
             this.refs["hintEditor" + i].focus();
         });
     },

@@ -2,11 +2,11 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
+const React = require("react");
 
-var ReactDOM = require("react-dom");
+const ReactDOM = require("react-dom");
 
-var TextInput = React.createClass({
+const TextInput = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,

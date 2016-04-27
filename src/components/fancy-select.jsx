@@ -16,21 +16,21 @@
  * Here be dragons.
  */
 
-var classNames = require("classnames");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var DROPDOWN_OFFSET = 76;
-var ITEM_HEIGHT = 48;
+const DROPDOWN_OFFSET = 76;
+const ITEM_HEIGHT = 48;
 
-var FancyOption = React.createClass({
+const FancyOption = React.createClass({
     render: function() {
         throw new Error("FancyOption shouldn't ever be actually rendered");
     },
 });
 
-var FancySelect = React.createClass({
+const FancySelect = React.createClass({
 
     propTypes: {
         children: React.PropTypes.node,
@@ -67,7 +67,7 @@ var FancySelect = React.createClass({
         // width to be large enough to fit the largest option when
         // selected, so that the page doesn't have to re-flow when changing
         // select items.
-        var optionSizer = <span style={{
+        const optionSizer = <span style={{
             display: "inline-block",
             float: "left",
             visibility: "hidden",
@@ -81,8 +81,8 @@ var FancySelect = React.createClass({
             })}
         </span>;
 
-        var childCount = 0;
-        var selectedOption;
+        const childCount = 0;
+        const selectedOption;
         React.Children.forEach(this.props.children, (option) => {
             childCount++;
             if (option.props.value === this.props.value) {
@@ -90,13 +90,13 @@ var FancySelect = React.createClass({
             }
         });
 
-        var selectBoxClassName = classNames({
+        const selectBoxClassName = classNames({
             "fancy-select": true,
             active: this.state.active,
             closed: this.state.closed,
         });
 
-        var selectBox = <div className={selectBoxClassName}
+        const selectBox = <div className={selectBoxClassName}
                 onClick={this._swapActive}>
                 {optionSizer}
                 {/* position this absolutely so it goes on top
@@ -108,19 +108,19 @@ var FancySelect = React.createClass({
                 </span>
         </div>;
 
-        var options = React.Children.map(this.props.children, (option, i) => {
+        const options = React.Children.map(this.props.children, (option, i) => {
             // options can specify visible={true|false|null/undefined} to
             // control whether they are displayed always, never, or when
             // active (the default). `true` is useful if you want to manage
             // visibility manually via css.
-            var visible = option.props.visible != null ?
+            const visible = option.props.visible != null ?
                     option.props.visible :
                     this.state.active;
             if (!visible) {
                 return null;
             }
 
-            var className = classNames({
+            const className = classNames({
                 "fancy-option": true,
                 active: this.state.active,
                 closed: this.state.closed,
@@ -130,17 +130,17 @@ var FancySelect = React.createClass({
                 className += " " + option.props.className;
             }
 
-            var translate;
-            var transition;
+            const translate;
+            const transition;
             if (this.state.active) {
-                var offset = DROPDOWN_OFFSET * i + this.state.nodeOffset;
+                const offset = DROPDOWN_OFFSET * i + this.state.nodeOffset;
                 translate = "translate3d(0, " + offset + "px, 0)";
                 transition = "0.35s ease-in";
             } else {
                 translate = "translate3d(0, 0, 0)";
                 transition = "0.35s ease-out";
             }
-            var style = _.extend({}, option.props.style, {
+            const style = _.extend({}, option.props.style, {
                 WebkitTransform: translate,
                 transform: translate,
                 WebkitTransition: transition,
@@ -162,15 +162,15 @@ var FancySelect = React.createClass({
             </li>;
         });
 
-        var optionsBoxClassName = classNames({
+        const optionsBoxClassName = classNames({
             "fancy-select-options": true,
             active: this.state.active,
             closed: this.state.closed,
         });
 
-        var height = DROPDOWN_OFFSET * childCount;
-        var clipOffset = this.state.active ? this.state.nodeOffset : 0;
-        var style = {
+        const height = DROPDOWN_OFFSET * childCount;
+        const clipOffset = this.state.active ? this.state.nodeOffset : 0;
+        const style = {
             clip: "rect(" + clipOffset + "px, auto, " + height + "px, 0)",
             WebkitTransition: ".35s ease-in",
         };
@@ -186,9 +186,9 @@ var FancySelect = React.createClass({
     },
 
     _swapActive: function() {
-        var active = !this.state.active;
-        var closed = !active;
-        var nodeOffset = 0;
+        const active = !this.state.active;
+        const closed = !active;
+        const nodeOffset = 0;
 
         // Prepare to detect clicks outside of the dropdown
         if (active) {
@@ -202,11 +202,11 @@ var FancySelect = React.createClass({
         // is rotated. Maybe "onorientationchange"? Not sure if that is fired
         // in a webview though.
         if (active) {
-            var nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
-            var distToBottom = window.innerHeight - nodeBox.bottom;
+            const nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
+            const distToBottom = window.innerHeight - nodeBox.bottom;
             // One of the children is the placeholder
-            var numOptions = React.Children.count(this.props.children) - 1;
-            var overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
+            const numOptions = React.Children.count(this.props.children) - 1;
+            const overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
             if (overflow > 0) {
                 nodeOffset = -overflow;
             }
@@ -223,8 +223,8 @@ var FancySelect = React.createClass({
         // Close the dropdown when the user clicks elsewhere
         $(document).on("vclick." + this.state.selectorNamespace, (e) => {
             // Detect whether the target has our React DOM node as a parent
-            var $this = $(ReactDOM.findDOMNode(this));
-            var $closestWidget = $(e.target).closest($this);
+            const $this = $(ReactDOM.findDOMNode(this));
+            const $closestWidget = $(e.target).closest($this);
             if (!$closestWidget.length) {
                 this._swapActive();
             }

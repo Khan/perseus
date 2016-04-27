@@ -2,14 +2,14 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var InfoTip        = require("../components/info-tip.jsx");
-var PropCheckBox   = require("../components/prop-check-box.jsx");
-var TextListEditor = require("../components/text-list-editor.jsx");
+const InfoTip        = require("../components/info-tip.jsx");
+const PropCheckBox   = require("../components/prop-check-box.jsx");
+const TextListEditor = require("../components/text-list-editor.jsx");
 
-var MatcherEditor = React.createClass({
+const MatcherEditor = React.createClass({
     propTypes: {
         left: React.PropTypes.arrayOf(React.PropTypes.string),
         right: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -95,7 +95,7 @@ var MatcherEditor = React.createClass({
     },
 
     onLabelChange: function(index, e) {
-        var labels = _.clone(this.props.labels);
+        const labels = _.clone(this.props.labels);
         labels[index] = e.target.value;
         this.props.onChange({labels: labels});
     },

@@ -25,7 +25,7 @@ const DOTPLOT = "dotplot";
 
 // Return a copy of array with length n, padded with given value
 function padArray(array, n, value) {
-    var copy = _.clone(array);
+    const copy = _.clone(array);
     copy.length = n;
     for (var i = array.length; i < n; i++) {
         copy[i] = value;
@@ -61,7 +61,7 @@ const widgetPropTypes = {
     static: React.PropTypes.bool,
 };
 
-var formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
+const formatNumber = (num) => "$" + knumber.round(num, 2) + "$";
 
 const PlotterEditor = React.createClass({
     propTypes: widgetPropTypes,
@@ -105,7 +105,7 @@ const PlotterEditor = React.createClass({
 
     fetchPic: function(url) {
         if (this.state.loadedUrl !== url) {
-            var pic = new Image();
+            const pic = new Image();
             pic.src = url;
             pic.onload = () => {
                 this.setState({
@@ -117,10 +117,10 @@ const PlotterEditor = React.createClass({
     },
 
     render: function() {
-        var setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
+        const setFromScale = _.contains([LINE, HISTOGRAM, DOTPLOT],
                                       this.props.type);
-        var canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
-        var props = {
+        const canChangeSnaps = !_.contains([PIC, DOTPLOT], this.props.type);
+        const props = {
             trackInteraction: () => {},
             ...this.props,
         };
@@ -311,13 +311,13 @@ const PlotterEditor = React.createClass({
     },
 
     handlePlotterChange: function(newProps) {
-        var props = {};
+        const props = {};
         props[this.state.editing] = newProps.values;
         this.props.onChange(props);
     },
 
     changeType: function(type) {
-        var categories;
+        const categories;
         if (type === HISTOGRAM) {
             // Switching to histogram, add a label (0) to the left
             categories = [formatNumber(0)].concat(this.props.categories);
@@ -337,7 +337,7 @@ const PlotterEditor = React.createClass({
     },
 
     changeLabel: function(i, e) {
-        var labels = _.clone(this.props.labels);
+        const labels = _.clone(this.props.labels);
         labels[i] = e.target.value;
         this.props.onChange({labels: labels});
     },
@@ -346,18 +346,18 @@ const PlotterEditor = React.createClass({
         // We don't need the labels and other data in the plotter, so just
         // extract the raw image and use that.
         // TODO(emily): Maybe indicate that such a change has happened?
-        var url = SvgImage.getRealImageUrl(value);
+        const url = SvgImage.getRealImageUrl(value);
 
         this.props.onChange({picUrl: url});
     },
 
     changeCategories: function(categories) {
-        var n = categories.length;
+        const n = categories.length;
         if (this.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
             n--;
         }
-        var value = this.props.scaleY;
+        const value = this.props.scaleY;
 
         this.props.onChange({
             categories: categories,
@@ -367,14 +367,14 @@ const PlotterEditor = React.createClass({
     },
 
     changeScale: function(e) {
-        var oldScale = this.props.scaleY;
-        var newScale = +e.target.value || editorDefaults.scaleY;
+        const oldScale = this.props.scaleY;
+        const newScale = +e.target.value || editorDefaults.scaleY;
 
-        var scale = function(value) {
+        const scale = function(value) {
             return value * newScale / oldScale;
         };
 
-        var maxY = scale(this.props.maxY);
+        const maxY = scale(this.props.maxY);
 
         this.props.onChange({
             scaleY: newScale,
@@ -403,12 +403,12 @@ const PlotterEditor = React.createClass({
     },
 
     setCategoriesFromScale: function() {
-        var scale = this.state.tickStep || 1;
-        var min = this.state.minX || 0;
-        var max = this.state.maxX || 0;
-        var length = Math.floor((max - min) / scale) * scale;
+        const scale = this.state.tickStep || 1;
+        const min = this.state.minX || 0;
+        const max = this.state.maxX || 0;
+        const length = Math.floor((max - min) / scale) * scale;
 
-        var categories;
+        const categories;
         if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
             // Ranges for histogram and dotplot labels should start at zero
             categories = _.range(0, length + scale, scale);
@@ -426,7 +426,7 @@ const PlotterEditor = React.createClass({
     },
 
     serialize: function() {
-        var json = _.pick(this.props, "correct", "starting", "type", "labels",
+        const json = _.pick(this.props, "correct", "starting", "type", "labels",
             "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
 
         if (this.props.type === PIC) {

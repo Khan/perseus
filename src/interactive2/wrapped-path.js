@@ -2,16 +2,16 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
-var WrappedDefaults = require("./wrapped-defaults.js");
+const _ = require("underscore");
+const WrappedDefaults = require("./wrapped-defaults.js");
 
-var DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS = {
     center: null, // gets ignored in `graphie.fixedPath` if `null`
     createPath: null, // gets defaulted in `graphie.fixedPath` if `null`
     mouselayer: false,
 };
 
-var WrappedPath = function(graphie, points, options) {
+const WrappedPath = function(graphie, points, options) {
     options = _.extend({}, DEFAULT_OPTIONS, options);
 
     // Add `wrapper` and `visibleShape`

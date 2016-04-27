@@ -2,9 +2,9 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
+const React = require("react");
 
-var ElementContainer = React.createClass({
+const ElementContainer = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
         initiallyVisible: React.PropTypes.bool,

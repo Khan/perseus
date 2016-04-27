@@ -2,16 +2,16 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var PlaceholderCard = React.createClass({
+const PlaceholderCard = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
@@ -28,7 +28,7 @@ var PlaceholderCard = React.createClass({
     },
 });
 
-var DragHintCard = React.createClass({
+const DragHintCard = React.createClass({
     render: function() {
         return <div className={"card-wrap " + ApiClassNames.INTERACTIVE}>
             <div className="card drag-hint" />
@@ -36,14 +36,14 @@ var DragHintCard = React.createClass({
     },
 });
 
-var PropTypes = {
+const PropTypes = {
     position: React.PropTypes.shape({
         left: React.PropTypes.number,
         top: React.PropTypes.number,
     }),
 };
 
-var Card = React.createClass({
+const Card = React.createClass({
     propTypes: {
         floating: React.PropTypes.bool.isRequired,
         animating: React.PropTypes.bool,
@@ -74,7 +74,7 @@ var Card = React.createClass({
     },
 
     render: function() {
-        var style = {};
+        const style = {};
 
         if (this.props.floating) {
             style = {
@@ -88,7 +88,7 @@ var Card = React.createClass({
             style.width = this.props.width;
         }
 
-        var className = ["card"];
+        const className = ["card"];
         if (this.props.stack) {
             className.push("stack");
         }
@@ -99,9 +99,9 @@ var Card = React.createClass({
         }
 
         // Pull out the content to get rendered
-        var rendererProps = _.pick(this.props, "content");
+        const rendererProps = _.pick(this.props, "content");
 
-        var onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
+        const onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
 
         return <div className={"card-wrap " + ApiClassNames.INTERACTIVE}
                     style={style}
@@ -138,7 +138,7 @@ var Card = React.createClass({
             // We pick the animation speed based on the distance that the card
             // needs to travel. (Why sqrt? Just because it looks nice -- with a
             // linear scale, far things take too long to come back.)
-            var ms = 15 * Math.sqrt(
+            const ms = 15 * Math.sqrt(
                 Math.sqrt(
                     Math.pow(this.props.animateTo.left -
                              this.props.startOffset.left, 2) +
@@ -180,7 +180,7 @@ var Card = React.createClass({
 
     onMouseDown: function(event) {
         event.preventDefault();
-        var loc = Util.extractPointerLocation(event);
+        const loc = Util.extractPointerLocation(event);
         if (loc) {
             this.bindMouseMoveUp();
             this.props.onMouseDown && this.props.onMouseDown(loc, this);
@@ -189,7 +189,7 @@ var Card = React.createClass({
 
     onMouseMove: function(event) {
         event.preventDefault();
-        var loc = Util.extractPointerLocation(event);
+        const loc = Util.extractPointerLocation(event);
         if (loc) {
             this.props.onMouseMove && this.props.onMouseMove(loc);
         }
@@ -197,7 +197,7 @@ var Card = React.createClass({
 
     onMouseUp: function(event) {
         event.preventDefault();
-        var loc = Util.extractPointerLocation(event);
+        const loc = Util.extractPointerLocation(event);
         if (loc) {
             this.unbindMouseMoveUp();
             this.props.onMouseUp && this.props.onMouseUp(loc);
@@ -205,12 +205,12 @@ var Card = React.createClass({
     },
 });
 
-var NORMAL = "normal";
-var AUTO = "auto";
-var HORIZONTAL = "horizontal";
-var VERTICAL = "vertical";
+const NORMAL = "normal";
+const AUTO = "auto";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
-var Orderer = React.createClass({
+const Orderer = React.createClass({
     propTypes: {
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         correctOptions: React.PropTypes.arrayOf(React.PropTypes.any),
@@ -250,7 +250,7 @@ var Orderer = React.createClass({
 
     render: function() {
         // This is the card we are currently dragging
-        var dragging = this.state.dragging &&
+        const dragging = this.state.dragging &&
             <Card ref="dragging"
                        floating={true}
                        content={this.state.dragContent}
@@ -264,7 +264,7 @@ var Orderer = React.createClass({
                        />;
 
         // This is the card that is currently animating
-        var animating = this.state.animating &&
+        const animating = this.state.animating &&
             <Card floating={true}
                        animating={true}
                        content={this.state.dragContent}
@@ -276,7 +276,7 @@ var Orderer = React.createClass({
                        />;
 
         // This is the list of draggable, rearrangable cards
-        var sortableCards = _.map(this.state.current, function(opt, i) {
+        const sortableCards = _.map(this.state.current, function(opt, i) {
             return <Card
                 ref={"sortable" + i}
                 fakeRef={"sortable" + i}
@@ -290,7 +290,7 @@ var Orderer = React.createClass({
         }, this);
 
         if (this.state.placeholderIndex != null) {
-            var placeholder = <PlaceholderCard
+            const placeholder = <PlaceholderCard
                 ref="placeholder"
                 width={this.state.dragWidth}
                 height={this.state.dragHeight}
@@ -298,17 +298,17 @@ var Orderer = React.createClass({
             sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
         }
 
-        var anySortableCards = sortableCards.length > 0;
+        const anySortableCards = sortableCards.length > 0;
         sortableCards.push(dragging, animating);
 
         // If there are no cards in the list, then add a "hint" card
-        var sortable = <div className="ui-helper-clearfix draggable-box">
+        const sortable = <div className="ui-helper-clearfix draggable-box">
             {!anySortableCards && <DragHintCard />}
             <div ref="dragList">{sortableCards}</div>
         </div>;
 
         // This is the bank of stacks of cards
-        var bank = <div ref="bank" className="bank ui-helper-clearfix">
+        const bank = <div ref="bank" className="bank ui-helper-clearfix">
             {_.map(this.props.options, (opt, i) => {
                 return <Card
                     ref={"bank" + i}
@@ -336,11 +336,11 @@ var Orderer = React.createClass({
     },
 
     onClick: function(type, index, loc, draggable) {
-        var $draggable = $(ReactDOM.findDOMNode(draggable));
-        var list = this.state.current.slice();
+        const $draggable = $(ReactDOM.findDOMNode(draggable));
+        const list = this.state.current.slice();
 
-        var opt;
-        var placeholderIndex = null;
+        const opt;
+        const placeholderIndex = null;
 
         if (type === "current") {
             // If this is coming from the original list, remove the original
@@ -367,21 +367,21 @@ var Orderer = React.createClass({
     },
 
     onRelease: function(loc) {
-        var draggable = this.refs.dragging;
+        const draggable = this.refs.dragging;
         if (draggable == null) {
             return;
         }
-        var inCardBank = this.isCardInBank(draggable);
-        var index = this.state.placeholderIndex;
+        const inCardBank = this.isCardInBank(draggable);
+        const index = this.state.placeholderIndex;
 
         // Here, we build a callback function for the card to call when it is
         // done animating
-        var onAnimationEnd = () => {
-            var list = this.state.current.slice();
+        const onAnimationEnd = () => {
+            const list = this.state.current.slice();
 
             if (!inCardBank) {
                 // Insert the new card into the position
-                var newCard = {
+                const newCard = {
                     content: this.state.dragContent,
                     key: _.uniqueId("perseus_draggable_card_"),
                     width: this.state.dragWidth,
@@ -404,14 +404,14 @@ var Orderer = React.createClass({
 
         // Find the position of the card we should animate to
         // TODO(alpert): Update mouse position once more before animating?
-        var offset = $(ReactDOM.findDOMNode(draggable)).position();
-        var finalOffset = null;
+        const offset = $(ReactDOM.findDOMNode(draggable)).position();
+        const finalOffset = null;
         if (inCardBank) {
             // If we're in the card bank, go through the options to find the
             // one with the same content
             _.each(this.props.options, function(opt, i) {
                 if (opt.content === this.state.dragContent) {
-                    var card = ReactDOM.findDOMNode(this.refs["bank" + i]);
+                    const card = ReactDOM.findDOMNode(this.refs["bank" + i]);
                     finalOffset = $(card).position();
                 }
             }, this);
@@ -438,12 +438,12 @@ var Orderer = React.createClass({
     },
 
     onMouseMove: function(loc) {
-        var draggable = this.refs.dragging;
+        const draggable = this.refs.dragging;
         if (draggable == null) {
             return;
         }
 
-        var index;
+        const index;
         if (this.isCardInBank(draggable)) {
             index = null;
         } else {
@@ -458,22 +458,22 @@ var Orderer = React.createClass({
 
     findCorrectIndex: function(draggable, list) {
         // Find the correct index for a card given the current cards.
-        var isHorizontal = this.props.layout === HORIZONTAL;
-        var $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
-        var leftEdge = $dragList.offset().left;
-        var topEdge = $dragList.offset().top;
-        var midWidth =
+        const isHorizontal = this.props.layout === HORIZONTAL;
+        const $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
+        const leftEdge = $dragList.offset().left;
+        const topEdge = $dragList.offset().top;
+        const midWidth =
                 $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge;
-        var midHeight =
+        const midHeight =
                 $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge;
-        var index = 0;
-        var sumWidth = 0;
-        var sumHeight = 0;
+        const index = 0;
+        const sumWidth = 0;
+        const sumHeight = 0;
 
         if (isHorizontal) {
             _.each(list, function(opt, i) {
-                var card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
-                var outerWidth = $(card).outerWidth(true);
+                const card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
+                const outerWidth = $(card).outerWidth(true);
                 if (midWidth > sumWidth + outerWidth / 2) {
                     index += 1;
                 }
@@ -481,8 +481,8 @@ var Orderer = React.createClass({
             }, this);
         } else {
             _.each(list, function(opt, i) {
-                var card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
-                var outerHeight = $(card).outerHeight(true);
+                const card = ReactDOM.findDOMNode(this.refs["sortable" + i]);
+                const outerHeight = $(card).outerHeight(true);
                 if (midHeight > sumHeight + outerHeight / 2) {
                     index += 1;
                 }
@@ -498,15 +498,15 @@ var Orderer = React.createClass({
             return false;
         }
 
-        var isHorizontal = this.props.layout === HORIZONTAL;
-        var $draggable = $(ReactDOM.findDOMNode(draggable));
-        var $bank = $(ReactDOM.findDOMNode(this.refs.bank));
-        var draggableOffset = $draggable.offset();
-        var bankOffset = $bank.offset();
-        var draggableHeight = $draggable.outerHeight(true);
-        var bankHeight = $bank.outerHeight(true);
-        var bankWidth = $bank.outerWidth(true);
-        var draggableWidth = $draggable.outerWidth(true);
+        const isHorizontal = this.props.layout === HORIZONTAL;
+        const $draggable = $(ReactDOM.findDOMNode(draggable));
+        const $bank = $(ReactDOM.findDOMNode(this.refs.bank));
+        const draggableOffset = $draggable.offset();
+        const bankOffset = $bank.offset();
+        const draggableHeight = $draggable.outerHeight(true);
+        const bankHeight = $bank.outerHeight(true);
+        const bankWidth = $bank.outerWidth(true);
+        const draggableWidth = $draggable.outerWidth(true);
 
         if (isHorizontal) {
             return (draggableOffset.top + draggableHeight / 2 <
@@ -537,7 +537,7 @@ _.extend(Orderer, {
             };
         }
 
-        var correct = _.isEqual(
+        const correct = _.isEqual(
             state.current,
             _.pluck(rubric.correctOptions, 'content')
         );

@@ -2,25 +2,25 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var deepEq = require("../util.js").deepEq;
+const deepEq = require("../util.js").deepEq;
 const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
 
-var BAR = "bar";
-var LINE = "line";
-var PIC = "pic";
-var HISTOGRAM = "histogram";
-var DOTPLOT = "dotplot";
+const BAR = "bar";
+const LINE = "line";
+const PIC = "pic";
+const HISTOGRAM = "histogram";
+const DOTPLOT = "dotplot";
 
-var DOT_PLOT_POINT_SIZE = 4;
-var DOT_PLOT_POINT_PADDING = 8;
+const DOT_PLOT_POINT_SIZE = 4;
+const DOT_PLOT_POINT_PADDING = 8;
 
 const widgetPropTypes = {
     type: React.PropTypes.oneOf([BAR, LINE, PIC, HISTOGRAM, DOTPLOT]),
@@ -44,7 +44,7 @@ const widgetPropTypes = {
     static: React.PropTypes.bool,
 };
 
-var Plotter = React.createClass({
+const Plotter = React.createClass({
     propTypes: _.extend({
         onChange: React.PropTypes.func.isRequired,
         trackInteraction: React.PropTypes.func.isRequired,
@@ -95,7 +95,7 @@ var Plotter = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var props = ["type", "labels", "categories", "scaleY", "maxY",
+        const props = ["type", "labels", "categories", "scaleY", "maxY",
             "snapsPerLine", "picUrl", "labelInterval", "static"];
 
         this.shouldSetupGraphie = _.any(props, function(prop) {
@@ -110,11 +110,11 @@ var Plotter = React.createClass({
     },
 
     setupGraphie: function(prevState) {
-        var self = this;
+        const self = this;
         self.shouldSetupGraphie = false;
-        var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
+        const graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
         $(graphieDiv).empty();
-        var graphie = GraphUtils.createGraphie(graphieDiv);
+        const graphie = GraphUtils.createGraphie(graphieDiv);
 
         // TODO(jakesandlund): It's not the react way to hang
         // something off the component object, but since graphie
@@ -122,16 +122,16 @@ var Plotter = React.createClass({
         self.graphie = graphie;
         self.graphie.pics = [];
 
-        var isBar = self.props.type === BAR;
-        var isLine = self.props.type === LINE;
-        var isPic = self.props.type === PIC;
-        var isHistogram = self.props.type === HISTOGRAM;
-        var isDotplot = self.props.type === DOTPLOT;
+        const isBar = self.props.type === BAR;
+        const isLine = self.props.type === LINE;
+        const isPic = self.props.type === PIC;
+        const isHistogram = self.props.type === HISTOGRAM;
+        const isDotplot = self.props.type === DOTPLOT;
 
-        var isTiledPlot = isPic || isDotplot;
+        const isTiledPlot = isPic || isDotplot;
 
-        var config = {};
-        var c = config; // c for short
+        const config = {};
+        const c = config; // c for short
 
         c.graph = {
             lines: [],
@@ -141,7 +141,7 @@ var Plotter = React.createClass({
         };
         c.scaleY = self.props.scaleY;
         c.dimX = self.props.categories.length;
-        var plotDimensions = self.props.plotDimensions;
+        const plotDimensions = self.props.plotDimensions;
         if (isLine) {
             c.dimX += 1;
         } else if (isHistogram) {
@@ -154,9 +154,9 @@ var Plotter = React.createClass({
         } else if (isTiledPlot) {
             c.picBoxHeight = self.props.picBoxHeight;
             c.picBoxWidthPx = plotDimensions[0] / self.props.categories.length;
-            var picPadAllWidth = plotDimensions[0] - c.dimX * c.picBoxWidthPx;
+            const picPadAllWidth = plotDimensions[0] - c.dimX * c.picBoxWidthPx;
             c.picPad = picPadAllWidth / (2 * c.dimX + 2);
-            var picFullWidth = c.picBoxWidthPx + 2 * c.picPad;
+            const picFullWidth = c.picBoxWidthPx + 2 * c.picPad;
 
             // Convert from px to "unscaled"
             c.picPad = c.picPad / picFullWidth;
@@ -176,8 +176,8 @@ var Plotter = React.createClass({
             c.scale[1] = c.picBoxHeight / c.scaleY;
         }
 
-        var padX = 25 / c.scale[0];
-        var padY = 25 / c.scale[1];
+        const padX = 25 / c.scale[0];
+        const padY = 25 / c.scale[1];
 
         // Since dotplot doesn't have an axis along the left it looks weird
         // with the same padding as the others
@@ -239,10 +239,10 @@ var Plotter = React.createClass({
     },
 
     labelCategory: function(x, category) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         category = category + "";
-        var isTeX = false;
-        var mathyCategory = category.match(/^\$(.*)\$$/);
+        const isTeX = false;
+        const mathyCategory = category.match(/^\$(.*)\$$/);
         if (mathyCategory) {
             category = mathyCategory[1];
             isTeX = true;
@@ -251,9 +251,9 @@ var Plotter = React.createClass({
     },
 
     setupCategories: function(config) {
-        var self = this;
-        var c = config;
-        var graphie = self.graphie;
+        const self = this;
+        const c = config;
+        const graphie = self.graphie;
 
         if (self.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
@@ -268,10 +268,10 @@ var Plotter = React.createClass({
 
             // Label categories
             _.each(self.props.categories, function(category, i) {
-                var x = 0.5 + i * c.barWidth;
+                const x = 0.5 + i * c.barWidth;
 
                 self.labelCategory(x, category);
-                var tickHeight = 6 / c.scale[1];
+                const tickHeight = 6 / c.scale[1];
                 graphie.style({
                     stroke: "#000", strokeWidth: 2, opacity: 1.0,
                 }, function() {
@@ -280,8 +280,8 @@ var Plotter = React.createClass({
             });
         } else {
             _.each(self.props.categories, function(category, i) {
-                var startHeight = self.state.values[i];
-                var x;
+                const startHeight = self.state.values[i];
+                const x;
 
                 if (self.props.type === BAR) {
                     x = self.setupBar({
@@ -298,8 +298,8 @@ var Plotter = React.createClass({
                     x = self.setupDotplot(i, config);
                 }
 
-                var tickStart = 0;
-                var tickEnd = -6 / c.scale[1];
+                const tickStart = 0;
+                const tickEnd = -6 / c.scale[1];
 
                 if (self.props.type === DOTPLOT) {
                     tickStart = -tickEnd;
@@ -329,23 +329,23 @@ var Plotter = React.createClass({
     },
 
     setupBar: function(args) {
-        var i = args.index;
-        var startHeight = args.startHeight;
-        var config = args.config;
-        var isHistogram = args.isHistogram;
+        const i = args.index;
+        const startHeight = args.startHeight;
+        const config = args.config;
+        const isHistogram = args.isHistogram;
 
-        var self = this;
-        var graphie = self.graphie;
-        var barHalfWidth = config.barWidth / 2;
-        var x;
+        const self = this;
+        const graphie = self.graphie;
+        const barHalfWidth = config.barWidth / 2;
+        const x;
         if (isHistogram) {
             x = 0.5 + i * config.barWidth + barHalfWidth;
         } else {
             x = 0.5 + i + config.barPad;
         }
 
-        var scaleBar = function(i, height) {
-            var center = graphie.scalePoint(0);
+        const scaleBar = function(i, height) {
+            const center = graphie.scalePoint(0);
 
             // Scale filled bucket (bar)
             config.graph.bars[i].scale(
@@ -354,8 +354,8 @@ var Plotter = React.createClass({
 
             if (isHistogram) {
                 // Scale dividers between buckets
-                var leftDivider = config.graph.dividers[i - 1];
-                var rightDivider = config.graph.dividers[i];
+                const leftDivider = config.graph.dividers[i - 1];
+                const rightDivider = config.graph.dividers[i];
 
                 if (leftDivider) {
                     const divHeight = Math.min(
@@ -417,7 +417,7 @@ var Plotter = React.createClass({
         });
 
         config.graph.lines[i].onMove = function(dx, dy) {
-            var y = this.coordA[1];
+            const y = this.coordA[1];
             if (y < 0 || y > config.dimY) {
                 y = Math.min(Math.max(y, 0), config.dimY);
                 this.coordA[1] = this.coordZ[1] = y;
@@ -426,7 +426,7 @@ var Plotter = React.createClass({
                 this.transform();
             }
 
-            var values = _.clone(self.state.values);
+            const values = _.clone(self.state.values);
             values[i] = y;
             self.setState({values: values});
             self.changeAndTrack({ values: values });
@@ -439,10 +439,10 @@ var Plotter = React.createClass({
     },
 
     setupLine: function(i, startHeight, config) {
-        var self = this;
-        var c = config;
-        var graphie = self.graphie;
-        var x = i + 1;
+        const self = this;
+        const c = config;
+        const graphie = self.graphie;
+        const x = i + 1;
         c.graph.points[i] = graphie.addMovablePoint({
             coord: [x, startHeight],
             constraints: {
@@ -456,7 +456,7 @@ var Plotter = React.createClass({
         });
         c.graph.points[i].onMove = function(x, y) {
             y = Math.min(Math.max(y, 0), c.dimY);
-            var values = _.clone(self.state.values);
+            const values = _.clone(self.state.values);
             values[i] = y;
             self.setState({values: values});
             self.changeAndTrack({ values: values });
@@ -479,7 +479,7 @@ var Plotter = React.createClass({
     },
 
     setupDotplot: function(i, config) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         return this.setupTiledPlot(i, 1, config, (x, y) => {
             return graphie.ellipse([x, y],
                 [
@@ -494,10 +494,10 @@ var Plotter = React.createClass({
     },
 
     setupPic: function(i, config) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         return this.setupTiledPlot(i, 0, config, (x, y) => {
-            var scaledCenter = graphie.scalePoint([x, y]);
-            var size = this.props.picSize;
+            const scaledCenter = graphie.scalePoint([x, y]);
+            const size = this.props.picSize;
             return graphie.raphael.image(
                     this.props.picUrl,
                     scaledCenter[0] - size / 2,
@@ -508,21 +508,21 @@ var Plotter = React.createClass({
     },
 
     setupTiledPlot: function(i, bottomMargin, config, createImage) {
-        var self = this;
-        var c = config;
-        var graphie = self.graphie;
-        var pics = graphie.pics;
-        var x = i + 0.5 + c.picPad;
+        const self = this;
+        const c = config;
+        const graphie = self.graphie;
+        const pics = graphie.pics;
+        const x = i + 0.5 + c.picPad;
 
         pics[i] = [];
-        var n = Math.round(c.dimY / c.scaleY) + 1;
+        const n = Math.round(c.dimY / c.scaleY) + 1;
         _(n).times(function(j) {
             j -= 1;
-            var midY = (j + 0.5) * c.scaleY;
-            var leftX = x - c.picBoxWidth / 2;
-            var topY = midY + 0.5 * c.scaleY;
-            var coord = graphie.scalePoint([leftX, topY + bottomMargin]);
-            var mouseRect = graphie.mouselayer.rect(
+            const midY = (j + 0.5) * c.scaleY;
+            const leftX = x - c.picBoxWidth / 2;
+            const topY = midY + 0.5 * c.scaleY;
+            const coord = graphie.scalePoint([leftX, topY + bottomMargin]);
+            const mouseRect = graphie.mouselayer.rect(
                     coord[0], coord[1], c.picBoxWidthPx, c.picBoxHeight);
             $(mouseRect[0])
                 .css({fill: "#000", opacity: 0.0, cursor: "pointer"})
@@ -539,16 +539,16 @@ var Plotter = React.createClass({
                         e.preventDefault();
 
                         // Reverse-engineer the initial calculation
-                        var yCoord = graphie.getMouseCoord(e)[1];
-                        var adjustedCoord = Math.floor(yCoord - bottomMargin);
+                        const yCoord = graphie.getMouseCoord(e)[1];
+                        const adjustedCoord = Math.floor(yCoord - bottomMargin);
 
                         // Calculate top coord from j value, but don't let them
                         // go below j = -1, which is equivalent to having '0'
                         // on the dot plot (due to weird indexing).
-                        var newJ = Math.max(-1,
+                        const newJ = Math.max(-1,
                             Math.floor(adjustedCoord / c.scaleY));
-                        var newMidY = (newJ + 0.5) * c.scaleY;
-                        var newTopY = newMidY + 0.5 * c.scaleY;
+                        const newMidY = (newJ + 0.5) * c.scaleY;
+                        const newTopY = newMidY + 0.5 * c.scaleY;
                         self.setPicHeight(self.whichPicClicked, newTopY);
                     });
                 });
@@ -563,7 +563,7 @@ var Plotter = React.createClass({
     },
 
     setPicHeight: function(i, y) {
-        var values = _.clone(this.state.values);
+        const values = _.clone(this.state.values);
         values[i] = y;
         this.drawPicHeights(values, this.state.values);
         this.setState({values: values});
@@ -576,16 +576,16 @@ var Plotter = React.createClass({
     },
 
     drawPicHeights: function(values, prevValues) {
-        var self = this;
-        var graphie = self.graphie;
-        var pics = graphie.pics;
+        const self = this;
+        const graphie = self.graphie;
+        const pics = graphie.pics;
         _.each(pics, function(ps, i) {
             _.each(ps, function(pic, j) {
-                var y = (j + 1) * self.props.scaleY;
-                var show = y <= values[i];
+                const y = (j + 1) * self.props.scaleY;
+                const show = y <= values[i];
                 if (self.props.type === DOTPLOT) {
-                    var wasShown = y <= prevValues[i];
-                    var wasJustShown = show && !wasShown;
+                    const wasShown = y <= prevValues[i];
+                    const wasJustShown = show && !wasShown;
                     if (wasJustShown) {
                         pic.animate({
                             "stroke-width": 8,
@@ -627,7 +627,7 @@ _.extend(Plotter, {
 });
 
 // We don't need to change any of the original props for static mode
-var staticTransform = _.identity;
+const staticTransform = _.identity;
 
 module.exports = {
     name: "plotter",

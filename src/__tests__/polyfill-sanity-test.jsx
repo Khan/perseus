@@ -3,7 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 
-var assert = require("assert");
+const assert = require("assert");
 
 describe("Polyfill Sanity Checks", () => {
     describe("Array", () => {

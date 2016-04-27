@@ -2,10 +2,10 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var React = require("react");
+const ButtonGroup = require("react-components/button-group.jsx");
+const React = require("react");
 
-var DashPicker = React.createClass({
+const DashPicker = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,

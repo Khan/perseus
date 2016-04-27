@@ -2,28 +2,28 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var Editor = require("../editor.jsx");
-var RangeInput = require("../components/range-input.jsx");
+const Editor = require("../editor.jsx");
+const RangeInput = require("../components/range-input.jsx");
 
-var Matrix = require("./matrix.jsx").widget;
+const Matrix = require("./matrix.jsx").widget;
 
 // Really large matrices will cause issues with question formatting, so we
 // have to cap it at some point.
-var MAX_BOARD_SIZE = 6;
+const MAX_BOARD_SIZE = 6;
 
-var getMatrixSize = function(matrix) {
-    var matrixSize = [1, 1];
+const getMatrixSize = function(matrix) {
+    const matrixSize = [1, 1];
 
     // We need to find the widest row and tallest column to get the correct
     // matrix size.
     _(matrix).each((matrixRow, row) => {
-        var rowWidth = 0;
+        const rowWidth = 0;
         _(matrixRow).each((matrixCol, col) => {
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;
@@ -41,7 +41,7 @@ var getMatrixSize = function(matrix) {
     return matrixSize;
 };
 
-var MatrixEditor = React.createClass({
+const MatrixEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -73,7 +73,7 @@ var MatrixEditor = React.createClass({
     },
 
     render: function() {
-        var matrixProps = _.extend({
+        const matrixProps = _.extend({
             numericInput: true,
             onBlur: () => {},
             onFocus: () => {},
@@ -115,13 +115,13 @@ var MatrixEditor = React.createClass({
     },
 
     onMatrixBoardSizeChange: function(range) {
-        var matrixSize = getMatrixSize(this.props.answers);
+        const matrixSize = getMatrixSize(this.props.answers);
         if (range[0] !== null && range[1] !== null) {
             range = [
                 Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
                 Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
             ];
-            var answers = _(Math.min(range[0], matrixSize[0])).times(row => {
+            const answers = _(Math.min(range[0], matrixSize[0])).times(row => {
                 return _(Math.min(range[1], matrixSize[1])).times(col => {
                     return this.props.answers[row][col];
                 });

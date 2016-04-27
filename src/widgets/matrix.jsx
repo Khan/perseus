@@ -4,32 +4,32 @@
 
 /* global i18n:false */
 
-var classNames = require("classnames");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var NumberInput = require("../components/number-input.jsx");
-var Renderer = require("../renderer.jsx");
-var TextInput = require("../components/text-input.jsx");
-var MathOutput = require("../components/math-output.jsx");
+const NumberInput = require("../components/number-input.jsx");
+const Renderer = require("../renderer.jsx");
+const TextInput = require("../components/text-input.jsx");
+const MathOutput = require("../components/math-output.jsx");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
+const ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
 
-var assert = require("../interactive2/interactive-util.js").assert;
-var stringArrayOfSize = require("../util.js").stringArrayOfSize;
+const assert = require("../interactive2/interactive-util.js").assert;
+const stringArrayOfSize = require("../util.js").stringArrayOfSize;
 
 
 // We store two sets of dimensions for the brackets, because mobile formatting
 // is different. These dimensions come from `matrix.less`.
-var MOBILE_DIMENSIONS = {
+const MOBILE_DIMENSIONS = {
     INPUT_MARGIN: 4,
     INPUT_HEIGHT: 38,
     INPUT_WIDTH: 82,
 };
 
-var NORMAL_DIMENSIONS = {
+const NORMAL_DIMENSIONS = {
     INPUT_MARGIN: 3,
     INPUT_HEIGHT: 30,
     INPUT_WIDTH: 40,
@@ -38,39 +38,39 @@ var NORMAL_DIMENSIONS = {
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
  * and extracts (row, column) pairs from input paths, used to allow outsiders
  * to focus, blur, set input values, etc. */
-var getInputPath = function(row, column) {
+const getInputPath = function(row, column) {
     return ["" + row, "" + column];
 };
 
-var getDefaultPath = function() {
+const getDefaultPath = function() {
     return getInputPath(0, 0);
 };
 
-var getRowFromPath = function(path) {
+const getRowFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
     return +path[0];
 };
 
-var getColumnFromPath = function(path) {
+const getColumnFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
     return +path[1];
 };
 
-var getRefForPath = function(path) {
-    var row = getRowFromPath(path);
-    var column = getColumnFromPath(path);
+const getRefForPath = function(path) {
+    const row = getRowFromPath(path);
+    const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
 };
 
-var getMatrixSize = function(matrix) {
-    var matrixSize = [1, 1];
+const getMatrixSize = function(matrix) {
+    const matrixSize = [1, 1];
 
     // We need to find the widest row and tallest column to get the correct
     // matrix size.
     _(matrix).each((matrixRow, row) => {
-        var rowWidth = 0;
+        const rowWidth = 0;
         _(matrixRow).each((matrixCol, col) => {
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;
@@ -88,7 +88,7 @@ var getMatrixSize = function(matrix) {
     return matrixSize;
 };
 
-var Matrix = React.createClass({
+const Matrix = React.createClass({
     propTypes: {
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
@@ -141,24 +141,24 @@ var Matrix = React.createClass({
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
         // inputs are rendered.)
-        var dimensions = this.props.apiOptions.staticRender ?
+        const dimensions = this.props.apiOptions.staticRender ?
                 MOBILE_DIMENSIONS : NORMAL_DIMENSIONS;
-        var { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
+        const { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
 
-        var matrixSize = getMatrixSize(this.props.answers);
-        var maxRows = this.props.matrixBoardSize[0];
-        var maxCols = this.props.matrixBoardSize[1];
-        var cursorRow = this.props.cursorPosition[0];
-        var cursorCol = this.props.cursorPosition[1];
+        const matrixSize = getMatrixSize(this.props.answers);
+        const maxRows = this.props.matrixBoardSize[0];
+        const maxCols = this.props.matrixBoardSize[1];
+        const cursorRow = this.props.cursorPosition[0];
+        const cursorCol = this.props.cursorPosition[1];
 
-        var highlightedRow = Math.max(cursorRow, matrixSize[0] - 1);
-        var highlightedCol = Math.max(cursorCol, matrixSize[1] - 1);
-        var bracketHeight = (highlightedRow + 1) *
+        const highlightedRow = Math.max(cursorRow, matrixSize[0] - 1);
+        const highlightedCol = Math.max(cursorCol, matrixSize[1] - 1);
+        const bracketHeight = (highlightedRow + 1) *
                 (INPUT_HEIGHT + 2 * INPUT_MARGIN);
-        var bracketOffset = (highlightedCol + 1) *
+        const bracketOffset = (highlightedCol + 1) *
                 (INPUT_WIDTH + 2 * INPUT_MARGIN);
 
-        var className = classNames({
+        const className = classNames({
             "perseus-matrix": true,
             "static-mode": this.props.static,
             "the-matrix": this.state.enterTheMatrix >= 5,
@@ -183,12 +183,12 @@ var Matrix = React.createClass({
                     }}>
                 </div>
                 {_(maxRows).times(row => {
-                    var rowVals = this.props.answers[row];
+                    const rowVals = this.props.answers[row];
                     return <div className="matrix-row" key={row}>
                         {_(maxCols).times((col) => {
-                            var outside = row > highlightedRow ||
+                            const outside = row > highlightedRow ||
                                     col > highlightedCol;
-                            var inputProps = {
+                            const inputProps = {
                                 className: outside ? "outside" : "inside",
                                 ref: getRefForPath(getInputPath(row, col)),
                                 value: rowVals ? rowVals[col] : null,
@@ -239,7 +239,7 @@ var Matrix = React.createClass({
                                 },
                             };
 
-                            var MatrixInput;
+                            const MatrixInput;
                             if (this.props.apiOptions.staticRender) {
                                 MatrixInput = <MathOutput {...inputProps} />;
                             } else if (this.props.numericInput) {
@@ -263,13 +263,13 @@ var Matrix = React.createClass({
     },
 
     getInputPaths: function() {
-        var inputPaths = [];
-        var maxRows = this.props.matrixBoardSize[0];
-        var maxCols = this.props.matrixBoardSize[1];
+        const inputPaths = [];
+        const maxRows = this.props.matrixBoardSize[0];
+        const maxCols = this.props.matrixBoardSize[1];
 
         _(maxRows).times(row => {
             _(maxCols).times(col => {
-                var inputPath = getInputPath(row, col);
+                const inputPath = getInputPath(row, col);
                 inputPaths.push(inputPath);
             });
         });
@@ -295,7 +295,7 @@ var Matrix = React.createClass({
     },
 
     focusInputPath: function(path) {
-        var inputID = getRefForPath(path);
+        const inputID = getRefForPath(path);
         this.refs[inputID].focus();
     },
 
@@ -304,32 +304,32 @@ var Matrix = React.createClass({
             path = getDefaultPath();
         }
 
-        var inputID = getRefForPath(path);
+        const inputID = getRefForPath(path);
         this.refs[inputID].blur();
     },
 
     getDOMNodeForPath: function(inputPath) {
-        var inputID = getRefForPath(inputPath);
+        const inputID = getRefForPath(inputPath);
         return ReactDOM.findDOMNode(this.refs[inputID]);
     },
 
     setInputValue: function(inputPath, value, callback) {
-        var row = getRowFromPath(inputPath);
-        var col = getColumnFromPath(inputPath);
+        const row = getRowFromPath(inputPath);
+        const col = getColumnFromPath(inputPath);
         this.onValueChange(row, col, value, callback);
     },
 
     handleKeyDown: function(row, col, e) {
-        var maxRow = this.props.matrixBoardSize[0];
-        var maxCol = this.props.matrixBoardSize[1];
-        var enterTheMatrix = null;
+        const maxRow = this.props.matrixBoardSize[0];
+        const maxCol = this.props.matrixBoardSize[1];
+        const enterTheMatrix = null;
 
-        var curInput = this.refs[getRefForPath(getInputPath(row, col))];
-        var curValueString = curInput.getStringValue();
-        var cursorStartPosition = curInput.getSelectionStart();
-        var cursorEndPosition = curInput.getSelectionEnd();
+        const curInput = this.refs[getRefForPath(getInputPath(row, col))];
+        const curValueString = curInput.getStringValue();
+        const cursorStartPosition = curInput.getSelectionStart();
+        const cursorEndPosition = curInput.getSelectionEnd();
 
-        var nextPath = null;
+        const nextPath = null;
         if (e.key === "ArrowUp" && row > 0) {
             nextPath = getInputPath(row - 1, col);
         } else if (e.key === "ArrowDown" && row + 1 < maxRow) {
@@ -355,12 +355,12 @@ var Matrix = React.createClass({
             e.preventDefault();
 
             // Focus the input and move the cursor to the end of it.
-            var input = this.refs[getRefForPath(nextPath)];
+            const input = this.refs[getRefForPath(nextPath)];
 
             // Multiply by 2 to ensure the cursor always ends up at the end;
             // Opera sometimes sees a carriage return as 2 characters.
-            var inputValString = input.getStringValue();
-            var valueLength = inputValString.length * 2;
+            const inputValString = input.getStringValue();
+            const valueLength = inputValString.length * 2;
 
             input.focus();
             if (e.key === "ArrowRight") {
@@ -378,7 +378,7 @@ var Matrix = React.createClass({
     },
 
     onValueChange: function(row, column, value, cb) {
-        var answers = _.map(this.props.answers, _.clone);
+        const answers = _.map(this.props.answers, _.clone);
         if (!answers[row]) {
             answers[row] = [];
         }
@@ -402,30 +402,30 @@ var Matrix = React.createClass({
 
 _.extend(Matrix, {
     validate: function(state, rubric) {
-        var solution = rubric.answers;
-        var supplied = state.answers;
-        var solutionSize = getMatrixSize(solution);
-        var suppliedSize = getMatrixSize(supplied);
+        const solution = rubric.answers;
+        const supplied = state.answers;
+        const solutionSize = getMatrixSize(solution);
+        const suppliedSize = getMatrixSize(supplied);
 
-        var incorrectSize = solutionSize[0] !== suppliedSize[0] ||
+        const incorrectSize = solutionSize[0] !== suppliedSize[0] ||
                 solutionSize[1] !== suppliedSize[1];
 
-        var createValidator = KhanAnswerTypes
+        const createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
-        var message = null;
-        var hasEmptyCell = false;
-        var incorrect = false;
+        const message = null;
+        const hasEmptyCell = false;
+        const incorrect = false;
         _(suppliedSize[0]).times((row) => {
             _(suppliedSize[1]).times((col) => {
                 if (supplied[row][col] == null ||
                         supplied[row][col].toString().length === 0) {
                     hasEmptyCell = true;
                 }
-                var validator = createValidator(
+                const validator = createValidator(
                         solution[row][col],
                         { simplify: true }
                     );
-                var result = validator(supplied[row][col]);
+                const result = validator(supplied[row][col]);
                 if (result.message) {
                     message = result.message;
                 }
@@ -461,9 +461,9 @@ _.extend(Matrix, {
     },
 });
 
-var propTransform = (editorProps) => {
+const propTransform = (editorProps) => {
     // Remove answers before passing to widget
-    var blankAnswers = _(editorProps.matrixBoardSize[0]).times(function() {
+    const blankAnswers = _(editorProps.matrixBoardSize[0]).times(function() {
         return stringArrayOfSize(editorProps.matrixBoardSize[1]);
     });
     editorProps = _.pick(editorProps, "matrixBoardSize", "prefix", "suffix");
@@ -472,8 +472,8 @@ var propTransform = (editorProps) => {
     });
 };
 
-var staticTransform = (editorProps) => {
-    var widgetProps = _.pick(editorProps,
+const staticTransform = (editorProps) => {
+    const widgetProps = _.pick(editorProps,
         "matrixBoardSize", "prefix", "suffix");
     // We convert matrix cells from numbers to string to match the expected
     // input into the rendered widget.

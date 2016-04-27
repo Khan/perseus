@@ -6,22 +6,22 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var updateQueryString = require("../util.js").updateQueryString;
+const Changeable = require("../mixins/changeable.jsx");
+const updateQueryString = require("../util.js").updateQueryString;
 
-var PADDING_WIDTH = 2;
+const PADDING_WIDTH = 2;
 
-var IS_KA_SITE = /khanacademy\.org/;
-var KA_EMBED_URL = "https://{hostname}/computer-programming/program/" +
+const IS_KA_SITE = /khanacademy\.org/;
+const KA_EMBED_URL = "https://{hostname}/computer-programming/program/" +
         "{programID}/embedded?embed=yes&author=no";
 
 function getUrlFromProgramID(programID) {
-    var url = KA_EMBED_URL.replace("{programID}", programID);
-    var currentHostname = document.location.hostname;
-    var embedHostname = "www.khanacademy.org";
+    const url = KA_EMBED_URL.replace("{programID}", programID);
+    const currentHostname = document.location.hostname;
+    const embedHostname = "www.khanacademy.org";
     if (IS_KA_SITE.test(currentHostname)) {
         embedHostname = currentHostname;
     }
@@ -30,7 +30,7 @@ function getUrlFromProgramID(programID) {
 
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
-var CSProgram = React.createClass({
+const CSProgram = React.createClass({
 
     mixins: [Changeable],
 
@@ -59,7 +59,7 @@ var CSProgram = React.createClass({
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
-        var data = {};
+        const data = {};
         try {
             data = JSON.parse(e.originalEvent.data);
         } catch (err) {
@@ -70,7 +70,7 @@ var CSProgram = React.createClass({
             return;
         }
 
-        var status = (data.testsPassed ? "correct" : "incorrect");
+        const status = (data.testsPassed ? "correct" : "incorrect");
         this.change({
             status: status,
             message: data.message,
@@ -90,9 +90,9 @@ var CSProgram = React.createClass({
             return <div/>;
         }
 
-        var url = getUrlFromProgramID(this.props.programID);
-        var className;
-        var style = {
+        const url = getUrlFromProgramID(this.props.programID);
+        const className;
+        const style = {
             height: this.props.height,
         };
 
@@ -115,7 +115,7 @@ var CSProgram = React.createClass({
 
         // Turn array of [{name: "", value: ""}] into object
         if (this.props.settings) {
-            var settings = {};
+            const settings = {};
             _.each(this.props.settings, function(setting) {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;

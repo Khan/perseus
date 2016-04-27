@@ -4,17 +4,17 @@
 
 // Responsible for combining the text diffs from text-diff and the widget
 // diffs from widget-differ.
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var TextDiff = require("./text-diff.jsx");
-var WidgetDiff = require("./widget-diff.jsx");
+const TextDiff = require("./text-diff.jsx");
+const WidgetDiff = require("./widget-diff.jsx");
 
 // Deeply look up a property in an object,
 // -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
-var getPath = function(obj, path, defaultValue) {
-    var returningDefault = false;
-    var result = _(path).reduce(function(obj, key) {
+const getPath = function(obj, path, defaultValue) {
+    const returningDefault = false;
+    const result = _(path).reduce(function(obj, key) {
         if (returningDefault || !obj.hasOwnProperty(key)) {
             returningDefault = true;
             return defaultValue;
@@ -24,44 +24,44 @@ var getPath = function(obj, path, defaultValue) {
     return result;
 };
 
-var widgetsIn = function(item) {
-    var question = item.question || {};
-    var widgets = question.widgets || {};
+const widgetsIn = function(item) {
+    const question = item.question || {};
+    const widgets = question.widgets || {};
 
     return _.keys(widgets);
 };
 
-var hintWidgetsIn = function(item, n) {
-    var hints = item.hints || [];
-    var hint = hints[n] || {};
-    var widgets = hint.widgets || {};
+const hintWidgetsIn = function(item, n) {
+    const hints = item.hints || [];
+    const hint = hints[n] || {};
+    const widgets = hint.widgets || {};
     return _.keys(widgets);
 };
 
 
 
-var isWidget = obj => _.isObject(obj) && !("content" in obj);
+const isWidget = obj => _.isObject(obj) && !("content" in obj);
 
-var RevisionDiff = React.createClass({
+const RevisionDiff = React.createClass({
     propTypes: {
         beforeItem: React.PropTypes.any.isRequired,
         afterItem: React.PropTypes.any.isRequired,
     },
 
     render: function() {
-        var before = this.props.beforeItem;
-        var after = this.props.afterItem;
+        const before = this.props.beforeItem;
+        const after = this.props.afterItem;
         // Not going to handle inserting hints in the middle so well, but
         // that's pretty complicated to handle nicely.
         // This will do for now.
-        var hintCount = 0;
+        const hintCount = 0;
         if (_(before).has("hints") && _(after).has("hints")) {
             hintCount = Math.max(before.hints.length, after.hints.length);
         }
 
-        var widgets = _.union(widgetsIn(before), widgetsIn(after));
+        const widgets = _.union(widgetsIn(before), widgetsIn(after));
 
-        var sections = [
+        const sections = [
             {
                 title: "Question",
                 path: ["question"],
@@ -87,7 +87,7 @@ var RevisionDiff = React.createClass({
         ).concat(
             _.flatten(
                 _.times(hintCount, function(n) {
-                    var hintWidgets = _.union(
+                    const hintWidgets = _.union(
                         hintWidgetsIn(before, n),
                         hintWidgetsIn(after, n));
 
@@ -102,13 +102,13 @@ var RevisionDiff = React.createClass({
         );
 
 
-        var result = [];
+        const result = [];
 
         _(sections).each(function(section, i) {
-            var path = section.path;
-            var beforeValue = getPath(before, path, "");
-            var afterValue = getPath(after, path, "");
-            var displayedDiff;
+            const path = section.path;
+            const beforeValue = getPath(before, path, "");
+            const afterValue = getPath(after, path, "");
+            const displayedDiff;
             if (isWidget(beforeValue) || isWidget(afterValue)) {
                 if (!isWidget(beforeValue)) {
                     beforeValue = {};

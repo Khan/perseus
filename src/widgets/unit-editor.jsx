@@ -15,20 +15,20 @@ const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 const NumberInput = require("../components/number-input.jsx");
 
-var { displaySigFigs } = require("../sigfigs.jsx");
+const { displaySigFigs } = require("../sigfigs.jsx");
 
 const ALL = "all";
 const SOME = "some";
 const MAX_SIGFIGS = 10;
 
 
-var sigfigPrint = function(num, sigfigs) {
+const sigfigPrint = function(num, sigfigs) {
     return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
 };
 
 // Extract the primitive units from a unit expression. This first simplifies
 // `expr` to a `Mul` like "5 kg m / s^2" then removes the first term.
-var primUnits = function(expr) {
+const primUnits = function(expr) {
     return expr.simplify().asMul().partition()[1].flatten().simplify();
 };
 
@@ -36,13 +36,13 @@ var primUnits = function(expr) {
 //
 // In the future I plan for this to show an example of a thing that would be
 // accepted in that unit.
-var UnitExample = React.createClass({
+const UnitExample = React.createClass({
     propTypes: {
         name: React.PropTypes.string,
     },
 
     render: function() {
-        var icon;
+        const icon;
         if (this.state.valid) {
             icon = <span>
                 <i className="icon-ok unit-example-okay" />
@@ -66,22 +66,22 @@ var UnitExample = React.createClass({
     },
 
     _checkValidity: function({ name, original, sigfigs }) {
-        var parseResult = KAS.unitParse(name);
-        var solvedExample = "";
+        const parseResult = KAS.unitParse(name);
+        const solvedExample = "";
 
         // A unit is valid if it parses and is equivalent to the original.
-        var valid = true;
+        const valid = true;
 
         if (parseResult.parsed && original) {
-            var x = new KAS.Var("x");
-            var { unit } = parseResult;
-            var equality = new KAS.Eq(
+            const x = new KAS.Var("x");
+            const { unit } = parseResult;
+            const equality = new KAS.Eq(
                 original,
                 "=",
                 new KAS.Mul(x, unit)
             );
             try {
-                var answer = equality.solveLinearEquationForVariable(x);
+                const answer = equality.solveLinearEquationForVariable(x);
 
                 // The third parameter is the least significant decimal place.
                 // I.e. the index of the last place you care about
@@ -128,11 +128,11 @@ const UnitInputEditor = React.createClass({
     },
 
     render: function() {
-        var { acceptingUnits, accepting } = this.props;
+        const { acceptingUnits, accepting } = this.props;
         acceptingUnits = acceptingUnits || [];
-        var acceptingElem = null;
+        const acceptingElem = null;
         if (accepting === SOME) {
-            var unitsArr = acceptingUnits.map((name, i) =>
+            const unitsArr = acceptingUnits.map((name, i) =>
                 <UnitExample name={name}
                              original={this.original || null}
                              sigfigs={this.props.sigfigs}
@@ -194,7 +194,7 @@ const UnitInputEditor = React.createClass({
     },
 
     handleAcceptingUnitsChange: function(event) {
-        var acceptingUnits = event.target.value
+        const acceptingUnits = event.target.value
             .split(",")
             .map(str => str.trim())
             .filter(str => str !== "");
@@ -223,7 +223,7 @@ const UnitInputEditor = React.createClass({
     },
 
     _doOriginal: function(props) {
-        var tryParse = KAS.unitParse(props.value);
+        const tryParse = KAS.unitParse(props.value);
         this.parsed = false;
 
         // Only update this state if the unit parsed *and* it has a magnitude
@@ -240,10 +240,10 @@ const UnitInputEditor = React.createClass({
     },
 
     getSaveWarnings: function() {
-        var { value, accepting, acceptingUnits } = this.props;
-        var warnings = [];
+        const { value, accepting, acceptingUnits } = this.props;
+        const warnings = [];
 
-        var tryParse = KAS.unitParse(value);
+        const tryParse = KAS.unitParse(value);
         if (!tryParse.parsed) {
             warnings.push("Answer did not parse");
         }

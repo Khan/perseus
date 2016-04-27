@@ -2,13 +2,13 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var React = require("react");
-var _ = require("underscore");
+const ButtonGroup = require("react-components/button-group.jsx");
+const React = require("react");
+const _ = require("underscore");
 
 const KhanColors = require("../../util/colors.js");
 
-var ColorPicker = React.createClass({
+const ColorPicker = React.createClass({
     COLORS: [KhanColors.BLACK, KhanColors.BLUE, KhanColors.GREEN,
         KhanColors.PINK, KhanColors.PURPLE, KhanColors.RED, KhanColors.GRAY],
 
@@ -30,7 +30,7 @@ var ColorPicker = React.createClass({
     },
 
     render: function() {
-        var colors = this.props.lightColors ? this.LIGHT_COLORS : this.COLORS;
+        const colors = this.props.lightColors ? this.LIGHT_COLORS : this.COLORS;
         return <ButtonGroup value={this.props.value}
             allowEmpty={false}
             buttons={_.map(colors, (color) => {

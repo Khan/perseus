@@ -18,7 +18,7 @@ const KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
  * returned unchanged.
  */
 function getSlugFromUrl(url) {
-    var match = KA_VIDEO_URL.exec(url);
+    const match = KA_VIDEO_URL.exec(url);
     if (match) {
         return match[1];
     }

@@ -2,17 +2,17 @@
 /* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Sortable = require("../components/sortable.jsx");
+const Sortable = require("../components/sortable.jsx");
 
-var shuffle = require("../util.js").shuffle;
+const shuffle = require("../util.js").shuffle;
 
-var HORIZONTAL = "horizontal";
-var VERTICAL = "vertical";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
-var Sorter = React.createClass({
+const Sorter = React.createClass({
     propTypes: {
         correct: React.PropTypes.arrayOf(React.PropTypes.string),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
@@ -33,7 +33,7 @@ var Sorter = React.createClass({
     },
 
     render: function() {
-        var options = shuffle(
+        const options = shuffle(
             this.props.correct,
             this.props.problemNum,
             /* ensurePermuted */ true
@@ -67,7 +67,7 @@ var Sorter = React.createClass({
 
 _.extend(Sorter, {
     validate: function(state, rubric) {
-        var correct = _.isEqual(state.options, rubric.correct);
+        const correct = _.isEqual(state.options, rubric.correct);
 
         return {
             type: "points",

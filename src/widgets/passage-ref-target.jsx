@@ -2,14 +2,14 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var Renderer = require("../renderer.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const Renderer = require("../renderer.jsx");
 
-var PassageRefTarget = React.createClass({
+const PassageRefTarget = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {

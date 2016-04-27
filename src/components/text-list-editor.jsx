@@ -2,15 +2,15 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var textWidthCache = {};
+const textWidthCache = {};
 function getTextWidth(text) {
     if (!textWidthCache[text]) {
         // Hacky way to guess the width of an input box
-        var $test = $("<span>").text(text).appendTo("body");
+        const $test = $("<span>").text(text).appendTo("body");
         textWidthCache[text] = $test.width() + 5;
         $test.remove();
     }
@@ -18,7 +18,7 @@ function getTextWidth(text) {
 }
 
 
-var TextListEditor = React.createClass({
+const TextListEditor = React.createClass({
     propTypes: {
         options: React.PropTypes.arrayOf(React.PropTypes.string),
         layout: React.PropTypes.string,
@@ -45,13 +45,13 @@ var TextListEditor = React.createClass({
     },
 
     render: function() {
-        var className = [
+        const className = [
             "perseus-text-list-editor",
             "ui-helper-clearfix",
             "layout-" + this.props.layout,
         ].join(" ");
 
-        var inputs = _.map(this.state.items, function(item, i) {
+        const inputs = _.map(this.state.items, function(item, i) {
             return <li key={i}>
                 <input
                     ref={"input_" + i}
@@ -67,7 +67,7 @@ var TextListEditor = React.createClass({
     },
 
     onChange: function(index, event) {
-        var items = _.clone(this.state.items);
+        const items = _.clone(this.state.items);
         items[index] = event.target.value;
 
         if (index === items.length - 1) {
@@ -79,7 +79,7 @@ var TextListEditor = React.createClass({
     },
 
     onKeyDown: function(index, event) {
-        var which = event.nativeEvent.keyCode;
+        const which = event.nativeEvent.keyCode;
 
         // Backspace deletes an empty input...
         if (which === 8 /* backspace */ && this.state.items[index] === "") {

@@ -2,24 +2,24 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var Tooltip = require("react-components/tooltip.jsx");
-var _ = require("underscore");
+const React = require('react');
+const Tooltip = require("react-components/tooltip.jsx");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var MathInput  = require("./math-input.jsx");
-var Renderer   = require("../renderer.jsx");
-var TextInput  = require("./text-input.jsx");
-var MathOutput = require("../components/math-output.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const MathInput  = require("./math-input.jsx");
+const Renderer   = require("../renderer.jsx");
+const TextInput  = require("./text-input.jsx");
+const MathOutput = require("../components/math-output.jsx");
 
-var captureScratchpadTouchStart =
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var MATH = "math";
-var TEXT = "text";
-var TEX = "tex";
+const MATH = "math";
+const TEXT = "text";
+const TEX = "tex";
 
-var InputWithExamples = React.createClass({
+const InputWithExamples = React.createClass({
     propTypes: {
         type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
         value: React.PropTypes.string,
@@ -68,7 +68,7 @@ var InputWithExamples = React.createClass({
         }
 
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
-        var className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+        const className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }
@@ -80,7 +80,7 @@ var InputWithExamples = React.createClass({
 
     _getPropsForInputType: function() {
         // Minimal set of props, used by each input type
-        var inputProps = {
+        const inputProps = {
             "aria-describedby": this._getUniqueId(),
             ref: "input",
             className: this._getInputClassName(),
@@ -135,13 +135,13 @@ var InputWithExamples = React.createClass({
     },
 
     _renderInput: function() {
-        var inputProps = this._getPropsForInputType();
-        var InputComponent = this._getComponentForInputType();
+        const inputProps = this._getPropsForInputType();
+        const InputComponent = this._getComponentForInputType();
         return <InputComponent {...inputProps} />;
     },
 
     render: function() {
-        var input = this._renderInput();
+        const input = this._renderInput();
 
         // Static rendering, which doesn't include the 'tooltip' logic that the
         // other types require, and is hence handled separately.
@@ -150,11 +150,11 @@ var InputWithExamples = React.createClass({
         }
 
         // Else, we need to be able to show examples
-        var examplesContent = _.map(this.props.examples, (example) => {
+        const examplesContent = _.map(this.props.examples, (example) => {
             return "- " + example;
         }).join("\n");
 
-        var showExamples = this.props.shouldShowExamples &&
+        const showExamples = this.props.shouldShowExamples &&
                 this.state.showExamples;
 
         return <Tooltip

@@ -33,7 +33,7 @@ const PassageEditor = React.createClass({
     },
 
     render: function() {
-        var passageEditor = <Editor
+        const passageEditor = <Editor
             ref="passage-editor"
             content={this.props.passageText}
             widgetEnabled={false}
@@ -43,7 +43,7 @@ const PassageEditor = React.createClass({
             }}
             showWordCount={true}
         />;
-        var footnotesEditor = <Editor
+        const footnotesEditor = <Editor
             ref="passage-footnotes-editor"
             content={this.props.footnotes}
             widgetEnabled={false}

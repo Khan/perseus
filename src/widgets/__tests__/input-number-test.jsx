@@ -6,15 +6,15 @@
  * Disclaimer: Definitely not thorough enough
  */
 
-var assert = require("assert");
-var _ = require("underscore");
-var InputNumber = require("../input-number.jsx");
+const assert = require("assert");
+const _ = require("underscore");
+const InputNumber = require("../input-number.jsx");
 
-var transform = InputNumber.transform;
+const transform = InputNumber.transform;
 
 describe("input-number", function() {
     it("transform should remove the `value` field", function() {
-        var editorProps = {
+        const editorProps = {
             value: 5,
             simplify: "required",
             size: "normal",
@@ -22,7 +22,7 @@ describe("input-number", function() {
             maxError: 0.1,
             answerType: "number",
         };
-        var widgetProps = transform(editorProps);
+        const widgetProps = transform(editorProps);
         assert.strictEqual(_.has(widgetProps, "value"), false);
     });
 });

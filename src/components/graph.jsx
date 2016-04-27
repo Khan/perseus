@@ -2,22 +2,22 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Util = require("../util.js");
+const Util = require("../util.js");
 const GraphUtils = require("../util/graph-utils.js");
 
-var SvgImage = require("../components/svg-image.jsx");
+const SvgImage = require("../components/svg-image.jsx");
 
-var defaultBoxSize = 400;
-var defaultBackgroundImage = {
+const defaultBoxSize = 400;
+const defaultBackgroundImage = {
     url: null,
 };
 
 /* Style objects */
-var defaultInstructionsStyle = {
+const defaultInstructionsStyle = {
     fontStyle: 'italic',
     fontWeight: 'bold',
     fontSize: '32px',
@@ -32,7 +32,7 @@ var defaultInstructionsStyle = {
     '-webkit-transition': 'opacity .25s ease-in-out',
 };
 
-var instructionsTextStyle = {
+const instructionsTextStyle = {
     position: 'relative',
     top: '25%',
 };
@@ -41,7 +41,7 @@ function numSteps(range, step) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-var Graph = React.createClass({
+const Graph = React.createClass({
     propTypes: {
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -91,10 +91,10 @@ var Graph = React.createClass({
     },
 
     render: function() {
-        var image;
-        var imageData = this.props.backgroundImage;
+        const image;
+        const imageData = this.props.backgroundImage;
         if (imageData.url) {
-            var scale = this.props.box[0] / defaultBoxSize;
+            const scale = this.props.box[0] / defaultBoxSize;
             image = <SvgImage src={imageData.url}
                               width={imageData.width}
                               height={imageData.height}
@@ -133,10 +133,10 @@ var Graph = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var potentialChanges = ["labels", "range", "step", "markings",
+        const potentialChanges = ["labels", "range", "step", "markings",
             "showProtractor", "showRuler", "rulerLabel", "rulerTicks",
             "gridStep", "snapStep"];
-        var self = this;
+        const self = this;
         _.each(potentialChanges, function(prop) {
             if (!_.isEqual(self.props[prop], nextProps[prop])) {
                 self._shouldSetupGraphie = true;
@@ -158,16 +158,16 @@ var Graph = React.createClass({
     },
 
     pointsFromNormalized: function(coordsList, noSnap) {
-        var self = this;
+        const self = this;
         return _.map(coordsList, function(coords) {
             return _.map(coords, function(coord, i) {
-                var range = self.props.range[i];
+                const range = self.props.range[i];
                 if (noSnap) {
                     return range[0] + (range[1] - range[0]) * coord;
                 } else {
-                    var step = self.props.step[i];
-                    var nSteps = numSteps(range, step);
-                    var tick = Math.round(coord * nSteps);
+                    const step = self.props.step[i];
+                    const nSteps = numSteps(range, step);
+                    const tick = Math.round(coord * nSteps);
                     return range[0] + step * tick;
                 }
             });
@@ -185,13 +185,13 @@ var Graph = React.createClass({
             return;
         }
 
-        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
-        var labels = this.props.labels;
-        var range = this.props.range;
-        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
+        const labels = this.props.labels;
+        const range = this.props.range;
+        const graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
 
-        var gridConfig = this._getGridConfig();
+        const gridConfig = this._getGridConfig();
         graphie.snap = this.props.snapStep;
 
         if (this.props.markings === "graph") {
@@ -224,9 +224,9 @@ var Graph = React.createClass({
         }
 
         // Add instructions just before mouse layer
-        var visible = 0.5;
-        var invisible = 0.0;
-        var $instructionsWrapper;
+        const visible = 0.5;
+        const invisible = 0.0;
+        const $instructionsWrapper;
         if (this.props.instructions) {
             $instructionsWrapper = $("<div/>");
             _.each(defaultInstructionsStyle, function(value, key) {
@@ -234,7 +234,7 @@ var Graph = React.createClass({
             });
             $instructionsWrapper.css("opacity", visible);
 
-            var $instructions = $("<span/>", {
+            const $instructions = $("<span/>", {
                 text: this.props.instructions,
             });
             _.each(instructionsTextStyle, function(value, key) {
@@ -248,7 +248,7 @@ var Graph = React.createClass({
         }
 
         // Add some handlers for instructions text (if necessary)
-        var onMouseDown = ($instructionsWrapper || this.props.onMouseDown) ?
+        const onMouseDown = ($instructionsWrapper || this.props.onMouseDown) ?
             _.bind(function(coord) {
                 if ($instructionsWrapper) {
                     $instructionsWrapper.remove();
@@ -257,13 +257,13 @@ var Graph = React.createClass({
                 this.props.onMouseDown(coord);
             }, this) : null;
 
-        var onMouseOver = ($instructionsWrapper) ?
+        const onMouseOver = ($instructionsWrapper) ?
             function() {
                 $instructionsWrapper &&
                     $instructionsWrapper.css("opacity", invisible);
             } : null;
 
-        var onMouseOut = ($instructionsWrapper) ?
+        const onMouseOut = ($instructionsWrapper) ?
             function() {
                 $instructionsWrapper &&
                     $instructionsWrapper.css("opacity", visible);
@@ -295,7 +295,7 @@ var Graph = React.createClass({
     },
 
     _getGridConfig: function() {
-        var self = this;
+        const self = this;
         return _.map(self.props.step, function(step, i) {
             return Util.gridDimensionConfig(
                     step,
@@ -311,7 +311,7 @@ var Graph = React.createClass({
         }
 
         if (this.props.showProtractor) {
-            var coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
+            const coord = this.pointsFromNormalized([[0.50, 0.05]])[0];
             this.protractor = this._graphie.protractor(coord);
         }
     },
@@ -322,8 +322,8 @@ var Graph = React.createClass({
         }
 
         if (this.props.showRuler) {
-            var coord = this.pointsFromNormalized([[0.50, 0.25]])[0];
-            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+            const coord = this.pointsFromNormalized([[0.50, 0.25]])[0];
+            const extent = this._graphie.range[0][1] - this._graphie.range[0][0];
             this.ruler = this._graphie.ruler({
                 center: coord,
                 label: this.props.rulerLabel,

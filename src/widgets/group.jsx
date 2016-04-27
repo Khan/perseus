@@ -2,14 +2,14 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable   = require("../mixins/changeable.jsx");
-var Renderer = require("../renderer.jsx");
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable   = require("../mixins/changeable.jsx");
+const Renderer = require("../renderer.jsx");
 
-var Group = React.createClass({
+const Group = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -44,7 +44,7 @@ var Group = React.createClass({
     },
 
     render: function() {
-        var apiOptions = _.extend(
+        const apiOptions = _.extend(
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
@@ -70,8 +70,8 @@ var Group = React.createClass({
         // give ourselves number -1. To combat this, we forceUpdate in
         // componentDidMount so that we can number ourselves properly. But,
         // really we should have a more unidirectional flow. TODO(marcia): fix.
-        var number = _.indexOf(this.props.interWidgets("group"), this);
-        var problemNumComponent = this.props.apiOptions.groupAnnotator(
+        const number = _.indexOf(this.props.interWidgets("group"), this);
+        const problemNumComponent = this.props.apiOptions.groupAnnotator(
             number, this.props.widgetId);
 
         // This is a little strange because the id of the widget that actually
@@ -79,7 +79,7 @@ var Group = React.createClass({
         // widgets prop also wasn't actually changed, and this only serves to
         // alert our renderer (our parent) of the fact that some interaction
         // has occurred.
-        var onInteractWithWidget = (id) => {
+        const onInteractWithWidget = (id) => {
             if (this.refs.renderer) {
                 this.change("widgets", this.refs.renderer.props.widgets);
             }
@@ -165,7 +165,7 @@ var Group = React.createClass({
     },
 });
 
-var traverseChildWidgets = function(
+const traverseChildWidgets = function(
         props,
         traverseRenderer) {
 

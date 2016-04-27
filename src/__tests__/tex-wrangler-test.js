@@ -2,16 +2,16 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var assert = require("assert");
+const assert = require("assert");
 
-var tex = require("../tex-wrangler.js");
+const tex = require("../tex-wrangler.js");
 
-var whitespaceRegex = /\s/g;
+const whitespaceRegex = /\s/g;
 
 function assertWrangled(toWrangle, check) {
     // We ignore whitespace when comparing
-    var wrangled = tex.modifyTex(toWrangle).replace(whitespaceRegex, "");
-    var checkNoSpace = check.replace(whitespaceRegex, "");
+    const wrangled = tex.modifyTex(toWrangle).replace(whitespaceRegex, "");
+    const checkNoSpace = check.replace(whitespaceRegex, "");
     assert.strictEqual(wrangled, checkNoSpace);
 }
 

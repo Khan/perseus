@@ -2,21 +2,21 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React     = require("react");
-var _ = require("underscore");
+const React     = require("react");
+const _ = require("underscore");
 
-var TeX       = require("react-components/tex.jsx");
+const TeX       = require("react-components/tex.jsx");
 
-var prettyBig = { fontSize: "150%" };
-var slightlyBig = { fontSize: "120%" };
-var symbStyle = { fontSize: "130%" };
+const prettyBig = { fontSize: "150%" };
+const slightlyBig = { fontSize: "120%" };
+const symbStyle = { fontSize: "130%" };
 
 // These are functions because we want to generate a new component for each use
 // on the page rather than reusing an instance (which will cause an error).
 // Also, it's useful for things which might look different depending on the
 // props.
 
-var basic = [
+const basic = [
     () => [<span key="plus" style={slightlyBig}>+</span>, "+"],
     () => [<span key="minus" style={prettyBig}>-</span>, "-"],
 
@@ -38,7 +38,7 @@ var basic = [
         // fraction, typing "/" puts it in the numerator. If not, typing
         // "/" does nothing. In that case, enter a \frac.
         input => {
-            var contents = input.latex();
+            const contents = input.latex();
             input.typedText("/");
             if (input.latex() === contents) {
                 input.cmd("\\frac");
@@ -47,7 +47,7 @@ var basic = [
     ],
 ];
 
-var buttonSets = {
+const buttonSets = {
     basic,
 
     "basic+div": basic.concat([
@@ -74,7 +74,7 @@ var buttonSets = {
         () => [
             <TeX key="pow" style={slightlyBig}>□^a</TeX>,
             input => {
-                var contents = input.latex();
+                const contents = input.latex();
                 input.keystroke("Up");
                 if (input.latex() === contents) {
                     input.typedText("a^b");
@@ -111,11 +111,11 @@ var buttonSets = {
     ],
 };
 
-var buttonSetsType = React.PropTypes.arrayOf(
+const buttonSetsType = React.PropTypes.arrayOf(
         React.PropTypes.oneOf(_(buttonSets).keys())
     );
 
-var TexButtons = React.createClass({
+const TexButtons = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
         sets: buttonSetsType.isRequired,
@@ -126,14 +126,14 @@ var TexButtons = React.createClass({
         // Always show buttonSets in the same order. Note: Technically it's ok
         // for _.keys() to return the keys in an arbitrary order, but in
         // practice, they will be ordered as listed above.
-        var sortedButtonSets = _.sortBy(this.props.sets,
+        const sortedButtonSets = _.sortBy(this.props.sets,
             (setName) => _.keys(buttonSets).indexOf(setName));
 
-        var buttons = _(sortedButtonSets).map(setName => buttonSets[setName]);
+        const buttons = _(sortedButtonSets).map(setName => buttonSets[setName]);
 
-        var buttonRows = _(buttons).map(row => row.map(symbGen => {
+        const buttonRows = _(buttons).map(row => row.map(symbGen => {
             // create a (component, thing we should send to mathquill) pair
-            var symbol = symbGen(this.props);
+            const symbol = symbGen(this.props);
             return <button onClick={() => this.props.onInsert(symbol[1])}
                            className="tex-button"
                            key={symbol[0].key}
@@ -143,7 +143,7 @@ var TexButtons = React.createClass({
             </button>;
         }));
 
-        var buttonPopup = _(buttonRows).map((row, i) => {
+        const buttonPopup = _(buttonRows).map((row, i) => {
             return <div className="clearfix tex-button-row"
                         key={this.props.sets[i]}>
                 {row}

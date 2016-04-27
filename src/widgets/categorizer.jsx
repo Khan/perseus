@@ -4,17 +4,17 @@
 
 /* global i18n:false */
 
-var React = require('react');
-var classNames = require("classnames");
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var _ = require("underscore");
+const React = require('react');
+const classNames = require("classnames");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
 
-var Categorizer = React.createClass({
+const Categorizer = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
@@ -46,14 +46,14 @@ var Categorizer = React.createClass({
     },
 
     render: function() {
-        var self = this;
+        const self = this;
 
-        var indexedItems = _.map(this.props.items, (item, n) => [item, n]);
+        const indexedItems = _.map(this.props.items, (item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
 
-        var className = classNames({
+        const className = classNames({
             "categorizer-container": true,
             "clearfix": true,
             "static-mode": this.props.static,
@@ -73,9 +73,9 @@ var Categorizer = React.createClass({
                 })}
             </tr></thead>
             <tbody>{_.map(indexedItems, (indexedItem) => {
-                var item = indexedItem[0];
-                var itemNum = indexedItem[1];
-                var uniqueId = self.state.uniqueId + "_" + itemNum;
+                const item = indexedItem[0];
+                const itemNum = indexedItem[1];
+                const uniqueId = self.state.uniqueId + "_" + itemNum;
                 return <tr key={itemNum}>
                     <td><Renderer content={item}/></td>
                     {_.range(self.props.categories.length).map(catNum => {
@@ -112,7 +112,7 @@ var Categorizer = React.createClass({
     },
 
     onChange: function(itemNum, catNum) {
-        var values = _.clone(this.props.values);
+        const values = _.clone(this.props.values);
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();
@@ -126,8 +126,8 @@ var Categorizer = React.createClass({
 
 _.extend(Categorizer, {
     validate: function(state, rubric) {
-        var completed = true;
-        var allCorrect = true;
+        const completed = true;
+        const allCorrect = true;
         _.each(rubric.values, function(value, i) {
             if (state.values[i] == null) {
                 completed = false;

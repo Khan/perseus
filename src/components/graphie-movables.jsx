@@ -2,13 +2,13 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
-var GraphieClasses = require("./graphie-classes.jsx");
-var Interactive2 = require("../interactive2.js");
+const _ = require("underscore");
+const GraphieClasses = require("./graphie-classes.jsx");
+const Interactive2 = require("../interactive2.js");
 
 const KhanColors = require("../util/colors.js");
 
-var MovablePoint = GraphieClasses.createClass({
+const MovablePoint = GraphieClasses.createClass({
     displayName: "MovablePoint",
 
     movableProps: ["children"],
@@ -37,15 +37,15 @@ var MovablePoint = GraphieClasses.createClass({
 // Include helper methods, such as MovablePoint.constrain.snap()
 _.extend(MovablePoint, Interactive2.MovablePoint);
 
-var MovableLine = GraphieClasses.createClass({
+const MovableLine = GraphieClasses.createClass({
     displayName: "MovableLine",
 
     movableProps: ["children"],
 
     add: function(graphie) {
         // Add MovablePoint children
-        var points = _.pluck(this.props.children, "point");
-        var props = _.extend({}, this.props, {
+        const points = _.pluck(this.props.children, "point");
+        const props = _.extend({}, this.props, {
             points: points,
         });
         this.line = Interactive2.addMovableLine(graphie, props);
@@ -53,8 +53,8 @@ var MovableLine = GraphieClasses.createClass({
 
     modify: function() {
         // Add MovablePoint children
-        var points = _.pluck(this.props.children, "point");
-        var props = _.extend({}, this.props, {
+        const points = _.pluck(this.props.children, "point");
+        const props = _.extend({}, this.props, {
             points: points,
         });
         this.line.modify(props);
@@ -72,8 +72,8 @@ var MovableLine = GraphieClasses.createClass({
 // Include helper methods, such as MovableLine.constrain.snap()
 _.extend(MovableLine, Interactive2.MovableLine);
 
-var Label = GraphieClasses.createSimpleClass((graphie, props) => {
-    var coord = props.coord;
+const Label = GraphieClasses.createSimpleClass((graphie, props) => {
+    const coord = props.coord;
     if (props.unscaled) {
         coord = graphie.unscalePoint(coord);
     }
@@ -87,20 +87,20 @@ var Label = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
-var Line = GraphieClasses.createClass({
+const Line = GraphieClasses.createClass({
     displayName: "Line",
 
     movableProps: ["children"],
 
     add: function(graphie) {
-        var props = this.props;
+        const props = this.props;
         this.graphie = graphie;
         this.line = this.graphie.line(props.start, props.end, props.style);
     },
 
     modify: function() {
-        var props = this.props;
-        var path = this.graphie.svgPath([props.start, props.end]);
+        const props = this.props;
+        const path = this.graphie.svgPath([props.start, props.end]);
         this.line.attr(_.extend({}, props.style, { path: path }));
     },
 
@@ -113,21 +113,21 @@ var Line = GraphieClasses.createClass({
     },
 });
 
-var Parabola = GraphieClasses.createClass({
+const Parabola = GraphieClasses.createClass({
     displayName: "Parabola",
 
     movableProps: ["children"],
 
     add: function(graphie) {
-        var props = this.props;
+        const props = this.props;
         this.graphie = graphie;
         this.parabola = this.graphie.parabola(props.a, props.b, props.c,
             props.style);
     },
 
     modify: function() {
-        var props = this.props;
-        var path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
+        const props = this.props;
+        const path = this.graphie.svgParabolaPath(props.a, props.b, props.c);
         this.parabola.attr(_.extend({}, props.style, { path: path }));
     },
 
@@ -140,21 +140,21 @@ var Parabola = GraphieClasses.createClass({
     },
 });
 
-var Sinusoid = GraphieClasses.createClass({
+const Sinusoid = GraphieClasses.createClass({
     displayName: "Sinusoid",
 
     movableProps: ["children"],
 
     add: function(graphie) {
-        var props = this.props;
+        const props = this.props;
         this.graphie = graphie;
         this.sinusoid = this.graphie.sinusoid(props.a, props.b, props.c,
             props.d, props.style);
     },
 
     modify: function() {
-        var props = this.props;
-        var path = this.graphie.svgSinusoidPath(props.a, props.b, props.c,
+        const props = this.props;
+        const path = this.graphie.svgSinusoidPath(props.a, props.b, props.c,
             props.d);
         this.sinusoid.attr(_.extend({}, props.style, { path: path }));
     },
@@ -168,35 +168,35 @@ var Sinusoid = GraphieClasses.createClass({
     },
 });
 
-var Plot = GraphieClasses.createSimpleClass((graphie, props) => {
+const Plot = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.plot(props.fn, props.range, props.style);
 });
 
-var PlotParametric = GraphieClasses.createSimpleClass((graphie, props) => {
+const PlotParametric = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.plotParametric(props.fn, props.range, props.style);
 });
 
-var Point = GraphieClasses.createSimpleClass((graphie, props) => {
+const Point = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
         fill: props.color || KhanColors.BLACK,
         stroke: props.color || KhanColors.BLACK,
     });
 });
 
-var Path = GraphieClasses.createClass({
+const Path = GraphieClasses.createClass({
     displayName: "Path",
 
     movableProps: ["children"],
 
     add: function(graphie) {
-        var props = this.props;
+        const props = this.props;
         this.graphie = graphie;
         this.path = this.graphie.path(props.coords, props.style);
     },
 
     modify: function() {
-        var props = this.props;
-        var path = this.graphie.svgPath(props.coords);
+        const props = this.props;
+        const path = this.graphie.svgPath(props.coords);
         this.path.attr({ path: path });
     },
 
@@ -209,9 +209,9 @@ var Path = GraphieClasses.createClass({
     },
 });
 
-var Arc = GraphieClasses.createSimpleClass((graphie, props) => {
-    var center = props.center;
-    var radius = props.radius;
+const Arc = GraphieClasses.createSimpleClass((graphie, props) => {
+    const center = props.center;
+    const radius = props.radius;
     if (props.unscaled) {
         center = graphie.unscalePoint(center);
         radius = graphie.unscaleVector(radius);
@@ -227,7 +227,7 @@ var Arc = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
-var Circle = GraphieClasses.createSimpleClass((graphie, props) => {
+const Circle = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.circle(
         props.center,
         props.radius,
@@ -235,7 +235,7 @@ var Circle = GraphieClasses.createSimpleClass((graphie, props) => {
     );
 });
 
-var Rect = GraphieClasses.createSimpleClass((graphie, props) => {
+const Rect = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.rect(
         props.x, props.y, props.width, props.height, props.style);
 });

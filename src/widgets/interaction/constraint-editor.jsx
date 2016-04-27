@@ -2,15 +2,15 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var TeX = require("react-components/tex.jsx");
+const React = require("react");
+const TeX = require("react-components/tex.jsx");
 
-var ButtonGroup = require("react-components/button-group.jsx");
-var Changeable = require("../../mixins/changeable.jsx");
-var MathInput = require("../../components/math-input.jsx");
-var NumberInput = require("../../components/number-input.jsx");
+const ButtonGroup = require("react-components/button-group.jsx");
+const Changeable = require("../../mixins/changeable.jsx");
+const MathInput = require("../../components/math-input.jsx");
+const NumberInput = require("../../components/number-input.jsx");
 
-var ConstraintEditor = React.createClass({
+const ConstraintEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {

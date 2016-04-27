@@ -4,25 +4,25 @@
 
 /* global i18n:false */
 
-var classNames = require("classnames");
-var React = require('react');
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require('react');
+const _ = require("underscore");
 
-var InputWithExamples = require("../components/input-with-examples.jsx");
-var ParseTex = require("../tex-wrangler.js").parseTex;
-var PossibleAnswers = require("../components/possible-answers.jsx");
+const InputWithExamples = require("../components/input-with-examples.jsx");
+const ParseTex = require("../tex-wrangler.js").parseTex;
+const PossibleAnswers = require("../components/possible-answers.jsx");
 const { KeypadInput } = require("../../math-input").components;
 
-var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
-var ApiOptions      = require("../perseus-api.jsx").Options;
-var EnabledFeatures = require("../enabled-features.jsx");
+const ApiClassNames   = require("../perseus-api.jsx").ClassNames;
+const ApiOptions      = require("../perseus-api.jsx").Options;
+const EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const KhanMath = require("../util/math.js");
 const { configureKeypad } = require("../../math-input").actions;
 const { keypadConfigurationPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
-var answerFormButtons = [
+const answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
     {title: "Decimals", value: "decimal", content: "0.75"},
     {title: "Proper fractions", value: "proper", content: "\u2157"},
@@ -32,7 +32,7 @@ var answerFormButtons = [
     {title: "Numbers with \u03C0", value: "pi", content: "\u03C0"},
 ];
 
-var formExamples = {
+const formExamples = {
     "integer": () => i18n._("an integer, like $6$"),
     "proper": (form) => form.simplify === "optional" ?
         i18n._("a *proper* fraction, like $1/2$ or $6/10$") :
@@ -46,7 +46,7 @@ var formExamples = {
                 "$2/3\\ \\text{pi}$"),
 };
 
-var NumericInput = React.createClass({
+const NumericInput = React.createClass({
     propTypes: {
         currentValue: React.PropTypes.string,
         size: React.PropTypes.oneOf(["normal", "small"]),
@@ -99,21 +99,21 @@ var NumericInput = React.createClass({
         } else {
             // HACK(johnsullivan): Create a function with shared logic between
             // this and InputNumber.
-            var correct;
-            var answerBlurb;
-            var rubric = this.props.reviewModeRubric;
+            const correct;
+            const answerBlurb;
+            const rubric = this.props.reviewModeRubric;
             if (rubric) {
-                var score = this.simpleValidate(rubric);
+                const score = this.simpleValidate(rubric);
                 correct = score.type === "points" &&
                           score.earned === score.total;
 
                 if (!correct) {
-                    var correctAnswers = _.filter(
+                    const correctAnswers = _.filter(
                         rubric.answers, answer => answer.status === "correct");
-                    var answerStrings = _.map(correctAnswers, (answer) => {
+                    const answerStrings = _.map(correctAnswers, (answer) => {
                         // Figure out how this answer is supposed to be
                         // displayed
-                        var format = "decimal";
+                        const format = "decimal";
                         if (answer.answerForms && answer.answerForms[0]) {
                             // NOTE(johnsullivan): This isn't exactly ideal, but
                             // it does behave well for all the currently known
@@ -122,7 +122,7 @@ var NumericInput = React.createClass({
                             format = answer.answerForms[0];
                         }
 
-                        var answerString = KhanMath.toNumericString(
+                        const answerString = KhanMath.toNumericString(
                             answer.value, format);
                         if (answer.maxError) {
                             answerString += " \u00B1 " +
@@ -135,7 +135,7 @@ var NumericInput = React.createClass({
                 }
             }
 
-            var classes = {};
+            const classes = {};
             classes["perseus-input-size-" + this.props.size] = true;
             classes[ApiClassNames.CORRECT] =
                 rubric && correct && this.props.currentValue;
@@ -144,12 +144,12 @@ var NumericInput = React.createClass({
             classes[ApiClassNames.UNANSWERED] = rubric &&
                 !this.props.currentValue;
 
-            var labelText = this.props.labelText;
+            const labelText = this.props.labelText;
             if (labelText == null || labelText === "") {
                 labelText = i18n._("Your answer:");
             }
 
-            var input = <InputWithExamples
+            const input = <InputWithExamples
                 ref="input"
                 value={this.props.currentValue}
                 onChange={this.handleChange}
@@ -234,8 +234,8 @@ var NumericInput = React.createClass({
     },
 
     shouldShowExamples: function() {
-        var noFormsAccepted = this.props.answerForms.length === 0;
-        var allFormsAccepted = this.props.answerForms.length >=
+        const noFormsAccepted = this.props.answerForms.length === 0;
+        const allFormsAccepted = this.props.answerForms.length >=
                 _.size(formExamples);
         return this.props.enabledFeatures.toolTipFormats &&
                 !noFormsAccepted && !allFormsAccepted;
@@ -243,7 +243,7 @@ var NumericInput = React.createClass({
 
     examples: function() {
         // if the set of specified forms are empty, allow all forms
-        var forms = this.props.answerForms.length !== 0 ?
+        const forms = this.props.answerForms.length !== 0 ?
                         this.props.answerForms :
                         _.map(_.keys(formExamples), (name) => {
                             return {
@@ -252,7 +252,7 @@ var NumericInput = React.createClass({
                             };
                         });
 
-        var examples = _.map(forms, (form) => {
+        const examples = _.map(forms, (form) => {
             return formExamples[form.name](form);
         });
 
@@ -262,9 +262,9 @@ var NumericInput = React.createClass({
 
 _.extend(NumericInput, {
     validate: function(state, rubric) {
-        var allAnswerForms = _.pluck(answerFormButtons, "value");
+        const allAnswerForms = _.pluck(answerFormButtons, "value");
 
-        var createValidator = (answer) =>
+        const createValidator = (answer) =>
             KhanAnswerTypes.number.createValidatorFunctional(
                 answer.value, {
                     message: answer.message,
@@ -279,16 +279,16 @@ _.extend(NumericInput, {
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
-        var currentValue = ParseTex(state.currentValue);
+        const currentValue = ParseTex(state.currentValue);
 
         // Look through all correct answers for one that matches either
         // precisely or approximately and return the appropriate message:
         // - if precise, return the message that the answer came with
         // - if it needs to be simplified, etc., show that message
-        var correctAnswers = _.where(rubric.answers, {status: "correct"});
-        var result = _.find(_.map(correctAnswers, (answer) => {
+        const correctAnswers = _.where(rubric.answers, {status: "correct"});
+        const result = _.find(_.map(correctAnswers, (answer) => {
             // The coefficient is an attribute of the widget
-            var localValue = currentValue;
+            const localValue = currentValue;
             if (rubric.coefficient) {
                 if (!localValue) {
                     localValue = 1;
@@ -297,20 +297,20 @@ _.extend(NumericInput, {
                 }
             }
 
-            var validate = createValidator(answer);
+            const validate = createValidator(answer);
             return validate(localValue);
         }), match => match.correct || match.empty);
 
         if (!result) { // Otherwise, if the guess is not correct
-            var otherAnswers = ([]).concat(
+            const otherAnswers = ([]).concat(
                 _.where(rubric.answers, {status: "ungraded"}),
                 _.where(rubric.answers, {status: "wrong"})
             );
 
             // Look through all other answers and if one matches either
             // precisely or approximately return the answer's message
-            var match = _.find(otherAnswers, (answer) => {
-                var validate = createValidator(answer);
+            const match = _.find(otherAnswers, (answer) => {
+                const validate = createValidator(answer);
                 return validate(currentValue).correct;
             });
             result = {
@@ -339,7 +339,7 @@ _.extend(NumericInput, {
     },
 });
 
-var unionAnswerForms = function(answerFormsList) {
+const unionAnswerForms = function(answerFormsList) {
     // Takes a list of lists of answer forms, and returns a list of the forms
     // in each of these lists in the same order that they're listed in the
     // `formExamples` forms from above.
@@ -347,11 +347,11 @@ var unionAnswerForms = function(answerFormsList) {
     // uniqueBy takes a list of elements and a function which compares whether
     // two elements are equal, and returns a list of unique elements. This is
     // just a helper function here, but works generally.
-    var uniqueBy = function(list, iteratee) {
+    const uniqueBy = function(list, iteratee) {
         return _.reduce(list, (uniqueList, element) => {
             // For each element, decide whether it's already in the list of
             // unique items.
-            var inList = _.find(uniqueList, iteratee.bind(null, element));
+            const inList = _.find(uniqueList, iteratee.bind(null, element));
             if (inList) {
                 return uniqueList;
             } else {
@@ -361,9 +361,9 @@ var unionAnswerForms = function(answerFormsList) {
     };
 
     // Pull out all of the forms from the different lists.
-    var allForms = _.flatten(answerFormsList);
+    const allForms = _.flatten(answerFormsList);
     // Pull out the unique forms using uniqueBy.
-    var uniqueForms = uniqueBy(allForms, _.isEqual);
+    const uniqueForms = uniqueBy(allForms, _.isEqual);
     // Sort them by the order they appear in the `formExamples` list.
     return _.sortBy(uniqueForms, (form) => {
         return _.keys(formExamples).indexOf(form.name);
@@ -419,8 +419,8 @@ const keypadConfigurationForProps = (props) => {
     }
 };
 
-var propsTransform = function(editorProps) {
-    var rendererProps = _.extend(
+const propsTransform = function(editorProps) {
+    const rendererProps = _.extend(
         _.omit(editorProps, "answers"),
         {
             answerForms: unionAnswerForms(

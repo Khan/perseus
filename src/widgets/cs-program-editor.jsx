@@ -2,23 +2,23 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var BlurInput = require("react-components/blur-input.jsx");
-var InfoTip = require("../components/info-tip.jsx");
-var PropCheckBox  = require("../components/prop-check-box.jsx");
+const BlurInput = require("react-components/blur-input.jsx");
+const InfoTip = require("../components/info-tip.jsx");
+const PropCheckBox  = require("../components/prop-check-box.jsx");
 
-var DEFAULT_WIDTH = 400;
-var DEFAULT_HEIGHT = 400;
+const DEFAULT_WIDTH = 400;
+const DEFAULT_HEIGHT = 400;
 
 /**
  * This is used for editing a name/value pair.
  */
-var PairEditor = React.createClass({
+const PairEditor = React.createClass({
 
     mixins: [Changeable, EditorJsonify],
 
@@ -51,7 +51,7 @@ var PairEditor = React.createClass({
 /**
  * This is used for editing a set of name/value pairs.
  */
-var PairsEditor = React.createClass({
+const PairsEditor = React.createClass({
 
     mixins: [Changeable, EditorJsonify],
 
@@ -63,7 +63,7 @@ var PairsEditor = React.createClass({
     },
 
     render: function() {
-        var editors = _.map(this.props.pairs, (pair, i) => {
+        const editors = _.map(this.props.pairs, (pair, i) => {
             return <PairEditor key={i} name={pair.name} value={pair.value}
                      onChange={this.handlePairChange.bind(this, i)}/>;
         });
@@ -74,10 +74,10 @@ var PairsEditor = React.createClass({
 
     handlePairChange: function(pairIndex, pair) {
         // If they're both non empty, add a new one
-        var pairs = this.props.pairs.slice();
+        const pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
 
-        var lastPair = pairs[pairs.length - 1];
+        const lastPair = pairs[pairs.length - 1];
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }
@@ -85,7 +85,7 @@ var PairsEditor = React.createClass({
     },
 });
 
-var KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^\/]+\/(\d+)/;
+const KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^\/]+\/(\d+)/;
 
 /**
  * Given a program URL from the site, extract its program ID.
@@ -93,7 +93,7 @@ var KA_PROGRAM_URL = /khanacademy\.org\/computer-programming\/[^\/]+\/(\d+)/;
  * a program ID.
  */
 function isolateProgramID(programUrl) {
-    var match = KA_PROGRAM_URL.exec(programUrl);
+    const match = KA_PROGRAM_URL.exec(programUrl);
     if (match) {
         programUrl = match[1];
     }
@@ -104,7 +104,7 @@ function isolateProgramID(programUrl) {
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-var CSProgramEditor = React.createClass({
+const CSProgramEditor = React.createClass({
 
     mixins: [Changeable, EditorJsonify],
 

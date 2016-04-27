@@ -2,21 +2,21 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var FancySelect = require("../components/fancy-select.jsx");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const classNames = require("classnames");
+const FancySelect = require("../components/fancy-select.jsx");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var FancyOption = FancySelect.Option;
+const FancyOption = FancySelect.Option;
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
 
-var captureScratchpadTouchStart =
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 
-var Dropdown = React.createClass({
+const Dropdown = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         choices: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -36,9 +36,9 @@ var Dropdown = React.createClass({
     },
 
     render: function() {
-        var choices = this.props.choices.slice();
+        const choices = this.props.choices.slice();
 
-        var selectClasses = classNames({
+        const selectClasses = classNames({
             "perseus-widget-dropdown": true,
             "perseus-fancy-dropdown": this.props.apiOptions.fancyDropdowns,
         });
@@ -107,14 +107,14 @@ var Dropdown = React.createClass({
 
 _.extend(Dropdown, {
     validate: function(state, rubric) {
-        var selected = state.value;
+        const selected = state.value;
         if (selected === 0) {
             return {
                 type: "invalid",
                 message: null,
             };
         } else {
-            var correct = rubric.choices[selected - 1].correct;
+            const correct = rubric.choices[selected - 1].correct;
             return {
                 type: "points",
                 earned: correct ? 1 : 0,
@@ -125,7 +125,7 @@ _.extend(Dropdown, {
     },
 });
 
-var propTransform = (editorProps) => {
+const propTransform = (editorProps) => {
     return {
         placeholder: editorProps.placeholder,
         choices: _.map(editorProps.choices, (choice) => choice.content),

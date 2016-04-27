@@ -2,16 +2,16 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Util = require("../../util.js");
-var Graphie = require("../../components/graphie.jsx");
-var Plot = Graphie.Plot;
-var kpoint = require("kmath").point;
+const Util = require("../../util.js");
+const Graphie = require("../../components/graphie.jsx");
+const Plot = Graphie.Plot;
+const kpoint = require("kmath").point;
 
-var DEFAULT_BOX_SIZE = 400;
-var DEFAULT_EDITOR_BOX_SIZE = 340;
-var DEFAULT_BACKGROUND_IMAGE = {
+const DEFAULT_BOX_SIZE = 400;
+const DEFAULT_EDITOR_BOX_SIZE = 340;
+const DEFAULT_BACKGROUND_IMAGE = {
     url: null,
 };
 
@@ -21,10 +21,10 @@ function canonicalSineCoefficients(coeffs) {
     // For a curve of the form f(x) = a * Sin(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its
     // smallest possible positive value.
-    var amplitude = coeffs[0];
-    var angularFrequency = coeffs[1];
-    var phase = coeffs[2];
-    var verticalOffset = coeffs[3];
+    const amplitude = coeffs[0];
+    const angularFrequency = coeffs[1];
+    const phase = coeffs[2];
+    const verticalOffset = coeffs[3];
 
     // Guarantee a > 0
     if (amplitude < 0) {
@@ -33,7 +33,7 @@ function canonicalSineCoefficients(coeffs) {
         phase *= -1;
     }
 
-    var period = 2 * Math.PI;
+    const period = 2 * Math.PI;
     // Guarantee b > 0
     if (angularFrequency < 0) {
         angularFrequency *= -1;
@@ -56,10 +56,10 @@ function canonicalTangentCoefficients(coeffs) {
     // For a curve of the form f(x) = a * Tan(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its
     // smallest possible positive value.
-    var amplitude = coeffs[0];
-    var angularFrequency = coeffs[1];
-    var phase = coeffs[2];
-    var verticalOffset = coeffs[3];
+    const amplitude = coeffs[0];
+    const angularFrequency = coeffs[1];
+    const phase = coeffs[2];
+    const verticalOffset = coeffs[3];
 
     // Guarantee a > 0
     if (amplitude < 0) {
@@ -68,7 +68,7 @@ function canonicalTangentCoefficients(coeffs) {
         phase *= -1;
     }
 
-    var period = Math.PI;
+    const period = Math.PI;
     // Guarantee b > 0
     if (angularFrequency < 0) {
         angularFrequency *= -1;
@@ -87,7 +87,7 @@ function canonicalTangentCoefficients(coeffs) {
     return [amplitude, angularFrequency, phase, verticalOffset];
 }
 
-var PlotDefaults = {
+const PlotDefaults = {
     areEqual: function(coeffs1, coeffs2) {
         return Util.deepEq(coeffs1, coeffs2);
     },
@@ -101,42 +101,42 @@ var PlotDefaults = {
     },
 };
 
-var Linear = _.extend({}, PlotDefaults, {
+const Linear = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/67aaf581e6d9ef9038c10558a1f70ac21c11c9f8.png",
 
     defaultCoords: [[0.25, 0.75], [0.75, 0.75]],
 
     getCoefficients: function(coords) {
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
-        var denom = p2[0] - p1[0];
-        var num = p2[1] - p1[1];
+        const denom = p2[0] - p1[0];
+        const num = p2[1] - p1[1];
 
         if (denom === 0) {
             return;
         }
 
-        var m = num / denom;
-        var b = p2[1] - m * p2[0];
+        const m = num / denom;
+        const b = p2[1] - m * p2[0];
         return [m, b];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var m = coeffs[0];
-        var b = coeffs[1];
+        const m = coeffs[0];
+        const b = coeffs[1];
         return m * x + b;
     },
 
     getEquationString: function(coords) {
-        var coeffs = this.getCoefficients(coords);
-        var m = coeffs[0];
-        var b = coeffs[1];
+        const coeffs = this.getCoefficients(coords);
+        const m = coeffs[0];
+        const b = coeffs[1];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     },
 });
 
-var Quadratic = _.extend({}, PlotDefaults, {
+const Quadratic = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/e23d36e6fc29ee37174e92c9daba2a66677128ab.png",
 
     defaultCoords: [[0.5, 0.5], [0.75, 0.75]],
@@ -144,25 +144,25 @@ var Quadratic = _.extend({}, PlotDefaults, {
     Movable: Graphie.Parabola,
 
     getCoefficients: function(coords) {
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
         // Parabola with vertex (h, k) has form: y = a * (h - k)^2 + k
-        var h = p1[0];
-        var k = p1[1];
+        const h = p1[0];
+        const k = p1[1];
 
         // Use these to calculate familiar a, b, c
-        var a = (p2[1] - k) / ((p2[0] - h) * (p2[0] - h));
-        var b = -2 * h * a;
-        var c = a * h * h + k;
+        const a = (p2[1] - k) / ((p2[0] - h) * (p2[0] - h));
+        const b = -2 * h * a;
+        const c = a * h * h + k;
 
         return [a, b, c];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return (a * x + b) * x + c;
     },
 
@@ -175,16 +175,16 @@ var Quadratic = _.extend({}, PlotDefaults, {
     },
 
     getEquationString: function(coords) {
-        var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const coeffs = this.getCoefficients(coords);
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return "y = " + a.toFixed(3) + "x^2 + " + b.toFixed(3) +
                "x + " + c.toFixed(3);
     },
 });
 
-var Sinusoid = _.extend({}, PlotDefaults, {
+const Sinusoid = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/3d68e7718498475f53b206c2ab285626baf8857e.png",
 
     defaultCoords: [[0.5, 0.5], [0.6, 0.6]],
@@ -192,22 +192,22 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     Movable: Graphie.Sinusoid,
 
     getCoefficients: function(coords) {
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
-        var a = (p2[1] - p1[1]);
-        var b = Math.PI / (2 * (p2[0] - p1[0]));
-        var c = p1[0] * b;
-        var d = p1[1];
+        const a = (p2[1] - p1[1]);
+        const b = Math.PI / (2 * (p2[0] - p1[0]));
+        const c = p1[0] * b;
+        const d = p1[1];
 
         return [a, b, c, d];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
-        var d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return a * Math.sin(b * x - c) + d;
     },
 
@@ -221,11 +221,11 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     },
 
     getEquationString: function(coords) {
-        var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
-        var d = coeffs[3];
+        const coeffs = this.getCoefficients(coords);
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return "y = " + a.toFixed(3) + " sin(" + b.toFixed(3) +
                "x - " + c.toFixed(3) + ") + " + d.toFixed(3);
     },
@@ -236,37 +236,37 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     },
 });
 
-var Tangent = _.extend({}, PlotDefaults, {
+const Tangent = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/7db80d23c35214f98659fe1cf0765811c1bbfbba.png",
 
     defaultCoords: [[0.5, 0.5], [0.75, 0.75]],
 
     getCoefficients: function(coords) {
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
-        var a = (p2[1] - p1[1]);
-        var b = Math.PI / (4 * (p2[0] - p1[0]));
-        var c = p1[0] * b;
-        var d = p1[1];
+        const a = (p2[1] - p1[1]);
+        const b = Math.PI / (4 * (p2[0] - p1[0]));
+        const c = p1[0] * b;
+        const d = p1[1];
 
         return [a, b, c, d];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
-        var d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return a * Math.tan(b * x - c) + d;
     },
 
     getEquationString: function(coords) {
-        var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
-        var d = coeffs[3];
+        const coeffs = this.getCoefficients(coords);
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
         return "y = " + a.toFixed(3) + " sin(" + b.toFixed(3) +
                "x - " + c.toFixed(3) + ") + " + d.toFixed(3);
     },
@@ -277,7 +277,7 @@ var Tangent = _.extend({}, PlotDefaults, {
     },
 });
 
-var Exponential = _.extend({}, PlotDefaults, {
+const Exponential = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/9cbfad55525e3ce755a31a631b074670a5dad611.png",
 
     defaultCoords: [[0.5, 0.55], [0.75, 0.75]],
@@ -303,14 +303,14 @@ var Exponential = _.extend({}, PlotDefaults, {
      */
     extraCoordConstraint: function(newCoord, oldCoord, coords, asymptote,
             graph) {
-        var y = _.head(asymptote)[1];
+        const y = _.head(asymptote)[1];
         return _.all(coords, (coord) => coord[1] !== y);
     },
 
     extraAsymptoteConstraint: function(newCoord, oldCoord, coords, asymptote,
             graph) {
-        var y = newCoord[1];
-        var isValid = _.all(coords, (coord) => coord[1] > y) ||
+        const y = newCoord[1];
+        const isValid = _.all(coords, (coord) => coord[1] > y) ||
             _.all(coords, (coord) => coord[1] < y);
 
         if (isValid) {
@@ -318,13 +318,13 @@ var Exponential = _.extend({}, PlotDefaults, {
         } else {
             // Snap the asymptote as close as possible, i.e., if the user moves
             // the mouse really quickly into an invalid region
-            var oldY = oldCoord[1];
-            var wasBelow = _.all(coords, (coord) => coord[1] > oldY);
+            const oldY = oldCoord[1];
+            const wasBelow = _.all(coords, (coord) => coord[1] > oldY);
             if (wasBelow) {
-                var bottomMost = _.min(_.map(coords, (coord) => coord[1]));
+                const bottomMost = _.min(_.map(coords, (coord) => coord[1]));
                 return [oldCoord[0], bottomMost - graph.snapStep[1]];
             } else {
-                var topMost = _.max(_.map(coords, (coord) => coord[1]));
+                const topMost = _.max(_.map(coords, (coord) => coord[1]));
                 return [oldCoord[0], topMost + graph.snapStep[1]];
             }
         }
@@ -333,19 +333,19 @@ var Exponential = _.extend({}, PlotDefaults, {
     allowReflectOverAsymptote: true,
 
     getCoefficients: function(coords, asymptote) {
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
-        var c = _.head(asymptote)[1];
-        var b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
-        var a = (p1[1] - c) / Math.exp(b * p1[0]);
+        const c = _.head(asymptote)[1];
+        const b = Math.log((p1[1] - c) / (p2[1] - c)) / (p1[0] - p2[0]);
+        const a = (p1[1] - c) / Math.exp(b * p1[0]);
         return [a, b, c];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return a * Math.exp(b * x) + c;
     },
 
@@ -353,16 +353,16 @@ var Exponential = _.extend({}, PlotDefaults, {
         if (!asymptote) {
             return null;
         }
-        var coeffs = this.getCoefficients(coords, asymptote);
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const coeffs = this.getCoefficients(coords, asymptote);
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return "y = " + a.toFixed(3) + "e^(" + b.toFixed(3) + "x) + " +
             c.toFixed(3);
     },
 });
 
-var Logarithm = _.extend({}, PlotDefaults, {
+const Logarithm = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/f6491e99d34af34d924bfe0231728ad912068dc3.png",
 
     defaultCoords: [[0.55, 0.5], [0.75, 0.75]],
@@ -371,15 +371,15 @@ var Logarithm = _.extend({}, PlotDefaults, {
 
     extraCoordConstraint: function(newCoord, oldCoord, coords, asymptote,
             graph) {
-        var x = _.head(asymptote)[0];
+        const x = _.head(asymptote)[0];
         return _.all(coords, (coord) => coord[0] !== x) &&
             coords[0][1] !== coords[1][1];
     },
 
     extraAsymptoteConstraint: function(newCoord, oldCoord, coords, asymptote,
             graph) {
-        var x = newCoord[0];
-        var isValid = _.all(coords, (coord) => coord[0] > x) ||
+        const x = newCoord[0];
+        const isValid = _.all(coords, (coord) => coord[0] > x) ||
             _.all(coords, (coord) => coord[0] < x);
 
         if (isValid) {
@@ -387,13 +387,13 @@ var Logarithm = _.extend({}, PlotDefaults, {
         } else {
             // Snap the asymptote as close as possible, i.e., if the user moves
             // the mouse really quickly into an invalid region
-            var oldX = oldCoord[0];
-            var wasLeft = _.all(coords, (coord) => coord[0] > oldX);
+            const oldX = oldCoord[0];
+            const wasLeft = _.all(coords, (coord) => coord[0] > oldX);
             if (wasLeft) {
-                var leftMost = _.min(_.map(coords, (coord) => coord[0]));
+                const leftMost = _.min(_.map(coords, (coord) => coord[0]));
                 return [leftMost - graph.snapStep[0], oldCoord[1]];
             } else {
-                var rightMost = _.max(_.map(coords, (coord) => coord[0]));
+                const rightMost = _.max(_.map(coords, (coord) => coord[0]));
                 return [rightMost + graph.snapStep[0], oldCoord[1]];
             }
         }
@@ -406,19 +406,19 @@ var Logarithm = _.extend({}, PlotDefaults, {
         // about it as the inverse of the exponential, so we flip x and y and
         // perform some algebra on the coefficients. This also unifies the
         // logic between the two 'models'.
-        var flip = (coord) => [coord[1], coord[0]];
-        var inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip),
+        const flip = (coord) => [coord[1], coord[0]];
+        const inverseCoeffs = Exponential.getCoefficients(_.map(coords, flip),
             _.map(asymptote, flip));
-        var c = -inverseCoeffs[2] / inverseCoeffs[0];
-        var b = 1 / inverseCoeffs[0];
-        var a = 1 / inverseCoeffs[1];
+        const c = -inverseCoeffs[2] / inverseCoeffs[0];
+        const b = 1 / inverseCoeffs[0];
+        const a = 1 / inverseCoeffs[1];
         return [a, b, c];
     },
 
     getFunctionForCoeffs: function(coeffs, x, asymptote) {
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return a * Math.log(b * x + c);
     },
 
@@ -426,53 +426,53 @@ var Logarithm = _.extend({}, PlotDefaults, {
         if (!asymptote) {
             return null;
         }
-        var coeffs = this.getCoefficients(coords, asymptote);
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const coeffs = this.getCoefficients(coords, asymptote);
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
         return "y = ln(" + a.toFixed(3) + "x + " + b.toFixed(3) + ") + " +
             c.toFixed(3);
     },
 });
 
-var AbsoluteValue = _.extend({}, PlotDefaults, {
+const AbsoluteValue = _.extend({}, PlotDefaults, {
     url: "https://ka-perseus-graphie.s3.amazonaws.com/8256a630175a0cb1d11de223d6de0266daf98721.png",
 
     defaultCoords: [[0.5, 0.5], [0.75, 0.75]],
 
     getCoefficients: function(coords) {
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
-        var denom = p2[0] - p1[0];
-        var num = p2[1] - p1[1];
+        const denom = p2[0] - p1[0];
+        const num = p2[1] - p1[1];
 
         if (denom === 0) {
             return;
         }
 
-        var m = Math.abs(num / denom);
+        const m = Math.abs(num / denom);
         if (p2[1] < p1[1]) {
             m *= -1;
         }
-        var horizontalOffset = p1[0];
-        var verticalOffset = p1[1];
+        const horizontalOffset = p1[0];
+        const verticalOffset = p1[1];
 
         return [m, horizontalOffset, verticalOffset];
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var m = coeffs[0];
-        var horizontalOffset = coeffs[1];
-        var verticalOffset = coeffs[2];
+        const m = coeffs[0];
+        const horizontalOffset = coeffs[1];
+        const verticalOffset = coeffs[2];
         return m * Math.abs(x - horizontalOffset) + verticalOffset;
     },
 
     getEquationString: function(coords) {
-        var coeffs = this.getCoefficients(coords);
-        var m = coeffs[0];
-        var horizontalOffset = coeffs[1];
-        var verticalOffset = coeffs[2];
+        const coeffs = this.getCoefficients(coords);
+        const m = coeffs[0];
+        const horizontalOffset = coeffs[1];
+        const verticalOffset = coeffs[2];
         return "y = " + m.toFixed(3) + "| x - " +
             horizontalOffset.toFixed(3) + "| + " +
             verticalOffset.toFixed(3);
@@ -480,7 +480,7 @@ var AbsoluteValue = _.extend({}, PlotDefaults, {
 });
 
 /* Utility functions for dealing with graphing interfaces. */
-var functionTypeMapping = {
+const functionTypeMapping = {
     "linear": Linear,
     "quadratic": Quadratic,
     "sinusoid": Sinusoid,
@@ -490,13 +490,13 @@ var functionTypeMapping = {
     "absolute_value": AbsoluteValue,
 };
 
-var allTypes = _.keys(functionTypeMapping);
+const allTypes = _.keys(functionTypeMapping);
 
 function functionForType(type) {
     return functionTypeMapping[type];
 }
 
-var GrapherUtil = {
+const GrapherUtil = {
     validate: function(state, rubric) {
         if (state.type !== rubric.correct.type) {
             return {
@@ -516,10 +516,10 @@ var GrapherUtil = {
         }
 
         // Get new function handler for grading
-        var grader = functionForType(state.type);
-        var guessCoeffs = grader.getCoefficients(state.coords,
+        const grader = functionForType(state.type);
+        const guessCoeffs = grader.getCoefficients(state.coords,
             state.asymptote);
-        var correctCoeffs = grader.getCoefficients(rubric.correct.coords,
+        const correctCoeffs = grader.getCoefficients(rubric.correct.coords,
             rubric.correct.asymptote);
 
         if (guessCoeffs == null || correctCoeffs == null) {
@@ -545,10 +545,10 @@ var GrapherUtil = {
     },
 
     getEquationString: function(props) {
-        var plot = props.plot;
+        const plot = props.plot;
         if (plot.type && plot.coords) {
-            var handler = functionForType(plot.type);
-            var result =
+            const handler = functionForType(plot.type);
+            const result =
                 handler.getEquationString(plot.coords, plot.asymptote);
             return result || "";
         } else {
@@ -557,16 +557,16 @@ var GrapherUtil = {
     },
 
     pointsFromNormalized: function(coordsList, range, step, snapStep) {
-        var numSteps = function(range, step) {
+        const numSteps = function(range, step) {
             return Math.floor((range[1] - range[0]) / step);
         };
 
         return _.map(coordsList, function(coords) {
-            var unsnappedPoint = _.map(coords, function(coord, i) {
-                var currRange = range[i];
-                var currStep = step[i];
-                var nSteps = numSteps(currRange, currStep);
-                var tick = Math.round(coord * nSteps);
+            const unsnappedPoint = _.map(coords, function(coord, i) {
+                const currRange = range[i];
+                const currStep = step[i];
+                const nSteps = numSteps(currRange, currStep);
+                const tick = Math.round(coord * nSteps);
                 return currRange[0] + currStep * tick;
             });
             // In some graphing widgets, e.g. interactive-graph, you can rely
@@ -610,8 +610,8 @@ var GrapherUtil = {
         // extra information. It would be valid to always submit the default
         // widget before even reading the question; you can't lose, but you
         // might get a free win.
-        var model = functionForType(type);
-        var snapStep = this.getGridAndSnapSteps(graph).snapStep;
+        const model = functionForType(type);
+        const snapStep = this.getGridAndSnapSteps(graph).snapStep;
         return {
             type,
             asymptote: this.maybePointsFromNormalized(model.defaultAsymptote,
@@ -624,9 +624,9 @@ var GrapherUtil = {
     chooseType: _.first,
 
     getGridAndSnapSteps: function(options) {
-        var gridStep = options.gridStep ||
+        const gridStep = options.gridStep ||
             Util.getGridStep(options.range, options.step, DEFAULT_BOX_SIZE);
-        var snapStep = options.snapStep ||
+        const snapStep = options.snapStep ||
             Util.snapStepFromGridStep(gridStep);
         return {
             gridStep: gridStep,
@@ -635,7 +635,7 @@ var GrapherUtil = {
     },
 };
 
-var DEFAULT_GRAPHER_PROPS = {};
+const DEFAULT_GRAPHER_PROPS = {};
 
 DEFAULT_GRAPHER_PROPS.graph = {
     box: [DEFAULT_BOX_SIZE, DEFAULT_BOX_SIZE],
@@ -655,7 +655,7 @@ DEFAULT_GRAPHER_PROPS.plot = GrapherUtil.defaultPlotProps("linear",
 DEFAULT_GRAPHER_PROPS.availableTypes = [DEFAULT_GRAPHER_PROPS.plot.type];
 
 function typeToButton(type) {
-    var capitalized = type.charAt(0).toUpperCase() + type.substring(1);
+    const capitalized = type.charAt(0).toUpperCase() + type.substring(1);
     return {
         value: type,
         title: capitalized,

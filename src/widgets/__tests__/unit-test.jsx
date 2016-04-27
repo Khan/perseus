@@ -2,14 +2,14 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var assert = require("assert");
-// var Perseus = require("../../perseus.js");
+const assert = require("assert");
+// const Perseus = require("../../perseus.js");
 
-// var TestUtils = React.addons.TestUtils;
-// var delayedPromise = require("../../testutils/delayed-promise.jsx");
+// const TestUtils = React.addons.TestUtils;
+// const delayedPromise = require("../../testutils/delayed-promise.jsx");
 
-var { getWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
-var UnitWidget = getWidget();
+const { getWidget, countSigfigs, sigfigPrint } = require("../unit.jsx");
+const UnitWidget = getWidget();
 
 describe("countSigfigs", () => {
     it("gets a few simple cases right", () => {
@@ -80,7 +80,7 @@ describe("Unit Widget Grading", () => {
     });
 
     it("handles loss of precision gracefully", () => {
-        var maybeValid = UnitWidget.validate("1.12 lb", {
+        const maybeValid = UnitWidget.validate("1.12 lb", {
             value: "5 N",
             accepting: "some",
             acceptingUnits: ["lb"],
@@ -90,7 +90,7 @@ describe("Unit Widget Grading", () => {
     });
 
     it("flags incorrect units", () => {
-        var maybeValid = UnitWidget.validate("5 tbsp", {
+        const maybeValid = UnitWidget.validate("5 tbsp", {
             value: "5 m",
             accepting: "all",
             sigfigs: 1,
@@ -122,7 +122,7 @@ describe("Unit Widget Grading", () => {
     });
 
     it("flags numerically incorrect answers", () => {
-        var maybeValid = UnitWidget.validate("8.1 tbsp", {
+        const maybeValid = UnitWidget.validate("8.1 tbsp", {
             value: "5.0 tbsp",
             accepting: "all",
             sigfigs: 2,

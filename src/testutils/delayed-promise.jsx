@@ -4,12 +4,12 @@
 
 /* global jest:false */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
 // Returns a promise that will resolve shortly after the end of this
 // browser tick (roughly a `setTimeout(0)`)
-var delayedPromise = (value) => {
-    var deferred = $.Deferred();
+const delayedPromise = (value) => {
+    const deferred = $.Deferred();
     _.defer(() => {
         deferred.resolve(value);
     });

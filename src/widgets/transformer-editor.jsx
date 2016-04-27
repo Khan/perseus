@@ -27,7 +27,7 @@ function arraySum(array) {
     return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
 }
 
-var defaultBackgroundImage = {
+const defaultBackgroundImage = {
     url: null,
 };
 
@@ -38,8 +38,8 @@ var defaultBackgroundImage = {
  * (rotation handle, dilation circle)
  */
 function scaleToRange(dist, range) {
-    var spreadX = range[0][1] - range[0][0];
-    var spreadY = range[1][1] - range[1][0];
+    const spreadX = range[0][1] - range[0][0];
+    const spreadY = range[1][1] - range[1][0];
 
     return dist * Math.max(spreadX, spreadY) / 20;
 }
@@ -48,17 +48,17 @@ function orderInsensitiveCoordsEqual(coords1, coords2) {
     coords1 = _.clone(coords1).sort(kpoint.compare);
     coords2 = _.clone(coords2).sort(kpoint.compare);
     return _.all(_.map(coords1, function(coord1, i) {
-        var coord2 = coords2[i];
+        const coord2 = coords2[i];
         return kpoint.equal(coord1, coord2);
     }));
 }
 
-var defaultGraphProps = function(setProps, boxSize) {
+const defaultGraphProps = function(setProps, boxSize) {
     setProps = setProps || {};
-    var labels = setProps.labels || ["x", "y"];
-    var range = setProps.range || [[-10, 10], [-10, 10]];
-    var step = setProps.step || [1, 1];
-    var gridStep = setProps.gridStep ||
+    const labels = setProps.labels || ["x", "y"];
+    const range = setProps.range || [[-10, 10], [-10, 10]];
+    const step = setProps.step || [1, 1];
+    const gridStep = setProps.gridStep ||
                getGridStep(range, step, boxSize);
     return {
         box: [boxSize, boxSize],
@@ -73,7 +73,7 @@ var defaultGraphProps = function(setProps, boxSize) {
     };
 };
 
-var defaultTransformerProps = {
+const defaultTransformerProps = {
     apiOptions: ApiOptions.defaults,
     gradeEmpty: false,
     graphMode: "interactive",
@@ -183,14 +183,14 @@ const ToolSettings = React.createClass({
     },
 
     changeConstraints: function(changed) {
-        var newConstraints = _.extend({}, this.props.constraints, changed);
+        const newConstraints = _.extend({}, this.props.constraints, changed);
         this.props.onChange({
             constraints: newConstraints,
         });
     },
 });
 
-var TransformationExplorerSettings = React.createClass({
+const TransformationExplorerSettings = React.createClass({
     propTypes: {
         drawSolutionShape: React.PropTypes.bool,
         graphMode: React.PropTypes.string,
@@ -268,8 +268,8 @@ var TransformationExplorerSettings = React.createClass({
     },
 
     changeMode: function(e) {
-        var selected = e.target.value;
-        var modes = selected.split(",");
+        const selected = e.target.value;
+        const modes = selected.split(",");
 
         this.props.onChange({
             graphMode: modes[0],
@@ -279,7 +279,7 @@ var TransformationExplorerSettings = React.createClass({
 
     changeHandlerFor: function(toolName) {
         return change => {
-            var newTools = _.clone(this.props.tools);
+            const newTools = _.clone(this.props.tools);
             newTools[toolName] = _.extend({}, this.props.tools[toolName],
                     change);
 
@@ -289,9 +289,9 @@ var TransformationExplorerSettings = React.createClass({
         };
     },
 });
-var ShapeTypes = {
+const ShapeTypes = {
     getPointCountForType: function(type) {
-        var splitType = type.split("-");
+        const splitType = type.split("-");
         if (splitType[0] === "polygon") {
             return splitType[1] || 3;
         } else if (splitType[0] === "line" ||
@@ -313,19 +313,19 @@ var ShapeTypes = {
                     "simultaneously. options: " + JSON.stringify(options));
         }
 
-        var shape;
-        var points = _.map(options.shape.coords, function(coord) {
-            var currentPoint;
-            var isMoving = false;
-            var previousCoord = coord;
+        const shape;
+        const points = _.map(options.shape.coords, function(coord) {
+            const currentPoint;
+            const isMoving = false;
+            const previousCoord = coord;
 
-            var onMove = function(x, y) {
+            const onMove = function(x, y) {
                 if (!isMoving) {
                     previousCoord = currentPoint.coord;
                     isMoving = true;
                 }
 
-                var moveVector = kvector.subtract(
+                const moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -359,8 +359,8 @@ var ShapeTypes = {
                 // Without this, some shapes (circles, angles) appear
                 // "bouncy" as they are updated with currentPoint at the
                 // current mouse coordinate (oldCoord), rather than newCoord
-                var oldCoord = currentPoint.coord;
-                var newCoord = kvector.add(
+                const oldCoord = currentPoint.coord;
+                const newCoord = kvector.add(
                     currentPoint.coord,
                     moveVector
                 );
@@ -374,7 +374,7 @@ var ShapeTypes = {
                 return newCoord;
             };
 
-            var onMoveEnd = function() {
+            const onMoveEnd = function() {
                 // onMove isn't guaranteed to be called before onMoveEnd, so
                 // we have to take into account that we may not have moved and
                 // set previousCoord.
@@ -384,7 +384,7 @@ var ShapeTypes = {
                     // because MovablePoint's onMoveEnd semantics suck.
                     // It returns the mouseX, mouseY without processing them
                     // through onMove, leaving us with weird fractional moves
-                    var change = kvector.subtract(
+                    const change = kvector.subtract(
                         currentPoint.coord,
                         previousCoord
                     );
@@ -418,7 +418,7 @@ var ShapeTypes = {
         });
 
         shape = ShapeTypes.addShape(graphie, options, points);
-        var removeShapeWithoutPoints = shape.remove;
+        const removeShapeWithoutPoints = shape.remove;
         shape.remove = function() {
             removeShapeWithoutPoints.apply(shape);
             _.invoke(points, "remove");
@@ -429,28 +429,28 @@ var ShapeTypes = {
     addShape: function(graphie, options, points) {
         points = points || options.shape.coords;
 
-        var types = ShapeTypes._typesOf(options.shape);
-        var typeOptions = options.shape.options ||
+        const types = ShapeTypes._typesOf(options.shape);
+        const typeOptions = options.shape.options ||
                 ShapeTypes.defaultOptions(types);
 
-        var shapes = ShapeTypes._mapTypes(types, points, function(
+        const shapes = ShapeTypes._mapTypes(types, points, function(
             type, points, i) {
 
-            var shapeOptions = _.extend({}, options, typeOptions[i]);
+            const shapeOptions = _.extend({}, options, typeOptions[i]);
             return ShapeTypes._addType(graphie, type, points, shapeOptions);
         });
 
-        var updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
-        var update = function() {
+        const updateFuncs = _.filter(_.pluck(shapes, "update"), _.identity);
+        const update = function() {
             _.invoke(updateFuncs, "call");
         };
 
-        var removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
-        var remove = function() {
+        const removeFuncs = _.filter(_.pluck(shapes, "remove"), _.identity);
+        const remove = function() {
             _.invoke(removeFuncs, "call");
         };
 
-        var getOptions = function() {
+        const getOptions = function() {
             return _.map(shapes, function(shape) {
                 if (shape.getOptions) {
                     return shape.getOptions();
@@ -460,8 +460,8 @@ var ShapeTypes = {
             });
         };
 
-        var toJSON = function() {
-            var coords = _.map(points, function(pt) {
+        const toJSON = function() {
+            const coords = _.map(points, function(pt) {
                 if (_.isArray(pt)) {
                     return pt;
                 } else {
@@ -486,17 +486,17 @@ var ShapeTypes = {
     },
 
     equal: function(shape1, shape2) {
-        var types1 = ShapeTypes._typesOf(shape1);
-        var types2 = ShapeTypes._typesOf(shape2);
+        const types1 = ShapeTypes._typesOf(shape1);
+        const types2 = ShapeTypes._typesOf(shape2);
         if (types1.length !== types2.length) {
             return false;
         }
-        var shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
+        const shapes1 = ShapeTypes._mapTypes(types1, shape1.coords,
                 ShapeTypes._combine);
-        var shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
+        const shapes2 = ShapeTypes._mapTypes(types2, shape2.coords,
                 ShapeTypes._combine);
         return _.all(_.map(shapes1, function(partialShape1, i) {
-            var partialShape2 = shapes2[i];
+            const partialShape2 = shapes2[i];
             if (partialShape1.type !== partialShape2.type) {
                 return false;
             }
@@ -508,7 +508,7 @@ var ShapeTypes = {
     },
 
     _typesOf: function(shape) {
-        var types = shape.type;
+        const types = shape.type;
         if (!_.isArray(types)) {
             types = [types];
         }
@@ -523,27 +523,27 @@ var ShapeTypes = {
 
     defaultOptions: function(types) {
         return _.map(types, function(type) {
-            var typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
+            const typeDefaultOptions = ShapeTypes._forType(type).defaultOptions;
             return _.extend({}, typeDefaultOptions);
         });
     },
 
     _forType: function(type) {
-        var baseType = type.split("-")[0];
+        const baseType = type.split("-")[0];
         return ShapeTypes[baseType];
     },
 
     _mapTypes: function(types, points, func, context) {
         return _.map(types, function(type, i) {
-            var pointCount = ShapeTypes.getPointCountForType(type);
-            var currentPoints = _.first(points, pointCount);
+            const pointCount = ShapeTypes.getPointCountForType(type);
+            const currentPoints = _.first(points, pointCount);
             points = _.rest(points, pointCount);
             return func.call(context, type, currentPoints, i);
         });
     },
 
     _addType: function(graphie, type, points, options) {
-        var lineCoords = _.isArray(points[0]) ? {
+        const lineCoords = _.isArray(points[0]) ? {
             coordA: points[0],
             coordZ: points[1],
         } : {
@@ -553,7 +553,7 @@ var ShapeTypes = {
 
         type = type.split("-")[0];
         if (type === "polygon") {
-            var polygon = graphie.addMovablePolygon(_.extend({}, options, {
+            const polygon = graphie.addMovablePolygon(_.extend({}, options, {
                 fixed: !options.editable,
                 snapX: options.snap && options.snap[0] || 0,
                 snapY: options.snap && options.snap[1] || 0,
@@ -565,7 +565,7 @@ var ShapeTypes = {
                 remove: polygon.remove.bind(polygon),
             };
         } else if (type === "line" || type === "lineSegment") {
-            var line = graphie.addMovableLineSegment(
+            const line = graphie.addMovableLineSegment(
                 _.extend({}, options, lineCoords, {
                     movePointsWithLine: true,
                     fixed: true,
@@ -589,9 +589,9 @@ var ShapeTypes = {
             // If this angle is not editable, it should always maintain
             // it's angle measure, even if it is reflected (causing the
             // clockwise-ness of the points to change)
-            var shouldChangeReflexivity = options.editable ? null : false;
+            const shouldChangeReflexivity = options.editable ? null : false;
 
-            var angle = graphie.addMovableAngle({
+            const angle = graphie.addMovableAngle({
                 angleLabel: "$deg0",
                 fixed: true,
                 points: points,
@@ -614,14 +614,14 @@ var ShapeTypes = {
                 },
             };
         } else if (type === "circle") {
-            var perimeter = {
+            const perimeter = {
                 // temporary object for the first removal
                 remove: _.identity,
             };
-            var redrawPerim = function() {
-                var coord0 = points[0].coord || points[0];
-                var coord1 = points[1].coord || points[1];
-                var radius = kpoint.distanceToPoint(coord0, coord1);
+            const redrawPerim = function() {
+                const coord0 = points[0].coord || points[0];
+                const coord1 = points[1].coord || points[1];
+                const radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
                 perimeter = graphie.circle(coord0, radius, _.extend({
                     stroke: KhanColors.DYNAMIC,
@@ -679,15 +679,15 @@ var ShapeTypes = {
             }
 
             /* eslint-disable camelcase */
-            var line1_0 = [points1[1], points1[0]];
-            var line1_2 = [points1[1], points1[2]];
-            var line2_0 = [points2[1], points2[0]];
-            var line2_2 = [points2[1], points2[2]];
+            const line1_0 = [points1[1], points1[0]];
+            const line1_2 = [points1[1], points1[2]];
+            const line2_0 = [points2[1], points2[0]];
+            const line2_2 = [points2[1], points2[2]];
             /* eslint-enable camelcase */
 
-            var equalUnflipped = kray.equal(line1_0, line2_0) &&
+            const equalUnflipped = kray.equal(line1_0, line2_0) &&
                     kray.equal(line1_2, line2_2);
-            var equalFlipped = kray.equal(line1_0, line2_2) &&
+            const equalFlipped = kray.equal(line1_0, line2_2) &&
                     kray.equal(line1_2, line2_0);
 
             return equalUnflipped || equalFlipped;
@@ -700,8 +700,8 @@ var ShapeTypes = {
 
     circle: {
         equal: function(points1, points2) {
-            var radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
-            var radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
+            const radius1 = kpoint.distanceToPoint(points1[0], points1[1]);
+            const radius2 = kpoint.distanceToPoint(points2[0], points2[1]);
             return kpoint.equal(points1[0], points2[0]) &&
                 knumber.equal(radius1, radius2);
         },
@@ -712,7 +712,7 @@ var ShapeTypes = {
     },
 };
 
-var TransformationsShapeEditor = React.createClass({
+const TransformationsShapeEditor = React.createClass({
     propTypes: {
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         graph: React.PropTypes.any,
@@ -769,15 +769,15 @@ var TransformationsShapeEditor = React.createClass({
      * e.target.value is the new type string
      */
     changeType: function(e) {
-        var types = String(e.target.value).split(",");
-        var pointCount = arraySum(_.map(
+        const types = String(e.target.value).split(",");
+        const pointCount = arraySum(_.map(
                 types,
                 ShapeTypes.getPointCountForType
         ));
 
-        var radius = scaleToRange(4, this.refs.graph.props.range);
-        var offset = (1 / 2 - 1 / pointCount) * 180;
-        var coords = _.times(pointCount, function(i) {
+        const radius = scaleToRange(4, this.refs.graph.props.range);
+        const offset = (1 / 2 - 1 / pointCount) * 180;
+        const coords = _.times(pointCount, function(i) {
             return kpoint.rotateDeg([radius, 0],
                 360 * i / pointCount + offset);
         });
@@ -818,7 +818,7 @@ var TransformationsShapeEditor = React.createClass({
 
 });
 
-var TransformerEditor = React.createClass({
+const TransformerEditor = React.createClass({
     propTypes: {
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         correct: React.PropTypes.any,
@@ -845,7 +845,7 @@ var TransformerEditor = React.createClass({
         // Fill in any missing value in this.props.graph
         // this can happen because the graph json doesn't include
         // box, for example
-        var graph = _.extend(
+        const graph = _.extend(
                 defaultGraphProps(this.props.graph, 340),
                 this.props.graph
         );
@@ -919,7 +919,7 @@ var TransformerEditor = React.createClass({
     // propagate a props change on our graph settings to
     // this.props.graph
     changeGraph: function(graphChanges, callback) {
-        var newGraph = _.extend({}, this.props.graph, graphChanges);
+        const newGraph = _.extend({}, this.props.graph, graphChanges);
         this.props.onChange({
             graph: newGraph,
         }, callback);
@@ -928,7 +928,7 @@ var TransformerEditor = React.createClass({
     // propagate a props change on our starting graph to
     // this.props.starting
     changeStarting: function(startingChanges) {
-        var newStarting = _.extend({}, this.props.starting, startingChanges);
+        const newStarting = _.extend({}, this.props.starting, startingChanges);
         this.props.onChange({
             starting: newStarting,
         });
@@ -946,7 +946,7 @@ var TransformerEditor = React.createClass({
     },
 
     serialize: function() {
-        var json = this.refs.explorer.getEditorJSON();
+        const json = this.refs.explorer.getEditorJSON();
         json.correct = json.answer;
         delete json.answer;
         return json;

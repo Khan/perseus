@@ -4,7 +4,7 @@
 
 /* global expect:false */
 
-var stringArrayDiff = require("../string-array-diff.jsx");
+const stringArrayDiff = require("../string-array-diff.jsx");
 
 describe("string array diff", function() {
     it("diffs an empty diff", function() {

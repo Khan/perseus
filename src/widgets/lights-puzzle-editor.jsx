@@ -15,28 +15,28 @@ const InfoTip = require("../components/info-tip.jsx");
 const MAX_SIZE = 8;
 
 // styling
-var CELL_PADDING = 5;
+const CELL_PADDING = 5;
 
-var TABLE_STYLE = {
+const TABLE_STYLE = {
     display: "table",
     tableLayout: "fixed",
 };
 
-var ROW_STYLE = {
+const ROW_STYLE = {
     display: "table-row",
 };
 
-var CELL_STYLE = {
+const CELL_STYLE = {
     display: "table-cell",
     padding: CELL_PADDING,
 };
 
-var BASE_TILE_STYLE = {
+const BASE_TILE_STYLE = {
     borderRadius: 10,
     cursor: "pointer",
 };
 
-var PATTERNS = {
+const PATTERNS = {
     plus: () => [
         [false, true, false],
         [true,  true, true ],
@@ -55,7 +55,7 @@ var PATTERNS = {
 /**
  * Clamps value to an integer in the range [min, max]
  */
-var clampToInt = function(value, min, max) {
+const clampToInt = function(value, min, max) {
     value = Math.floor(value);
     value = Math.max(value, min);
     value = Math.min(value, max);
@@ -64,7 +64,7 @@ var clampToInt = function(value, min, max) {
 
 // Returns a copy of the tiles, with tiles flipped according to
 // whether or not their y, x position satisfies the predicate
-var flipTilesPredicate = (oldCells, predicate) => {
+const flipTilesPredicate = (oldCells, predicate) => {
     return _.map(oldCells, (row, y) => {
         return _.map(row, (cell, x) => {
             return predicate(y, x) ? !cell : cell;
@@ -73,7 +73,7 @@ var flipTilesPredicate = (oldCells, predicate) => {
 };
 
 // A single glowy cell
-var Tile = React.createClass({
+const Tile = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.bool.isRequired,
@@ -81,8 +81,8 @@ var Tile = React.createClass({
     },
 
     render: function() {
-        var color = this.props.value ? "#55dd55" : "#115511";
-        var style = _.extend({}, BASE_TILE_STYLE, {
+        const color = this.props.value ? "#55dd55" : "#115511";
+        const style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
             height: this.props.size,
             backgroundColor: color,
@@ -98,7 +98,7 @@ var Tile = React.createClass({
 });
 
 // A grid of glowy cells
-var TileGrid = React.createClass({
+const TileGrid = React.createClass({
     propTypes: {
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
@@ -227,7 +227,7 @@ const LightsPuzzleEditor = React.createClass({
     },
 
     _truncateCells: function(newWidth, newHeight) {
-        var newCells = _.times(newHeight, (y) => {
+        const newCells = _.times(newHeight, (y) => {
             return _.times(newWidth, (x) => {
                 // explicitly cast the result to a boolean with !!
                 return !!(this.props.startCells[y] &&
@@ -239,7 +239,7 @@ const LightsPuzzleEditor = React.createClass({
     },
 
     _switchTile: function(tileY, tileX) {
-        var newCells = flipTilesPredicate(this.props.startCells, (y, x) => {
+        const newCells = flipTilesPredicate(this.props.startCells, (y, x) => {
             return y === tileY && x === tileX;
         });
 

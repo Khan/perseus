@@ -2,19 +2,19 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var firstNumericalParse = require("../util.js").firstNumericalParse;
-var captureScratchpadTouchStart =
+const firstNumericalParse = require("../util.js").firstNumericalParse;
+const captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
-var knumber = require("kmath").number;
+const knumber = require("kmath").number;
 const KhanMath = require("../util/math.js");
 
-var toNumericString = KhanMath.toNumericString;
-var getNumericFormat = KhanMath.getNumericFormat;
+const toNumericString = KhanMath.toNumericString;
+const getNumericFormat = KhanMath.getNumericFormat;
 
 /* An input box that accepts only numeric strings
  *
@@ -29,7 +29,7 @@ var getNumericFormat = KhanMath.getNumericFormat;
  *   increment/decrement integers
  * Optionally takes a size ("mini", "small", "normal")
  */
-var NumberInput = React.createClass({
+const NumberInput = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
         value: React.PropTypes.number,
@@ -67,7 +67,7 @@ var NumberInput = React.createClass({
     },
 
     render: function() {
-        var classes = classNames({
+        const classes = classNames({
             "number-input": true,
             "invalid-input": !this._checkValidity(this.props.value),
             "mini": this.props.size === "mini",
@@ -114,10 +114,10 @@ var NumberInput = React.createClass({
 
     parseInputValue: function(value) {
         if (value === "") {
-            var placeholder = this.props.placeholder;
+            const placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         } else {
-            var result = firstNumericalParse(value);
+            const result = firstNumericalParse(value);
             return _.isFinite(result) ? result : this.props.value;
         }
     },
@@ -151,16 +151,16 @@ var NumberInput = React.createClass({
             return true;
         }
 
-        var val = firstNumericalParse(value);
-        var checkValidity = this.props.checkValidity;
+        const val = firstNumericalParse(value);
+        const checkValidity = this.props.checkValidity;
 
         return _.isFinite(val) && checkValidity(val);
     },
 
     _handleChange: function(e) {
-        var text = e.target.value;
-        var value = this.parseInputValue(text);
-        var format = getNumericFormat(text);
+        const text = e.target.value;
+        const value = this.parseInputValue(text);
+        const format = getNumericFormat(text);
 
         this.props.onChange(value);
         if (format) {
@@ -197,7 +197,7 @@ var NumberInput = React.createClass({
             return;
         }
 
-        var val = this.getValue();
+        const val = this.getValue();
         if (val !== Math.floor(val)) {
             return; // bail if not an integer
         }

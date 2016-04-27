@@ -2,9 +2,9 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+const React = require('react');
 
-var QuestionParagraph = React.createClass({
+const QuestionParagraph = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
         className: React.PropTypes.string,
@@ -13,7 +13,7 @@ var QuestionParagraph = React.createClass({
     },
 
     render: function() {
-        var className = (this.props.className) ?
+        const className = (this.props.className) ?
             "paragraph " + this.props.className :
             "paragraph";
         // For perseus-article just-in-place-translation (jipt), we need

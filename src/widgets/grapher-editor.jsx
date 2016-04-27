@@ -41,18 +41,18 @@ const GrapherEditor = React.createClass({
     },
 
     render: function() {
-        var equationString;
-        var graph = _.extend(this.props.graph, {
+        const equationString;
+        const graph = _.extend(this.props.graph, {
             box: [DEFAULT_EDITOR_BOX_SIZE, DEFAULT_EDITOR_BOX_SIZE],
         });
 
         if (this.props.graph.valid === true) {
-            var graphProps = {
+            const graphProps = {
                 graph: this.props.graph,
                 plot: this.props.correct,
                 availableTypes: this.props.availableTypes,
                 onChange: (newProps, cb) => {
-                    var correct = this.props.correct;
+                    const correct = this.props.correct;
                     if (correct.type === newProps.plot.type) {
                         correct = _.extend({}, correct, newProps.plot);
                     } else {
@@ -108,13 +108,13 @@ const GrapherEditor = React.createClass({
     },
 
     handleAvailableTypesChange: function(newAvailableTypes) {
-        var correct = this.props.correct;
+        const correct = this.props.correct;
 
         // If the currently 'correct' type is removed from the list of types,
         // we need to change it to avoid impossible questions.
         if (!_.contains(newAvailableTypes, this.props.correct.type)) {
-            var graph = this.props.graph;
-            var newType = GrapherUtil.chooseType(newAvailableTypes);
+            const graph = this.props.graph;
+            const newType = GrapherUtil.chooseType(newAvailableTypes);
             correct = GrapherUtil.defaultPlotProps(newType, graph);
         }
         this.props.onChange({

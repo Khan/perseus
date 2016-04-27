@@ -3,17 +3,17 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // System requires
-var assert = require("assert");
-var _ = require("underscore");
+const assert = require("assert");
+const _ = require("underscore");
 
 // Interactive2 requires
-var _createMockMovable = require("./movable-mock.js");
-var MovablePoint = require("../movable-point.js");
+const _createMockMovable = require("./movable-mock.js");
+const MovablePoint = require("../movable-point.js");
 
 // Create a testable MovablePoint with a mocked out Movable
-var createPoint = function(options) {
-    var movable = _createMockMovable();
-    var point = new MovablePoint(null, movable, _.extend(options, {
+const createPoint = function(options) {
+    const movable = _createMockMovable();
+    const point = new MovablePoint(null, movable, _.extend(options, {
         static: true,
         draw: null,
     }));
@@ -37,7 +37,7 @@ var createPoint = function(options) {
 describe("MovablePoint", function() {
     describe("add", function() {
         it("should snap to the grid when a snap is specified", function() {
-            var point = createPoint({
+            const point = createPoint({
                 coord: [1.1, 1.1],
                 constraints: MovablePoint.constraints.snap([1, 1]),
             }).point;
@@ -48,7 +48,7 @@ describe("MovablePoint", function() {
 
     describe("modify", function() {
         it("should reset the point's size", function() {
-            var defaultPointSize = createPoint({
+            const defaultPointSize = createPoint({
                 coord: [1, 1],  // uses the default pointSize
             }).point.pointSize();
 
@@ -56,7 +56,7 @@ describe("MovablePoint", function() {
             // change 10 to something else
             assert.notEqual(defaultPointSize, 10);
 
-            var handle = createPoint({
+            const handle = createPoint({
                 coord: [0, 0],
                 pointSize: 10,  // arbitrary size larger than the default
             });
@@ -69,7 +69,7 @@ describe("MovablePoint", function() {
         });
 
         it("should allow you to change the point's size", function() {
-            var handle = createPoint({
+            const handle = createPoint({
                 coord: [0, 0],
                 pointSize: 5,
             });
@@ -84,8 +84,8 @@ describe("MovablePoint", function() {
 
     describe("onMove", function() {
         it("should be called when movable is moved", function() {
-            var movedToCoord;
-            var handle = createPoint({
+            const movedToCoord;
+            const handle = createPoint({
                 coord: [1, 2],
                 onMove: function(newCoord, prevCoord) {
                     assert.deepEqual(prevCoord, [1, 2]);
@@ -101,8 +101,8 @@ describe("MovablePoint", function() {
 
     describe("onClick", function() {
         it("should be called if the point didn't move", function() {
-            var clickCoord;
-            var handle = createPoint({
+            const clickCoord;
+            const handle = createPoint({
                 coord: [1, 2],
                 onClick: function(coord) {
                     clickCoord = coord;
@@ -115,7 +115,7 @@ describe("MovablePoint", function() {
         });
 
         it("should not be called if the point did move", function() {
-            var handle = createPoint({
+            const handle = createPoint({
                 coord: [1, 2],
                 onClick: function(coord) {
                     assert(false, "should not call onClick if " +

@@ -11,7 +11,7 @@ const Util = require("../util.js");
 const BlurInput         = require("react-components/blur-input.jsx");
 const InfoTip           = require("../components/info-tip.jsx");
 
-var answerTypes = {
+const answerTypes = {
     number: {
         name: "Numbers",
         forms: "integer, decimal, proper, improper, mixed",
@@ -68,12 +68,12 @@ const InputNumberEditor = React.createClass({
     },
 
     handleAnswerChange: function(str) {
-        var value = Util.firstNumericalParse(str) || 0;
+        const value = Util.firstNumericalParse(str) || 0;
         this.props.onChange({value: value});
     },
 
     render: function() {
-        var answerTypeOptions = _.map(answerTypes, function(v, k) {
+        const answerTypeOptions = _.map(answerTypes, function(v, k) {
             return <option value={k} key={k}>{v.name}</option>;
         }, this);
 
@@ -128,7 +128,7 @@ const InputNumberEditor = React.createClass({
             <input type="text" disabled={!this.props.inexact}
                 defaultValue={this.props.maxError}
                 onBlur={e => {
-                    var ans = "" + (Util.firstNumericalParse(
+                    const ans = "" + (Util.firstNumericalParse(
                             e.target.value) || 0);
                     e.target.value = ans;
                     this.props.onChange({maxError: ans});

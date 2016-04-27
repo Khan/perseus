@@ -4,26 +4,26 @@
 
 /* global $_:false */
 
-var React = require("react");
-var SimpleMarkdown = require("simple-markdown");
-var _ = require("underscore");
+const React = require("react");
+const SimpleMarkdown = require("simple-markdown");
+const _ = require("underscore");
 
-var START_REF_PREFIX = "start-ref-";
-var END_REF_PREFIX = "end-ref-";
-var REF_STYLE = {
+const START_REF_PREFIX = "start-ref-";
+const END_REF_PREFIX = "end-ref-";
+const REF_STYLE = {
     display: "inline-block",
     width: 0,
     visibility: "hidden",
 };
 
-var LABEL_OUTER_STYLE = {
+const LABEL_OUTER_STYLE = {
     // for some reason we need these to keep the nbsp from wrapping when the
     // inner circle/square is display: inline-block
     display: "inline",
     whiteSpace: "nowrap",
 };
 
-var SQUARE_LABEL_STYLE = {
+const SQUARE_LABEL_STYLE = {
     display: "inline-block",
     color: "rgb(255, 255, 255)",
     backgroundColor: "rgb(90, 90, 90)",
@@ -33,7 +33,7 @@ var SQUARE_LABEL_STYLE = {
     WebkitUserSelect: "none",
 };
 
-var CIRCLE_LABEL_STYLE = {
+const CIRCLE_LABEL_STYLE = {
     display: "inline-block",
     color: "rgb(255, 255, 255)",
     backgroundColor: "rgb(90, 90, 90)",
@@ -45,7 +45,7 @@ var CIRCLE_LABEL_STYLE = {
     textAlign: "center",
 };
 
-var RefStart = React.createClass({
+const RefStart = React.createClass({
     propTypes: {
         refContent: React.PropTypes.node.isRequired,
     },
@@ -59,13 +59,13 @@ var RefStart = React.createClass({
     },
 });
 
-var RefEnd = React.createClass({
+const RefEnd = React.createClass({
     render: function() {
         return <span style={REF_STYLE}>_</span>;
     },
 });
 
-var rules = {
+const rules = {
     newline: SimpleMarkdown.defaultRules.newline,
     paragraph: SimpleMarkdown.defaultRules.paragraph,
     escape: SimpleMarkdown.defaultRules.escape,
@@ -75,8 +75,8 @@ var rules = {
         parse: (capture, parse, state) => {
             // if no footnotes have been seen, we're id 1. otherwise,
             // we're the next subsequent id
-            var id = state.lastFootnote.id + 1;
-            var footnote = {
+            const id = state.lastFootnote.id + 1;
+            const footnote = {
                 id: id,
                 // our text is what to output. if there is only one footnote,
                 // it's a *; otherwise it's a superscript number
@@ -100,17 +100,17 @@ var rules = {
     refStart: {
         order: SimpleMarkdown.defaultRules.escape.order + .2,
         match: function(source, state) {
-            var capture = /^\{\{/.exec(source);
+            const capture = /^\{\{/.exec(source);
             if (capture) {
                 // We need to do extra processing here to capture the
                 // full text of the reference, which we include so that
                 // we can use that information as a screenreader
-                var closeIndex = 2; // start looking after the opening "{{"
-                var refNestingLevel = 0;
+                const closeIndex = 2; // start looking after the opening "{{"
+                const refNestingLevel = 0;
 
                 // Find the closing "}}" for our opening "{{"
                 while (closeIndex < source.length) {
-                    var token = source.slice(closeIndex, closeIndex + 2);
+                    const token = source.slice(closeIndex, closeIndex + 2);
                     if (token === "{{") {
                         refNestingLevel++;
                         // increment an extra character so we get the
@@ -129,7 +129,7 @@ var rules = {
                     closeIndex++;
                 }
 
-                var refText = source.slice(2, closeIndex);
+                const refText = source.slice(2, closeIndex);
 
                 // A "magic" capture that matches the opening {{
                 // but captures the full ref text internally :D
@@ -149,11 +149,11 @@ var rules = {
                 };
             }
 
-            var ref = state.lastRef + 1;
+            const ref = state.lastRef + 1;
             state.lastRef = ref;
             state.currentRef.push(ref);
 
-            var refContent = parse(
+            const refContent = parse(
                 // Curly quotes
                 "(\u201C" + capture[1] + "\u201D)\n\n",
                 _.defaults({
@@ -178,7 +178,7 @@ var rules = {
             // We don't pass state here because this is parsed
             // and output out-of-band. We don't want to affect
             // our state by the double-output here :).
-            var refContent = output(node.refContent, {});
+            const refContent = output(node.refContent, {});
             return <RefStart
                 ref={START_REF_PREFIX + node.ref}
                 key={START_REF_PREFIX + node.ref}
@@ -195,7 +195,7 @@ var rules = {
                 };
             }
 
-            var ref = state.currentRef.pop() || null;
+            const ref = state.currentRef.pop() || null;
             return {
                 ref: ref,
             };
@@ -310,16 +310,16 @@ var rules = {
     text: SimpleMarkdown.defaultRules.text,
 };
 
-var INITIAL_PARSE_STATE = {
+const INITIAL_PARSE_STATE = {
     currentRef: [],
     useRefs: true,
     lastRef: 0,
     lastFootnote: {id: 0, text: ""},
 };
-var builtParser = SimpleMarkdown.parserFor(rules);
-var parse = (source, state) => {
+const builtParser = SimpleMarkdown.parserFor(rules);
+const parse = (source, state) => {
     state = state || {};
-    var paragraphedSource = source + "\n\n";
+    const paragraphedSource = source + "\n\n";
     return builtParser(
         paragraphedSource,
         _.extend(state, INITIAL_PARSE_STATE)

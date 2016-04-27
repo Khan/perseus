@@ -8,7 +8,7 @@ const _ = require("underscore");
 const ApiOptions = require("../perseus-api.jsx").Options;
 const Editor = require("../editor.jsx");
 
-var StepControlButton = React.createClass({
+const StepControlButton = React.createClass({
     propTypes: {
         onClick: React.PropTypes.func.isRequired,
         icon: React.PropTypes.string.isRequired,
@@ -79,7 +79,7 @@ const SequenceEditor = React.createClass({
                         <StepControlButton
                             icon="icon-trash"
                             onClick={() => {
-                                var msg = "Are you sure you " +
+                                const msg = "Are you sure you " +
                                     "want to remove step " +
                                     (i + 1) + "?";
                                 /* eslint-disable no-alert */
@@ -108,7 +108,7 @@ const SequenceEditor = React.createClass({
     },
 
     _handleEditorChange: function(i, newProps) {
-        var steps = _.clone(this.props.json);
+        const steps = _.clone(this.props.json);
         steps[i] = _.extend({}, steps[i], newProps);
         this.props.onChange({json: steps});
     },
@@ -125,8 +125,8 @@ const SequenceEditor = React.createClass({
         if (i === 0) {
             return;
         }
-        var steps = _.clone(this.props.json);
-        var step = steps[i];
+        const steps = _.clone(this.props.json);
+        const step = steps[i];
         steps.splice(i, 1);
         steps.splice(i - 1, 0, step);
         this.props.onChange({
@@ -135,11 +135,11 @@ const SequenceEditor = React.createClass({
     },
 
     _handleMoveStepLater: function(i) {
-        var steps = _.clone(this.props.json);
+        const steps = _.clone(this.props.json);
         if (i + 1 === steps.length) {
             return;
         }
-        var step = steps[i];
+        const step = steps[i];
         steps.splice(i, 1);
         steps.splice(i + 1, 0, step);
         this.props.onChange({
@@ -150,14 +150,14 @@ const SequenceEditor = React.createClass({
     _handleAddStepAfter: function(i) {
         // We do a full serialization here because we
         // might be copying widgets:
-        var steps = _.clone(this.props.json);
+        const steps = _.clone(this.props.json);
         // Here we do magic to allow you to copy-paste
         // things from the previous section into the new
         // section while preserving widgets.
         // To enable this, we preserve the widgets
         // object for the new section, but wipe out
         // the content.
-        var newStep = (i >= 0) ? {
+        const newStep = (i >= 0) ? {
             widgets: steps[i].widgets,
         } : {};
         steps.splice(i + 1, 0, newStep);
@@ -167,7 +167,7 @@ const SequenceEditor = React.createClass({
     },
 
     _handleRemoveStep: function(i) {
-        var steps = _.clone(this.props.json);
+        const steps = _.clone(this.props.json);
         steps.splice(i, 1);
         this.props.onChange({
             json: steps,

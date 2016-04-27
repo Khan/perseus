@@ -2,19 +2,19 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var TexButtons = require("./tex-buttons.jsx");
+const TexButtons = require("./tex-buttons.jsx");
 
 // TODO(alex): Package MathQuill
-var MathQuill = window.MathQuill;
-var PT = React.PropTypes;
+const MathQuill = window.MathQuill;
+const PT = React.PropTypes;
 
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
-var MathInput = React.createClass({
+const MathInput = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
         value: PT.string,
@@ -28,7 +28,7 @@ var MathInput = React.createClass({
     },
 
     render: function() {
-        var className = classNames({
+        const className = classNames({
             "perseus-math-input": true,
 
             // mathquill usually adds these itself but react removes them when
@@ -41,7 +41,7 @@ var MathInput = React.createClass({
             className = className + " " + this.props.className;
         }
 
-        var buttons = null;
+        const buttons = null;
         if (this._shouldShowButtons()) {
             buttons = <TexButtons
                 sets={this.props.buttonSets}
@@ -80,7 +80,7 @@ var MathInput = React.createClass({
     },
 
     handleMouseDown: function(event) {
-        var focused = ReactDOM.findDOMNode(this).contains(event.target);
+        const focused = ReactDOM.findDOMNode(this).contains(event.target);
         this.mouseDown = focused;
         if (!focused) {
             this.setState({ focused: false });
@@ -125,7 +125,7 @@ var MathInput = React.createClass({
     },
 
     insert: function(value) {
-        var input = this.mathField();
+        const input = this.mathField();
         if (_(value).isFunction()) {
             value(input);
         } else if (value[0] === '\\') {
@@ -139,7 +139,7 @@ var MathInput = React.createClass({
     mathField: function(options) {
         // The MathQuill API is now "versioned" through its own "InterVer"
         // system. See: https://github.com/mathquill/mathquill/pull/459
-        var MQ = MathQuill.getInterface(2);
+        const MQ = MathQuill.getInterface(2);
 
         // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
         // seeing that node for the first time, then returns the associated
@@ -157,7 +157,7 @@ var MathInput = React.createClass({
         window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("mouseup", this.handleMouseUp);
 
-        var initialized = false;
+        const initialized = false;
 
         // Initialize MathQuill.MathField instance
         this.mathField({
@@ -193,7 +193,7 @@ var MathInput = React.createClass({
                     // unlike React it sometimes generates false positives.
                     // One of these is on initialization (with an empty string
                     // value), so we have to guard against that below.
-                    var value = mathField.latex();
+                    const value = mathField.latex();
 
                     // Provide a MathQuill-compatible way to generate the
                     // not-equals sign without pasting unicode or typing TeX
@@ -210,7 +210,7 @@ var MathInput = React.createClass({
                         // We do this by modifying internal MathQuill state
                         // directly, instead of waiting for `.latex()` to be
                         // called in `componentDidUpdate()`.
-                        var left = mathField.__controller.cursor[MathQuill.L];
+                        const left = mathField.__controller.cursor[MathQuill.L];
                         if (left && left.ctrlSeq === '\\cdot ') {
                             mathField.__controller.backspace();
                             mathField.cmd('\\times');

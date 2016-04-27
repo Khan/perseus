@@ -4,47 +4,47 @@
 
 /* global i18n:false */
 
-var React = require('react');
-var _ = require("underscore");
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const React = require('react');
+const _ = require("underscore");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
 // Styling
-var CELL_PADDING = 5;
+const CELL_PADDING = 5;
 
-var TABLE_STYLE = {
+const TABLE_STYLE = {
     display: "table",
     tableLayout: "fixed",
 };
 
-var ROW_STYLE = {
+const ROW_STYLE = {
     display: "table-row",
 };
 
-var CELL_STYLE = {
+const CELL_STYLE = {
     display: "table-cell",
     padding: CELL_PADDING,
 };
 
-var BASE_TILE_STYLE = {
+const BASE_TILE_STYLE = {
     borderRadius: 10,
     cursor: "pointer",
 };
 
-var MOVE_COUNT_STYLE = {
+const MOVE_COUNT_STYLE = {
     padding: CELL_PADDING,
     display: "inline-block",
 };
 
-var RESET_BUTTON_STYLE = {
+const RESET_BUTTON_STYLE = {
     "float": "right",
     paddingRight: CELL_PADDING,
 };
 
-var MAIN_TILE_SIZE = 50;
+const MAIN_TILE_SIZE = 50;
 
 /* eslint-disable no-unused-vars */
-var mapCells = (cells, func) => {
+const mapCells = (cells, func) => {
     return _.map(cells, (row, y) => {
         return _.map(row, (value, x) => {
             return func(value, y, x);
@@ -52,7 +52,7 @@ var mapCells = (cells, func) => {
     });
 };
 
-var genCells = (height, width, func) => {
+const genCells = (height, width, func) => {
     return _.times(height, (y) => {
         return _.times(width, (x) => {
             return func(y, x);
@@ -61,7 +61,7 @@ var genCells = (height, width, func) => {
 };
 /* eslint-enable no-unused-vars */
 
-var PATTERNS = {
+const PATTERNS = {
     plus: () => [
         [false, true, false],
         [true,  true, true ],
@@ -78,7 +78,7 @@ var PATTERNS = {
 };
 
 // A single glowy cell
-var Tile = React.createClass({
+const Tile = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.bool.isRequired,
@@ -86,8 +86,8 @@ var Tile = React.createClass({
     },
 
     render: function() {
-        var color = this.props.value ? "#55dd55" : "#115511";
-        var style = _.extend({}, BASE_TILE_STYLE, {
+        const color = this.props.value ? "#55dd55" : "#115511";
+        const style = _.extend({}, BASE_TILE_STYLE, {
             width: this.props.size,
             height: this.props.size,
             backgroundColor: color,
@@ -103,7 +103,7 @@ var Tile = React.createClass({
 });
 
 // A grid of glowy cells
-var TileGrid = React.createClass({
+const TileGrid = React.createClass({
     propTypes: {
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
@@ -133,7 +133,7 @@ var TileGrid = React.createClass({
 
 // Returns a copy of the tiles, with tiles flipped according to
 // whether or not their y, x position satisfies the predicate
-var flipTilesPredicate = (oldCells, predicate) => {
+const flipTilesPredicate = (oldCells, predicate) => {
     return _.map(oldCells, (row, y) => {
         return _.map(row, (cell, x) => {
             return predicate(y, x) ? !cell : cell;
@@ -141,10 +141,10 @@ var flipTilesPredicate = (oldCells, predicate) => {
     });
 };
 
-var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
+const flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
     return flipTilesPredicate(oldCells, (y, x) => {
-        var offsetY = y - tileY;
-        var offsetX = x - tileX;
+        const offsetY = y - tileY;
+        const offsetX = x - tileX;
         if (Math.abs(offsetY) <= 1 && Math.abs(offsetX) <= 1) {
             return pattern[offsetY + 1][offsetX + 1];
         } else {
@@ -154,7 +154,7 @@ var flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
 };
 
 // The lights puzzle widget
-var LightsPuzzle = React.createClass({
+const LightsPuzzle = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
@@ -186,9 +186,9 @@ var LightsPuzzle = React.createClass({
     },
 
     render: function() {
-        var width = this._width();
-        var tileSize = MAIN_TILE_SIZE;
-        var pxWidth = width * (tileSize + 2 * CELL_PADDING);
+        const width = this._width();
+        const tileSize = MAIN_TILE_SIZE;
+        const pxWidth = width * (tileSize + 2 * CELL_PADDING);
         return <div>
             <TileGrid
                 cells={this.props.cells}
@@ -243,7 +243,7 @@ var LightsPuzzle = React.createClass({
     },
 
     _flipTile: function(tileY, tileX) {
-        var newCells = flipTilesPattern(
+        const newCells = flipTilesPattern(
             this.props.cells,
             tileY,
             tileX,
@@ -270,8 +270,8 @@ var LightsPuzzle = React.createClass({
 });
 
 // grading function
-var validate = function(rubric, state) {
-    var empty = _.all(state.cells, (row, y) => {
+const validate = function(rubric, state) {
+    const empty = _.all(state.cells, (row, y) => {
         return _.all(row, (cell, x) => {
             return cell === rubric.startCells[y][x];
         });
@@ -283,7 +283,7 @@ var validate = function(rubric, state) {
         };
     }
 
-    var correct = _.all(state.cells, (row) => {
+    const correct = _.all(state.cells, (row) => {
         return _.all(row, (cell) => {
             return cell;
         });
@@ -312,7 +312,7 @@ var validate = function(rubric, state) {
 };
 
 // The function run on the editor props to create the widget props
-var transformProps = function(editorProps) {
+const transformProps = function(editorProps) {
     return {
         cells: editorProps.startCells,
         startCells: editorProps.startCells,

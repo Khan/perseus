@@ -2,49 +2,49 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var MathOutput = require("../components/math-output.jsx");
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
+const MathOutput = require("../components/math-output.jsx");
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
+const ApiOptions = require("../perseus-api.jsx").Options;
 const KhanAnswerTypes = require("../util/answer-types.js");
 
-var assert = require("../interactive2/interactive-util.js").assert;
+const assert = require("../interactive2/interactive-util.js").assert;
 
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
  * and extracts (row, column) pairs from input paths, used to allow outsiders
  * to focus, blur, set input values, etc. */
-var getInputPath = function(row, column) {
+const getInputPath = function(row, column) {
     return ["" + row, "" + column];
 };
 
-var getDefaultPath = function() {
+const getDefaultPath = function() {
     return getInputPath(0, 0);
 };
 
-var getRowFromPath = function(path) {
+const getRowFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
     return +path[0];
 };
 
-var getColumnFromPath = function(path) {
+const getColumnFromPath = function(path) {
     // 'path' should be a (row, column) pair
     assert(_.isArray(path) && path.length === 2);
     return +path[1];
 };
 
-var getRefForPath = function(path) {
-    var row = getRowFromPath(path);
-    var column = getColumnFromPath(path);
+const getRefForPath = function(path) {
+    const row = getRowFromPath(path);
+    const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
 };
 
-var Table = React.createClass({
+const Table = React.createClass({
     propTypes: {
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
@@ -63,9 +63,9 @@ var Table = React.createClass({
     },
 
     getDefaultProps: function() {
-        var defaultRows = 4;
-        var defaultColumns = 1;
-        var blankAnswers = _(defaultRows).times(function() {
+        const defaultRows = 4;
+        const defaultColumns = 1;
+        const blankAnswers = _(defaultRows).times(function() {
             return Util.stringArrayOfSize(defaultColumns);
         });
         return {
@@ -87,11 +87,11 @@ var Table = React.createClass({
     },
 
     render: function() {
-        var rows = this._getRows();
-        var columns = this._getColumns();
-        var headers = this.props.headers;
+        const rows = this._getRows();
+        const columns = this._getColumns();
+        const headers = this.props.headers;
 
-        var InputComponent;
+        const InputComponent;
         if (this.props.apiOptions.staticRender) {
             InputComponent = MathOutput;
         } else {
@@ -155,7 +155,7 @@ var Table = React.createClass({
     },
 
     onValueChange: function(row, column, e) {
-        var answers = _.map(this.props.answers, _.clone);
+        const answers = _.map(this.props.answers, _.clone);
         answers[row][column] = e.target.value;
         this.props.onChange({
             answers: answers,
@@ -164,7 +164,7 @@ var Table = React.createClass({
     },
 
     onHeaderChange: function(index, e) {
-        var headers = this.props.headers.slice();
+        const headers = this.props.headers.slice();
         headers[index] = e.content;
         this.props.onChange({
             headers: headers,
@@ -189,8 +189,8 @@ var Table = React.createClass({
     },
 
     focusInputPath: function(path) {
-        var inputID = getRefForPath(path);
-        var inputComponent = this.refs[inputID];
+        const inputID = getRefForPath(path);
+        const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.staticRender) {
             inputComponent.focus();
         } else {
@@ -199,8 +199,8 @@ var Table = React.createClass({
     },
 
     blurInputPath: function(path) {
-        var inputID = getRefForPath(path);
-        var inputComponent = this.refs[inputID];
+        const inputID = getRefForPath(path);
+        const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.staticRender) {
             inputComponent.blur();
         } else {
@@ -209,17 +209,17 @@ var Table = React.createClass({
     },
 
     getDOMNodeForPath: function(path) {
-        var inputID = getRefForPath(path);
+        const inputID = getRefForPath(path);
         return ReactDOM.findDOMNode(this.refs[inputID]);
     },
 
     getInputPaths: function() {
-        var rows = this._getRows();
-        var columns = this._getColumns();
-        var inputPaths = [];
+        const rows = this._getRows();
+        const columns = this._getColumns();
+        const inputPaths = [];
         _(rows).times(r => {
             _(columns).times(c => {
-                var inputPath = getInputPath(r, c);
+                const inputPath = getInputPath(r, c);
                 inputPaths.push(inputPath);
             });
         });
@@ -232,10 +232,10 @@ var Table = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         // Extract row, column information
-        var row = getRowFromPath(path);
-        var column = getColumnFromPath(path);
+        const row = getRowFromPath(path);
+        const column = getColumnFromPath(path);
 
-        var answers = _.map(this.props.answers, _.clone);
+        const answers = _.map(this.props.answers, _.clone);
         answers[row][column] = newValue;
         this.props.onChange({
             answers: answers,
@@ -245,16 +245,16 @@ var Table = React.createClass({
 
 _.extend(Table, {
     validate: function(state, rubric) {
-        var filterNonEmpty = function(table) {
+        const filterNonEmpty = function(table) {
             return _.filter(table, function(row) {
 
                 // Check if row has a cell that is nonempty
                 return _.some(row, _.identity);
             });
         };
-        var solution = filterNonEmpty(rubric.answers);
-        var supplied = filterNonEmpty(state);
-        var hasEmptyCell = _.some(supplied, function(row) {
+        const solution = filterNonEmpty(rubric.answers);
+        const supplied = filterNonEmpty(state);
+        const hasEmptyCell = _.some(supplied, function(row) {
             return _.some(row, function(cell) {
                 return cell === "";
             });
@@ -273,20 +273,20 @@ _.extend(Table, {
                 message: null,
             };
         }
-        var createValidator = KhanAnswerTypes
+        const createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
-        var message = null;
-        var allCorrect = _.every(solution, function(rowSolution) {
-            var i;
+        const message = null;
+        const allCorrect = _.every(solution, function(rowSolution) {
+            const i;
             for (i = 0; i < supplied.length; i++) {
-                var rowSupplied = supplied[i];
-                var correct = _.every(rowSupplied, function(cellSupplied, i) {
-                    var cellSolution = rowSolution[i];
-                    var validator = createValidator(
+                const rowSupplied = supplied[i];
+                const correct = _.every(rowSupplied, function(cellSupplied, i) {
+                    const cellSolution = rowSolution[i];
+                    const validator = createValidator(
                             cellSolution, {
                                 simplify: true,
                             });
-                    var result = validator(cellSupplied);
+                    const result = validator(cellSupplied);
                     if (result.message) {
                         message = result.message;
                     }
@@ -308,11 +308,11 @@ _.extend(Table, {
     },
 });
 
-var propTransform = (editorProps) => {
+const propTransform = (editorProps) => {
     // Remove answers before passing to widget
-    var rows = editorProps.answers.length;
-    var columns = editorProps.answers[0].length;
-    var blankAnswers = _(rows).times(function() {
+    const rows = editorProps.answers.length;
+    const columns = editorProps.answers[0].length;
+    const blankAnswers = _(rows).times(function() {
         return Util.stringArrayOfSize(columns);
     });
     return _.extend({}, editorProps, {

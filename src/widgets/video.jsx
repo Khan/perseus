@@ -6,26 +6,26 @@
  * This is a video widget for embedding videos in articles.
  */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const FixedToResponsive = require("../components/fixed-to-responsive.jsx");
 
 // Current default is 720p, based on the typical videos we upload currently
-var DEFAULT_WIDTH = 1280;
-var DEFAULT_HEIGHT = 720;
+const DEFAULT_WIDTH = 1280;
+const DEFAULT_HEIGHT = 720;
 
-var KA_EMBED = "https://{hostname}/embed_video?slug={slug}" +
+const KA_EMBED = "https://{hostname}/embed_video?slug={slug}" +
                "&internal_video_only=1";
-var IS_URL = /^https?:\/\//;
-var IS_KA_SITE = /khanacademy\.org/;
+const IS_URL = /^https?:\/\//;
+const IS_KA_SITE = /khanacademy\.org/;
 
 
 /**
  * Video renderer.
  */
-var Video = React.createClass({
+const Video = React.createClass({
 
     propTypes: {
         alignment: React.PropTypes.string,
@@ -39,19 +39,19 @@ var Video = React.createClass({
     },
 
     render: function() {
-        var location = this.props.location;
+        const location = this.props.location;
         if (!location) {
             return <div/>;
         }
 
-        var url;
+        const url;
 
         if (IS_URL.test(location)) {
             url = location;
         } else {
             url = KA_EMBED.replace("{slug}", location);
-            var currentHostname = document.location.hostname;
-            var embedHostname = "www.khanacademy.org";
+            const currentHostname = document.location.hostname;
+            const embedHostname = "www.khanacademy.org";
             if (IS_KA_SITE.test(currentHostname)) {
                 embedHostname = currentHostname;
             }

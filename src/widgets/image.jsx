@@ -5,25 +5,25 @@
 // TODO(kevindangoor) fix these lint errors
 /* eslint-disable react/sort-comp, react/jsx-indent-props, react/jsx-closing-bracket-location */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var ApiOptions   = require("../perseus-api.jsx").Options;
-var Renderer     = require("../renderer.jsx");
+const ApiOptions   = require("../perseus-api.jsx").Options;
+const Renderer     = require("../renderer.jsx");
 
-var Changeable    = require("../mixins/changeable.jsx");
+const Changeable    = require("../mixins/changeable.jsx");
 
-var SvgImage     = require("../components/svg-image.jsx");
+const SvgImage     = require("../components/svg-image.jsx");
 
-var defaultBoxSize = 400;
-var defaultRange = [0, 10];
-var defaultBackgroundImage = {
+const defaultBoxSize = 400;
+const defaultRange = [0, 10];
+const defaultBackgroundImage = {
     url: null,
     width: 0,
     height: 0,
 };
 
-var ImageWidget = React.createClass({
+const ImageWidget = React.createClass({
     propTypes: {
         alt: React.PropTypes.string,
         apiOptions: ApiOptions.propTypes,
@@ -71,11 +71,11 @@ var ImageWidget = React.createClass({
     },
 
     render: function() {
-        var title;
-        var image;
-        var alt;
-        var caption;
-        var {apiOptions} = this.props;
+        const title;
+        const image;
+        const alt;
+        const caption;
+        const {apiOptions} = this.props;
 
         if (this.props.title) {
             title = <div className="perseus-image-title">
@@ -86,7 +86,7 @@ var ImageWidget = React.createClass({
             </div>;
         }
 
-        var backgroundImage = this.props.backgroundImage;
+        const backgroundImage = this.props.backgroundImage;
 
         if (backgroundImage.url) {
             image = <SvgImage
@@ -177,7 +177,7 @@ module.exports = {
     // This widget's accessibility depends on its contents: if the image has
     // has a background but no alt text, it is not accessible
     accessible: (props) => {
-        var bgImage = props.backgroundImage;
+        const bgImage = props.backgroundImage;
         return !(bgImage && bgImage.url && !props.alt);
     },
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],

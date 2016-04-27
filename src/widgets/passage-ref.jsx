@@ -4,16 +4,16 @@
 
 /* global $_:false */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
-var PerseusMarkdown = require("../perseus-markdown.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
+const PerseusMarkdown = require("../perseus-markdown.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
-var EN_DASH = "\u2013";
+const EN_DASH = "\u2013";
 
-var PassageRef = React.createClass({
+const PassageRef = React.createClass({
     mixins: [WidgetJsonifyDeprecated, Changeable],
 
     propTypes: {
@@ -44,8 +44,8 @@ var PassageRef = React.createClass({
     },
 
     render: function() {
-        var lineRange = this.state.lineRange;
-        var lineRangeOutput;
+        const lineRange = this.state.lineRange;
+        const lineRangeOutput;
         if (!lineRange) {
             lineRangeOutput = <$_ lineRange={"?" + EN_DASH + "?"}>
                 lines %(lineRange)s
@@ -61,9 +61,9 @@ var PassageRef = React.createClass({
             </$_>;
         }
 
-        var summaryOutput;
+        const summaryOutput;
         if (this.props.summaryText) {
-            var summaryTree = PerseusMarkdown.parseInline(
+            const summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText
             );
             summaryOutput = <span aria-hidden={true}>
@@ -97,10 +97,10 @@ var PassageRef = React.createClass({
     },
 
     _updateRange: function() {
-        var passage = this.props.interWidgets(
+        const passage = this.props.interWidgets(
                 "passage " + this.props.passageNumber)[0];
 
-        var refInfo = null;
+        const refInfo = null;
         if (passage) {
             refInfo = passage.getReference(this.props.referenceNumber);
         }

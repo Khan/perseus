@@ -47,7 +47,7 @@ const PairEditor = React.createClass({
 /**
  * This is used for editing a set of name/value pairs.
  */
-var PairsEditor = React.createClass({
+const PairsEditor = React.createClass({
 
     mixins: [Changeable, EditorJsonify],
 
@@ -59,7 +59,7 @@ var PairsEditor = React.createClass({
     },
 
     render: function() {
-        var editors = _.map(this.props.pairs, (pair, i) => {
+        const editors = _.map(this.props.pairs, (pair, i) => {
             return <PairEditor key={i} name={pair.name} value={pair.value}
                                onChange={this.handlePairChange.bind(this, i)}/>;
         });
@@ -70,10 +70,10 @@ var PairsEditor = React.createClass({
 
     handlePairChange: function(pairIndex, pair) {
         // If they're both non empty, add a new one
-        var pairs = this.props.pairs.slice();
+        const pairs = this.props.pairs.slice();
         pairs[pairIndex] = pair;
 
-        var lastPair = pairs[pairs.length - 1];
+        const lastPair = pairs[pairs.length - 1];
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }
@@ -84,7 +84,7 @@ var PairsEditor = React.createClass({
 /**
  * This is the main editor for this widget, to specify all the options.
  */
-var IframeEditor = React.createClass({
+const IframeEditor = React.createClass({
 
     mixins: [Changeable, EditorJsonify],
 

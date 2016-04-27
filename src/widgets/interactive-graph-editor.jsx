@@ -20,7 +20,7 @@ const defaultBackgroundImage = {
     url: null,
 };
 
-var deprecatedProps = {
+const deprecatedProps = {
     showGraph: function(props) {
         return {markings: props.showGraph ? "graph" : "none"};
     },
@@ -79,21 +79,21 @@ const InteractiveGraphEditor = React.createClass({
     deprecatedProps: deprecatedProps,
 
     render: function() {
-        var graph;
-        var equationString;
+        const graph;
+        const equationString;
 
-        var gridStep = this.props.gridStep || Util.getGridStep(
+        const gridStep = this.props.gridStep || Util.getGridStep(
                 this.props.range,
                 this.props.step,
                 defaultBoxSize
         );
-        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
+        const snapStep = this.props.snapStep || Util.snapStepFromGridStep(
             gridStep
         );
 
         if (this.props.valid === true) {
             // TODO(aria): send these down all at once
-            var graphProps = {
+            const graphProps = {
                 ref: "graph",
                 box: this.props.box,
                 range: this.props.range,
@@ -111,7 +111,7 @@ const InteractiveGraphEditor = React.createClass({
                 trackInteraction: function() {},
                 flexibleType: true,
                 onChange: (newProps) => {
-                    var correct = this.props.correct;
+                    const correct = this.props.correct;
                     if (correct.type === newProps.graph.type) {
                         correct = _.extend({}, correct, newProps.graph);
                     } else {
@@ -223,20 +223,20 @@ const InteractiveGraphEditor = React.createClass({
     },
 
     changeMatchType: function(e) {
-        var correct = _.extend({}, this.props.correct, {
+        const correct = _.extend({}, this.props.correct, {
             match: e.target.value,
         });
         this.props.onChange({correct: correct});
     },
 
     serialize: function() {
-        var json = _.pick(this.props, "step", "backgroundImage", "markings",
+        const json = _.pick(this.props, "step", "backgroundImage", "markings",
             "labels", "showProtractor", "showRuler", "rulerLabel",
             "rulerTicks", "range", "gridStep", "snapStep");
 
-        var graph = this.refs.graph;
+        const graph = this.refs.graph;
         if (graph) {
-            var correct = graph && graph.getUserInput();
+            const correct = graph && graph.getUserInput();
             _.extend(json, {
                 // TODO(alpert): Allow specifying flexibleType (whether the
                 // graph type should be a choice or not)

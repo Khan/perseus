@@ -7,10 +7,10 @@
  * or screen, based on the widgets it contains.
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Traversal = require("./traversal.jsx");
-var Widgets = require("./widgets.js");
+const Traversal = require("./traversal.jsx");
+const Widgets = require("./widgets.js");
 
 module.exports = {
     // Returns a list of widgets that cause a given perseus item to require
@@ -21,7 +21,7 @@ module.exports = {
     // each widget with higher granularity.
     violatingWidgets: function(itemData) {
         // TODO(jordan): Hints as well
-        var widgets = [];
+        const widgets = [];
 
         // Traverse the question data
         Traversal.traverseRendererDeep(

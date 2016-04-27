@@ -5,7 +5,7 @@
 /* global beforeEach:false, expect:false */
 
 describe("split diff", function() {
-    var splitDiff;
+    const splitDiff;
 
     beforeEach(function() {
         splitDiff = require("../split-diff.jsx");

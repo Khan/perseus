@@ -2,12 +2,12 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var assert = require("assert");
-var _ = require("underscore");
+const assert = require("assert");
+const _ = require("underscore");
 
-var FixPassageRefs = require("../fix-passage-refs.jsx");
+const FixPassageRefs = require("../fix-passage-refs.jsx");
 
-var sampleItem = {
+const sampleItem = {
     "question": {
         "content": "[[☃ passage-ref 1]] (\"hi ... there\")",
         "images": {},
@@ -38,7 +38,7 @@ var sampleItem = {
     "hints": [],
 };
 
-var sampleGroupItem = {
+const sampleGroupItem = {
     "question": {
         "content": "[[☃ group 1]]\n\n",
         "images": {},
@@ -97,7 +97,7 @@ var sampleGroupItem = {
     "hints": [],
 };
 
-var sampleRadioItem = {
+const sampleRadioItem = {
     "question": {
         "content": "[[☃ radio 1]]\n\n",
         "images": {},
@@ -138,11 +138,11 @@ var sampleRadioItem = {
     "hints": [],
 };
 
-var clonedSampleItem = _.clone(sampleItem);
-var clonedSampleGroupItem = _.clone(sampleGroupItem);
-var clonedSampleRadioItem = _.clone(sampleRadioItem);
+const clonedSampleItem = _.clone(sampleItem);
+const clonedSampleGroupItem = _.clone(sampleGroupItem);
+const clonedSampleRadioItem = _.clone(sampleRadioItem);
 
-var assertNonMutative = () => {
+const assertNonMutative = () => {
     assert.deepEqual(sampleItem, clonedSampleItem);
     assert.deepEqual(sampleGroupItem, clonedSampleGroupItem);
     assert.deepEqual(sampleRadioItem, clonedSampleRadioItem);
@@ -150,7 +150,7 @@ var assertNonMutative = () => {
 
 describe("fix-passage-refs", () => {
     it("should modify a basic passage ref", () => {
-        var newItem = FixPassageRefs(sampleItem);
+        const newItem = FixPassageRefs(sampleItem);
         assert.strictEqual(
             newItem.question.content,
             "[[☃ passage-ref 1]]"
@@ -179,8 +179,8 @@ describe("fix-passage-refs", () => {
     });
 
     it("should modify a passage ref in a group", () => {
-        var newItem = FixPassageRefs(sampleGroupItem);
-        var group = newItem.question.widgets["group 1"];
+        const newItem = FixPassageRefs(sampleGroupItem);
+        const group = newItem.question.widgets["group 1"];
         assert.strictEqual(
             group.options.content,
             "[[☃ passage-ref 1]]"
@@ -209,8 +209,8 @@ describe("fix-passage-refs", () => {
     });
 
     it("should modify a passage ref in a radio", () => {
-        var newItem = FixPassageRefs(sampleRadioItem);
-        var radio = newItem.question.widgets["radio 1"];
+        const newItem = FixPassageRefs(sampleRadioItem);
+        const radio = newItem.question.widgets["radio 1"];
         assert.strictEqual(
             radio.options.choices[0].content,
             "{{passage-ref 1 2 \"hi ... there\"}}"

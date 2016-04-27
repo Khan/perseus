@@ -2,15 +2,15 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var init = function(options) {
+const init = function(options) {
     _.defaults(options, {
         // Pass skipMathJax: true if MathJax is already loaded and configured.
         skipMathJax: false,
     });
 
-    var deferred = $.Deferred();
+    const deferred = $.Deferred();
 
     if (options.skipMathJax) {
         deferred.resolve();

@@ -3,18 +3,18 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* globals KA */
-var classNames = require("classnames");
-var React = require("react");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const _ = require("underscore");
 
-var FixedToResponsive = require("../components/fixed-to-responsive.jsx");
-var Graphie = require("../components/graphie.jsx");
-var ImageLoader = require("../components/image-loader.jsx");
-var Util = require("../util.js");
-var Zoom = require("../zoom.js");
+const FixedToResponsive = require("../components/fixed-to-responsive.jsx");
+const Graphie = require("../components/graphie.jsx");
+const ImageLoader = require("../components/image-loader.jsx");
+const Util = require("../util.js");
+const Zoom = require("../zoom.js");
 
 // Minimum image width to make an image appear as zoomable.
-var ZOOMABLE_THRESHOLD = 700;
+const ZOOMABLE_THRESHOLD = 700;
 
 // The global cache of label data. Its format is:
 // {
@@ -26,11 +26,11 @@ var ZOOMABLE_THRESHOLD = 700;
 //   },
 //   ...
 // }
-var labelDataCache = {};
+const labelDataCache = {};
 
 // Write our own JSONP handler because all the other ones don't do things we
 // need.
-var doJSONP = function(url, options) {
+const doJSONP = function(url, options) {
     options = _.extend({}, {
         callbackName: "callback",
         success: $.noop,
@@ -38,7 +38,7 @@ var doJSONP = function(url, options) {
     }, options);
 
     // Create the script
-    var script = document.createElement("script");
+    const script = document.createElement("script");
     script.setAttribute("async", "");
     script.setAttribute("src", url);
 
@@ -64,8 +64,8 @@ var doJSONP = function(url, options) {
     document.head.appendChild(script);
 };
 
-var svgLabelsRegex = /^web\+graphie\:/;
-var hashRegex = /\/([^/]+)$/;
+const svgLabelsRegex = /^web\+graphie\:/;
+const hashRegex = /\/([^/]+)$/;
 
 function isLabeledSVG(url) {
     return svgLabelsRegex.test(url);
@@ -76,7 +76,7 @@ function isLabeledSVG(url) {
 // appropriate suffixes to get the image and other data
 function getBaseUrl(url) {
     // Force HTTPS connection unless we're on HTTP, so that IE works.
-    var protocol = window.location.protocol === "http:" ? "http:" : "https:";
+    const protocol = window.location.protocol === "http:" ? "http:" : "https:";
 
     return url.replace(svgLabelsRegex, protocol);
 }
@@ -99,7 +99,7 @@ function shouldRenderJipt() {
     return typeof KA !== "undefined" && KA.language === "en-pt";
 }
 
-var specialChars = {
+const specialChars = {
     // escaped: original
     "\\a": "\u0007", // \a isn't valid javascript
     "\\b": "\b",
@@ -111,18 +111,18 @@ var specialChars = {
     "\\\\": "\\",
 };
 
-var rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
+const rEscapedChars = /\\a|\\b|\\t|\\n|\\v|\\f|\\r|\\\\/g;
 
-var jiptLabels = [];
+const jiptLabels = [];
 if (shouldRenderJipt()) {
     if (!KA.jipt_dom_insert_checks) {
         KA.jipt_dom_insert_checks = [];
     }
 
     KA.jipt_dom_insert_checks.push(function(text, node, attribute) {
-        var index = $(node).data("jipt-label-index");
+        const index = $(node).data("jipt-label-index");
         if (node && typeof index !== "undefined") {
-            var {label, useMath} = jiptLabels[index];
+            const {label, useMath} = jiptLabels[index];
 
             label.text("");
 
@@ -133,9 +133,9 @@ if (shouldRenderJipt()) {
                 });
 
             if (useMath) {
-                var mathRegex = /^\$(.*)\$$/;
-                var match = text.match(mathRegex);
-                var mathText = match ?
+                const mathRegex = /^\$(.*)\$$/;
+                const match = text.match(mathRegex);
+                const mathText = match ?
                         match[1] :
                         "\\color{red}{\\text{Invalid Math}}";
                 label.processMath(mathText, true);
@@ -151,13 +151,13 @@ if (shouldRenderJipt()) {
 
 // A regex to split at the last / of a URL, separating the base part from the
 // hash. This is used to create the localized label data URLs.
-var splitHashRegex = /\/(?=[^/]+$)/;
+const splitHashRegex = /\/(?=[^/]+$)/;
 
 function getLocalizedDataUrl(url) {
     if (typeof KA !== "undefined") {
         // Parse out the hash and base so that we can insert the locale
         // directory in the middle.
-        var [base, hash] = getBaseUrl(url).split(splitHashRegex);
+        const [base, hash] = getBaseUrl(url).split(splitHashRegex);
         return `${base}/${KA.language}/${hash}-data.json`;
     } else {
         return getDataUrl(url);
@@ -166,7 +166,7 @@ function getLocalizedDataUrl(url) {
 
 // Get the hash from the url, which is just the filename
 function getUrlHash(url) {
-    var match = url.match(hashRegex);
+    const match = url.match(hashRegex);
 
     return match && match[1];
 }
@@ -184,7 +184,7 @@ function defaultPreloader() {
     });
 }
 
-var SvgImage = React.createClass({
+const SvgImage = React.createClass({
     propTypes: {
         alt: React.PropTypes.string,
 
@@ -275,8 +275,8 @@ var SvgImage = React.createClass({
             return false;
         }
 
-        var wasLoaded = this.isLoadedInState(this.state);
-        var nextLoaded = this.isLoadedInState(nextState);
+        const wasLoaded = this.isLoadedInState(this.state);
+        const nextLoaded = this.isLoadedInState(nextState);
 
         return wasLoaded !== nextLoaded;
     },
@@ -294,7 +294,7 @@ var SvgImage = React.createClass({
     },
 
     loadResources: function() {
-        var hash = getUrlHash(this.props.src);
+        const hash = getUrlHash(this.props.src);
 
         // We can't make multiple jsonp calls to the same file because their
         // callbacks will collide with each other. Instead, we cache the data
@@ -306,7 +306,7 @@ var SvgImage = React.createClass({
                 labelDataCache[hash].dataCallbacks.push(this.onDataLoaded);
             }
         } else {
-            var cacheData = {
+            const cacheData = {
                 loaded: false,
                 dataCallbacks: [this.onDataLoaded],
                 data: null,
@@ -314,7 +314,7 @@ var SvgImage = React.createClass({
 
             labelDataCache[hash] = cacheData;
 
-            var retrieveData = (url, errorCallback) => {
+            const retrieveData = (url, errorCallback) => {
                 doJSONP(url, {
                     callbackName: "svgData" + hash,
                     success: (data) => {
@@ -397,7 +397,7 @@ var SvgImage = React.createClass({
     setupGraphie: function(graphie, options) {
         _.map(options.labels, (labelData) => {
             if (shouldRenderJipt()) {
-                var elem = graphie.label(
+                const elem = graphie.label(
                     labelData.coordinates,
                     labelData.content,
                     labelData.alignment,
@@ -415,7 +415,7 @@ var SvgImage = React.createClass({
                 // without coordinates. They don't seem to have any content, so
                 // it seems fine to just ignore them (rather than error), but
                 // we should figure out why this is happening.
-                var label = graphie.label(
+                const label = graphie.label(
                     labelData.coordinates,
                     labelData.content,
                     labelData.alignment,
@@ -427,9 +427,9 @@ var SvgImage = React.createClass({
                 // TODO(alex): Dynamically resize font-size as well. This
                 // almost certainly means listening to throttled window.resize
                 // events.
-                var position = label.position();
-                var height = this.props.height * this.props.scale;
-                var width = this.props.width * this.props.scale;
+                const position = label.position();
+                const height = this.props.height * this.props.scale;
+                const width = this.props.width * this.props.scale;
                 label.css({
                     top: position.top / height * 100 + '%',
                     left: position.left / width * 100 + '%',
@@ -444,7 +444,7 @@ var SvgImage = React.createClass({
     },
 
     _handleZoomClick: function(e) {
-        var $image = $(e.target);
+        const $image = $(e.target);
 
         // It's possible that the image is already displayed at its
         // full size, but we don't really know that until we get a chance
@@ -463,14 +463,14 @@ var SvgImage = React.createClass({
 
     render: function() {
         // Props to send to all images
-        var imageProps = {
+        const imageProps = {
             alt: this.props.alt,
             title: this.props.title,
         };
 
-        var width = this.props.width && this.props.width * this.props.scale;
-        var height = this.props.height && this.props.height * this.props.scale;
-        var dimensions = {
+        const width = this.props.width && this.props.width * this.props.scale;
+        const height = this.props.height && this.props.height * this.props.scale;
+        const dimensions = {
             width: width,
             height: height,
         };
@@ -483,7 +483,7 @@ var SvgImage = React.createClass({
         // Matcher, etc.
         // TODO(alex): Make all of those image rendering locations aware of
         // width+height so that they too can render responsively.
-        var responsive = this.props.responsive && !!(width && height);
+        const responsive = this.props.responsive && !!(width && height);
 
         // An additional <Graphie /> may be inserted after the image/graphie
         // pair. Only used by the image widget, for its legacy labels support.
@@ -492,7 +492,7 @@ var SvgImage = React.createClass({
         // TODO(alex): Convert all existing uses of that to web+graphie. This
         // is tricky because web+graphie doesn't support labels on non-graphie
         // images.
-        var extraGraphie;
+        const extraGraphie;
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
                 <Graphie
@@ -508,17 +508,17 @@ var SvgImage = React.createClass({
 
         // If preloader is undefined, we use the default. If it's
         // null, there will be no preloader in use.
-        var preloaderBaseFunc = this.props.preloader === undefined ?
+        const preloaderBaseFunc = this.props.preloader === undefined ?
             defaultPreloader : this.props.preloader;
 
-        var preloader = preloaderBaseFunc ?
+        const preloader = preloaderBaseFunc ?
             () => preloaderBaseFunc(dimensions) :
             null;
 
         // Just use a normal image if a normal image is provided
         if (!isLabeledSVG(this.props.src)) {
             if (responsive) {
-                var wrapperClasses = classNames({
+                const wrapperClasses = classNames({
                     zoomable: width > ZOOMABLE_THRESHOLD,
                     "svg-image": true,
                 });
@@ -553,15 +553,15 @@ var SvgImage = React.createClass({
             }
         }
 
-        var imageUrl = getSvgUrl(this.props.src);
+        const imageUrl = getSvgUrl(this.props.src);
 
-        var graphie;
+        const graphie;
         // Since we only want to do the graphie setup once, we only render the
         // graphie once everything is loaded
         if (this.isLoadedInState(this.state)) {
             // Use the provided width and height to size the graphie if
             // possible, otherwise use our own calculated size
-            var box;
+            const box;
             if (this.sizeProvided()) {
                 box = [width, height];
             } else {
@@ -569,7 +569,7 @@ var SvgImage = React.createClass({
                        this.state.imageDimensions[1] * this.props.scale];
             }
 
-            var scale = [40 * this.props.scale, 40 * this.props.scale];
+            const scale = [40 * this.props.scale, 40 * this.props.scale];
 
             graphie = (
                 <Graphie

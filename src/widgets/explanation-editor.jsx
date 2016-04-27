@@ -2,23 +2,23 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var Editor = require("../editor.jsx");
-var TextInput = require("../components/text-input.jsx");
+const Editor = require("../editor.jsx");
+const TextInput = require("../components/text-input.jsx");
 
-var defaultExplanationProps = {
+const defaultExplanationProps = {
     showPrompt: "Explain",
     hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
     widgets: {},
 };
 
-var ExplanationEditor = React.createClass({
+const ExplanationEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -57,7 +57,7 @@ var ExplanationEditor = React.createClass({
                     widgetEnabled={true}
                     immutableWidgets={false}
                     onChange={(props) => {
-                        var newProps = {};
+                        const newProps = {};
                         if (_.has(props, "content")) {
                             newProps.explanation = props.content;
                         }

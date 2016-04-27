@@ -4,16 +4,16 @@
 
 /* global i18n:false, $_:false */
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
 
-var Renderer = require("../renderer.jsx");
-var PassageMarkdown = require("./passage/passage-markdown.jsx");
+const Renderer = require("../renderer.jsx");
+const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
-var Passage = React.createClass({
+const Passage = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -47,8 +47,8 @@ var Passage = React.createClass({
     },
 
     render: function() {
-        var lineNumbers;
-        var nLines = this.state.nLines;
+        const lineNumbers;
+        const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
             // lineN is the line number in the current passage;
             // the displayed line number is
@@ -70,9 +70,9 @@ var Passage = React.createClass({
             });
         }
 
-        var rawContent = this.props.passageText;
-        var parseState = {};
-        var parsedContent = PassageMarkdown.parse(rawContent, parseState);
+        const rawContent = this.props.passageText;
+        const parseState = {};
+        const parsedContent = PassageMarkdown.parse(rawContent, parseState);
 
         return <div className="perseus-widget-passage-container">
             {this._renderInstructions(parseState)}
@@ -122,16 +122,16 @@ var Passage = React.createClass({
     },
 
     _measureLines: function() {
-        var $renderer = $(ReactDOM.findDOMNode(this.refs.content));
-        var contentsHeight = $renderer.height();
-        var lineHeight = parseInt($renderer.css("line-height"));
-        var nLines = Math.round(contentsHeight / lineHeight);
+        const $renderer = $(ReactDOM.findDOMNode(this.refs.content));
+        const contentsHeight = $renderer.height();
+        const lineHeight = parseInt($renderer.css("line-height"));
+        const nLines = Math.round(contentsHeight / lineHeight);
         return nLines;
     },
 
     _getInitialLineNumber: function() {
-        var isPassageBeforeThisPassage = true;
-        var passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
+        const isPassageBeforeThisPassage = true;
+        const passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
             if (widgetInfo.type !== "passage") {
                 return false;
             }
@@ -155,10 +155,10 @@ var Passage = React.createClass({
     },
 
     _renderInstructions: function(parseState) {
-        var firstQuestionNumber = parseState.firstQuestionRef;
-        var firstSentenceRef = parseState.firstSentenceRef;
+        const firstQuestionNumber = parseState.firstQuestionRef;
+        const firstSentenceRef = parseState.firstSentenceRef;
 
-        var instructions = "";
+        const instructions = "";
         if (firstQuestionNumber) {
             instructions += i18n._(
                 "The symbol %(questionSymbol)s indicates that question " +
@@ -178,7 +178,7 @@ var Passage = React.createClass({
                 }
             );
         }
-        var parsedInstructions = PassageMarkdown.parse(instructions);
+        const parsedInstructions = PassageMarkdown.parse(instructions);
         return <div className="perseus-widget-passage-instructions">
             {PassageMarkdown.output(parsedInstructions)}
         </div>;
@@ -191,59 +191,59 @@ var Passage = React.createClass({
     },
 
     _hasFootnotes: function() {
-        var rawContent = this.props.footnotes;
-        var isEmpty = /^\s*$/.test(rawContent);
+        const rawContent = this.props.footnotes;
+        const isEmpty = /^\s*$/.test(rawContent);
         return !isEmpty;
     },
 
     _renderFootnotes: function() {
-        var rawContent = this.props.footnotes;
-        var parsed = PassageMarkdown.parse(rawContent);
+        const rawContent = this.props.footnotes;
+        const parsed = PassageMarkdown.parse(rawContent);
         return PassageMarkdown.output(parsed);
     },
 
     _getStartRefLineNumber: function(referenceNumber) {
-        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
+        const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
         if (!ref) {
             return null;
         }
 
-        var $ref = $(ReactDOM.findDOMNode(ref));
+        const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
-        var $refText = $ref.next();
+        const $refText = $ref.next();
         if ($refText.length === 0) {
             // But if there are no elements after the ref, just
             // use the ref itself.
             $refText = $ref;
         }
-        var vPos = $refText.offset().top;
+        const vPos = $refText.offset().top;
 
         return this.state.startLineNumbersAfter + 1 +
             this._convertPosToLineNumber(vPos);
     },
 
     _getEndRefLineNumber: function(referenceNumber) {
-        var refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
+        const refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
         if (!ref) {
             return null;
         }
 
-        var $ref = $(ReactDOM.findDOMNode(ref));
+        const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
-        var $refText = $ref.prev();
+        const $refText = $ref.prev();
         if ($refText.length === 0) {
             // But if there are no elements before the ref, just
             // use the ref itself.
             $refText = $ref;
         }
-        var height = $refText.height();
-        var vPos = $refText.offset().top;
+        const height = $refText.height();
+        const vPos = $refText.offset().top;
 
-        var line = this._convertPosToLineNumber(vPos + height);
+        const line = this._convertPosToLineNumber(vPos + height);
         if (height === 0) {
             // If the element before the end ref span was the start
             // ref span, it might have 0 height. This is obviously not
@@ -258,17 +258,17 @@ var Passage = React.createClass({
     },
 
     _convertPosToLineNumber: function(absoluteVPos) {
-        var $content = $(ReactDOM.findDOMNode(this.refs.content));
-        var relativeVPos = absoluteVPos - $content.offset().top;
-        var lineHeight = parseInt($content.css("line-height"));
+        const $content = $(ReactDOM.findDOMNode(this.refs.content));
+        const relativeVPos = absoluteVPos - $content.offset().top;
+        const lineHeight = parseInt($content.css("line-height"));
 
-        var line = Math.round(relativeVPos / lineHeight);
+        const line = Math.round(relativeVPos / lineHeight);
         return line;
     },
 
     _getRefContent: function(referenceNumber) {
-        var refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
-        var ref = this.refs[refRef];
+        const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
+        const ref = this.refs[refRef];
         if (!ref) {
             return null;
         }
@@ -276,12 +276,12 @@ var Passage = React.createClass({
     },
 
     getReference: function(referenceNumber) {
-        var refStartLine = this._getStartRefLineNumber(referenceNumber);
-        var refEndLine = this._getEndRefLineNumber(referenceNumber);
+        const refStartLine = this._getStartRefLineNumber(referenceNumber);
+        const refEndLine = this._getEndRefLineNumber(referenceNumber);
         if (refStartLine == null || refEndLine == null) {
             return null;
         }
-        var refContent = this._getRefContent(referenceNumber);
+        const refContent = this._getRefContent(referenceNumber);
 
         return {
             startLine: refStartLine,

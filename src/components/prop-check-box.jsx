@@ -2,14 +2,14 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
 /* A checkbox that syncs its value to props using the
  * renderer's onChange method, and gets the prop name
  * dynamically from its props list
  */
-var PropCheckBox = React.createClass({
+const PropCheckBox = React.createClass({
     propTypes: {
         label: React.PropTypes.node,
         labelAlignment: React.PropTypes.oneOf(["left", "right"]),
@@ -27,7 +27,7 @@ var PropCheckBox = React.createClass({
     },
 
     propName: function() {
-        var propName = _.find(_.keys(this.props), function(localPropName) {
+        const propName = _.find(_.keys(this.props), function(localPropName) {
             return !_.has(this.DEFAULT_PROPS, localPropName);
         }, this);
 
@@ -44,7 +44,7 @@ var PropCheckBox = React.createClass({
     },
 
     render: function() {
-        var propName = this.propName();
+        const propName = this.propName();
         return <label>
             {this._labelAlignLeft() && this.props.label}
             <input type="checkbox"
@@ -55,8 +55,8 @@ var PropCheckBox = React.createClass({
     },
 
     toggle: function() {
-        var propName = this.propName();
-        var changes = {};
+        const propName = this.propName();
+        const changes = {};
         changes[propName] = !this.props[propName];
         this.props.onChange(changes);
     },

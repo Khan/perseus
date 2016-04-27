@@ -15,10 +15,10 @@
   * bracket equality).
   */
 function findEndpoint(tex, currentIndex) {
-    var bracketDepth = 0;
+    const bracketDepth = 0;
 
     for (var i = currentIndex, len = tex.length; i < len; i++) {
-        var c = tex[i];
+        const c = tex[i];
 
         if (c === '{') {
             bracketDepth++;
@@ -42,13 +42,13 @@ function findEndpoint(tex, currentIndex) {
 function parseNextExpression(tex, currentIndex, handler) {
     // Find the first '{' and grab subsequent TeX
     // Ex) tex: '{3}{7}', and we want the '3'
-    var openBracketIndex = tex.indexOf('{', currentIndex);
-    var nextExpIndex = openBracketIndex + 1;
+    const openBracketIndex = tex.indexOf('{', currentIndex);
+    const nextExpIndex = openBracketIndex + 1;
 
     // Truncate to only contain remaining TeX
-    var endpoint = findEndpoint(tex, nextExpIndex);
-    var expressionTeX = tex.substring(nextExpIndex, endpoint);
-    var parsedExp = walkTex(expressionTeX, handler);
+    const endpoint = findEndpoint(tex, nextExpIndex);
+    const expressionTeX = tex.substring(nextExpIndex, endpoint);
+    const parsedExp = walkTex(expressionTeX, handler);
 
     return {
         endpoint: endpoint,
@@ -58,11 +58,11 @@ function parseNextExpression(tex, currentIndex, handler) {
 
 
 function getNextFracIndex(tex, currentIndex) {
-    var dfrac = "\\dfrac";
-    var frac = "\\frac";
+    const dfrac = "\\dfrac";
+    const frac = "\\frac";
 
-    var nextFrac = tex.indexOf(frac, currentIndex);
-    var nextDFrac = tex.indexOf(dfrac, currentIndex);
+    const nextFrac = tex.indexOf(frac, currentIndex);
+    const nextDFrac = tex.indexOf(dfrac, currentIndex);
 
     if (nextFrac > -1 && nextDFrac > -1) {
         return Math.min(nextFrac, nextDFrac);
@@ -78,9 +78,9 @@ function getNextFracIndex(tex, currentIndex) {
 
 function walkTex(tex, handler) {
     // Ex) tex: '2 \dfrac {3}{7}'
-    var parsedString = "";
-    var currentIndex = 0;
-    var nextFrac = getNextFracIndex(tex, currentIndex);
+    const parsedString = "";
+    const currentIndex = 0;
+    const nextFrac = getNextFracIndex(tex, currentIndex);
 
     // For each \dfrac, find the two expressions (wrapped in {}) and recur
     while (nextFrac > -1) {
@@ -93,14 +93,14 @@ function walkTex(tex, handler) {
 
         // Parse first expression and move index past it
         // Ex) firstParsedExpression.expression: '3'
-        var firstParsedExpression = parseNextExpression(
+        const firstParsedExpression = parseNextExpression(
             tex, currentIndex, handler
         );
         currentIndex = firstParsedExpression.endpoint + 1;
 
         // Parse second expression
         // Ex) secondParsedExpression.expression: '7'
-        var secondParsedExpression = parseNextExpression(
+        const secondParsedExpression = parseNextExpression(
             tex, currentIndex, handler
         );
         currentIndex = secondParsedExpression.endpoint + 1;
@@ -133,8 +133,8 @@ function modifyTex(tex) {
     function isNestedFraction(tex) {
         return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
     }
-    var handler = function(exp1, exp2) {
-        var prefix;
+    const handler = function(exp1, exp2) {
+        const prefix;
         if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
             prefix = "\\dfrac";
         } else {
@@ -153,7 +153,7 @@ function modifyTex(tex) {
  * allow for nested \dfrac elements.
  */
 function parseTex(tex) {
-    var handler = function(exp1, exp2) {
+    const handler = function(exp1, exp2) {
         return exp1 + "/" + exp2;
     };
     return walkTex(tex, handler);

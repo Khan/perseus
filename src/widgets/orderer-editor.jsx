@@ -8,10 +8,10 @@ const _ = require("underscore");
 const InfoTip = require("../components/info-tip.jsx");
 const TextListEditor = require("../components/text-list-editor.jsx");
 
-var NORMAL = "normal";
-var AUTO = "auto";
-var HORIZONTAL = "horizontal";
-var VERTICAL = "vertical";
+const NORMAL = "normal";
+const AUTO = "auto";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
 const OrdererEditor = React.createClass({
     propTypes: {
@@ -97,7 +97,7 @@ const OrdererEditor = React.createClass({
     },
 
     onOptionsChange: function(whichOptions, options, cb) {
-        var props = {};
+        const props = {};
         props[whichOptions] = _.map(options, function(option) {
             return {content: option};
         });
@@ -116,7 +116,7 @@ const OrdererEditor = React.createClass({
         // We combine the correct answer and the other cards by merging them,
         // removing duplicates and empty cards, and sorting them into
         // categories based on their content
-        var options =
+        const options =
         _.chain(_.pluck(this.props.correctOptions, 'content'))
          .union(_.pluck(this.props.otherOptions, 'content'))
          .uniq()

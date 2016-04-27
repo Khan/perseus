@@ -68,9 +68,9 @@ const NumericInputEditor = React.createClass({
     },
 
     render: function() {
-        var answers = this.props.answers;
+        const answers = this.props.answers;
 
-        var unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
+        const unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
             <label>Unsimplified answers are</label>
             <ButtonGroup value={answers[i]["simplify"]}
                          allowEmpty={false}
@@ -92,7 +92,7 @@ const NumericInputEditor = React.createClass({
             </InfoTip>
         </div>;
 
-        var suggestedAnswerTypes = (i) => <div>
+        const suggestedAnswerTypes = (i) => <div>
             <div className="perseus-widget-row">
                 <label>Choose the suggested answer formats</label>
                 <MultiButtonGroup buttons={answerFormButtons}
@@ -125,7 +125,7 @@ const NumericInputEditor = React.createClass({
             </div>
         </div>;
 
-        var maxError = (i) => <div className="perseus-widget-row">
+        const maxError = (i) => <div className="perseus-widget-row">
             <label>
                 Max error
                 {" "}
@@ -137,7 +137,7 @@ const NumericInputEditor = React.createClass({
             </label>
         </div>;
 
-        var inputSize = <div className="perseus-widget-row">
+        const inputSize = <div className="perseus-widget-row">
                 <label>Width:{' '} </label>
                 <ButtonGroup value={this.props.size} allowEmpty={false}
                     buttons={[
@@ -151,7 +151,7 @@ const NumericInputEditor = React.createClass({
                 </InfoTip>
             </div>;
 
-        var labelText = <div className="perseus-widget-row">
+        const labelText = <div className="perseus-widget-row">
                 <label>
                     Label text:{' '}
                     <TextInput
@@ -164,7 +164,7 @@ const NumericInputEditor = React.createClass({
                 </InfoTip>
             </div>;
 
-        var coefficientCheck = <div>
+        const coefficientCheck = <div>
             <div className="perseus-widget-row">
                 <PropCheckBox label="Coefficient"
                     coefficient={this.props.coefficient}
@@ -178,7 +178,7 @@ const NumericInputEditor = React.createClass({
             </div>
         </div>;
 
-        var addAnswerButton = <div>
+        const addAnswerButton = <div>
             <a
                 href="javascript:void(0)"
                 className="simple-button orange"
@@ -188,14 +188,14 @@ const NumericInputEditor = React.createClass({
             </a>
         </div>;
 
-        var instructions = {
+        const instructions = {
             "wrong":    "(address the mistake/misconception)",
             "ungraded": "(explain in detail to avoid confusion)",
             "correct":  "(reinforce the user's understanding)",
         };
 
-        var generateInputAnswerEditors = () => answers.map((answer, i) => {
-            var editor = <Editor
+        const generateInputAnswerEditors = () => answers.map((answer, i) => {
+            const editor = <Editor
                 content={answer.message || ""}
                 placeholder={"Why is this answer " + answer.status + "?\t" +
                     instructions[answer.status]}
@@ -223,7 +223,7 @@ const NumericInputEditor = React.createClass({
                             // determine whether or not to reveal Pi on the
                             // keypad (right now, answers are stored as resolved
                             // values, like '0.125' rather than '1/8').
-                            var forms;
+                            const forms;
                             if (format === "pi") {
                                 forms = ["pi"];
                             } else if (format === "mixed") {
@@ -301,14 +301,14 @@ const NumericInputEditor = React.createClass({
     },
 
     onToggleOptions: function(choiceIndex) {
-        var showOptions = this.state.showOptions.slice();
+        const showOptions = this.state.showOptions.slice();
         showOptions[choiceIndex] = !showOptions[choiceIndex];
         this.setState({showOptions: showOptions});
     },
 
     onTrashAnswer: function(choiceIndex) {
         if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
-            var answers = this.props.answers.slice(0);
+            const answers = this.props.answers.slice(0);
             answers.splice(choiceIndex, 1);
             this.props.onChange({answers: answers});
         }
@@ -317,16 +317,16 @@ const NumericInputEditor = React.createClass({
     onSpace: function(e, callback) {
         if (e.key === " ") {
             e.preventDefault(); // prevent page shifting
-            var args = _.toArray(arguments).slice(2);
+            const args = _.toArray(arguments).slice(2);
             callback.apply(this, args);
         }
     },
 
     onStatusChange: function(choiceIndex) {
-        var statuses = ["wrong", "ungraded", "correct"];
-        var answers = this.props.answers;
-        var i = _.indexOf(statuses, answers[choiceIndex].status);
-        var newStatus = statuses[(i + 1) % statuses.length];
+        const statuses = ["wrong", "ungraded", "correct"];
+        const answers = this.props.answers;
+        const i = _.indexOf(statuses, answers[choiceIndex].status);
+        const newStatus = statuses[(i + 1) % statuses.length];
 
         this.updateAnswer(choiceIndex, {
             status: newStatus,
@@ -337,19 +337,19 @@ const NumericInputEditor = React.createClass({
     updateAnswer: function(choiceIndex, update) {
         if (!_.isObject(update)) {
             return _.partial((choiceIndex, key, value) => {
-                var update = {};
+                const update = {};
                 update[key] = value;
                 this.updateAnswer(choiceIndex, update);
             }, choiceIndex, update);
         }
 
-        var answers = _.clone(this.props.answers);
+        const answers = _.clone(this.props.answers);
 
         // Don't bother to make a new answer box unless we are editing the last
         // one.
         // TODO(oliver): This might not be necessary anymore.
         if (choiceIndex === answers.length) {
-            var lastAnswer = initAnswer(this.state.lastStatus);
+            const lastAnswer = initAnswer(this.state.lastStatus);
             answers = answers.concat(lastAnswer);
         }
 
@@ -358,14 +358,14 @@ const NumericInputEditor = React.createClass({
     },
 
     addAnswer: function() {
-        var lastAnswer = initAnswer(this.state.lastStatus);
-        var answers = this.props.answers.concat(lastAnswer);
+        const lastAnswer = initAnswer(this.state.lastStatus);
+        const answers = this.props.answers.concat(lastAnswer);
         this.props.onChange({answers: answers});
     },
 
     getSaveWarnings: function() {
         // Filter out all the empty answers
-        var warnings = [];
+        const warnings = [];
         // TODO(emily): This doesn't actually work, because the value is either
         // null or undefined when undefined, probably.
         if (_.contains(_.pluck(this.props.answers, "value"), "")) {
@@ -375,7 +375,7 @@ const NumericInputEditor = React.createClass({
             warnings.push("No label is specified");
         }
         this.props.answers.forEach((answer, i) => {
-            var formatError = (answer.strict &&
+            const formatError = (answer.strict &&
                 (!answer.answerForms || answer.answerForms.length === 0));
             if (formatError) {
                 warnings.push(`Answer ${i + 1} is set to string format ` +

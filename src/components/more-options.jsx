@@ -5,9 +5,9 @@
 /* A div that shows/hides its children.
  * (meant for use with editor widgets)
  */
-var React = require("react");
+const React = require("react");
 
-var MoreOptions = React.createClass({
+const MoreOptions = React.createClass({
     propTypes: {
         children: React.PropTypes.node,
         show: React.PropTypes.bool,

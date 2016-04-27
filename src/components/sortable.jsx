@@ -2,20 +2,20 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Util     = require("../util.js");
-var Renderer = require("../renderer.jsx");
+const Util     = require("../util.js");
+const Renderer = require("../renderer.jsx");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
-var PREFIX = "perseus-sortable";
+const PREFIX = "perseus-sortable";
 
 
 // A placeholder that appears in the sortable whenever an item is dragged.
-var Placeholder = React.createClass({
+const Placeholder = React.createClass({
     propTypes: {
         width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
@@ -26,8 +26,8 @@ var Placeholder = React.createClass({
     },
 
     render: function() {
-        var className = [PREFIX + "-card", PREFIX + "-placeholder"].join(" ");
-        var style = {width: this.props.width, height: this.props.height};
+        const className = [PREFIX + "-card", PREFIX + "-placeholder"].join(" ");
+        const style = {width: this.props.width, height: this.props.height};
 
         if (this.props.margin != null) {
             style.margin = this.props.margin;
@@ -38,10 +38,10 @@ var Placeholder = React.createClass({
 });
 
 
-var STATIC = "static";
-var DRAGGING = "dragging";
-var ANIMATING = "animating";
-var DISABLED = "disabled";
+const STATIC = "static";
+const DRAGGING = "dragging";
+const ANIMATING = "animating";
+const DISABLED = "disabled";
 
 // A draggable item in the sortable. Can be in one of four states:
 //     Static:    The item is not being interacted with.
@@ -51,7 +51,7 @@ var DISABLED = "disabled";
 //
 // Usual flow:      Static -> Dragging -> Animating -> Static
 // [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
-var Draggable = React.createClass({
+const Draggable = React.createClass({
     propTypes: {
         type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
         content: React.PropTypes.string.isRequired,
@@ -110,14 +110,14 @@ var Draggable = React.createClass({
     },
 
     render: function() {
-        var className = [
+        const className = [
             PREFIX + "-card",
             PREFIX + "-draggable",
             PREFIX + "-" + this.props.type,
             ApiClassNames.INTERACTIVE,
         ].join(" ");
 
-        var style = {
+        const style = {
             position: "static",
         };
 
@@ -156,8 +156,8 @@ var Draggable = React.createClass({
 
         if (this.props.type === ANIMATING) {
             // Start animating
-            var current = this.getCurrentPosition();
-            var duration = 15 * Math.sqrt(
+            const current = this.getCurrentPosition();
+            const duration = 15 * Math.sqrt(
                 Math.sqrt(
                     Math.pow(this.props.endPosition.left - current.left, 2) +
                     Math.pow(this.props.endPosition.top - current.top, 2)
@@ -199,7 +199,7 @@ var Draggable = React.createClass({
         }
 
         event.preventDefault();
-        var loc = Util.extractPointerLocation(event);
+        const loc = Util.extractPointerLocation(event);
         if (loc) {
             this.setState({
                 startPosition: $(ReactDOM.findDOMNode(this)).position(),
@@ -220,7 +220,7 @@ var Draggable = React.createClass({
         }
 
         event.preventDefault();
-        var loc = Util.extractPointerLocation(event);
+        const loc = Util.extractPointerLocation(event);
         if (loc) {
             this.setState({
                 mouse: loc,
@@ -234,7 +234,7 @@ var Draggable = React.createClass({
         }
 
         event.preventDefault();
-        var loc = Util.extractPointerLocation(event);
+        const loc = Util.extractPointerLocation(event);
         if (loc) {
             this.unbindMouseMoveUp();
 
@@ -245,11 +245,11 @@ var Draggable = React.createClass({
 });
 
 
-var HORIZONTAL = "horizontal";
-var VERTICAL = "vertical";
+const HORIZONTAL = "horizontal";
+const VERTICAL = "vertical";
 
 // The main sortable component.
-var Sortable = React.createClass({
+const Sortable = React.createClass({
     propTypes: {
         options: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
@@ -280,7 +280,7 @@ var Sortable = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-        var prevProps = this.props;
+        const prevProps = this.props;
 
         if (!_.isEqual(nextProps.options, prevProps.options)) {
 
@@ -309,7 +309,7 @@ var Sortable = React.createClass({
     },
 
     itemsFromProps: function(props) {
-        var type = props.disabled ? DISABLED : STATIC;
+        const type = props.disabled ? DISABLED : STATIC;
         return _.map(props.options, function(option, i) {
             return {
                 option: option,
@@ -338,18 +338,18 @@ var Sortable = React.createClass({
         // explictly set on Draggables - this prevents them from changing size
         // or shape while being dragged.
 
-        var items = _.clone(this.state.items);
-        var $items = _.map(items, function(item) {
+        const items = _.clone(this.state.items);
+        const $items = _.map(items, function(item) {
             return $(ReactDOM.findDOMNode(this.refs[item.key]));
         }, this);
 
-        var widths = _.invoke($items, "outerWidth");
-        var heights = _.invoke($items, "outerHeight");
+        const widths = _.invoke($items, "outerWidth");
+        const heights = _.invoke($items, "outerHeight");
 
-        var constraints = this.props.constraints;
-        var layout = this.props.layout;
+        const constraints = this.props.constraints;
+        const layout = this.props.layout;
 
-        var syncWidth;
+        const syncWidth;
         if (constraints.width) {
             // Items must be at least as wide as the specified constraint
             syncWidth = _.max(widths.concat(constraints.width));
@@ -358,7 +358,7 @@ var Sortable = React.createClass({
             syncWidth = _.max(widths);
         }
 
-        var syncHeight;
+        const syncHeight;
         if (constraints.height) {
             // Items must be at least as high as the specified constraint
             syncHeight = _.max(heights.concat(constraints.height));
@@ -386,15 +386,15 @@ var Sortable = React.createClass({
     }, 20),
 
     render: function() {
-        var className = [PREFIX, "layout-" + this.props.layout].join(" ");
-        var cards = [];
+        const className = [PREFIX, "layout-" + this.props.layout].join(" ");
+        const cards = [];
 
         className += this.props.padding ? "" : " unpadded";
 
         _.each(this.state.items, function(item, i, items) {
-            var isLast = (i === items.length - 1);
-            var isStatic = (item.type === STATIC || item.type === DISABLED);
-            var margin;
+            const isLast = (i === items.length - 1);
+            const isStatic = (item.type === STATIC || item.type === DISABLED);
+            const margin;
 
             if (this.props.layout === HORIZONTAL) {
                 margin = "0 " + this.props.margin + "px 0 0"; // right
@@ -442,7 +442,7 @@ var Sortable = React.createClass({
 
     onMouseDown: function(key) {
         // Static -> Dragging
-        var items = _.map(this.state.items, function(item) {
+        const items = _.map(this.state.items, function(item) {
             if (item.key === key) {
                 item.type = DRAGGING;
             }
@@ -454,20 +454,20 @@ var Sortable = React.createClass({
 
     onMouseMove: function(key) {
         // Dragging: Rearrange items based on draggable's position
-        var $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
-        var $sortable = $(ReactDOM.findDOMNode(this));
-        var items = _.clone(this.state.items);
-        var item = _.findWhere(this.state.items, {key: key});
-        var margin = this.props.margin;
-        var currentIndex = _.indexOf(items, item);
-        var newIndex = 0;
+        const $draggable = $(ReactDOM.findDOMNode(this.refs[key]));
+        const $sortable = $(ReactDOM.findDOMNode(this));
+        const items = _.clone(this.state.items);
+        const item = _.findWhere(this.state.items, {key: key});
+        const margin = this.props.margin;
+        const currentIndex = _.indexOf(items, item);
+        const newIndex = 0;
 
         items.splice(currentIndex, 1);
 
         if (this.props.layout === HORIZONTAL) {
-            var midWidth = $draggable.offset().left - $sortable.offset().left;
-            var sumWidth = 0;
-            var cardWidth;
+            const midWidth = $draggable.offset().left - $sortable.offset().left;
+            const sumWidth = 0;
+            const cardWidth;
 
             _.each(items, function(item) {
                 cardWidth = item.width;
@@ -478,9 +478,9 @@ var Sortable = React.createClass({
             });
 
         } else {
-            var midHeight = $draggable.offset().top - $sortable.offset().top;
-            var sumHeight = 0;
-            var cardHeight;
+            const midHeight = $draggable.offset().top - $sortable.offset().top;
+            const sumHeight = 0;
+            const cardHeight;
 
             _.each(items, function(item) {
                 cardHeight = item.height;
@@ -499,7 +499,7 @@ var Sortable = React.createClass({
 
     onMouseUp: function(key) {
         // Dragging -> Animating
-        var items = _.map(this.state.items, function(item) {
+        const items = _.map(this.state.items, function(item) {
             if (item.key === key) {
                 item.type = ANIMATING;
                 item.endPosition = $(ReactDOM.findDOMNode(
@@ -517,7 +517,7 @@ var Sortable = React.createClass({
 
     onAnimationEnd: function(key) {
         // Animating -> Static
-        var items = _.map(this.state.items, function(item) {
+        const items = _.map(this.state.items, function(item) {
             if (item.key === key) {
                 item.type = STATIC;
             }

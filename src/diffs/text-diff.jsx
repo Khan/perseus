@@ -2,24 +2,24 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var React = require("react");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const _ = require("underscore");
 
-var diff = require("../../lib/jsdiff");
-var splitDiff = require("./split-diff.jsx");
-var stringArrayDiff = require("./string-array-diff.jsx");
+const diff = require("../../lib/jsdiff");
+const splitDiff = require("./split-diff.jsx");
+const stringArrayDiff = require("./string-array-diff.jsx");
 
-var BEFORE = "before";
-var AFTER = "after";
+const BEFORE = "before";
+const AFTER = "after";
 
-var IMAGE_REGEX = /http.*?\.png/g;
+const IMAGE_REGEX = /http.*?\.png/g;
 
-var imagesInString = function(str) {
+const imagesInString = function(str) {
     return str.match(IMAGE_REGEX) || [];
 };
 
-var classFor = function(entry, ifAdded, ifRemoved) {
+const classFor = function(entry, ifAdded, ifRemoved) {
     if (entry.added) {
         return ifAdded;
     } else if (entry.removed) {
@@ -29,7 +29,7 @@ var classFor = function(entry, ifAdded, ifRemoved) {
     }
 };
 
-var ImageDiffSide = React.createClass({
+const ImageDiffSide = React.createClass({
     propTypes: {
         side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
         images: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -43,7 +43,7 @@ var ImageDiffSide = React.createClass({
             {this.props.images.length > 0 &&
                 <div className="diff-header">Images</div>}
             {_.map(this.props.images, (entry, index) => {
-                var className = classNames({
+                const className = classNames({
                     "image": true,
                     "image-unchanged": entry.status === "unchanged",
                     "image-added": entry.status === "added",
@@ -59,7 +59,7 @@ var ImageDiffSide = React.createClass({
     },
 });
 
-var TextDiff = React.createClass({
+const TextDiff = React.createClass({
     propTypes: {
         before: React.PropTypes.string,
         after: React.PropTypes.string,
@@ -87,27 +87,27 @@ var TextDiff = React.createClass({
     },
 
     render: function() {
-        var diffed = diff.diffWords(this.props.before, this.props.after);
+        const diffed = diff.diffWords(this.props.before, this.props.after);
 
-        var lines = splitDiff(diffed);
+        const lines = splitDiff(diffed);
 
-        var beforeImages = imagesInString(this.props.before);
-        var afterImages = imagesInString(this.props.after);
+        const beforeImages = imagesInString(this.props.before);
+        const afterImages = imagesInString(this.props.after);
 
-        var images = stringArrayDiff(beforeImages, afterImages);
+        const images = stringArrayDiff(beforeImages, afterImages);
 
-        var renderedLines = _.map(lines, (line) => {
-            var contents = {};
+        const renderedLines = _.map(lines, (line) => {
+            const contents = {};
 
             contents.before = _(line).map(function(entry, i) {
-                var className = classFor(entry, "not-present", "removed dark");
+                const className = classFor(entry, "not-present", "removed dark");
                 return <span
                     key={i}
                     className={className}>{entry.value}</span>;
             });
 
             contents.after = _(line).map(function(entry, i) {
-                var className = classFor(entry, "added dark", "not-present");
+                const className = classFor(entry, "added dark", "not-present");
                 return <span
                     key={i}
                     className={className}>{entry.value}</span>;
@@ -115,7 +115,7 @@ var TextDiff = React.createClass({
             return contents;
         });
 
-        var className = classNames({
+        const className = classNames({
             "diff-row": true,
             "collapsed": this.state.collapsed,
         });
@@ -126,8 +126,8 @@ var TextDiff = React.createClass({
                     return <div className={"diff-row " + side} key={index}>
                         {!this.state.collapsed &&
                             _.map(renderedLines, (line, lineNum) => {
-                                var changed = line[side].length > 1;
-                                var lineClass = classNames({
+                                const changed = line[side].length > 1;
+                                const lineClass = classNames({
                                     "diff-line": true,
                                     "added": side === AFTER && changed,
                                     "removed": side === BEFORE && changed,

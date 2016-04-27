@@ -2,10 +2,10 @@
 /* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var EditorPage = require("./editor-page.jsx");
+const EditorPage = require("./editor-page.jsx");
 
 /* Renders an EditorPage (or an ArticleEditor) as a non-controlled component.
  *
@@ -14,7 +14,7 @@ var EditorPage = require("./editor-page.jsx");
  * changes. With StatefulEditorPage changes are stored in state so you can
  * query them with serialize.
  */
-var StatefulEditorPage = React.createClass({
+const StatefulEditorPage = React.createClass({
 
     propTypes: {
         componentClass: React.PropTypes.func,

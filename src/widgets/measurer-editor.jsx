@@ -53,7 +53,7 @@ const MeasurerEditor = React.createClass({
     },
 
     render: function() {
-        var image = _.extend({}, defaultImage, this.props.image);
+        const image = _.extend({}, defaultImage, this.props.image);
 
         return <div className="perseus-widget-measurer">
             <div>Image displayed under protractor and/or ruler:</div>
@@ -186,14 +186,14 @@ const MeasurerEditor = React.createClass({
     },
 
     _changeImage: function(subProp, newValue) {
-        var image = _.clone(this.props.image);
+        const image = _.clone(this.props.image);
         image[subProp] = newValue;
         this.change("image", image);
     },
 
     renderLabelChoices: function(choices) {
         return _.map(choices, function(nameAndValue) {
-            var [name, value] = nameAndValue;
+            const [name, value] = nameAndValue;
             return <option key={value} value={value}>{name}</option>;
         });
     },

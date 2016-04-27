@@ -2,18 +2,18 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var assert = require("assert");
-var React = require("react");
-var _ = require("underscore");
+const assert = require("assert");
+const React = require("react");
+const _ = require("underscore");
 
-var PassageMarkdown = require("../passage-markdown.jsx");
-var parse = PassageMarkdown.parse;
-var rules = PassageMarkdown._rulesForTesting;
+const PassageMarkdown = require("../passage-markdown.jsx");
+const parse = PassageMarkdown.parse;
+const rules = PassageMarkdown._rulesForTesting;
 
-var validateParse = (parsed, expected) => {
+const validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
-        var parsedStr = JSON.stringify(parsed, null, 4);
-        var expectedStr = JSON.stringify(expected, null, 4);
+        const parsedStr = JSON.stringify(parsed, null, 4);
+        const expectedStr = JSON.stringify(expected, null, 4);
         if (parsedStr === expectedStr) {
             // If these two are the same, there were some different
             // properties that didn't get picked up in JSON.stringify,
@@ -31,28 +31,28 @@ var validateParse = (parsed, expected) => {
     }
 };
 
-var htmlThroughReact = function(parsed) {
-    var output = PassageMarkdown.output(parsed);
+const htmlThroughReact = function(parsed) {
+    const output = PassageMarkdown.output(parsed);
     // TODO(emily): Replace this with ReactDOMServer.
-    var rawHtml = React.renderToStaticMarkup(
+    const rawHtml = React.renderToStaticMarkup(
         React.DOM.div(null, output)
     );
-    var innerHtml = rawHtml
+    const innerHtml = rawHtml
         .replace(/^<div>/, '')
         .replace(/<\/div>$/, '');
-    var simplifiedHtml = innerHtml
+    const simplifiedHtml = innerHtml
         .replace(/>\n*/g, '>')
         .replace(/\n*</g, '<')
         .replace(/\s+/g, ' ');
     return simplifiedHtml;
 };
 
-var htmlFromMarkdown = function(source) {
+const htmlFromMarkdown = function(source) {
     return htmlThroughReact(parse(source));
 };
 
-var assertParsesToReact = function(source, html) {
-    var actualHtml = htmlFromMarkdown(source);
+const assertParsesToReact = function(source, html) {
+    const actualHtml = htmlFromMarkdown(source);
     if (actualHtml !== html) {
         /* eslint-disable no-console */
         console.warn(actualHtml);
@@ -65,7 +65,7 @@ var assertParsesToReact = function(source, html) {
 describe("passage markdown", () => {
     describe("ref parsing", () => {
         it("should handle a single ref in plain text", () => {
-            var parsed = parse("this is a {{ref}}");
+            const parsed = parse("this is a {{ref}}");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -97,7 +97,7 @@ describe("passage markdown", () => {
         });
 
         it("should handle nested refs", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "This is a {{ref {{inside of another ref}}}}"
             );
             validateParse(parsed, [{
@@ -183,7 +183,7 @@ describe("passage markdown", () => {
 
     describe("footnote parsing", () => {
         it("should handle a single footnote in plain text", () => {
-            var parsed = parse("this is a footnote^");
+            const parsed = parse("this is a footnote^");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -201,7 +201,7 @@ describe("passage markdown", () => {
         });
 
         it("should handle two footnotes in plain text", () => {
-            var parsed = parse("a^b^c");
+            const parsed = parse("a^b^c");
             validateParse(parsed, [{
                 type: "paragraph",
                 content: [
@@ -232,7 +232,7 @@ describe("passage markdown", () => {
         });
 
         it("should handle three footnotes in paragraphs", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "para 1 has this footnote^\n\n" +
                 "para 2 has two^ more^ footnotes\n\n"
             );
@@ -284,7 +284,7 @@ describe("passage markdown", () => {
 
     describe("label parsing", () => {
         it("should parse square labels", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "[[1]] Hi\n\n"
             );
             validateParse(parsed, [{
@@ -304,7 +304,7 @@ describe("passage markdown", () => {
         });
 
         it("should parse circle labels", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "((2)) Hi\n\n"
             );
             validateParse(parsed, [{
@@ -324,7 +324,7 @@ describe("passage markdown", () => {
         });
 
         it("should parse bracket labels", () => {
-            var parsed = parse(
+            const parsed = parse(
                 "[3] Hi\n\n"
             );
             validateParse(parsed, [{

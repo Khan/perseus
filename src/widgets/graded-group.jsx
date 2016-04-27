@@ -2,20 +2,20 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var classNames = require("classnames");
-var React = require("react");
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require("react");
+const _ = require("underscore");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable   = require("../mixins/changeable.jsx");
-var Renderer = require("../renderer.jsx");
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable   = require("../mixins/changeable.jsx");
+const Renderer = require("../renderer.jsx");
 
 // A Graded Group is more or less a Group widget that displays a check
 // answer button below the rendered content. When clicked, the widget grades
 // the stuff inside and displays feedback about whether the inputted answer was
 // correct or not.
 
-var GRADING_STATUSES = {
+const GRADING_STATUSES = {
     ungraded: 'ungraded',
     correct: 'correct',
     incorrect: 'incorrect',
@@ -23,11 +23,11 @@ var GRADING_STATUSES = {
 };
 
 // Prepended to all invalid messages to make the widget messages a bit clearer
-var INVALID_MESSAGE_PREFIX = "We couldn't grade your answer.";
-var DEFAULT_INVALID_MESSAGE = "It looks like you left something blank or " +
+const INVALID_MESSAGE_PREFIX = "We couldn't grade your answer.";
+const DEFAULT_INVALID_MESSAGE = "It looks like you left something blank or " +
     "entered in an invalid answer.";
 
-var GradedGroup = React.createClass({
+const GradedGroup = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -58,7 +58,7 @@ var GradedGroup = React.createClass({
     },
 
     render: function() {
-        var apiOptions = _.extend(
+        const apiOptions = _.extend(
             {},
             ApiOptions.defaults,
             this.props.apiOptions,
@@ -77,7 +77,7 @@ var GradedGroup = React.createClass({
         );
 
 
-        var icon = null;
+        const icon = null;
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
             icon = <div className="icon-ok" style={{color: "#526f03"}} />;
@@ -85,7 +85,7 @@ var GradedGroup = React.createClass({
             icon = <div className="icon-remove" style={{color: "#ff5454"}} />;
         }
 
-        var classes = classNames({
+        const classes = classNames({
             "perseus-graded-group": true,
             "answer-correct": this.state.status === GRADING_STATUSES.correct,
             "answer-incorrect":
@@ -129,10 +129,10 @@ var GradedGroup = React.createClass({
     },
 
     _checkAnswer: function() {
-        var score = this.refs.renderer.score();
+        const score = this.refs.renderer.score();
 
-        var status;
-        var message;
+        const status;
+        const message;
         if (score.type === "points") {
             status = score.total === score.earned ?
                 GRADING_STATUSES.correct : GRADING_STATUSES.incorrect;
@@ -184,7 +184,7 @@ var GradedGroup = React.createClass({
     },
 });
 
-var traverseChildWidgets = function(props, traverseRenderer) {
+const traverseChildWidgets = function(props, traverseRenderer) {
     return _.extend({}, props, traverseRenderer(props));
 };
 

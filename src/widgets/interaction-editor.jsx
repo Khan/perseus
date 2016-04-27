@@ -21,7 +21,7 @@ const TextInput = require("../components/text-input.jsx");
 
 const KhanColors = require("../util/colors.js");
 
-var defaultInteractionProps = {
+const defaultInteractionProps = {
     graph: {
         box: [400, 400],
         labels: ["x", "y"],
@@ -88,7 +88,7 @@ const PointEditor = React.createClass({
 //
 // TODO(eater): Factor this out
 //
-var LineEditor = React.createClass({
+const LineEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -182,7 +182,7 @@ var LineEditor = React.createClass({
 // TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
 //
-var MovablePointEditor = React.createClass({
+const MovablePointEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -244,7 +244,7 @@ var MovablePointEditor = React.createClass({
 // TODO(eater): Factor this out
 // TODO(eater): Rethink how constraints are represented
 //
-var MovableLineEditor = React.createClass({
+const MovableLineEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -336,7 +336,7 @@ var MovableLineEditor = React.createClass({
 //
 // TODO(eater): Factor this out
 //
-var FunctionEditor = React.createClass({
+const FunctionEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -414,7 +414,7 @@ var FunctionEditor = React.createClass({
 //
 // TODO(eater): Factor this out
 //
-var ParametricEditor = React.createClass({
+const ParametricEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -502,7 +502,7 @@ var ParametricEditor = React.createClass({
 // TODO(eater): Factor this out maybe?
 // TODO(eater): Add text direction
 //
-var LabelEditor = React.createClass({
+const LabelEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -563,7 +563,7 @@ var LabelEditor = React.createClass({
 //
 // TODO(eater): Factor this out maybe?
 //
-var RectangleEditor = React.createClass({
+const RectangleEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
@@ -631,7 +631,7 @@ var RectangleEditor = React.createClass({
     },
 });
 
-var InteractionEditor = React.createClass({
+const InteractionEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     // TODO(eater): Make more better
@@ -683,12 +683,12 @@ var InteractionEditor = React.createClass({
     },
 
     _addNewElement: function(e) {
-        var elementType = e.target.value;
+        const elementType = e.target.value;
         if (elementType === "") {
             return;
         }
         e.target.value = "";
-        var newElement = {
+        const newElement = {
             type: elementType,
             key: elementType + "-" +
                 (Math.random() * 0xffffff << 0).toString(16),
@@ -710,7 +710,7 @@ var InteractionEditor = React.createClass({
                         _.clone(RectangleEditor.defaultProps) : {},
         };
 
-        var nextSubscript;
+        const nextSubscript;
         if (elementType === "movable-point") {
             nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;
@@ -723,7 +723,7 @@ var InteractionEditor = React.createClass({
         } else if (elementType === "function") {
             // TODO(eater): The 22nd function added will be {(x) since '{'
             // comes after 'z'
-            var nextLetter = String.fromCharCode(_.max([_.max(_.map(
+            const nextLetter = String.fromCharCode(_.max([_.max(_.map(
                 this.state.usedFunctionNames, function(c) {
                     return c.charCodeAt(0);
                 })),
@@ -736,20 +736,20 @@ var InteractionEditor = React.createClass({
     },
 
     _deleteElement: function(index) {
-        var element = this.props.elements[index];
+        const element = this.props.elements[index];
         this.change({elements: _.without(this.props.elements, element)});
     },
 
     _moveElementUp: function(index) {
-        var element = this.props.elements[index];
-        var newElements = _.without(this.props.elements, element);
+        const element = this.props.elements[index];
+        const newElements = _.without(this.props.elements, element);
         newElements.splice(index - 1, 0, element);
         this.change({elements: newElements});
     },
 
     _moveElementDown: function(index) {
-        var element = this.props.elements[index];
-        var newElements = _.without(this.props.elements, element);
+        const element = this.props.elements[index];
+        const newElements = _.without(this.props.elements, element);
         newElements.splice(index + 1, 0, element);
         this.change({elements: newElements});
     },
@@ -791,7 +791,7 @@ var InteractionEditor = React.createClass({
                         <MovablePointEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -818,7 +818,7 @@ var InteractionEditor = React.createClass({
                         <MovableLineEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -842,7 +842,7 @@ var InteractionEditor = React.createClass({
                         <PointEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -869,7 +869,7 @@ var InteractionEditor = React.createClass({
                         <LineEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -892,7 +892,7 @@ var InteractionEditor = React.createClass({
                         <FunctionEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -912,7 +912,7 @@ var InteractionEditor = React.createClass({
                         <ParametricEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -933,7 +933,7 @@ var InteractionEditor = React.createClass({
                         <LabelEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});
@@ -959,7 +959,7 @@ var InteractionEditor = React.createClass({
                         <RectangleEditor
                             {...element.options}
                             onChange={(newProps) => {
-                                var elements = JSON.parse(JSON.stringify(
+                                const elements = JSON.parse(JSON.stringify(
                                     this.props.elements));
                                 _.extend(elements[n].options, newProps);
                                 this.change({elements: elements});

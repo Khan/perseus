@@ -2,20 +2,20 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var assert = require("assert");
-var lens = require("../../../hubble/index.js");
+const assert = require("assert");
+const lens = require("../../../hubble/index.js");
 // TODO(jack): Package MathQuill
-var MathQuill = window.MathQuill;
-var MQ = MathQuill.getInterface(2);
-var Perseus = require("../../perseus.js");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const MathQuill = window.MathQuill;
+const MQ = MathQuill.getInterface(2);
+const Perseus = require("../../perseus.js");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var TestUtils = React.addons.TestUtils;
-var delayedPromise = require("../../testutils/delayed-promise.jsx");
+const TestUtils = React.addons.TestUtils;
+const delayedPromise = require("../../testutils/delayed-promise.jsx");
 
-var expressionItem1 = {
+const expressionItem1 = {
     "question": {
         "content": "[[☃ expression 1]]",
         "images": {},
@@ -55,7 +55,7 @@ var expressionItem1 = {
     "hints": [],
 };
 
-var expressionItem2 = lens(expressionItem1)
+const expressionItem2 = lens(expressionItem1)
     .set(["question", "widgets", "expression 1", "options"], {
         "answerForms": [
             {
@@ -85,7 +85,7 @@ var expressionItem2 = lens(expressionItem1)
     })
     .freeze();
 
-var expressionItem3 = lens(expressionItem1)
+const expressionItem3 = lens(expressionItem1)
     .set(["question", "widgets", "expression 1", "options"], {
         "answerForms": [
             {
@@ -121,7 +121,7 @@ var expressionItem3 = lens(expressionItem1)
     })
     .freeze();
 
-var expressionItem4 = lens(expressionItem3)
+const expressionItem4 = lens(expressionItem3)
     .zoom(["question", "widgets", "expression 1", "options", "answerForms"])
         .merge([0], {
             "value": "\\left(x+2\\right)\\left(x-2\\right)",
@@ -136,9 +136,9 @@ var expressionItem4 = lens(expressionItem3)
     .deZoom()
     .freeze();
 
-var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
-    var Renderer = Perseus.Renderer;
-    var renderer = TestUtils.renderIntoDocument(
+const renderQuestionArea = function(item, apiOptions, enabledFeatures) {
+    const Renderer = Perseus.Renderer;
+    const renderer = TestUtils.renderIntoDocument(
         <Renderer
             content={item.question.content}
             images={item.question.images}
@@ -151,27 +151,27 @@ var renderQuestionArea = function(item, apiOptions, enabledFeatures) {
 };
 
 /* eslint-disable no-unused-vars */
-var findMathQuill = function(renderer) {
-    var base = ReactDOM.findDOMNode(renderer);
-    var span = base.querySelector(".mq-editable-field");
+const findMathQuill = function(renderer) {
+    const base = ReactDOM.findDOMNode(renderer);
+    const span = base.querySelector(".mq-editable-field");
     assert.notEqual(span, null);
-    var mathQuillField = MQ.MathField(span);
+    const mathQuillField = MQ.MathField(span);
     assert.notEqual(mathQuillField, null);
     return mathQuillField;
 };
 /* eslint-enable no-unused-vars */
 
-var findMathQuillTextArea = function(renderer) {
-    var base = ReactDOM.findDOMNode(renderer);
-    var input = base.querySelector(".mq-textarea>textarea");
+const findMathQuillTextArea = function(renderer) {
+    const base = ReactDOM.findDOMNode(renderer);
+    const input = base.querySelector(".mq-textarea>textarea");
     assert.notEqual(input, null);
     return input;
 };
 
 // Input `value` into the mathquill input found in renderer
-var mathQuillInput = function(renderer, value) {
-    var input = findMathQuillTextArea(renderer);
-    var $input = $(input);
+const mathQuillInput = function(renderer, value) {
+    const input = findMathQuillTextArea(renderer);
+    const $input = $(input);
 
     // mathquill needs a keypress to bind its keydown handler for
     // future events. this is super hacky and is a bad explanation.
@@ -184,8 +184,8 @@ var mathQuillInput = function(renderer, value) {
 };
 
 // promise a question area that has rendered
-var makeRender = item => {
-    var renderer = renderQuestionArea(item, {}, {
+const makeRender = item => {
+    const renderer = renderQuestionArea(item, {}, {
         // Our test assumes a mathquill input
         useMathQuill: true,
         // right now we need to either specify all enabledFeatures or none, so
@@ -200,7 +200,7 @@ describe("Expression Widget", function() {
         it("2^-2-3 should produce 2^{-2} - 3", function() {
             return makeRender(expressionItem1).then(renderer => {
                 mathQuillInput(renderer, "2^-2-3");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, score.total);
             });
@@ -211,7 +211,7 @@ describe("Expression Widget", function() {
         it("should not grade a thing that doesn't parse", function() {
             return makeRender(expressionItem2).then(renderer => {
                 mathQuillInput(renderer, "+++");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "invalid");
             });
         });
@@ -219,7 +219,7 @@ describe("Expression Widget", function() {
         it("should not grade a thing that is empty", function() {
             return makeRender(expressionItem2).then(renderer => {
                 mathQuillInput(renderer, "");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "invalid");
             });
         });
@@ -230,7 +230,7 @@ describe("Expression Widget", function() {
             function() {
                 return makeRender(expressionItem2).then(renderer => {
                     mathQuillInput(renderer, "500");
-                    var score = renderer.guessAndScore()[1];
+                    const score = renderer.guessAndScore()[1];
                     assert.strictEqual(score.type, "points");
                     assert.strictEqual(score.earned, 0);
                 });
@@ -245,7 +245,7 @@ describe("Expression Widget", function() {
             return makeRender(expressionItem2).then(renderer => {
                 // FIRST ANSWER
                 mathQuillInput(renderer, "x-123");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, score.total);
             })
@@ -253,7 +253,7 @@ describe("Expression Widget", function() {
             .then(renderer => {
                 // SECOND ANSWER
                 mathQuillInput(renderer, "123-x");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, score.total);
             });
@@ -276,7 +276,7 @@ describe("Expression Widget", function() {
             return makeRender(expressionItem3)
             .then(renderer => {
                 mathQuillInput(renderer, "1");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "invalid");
             })
             .then(() => makeRender(expressionItem3))
@@ -285,7 +285,7 @@ describe("Expression Widget", function() {
                 // now check that the incorrect one matches and returns no
                 // points
                 mathQuillInput(renderer, "2");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, 0);
 
@@ -295,15 +295,15 @@ describe("Expression Widget", function() {
 
                 // finally check that the correct one matches with points
                 mathQuillInput(renderer, "3");
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, score.total);
             });
         });
 
         it("should fall through exact forms", function() {
-            var specificWrong = "(x+2)(x-2)";
-            var correct = "x^2-4";
+            const specificWrong = "(x+2)(x-2)";
+            const correct = "x^2-4";
             /* We're checking that, though the two forms are equivalent, the
              * first *is not* counted as correct because that specific form is
              * checked first and graded incorrect.
@@ -324,7 +324,7 @@ describe("Expression Widget", function() {
             return makeRender(expressionItem4)
             .then(renderer => {
                 mathQuillInput(renderer, specificWrong);
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, 0);
 
@@ -332,7 +332,7 @@ describe("Expression Widget", function() {
             .then(() => makeRender(expressionItem4))
             .then(renderer => {
                 mathQuillInput(renderer, correct);
-                var score = renderer.guessAndScore()[1];
+                const score = renderer.guessAndScore()[1];
                 assert.strictEqual(score.type, "points");
                 assert.strictEqual(score.earned, score.total);
             });

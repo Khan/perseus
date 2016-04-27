@@ -2,30 +2,30 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var assert = require("assert");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const assert = require("assert");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var NumberInput = require("../number-input.jsx");
-var TestUtils = React.addons.TestUtils;
+const NumberInput = require("../number-input.jsx");
+const TestUtils = React.addons.TestUtils;
 
-var STARTING_VALUE = 1;
+const STARTING_VALUE = 1;
 
 describe("NumberInput", function() {
 
-    var testInputResult = function(input, result, extraProps) {
-        var newVal;
-        var handleChange = function(val) {
+    const testInputResult = function(input, result, extraProps) {
+        const newVal;
+        const handleChange = function(val) {
             newVal = val;
         };
 
-        var props = _.extend({
+        const props = _.extend({
             value: STARTING_VALUE,
             onChange: handleChange,
         }, extraProps);
 
-        var node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
+        const node = TestUtils.renderIntoDocument(<NumberInput {...props} />);
         TestUtils.Simulate.change(
             ReactDOM.findDOMNode(node), {target: {value: input}});
         assert.deepEqual(newVal, result);
@@ -45,18 +45,18 @@ describe("NumberInput", function() {
         });
     });
 
-    var testArrowKeys = function(args) {
-        var key = args.key;
-        var startingValue = args.startingValue;
-        var endingValue = args.endingValue;
-        var keysEnabled = args.keysEnabled;
+    const testArrowKeys = function(args) {
+        const key = args.key;
+        const startingValue = args.startingValue;
+        const endingValue = args.endingValue;
+        const keysEnabled = args.keysEnabled;
 
-        var newVal = startingValue;
-        var handleChange = function(val) {
+        const newVal = startingValue;
+        const handleChange = function(val) {
             newVal = val;
         };
 
-        var node = TestUtils.renderIntoDocument(
+        const node = TestUtils.renderIntoDocument(
             <NumberInput
                 value={startingValue}
                 onChange={handleChange}

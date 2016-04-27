@@ -17,26 +17,26 @@
  * more confident in the interface provided first.
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 // TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-var objective_ = require("./interactive2/objective_.js");
+const objective_ = require("./interactive2/objective_.js");
 
-var Widgets = require("./widgets.js");
+const Widgets = require("./widgets.js");
 
-var noop = function() { };
+const noop = function() { };
 
-var deepCallbackFor = function(
+const deepCallbackFor = function(
         contentCallback,
         widgetCallback,
         optionsCallback) {
-    var deepCallback = function(widgetInfo, widgetId) {
+    const deepCallback = function(widgetInfo, widgetId) {
         // This doesn't modify the widget info if the widget info
         // is at a later version than is supported, which is important
         // for our latestVersion test below.
-        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
+        const upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
             widgetInfo
         );
-        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
+        const latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
 
         // Only traverse our children if we can understand this version
         // of the widget props.
@@ -53,7 +53,7 @@ var deepCallbackFor = function(
         // make all of this a little tighter.
         // I think once we use react class defaultProps instead of relying
         // on getDefaultProps, this will become easier.
-        var newWidgetInfo;
+        const newWidgetInfo;
         if (latestVersion && (
                 upgradedWidgetInfo.version.major === latestVersion.major)) {
             newWidgetInfo = Widgets.traverseChildWidgets(
@@ -72,7 +72,7 @@ var deepCallbackFor = function(
             newWidgetInfo = upgradedWidgetInfo;
         }
 
-        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
+        const userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
         if (userWidgetInfo !== undefined) {
             return userWidgetInfo;
         } else {
@@ -82,21 +82,21 @@ var deepCallbackFor = function(
     return deepCallback;
 };
 
-var traverseRenderer = function(
+const traverseRenderer = function(
         rendererOptions,
         contentCallback,
         deepWidgetCallback,
         optionsCallback) {
 
-    var newContent = rendererOptions.content;
+    const newContent = rendererOptions.content;
     if (rendererOptions.content != null) {
-        var modifiedContent = contentCallback(rendererOptions.content);
+        const modifiedContent = contentCallback(rendererOptions.content);
         if (modifiedContent !== undefined) {
             newContent = modifiedContent;
         }
     }
 
-    var newWidgets = objective_.mapObject(rendererOptions.widgets || {},
+    const newWidgets = objective_.mapObject(rendererOptions.widgets || {},
         function(widgetInfo, widgetId) {
             // Widgets without info or a type are empty widgets, and
             // should always be renderable. It's also annoying to write
@@ -109,11 +109,11 @@ var traverseRenderer = function(
         }
     );
 
-    var newOptions = _.extend({}, rendererOptions, {
+    const newOptions = _.extend({}, rendererOptions, {
         content: newContent,
         widgets: newWidgets,
     });
-    var userOptions = optionsCallback(newOptions);
+    const userOptions = optionsCallback(newOptions);
     if (userOptions !== undefined) {
         return userOptions;
     } else {
@@ -121,7 +121,7 @@ var traverseRenderer = function(
     }
 };
 
-var traverseRendererDeep = function(
+const traverseRendererDeep = function(
         rendererOptions,
         contentCallback,
         widgetCallback,

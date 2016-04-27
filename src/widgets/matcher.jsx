@@ -2,16 +2,16 @@
 /* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Renderer       = require("../renderer.jsx");
-var Sortable       = require("../components/sortable.jsx");
+const Renderer       = require("../renderer.jsx");
+const Sortable       = require("../components/sortable.jsx");
 
-var shuffle = require("../util.js").shuffle;
-var seededRNG = require("../util.js").seededRNG;
+const shuffle = require("../util.js").shuffle;
+const seededRNG = require("../util.js").seededRNG;
 
-var Matcher = React.createClass({
+const Matcher = React.createClass({
     propTypes: {
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
         left: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -44,9 +44,9 @@ var Matcher = React.createClass({
 
     render: function() {
         // Use the same random() function to shuffle both columns sequentially
-        var rng = seededRNG(this.props.problemNum);
+        const rng = seededRNG(this.props.problemNum);
 
-        var left;
+        const left;
         if (!this.props.orderMatters) {
             // If the order doesn't matter, don't shuffle the left column
             left = this.props.left;
@@ -54,10 +54,10 @@ var Matcher = React.createClass({
             left = shuffle(this.props.left, rng, /* ensurePermuted */ true);
         }
 
-        var right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
+        const right = shuffle(this.props.right, rng, /* ensurePermuted */ true);
 
-        var showLabels = _.any(this.props.labels);
-        var constraints = {height: _.max([this.state.leftHeight,
+        const showLabels = _.any(this.props.labels);
+        const constraints = {height: _.max([this.state.leftHeight,
             this.state.rightHeight])};
 
         return <div className="perseus-widget-matcher ui-helper-clearfix">
@@ -99,12 +99,12 @@ var Matcher = React.createClass({
     },
 
     onMeasureLeft: function(dimensions) {
-        var height = _.max(dimensions.heights);
+        const height = _.max(dimensions.heights);
         this.setState({leftHeight: height});
     },
 
     onMeasureRight: function(dimensions) {
-        var height = _.max(dimensions.heights);
+        const height = _.max(dimensions.heights);
         this.setState({rightHeight: height});
     },
 
@@ -123,7 +123,7 @@ var Matcher = React.createClass({
 
 _.extend(Matcher, {
     validate: function(state, rubric) {
-        var correct = _.isEqual(state.left, rubric.left) &&
+        const correct = _.isEqual(state.left, rubric.left) &&
                       _.isEqual(state.right, rubric.right);
 
         return {

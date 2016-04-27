@@ -6,20 +6,20 @@
 // purpose of breaking up the diffs into lines, so that modified lines can be
 // faintly highlighted
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var splitDiff = function(diffEntries) {
-    var lines = [];
-    var currentLine = [];
+const splitDiff = function(diffEntries) {
+    const lines = [];
+    const currentLine = [];
     _.each(diffEntries, (entry) => {
-        var values = entry.value.split("\n");
+        const values = entry.value.split("\n");
         _.each(values, (value, i) => {
-            var isNewline = i > 0;
+            const isNewline = i > 0;
             if (isNewline) {
                 lines.push(currentLine);
                 currentLine = [];
             }
-            var newEntry = _.extend({}, entry, { value: value });
+            const newEntry = _.extend({}, entry, { value: value });
             currentLine.push(newEntry);
         });
     });

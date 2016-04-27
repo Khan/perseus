@@ -12,12 +12,12 @@
  * group or sequence widgets.
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Traversal = require("./traversal.jsx");
-var Widgets = require("./widgets.js");
+const Traversal = require("./traversal.jsx");
+const Widgets = require("./widgets.js");
 
-var isUpgradedWidgetInfoRenderableBy = function(
+const isUpgradedWidgetInfoRenderableBy = function(
     widgetInfo, widgetRendererVersion) {
 
     if (widgetRendererVersion == null) {
@@ -27,7 +27,7 @@ var isUpgradedWidgetInfoRenderableBy = function(
         return false;
     }
 
-    var widgetVersion = widgetInfo.version || {major: 0, minor: 0};
+    const widgetVersion = widgetInfo.version || {major: 0, minor: 0};
     if (widgetRendererVersion.major > widgetVersion.major) {
         return true;
     } else if (widgetRendererVersion.major < widgetVersion.major) {
@@ -41,7 +41,7 @@ var isUpgradedWidgetInfoRenderableBy = function(
     }
 };
 
-var isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion) {
+const isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion) {
     // Empty/non-existant widgets are always safe to render
     if (widgetInfo == null || widgetInfo.type == null) {
         return true;
@@ -49,7 +49,7 @@ var isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion) {
 
     // NOTE: This doesn't modify the widget info if the widget info
     // is at a later version than is supported.
-    var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
+    const upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(
         widgetInfo
     );
     return isUpgradedWidgetInfoRenderableBy(
@@ -58,10 +58,10 @@ var isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion) {
     );
 };
 
-var isRendererContentRenderableBy = function(
+const isRendererContentRenderableBy = function(
     rendererOptions, rendererContentVersion) {
 
-    var isRenderable = true;
+    const isRenderable = true;
     Traversal.traverseRendererDeep(
         rendererOptions,
         null,
@@ -75,7 +75,7 @@ var isRendererContentRenderableBy = function(
     return isRenderable;
 };
 
-var isItemRenderableBy = function(itemData, rendererContentVersion) {
+const isItemRenderableBy = function(itemData, rendererContentVersion) {
     if (itemData == null || rendererContentVersion == null) {
         throw new Error("missing parameter to Perseus.isRenderable.item");
     }

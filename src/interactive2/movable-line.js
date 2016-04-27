@@ -5,19 +5,19 @@
 /**
  * MovableLine
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var MovableLineOptions = require("./movable-line-options.js");
-var WrappedLine = require("./wrapped-line.js");
-var InteractiveUtil = require("./interactive-util.js");
-var objective_ = require("./objective_.js");
-var assert = InteractiveUtil.assert;
-var normalizeOptions = InteractiveUtil.normalizeOptions;
+const MovableLineOptions = require("./movable-line-options.js");
+const WrappedLine = require("./wrapped-line.js");
+const InteractiveUtil = require("./interactive-util.js");
+const objective_ = require("./objective_.js");
+const assert = InteractiveUtil.assert;
+const normalizeOptions = InteractiveUtil.normalizeOptions;
 
-var kvector = require("kmath").vector;
+const kvector = require("kmath").vector;
 const KhanColors = require("../util/colors.js");
 
-var FUNCTION_ARRAY_OPTIONS = [
+const FUNCTION_ARRAY_OPTIONS = [
     "add",
     "draw",
     "remove",
@@ -33,7 +33,7 @@ var FUNCTION_ARRAY_OPTIONS = [
 // while those in DEFAULT_STATE persist and are not updated.
 // Things that the user might want to change should be on "props",
 // while things used to render the point should be on "state".
-var DEFAULT_PROPS = {
+const DEFAULT_PROPS = {
     points: null,
     static: false,
     cursor: "move",
@@ -42,12 +42,12 @@ var DEFAULT_PROPS = {
     extendLine: false,
     extendRay: false,
 };
-var DEFAULT_STATE = {
+const DEFAULT_STATE = {
     visibleShape: null,
     mouseTarget: null,
 };
 
-var MovableLine = function(graphie, movable, options) {
+const MovableLine = function(graphie, movable, options) {
     assert(graphie != null);
     assert(options != null);
 
@@ -111,9 +111,9 @@ _.extend(MovableLine.prototype, {
      * Analogous to React.js's setProps
      */
     update: function(options) {
-        var self = this;
-        var graphie = this.graphie;
-        var state = self.state = _.extend(
+        const self = this;
+        const graphie = this.graphie;
+        const state = self.state = _.extend(
             self.state,
             normalizeOptions(FUNCTION_ARRAY_OPTIONS, options)
         );
@@ -123,7 +123,7 @@ _.extend(MovableLine.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPERTIES!)
-        var normalColor = (state.static) ? KhanColors.DYNAMIC :
+        const normalColor = (state.static) ? KhanColors.DYNAMIC :
                                            KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({
             stroke: normalColor,
@@ -180,9 +180,9 @@ _.extend(MovableLine.prototype, {
             },
 
             onMove: function(mouseCoord, prevMouseCoord) {
-                var delta = kvector.subtract(mouseCoord, prevMouseCoord);
+                const delta = kvector.subtract(mouseCoord, prevMouseCoord);
                 self._totalDelta = kvector.add(self._totalDelta, delta);
-                var refCoord = kvector.add(
+                const refCoord = kvector.add(
                     self._initialRefCoord, self._totalDelta);
 
                 refCoord = self._applyConstraints(refCoord, self._prevRefCoord);

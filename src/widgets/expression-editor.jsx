@@ -2,32 +2,32 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var lens = require("../../hubble/index.js");
+const lens = require("../../hubble/index.js");
 
-var Changeable = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 
-var InfoTip = require("../components/info-tip.jsx");
-var PropCheckBox = require("../components/prop-check-box.jsx");
-var SortableArea = require("react-components/sortable.jsx");
-var TeX = require("react-components/tex.jsx");// OldExpression only
-var TexButtons = require("../components/tex-buttons.jsx");
+const InfoTip = require("../components/info-tip.jsx");
+const PropCheckBox = require("../components/prop-check-box.jsx");
+const SortableArea = require("react-components/sortable.jsx");
+const TeX = require("react-components/tex.jsx");// OldExpression only
+const TexButtons = require("../components/tex-buttons.jsx");
 
-var Expression = require("./expression.jsx").Expression;
+const Expression = require("./expression.jsx").Expression;
 
 // An answer can be considered correct, wrong, or ungraded.
-var CONSIDERED = ["correct", "wrong", "ungraded"];
+const CONSIDERED = ["correct", "wrong", "ungraded"];
 
-var answerFormType = React.PropTypes.shape({
+const answerFormType = React.PropTypes.shape({
     considered: React.PropTypes.oneOf(CONSIDERED).isRequired,
     value: React.PropTypes.string.isRequired,
     form: React.PropTypes.bool.isRequired,
     simplify: React.PropTypes.bool.isRequired,
 });
 
-var ExpressionEditor = React.createClass({
+const ExpressionEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -56,13 +56,13 @@ var ExpressionEditor = React.createClass({
         // backslashes or curly braces, then come back to the question and
         // it's surprisingly not TeX anymore.
 
-        var isTex;
+        const isTex;
         // default to TeX if new;
         if (this.props.answerForms.length === 0) {
             isTex = true;
         } else {
             isTex = _(this.props.answerForms).any(form => {
-                var { value } = form;
+                const { value } = form;
                 // only TeX has backslashes and curly braces
                 return _.indexOf(value, "\\") !== -1 ||
                        _.indexOf(value, "{")  !== -1;
@@ -73,9 +73,9 @@ var ExpressionEditor = React.createClass({
     },
 
     render: function() {
-        var answerOptions = this.props.answerForms
+        const answerOptions = this.props.answerForms
             .map((obj, ix) => {
-                var expressionProps = {
+                const expressionProps = {
                     // note we're using
                     // *this.props*.{times,functions,buttonSets} since each
                     // answer area has the same settings for those
@@ -105,17 +105,17 @@ var ExpressionEditor = React.createClass({
             })
             .map(obj => <AnswerOption {...obj} />);
 
-        var sortable = <SortableArea components={answerOptions}
+        const sortable = <SortableArea components={answerOptions}
                                      onReorder={this.handleReorder}
                                      className="answer-options-list" />;
 
         // checkboxes to choose which sets of input buttons are shown
-        var buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
+        const buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
             // The first one gets special cased to always be checked, disabled,
             // and float left.
-            var isFirst = name === "basic";
-            var checked = _.contains(this.props.buttonSets, name) || isFirst;
-            var className = isFirst ?
+            const isFirst = name === "basic";
+            const checked = _.contains(this.props.buttonSets, name) || isFirst;
+            const className = isFirst ?
                 "button-set-label-float" :
                 "button-set-label";
             return <label className={className} key={name}>
@@ -198,14 +198,14 @@ var ExpressionEditor = React.createClass({
     },
 
     serialize: function() {
-        var formSerializables = ["value", "form", "simplify", "considered",
+        const formSerializables = ["value", "form", "simplify", "considered",
             // it's a little weird to serialize the react key, but saves some
             // effort reconstructing them when this item is loaded later.
             "key"];
-        var serializables = ["answerForms", "buttonSets", "functions",
+        const serializables = ["answerForms", "buttonSets", "functions",
             "times"];
 
-        var answerForms = this.props.answerForms.map(form => {
+        const answerForms = this.props.answerForms.map(form => {
             return _(form).pick(formSerializables);
         });
 
@@ -216,13 +216,13 @@ var ExpressionEditor = React.createClass({
     },
 
     getSaveWarnings: function() {
-        var issues = [];
+        const issues = [];
 
         if (this.props.answerForms.length === 0) {
             issues.push("No answers specified");
         } else {
 
-            var hasCorrect = !!_(this.props.answerForms).find(form => {
+            const hasCorrect = !!_(this.props.answerForms).find(form => {
                 return form.considered === "correct";
             });
             if (!hasCorrect) {
@@ -234,7 +234,7 @@ var ExpressionEditor = React.createClass({
                     issues.push(`Answer ${ix + 1} is empty`);
                 } else {
                     // note we're not using icu for content creators
-                    var expression = KAS.parse(form.value);
+                    const expression = KAS.parse(form.value);
                     if (!expression.parsed) {
                         issues.push(`Couldn't parse ${form.value}`);
                     } else if (form.simplify &&
@@ -270,20 +270,20 @@ var ExpressionEditor = React.createClass({
     },
 
     newAnswer: function() {
-        var answerForms = this.props.answerForms.slice();
+        const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
         this.change({ answerForms });
     },
 
     handleRemoveForm: function(i) {
-        var answerForms = this.props.answerForms.slice(0, -1);
+        const answerForms = this.props.answerForms.slice(0, -1);
         this.change({ answerForms });
     },
 
     // called when the options (including the expression itself) to an answer
     // form change
     updateForm: function(i, props) {
-        var answerForms = lens(this.props.answerForms)
+        const answerForms = lens(this.props.answerForms)
             .merge([i], props)
             .freeze();
 
@@ -291,8 +291,8 @@ var ExpressionEditor = React.createClass({
     },
 
     handleReorder: function(components) {
-        var answerForms = _(components).map(component => {
-            var form = _(component.props)
+        const answerForms = _(components).map(component => {
+            const form = _(component.props)
                 .pick("considered", "form", "simplify", "value");
             form.key = component.key;
             return form;
@@ -303,11 +303,11 @@ var ExpressionEditor = React.createClass({
 
     // called when the selected buttonset changes
     handleButtonSet: function(changingName) {
-        var buttonSetNames = _(TexButtons.buttonSets).keys();
+        const buttonSetNames = _(TexButtons.buttonSets).keys();
 
         // Filter to preserve order - using .union and .difference would always
         // move the last added button set to the end.
-        var buttonSets = _(buttonSetNames).filter(set => {
+        const buttonSets = _(buttonSetNames).filter(set => {
             return _(this.props.buttonSets).contains(set) !==
                    (set === changingName);
         });
@@ -320,8 +320,8 @@ var ExpressionEditor = React.createClass({
         // "basic+div". Toggle between the two of them.
         // If someone can think of a more elegant formulation of this (there
         // must be one!) feel free to change it.
-        var keep;
-        var remove;
+        const keep;
+        const remove;
         if (_(this.props.buttonSets).contains("basic+div")) {
             keep = "basic";
             remove = "basic+div";
@@ -330,7 +330,7 @@ var ExpressionEditor = React.createClass({
             remove = "basic";
         }
 
-        var buttonSets = _(this.props.buttonSets)
+        const buttonSets = _(this.props.buttonSets)
             .reject(set => set === remove)
             .concat(keep);
 
@@ -344,20 +344,20 @@ var ExpressionEditor = React.createClass({
 
     // called when the function variables change
     handleFunctions: function(e) {
-        var newProps = {};
+        const newProps = {};
         newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
         this.props.onChange(newProps);
     },
 });
 
 // Find the next element in arr after val, wrapping around to the first.
-var findNextIn = function(arr, val) {
-    var ix = _(arr).indexOf(val);
+const findNextIn = function(arr, val) {
+    const ix = _(arr).indexOf(val);
     ix = (ix + 1) % arr.length;
     return arr[ix];
 };
 
-var AnswerOption = React.createClass({
+const AnswerOption = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -384,7 +384,7 @@ var AnswerOption = React.createClass({
     },
 
     render: function() {
-        var removeButton = null;
+        const removeButton = null;
         if (this.state.deleteFocused) {
             removeButton = <button type="button"
                                    className="simple-button orange"
@@ -466,7 +466,7 @@ var AnswerOption = React.createClass({
     },
 
     toggleConsidered: function() {
-        var newVal = findNextIn(CONSIDERED, this.props.considered);
+        const newVal = findNextIn(CONSIDERED, this.props.considered);
         this.change({ considered: newVal });
     },
 });

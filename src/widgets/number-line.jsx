@@ -3,38 +3,38 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* globals i18n, $_ */
-var React = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
 
-var NumberInput  = require("../components/number-input.jsx");
-var MathOutput   = require("../components/math-output.jsx");
+const NumberInput  = require("../components/number-input.jsx");
+const MathOutput   = require("../components/math-output.jsx");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
+const ApiOptions = require("../perseus-api.jsx").Options;
 
-var Graphie = require("../components/graphie.jsx");
-var MovablePoint = Graphie.MovablePoint;
-var Line = Graphie.Line;
+const Graphie = require("../components/graphie.jsx");
+const MovablePoint = Graphie.MovablePoint;
+const Line = Graphie.Line;
 
-var knumber = require("kmath").number;
+const knumber = require("kmath").number;
 const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 
-var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
-var assert = require("../interactive2/interactive-util.js").assert;
+const bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
+const assert = require("../interactive2/interactive-util.js").assert;
 
-var EN_DASH = "\u2013";
+const EN_DASH = "\u2013";
 
-var reverseRel = {
+const reverseRel = {
     ge: "le",
     gt: "lt",
     le: "ge",
     lt: "gt",
 };
 
-var toggleStrictRel = {
+const toggleStrictRel = {
     ge: "gt",
     gt: "ge",
     le: "lt",
@@ -53,7 +53,7 @@ function formatMixed(n, d) {
     if (n < 0) {
         return "-" + formatMixed(-n, d);
     }
-    var w = Math.floor(n / d);
+    const w = Math.floor(n / d);
     if (w === 0) {
         return formatImproper(n, d);
     } else if (n - w * d === 0) {
@@ -64,11 +64,11 @@ function formatMixed(n, d) {
 }
 
 function formatNonReduced(n, d, base) {
-    var factor = Math.floor(base / d);
+    const factor = Math.floor(base / d);
     return formatImproper(n * factor, base);
 }
 
-var _label = (graphie, labelStyle, pos, value, base) => {
+const _label = (graphie, labelStyle, pos, value, base) => {
     value = value || pos;
 
     // TODO(jack): Find out if any exercises have "decimal ticks" set,
@@ -91,30 +91,30 @@ var _label = (graphie, labelStyle, pos, value, base) => {
     }
 };
 
-var TickMarks = Graphie.createSimpleClass((graphie, props) => {
+const TickMarks = Graphie.createSimpleClass((graphie, props) => {
     // Avoid infinite loop
     if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
         return []; // this has screwed me for the last time!
     }
 
-    var results = [];
+    const results = [];
 
     // For convenience, extract some props into separate variables
-    var range = props.range;
-    var labelRange = props.labelRange;
-    var leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
-    var rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
+    const range = props.range;
+    const labelRange = props.labelRange;
+    const leftLabel = labelRange[0] == null ? range[0] : labelRange[0];
+    const rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
     // Find base via GCD for non-reduced fractions
-    var base;
+    const base;
     if (props.labelStyle === "non-reduced") {
-        var fractions = [leftLabel, rightLabel];
+        const fractions = [leftLabel, rightLabel];
         for (let i = 0; i <= props.numDivisions; i++) {
             const x = range[0] + i * props.tickStep;
             fractions.push(x);
         }
-        var getDenom = (x) => knumber.toFraction(x)[1];
-        var denoms = _.map(fractions, getDenom);
+        const getDenom = (x) => knumber.toFraction(x)[1];
+        const denoms = _.map(fractions, getDenom);
         base = _.reduce(denoms, (x, y) => KhanMath.getLCM(x, y));
     } else {
         base = undefined;
@@ -125,7 +125,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
         const x = range[0] + i * props.tickStep;
         results.push(graphie.line([x, -0.2], [x, 0.2]));
 
-        var labelTicks = props.labelTicks;
+        const labelTicks = props.labelTicks;
         if (labelTicks || props.labelStyle === "decimal ticks") {
             results.push(_label(graphie, props.labelStyle, x, x, base));
         }
@@ -155,7 +155,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
 });
 
 
-var NumberLine = React.createClass({
+const NumberLine = React.createClass({
     propTypes: {
         range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
@@ -203,9 +203,9 @@ var NumberLine = React.createClass({
     },
 
     isValid: function() {
-        var range = this.props.range;
-        var initialX = this.props.numLinePosition;
-        var divisionRange = this.props.divisionRange;
+        const range = this.props.range;
+        const initialX = this.props.numLinePosition;
+        const divisionRange = this.props.divisionRange;
 
         initialX = initialX == null ? range[0] : initialX;
 
@@ -218,8 +218,8 @@ var NumberLine = React.createClass({
     },
 
     onNumDivisionsChange: function(numDivisions, cb) {
-        var divRange = this.props.divisionRange.slice();
-        var width = this.props.range[1] - this.props.range[0];
+        const divRange = this.props.divisionRange.slice();
+        const width = this.props.range[1] - this.props.range[0];
 
         // Don't allow a fraction for the number of divisions
         numDivisions = Math.round(numDivisions);
@@ -229,11 +229,11 @@ var NumberLine = React.createClass({
 
         // If the number of divisions isn't blank, update the number line
         if (numDivisions) {
-            var nextProps = _.extend({}, this.props, {
+            const nextProps = _.extend({}, this.props, {
                 tickStep: width / numDivisions,
             });
 
-            var newNumLinePosition = this.snapNumLinePosition(
+            const newNumLinePosition = this.snapNumLinePosition(
                 nextProps,
                 this.props.numLinePosition
             );
@@ -301,16 +301,16 @@ var NumberLine = React.createClass({
 
     _renderGraphie: function() {
         // Position variables
-        var range = this.props.range;
-        var width = range[1] - range[0];
+        const range = this.props.range;
+        const width = range[1] - range[0];
 
-        var options = _.pick(this.props, [
+        const options = _.pick(this.props, [
             "range",
             "isTickCtrl",
         ]);
 
         // TODO(aria): Maybe save this as `this.calculatedProps`?
-        var props = _.extend({}, this.props, {
+        const props = _.extend({}, this.props, {
             tickStep: width / this.props.numDivisions,
         });
 
@@ -339,9 +339,9 @@ var NumberLine = React.createClass({
     },
 
     snapNumLinePosition: function(props, numLinePosition) {
-        var left = props.range[0];
-        var right = props.range[1];
-        var snapX = props.tickStep / props.snapDivisions;
+        const left = props.range[0];
+        const right = props.range[1];
+        const snapX = props.tickStep / props.snapDivisions;
 
         let x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
@@ -350,11 +350,11 @@ var NumberLine = React.createClass({
     },
 
     _renderNumberLinePoint: function(props) {
-        var isOpen = _(["lt", "gt"]).contains(props.rel);
+        const isOpen = _(["lt", "gt"]).contains(props.rel);
 
         // In static mode the point's fill and stroke is blue to signify that
         // it can't be interacted with.
-        var fill;
+        const fill;
         if (isOpen) {
             fill = KhanColors._BACKGROUND;
         } else if (props.static) {
@@ -362,12 +362,12 @@ var NumberLine = React.createClass({
         } else {
             fill = KhanColors.INTERACTIVE;
         }
-        var normalStyle = {
+        const normalStyle = {
             fill: fill,
             stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
             "stroke-width": isOpen ? 3 : 1,
         };
-        var highlightStyle = {
+        const highlightStyle = {
             fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
             "stroke-width": isOpen ? 3 : 1,
         };
@@ -381,7 +381,7 @@ var NumberLine = React.createClass({
                     return [coord[0], prevCoord[1]];
                 },
                 (coord, prevCoord) => {  // snap X
-                    var x = this.snapNumLinePosition(props, coord[0]);
+                    const x = this.snapNumLinePosition(props, coord[0]);
                     return [x, coord[1]];
                 },
             ]}
@@ -395,31 +395,31 @@ var NumberLine = React.createClass({
     },
 
     handleReverse: function() {
-        var newRel = reverseRel[this.props.rel];
+        const newRel = reverseRel[this.props.rel];
         this.props.onChange({rel: newRel});
     },
 
     handleToggleStrict: function() {
-        var newRel = toggleStrictRel[this.props.rel];
+        const newRel = toggleStrictRel[this.props.rel];
         this.props.onChange({rel: newRel});
     },
 
     _getInequalityEndpoint: function(props) {
-        var isGreater = _(["ge", "gt"]).contains(props.rel);
-        var widthInPixels = 400;
-        var range = props.range;
-        var scale = (range[1] - range[0]) / widthInPixels;
-        var buffer = 30 * scale;
-        var left = range[0] - buffer;
-        var right = range[1] + buffer;
-        var end = isGreater ? [right, 0] : [left, 0];
+        const isGreater = _(["ge", "gt"]).contains(props.rel);
+        const widthInPixels = 400;
+        const range = props.range;
+        const scale = (range[1] - range[0]) / widthInPixels;
+        const buffer = 30 * scale;
+        const left = range[0] - buffer;
+        const right = range[1] + buffer;
+        const end = isGreater ? [right, 0] : [left, 0];
         return end;
     },
 
     _renderInequality: function(props) {
         if (props.isInequality) {
-            var end = this._getInequalityEndpoint(props);
-            var style = {
+            const end = this._getInequalityEndpoint(props);
+            const style = {
                 arrows: "->",
                 stroke: KhanColors.DYNAMIC,
                 strokeWidth: 3.5,
@@ -440,16 +440,16 @@ var NumberLine = React.createClass({
         if (!this.isValid()) {return;}
 
         // Position variables
-        var widthInPixels = 400;
-        var range = options.range;
-        var scale = (range[1] - range[0]) / widthInPixels;
-        var buffer = 30 * scale;
+        const widthInPixels = 400;
+        const range = options.range;
+        const scale = (range[1] - range[0]) / widthInPixels;
+        const buffer = 30 * scale;
 
         // Initiate the graphie without actually drawing anything
-        var left = range[0] - buffer;
-        var right = range[1] + buffer;
-        var bottom = -1;
-        var top = 1;
+        const left = range[0] - buffer;
+        const right = range[1] + buffer;
+        const bottom = -1;
+        const top = 1;
 
         graphie.init({
             range: [[left, right], [bottom, top]],
@@ -457,7 +457,7 @@ var NumberLine = React.createClass({
         });
 
         // Draw the number line
-        var center = (range[0] + range[1]) / 2;
+        const center = (range[0] + range[1]) / 2;
         graphie.line([center, 0], [right, 0], {arrows: "->"});
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     },
@@ -476,12 +476,12 @@ var NumberLine = React.createClass({
     },
 
     render: function() {
-        var divisionRange = this.props.divisionRange;
-        var divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
-        var invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
+        const divisionRange = this.props.divisionRange;
+        const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
+        const invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
                 this.props.numDivisions > divisionRange[1];
 
-        var inequalityControls = <div>
+        const inequalityControls = <div>
             <input
                 type="button"
                 className="simple-button"
@@ -498,9 +498,9 @@ var NumberLine = React.createClass({
             />
         </div>;
 
-        var tickCtrl;
+        const tickCtrl;
         if (this.props.isTickCtrl) {
-            var Input;
+            const Input;
             if (this.props.apiOptions.staticRender) {
                 Input = MathOutput;
             } else {
@@ -545,15 +545,15 @@ var NumberLine = React.createClass({
 
 _.extend(NumberLine, {
     validate: function(state, rubric) {
-        var range = rubric.range;
-        var divisionRange = state.divisionRange;
-        var start = rubric.initialX != null ? rubric.initialX : range[0];
-        var startRel = rubric.isInequality ? "ge" : "eq";
-        var correctRel = rubric.correctRel || "eq";
-        var correctPos = knumber.equal(
+        const range = rubric.range;
+        const divisionRange = state.divisionRange;
+        const start = rubric.initialX != null ? rubric.initialX : range[0];
+        const startRel = rubric.isInequality ? "ge" : "eq";
+        const correctRel = rubric.correctRel || "eq";
+        const correctPos = knumber.equal(
                 state.numLinePosition,
                 rubric.correctX || 0);
-        var outsideAllowedRange = state.numDivisions > divisionRange[1] ||
+        const outsideAllowedRange = state.numDivisions > divisionRange[1] ||
                 state.numDivisions < divisionRange[0];
 
         if (state.isTickCrtl && outsideAllowedRange) {
@@ -585,8 +585,8 @@ _.extend(NumberLine, {
     },
 });
 
-var numberLineTransform = (editorProps) => {
-    var props = _.pick(editorProps, [
+const numberLineTransform = (editorProps) => {
+    const props = _.pick(editorProps, [
         "range",
 
         "labelRange",
@@ -600,13 +600,13 @@ var numberLineTransform = (editorProps) => {
         "isInequality",
     ]);
 
-    var numLinePosition = (editorProps.initialX != null) ?
+    const numLinePosition = (editorProps.initialX != null) ?
             editorProps.initialX :
             editorProps.range[0];
 
-    var width = editorProps.range[1] - editorProps.range[0];
+    const width = editorProps.range[1] - editorProps.range[0];
 
-    var numDivisions;
+    const numDivisions;
     if (editorProps.numDivisions != null) {
         numDivisions = editorProps.numDivisions;
     } else if (editorProps.tickStep != null) {
@@ -625,8 +625,8 @@ var numberLineTransform = (editorProps) => {
     return props;
 };
 
-var staticTransform = (editorProps) => {
-    var props = _.pick(editorProps, [
+const staticTransform = (editorProps) => {
+    const props = _.pick(editorProps, [
         "range",
 
         "labelRange",
@@ -641,13 +641,13 @@ var staticTransform = (editorProps) => {
     ]);
 
     // The correct x is the initial position of the point
-    var numLinePosition = (editorProps.correctX != null) ?
+    const numLinePosition = (editorProps.correctX != null) ?
             editorProps.correctX :
             editorProps.range[0];
 
-    var width = editorProps.range[1] - editorProps.range[0];
+    const width = editorProps.range[1] - editorProps.range[0];
 
-    var numDivisions;
+    const numDivisions;
     if (editorProps.numDivisions != null) {
         numDivisions = editorProps.numDivisions;
     } else if (editorProps.tickStep != null) {

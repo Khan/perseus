@@ -4,24 +4,24 @@
 
 /* global i18n:false */
 
-var classNames = require("classnames");
-var React = require('react');
-var _ = require("underscore");
+const classNames = require("classnames");
+const React = require('react');
+const _ = require("underscore");
 
-var InputWithExamples = require("../components/input-with-examples.jsx");
-var ParseTex          = require("../tex-wrangler.js").parseTex;
-var PossibleAnswers = require("../components/possible-answers.jsx");
+const InputWithExamples = require("../components/input-with-examples.jsx");
+const ParseTex          = require("../tex-wrangler.js").parseTex;
+const PossibleAnswers = require("../components/possible-answers.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
 const { KeypadInput } = require("../../math-input").components;
 const { configureKeypad } = require("../../math-input").actions;
 const { keypadConfigurationPropType } = require("../../math-input").propTypes;
 const { KeypadTypes } = require("../../math-input").consts;
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
-var EnabledFeatures = require("../enabled-features.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const EnabledFeatures = require("../enabled-features.jsx");
 
-var answerTypes = {
+const answerTypes = {
     number: {
         name: "Numbers",
         forms: "integer, decimal, proper, improper, mixed",
@@ -55,7 +55,7 @@ var answerTypes = {
     },
 };
 
-var formExamples = {
+const formExamples = {
     "integer": function(options) { return i18n._("an integer, like $6$"); },
     "proper": function(options) {
         if (options.simplify === "optional") {
@@ -86,7 +86,7 @@ var formExamples = {
     },
 };
 
-var InputNumber = React.createClass({
+const InputNumber = React.createClass({
     propTypes: {
         answerType: React.PropTypes.oneOf(Object.keys(answerTypes)),
         apiOptions: ApiOptions.propTypes,
@@ -134,27 +134,27 @@ var InputNumber = React.createClass({
         } else {
             // HACK(johnsullivan): Create a function with shared logic between
             // this and NumericInput.
-            var rubric = this.props.reviewModeRubric;
-            var correct = null;
-            var answerBlurb = null;
+            const rubric = this.props.reviewModeRubric;
+            const correct = null;
+            const answerBlurb = null;
             if (rubric) {
-                var score = this.simpleValidate(rubric);
+                const score = this.simpleValidate(rubric);
                 correct = score.type === "points" &&
                               score.earned === score.total;
 
                 if (!correct) {
                     // TODO(johnsullivan): Make this a little more
                     // human-friendly.
-                    var answerString = String(rubric.value);
+                    const answerString = String(rubric.value);
                     if (rubric.inexact && rubric.maxError) {
                         answerString += " \u00B1 " + rubric.maxError;
                     }
-                    var answerStrings = [answerString];
+                    const answerStrings = [answerString];
                     answerBlurb = <PossibleAnswers answers={answerStrings} />;
                 }
             }
 
-            var classes = {};
+            const classes = {};
             classes["perseus-input-size-" + this.props.size] = true;
             classes[ApiClassNames.CORRECT] =
                 rubric && correct && this.props.currentValue;
@@ -163,7 +163,7 @@ var InputNumber = React.createClass({
             classes[ApiClassNames.UNANSWERED] =
                 rubric && !this.props.currentValue;
 
-            var input = <InputWithExamples
+            const input = <InputWithExamples
                 ref="input"
                 value={this.props.currentValue}
                 onChange={this.handleChange}
@@ -253,10 +253,10 @@ var InputNumber = React.createClass({
     },
 
     examples: function() {
-        var type = this.props.answerType;
-        var forms = answerTypes[type].forms.split(/\s*,\s*/);
+        const type = this.props.answerType;
+        const forms = answerTypes[type].forms.split(/\s*,\s*/);
 
-        var examples = _.map(forms, function(form) {
+        const examples = _.map(forms, function(form) {
             return formExamples[form](this.props);
         }, this);
 
@@ -269,7 +269,7 @@ _.extend(InputNumber, {
         if (rubric.answerType == null) {
             rubric.answerType = "number";
         }
-        var val = KhanAnswerTypes.number.createValidatorFunctional(
+        const val = KhanAnswerTypes.number.createValidatorFunctional(
             rubric.value, {
                 simplify: rubric.simplify,
                 inexact: rubric.inexact || undefined,
@@ -279,14 +279,14 @@ _.extend(InputNumber, {
 
         // We may have received TeX; try to parse it before grading.
         // If `currentValue` is not TeX, this should be a no-op.
-        var currentValue = ParseTex(state.currentValue);
+        const currentValue = ParseTex(state.currentValue);
 
-        var result = val(currentValue);
+        const result = val(currentValue);
 
         // TODO(eater): Seems silly to translate result to this invalid/points
         // thing and immediately translate it back in ItemRenderer.scoreInput()
         if (result.empty) {
-            var apiResult = onInputError(
+            const apiResult = onInputError(
                 null, // reserved for some widget identifier
                 state.currentValue,
                 result.message
@@ -362,7 +362,7 @@ const keypadConfigurationForProps = (props) => {
     }
 };
 
-var propTransform = (editorProps) => {
+const propTransform = (editorProps) => {
     const { simplify, size, answerType } = editorProps;
     return {
         keypadConfiguration: keypadConfigurationForProps(editorProps),

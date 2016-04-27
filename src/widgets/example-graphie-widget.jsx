@@ -8,24 +8,24 @@
  * TODO(jack): Add more comments
  */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Util = require("../util.js");
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const Util = require("../util.js");
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
 
-var Graphie = require("../components/graphie.jsx");
-var MovablePoint = Graphie.MovablePoint;
+const Graphie = require("../components/graphie.jsx");
+const MovablePoint = Graphie.MovablePoint;
 
-var kpoint = require("kmath").point;
+const kpoint = require("kmath").point;
 
 /**
  * This is the widget's renderer. It shows up in the right column
  * in the demo, and is what is visible to users, and where
  * users enter their answers.
  */
-var ExampleGraphieWidget = React.createClass({
+const ExampleGraphieWidget = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
@@ -88,7 +88,7 @@ var ExampleGraphieWidget = React.createClass({
     },
 
     setupGraphie: function(graphie, options) {
-        var gridConfig = this._getGridConfig(options);
+        const gridConfig = this._getGridConfig(options);
         graphie.graphInit({
             range: options.range,
             scale: _.pluck(gridConfig, "scale"),

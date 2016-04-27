@@ -2,19 +2,19 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React        = require('react');
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const React        = require('react');
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
 const GraphUtils = require("../util/graph-utils.js");
 
-var defaultImage = {
+const defaultImage = {
     url: null,
     top: 0,
     left: 0,
 };
 
-var Measurer = React.createClass({
+const Measurer = React.createClass({
     propTypes: {
         box: React.PropTypes.arrayOf(React.PropTypes.number),
         image: React.PropTypes.shape({
@@ -52,7 +52,7 @@ var Measurer = React.createClass({
     },
 
     render: function() {
-        var image = _.extend({}, defaultImage, this.props.image);
+        const image = _.extend({}, defaultImage, this.props.image);
         return <div
                 className={
                     "perseus-widget perseus-widget-measurer " +
@@ -76,7 +76,7 @@ var Measurer = React.createClass({
     },
 
     componentDidUpdate: function(prevProps) {
-        var shouldSetupGraphie = _.any(
+        const shouldSetupGraphie = _.any(
             [
                 "box", "showProtractor", "showRuler", "rulerLabel",
                 "rulerTicks", "rulerPixels", "rulerLength",
@@ -93,12 +93,12 @@ var Measurer = React.createClass({
     },
 
     setupGraphie: function() {
-        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+        const graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
         $(graphieDiv).empty();
-        var graphie = this.graphie = GraphUtils.createGraphie(graphieDiv);
+        const graphie = this.graphie = GraphUtils.createGraphie(graphieDiv);
 
-        var scale = [40, 40];
-        var range = [
+        const scale = [40, 40];
+        const range = [
             [0, this.props.box[0] / scale[0]],
             [0, this.props.box[1] / scale[1]],
         ];
@@ -163,9 +163,9 @@ _.extend(Measurer, {
     },
 });
 
-var propUpgrades = {
+const propUpgrades = {
     1: (v0props) => {
-        var v1props = _(v0props).chain()
+        const v1props = _(v0props).chain()
             .omit("imageUrl", "imageTop", "imageLeft")
             .extend({
                 image: {

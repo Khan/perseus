@@ -17,10 +17,10 @@
  *     <img src="top-layer.png" />
  * </FixedToResponsive>
  */
-var classNames = require("classnames");
-var React = require("react");
+const classNames = require("classnames");
+const React = require("react");
 
-var FixedToResponsive = React.createClass({
+const FixedToResponsive = React.createClass({
 
     propTypes: {
         children: React.PropTypes.node,
@@ -41,23 +41,23 @@ var FixedToResponsive = React.createClass({
         // but never grow larger than their original dimensions. We accomplish
         // this by absolutely positioning the children and telling them to fill
         // up all of a space that has the correct aspect ratio.
-        var aspectRatio = this.props.width / this.props.height;
+        const aspectRatio = this.props.width / this.props.height;
 
         // This works because padding percentages are interpreted in terms of
         // the width of the containing block, so:
         //     (fixed height / fixed width) * display width = display height
         // Based on http://refills.bourbon.io/components/#video && medium.com
-        var spacer = <div style={{
+        const spacer = <div style={{
             paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%',
         }} />;
 
         // Prevent child components from growing (aka "the Peter Pan effect")
-        var style = {
+        const style = {
             maxWidth: this.props.width,
             maxHeight: this.props.height,
         };
 
-        var className = classNames(
+        const className = classNames(
             "fixed-to-responsive",
             this.props.className
         );

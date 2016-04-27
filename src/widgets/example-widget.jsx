@@ -11,11 +11,11 @@
  * TODO(jack): Add more comments
  */
 
-var React = require('react');
-var Changeable = require("../mixins/changeable.jsx");
-var _ = require("underscore");
+const React = require('react');
+const Changeable = require("../mixins/changeable.jsx");
+const _ = require("underscore");
 
-var TextInput = React.createClass({
+const TextInput = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
@@ -45,7 +45,7 @@ var TextInput = React.createClass({
  * in the demo, and is what is visible to users, and where
  * users enter their answers.
  */
-var ExampleWidget = React.createClass({
+const ExampleWidget = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
     },

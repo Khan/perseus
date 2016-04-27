@@ -2,21 +2,21 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var shuffle = require("../util.js").shuffle;
+const shuffle = require("../util.js").shuffle;
 
-var Radio = require("./radio/widget.jsx");
+const Radio = require("./radio/widget.jsx");
 
-var _choiceTransform = (editorProps, problemNum) => {
-    var _maybeRandomize = function(array) {
+const _choiceTransform = (editorProps, problemNum) => {
+    const _maybeRandomize = function(array) {
         return editorProps.randomize ? shuffle(array, problemNum) : array;
     };
 
-    var _addNoneOfAbove = function(choices) {
-        var noneOfTheAbove = null;
+    const _addNoneOfAbove = function(choices) {
+        const noneOfTheAbove = null;
 
-        var newChoices = _.reject(choices, function(choice, index) {
+        const newChoices = _.reject(choices, function(choice, index) {
             if (choice.isNoneOfTheAbove) {
                 noneOfTheAbove = choice;
                 return true;
@@ -32,7 +32,7 @@ var _choiceTransform = (editorProps, problemNum) => {
     };
 
     // Add meta-information to choices
-    var choices = editorProps.choices.slice();
+    const choices = editorProps.choices.slice();
     choices = _.map(choices, (choice, i) => {
         return _.extend({}, choice, { originalIndex: i });
     });
@@ -41,8 +41,8 @@ var _choiceTransform = (editorProps, problemNum) => {
     return _addNoneOfAbove(_maybeRandomize(choices));
 };
 
-var radioTransform = (editorProps, problemNum) => {
-    var choices = _.map(_choiceTransform(editorProps, problemNum),
+const radioTransform = (editorProps, problemNum) => {
+    const choices = _.map(_choiceTransform(editorProps, problemNum),
         (choice) => _.omit(choice, 'correct'));
 
     editorProps = _.extend({}, editorProps, { choices: choices });
@@ -50,24 +50,24 @@ var radioTransform = (editorProps, problemNum) => {
         "multipleSelect", "correctAnswer", "deselectEnabled");
 };
 
-var staticTransform = (editorProps, problemNum) => {
-    var choices = _choiceTransform(editorProps, problemNum);
+const staticTransform = (editorProps, problemNum) => {
+    const choices = _choiceTransform(editorProps, problemNum);
     // The correct answers are the selected values in the rendered widget
-    var selectedChoices = _.pluck(choices, "correct");
+    const selectedChoices = _.pluck(choices, "correct");
 
-    var selectedProps = _.pick(editorProps, "hasNoneOfTheAbove", "onePerLine",
+    const selectedProps = _.pick(editorProps, "hasNoneOfTheAbove", "onePerLine",
         "multipleSelect", "correctAnswer", "deselectEnabled");
-    var staticProps = _.extend({}, selectedProps, {
+    const staticProps = _.extend({}, selectedProps, {
         choices: choices,
         values: selectedChoices,
     });
     return staticProps;
 };
 
-var propUpgrades = {
+const propUpgrades = {
     1: (v0props) => {
-        var choices;
-        var hasNoneOfTheAbove;
+        const choices;
+        const hasNoneOfTheAbove;
 
         if (!v0props.noneOfTheAbove) {
             choices = v0props.choices;
@@ -75,8 +75,8 @@ var propUpgrades = {
 
         } else {
             choices = _.clone(v0props.choices);
-            var noneOfTheAboveIndex = _.random(0, v0props.choices.length - 1);
-            var noneChoice = _.extend(
+            const noneOfTheAboveIndex = _.random(0, v0props.choices.length - 1);
+            const noneChoice = _.extend(
                 {},
                 v0props.choices[noneOfTheAboveIndex],
                 {

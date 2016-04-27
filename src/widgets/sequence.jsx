@@ -2,16 +2,16 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable   = require("../mixins/changeable.jsx");
-var EnabledFeatures = require("../enabled-features.jsx");
-var Renderer = require("../renderer.jsx");
-var Util = require("../util.js");
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable   = require("../mixins/changeable.jsx");
+const EnabledFeatures = require("../enabled-features.jsx");
+const Renderer = require("../renderer.jsx");
+const Util = require("../util.js");
 
-var Sequence = React.createClass({
+const Sequence = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -46,17 +46,17 @@ var Sequence = React.createClass({
     },
 
     render: function() {
-        var icon = <div className="icon-ok" style={{color: "green"}} />;
+        const icon = <div className="icon-ok" style={{color: "green"}} />;
 
-        var content = _.chain(this.props.json)
+        const content = _.chain(this.props.json)
                 .first(this.state.visible)
                 .map((step, i) => `[[${Util.snowman} group ${i}]]`)
                 .join("\n\n")
                 .value();
 
-        var widgets = {};
+        const widgets = {};
         _.each(this.props.json, (step, i) => {
-            var widgetId = `group ${i}`;
+            const widgetId = `group ${i}`;
             widgets[widgetId] = {
                 type: "group",
                 graded: true,
@@ -79,10 +79,10 @@ var Sequence = React.createClass({
     },
 
     _handleInteraction: function(groupWidgetId) {
-        var step = parseInt(groupWidgetId.split(" ")[1]);
+        const step = parseInt(groupWidgetId.split(" ")[1]);
         if (step === this.state.visible - 1) {
-            var widget = this.refs.renderer.getWidgetInstance("group " + step);
-            var score = widget.simpleValidate();
+            const widget = this.refs.renderer.getWidgetInstance("group " + step);
+            const score = widget.simpleValidate();
 
             if (score.type === "points" && score.total === score.earned) {
                 this.setState({
@@ -96,15 +96,15 @@ var Sequence = React.createClass({
     },
 });
 
-var traverseChildWidgets = function(
+const traverseChildWidgets = function(
         props,
         traverseRenderer) {
 
-    var oldJson = props.json;
+    const oldJson = props.json;
     if (!_.isArray(oldJson)) {
         oldJson = [oldJson];
     }
-    var json = _.map(oldJson, (rendererOptions) => {
+    const json = _.map(oldJson, (rendererOptions) => {
         return traverseRenderer(rendererOptions);
     });
 

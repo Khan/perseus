@@ -9,25 +9,25 @@
 
 /* global i18n:false, $_:false */
 
-var lens = require("../../hubble/index.js");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const lens = require("../../hubble/index.js");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var ApiClassNames = require("../perseus-api.jsx").ClassNames;
-var ApiOptions = require("../perseus-api.jsx").Options;
-var Changeable = require("../mixins/changeable.jsx");
-var MathOutput   = require("../components/math-output.jsx");
-var { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
+const ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const Changeable = require("../mixins/changeable.jsx");
+const MathOutput   = require("../components/math-output.jsx");
+const { SignificantFigures, displaySigFigs } = require("../sigfigs.jsx");
 
-var ALL = "all";
-var MAX_SIGFIGS = 10;
+const ALL = "all";
+const MAX_SIGFIGS = 10;
 
-var countSigfigs = function(value) {
+const countSigfigs = function(value) {
     return new SignificantFigures(value).sigFigs;
 };
 
-var sigfigPrint = function(num, sigfigs) {
+const sigfigPrint = function(num, sigfigs) {
     return displaySigFigs(num, sigfigs, -MAX_SIGFIGS, false);
 };
 
@@ -39,7 +39,7 @@ var sigfigPrint = function(num, sigfigs) {
  * shows and hides an error buddy. The error message is only shown after a
 * rolling two second delay, but hidden immediately on further typing.
  */
-var OldUnitInput = React.createClass({
+const OldUnitInput = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -59,10 +59,10 @@ var OldUnitInput = React.createClass({
 
     // TODO(joel) think about showing the error buddy
     render: function() {
-        var inputType = this.props.apiOptions.staticRender ?
+        const inputType = this.props.apiOptions.staticRender ?
                 React.createFactory(MathOutput) :
                 React.DOM.input;
-        var input = inputType({
+        const input = inputType({
             onChange: this.handleChange,
             ref: "input",
             className: ApiClassNames.INTERACTIVE,
@@ -88,7 +88,7 @@ var OldUnitInput = React.createClass({
             return;
         }
 
-        var $error = $(ReactDOM.findDOMNode(this.refs.error));
+        const $error = $(ReactDOM.findDOMNode(this.refs.error));
         if (!$error.is(":visible")) {
             $error.css({ top: 50, opacity: 0.1 }).show()
                 .animate({ top: 0, opacity: 1.0 }, 300);
@@ -96,7 +96,7 @@ var OldUnitInput = React.createClass({
     },
 
     _hideError: function() {
-        var $error = $(ReactDOM.findDOMNode(this.refs.error));
+        const $error = $(ReactDOM.findDOMNode(this.refs.error));
         if ($error.is(":visible")) {
             $error.animate({ top: 50, opacity: 0.1 }, 300, function() {
                 $(this).hide();
@@ -178,14 +178,14 @@ var OldUnitInput = React.createClass({
 
 // Extract the primitive units from a unit expression. This first simplifies
 // `expr` to a `Mul` like "5 kg m / s^2" then removes the first term.
-var primUnits = function(expr) {
+const primUnits = function(expr) {
     return expr.simplify().asMul().partition()[1].flatten().simplify();
 };
 
 _.extend(OldUnitInput, {
     validate: function(state, rubric) {
-        var answer = KAS.unitParse(rubric.value).expr;
-        var guess = KAS.unitParse(state);
+        const answer = KAS.unitParse(rubric.value).expr;
+        const guess = KAS.unitParse(state);
         if (!guess.parsed) {
             return  {
                 type: "invalid",
@@ -196,29 +196,29 @@ _.extend(OldUnitInput, {
         // Note: we check sigfigs, then numerical correctness, then units, so
         // the most significant things come last, that way the user will see
         // the most important message.
-        var message = null;
+        const message = null;
 
         // did the user specify the right number of sigfigs?
         // TODO(joel) - add a grading mode where the wrong number of sigfigs
         // isn't marked wrong
-        var sigfigs = rubric.sigfigs;
-        var sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
+        const sigfigs = rubric.sigfigs;
+        const sigfigsCorrect = countSigfigs(guess.coefficient) === sigfigs;
         if (!sigfigsCorrect) {
             message = i18n._("Check your significant figures.");
         }
 
         // now we need to check that the answer is correct to the precision we
         // require.
-        var numericallyCorrect;
+        const numericallyCorrect;
         try {
-            var x = new KAS.Var("x");
-            var equality = new KAS.Eq(
+            const x = new KAS.Var("x");
+            const equality = new KAS.Eq(
                 answer.simplify(),
                 "=",
                 new KAS.Mul(x, guess.expr.simplify())
             );
 
-            var conversion = equality.solveLinearEquationForVariable(x);
+            const conversion = equality.solveLinearEquationForVariable(x);
 
             // Make sure the conversion factor between the user's input answer
             // and the canonical answer is 1, to sigfig places.
@@ -234,9 +234,9 @@ _.extend(OldUnitInput, {
             message = i18n._("That answer is numerically incorrect.");
         }
 
-        var kasCorrect;
-        var guessUnit = primUnits(guess.expr.simplify());
-        var answerUnit = primUnits(answer.simplify());
+        const kasCorrect;
+        const guessUnit = primUnits(guess.expr.simplify());
+        const answerUnit = primUnits(answer.simplify());
 
         if (rubric.accepting === ALL) {
             // We're accepting all units - KAS does the hard work of figuring
@@ -248,7 +248,7 @@ _.extend(OldUnitInput, {
         } else {
             // Are any of the accepted units the same as what the user entered?
             kasCorrect = _(rubric.acceptingUnits).any(unit => {
-                var thisAnswerUnit = primUnits(
+                const thisAnswerUnit = primUnits(
                     KAS.unitParse(unit).unit.simplify()
                 );
                 return KAS.compare(
@@ -263,7 +263,7 @@ _.extend(OldUnitInput, {
             message = i18n._("Check your units.");
         }
 
-        var correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
+        const correct = kasCorrect && numericallyCorrect && sigfigsCorrect;
 
         return {
             type: "points",

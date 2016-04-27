@@ -3,11 +3,11 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* globals KA */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var SimpleMarkdown = require("simple-markdown");
-var TeX = require("react-components/tex.jsx");
-var Util = require("./util.js");
+const SimpleMarkdown = require("simple-markdown");
+const TeX = require("react-components/tex.jsx");
+const Util = require("./util.js");
 
 /**
  * This match function matches math in `$`s, such as:
@@ -31,9 +31,9 @@ var Util = require("./util.js");
  *
  * This can also match block-math, which is math alone in a paragraph.
  */
-var mathMatcher = (source, state, isBlock) => {
-    var length = source.length;
-    var index = 0;
+const mathMatcher = (source, state, isBlock) => {
+    const length = source.length;
+    const index = 0;
 
     // When looking for blocks, skip over leading spaces
     if (isBlock) {
@@ -51,14 +51,14 @@ var mathMatcher = (source, state, isBlock) => {
     }
 
     index++;
-    var startIndex = index;
-    var braceLevel = 0;
+    const startIndex = index;
+    const braceLevel = 0;
 
     // Loop through the source, looking for a closing '$'
     // closing '$'s only count if they are not escaped with
     // a `\`, and we are not in nested `{}` braces.
     while (index < length) {
-        var character = source[index];
+        const character = source[index];
 
         if (character === "\\") {
             // Consume both the `\` and the escaped char as a single
@@ -73,10 +73,10 @@ var mathMatcher = (source, state, isBlock) => {
 
         } else if (braceLevel <= 0 && character === "$") {
 
-            var endIndex = index + 1;
+            const endIndex = index + 1;
             if (isBlock) {
                 // Look for two trailing newlines after the closing `$`
-                var match = /^(?: *\n){2,}/.exec(source.slice(endIndex));
+                const match = /^(?: *\n){2,}/.exec(source.slice(endIndex));
                 endIndex = match ? endIndex + match[0].length : null;
             }
 
@@ -116,10 +116,10 @@ var mathMatcher = (source, state, isBlock) => {
     // we didn't find a closing `$`
     return null;
 };
-var mathMatch = (source, state) => mathMatcher(source, state, false);
-var blockMathMatch = (source, state) => mathMatcher(source, state, true);
+const mathMatch = (source, state) => mathMatcher(source, state, false);
+const blockMathMatch = (source, state) => mathMatcher(source, state, true);
 
-var TITLED_TABLE_REGEX = new RegExp(
+const TITLED_TABLE_REGEX = new RegExp(
     "^\\|\\| +(.*) +\\|\\| *\\n" +
     "(" +
     // The simple-markdown nptable regex, without
@@ -128,9 +128,9 @@ var TITLED_TABLE_REGEX = new RegExp(
     ")"
 );
 
-var crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
+const crowdinJiptMatcher = SimpleMarkdown.blockRegex(/^(crwdns.*)\n\s*\n/);
 
-var rules = _.extend({}, SimpleMarkdown.defaultRules, {
+const rules = _.extend({}, SimpleMarkdown.defaultRules, {
     // NOTE: basically ignored by JIPT. wraps everything at the outer layer
     columns: {
         order: -2,
@@ -194,12 +194,12 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
         order: SimpleMarkdown.defaultRules.nptable.order - 0.5,
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX),
         parse: (capture, parse, state) => {
-            var title = SimpleMarkdown.parseInline(parse, capture[1], state);
+            const title = SimpleMarkdown.parseInline(parse, capture[1], state);
 
             // Remove our [0] and [1] captures, and pass the rest to
             // the nptable parser
-            var tableCapture = _.rest(capture, 2);
-            var table = SimpleMarkdown.defaultRules.nptable.parse(
+            const tableCapture = _.rest(capture, 2);
+            const table = SimpleMarkdown.defaultRules.nptable.parse(
                 tableCapture,
                 parse,
                 state
@@ -210,7 +210,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
             };
         },
         react: (node, output, state) => {
-            var tableOutput = node.table ?
+            const tableOutput = node.table ?
                 SimpleMarkdown.defaultRules.table.react(
                     node.table,
                     output,
@@ -275,7 +275,7 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     },
     fence: _.extend({}, SimpleMarkdown.defaultRules.fence, {
         parse: (capture, parse, state) => {
-            var node = SimpleMarkdown.defaultRules.fence.parse(
+            const node = SimpleMarkdown.defaultRules.fence.parse(
                 capture,
                 parse,
                 state
@@ -356,16 +356,16 @@ var rules = _.extend({}, SimpleMarkdown.defaultRules, {
     }),
 });
 
-var builtParser = SimpleMarkdown.parserFor(rules);
-var parse = (source, state) => {
-    var paragraphedSource = source + "\n\n";
+const builtParser = SimpleMarkdown.parserFor(rules);
+const parse = (source, state) => {
+    const paragraphedSource = source + "\n\n";
 
     return builtParser(paragraphedSource, _.extend(
         { inline: false },
         state
     ));
 };
-var inlineParser = (source, state) => {
+const inlineParser = (source, state) => {
     return builtParser(source, _.extend(
         { inline: true },
         state
@@ -376,7 +376,7 @@ var inlineParser = (source, state) => {
  * Traverse all of the nodes in the Perseus Markdown AST. The callback is
  * called for each node in the AST.
  */
-var traverseContent = (ast, cb) => {
+const traverseContent = (ast, cb) => {
     if (_.isArray(ast)) {
         _.each(ast, (node) => traverseContent(node, cb));
     } else if (_.isObject(ast)) {
@@ -401,7 +401,7 @@ var traverseContent = (ast, cb) => {
  * Pull out text content from a Perseus Markdown AST.
  * Returns an array of strings.
  */
-var getContent = (ast) => {
+const getContent = (ast) => {
     // Simplify logic by dealing with a single AST node at a time
     if (_.isArray(ast)) {
         return _.flatten(_.map(ast, getContent));
@@ -424,7 +424,7 @@ var getContent = (ast) => {
     // 1) Child AST nodes are either direct properties or inside
     //    arbitrarily nested lists that are direct properties.
     // 2) Only AST nodes have a 'type' property.
-    var children = _.chain(ast)
+    const children = _.chain(ast)
         .values()
         .flatten()
         .filter((object) => object != null && _.has(object, 'type'))
@@ -433,11 +433,11 @@ var getContent = (ast) => {
     if (!children.length) {
         return [];
     } else {
-        var nestedContent = getContent(children);
+        const nestedContent = getContent(children);
         if (ast.type === 'paragraph' && nestedContent.length) {
             // Trim whitespace before or after a paragraph
             nestedContent[0] = nestedContent[0].replace(/^\s+/, '');
-            var last = nestedContent.length - 1;
+            const last = nestedContent.length - 1;
             nestedContent[last] = nestedContent[last].replace(/\s+$/, '');
         }
         return nestedContent;
@@ -448,9 +448,9 @@ var getContent = (ast) => {
  * Count the number of characters in Perseus Markdown source.
  * Markdown markup and widget references are ignored.
  */
-var characterCount = (source) => {
-    var ast = parse(source);
-    var content = getContent(ast).join('');
+const characterCount = (source) => {
+    const ast = parse(source);
+    const content = getContent(ast).join('');
     return content.length;
 };
 

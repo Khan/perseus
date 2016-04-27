@@ -3,18 +3,18 @@
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Changeable = require("../../mixins/changeable.jsx");
-var Editor = require("../../editor.jsx");
-var PropCheckBox = require("../../components/prop-check-box.jsx");
+const Changeable = require("../../mixins/changeable.jsx");
+const Editor = require("../../editor.jsx");
+const PropCheckBox = require("../../components/prop-check-box.jsx");
 
-var InfoTip = require("../../components/info-tip.jsx");
-var BaseRadio = require("./base-radio.jsx");
+const InfoTip = require("../../components/info-tip.jsx");
+const BaseRadio = require("./base-radio.jsx");
 
 
-var ChoiceEditor = React.createClass({
+const ChoiceEditor = React.createClass({
     propTypes: {
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         choice: React.PropTypes.any,
@@ -25,8 +25,8 @@ var ChoiceEditor = React.createClass({
     },
 
     render: function() {
-        var checkedClass = this.props.choice.correct ? "correct" : "incorrect";
-        var placeholder = "Type a choice here...";
+        const checkedClass = this.props.choice.correct ? "correct" : "incorrect";
+        const placeholder = "Type a choice here...";
 
         if (this.props.choice.isNoneOfTheAbove) {
             placeholder = this.props.choice.correct ?
@@ -34,7 +34,7 @@ var ChoiceEditor = React.createClass({
                 "None of the above";
         }
 
-        var editor = <Editor
+        const editor = <Editor
             ref={"content-editor"}
             content={this.props.choice.content || ""}
             widgetEnabled={false}
@@ -43,14 +43,14 @@ var ChoiceEditor = React.createClass({
                 !this.props.choice.correct}
             onChange={this.props.onContentChange} />;
 
-        var clueEditor = <Editor
+        const clueEditor = <Editor
             ref={"clue-editor"}
             content={this.props.choice.clue || ""}
             widgetEnabled={false}
             placeholder={i18n._(`Why is this choice ${checkedClass}?`)}
             onChange={this.props.onClueChange} />;
 
-        var deleteLink = <a href="#"
+        const deleteLink = <a href="#"
                 className="simple-button orange delete-choice"
                 title="Remove this choice"
                 onClick={this.props.onDelete}>
@@ -70,7 +70,7 @@ var ChoiceEditor = React.createClass({
 });
 
 
-var RadioEditor = React.createClass({
+const RadioEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -196,12 +196,12 @@ var RadioEditor = React.createClass({
     onMultipleSelectChange: function(allowMultiple) {
         allowMultiple = allowMultiple.multipleSelect;
 
-        var numSelected = _.reduce(this.props.choices, function(memo, choice) {
+        const numSelected = _.reduce(this.props.choices, function(memo, choice) {
             return choice.correct ? memo + 1 : memo;
         }, 0);
 
         if (!allowMultiple && numSelected > 1) {
-            var choices = _.map(this.props.choices, function(choice) {
+            const choices = _.map(this.props.choices, function(choice) {
                 return _.defaults({
                     correct: false,
                 }, choice);
@@ -219,7 +219,7 @@ var RadioEditor = React.createClass({
     },
 
     onCheckedChange: function(checked) {
-        var choices = _.map(this.props.choices, (choice, i) => {
+        const choices = _.map(this.props.choices, (choice, i) => {
             return _.extend({}, choice, {
                 correct: checked[i],
                 content: choice.isNoneOfTheAbove && !checked[i] ?
@@ -230,7 +230,7 @@ var RadioEditor = React.createClass({
     },
 
     onContentChange: function(choiceIndex, newContent) {
-        var choices = this.props.choices.slice();
+        const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             content: newContent,
         });
@@ -238,7 +238,7 @@ var RadioEditor = React.createClass({
     },
 
     onClueChange: function(choiceIndex, newClue) {
-        var choices = this.props.choices.slice();
+        const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             clue: newClue,
         });
@@ -251,8 +251,8 @@ var RadioEditor = React.createClass({
     onDelete: function(choiceIndex, e) {
         e.preventDefault();
 
-        var choices = this.props.choices.slice();
-        var deleted = choices[choiceIndex];
+        const choices = this.props.choices.slice();
+        const deleted = choices[choiceIndex];
 
         choices.splice(choiceIndex, 1);
 
@@ -266,9 +266,9 @@ var RadioEditor = React.createClass({
     addChoice: function(noneOfTheAbove, e) {
         e.preventDefault();
 
-        var choices = this.props.choices.slice();
-        var newChoice = { isNoneOfTheAbove: noneOfTheAbove };
-        var addIndex = choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
+        const choices = this.props.choices.slice();
+        const newChoice = { isNoneOfTheAbove: noneOfTheAbove };
+        const addIndex = choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
 
         choices.splice(addIndex, 0, newChoice);
 

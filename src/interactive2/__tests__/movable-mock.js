@@ -6,12 +6,12 @@
  * Create a Mocked Movable
  */
 
-var _ = require("underscore");
+const _ = require("underscore");
 
-var Movable = require("../movable.js");
+const Movable = require("../movable.js");
 
-var createMock = function() {
-    var movable = new Movable(null, {
+const createMock = function() {
+    const movable = new Movable(null, {
         mouseTarget: null,
     });
     movable.modify = function(options) {
@@ -25,8 +25,8 @@ var createMock = function() {
         };
     });
     movable.move = function() {
-        var args = _.toArray(arguments);
-        var startPoint = _.first(args);
+        const args = _.toArray(arguments);
+        const startPoint = _.first(args);
         // TODO(jack): Move these into onMoveStart, onMove, and onMoveEnd
         movable.state.isMouseOver = true;
         movable.state.isHovering = true;

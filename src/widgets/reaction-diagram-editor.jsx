@@ -10,7 +10,7 @@ const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 const NumberInput = require("../components/number-input.jsx");
 const TextInput = require("../components/text-input.jsx");
 
-var ReactionDiagramWidgetEditor = React.createClass({
+const ReactionDiagramWidgetEditor = React.createClass({
     propTypes: {
         rotationAngle: React.PropTypes.arrayOf(React.PropTypes.number),
         separators: React.PropTypes.arrayOf(React.PropTypes.object),

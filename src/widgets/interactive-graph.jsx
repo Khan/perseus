@@ -4,34 +4,34 @@
 
 /* global i18n:false */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Graph         = require("../components/graph.jsx");
-var InfoTip       = require("../components/info-tip.jsx");
-var Interactive2  = require("../interactive2.js");
-var NumberInput   = require("../components/number-input.jsx");
-var Util          = require("../util.js");
+const Graph         = require("../components/graph.jsx");
+const InfoTip       = require("../components/info-tip.jsx");
+const Interactive2  = require("../interactive2.js");
+const NumberInput   = require("../components/number-input.jsx");
+const Util          = require("../util.js");
 
-var knumber = require("kmath").number;
-var kpoint = require("kmath").point;
+const knumber = require("kmath").number;
+const kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
 
-var DeprecationMixin = Util.DeprecationMixin;
+const DeprecationMixin = Util.DeprecationMixin;
 
 
-var TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
+const TRASH_ICON_URI = 'https://ka-perseus-graphie.s3.amazonaws.com/b1452c0d79fd0f7ff4c3af9488474a0a0decb361.png';
 
-var defaultBoxSize = 400;
-var defaultBackgroundImage = {
+const defaultBoxSize = 400;
+const defaultBackgroundImage = {
     url: null,
 };
 
-var eq = Util.eq;
-var deepEq = Util.deepEq;
+const eq = Util.eq;
+const deepEq = Util.deepEq;
 
-var UNLIMITED = "unlimited";
+const UNLIMITED = "unlimited";
 
 // Sample background image:
 // https://ka-perseus-graphie.s3.amazonaws.com/29c1b0fcd17fe63df0f148fe357044d5d5c7d0bb.png
@@ -66,14 +66,14 @@ function pointInRect(a, b, c) {
 // Whether line segment AB intersects line segment CD
 // http://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
 function intersects(ab, cd) {
-    var triplets = [
+    const triplets = [
         [ab[0], ab[1], cd[0]],
         [ab[0], ab[1], cd[1]],
         [cd[0], cd[1], ab[0]],
         [cd[0], cd[1], ab[1]],
     ];
 
-    var orientations = _.map(triplets, function(triplet) {
+    const orientations = _.map(triplets, function(triplet) {
         return sign(ccw(...triplet));
     });
 
@@ -110,7 +110,7 @@ function dotProduct(a, b) {
 }
 
 function sideLengths(coords) {
-    var segments = _.zip(coords, rotate(coords));
+    const segments = _.zip(coords, rotate(coords));
     return _.map(segments, function(segment) {
         return magnitude(vector(...segment));
     });
@@ -118,16 +118,16 @@ function sideLengths(coords) {
 
 // Based on http://math.stackexchange.com/a/151149
 function angleMeasures(coords) {
-    var triplets = _.zip(rotate(coords, -1), coords, rotate(coords, 1));
+    const triplets = _.zip(rotate(coords, -1), coords, rotate(coords, 1));
 
-    var offsets = _.map(triplets, function(triplet) {
-        var p = vector(triplet[1], triplet[0]);
-        var q = vector(triplet[2], triplet[1]);
-        var raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
+    const offsets = _.map(triplets, function(triplet) {
+        const p = vector(triplet[1], triplet[0]);
+        const q = vector(triplet[2], triplet[1]);
+        const raw = Math.acos(dotProduct(p, q) / (magnitude(p) * magnitude(q)));
         return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
-    var sum = _.reduce(offsets, function(memo, arg) { return memo + arg; }, 0);
+    const sum = _.reduce(offsets, function(memo, arg) { return memo + arg; }, 0);
 
     return _.map(offsets, function(offset) {
         return sum > 0 ? Math.PI - offset : Math.PI + offset;
@@ -140,17 +140,17 @@ function similar(coords1, coords2, tolerance) {
         return false;
     }
 
-    var n = coords1.length;
+    const n = coords1.length;
 
-    var angles1 = angleMeasures(coords1);
-    var angles2 = angleMeasures(coords2);
+    const angles1 = angleMeasures(coords1);
+    const angles2 = angleMeasures(coords2);
 
-    var sides1 = sideLengths(coords1);
-    var sides2 = sideLengths(coords2);
+    const sides1 = sideLengths(coords1);
+    const sides2 = sideLengths(coords2);
 
     for (var i = 0; i < 2 * n; i++) {
-        var angles = angles2.slice();
-        var sides = sides2.slice();
+        const angles = angles2.slice();
+        const sides = sides2.slice();
 
         // Reverse angles and sides to allow matching reflected polygons
         if (i >= n) {
@@ -165,17 +165,17 @@ function similar(coords1, coords2, tolerance) {
         sides = rotate(sides, i);
 
         if (deepEq(angles1, angles)) {
-            var sidePairs = _.zip(sides1, sides);
+            const sidePairs = _.zip(sides1, sides);
 
-            var factors = _.map(sidePairs, function(pair) {
+            const factors = _.map(sidePairs, function(pair) {
                 return pair[0] / pair[1];
             });
 
-            var same = _.all(factors, function(factor) {
+            const same = _.all(factors, function(factor) {
                 return eq(factors[0], factor);
             });
 
-            var congruentEnough = _.all(sidePairs, function(pair) {
+            const congruentEnough = _.all(sidePairs, function(pair) {
                 return knumber.equal(pair[0], pair[1], tolerance);
             });
 
@@ -202,10 +202,10 @@ function canonicalSineCoefficients(coeffs) {
     // For a curve of the form f(x) = a * Sin(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its
     // smallest possible positive value.
-    var amplitude = coeffs[0];
-    var angularFrequency = coeffs[1];
-    var phase = coeffs[2];
-    var verticalOffset = coeffs[3];
+    const amplitude = coeffs[0];
+    const angularFrequency = coeffs[1];
+    const phase = coeffs[2];
+    const verticalOffset = coeffs[3];
 
     // Guarantee a > 0
     if (amplitude < 0) {
@@ -214,7 +214,7 @@ function canonicalSineCoefficients(coeffs) {
         phase *= -1;
     }
 
-    var period = 2 * Math.PI;
+    const period = 2 * Math.PI;
     // Guarantee b > 0
     if (angularFrequency < 0) {
         angularFrequency *= -1;
@@ -249,9 +249,9 @@ function getLineEquation(first, second) {
     if (eq(first[0], second[0])) {
         return "x = " + first[0].toFixed(3);
     } else {
-        var m = (second[1] - first[1]) /
+        const m = (second[1] - first[1]) /
                 (second[0] - first[0]);
-        var b = first[1] - m * first[0];
+        const b = first[1] - m * first[0];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     }
 }
@@ -259,23 +259,23 @@ function getLineEquation(first, second) {
 // Stolen from the wikipedia article
 // http://en.wikipedia.org/wiki/Line-line_intersection
 function getLineIntersection(firstPoints, secondPoints) {
-    var x1 = firstPoints[0][0];
-    var y1 = firstPoints[0][1];
-    var x2 = firstPoints[1][0];
-    var y2 = firstPoints[1][1];
-    var x3 = secondPoints[0][0];
-    var y3 = secondPoints[0][1];
-    var x4 = secondPoints[1][0];
-    var y4 = secondPoints[1][1];
+    const x1 = firstPoints[0][0];
+    const y1 = firstPoints[0][1];
+    const x2 = firstPoints[1][0];
+    const y2 = firstPoints[1][1];
+    const x3 = secondPoints[0][0];
+    const y3 = secondPoints[0][1];
+    const x4 = secondPoints[1][0];
+    const y4 = secondPoints[1][1];
 
-    var determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+    const determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 
     if (Math.abs(determinant) < 1e-9) {
         return "Lines are parallel";
     } else {
-        var x = ((x1 * y2 - y1 * x2) * (x3 - x4) -
+        const x = ((x1 * y2 - y1 * x2) * (x3 - x4) -
                  (x1 - x2) * (x3 * y4 - y3 * x4)) / determinant;
-        var y = ((x1 * y2 - y1 * x2) * (y3 - y4) -
+        const y = ((x1 * y2 - y1 * x2) * (y3 - y4) -
                  (y1 - y2) * (x3 * y4 - y3 * x4)) / determinant;
         return "Intersection: (" + x.toFixed(3) + ", " + y.toFixed(3) + ")";
     }
@@ -285,14 +285,14 @@ function numSteps(range, step) {
     return Math.floor((range[1] - range[0]) / step);
 }
 
-var deprecatedProps = {
+const deprecatedProps = {
     showGraph: function(props) {
         return {markings: props.showGraph ? "graph" : "none"};
     },
 };
 
 
-var InteractiveGraph = React.createClass({
+const InteractiveGraph = React.createClass({
     propTypes: {
         backgroundImage: React.PropTypes.shape({
             url: React.PropTypes.string,
@@ -354,8 +354,8 @@ var InteractiveGraph = React.createClass({
     },
 
     componentDidUpdate: function(prevProps, prevState) {
-        var oldType = prevProps.graph.type;
-        var newType = this.props.graph.type;
+        const oldType = prevProps.graph.type;
+        const newType = this.props.graph.type;
         if (oldType !== newType ||
                 prevProps.graph.allowReflexAngles !==
                     this.props.graph.allowReflexAngles ||
@@ -377,13 +377,13 @@ var InteractiveGraph = React.createClass({
     },
 
     render: function() {
-        var typeSelect;
-        var extraOptions;
+        const typeSelect;
+        const extraOptions;
         if (this.props.flexibleType) {
             typeSelect = <select
                     value={this.props.graph.type}
                     onChange={e => {
-                        var type = e.target.value;
+                        const type = e.target.value;
                         this.onChange({
                             graph: {type: type},
                         });
@@ -406,7 +406,7 @@ var InteractiveGraph = React.createClass({
                         value={this.props.graph.numPoints || 1}
                         onChange={e => {
                             // Convert numbers, leave UNLIMITED intact:
-                            var num = +e.target.value || e.target.value;
+                            const num = +e.target.value || e.target.value;
                             this.onChange({
                                 graph: {
                                     type: "point",
@@ -430,8 +430,8 @@ var InteractiveGraph = React.createClass({
                             value={this.props.graph.numSides || 3}
                             onChange={e => {
                                 // Convert numbers, leave UNLIMITED intact:
-                                var num = +e.target.value || e.target.value;
-                                var graph = _.extend({}, this.props.graph, {
+                                const num = +e.target.value || e.target.value;
+                                const graph = _.extend({}, this.props.graph, {
                                     numSides: num,
                                     coords: null,
                                     snapTo: "grid", // reset the snap for
@@ -452,7 +452,7 @@ var InteractiveGraph = React.createClass({
                                 key="polygon-snap"
                                 value={this.props.graph.snapTo}
                                 onChange={e => {
-                                    var graph = _.extend({},
+                                    const graph = _.extend({},
                                         this.props.graph,
                                         {
                                             snapTo: e.target.value,
@@ -507,7 +507,7 @@ var InteractiveGraph = React.createClass({
                         key="segment-select"
                         value={this.props.graph.numSegments || 1}
                         onChange={e => {
-                            var num = +e.target.value;
+                            const num = +e.target.value;
                             this.onChange({
                                 graph: {
                                     type: "segment",
@@ -523,7 +523,7 @@ var InteractiveGraph = React.createClass({
                     })}
                 </select>;
             } else if (this.props.graph.type === "angle") {
-                var allowReflexAngles = defaultVal(
+                const allowReflexAngles = defaultVal(
                     this.props.graph.allowReflexAngles,
                     true
                 );
@@ -598,9 +598,9 @@ var InteractiveGraph = React.createClass({
             }
         }
 
-        var box = this.props.box;
+        const box = this.props.box;
 
-        var instructions;
+        const instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if  (this.props.graph.type === "point") {
                 instructions = i18n._("Click to add points");
@@ -611,16 +611,16 @@ var InteractiveGraph = React.createClass({
             instructions = undefined;
         }
 
-        var onMouseDown = this.isClickToAddPoints() ?
+        const onMouseDown = this.isClickToAddPoints() ?
             this.handleAddPointsMouseDown :
             null;
 
-        var gridStep = this.props.gridStep || Util.getGridStep(
+        const gridStep = this.props.gridStep || Util.getGridStep(
                 this.props.range,
                 this.props.step,
                 defaultBoxSize
         );
-        var snapStep = this.props.snapStep || Util.snapStepFromGridStep(
+        const snapStep = this.props.snapStep || Util.snapStepFromGridStep(
             gridStep
         );
 
@@ -668,7 +668,7 @@ var InteractiveGraph = React.createClass({
                 "when isClickToAddPoints() is false");
         }
         if (!this.isCoordInTrash(coord)) {
-            var point;
+            const point;
             if (this.props.graph.type === "point") {
                 point = this.createPointForPointsType(
                     coord,
@@ -721,12 +721,12 @@ var InteractiveGraph = React.createClass({
             this.setTrashCanVisibility(0.5);
         }
 
-        var type = this.props.graph.type;
+        const type = this.props.graph.type;
         this["add" + capitalize(type) + "Controls"]();
     },
 
     setTrashCanVisibility: function(opacity) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
 
         if (knumber.equal(opacity, 0)) {
             if (this.trashCan) {
@@ -767,14 +767,14 @@ var InteractiveGraph = React.createClass({
     },
 
     addLine: function(type) {
-        var self = this;
-        var graphie = self.graphie;
-        var coords = InteractiveGraph.getLineCoords(
+        const self = this;
+        const graphie = self.graphie;
+        const coords = InteractiveGraph.getLineCoords(
             self.props.graph,
             self.props
         );
 
-        var points = self.points = _.map(coords, (coord) => {
+        const points = self.points = _.map(coords, (coord) => {
             return Interactive2.addMovablePoint(graphie, {
                 coord: coord,
                 constraints: [
@@ -782,7 +782,7 @@ var InteractiveGraph = React.createClass({
                     Interactive2.MovablePoint.constraints.snap(),
                 ],
                 onMove: () => {
-                    var graph = _.extend({}, self.props.graph, {
+                    const graph = _.extend({}, self.props.graph, {
                         coords: _.invoke(points, "coord"),
                     });
                     self.onChange({graph: graph});
@@ -794,7 +794,7 @@ var InteractiveGraph = React.createClass({
             });
         });
 
-        var lineConfig = {
+        const lineConfig = {
             points: points,
             static: true,
         };
@@ -833,17 +833,17 @@ var InteractiveGraph = React.createClass({
     },
 
     addQuadraticControls: function() {
-        var graphie = this.graphie;
-        var coords = this.props.graph.coords;
+        const graphie = this.graphie;
+        const coords = this.props.graph.coords;
         if (!coords) {
             coords = InteractiveGraph.defaultQuadraticCoords(this.props);
         }
 
-        var pointA;
-        var pointB;
-        var pointC;
-        var onMoveHandler = () => {
-            var graph = _.extend({}, this.props.graph, {
+        const pointA;
+        const pointB;
+        const pointC;
+        const onMoveHandler = () => {
+            const graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord(), pointB.coord(), pointC.coord()],
             });
             this.onChange({graph: graph});
@@ -893,20 +893,20 @@ var InteractiveGraph = React.createClass({
     },
 
     updateQuadratic: function() {
-        var coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
+        const coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
                 this.props);
         if (!coeffs) {
             return;
         }
 
         // Extract coefficients the parabola
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
 
         // Plot and style
         if (this.parabola) {
-            var path = this.graphie.svgParabolaPath(a, b, c);
+            const path = this.graphie.svgParabolaPath(a, b, c);
             this.parabola.attr({ path: path });
         } else {
             this.parabola = this.graphie.parabola(a, b, c);
@@ -926,16 +926,16 @@ var InteractiveGraph = React.createClass({
     },
 
     addSinusoidControls: function() {
-        var graphie = this.graphie;
-        var coords = this.props.graph.coords;
+        const graphie = this.graphie;
+        const coords = this.props.graph.coords;
         if (!coords) {
             coords = InteractiveGraph.defaultSinusoidCoords(this.props);
         }
 
-        var pointA;
-        var pointB;
-        var onMoveHandler = () => {
-            var graph = _.extend({}, this.props.graph, {
+        const pointA;
+        const pointB;
+        const onMoveHandler = () => {
+            const graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord(), pointB.coord()],
             });
             this.onChange({graph: graph});
@@ -970,20 +970,20 @@ var InteractiveGraph = React.createClass({
     },
 
     updateSinusoid: function() {
-        var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
+        const coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
                 this.props);
         if (!coeffs) {
             return;
         }
 
-        var a = coeffs[0];
-        var b = coeffs[1];
-        var c = coeffs[2];
-        var d = coeffs[3];
+        const a = coeffs[0];
+        const b = coeffs[1];
+        const c = coeffs[2];
+        const d = coeffs[3];
 
         // Plot and style
         if (this.sinusoid) {
-            var path = this.graphie.svgSinusoidPath(a, b, c, d);
+            const path = this.graphie.svgSinusoidPath(a, b, c, d);
             this.sinusoid.attr({ path: path });
         } else {
             this.sinusoid = this.graphie.sinusoid(a, b, c, d);
@@ -1002,10 +1002,10 @@ var InteractiveGraph = React.createClass({
     },
 
     addCircleControls: function() {
-        var graphie = this.graphie;
-        var minSnap = _.min(graphie.snap);
+        const graphie = this.graphie;
+        const minSnap = _.min(graphie.snap);
 
-        var circle = this.circle = graphie.addCircleGraph({
+        const circle = this.circle = graphie.addCircleGraph({
             center: this.props.graph.center || [0, 0],
             radius: this.props.graph.radius || _.min(this.props.step),
             snapX: graphie.snap[0],
@@ -1015,7 +1015,7 @@ var InteractiveGraph = React.createClass({
         });
 
         $(circle).on("move", () => {
-            var graph = _.extend({}, this.props.graph, {
+            const graph = _.extend({}, this.props.graph, {
                 center: circle.center,
                 radius: circle.radius,
             });
@@ -1028,14 +1028,14 @@ var InteractiveGraph = React.createClass({
     },
 
     addLinearSystemControls: function() {
-        var graphie = this.graphie;
-        var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
+        const graphie = this.graphie;
+        const coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
             this.props);
 
-        var segmentColors = [KhanColors.INTERACTIVE, KhanColors.GREEN];
-        var points = this.points = _.map(coords,
+        const segmentColors = [KhanColors.INTERACTIVE, KhanColors.GREEN];
+        const points = this.points = _.map(coords,
             (segmentCoords, segmentIndex) => {
-                var segmentPoints = _.map(segmentCoords, (coord, i) => {
+                const segmentPoints = _.map(segmentCoords, (coord, i) => {
                     return Interactive2.addMovablePoint(graphie, {
                         coord: coord,
                         constraints: [
@@ -1054,7 +1054,7 @@ var InteractiveGraph = React.createClass({
                             },
                         ],
                         onMove: () => {
-                            var graph = _.extend({}, this.props.graph, {
+                            const graph = _.extend({}, this.props.graph, {
                                 coords: _.map(
                                     this.points,
                                     (segment) => _.invoke(segment, "coord")
@@ -1090,16 +1090,16 @@ var InteractiveGraph = React.createClass({
     },
 
     isCoordInTrash: function(coord) {
-        var graphie = this.graphie;
-        var screenPoint = graphie.scalePoint(coord);
+        const graphie = this.graphie;
+        const screenPoint = graphie.scalePoint(coord);
         return screenPoint[0] >= graphie.xpixels - 40 &&
                 screenPoint[1] >= graphie.ypixels - 40;
     },
 
     createPointForPointsType: function(coord, i) {
-        var self = this;
-        var graphie = self.graphie;
-        var point = Interactive2.addMovablePoint(graphie, {
+        const self = this;
+        const graphie = self.graphie;
+        const point = Interactive2.addMovablePoint(graphie, {
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1152,7 +1152,7 @@ var InteractiveGraph = React.createClass({
     },
 
     removePoint: function(point) {
-        var index = null;
+        const index = null;
         this.points = _.filter(this.points, function(pt, i) {
             if (pt === point) {
                 index = i;
@@ -1165,25 +1165,25 @@ var InteractiveGraph = React.createClass({
     },
 
     createPointForPolygonType: function(coord, i) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
 
         // TODO(alex): check against "grid" instead, use constants
-        var snapToGrid = !_.contains(["angles", "sides"],
+        const snapToGrid = !_.contains(["angles", "sides"],
             this.props.graph.snapTo);
 
         // Index relative to current point -> absolute index
         // NOTE: This does not work when isClickToAddPoints() == true,
         // as `i` can be changed by dragging a point to the trash
         // Currently this function is only called when !isClickToAddPoints()
-        var rel = (j) => {
+        const rel = (j) => {
             return (i + j + this.points.length) % this.points.length;
         };
 
-        var onMoveEndHandler = (coord) => {
+        const onMoveEndHandler = (coord) => {
             if (this.isClickToAddPoints()) {
                 if (this.isCoordInTrash(coord)) {
                     // remove this point from points
-                    var index = this.removePoint(point);
+                    const index = this.removePoint(point);
                     if (this.polygon.closed()) {
                         this.points = rotate(this.points, index);
                         this.polygon.update({closed: false});
@@ -1213,7 +1213,7 @@ var InteractiveGraph = React.createClass({
                         ))) {
                     // If the user clicked and dragged a point over endpoint,
                     // join the them
-                    var pointToRemove = this.points.pop();
+                    const pointToRemove = this.points.pop();
                     if (this.points.length > 2) {
                         this.polygon.update({closed: true});
                         this.updateCoordsFromPoints();
@@ -1231,7 +1231,7 @@ var InteractiveGraph = React.createClass({
                 } else {
                     // If the user clicked and dragged a point over any other
                     // existing point, fix shape
-                    var shouldRemove = _.any(this.points, function(pt) {
+                    const shouldRemove = _.any(this.points, function(pt) {
                         return pt !== point && kpoint.equal(
                             pt.coord(), coord);
                     });
@@ -1285,7 +1285,7 @@ var InteractiveGraph = React.createClass({
             point.state.isInitialMove = false;
         };
 
-        var graphConstraint = (coord) => {
+        const graphConstraint = (coord) => {
             // These constraints are all relative to the other points, so if
             // we're creating the initial points and haven't added any others
             // to the graph, we can't enforce them.
@@ -1293,7 +1293,7 @@ var InteractiveGraph = React.createClass({
                 return true;
             }
 
-            var coords = _.invoke(this.points, "coord");
+            const coords = _.invoke(this.points, "coord");
             coords[i] = coord;
 
             // Check for invalid positioning, but only if we aren't adding
@@ -1307,20 +1307,20 @@ var InteractiveGraph = React.createClass({
                     return false;
                 }
 
-                var segments = _.zip(coords, rotate(coords));
+                const segments = _.zip(coords, rotate(coords));
 
                 if (this.points.length > 3) {
                     // Constrain to simple (non self-intersecting) polygon by
                     // testing whether adjacent segments intersect any others
                     for (var j = -1; j <= 0; j++) {
-                        var segment = segments[rel(j)];
-                        var others = _.without(segments,
+                        const segment = segments[rel(j)];
+                        const others = _.without(segments,
                             segment,
                             segments[rel(j - 1)],
                             segments[rel(j + 1)]);
 
                         for (var k = 0; k < others.length; k++) {
-                            var other = others[k];
+                            const other = others[k];
                             if (intersects(segment, other)) {
                                 return false;
                             }
@@ -1333,7 +1333,7 @@ var InteractiveGraph = React.createClass({
                     this.points.length > 2) {
                 // Snap to whole degree interior angles
 
-                var angles = _.map(angleMeasures(coords), function(rad) {
+                const angles = _.map(angleMeasures(coords), function(rad) {
                     return rad * 180 / Math.PI;
                 });
 
@@ -1341,14 +1341,14 @@ var InteractiveGraph = React.createClass({
                     angles[rel(j)] = Math.round(angles[rel(j)]);
                 });
 
-                var getAngle = function(a, vertex, b) {
-                    var angle = GraphUtils.findAngle(
+                const getAngle = function(a, vertex, b) {
+                    const angle = GraphUtils.findAngle(
                         coords[rel(a)], coords[rel(b)], coords[rel(vertex)]
                     );
                     return (angle + 360) % 360;
                 };
 
-                var innerAngles = [
+                const innerAngles = [
                     angles[rel(-1)] - getAngle(-2, -1, 1),
                     angles[rel(1)] - getAngle(-1, 1, 2),
                 ];
@@ -1361,7 +1361,7 @@ var InteractiveGraph = React.createClass({
                     return false;
                 }
 
-                var knownSide = magnitude(vector(coords[rel(-1)],
+                const knownSide = magnitude(vector(coords[rel(-1)],
                     coords[rel(1)]));
 
                 const onLeft = sign(ccw(
@@ -1369,7 +1369,7 @@ var InteractiveGraph = React.createClass({
                 )) === 1;
 
                 // Solve for side by using the law of sines
-                var side = Math.sin(innerAngles[1] * Math.PI / 180) /
+                const side = Math.sin(innerAngles[1] * Math.PI / 180) /
                     Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
 
                 const outerAngle = GraphUtils.findAngle(coords[rel(1)],
@@ -1385,7 +1385,7 @@ var InteractiveGraph = React.createClass({
                     this.points.length > 1) {
                 // Snap to whole unit side measures
 
-                var sides = _.map([
+                const sides = _.map([
                     [coords[rel(-1)], coords[i]],
                     [coords[i], coords[rel(1)]],
                     [coords[rel(-1)], coords[rel(1)]],
@@ -1405,7 +1405,7 @@ var InteractiveGraph = React.createClass({
                 }
 
                 // Solve for angle by using the law of cosines
-                var innerAngle = lawOfCosines(sides[0],
+                const innerAngle = lawOfCosines(sides[0],
                     sides[2], sides[1]);
 
                 const outerAngle = GraphUtils.findAngle(coords[rel(1)],
@@ -1427,7 +1427,7 @@ var InteractiveGraph = React.createClass({
             }
         };
 
-        var point = Interactive2.addMovablePoint(graphie, {
+        const point = Interactive2.addMovablePoint(graphie, {
             coord: coord,
             constraints: [
                 Interactive2.MovablePoint.constraints.bound(),
@@ -1457,7 +1457,7 @@ var InteractiveGraph = React.createClass({
     },
 
     updateCoordsFromPoints: function() {
-        var graph = _.extend({}, this.props.graph, {
+        const graph = _.extend({}, this.props.graph, {
             // Handle old movable points with .coord, or
             // Interactive2.MovablePoint's with .coord()
             coords: _.map(this.points, function(point) {
@@ -1468,7 +1468,7 @@ var InteractiveGraph = React.createClass({
     },
 
     clearCoords: function() {
-        var graph = _.extend({}, this.props.graph, {
+        const graph = _.extend({}, this.props.graph, {
             coords: null,
         });
         this.onChange({graph: graph});
@@ -1480,7 +1480,7 @@ var InteractiveGraph = React.createClass({
     },
 
     addPointControls: function() {
-        var coords = InteractiveGraph.getPointCoords(
+        const coords = InteractiveGraph.getPointCoords(
             this.props.graph,
             this.props
         );
@@ -1502,24 +1502,24 @@ var InteractiveGraph = React.createClass({
     },
 
     addSegmentControls: function() {
-        var self = this;
-        var graphie = this.graphie;
+        const self = this;
+        const graphie = this.graphie;
 
-        var coords = InteractiveGraph.getSegmentCoords(
+        const coords = InteractiveGraph.getSegmentCoords(
             this.props.graph,
             this.props
         );
 
         this.points = [];
         this.lines = _.map(coords, function(segment, i) {
-            var updateCoordProps = function() {
-                var graph = _.extend({}, self.props.graph, {
+            const updateCoordProps = function() {
+                const graph = _.extend({}, self.props.graph, {
                     coords: _.invoke(self.lines, "coords"),
                 });
                 self.onChange({graph: graph});
             };
 
-            var points = _.map(segment, function(coord, i) {
+            const points = _.map(segment, function(coord, i) {
                 return Interactive2.addMovablePoint(graphie, {
                     coord: coord,
                     normalStyle: {
@@ -1543,7 +1543,7 @@ var InteractiveGraph = React.createClass({
             });
 
             self.points = self.points.concat(points);
-            var line = Interactive2.addMovableLine(graphie, {
+            const line = Interactive2.addMovableLine(graphie, {
                 points: points,
                 static: false,
                 constraints: [
@@ -1582,7 +1582,7 @@ var InteractiveGraph = React.createClass({
 
     addPolygonControls: function() {
         this.polygon = null;
-        var coords = InteractiveGraph.getPolygonCoords(
+        const coords = InteractiveGraph.getPolygonCoords(
             this.props.graph,
             this.props
         );
@@ -1594,7 +1594,7 @@ var InteractiveGraph = React.createClass({
     },
 
     updatePolygon: function() {
-        var closed;
+        const closed;
         if (this.polygon) {
             closed = this.polygon.closed();
         } else if (this.points.length >= 3) {
@@ -1605,14 +1605,14 @@ var InteractiveGraph = React.createClass({
             closed = false;
         }
 
-        var graphie = this.graphie;
-        var n = this.points.length;
+        const graphie = this.graphie;
+        const n = this.points.length;
 
         // TODO(alex): check against "grid" instead, use constants
-        var snapToGrid = !_.contains(["angles", "sides"],
+        const snapToGrid = !_.contains(["angles", "sides"],
             this.props.graph.snapTo);
 
-        var angleLabels = _.times(n, function(i) {
+        const angleLabels = _.times(n, function(i) {
             if (!this.props.graph.showAngles ||
                     (!closed && (i === 0 || i === n - 1))) {
                 return "";
@@ -1623,11 +1623,11 @@ var InteractiveGraph = React.createClass({
             }
         }, this);
 
-        var showRightAngleMarkers = _.times(n, function(i) {
+        const showRightAngleMarkers = _.times(n, function(i) {
             return closed || (i !== 0 && i !== n - 1);
         }, this);
 
-        var numArcs = _.times(n, function(i) {
+        const numArcs = _.times(n, function(i) {
             if (this.props.graph.showAngles &&
                     (closed || (i !== 0 && i !== n - 1))) {
                 return 1;
@@ -1636,7 +1636,7 @@ var InteractiveGraph = React.createClass({
             }
         }, this);
 
-        var sideLabels = _.times(n, function(i) {
+        const sideLabels = _.times(n, function(i) {
             if (!this.props.graph.showSides ||
                 (!closed && i === n - 1)) {
                 return "";
@@ -1648,7 +1648,7 @@ var InteractiveGraph = React.createClass({
         }, this);
 
         if (this.polygon == null) {
-            var self = this;
+            const self = this;
             self.polygon = Interactive2.addMovablePolygon(graphie, {
                 constraints: [
                     Interactive2.MovablePolygon.constraints.bound(),
@@ -1689,9 +1689,9 @@ var InteractiveGraph = React.createClass({
     },
 
     addAngleControls: function() {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
 
-        var coords = InteractiveGraph.getAngleCoords(
+        const coords = InteractiveGraph.getAngleCoords(
             this.props.graph,
             this.props
         );
@@ -1721,7 +1721,7 @@ var InteractiveGraph = React.createClass({
         });
 
         $(this.angle).on("move", () => {
-            var graph = _.extend({}, this.props.graph, {
+            const graph = _.extend({}, this.props.graph, {
                 coords: this.angle.getClockwiseCoords(),
             });
             this.onChange({graph: graph});
@@ -1734,14 +1734,14 @@ var InteractiveGraph = React.createClass({
     },
 
     toggleShowAngles: function() {
-        var graph = _.extend({}, this.props.graph, {
+        const graph = _.extend({}, this.props.graph, {
             showAngles: !this.props.graph.showAngles,
         });
         this.onChange({graph: graph});
     },
 
     toggleShowSides: function() {
-        var graph = _.extend({}, this.props.graph, {
+        const graph = _.extend({}, this.props.graph, {
             showSides: !this.props.graph.showSides,
         });
         this.onChange({graph: graph});
@@ -1761,21 +1761,21 @@ var InteractiveGraph = React.createClass({
 
 _.extend(InteractiveGraph, {
     getQuadraticCoefficients: function(coords) {
-        var p1 = coords[0];
-        var p2 = coords[1];
-        var p3 = coords[2];
+        const p1 = coords[0];
+        const p2 = coords[1];
+        const p3 = coords[2];
 
-        var denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
+        const denom = (p1[0] - p2[0]) * (p1[0] - p3[0]) * (p2[0] - p3[0]);
         if (denom === 0) {
             return;
         }
-        var a = (p3[0] * (p2[1] - p1[1]) +
+        const a = (p3[0] * (p2[1] - p1[1]) +
                  p2[0] * (p1[1] - p3[1]) +
                  p1[0] * (p3[1] - p2[1])) / denom;
-        var b = ((p3[0] * p3[0]) * (p1[1] - p2[1]) +
+        const b = ((p3[0] * p3[0]) * (p1[1] - p2[1]) +
                  (p2[0] * p2[0]) * (p3[1] - p1[1]) +
                  (p1[0] * p1[0]) * (p2[1] - p3[1])) / denom;
-        var c = (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
+        const c = (p2[0] * p3[0] * (p2[0] - p3[0]) * p1[1] +
                  p3[0] * p1[0] * (p3[0] - p1[0]) * p2[1] +
                  p1[0] * p2[0] * (p1[0] - p2[0]) * p3[1]) / denom;
         return [a, b, c];
@@ -1783,14 +1783,14 @@ _.extend(InteractiveGraph, {
 
     getSinusoidCoefficients: function(coords) {
         // It's assumed that p1 is the root and p2 is the first peak
-        var p1 = coords[0];
-        var p2 = coords[1];
+        const p1 = coords[0];
+        const p2 = coords[1];
 
         // Resulting coefficients are canonical for this sine curve
-        var amplitude = (p2[1] - p1[1]);
-        var angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
-        var phase = p1[0] * angularFrequency;
-        var verticalOffset = p1[1];
+        const amplitude = (p2[1] - p1[1]);
+        const angularFrequency = Math.PI / (2 * (p2[0] - p1[0]));
+        const phase = p1[0] * angularFrequency;
+        const verticalOffset = p1[1];
 
         return [amplitude, angularFrequency, phase, verticalOffset];
     },
@@ -1815,8 +1815,8 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getPointCoords: function(graph, props) {
-        var numPoints = graph.numPoints || 1;
-        var coords = graph.coords;
+        const numPoints = graph.numPoints || 1;
+        const coords = graph.coords;
 
         if (coords) {
             return coords;
@@ -1848,7 +1848,7 @@ _.extend(InteractiveGraph, {
             }
             // Transform coords from their -10 to 10 space to 0 to 1
             // because of the old graph.coord, and also it's easier.
-            var range = [[-10, 10], [-10, 10]];
+            const range = [[-10, 10], [-10, 10]];
             coords = InteractiveGraph.normalizeCoords(coords, range);
 
             coords = InteractiveGraph.pointsFromNormalized(props, coords);
@@ -1875,22 +1875,22 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getPolygonCoords: function(graph, props) {
-        var coords = graph.coords;
+        const coords = graph.coords;
         if (coords) {
             return coords;
         }
 
-        var n = graph.numSides || 3;
+        const n = graph.numSides || 3;
 
         if (n === UNLIMITED) {
             coords = [];
         } else {
-            var angle = 2 * Math.PI / n;
-            var offset = (1 / n - 1 / 2) * Math.PI;
+            const angle = 2 * Math.PI / n;
+            const offset = (1 / n - 1 / 2) * Math.PI;
 
             // TODO(alex): Generalize this to more than just triangles so that
             // all polygons have whole number side lengths if snapping to sides
-            var radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7 : 4;
+            const radius = graph.snapTo === "sides" ? Math.sqrt(3) / 3 * 7 : 4;
 
             // Generate coords of a regular polygon with n sides
             coords = _.times(n, function(i) {
@@ -1901,10 +1901,10 @@ _.extend(InteractiveGraph, {
             });
         }
 
-        var range = [[-10, 10], [-10, 10]];
+        const range = [[-10, 10], [-10, 10]];
         coords = InteractiveGraph.normalizeCoords(coords, range);
 
-        var snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
+        const snapToGrid = !_.contains(["angles", "sides"], graph.snapTo);
         coords = InteractiveGraph.pointsFromNormalized(props, coords,
             /* noSnap */ !snapToGrid);
 
@@ -1916,13 +1916,13 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getSegmentCoords: function(graph, props) {
-        var coords = graph.coords;
+        const coords = graph.coords;
         if (coords) {
             return coords;
         }
 
-        var n = graph.numSegments || 1;
-        var ys = {
+        const n = graph.numSegments || 1;
+        const ys = {
             1: [5],
             2: [5, -5],
             3: [5, 0, -5],
@@ -1930,10 +1930,10 @@ _.extend(InteractiveGraph, {
             5: [6, 3, 0, -3, -6],
             6: [5, 3, 1, -1, -3, -5],
         }[n];
-        var range = [[-10, 10], [-10, 10]];
+        const range = [[-10, 10], [-10, 10]];
 
         return _.map(ys, function(y) {
-            var segment = [[-5, y], [5, y]];
+            const segment = [[-5, y], [5, y]];
             segment = InteractiveGraph.normalizeCoords(segment, range);
             segment = InteractiveGraph.pointsFromNormalized(props, segment);
             return segment;
@@ -1945,25 +1945,25 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getAngleCoords: function(graph, props) {
-        var coords = graph.coords;
+        const coords = graph.coords;
         if (coords) {
             return coords;
         }
 
-        var snap = graph.snapDegrees || 1;
-        var angle = snap;
+        const snap = graph.snapDegrees || 1;
+        const angle = snap;
         while (angle < 20) {
             angle += snap;
         }
         angle = angle * Math.PI / 180;
-        var offset = (graph.angleOffsetDeg || 0) * Math.PI / 180;
+        const offset = (graph.angleOffsetDeg || 0) * Math.PI / 180;
 
         coords = InteractiveGraph.pointsFromNormalized(props, [
             [0.85, 0.50],
             [0.5, 0.50],
         ]);
 
-        var radius = magnitude(vector(...coords));
+        const radius = magnitude(vector(...coords));
 
         // Adjust the lower point by angleOffsetDeg degrees
         coords[0] = [
@@ -1983,28 +1983,28 @@ _.extend(InteractiveGraph, {
     normalizeCoords: function(coordsList, range) {
         return _.map(coordsList, function(coords) {
             return _.map(coords, function(coord, i) {
-                var extent = range[i][1] - range[i][0];
+                const extent = range[i][1] - range[i][0];
                 return ((coord + range[i][1]) / extent);
             });
         });
     },
 
     getEquationString: function(props) {
-        var type = props.graph.type;
-        var funcName = "get" + capitalize(type) + "EquationString";
+        const type = props.graph.type;
+        const funcName = "get" + capitalize(type) + "EquationString";
         return InteractiveGraph[funcName](props);
     },
 
     pointsFromNormalized: function(props, coordsList, noSnap) {
         return _.map(coordsList, function(coords) {
             return _.map(coords, function(coord, i) {
-                var range = props.range[i];
+                const range = props.range[i];
                 if (noSnap) {
                     return range[0] + (range[1] - range[0]) * coord;
                 } else {
-                    var step = props.step[i];
-                    var nSteps = numSteps(range, step);
-                    var tick = Math.round(coord * nSteps);
+                    const step = props.step[i];
+                    const nSteps = numSteps(range, step);
+                    const tick = Math.round(coord * nSteps);
                     return range[0] + step * tick;
                 }
             });
@@ -2012,13 +2012,13 @@ _.extend(InteractiveGraph, {
     },
 
     getLinearEquationString: function(props) {
-        var coords = InteractiveGraph.getLineCoords(props.graph, props);
+        const coords = InteractiveGraph.getLineCoords(props.graph, props);
         if (eq(coords[0][0], coords[1][0])) {
             return "x = " + coords[0][0].toFixed(3);
         } else {
-            var m = (coords[1][1] - coords[0][1]) /
+            const m = (coords[1][1] - coords[0][1]) /
                     (coords[1][0] - coords[0][0]);
-            var b = coords[0][1] - m * coords[0][0];
+            const b = coords[0][1] - m * coords[0][0];
             if (eq(m, 0)) {
                 return "y = " + b.toFixed(3);
             } else {
@@ -2029,18 +2029,18 @@ _.extend(InteractiveGraph, {
 
     getCurrentQuadraticCoefficients: function(props) {
         // TODO(alpert): Don't duplicate
-        var coords = props.graph.coords ||
+        const coords = props.graph.coords ||
                 InteractiveGraph.defaultQuadraticCoords(props);
         return InteractiveGraph.getQuadraticCoefficients(coords);
     },
 
     defaultQuadraticCoords: function(props) {
-        var coords = [[0.25, 0.75], [0.5, 0.25], [0.75, 0.75]];
+        const coords = [[0.25, 0.75], [0.5, 0.25], [0.75, 0.75]];
         return InteractiveGraph.pointsFromNormalized(props, coords);
     },
 
     getQuadraticEquationString: function(props) {
-        var coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
+        const coeffs = InteractiveGraph.getCurrentQuadraticCoefficients(
                 props);
         return "y = " + coeffs[0].toFixed(3) + "x^2 + " +
                         coeffs[1].toFixed(3) + "x + " +
@@ -2048,18 +2048,18 @@ _.extend(InteractiveGraph, {
     },
 
     getCurrentSinusoidCoefficients: function(props) {
-        var coords = props.graph.coords ||
+        const coords = props.graph.coords ||
                 InteractiveGraph.defaultSinusoidCoords(props);
         return InteractiveGraph.getSinusoidCoefficients(coords);
     },
 
     defaultSinusoidCoords: function(props) {
-        var coords = [[0.5, 0.5], [0.65, 0.60]];
+        const coords = [[0.5, 0.5], [0.65, 0.60]];
         return InteractiveGraph.pointsFromNormalized(props, coords);
     },
 
     getSinusoidEquationString: function(props) {
-        var coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
+        const coeffs = InteractiveGraph.getCurrentSinusoidCoefficients(
                 props);
         return "y = " + coeffs[0].toFixed(3) + "sin(" +
                         coeffs[1].toFixed(3) + "x - " +
@@ -2068,16 +2068,16 @@ _.extend(InteractiveGraph, {
     },
 
     getCircleEquationString: function(props) {
-        var graph = props.graph;
+        const graph = props.graph;
         // TODO(alpert): Don't duplicate
-        var center = graph.center || [0, 0];
-        var radius = graph.radius || 2;
+        const center = graph.center || [0, 0];
+        const radius = graph.radius || 2;
         return "center (" + center[0] + ", " + center[1] + "), radius " +
                 radius;
     },
 
     getLinearSystemEquationString: function(props) {
-        var coords = InteractiveGraph.getLinearSystemCoords(
+        const coords = InteractiveGraph.getLinearSystemCoords(
             props.graph,
             props
         );
@@ -2090,14 +2090,14 @@ _.extend(InteractiveGraph, {
     },
 
     getPointEquationString: function(props) {
-        var coords = InteractiveGraph.getPointCoords(props.graph, props);
+        const coords = InteractiveGraph.getPointCoords(props.graph, props);
         return coords.map(function(coord) {
             return "(" + coord[0] + ", " + coord[1] + ")";
         }).join(", ");
     },
 
     getSegmentEquationString: function(props) {
-        var segments = InteractiveGraph.getSegmentCoords(props.graph,
+        const segments = InteractiveGraph.getSegmentCoords(props.graph,
             props);
         return _.map(segments, function(segment) {
             return "[" +
@@ -2109,10 +2109,10 @@ _.extend(InteractiveGraph, {
     },
 
     getRayEquationString: function(props) {
-        var coords = InteractiveGraph.getLineCoords(props.graph, props);
-        var a = coords[0];
-        var b = coords[1];
-        var eq = InteractiveGraph.getLinearEquationString(props);
+        const coords = InteractiveGraph.getLineCoords(props.graph, props);
+        const a = coords[0];
+        const b = coords[1];
+        const eq = InteractiveGraph.getLinearEquationString(props);
 
         if (a[0] > b[0]) {
             eq += " (for x <= " + a[0].toFixed(3) + ")";
@@ -2128,7 +2128,7 @@ _.extend(InteractiveGraph, {
     },
 
     getPolygonEquationString: function(props) {
-        var coords = InteractiveGraph.getPolygonCoords(
+        const coords = InteractiveGraph.getPolygonCoords(
             props.graph,
             props
         );
@@ -2138,8 +2138,8 @@ _.extend(InteractiveGraph, {
     },
 
     getAngleEquationString: function(props) {
-        var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
+        const coords = InteractiveGraph.getAngleCoords(props.graph, props);
+        const angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
         return angle.toFixed(0) + "\u00B0 angle" +
                 " at (" + coords[1].join(", ") + ")";
     },
@@ -2148,7 +2148,7 @@ _.extend(InteractiveGraph, {
         // When nothing has moved, there will neither be coords nor the
         // circle's center/radius fields. When those fields are absent, skip
         // all these checks; just go mark the answer as empty.
-        var hasValue = !!(state.coords || (state.center && state.radius));
+        const hasValue = !!(state.coords || (state.center && state.radius));
 
         if (state.type === rubric.correct.type && hasValue) {
             if (state.type === "linear") {
@@ -2207,9 +2207,9 @@ _.extend(InteractiveGraph, {
                 const correctCoeffs = this.getSinusoidCoefficients(
                         rubric.correct.coords);
 
-                var canonicalGuessCoeffs = canonicalSineCoefficients(
+                const canonicalGuessCoeffs = canonicalSineCoefficients(
                                                 guessCoeffs);
-                var canonicalCorrectCoeffs = canonicalSineCoefficients(
+                const canonicalCorrectCoeffs = canonicalSineCoefficients(
                                                 correctCoeffs);
                 // If the canonical coefficients match, it's correct.
                 if (deepEq(canonicalGuessCoeffs, canonicalCorrectCoeffs)) {
@@ -2306,8 +2306,8 @@ _.extend(InteractiveGraph, {
 
                 let match;
                 if (rubric.correct.match === "congruent") {
-                    var angles = _.map([guess, correct], function(coords) {
-                        var angle = GraphUtils.findAngle(
+                    const angles = _.map([guess, correct], function(coords) {
+                        const angle = GraphUtils.findAngle(
                             coords[2], coords[0], coords[1]);
                         return (angle + 360) % 360;
                     });

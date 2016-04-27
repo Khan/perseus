@@ -54,7 +54,7 @@ const GroupEditor = React.createClass({
     },
 
     _renderMetadataEditor: function() {
-        var GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
+        const GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
         return <GroupMetadataEditor
             value={this.props.metadata}
             onChange={this.change("metadata")} />;

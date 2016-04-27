@@ -2,16 +2,16 @@
 /* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+const React = require('react');
 
-var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 /**
  * This is the widget's editor. This is what shows up on the left side
  * of the screen in the demo. Only the question writer sees this.
  */
-var ExampleWidgetEditor = React.createClass({
+const ExampleWidgetEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {

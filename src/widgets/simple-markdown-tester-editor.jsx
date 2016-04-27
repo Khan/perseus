@@ -7,12 +7,12 @@
  * up on the left side of the screen in the demo. Only the question writer
  * sees this.
  */
-var React = require('react');
+const React = require('react');
 
-var Changeable = require("../mixins/changeable.jsx");
-var EditorJsonify = require("../mixins/editor-jsonify.jsx");
+const Changeable = require("../mixins/changeable.jsx");
+const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
-var TextArea = React.createClass({
+const TextArea = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
@@ -37,7 +37,7 @@ var TextArea = React.createClass({
     },
 });
 
-var SimpleMarkdownTesterEditor = React.createClass({
+const SimpleMarkdownTesterEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {

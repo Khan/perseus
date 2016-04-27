@@ -2,16 +2,16 @@
 /* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
-var _ = require("underscore");
+const React = require('react');
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
+const Changeable = require("../mixins/changeable.jsx");
 
-var PerseusMarkdown = require("../perseus-markdown.jsx");
-var mdParse = PerseusMarkdown.parse;
-var mdOutput = PerseusMarkdown.basicOutput;
+const PerseusMarkdown = require("../perseus-markdown.jsx");
+const mdParse = PerseusMarkdown.parse;
+const mdOutput = PerseusMarkdown.basicOutput;
 
-var SimpleMarkdownTester = React.createClass({
+const SimpleMarkdownTester = React.createClass({
     propTypes: {
         value: React.PropTypes.string,
     },
@@ -29,8 +29,8 @@ var SimpleMarkdownTester = React.createClass({
     },
 
     render: function() {
-        var parsed = mdParse(this.props.value);
-        var output = mdOutput(parsed);
+        const parsed = mdParse(this.props.value);
+        const output = mdOutput(parsed);
         return <div>
             {output}
         </div>;

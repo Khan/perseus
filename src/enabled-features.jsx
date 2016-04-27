@@ -2,7 +2,7 @@
 /* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-var React = require('react');
+const React = require('react');
 
 module.exports = {
     propTypes: React.PropTypes.shape({

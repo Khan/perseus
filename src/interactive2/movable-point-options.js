@@ -5,12 +5,12 @@
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
-var _ = require("underscore");
+const _ = require("underscore");
 
-var WrappedEllipse = require("./wrapped-ellipse.js");
-var kpoint = require("kmath").point;
+const WrappedEllipse = require("./wrapped-ellipse.js");
+const kpoint = require("kmath").point;
 
-var add = {
+const add = {
     constrain: function() {
         this.constrain();
     },
@@ -19,7 +19,7 @@ var add = {
 add.standard = [add.constrain];
 
 
-var modify = {
+const modify = {
     draw: function() {
         this.draw();
     },
@@ -28,15 +28,15 @@ var modify = {
 modify.standard = [modify.draw];
 
 
-var draw = {
+const draw = {
     basic: function(state, prevState) {
-        var graphie = this.graphie;
+        const graphie = this.graphie;
         if (!this.state.visibleShape) {
-            var radii = [
+            const radii = [
                 this.pointSize() / graphie.scale[0],
                 this.pointSize() / graphie.scale[1],
             ];
-            var options = {
+            const options = {
                 maxScale: Math.max(
                     this.highlightStyle().scale, this.normalStyle().scale),
             };
@@ -79,7 +79,7 @@ var draw = {
 draw.standard = [draw.basic, draw.highlight];
 
 
-var remove = {
+const remove = {
     basic: function() {
         if (this.state.visibleShape) {
             this.state.visibleShape.remove();
@@ -91,7 +91,7 @@ var remove = {
 remove.standard = remove.basic;
 
 
-var constraints = {
+const constraints = {
     fixed: function() {
         return function() { return false; };
     },
@@ -115,17 +115,17 @@ var constraints = {
             }
         }
         return function(coord) {
-            var graphie = this.graphie;
+            const graphie = this.graphie;
             range = range || graphie.range;
             if (snap === undefined) {
                 snap = graphie.snap;
             }
 
-            var lower = graphie.unscalePoint([
+            const lower = graphie.unscalePoint([
                 paddingPx,
                 graphie.ypixels - paddingPx,
             ]);
-            var upper = graphie.unscalePoint([
+            const upper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
                 paddingPx,
             ]);
@@ -133,8 +133,8 @@ var constraints = {
                 lower = kpoint.ceilTo(lower, snap);
                 upper = kpoint.floorTo(upper, snap);
             }
-            var coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
-            var coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
+            const coordX = Math.max(lower[0], Math.min(upper[0], coord[0]));
+            const coordY = Math.max(lower[1], Math.min(upper[1], coord[1]));
             return [coordX, coordY];
         };
     },

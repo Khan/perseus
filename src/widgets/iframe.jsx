@@ -12,16 +12,16 @@
  */
 
 /* globals KA */
-var React = require("react");
-var _ = require("underscore");
+const React = require("react");
+const _ = require("underscore");
 
-var Changeable = require("../mixins/changeable.jsx");
-var WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
-var updateQueryString = require("../util.js").updateQueryString;
+const Changeable = require("../mixins/changeable.jsx");
+const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx");
+const updateQueryString = require("../util.js").updateQueryString;
 
 
 /* This renders the iframe and handles validation via window.postMessage */
-var Iframe = React.createClass({
+const Iframe = React.createClass({
 
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
@@ -47,7 +47,7 @@ var Iframe = React.createClass({
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
-        var data = {};
+        const data = {};
         try {
             data = JSON.parse(e.originalEvent.data);
         } catch (err) {
@@ -58,7 +58,7 @@ var Iframe = React.createClass({
             return;
         }
 
-        var status = (data.testsPassed ? "correct" : "incorrect");
+        const status = (data.testsPassed ? "correct" : "incorrect");
         this.change({
             status: status,
             message: data.message,
@@ -73,11 +73,11 @@ var Iframe = React.createClass({
     },
 
     render: function() {
-        var style = {
+        const style = {
             width: this.props.width,
             height: this.props.height,
         };
-        var url = this.props.url;
+        const url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
         if (url && url.length && url.indexOf("http") !== 0) {
@@ -109,7 +109,7 @@ var Iframe = React.createClass({
 
         // Turn array of [{name: "", value: ""}] into object
         if (this.props.settings) {
-            var settings = {};
+            const settings = {};
             _.each(this.props.settings, function(setting) {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;

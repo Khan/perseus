@@ -4,18 +4,18 @@
 
 /* global $_:false */
 
-var InfoTip = require("../components/info-tip.jsx");
-var React = require("react");
-var ReactDOM = require("react-dom");
-var _ = require("underscore");
+const InfoTip = require("../components/info-tip.jsx");
+const React = require("react");
+const ReactDOM = require("react-dom");
+const _ = require("underscore");
 
-var Changeable   = require("../mixins/changeable.jsx");
+const Changeable   = require("../mixins/changeable.jsx");
 
-var ApiOptions = require("../perseus-api.jsx").Options;
-var assert = require("../interactive2/interactive-util.js").assert;
+const ApiOptions = require("../perseus-api.jsx").Options;
+const assert = require("../interactive2/interactive-util.js").assert;
 
-var Graphie = require("../components/graphie.jsx");
-var {
+const Graphie = require("../components/graphie.jsx");
+const {
     Path,
     Arc,
     Label,
@@ -23,17 +23,17 @@ var {
     MovablePoint,
     MovableLine,
 } = Graphie;
-var NumberInput  = require("../components/number-input.jsx");
-var MathOutput  = require("../components/math-output.jsx");
-var Util         = require("../util.js");
-var knumber      = require("kmath").number;
+const NumberInput  = require("../components/number-input.jsx");
+const MathOutput  = require("../components/math-output.jsx");
+const Util         = require("../util.js");
+const knumber      = require("kmath").number;
 const KhanColors = require("../util/colors.js");
 const KhanMath = require("../util/math.js");
 
-var defaultBoxSize = 400;
-var maxSampleSize = 1000;
+const defaultBoxSize = 400;
+const maxSampleSize = 1000;
 
-var Histogram = React.createClass({
+const Histogram = React.createClass({
     propTypes: {
         data: React.PropTypes.arrayOf(React.PropTypes.number),
         xAxisLabel: React.PropTypes.string,
@@ -58,8 +58,8 @@ var Histogram = React.createClass({
 
     componentWillReceiveProps: function(nextProps) {
         // Reset the threshold if the range has changed
-        var oldRange = this._range();
-        var nextRange = this._range(nextProps);
+        const oldRange = this._range();
+        const nextRange = this._range(nextProps);
         if (!Util.deepEq(oldRange, nextRange)) {
             this.setState({
                 threshold: this._getInitialThreshold(nextRange),
@@ -71,11 +71,11 @@ var Histogram = React.createClass({
     _renderThresholdLine: function() {
         // Recall the the y-range goes from [-1, yMax] to allow for ticks on
         // the x-axis.
-        var yRange = [0, this._range()[1][1]];
-        var coords = _.map(yRange, (y) => [this.state.threshold, y]);
+        const yRange = [0, this._range()[1][1]];
+        const coords = _.map(yRange, (y) => [this.state.threshold, y]);
 
         // Returns an inivisble, placeholder coord that anchors the line
-        var invisiblePointForCoord = (coord, i) => {
+        const invisiblePointForCoord = (coord, i) => {
             return <MovablePoint
                 key={i}
                 static={true}
@@ -90,13 +90,13 @@ var Histogram = React.createClass({
 
     /* Renders the shaded circle in the top right. */
     _renderCircle: function() {
-        var data = this.props.data;
+        const data = this.props.data;
 
         // Get proportion of results below threshold
-        var total = _.reduce(data, (sum, next) => {
+        const total = _.reduce(data, (sum, next) => {
             return sum + next;
         }, 0);
-        var numBelow = _.reduce(data, (sum, next, i) => {
+        const numBelow = _.reduce(data, (sum, next, i) => {
             if (this.state.threshold != null &&
                     i <= this.state.threshold) {
                 return sum + next;
@@ -104,17 +104,17 @@ var Histogram = React.createClass({
                 return sum;
             }
         }, 0);
-        var proportionBelow = numBelow / total;
+        const proportionBelow = numBelow / total;
 
         // This is a hack around the arc taking angles modulo 360.
         // TODO(charlie): Find a better way around this.
-        var epsilon = 1e-5;
-        var radius = 20;
-        var center = [this.props.box[0] - 1.5 * radius, 1.5 * radius];
+        const epsilon = 1e-5;
+        const radius = 20;
+        const center = [this.props.box[0] - 1.5 * radius, 1.5 * radius];
 
         // Plot little circle
-        var plotBelowCircle = () => {
-            var options = {
+        const plotBelowCircle = () => {
+            const options = {
                 key: "below",
                 center: center,
                 radius: radius,
@@ -131,8 +131,8 @@ var Histogram = React.createClass({
 
             return <Arc {...options} />;
         };
-        var plotAboveCircle = () => {
-            var options = {
+        const plotAboveCircle = () => {
+            const options = {
                 key: "above",
                 center: center,
                 radius: radius,
@@ -151,11 +151,11 @@ var Histogram = React.createClass({
         };
 
         // Plot the label below the circle
-        var xRange = this._range()[0];
-        var formattedThreshold = Math.min(
+        const xRange = this._range()[0];
+        const formattedThreshold = Math.min(
             Math.max(this.state.threshold, xRange[0]), xRange[1]).toFixed(2);
-        var plotLabel = () => {
-            var options = {
+        const plotLabel = () => {
+            const options = {
                 key: "label",
                 coord: [center[0], center[1] + 1.5 * radius],
                 text: numBelow + " of " + total + " results below " +
@@ -179,11 +179,11 @@ var Histogram = React.createClass({
 
     /* Renders the actual bars of the histogram. */
     _renderData: function() {
-        var data = this.props.data;
+        const data = this.props.data;
 
         // Plot bars
-        var barWidth = 1;
-        var pathForData = (count, i) => {
+        const barWidth = 1;
+        const pathForData = (count, i) => {
             // Avoid plotting bars of height 0, else you get a thick blue line
             // over the x-axis. We don't filter these out of the data passed in
             // to this function, however, to preserve absolute indices.
@@ -191,13 +191,13 @@ var Histogram = React.createClass({
                 return;
             }
 
-            var isBelow = this.state.threshold != null &&
+            const isBelow = this.state.threshold != null &&
                     i <= this.state.threshold;
-            var style = {
+            const style = {
                 fill: (isBelow) ?  KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
                 stroke: (isBelow) ? KhanColors.RED : KhanColors.BLUE,
             };
-            var coords = [
+            const coords = [
                 [i, 0],
                 [i, count],
                 [i + barWidth, count],
@@ -210,10 +210,10 @@ var Histogram = React.createClass({
     },
 
     render: function() {
-        var data = this.props.data;
-        var range = this._range();
+        const data = this.props.data;
+        const range = this._range();
 
-        var options = {
+        const options = {
             xAxisLabel: this.props.xAxisLabel,
             yAxisLabel: this.props.yAxisLabel,
             box: this.props.box,
@@ -223,13 +223,13 @@ var Histogram = React.createClass({
                         Util.scaleFromExtent(range[1], this.props.box[1])],
         };
 
-        var axisStyle = {
+        const axisStyle = {
             stroke: "#000",
             strokeWidth: 1,
             opacity: 1.0,
         };
-        var origin = [range[0][0], 0];
-        var bottomRight = [range[0][1], 0];
+        const origin = [range[0][0], 0];
+        const bottomRight = [range[0][1], 0];
 
         return <Graphie box={options.box}
                         range={options.range}
@@ -246,16 +246,16 @@ var Histogram = React.createClass({
     },
 
     _setupGraphie: function(graphie, options) {
-        var data = options.data;
-        var range = options.range;
-        var scale = options.scale;
+        const data = options.data;
+        const range = options.range;
+        const scale = options.scale;
 
         /* Plot the bars that run parallel to the x-axis. */
-        var xWidth = range[0][1] - range[0][0];
-        var yWidth = range[1][1] - 0;
+        const xWidth = range[0][1] - range[0][0];
+        const yWidth = range[1][1] - 0;
 
-        var maxYAxisEntities = 20;
-        var ySkip = Math.ceil(yWidth / maxYAxisEntities);
+        const maxYAxisEntities = 20;
+        const ySkip = Math.ceil(yWidth / maxYAxisEntities);
         _.each(_.range(0, range[1][1], ySkip), (y) => {
 
             // If there's no data, we don't label the axes
@@ -279,12 +279,12 @@ var Histogram = React.createClass({
         // If there's no data, we don't label the x-axis at all
         if (data) {
             // Plot the labels below the bars
-            var maxXAxisEntities = 15;
-            var xSkip = Math.ceil(xWidth / maxXAxisEntities);
+            const maxXAxisEntities = 15;
+            const xSkip = Math.ceil(xWidth / maxXAxisEntities);
             _.each(_.range(range[0][0], range[0][1], xSkip), (x) => {
                 graphie.label([x, 0], knumber.round(x, 2), "below", true);
 
-                var tickHeight = 8;
+                const tickHeight = 8;
                 graphie.line([x, 0], [x, -tickHeight / scale[1]], {
                     stroke: "#000",
                     strokeWidth: 1,
@@ -293,25 +293,25 @@ var Histogram = React.createClass({
         }
 
         // Add y axis (x axis is added later to overlap the bars)
-        var axisStyle = {
+        const axisStyle = {
             stroke: "#000",
             strokeWidth: 2,
             opacity: 1.0,
         };
-        var origin = [range[0][0], 0];
-        var topLeft = [range[0][0], range[1][1]];
+        const origin = [range[0][0], 0];
+        const topLeft = [range[0][0], range[1][1]];
         graphie.line(origin, topLeft, axisStyle);
 
         // Add axis labels
-        var xMid = range[0][0] + (xWidth / 2);
-        var xOffset = (data) ? 25 : 0;
+        const xMid = range[0][0] + (xWidth / 2);
+        const xOffset = (data) ? 25 : 0;
         graphie.label([xMid, -xOffset / scale[1]],
             options.xAxisLabel,
             "below", false)
             .css("font-weight", "bold");
 
-        var yMid = 0 + (yWidth / 2);
-        var yOffset = (data) ? 55 : 28;
+        const yMid = 0 + (yWidth / 2);
+        const yOffset = (data) ? 55 : 28;
         graphie.label([range[0][0] - yOffset / scale[0], yMid],
             options.yAxisLabel,
             "center", false)
@@ -327,38 +327,38 @@ var Histogram = React.createClass({
 
     /* Convenience functions that help calculate props based on other props. */
     _range: function(props) {
-        var defaultRange = [[0, 100], [-1, 10]];
+        const defaultRange = [[0, 100], [-1, 10]];
         props = props || this.props;
         return (props.data) ? this._getRangeForData(props.data) : defaultRange;
     },
 
     _getRangeForData: function(data) {
         // Find first/last non-zero entry and add some padding
-        var padding = 10;
-        var firstIndex = _.indexOf(data, _.find(data, (n) => n > 0));
-        var xMin = Math.max(0, firstIndex - padding);
-        var lastIndex = _.lastIndexOf(data, _.last(
+        const padding = 10;
+        const firstIndex = _.indexOf(data, _.find(data, (n) => n > 0));
+        const xMin = Math.max(0, firstIndex - padding);
+        const lastIndex = _.lastIndexOf(data, _.last(
             _.filter(data, (n) => n > 0)));
-        var xMax = Math.min(100 + 1, (lastIndex + 1) + padding);
+        const xMax = Math.min(100 + 1, (lastIndex + 1) + padding);
 
         // The y-axis is bounded above by largest value, and below by 0.
         // However, the 'range' of the y-axis goes as low as -1 to allow
         // Graphie to draw ticks on the x-Axis that extend vertically below
         // y = 0.
-        var yMin = -1;
-        var yMax = _.max(data);
+        const yMin = -1;
+        const yMax = _.max(data);
 
         return [[xMin, xMax], [yMin, yMax]];
     },
 
     _getInitialThreshold: function(range) {
         // We pick a pretty-looking threshold, 1/3 of the way along the axis
-        var xRange = range[0];
+        const xRange = range[0];
         return xRange[0] + (xRange[1] - xRange[0]) / 3;
     },
 });
 
-var Simulator = React.createClass({
+const Simulator = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
@@ -412,27 +412,27 @@ var Simulator = React.createClass({
     },
 
     render: function() {
-        var inputStyle = {
+        const inputStyle = {
             marginLeft: "5px",
         };
 
-        var highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
-        var highlightStyle = _.extend({}, inputStyle, {
+        const highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
+        const highlightStyle = _.extend({}, inputStyle, {
             WebkitBoxShadow: highlight,
             MozBoxShadow: highlight,
             boxShadow: highlight,
             transition: "all 0.15s",
         });
-        var unhighlightStyle = _.extend({}, inputStyle, {
+        const unhighlightStyle = _.extend({}, inputStyle, {
             transition: "all 0.15s",
         });
-        var style = (this.state.invalidInput) ? highlightStyle
+        const style = (this.state.invalidInput) ? highlightStyle
                                               : unhighlightStyle;
 
-        var InputComponent = this.props.apiOptions.staticRender ? MathOutput
+        const InputComponent = this.props.apiOptions.staticRender ? MathOutput
                                                                 : NumberInput;
 
-        var proportionInput = <div>
+        const proportionInput = <div>
             <InputComponent
                 ref="userProportion"
                 style={style}
@@ -448,7 +448,7 @@ var Simulator = React.createClass({
             </InfoTip>
         </div>;
 
-        var sampleSizeInput = <div>
+        const sampleSizeInput = <div>
             <InputComponent
                 ref="sampleSize"
                 style={style}
@@ -466,7 +466,7 @@ var Simulator = React.createClass({
             </InfoTip>
         </div>;
 
-        var numTrialsDisplay = <div style={{float: "right"}}>
+        const numTrialsDisplay = <div style={{float: "right"}}>
             <b>{this.props.numTrials}</b>
             <InfoTip>
                 <p>This is the number of trials used in the simulation. For
@@ -476,15 +476,15 @@ var Simulator = React.createClass({
         </div>;
 
         // Generates a table from a set of titles and values.
-        var generateTable = (contents) => {
-            var header = <thead>
+        const generateTable = (contents) => {
+            const header = <thead>
                 <tr>
                     <th>Parameter</th>
                     <th>Value</th>
                 </tr>
             </thead>;
 
-            var body = <tbody>
+            const body = <tbody>
                 {_.map(contents, (row, i) => {
                     return <tr key={i}>
                         <td>{row.title}</td>
@@ -500,7 +500,7 @@ var Simulator = React.createClass({
         };
 
         // Contents for the table to-be generated
-        var contents = [
+        const contents = [
             {
                 title: this.props.proportionLabel + ":",
                 value: proportionInput,
@@ -516,10 +516,10 @@ var Simulator = React.createClass({
         ];
 
         // The 'Run Simulation' button
-        var buttonStyle = {
+        const buttonStyle = {
             margin: "20px 0",
         };
-        var startButton = <button
+        const startButton = <button
                 className="simple-button"
                 style={buttonStyle}
                 disabled={this.props.apiOptions.readOnly}
@@ -528,10 +528,10 @@ var Simulator = React.createClass({
         </button>;
 
         // When we plot data, ticks on the x-axis require some vertical padding
-        var histogramStyle = {
+        const histogramStyle = {
             paddingBottom: (this.props.data) ? 40 : 0,
         };
-        var histogram = <div style={histogramStyle}>
+        const histogram = <div style={histogramStyle}>
             <Histogram data={this.props.data}
                        xAxisLabel={this.props.xAxisLabel}
                        yAxisLabel={this.props.yAxisLabel} />
@@ -545,7 +545,7 @@ var Simulator = React.createClass({
     },
 
     calculateDisplayProportion: function() {
-        var userProportion = this.props.userProportion;
+        const userProportion = this.props.userProportion;
 
         // If we want to display as a percentage, multiply proportion by 100.0.
         if (this.props.proportionOrPercentage === "percentage") {
@@ -564,7 +564,7 @@ var Simulator = React.createClass({
     },
 
     handleUserProportionChange: function(value, cb) {
-        var userProportion;
+        const userProportion;
 
         // If "percentage" mode is enabled, user will have entered value as
         // a percentage. However, we always store as a proportion, so we cast.
@@ -615,15 +615,15 @@ var Simulator = React.createClass({
 
     generateData: function(props) {
         props = props || this.props;
-        var getSampleDistribution = (sampleSize, numTrials, proportion) => {
-            var draw = () => {
+        const getSampleDistribution = (sampleSize, numTrials, proportion) => {
+            const draw = () => {
                 return this.generateNumber() < proportion;
             };
-            var sampleDistribution = _.times(100 + 1, () => 0);
+            const sampleDistribution = _.times(100 + 1, () => 0);
             _.times(numTrials, () => {
-                var results = _.times(sampleSize, draw);
-                var count = _.filter(results, _.identity).length;
-                var normalizedCount = Math.floor(100 * count / sampleSize);
+                const results = _.times(sampleSize, draw);
+                const count = _.filter(results, _.identity).length;
+                const normalizedCount = Math.floor(100 * count / sampleSize);
                 sampleDistribution[normalizedCount]++;
             });
             return sampleDistribution;
@@ -638,28 +638,28 @@ var Simulator = React.createClass({
     },
 
     focus: function() {
-        var path = _.head(this.getInputPaths());
+        const path = _.head(this.getInputPaths());
         this.focusInputPath(path);
         return true;
     },
 
     focusInputPath: function(path) {
         assert(path.length > 0);
-        var inputID = _.head(path);
-        var inputComponent = this.refs[inputID];
+        const inputID = _.head(path);
+        const inputComponent = this.refs[inputID];
         inputComponent.focus();
     },
 
     blurInputPath: function(path) {
         assert(path.length > 0);
-        var inputID = _.head(path);
-        var inputComponent = this.refs[inputID];
+        const inputID = _.head(path);
+        const inputComponent = this.refs[inputID];
         inputComponent.blur();
     },
 
     getDOMNodeForPath: function(path) {
         assert(path.length > 0);
-        var inputID = _.head(path);
+        const inputID = _.head(path);
         return ReactDOM.findDOMNode(this.refs[inputID]);
     },
 
@@ -670,9 +670,9 @@ var Simulator = React.createClass({
 
     setInputValue: function(path, newValue, cb) {
         assert(path.length > 0);
-        var inputID = _.head(path);
-        var capitalizedID = inputID.charAt(0).toUpperCase() + inputID.slice(1);
-        var functionName = "handle" + capitalizedID + "Change";
+        const inputID = _.head(path);
+        const capitalizedID = inputID.charAt(0).toUpperCase() + inputID.slice(1);
+        const functionName = "handle" + capitalizedID + "Change";
         this[functionName](newValue, cb);
     },
 
@@ -696,8 +696,8 @@ _.extend(Simulator, {
     },
 });
 
-var propTransform = (editorProps) => {
-    var widgetProps = _.clone(editorProps);
+const propTransform = (editorProps) => {
+    const widgetProps = _.clone(editorProps);
     widgetProps.randomSeed = editorProps.problemNum;
     return widgetProps;
 };
