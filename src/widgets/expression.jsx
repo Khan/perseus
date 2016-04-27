@@ -652,7 +652,7 @@ var OldExpression = React.createClass({
             i18n._("For $x^{y}$, enter **x^y**"),
             i18n._("For $x^{2/3}$, enter **x^(2/3)**"),
             i18n._("For $\\sqrt{x}$, enter **sqrt(x)**"),
-            i18n._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\](x)**"),
+            i18n._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\]{x}**"),
             i18n._("For $\\pi$, enter **pi**"),
             i18n._("For $\\sin \\theta$, enter **sin(theta)**"),
             i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
