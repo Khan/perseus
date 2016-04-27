@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -38,10 +38,10 @@ var Placeholder = React.createClass({
 });
 
 
-var STATIC = "static",
-    DRAGGING = "dragging",
-    ANIMATING = "animating",
-    DISABLED = "disabled";
+var STATIC = "static";
+var DRAGGING = "dragging";
+var ANIMATING = "animating";
+var DISABLED = "disabled";
 
 // A draggable item in the sortable. Can be in one of four states:
 //     Static:    The item is not being interacted with.
@@ -245,8 +245,8 @@ var Draggable = React.createClass({
 });
 
 
-var HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+var HORIZONTAL = "horizontal";
+var VERTICAL = "vertical";
 
 // The main sortable component.
 var Sortable = React.createClass({

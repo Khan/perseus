@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -70,8 +70,8 @@ var Util = {
         do {
             // Fischer-Yates shuffle
             for (var top = shuffled.length; top > 0; top--) {
-                var newEnd = Math.floor(random() * top),
-                    temp = shuffled[newEnd];
+                var newEnd = Math.floor(random() * top);
+                var temp = shuffled[newEnd];
 
                 shuffled[newEnd] = shuffled[top - 1];
                 shuffled[top - 1] = temp;
@@ -424,11 +424,11 @@ var Util = {
      */
     parseQueryString: function(query) {
         query = query || window.location.search.substring(1);
-        var urlParams = {},
-            e,
-            a = /\+/g,  // Regex for replacing addition symbol with a space
-            r = /([^&=]+)=?([^&]*)/g,
-            d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
+        var urlParams = {};
+        var e;
+        var a = /\+/g;  // Regex for replacing addition symbol with a space
+        var r = /([^&=]+)=?([^&]*)/g;
+        var d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
 
         while ((e = r.exec(query))) {
             urlParams[d(e[1])] = d(e[2]);

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -8,10 +8,10 @@ const _ = require("underscore");
 const InfoTip = require("../components/info-tip.jsx");
 const TextListEditor = require("../components/text-list-editor.jsx");
 
-var NORMAL = "normal",
-    AUTO = "auto",
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+var NORMAL = "normal";
+var AUTO = "auto";
+var HORIZONTAL = "horizontal";
+var VERTICAL = "vertical";
 
 const OrdererEditor = React.createClass({
     propTypes: {

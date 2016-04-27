@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/sort-comp */
+/* eslint-disable no-var, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -9,8 +9,8 @@ var Sortable = require("../components/sortable.jsx");
 
 var shuffle = require("../util.js").shuffle;
 
-var HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+var HORIZONTAL = "horizontal";
+var VERTICAL = "vertical";
 
 var Sorter = React.createClass({
     propTypes: {

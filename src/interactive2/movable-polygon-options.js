@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -17,7 +17,8 @@ function sum(array) {
 function clockwise(points) {
     var segments = _.zip(points, points.slice(1).concat(points.slice(0, 1)));
     var areas = _.map(segments, function(segment) {
-        var p1 = segment[0], p2 = segment[1];
+        var p1 = segment[0];
+        var p2 = segment[1];
         return (p2[0] - p1[0]) * (p2[1] + p1[1]);
     });
     return sum(areas) > 0;

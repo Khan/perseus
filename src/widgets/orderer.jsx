@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require('react');
@@ -205,10 +205,10 @@ var Card = React.createClass({
     },
 });
 
-var NORMAL = "normal",
-    AUTO = "auto",
-    HORIZONTAL = "horizontal",
-    VERTICAL = "vertical";
+var NORMAL = "normal";
+var AUTO = "auto";
+var HORIZONTAL = "horizontal";
+var VERTICAL = "vertical";
 
 var Orderer = React.createClass({
     propTypes: {
@@ -458,17 +458,17 @@ var Orderer = React.createClass({
 
     findCorrectIndex: function(draggable, list) {
         // Find the correct index for a card given the current cards.
-        var isHorizontal = this.props.layout === HORIZONTAL,
-            $dragList = $(ReactDOM.findDOMNode(this.refs.dragList)),
-            leftEdge = $dragList.offset().left,
-            topEdge = $dragList.offset().top,
-            midWidth =
-                $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge,
-            midHeight =
-                $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge,
-            index = 0,
-            sumWidth = 0,
-            sumHeight = 0;
+        var isHorizontal = this.props.layout === HORIZONTAL;
+        var $dragList = $(ReactDOM.findDOMNode(this.refs.dragList));
+        var leftEdge = $dragList.offset().left;
+        var topEdge = $dragList.offset().top;
+        var midWidth =
+                $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge;
+        var midHeight =
+                $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge;
+        var index = 0;
+        var sumWidth = 0;
+        var sumHeight = 0;
 
         if (isHorizontal) {
             _.each(list, function(opt, i) {
@@ -498,15 +498,15 @@ var Orderer = React.createClass({
             return false;
         }
 
-        var isHorizontal = this.props.layout === HORIZONTAL,
-            $draggable = $(ReactDOM.findDOMNode(draggable)),
-            $bank = $(ReactDOM.findDOMNode(this.refs.bank)),
-            draggableOffset = $draggable.offset(),
-            bankOffset = $bank.offset(),
-            draggableHeight = $draggable.outerHeight(true),
-            bankHeight = $bank.outerHeight(true),
-            bankWidth = $bank.outerWidth(true),
-            draggableWidth = $draggable.outerWidth(true);
+        var isHorizontal = this.props.layout === HORIZONTAL;
+        var $draggable = $(ReactDOM.findDOMNode(draggable));
+        var $bank = $(ReactDOM.findDOMNode(this.refs.bank));
+        var draggableOffset = $draggable.offset();
+        var bankOffset = $bank.offset();
+        var draggableHeight = $draggable.outerHeight(true);
+        var bankHeight = $bank.outerHeight(true);
+        var bankWidth = $bank.outerWidth(true);
+        var draggableWidth = $draggable.outerWidth(true);
 
         if (isHorizontal) {
             return (draggableOffset.top + draggableHeight / 2 <

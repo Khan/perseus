@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -13,11 +13,11 @@ const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
 const GraphUtils = require("../util/graph-utils.js");
 
-var BAR = "bar",
-    LINE = "line",
-    PIC = "pic",
-    HISTOGRAM = "histogram",
-    DOTPLOT = "dotplot";
+var BAR = "bar";
+var LINE = "line";
+var PIC = "pic";
+var HISTOGRAM = "histogram";
+var DOTPLOT = "dotplot";
 
 var DOT_PLOT_POINT_SIZE = 4;
 var DOT_PLOT_POINT_PADDING = 8;
@@ -122,11 +122,11 @@ var Plotter = React.createClass({
         self.graphie = graphie;
         self.graphie.pics = [];
 
-        var isBar = self.props.type === BAR,
-            isLine = self.props.type === LINE,
-            isPic = self.props.type === PIC,
-            isHistogram = self.props.type === HISTOGRAM,
-            isDotplot = self.props.type === DOTPLOT;
+        var isBar = self.props.type === BAR;
+        var isLine = self.props.type === LINE;
+        var isPic = self.props.type === PIC;
+        var isHistogram = self.props.type === HISTOGRAM;
+        var isDotplot = self.props.type === DOTPLOT;
 
         var isTiledPlot = isPic || isDotplot;
 
@@ -354,8 +354,8 @@ var Plotter = React.createClass({
 
             if (isHistogram) {
                 // Scale dividers between buckets
-                var leftDivider = config.graph.dividers[i - 1],
-                    rightDivider = config.graph.dividers[i];
+                var leftDivider = config.graph.dividers[i - 1];
+                var rightDivider = config.graph.dividers[i];
 
                 if (leftDivider) {
                     const divHeight = Math.min(

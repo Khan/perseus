@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -17,11 +17,11 @@ const Plotter = require("./plotter.jsx").widget;
 
 const knumber = require("kmath").knumber;
 
-const BAR = "bar",
-    LINE = "line",
-    PIC = "pic",
-    HISTOGRAM = "histogram",
-    DOTPLOT = "dotplot";
+const BAR = "bar";
+const LINE = "line";
+const PIC = "pic";
+const HISTOGRAM = "histogram";
+const DOTPLOT = "dotplot";
 
 // Return a copy of array with length n, padded with given value
 function padArray(array, n, value) {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var React = require("react");
@@ -320,7 +320,8 @@ var ExpressionEditor = React.createClass({
         // "basic+div". Toggle between the two of them.
         // If someone can think of a more elegant formulation of this (there
         // must be one!) feel free to change it.
-        var keep, remove;
+        var keep;
+        var remove;
         if (_(this.props.buttonSets).contains("basic+div")) {
             keep = "basic";
             remove = "basic+div";

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var */
+/* eslint-disable no-var */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
@@ -123,13 +123,15 @@ var Linear = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var m = coeffs[0], b = coeffs[1];
+        var m = coeffs[0];
+        var b = coeffs[1];
         return m * x + b;
     },
 
     getEquationString: function(coords) {
         var coeffs = this.getCoefficients(coords);
-        var m = coeffs[0], b = coeffs[1];
+        var m = coeffs[0];
+        var b = coeffs[1];
         return "y = " + m.toFixed(3) + "x + " + b.toFixed(3);
     },
 });
@@ -158,7 +160,9 @@ var Quadratic = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
         return (a * x + b) * x + c;
     },
 
@@ -172,7 +176,9 @@ var Quadratic = _.extend({}, PlotDefaults, {
 
     getEquationString: function(coords) {
         var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
         return "y = " + a.toFixed(3) + "x^2 + " + b.toFixed(3) +
                "x + " + c.toFixed(3);
     },
@@ -198,7 +204,10 @@ var Sinusoid = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
+        var d = coeffs[3];
         return a * Math.sin(b * x - c) + d;
     },
 
@@ -213,7 +222,10 @@ var Sinusoid = _.extend({}, PlotDefaults, {
 
     getEquationString: function(coords) {
         var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
+        var d = coeffs[3];
         return "y = " + a.toFixed(3) + " sin(" + b.toFixed(3) +
                "x - " + c.toFixed(3) + ") + " + d.toFixed(3);
     },
@@ -242,13 +254,19 @@ var Tangent = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
+        var d = coeffs[3];
         return a * Math.tan(b * x - c) + d;
     },
 
     getEquationString: function(coords) {
         var coeffs = this.getCoefficients(coords);
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
+        var d = coeffs[3];
         return "y = " + a.toFixed(3) + " sin(" + b.toFixed(3) +
                "x - " + c.toFixed(3) + ") + " + d.toFixed(3);
     },
@@ -325,7 +343,9 @@ var Exponential = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
         return a * Math.exp(b * x) + c;
     },
 
@@ -334,7 +354,9 @@ var Exponential = _.extend({}, PlotDefaults, {
             return null;
         }
         var coeffs = this.getCoefficients(coords, asymptote);
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
         return "y = " + a.toFixed(3) + "e^(" + b.toFixed(3) + "x) + " +
             c.toFixed(3);
     },
@@ -394,7 +416,9 @@ var Logarithm = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x, asymptote) {
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
         return a * Math.log(b * x + c);
     },
 
@@ -403,7 +427,9 @@ var Logarithm = _.extend({}, PlotDefaults, {
             return null;
         }
         var coeffs = this.getCoefficients(coords, asymptote);
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
         return "y = ln(" + a.toFixed(3) + "x + " + b.toFixed(3) + ") + " +
             c.toFixed(3);
     },
@@ -436,17 +462,17 @@ var AbsoluteValue = _.extend({}, PlotDefaults, {
     },
 
     getFunctionForCoeffs: function(coeffs, x) {
-        var m = coeffs[0],
-            horizontalOffset = coeffs[1],
-            verticalOffset = coeffs[2];
+        var m = coeffs[0];
+        var horizontalOffset = coeffs[1];
+        var verticalOffset = coeffs[2];
         return m * Math.abs(x - horizontalOffset) + verticalOffset;
     },
 
     getEquationString: function(coords) {
         var coeffs = this.getCoefficients(coords);
-        var m = coeffs[0],
-            horizontalOffset = coeffs[1],
-            verticalOffset = coeffs[2];
+        var m = coeffs[0];
+        var horizontalOffset = coeffs[1];
+        var verticalOffset = coeffs[2];
         return "y = " + m.toFixed(3) + "| x - " +
             horizontalOffset.toFixed(3) + "| + " +
             verticalOffset.toFixed(3);

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -259,14 +259,14 @@ function getLineEquation(first, second) {
 // Stolen from the wikipedia article
 // http://en.wikipedia.org/wiki/Line-line_intersection
 function getLineIntersection(firstPoints, secondPoints) {
-    var x1 = firstPoints[0][0],
-        y1 = firstPoints[0][1],
-        x2 = firstPoints[1][0],
-        y2 = firstPoints[1][1],
-        x3 = secondPoints[0][0],
-        y3 = secondPoints[0][1],
-        x4 = secondPoints[1][0],
-        y4 = secondPoints[1][1];
+    var x1 = firstPoints[0][0];
+    var y1 = firstPoints[0][1];
+    var x2 = firstPoints[1][0];
+    var y2 = firstPoints[1][1];
+    var x3 = secondPoints[0][0];
+    var y3 = secondPoints[0][1];
+    var x4 = secondPoints[1][0];
+    var y4 = secondPoints[1][1];
 
     var determinant = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 
@@ -900,7 +900,9 @@ var InteractiveGraph = React.createClass({
         }
 
         // Extract coefficients the parabola
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
 
         // Plot and style
         if (this.parabola) {
@@ -974,7 +976,10 @@ var InteractiveGraph = React.createClass({
             return;
         }
 
-        var a = coeffs[0], b = coeffs[1], c = coeffs[2], d = coeffs[3];
+        var a = coeffs[0];
+        var b = coeffs[1];
+        var c = coeffs[2];
+        var d = coeffs[3];
 
         // Plot and style
         if (this.sinusoid) {
