@@ -555,9 +555,8 @@ const Editor = React.createClass({
             textarea.selectionEnd
         );
 
-        const widgetNames = _.map(selectedText.match(rWidgetSplit), (syntax) => {
-            return Util.rWidgetParts.exec(syntax)[1];
-        });
+        const widgetNames = _.map(selectedText.match(rWidgetSplit),
+            (syntax) => { return Util.rWidgetParts.exec(syntax)[1]; });
 
         const widgetData = _.pick(this.serialize().widgets, widgetNames);
 
@@ -880,7 +879,8 @@ const Editor = React.createClass({
                     const duplicate = id in widgets;
 
                     widgets[id] = this.getWidgetEditor(id, type);
-                    const classes = (duplicate || !widgets[id] ? "error " : "") +
+                    const classes =
+                            (duplicate || !widgets[id] ? "error " : "") +
                             (selected ? "selected " : "");
                     const key = duplicate ? i : id;
                     underlayPieces.push(

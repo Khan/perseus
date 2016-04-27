@@ -671,7 +671,8 @@ const Simulator = React.createClass({
     setInputValue: function(path, newValue, cb) {
         assert(path.length > 0);
         const inputID = _.head(path);
-        const capitalizedID = inputID.charAt(0).toUpperCase() + inputID.slice(1);
+        const capitalizedID =
+            inputID.charAt(0).toUpperCase() + inputID.slice(1);
         const functionName = "handle" + capitalizedID + "Change";
         this[functionName](newValue, cb);
     },

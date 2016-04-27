@@ -253,8 +253,10 @@ const Renderer = React.createClass({
     },
 
     componentWillUpdate: function(nextProps, nextState) {
-        const oldJipt = this.shouldRenderJiptPlaceholder(this.props, this.state);
-        const newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
+        const oldJipt =
+            this.shouldRenderJiptPlaceholder(this.props, this.state);
+        const newJipt =
+            this.shouldRenderJiptPlaceholder(nextProps, nextState);
         const oldContent = this.getContent(this.props, this.state);
         const newContent = this.getContent(nextProps, nextState);
         const oldHighlightedWidgets = this.props.highlightedWidgets;
@@ -892,7 +894,8 @@ const Renderer = React.createClass({
 
         } else if (node.type === "table") {
             state.inTable = true;
-            const output = PerseusMarkdown.ruleOutput(node, nestedOutput, state);
+            const output =
+                PerseusMarkdown.ruleOutput(node, nestedOutput, state);
             state.inTable = false;
             return output;
 

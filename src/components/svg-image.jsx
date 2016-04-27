@@ -468,8 +468,10 @@ const SvgImage = React.createClass({
             title: this.props.title,
         };
 
-        const width = this.props.width && this.props.width * this.props.scale;
-        const height = this.props.height && this.props.height * this.props.scale;
+        const width =
+            this.props.width && this.props.width * this.props.scale;
+        const height =
+            this.props.height && this.props.height * this.props.scale;
         const dimensions = {
             width: width,
             height: height,

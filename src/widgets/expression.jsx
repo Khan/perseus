@@ -40,8 +40,8 @@ const NO_ANSWERS_WARNING = [
     "A few digits will do -",
     "might I suggest some threes?",
 ].join("\n");
-const NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be too " +
-    "hard because the expression has no correct answer.";
+const NO_CORRECT_ANSWERS_WARNING = "This question is probably going to be " +
+    "too hard because the expression has no correct answer.";
 const SIMPLIFY_WARNING = str => {
     return `"${str}" is required to be simplified but is not considered ` +
         "simplified by our fancy computer algebra system. This will be " +

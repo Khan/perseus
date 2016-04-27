@@ -25,7 +25,8 @@ const ChoiceEditor = React.createClass({
     },
 
     render: function() {
-        const checkedClass = this.props.choice.correct ? "correct" : "incorrect";
+        const checkedClass = this.props.choice.correct ?
+            "correct" : "incorrect";
         let placeholder = "Type a choice here...";
 
         if (this.props.choice.isNoneOfTheAbove) {
@@ -196,7 +197,9 @@ const RadioEditor = React.createClass({
     onMultipleSelectChange: function(allowMultiple) {
         allowMultiple = allowMultiple.multipleSelect;
 
-        const numSelected = _.reduce(this.props.choices, function(memo, choice) {
+        const numSelected = _.reduce(this.props.choices, function(
+            memo, choice) {
+
             return choice.correct ? memo + 1 : memo;
         }, 0);
 
@@ -268,7 +271,8 @@ const RadioEditor = React.createClass({
 
         const choices = this.props.choices.slice();
         const newChoice = { isNoneOfTheAbove: noneOfTheAbove };
-        const addIndex = choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
+        const addIndex =
+            choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
 
         choices.splice(addIndex, 0, newChoice);
 

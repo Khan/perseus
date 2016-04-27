@@ -478,7 +478,8 @@ const NumberLine = React.createClass({
     render: function() {
         const divisionRange = this.props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
-        const invalidNumDivisions = this.props.numDivisions < divisionRange[0] ||
+        const invalidNumDivisions =
+                this.props.numDivisions < divisionRange[0] ||
                 this.props.numDivisions > divisionRange[1];
 
         const inequalityControls = <div>

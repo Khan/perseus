@@ -41,7 +41,9 @@ const isUpgradedWidgetInfoRenderableBy = function(
     }
 };
 
-const isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion) {
+const isRawWidgetInfoRenderableBy = function(
+    widgetInfo, rendererContentVersion) {
+
     // Empty/non-existant widgets are always safe to render
     if (widgetInfo == null || widgetInfo.type == null) {
         return true;

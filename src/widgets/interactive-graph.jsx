@@ -127,7 +127,8 @@ function angleMeasures(coords) {
         return sign(ccw(...triplet)) > 0 ? raw : -raw;
     });
 
-    const sum = _.reduce(offsets, function(memo, arg) { return memo + arg; }, 0);
+    const sum = _.reduce(offsets,
+        function(memo, arg) { return memo + arg; }, 0);
 
     return _.map(offsets, function(offset) {
         return sum > 0 ? Math.PI - offset : Math.PI + offset;

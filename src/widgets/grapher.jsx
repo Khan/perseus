@@ -220,8 +220,8 @@ const FunctionGrapher = React.createClass({
                 (newCoord, oldCoord) => {
                     // Calculate and apply proposed displacement
                     const delta = kvector.subtract(newCoord, oldCoord);
-                    const proposedAsymptote = _.map(this._asymptote(), (coord) =>
-                        kvector.add(coord, delta));
+                    const proposedAsymptote = _.map(this._asymptote(),
+                        (coord) => kvector.add(coord, delta));
                     // Verify that resulting asymptote is valid for graph
                     if (model.extraAsymptoteConstraint) {
                         return model.extraAsymptoteConstraint(newCoord,

@@ -58,7 +58,8 @@ const DropdownEditor = React.createClass({
             <div className="clearfix"></div>
             <ul className="dropdown-choices">
                 {this.props.choices.map(function(choice, i) {
-                    const checkedClass = choice.correct ? 'correct' : 'incorrect';
+                    const checkedClass = choice.correct ?
+                        'correct' : 'incorrect';
 
                     return <li key={"" + i}>
                         <div>

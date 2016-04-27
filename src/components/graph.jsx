@@ -323,7 +323,8 @@ const Graph = React.createClass({
 
         if (this.props.showRuler) {
             const coord = this.pointsFromNormalized([[0.50, 0.25]])[0];
-            const extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+            const extent =
+                this._graphie.range[0][1] - this._graphie.range[0][0];
             this.ruler = this._graphie.ruler({
                 center: coord,
                 label: this.props.rulerLabel,
