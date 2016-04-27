@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * In review mode (currently only visible in the sat-mission), NumericInput and
  * InputNumber use this component to display the set of correct answers.

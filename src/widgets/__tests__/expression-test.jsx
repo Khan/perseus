@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var, react/jsx-closing-bracket-location */
+/* eslint-disable react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const assert = require("assert");

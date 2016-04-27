@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const _ = require("underscore");
 const GraphieClasses = require("./graphie-classes.jsx");
 const Interactive2 = require("../interactive2.js");

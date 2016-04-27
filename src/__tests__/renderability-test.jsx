@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-var */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const assert = require("assert");
 const Renderability = require("../renderability.jsx");
 const PerseusItemVersion = require("../item-version.js");
