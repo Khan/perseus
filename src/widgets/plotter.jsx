@@ -194,7 +194,7 @@ const Plotter = React.createClass({
         });
 
         if (!isTiledPlot) {
-            for (var y = 0; y <= c.dimY; y += c.scaleY) {
+            for (let y = 0; y <= c.dimY; y += c.scaleY) {
                 graphie.label(
                     [0, y],
                     KhanMath.roundToApprox(y, 2),

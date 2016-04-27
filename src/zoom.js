@@ -39,7 +39,7 @@ function transitionEnd() {
         transition: 'transitionend',
     };
 
-    for (var name in transEndEventNames) {
+    for (const name in transEndEventNames) {
         if (el.style[name] !== undefined) {
             return {
                 end: transEndEventNames[name],

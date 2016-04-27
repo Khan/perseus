@@ -687,7 +687,7 @@ const Renderer = React.createClass({
             // NOTE(aria): These are never strings--always QuestionParagraphs
             // TODO(aria): We probably don't need this string logic here.
             let lastWasString = false;
-            for (var i = 0; i < ast.length; i++) {
+            for (let i = 0; i < ast.length; i++) {
                 state.key = i;
                 state.paragraphIndex = i;
                 const nodeOut = this.outputMarkdown(ast[i], state);
@@ -759,7 +759,7 @@ const Renderer = React.createClass({
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
             let lastWasString = false;
-            for (var i = 0; i < ast.length; i++) {
+            for (let i = 0; i < ast.length; i++) {
                 state.key = i;
                 const nodeOut = this.outputNested(ast[i], state);
                 const isString = (typeof nodeOut === "string");
@@ -966,7 +966,7 @@ const Renderer = React.createClass({
     focus: function() {
         let id;
         let focusResult;
-        for (var i = 0; i < this.widgetIds.length; i++) {
+        for (let i = 0; i < this.widgetIds.length; i++) {
             const widgetId = this.widgetIds[i];
             const widget = this.getWidgetInstance(widgetId);
             const widgetFocusResult = widget && widget.focus && widget.focus();

@@ -2481,7 +2481,7 @@ const Transformer = React.createClass({
 _.extend(Transformer, {
     validate: function(guess, rubric) {
         // Check for any required transformations
-        for (var type in Transformations) {
+        for (const type in Transformations) {
             if (rubric.tools[type].required) {
                 const isUsed = _.any(_.map(guess.transformations, function(
                     transform) {

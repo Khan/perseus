@@ -128,7 +128,7 @@ const Widgets = {
             // There is a little subtlety here in that we call
             // upgradePropsMap[1] to upgrade *to* version 1,
             // (not from version 1).
-            for (var nextVersion = initialVersion.major + 1;
+            for (let nextVersion = initialVersion.major + 1;
                     nextVersion <= latestVersion.major;
                     nextVersion++) {
 

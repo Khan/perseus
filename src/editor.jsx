@@ -857,7 +857,7 @@ const Editor = React.createClass({
             widgets = {};
             underlayPieces = [];
 
-            for (var i = 0; i < pieces.length; i++) {
+            for (let i = 0; i < pieces.length; i++) {
                 if (i % 2 === 0) {
                     // Normal text
                     underlayPieces.push(pieces[i]);

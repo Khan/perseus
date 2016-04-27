@@ -27,7 +27,7 @@ const DOTPLOT = "dotplot";
 function padArray(array, n, value) {
     const copy = _.clone(array);
     copy.length = n;
-    for (var i = array.length; i < n; i++) {
+    for (let i = array.length; i < n; i++) {
         copy[i] = value;
     }
     return copy;

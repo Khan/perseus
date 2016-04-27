@@ -69,7 +69,7 @@ const Util = {
 
         do {
             // Fischer-Yates shuffle
-            for (var top = shuffled.length; top > 0; top--) {
+            for (let top = shuffled.length; top > 0; top--) {
                 const newEnd = Math.floor(random() * top);
                 const temp = shuffled[newEnd];
 
@@ -392,7 +392,7 @@ const Util = {
             if (x.length !== y.length) {
                 return false;
             }
-            for (var i = 0; i < x.length; i++) {
+            for (let i = 0; i < x.length; i++) {
                 if (!Util.deepEq(x[i], y[i])) {
                     return false;
                 }
@@ -523,7 +523,7 @@ const Util = {
             if (Util.touchHandlers.currentTouchIdentifier != null) {
                 const len = event.changedTouches ?
                     event.changedTouches.length : 0;
-                for (var i = 0; i < len; i++) {
+                for (let i = 0; i < len; i++) {
                     if (event.changedTouches[i].identifier ===
                             Util.touchHandlers.currentTouchIdentifier) {
                         touchOrEvent = event.changedTouches[i];

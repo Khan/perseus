@@ -84,7 +84,7 @@ const createArrow = function(graph, style) {
     // the path once the points have been transformed
     const createCubicPath = function(points) {
         let path = "M" + points[0][0] + " " + points[0][1];
-        for (var i = 1; i < points.length; i += 3) {
+        for (let i = 1; i < points.length; i += 3) {
             path += "C" + points[i][0] + " " + points[i][1] + " " +
                           points[i + 1][0] + " " + points[i + 1][1] + " " +
                           points[i + 2][0] + " " + points[i + 2][1];

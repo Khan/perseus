@@ -82,7 +82,7 @@ function intersects(ab, cd) {
         return true;
     }
 
-    for (var i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
         if (orientations[i] === 0 && pointInRect(...triplets[i])) {
             return true;
         }
@@ -149,7 +149,7 @@ function similar(coords1, coords2, tolerance) {
     const sides1 = sideLengths(coords1);
     const sides2 = sideLengths(coords2);
 
-    for (var i = 0; i < 2 * n; i++) {
+    for (let i = 0; i < 2 * n; i++) {
         let angles = angles2.slice();
         let sides = sides2.slice();
 
@@ -1313,14 +1313,14 @@ const InteractiveGraph = React.createClass({
                 if (this.points.length > 3) {
                     // Constrain to simple (non self-intersecting) polygon by
                     // testing whether adjacent segments intersect any others
-                    for (var j = -1; j <= 0; j++) {
+                    for (let j = -1; j <= 0; j++) {
                         const segment = segments[rel(j)];
                         const others = _.without(segments,
                             segment,
                             segments[rel(j - 1)],
                             segments[rel(j + 1)]);
 
-                        for (var k = 0; k < others.length; k++) {
+                        for (let k = 0; k < others.length; k++) {
                             const other = others[k];
                             if (intersects(segment, other)) {
                                 return false;

@@ -17,7 +17,7 @@
 function findEndpoint(tex, currentIndex) {
     let bracketDepth = 0;
 
-    for (var i = currentIndex, len = tex.length; i < len; i++) {
+    for (let i = currentIndex, len = tex.length; i < len; i++) {
         const c = tex[i];
 
         if (c === '{') {

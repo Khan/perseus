@@ -26,7 +26,7 @@ const KAShashFunc = (expr, options) => {
     let result = expr + "||" + options.decimal_separatpr + "||";
     const functions = options.functions;
     const functionsLength = functions ? functions.length : 0;
-    for (var i = 0; i < functionsLength; i++) {
+    for (let i = 0; i < functionsLength; i++) {
         result += functions[i] + "|";
     }
     return result;
