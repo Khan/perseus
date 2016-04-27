@@ -14,7 +14,7 @@ const _choiceTransform = (editorProps, problemNum) => {
     };
 
     const _addNoneOfAbove = function(choices) {
-        const noneOfTheAbove = null;
+        let noneOfTheAbove = null;
 
         const newChoices = _.reject(choices, function(choice, index) {
             if (choice.isNoneOfTheAbove) {
@@ -32,7 +32,7 @@ const _choiceTransform = (editorProps, problemNum) => {
     };
 
     // Add meta-information to choices
-    const choices = editorProps.choices.slice();
+    let choices = editorProps.choices.slice();
     choices = _.map(choices, (choice, i) => {
         return _.extend({}, choice, { originalIndex: i });
     });
@@ -66,8 +66,8 @@ const staticTransform = (editorProps, problemNum) => {
 
 const propUpgrades = {
     1: (v0props) => {
-        const choices;
-        const hasNoneOfTheAbove;
+        let choices;
+        let hasNoneOfTheAbove;
 
         if (!v0props.noneOfTheAbove) {
             choices = v0props.choices;

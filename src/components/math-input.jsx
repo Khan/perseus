@@ -28,7 +28,7 @@ const MathInput = React.createClass({
     },
 
     render: function() {
-        const className = classNames({
+        let className = classNames({
             "perseus-math-input": true,
 
             // mathquill usually adds these itself but react removes them when
@@ -41,7 +41,7 @@ const MathInput = React.createClass({
             className = className + " " + this.props.className;
         }
 
-        const buttons = null;
+        let buttons = null;
         if (this._shouldShowButtons()) {
             buttons = <TexButtons
                 sets={this.props.buttonSets}
@@ -157,7 +157,7 @@ const MathInput = React.createClass({
         window.addEventListener("mousedown", this.handleMouseDown);
         window.addEventListener("mouseup", this.handleMouseUp);
 
-        const initialized = false;
+        let initialized = false;
 
         // Initialize MathQuill.MathField instance
         this.mathField({
@@ -193,7 +193,7 @@ const MathInput = React.createClass({
                     // unlike React it sometimes generates false positives.
                     // One of these is on initialization (with an empty string
                     // value), so we have to guard against that below.
-                    const value = mathField.latex();
+                    let value = mathField.latex();
 
                     // Provide a MathQuill-compatible way to generate the
                     // not-equals sign without pasting unicode or typing TeX

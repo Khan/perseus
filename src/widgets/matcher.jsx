@@ -46,7 +46,7 @@ const Matcher = React.createClass({
         // Use the same random() function to shuffle both columns sequentially
         const rng = seededRNG(this.props.problemNum);
 
-        const left;
+        let left;
         if (!this.props.orderMatters) {
             // If the order doesn't matter, don't shuffle the left column
             left = this.props.left;

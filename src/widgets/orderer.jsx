@@ -74,7 +74,7 @@ const Card = React.createClass({
     },
 
     render: function() {
-        const style = {};
+        let style = {};
 
         if (this.props.floating) {
             style = {
@@ -339,8 +339,8 @@ const Orderer = React.createClass({
         const $draggable = $(ReactDOM.findDOMNode(draggable));
         const list = this.state.current.slice();
 
-        const opt;
-        const placeholderIndex = null;
+        let opt;
+        let placeholderIndex = null;
 
         if (type === "current") {
             // If this is coming from the original list, remove the original
@@ -405,7 +405,7 @@ const Orderer = React.createClass({
         // Find the position of the card we should animate to
         // TODO(alpert): Update mouse position once more before animating?
         const offset = $(ReactDOM.findDOMNode(draggable)).position();
-        const finalOffset = null;
+        let finalOffset = null;
         if (inCardBank) {
             // If we're in the card bank, go through the options to find the
             // one with the same content
@@ -443,7 +443,7 @@ const Orderer = React.createClass({
             return;
         }
 
-        const index;
+        let index;
         if (this.isCardInBank(draggable)) {
             index = null;
         } else {
@@ -466,9 +466,9 @@ const Orderer = React.createClass({
                 $(ReactDOM.findDOMNode(draggable)).offset().left - leftEdge;
         const midHeight =
                 $(ReactDOM.findDOMNode(draggable)).offset().top - topEdge;
-        const index = 0;
-        const sumWidth = 0;
-        const sumHeight = 0;
+        let index = 0;
+        let sumWidth = 0;
+        let sumHeight = 0;
 
         if (isHorizontal) {
             _.each(list, function(opt, i) {

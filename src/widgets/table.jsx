@@ -91,7 +91,7 @@ const Table = React.createClass({
         const columns = this._getColumns();
         const headers = this.props.headers;
 
-        const InputComponent;
+        let InputComponent;
         if (this.props.apiOptions.staticRender) {
             InputComponent = MathOutput;
         } else {
@@ -275,9 +275,9 @@ _.extend(Table, {
         }
         const createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
-        const message = null;
+        let message = null;
         const allCorrect = _.every(solution, function(rowSolution) {
-            const i;
+            let i;
             for (i = 0; i < supplied.length; i++) {
                 const rowSupplied = supplied[i];
                 const correct = _.every(rowSupplied, function(cellSupplied, i) {

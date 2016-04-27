@@ -42,7 +42,7 @@ const UnitExample = React.createClass({
     },
 
     render: function() {
-        const icon;
+        let icon;
         if (this.state.valid) {
             icon = <span>
                 <i className="icon-ok unit-example-okay" />
@@ -67,10 +67,10 @@ const UnitExample = React.createClass({
 
     _checkValidity: function({ name, original, sigfigs }) {
         const parseResult = KAS.unitParse(name);
-        const solvedExample = "";
+        let solvedExample = "";
 
         // A unit is valid if it parses and is equivalent to the original.
-        const valid = true;
+        let valid = true;
 
         if (parseResult.parsed && original) {
             const x = new KAS.Var("x");
@@ -128,9 +128,9 @@ const UnitInputEditor = React.createClass({
     },
 
     render: function() {
-        const { acceptingUnits, accepting } = this.props;
-        acceptingUnits = acceptingUnits || [];
-        const acceptingElem = null;
+        const acceptingUnits = this.props.acceptingUnits || [];
+        const accepting = this.props.accepting;
+        let acceptingElem = null;
         if (accepting === SOME) {
             const unitsArr = acceptingUnits.map((name, i) =>
                 <UnitExample name={name}

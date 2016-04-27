@@ -37,7 +37,7 @@ const MathOutput = React.createClass({
     },
 
     _getInputClassName: function() {
-        const className = "math-output " + ApiClassNames.INPUT + " " +
+        let className = "math-output " + ApiClassNames.INPUT + " " +
             ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
@@ -50,7 +50,7 @@ const MathOutput = React.createClass({
 
     _getDisplayValue: function(value) {
         // Cast from (potentially a) number to string
-        const displayText;
+        let displayText;
         if (value != null) {
             displayText = "" + value;
         } else {

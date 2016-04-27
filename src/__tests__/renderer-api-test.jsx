@@ -60,7 +60,7 @@ describe("Perseus API", function() {
         it("should be able to produce an empty score", function() {
             const renderer = renderQuestionArea(inputNumber1Item);
             renderer.setInputValue(["input-number 1"], "3");
-            const score = renderer.guessAndScore()[1];
+            let score = renderer.guessAndScore()[1];
             assert.strictEqual(score.type, "points");
             assert.strictEqual(score.earned, 0);
             renderer.setInputValue(["input-number 1"], "");
@@ -69,7 +69,7 @@ describe("Perseus API", function() {
         });
 
         it("should be able to accept a callback", function() {
-            const x = 3;
+            let x = 3;
             const renderer = renderQuestionArea(inputNumber1Item);
             assert.strictEqual(x, 3);
             renderer.setInputValue(["input-number 1"], "3", function() {
@@ -118,7 +118,7 @@ describe("Perseus API", function() {
     describe("onInputError", function() {
         it("should call a callback when grading an empty input-number",
             function() {
-                const wasCalled;
+                let wasCalled;
                 const renderer = renderQuestionArea(inputNumber1Item, {
                     onInputError: function(widgetId) {
                         wasCalled = true;
@@ -201,9 +201,9 @@ describe("Perseus API", function() {
     describe("onFocusChange", function() {
         pit("should be called from focused to blurred to back on one input",
             function() {
-                const callCount = 0;
-                const newFocusResult;
-                const oldFocusResult;
+                let callCount = 0;
+                let newFocusResult;
+                let oldFocusResult;
                 const renderer = renderQuestionArea(inputNumber1Item, {
                     onFocusChange: function(newFocus, oldFocus) {
                         callCount++;
@@ -243,9 +243,9 @@ describe("Perseus API", function() {
 
         pit("should be called focusing between two inputs",
             function() {
-                const callCount = 0;
-                const newFocusResult;
-                const oldFocusResult;
+                let callCount = 0;
+                let newFocusResult;
+                let oldFocusResult;
                 const renderer = renderQuestionArea(inputNumber2Item, {
                     onFocusChange: function(newFocus, oldFocus) {
                         callCount++;

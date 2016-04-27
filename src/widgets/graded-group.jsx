@@ -77,7 +77,7 @@ const GradedGroup = React.createClass({
         );
 
 
-        const icon = null;
+        let icon = null;
         // Colors are 10% darker than the colors in graded-group.less
         if (this.state.status === GRADING_STATUSES.correct) {
             icon = <div className="icon-ok" style={{color: "#526f03"}} />;
@@ -131,8 +131,8 @@ const GradedGroup = React.createClass({
     _checkAnswer: function() {
         const score = this.refs.renderer.score();
 
-        const status;
-        const message;
+        let status;
+        let message;
         if (score.type === "points") {
             status = score.total === score.earned ?
                 GRADING_STATUSES.correct : GRADING_STATUSES.incorrect;

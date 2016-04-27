@@ -21,9 +21,9 @@ function canonicalSineCoefficients(coeffs) {
     // For a curve of the form f(x) = a * Sin(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its
     // smallest possible positive value.
-    const amplitude = coeffs[0];
-    const angularFrequency = coeffs[1];
-    const phase = coeffs[2];
+    let amplitude = coeffs[0];
+    let angularFrequency = coeffs[1];
+    let phase = coeffs[2];
     const verticalOffset = coeffs[3];
 
     // Guarantee a > 0
@@ -56,9 +56,9 @@ function canonicalTangentCoefficients(coeffs) {
     // For a curve of the form f(x) = a * Tan(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its
     // smallest possible positive value.
-    const amplitude = coeffs[0];
-    const angularFrequency = coeffs[1];
-    const phase = coeffs[2];
+    let amplitude = coeffs[0];
+    let angularFrequency = coeffs[1];
+    let phase = coeffs[2];
     const verticalOffset = coeffs[3];
 
     // Guarantee a > 0
@@ -451,7 +451,7 @@ const AbsoluteValue = _.extend({}, PlotDefaults, {
             return;
         }
 
-        const m = Math.abs(num / denom);
+        let m = Math.abs(num / denom);
         if (p2[1] < p1[1]) {
             m *= -1;
         }

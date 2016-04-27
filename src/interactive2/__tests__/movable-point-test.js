@@ -84,7 +84,7 @@ describe("MovablePoint", function() {
 
     describe("onMove", function() {
         it("should be called when movable is moved", function() {
-            const movedToCoord;
+            let movedToCoord;
             const handle = createPoint({
                 coord: [1, 2],
                 onMove: function(newCoord, prevCoord) {
@@ -101,7 +101,7 @@ describe("MovablePoint", function() {
 
     describe("onClick", function() {
         it("should be called if the point didn't move", function() {
-            const clickCoord;
+            let clickCoord;
             const handle = createPoint({
                 coord: [1, 2],
                 onClick: function(coord) {

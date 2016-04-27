@@ -44,14 +44,14 @@ const Video = React.createClass({
             return <div/>;
         }
 
-        const url;
+        let url;
 
         if (IS_URL.test(location)) {
             url = location;
         } else {
             url = KA_EMBED.replace("{slug}", location);
             const currentHostname = document.location.hostname;
-            const embedHostname = "www.khanacademy.org";
+            let embedHostname = "www.khanacademy.org";
             if (IS_KA_SITE.test(currentHostname)) {
                 embedHostname = currentHostname;
             }

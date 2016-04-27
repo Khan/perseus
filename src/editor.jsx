@@ -31,7 +31,7 @@ const TRAILING_NEWLINES = /(\n*)$/;
 const LEADING_NEWLINES = /^(\n*)/;
 
 const commafyInteger = (n) => {
-    const str = n.toString();
+    let str = n.toString();
     if (str.length >= 5) {
         str = str.replace(/(\d)(?=(\d{3})+$)/g, "$1{,}");
     }
@@ -170,7 +170,7 @@ const WidgetEditor = React.createClass({
         const widgetInfo = this.state.widgetInfo;
 
         const Ed = Widgets.getEditor(widgetInfo.type);
-        const supportedAlignments;
+        let supportedAlignments;
         if (this.props.apiOptions.showAlignmentOptions) {
             supportedAlignments =
                 Widgets.getSupportedAlignments(widgetInfo.type);
@@ -444,7 +444,7 @@ const Editor = React.createClass({
     },
 
     handleDrop: function(e) {
-        const content = this.props.content;
+        let content = this.props.content;
         const dataTransfer = e.nativeEvent.dataTransfer;
 
         // files will hold something if the drag was from the desktop or a file
@@ -751,14 +751,14 @@ const Editor = React.createClass({
         }
         e.target.value = "";
 
-        const oldContent = this.props.content;
+        let oldContent = this.props.content;
 
         // Force templates to have a blank line before them,
         // as they are usually used as block elements
         // (especially important for tables)
         oldContent = oldContent.replace(/\n*$/, "\n\n");
 
-        const template;
+        let template;
         if (templateType === "table") {
             template = "header 1 | header 2 | header 3\n" +
                        "- | - | -\n" +
@@ -833,13 +833,13 @@ const Editor = React.createClass({
     },
 
     render: function() {
-        const pieces;
-        const widgets;
-        const underlayPieces;
-        const widgetsDropDown;
-        const templatesDropDown;
-        const widgetsAndTemplates;
-        const wordCountDisplay;
+        let pieces;
+        let widgets;
+        let underlayPieces;
+        let widgetsDropDown;
+        let templatesDropDown;
+        let widgetsAndTemplates;
+        let wordCountDisplay;
 
         if (this.props.showWordCount) {
             const numChars = PerseusMarkdown.characterCount(this.props.content);
@@ -955,7 +955,7 @@ const Editor = React.createClass({
                 value={this.props.content}
             />,
         ];
-        const textareaWrapper;
+        let textareaWrapper;
         if (this.props.imageUploader) {
             textareaWrapper = <DragTarget
                 onDrop={this.handleDrop}

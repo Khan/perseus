@@ -79,8 +79,8 @@ const InteractiveGraphEditor = React.createClass({
     deprecatedProps: deprecatedProps,
 
     render: function() {
-        const graph;
-        const equationString;
+        let graph;
+        let equationString;
 
         const gridStep = this.props.gridStep || Util.getGridStep(
                 this.props.range,
@@ -111,7 +111,7 @@ const InteractiveGraphEditor = React.createClass({
                 trackInteraction: function() {},
                 flexibleType: true,
                 onChange: (newProps) => {
-                    const correct = this.props.correct;
+                    let correct = this.props.correct;
                     if (correct.type === newProps.graph.type) {
                         correct = _.extend({}, correct, newProps.graph);
                     } else {

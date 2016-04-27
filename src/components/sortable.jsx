@@ -338,7 +338,7 @@ const Sortable = React.createClass({
         // explictly set on Draggables - this prevents them from changing size
         // or shape while being dragged.
 
-        const items = _.clone(this.state.items);
+        let items = _.clone(this.state.items);
         const $items = _.map(items, function(item) {
             return $(ReactDOM.findDOMNode(this.refs[item.key]));
         }, this);
@@ -349,7 +349,7 @@ const Sortable = React.createClass({
         const constraints = this.props.constraints;
         const layout = this.props.layout;
 
-        const syncWidth;
+        let syncWidth;
         if (constraints.width) {
             // Items must be at least as wide as the specified constraint
             syncWidth = _.max(widths.concat(constraints.width));
@@ -358,7 +358,7 @@ const Sortable = React.createClass({
             syncWidth = _.max(widths);
         }
 
-        const syncHeight;
+        let syncHeight;
         if (constraints.height) {
             // Items must be at least as high as the specified constraint
             syncHeight = _.max(heights.concat(constraints.height));
@@ -386,7 +386,7 @@ const Sortable = React.createClass({
     }, 20),
 
     render: function() {
-        const className = [PREFIX, "layout-" + this.props.layout].join(" ");
+        let className = [PREFIX, "layout-" + this.props.layout].join(" ");
         const cards = [];
 
         className += this.props.padding ? "" : " unpadded";
@@ -394,7 +394,7 @@ const Sortable = React.createClass({
         _.each(this.state.items, function(item, i, items) {
             const isLast = (i === items.length - 1);
             const isStatic = (item.type === STATIC || item.type === DISABLED);
-            const margin;
+            let margin;
 
             if (this.props.layout === HORIZONTAL) {
                 margin = "0 " + this.props.margin + "px 0 0"; // right
@@ -460,14 +460,14 @@ const Sortable = React.createClass({
         const item = _.findWhere(this.state.items, {key: key});
         const margin = this.props.margin;
         const currentIndex = _.indexOf(items, item);
-        const newIndex = 0;
+        let newIndex = 0;
 
         items.splice(currentIndex, 1);
 
         if (this.props.layout === HORIZONTAL) {
             const midWidth = $draggable.offset().left - $sortable.offset().left;
-            const sumWidth = 0;
-            const cardWidth;
+            let sumWidth = 0;
+            let cardWidth;
 
             _.each(items, function(item) {
                 cardWidth = item.width;
@@ -479,8 +479,8 @@ const Sortable = React.createClass({
 
         } else {
             const midHeight = $draggable.offset().top - $sortable.offset().top;
-            const sumHeight = 0;
-            const cardHeight;
+            let sumHeight = 0;
+            let cardHeight;
 
             _.each(items, function(item) {
                 cardHeight = item.height;

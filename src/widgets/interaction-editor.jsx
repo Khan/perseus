@@ -710,7 +710,7 @@ const InteractionEditor = React.createClass({
                         _.clone(RectangleEditor.defaultProps) : {},
         };
 
-        const nextSubscript;
+        let nextSubscript;
         if (elementType === "movable-point") {
             nextSubscript =
                 _.max([_.max(this.state.usedVarSubscripts), -1]) + 1;

@@ -61,7 +61,7 @@ const getClipPoint = function(graph, coord, angle) {
 const createArrow = function(graph, style) {
     // Points that define the arrowhead
     const center = [0.75, 0];
-    const points = [
+    let points = [
         [-3, 4],
         [-2.75, 2.5],
         [0, 0.25],
@@ -83,7 +83,7 @@ const createArrow = function(graph, style) {
     // the points in some way, so instead we provide a function for creating
     // the path once the points have been transformed
     const createCubicPath = function(points) {
-        const path = "M" + points[0][0] + " " + points[0][1];
+        let path = "M" + points[0][0] + " " + points[0][1];
         for (var i = 1; i < points.length; i += 3) {
             path += "C" + points[i][0] + " " + points[i][1] + " " +
                           points[i + 1][0] + " " + points[i + 1][1] + " " +
@@ -148,8 +148,8 @@ modify.standard = [modify.draw];
 const draw = {
     basic: function(state) {
         const graphie = this.graphie;
-        const start = this.coord(0);
-        const end = this.coord(1);
+        let start = this.coord(0);
+        let end = this.coord(1);
 
         if (!this.state.visibleShape) {
             const options = {
@@ -260,7 +260,7 @@ const constraints = {
             if (snap === null) {
                 return true;
             }
-            const delta = kvector.subtract(coord, prevCoord);
+            let delta = kvector.subtract(coord, prevCoord);
             snap = snap || this.graphie.snap;
             delta = kpoint.roundTo(delta, snap);
             return kvector.add(prevCoord, delta);
@@ -286,11 +286,11 @@ const constraints = {
             }
 
             // Calculate the bounds for both points
-            const absoluteLower = graphie.unscalePoint([
+            let absoluteLower = graphie.unscalePoint([
                 paddingPx,
                 graphie.ypixels - paddingPx,
             ]);
-            const absoluteUpper = graphie.unscalePoint([
+            let absoluteUpper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
                 paddingPx,
             ]);

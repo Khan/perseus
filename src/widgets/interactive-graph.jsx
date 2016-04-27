@@ -149,8 +149,8 @@ function similar(coords1, coords2, tolerance) {
     const sides2 = sideLengths(coords2);
 
     for (var i = 0; i < 2 * n; i++) {
-        const angles = angles2.slice();
-        const sides = sides2.slice();
+        let angles = angles2.slice();
+        let sides = sides2.slice();
 
         // Reverse angles and sides to allow matching reflected polygons
         if (i >= n) {
@@ -202,9 +202,9 @@ function canonicalSineCoefficients(coeffs) {
     // For a curve of the form f(x) = a * Sin(b * x - c) + d,
     // this function ensures that a, b > 0, and c is its
     // smallest possible positive value.
-    const amplitude = coeffs[0];
-    const angularFrequency = coeffs[1];
-    const phase = coeffs[2];
+    let amplitude = coeffs[0];
+    let angularFrequency = coeffs[1];
+    let phase = coeffs[2];
     const verticalOffset = coeffs[3];
 
     // Guarantee a > 0
@@ -377,8 +377,8 @@ const InteractiveGraph = React.createClass({
     },
 
     render: function() {
-        const typeSelect;
-        const extraOptions;
+        let typeSelect;
+        let extraOptions;
         if (this.props.flexibleType) {
             typeSelect = <select
                     value={this.props.graph.type}
@@ -600,7 +600,7 @@ const InteractiveGraph = React.createClass({
 
         const box = this.props.box;
 
-        const instructions;
+        let instructions;
         if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
             if  (this.props.graph.type === "point") {
                 instructions = i18n._("Click to add points");
@@ -668,7 +668,7 @@ const InteractiveGraph = React.createClass({
                 "when isClickToAddPoints() is false");
         }
         if (!this.isCoordInTrash(coord)) {
-            const point;
+            let point;
             if (this.props.graph.type === "point") {
                 point = this.createPointForPointsType(
                     coord,
@@ -834,14 +834,14 @@ const InteractiveGraph = React.createClass({
 
     addQuadraticControls: function() {
         const graphie = this.graphie;
-        const coords = this.props.graph.coords;
+        let coords = this.props.graph.coords;
         if (!coords) {
             coords = InteractiveGraph.defaultQuadraticCoords(this.props);
         }
 
-        const pointA;
-        const pointB;
-        const pointC;
+        let pointA;
+        let pointB;
+        let pointC;
         const onMoveHandler = () => {
             const graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord(), pointB.coord(), pointC.coord()],
@@ -927,13 +927,13 @@ const InteractiveGraph = React.createClass({
 
     addSinusoidControls: function() {
         const graphie = this.graphie;
-        const coords = this.props.graph.coords;
+        let coords = this.props.graph.coords;
         if (!coords) {
             coords = InteractiveGraph.defaultSinusoidCoords(this.props);
         }
 
-        const pointA;
-        const pointB;
+        let pointA;
+        let pointB;
         const onMoveHandler = () => {
             const graph = _.extend({}, this.props.graph, {
                 coords: [pointA.coord(), pointB.coord()],
@@ -1152,7 +1152,7 @@ const InteractiveGraph = React.createClass({
     },
 
     removePoint: function(point) {
-        const index = null;
+        let index = null;
         this.points = _.filter(this.points, function(pt, i) {
             if (pt === point) {
                 index = i;
@@ -1594,7 +1594,7 @@ const InteractiveGraph = React.createClass({
     },
 
     updatePolygon: function() {
-        const closed;
+        let closed;
         if (this.polygon) {
             closed = this.polygon.closed();
         } else if (this.points.length >= 3) {
@@ -1816,7 +1816,7 @@ _.extend(InteractiveGraph, {
      */
     getPointCoords: function(graph, props) {
         const numPoints = graph.numPoints || 1;
-        const coords = graph.coords;
+        let coords = graph.coords;
 
         if (coords) {
             return coords;
@@ -1875,7 +1875,7 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getPolygonCoords: function(graph, props) {
-        const coords = graph.coords;
+        let coords = graph.coords;
         if (coords) {
             return coords;
         }
@@ -1933,7 +1933,7 @@ _.extend(InteractiveGraph, {
         const range = [[-10, 10], [-10, 10]];
 
         return _.map(ys, function(y) {
-            const segment = [[-5, y], [5, y]];
+            let segment = [[-5, y], [5, y]];
             segment = InteractiveGraph.normalizeCoords(segment, range);
             segment = InteractiveGraph.pointsFromNormalized(props, segment);
             return segment;
@@ -1945,13 +1945,13 @@ _.extend(InteractiveGraph, {
      * @param {object} props of an InteractiveGraph instance
      */
     getAngleCoords: function(graph, props) {
-        const coords = graph.coords;
+        let coords = graph.coords;
         if (coords) {
             return coords;
         }
 
         const snap = graph.snapDegrees || 1;
-        const angle = snap;
+        let angle = snap;
         while (angle < 20) {
             angle += snap;
         }
@@ -2112,7 +2112,7 @@ _.extend(InteractiveGraph, {
         const coords = InteractiveGraph.getLineCoords(props.graph, props);
         const a = coords[0];
         const b = coords[1];
-        const eq = InteractiveGraph.getLinearEquationString(props);
+        let eq = InteractiveGraph.getLinearEquationString(props);
 
         if (a[0] > b[0]) {
             eq += " (for x <= " + a[0].toFixed(3) + ")";

@@ -56,7 +56,7 @@ const ExpressionEditor = React.createClass({
         // backslashes or curly braces, then come back to the question and
         // it's surprisingly not TeX anymore.
 
-        const isTex;
+        let isTex;
         // default to TeX if new;
         if (this.props.answerForms.length === 0) {
             isTex = true;
@@ -320,8 +320,8 @@ const ExpressionEditor = React.createClass({
         // "basic+div". Toggle between the two of them.
         // If someone can think of a more elegant formulation of this (there
         // must be one!) feel free to change it.
-        const keep;
-        const remove;
+        let keep;
+        let remove;
         if (_(this.props.buttonSets).contains("basic+div")) {
             keep = "basic";
             remove = "basic+div";
@@ -352,7 +352,7 @@ const ExpressionEditor = React.createClass({
 
 // Find the next element in arr after val, wrapping around to the first.
 const findNextIn = function(arr, val) {
-    const ix = _(arr).indexOf(val);
+    let ix = _(arr).indexOf(val);
     ix = (ix + 1) % arr.length;
     return arr[ix];
 };
@@ -384,7 +384,7 @@ const AnswerOption = React.createClass({
     },
 
     render: function() {
-        const removeButton = null;
+        let removeButton = null;
         if (this.state.deleteFocused) {
             removeButton = <button type="button"
                                    className="simple-button orange"

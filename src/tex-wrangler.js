@@ -15,7 +15,7 @@
   * bracket equality).
   */
 function findEndpoint(tex, currentIndex) {
-    const bracketDepth = 0;
+    let bracketDepth = 0;
 
     for (var i = currentIndex, len = tex.length; i < len; i++) {
         const c = tex[i];
@@ -78,9 +78,9 @@ function getNextFracIndex(tex, currentIndex) {
 
 function walkTex(tex, handler) {
     // Ex) tex: '2 \dfrac {3}{7}'
-    const parsedString = "";
-    const currentIndex = 0;
-    const nextFrac = getNextFracIndex(tex, currentIndex);
+    let parsedString = "";
+    let currentIndex = 0;
+    let nextFrac = getNextFracIndex(tex, currentIndex);
 
     // For each \dfrac, find the two expressions (wrapped in {}) and recur
     while (nextFrac > -1) {
@@ -134,7 +134,7 @@ function modifyTex(tex) {
         return tex.indexOf("\\frac") > -1 || tex.indexOf("\\dfrac") > -1;
     }
     const handler = function(exp1, exp2) {
-        const prefix;
+        let prefix;
         if (isNestedFraction(exp1) || isNestedFraction(exp2)) {
             prefix = "\\dfrac";
         } else {

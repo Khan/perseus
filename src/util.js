@@ -31,11 +31,11 @@ const Util = {
     },
 
     seededRNG: function(seed) {
-        const randomSeed = seed;
+        let randomSeed = seed;
 
         return function() {
             // Robert Jenkins' 32 bit integer hash function.
-            const seed = randomSeed;
+            let seed = randomSeed;
             seed = ((seed + 0x7ed55d16) + (seed << 12)) & 0xffffffff;
             seed = ((seed ^ 0xc761c23c) ^ (seed >>> 19)) & 0xffffffff;
             seed = ((seed + 0x165667b1) + (seed << 5)) & 0xffffffff;
@@ -60,7 +60,7 @@ const Util = {
             return shuffled;
         }
 
-        const random;
+        let random;
         if (_.isFunction(randomSeed)) {
             random = randomSeed;
         } else {
@@ -88,8 +88,8 @@ const Util = {
             // Based on Steven Levithan's MIT-licensed split, available at
             // http://blog.stevenlevithan.com/archives/cross-browser-split
             const output = [];
-            const lastIndex = r.lastIndex = 0;
-            const match;
+            let lastIndex = r.lastIndex = 0;
+            let match;
 
             while ((match = r.exec(str))) {
                 output.push(str.slice(lastIndex, match.index));
@@ -106,7 +106,7 @@ const Util = {
      * if one is wrong, the total score is wrong, etc.
      */
     combineScores: function(scoreA, scoreB) {
-        const message;
+        let message;
 
         if (scoreA.type === "points" && scoreB.type === "points") {
             if (scoreA.message && scoreB.message &&
@@ -172,7 +172,7 @@ const Util = {
      */
     firstNumericalParse: function(text) {
         // TODO(alpert): This is sort of hacky...
-        const first;
+        let first;
         const val = KhanAnswerTypes.predicate.createValidatorFunctional(
             function(ans) {
                 first = ans;
@@ -262,7 +262,7 @@ const Util = {
     tickStepFromExtent: function(extent, dimensionConstraint) {
         const span = extent[1] - extent[0];
 
-        const tickFactor;
+        let tickFactor;
         // If single number digits
         if (15 < span && span <= 20) {
             tickFactor = 23;
@@ -320,7 +320,7 @@ const Util = {
      *      tickStepFromNumTicks(50, 6) // returns 10
      */
     tickStepFromNumTicks: function(span, numTicks) {
-        const step = Math.pow(10,
+        let step = Math.pow(10,
             Math.floor(Math.log(span / numTicks) / Math.LN10));
         const err = numTicks / span * step;
 
@@ -425,7 +425,7 @@ const Util = {
     parseQueryString: function(query) {
         query = query || window.location.search.substring(1);
         const urlParams = {};
-        const e;
+        let e;
         const a = /\+/g;  // Regex for replacing addition symbol with a space
         const r = /([^&=]+)=?([^&]*)/g;
         const d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
@@ -516,7 +516,7 @@ const Util = {
     },
 
     extractPointerLocation: function(event) {
-        const touchOrEvent;
+        let touchOrEvent;
 
         if (Util.touchHandlers.pointerDown) {
             // Look for the touch matching the one we're tracking; ignore others

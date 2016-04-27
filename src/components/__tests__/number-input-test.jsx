@@ -15,7 +15,7 @@ const STARTING_VALUE = 1;
 describe("NumberInput", function() {
 
     const testInputResult = function(input, result, extraProps) {
-        const newVal;
+        let newVal;
         const handleChange = function(val) {
             newVal = val;
         };
@@ -51,7 +51,7 @@ describe("NumberInput", function() {
         const endingValue = args.endingValue;
         const keysEnabled = args.keysEnabled;
 
-        const newVal = startingValue;
+        let newVal = startingValue;
         const handleChange = function(val) {
             newVal = val;
         };

@@ -13,7 +13,7 @@ const WidgetDiff = require("./widget-diff.jsx");
 // Deeply look up a property in an object,
 // -> getPath(obj, ["a", "b", "c"]) === obj["a"]["b"]["c"]
 const getPath = function(obj, path, defaultValue) {
-    const returningDefault = false;
+    let returningDefault = false;
     const result = _(path).reduce(function(obj, key) {
         if (returningDefault || !obj.hasOwnProperty(key)) {
             returningDefault = true;
@@ -54,7 +54,7 @@ const RevisionDiff = React.createClass({
         // Not going to handle inserting hints in the middle so well, but
         // that's pretty complicated to handle nicely.
         // This will do for now.
-        const hintCount = 0;
+        let hintCount = 0;
         if (_(before).has("hints") && _(after).has("hints")) {
             hintCount = Math.max(before.hints.length, after.hints.length);
         }
@@ -106,9 +106,9 @@ const RevisionDiff = React.createClass({
 
         _(sections).each(function(section, i) {
             const path = section.path;
-            const beforeValue = getPath(before, path, "");
-            const afterValue = getPath(after, path, "");
-            const displayedDiff;
+            let beforeValue = getPath(before, path, "");
+            let afterValue = getPath(after, path, "");
+            let displayedDiff;
             if (isWidget(beforeValue) || isWidget(afterValue)) {
                 if (!isWidget(beforeValue)) {
                     beforeValue = {};

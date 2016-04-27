@@ -47,7 +47,7 @@ const Passage = React.createClass({
     },
 
     render: function() {
-        const lineNumbers;
+        let lineNumbers;
         const nLines = this.state.nLines;
         if (this.props.showLineNumbers && nLines) {
             // lineN is the line number in the current passage;
@@ -130,7 +130,7 @@ const Passage = React.createClass({
     },
 
     _getInitialLineNumber: function() {
-        const isPassageBeforeThisPassage = true;
+        let isPassageBeforeThisPassage = true;
         const passagesBeforeUs = this.props.interWidgets((id, widgetInfo) => {
             if (widgetInfo.type !== "passage") {
                 return false;
@@ -158,7 +158,7 @@ const Passage = React.createClass({
         const firstQuestionNumber = parseState.firstQuestionRef;
         const firstSentenceRef = parseState.firstSentenceRef;
 
-        const instructions = "";
+        let instructions = "";
         if (firstQuestionNumber) {
             instructions += i18n._(
                 "The symbol %(questionSymbol)s indicates that question " +
@@ -212,7 +212,7 @@ const Passage = React.createClass({
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the first text after the ref, not the
         // ref element itself:
-        const $refText = $ref.next();
+        let $refText = $ref.next();
         if ($refText.length === 0) {
             // But if there are no elements after the ref, just
             // use the ref itself.
@@ -234,7 +234,7 @@ const Passage = React.createClass({
         const $ref = $(ReactDOM.findDOMNode(ref));
         // We really care about the last text before the ref, not the
         // ref element itself:
-        const $refText = $ref.prev();
+        let $refText = $ref.prev();
         if ($refText.length === 0) {
             // But if there are no elements before the ref, just
             // use the ref itself.
@@ -243,7 +243,7 @@ const Passage = React.createClass({
         const height = $refText.height();
         const vPos = $refText.offset().top;
 
-        const line = this._convertPosToLineNumber(vPos + height);
+        let line = this._convertPosToLineNumber(vPos + height);
         if (height === 0) {
             // If the element before the end ref span was the start
             // ref span, it might have 0 height. This is obviously not

@@ -33,7 +33,7 @@ const Util = require("./util.js");
  */
 const mathMatcher = (source, state, isBlock) => {
     const length = source.length;
-    const index = 0;
+    let index = 0;
 
     // When looking for blocks, skip over leading spaces
     if (isBlock) {
@@ -52,7 +52,7 @@ const mathMatcher = (source, state, isBlock) => {
 
     index++;
     const startIndex = index;
-    const braceLevel = 0;
+    let braceLevel = 0;
 
     // Loop through the source, looking for a closing '$'
     // closing '$'s only count if they are not escaped with
@@ -73,7 +73,7 @@ const mathMatcher = (source, state, isBlock) => {
 
         } else if (braceLevel <= 0 && character === "$") {
 
-            const endIndex = index + 1;
+            let endIndex = index + 1;
             if (isBlock) {
                 // Look for two trailing newlines after the closing `$`
                 const match = /^(?: *\n){2,}/.exec(source.slice(endIndex));

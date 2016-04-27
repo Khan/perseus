@@ -52,7 +52,7 @@ function transitionEnd() {
 
 // http://blog.alexmaccaw.com/css-transitions
 $.fn.emulateTransitionEnd = function(duration) {
-    const called = false;
+    let called = false;
     const $el = this;
     $(this).one('bsTransitionEnd', function() {
         called = true;

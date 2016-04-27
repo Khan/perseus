@@ -105,8 +105,8 @@ const rules = {
                 // We need to do extra processing here to capture the
                 // full text of the reference, which we include so that
                 // we can use that information as a screenreader
-                const closeIndex = 2; // start looking after the opening "{{"
-                const refNestingLevel = 0;
+                let closeIndex = 2; // start looking after the opening "{{"
+                let refNestingLevel = 0;
 
                 // Find the closing "}}" for our opening "{{"
                 while (closeIndex < source.length) {

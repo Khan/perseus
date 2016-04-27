@@ -196,7 +196,7 @@ _.extend(MovablePoint.prototype, {
 
         // The starting coord of any move, sent to onMoveEnd as the previous
         // value
-        const startCoord = state.coord;
+        let startCoord = state.coord;
 
         // The Movable representing this movablePoint's representation
         // This handles mouse events for us, which we propagate in

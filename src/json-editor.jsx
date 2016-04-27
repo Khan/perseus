@@ -63,7 +63,7 @@ const JsonEditor = React.createClass({
     handleChange: function(e) {
         const nextString = e.target.value;
         try {
-            const json = JSON.parse(nextString);
+            let json = JSON.parse(nextString);
             // Some extra handling to allow copy-pasting from /api/vi
             if (_.isString(json)) {
                 json = JSON.parse(json);
@@ -90,7 +90,7 @@ const JsonEditor = React.createClass({
     handleBlur: function(e) {
         const nextString = e.target.value;
         try {
-            const json = JSON.parse(nextString);
+            let json = JSON.parse(nextString);
             // Some extra handling to allow copy-pasting from /api/vi
             if (_.isString(json)) {
                 json = JSON.parse(json);

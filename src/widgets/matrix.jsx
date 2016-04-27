@@ -70,7 +70,7 @@ const getMatrixSize = function(matrix) {
     // We need to find the widest row and tallest column to get the correct
     // matrix size.
     _(matrix).each((matrixRow, row) => {
-        const rowWidth = 0;
+        let rowWidth = 0;
         _(matrixRow).each((matrixCol, col) => {
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;
@@ -239,7 +239,7 @@ const Matrix = React.createClass({
                                 },
                             };
 
-                            const MatrixInput;
+                            let MatrixInput;
                             if (this.props.apiOptions.staticRender) {
                                 MatrixInput = <MathOutput {...inputProps} />;
                             } else if (this.props.numericInput) {
@@ -322,14 +322,14 @@ const Matrix = React.createClass({
     handleKeyDown: function(row, col, e) {
         const maxRow = this.props.matrixBoardSize[0];
         const maxCol = this.props.matrixBoardSize[1];
-        const enterTheMatrix = null;
+        let enterTheMatrix = null;
 
         const curInput = this.refs[getRefForPath(getInputPath(row, col))];
         const curValueString = curInput.getStringValue();
         const cursorStartPosition = curInput.getSelectionStart();
         const cursorEndPosition = curInput.getSelectionEnd();
 
-        const nextPath = null;
+        let nextPath = null;
         if (e.key === "ArrowUp" && row > 0) {
             nextPath = getInputPath(row - 1, col);
         } else if (e.key === "ArrowDown" && row + 1 < maxRow) {
@@ -412,9 +412,9 @@ _.extend(Matrix, {
 
         const createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
-        const message = null;
-        const hasEmptyCell = false;
-        const incorrect = false;
+        let message = null;
+        let hasEmptyCell = false;
+        let incorrect = false;
         _(suppliedSize[0]).times((row) => {
             _(suppliedSize[1]).times((col) => {
                 if (supplied[row][col] == null ||

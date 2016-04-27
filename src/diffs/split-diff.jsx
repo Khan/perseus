@@ -10,7 +10,7 @@ const _ = require("underscore");
 
 const splitDiff = function(diffEntries) {
     const lines = [];
-    const currentLine = [];
+    let currentLine = [];
     _.each(diffEntries, (entry) => {
         const values = entry.value.split("\n");
         _.each(values, (value, i) => {

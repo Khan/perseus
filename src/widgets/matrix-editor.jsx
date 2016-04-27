@@ -23,7 +23,7 @@ const getMatrixSize = function(matrix) {
     // We need to find the widest row and tallest column to get the correct
     // matrix size.
     _(matrix).each((matrixRow, row) => {
-        const rowWidth = 0;
+        let rowWidth = 0;
         _(matrixRow).each((matrixCol, col) => {
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;

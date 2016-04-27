@@ -73,7 +73,7 @@ const MovableLine = GraphieClasses.createClass({
 _.extend(MovableLine, Interactive2.MovableLine);
 
 const Label = GraphieClasses.createSimpleClass((graphie, props) => {
-    const coord = props.coord;
+    let coord = props.coord;
     if (props.unscaled) {
         coord = graphie.unscalePoint(coord);
     }
@@ -210,8 +210,8 @@ const Path = GraphieClasses.createClass({
 });
 
 const Arc = GraphieClasses.createSimpleClass((graphie, props) => {
-    const center = props.center;
-    const radius = props.radius;
+    let center = props.center;
+    let radius = props.radius;
     if (props.unscaled) {
         center = graphie.unscalePoint(center);
         radius = graphie.unscaleVector(radius);

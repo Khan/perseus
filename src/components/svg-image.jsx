@@ -492,7 +492,7 @@ const SvgImage = React.createClass({
         // TODO(alex): Convert all existing uses of that to web+graphie. This
         // is tricky because web+graphie doesn't support labels on non-graphie
         // images.
-        const extraGraphie;
+        let extraGraphie;
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
                 <Graphie
@@ -555,13 +555,13 @@ const SvgImage = React.createClass({
 
         const imageUrl = getSvgUrl(this.props.src);
 
-        const graphie;
+        let graphie;
         // Since we only want to do the graphie setup once, we only render the
         // graphie once everything is loaded
         if (this.isLoadedInState(this.state)) {
             // Use the provided width and height to size the graphie if
             // possible, otherwise use our own calculated size
-            const box;
+            let box;
             if (this.sizeProvided()) {
                 box = [width, height];
             } else {

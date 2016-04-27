@@ -5,7 +5,7 @@
 /* global beforeEach:false, expect:false */
 
 describe("widget-diff-performer", function() {
-    const diff;
+    let diff;
 
     beforeEach(function() {
         diff = require("../widget-diff-performer.jsx");

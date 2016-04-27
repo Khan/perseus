@@ -335,7 +335,7 @@ const GraphSettings = React.createClass({
 
     validateGraphSettings: function(range, step, gridStep, snapStep, image) {
         const self = this;
-        const msg;
+        let msg;
         const goodRange = _.every(range, function(range) {
             msg = self.validRange(range);
             return msg === true;

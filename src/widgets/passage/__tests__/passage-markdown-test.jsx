@@ -12,8 +12,8 @@ const rules = PassageMarkdown._rulesForTesting;
 
 const validateParse = (parsed, expected) => {
     if (!_.isEqual(parsed, expected)) {
-        const parsedStr = JSON.stringify(parsed, null, 4);
-        const expectedStr = JSON.stringify(expected, null, 4);
+        let parsedStr = JSON.stringify(parsed, null, 4);
+        let expectedStr = JSON.stringify(expected, null, 4);
         if (parsedStr === expectedStr) {
             // If these two are the same, there were some different
             // properties that didn't get picked up in JSON.stringify,

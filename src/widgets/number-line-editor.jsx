@@ -74,7 +74,7 @@ const NumberLineEditor = React.createClass({
     },
 
     onLabelRangeChange: function(i, num) {
-        const labelRange = this.props.labelRange.slice();
+        let labelRange = this.props.labelRange.slice();
         const otherNum = labelRange[1 - i];
 
         if (num == null || otherNum == null) {
@@ -90,7 +90,7 @@ const NumberLineEditor = React.createClass({
     },
 
     onDivisionRangeChange: function(divisionRange) {
-        const numDivisions = this.props.numDivisions;
+        let numDivisions = this.props.numDivisions;
         numDivisions = bound(numDivisions, divisionRange[0], divisionRange[1]);
         this.props.onChange({
             divisionRange: divisionRange,

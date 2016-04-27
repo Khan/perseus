@@ -199,7 +199,7 @@ const Graphie = React.createClass({
         // because if we have, then we need to call .toFront() on any svg
         // elements occurring afterwards. If this happens, we set
         // `areMovablesOutOfOrder` to true:
-        const areMovablesOutOfOrder = false;
+        let areMovablesOutOfOrder = false;
         return nestedMap(children, (childDescriptor) => {
             if (!childDescriptor) {
                 // Still increment the key to avoid cascading key changes

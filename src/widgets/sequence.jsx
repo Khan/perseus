@@ -100,7 +100,7 @@ const traverseChildWidgets = function(
         props,
         traverseRenderer) {
 
-    const oldJson = props.json;
+    let oldJson = props.json;
     if (!_.isArray(oldJson)) {
         oldJson = [oldJson];
     }

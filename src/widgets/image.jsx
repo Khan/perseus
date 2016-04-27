@@ -71,10 +71,10 @@ const ImageWidget = React.createClass({
     },
 
     render: function() {
-        const title;
-        const image;
-        const alt;
-        const caption;
+        let title;
+        let image;
+        let alt;
+        let caption;
         const {apiOptions} = this.props;
 
         if (this.props.title) {

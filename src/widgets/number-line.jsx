@@ -106,7 +106,7 @@ const TickMarks = Graphie.createSimpleClass((graphie, props) => {
     const rightLabel = labelRange[1] == null ? range[1] : labelRange[1];
 
     // Find base via GCD for non-reduced fractions
-    const base;
+    let base;
     if (props.labelStyle === "non-reduced") {
         const fractions = [leftLabel, rightLabel];
         for (let i = 0; i <= props.numDivisions; i++) {
@@ -204,7 +204,7 @@ const NumberLine = React.createClass({
 
     isValid: function() {
         const range = this.props.range;
-        const initialX = this.props.numLinePosition;
+        let initialX = this.props.numLinePosition;
         const divisionRange = this.props.divisionRange;
 
         initialX = initialX == null ? range[0] : initialX;
@@ -354,7 +354,7 @@ const NumberLine = React.createClass({
 
         // In static mode the point's fill and stroke is blue to signify that
         // it can't be interacted with.
-        const fill;
+        let fill;
         if (isOpen) {
             fill = KhanColors._BACKGROUND;
         } else if (props.static) {
@@ -498,9 +498,9 @@ const NumberLine = React.createClass({
             />
         </div>;
 
-        const tickCtrl;
+        let tickCtrl;
         if (this.props.isTickCtrl) {
-            const Input;
+            let Input;
             if (this.props.apiOptions.staticRender) {
                 Input = MathOutput;
             } else {
@@ -606,7 +606,7 @@ const numberLineTransform = (editorProps) => {
 
     const width = editorProps.range[1] - editorProps.range[0];
 
-    const numDivisions;
+    let numDivisions;
     if (editorProps.numDivisions != null) {
         numDivisions = editorProps.numDivisions;
     } else if (editorProps.tickStep != null) {
@@ -647,7 +647,7 @@ const staticTransform = (editorProps) => {
 
     const width = editorProps.range[1] - editorProps.range[0];
 
-    const numDivisions;
+    let numDivisions;
     if (editorProps.numDivisions != null) {
         numDivisions = editorProps.numDivisions;
     } else if (editorProps.tickStep != null) {

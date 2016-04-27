@@ -564,7 +564,7 @@ const Simulator = React.createClass({
     },
 
     handleUserProportionChange: function(value, cb) {
-        const userProportion;
+        let userProportion;
 
         // If "percentage" mode is enabled, user will have entered value as
         // a percentage. However, we always store as a proportion, so we cast.

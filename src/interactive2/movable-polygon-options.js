@@ -244,11 +244,11 @@ const constraints = {
             }
 
             // Calculate the bounds for both points
-            const absoluteLower = graphie.unscalePoint([
+            let absoluteLower = graphie.unscalePoint([
                 paddingPx,
                 graphie.ypixels - paddingPx,
             ]);
-            const absoluteUpper = graphie.unscalePoint([
+            let absoluteUpper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
                 paddingPx,
             ]);

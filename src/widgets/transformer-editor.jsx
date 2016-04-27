@@ -313,11 +313,11 @@ const ShapeTypes = {
                     "simultaneously. options: " + JSON.stringify(options));
         }
 
-        const shape;
+        let shape;
         const points = _.map(options.shape.coords, function(coord) {
-            const currentPoint;
-            const isMoving = false;
-            const previousCoord = coord;
+            let currentPoint;
+            let isMoving = false;
+            let previousCoord = coord;
 
             const onMove = function(x, y) {
                 if (!isMoving) {
@@ -325,7 +325,7 @@ const ShapeTypes = {
                     isMoving = true;
                 }
 
-                const moveVector = kvector.subtract(
+                let moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -508,7 +508,7 @@ const ShapeTypes = {
     },
 
     _typesOf: function(shape) {
-        const types = shape.type;
+        let types = shape.type;
         if (!_.isArray(types)) {
             types = [types];
         }
@@ -614,7 +614,7 @@ const ShapeTypes = {
                 },
             };
         } else if (type === "circle") {
-            const perimeter = {
+            let perimeter = {
                 // temporary object for the first removal
                 remove: _.identity,
             };

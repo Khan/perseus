@@ -67,7 +67,7 @@ const TextListEditor = React.createClass({
     },
 
     onChange: function(index, event) {
-        const items = _.clone(this.state.items);
+        let items = _.clone(this.state.items);
         items[index] = event.target.value;
 
         if (index === items.length - 1) {

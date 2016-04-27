@@ -117,7 +117,7 @@ _.extend(Movable.prototype, {
         graphie.isDragging = true;
 
         const startMouseCoord = coord;
-        const prevMouseCoord = startMouseCoord;
+        let prevMouseCoord = startMouseCoord;
         self._fireEvent(
             state.onMoveStart,
             startMouseCoord,

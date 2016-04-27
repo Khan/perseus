@@ -111,7 +111,7 @@ const Widgets = {
         // We do a clone here so that it's safe to mutate the input parameter
         // in propUpgrades functions (which I will probably accidentally do at
         // some point, and we would like to not break when that happens).
-        const newEditorProps = _.clone(oldWidgetInfo.options) || {};
+        let newEditorProps = _.clone(oldWidgetInfo.options) || {};
 
         const upgradePropsMap = widgetExports.propUpgrades || {};
 
@@ -165,7 +165,7 @@ const Widgets = {
         const defaultProps = editors[type].defaultProps;
         newEditorProps = _.extend({}, defaultProps, newEditorProps);
 
-        const alignment = oldWidgetInfo.alignment;
+        let alignment = oldWidgetInfo.alignment;
 
         // Widgets that support multiple alignments will "lock in" the
         // alignment to the alignment that would be listed first in the
@@ -175,7 +175,7 @@ const Widgets = {
             alignment = Widgets.getSupportedAlignments(type)[0];
         }
 
-        const widgetStatic = oldWidgetInfo.static;
+        let widgetStatic = oldWidgetInfo.static;
 
         if (widgetStatic == null) {
             widgetStatic = DEFAULT_STATIC;
@@ -204,7 +204,7 @@ const Widgets = {
             // not have a transform defined.
             return widgetInfo.options;
         }
-        const transform;
+        let transform;
         if (widgetInfo.static) {
             // There aren't a lot of real places where we'll have to default to
             // _.identity, but it's theoretically possile if someone changes
@@ -275,7 +275,7 @@ const Widgets = {
      */
     getDefaultAlignment: function(type, enabledFeatures) {
         const widgetInfo = widgets[type];
-        const alignment;
+        let alignment;
         if (!widgetInfo) {
             return DEFAULT_ALIGNMENT;
         }

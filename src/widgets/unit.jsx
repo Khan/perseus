@@ -196,7 +196,7 @@ _.extend(OldUnitInput, {
         // Note: we check sigfigs, then numerical correctness, then units, so
         // the most significant things come last, that way the user will see
         // the most important message.
-        const message = null;
+        let message = null;
 
         // did the user specify the right number of sigfigs?
         // TODO(joel) - add a grading mode where the wrong number of sigfigs
@@ -209,7 +209,7 @@ _.extend(OldUnitInput, {
 
         // now we need to check that the answer is correct to the precision we
         // require.
-        const numericallyCorrect;
+        let numericallyCorrect;
         try {
             const x = new KAS.Var("x");
             const equality = new KAS.Eq(
@@ -234,7 +234,7 @@ _.extend(OldUnitInput, {
             message = i18n._("That answer is numerically incorrect.");
         }
 
-        const kasCorrect;
+        let kasCorrect;
         const guessUnit = primUnits(guess.expr.simplify());
         const answerUnit = primUnits(answer.simplify());
 

@@ -61,7 +61,7 @@ const isRawWidgetInfoRenderableBy = function(widgetInfo, rendererContentVersion)
 const isRendererContentRenderableBy = function(
     rendererOptions, rendererContentVersion) {
 
-    const isRenderable = true;
+    let isRenderable = true;
     Traversal.traverseRendererDeep(
         rendererOptions,
         null,

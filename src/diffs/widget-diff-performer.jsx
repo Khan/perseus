@@ -12,7 +12,7 @@ const REMOVED = "removed";
 // For values which do not have further values nested within them (strings,
 // numbers, and booleans)
 const valueEntry = function(before, after, key) {
-    const status;
+    let status;
     if (before === after) {
         status = UNCHANGED;
     } else if (before === undefined) {
@@ -42,7 +42,7 @@ const objectEntry = function(before, after, key) {
         return performDiff((before || {})[key], (after || {})[key], key);
     });
 
-    const status;
+    let status;
     if (before === undefined) {
         status = ADDED;
     } else if (after === undefined) {

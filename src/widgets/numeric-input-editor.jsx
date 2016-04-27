@@ -223,7 +223,7 @@ const NumericInputEditor = React.createClass({
                             // determine whether or not to reveal Pi on the
                             // keypad (right now, answers are stored as resolved
                             // values, like '0.125' rather than '1/8').
-                            const forms;
+                            let forms;
                             if (format === "pi") {
                                 forms = ["pi"];
                             } else if (format === "mixed") {
@@ -343,7 +343,7 @@ const NumericInputEditor = React.createClass({
             }, choiceIndex, update);
         }
 
-        const answers = _.clone(this.props.answers);
+        let answers = _.clone(this.props.answers);
 
         // Don't bother to make a new answer box unless we are editing the last
         // one.

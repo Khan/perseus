@@ -53,7 +53,7 @@ const deepCallbackFor = function(
         // make all of this a little tighter.
         // I think once we use react class defaultProps instead of relying
         // on getDefaultProps, this will become easier.
-        const newWidgetInfo;
+        let newWidgetInfo;
         if (latestVersion && (
                 upgradedWidgetInfo.version.major === latestVersion.major)) {
             newWidgetInfo = Widgets.traverseChildWidgets(
@@ -88,7 +88,7 @@ const traverseRenderer = function(
         deepWidgetCallback,
         optionsCallback) {
 
-    const newContent = rendererOptions.content;
+    let newContent = rendererOptions.content;
     if (rendererOptions.content != null) {
         const modifiedContent = contentCallback(rendererOptions.content);
         if (modifiedContent !== undefined) {

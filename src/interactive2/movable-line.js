@@ -182,7 +182,7 @@ _.extend(MovableLine.prototype, {
             onMove: function(mouseCoord, prevMouseCoord) {
                 const delta = kvector.subtract(mouseCoord, prevMouseCoord);
                 self._totalDelta = kvector.add(self._totalDelta, delta);
-                const refCoord = kvector.add(
+                let refCoord = kvector.add(
                     self._initialRefCoord, self._totalDelta);
 
                 refCoord = self._applyConstraints(refCoord, self._prevRefCoord);

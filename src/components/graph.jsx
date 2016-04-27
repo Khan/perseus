@@ -91,7 +91,7 @@ const Graph = React.createClass({
     },
 
     render: function() {
-        const image;
+        let image;
         const imageData = this.props.backgroundImage;
         if (imageData.url) {
             const scale = this.props.box[0] / defaultBoxSize;
@@ -226,7 +226,7 @@ const Graph = React.createClass({
         // Add instructions just before mouse layer
         const visible = 0.5;
         const invisible = 0.0;
-        const $instructionsWrapper;
+        let $instructionsWrapper;
         if (this.props.instructions) {
             $instructionsWrapper = $("<div/>");
             _.each(defaultInstructionsStyle, function(value, key) {

@@ -176,7 +176,7 @@ const Plotter = React.createClass({
             c.scale[1] = c.picBoxHeight / c.scaleY;
         }
 
-        const padX = 25 / c.scale[0];
+        let padX = 25 / c.scale[0];
         const padY = 25 / c.scale[1];
 
         // Since dotplot doesn't have an axis along the left it looks weird
@@ -241,7 +241,7 @@ const Plotter = React.createClass({
     labelCategory: function(x, category) {
         const graphie = this.graphie;
         category = category + "";
-        const isTeX = false;
+        let isTeX = false;
         const mathyCategory = category.match(/^\$(.*)\$$/);
         if (mathyCategory) {
             category = mathyCategory[1];
@@ -281,7 +281,7 @@ const Plotter = React.createClass({
         } else {
             _.each(self.props.categories, function(category, i) {
                 const startHeight = self.state.values[i];
-                const x;
+                let x;
 
                 if (self.props.type === BAR) {
                     x = self.setupBar({
@@ -298,8 +298,8 @@ const Plotter = React.createClass({
                     x = self.setupDotplot(i, config);
                 }
 
-                const tickStart = 0;
-                const tickEnd = -6 / c.scale[1];
+                let tickStart = 0;
+                let tickEnd = -6 / c.scale[1];
 
                 if (self.props.type === DOTPLOT) {
                     tickStart = -tickEnd;
@@ -337,7 +337,7 @@ const Plotter = React.createClass({
         const self = this;
         const graphie = self.graphie;
         const barHalfWidth = config.barWidth / 2;
-        const x;
+        let x;
         if (isHistogram) {
             x = 0.5 + i * config.barWidth + barHalfWidth;
         } else {
@@ -417,7 +417,7 @@ const Plotter = React.createClass({
         });
 
         config.graph.lines[i].onMove = function(dx, dy) {
-            const y = this.coordA[1];
+            let y = this.coordA[1];
             if (y < 0 || y > config.dimY) {
                 y = Math.min(Math.max(y, 0), config.dimY);
                 this.coordA[1] = this.coordZ[1] = y;

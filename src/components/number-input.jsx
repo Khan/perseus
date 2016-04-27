@@ -67,7 +67,7 @@ const NumberInput = React.createClass({
     },
 
     render: function() {
-        const classes = classNames({
+        let classes = classNames({
             "number-input": true,
             "invalid-input": !this._checkValidity(this.props.value),
             "mini": this.props.size === "mini",
@@ -197,7 +197,7 @@ const NumberInput = React.createClass({
             return;
         }
 
-        const val = this.getValue();
+        let val = this.getValue();
         if (val !== Math.floor(val)) {
             return; // bail if not an integer
         }

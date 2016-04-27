@@ -21,7 +21,7 @@ const WidgetContainer = React.createClass({
     },
 
     render: function() {
-        const className = classNames({
+        let className = classNames({
             "perseus-widget-container": true,
             "widget-highlight": this.props.shouldHighlight,
             "widget-nohighlight": !this.props.shouldHighlight,
@@ -34,7 +34,7 @@ const WidgetContainer = React.createClass({
             return <div className={className} />;
         }
 
-        const alignment = this.state.widgetProps.alignment;
+        let alignment = this.state.widgetProps.alignment;
         if (alignment === "default") {
             alignment = Widgets.getDefaultAlignment(type,
                             this.props.enabledFeatures);

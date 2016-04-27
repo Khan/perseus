@@ -26,7 +26,7 @@ const ChoiceEditor = React.createClass({
 
     render: function() {
         const checkedClass = this.props.choice.correct ? "correct" : "incorrect";
-        const placeholder = "Type a choice here...";
+        let placeholder = "Type a choice here...";
 
         if (this.props.choice.isNoneOfTheAbove) {
             placeholder = this.props.choice.correct ?

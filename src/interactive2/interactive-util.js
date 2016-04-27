@@ -12,14 +12,14 @@ const MovableHelperMethods = require("./movable-helper-methods.js");
 /**
  * Compute the correct vendor-prefixed `transform`.
  */
-const prefixedTransform = null;
+let prefixedTransform = null;
 function computePrefixedTransform() {
     // Temporary element for testing prefix validity
     const el = document.createElement("div");
 
     const prefixes = ["transform", "msTransform", "MozTransform",
         "WebkitTransform", "OTransform"];
-    const correctPrefix = null;
+    let correctPrefix = null;
     _.each(prefixes, function(prefix) {
         if (typeof el.style[prefix] !== 'undefined') {
             correctPrefix = prefix;
@@ -32,7 +32,7 @@ function computePrefixedTransform() {
  * Compute whether the browser can use 3d transforms by trying to use the
  * translateZ transformation.
  */
-const canUse3dTransform = null;
+let canUse3dTransform = null;
 function computeCanUse3dTransform() {
     const el = document.createElement("div");
 

@@ -102,8 +102,8 @@ const TableEditor = React.createClass({
     },
 
     onSizeInput: function(numRawRows, numRawColumns) {
-        const rows = +numRawRows || 0;
-        const columns = +numRawColumns || 0;
+        let rows = +numRawRows || 0;
+        let columns = +numRawColumns || 0;
         rows = Math.min(Math.max(1, rows), 30);
         columns = Math.min(Math.max(1, columns), 6);
         const oldColumns = this.props.columns;

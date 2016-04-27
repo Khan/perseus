@@ -23,7 +23,7 @@ const kvector = require("kmath").vector;
 // Memoize KAS parsing
 const KAShashFunc = (expr, options) => {
     options = options || {};
-    const result = expr + "||" + options.decimal_separatpr + "||";
+    let result = expr + "||" + options.decimal_separatpr + "||";
     const functions = options.functions;
     const functionsLength = functions ? functions.length : 0;
     for (var i = 0; i < functionsLength; i++) {
@@ -35,7 +35,7 @@ const KAShashFunc = (expr, options) => {
 const _parseCache = Object.create(null);
 const KASparse = (expr, options) => {
     const hash = KAShashFunc(expr, options);
-    const cached = _parseCache[hash];
+    let cached = _parseCache[hash];
     if (cached) {
         return cached;
     }
@@ -47,7 +47,7 @@ const KASparse = (expr, options) => {
 const _compileCache = Object.create(null);
 const KAScompile = (expr, options) => {
     const hash = KAShashFunc(expr, options);
-    const cached = _compileCache[hash];
+    let cached = _compileCache[hash];
     if (cached) {
         return cached;
     }
@@ -98,8 +98,8 @@ const Interaction = React.createClass({
             const subscript = element.options.varSubscript;
             const startXExpr = KASparse(element.options.startX || "0").expr;
             const startYExpr = KASparse(element.options.startY || "0").expr;
-            const startX = 0;
-            const startY = 0;
+            let startX = 0;
+            let startY = 0;
             if (startXExpr) {
                 startX = startXExpr.eval({}) || 0;
             }
@@ -116,10 +116,10 @@ const Interaction = React.createClass({
             const startYExpr = KASparse(element.options.startY || "0").expr;
             const endXExpr = KASparse(element.options.endX || "0").expr;
             const endYExpr = KASparse(element.options.endY || "0").expr;
-            const startX = 0;
-            const startY = 0;
-            const endX = 0;
-            const endY = 0;
+            let startX = 0;
+            let startY = 0;
+            let endX = 0;
+            let endY = 0;
             if (startXExpr) {
                 startX = startXExpr.eval({}) || 0;
             }
@@ -222,7 +222,7 @@ const Interaction = React.createClass({
         if (expr == null) {
             return [];
         }
-        const vars = [];
+        let vars = [];
         _.each(expr.args(), function(arg) {
             if (arg && arg.constructor.name === "Expr") {
                 vars = vars.concat(this._extractVars(arg));

@@ -45,7 +45,7 @@ const PassageRef = React.createClass({
 
     render: function() {
         const lineRange = this.state.lineRange;
-        const lineRangeOutput;
+        let lineRangeOutput;
         if (!lineRange) {
             lineRangeOutput = <$_ lineRange={"?" + EN_DASH + "?"}>
                 lines %(lineRange)s
@@ -61,7 +61,7 @@ const PassageRef = React.createClass({
             </$_>;
         }
 
-        const summaryOutput;
+        let summaryOutput;
         if (this.props.summaryText) {
             const summaryTree = PerseusMarkdown.parseInline(
                 this.props.summaryText
@@ -100,7 +100,7 @@ const PassageRef = React.createClass({
         const passage = this.props.interWidgets(
                 "passage " + this.props.passageNumber)[0];
 
-        const refInfo = null;
+        let refInfo = null;
         if (passage) {
             refInfo = passage.getReference(this.props.referenceNumber);
         }

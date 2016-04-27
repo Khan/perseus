@@ -47,7 +47,7 @@ const Iframe = React.createClass({
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
-        const data = {};
+        let data = {};
         try {
             data = JSON.parse(e.originalEvent.data);
         } catch (err) {
@@ -77,7 +77,7 @@ const Iframe = React.createClass({
             width: this.props.width,
             height: this.props.height,
         };
-        const url = this.props.url;
+        let url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
         if (url && url.length && url.indexOf("http") !== 0) {

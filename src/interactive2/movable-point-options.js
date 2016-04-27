@@ -121,11 +121,11 @@ const constraints = {
                 snap = graphie.snap;
             }
 
-            const lower = graphie.unscalePoint([
+            let lower = graphie.unscalePoint([
                 paddingPx,
                 graphie.ypixels - paddingPx,
             ]);
-            const upper = graphie.unscalePoint([
+            let upper = graphie.unscalePoint([
                 graphie.xpixels - paddingPx,
                 paddingPx,
             ]);

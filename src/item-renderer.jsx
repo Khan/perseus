@@ -391,7 +391,7 @@ const ItemRenderer = React.createClass({
     restoreSerializedState: function(state, callback) {
         // We need to wait for both the question renderer and the hints
         // renderer to finish restoring their states.
-        const numCallbacks = 2;
+        let numCallbacks = 2;
         const fireCallback = () => {
             --numCallbacks;
             if (callback && numCallbacks === 0) {

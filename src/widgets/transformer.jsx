@@ -299,7 +299,7 @@ const TransformOps = {
     },
 
     _collapseValidMonotypedTransforms: function(transform1, transform2) {
-        const collapsed = Transformations[transform1.type].collapse(
+        let collapsed = Transformations[transform1.type].collapse(
             transform1,
             transform2
         );
@@ -667,7 +667,7 @@ const Transformations = {
             /* InputPath API */
             setInputValue: function(path, value, cb) {
                 const id = _.first(path);
-                const angleDeg = _.clone(this.state.angleDeg);
+                let angleDeg = _.clone(this.state.angleDeg);
                 const center = _.clone(this.state.center);
                 if (id === "angleDeg") {
                     angleDeg = value;
@@ -817,13 +817,13 @@ const Transformations = {
             /* InputPath API */
             setInputValue: function(path, value, cb) {
                 const id = _.first(path);
-                const j;
+                let j;
                 if (id[0] === "x") {
                     j = 0;
                 } else if (id[0] === "y") {
                     j = 1;
                 }
-                const i;
+                let i;
                 if (id[1] === "1") {
                     i = 0;
                 } else if (id[1] === "2") {
@@ -966,7 +966,7 @@ const Transformations = {
             /* InputPath API */
             setInputValue: function(path, value, cb) {
                 const id = _.first(path);
-                const scale = this.state.scale;
+                let scale = this.state.scale;
                 const center = _.clone(this.state.center);
                 if (id === "x") {
                     center[0] = value;
@@ -1012,11 +1012,11 @@ const ShapeTypes = {
                     "simultaneously. options: " + JSON.stringify(options));
         }
 
-        const shape;
+        let shape;
         const points = _.map(options.shape.coords, function(coord) {
-            const currentPoint;
-            const isMoving = false;
-            const previousCoord = coord;
+            let currentPoint;
+            let isMoving = false;
+            let previousCoord = coord;
 
             const onMove = function(x, y) {
                 if (!isMoving) {
@@ -1024,7 +1024,7 @@ const ShapeTypes = {
                     isMoving = true;
                 }
 
-                const moveVector = kvector.subtract(
+                let moveVector = kvector.subtract(
                     [x, y],
                     currentPoint.coord
                 );
@@ -1207,7 +1207,7 @@ const ShapeTypes = {
     },
 
     _typesOf: function(shape) {
-        const types = shape.type;
+        let types = shape.type;
         if (!_.isArray(types)) {
             types = [types];
         }
@@ -1313,7 +1313,7 @@ const ShapeTypes = {
                 },
             };
         } else if (type === "circle") {
-            const perimeter = {
+            let perimeter = {
                 // temporary object for the first removal
                 remove: _.identity,
             };
@@ -1835,7 +1835,7 @@ const Transformer = React.createClass({
                 throw new Error("Invalid tool id: " + toolId);
             }
         } else {
-            const transform;
+            let transform;
             if (toolId === "translation") {
                 transform = {
                     type: toolId,
@@ -1955,7 +1955,7 @@ const Transformer = React.createClass({
         // TODO(jack): graphie.style here is a hack to prevent the dashed
         // style from leaking into the rest of the shapes. Remove when
         // graphie.addMovableLineSegment doesn't leak styles anymore.
-        const reflectLine;
+        let reflectLine;
         const normalColor = colorForTool(options);
         graphie.style({}, function() {
             reflectLine = graphie.addMovableLineSegment({
@@ -2018,7 +2018,7 @@ const Transformer = React.createClass({
             onMoveEnd: updateReflectionTool,
         });
 
-        const reflectRotateHandle = null;
+        let reflectRotateHandle = null;
         if (!options.constraints.fixed) {
             // The rotation handle for rotating the line of reflection
             const initRotateHandleAngle = kvector.polarDegFromCart(
@@ -2382,7 +2382,7 @@ const Transformer = React.createClass({
         ];
 
         // Follow the path of references
-        const component = this;
+        let component = this;
         _.each(refPath, (ref) => {
             component = component.refs[ref];
         });
@@ -2396,7 +2396,7 @@ const Transformer = React.createClass({
             return [];
         }
 
-        const inputPaths = [];
+        let inputPaths = [];
         _.each(this.props.transformations, (transformation, i) => {
             transformation = this._getTransformationForID(i);
             const innerPaths = transformation.getInputPaths();

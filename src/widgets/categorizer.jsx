@@ -48,7 +48,7 @@ const Categorizer = React.createClass({
     render: function() {
         const self = this;
 
-        const indexedItems = _.map(this.props.items, (item, n) => [item, n]);
+        let indexedItems = _.map(this.props.items, (item, n) => [item, n]);
         if (this.props.randomizeItems) {
             indexedItems = Util.shuffle(indexedItems, this.props.problemNum);
         }
@@ -126,8 +126,8 @@ const Categorizer = React.createClass({
 
 _.extend(Categorizer, {
     validate: function(state, rubric) {
-        const completed = true;
-        const allCorrect = true;
+        let completed = true;
+        let allCorrect = true;
         _.each(rubric.values, function(value, i) {
             if (state.values[i] == null) {
                 completed = false;

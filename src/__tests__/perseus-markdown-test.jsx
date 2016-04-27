@@ -377,7 +377,7 @@ describe("perseus markdown", () => {
         });
 
         it("should ignore lists in jipt mode", () => {
-            const parsed = parse(
+            let parsed = parse(
                 "1. test\n\n" +
                 "2. boo\n\n",
                 { isJipt: true }

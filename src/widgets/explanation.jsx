@@ -55,7 +55,7 @@ const Explanation = React.createClass({
         const contentElement = ReactDOM.findDOMNode(this.refs.content);
 
         // Add up the heights of all the the child nodes
-        const contentHeight = Array.prototype.reduce.call(
+        let contentHeight = Array.prototype.reduce.call(
             contentElement.childNodes,
             function(memo, el) {
                 return memo + (el.offsetHeight || 0);

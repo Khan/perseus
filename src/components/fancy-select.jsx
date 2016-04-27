@@ -81,8 +81,8 @@ const FancySelect = React.createClass({
             })}
         </span>;
 
-        const childCount = 0;
-        const selectedOption;
+        let childCount = 0;
+        let selectedOption;
         React.Children.forEach(this.props.children, (option) => {
             childCount++;
             if (option.props.value === this.props.value) {
@@ -120,7 +120,7 @@ const FancySelect = React.createClass({
                 return null;
             }
 
-            const className = classNames({
+            let className = classNames({
                 "fancy-option": true,
                 active: this.state.active,
                 closed: this.state.closed,
@@ -130,8 +130,8 @@ const FancySelect = React.createClass({
                 className += " " + option.props.className;
             }
 
-            const translate;
-            const transition;
+            let translate;
+            let transition;
             if (this.state.active) {
                 const offset = DROPDOWN_OFFSET * i + this.state.nodeOffset;
                 translate = "translate3d(0, " + offset + "px, 0)";
@@ -188,7 +188,7 @@ const FancySelect = React.createClass({
     _swapActive: function() {
         const active = !this.state.active;
         const closed = !active;
-        const nodeOffset = 0;
+        let nodeOffset = 0;
 
         // Prepare to detect clicks outside of the dropdown
         if (active) {

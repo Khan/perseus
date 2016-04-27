@@ -317,7 +317,7 @@ const PlotterEditor = React.createClass({
     },
 
     changeType: function(type) {
-        const categories;
+        let categories;
         if (type === HISTOGRAM) {
             // Switching to histogram, add a label (0) to the left
             categories = [formatNumber(0)].concat(this.props.categories);
@@ -352,7 +352,7 @@ const PlotterEditor = React.createClass({
     },
 
     changeCategories: function(categories) {
-        const n = categories.length;
+        let n = categories.length;
         if (this.props.type === HISTOGRAM) {
             // Histograms with n labels/categories have n - 1 buckets
             n--;
@@ -408,7 +408,7 @@ const PlotterEditor = React.createClass({
         const max = this.state.maxX || 0;
         const length = Math.floor((max - min) / scale) * scale;
 
-        const categories;
+        let categories;
         if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
             // Ranges for histogram and dotplot labels should start at zero
             categories = _.range(0, length + scale, scale);

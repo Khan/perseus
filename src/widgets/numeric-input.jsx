@@ -99,8 +99,8 @@ const NumericInput = React.createClass({
         } else {
             // HACK(johnsullivan): Create a function with shared logic between
             // this and InputNumber.
-            const correct;
-            const answerBlurb;
+            let correct;
+            let answerBlurb;
             const rubric = this.props.reviewModeRubric;
             if (rubric) {
                 const score = this.simpleValidate(rubric);
@@ -113,7 +113,7 @@ const NumericInput = React.createClass({
                     const answerStrings = _.map(correctAnswers, (answer) => {
                         // Figure out how this answer is supposed to be
                         // displayed
-                        const format = "decimal";
+                        let format = "decimal";
                         if (answer.answerForms && answer.answerForms[0]) {
                             // NOTE(johnsullivan): This isn't exactly ideal, but
                             // it does behave well for all the currently known
@@ -122,7 +122,7 @@ const NumericInput = React.createClass({
                             format = answer.answerForms[0];
                         }
 
-                        const answerString = KhanMath.toNumericString(
+                        let answerString = KhanMath.toNumericString(
                             answer.value, format);
                         if (answer.maxError) {
                             answerString += " \u00B1 " +
@@ -144,7 +144,7 @@ const NumericInput = React.createClass({
             classes[ApiClassNames.UNANSWERED] = rubric &&
                 !this.props.currentValue;
 
-            const labelText = this.props.labelText;
+            let labelText = this.props.labelText;
             if (labelText == null || labelText === "") {
                 labelText = i18n._("Your answer:");
             }
@@ -286,9 +286,9 @@ _.extend(NumericInput, {
         // - if precise, return the message that the answer came with
         // - if it needs to be simplified, etc., show that message
         const correctAnswers = _.where(rubric.answers, {status: "correct"});
-        const result = _.find(_.map(correctAnswers, (answer) => {
+        let result = _.find(_.map(correctAnswers, (answer) => {
             // The coefficient is an attribute of the widget
-            const localValue = currentValue;
+            let localValue = currentValue;
             if (rubric.coefficient) {
                 if (!localValue) {
                     localValue = 1;

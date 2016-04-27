@@ -404,7 +404,7 @@ const Renderer = React.createClass({
 
         // The widget needs access to its "rubric" at all times when in review
         // mode (which is really just part of its widget info).
-        const reviewModeRubric = null;
+        let reviewModeRubric = null;
         const widgetInfo = this.state.widgetInfo[id];
         if (this.props.reviewMode && widgetInfo) {
             reviewModeRubric = widgetInfo.options;
@@ -414,7 +414,7 @@ const Renderer = React.createClass({
             this._interactionTrackers = {};
         }
 
-        const interactionTracker = this._interactionTrackers[id];
+        let interactionTracker = this._interactionTrackers[id];
         if (!interactionTracker) {
             interactionTracker = this._interactionTrackers[id] =
                 new InteractionTracker(this.props.apiOptions.trackInteraction,
@@ -480,7 +480,7 @@ const Renderer = React.createClass({
         // We want to wait until any children widgets who have a
         // restoreSerializedState function also call their own callbacks before
         // we declare that the operation is finished.
-        const numCallbacks = 1;
+        let numCallbacks = 1;
         const fireCallback = () => {
             --numCallbacks;
             if (callback && numCallbacks === 0) {
@@ -537,7 +537,7 @@ const Renderer = React.createClass({
      * Please use this one with caution.
      */
     interWidgets: function(filterCriterion) {
-        const filterFunc;
+        let filterFunc;
         // Convenience filters:
         // "interactive-graph 3" will give you [[interactive-graph 3]]
         // "interactive-graph" will give you all interactive-graphs
@@ -684,7 +684,7 @@ const Renderer = React.createClass({
             // nodes together into a single string output.
             // NOTE(aria): These are never strings--always QuestionParagraphs
             // TODO(aria): We probably don't need this string logic here.
-            const lastWasString = false;
+            let lastWasString = false;
             for (var i = 0; i < ast.length; i++) {
                 state.key = i;
                 state.paragraphIndex = i;
@@ -721,7 +721,7 @@ const Renderer = React.createClass({
             // the same because we don't know at the time of the first
             // render whether they are full-bleed or centered, since they
             // only contain crowdin IDs like `crwdns:972384209:0...`
-            const className;
+            let className;
             if (this.translationIndex != null) {
                 className = null;
             } else {
@@ -756,7 +756,7 @@ const Renderer = React.createClass({
 
             // map nestedOutput over the ast, except group any text
             // nodes together into a single string output.
-            const lastWasString = false;
+            let lastWasString = false;
             for (var i = 0; i < ast.length; i++) {
                 state.key = i;
                 const nodeOut = this.outputNested(ast[i], state);
@@ -961,8 +961,8 @@ const Renderer = React.createClass({
     },
 
     focus: function() {
-        const id;
-        const focusResult;
+        let id;
+        let focusResult;
         for (var i = 0; i < this.widgetIds.length; i++) {
             const widgetId = this.widgetIds[i];
             const widget = this.getWidgetInstance(widgetId);
@@ -976,7 +976,7 @@ const Renderer = React.createClass({
 
         if (id) {
             // reconstruct a {path, element} focus object
-            const path;
+            let path;
             if (_.isObject(focusResult)) {
                 // The result of focus was a {path, id} object itself
                 path = [id].concat(focusResult.path || []);
@@ -1351,7 +1351,7 @@ const Renderer = React.createClass({
         });
         const markdownContents = this.outputMarkdown(parsedMarkdown, {});
 
-        const className = this._isTwoColumn ?
+        let className = this._isTwoColumn ?
         ApiClassNames.RENDERER + " " + ApiClassNames.TWO_COLUMN_RENDERER :
             ApiClassNames.RENDERER;
         if (this.props.apiOptions.responsiveStyling) {

@@ -8,7 +8,7 @@ const _ = require("underscore");
 const React = require("react");
 const ReactDOM = require("react-dom");
 
-const fixture;
+let fixture;
 
 function translateScore(guessAndScore) {
     // Translate a guessAndScore from internal Perseus format to the
@@ -84,7 +84,7 @@ function checkAnswer(component, result, description) {
 
 
 describe("widgets", function() {
-    const Renderer;
+    let Renderer;
 
     beforeEach(function() {
         Renderer = React.createFactory(require("../renderer.jsx"));

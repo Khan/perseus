@@ -262,7 +262,7 @@ const assertNonMutative = () => {
 
 describe("Traversal", () => {
     it("should call a root level content field", () => {
-        const readContent = null;
+        let readContent = null;
         traverse(sampleOptions, (content) => {
             assert(readContent === null, "Content was read multiple times :(");
             readContent = content;
@@ -351,7 +351,7 @@ describe("Traversal", () => {
     });
 
     it("should see upgraded widgets inside groups", () => {
-        const sawRadio = false;
+        let sawRadio = false;
         traverse(sampleGroup, null, (widgetInfo) => {
             if (widgetInfo.type === "radio") {
                 assert.deepEqual(

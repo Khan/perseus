@@ -349,9 +349,9 @@ _.extend(Expression, {
         };
 
         // find the first result to match the user's input
-        const result;
-        const matchingAnswer;
-        const allEmpty = true;
+        let result;
+        let matchingAnswer;
+        let allEmpty = true;
         const foundMatch = !!_(rubric.answerForms).find(answer => {
             const validate = createValidator(answer);
 
@@ -601,7 +601,7 @@ const OldExpression = React.createClass({
         if (supported && which === 40 /* left paren */) {
             event.preventDefault();
 
-            const val;
+            let val;
             if (start === end) {
                 const insertMatched = _.any([" ", ")", ""], function(val) {
                     return text.charAt(start) === val;
@@ -665,7 +665,7 @@ const OldExpression = React.createClass({
     },
 
     examples: function() {
-        const mult = i18n._("For $2\\cdot2$, enter **2*2**");
+        let mult = i18n._("For $2\\cdot2$, enter **2*2**");
         if (this.props.times) {
             mult = mult.replace(/\\cdot/g, "\\times");
         }

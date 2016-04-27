@@ -127,7 +127,7 @@ const FunctionGrapher = React.createClass({
                     },
                 ]}
                 onMove={(newCoord, oldCoord) => {
-                    const coords;
+                    let coords;
                     // Reflect over asymptote, if allowed
                     const asymptote = this._asymptote();
                     if (asymptote &&
@@ -149,7 +149,7 @@ const FunctionGrapher = React.createClass({
         const box = this.props.graph.box;
 
         const imageDescription = this.props.graph.backgroundImage;
-        const image = null;
+        let image = null;
         if (imageDescription.url) {
             const scale = box[0] / DEFAULT_BOX_SIZE;
             image = <SvgImage src={imageDescription.url}

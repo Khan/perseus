@@ -21,7 +21,7 @@ const KA_EMBED_URL = "https://{hostname}/computer-programming/program/" +
 function getUrlFromProgramID(programID) {
     const url = KA_EMBED_URL.replace("{programID}", programID);
     const currentHostname = document.location.hostname;
-    const embedHostname = "www.khanacademy.org";
+    let embedHostname = "www.khanacademy.org";
     if (IS_KA_SITE.test(currentHostname)) {
         embedHostname = currentHostname;
     }
@@ -59,7 +59,7 @@ const CSProgram = React.createClass({
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
-        const data = {};
+        let data = {};
         try {
             data = JSON.parse(e.originalEvent.data);
         } catch (err) {
@@ -90,8 +90,8 @@ const CSProgram = React.createClass({
             return <div/>;
         }
 
-        const url = getUrlFromProgramID(this.props.programID);
-        const className;
+        let url = getUrlFromProgramID(this.props.programID);
+        let className;
         const style = {
             height: this.props.height,
         };

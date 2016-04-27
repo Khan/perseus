@@ -68,7 +68,7 @@ const InputWithExamples = React.createClass({
         }
 
         // Otherwise, we need to add these INPUT and FOCUSED tags here.
-        const className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
+        let className = ApiClassNames.INPUT + " " + ApiClassNames.INTERACTIVE;
         if (this.state.focused) {
             className += " " + ApiClassNames.FOCUSED;
         }

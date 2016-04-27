@@ -135,8 +135,8 @@ const InputNumber = React.createClass({
             // HACK(johnsullivan): Create a function with shared logic between
             // this and NumericInput.
             const rubric = this.props.reviewModeRubric;
-            const correct = null;
-            const answerBlurb = null;
+            let correct = null;
+            let answerBlurb = null;
             if (rubric) {
                 const score = this.simpleValidate(rubric);
                 correct = score.type === "points" &&
@@ -145,7 +145,7 @@ const InputNumber = React.createClass({
                 if (!correct) {
                     // TODO(johnsullivan): Make this a little more
                     // human-friendly.
-                    const answerString = String(rubric.value);
+                    let answerString = String(rubric.value);
                     if (rubric.inexact && rubric.maxError) {
                         answerString += " \u00B1 " + rubric.maxError;
                     }

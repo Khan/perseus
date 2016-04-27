@@ -120,7 +120,7 @@ const DiffEntry = React.createClass({
             "blank-space": propertyDeleted,
         });
 
-        const shownChildren;
+        let shownChildren;
         if (this.state.expanded) {
             shownChildren = entry.children;
         } else {
@@ -129,7 +129,7 @@ const DiffEntry = React.createClass({
             });
         }
 
-        const collapsed = shownChildren.length < entry.children.length;
+        let collapsed = shownChildren.length < entry.children.length;
 
         // don't hide just one entry
         if (entry.children.length === shownChildren.length + 1) {
