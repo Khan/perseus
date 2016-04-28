@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* Collection of classes for rendering the hint editor area,
@@ -51,25 +51,31 @@ const HintEditor = React.createClass({
     render: function() {
         return <div className="perseus-hint-editor perseus-editor-left-cell">
             <div className="pod-title">Hint</div>
-            <Editor ref="editor"
-                    widgets={this.props.widgets}
-                    content={this.props.content}
-                    images={this.props.images}
-                    replace={this.props.replace}
-                    placeholder="Type your hint here..."
-                    imageUploader={this.props.imageUploader}
-                    onChange={this.props.onChange} />
+            <Editor
+                ref="editor"
+                widgets={this.props.widgets}
+                content={this.props.content}
+                images={this.props.images}
+                replace={this.props.replace}
+                placeholder="Type your hint here..."
+                imageUploader={this.props.imageUploader}
+                onChange={this.props.onChange}
+            />
             <div className="hint-controls-container clearfix">
                 <span className="reorder-hints">
-                    <button type="button"
-                            className={this.props.isLast ? "hidden" : ""}
-                            onClick={_.partial(this.props.onMove, 1)}>
+                    <button
+                        type="button"
+                        className={this.props.isLast ? "hidden" : ""}
+                        onClick={_.partial(this.props.onMove, 1)}
+                    >
                         <span className="icon-circle-arrow-down" />
                     </button>
                     {' '}
-                    <button type="button"
-                            className={this.props.isFirst ? "hidden" : ""}
-                            onClick={_.partial(this.props.onMove, -1)}>
+                    <button
+                        type="button"
+                        className={this.props.isFirst ? "hidden" : ""}
+                        onClick={_.partial(this.props.onMove, -1)}
+                    >
                         <span className="icon-circle-arrow-up" />
                     </button>
                     {' '}
@@ -78,14 +84,17 @@ const HintEditor = React.createClass({
                         <p>The last hint is automatically bolded.</p>
                     </InfoTip>}
                 </span>
-                <input type="checkbox"
-                       checked={this.props.replace}
-                       onChange={this.handleChange}
+                <input
+                    type="checkbox"
+                    checked={this.props.replace}
+                    onChange={this.handleChange}
                 />
                 Replace previous hint
-                <button type="button"
-                        className="remove-hint simple-button orange"
-                        onClick={this.props.onRemove}>
+                <button
+                    type="button"
+                    className="remove-hint simple-button orange"
+                    onClick={this.props.onRemove}
+                >
                     <span className="icon-trash" /> Remove this hint{' '}
                 </button>
             </div>
@@ -126,8 +135,9 @@ const CombinedHintEditor = React.createClass({
                          !(/\*\*/).test(this.props.hint.content);
         const previewWidth = this.props.previewWidth;
 
-        return <div className={"perseus-combined-hint-editor " +
-                    "perseus-editor-row"}>
+        return <div
+            className={"perseus-combined-hint-editor perseus-editor-row"}
+        >
             <HintEditor
                 ref="editor"
                 isFirst={this.props.isFirst}
@@ -140,7 +150,8 @@ const CombinedHintEditor = React.createClass({
                 onChange={this.props.onChange}
                 onRemove={this.props.onRemove}
                 onMove={this.props.onMove}
-                previewWidth={this.props.previewWidth} />
+                previewWidth={this.props.previewWidth}
+            />
 
             <div
                 className="perseus-editor-right-cell"
@@ -150,7 +161,8 @@ const CombinedHintEditor = React.createClass({
                     hint={this.props.hint}
                     bold={shouldBold}
                     pos={this.props.pos}
-                    enabledFeatures={this.props.enabledFeatures} />
+                    enabledFeatures={this.props.enabledFeatures}
+                />
             </div>
         </div>;
     },
@@ -196,27 +208,30 @@ const CombinedHintsEditor = React.createClass({
         const hints = this.props.hints;
         const hintElems = _.map(hints, function(hint, i) {
             return <CombinedHintEditor
-                        ref={"hintEditor" + i}
-                        key={"hintEditor" + i}
-                        isFirst={i === 0}
-                        isLast={i + 1 === hints.length}
-                        hint={hint}
-                        pos={i}
-                        imageUploader={this.props.imageUploader}
-                        onChange={this.handleHintChange.bind(this, i)}
-                        onRemove={this.handleHintRemove.bind(this, i)}
-                        onMove={this.handleHintMove.bind(this, i)}
-                        previewWidth={this.props.previewWidth}
-                        enabledFeatures={this.props.enabledFeatures} />;
+                ref={"hintEditor" + i}
+                key={"hintEditor" + i}
+                isFirst={i === 0}
+                isLast={i + 1 === hints.length}
+                hint={hint}
+                pos={i}
+                imageUploader={this.props.imageUploader}
+                onChange={this.handleHintChange.bind(this, i)}
+                onRemove={this.handleHintRemove.bind(this, i)}
+                onMove={this.handleHintMove.bind(this, i)}
+                previewWidth={this.props.previewWidth}
+                enabledFeatures={this.props.enabledFeatures}
+            />;
         }, this);
 
         return <div className="perseus-hints-editor perseus-editor-table">
             {hintElems}
             <div className="perseus-editor-row">
                 <div className="add-hint-container perseus-editor-left-cell">
-                <button type="button"
-                        className="add-hint simple-button orange"
-                        onClick={this.addHint}>
+                <button
+                    type="button"
+                    className="add-hint simple-button orange"
+                    onClick={this.addHint}
+                >
                     <span className="icon-plus" />
                     {' '}Add a hint
                 </button>

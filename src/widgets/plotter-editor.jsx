@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -134,7 +134,8 @@ const PlotterEditor = React.createClass({
                             type="radio"
                             name="chart-type"
                             checked={this.props.type === type}
-                            onChange={_.partial(this.changeType, type)} />
+                            onChange={_.partial(this.changeType, type)}
+                        />
                         {type}
                     </label>;
                 }, this)}
@@ -147,7 +148,8 @@ const PlotterEditor = React.createClass({
                         <input
                             type="text"
                             onChange={_.partial(this.changeLabel, i)}
-                            defaultValue={this.props.labels[i]} />
+                            defaultValue={this.props.labels[i]}
+                        />
                     </label>;
                 }, this)}
             </div>
@@ -163,7 +165,8 @@ const PlotterEditor = React.createClass({
                             placeholder={1}
                             useArrowKeys={true}
                             value={this.state.tickStep}
-                            onChange={this.handleChangeTickStep} />
+                            onChange={this.handleChangeTickStep}
+                        />
                     </label>
                     <InfoTip>
                         <p>The difference between adjacent ticks.</p>
@@ -176,7 +179,8 @@ const PlotterEditor = React.createClass({
                             placeholder={[0, 10]}
                             useArrowKeys={true}
                             value={[this.state.minX, this.state.maxX]}
-                            onChange={this.handleChangeRange} />
+                            onChange={this.handleChangeRange}
+                        />
                     </label>
                 </div>
                 <div>
@@ -191,7 +195,8 @@ const PlotterEditor = React.createClass({
                     <NumberInput
                         useArrowKeys={true}
                         value={this.props.labelInterval}
-                        onChange={this.changeLabelInterval} />
+                        onChange={this.changeLabelInterval}
+                    />
                 </label>
                 <InfoTip>
                     <p>Which ticks to display the labels for. For instance,
@@ -205,7 +210,8 @@ const PlotterEditor = React.createClass({
                     <BlurInput
                         className="pic-url"
                         value={this.props.picUrl}
-                        onChange={this.changePicUrl} />
+                        onChange={this.changePicUrl}
+                    />
                 <InfoTip>
                     <p>Use the default picture of Earth, or insert the URL for
                     a different picture using the "Add image" function.</p>
@@ -226,7 +232,8 @@ const PlotterEditor = React.createClass({
                         ref="categories"
                         layout="horizontal"
                         options={this.props.categories}
-                        onChange={this.changeCategories} />
+                        onChange={this.changeCategories}
+                    />
                 </label>
             </div>
             <div>
@@ -235,7 +242,8 @@ const PlotterEditor = React.createClass({
                     <input
                         type="text"
                         onChange={this.changeScale}
-                        defaultValue={this.props.scaleY} />
+                        defaultValue={this.props.scaleY}
+                    />
                 </label>
             </div>
             <div>
@@ -245,7 +253,8 @@ const PlotterEditor = React.createClass({
                         type="text"
                         ref="maxY"
                         onChange={this.changeMax}
-                        defaultValue={this.props.maxY} />
+                        defaultValue={this.props.maxY}
+                    />
                 </label>
             </div>
             {canChangeSnaps && <div>
@@ -254,7 +263,8 @@ const PlotterEditor = React.createClass({
                     <input
                         type="text"
                         onChange={this.changeSnaps}
-                        defaultValue={this.props.snapsPerLine} />
+                        defaultValue={this.props.snapsPerLine}
+                    />
                 </label>
                 <InfoTip>
                     <p>Creates the specified number of divisions between the
@@ -270,7 +280,8 @@ const PlotterEditor = React.createClass({
                             type="radio"
                             name="editing"
                             checked={this.state.editing === editing}
-                            onChange={_.partial(this.changeEditing, editing)}/>
+                            onChange={_.partial(this.changeEditing, editing)}
+                        />
                         {editing}
                     </label>;
                 }, this)}
@@ -287,7 +298,8 @@ const PlotterEditor = React.createClass({
             <Plotter
                 {...props}
                 starting={this.props[this.state.editing]}
-                onChange={this.handlePlotterChange} />
+                onChange={this.handlePlotterChange}
+            />
         </div>;
     },
 

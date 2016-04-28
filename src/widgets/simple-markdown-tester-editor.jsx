@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -22,7 +22,8 @@ const TextArea = React.createClass({
         return <textarea
             ref="input"
             value={this.props.value || ""}
-            onChange={this.changeValue} />;
+            onChange={this.changeValue}
+        />;
     },
 
     focus: function() {
@@ -58,7 +59,8 @@ const SimpleMarkdownTesterEditor = React.createClass({
                     <TextArea
                         value={this.props.value}
                         onChange={this.change("value")}
-                        ref="input" />
+                        ref="input"
+                    />
                 </div>
             </label>
         </div>;

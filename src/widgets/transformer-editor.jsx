@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -151,13 +151,15 @@ const ToolSettings = React.createClass({
             <PropCheckBox
                 label="enabled:"
                 enabled={this.props.settings.enabled}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
             {" "}
             {this.props.settings.enabled &&
                 <PropCheckBox
                     label="required:"
                     required={this.props.settings.required}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
             }
             {this.props.settings.enabled &&
                 <InfoTip>
@@ -170,7 +172,8 @@ const ToolSettings = React.createClass({
                 <PropCheckBox
                     label="fixed:"
                     fixed={this.props.settings.constraints.fixed}
-                    onChange={this.changeConstraints} />
+                    onChange={this.changeConstraints}
+                />
             }
             {this.props.allowFixed && this.props.settings.enabled &&
                 <InfoTip>
@@ -204,8 +207,10 @@ const TransformationExplorerSettings = React.createClass({
         return <div className="transformer-settings">
             <div>
                 {' '}Mode:{' '}
-                <select value={this.getMode()}
-                        onChange={this.changeMode}>
+                <select
+                    value={this.getMode()}
+                    onChange={this.changeMode}
+                >
                     <option value="interactive,dynamic">
                         {' '}Exploration with text{' '}
                     </option>
@@ -240,26 +245,31 @@ const TransformationExplorerSettings = React.createClass({
                 </InfoTip>
             </div>
             <ToolSettings
-                    name="Translations"
-                    settings={this.props.tools.translation}
-                    allowFixed={false}
-                    onChange={this.changeHandlerFor("translation")} />
+                name="Translations"
+                settings={this.props.tools.translation}
+                allowFixed={false}
+                onChange={this.changeHandlerFor("translation")}
+            />
             <ToolSettings
-                    name="Rotations"
-                    settings={this.props.tools.rotation}
-                    onChange={this.changeHandlerFor("rotation")} />
+                name="Rotations"
+                settings={this.props.tools.rotation}
+                onChange={this.changeHandlerFor("rotation")}
+            />
             <ToolSettings
-                    name="Reflections"
-                    settings={this.props.tools.reflection}
-                    onChange={this.changeHandlerFor("reflection")} />
+                name="Reflections"
+                settings={this.props.tools.reflection}
+                onChange={this.changeHandlerFor("reflection")}
+            />
             <ToolSettings
-                    name="Dilations"
-                    settings={this.props.tools.dilation}
-                    onChange={this.changeHandlerFor("dilation")} />
+                name="Dilations"
+                settings={this.props.tools.dilation}
+                onChange={this.changeHandlerFor("dilation")}
+            />
             <PropCheckBox
-                    label="Draw Solution:"
-                    drawSolutionShape={this.props.drawSolutionShape}
-                    onChange={this.props.onChange} />
+                label="Draw Solution:"
+                drawSolutionShape={this.props.drawSolutionShape}
+                onChange={this.props.onChange}
+            />
         </div>;
     },
 
@@ -732,11 +742,13 @@ const TransformationsShapeEditor = React.createClass({
                 gridStep={this.props.graph.gridStep}
                 markings={this.props.graph.markings}
                 backgroundImage={this.props.graph.backgroundImage}
-                onGraphieUpdated={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie}
+            />
             <select
-                    key="type-select"
-                    value={this.getTypeString(this.props.shape.type)}
-                    onChange={this.changeType} >
+                key="type-select"
+                value={this.getTypeString(this.props.shape.type)}
+                onChange={this.changeType}
+            >
                 <option value="polygon-3">Triangle</option>
                 <option value="polygon-4">Quadrilateral</option>
                 <option value="polygon-5">Pentagon</option>
@@ -855,7 +867,8 @@ const TransformerEditor = React.createClass({
                 <PropCheckBox
                     label="Grade empty answers as wrong:"
                     gradeEmpty={this.props.gradeEmpty}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>
                         We generally do not grade empty answers. This usually
@@ -883,7 +896,8 @@ const TransformerEditor = React.createClass({
                 backgroundImage={graph.backgroundImage}
                 markings={graph.markings}
                 showProtractor={graph.showProtractor}
-                onChange={this.changeGraph} />
+                onChange={this.changeGraph}
+            />
             <div>Transformation settings:</div>
             <TransformationExplorerSettings
                 ref="transformationSettings"
@@ -891,13 +905,15 @@ const TransformerEditor = React.createClass({
                 listMode={this.props.listMode}
                 tools={this.props.tools}
                 drawSolutionShape={this.props.drawSolutionShape}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
             <div>Starting location:</div>
             <TransformationsShapeEditor
                 ref="shapeEditor"
                 graph={graph}
                 shape={this.props.starting.shape}
-                onChange={this.changeStarting} />
+                onChange={this.changeStarting}
+            />
             <div>Solution transformations:</div>
             <Transformer
                 ref="explorer"

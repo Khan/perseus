@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -93,7 +93,8 @@ const Group = React.createClass({
                 apiOptions={apiOptions}
                 interWidgets={this._interWidgets}
                 reviewMode={!!this.props.reviewModeRubric}
-                onInteractWithWidget={onInteractWithWidget} />
+                onInteractWithWidget={onInteractWithWidget}
+            />
             {this.props.icon && <div className="group-icon">
                 {this.props.icon}
             </div>}

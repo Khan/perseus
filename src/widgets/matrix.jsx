@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -173,14 +173,16 @@ const Matrix = React.createClass({
                     className={"matrix-bracket bracket-left"}
                     style={{
                         height: bracketHeight,
-                    }}>
+                    }}
+                >
                 </div>
                 <div
                     className={"matrix-bracket bracket-right"}
                     style={{
                         height: bracketHeight,
                         left: bracketOffset,
-                    }}>
+                    }}
+                >
                 </div>
                 {_(maxRows).times(row => {
                     const rowVals = this.props.answers[row];
@@ -248,8 +250,9 @@ const Matrix = React.createClass({
                                 MatrixInput = <TextInput {...inputProps} />;
                             }
                             return <span
-                                        key={col}
-                                        className="matrix-input-field">
+                                key={col}
+                                className="matrix-input-field"
+                            >
                                 {MatrixInput}
                             </span>;
                         })}

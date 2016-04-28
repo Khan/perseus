@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -133,10 +133,12 @@ const UnitInputEditor = React.createClass({
         let acceptingElem = null;
         if (accepting === SOME) {
             const unitsArr = acceptingUnits.map((name, i) =>
-                <UnitExample name={name}
-                             original={this.original || null}
-                             sigfigs={this.props.sigfigs}
-                             key={i} />
+                <UnitExample
+                    name={name}
+                    original={this.original || null}
+                    sigfigs={this.props.sigfigs}
+                    key={i}
+                />
             );
 
             acceptingElem = <div>
@@ -152,11 +154,13 @@ const UnitInputEditor = React.createClass({
 
         return <div className="unit-editor">
             <div>
-                <input value={this.props.value}
-                       className="unit-editor-canonical"
-                       onBlur={this._handleBlur}
-                       onKeyPress={this._handleBlur}
-                       onChange={this.onChange} />
+                <input
+                    value={this.props.value}
+                    className="unit-editor-canonical"
+                    onBlur={this._handleBlur}
+                    onKeyPress={this._handleBlur}
+                    onChange={this.onChange}
+                />
                 {" "}
                 {this.parsed ?
                     <i className="icon-ok unit-example-okay" /> :
@@ -166,25 +170,31 @@ const UnitInputEditor = React.createClass({
 
             <div>
                 Significant Figures:{" "}
-                <NumberInput value={this.props.sigfigs}
-                             onChange={this.handleSigfigChange}
-                             checkValidity={this._checkSigfigValidity}
-                             useArrowKeys />
+                <NumberInput
+                    value={this.props.sigfigs}
+                    onChange={this.handleSigfigChange}
+                    checkValidity={this._checkSigfigValidity}
+                    useArrowKeys
+                />
             </div>
 
             <div>
                 <label>
-                    <input type="radio"
-                           name={this.groupId}
-                           onChange={() => this._setAccepting(ALL)}
-                           checked={this.props.accepting === ALL} />
+                    <input
+                        type="radio"
+                        name={this.groupId}
+                        onChange={() => this._setAccepting(ALL)}
+                        checked={this.props.accepting === ALL}
+                    />
                     {" Any equivalent unit "}
                 </label>
                 <label>
-                    <input type="radio"
-                           name={this.groupId}
-                           onChange={() => this._setAccepting(SOME)}
-                           checked={this.props.accepting === SOME} />
+                    <input
+                        type="radio"
+                        name={this.groupId}
+                        onChange={() => this._setAccepting(SOME)}
+                        checked={this.props.accepting === SOME}
+                    />
                     {" Only these units "}
                 </label>
             </div>

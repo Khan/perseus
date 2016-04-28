@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -80,7 +80,8 @@ const Histogram = React.createClass({
                 key={i}
                 static={true}
                 coord={coord}
-                normalStyle={{stroke: "none", fill: "none"}} />;
+                normalStyle={{stroke: "none", fill: "none"}}
+            />;
         };
 
         return <MovableLine onMove={this.handleMouseInteraction}>
@@ -231,12 +232,14 @@ const Histogram = React.createClass({
         const origin = [range[0][0], 0];
         const bottomRight = [range[0][1], 0];
 
-        return <Graphie box={options.box}
-                        range={options.range}
-                        options={options}
-                        setup={this._setupGraphie}
-                        onMouseMove={this.handleMouseInteraction}
-                        onMouseDown={this.handleMouseInteraction}>
+        return <Graphie
+            box={options.box}
+            range={options.range}
+            options={options}
+            setup={this._setupGraphie}
+            onMouseMove={this.handleMouseInteraction}
+            onMouseDown={this.handleMouseInteraction}
+        >
             <Line start={origin} end={bottomRight} style={axisStyle} />
             {/* Only plot these cool extra features if there's data */}
             {data && this._renderData()}
@@ -441,7 +444,8 @@ const Simulator = React.createClass({
                 disabled={this.props.apiOptions.readOnly}
                 onChange={this.handleUserProportionChange}
                 onFocus={() => this.props.onFocus(["userProportion"])}
-                onBlur={() => this.props.onBlur(["userProportion"])} />
+                onBlur={() => this.props.onBlur(["userProportion"])}
+            />
             <InfoTip>
                 <p>This controls the proportion or percentage that will be used
                    in your simulation.</p>
@@ -457,7 +461,8 @@ const Simulator = React.createClass({
                 disabled={this.props.apiOptions.readOnly}
                 onChange={this.handleSampleSizeChange}
                 onFocus={() => this.props.onFocus(["sampleSize"])}
-                onBlur={() => this.props.onBlur(["sampleSize"])} />
+                onBlur={() => this.props.onBlur(["sampleSize"])}
+            />
             <InfoTip>
                 <p>This controls the sample size that will be used in your
                    simulation. For example, if you set this to 100, then for
@@ -520,10 +525,11 @@ const Simulator = React.createClass({
             margin: "20px 0",
         };
         const startButton = <button
-                className="simple-button"
-                style={buttonStyle}
-                disabled={this.props.apiOptions.readOnly}
-                onClick={this.handleRunSimulation}>
+            className="simple-button"
+            style={buttonStyle}
+            disabled={this.props.apiOptions.readOnly}
+            onClick={this.handleRunSimulation}
+        >
             <$_>Run simulation</$_>
         </button>;
 
@@ -532,9 +538,11 @@ const Simulator = React.createClass({
             paddingBottom: (this.props.data) ? 40 : 0,
         };
         const histogram = <div style={histogramStyle}>
-            <Histogram data={this.props.data}
-                       xAxisLabel={this.props.xAxisLabel}
-                       yAxisLabel={this.props.yAxisLabel} />
+            <Histogram
+                data={this.props.data}
+                xAxisLabel={this.props.xAxisLabel}
+                yAxisLabel={this.props.yAxisLabel}
+            />
         </div>;
 
         return <div>

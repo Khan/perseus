@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -33,12 +33,16 @@ const PairEditor = React.createClass({
     render: function() {
         return <fieldset>
             <label>Name:
-                <BlurInput value={this.props.name}
-                           onChange={this.change("name")} />
+                <BlurInput
+                    value={this.props.name}
+                    onChange={this.change("name")}
+                />
             </label>
             <label>Value:
-                <BlurInput value={this.props.value}
-                           onChange={this.change("value")} />
+                <BlurInput
+                    value={this.props.value}
+                    onChange={this.change("value")}
+                />
             </label>
         </fieldset>;
     },
@@ -60,8 +64,10 @@ const PairsEditor = React.createClass({
 
     render: function() {
         const editors = _.map(this.props.pairs, (pair, i) => {
-            return <PairEditor key={i} name={pair.name} value={pair.value}
-                               onChange={this.handlePairChange.bind(this, i)}/>;
+            return <PairEditor
+                key={i} name={pair.name} value={pair.value}
+                onChange={this.handlePairChange.bind(this, i)}
+            />;
         });
         return <div>
             {editors}
@@ -117,30 +123,40 @@ const IframeEditor = React.createClass({
                 Try using the Video or CS Program widgets instead.
             </div>
             <label>Url or Program ID:
-                <BlurInput name="url"
-                           value={this.props.url}
-                           onChange={this.change("url")} />
+                <BlurInput
+                    name="url"
+                    value={this.props.url}
+                    onChange={this.change("url")}
+                />
             </label>
             <br/>
             <label>Settings:
-                <PairsEditor name="settings"
-                           pairs={this.props.settings}
-                           onChange={this.handleSettingsChange} />
+                <PairsEditor
+                    name="settings"
+                    pairs={this.props.settings}
+                    onChange={this.handleSettingsChange}
+                />
             </label>
             <br/>
             <label>Width:
-                <BlurInput name="width"
-                           value={this.props.width}
-                           onChange={this.change("width")} />
+                <BlurInput
+                    name="width"
+                    value={this.props.width}
+                    onChange={this.change("width")}
+                />
             </label>
             <label>Height:
-                <BlurInput name="height"
-                           value={this.props.height}
-                           onChange={this.change("height")} />
+                <BlurInput
+                    name="height"
+                    value={this.props.height}
+                    onChange={this.change("height")}
+                />
             </label>
-            <PropCheckBox label="Allow full screen"
+            <PropCheckBox
+                label="Allow full screen"
                 allowFullScreen={this.props.allowFullScreen}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
         </div>;
     },
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -55,19 +55,21 @@ const ExampleGraphieWidget = React.createClass({
 
     render: function() {
         return <Graphie
-                ref="graphie"
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                options={this.props.graph}
-                setup={this.setupGraphie}>
+            ref="graphie"
+            box={this.props.graph.box}
+            range={this.props.graph.range}
+            options={this.props.graph}
+            setup={this.setupGraphie}
+        >
             <MovablePoint
-                    pointSize={5}
-                    coord={this.props.coord || [0, 0]}
-                    constraints={[
-                        MovablePoint.constraints.snap(),
-                        MovablePoint.constraints.bound(),
-                    ]}
-                    onMove={this.movePoint} />
+                pointSize={5}
+                coord={this.props.coord || [0, 0]}
+                constraints={[
+                    MovablePoint.constraints.snap(),
+                    MovablePoint.constraints.bound(),
+                ]}
+                onMove={this.movePoint}
+            />
         </Graphie>;
     },
 

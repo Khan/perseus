@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -238,10 +238,10 @@ const Interaction = React.createClass({
 
     render: function() {
         return <Graphie
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                options={this.props.graph}
-                setup={this._setupGraphie}
+            box={this.props.graph.box}
+            range={this.props.graph.range}
+            options={this.props.graph}
+            setup={this._setupGraphie}
         >
             {_.map(this.props.elements, function(element, n) {
                 if (element.type === "point") {
@@ -374,13 +374,17 @@ const Interaction = React.createClass({
                         foo_y={element.options.constraintFn}
                         foo_z={element.options.snap}
                     >
-                            <MovablePoint coord={start}
-                                static={true}
-                                normalStyle={{stroke: "none", fill: "none"}} />
-                            <MovablePoint coord={end}
-                                static={true}
-                                normalStyle={{stroke: "none", fill: "none"}} />
-                        </MovableLine>;
+                        <MovablePoint
+                            coord={start}
+                            static={true}
+                            normalStyle={{stroke: "none", fill: "none"}}
+                        />
+                        <MovablePoint
+                            coord={end}
+                            static={true}
+                            normalStyle={{stroke: "none", fill: "none"}}
+                        />
+                    </MovableLine>;
                 } else if (element.type === "function") {
                     const fn = (x) => {
                         return this._eval(element.options.value, {x: x});

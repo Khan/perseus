@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -85,21 +85,25 @@ const Explanation = React.createClass({
 
     render: function() {
         return <div className="perseus-widget-explanation">
-            <a className="perseus-widget-explanation-link"
+            <a
+                className="perseus-widget-explanation-link"
                 /* Disable the link when read-only, so it doesn't look
                  * clickable */
                 href={this.props.apiOptions.readOnly ?
                       null : "javascript:void(0)"}
-                onClick={this.props.apiOptions.readOnly ? null : this._onClick}>
-
+                onClick={this.props.apiOptions.readOnly ? null : this._onClick}
+            >
                 {this.state.expanded ?
                     this.props.hidePrompt : this.props.showPrompt}
             </a>
-            <div className="perseus-widget-explanation-content"
+            <div
+                className="perseus-widget-explanation-content"
                 style={{
                     height: this.state.expanded ? this.state.contentHeight : 0,
                     overflow: this.state.expanded ? "visible" : "hidden",
-                }} ref="content">
+                }}
+                ref="content"
+            >
                 <Renderer
                     apiOptions={this.props.apiOptions}
                     content={this.props.explanation}

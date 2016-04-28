@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -46,14 +46,16 @@ const ConstraintEditor = React.createClass({
                         {value: "snap", content: "Snap"},
                         {value: "x",    content: "x="},
                         {value: "y",    content: "y="}]}
-                    onChange={this.change("constraint")} />
+                    onChange={this.change("constraint")}
+                />
             </div>
             {this.props.constraint === "snap" &&
                 <div className="perseus-widget-row">
                     Snap: <NumberInput
                         value={this.props.snap}
                         placeholder={0}
-                        onChange={this.change("snap")} />
+                        onChange={this.change("snap")}
+                    />
             </div>}
             {this.props.constraint === "x" && <div className="graph-settings">
                 <div className="perseus-widget-row">
@@ -61,7 +63,8 @@ const ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintFn}
-                        onChange={this.change("constraintFn")} />
+                        onChange={this.change("constraintFn")}
+                    />
                 </div>
             </div>}
             {this.props.constraint === "y" && <div className="graph-settings">
@@ -70,7 +73,8 @@ const ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintFn}
-                        onChange={this.change("constraintFn")} />
+                        onChange={this.change("constraintFn")}
+                    />
                 </div>
             </div>}
             Ensure these are set so nothing can be dragged off the canvas:
@@ -80,7 +84,8 @@ const ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintXMin}
-                        onChange={this.change("constraintXMin")} />
+                        onChange={this.change("constraintXMin")}
+                    />
                     <TeX>, </TeX> <MathInput
                         buttonSets={[]}
                         buttonsVisible={"never"}
@@ -95,7 +100,8 @@ const ConstraintEditor = React.createClass({
                         buttonSets={[]}
                         buttonsVisible={"never"}
                         value={this.props.constraintYMin}
-                        onChange={this.change("constraintYMin")} />
+                        onChange={this.change("constraintYMin")}
+                    />
                     <TeX>, </TeX> <MathInput
                         buttonSets={[]}
                         buttonsVisible={"never"}

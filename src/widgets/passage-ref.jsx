@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -56,7 +56,8 @@ const PassageRef = React.createClass({
             </$_>;
         } else {
             lineRangeOutput = <$_
-                    lineRange={lineRange[0] + EN_DASH + lineRange[1]}>
+                lineRange={lineRange[0] + EN_DASH + lineRange[1]}
+            >
                 lines %(lineRange)s
             </$_>;
         }

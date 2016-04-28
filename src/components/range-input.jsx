@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -37,13 +37,15 @@ const RangeInput = React.createClass({
                 value={value[0]}
                 checkValidity={val => checkValidity([val, value[1]])}
                 onChange={this.onChange.bind(this, 0)}
-                placeholder={this.props.placeholder[0]} />
+                placeholder={this.props.placeholder[0]}
+            />
             <NumberInput
                 {...this.props}
                 value={value[1]}
                 checkValidity={val => checkValidity([value[0], val])}
                 onChange={this.onChange.bind(this, 1)}
-                placeholder={this.props.placeholder[1]} />
+                placeholder={this.props.placeholder[1]}
+            />
         </div>;
     },
 

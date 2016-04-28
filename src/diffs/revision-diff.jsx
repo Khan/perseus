@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 // Responsible for combining the text diffs from text-diff and the widget
 // diffs from widget-differ.
 const React = require("react");
@@ -120,13 +116,15 @@ const RevisionDiff = React.createClass({
                     key={section.title}
                     title={section.title}
                     before={beforeValue}
-                    after={afterValue} />;
+                    after={afterValue}
+                />;
             } else {
                 displayedDiff = <TextDiff
                     key={section.title}
                     title={section.title}
                     before={beforeValue.content}
-                    after={afterValue.content} />;
+                    after={afterValue.content}
+                />;
             }
             result.push(<div key={i}>
                 <div className="diff-header">{section.title}</div>

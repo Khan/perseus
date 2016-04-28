@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -47,13 +47,15 @@ const MatcherEditor = React.createClass({
                     onChange={(options, cb) => {
                         this.props.onChange({left: options}, cb);
                     }}
-                    layout="vertical" />
+                    layout="vertical"
+                />
                 <TextListEditor
                     options={this.props.right}
                     onChange={(options, cb) => {
                         this.props.onChange({right: options}, cb);
                     }}
-                    layout="vertical" />
+                    layout="vertical"
+                />
             </div>
             <span>
                 {' '}Labels:{' '}
@@ -62,18 +64,23 @@ const MatcherEditor = React.createClass({
                 </InfoTip>
             </span>
             <div>
-                <input type="text"
+                <input
+                    type="text"
                     defaultValue={this.props.labels[0]}
-                    onChange={this.onLabelChange.bind(this, 0)} />
-                <input type="text"
+                    onChange={this.onLabelChange.bind(this, 0)}
+                />
+                <input
+                    type="text"
                     defaultValue={this.props.labels[1]}
-                    onChange={this.onLabelChange.bind(this, 1)} />
+                    onChange={this.onLabelChange.bind(this, 1)}
+                />
             </div>
             <div>
                 <PropCheckBox
                     label="Order of the matched pairs matters:"
                     orderMatters={this.props.orderMatters}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>With this option enabled, only the order provided above
                     will be treated as correct. This is useful when ordering is
@@ -88,7 +95,8 @@ const MatcherEditor = React.createClass({
                 <PropCheckBox
                     label="Padding:"
                     padding={this.props.padding}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>

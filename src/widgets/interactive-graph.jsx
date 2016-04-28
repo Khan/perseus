@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -382,13 +382,14 @@ const InteractiveGraph = React.createClass({
         let extraOptions;
         if (this.props.flexibleType) {
             typeSelect = <select
-                    value={this.props.graph.type}
-                    onChange={e => {
-                        const type = e.target.value;
-                        this.onChange({
-                            graph: {type: type},
-                        });
-                    }}>
+                value={this.props.graph.type}
+                onChange={e => {
+                    const type = e.target.value;
+                    this.onChange({
+                        graph: {type: type},
+                    });
+                }}
+            >
                 <option value="linear">Linear function</option>
                 <option value="quadratic">Quadratic function</option>
                 <option value="sinusoid">Sinusoid function</option>
@@ -403,19 +404,20 @@ const InteractiveGraph = React.createClass({
 
             if (this.props.graph.type === "point") {
                 extraOptions = <select
-                        key="point-select"
-                        value={this.props.graph.numPoints || 1}
-                        onChange={e => {
-                            // Convert numbers, leave UNLIMITED intact:
-                            const num = +e.target.value || e.target.value;
-                            this.onChange({
-                                graph: {
-                                    type: "point",
-                                    numPoints: num,
-                                    coords: null,
-                                },
-                            });
-                        }}>
+                    key="point-select"
+                    value={this.props.graph.numPoints || 1}
+                    onChange={e => {
+                        // Convert numbers, leave UNLIMITED intact:
+                        const num = +e.target.value || e.target.value;
+                        this.onChange({
+                            graph: {
+                                type: "point",
+                                numPoints: num,
+                                coords: null,
+                            },
+                        });
+                    }}
+                >
                     {_.map(_.range(1, 7), function(n) {
                         return <option value={n}>
                             {n} point{n > 1 && "s"}
@@ -440,7 +442,8 @@ const InteractiveGraph = React.createClass({
                                                     // supports "grid"
                                 });
                                 this.onChange({graph: graph});
-                            }}>
+                            }}
+                        >
                             {_.map(_.range(3, 13), function(n) {
                                 return <option value={n}>{n} sides</option>;
                             })}
@@ -460,7 +463,8 @@ const InteractiveGraph = React.createClass({
                                             coords: null,
                                         });
                                     this.onChange({graph: graph});
-                                }}>
+                                }}
+                            >
                                 <option value="grid">grid</option>
                                 {(this.props.graph.numSides !== UNLIMITED) && [
                                     <option value="angles">
@@ -484,9 +488,11 @@ const InteractiveGraph = React.createClass({
                     </div>
                     <div>
                         <label>Show angle measures:{' '}
-                            <input type="checkbox"
+                            <input
+                                type="checkbox"
                                 checked={this.props.graph.showAngles}
-                                onChange={this.toggleShowAngles} />
+                                onChange={this.toggleShowAngles}
+                            />
                         </label>
                         <InfoTip>
                             <p>Displays the interior angle measures.</p>
@@ -494,9 +500,11 @@ const InteractiveGraph = React.createClass({
                     </div>
                     <div>
                         <label>Show side measures:{' '}
-                            <input type="checkbox"
+                            <input
+                                type="checkbox"
                                 checked={this.props.graph.showSides}
-                                onChange={this.toggleShowSides} />
+                                onChange={this.toggleShowSides}
+                            />
                         </label>
                         <InfoTip>
                             <p>Displays the side lengths.</p>
@@ -505,18 +513,19 @@ const InteractiveGraph = React.createClass({
                 </div>;
             } else if (this.props.graph.type === "segment") {
                 extraOptions = <select
-                        key="segment-select"
-                        value={this.props.graph.numSegments || 1}
-                        onChange={e => {
-                            const num = +e.target.value;
-                            this.onChange({
-                                graph: {
-                                    type: "segment",
-                                    numSegments: num,
-                                    coords: null,
-                                },
-                            });
-                        }}>
+                    key="segment-select"
+                    value={this.props.graph.numSegments || 1}
+                    onChange={e => {
+                        const num = +e.target.value;
+                        this.onChange({
+                            graph: {
+                                type: "segment",
+                                numSegments: num,
+                                coords: null,
+                            },
+                        });
+                    }}
+                >
                     {_.map(_.range(1, 7), function(n) {
                         return <option value={n}>
                             {n} segment{n > 1 && "s"}
@@ -531,14 +540,17 @@ const InteractiveGraph = React.createClass({
                 extraOptions = <div>
                     <div>
                         <label>Show angle measure:{' '}
-                            <input type="checkbox"
+                            <input
+                                type="checkbox"
                                 checked={this.props.graph.showAngles}
-                                onChange={this.toggleShowAngles} />
+                                onChange={this.toggleShowAngles}
+                            />
                         </label>
                     </div>
                     <div>
                         <label>Allow reflex angles:{' '}
-                            <input type="checkbox"
+                            <input
+                                type="checkbox"
                                 checked={allowReflexAngles}
                                 onChange={newVal => {
                                     this.onChange({
@@ -548,7 +560,8 @@ const InteractiveGraph = React.createClass({
                                             coords: null,
                                         }),
                                     });
-                                }} />
+                                }}
+                            />
                         </label>
                         <InfoTip>
                             <p>
@@ -573,7 +586,8 @@ const InteractiveGraph = React.createClass({
                                             coords: null,
                                         }),
                                     });
-                                }} />
+                                }}
+                            />
                             {' '}degrees{' '}
                         </label>
                     </div>
@@ -591,7 +605,8 @@ const InteractiveGraph = React.createClass({
                                             coords: null,
                                         }),
                                     });
-                                }} />
+                                }}
+                            />
                             {' '}degrees{' '}
                         </label>
                     </div>
@@ -625,12 +640,13 @@ const InteractiveGraph = React.createClass({
             gridStep
         );
 
-        return <div className={"perseus-widget " +
-                    "perseus-widget-interactive-graph"}
-                    style={{
-                        width: box[0],
-                        height: this.props.flexibleType ? "auto" : box[1],
-                    }}>
+        return <div
+            className={"perseus-widget perseus-widget-interactive-graph"}
+            style={{
+                width: box[0],
+                height: this.props.flexibleType ? "auto" : box[1],
+            }}
+        >
             <Graph
                 instructions={instructions}
                 ref="graph"
@@ -647,7 +663,8 @@ const InteractiveGraph = React.createClass({
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
                 onMouseDown={onMouseDown}
-                onGraphieUpdated={this.setGraphie} />
+                onGraphieUpdated={this.setGraphie}
+            />
             {typeSelect}{extraOptions}
         </div>;
     },

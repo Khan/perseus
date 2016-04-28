@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React         = require("react");
@@ -64,11 +64,13 @@ const MathOutput = React.createClass({
             textAlign: "center",
         };
 
-        return <span ref="input"
-                className={this._getInputClassName()}
-                aria-label={this.props.labelText}
-                onMouseDown={this.focus}
-                onTouchStart={this.focus}>
+        return <span
+            ref="input"
+            className={this._getInputClassName()}
+            aria-label={this.props.labelText}
+            onMouseDown={this.focus}
+            onTouchStart={this.focus}
+        >
             <div style={divStyle}>
                 <TeX>
                     {this._getDisplayValue(this.props.value)}

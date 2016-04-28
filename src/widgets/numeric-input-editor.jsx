@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -72,13 +72,15 @@ const NumericInputEditor = React.createClass({
 
         const unsimplifiedAnswers = (i) => <div className="perseus-widget-row">
             <label>Unsimplified answers are</label>
-            <ButtonGroup value={answers[i]["simplify"]}
-                         allowEmpty={false}
-                         buttons={[
-                            {value: "required", content: "ungraded"},
-                            {value: "optional", content: "accepted"},
-                            {value: "enforced", content: "wrong"}]}
-                         onChange={this.updateAnswer(i, "simplify")} />
+            <ButtonGroup
+                value={answers[i]["simplify"]}
+                allowEmpty={false}
+                buttons={[
+                    {value: "required", content: "ungraded"},
+                    {value: "optional", content: "accepted"},
+                    {value: "enforced", content: "wrong"}]}
+                onChange={this.updateAnswer(i, "simplify")}
+            />
             <InfoTip>
                 <p>Normally select "ungraded". This will give the
                 user a message saying the answer is correct but not
@@ -95,9 +97,11 @@ const NumericInputEditor = React.createClass({
         const suggestedAnswerTypes = (i) => <div>
             <div className="perseus-widget-row">
                 <label>Choose the suggested answer formats</label>
-                <MultiButtonGroup buttons={answerFormButtons}
+                <MultiButtonGroup
+                    buttons={answerFormButtons}
                     values={answers[i]["answerForms"]}
-                    onChange={this.updateAnswer(i, "answerForms")} />
+                    onChange={this.updateAnswer(i, "answerForms")}
+                />
                 <InfoTip>
                     <p>Formats will be autoselected for you based on the
                         given answer; to show no suggested formats and
@@ -119,9 +123,11 @@ const NumericInputEditor = React.createClass({
                 </InfoTip>
             </div>
             <div className="perseus-widget-row">
-                <PropCheckBox label="Strictly match only these formats"
+                <PropCheckBox
+                    label="Strictly match only these formats"
                     strict={answers[i]["strict"]}
-                    onChange={this.updateAnswer.bind(this, i)} />
+                    onChange={this.updateAnswer.bind(this, i)}
+                />
             </div>
         </div>;
 
@@ -133,7 +139,8 @@ const NumericInputEditor = React.createClass({
                     className="max-error"
                     value={answers[i]["maxError"]}
                     onChange={this.updateAnswer(i, "maxError")}
-                    placeholder="0" />
+                    placeholder="0"
+                />
             </label>
         </div>;
 
@@ -143,7 +150,8 @@ const NumericInputEditor = React.createClass({
                     buttons={[
                         {value: "normal", content: "Normal (80px)"},
                         {value: "small", content: "Small (40px)"}]}
-                    onChange={this.change("size")} />
+                    onChange={this.change("size")}
+                />
                 <InfoTip>
                     <p>Use size "Normal" for all text boxes, unless there are
                     multiple text boxes in one line and the answer area is too
@@ -156,7 +164,8 @@ const NumericInputEditor = React.createClass({
                     Label text:{' '}
                     <TextInput
                         value={this.props.labelText}
-                        onChange={this.change("labelText")} />
+                        onChange={this.change("labelText")}
+                    />
                 </label>
                 <InfoTip>
                     <p>Text to describe this input. This will be shown to users
@@ -168,7 +177,8 @@ const NumericInputEditor = React.createClass({
             <div className="perseus-widget-row">
                 <PropCheckBox label="Coefficient"
                     coefficient={this.props.coefficient}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>
                         A coefficient style number allows the student to use -
@@ -183,7 +193,8 @@ const NumericInputEditor = React.createClass({
                 href="javascript:void(0)"
                 className="simple-button orange"
                 onClick={() => this.addAnswer()}
-                onKeyDown={(e) => this.onSpace(e, this.addAnswer)}>
+                onKeyDown={(e) => this.onSpace(e, this.addAnswer)}
+            >
               <span>Add new answer</span>
             </a>
         </div>;
@@ -204,10 +215,13 @@ const NumericInputEditor = React.createClass({
                     if ("content" in newProps) {
                         this.updateAnswer(i, {message: newProps.content});
                     }
-                }} />;
+                }}
+            />;
             return <div className="perseus-widget-row" key={i}>
-                <div className={"input-answer-editor-value-container" +
-                    (answer.maxError ? " with-max-error" : "")}>
+                <div
+                    className={"input-answer-editor-value-container" +
+                        (answer.maxError ? " with-max-error" : "")}
+                >
                     <NumberInput value={answer.value}
                         className="numeric-input-value"
                         placeholder="answer"
@@ -240,26 +254,34 @@ const NumericInputEditor = React.createClass({
                         onChange={(newValue) => {
                             this.updateAnswer(i, {
                                 value: firstNumericalParse(newValue)});
-                        }} />
-                    {answer.strict && <div className="is-strict-indicator"
-                        title="strictly equivalent to">&equiv;</div>}
+                        }}
+                    />
+                    {answer.strict && <div
+                        className="is-strict-indicator"
+                        title="strictly equivalent to"
+                    >&equiv;</div>}
                     {answer.simplify !== "required" &&
                      answer.status === "correct" &&
-                      <div className={"simplify-indicator " + answer.simplify}
-                        title="accepts unsimplified answers">&permil;</div>}
+                    <div
+                        className={"simplify-indicator " + answer.simplify}
+                        title="accepts unsimplified answers"
+                    >&permil;</div>}
                     {answer.maxError ? <div className="max-error-container">
                         <div className="max-error-plusmn">&plusmn;</div>
-                        <NumberInput placeholder={0}
+                        <NumberInput
+                            placeholder={0}
                             value={answers[i]["maxError"]}
                             format={_.last(answer.answerForms)}
-                            onChange={this.updateAnswer(i, "maxError")} />
+                            onChange={this.updateAnswer(i, "maxError")}
+                        />
                     </div> : null}
                     <div className="value-divider" />
                     <a href="javascript:void(0)"
                         className={"answer-status " + answer.status}
                         onClick={() => this.onStatusChange(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onStatusChange, i)}>
+                            this.onSpace(e, this.onStatusChange, i)}
+                    >
                         {answer.status}
                     </a>
                     <a
@@ -267,14 +289,16 @@ const NumericInputEditor = React.createClass({
                         className="answer-trash"
                         onClick={() => this.onTrashAnswer(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onTrashAnswer, i)}>
+                            this.onSpace(e, this.onTrashAnswer, i)}
+                    >
                       <span className="icon-trash" />
                     </a>
                     <a href="javascript:void(0)"
                         className="options-toggle"
                         onClick={() => this.onToggleOptions(i)}
                         onKeyDown={(e) =>
-                            this.onSpace(e, this.onToggleOptions, i)}>
+                            this.onSpace(e, this.onToggleOptions, i)}
+                    >
                       <i className="icon-gear" />
                     </a>
                 </div>

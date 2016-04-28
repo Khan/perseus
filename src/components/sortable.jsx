@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -136,16 +136,18 @@ const Draggable = React.createClass({
         }
 
         return <li
-                    className={className}
-                    style={style}
-                    onMouseDown={this.onMouseDown}
-                    onTouchStart={this.onMouseDown}
-                    onTouchMove={this.onMouseMove}
-                    onTouchEnd={this.onMouseUp}
-                    onTouchCancel={this.onMouseUp} >
+            className={className}
+            style={style}
+            onMouseDown={this.onMouseDown}
+            onTouchStart={this.onMouseDown}
+            onTouchMove={this.onMouseMove}
+            onTouchEnd={this.onMouseUp}
+            onTouchCancel={this.onMouseUp}
+        >
             <Renderer
                 content={this.props.content}
-                onRender={this.props.onRender} />
+                onRender={this.props.onRender}
+            />
         </li>;
     },
 
@@ -420,7 +422,8 @@ const Sortable = React.createClass({
                     onTouchEnd={this.onMouseUp.bind(this, item.key)}
                     onTouchCancel={this.onMouseUp.bind(this, item.key)}
                     onAnimationEnd={this.onAnimationEnd.bind(this,
-                        item.key)} />
+                        item.key)}
+                />
             );
 
             if (item.type === DRAGGING || item.type === ANIMATING) {
@@ -430,7 +433,8 @@ const Sortable = React.createClass({
                         ref={"placeholder_" + item.key}
                         width={item.width}
                         height={item.height}
-                        margin={isLast ? 0 : margin} />
+                        margin={isLast ? 0 : margin}
+                    />
                 );
             }
         }, this);

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -68,7 +68,8 @@ const TableEditor = React.createClass({
                                 this.onSizeInput(this.props.rows, val);
                             }
                         }}
-                        useArrowKeys={true} />
+                        useArrowKeys={true}
+                    />
                 </label>
             </div>
             <div className="perseus-widget-row">
@@ -83,7 +84,8 @@ const TableEditor = React.createClass({
                                 this.onSizeInput(val, this.props.columns);
                             }
                         }}
-                        useArrowKeys={true} />
+                        useArrowKeys={true}
+                    />
                 </label>
             </div>
             <div>

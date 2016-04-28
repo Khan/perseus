@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -45,9 +45,10 @@ const Dropdown = React.createClass({
 
         if (this.props.apiOptions.fancyDropdowns) {
             return <FancySelect
-                    onChange={this._handleChange}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
-                    value={this.props.selected}>
+                onChange={this._handleChange}
+                className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                value={this.props.selected}
+            >
                 <FancyOption value={0} visible={false}>
                     <span className="placeholder">
                         {this.props.placeholder}
@@ -63,18 +64,20 @@ const Dropdown = React.createClass({
 
         } else {
             return <select
-                    onChange={this._handleChangeEvent}
-                    onTouchStart={captureScratchpadTouchStart}
-                    className={selectClasses + " " + ApiClassNames.INTERACTIVE}
-                    disabled={this.props.apiOptions.readOnly}
-                    value={this.props.selected}>
+                onChange={this._handleChangeEvent}
+                onTouchStart={captureScratchpadTouchStart}
+                className={selectClasses + " " + ApiClassNames.INTERACTIVE}
+                disabled={this.props.apiOptions.readOnly}
+                value={this.props.selected}
+            >
                 <option value={0} disabled>
                     {this.props.placeholder}
                 </option>
                 {choices.map((choice, i) => {
                     return <option
-                            key={"" + (i + 1)}
-                            value={i + 1}>
+                        key={"" + (i + 1)}
+                        value={i + 1}
+                    >
                         {choice}
                     </option>;
                 })}

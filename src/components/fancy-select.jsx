@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -67,15 +67,19 @@ const FancySelect = React.createClass({
         // width to be large enough to fit the largest option when
         // selected, so that the page doesn't have to re-flow when changing
         // select items.
-        const optionSizer = <span style={{
-            display: "inline-block",
-            float: "left",
-            visibility: "hidden",
-            height: 0,
-        }}>
+        const optionSizer = <span
+            style={{
+                display: "inline-block",
+                float: "left",
+                visibility: "hidden",
+                height: 0,
+            }}
+        >
             {React.Children.map(this.props.children, (option) => {
-                return <div className="fancy-select-value-hidden"
-                            style={{height: 0}}>
+                return <div
+                    className="fancy-select-value-hidden"
+                    style={{height: 0}}
+                >
                     {option.props.children}
                 </div>;
             })}
@@ -96,16 +100,19 @@ const FancySelect = React.createClass({
             closed: this.state.closed,
         });
 
-        const selectBox = <div className={selectBoxClassName}
-                onClick={this._swapActive}>
-                {optionSizer}
-                {/* position this absolutely so it goes on top
-                    of the optionSizer, not next to it */}
-                <span
-                        className="fancy-select-value"
-                        style={{position: "absolute"}}>
-                    {selectedOption.props.children}
-                </span>
+        const selectBox = <div
+            className={selectBoxClassName}
+            onClick={this._swapActive}
+        >
+            {optionSizer}
+            {/* position this absolutely so it goes on top
+                of the optionSizer, not next to it */}
+            <span
+                className="fancy-select-value"
+                style={{position: "absolute"}}
+            >
+                {selectedOption.props.children}
+            </span>
         </div>;
 
         const options = React.Children.map(this.props.children, (option, i) => {
@@ -148,16 +155,17 @@ const FancySelect = React.createClass({
             });
 
             return <li
-                    className={className}
-                    style={style}
-                    onClick={() => {
-                        this._unbindClickHandler();
-                        this.props.onChange(option.props.value, option);
-                        this.setState({
-                            active: false,
-                            closed: true,
-                        });
-                    }}>
+                className={className}
+                style={style}
+                onClick={() => {
+                    this._unbindClickHandler();
+                    this.props.onChange(option.props.value, option);
+                    this.setState({
+                        active: false,
+                        closed: true,
+                    });
+                }}
+            >
                 {option.props.children}
             </li>;
         });

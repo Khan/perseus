@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -83,12 +83,14 @@ const Categorizer = React.createClass({
                             {/* a pseudo-label: toggle the value of the
                                 checkbox when this div or the checkbox is
                                 clicked */}
-                            <div className={ApiClassNames.INTERACTIVE}
-                                    onClick={this.onChange.bind(
-                                        this,
-                                        itemNum,
-                                        catNum
-                                    )}>
+                            <div
+                                className={ApiClassNames.INTERACTIVE}
+                                onClick={this.onChange.bind(
+                                    this,
+                                    itemNum,
+                                    catNum
+                                )}
+                            >
                                 <input
                                     type="radio"
                                     name={uniqueId}
@@ -101,7 +103,7 @@ const Categorizer = React.createClass({
                                         catNum
                                     )}
                                     onClick={(e) => e.stopPropagation()}
-                                    />
+                                />
                                 <span></span>
                             </div>
                         </td>;

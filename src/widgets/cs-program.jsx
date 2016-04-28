@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable no-undef, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -129,11 +129,13 @@ const CSProgram = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-same-origin allow-scripts"
-                       src={url}
-                       style={style}
-                       className={className}
-                       allowFullScreen={true} />;
+        return <iframe
+            sandbox="allow-same-origin allow-scripts"
+            src={url}
+            style={style}
+            className={className}
+            allowFullScreen={true}
+        />;
     },
 
     simpleValidate: function(rubric) {

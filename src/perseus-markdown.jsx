@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* globals KA */
 const _ = require("underscore");
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -33,7 +33,7 @@ const PassageRefTarget = React.createClass({
             inline={true}
             enabledFeatures={this.props.enabledFeatures}
             apiOptions={this.props.apiOptions}
-            />;
+        />;
     },
 
     simpleValidate: function(rubric) {

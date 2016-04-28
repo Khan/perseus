@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -34,9 +34,11 @@ const DiffSide = React.createClass({
             after: this.props.side === AFTER,
         });
         return <div className={className} >
-            <div style={{
-                paddingLeft: indentationFromDepth(this.props.depth),
-            }} >
+            <div
+                style={{
+                    paddingLeft: indentationFromDepth(this.props.depth),
+                }}
+            >
                 {this.props.showKey && this.props.propKey + ": "}
                 <span className={"inner-value dark " + this.props.className} >
                     {this.props.value}
@@ -62,11 +64,15 @@ const CollapsedRow = React.createClass({
         const self = this;
         return <div onClick={self.props.onClick}>
             {_.map([BEFORE, AFTER], function(side) {
-                return <div className={"diff-row collapsed " + side}
-                    key={side} >
-                        <div style={{
+                return <div
+                    className={"diff-row collapsed " + side}
+                    key={side}
+                >
+                    <div
+                        style={{
                             paddingLeft: indentationFromDepth(self.props.depth),
-                        }}>
+                        }}
+                    >
                         <span> [ show unmodified ] </span>
                     </div>
                 </div>;
@@ -146,26 +152,30 @@ const DiffEntry = React.createClass({
                 depth={this.props.depth}
                 propKey={entry.key}
                 showKey={!propertyAdded}
-                value={entry.before} />
+                value={entry.before}
+            />
             <DiffSide
                 side={AFTER}
                 className={rightClass}
                 depth={this.props.depth}
                 propKey={entry.key}
                 showKey={!propertyDeleted}
-                value={entry.after} />
+                value={entry.after}
+            />
             </div>}
             {_.map(shownChildren, function(child) {
                 return <DiffEntry
                     key={child.key}
                     depth={self.props.depth + 1}
                     entry={child}
-                    expanded={self.state.expanded} />;
+                    expanded={self.state.expanded}
+                />;
             })}
             {collapsed &&
                 <CollapsedRow
                     depth={this.props.depth + 1}
-                    onClick={this.expand} />}
+                    onClick={this.expand}
+                />}
         </div>;
     },
 

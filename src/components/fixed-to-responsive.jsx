@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * A wrapper for a component that would otherwise have a fixed width and
  * height, that magically makes it reponsive while preserving its aspect ratio.
@@ -47,9 +43,11 @@ const FixedToResponsive = React.createClass({
         // the width of the containing block, so:
         //     (fixed height / fixed width) * display width = display height
         // Based on http://refills.bourbon.io/components/#video && medium.com
-        const spacer = <div style={{
-            paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%',
-        }} />;
+        const spacer = <div
+            style={{
+                paddingBottom: (1 / aspectRatio).toFixed(4) * 100 + '%',
+            }}
+        />;
 
         // Prevent child components from growing (aka "the Peter Pan effect")
         const style = {

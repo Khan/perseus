@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -182,7 +182,8 @@ const rules = {
             return <RefStart
                 ref={START_REF_PREFIX + node.ref}
                 key={START_REF_PREFIX + node.ref}
-                refContent={refContent} />;
+                refContent={refContent}
+            />;
         },
     },
     refEnd: {
@@ -203,8 +204,9 @@ const rules = {
         react: (node, output, state) => {
             if (node.ref != null) {
                 return <RefEnd
-                        ref={END_REF_PREFIX + node.ref}
-                        key={END_REF_PREFIX + node.ref} />;
+                    ref={END_REF_PREFIX + node.ref}
+                    key={END_REF_PREFIX + node.ref}
+                />;
             } else {
                 // if we didn't have a matching start reference, or
                 // we aren't parsing refs for this pass (we do this
@@ -228,10 +230,11 @@ const rules = {
         react: (node, output, state) => {
             return [
                 <span
-                        key="visual-square"
-                        className="perseus-passage-square-label"
-                        style={LABEL_OUTER_STYLE}
-                        aria-hidden="true">
+                    key="visual-square"
+                    className="perseus-passage-square-label"
+                    style={LABEL_OUTER_STYLE}
+                    aria-hidden="true"
+                >
                     <span style={SQUARE_LABEL_STYLE}>
                         {node.content}
                     </span>
@@ -257,10 +260,11 @@ const rules = {
         react: (node, output, state) => {
             return [
                 <span
-                        key="visual-circle"
-                        className="perseus-passage-circle-label"
-                        style={LABEL_OUTER_STYLE}
-                        aria-hidden={true}>
+                    key="visual-circle"
+                    className="perseus-passage-circle-label"
+                    style={LABEL_OUTER_STYLE}
+                    aria-hidden={true}
+                >
                     <span style={CIRCLE_LABEL_STYLE}>
                         {node.content}
                     </span>
@@ -289,9 +293,10 @@ const rules = {
         react: (node, output, state) => {
             return [
                 <span
-                        key="visual-brackets"
-                        className="perseus-passage-bracket-label"
-                        aria-hidden="true">
+                    key="visual-brackets"
+                    className="perseus-passage-bracket-label"
+                    aria-hidden="true"
+                >
                     [{node.content}]
                 </span>,
                 <span key="alt-text" className="perseus-sr-only">

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -37,12 +37,16 @@ const PairEditor = React.createClass({
     render: function() {
         return <fieldset className="pair-editor">
                 <label>Name:{" "}
-                    <BlurInput value={this.props.name}
-                           onChange={this.change("name")} />
+                    <BlurInput
+                        value={this.props.name}
+                        onChange={this.change("name")}
+                    />
                 </label>
                 <label> Value:{" "}
-                    <BlurInput value={this.props.value}
-                           onChange={this.change("value")} />
+                    <BlurInput
+                        value={this.props.value}
+                        onChange={this.change("value")}
+                    />
                 </label>
             </fieldset>;
     },
@@ -64,8 +68,10 @@ const PairsEditor = React.createClass({
 
     render: function() {
         const editors = _.map(this.props.pairs, (pair, i) => {
-            return <PairEditor key={i} name={pair.name} value={pair.value}
-                     onChange={this.handlePairChange.bind(this, i)}/>;
+            return <PairEditor
+                key={i} name={pair.name} value={pair.value}
+                onChange={this.handlePairChange.bind(this, i)}
+            />;
         });
         return <div>
             {editors}
@@ -133,15 +139,18 @@ const CSProgramEditor = React.createClass({
     render: function() {
         return <div>
             <label>Url or Program ID:{" "}
-                <BlurInput name="programID"
-                           value={this.props.programID}
-                           onChange={this._handleProgramIDChange} />
+                <BlurInput
+                    name="programID"
+                    value={this.props.programID}
+                    onChange={this._handleProgramIDChange}
+                />
             </label>
             <br/>
             <PropCheckBox
                 label="Show Editor"
                 showEditor={this.props.showEditor}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
             <InfoTip>
                 If you show the editor, you should use the "full-width"
                 alignment to make room for the width of the editor.
@@ -150,12 +159,15 @@ const CSProgramEditor = React.createClass({
             <PropCheckBox
                 label="Show Buttons"
                 showButtons={this.props.showButtons}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
             <br/>
             <label>Settings:
-                <PairsEditor name="settings"
-                           pairs={this.props.settings}
-                           onChange={this._handleSettingsChange} />
+                <PairsEditor
+                    name="settings"
+                    pairs={this.props.settings}
+                    onChange={this._handleSettingsChange}
+                />
                 <InfoTip>
                     Settings that you add here are available to the program
                     as an object returned by <code>Program.settings()</code>

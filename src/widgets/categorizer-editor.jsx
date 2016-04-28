@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -39,14 +39,16 @@ const CategorizerEditor = React.createClass({
                     label="Randomize item order"
                     labelAlignment="right"
                     randomizeItems={this.props.randomizeItems}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
             </div>
 
             Categories:
             <TextListEditor
                 options={this.props.categories}
                 onChange={(cat) => {this.change("categories", cat);}}
-                layout="horizontal" />
+                layout="horizontal"
+            />
 
             Items:
             <TextListEditor
@@ -63,7 +65,8 @@ const CategorizerEditor = React.createClass({
                         // for content creators to catch and fix.
                         values: _.first(this.props.values, items.length),
                     });}}
-                layout="vertical" />
+                layout="vertical"
+            />
 
             <Categorizer
                 items={this.props.items}
@@ -71,7 +74,7 @@ const CategorizerEditor = React.createClass({
                 values={this.props.values}
                 onChange={(newProps) => {this.props.onChange(newProps);}}
                 trackInteraction={function() {}}
-                />
+            />
         </div>;
     },
 });

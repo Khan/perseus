@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React     = require("react");
@@ -134,18 +134,22 @@ const TexButtons = React.createClass({
         const buttonRows = _(buttons).map(row => row.map(symbGen => {
             // create a (component, thing we should send to mathquill) pair
             const symbol = symbGen(this.props);
-            return <button onClick={() => this.props.onInsert(symbol[1])}
-                           className="tex-button"
-                           key={symbol[0].key}
-                           tabIndex={-1}
-                           type="button">
+            return <button
+                onClick={() => this.props.onInsert(symbol[1])}
+                className="tex-button"
+                key={symbol[0].key}
+                tabIndex={-1}
+                type="button"
+            >
                 {symbol[0]}
             </button>;
         }));
 
         const buttonPopup = _(buttonRows).map((row, i) => {
-            return <div className="clearfix tex-button-row"
-                        key={this.props.sets[i]}>
+            return <div
+                className="clearfix tex-button-row"
+                key={this.props.sets[i]}
+            >
                 {row}
             </div>;
         });

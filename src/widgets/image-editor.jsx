@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -148,14 +148,16 @@ const ImageEditor = React.createClass({
                 <label>Graphie X range:{' '}
                     <RangeInput
                         value={this.props.range[0]}
-                        onChange={_.partial(this.onRangeChange, 0)} />
+                        onChange={_.partial(this.onRangeChange, 0)}
+                    />
                 </label>
             </div>
             <div>
                 <label>Graphie Y range:{' '}
                     <RangeInput
                         value={this.props.range[1]}
-                        onChange={_.partial(this.onRangeChange, 1)} />
+                        onChange={_.partial(this.onRangeChange, 1)}
+                    />
                 </label>
             </div>
             <div className="add-label">
@@ -213,7 +215,8 @@ const ImageEditor = React.createClass({
                 <BlurInput
                     value={backgroundImage.url || ''}
                     style={{width: 332}}
-                    onChange={url => this.onUrlChange(url, false)} />
+                    onChange={url => this.onUrlChange(url, false)}
+                />
             </label>
 
             {backgroundImage.url && imageSettings}
@@ -233,20 +236,23 @@ const ImageEditor = React.createClass({
             <td>
                 <RangeInput
                     value={label.coordinates}
-                    onChange={this.onCoordinateChange.bind(this, i)} />
+                    onChange={this.onCoordinateChange.bind(this, i)}
+                />
             </td>
             <td style={{verticalAlign: "bottom", width: "5px"}}>
                 <input
                     type="text"
                     className="graph-settings-axis-label"
                     value={label.content}
-                    onChange={this.onContentChange.bind(this, i)} />
+                    onChange={this.onContentChange.bind(this, i)}
+                />
             </td>
             <td>
                 <select
                     className="perseus-widget-dropdown"
                     value={label.alignment}
-                    onChange={this.onAlignmentChange.bind(this, i)}>
+                    onChange={this.onAlignmentChange.bind(this, i)}
+                >
                     {captionAlignments.map(function(alignment, i) {
                         return <option key={"" + i} value={alignment}>
                             {alignment}

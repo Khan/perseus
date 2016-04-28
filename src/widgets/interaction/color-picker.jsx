@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const ButtonGroup = require("react-components/button-group.jsx");
@@ -31,18 +31,21 @@ const ColorPicker = React.createClass({
 
     render: function() {
         const colors = this.props.lightColors ? this.LIGHT_COLORS : this.COLORS;
-        return <ButtonGroup value={this.props.value}
+        return <ButtonGroup
+            value={this.props.value}
             allowEmpty={false}
             buttons={_.map(colors, (color) => {
                 return {
                     value: color,
                     content: <span><span
                         className="colorpicker-circle"
-                        style={{background: color}}>
+                        style={{background: color}}
+                    >
                     </span>&nbsp;</span>,
                 };
             })}
-            onChange={this.props.onChange} />;
+            onChange={this.props.onChange}
+        />;
     },
 });
 

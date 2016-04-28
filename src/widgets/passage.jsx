@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -58,8 +58,9 @@ const Passage = React.createClass({
             lineNumbers = _.range(1, nLines + 1).map((lineN) => {
                 if (lineN === 4 && nLines > 4) {
                     return <span
-                            key="line-marker"
-                            className="line-marker">
+                        key="line-marker"
+                        className="line-marker"
+                    >
                         Line
                     </span>;
                 } else if (lineN % 5 === 0) {

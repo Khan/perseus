@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -52,7 +52,8 @@ const ImageDiffSide = React.createClass({
                 return <div key={index}>
                     <img src={entry.value}
                         title={entry.value}
-                        className={className} />
+                        className={className}
+                    />
                 </div>;
             })}
         </div>;
@@ -104,7 +105,10 @@ const TextDiff = React.createClass({
                     classFor(entry, "not-present", "removed dark");
                 return <span
                     key={i}
-                    className={className}>{entry.value}</span>;
+                    className={className}
+                >
+                    {entry.value}
+                </span>;
             });
 
             contents.after = _(line).map(function(entry, i) {
@@ -112,7 +116,10 @@ const TextDiff = React.createClass({
                     classFor(entry, "added dark", "not-present");
                 return <span
                     key={i}
-                    className={className}>{entry.value}</span>;
+                    className={className}
+                >
+                    {entry.value}
+                </span>;
             });
             return contents;
         });
@@ -141,10 +148,12 @@ const TextDiff = React.createClass({
                                     {line[side]}
                                 </div>;
                             })}
-                         {!this.state.collapsed &&
-                             <ImageDiffSide
-                                 side={side}
-                                 images={images[side]} />}
+                        {!this.state.collapsed &&
+                            <ImageDiffSide
+                                side={side}
+                                images={images[side]}
+                            />
+                        }
                     </div>;
                 })}
             </div>

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React        = require('react');
@@ -58,11 +58,13 @@ const MeasurerEditor = React.createClass({
         return <div className="perseus-widget-measurer">
             <div>Image displayed under protractor and/or ruler:</div>
             <div>URL:{' '}
-                <input type="text"
-                        className="perseus-widget-measurer-url"
-                        ref="image-url"
-                        defaultValue={image.url}
-                        onChange={this._changeUrl} />
+                <input
+                    type="text"
+                    className="perseus-widget-measurer-url"
+                    ref="image-url"
+                    defaultValue={image.url}
+                    onChange={this._changeUrl}
+                />
             <InfoTip>
                 <p>Create an image in graphie, or use the "Add image" function
                 to create a background.</p>
@@ -76,7 +78,8 @@ const MeasurerEditor = React.createClass({
                         placeholder={0}
                         onChange={this._changeTop}
                         value={image.top}
-                        useArrowKeys={true} />
+                        useArrowKeys={true}
+                    />
                 </label>
                 <label className="perseus-widget-right-col">
                     Pixels from left:
@@ -85,25 +88,29 @@ const MeasurerEditor = React.createClass({
                         placeholder={0}
                         onChange={this._changeLeft}
                         value={image.left}
-                        useArrowKeys={true} />
+                        useArrowKeys={true}
+                    />
                 </label>
             </div>}
             <div>Containing area [width, height]:{' '}
                 <RangeInput
                     onChange={this.change("box")}
                     value={this.props.box}
-                    useArrowKeys={true} />
+                    useArrowKeys={true}
+                />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     <PropCheckBox label="Show ruler"
                         showRuler={this.props.showRuler}
-                        onChange={this.props.onChange} />
+                        onChange={this.props.onChange}
+                    />
                 </div>
                 <div className="perseus-widget-right-col">
                     <PropCheckBox label="Show protractor"
                         showProtractor={this.props.showProtractor}
-                        onChange={this.props.onChange} />
+                        onChange={this.props.onChange}
+                    />
                 </div>
             </div>
             {this.props.showRuler && <div>
@@ -113,7 +120,8 @@ const MeasurerEditor = React.createClass({
                     <select
                         onChange={(e) =>
                             this.change("rulerLabel", e.target.value)}
-                        value={this.props.rulerLabel} >
+                        value={this.props.rulerLabel}
+                    >
                             <option value="">None</option>
                             <optgroup label="Metric">
                                 {this.renderLabelChoices([
@@ -140,7 +148,8 @@ const MeasurerEditor = React.createClass({
                     <select
                         onChange={(e) =>
                             this.change("rulerTicks", +e.target.value)}
-                        value={this.props.rulerTicks} >
+                        value={this.props.rulerTicks}
+                    >
                             {_.map([1, 2, 4, 8, 10, 16], function(n) {
                                 return <option key={n} value={n}>{n}</option>;
                             })}
@@ -155,7 +164,8 @@ const MeasurerEditor = React.createClass({
                         placeholder={40}
                         onChange={this.change("rulerPixels")}
                         value={this.props.rulerPixels}
-                        useArrowKeys={true} />
+                        useArrowKeys={true}
+                    />
                 </label>
             </div>
             <div>
@@ -166,7 +176,8 @@ const MeasurerEditor = React.createClass({
                         placeholder={10}
                         onChange={this.change("rulerLength")}
                         value={this.props.rulerLength}
-                        useArrowKeys={true} />
+                        useArrowKeys={true}
+                    />
                 </label>
             </div>
             </div>}

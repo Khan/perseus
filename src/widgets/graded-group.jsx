@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -97,7 +97,8 @@ const GradedGroup = React.createClass({
                 {...this.props}
                 ref="renderer"
                 apiOptions={apiOptions}
-                onInteractWithWidget={this._onInteractWithWidget} />
+                onInteractWithWidget={this._onInteractWithWidget}
+            />
             {icon && <div className="group-icon">
                 {icon}
             </div>}
@@ -107,7 +108,8 @@ const GradedGroup = React.createClass({
                 value="Check Answer"
                 className="simple-button"
                 disabled={this.props.apiOptions.readOnly}
-                onClick={this._checkAnswer} />
+                onClick={this._checkAnswer}
+            />
         </div>;
     },
 

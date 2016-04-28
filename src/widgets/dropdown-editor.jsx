@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -48,7 +48,8 @@ const DropdownEditor = React.createClass({
                     type="text"
                     placeholder="Placeholder value"
                     value={this.props.placeholder}
-                    onChange={this.onPlaceholderChange} />
+                    onChange={this.onPlaceholderChange}
+                />
                 <InfoTip>
                     <p>This value will appear as the drop down default. It
                     should give the user some indication of the values available
@@ -69,15 +70,19 @@ const DropdownEditor = React.createClass({
                                 name={dropdownGroupName}
                                 checked={choice.correct ? "checked" : ""}
                                 onChange={this.onCorrectChange.bind(this, i)}
-                                value={i} />
+                                value={i}
+                            />
                             <input
                                 type="text"
                                 ref={"editor" + i}
                                 onChange={this.onContentChange.bind(this, i)}
                                 className={checkedClass}
-                                value={choice.content} />
-                            <a href="#" className="simple-button orange"
-                                    onClick={this.removeChoice.bind(this, i)}>
+                                value={choice.content}
+                            />
+                            <a
+                                href="#" className="simple-button orange"
+                                onClick={this.removeChoice.bind(this, i)}
+                            >
                                 <span className="icon-trash remove-choice" />
                             </a>
                         </div>
@@ -86,8 +91,10 @@ const DropdownEditor = React.createClass({
             </ul>
 
             <div className="add-choice-container">
-                <a href="#" className="simple-button orange"
-                        onClick={this.addChoice}>
+                <a
+                    href="#" className="simple-button orange"
+                    onClick={this.addChoice}
+                >
                     <span className="icon-plus" />
                     {' '}Add a choice{' '}
                 </a>

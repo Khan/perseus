@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -43,12 +43,14 @@ const ExplanationEditor = React.createClass({
             <div className="perseus-widget-row"><label>
                 Prompt to show explanation: <TextInput
                     value={this.props.showPrompt}
-                    onChange={this.change("showPrompt")} />
+                    onChange={this.change("showPrompt")}
+                />
             </label></div>
             <div className="perseus-widget-row"><label>
                 Prompt to hide explanation: <TextInput
                     value={this.props.hidePrompt}
-                    onChange={this.change("hidePrompt")} />
+                    onChange={this.change("hidePrompt")}
+                />
             </label></div>
             <div className="perseus-widget-row">
                 <Editor
@@ -65,7 +67,8 @@ const ExplanationEditor = React.createClass({
                             newProps.widgets = props.widgets;
                         }
                         this.change(newProps);
-                    }} />
+                    }}
+                />
             </div>
         </div>;
     },

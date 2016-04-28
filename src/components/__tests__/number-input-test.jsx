@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const assert = require("assert");
 const React = require("react");
 const ReactDOM = require("react-dom");
@@ -60,7 +56,8 @@ describe("NumberInput", function() {
             <NumberInput
                 value={startingValue}
                 onChange={handleChange}
-                useArrowKeys={keysEnabled} />
+                useArrowKeys={keysEnabled}
+            />
             );
         TestUtils.Simulate.keyDown(ReactDOM.findDOMNode(node), {key: key});
         assert.deepEqual(newVal, endingValue);

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -47,9 +47,11 @@ const PropCheckBox = React.createClass({
         const propName = this.propName();
         return <label>
             {this._labelAlignLeft() && this.props.label}
-            <input type="checkbox"
-                    checked={this.props[propName]}
-                    onChange={this.toggle} />
+            <input
+                type="checkbox"
+                checked={this.props[propName]}
+                onChange={this.toggle}
+            />
             {!this._labelAlignLeft() && this.props.label}
         </label>;
     },

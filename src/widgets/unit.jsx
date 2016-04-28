@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -73,9 +73,11 @@ const OldUnitInput = React.createClass({
 
         return <div className="old-unit-input">
             {input}
-            <div ref="error"
-                 className="error"
-                 style={{display: "none"}}>
+            <div
+                ref="error"
+                className="error"
+                style={{display: "none"}}
+            >
                 <$_>{"I don't understand that"}</$_>
             </div>
         </div>;

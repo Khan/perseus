@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -157,14 +157,15 @@ const InputWithExamples = React.createClass({
                 this.state.showExamples;
 
         return <Tooltip
-                ref="tooltip"
-                className="perseus-formats-tooltip"
-                horizontalPosition="left"
-                horizontalAlign="left"
-                verticalPosition="bottom"
-                arrowSize={10}
-                borderColor="#ccc"
-                show={showExamples}>
+            ref="tooltip"
+            className="perseus-formats-tooltip"
+            horizontalPosition="left"
+            horizontalAlign="left"
+            verticalPosition="bottom"
+            arrowSize={10}
+            borderColor="#ccc"
+            show={showExamples}
+        >
             {input}
             <div id={this._getUniqueId()}>
                 <Renderer content={examplesContent} />

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -59,7 +59,8 @@ const TextListEditor = React.createClass({
                     value={item}
                     onChange={this.onChange.bind(this, i)}
                     onKeyDown={this.onKeyDown.bind(this, i)}
-                    style={{width: getTextWidth(item)}} />
+                    style={{width: getTextWidth(item)}}
+                />
             </li>;
         }, this);
 

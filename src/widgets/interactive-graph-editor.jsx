@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -151,7 +151,8 @@ const InteractiveGraphEditor = React.createClass({
                 showRuler={this.props.showRuler}
                 rulerLabel={this.props.rulerLabel}
                 rulerTicks={this.props.rulerTicks}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
 
 
             {this.props.correct.type === "polygon" &&
@@ -159,8 +160,9 @@ const InteractiveGraphEditor = React.createClass({
                 <label>
                     {' '}Student answer must{' '}
                     <select
-                            value={this.props.correct.match}
-                            onChange={this.changeMatchType}>
+                        value={this.props.correct.match}
+                        onChange={this.changeMatchType}
+                    >
                         <option value="exact">match exactly</option>
                         <option value="congruent">be congruent</option>
                         <option value="approx">
@@ -204,8 +206,9 @@ const InteractiveGraphEditor = React.createClass({
                     <label>
                         {' '}Student answer must{' '}
                         <select
-                                value={this.props.correct.match}
-                                onChange={this.changeMatchType}>
+                            value={this.props.correct.match}
+                            onChange={this.changeMatchType}
+                        >
                             <option value="exact">match exactly</option>
                             <option value="congruent">be congruent</option>
                         </select>

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const assert = require("assert");
 const lens = require("../../../hubble/index.js");
 // TODO(jack): Package MathQuill
@@ -145,7 +141,8 @@ const renderQuestionArea = function(item, apiOptions, enabledFeatures) {
             widgets={item.question.widgets}
             problemNum={0}
             apiOptions={apiOptions}
-            enabledFeatures={enabledFeatures} />
+            enabledFeatures={enabledFeatures}
+        />
     );
     return renderer;
 };

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -95,24 +95,27 @@ const Graph = React.createClass({
         const imageData = this.props.backgroundImage;
         if (imageData.url) {
             const scale = this.props.box[0] / defaultBoxSize;
-            image = <SvgImage src={imageData.url}
-                              width={imageData.width}
-                              height={imageData.height}
-                              scale={scale}
-                              responsive={false} />;
+            image = <SvgImage
+                src={imageData.url}
+                width={imageData.width}
+                height={imageData.height}
+                scale={scale}
+                responsive={false}
+            />;
         } else {
             image = null;
         }
 
         return <div
-                    className="graphie-container above-scratchpad"
-                    style={{
-                        width: this.props.box[0],
-                        height: this.props.box[1],
-                    }}
-                    onMouseOut={this.onMouseOut}
-                    onMouseOver={this.onMouseOver}
-                    onClick={this.onClick} >
+            className="graphie-container above-scratchpad"
+            style={{
+                width: this.props.box[0],
+                height: this.props.box[1],
+            }}
+            onMouseOut={this.onMouseOut}
+            onMouseOver={this.onMouseOver}
+            onClick={this.onClick}
+        >
             {image}
         <div className="graphie" ref="graphieDiv" />
         </div>;

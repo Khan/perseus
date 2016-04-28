@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 
 const QuestionParagraph = React.createClass({
@@ -19,9 +15,10 @@ const QuestionParagraph = React.createClass({
         // For perseus-article just-in-place-translation (jipt), we need
         // to attach some metadata to top-level QuestionParagraphs:
         return <div
-                className={className}
-                data-perseus-component-index={this.props.translationIndex}
-                data-perseus-paragraph-index={this.props.paragraphIndex}>
+            className={className}
+            data-perseus-component-index={this.props.translationIndex}
+            data-perseus-paragraph-index={this.props.paragraphIndex}
+        >
             {this.props.children}
         </div>;
     },

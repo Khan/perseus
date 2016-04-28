@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -123,9 +123,11 @@ const Iframe = React.createClass({
         //  that we need. This makes it a bit safer in case some content
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        return <iframe sandbox="allow-same-origin allow-scripts"
-                       style={style} src={url}
-                       allowFullScreen={this.props.allowFullScreen} />;
+        return <iframe
+            sandbox="allow-same-origin allow-scripts"
+            style={style} src={url}
+            allowFullScreen={this.props.allowFullScreen}
+        />;
     },
 
     simpleValidate: function(rubric) {

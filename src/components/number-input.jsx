@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -90,7 +90,8 @@ const NumberInput = React.createClass({
             onKeyDown={this._onKeyDown}
             onTouchStart={captureScratchpadTouchStart}
             defaultValue={toNumericString(this.props.value, this.state.format)}
-            value={undefined} />;
+            value={undefined}
+        />;
     },
 
     componentDidUpdate: function(prevProps) {

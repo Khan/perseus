@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -80,19 +80,23 @@ const InputNumberEditor = React.createClass({
         return <div>
             <div><label>
                 Correct answer:{' '}
-                <BlurInput value={"" + this.props.value}
-                           onChange={this.handleAnswerChange}
-                           ref="input" />
+                <BlurInput
+                    value={"" + this.props.value}
+                    onChange={this.handleAnswerChange}
+                    ref="input"
+                />
             </label></div>
 
             <div>
                 <label>
                     Unsimplified answers{' '}
-                    <select value={this.props.simplify}
-                            onChange={e => {
-                                this.props.onChange({simplify:
-                                e.target.value});
-                            }}>
+                    <select
+                        value={this.props.simplify}
+                        onChange={e => {
+                            this.props.onChange({simplify:
+                            e.target.value});
+                        }}
+                    >
                         <option value="required">will not be graded</option>
                         <option value="optional">will be accepted</option>
                         <option value="enforced">will be marked wrong</option>
@@ -117,13 +121,15 @@ const InputNumberEditor = React.createClass({
                     checked={this.props.inexact}
                     onChange={e => {
                         this.props.onChange({inexact: e.target.checked});
-                    }} />
+                    }}
+                />
                 {' '}Allow inexact answers
             </label>
 
             <label>
             <input /* TODO(emily): don't use a hidden checkbox for alignment */
-                type="checkbox" style={{visibility: "hidden"}} />
+                type="checkbox" style={{visibility: "hidden"}}
+            />
             Max error:{' '}
             <input type="text" disabled={!this.props.inexact}
                 defaultValue={this.props.maxError}
@@ -132,7 +138,8 @@ const InputNumberEditor = React.createClass({
                             e.target.value) || 0);
                     e.target.value = ans;
                     this.props.onChange({maxError: ans});
-                }} />
+                }}
+            />
             </label></div>
 
             <div>
@@ -141,7 +148,8 @@ const InputNumberEditor = React.createClass({
                 value={this.props.answerType}
                 onChange={e => {
                     this.props.onChange({answerType: e.target.value});
-                }}>
+                }}
+            >
                 {answerTypeOptions}
             </select>
             <InfoTip>
@@ -154,10 +162,12 @@ const InputNumberEditor = React.createClass({
             <div>
                 <label>
                     Width{' '}
-                    <select value={this.props.size}
-                            onChange={e => {
-                                this.props.onChange({size: e.target.value});
-                            }}>
+                    <select
+                        value={this.props.size}
+                        onChange={e => {
+                            this.props.onChange({size: e.target.value});
+                        }}
+                    >
                         <option value="normal">Normal (80px)</option>
                         <option value="small">Small (40px)</option>
                     </select>

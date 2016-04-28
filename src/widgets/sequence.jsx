@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -74,7 +74,8 @@ const Sequence = React.createClass({
                 widgets={widgets}
                 onInteractWithWidget={this._handleInteraction}
                 apiOptions={this.props.apiOptions}
-                enabledFeatures={this.props.enabledFeatures} />
+                enabledFeatures={this.props.enabledFeatures}
+            />
         </div>;
     },
 

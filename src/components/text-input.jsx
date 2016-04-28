@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -30,7 +30,8 @@ const TextInput = React.createClass({
             type="text"
             disabled={this.props.disabled}
             aria-label={this.props.labelText}
-            onChange={(e) => this.props.onChange(e.target.value)} />;
+            onChange={(e) => this.props.onChange(e.target.value)}
+        />;
     },
 
     focus: function() {

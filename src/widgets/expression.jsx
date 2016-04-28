@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -157,13 +157,14 @@ const Expression = React.createClass({
             // tooltips on the site; align to left middle (once possible)
             const errorTooltip = <span className="error-tooltip">
                 <Tooltip
-                        className="error-text-container"
-                        horizontalPosition="right"
-                        horizontalAlign="left"
-                        verticalPosition="top"
-                        arrowSize={10}
-                        borderColor="#fcc335"
-                        show={this.state.showErrorText} >
+                    className="error-text-container"
+                    horizontalPosition="right"
+                    horizontalAlign="left"
+                    verticalPosition="top"
+                    arrowSize={10}
+                    borderColor="#fcc335"
+                    show={this.state.showErrorText}
+                >
                     <i
                         className="icon-exclamation-sign error-icon"
                         onMouseEnter={() => {
@@ -177,7 +178,8 @@ const Expression = React.createClass({
                             this.setState({
                                 showErrorText: !this.state.showErrorText,
                             });
-                        }} />
+                        }}
+                    />
                     <div className="error-text">
                         {ERROR_MESSAGE}
                     </div>
@@ -199,7 +201,8 @@ const Expression = React.createClass({
                     buttonsVisible={this.props.buttonsVisible || "focused"}
                     buttonSets={this.props.buttonSets}
                     onFocus={this._handleFocus}
-                    onBlur={this._handleBlur} />
+                    onBlur={this._handleBlur}
+                />
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
@@ -470,13 +473,17 @@ const OldExpression = React.createClass({
 
         return <span className="perseus-widget-expression-old">
             <span className="output">
-                <span className="tex"
-                        style={{opacity: result.parsed ? 1.0 : 0.5}}>
+                <span
+                    className="tex"
+                    style={{opacity: result.parsed ? 1.0 : 0.5}}
+                >
                     <TeX>{this.state.lastParsedTex}</TeX>
                 </span>
                 <span className="placeholder">
-                    <span ref="error" className="error"
-                            style={{display: "none"}}>
+                    <span
+                        ref="error" className="error"
+                        style={{display: "none"}}
+                    >
                         <span className="buddy" />
                         <span className="message"><span>
                             {ERROR_MESSAGE}

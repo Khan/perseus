@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -40,7 +40,8 @@ const JsonEditor = React.createClass({
             value={this.state.currentValue}
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
-            onBlur={this.handleBlur} />;
+            onBlur={this.handleBlur}
+        />;
     },
 
     handleKeyDown: function(e) {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -156,7 +156,8 @@ const LineEditor = React.createClass({
             <div className="perseus-widget-row">
                 <DashPicker
                     value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
+                    onChange={this.change("strokeDasharray")}
+                />
                 &nbsp; &nbsp;
                 <ArrowPicker
                     value={this.props.arrows}
@@ -168,7 +169,8 @@ const LineEditor = React.createClass({
                     Width: <NumberInput
                         value={this.props.strokeWidth}
                         placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+                        onChange={this.change("strokeWidth")}
+                    />
                 </div>
             </div>
         </div>;
@@ -310,17 +312,19 @@ const MovableLineEditor = React.createClass({
             </div>
             <div className="perseus-widget-row">
                 Start updates <TeX>(x_n, y_n)</TeX> for <TeX>n =</TeX>
-                    <NumberInput
-                        value={this.props.startSubscript}
-                        placeholder={0}
-                        onChange={this.change("startSubscript")}/>
+                <NumberInput
+                    value={this.props.startSubscript}
+                    placeholder={0}
+                    onChange={this.change("startSubscript")}
+                />
             </div>
             <div className="perseus-widget-row">
                 End updates <TeX>(x_m, y_m)</TeX> for <TeX>m =</TeX>
-                    <NumberInput
-                        value={this.props.endSubscript}
-                        placeholder={0}
-                        onChange={this.change("endSubscript")}/>
+                <NumberInput
+                    value={this.props.endSubscript}
+                    placeholder={0}
+                    onChange={this.change("endSubscript")}
+                />
             </div>
             <div className="perseus-widget-row">
                 All constraints are applied to the start point.
@@ -394,14 +398,16 @@ const FunctionEditor = React.createClass({
             <div className="perseus-widget-row">
                 <DashPicker
                     value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
+                    onChange={this.change("strokeDasharray")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     Width: <NumberInput
                         value={this.props.strokeWidth}
                         placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+                        onChange={this.change("strokeWidth")}
+                    />
                 </div>
             </div>
         </div>;
@@ -481,14 +487,16 @@ const ParametricEditor = React.createClass({
             <div className="perseus-widget-row">
                 <DashPicker
                     value={this.props.strokeDasharray}
-                    onChange={this.change("strokeDasharray")} />
+                    onChange={this.change("strokeDasharray")}
+                />
             </div>
             <div className="perseus-widget-row">
                 <div className="perseus-widget-left-col">
                     Width: <NumberInput
                         value={this.props.strokeWidth}
                         placeholder={2}
-                        onChange={this.change("strokeWidth")}/>
+                        onChange={this.change("strokeWidth")}
+                    />
                 </div>
             </div>
         </div>;
@@ -756,9 +764,7 @@ const InteractionEditor = React.createClass({
 
     render: function() {
         return <div className="perseus-widget-interaction-editor">
-            <ElementContainer
-                    title="Grid settings"
-            >
+            <ElementContainer title="Grid settings">
                 <GraphSettings
                     editableSettings={["canvas", "graph"]}
                     box={this.props.graph.box}
@@ -776,17 +782,17 @@ const InteractionEditor = React.createClass({
             {_.map(this.props.elements, function(element, n) {
                 if (element.type === "movable-point") {
                     return <ElementContainer
-                            title={<span>Movable point <TeX>
-                                    {"(x_{" + element.options.varSubscript +
-                                    "}, y_{" + element.options.varSubscript +
-                                    "})"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Movable point <TeX>
+                                {"(x_{" + element.options.varSubscript +
+                                "}, y_{" + element.options.varSubscript +
+                                "})"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <MovablePointEditor
                             {...element.options}
@@ -800,20 +806,20 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "movable-line") {
                     return <ElementContainer
-                            title={<span>Movable line <TeX>
-                                    {"(x_{" + element.options.startSubscript +
-                                    "}, y_{" + element.options.startSubscript +
-                                    "})"}</TeX> to <TeX>
-                                    {"(x_{" + element.options.endSubscript +
-                                    "}, y_{" + element.options.endSubscript +
-                                    "})"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Movable line <TeX>
+                                {"(x_{" + element.options.startSubscript +
+                                "}, y_{" + element.options.startSubscript +
+                                "})"}</TeX> to <TeX>
+                                {"(x_{" + element.options.endSubscript +
+                                "}, y_{" + element.options.endSubscript +
+                                "})"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <MovableLineEditor
                             {...element.options}
@@ -827,17 +833,17 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "point") {
                     return <ElementContainer
-                            title={<span>Point <TeX>
-                                    {"(" + element.options.coordX +
-                                    ", " + element.options.coordY +
-                                    ")"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Point <TeX>
+                                {"(" + element.options.coordX +
+                                ", " + element.options.coordY +
+                                ")"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <PointEditor
                             {...element.options}
@@ -851,20 +857,20 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "line") {
                     return <ElementContainer
-                            title={<span>Line <TeX>
-                                    {"(" + element.options.startX +
-                                    ", " + element.options.startY +
-                                    ")"}</TeX> to <TeX>
-                                    {"(" + element.options.endX +
-                                    ", " + element.options.endY +
-                                    ")"}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement.bind(this, n)}
-                            key={element.key}
+                        title={<span>Line <TeX>
+                                {"(" + element.options.startX +
+                                ", " + element.options.startY +
+                                ")"}</TeX> to <TeX>
+                                {"(" + element.options.endX +
+                                ", " + element.options.endY +
+                                ")"}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement.bind(this, n)}
+                        key={element.key}
                     >
                         <LineEditor
                             {...element.options}
@@ -878,16 +884,16 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "function") {
                     return <ElementContainer
-                            title={<span>Function <TeX>{
-                                element.options.funcName + "(x) = " +
-                                element.options.value
-                            }</TeX></span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Function <TeX>{
+                            element.options.funcName + "(x) = " +
+                            element.options.value
+                        }</TeX></span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <FunctionEditor
                             {...element.options}
@@ -901,13 +907,13 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "parametric") {
                     return <ElementContainer
-                            title={<span>Parametric</span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Parametric</span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <ParametricEditor
                             {...element.options}
@@ -921,14 +927,14 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "label") {
                     return <ElementContainer
-                            title={<span>Label <TeX>
-                                {element.options.label}</TeX> </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Label <TeX>
+                            {element.options.label}</TeX> </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <LabelEditor
                             {...element.options}
@@ -942,19 +948,19 @@ const InteractionEditor = React.createClass({
                     </ElementContainer>;
                 } else if (element.type === "rectangle") {
                     return <ElementContainer
-                            title={<span>Rectangle <TeX>{"(" +
-                                element.options.coordX + ", " +
-                                element.options.coordY + ")"}</TeX>
-                                &nbsp;&mdash;&nbsp;
-                                <TeX>{element.options.width + " \\times " +
-                                element.options.height}</TeX>
-                                </span>}
-                            onUp={n === 0 ?
-                                null : this._moveElementUp.bind(this, n)}
-                            onDown={n === this.props.elements.length - 1 ?
-                                null : this._moveElementDown.bind(this, n)}
-                            onDelete={this._deleteElement}
-                            key={element.key}
+                        title={<span>Rectangle <TeX>{"(" +
+                            element.options.coordX + ", " +
+                            element.options.coordY + ")"}</TeX>
+                            &nbsp;&mdash;&nbsp;
+                            <TeX>{element.options.width + " \\times " +
+                            element.options.height}</TeX>
+                            </span>}
+                        onUp={n === 0 ?
+                            null : this._moveElementUp.bind(this, n)}
+                        onDown={n === this.props.elements.length - 1 ?
+                            null : this._moveElementDown.bind(this, n)}
+                        onDelete={this._deleteElement}
+                        key={element.key}
                     >
                         <RectangleEditor
                             {...element.options}

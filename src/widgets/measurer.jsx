@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React        = require('react');
@@ -54,18 +54,20 @@ const Measurer = React.createClass({
     render: function() {
         const image = _.extend({}, defaultImage, this.props.image);
         return <div
-                className={
-                    "perseus-widget perseus-widget-measurer " +
-                    "graphie-container above-scratchpad"
-                }
-                style={{width: this.props.box[0], height: this.props.box[1]}}>
+            className={
+                "perseus-widget perseus-widget-measurer " +
+                "graphie-container above-scratchpad"
+            }
+            style={{width: this.props.box[0], height: this.props.box[1]}}
+        >
             {image.url &&
                 <img
                     src={image.url}
                     style={{
                         top: image.top,
                         left: image.left,
-                    }} />
+                    }}
+                />
             }
             <div className="graphie" ref="graphieDiv" />
         </div>;

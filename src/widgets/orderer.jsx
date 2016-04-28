@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -19,11 +19,13 @@ const PlaceholderCard = React.createClass({
 
     render: function() {
         return <div
-                className={"card-wrap " + ApiClassNames.INTERACTIVE}
-                style={{width: this.props.width}}>
+            className={"card-wrap " + ApiClassNames.INTERACTIVE}
+            style={{width: this.props.width}}
+        >
             <div
                 className="card placeholder"
-                style={{height: this.props.height}} />
+                style={{height: this.props.height}}
+            />
         </div>;
     },
 });
@@ -105,13 +107,15 @@ const Card = React.createClass({
 
         const onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
 
-        return <div className={"card-wrap " + ApiClassNames.INTERACTIVE}
-                    style={style}
-                    onMouseDown={onMouseDown}
-                    onTouchStart={onMouseDown}
-                    onTouchMove={this.onMouseMove}
-                    onTouchEnd={this.onMouseUp}
-                    onTouchCancel={this.onMouseUp}>
+        return <div
+            className={"card-wrap " + ApiClassNames.INTERACTIVE}
+            style={style}
+            onMouseDown={onMouseDown}
+            onTouchStart={onMouseDown}
+            onTouchMove={this.onMouseMove}
+            onTouchEnd={this.onMouseUp}
+            onTouchCancel={this.onMouseUp}
+        >
                 <div className={className.join(" ")}>
                     <Renderer {...rendererProps} />
                 </div>
@@ -253,29 +257,31 @@ const Orderer = React.createClass({
     render: function() {
         // This is the card we are currently dragging
         const dragging = this.state.dragging &&
-            <Card ref="dragging"
-                       floating={true}
-                       content={this.state.dragContent}
-                       startOffset={this.state.offsetPos}
-                       startMouse={this.state.grabPos}
-                       mouse={this.state.mousePos}
-                       width={this.state.dragWidth}
-                       onMouseUp={this.onRelease}
-                       onMouseMove={this.onMouseMove}
-                       key={this.state.dragKey || "draggingCard"}
-                       />;
+            <Card
+                ref="dragging"
+                floating={true}
+                content={this.state.dragContent}
+                startOffset={this.state.offsetPos}
+                startMouse={this.state.grabPos}
+                mouse={this.state.mousePos}
+                width={this.state.dragWidth}
+                onMouseUp={this.onRelease}
+                onMouseMove={this.onMouseMove}
+                key={this.state.dragKey || "draggingCard"}
+            />;
 
         // This is the card that is currently animating
         const animating = this.state.animating &&
-            <Card floating={true}
-                       animating={true}
-                       content={this.state.dragContent}
-                       startOffset={this.state.offsetPos}
-                       width={this.state.dragWidth}
-                       animateTo={this.state.animateTo}
-                       onAnimationEnd={this.state.onAnimationEnd}
-                       key={this.state.dragKey || "draggingCard"}
-                       />;
+            <Card
+                floating={true}
+                animating={true}
+                content={this.state.dragContent}
+                startOffset={this.state.offsetPos}
+                width={this.state.dragWidth}
+                animateTo={this.state.animateTo}
+                onAnimationEnd={this.state.onAnimationEnd}
+                key={this.state.dragKey || "draggingCard"}
+            />;
 
         // This is the list of draggable, rearrangable cards
         const sortableCards = _.map(this.state.current, function(opt, i) {
@@ -288,7 +294,8 @@ const Orderer = React.createClass({
                 key={opt.key}
                 onMouseDown={(this.state.animating) ?
                     $.noop :
-                    this.onClick.bind(null, "current", i)} />;
+                    this.onClick.bind(null, "current", i)}
+            />;
         }, this);
 
         if (this.state.placeholderIndex != null) {
@@ -296,7 +303,8 @@ const Orderer = React.createClass({
                 ref="placeholder"
                 width={this.state.dragWidth}
                 height={this.state.dragHeight}
-                key="placeholder" />;
+                key="placeholder"
+            />;
             sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
         }
 
@@ -322,19 +330,22 @@ const Orderer = React.createClass({
                         $.noop :
                         this.onClick.bind(null, "bank", i)}
                     onMouseMove={this.onMouseMove}
-                    onMouseUp={this.onRelease} />;
+                    onMouseUp={this.onRelease}
+                />;
             }, this)}
         </div>;
 
-        return <div className={"draggy-boxy-thing orderer " +
-                        "height-" + this.props.height + " " +
-                        "layout-" + this.props.layout + " " +
-                        "above-scratchpad blank-background " +
-                        "ui-helper-clearfix " + ApiClassNames.INTERACTIVE}
-                    ref="orderer">
-                   {bank}
-                   {sortable}
-               </div>;
+        return <div
+            className={"draggy-boxy-thing orderer " +
+                "height-" + this.props.height + " " +
+                "layout-" + this.props.layout + " " +
+                "above-scratchpad blank-background " +
+                "ui-helper-clearfix " + ApiClassNames.INTERACTIVE}
+            ref="orderer"
+        >
+            {bank}
+            {sortable}
+        </div>;
     },
 
     onClick: function(type, index, loc, draggable) {

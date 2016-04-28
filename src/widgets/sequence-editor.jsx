@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -16,17 +16,18 @@ const StepControlButton = React.createClass({
 
     render: function() {
         return <a
-                href="#"
-                className={
-                    "step-control-button " +
-                    "simple-button " +
-                    "simple-button--small " +
-                    "orange"
-                }
-                onClick={(e) => {
-                    e.preventDefault();
-                    this.props.onClick();
-                }}>
+            href="#"
+            className={
+                "step-control-button " +
+                "simple-button " +
+                "simple-button--small " +
+                "orange"
+            }
+            onClick={(e) => {
+                e.preventDefault();
+                this.props.onClick();
+            }}
+        >
             <span className={this.props.icon} />
         </a>;
     },
@@ -58,23 +59,27 @@ const SequenceEditor = React.createClass({
             {_.map(this.props.json, (json, i) => {
                 return <div key={i}>
                     Step {i + 1}
-                    <div style={{
-                        display: "inline-block",
-                        float: "right",
-                    }}>
+                    <div
+                        style={{
+                            display: "inline-block",
+                            float: "right",
+                        }}
+                    >
                         {(i + 1 < this.props.json.length) &&
                             <StepControlButton
                                 icon="icon-circle-arrow-down"
                                 onClick={() => {
                                     this._handleMoveStepLater(i);
-                                }} />
+                                }}
+                            />
                         }
                         {(i > 0) &&
                             <StepControlButton
                                 icon="icon-circle-arrow-up"
                                 onClick={() => {
                                     this._handleMoveStepEarlier(i);
-                                }} />
+                                }}
+                            />
                         }
                         <StepControlButton
                             icon="icon-trash"
@@ -87,12 +92,14 @@ const SequenceEditor = React.createClass({
                                     this._handleRemoveStep(i);
                                 }
                                 /* eslint-enable no-alert */
-                            }} />
+                            }}
+                        />
                         <StepControlButton
                             icon="icon-plus"
                             onClick={() => {
                                 this._handleAddStepAfter(i);
-                            }} />
+                            }}
+                        />
                     </div>
                     <Editor
                         ref={"editor" + i}
@@ -101,7 +108,8 @@ const SequenceEditor = React.createClass({
                         images={json.images}
                         widgetEnabled={true}
                         immutableWidgets={false}
-                        onChange={_.partial(this._handleEditorChange, i)} />
+                        onChange={_.partial(this._handleEditorChange, i)}
+                    />
                 </div>;
             })}
         </div>;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false, $_:false */
@@ -351,7 +351,7 @@ const TransformOps = {
                     onBlur={this.props.onBlur}
                     apiOptions={this.props.apiOptions}
                     {...this.props.transform}
-                    />;
+                />;
             } else {
                 throw new Error("Invalid mode: " + this.props.mode);
             }
@@ -485,7 +485,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "x")}
-                        onBlur={_.partial(this.props.onBlur, "x")} />,
+                        onBlur={_.partial(this.props.onBlur, "x")}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y"
@@ -499,7 +500,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "y")}
-                        onBlur={_.partial(this.props.onBlur, "y")} />,
+                        onBlur={_.partial(this.props.onBlur, "y")}
+                    />,
                     <TeX>\rangle</TeX>,
                 ];
                 return <div>
@@ -568,8 +570,10 @@ const Transformations = {
             };
         },
         toTeX: function(transform) {
-            return <$_ degrees={texFromAngleDeg(transform.angleDeg)}
-                       point={texFromPoint(transform.center)}>
+            return <$_
+                degrees={texFromAngleDeg(transform.angleDeg)}
+                point={texFromPoint(transform.center)}
+            >
                 Rotation by %(degrees)s about %(point)s
             </$_>;
         },
@@ -616,7 +620,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "centerX")}
-                        onBlur={_.partial(this.props.onBlur, "centerX")} />,
+                        onBlur={_.partial(this.props.onBlur, "centerX")}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="centerY"
@@ -630,7 +635,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "centerY")}
-                        onBlur={_.partial(this.props.onBlur, "centerY")} />,
+                        onBlur={_.partial(this.props.onBlur, "centerY")}
+                    />,
                     <TeX>)</TeX>,
                 ];
                 const degrees = [
@@ -645,7 +651,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "angleDeg")}
-                        onBlur={_.partial(this.props.onBlur, "angleDeg")} />,
+                        onBlur={_.partial(this.props.onBlur, "angleDeg")}
+                    />,
                     DEGREE_SIGN,
                 ];
                 // I18N: %(point)s must come before %(degrees)s in this phrase
@@ -722,8 +729,10 @@ const Transformations = {
         toTeX: function(transform) {
             const point1 = transform.line[0];
             const point2 = transform.line[1];
-            return <$_ point1={texFromPoint(point1)}
-                       point2={texFromPoint(point2)}>
+            return <$_
+                point1={texFromPoint(point1)}
+                point2={texFromPoint(point2)}
+            >
                 Reflection over the line from %(point1)s to %(point2)s
             </$_>;
         },
@@ -763,7 +772,8 @@ const Transformations = {
                         )}
                         onBlur={_.partial(
                             this.props.onBlur, "x1"
-                        )}/>,
+                        )}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y1"
@@ -771,7 +781,8 @@ const Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 0, 1)}
                         onFocus={_.partial(this.props.onFocus, "y1")}
-                        onBlur={_.partial(this.props.onBlur, "y1")}/>,
+                        onBlur={_.partial(this.props.onBlur, "y1")}
+                    />,
                     <TeX>)</TeX>,
                 ];
                 const point2 = [<TeX>(</TeX>,
@@ -781,7 +792,8 @@ const Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 1, 0)}
                         onFocus={_.partial(this.props.onFocus, "x2")}
-                        onBlur={_.partial(this.props.onBlur, "x2")} />,
+                        onBlur={_.partial(this.props.onBlur, "x2")}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y2"
@@ -789,7 +801,8 @@ const Transformations = {
                         useArrowKeys={true}
                         onChange={this.changePoint.bind(this, 1, 1)}
                         onFocus={_.partial(this.props.onFocus, "y2")}
-                        onBlur={_.partial(this.props.onBlur, "y2")} />,
+                        onBlur={_.partial(this.props.onBlur, "y2")}
+                    />,
                     <TeX>)</TeX>,
                 ];
                 return <div>
@@ -872,8 +885,10 @@ const Transformations = {
         },
         toTeX: function(transform) {
             const scaleString = stringFromFraction(transform.scale);
-            return <$_ scale={scaleString}
-                       point={texFromPoint(transform.center)}>
+            return <$_
+                scale={scaleString}
+                point={texFromPoint(transform.center)}
+            >
                 Dilation of scale %(scale)s about %(point)s
             </$_>;
         },
@@ -919,7 +934,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "x")}
-                        onBlur={_.partial(this.props.onBlur, "x")} />,
+                        onBlur={_.partial(this.props.onBlur, "x")}
+                    />,
                     <TeX>{", {}"}</TeX>,
                     <InputComponent
                         ref="y"
@@ -933,7 +949,8 @@ const Transformations = {
                             });
                         }}
                         onFocus={_.partial(this.props.onFocus, "y")}
-                        onBlur={_.partial(this.props.onBlur, "y")} />,
+                        onBlur={_.partial(this.props.onBlur, "y")}
+                    />,
                     <TeX>)</TeX>,
                 ];
                 const scale = <InputComponent
@@ -947,7 +964,8 @@ const Transformations = {
                         });
                     }}
                     onFocus={_.partial(this.props.onFocus, "scale")}
-                    onBlur={_.partial(this.props.onBlur, "scale")} />;
+                    onBlur={_.partial(this.props.onBlur, "scale")}
+                />;
                 return <div>
                     <$_ point={point} scale={scale}>
                         Dilation about %(point)s by %(scale)s
@@ -1432,14 +1450,15 @@ const TransformationList = React.createClass({
             this.props.transformations,
             function(transform, i) {
                 return <TransformationListItem
-                            ref={"transformation" + i}
-                            key={"transformation" + i}
-                            transform={transform}
-                            mode={this.props.mode}
-                            onChange={this.handleChange}
-                            onFocus={_.partial(this.props.onFocus, "" + i)}
-                            onBlur={_.partial(this.props.onBlur, "" + i)}
-                            apiOptions={this.props.apiOptions} />;
+                    ref={"transformation" + i}
+                    key={"transformation" + i}
+                    transform={transform}
+                    mode={this.props.mode}
+                    onChange={this.handleChange}
+                    onFocus={_.partial(this.props.onFocus, "" + i)}
+                    onBlur={_.partial(this.props.onBlur, "" + i)}
+                    apiOptions={this.props.apiOptions}
+                />;
             },
             this
         );
@@ -1485,11 +1504,12 @@ const ToolButton = React.createClass({
             "simple-button";
 
         return <button
-                type="button"
-                className={classes}
-                disabled={this.props.disabled}
-                onClick={this.props.onClick}
-                onTouchStart={captureScratchpadTouchStart}>
+            type="button"
+            className={classes}
+            disabled={this.props.disabled}
+            onClick={this.props.onClick}
+            onTouchStart={captureScratchpadTouchStart}
+        >
             {this.props.children}
         </button>;
     },
@@ -1514,10 +1534,11 @@ const ToolsBar = React.createClass({
         const tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
                 return <ToolButton
-                        key={type}
-                        disabled={this.props.apiOptions.readOnly}
-                        toggled={this.state.selected === type}
-                        onClick={this.changeSelected.bind(this, type)}>
+                    key={type}
+                    disabled={this.props.apiOptions.readOnly}
+                    toggled={this.state.selected === type}
+                    onClick={this.changeSelected.bind(this, type)}
+                >
                     {tool.verbName}
                 </ToolButton>;
             }
@@ -1528,11 +1549,12 @@ const ToolsBar = React.createClass({
                 {tools}
             </span>
             <button
-                    className="transformer-undo-button simple-button"
-                    type="button"
-                    disabled={this.props.apiOptions.readOnly}
-                    onClick={this.props.onUndoClick}
-                    onTouchStart={captureScratchpadTouchStart}>
+                className="transformer-undo-button simple-button"
+                type="button"
+                disabled={this.props.apiOptions.readOnly}
+                onClick={this.props.onUndoClick}
+                onTouchStart={captureScratchpadTouchStart}
+            >
                 <span className="icon-undo" />
                 {" "}
                 Undo
@@ -1569,10 +1591,11 @@ const AddTransformBar = React.createClass({
         const tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
                 return <ToolButton
-                        key={type}
-                        toggled={false}
-                        disabled={this.props.apiOptions.readOnly}
-                        onClick={this.changeSelected.bind(this, type)}>
+                    key={type}
+                    toggled={false}
+                    disabled={this.props.apiOptions.readOnly}
+                    onClick={this.changeSelected.bind(this, type)}
+                >
                     <span className="icon-plus" />
                     {" "}
                     {tool.nounName}
@@ -1583,11 +1606,12 @@ const AddTransformBar = React.createClass({
         return <div className="transformer-tools-bar">
             {tools}
             <button
-                    className="transformer-undo-button simple-button"
-                    type="button"
-                    onClick={this.props.onUndoClick}
-                    disabled={this.props.apiOptions.readOnly}
-                    onTouchStart={captureScratchpadTouchStart}>
+                className="transformer-undo-button simple-button"
+                type="button"
+                onClick={this.props.onUndoClick}
+                disabled={this.props.apiOptions.readOnly}
+                onTouchStart={captureScratchpadTouchStart}
+            >
                 <span className="icon-undo" />
                 {" "}
                 Undo
@@ -1657,11 +1681,11 @@ const Transformer = React.createClass({
                 apiOptions={this.props.apiOptions}
                 addTool={this.addTool}
                 removeTool={this.removeTool}
-                onUndoClick={this.handleUndoClick} />
+                onUndoClick={this.handleUndoClick}
+            />
         </div>;
 
-        return <div className={"perseus-widget " +
-                        "perseus-widget-transformer"}>
+        return <div className={"perseus-widget perseus-widget-transformer"}>
             <Graph
                 ref="graph"
                 box={graph.box}
@@ -1672,7 +1696,8 @@ const Transformer = React.createClass({
                 markings={graph.markings}
                 backgroundImage={graph.backgroundImage}
                 showProtractor={graph.showProtractor}
-                onGraphieUpdated={this.setupGraphie} />
+                onGraphieUpdated={this.setupGraphie}
+            />
 
             {!interactiveToolsMode && (
                 "Add transformations below:"
@@ -1694,7 +1719,8 @@ const Transformer = React.createClass({
                 onChange={this.setTransformationProps}
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
-                apiOptions={this.props.apiOptions} />
+                apiOptions={this.props.apiOptions}
+            />
 
             {!interactiveToolsMode && toolsBar}
 

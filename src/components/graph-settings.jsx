@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -99,7 +99,8 @@ const GraphSettings = React.createClass({
                     Canvas size (x,y pixels)
                     <RangeInput
                         value={this.props.box}
-                        onChange={(box) => { this.change({box: box}); }} />
+                        onChange={(box) => { this.change({box: box}); }}
+                    />
                 </div>
                 <div className="perseus-widget-row">
                     Scale (px per div): <TeX>{"(" + scale[0] + ", " +
@@ -111,18 +112,22 @@ const GraphSettings = React.createClass({
             <div className="graph-settings">
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col"> x Label
-                        <input  type="text"
-                                className="graph-settings-axis-label"
-                                ref="labels-0"
-                                onChange={(e) => this.changeLabel(0, e)}
-                                value={this.state.labelsTextbox[0]} />
+                        <input
+                            type="text"
+                            className="graph-settings-axis-label"
+                            ref="labels-0"
+                            onChange={(e) => this.changeLabel(0, e)}
+                            value={this.state.labelsTextbox[0]}
+                        />
                     </div>
                     <div className="perseus-widget-right-col">y Label
-                        <input  type="text"
-                                className="graph-settings-axis-label"
-                                ref="labels-1"
-                                onChange={(e) => this.changeLabel(1, e)}
-                                value={this.state.labelsTextbox[1]} />
+                        <input
+                            type="text"
+                            className="graph-settings-axis-label"
+                            ref="labels-1"
+                            onChange={(e) => this.changeLabel(1, e)}
+                            value={this.state.labelsTextbox[1]}
+                        />
                     </div>
                 </div>
 
@@ -131,33 +136,41 @@ const GraphSettings = React.createClass({
                         x Range
                         <RangeInput
                             value={this.state.rangeTextbox[0]}
-                            onChange={(vals) => this.changeRange(0, vals)} />
+                            onChange={(vals) => this.changeRange(0, vals)}
+                        />
                     </div>
                     <div className="perseus-widget-right-col">
                         y Range
                         <RangeInput
                             value={this.state.rangeTextbox[1]}
-                            onChange={(vals) => this.changeRange(1, vals)} />
+                            onChange={(vals) => this.changeRange(1, vals)}
+                        />
                     </div>
                 </div>
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         Tick Step
-                        <RangeInput value= {this.state.stepTextbox}
-                                    onChange = {this.changeStep} />
+                        <RangeInput
+                            value= {this.state.stepTextbox}
+                            onChange = {this.changeStep}
+                        />
                     </div>
                     <div className="perseus-widget-right-col">
                         Grid Step
-                        <RangeInput value= {this.state.gridStepTextbox}
-                                    onChange = {this.changeGridStep} />
+                        <RangeInput
+                            value= {this.state.gridStepTextbox}
+                            onChange = {this.changeGridStep}
+                        />
                     </div>
                 </div>
                 {_.contains(this.props.editableSettings, "snap") &&
                 <div className="perseus-widget-row">
                     <div className="perseus-widget-left-col">
                         Snap Step
-                        <RangeInput value= {this.state.snapStepTextbox}
-                                    onChange = {this.changeSnapStep} />
+                        <RangeInput
+                            value= {this.state.snapStepTextbox}
+                            onChange = {this.changeSnapStep}
+                        />
                     </div>
                 </div>}
                 <div className="perseus-widget-row">
@@ -168,7 +181,8 @@ const GraphSettings = React.createClass({
                             {value: "graph", content: "Graph"},
                             {value: "grid", content: "Grid"},
                             {value: "none", content: "None"}]}
-                        onChange={this.change("markings")} />
+                        onChange={this.change("markings")}
+                    />
                 </div>
             </div>}
 
@@ -176,12 +190,14 @@ const GraphSettings = React.createClass({
             <div className="image-settings">
                 <div>Background image:</div>
                 <div>Url:{' '}
-                    <input type="text"
-                            className="graph-settings-background-url"
-                            ref="bg-url"
-                            defaultValue={this.state.backgroundImage.url}
-                            onKeyPress={this.changeBackgroundUrl}
-                            onBlur={this.changeBackgroundUrl} />
+                    <input
+                        type="text"
+                        className="graph-settings-background-url"
+                        ref="bg-url"
+                        defaultValue={this.state.backgroundImage.url}
+                        onKeyPress={this.changeBackgroundUrl}
+                        onBlur={this.changeBackgroundUrl}
+                    />
                     <InfoTip>
                         <p>Create an image in graphie, or use the "Add image"
                         function to create a background.</p>
@@ -195,12 +211,14 @@ const GraphSettings = React.createClass({
                     <div className="perseus-widget-left-col">
                         <PropCheckBox label="Show ruler"
                             showRuler={this.props.showRuler}
-                            onChange={this.change} />
+                            onChange={this.change}
+                        />
                     </div>
                     <div className="perseus-widget-right-col">
                         <PropCheckBox label="Show protractor"
                             showProtractor={this.props.showProtractor}
-                            onChange={this.change} />
+                            onChange={this.change}
+                        />
                     </div>
                 </div>
                 {this.props.showRuler && <div>
@@ -209,7 +227,8 @@ const GraphSettings = React.createClass({
                             {' '}Ruler label:{' '}
                             <select
                                 onChange={this.changeRulerLabel}
-                                value={this.props.rulerLabel} >
+                                value={this.props.rulerLabel}
+                            >
                                     <option value="">None</option>
                                     <optgroup label="Metric">
                                         {this.renderLabelChoices([
@@ -235,10 +254,11 @@ const GraphSettings = React.createClass({
                             {' '}Ruler ticks:{' '}
                             <select
                                 onChange={this.changeRulerTicks}
-                                value={this.props.rulerTicks} >
-                                    {_.map([1, 2, 4, 8, 10, 16], function(n) {
-                                        return <option value={n}>{n}</option>;
-                                    })}
+                                value={this.props.rulerTicks}
+                            >
+                                {_.map([1, 2, 4, 8, 10, 16], function(n) {
+                                    return <option value={n}>{n}</option>;
+                                })}
                             </select>
                         </label>
                     </div>

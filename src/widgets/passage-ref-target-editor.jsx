@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -26,7 +26,8 @@ const PassageRefTargetEditor = React.createClass({
             Content:
             <input type="text"
                 value={this.props.content}
-                onChange={this.handleContentChange} />
+                onChange={this.handleContentChange}
+            />
         </div>;
     },
 

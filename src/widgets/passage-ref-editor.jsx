@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -35,7 +35,8 @@ const PassageRefEditor = React.createClass({
                     {"Passage Number: "}
                     <NumberInput
                         value={this.props.passageNumber}
-                        onChange={this.change("passageNumber")} />
+                        onChange={this.change("passageNumber")}
+                    />
                 </label>
             </div>
             <div>
@@ -43,7 +44,8 @@ const PassageRefEditor = React.createClass({
                     {"Reference Number: "}
                     <NumberInput
                         value={this.props.referenceNumber}
-                        onChange={this.change("referenceNumber")} />
+                        onChange={this.change("referenceNumber")}
+                    />
                 </label>
             </div>
             <div>
@@ -51,7 +53,8 @@ const PassageRefEditor = React.createClass({
                     {"Summary Text: "}
                     <TextInput
                         value={this.props.summaryText}
-                        onChange={this.change("summaryText")} />
+                        onChange={this.change("summaryText")}
+                    />
                     <InfoTip>
                         <p>
                             Short summary of the referenced section. This

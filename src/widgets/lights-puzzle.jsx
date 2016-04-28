@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -94,7 +94,8 @@ const Tile = React.createClass({
         });
         return <div
             style={style}
-            onClick={this._flip} />;
+            onClick={this._flip}
+        />;
     },
 
     _flip: function() {
@@ -122,7 +123,7 @@ const TileGrid = React.createClass({
                                 value={cell}
                                 size={this.props.size}
                                 onChange={_.partial(this.props.onChange, y, x)}
-                                />
+                            />
                         </div>;
                     })}
                 </div>;
@@ -195,7 +196,8 @@ const LightsPuzzle = React.createClass({
             <TileGrid
                 cells={this.props.cells}
                 size={tileSize}
-                onChange={this._flipTile} />
+                onChange={this._flipTile}
+            />
             <div style={{width: pxWidth}}>
                 <div style={MOVE_COUNT_STYLE}>
                     Moves: {this.props.moveCount}
@@ -205,7 +207,8 @@ const LightsPuzzle = React.createClass({
                     type="button"
                     value="Reset"
                     onClick={this._reset}
-                    className="simple-button" />
+                    className="simple-button"
+                />
                 </div>
             </div>
             <div className="clearfix" />

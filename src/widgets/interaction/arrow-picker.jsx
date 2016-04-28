@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const ButtonGroup = require("react-components/button-group.jsx");
 const React = require("react");
 
@@ -29,7 +25,8 @@ const ArrowPicker = React.createClass({
                 {value: "<->", content: <span>&#x2194;</span>}
                 */
             ]}
-            onChange={this.props.onChange} />;
+            onChange={this.props.onChange}
+        />;
     },
 });
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -37,7 +37,8 @@ const ExampleWidgetEditor = React.createClass({
                 <input
                     value={this.props.correct}
                     onChange={this.handleAnswerChange}
-                    ref="input" />
+                    ref="input"
+                />
             </label>
         </div>;
     },

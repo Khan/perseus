@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -66,8 +66,10 @@ const WidgetContainer = React.createClass({
         // We default to an empty object for style instead of null
         // because of a strange bug where the static styles aren't applied
         // after toggling static mode.
-        return <div className={className}
-                style={isStatic ? staticContainerStyles : {}}>
+        return <div
+            className={className}
+            style={isStatic ? staticContainerStyles : {}}
+        >
             <WidgetType
                 {...this.state.widgetProps}
                 ref="widget"

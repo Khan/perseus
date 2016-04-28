@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -49,7 +49,8 @@ const GroupEditor = React.createClass({
                 images={this.props.images}
                 widgetEnabled={true}
                 immutableWidgets={false}
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
         </div>;
     },
 
@@ -57,7 +58,8 @@ const GroupEditor = React.createClass({
         const GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
         return <GroupMetadataEditor
             value={this.props.metadata}
-            onChange={this.change("metadata")} />;
+            onChange={this.change("metadata")}
+        />;
     },
 
     getSaveWarnings: function() {

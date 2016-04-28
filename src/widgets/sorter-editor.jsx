@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -45,12 +45,15 @@ const SorterEditor = React.createClass({
                 onChange={function(options, cb) {
                     editor.props.onChange({correct: options}, cb);
                 }}
-                layout={this.props.layout} />
+                layout={this.props.layout}
+            />
             <div>
                 <label>
                     {' '}Layout:{' '}
-                    <select value={this.props.layout}
-                            onChange={this.onLayoutChange}>
+                    <select
+                        value={this.props.layout}
+                        onChange={this.onLayoutChange}
+                    >
                         <option value={HORIZONTAL}>Horizontal</option>
                         <option value={VERTICAL}>Vertical</option>
                     </select>
@@ -65,7 +68,8 @@ const SorterEditor = React.createClass({
                 <PropCheckBox
                     label="Padding:"
                     padding={this.props.padding}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                 <InfoTip>
                     <p>Padding is good for text, but not needed for images.</p>
                 </InfoTip>

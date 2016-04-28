@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -86,7 +86,8 @@ const MatrixEditor = React.createClass({
                     value={this.props.matrixBoardSize}
                     onChange={this.onMatrixBoardSizeChange}
                     format={this.props.labelStyle}
-                    useArrowKeys={true} />
+                    useArrowKeys={true}
+                />
             </div>
             <div className="perseus-widget-row">
                 <Matrix {...matrixProps} />
@@ -99,7 +100,8 @@ const MatrixEditor = React.createClass({
                     widgetEnabled={false}
                     onChange={(newProps) => {
                         this.change({ prefix: newProps.content });
-                    }} />
+                    }}
+                />
             </div>
             <div className="perseus-widget-row">
                 {" "}Matrix suffix:{" "}
@@ -109,7 +111,8 @@ const MatrixEditor = React.createClass({
                     widgetEnabled={false}
                     onChange={(newProps) => {
                         this.change({ suffix: newProps.content });
-                    }} />
+                    }}
+                />
             </div>
         </div>;
     },

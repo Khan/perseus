@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -105,9 +105,11 @@ const ExpressionEditor = React.createClass({
             })
             .map(obj => <AnswerOption {...obj} />);
 
-        const sortable = <SortableArea components={answerOptions}
-                                     onReorder={this.handleReorder}
-                                     className="answer-options-list" />;
+        const sortable = <SortableArea
+            components={answerOptions}
+            onReorder={this.handleReorder}
+            className="answer-options-list"
+        />;
 
         // checkboxes to choose which sets of input buttons are shown
         const buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
@@ -119,17 +121,21 @@ const ExpressionEditor = React.createClass({
                 "button-set-label-float" :
                 "button-set-label";
             return <label className={className} key={name}>
-                <input type="checkbox"
-                       checked={checked}
-                       disabled={isFirst}
-                       onChange={() => this.handleButtonSet(name)} />
+                <input
+                    type="checkbox"
+                    checked={checked}
+                    disabled={isFirst}
+                    onChange={() => this.handleButtonSet(name)}
+                />
                 {name}
             </label>;
         });
 
         buttonSetChoices.splice(1, 1, <label key="show-div">
-            <input type="checkbox"
-                   onChange={this.handleToggleDiv} />
+            <input
+                type="checkbox"
+                onChange={this.handleToggleDiv}
+            />
             <span className="show-div-button">
                 show <TeX>\div</TeX> button
             </span>
@@ -144,7 +150,8 @@ const ExpressionEditor = React.createClass({
                     onChange={this.props.onChange}
                     labelAlignment="right"
                     label="Use × for rendering multiplication instead of a
-                        center dot." />
+                        center dot."
+                />
                 <InfoTip>
                     <p>For pre-algebra problems this option displays
                     multiplication as \times instead of \cdot in both the
@@ -157,7 +164,8 @@ const ExpressionEditor = React.createClass({
                 {"Function variables: "}
                 <input type="text"
                     defaultValue={this.props.functions.join(" ")}
-                    onChange={this.handleFunctions} />
+                    onChange={this.handleFunctions}
+                />
                 </label>
                 <InfoTip><p>
                     Single-letter variables listed here will be
@@ -175,7 +183,8 @@ const ExpressionEditor = React.createClass({
                 className="math-input-buttons"
                 sets={this.props.buttonSets}
                 convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert} />}
+                onInsert={this.handleTexInsert}
+            />}
 
             <h3 className="expression-editor-h3">Answers</h3>
 
@@ -186,10 +195,12 @@ const ExpressionEditor = React.createClass({
             {sortable}
 
             <div>
-                <button className="simple-button orange"
-                        style={{fontSize: 13}}
-                        onClick={this.newAnswer}
-                        type="button">
+                <button
+                    className="simple-button orange"
+                    style={{fontSize: 13}}
+                    onClick={this.newAnswer}
+                    type="button"
+                >
                     Add new answer
                 </button>
             </div>
@@ -386,18 +397,22 @@ const AnswerOption = React.createClass({
     render: function() {
         let removeButton = null;
         if (this.state.deleteFocused) {
-            removeButton = <button type="button"
-                                   className="simple-button orange"
-                                   onClick={this.handleImSure}
-                                   onBlur={this.handleDeleteBlur}>
-                                I'm sure!
-                           </button>;
+            removeButton = <button
+                type="button"
+                className="simple-button orange"
+                onClick={this.handleImSure}
+                onBlur={this.handleDeleteBlur}
+            >
+                I'm sure!
+            </button>;
         } else {
-            removeButton = <button type="button"
-                                   className="simple-button orange"
-                                   onClick={this.handleDelete}>
-                                Delete
-                           </button>;
+            removeButton = <button
+                type="button"
+                className="simple-button orange"
+                onClick={this.handleDelete}
+            >
+                Delete
+           </button>;
         }
 
         return <div className="expression-answer-option">
@@ -407,8 +422,10 @@ const AnswerOption = React.createClass({
             <div className="answer-body">
 
                 <div className="answer-considered">
-                    <div onClick={this.toggleConsidered}
-                         className={"answer-status " + this.props.considered}>
+                    <div
+                        onClick={this.toggleConsidered}
+                        className={"answer-status " + this.props.considered}
+                    >
                         {this.props.considered}
                     </div>
 
@@ -422,7 +439,8 @@ const AnswerOption = React.createClass({
                         form={this.props.form}
                         onChange={this.props.onChange}
                         labelAlignment="right"
-                        label="Answer expression must have the same form." />
+                        label="Answer expression must have the same form."
+                    />
                     <InfoTip>
                         <p>
                             The student's answer must be in the same form.
@@ -438,7 +456,8 @@ const AnswerOption = React.createClass({
                         onChange={this.props.onChange}
                         labelAlignment="right"
                         label="Answer expression must be fully expanded and
-                            simplified." />
+                            simplified."
+                    />
                     <InfoTip>
                         <p>
                             The student's answer must be fully expanded and

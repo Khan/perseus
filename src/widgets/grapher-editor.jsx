@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -94,14 +94,16 @@ const GrapherEditor = React.createClass({
                 markings={this.props.graph.markings}
                 rulerLabel={this.props.graph.rulerLabel}
                 rulerTicks={this.props.graph.rulerTicks}
-                onChange={this.change("graph")} />
+                onChange={this.change("graph")}
+            />
             <div className="perseus-widget-row">
                 <label>Available functions:{' '} </label>
                 <MultiButtonGroup
                     allowEmpty={false}
                     values={this.props.availableTypes}
                     buttons={_.map(allTypes, typeToButton)}
-                    onChange={this.handleAvailableTypesChange} />
+                    onChange={this.handleAvailableTypesChange}
+                />
             </div>
             {graph}
         </div>;

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -45,7 +45,8 @@ const SimulatorEditor = React.createClass({
                     className="graph-settings-axis-label"
                     value={this.props.xAxisLabel}
                     onChange={_.partial(this.handleTargetValueChange,
-                        "xAxisLabel")} />
+                        "xAxisLabel")}
+                />
             </div>
             <div>
                 <$_>Y-Axis Label</$_>:
@@ -54,7 +55,8 @@ const SimulatorEditor = React.createClass({
                     className="graph-settings-axis-label"
                     value={this.props.yAxisLabel}
                     onChange={_.partial(this.handleTargetValueChange,
-                        "yAxisLabel")} />
+                        "yAxisLabel")}
+                />
             </div>
             <div>
                 <$_>"True Proportion" Label</$_>:
@@ -63,7 +65,8 @@ const SimulatorEditor = React.createClass({
                     className="graph-settings-axis-label"
                     value={this.props.proportionLabel}
                     onChange={_.partial(this.handleTargetValueChange,
-                        "proportionLabel")} />
+                        "proportionLabel")}
+                />
                 <InfoTip>
                     <p>This text will be displayed next to the box in which
                         the user enters the sample proportion for their
@@ -78,13 +81,14 @@ const SimulatorEditor = React.createClass({
                     className="perseus-widget-dropdown"
                     value={this.props.proportionOrPercentage}
                     onChange={_.partial(this.handleTargetValueChange,
-                        "proportionOrPercentage")}>
-                        <option key="proportion" value="proportion">
-                            Proportion
-                        </option>
-                        <option key="percentage" value="percentage">
-                            Percentage
-                        </option>
+                        "proportionOrPercentage")}
+                >
+                    <option key="proportion" value="proportion">
+                        Proportion
+                    </option>
+                    <option key="percentage" value="percentage">
+                        Percentage
+                    </option>
                 </select>
                 <InfoTip>
                     <p>Do you want the user to describe their simulation in
@@ -98,7 +102,8 @@ const SimulatorEditor = React.createClass({
                     checkValidity={(val) => {
                         return val >= 0 && val <= maxTrials;
                     }}
-                    onChange={this.change("numTrials")} />
+                    onChange={this.change("numTrials")}
+                />
                 <InfoTip>
                     <p>This controls the number of trials used in the
                        simulation. For example, if you set this to 50, then the

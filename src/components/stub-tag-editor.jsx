@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * Stub Tag Editor.
  *
@@ -42,7 +38,8 @@ const StubTagEditor = React.createClass({
             <TextListEditor
                 options={this.props.value || EMPTY_ARRAY}
                 layout="vertical"
-                onChange={this.props.onChange} />
+                onChange={this.props.onChange}
+            />
         </div>;
     },
 });

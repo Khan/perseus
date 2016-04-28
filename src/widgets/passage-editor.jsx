@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -58,7 +58,8 @@ const PassageEditor = React.createClass({
                     label="Show line numbers"
                     labelAlignment="right"
                     showLineNumbers={this.props.showLineNumbers}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
             </div>
             <div>
                 Passage title:
@@ -72,7 +73,8 @@ const PassageEditor = React.createClass({
                         defaultValue={this.props.passageTitle}
                         onChange={(e) => {
                             this.change({ passageTitle: e.target.value });
-                        }} />
+                        }}
+                    />
                 </div>
             </div>
             <div>

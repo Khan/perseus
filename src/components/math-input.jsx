@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -47,16 +47,19 @@ const MathInput = React.createClass({
                 sets={this.props.buttonSets}
                 className="math-input-buttons absolute"
                 convertDotToTimes={this.props.convertDotToTimes}
-                onInsert={this.insert} />;
+                onInsert={this.insert}
+            />;
         }
 
         return <div style={{display: "inline-block"}}>
             <div style={{display: 'inline-block'}}>
-                <span className={className}
-                      ref="mathinput"
-                      aria-label={this.props.labelText}
-                      onFocus={this.handleFocus}
-                      onBlur={this.handleBlur} />
+                <span
+                    className={className}
+                    ref="mathinput"
+                    aria-label={this.props.labelText}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                />
             </div>
             <div style={{position: "relative"}}>
                 {buttons}

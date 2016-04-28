@@ -1,5 +1,5 @@
 // TODO(kevindangoor) fix these lint errors
-/* eslint-disable react/sort-comp, react/jsx-indent-props, react/jsx-closing-bracket-location */
+/* eslint-disable react/sort-comp, */
 
 const React = require("react");
 const _ = require("underscore");
@@ -86,40 +86,32 @@ const ImageWidget = React.createClass({
 
         if (backgroundImage.url) {
             image = <SvgImage
-                        src={backgroundImage.url}
-                        alt={
-                            /* alt text is formatted in a sr-only
-                               div next to the image, so we make
-                               this empty here.
-                               If there is no alt text at all,
-                               we don't put an alt attribute on
-                               the image, so that screen readers
-                               know there's something they can't
-                               read there :(.
-                               NOTE: React <=0.13 (maybe later)
-                               has a bug where it won't ever
-                               remove an attribute, so if this
-                               alt node is ever defined it's
-                               not removed. This is sort of
-                               dangerous, but we usually re-key
-                               new renderers so that they're
-                               rendered from scratch anyways,
-                               so this shouldn't be a problem
-                               in practice right now, although
-                               it will exhibit weird behaviour
-                               while editing. */
-                            this.props.alt ? "" : undefined
-                        }
-                        width={backgroundImage.width}
-                        height={backgroundImage.height}
-                        preloader={apiOptions ?
-                            apiOptions.imagePreloader : null}
-                        extraGraphie={{
-                            box: this.props.box,
-                            range: this.props.range,
-                            labels: this.props.labels,
-                        }}
-                        trackInteraction={this.props.trackInteraction}
+                src={backgroundImage.url}
+                alt={
+                    /* alt text is formatted in a sr-only div next to the image,
+                       so we make this empty here. If there is no alt text at
+                       all, we don't put an alt attribute on the image, so that
+                       screen readers know there's something they can't read
+                       there :(.
+                       NOTE: React <=0.13 (maybe later) has a bug where it won't
+                       ever remove an attribute, so if this alt node is ever
+                       defined it's not removed. This is sort of dangerous, but
+                       we usually re-key new renderers so that they're rendered
+                       from scratch anyways, so this shouldn't be a problem in
+                       practice right now, although it will exhibit weird
+                       behaviour while editing. */
+                    this.props.alt ? "" : undefined
+                }
+                width={backgroundImage.width}
+                height={backgroundImage.height}
+                preloader={apiOptions ?
+                    apiOptions.imagePreloader : null}
+                extraGraphie={{
+                    box: this.props.box,
+                    range: this.props.range,
+                    labels: this.props.labels,
+                }}
+                trackInteraction={this.props.trackInteraction}
             />;
         }
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -42,19 +42,22 @@ const ChoiceEditor = React.createClass({
             placeholder={placeholder}
             disabled={this.props.choice.isNoneOfTheAbove &&
                 !this.props.choice.correct}
-            onChange={this.props.onContentChange} />;
+            onChange={this.props.onContentChange}
+        />;
 
         const clueEditor = <Editor
             ref={"clue-editor"}
             content={this.props.choice.clue || ""}
             widgetEnabled={false}
             placeholder={i18n._(`Why is this choice ${checkedClass}?`)}
-            onChange={this.props.onClueChange} />;
+            onChange={this.props.onClueChange}
+        />;
 
         const deleteLink = <a href="#"
-                className="simple-button orange delete-choice"
-                title="Remove this choice"
-                onClick={this.props.onDelete}>
+            className="simple-button orange delete-choice"
+            title="Remove this choice"
+            onClick={this.props.onDelete}
+        >
             <span className="icon-trash" />
         </a>;
 
@@ -111,10 +114,12 @@ const RadioEditor = React.createClass({
 
                 <div className="perseus-widget-left-col">
                     <div>
-                        <PropCheckBox label="One answer per line"
-                                      labelAlignment="right"
-                                      onePerLine={this.props.onePerLine}
-                                      onChange={this.props.onChange} />
+                        <PropCheckBox
+                            label="One answer per line"
+                            labelAlignment="right"
+                            onePerLine={this.props.onePerLine}
+                            onChange={this.props.onChange}
+                        />
                         <InfoTip>
                             <p>
                                 Use one answer per line unless your question
@@ -126,16 +131,20 @@ const RadioEditor = React.createClass({
                 </div>
 
                 <div className="perseus-widget-right-col">
-                    <PropCheckBox label="Multiple selections"
-                                  labelAlignment="right"
-                                  multipleSelect={this.props.multipleSelect}
-                                  onChange={this.onMultipleSelectChange} />
+                    <PropCheckBox
+                        label="Multiple selections"
+                        labelAlignment="right"
+                        multipleSelect={this.props.multipleSelect}
+                        onChange={this.onMultipleSelectChange}
+                    />
                 </div>
                 <div className="perseus-widget-left-col">
-                    <PropCheckBox label="Randomize order"
-                                  labelAlignment="right"
-                                  randomize={this.props.randomize}
-                                  onChange={this.props.onChange} />
+                    <PropCheckBox
+                        label="Randomize order"
+                        labelAlignment="right"
+                        randomize={this.props.randomize}
+                        onChange={this.props.onChange}
+                    />
                 </div>
                 {!this.props.static &&
                     <div className="perseus-widget-right-col">
@@ -143,7 +152,8 @@ const RadioEditor = React.createClass({
                             label="Radio deselect enabled"
                             labelAlignment="right"
                             deselectEnabled={this.props.deselectEnabled}
-                            onChange={this.props.onChange} />
+                            onChange={this.props.onChange}
+                        />
                     </div>}
             </div>
 
@@ -169,23 +179,29 @@ const RadioEditor = React.createClass({
                                 }
                             }}
                             onDelete={this.onDelete.bind(this, i)}
-                            showDelete={this.props.choices.length >= 2} />,
+                            showDelete={this.props.choices.length >= 2}
+                        />,
                         isNoneOfTheAbove: choice.isNoneOfTheAbove,
                         checked: choice.correct,
                     };
                 }, this)}
-                onCheckedChange={this.onCheckedChange} />
+                onCheckedChange={this.onCheckedChange}
+            />
 
             <div className="add-choice-container">
-                <a href="#" className="simple-button orange"
-                        onClick={this.addChoice.bind(this, false)}>
+                <a
+                    href="#" className="simple-button orange"
+                    onClick={this.addChoice.bind(this, false)}
+                >
                     <span className="icon-plus" />
                     {' '}Add a choice{' '}
                 </a>
 
                 {!this.props.hasNoneOfTheAbove &&
-                    <a href="#" className="simple-button"
-                            onClick={this.addChoice.bind(this, true)}>
+                    <a
+                        href="#" className="simple-button"
+                        onClick={this.addChoice.bind(this, true)}
+                    >
                         <span className="icon-plus" />
                         {' '}None of the above{' '}
                     </a>}

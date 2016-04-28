@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -89,7 +89,8 @@ const Tile = React.createClass({
         });
         return <div
             style={style}
-            onClick={this._flip} />;
+            onClick={this._flip}
+        />;
     },
 
     _flip: function() {
@@ -117,7 +118,7 @@ const TileGrid = React.createClass({
                                 value={cell}
                                 size={this.props.size}
                                 onChange={_.partial(this.props.onChange, y, x)}
-                                />
+                            />
                         </div>;
                     })}
                 </div>;
@@ -170,19 +171,22 @@ const LightsPuzzleEditor = React.createClass({
                 <NumberInput
                     value={this._width()}
                     placeholder={5}
-                    onChange={this._changeWidth} />
+                    onChange={this._changeWidth}
+                />
                 {", "}
                 Height:
                 <NumberInput
                     value={this._height()}
                     placeholder={5}
-                    onChange={this._changeHeight} />
+                    onChange={this._changeHeight}
+                />
             </div>
             <div>
                 Flip pattern:
                 <select
-                        value={this.props.flipPattern}
-                        onChange={this._handlePatternChange}>
+                    value={this.props.flipPattern}
+                    onChange={this._handlePatternChange}
+                >
                     {_.map(_.keys(PATTERNS), (pattern, i) => {
                         return <option value={pattern} key={i}>
                             {pattern}
@@ -195,7 +199,8 @@ const LightsPuzzleEditor = React.createClass({
                 {" "}
                 <PropCheckBox
                     gradeIncompleteAsWrong={this.props.gradeIncompleteAsWrong}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                />
                     <InfoTip>
                         By default, incomplete puzzles are graded as empty.
                     </InfoTip>
@@ -207,7 +212,8 @@ const LightsPuzzleEditor = React.createClass({
                 <TileGrid
                     cells={this.props.startCells}
                     size={50}
-                    onChange={this._switchTile} />
+                    onChange={this._switchTile}
+                />
             </div>
         </div>;
     },

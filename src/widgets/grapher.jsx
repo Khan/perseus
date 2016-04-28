@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -143,7 +143,8 @@ const FunctionGrapher = React.createClass({
                     this.props.onChange({
                         coords: coords,
                     });
-                }} />;
+                }}
+            />;
         };
         const points = _.map(this._coords(), pointForCoord);
         const box = this.props.graph.box;
@@ -152,24 +153,28 @@ const FunctionGrapher = React.createClass({
         let image = null;
         if (imageDescription.url) {
             const scale = box[0] / DEFAULT_BOX_SIZE;
-            image = <SvgImage src={imageDescription.url}
-                              width={imageDescription.width}
-                              height={imageDescription.height}
-                              scale={scale} />;
+            image = <SvgImage
+                src={imageDescription.url}
+                width={imageDescription.width}
+                height={imageDescription.height}
+                scale={scale}
+            />;
         }
 
         return <div
-                    className={"perseus-widget " + "perseus-widget-grapher"}
-                    style={{
-                        width: box[0],
-                        height: this.props.flexibleType ? "auto" : box[1],
-                    }}>
+            className={"perseus-widget " + "perseus-widget-grapher"}
+            style={{
+                width: box[0],
+                height: this.props.flexibleType ? "auto" : box[1],
+            }}
+        >
                 <div
                     className="graphie-container above-scratchpad"
                     style={{
                         width: box[0],
                         height: box[1],
-                    }}>
+                    }}
+                >
                 {image}
                 <Graphie {...this.props.graph}>
                     {this.props.model && this.renderPlot()}
@@ -192,10 +197,11 @@ const FunctionGrapher = React.createClass({
 
         const functionProps = model.getPropsForCoeffs(coeffs, xRange);
         return <model.Movable
-                    {...functionProps}
-                    key={this.props.model.url}
-                    range={xRange}
-                    style={style} />;
+            {...functionProps}
+            key={this.props.model.url}
+            range={xRange}
+            style={style}
+        />;
     },
 
     renderAsymptote: function() {
@@ -206,37 +212,43 @@ const FunctionGrapher = React.createClass({
             strokeDasharray: "- ",
         };
         return asymptote &&
-            <MovableLine onMove={(newCoord, oldCoord) => {
-                // Calculate and apply displacement
-                const delta = kvector.subtract(newCoord, oldCoord);
-                const newAsymptote = _.map(this._asymptote(), (coord) =>
-                    kvector.add(coord, delta));
-                this.props.onChange({
-                    asymptote: newAsymptote,
-                });
-            }} constraints={[
-                Interactive2.MovableLine.constraints.bound(),
-                Interactive2.MovableLine.constraints.snap(),
-                (newCoord, oldCoord) => {
-                    // Calculate and apply proposed displacement
+            <MovableLine
+                onMove={(newCoord, oldCoord) => {
+                    // Calculate and apply displacement
                     const delta = kvector.subtract(newCoord, oldCoord);
-                    const proposedAsymptote = _.map(this._asymptote(),
-                        (coord) => kvector.add(coord, delta));
-                    // Verify that resulting asymptote is valid for graph
-                    if (model.extraAsymptoteConstraint) {
-                        return model.extraAsymptoteConstraint(newCoord,
-                            oldCoord, this._coords(), proposedAsymptote,
-                            graph);
-                    }
-                    return true;
-                },
-            ]} normalStyle={dashed}
-                highlightStyle={dashed}>
+                    const newAsymptote = _.map(this._asymptote(), (coord) =>
+                        kvector.add(coord, delta));
+                    this.props.onChange({
+                        asymptote: newAsymptote,
+                    });
+                }}
+                constraints={[
+                    Interactive2.MovableLine.constraints.bound(),
+                    Interactive2.MovableLine.constraints.snap(),
+                    (newCoord, oldCoord) => {
+                        // Calculate and apply proposed displacement
+                        const delta = kvector.subtract(newCoord, oldCoord);
+                        const proposedAsymptote = _.map(this._asymptote(),
+                            (coord) => kvector.add(coord, delta));
+                        // Verify that resulting asymptote is valid for graph
+                        if (model.extraAsymptoteConstraint) {
+                            return model.extraAsymptoteConstraint(newCoord,
+                                oldCoord, this._coords(), proposedAsymptote,
+                                graph);
+                        }
+                        return true;
+                    },
+                ]}
+                normalStyle={dashed}
+                highlightStyle={dashed}
+            >
                 {_.map(asymptote, (coord) =>
-                    <MovablePoint coord={coord}
+                    <MovablePoint
+                        coord={coord}
                         static={true}
                         draw={null}
-                        extendLine={true} />
+                        extendLine={true}
+                    />
                 )}
         </MovableLine>;
     },
@@ -264,13 +276,16 @@ const Grapher = React.createClass({
         const coords = this.props.plot.coords;
         const asymptote = this.props.plot.asymptote;
 
-        const typeSelector = <div style={typeSelectorStyle}
-                className="above-scratchpad">
+        const typeSelector = <div
+            style={typeSelectorStyle}
+            className="above-scratchpad"
+        >
             <ButtonGroup
                 value={type}
                 allowEmpty={true}
                 buttons={_.map(this.props.availableTypes, typeToButton)}
-                onChange={this.handleActiveTypeChange} />
+                onChange={this.handleActiveTypeChange}
+            />
         </div>;
 
         const box = this.props.graph.box;
