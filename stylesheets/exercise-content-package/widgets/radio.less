@@ -1,24 +1,6 @@
 @import "../util.less";
 
-// Override the float: left on input[type=radio]s in the
-// #answer_area from khan-exercise.css, because it breaks our
-// margin-left: -20px positioning
-.perseus-widget-radio,
-#answer_area .perseus-widget-radio {
-    li span.checkbox input[type=radio] {
-        float: none;
-        margin: 3px;
-    }
-}
-
 .perseus-widget-radio {
-    // Avoid centering
-    width: 100%;
-
-    .checkbox-label {
-        display: block;
-    }
-
     div,
     div > p {
         /* TODO(alpert): Find a better way of doing inline renderers */
@@ -31,26 +13,6 @@
     }
 
     li {
-        padding: 7px 0;
-        margin-left: 20px;
-
-        &.inline {
-            display: inline-block;
-            padding-left: 20px;
-        }
-
-        input[type="radio"], input[type="checkbox"] {
-            .perseus-interactive;
-            display: inline-block;
-            width: 20px;
-            margin-left: -20px;
-            margin-right: 0;
-        }
-
-        .pos-back, .pos {
-            display: none;
-        }
-
         div.instructions {
             margin-bottom: 5px;
         }
@@ -69,107 +31,6 @@
         table {
             border: 1px solid #ccc;
         }
-    }
-
-   .perseus-radio-clue {
-        display: block;
-    }
-
-    .perseus-textarea-pair,
-    .perseus-textarea-underlay {
-        display: block;
-    }
-}
-
-// TODO(jared): make sure to check these w/ tabitha once the mocks are
-// finalized
-@circleSize: 20px;
-@radioBorder: @grayLighter;
-@checkedColor: @kaGreen;
-
-@media (max-width: @pure-sm-max) {
-    .perseus-widget-radio-responsive {
-        border-bottom: 1px solid @radioBorder;
-        border-top: 1px solid @radioBorder;
-        margin-left: -@phoneMargin;
-        margin-right: -@phoneMargin;
-        width: auto!important;
-
-        .perseus-radio-option {
-            margin-left: 0;
-            padding: 0;
-
-            .checkbox-label {
-                -webkit-tap-highlight-color:transparent;
-                align-items: center;
-                display: flex;
-                padding: 17px 0;
-            }
-
-            input[type=checkbox],
-            input[type=radio] {
-                -webkit-appearance: none;
-                appearance: none;
-                background-color: #fff;
-                border: 2px solid #fff;
-                box-shadow: 0 0px 0px 1px @radioBorder;
-                box-sizing: border-box;
-                flex-shrink: 0;
-                height: @circleSize;
-                margin-bottom: 0;
-                margin-left: 15px;
-                margin-right: 15px;
-                margin-top: 0;
-                outline: none;
-                width: @circleSize;
-            }
-
-            input[type=radio] {
-                border-radius: 50%;
-            }
-
-            input[type=checkbox] {
-                border: none;
-                border-radius: 4px;
-            }
-
-            input[type=checkbox]:checked {
-                background-color: @checkedColor;
-                box-shadow: none;
-            }
-
-            input[type=checkbox]:checked:before {
-                align-items: center;
-                color: white;
-                // TODO(jared): replace with image
-                content: "✓";
-                display: flex;
-                font-family: monospace;
-                font-size: 17px;
-                height: @circleSize;
-                justify-content: center;
-                width: @circleSize;
-            }
-
-            input[type=radio]:checked {
-                background-color: @checkedColor;
-                border: 2px solid #fff;
-                border-radius: 50%;
-                box-shadow: 0 0px 0px 2px @checkedColor;
-                height: @circleSize;
-                width: @circleSize;
-            }
-        }
-
-        .perseus-radio-option:active {
-            /* touch highlight a la iOS */
-            background-color: @grayLight;
-        }
-
-        .perseus-radio-option:not(:last-child) {
-            border-bottom: 1px solid @radioBorder;
-        }
-
     }
 }
 
