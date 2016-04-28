@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global $_:false */
 
 const React = require("react");
@@ -16,8 +12,6 @@ const NumberInput  = require("../components/number-input.jsx");
 const maxTrials = 5000;
 
 const SimulatorEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         numTrials: React.PropTypes.number,
         proportionLabel: React.PropTypes.string,
@@ -25,6 +19,8 @@ const SimulatorEditor = React.createClass({
         xAxisLabel: React.PropTypes.string,
         yAxisLabel: React.PropTypes.string,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -34,6 +30,10 @@ const SimulatorEditor = React.createClass({
             xAxisLabel: "Proportion (%)",
             yAxisLabel: "Number of times seen",
         };
+    },
+
+    handleTargetValueChange: function(propName, e) {
+        this.change(propName, e.target.value);
     },
 
     render: function() {
@@ -113,10 +113,6 @@ const SimulatorEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
-    },
-
-    handleTargetValueChange: function(propName, e) {
-        this.change(propName, e.target.value);
     },
 });
 

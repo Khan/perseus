@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React        = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -49,28 +45,6 @@ const Measurer = React.createClass({
 
     getInitialState: function() {
         return {};
-    },
-
-    render: function() {
-        const image = _.extend({}, defaultImage, this.props.image);
-        return <div
-            className={
-                "perseus-widget perseus-widget-measurer " +
-                "graphie-container above-scratchpad"
-            }
-            style={{width: this.props.box[0], height: this.props.box[1]}}
-        >
-            {image.url &&
-                <img
-                    src={image.url}
-                    style={{
-                        top: image.top,
-                        left: image.left,
-                    }}
-                />
-            }
-            <div className="graphie" ref="graphieDiv" />
-        </div>;
     },
 
     componentDidMount: function() {
@@ -151,6 +125,28 @@ const Measurer = React.createClass({
     },
 
     focus: $.noop,
+
+    render: function() {
+        const image = _.extend({}, defaultImage, this.props.image);
+        return <div
+            className={
+                "perseus-widget perseus-widget-measurer " +
+                "graphie-container above-scratchpad"
+            }
+            style={{width: this.props.box[0], height: this.props.box[1]}}
+        >
+            {image.url &&
+                <img
+                    src={image.url}
+                    style={{
+                        top: image.top,
+                        left: image.left,
+                    }}
+                />
+            }
+            <div className="graphie" ref="graphieDiv" />
+        </div>;
+    },
 });
 
 

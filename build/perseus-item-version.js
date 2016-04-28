@@ -1,6 +1,6 @@
 // Perseus Version File
-// commit 3acb49f3704f08cafcc7b284895dd79570a35eca
-// branch HEAD
+// commit f3d04a825b7fd18371a4d7c1f0611801f763ae70
+// branch remove-eslint-exceptions-7
 // @generated
 /* eslint-disable comma-dangle */
 

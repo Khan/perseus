@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -10,8 +6,6 @@ const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx
 const Renderer = require("../renderer.jsx");
 
 const PassageRefTarget = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
-
     propTypes: {
         // We don't use ApiOptions.propTypes or EnabledFeatures.PropTypes here
         // because they require the props and they're optional for this
@@ -21,10 +15,16 @@ const PassageRefTarget = React.createClass({
         enabledFeatures: React.PropTypes.any,
     },
 
+    mixins: [WidgetJsonifyDeprecated, Changeable],
+
     getDefaultProps: function() {
         return {
             content: "",
         };
+    },
+
+    simpleValidate: function(rubric) {
+        return PassageRefTarget.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -34,10 +34,6 @@ const PassageRefTarget = React.createClass({
             enabledFeatures={this.props.enabledFeatures}
             apiOptions={this.props.apiOptions}
         />;
-    },
-
-    simpleValidate: function(rubric) {
-        return PassageRefTarget.validate(this.getUserInput(), rubric);
     },
 });
 

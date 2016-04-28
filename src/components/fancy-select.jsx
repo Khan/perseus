@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * A <select> component rendered with classes instead of natively,
  * so that the classes may be styled/animated/magics
@@ -58,6 +54,60 @@ const FancySelect = React.createClass({
             selectorNamespace: _.uniqueId("fancy"),
             nodeOffset: 0,
         };
+    },
+
+    componentWillUnmount: function() {
+        this._unbindClickHandler();
+    },
+
+    _swapActive: function() {
+        const active = !this.state.active;
+        const closed = !active;
+        let nodeOffset = 0;
+
+        // Prepare to detect clicks outside of the dropdown
+        if (active) {
+            this._bindClickHandler();
+        } else {
+            this._unbindClickHandler();
+        }
+
+        // We only need to know the position on screen if it's opening
+        // TODO(jared): it could be useful to recalculate this when the device
+        // is rotated. Maybe "onorientationchange"? Not sure if that is fired
+        // in a webview though.
+        if (active) {
+            const nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
+            const distToBottom = window.innerHeight - nodeBox.bottom;
+            // One of the children is the placeholder
+            const numOptions = React.Children.count(this.props.children) - 1;
+            const overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
+            if (overflow > 0) {
+                nodeOffset = -overflow;
+            }
+        }
+
+        this.setState({
+            active: active,
+            closed: closed,
+            nodeOffset: nodeOffset,
+        });
+    },
+
+    _bindClickHandler: function() {
+        // Close the dropdown when the user clicks elsewhere
+        $(document).on("vclick." + this.state.selectorNamespace, (e) => {
+            // Detect whether the target has our React DOM node as a parent
+            const $this = $(ReactDOM.findDOMNode(this));
+            const $closestWidget = $(e.target).closest($this);
+            if (!$closestWidget.length) {
+                this._swapActive();
+            }
+        });
+    },
+
+    _unbindClickHandler: function() {
+        $(document).off("." + this.state.selectorNamespace);
     },
 
     render: function() {
@@ -191,60 +241,6 @@ const FancySelect = React.createClass({
                 </ul>
             </div>
         </div>;
-    },
-
-    _swapActive: function() {
-        const active = !this.state.active;
-        const closed = !active;
-        let nodeOffset = 0;
-
-        // Prepare to detect clicks outside of the dropdown
-        if (active) {
-            this._bindClickHandler();
-        } else {
-            this._unbindClickHandler();
-        }
-
-        // We only need to know the position on screen if it's opening
-        // TODO(jared): it could be useful to recalculate this when the device
-        // is rotated. Maybe "onorientationchange"? Not sure if that is fired
-        // in a webview though.
-        if (active) {
-            const nodeBox = ReactDOM.findDOMNode(this).getBoundingClientRect();
-            const distToBottom = window.innerHeight - nodeBox.bottom;
-            // One of the children is the placeholder
-            const numOptions = React.Children.count(this.props.children) - 1;
-            const overflow = (numOptions * ITEM_HEIGHT) - distToBottom;
-            if (overflow > 0) {
-                nodeOffset = -overflow;
-            }
-        }
-
-        this.setState({
-            active: active,
-            closed: closed,
-            nodeOffset: nodeOffset,
-        });
-    },
-
-    _bindClickHandler: function() {
-        // Close the dropdown when the user clicks elsewhere
-        $(document).on("vclick." + this.state.selectorNamespace, (e) => {
-            // Detect whether the target has our React DOM node as a parent
-            const $this = $(ReactDOM.findDOMNode(this));
-            const $closestWidget = $(e.target).closest($this);
-            if (!$closestWidget.length) {
-                this._swapActive();
-            }
-        });
-    },
-
-    _unbindClickHandler: function() {
-        $(document).off("." + this.state.selectorNamespace);
-    },
-
-    componentWillUnmount: function() {
-        this._unbindClickHandler();
     },
 });
 

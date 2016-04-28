@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -83,6 +79,15 @@ const EditorPage = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this.rendererMountNode = document.createElement("div");
+        this.updateRenderer();
+    },
+
+    componentDidUpdate: function() {
+        this.updateRenderer();
+    },
+
     handleCheckAnswer: function() {
         const result = this.scorePreview();
         this.setState({
@@ -99,15 +104,6 @@ const EditorPage = React.createClass({
                 jsonMode: !this.props.jsonMode,
             });
         });
-    },
-
-    componentDidMount: function() {
-        this.rendererMountNode = document.createElement("div");
-        this.updateRenderer();
-    },
-
-    componentDidUpdate: function() {
-        this.updateRenderer();
     },
 
     updateRenderer: function(cb) {
@@ -180,6 +176,22 @@ const EditorPage = React.createClass({
         }
     },
 
+    getSaveWarnings: function() {
+        const issues1 = this.refs.itemEditor.getSaveWarnings();
+        const issues2 = this.refs.hintsEditor.getSaveWarnings();
+        return issues1.concat(issues2);
+    },
+
+    serialize: function(options) {
+        if (this.props.jsonMode) {
+            return this.state.json;
+        } else {
+            return _.extend(this.refs.itemEditor.serialize(options), {
+                hints: this.refs.hintsEditor.serialize(options),
+            });
+        }
+    },
+
     render: function() {
 
         return <div id="perseus" className="framework-perseus">
@@ -249,23 +261,6 @@ const EditorPage = React.createClass({
         </div>;
 
     },
-
-    getSaveWarnings: function() {
-        const issues1 = this.refs.itemEditor.getSaveWarnings();
-        const issues2 = this.refs.hintsEditor.getSaveWarnings();
-        return issues1.concat(issues2);
-    },
-
-    serialize: function(options) {
-        if (this.props.jsonMode) {
-            return this.state.json;
-        } else {
-            return _.extend(this.refs.itemEditor.serialize(options), {
-                hints: this.refs.hintsEditor.serialize(options),
-            });
-        }
-    },
-
 });
 
 module.exports = EditorPage;

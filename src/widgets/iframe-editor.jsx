@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -15,13 +11,12 @@ const PropCheckBox  = require("../components/prop-check-box.jsx");
  * This is used for editing a name/value pair.
  */
 const PairEditor = React.createClass({
-
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         name: React.PropTypes.string,
         value: React.PropTypes.string,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -52,14 +47,25 @@ const PairEditor = React.createClass({
  * This is used for editing a set of name/value pairs.
  */
 const PairsEditor = React.createClass({
-
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
             value: React.PropTypes.string,
         })).isRequired,
+    },
+
+    mixins: [Changeable, EditorJsonify],
+
+    handlePairChange: function(pairIndex, pair) {
+        // If they're both non empty, add a new one
+        const pairs = this.props.pairs.slice();
+        pairs[pairIndex] = pair;
+
+        const lastPair = pairs[pairs.length - 1];
+        if (lastPair.name && lastPair.value) {
+            pairs.push({name: "", value: ""});
+        }
+        this.change("pairs", pairs);
     },
 
     render: function() {
@@ -73,27 +79,12 @@ const PairsEditor = React.createClass({
             {editors}
         </div>;
     },
-
-    handlePairChange: function(pairIndex, pair) {
-        // If they're both non empty, add a new one
-        const pairs = this.props.pairs.slice();
-        pairs[pairIndex] = pair;
-
-        const lastPair = pairs[pairs.length - 1];
-        if (lastPair.name && lastPair.value) {
-            pairs.push({name: "", value: ""});
-        }
-        this.change("pairs", pairs);
-    },
 });
 
 /**
  * This is the main editor for this widget, to specify all the options.
  */
 const IframeEditor = React.createClass({
-
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         allowFullScreen: React.PropTypes.bool,
         height: React.PropTypes.string,
@@ -106,6 +97,8 @@ const IframeEditor = React.createClass({
         width: React.PropTypes.string,
     },
 
+    mixins: [Changeable, EditorJsonify],
+
     getDefaultProps: function() {
         return {
             allowFullScreen: false,
@@ -114,6 +107,10 @@ const IframeEditor = React.createClass({
             url: "",
             width: "400",
         };
+    },
+
+    handleSettingsChange: function(settings) {
+        this.change({settings: settings.pairs});
     },
 
     render: function() {
@@ -158,10 +155,6 @@ const IframeEditor = React.createClass({
                 onChange={this.props.onChange}
             />
         </div>;
-    },
-
-    handleSettingsChange: function(settings) {
-        this.change({settings: settings.pairs});
     },
 });
 

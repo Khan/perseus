@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -65,6 +61,91 @@ const NumericInputEditor = React.createClass({
             lastStatus: "wrong",
             showOptions: _.map(this.props.answers, () => false),
         };
+    },
+
+    onToggleOptions: function(choiceIndex) {
+        const showOptions = this.state.showOptions.slice();
+        showOptions[choiceIndex] = !showOptions[choiceIndex];
+        this.setState({showOptions: showOptions});
+    },
+
+    onTrashAnswer: function(choiceIndex) {
+        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
+            const answers = this.props.answers.slice(0);
+            answers.splice(choiceIndex, 1);
+            this.props.onChange({answers: answers});
+        }
+    },
+
+    onSpace: function(e, callback) {
+        if (e.key === " ") {
+            e.preventDefault(); // prevent page shifting
+            const args = _.toArray(arguments).slice(2);
+            callback.apply(this, args);
+        }
+    },
+
+    onStatusChange: function(choiceIndex) {
+        const statuses = ["wrong", "ungraded", "correct"];
+        const answers = this.props.answers;
+        const i = _.indexOf(statuses, answers[choiceIndex].status);
+        const newStatus = statuses[(i + 1) % statuses.length];
+
+        this.updateAnswer(choiceIndex, {
+            status: newStatus,
+            simplify: newStatus === "correct" ? "required" : "accepted",
+        });
+    },
+
+    updateAnswer: function(choiceIndex, update) {
+        if (!_.isObject(update)) {
+            return _.partial((choiceIndex, key, value) => {
+                const update = {};
+                update[key] = value;
+                this.updateAnswer(choiceIndex, update);
+            }, choiceIndex, update);
+        }
+
+        let answers = _.clone(this.props.answers);
+
+        // Don't bother to make a new answer box unless we are editing the last
+        // one.
+        // TODO(oliver): This might not be necessary anymore.
+        if (choiceIndex === answers.length) {
+            const lastAnswer = initAnswer(this.state.lastStatus);
+            answers = answers.concat(lastAnswer);
+        }
+
+        answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
+        this.props.onChange({answers: answers});
+    },
+
+    addAnswer: function() {
+        const lastAnswer = initAnswer(this.state.lastStatus);
+        const answers = this.props.answers.concat(lastAnswer);
+        this.props.onChange({answers: answers});
+    },
+
+    getSaveWarnings: function() {
+        // Filter out all the empty answers
+        const warnings = [];
+        // TODO(emily): This doesn't actually work, because the value is either
+        // null or undefined when undefined, probably.
+        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
+            warnings.push("One or more answers is empty");
+        }
+        if (this.props.labelText === "") {
+            warnings.push("No label is specified");
+        }
+        this.props.answers.forEach((answer, i) => {
+            const formatError = (answer.strict &&
+                (!answer.answerForms || answer.answerForms.length === 0));
+            if (formatError) {
+                warnings.push(`Answer ${i + 1} is set to string format ` +
+                              "matching, but no format was selected");
+            }
+        });
+        return warnings;
     },
 
     render: function() {
@@ -321,92 +402,6 @@ const NumericInputEditor = React.createClass({
             {coefficientCheck}
             {labelText}
         </div>;
-
-    },
-
-    onToggleOptions: function(choiceIndex) {
-        const showOptions = this.state.showOptions.slice();
-        showOptions[choiceIndex] = !showOptions[choiceIndex];
-        this.setState({showOptions: showOptions});
-    },
-
-    onTrashAnswer: function(choiceIndex) {
-        if (choiceIndex >= 0 && choiceIndex < this.props.answers.length) {
-            const answers = this.props.answers.slice(0);
-            answers.splice(choiceIndex, 1);
-            this.props.onChange({answers: answers});
-        }
-    },
-
-    onSpace: function(e, callback) {
-        if (e.key === " ") {
-            e.preventDefault(); // prevent page shifting
-            const args = _.toArray(arguments).slice(2);
-            callback.apply(this, args);
-        }
-    },
-
-    onStatusChange: function(choiceIndex) {
-        const statuses = ["wrong", "ungraded", "correct"];
-        const answers = this.props.answers;
-        const i = _.indexOf(statuses, answers[choiceIndex].status);
-        const newStatus = statuses[(i + 1) % statuses.length];
-
-        this.updateAnswer(choiceIndex, {
-            status: newStatus,
-            simplify: newStatus === "correct" ? "required" : "accepted",
-        });
-    },
-
-    updateAnswer: function(choiceIndex, update) {
-        if (!_.isObject(update)) {
-            return _.partial((choiceIndex, key, value) => {
-                const update = {};
-                update[key] = value;
-                this.updateAnswer(choiceIndex, update);
-            }, choiceIndex, update);
-        }
-
-        let answers = _.clone(this.props.answers);
-
-        // Don't bother to make a new answer box unless we are editing the last
-        // one.
-        // TODO(oliver): This might not be necessary anymore.
-        if (choiceIndex === answers.length) {
-            const lastAnswer = initAnswer(this.state.lastStatus);
-            answers = answers.concat(lastAnswer);
-        }
-
-        answers[choiceIndex] = _.extend({}, answers[choiceIndex], update);
-        this.props.onChange({answers: answers});
-    },
-
-    addAnswer: function() {
-        const lastAnswer = initAnswer(this.state.lastStatus);
-        const answers = this.props.answers.concat(lastAnswer);
-        this.props.onChange({answers: answers});
-    },
-
-    getSaveWarnings: function() {
-        // Filter out all the empty answers
-        const warnings = [];
-        // TODO(emily): This doesn't actually work, because the value is either
-        // null or undefined when undefined, probably.
-        if (_.contains(_.pluck(this.props.answers, "value"), "")) {
-            warnings.push("One or more answers is empty");
-        }
-        if (this.props.labelText === "") {
-            warnings.push("No label is specified");
-        }
-        this.props.answers.forEach((answer, i) => {
-            const formatError = (answer.strict &&
-                (!answer.answerForms || answer.answerForms.length === 0));
-            if (formatError) {
-                warnings.push(`Answer ${i + 1} is set to string format ` +
-                              "matching, but no format was selected");
-            }
-        });
-        return warnings;
     },
 });
 

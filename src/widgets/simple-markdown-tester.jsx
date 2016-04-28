@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -16,24 +12,16 @@ const SimpleMarkdownTester = React.createClass({
         value: React.PropTypes.string,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             value: "",
         };
     },
 
-    mixins: [Changeable],
-
     toJSON: function() {
         return {};
-    },
-
-    render: function() {
-        const parsed = mdParse(this.props.value);
-        const output = mdOutput(parsed);
-        return <div>
-            {output}
-        </div>;
     },
 
     /**
@@ -60,6 +48,14 @@ const SimpleMarkdownTester = React.createClass({
      */
     simpleValidate: function(rubric) {
         return SimpleMarkdownTester.validate(this.toJSON(), rubric);
+    },
+
+    render: function() {
+        const parsed = mdParse(this.props.value);
+        const output = mdOutput(parsed);
+        return <div>
+            {output}
+        </div>;
     },
 });
 

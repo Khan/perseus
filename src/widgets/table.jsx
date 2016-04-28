@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -84,71 +80,6 @@ const Table = React.createClass({
 
     _getColumns: function() {
         return this.props.answers[0].length;
-    },
-
-    render: function() {
-        const rows = this._getRows();
-        const columns = this._getColumns();
-        const headers = this.props.headers;
-
-        let InputComponent;
-        if (this.props.apiOptions.staticRender) {
-            InputComponent = MathOutput;
-        } else {
-            InputComponent = "input";
-        }
-
-        return <table className="perseus-widget-table-of-values non-markdown">
-            <thead>
-                <tr>{
-                    _.map(headers, (header, i) => {
-                        if (this.props.editableHeaders) {
-                            return <th key={i}>
-                                <this.props.Editor
-                                    ref={"columnHeader" + i}
-                                    content={header}
-                                    widgetEnabled={false}
-                                    onChange={
-                                        _.partial(this.onHeaderChange, i)
-                                    }
-                                />
-                            </th>;
-                        } else {
-                            return <th key={i}>
-                                <Renderer content={header} />
-                            </th>;
-                        }
-                    })
-                }
-                </tr>
-            </thead>
-            <tbody>{
-                _(rows).times(r => {
-                    return <tr key={r}>{
-                        _(columns).times((c) => {
-                            return <td key={c}>
-                                <InputComponent
-                                    ref={getRefForPath(getInputPath(r, c))}
-                                    type="text"
-                                    value={this.props.answers[r][c]}
-                                    disabled={this.props.apiOptions.readOnly}
-                                    onFocus={_.partial(
-                                        this._handleFocus, getInputPath(r, c)
-                                    )}
-                                    onBlur={_.partial(
-                                        this._handleBlur, getInputPath(r, c)
-                                    )}
-                                    onChange={
-                                        _.partial(this.onValueChange, r, c)
-                                    }
-                                />
-                            </td>;
-                        })
-                    }</tr>;
-                })
-            }
-            </tbody>
-        </table>;
     },
 
     getUserInput: function() {
@@ -241,6 +172,71 @@ const Table = React.createClass({
         this.props.onChange({
             answers: answers,
         }, cb);
+    },
+
+    render: function() {
+        const rows = this._getRows();
+        const columns = this._getColumns();
+        const headers = this.props.headers;
+
+        let InputComponent;
+        if (this.props.apiOptions.staticRender) {
+            InputComponent = MathOutput;
+        } else {
+            InputComponent = "input";
+        }
+
+        return <table className="perseus-widget-table-of-values non-markdown">
+            <thead>
+                <tr>{
+                    _.map(headers, (header, i) => {
+                        if (this.props.editableHeaders) {
+                            return <th key={i}>
+                                <this.props.Editor
+                                    ref={"columnHeader" + i}
+                                    content={header}
+                                    widgetEnabled={false}
+                                    onChange={
+                                        _.partial(this.onHeaderChange, i)
+                                    }
+                                />
+                            </th>;
+                        } else {
+                            return <th key={i}>
+                                <Renderer content={header} />
+                            </th>;
+                        }
+                    })
+                }
+                </tr>
+            </thead>
+            <tbody>{
+                _(rows).times(r => {
+                    return <tr key={r}>{
+                        _(columns).times((c) => {
+                            return <td key={c}>
+                                <InputComponent
+                                    ref={getRefForPath(getInputPath(r, c))}
+                                    type="text"
+                                    value={this.props.answers[r][c]}
+                                    disabled={this.props.apiOptions.readOnly}
+                                    onFocus={_.partial(
+                                        this._handleFocus, getInputPath(r, c)
+                                    )}
+                                    onBlur={_.partial(
+                                        this._handleBlur, getInputPath(r, c)
+                                    )}
+                                    onChange={
+                                        _.partial(this.onValueChange, r, c)
+                                    }
+                                />
+                            </td>;
+                        })
+                    }</tr>;
+                })
+            }
+            </tbody>
+        </table>;
     },
 });
 

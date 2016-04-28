@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -70,6 +66,17 @@ const InputNumberEditor = React.createClass({
     handleAnswerChange: function(str) {
         const value = Util.firstNumericalParse(str) || 0;
         this.props.onChange({value: value});
+    },
+
+    focus: function() {
+        ReactDOM.findDOMNode(this.refs.input).focus();
+        return true;
+    },
+
+    serialize: function() {
+        return _.pick(this.props,
+                "value", "simplify", "size", "inexact", "maxError",
+                "answerType");
     },
 
     render: function() {
@@ -179,17 +186,6 @@ const InputNumberEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
-    },
-
-    focus: function() {
-        ReactDOM.findDOMNode(this.refs.input).focus();
-        return true;
-    },
-
-    serialize: function() {
-        return _.pick(this.props,
-                "value", "simplify", "size", "inexact", "maxError",
-                "answerType");
     },
 });
 

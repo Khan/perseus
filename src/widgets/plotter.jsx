@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -77,20 +73,6 @@ const Plotter = React.createClass({
         };
     },
 
-    render: function() {
-        return <div
-            className={"perseus-widget-plotter graphie " +
-                ApiClassNames.INTERACTIVE}
-            ref="graphieDiv"
-        />;
-    },
-
-    componentDidUpdate: function(prevProps, prevState) {
-        if (this.shouldSetupGraphie) {
-            this.setupGraphie(prevState);
-        }
-    },
-
     componentDidMount: function() {
         this.setupGraphie(this.state);
     },
@@ -107,6 +89,12 @@ const Plotter = React.createClass({
             !_.isEqual(this.state.values, nextProps.starting)) {
             this.shouldSetupGraphie = true;
             this.setState({values: nextProps.starting});
+        }
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        if (this.shouldSetupGraphie) {
+            this.setupGraphie(prevState);
         }
     },
 
@@ -606,6 +594,14 @@ const Plotter = React.createClass({
 
     simpleValidate: function(rubric) {
         return Plotter.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        return <div
+            className={"perseus-widget-plotter graphie " +
+                ApiClassNames.INTERACTIVE}
+            ref="graphieDiv"
+        />;
     },
 });
 

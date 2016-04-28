@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -43,6 +39,55 @@ const TableEditor = React.createClass({
 
     focus: function() {
         ReactDOM.findDOMNode(this.refs.numberOfColumns).focus();
+    },
+
+    onSizeInput: function(numRawRows, numRawColumns) {
+        let rows = +numRawRows || 0;
+        let columns = +numRawColumns || 0;
+        rows = Math.min(Math.max(1, rows), 30);
+        columns = Math.min(Math.max(1, columns), 6);
+        const oldColumns = this.props.columns;
+        const oldRows = this.props.rows;
+
+        const answers = this.props.answers;
+        // Truncate if necessary; else, append
+        if (rows <= oldRows) {
+            answers.length = rows;
+        } else {
+            _(rows - oldRows).times(function() {
+                answers.push(Util.stringArrayOfSize(oldColumns));
+            });
+        }
+
+        function fixColumnSizing(array) {
+            // Truncate if necessary; else, append
+            if (columns <= oldColumns) {
+                array.length = columns;
+            } else {
+                _(columns - oldColumns).times(function() {
+                    array.push("");
+                });
+            }
+        }
+
+        const headers = this.props.headers;
+        fixColumnSizing(headers);
+        _.each(answers, fixColumnSizing);
+
+        this.props.onChange({
+            rows: rows,
+            columns: columns,
+            answers: answers,
+            headers: headers,
+        });
+    },
+
+    serialize: function() {
+        const json = _.pick(this.props, "headers", "rows", "columns");
+
+        return _.extend({}, json, {
+            answers: _.map(this.props.answers, _.clone),
+        });
     },
 
     render: function() {
@@ -101,55 +146,6 @@ const TableEditor = React.createClass({
                 <Table {...tableProps} />
             </div>
         </div>;
-    },
-
-    onSizeInput: function(numRawRows, numRawColumns) {
-        let rows = +numRawRows || 0;
-        let columns = +numRawColumns || 0;
-        rows = Math.min(Math.max(1, rows), 30);
-        columns = Math.min(Math.max(1, columns), 6);
-        const oldColumns = this.props.columns;
-        const oldRows = this.props.rows;
-
-        const answers = this.props.answers;
-        // Truncate if necessary; else, append
-        if (rows <= oldRows) {
-            answers.length = rows;
-        } else {
-            _(rows - oldRows).times(function() {
-                answers.push(Util.stringArrayOfSize(oldColumns));
-            });
-        }
-
-        function fixColumnSizing(array) {
-            // Truncate if necessary; else, append
-            if (columns <= oldColumns) {
-                array.length = columns;
-            } else {
-                _(columns - oldColumns).times(function() {
-                    array.push("");
-                });
-            }
-        }
-
-        const headers = this.props.headers;
-        fixColumnSizing(headers);
-        _.each(answers, fixColumnSizing);
-
-        this.props.onChange({
-            rows: rows,
-            columns: columns,
-            answers: answers,
-            headers: headers,
-        });
-    },
-
-    serialize: function() {
-        const json = _.pick(this.props, "headers", "rows", "columns");
-
-        return _.extend({}, json, {
-            answers: _.map(this.props.answers, _.clone),
-        });
     },
 });
 

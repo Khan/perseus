@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const TeX = require("react-components/tex.jsx");
 
@@ -11,8 +7,6 @@ const MathInput = require("../../components/math-input.jsx");
 const NumberInput = require("../../components/number-input.jsx");
 
 const ConstraintEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         constraint: React.PropTypes.string,
         constraintFn: React.PropTypes.string,
@@ -23,6 +17,8 @@ const ConstraintEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
         snap: React.PropTypes.number,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -28,8 +24,6 @@ function numSteps(range, step) {
 }
 
 const GraphSettings = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         backgroundImage: React.PropTypes.shape({
             url: React.PropTypes.string,
@@ -55,16 +49,7 @@ const GraphSettings = React.createClass({
         ]),
     },
 
-    getInitialState: function() {
-        return {
-            labelsTextbox: this.props.labels,
-            gridStepTextbox: this.props.gridStep,
-            snapStepTextbox: this.props.snapStep,
-            stepTextbox: this.props.step,
-            rangeTextbox: this.props.range,
-            backgroundImage: _.clone(this.props.backgroundImage),
-        };
-    },
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -85,198 +70,20 @@ const GraphSettings = React.createClass({
         };
     },
 
-    render: function() {
-        const scale = [
-            KhanMath.roundTo(2,
-                Util.scaleFromExtent(this.props.range[0], this.props.box[0])),
-            KhanMath.roundTo(2,
-                Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
-
-        return <div>
-            {_.contains(this.props.editableSettings, "canvas") &&
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    Canvas size (x,y pixels)
-                    <RangeInput
-                        value={this.props.box}
-                        onChange={(box) => { this.change({box: box}); }}
-                    />
-                </div>
-                <div className="perseus-widget-row">
-                    Scale (px per div): <TeX>{"(" + scale[0] + ", " +
-                        scale[1] + ")"}</TeX>
-                </div>
-            </div>}
-
-            {_.contains(this.props.editableSettings, "graph") &&
-            <div className="graph-settings">
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col"> x Label
-                        <input
-                            type="text"
-                            className="graph-settings-axis-label"
-                            ref="labels-0"
-                            onChange={(e) => this.changeLabel(0, e)}
-                            value={this.state.labelsTextbox[0]}
-                        />
-                    </div>
-                    <div className="perseus-widget-right-col">y Label
-                        <input
-                            type="text"
-                            className="graph-settings-axis-label"
-                            ref="labels-1"
-                            onChange={(e) => this.changeLabel(1, e)}
-                            value={this.state.labelsTextbox[1]}
-                        />
-                    </div>
-                </div>
-
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        x Range
-                        <RangeInput
-                            value={this.state.rangeTextbox[0]}
-                            onChange={(vals) => this.changeRange(0, vals)}
-                        />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        y Range
-                        <RangeInput
-                            value={this.state.rangeTextbox[1]}
-                            onChange={(vals) => this.changeRange(1, vals)}
-                        />
-                    </div>
-                </div>
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        Tick Step
-                        <RangeInput
-                            value= {this.state.stepTextbox}
-                            onChange = {this.changeStep}
-                        />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        Grid Step
-                        <RangeInput
-                            value= {this.state.gridStepTextbox}
-                            onChange = {this.changeGridStep}
-                        />
-                    </div>
-                </div>
-                {_.contains(this.props.editableSettings, "snap") &&
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        Snap Step
-                        <RangeInput
-                            value= {this.state.snapStepTextbox}
-                            onChange = {this.changeSnapStep}
-                        />
-                    </div>
-                </div>}
-                <div className="perseus-widget-row">
-                    <label>Markings:{' '} </label>
-                    <ButtonGroup value={this.props.markings}
-                        allowEmpty={false}
-                        buttons={[
-                            {value: "graph", content: "Graph"},
-                            {value: "grid", content: "Grid"},
-                            {value: "none", content: "None"}]}
-                        onChange={this.change("markings")}
-                    />
-                </div>
-            </div>}
-
-            {_.contains(this.props.editableSettings, "image") &&
-            <div className="image-settings">
-                <div>Background image:</div>
-                <div>Url:{' '}
-                    <input
-                        type="text"
-                        className="graph-settings-background-url"
-                        ref="bg-url"
-                        defaultValue={this.state.backgroundImage.url}
-                        onKeyPress={this.changeBackgroundUrl}
-                        onBlur={this.changeBackgroundUrl}
-                    />
-                    <InfoTip>
-                        <p>Create an image in graphie, or use the "Add image"
-                        function to create a background.</p>
-                    </InfoTip>
-                </div>
-            </div>}
-
-            {_.contains(this.props.editableSettings, "measure") &&
-            <div className="misc-settings">
-                <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
-                        <PropCheckBox label="Show ruler"
-                            showRuler={this.props.showRuler}
-                            onChange={this.change}
-                        />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        <PropCheckBox label="Show protractor"
-                            showProtractor={this.props.showProtractor}
-                            onChange={this.change}
-                        />
-                    </div>
-                </div>
-                {this.props.showRuler && <div>
-                    <div>
-                        <label>
-                            {' '}Ruler label:{' '}
-                            <select
-                                onChange={this.changeRulerLabel}
-                                value={this.props.rulerLabel}
-                            >
-                                    <option value="">None</option>
-                                    <optgroup label="Metric">
-                                        {this.renderLabelChoices([
-                                            ["milimeters", "mm"],
-                                            ["centimeters", "cm"],
-                                            ["meters", "m"],
-                                            ["kilometers", "km"],
-                                        ])}
-                                    </optgroup>
-                                    <optgroup label="Imperial">
-                                        {this.renderLabelChoices([
-                                            ["inches", "in"],
-                                            ["feet", "ft"],
-                                            ["yards", "yd"],
-                                            ["miles", "mi"],
-                                        ])}
-                                    </optgroup>
-                            </select>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {' '}Ruler ticks:{' '}
-                            <select
-                                onChange={this.changeRulerTicks}
-                                value={this.props.rulerTicks}
-                            >
-                                {_.map([1, 2, 4, 8, 10, 16], function(n) {
-                                    return <option value={n}>{n}</option>;
-                                })}
-                            </select>
-                        </label>
-                    </div>
-                </div>}
-            </div>}
-        </div>;
-    },
-
-    renderLabelChoices: function(choices) {
-        return _.map(choices, function(nameAndValue) {
-            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
-        });
+    getInitialState: function() {
+        return {
+            labelsTextbox: this.props.labels,
+            gridStepTextbox: this.props.gridStep,
+            snapStepTextbox: this.props.snapStep,
+            stepTextbox: this.props.step,
+            rangeTextbox: this.props.range,
+            backgroundImage: _.clone(this.props.backgroundImage),
+        };
     },
 
     componentDidMount: function() {
         this.changeGraph = _.debounce(this.changeGraph, 300);
     },
-
 
     validRange: function(range) {
         const numbers = _.every(range, function(num) {
@@ -509,6 +316,194 @@ const GraphSettings = React.createClass({
 
     changeRulerTicks: function(e) {
         this.change({rulerTicks: +e.target.value});
+    },
+
+    renderLabelChoices: function(choices) {
+        return _.map(choices, function(nameAndValue) {
+            return <option value={nameAndValue[1]}>{nameAndValue[0]}</option>;
+        });
+    },
+
+    render: function() {
+        const scale = [
+            KhanMath.roundTo(2,
+                Util.scaleFromExtent(this.props.range[0], this.props.box[0])),
+            KhanMath.roundTo(2,
+                Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
+
+        return <div>
+            {_.contains(this.props.editableSettings, "canvas") &&
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    Canvas size (x,y pixels)
+                    <RangeInput
+                        value={this.props.box}
+                        onChange={(box) => { this.change({box: box}); }}
+                    />
+                </div>
+                <div className="perseus-widget-row">
+                    Scale (px per div): <TeX>{"(" + scale[0] + ", " +
+                        scale[1] + ")"}</TeX>
+                </div>
+            </div>}
+
+            {_.contains(this.props.editableSettings, "graph") &&
+            <div className="graph-settings">
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col"> x Label
+                        <input
+                            type="text"
+                            className="graph-settings-axis-label"
+                            ref="labels-0"
+                            onChange={(e) => this.changeLabel(0, e)}
+                            value={this.state.labelsTextbox[0]}
+                        />
+                    </div>
+                    <div className="perseus-widget-right-col">y Label
+                        <input
+                            type="text"
+                            className="graph-settings-axis-label"
+                            ref="labels-1"
+                            onChange={(e) => this.changeLabel(1, e)}
+                            value={this.state.labelsTextbox[1]}
+                        />
+                    </div>
+                </div>
+
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        x Range
+                        <RangeInput
+                            value={this.state.rangeTextbox[0]}
+                            onChange={(vals) => this.changeRange(0, vals)}
+                        />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        y Range
+                        <RangeInput
+                            value={this.state.rangeTextbox[1]}
+                            onChange={(vals) => this.changeRange(1, vals)}
+                        />
+                    </div>
+                </div>
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Tick Step
+                        <RangeInput
+                            value= {this.state.stepTextbox}
+                            onChange = {this.changeStep}
+                        />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        Grid Step
+                        <RangeInput
+                            value= {this.state.gridStepTextbox}
+                            onChange = {this.changeGridStep}
+                        />
+                    </div>
+                </div>
+                {_.contains(this.props.editableSettings, "snap") &&
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        Snap Step
+                        <RangeInput
+                            value= {this.state.snapStepTextbox}
+                            onChange = {this.changeSnapStep}
+                        />
+                    </div>
+                </div>}
+                <div className="perseus-widget-row">
+                    <label>Markings:{' '} </label>
+                    <ButtonGroup value={this.props.markings}
+                        allowEmpty={false}
+                        buttons={[
+                            {value: "graph", content: "Graph"},
+                            {value: "grid", content: "Grid"},
+                            {value: "none", content: "None"}]}
+                        onChange={this.change("markings")}
+                    />
+                </div>
+            </div>}
+
+            {_.contains(this.props.editableSettings, "image") &&
+            <div className="image-settings">
+                <div>Background image:</div>
+                <div>Url:{' '}
+                    <input
+                        type="text"
+                        className="graph-settings-background-url"
+                        ref="bg-url"
+                        defaultValue={this.state.backgroundImage.url}
+                        onKeyPress={this.changeBackgroundUrl}
+                        onBlur={this.changeBackgroundUrl}
+                    />
+                    <InfoTip>
+                        <p>Create an image in graphie, or use the "Add image"
+                        function to create a background.</p>
+                    </InfoTip>
+                </div>
+            </div>}
+
+            {_.contains(this.props.editableSettings, "measure") &&
+            <div className="misc-settings">
+                <div className="perseus-widget-row">
+                    <div className="perseus-widget-left-col">
+                        <PropCheckBox label="Show ruler"
+                            showRuler={this.props.showRuler}
+                            onChange={this.change}
+                        />
+                    </div>
+                    <div className="perseus-widget-right-col">
+                        <PropCheckBox label="Show protractor"
+                            showProtractor={this.props.showProtractor}
+                            onChange={this.change}
+                        />
+                    </div>
+                </div>
+                {this.props.showRuler && <div>
+                    <div>
+                        <label>
+                            {' '}Ruler label:{' '}
+                            <select
+                                onChange={this.changeRulerLabel}
+                                value={this.props.rulerLabel}
+                            >
+                                    <option value="">None</option>
+                                    <optgroup label="Metric">
+                                        {this.renderLabelChoices([
+                                            ["milimeters", "mm"],
+                                            ["centimeters", "cm"],
+                                            ["meters", "m"],
+                                            ["kilometers", "km"],
+                                        ])}
+                                    </optgroup>
+                                    <optgroup label="Imperial">
+                                        {this.renderLabelChoices([
+                                            ["inches", "in"],
+                                            ["feet", "ft"],
+                                            ["yards", "yd"],
+                                            ["miles", "mi"],
+                                        ])}
+                                    </optgroup>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            {' '}Ruler ticks:{' '}
+                            <select
+                                onChange={this.changeRulerTicks}
+                                value={this.props.rulerTicks}
+                            >
+                                {_.map([1, 2, 4, 8, 10, 16], function(n) {
+                                    return <option value={n}>{n}</option>;
+                                })}
+                            </select>
+                        </label>
+                    </div>
+                </div>}
+            </div>}
+        </div>;
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -10,8 +6,6 @@ const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
 
 const GradedGroupEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
@@ -22,12 +16,22 @@ const GradedGroupEditor = React.createClass({
         widgets: React.PropTypes.any,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             content: "",
             images: {},
             widgets: {},
         };
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serialize: function() {
+        return this.refs.editor.serialize();
     },
 
     render: function() {
@@ -43,14 +47,6 @@ const GradedGroupEditor = React.createClass({
             onChange={this.props.onChange}
         />
         </div>;
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.editor.getSaveWarnings();
-    },
-
-    serialize: function() {
-        return this.refs.editor.serialize();
     },
 });
 

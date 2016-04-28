@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React        = require('react');
 const _ = require("underscore");
 
@@ -20,9 +16,6 @@ const defaultImage = {
 };
 
 const MeasurerEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-    className: "perseus-widget-measurer",
-
     propTypes: {
         box: React.PropTypes.arrayOf(React.PropTypes.number),
         image: React.PropTypes.shape({
@@ -39,6 +32,8 @@ const MeasurerEditor = React.createClass({
         showRuler: React.PropTypes.bool,
     },
 
+    mixins: [Changeable, EditorJsonify],
+
     getDefaultProps: function() {
         return {
             box: [480, 480],
@@ -50,6 +45,33 @@ const MeasurerEditor = React.createClass({
             showProtractor: true,
             showRuler: false,
         };
+    },
+
+    className: "perseus-widget-measurer",
+
+    _changeUrl: function(e) {
+        this._changeImage("url", e.target.value);
+    },
+
+    _changeTop: function(newTop) {
+        this._changeImage("top", newTop);
+    },
+
+    _changeLeft: function(newLeft) {
+        this._changeImage("left", newLeft);
+    },
+
+    _changeImage: function(subProp, newValue) {
+        const image = _.clone(this.props.image);
+        image[subProp] = newValue;
+        this.change("image", image);
+    },
+
+    renderLabelChoices: function(choices) {
+        return _.map(choices, function(nameAndValue) {
+            const [name, value] = nameAndValue;
+            return <option key={value} value={value}>{name}</option>;
+        });
     },
 
     render: function() {
@@ -182,31 +204,6 @@ const MeasurerEditor = React.createClass({
             </div>
             </div>}
         </div>;
-    },
-
-    _changeUrl: function(e) {
-        this._changeImage("url", e.target.value);
-    },
-
-    _changeTop: function(newTop) {
-        this._changeImage("top", newTop);
-    },
-
-    _changeLeft: function(newLeft) {
-        this._changeImage("left", newLeft);
-    },
-
-    _changeImage: function(subProp, newValue) {
-        const image = _.clone(this.props.image);
-        image[subProp] = newValue;
-        this.change("image", image);
-    },
-
-    renderLabelChoices: function(choices) {
-        return _.map(choices, function(nameAndValue) {
-            const [name, value] = nameAndValue;
-            return <option key={value} value={value}>{name}</option>;
-        });
     },
 });
 

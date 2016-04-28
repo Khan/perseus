@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false, $_:false */
 
 const React = require("react");
@@ -14,8 +10,6 @@ const Renderer = require("../renderer.jsx");
 const PassageMarkdown = require("./passage/passage-markdown.jsx");
 
 const Passage = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         footnotes: React.PropTypes.string,
         interWidgets: React.PropTypes.func,
@@ -24,6 +18,8 @@ const Passage = React.createClass({
         showLineNumbers: React.PropTypes.bool,
         widgetId: React.PropTypes.string,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -41,74 +37,13 @@ const Passage = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this._updateState();
+    },
+
     shouldComponentUpdate: function(nextProps, nextState) {
         return !_.isEqual(this.props, nextProps) ||
             !_.isEqual(this.state, nextState);
-    },
-
-    render: function() {
-        let lineNumbers;
-        const nLines = this.state.nLines;
-        if (this.props.showLineNumbers && nLines) {
-            // lineN is the line number in the current passage;
-            // the displayed line number is
-            // lineN + this.state.startLineNumbersAfter, where
-            // startLineNumbersAfter is the sum of all line numbers
-            // in earlier passages.
-            lineNumbers = _.range(1, nLines + 1).map((lineN) => {
-                if (lineN === 4 && nLines > 4) {
-                    return <span
-                        key="line-marker"
-                        className="line-marker"
-                    >
-                        Line
-                    </span>;
-                } else if (lineN % 5 === 0) {
-                    return lineN + this.state.startLineNumbersAfter;
-                } else {
-                    return "\n";
-                }
-            });
-        }
-
-        const rawContent = this.props.passageText;
-        const parseState = {};
-        const parsedContent = PassageMarkdown.parse(rawContent, parseState);
-
-        return <div className="perseus-widget-passage-container">
-            {this._renderInstructions(parseState)}
-            <div className="perseus-widget-passage">
-                <div className="passage-title">
-                    <Renderer content={this.props.passageTitle} />
-                </div>
-                {lineNumbers &&
-                    <div className="line-numbers" aria-hidden={true}>
-                        {lineNumbers}
-                    </div>
-                }
-                <h3 className="perseus-sr-only">
-                    <$_>Beginning of reading passage.</$_>
-                </h3>
-                <div className="passage-text">
-                    {this._renderContent(parsedContent)}
-                </div>
-                {this._hasFootnotes() && [
-                    <h4 key="footnote-start" className="perseus-sr-only">
-                        <$_>Beginning of reading passage footnotes.</$_>
-                    </h4>,
-                    <div key="footnotes" className="footnotes">
-                        {this._renderFootnotes()}
-                    </div>,
-                ]}
-                <div className="perseus-sr-only">
-                    <$_>End of reading passage.</$_>
-                </div>
-            </div>
-        </div>;
-    },
-
-    componentDidMount: function() {
-        this._updateState();
     },
 
     componentDidUpdate: function() {
@@ -297,6 +232,67 @@ const Passage = React.createClass({
 
     simpleValidate: function(rubric) {
         return Passage.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        let lineNumbers;
+        const nLines = this.state.nLines;
+        if (this.props.showLineNumbers && nLines) {
+            // lineN is the line number in the current passage;
+            // the displayed line number is
+            // lineN + this.state.startLineNumbersAfter, where
+            // startLineNumbersAfter is the sum of all line numbers
+            // in earlier passages.
+            lineNumbers = _.range(1, nLines + 1).map((lineN) => {
+                if (lineN === 4 && nLines > 4) {
+                    return <span
+                        key="line-marker"
+                        className="line-marker"
+                    >
+                        Line
+                    </span>;
+                } else if (lineN % 5 === 0) {
+                    return lineN + this.state.startLineNumbersAfter;
+                } else {
+                    return "\n";
+                }
+            });
+        }
+
+        const rawContent = this.props.passageText;
+        const parseState = {};
+        const parsedContent = PassageMarkdown.parse(rawContent, parseState);
+
+        return <div className="perseus-widget-passage-container">
+            {this._renderInstructions(parseState)}
+            <div className="perseus-widget-passage">
+                <div className="passage-title">
+                    <Renderer content={this.props.passageTitle} />
+                </div>
+                {lineNumbers &&
+                    <div className="line-numbers" aria-hidden={true}>
+                        {lineNumbers}
+                    </div>
+                }
+                <h3 className="perseus-sr-only">
+                    <$_>Beginning of reading passage.</$_>
+                </h3>
+                <div className="passage-text">
+                    {this._renderContent(parsedContent)}
+                </div>
+                {this._hasFootnotes() && [
+                    <h4 key="footnote-start" className="perseus-sr-only">
+                        <$_>Beginning of reading passage footnotes.</$_>
+                    </h4>,
+                    <div key="footnotes" className="footnotes">
+                        {this._renderFootnotes()}
+                    </div>,
+                ]}
+                <div className="perseus-sr-only">
+                    <$_>End of reading passage.</$_>
+                </div>
+            </div>
+        </div>;
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const Tooltip = require("react-components/tooltip.jsx");
 const _ = require("underscore");
@@ -133,6 +129,42 @@ const InputWithExamples = React.createClass({
         }
     },
 
+    _handleFocus: function() {
+        this.props.onFocus();
+        this.setState({
+            focused: true,
+            showExamples: true,
+        });
+    },
+
+    show: function() {
+        this.setState({showExamples: true});
+    },
+
+    hide: function() {
+        this.setState({showExamples: false});
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur();
+        this.setState({
+            focused: false,
+            showExamples: false,
+        });
+    },
+
+    focus: function() {
+        this.refs.input.focus();
+    },
+
+    blur: function() {
+        this.refs.input.blur();
+    },
+
+    handleChange: function(e) {
+        this.props.onChange(e.target.value);
+    },
+
     _renderInput: function() {
         const inputProps = this._getPropsForInputType();
         const InputComponent = this._getComponentForInputType();
@@ -171,42 +203,6 @@ const InputWithExamples = React.createClass({
                 <Renderer content={examplesContent} />
             </div>
         </Tooltip>;
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus();
-        this.setState({
-            focused: true,
-            showExamples: true,
-        });
-    },
-
-    show: function() {
-        this.setState({showExamples: true});
-    },
-
-    hide: function() {
-        this.setState({showExamples: false});
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur();
-        this.setState({
-            focused: false,
-            showExamples: false,
-        });
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-    },
-
-    blur: function() {
-        this.refs.input.blur();
-    },
-
-    handleChange: function(e) {
-        this.props.onChange(e.target.value);
     },
 });
 

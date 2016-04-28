@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -28,8 +24,6 @@ const answerFormType = React.PropTypes.shape({
 });
 
 const ExpressionEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         answerForms: React.PropTypes.arrayOf(answerFormType),
         buttonSets: TexButtons.buttonSetsType,
@@ -39,6 +33,8 @@ const ExpressionEditor = React.createClass({
         value: React.PropTypes.string,
         widgetId: React.PropTypes.string,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -70,142 +66,6 @@ const ExpressionEditor = React.createClass({
         }
 
         return { isTex };
-    },
-
-    render: function() {
-        const answerOptions = this.props.answerForms
-            .map((obj, ix) => {
-                const expressionProps = {
-                    // note we're using
-                    // *this.props*.{times,functions,buttonSets} since each
-                    // answer area has the same settings for those
-                    times: this.props.times,
-                    functions: this.props.functions,
-                    buttonSets: this.props.buttonSets,
-
-                    buttonsVisible: "focused",
-                    form: obj.form,
-                    simplify: obj.simplify,
-                    value: obj.value,
-
-                    onChange: props => this.updateForm(ix, props),
-                    trackInteraction: () => {},
-
-                    widgetId: this.props.widgetId + "-" + ix,
-                };
-
-                return lens(obj)
-                    .merge([], {
-                        draggable: true,
-                        onChange: props => this.updateForm(ix, props),
-                        onDelete: () => this.handleRemoveForm(ix),
-                        expressionProps: expressionProps,
-                    })
-                    .freeze();
-            })
-            .map(obj => <AnswerOption {...obj} />);
-
-        const sortable = <SortableArea
-            components={answerOptions}
-            onReorder={this.handleReorder}
-            className="answer-options-list"
-        />;
-
-        // checkboxes to choose which sets of input buttons are shown
-        const buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
-            // The first one gets special cased to always be checked, disabled,
-            // and float left.
-            const isFirst = name === "basic";
-            const checked = _.contains(this.props.buttonSets, name) || isFirst;
-            const className = isFirst ?
-                "button-set-label-float" :
-                "button-set-label";
-            return <label className={className} key={name}>
-                <input
-                    type="checkbox"
-                    checked={checked}
-                    disabled={isFirst}
-                    onChange={() => this.handleButtonSet(name)}
-                />
-                {name}
-            </label>;
-        });
-
-        buttonSetChoices.splice(1, 1, <label key="show-div">
-            <input
-                type="checkbox"
-                onChange={this.handleToggleDiv}
-            />
-            <span className="show-div-button">
-                show <TeX>\div</TeX> button
-            </span>
-        </label>);
-
-        return <div className="perseus-widget-expression-editor">
-            <h3 className="expression-editor-h3">Global Options</h3>
-
-            <div>
-                <PropCheckBox
-                    times={this.props.times}
-                    onChange={this.props.onChange}
-                    labelAlignment="right"
-                    label="Use × for rendering multiplication instead of a
-                        center dot."
-                />
-                <InfoTip>
-                    <p>For pre-algebra problems this option displays
-                    multiplication as \times instead of \cdot in both the
-                    rendered output and the acceptable formats examples.</p>
-                </InfoTip>
-            </div>
-
-            <div>
-                <label>
-                {"Function variables: "}
-                <input type="text"
-                    defaultValue={this.props.functions.join(" ")}
-                    onChange={this.handleFunctions}
-                />
-                </label>
-                <InfoTip><p>
-                    Single-letter variables listed here will be
-                    interpreted as functions. This let us know that f(x) means
-                    "f of x" and not "f times x".
-                </p></InfoTip>
-            </div>
-
-            <div>
-                <div>Button sets:</div>
-                {buttonSetChoices}
-            </div>
-
-            {this.state.isTex && <TexButtons
-                className="math-input-buttons"
-                sets={this.props.buttonSets}
-                convertDotToTimes={this.props.times}
-                onInsert={this.handleTexInsert}
-            />}
-
-            <h3 className="expression-editor-h3">Answers</h3>
-
-            <p style={{margin: "4px 0"}}>
-                student responses area matched against these from top to bottom
-            </p>
-
-            {sortable}
-
-            <div>
-                <button
-                    className="simple-button orange"
-                    style={{fontSize: 13}}
-                    onClick={this.newAnswer}
-                    type="button"
-                >
-                    Add new answer
-                </button>
-            </div>
-
-        </div>;
     },
 
     serialize: function() {
@@ -359,6 +219,142 @@ const ExpressionEditor = React.createClass({
         newProps.functions = _.compact(e.target.value.split(/[ ,]+/));
         this.props.onChange(newProps);
     },
+
+    render: function() {
+        const answerOptions = this.props.answerForms
+            .map((obj, ix) => {
+                const expressionProps = {
+                    // note we're using
+                    // *this.props*.{times,functions,buttonSets} since each
+                    // answer area has the same settings for those
+                    times: this.props.times,
+                    functions: this.props.functions,
+                    buttonSets: this.props.buttonSets,
+
+                    buttonsVisible: "focused",
+                    form: obj.form,
+                    simplify: obj.simplify,
+                    value: obj.value,
+
+                    onChange: props => this.updateForm(ix, props),
+                    trackInteraction: () => {},
+
+                    widgetId: this.props.widgetId + "-" + ix,
+                };
+
+                return lens(obj)
+                    .merge([], {
+                        draggable: true,
+                        onChange: props => this.updateForm(ix, props),
+                        onDelete: () => this.handleRemoveForm(ix),
+                        expressionProps: expressionProps,
+                    })
+                    .freeze();
+            })
+            .map(obj => <AnswerOption {...obj} />);
+
+        const sortable = <SortableArea
+            components={answerOptions}
+            onReorder={this.handleReorder}
+            className="answer-options-list"
+        />;
+
+        // checkboxes to choose which sets of input buttons are shown
+        const buttonSetChoices = _(TexButtons.buttonSets).map((set, name) => {
+            // The first one gets special cased to always be checked, disabled,
+            // and float left.
+            const isFirst = name === "basic";
+            const checked = _.contains(this.props.buttonSets, name) || isFirst;
+            const className = isFirst ?
+                "button-set-label-float" :
+                "button-set-label";
+            return <label className={className} key={name}>
+                <input
+                    type="checkbox"
+                    checked={checked}
+                    disabled={isFirst}
+                    onChange={() => this.handleButtonSet(name)}
+                />
+                {name}
+            </label>;
+        });
+
+        buttonSetChoices.splice(1, 1, <label key="show-div">
+            <input
+                type="checkbox"
+                onChange={this.handleToggleDiv}
+            />
+            <span className="show-div-button">
+                show <TeX>\div</TeX> button
+            </span>
+        </label>);
+
+        return <div className="perseus-widget-expression-editor">
+            <h3 className="expression-editor-h3">Global Options</h3>
+
+            <div>
+                <PropCheckBox
+                    times={this.props.times}
+                    onChange={this.props.onChange}
+                    labelAlignment="right"
+                    label="Use × for rendering multiplication instead of a
+                        center dot."
+                />
+                <InfoTip>
+                    <p>For pre-algebra problems this option displays
+                    multiplication as \times instead of \cdot in both the
+                    rendered output and the acceptable formats examples.</p>
+                </InfoTip>
+            </div>
+
+            <div>
+                <label>
+                {"Function variables: "}
+                <input type="text"
+                    defaultValue={this.props.functions.join(" ")}
+                    onChange={this.handleFunctions}
+                />
+                </label>
+                <InfoTip><p>
+                    Single-letter variables listed here will be
+                    interpreted as functions. This let us know that f(x) means
+                    "f of x" and not "f times x".
+                </p></InfoTip>
+            </div>
+
+            <div>
+                <div>Button sets:</div>
+                {buttonSetChoices}
+            </div>
+
+            {this.state.isTex && <TexButtons
+                className="math-input-buttons"
+                sets={this.props.buttonSets}
+                convertDotToTimes={this.props.times}
+                onInsert={this.handleTexInsert}
+            />}
+
+            <h3 className="expression-editor-h3">Answers</h3>
+
+            <p style={{margin: "4px 0"}}>
+                student responses area matched against these from top to bottom
+            </p>
+
+            {sortable}
+
+            <div>
+                <button
+                    className="simple-button orange"
+                    style={{fontSize: 13}}
+                    onClick={this.newAnswer}
+                    type="button"
+                >
+                    Add new answer
+                </button>
+            </div>
+
+        </div>;
+    },
 });
 
 // Find the next element in arr after val, wrapping around to the first.
@@ -369,8 +365,6 @@ const findNextIn = function(arr, val) {
 };
 
 const AnswerOption = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         considered: React.PropTypes.oneOf(CONSIDERED).isRequired,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
@@ -386,12 +380,27 @@ const AnswerOption = React.createClass({
         simplify: React.PropTypes.bool.isRequired,
     },
 
+    mixins: [Changeable],
+
     getInitialState: function() {
         return { deleteFocused: false };
     },
 
     handleDeleteBlur: function() {
         this.setState({ deleteFocused: false });
+    },
+
+    handleImSure: function() {
+        this.props.onDelete();
+    },
+
+    handleDelete: function() {
+        this.setState({ deleteFocused: true });
+    },
+
+    toggleConsidered: function() {
+        const newVal = findNextIn(CONSIDERED, this.props.considered);
+        this.change({ considered: newVal });
     },
 
     render: function() {
@@ -474,19 +483,6 @@ const AnswerOption = React.createClass({
             </div>
 
         </div>;
-    },
-
-    handleImSure: function() {
-        this.props.onDelete();
-    },
-
-    handleDelete: function() {
-        this.setState({ deleteFocused: true });
-    },
-
-    toggleConsidered: function() {
-        const newVal = findNextIn(CONSIDERED, this.props.considered);
-        this.change({ considered: newVal });
     },
 });
 

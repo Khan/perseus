@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React     = require("react");
 const _ = require("underscore");
 
@@ -122,6 +118,11 @@ const TexButtons = React.createClass({
         sets: buttonSetsType.isRequired,
     },
 
+    statics: {
+        buttonSets,
+        buttonSetsType,
+    },
+
     render: function() {
         // Always show buttonSets in the same order. Note: Technically it's ok
         // for _.keys() to return the keys in an arbitrary order, but in
@@ -157,11 +158,6 @@ const TexButtons = React.createClass({
         return <div className={this.props.className}>
             {buttonPopup}
         </div>;
-    },
-
-    statics: {
-        buttonSets,
-        buttonSetsType,
     },
 });
 

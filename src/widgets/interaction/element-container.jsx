@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 
 const ElementContainer = React.createClass({
@@ -29,6 +25,11 @@ const ElementContainer = React.createClass({
             onDown: null,
             onDelete: null,
         };
+    },
+
+    toggle: function(e) {
+        e.preventDefault();
+        this.setState({show: !this.state.show});
     },
 
     render: function() {
@@ -70,11 +71,6 @@ const ElementContainer = React.createClass({
                 }
             </div>
         </div>;
-    },
-
-    toggle: function(e) {
-        e.preventDefault();
-        this.setState({show: !this.state.show});
     },
 });
 

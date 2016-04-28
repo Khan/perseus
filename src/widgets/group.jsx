@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -10,8 +6,6 @@ const Changeable   = require("../mixins/changeable.jsx");
 const Renderer = require("../renderer.jsx");
 
 const Group = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
@@ -27,6 +21,8 @@ const Group = React.createClass({
         widgets: React.PropTypes.any,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             content: "",
@@ -41,64 +37,6 @@ const Group = React.createClass({
         // numbering scheme. We force another render so that we can annotate
         // the group with the correct number.
         this.forceUpdate();
-    },
-
-    render: function() {
-        const apiOptions = _.extend(
-            {},
-            ApiOptions.defaults,
-            this.props.apiOptions,
-            {
-                // Api Rewriting to support correct onFocus/onBlur
-                // events for the mobile API
-                onFocusChange: (newFocus, oldFocus) => {
-                    if (oldFocus) {
-                        this.props.onBlur(oldFocus);
-                    }
-                    if (newFocus) {
-                        this.props.onFocus(newFocus);
-                    }
-                },
-            }
-        );
-
-        // Allow a problem number annotation to be added.
-        // This is cyclical and should probably be reconsidered. In order to
-        // render the annotation ("Question 3 of 10"), we call interWidgets to
-        // figure out our index in the list of all fellow group widgets. On
-        // first render, though, we don't exist yet in this list, and so we
-        // give ourselves number -1. To combat this, we forceUpdate in
-        // componentDidMount so that we can number ourselves properly. But,
-        // really we should have a more unidirectional flow. TODO(marcia): fix.
-        const number = _.indexOf(this.props.interWidgets("group"), this);
-        const problemNumComponent = this.props.apiOptions.groupAnnotator(
-            number, this.props.widgetId);
-
-        // This is a little strange because the id of the widget that actually
-        // changed is going to be lost in favor of the group widget's id. The
-        // widgets prop also wasn't actually changed, and this only serves to
-        // alert our renderer (our parent) of the fact that some interaction
-        // has occurred.
-        const onInteractWithWidget = (id) => {
-            if (this.refs.renderer) {
-                this.change("widgets", this.refs.renderer.props.widgets);
-            }
-        };
-
-        return <div className="perseus-group">
-            {problemNumComponent}
-            <Renderer
-                {...this.props}
-                ref="renderer"
-                apiOptions={apiOptions}
-                interWidgets={this._interWidgets}
-                reviewMode={!!this.props.reviewModeRubric}
-                onInteractWithWidget={onInteractWithWidget}
-            />
-            {this.props.icon && <div className="group-icon">
-                {this.props.icon}
-            </div>}
-        </div>;
     },
 
     _interWidgets: function(filterCriterion, localResults) {
@@ -163,6 +101,64 @@ const Group = React.createClass({
 
     blurInputPath: function(path) {
         this.refs.renderer.blurPath(path);
+    },
+
+    render: function() {
+        const apiOptions = _.extend(
+            {},
+            ApiOptions.defaults,
+            this.props.apiOptions,
+            {
+                // Api Rewriting to support correct onFocus/onBlur
+                // events for the mobile API
+                onFocusChange: (newFocus, oldFocus) => {
+                    if (oldFocus) {
+                        this.props.onBlur(oldFocus);
+                    }
+                    if (newFocus) {
+                        this.props.onFocus(newFocus);
+                    }
+                },
+            }
+        );
+
+        // Allow a problem number annotation to be added.
+        // This is cyclical and should probably be reconsidered. In order to
+        // render the annotation ("Question 3 of 10"), we call interWidgets to
+        // figure out our index in the list of all fellow group widgets. On
+        // first render, though, we don't exist yet in this list, and so we
+        // give ourselves number -1. To combat this, we forceUpdate in
+        // componentDidMount so that we can number ourselves properly. But,
+        // really we should have a more unidirectional flow. TODO(marcia): fix.
+        const number = _.indexOf(this.props.interWidgets("group"), this);
+        const problemNumComponent = this.props.apiOptions.groupAnnotator(
+            number, this.props.widgetId);
+
+        // This is a little strange because the id of the widget that actually
+        // changed is going to be lost in favor of the group widget's id. The
+        // widgets prop also wasn't actually changed, and this only serves to
+        // alert our renderer (our parent) of the fact that some interaction
+        // has occurred.
+        const onInteractWithWidget = (id) => {
+            if (this.refs.renderer) {
+                this.change("widgets", this.refs.renderer.props.widgets);
+            }
+        };
+
+        return <div className="perseus-group">
+            {problemNumComponent}
+            <Renderer
+                {...this.props}
+                ref="renderer"
+                apiOptions={apiOptions}
+                interWidgets={this._interWidgets}
+                reviewMode={!!this.props.reviewModeRubric}
+                onInteractWithWidget={onInteractWithWidget}
+            />
+            {this.props.icon && <div className="group-icon">
+                {this.props.icon}
+            </div>}
+        </div>;
     },
 });
 

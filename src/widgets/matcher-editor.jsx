@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -29,6 +25,28 @@ const MatcherEditor = React.createClass({
             orderMatters: false,
             padding: true,
         };
+    },
+
+    onLabelChange: function(index, e) {
+        const labels = _.clone(this.props.labels);
+        labels[index] = e.target.value;
+        this.props.onChange({labels: labels});
+    },
+
+    getSaveWarnings: function() {
+        if (this.props.left.length !== this.props.right.length) {
+            return [
+                "The two halves of the matcher have different numbers" +
+                " of cards.",
+            ];
+        }
+        return [];
+    },
+
+    serialize: function() {
+        return _.pick(this.props,
+            "left", "right", "labels", "orderMatters", "padding"
+        );
     },
 
     render: function() {
@@ -102,28 +120,6 @@ const MatcherEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
-    },
-
-    onLabelChange: function(index, e) {
-        const labels = _.clone(this.props.labels);
-        labels[index] = e.target.value;
-        this.props.onChange({labels: labels});
-    },
-
-    getSaveWarnings: function() {
-        if (this.props.left.length !== this.props.right.length) {
-            return [
-                "The two halves of the matcher have different numbers" +
-                " of cards.",
-            ];
-        }
-        return [];
-    },
-
-    serialize: function() {
-        return _.pick(this.props,
-            "left", "right", "labels", "orderMatters", "padding"
-        );
     },
 });
 

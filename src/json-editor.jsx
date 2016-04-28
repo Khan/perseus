@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -29,19 +25,6 @@ const JsonEditor = React.createClass({
         if (shouldReplaceContent) {
             this.setState(this.getInitialState());
         }
-    },
-
-    render: function() {
-        const classes = "perseus-json-editor " +
-            (this.state.valid ? "valid" : "invalid");
-
-        return <textarea
-            className={classes}
-            value={this.state.currentValue}
-            onChange={this.handleChange}
-            onKeyDown={this.handleKeyDown}
-            onBlur={this.handleBlur}
-        />;
     },
 
     handleKeyDown: function(e) {
@@ -111,6 +94,19 @@ const JsonEditor = React.createClass({
                 valid: true,
             });
         }
+    },
+
+    render: function() {
+        const classes = "perseus-json-editor " +
+            (this.state.valid ? "valid" : "invalid");
+
+        return <textarea
+            className={classes}
+            value={this.state.currentValue}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+            onBlur={this.handleBlur}
+        />;
     },
 });
 

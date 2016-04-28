@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 
 const Changeable = require("../mixins/changeable.jsx");
@@ -14,13 +10,13 @@ const ExampleGraphieWidget = require("./example-graphie-widget.jsx").widget;
  * of the screen in the demo page. Only the question writer sees this.
  */
 const ExampleGraphieWidgetEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         correct: React.PropTypes.arrayOf(React.PropTypes.number),
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         graph: React.PropTypes.any,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -39,6 +35,14 @@ const ExampleGraphieWidgetEditor = React.createClass({
         };
     },
 
+    handleChange: function(newProps) {
+        if (newProps.coord) {
+            this.change({
+                correct: newProps.coord,
+            });
+        }
+    },
+
     render: function() {
         return <div>
             <ExampleGraphieWidget
@@ -47,14 +51,6 @@ const ExampleGraphieWidgetEditor = React.createClass({
                 onChange={this.handleChange}
             />
         </div>;
-    },
-
-    handleChange: function(newProps) {
-        if (newProps.coord) {
-            this.change({
-                correct: newProps.coord,
-            });
-        }
     },
 });
 

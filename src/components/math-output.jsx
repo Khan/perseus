@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React         = require("react");
 const ReactDOM      = require("react-dom");
 const _             = require("underscore");
@@ -36,6 +32,10 @@ const MathOutput = React.createClass({
         };
     },
 
+    componentWillUnmount: function() {
+        this._unbindBlurHandler();
+    },
+
     _getInputClassName: function() {
         let className = "math-output " + ApiClassNames.INPUT + " " +
             ApiClassNames.INTERACTIVE;
@@ -57,26 +57,6 @@ const MathOutput = React.createClass({
             displayText = "";
         }
         return ModifyTex(displayText);
-    },
-
-    render: function() {
-        const divStyle = {
-            textAlign: "center",
-        };
-
-        return <span
-            ref="input"
-            className={this._getInputClassName()}
-            aria-label={this.props.labelText}
-            onMouseDown={this.focus}
-            onTouchStart={this.focus}
-        >
-            <div style={divStyle}>
-                <TeX>
-                    {this._getDisplayValue(this.props.value)}
-                </TeX>
-            </div>
-        </span>;
     },
 
     getValue: function() {
@@ -118,8 +98,24 @@ const MathOutput = React.createClass({
         $(document).unbind("." + this.state.selectorNamespace);
     },
 
-    componentWillUnmount: function() {
-        this._unbindBlurHandler();
+    render: function() {
+        const divStyle = {
+            textAlign: "center",
+        };
+
+        return <span
+            ref="input"
+            className={this._getInputClassName()}
+            aria-label={this.props.labelText}
+            onMouseDown={this.focus}
+            onTouchStart={this.focus}
+        >
+            <div style={divStyle}>
+                <TeX>
+                    {this._getDisplayValue(this.props.value)}
+                </TeX>
+            </div>
+        </span>;
     },
 });
 

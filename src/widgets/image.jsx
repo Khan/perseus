@@ -1,6 +1,3 @@
-// TODO(kevindangoor) fix these lint errors
-/* eslint-disable react/sort-comp, */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -65,6 +62,16 @@ const ImageWidget = React.createClass({
             caption: "",
         };
     },
+
+    getUserInput: function() {
+        return null;
+    },
+
+    simpleValidate: function(rubric) {
+        return ImageWidget.validate(this.getUserInput(), rubric);
+    },
+
+    focus: $.noop,
 
     render: function() {
         let title;
@@ -137,16 +144,6 @@ const ImageWidget = React.createClass({
             {caption}
         </div>;
     },
-
-    getUserInput: function() {
-        return null;
-    },
-
-    simpleValidate: function(rubric) {
-        return ImageWidget.validate(this.getUserInput(), rubric);
-    },
-
-    focus: $.noop,
 });
 
 _.extend(ImageWidget, {

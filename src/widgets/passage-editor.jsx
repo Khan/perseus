@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -13,8 +9,6 @@ const InfoTip = require("../components/info-tip.jsx");
 const PropCheckBox  = require("../components/prop-check-box.jsx");
 
 const PassageEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         footnotes: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
@@ -22,6 +16,8 @@ const PassageEditor = React.createClass({
         passageTitle: React.PropTypes.string,
         showLineNumbers: React.PropTypes.bool,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const React = require('react');
@@ -85,6 +81,10 @@ const Tile = React.createClass({
         value: React.PropTypes.bool.isRequired,
     },
 
+    _flip: function() {
+        this.props.onChange(!this.props.value);
+    },
+
     render: function() {
         const color = this.props.value ? "#55dd55" : "#115511";
         const style = _.extend({}, BASE_TILE_STYLE, {
@@ -96,10 +96,6 @@ const Tile = React.createClass({
             style={style}
             onClick={this._flip}
         />;
-    },
-
-    _flip: function() {
-        this.props.onChange(!this.props.value);
     },
 });
 
@@ -156,8 +152,6 @@ const flipTilesPattern = (oldCells, tileY, tileX, pattern) => {
 
 // The lights puzzle widget
 const LightsPuzzle = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
-
     propTypes: {
         /* eslint-disable react/jsx-sort-prop-types */
         cells: React.PropTypes.arrayOf(
@@ -170,6 +164,8 @@ const LightsPuzzle = React.createClass({
         moveCount: React.PropTypes.number.isRequired,
         /* eslint-enable react/jsx-sort-prop-types */
     },
+
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     getDefaultProps: function() {
         return {
@@ -188,41 +184,6 @@ const LightsPuzzle = React.createClass({
         };
     },
 
-    render: function() {
-        const width = this._width();
-        const tileSize = MAIN_TILE_SIZE;
-        const pxWidth = width * (tileSize + 2 * CELL_PADDING);
-        return <div>
-            <TileGrid
-                cells={this.props.cells}
-                size={tileSize}
-                onChange={this._flipTile}
-            />
-            <div style={{width: pxWidth}}>
-                <div style={MOVE_COUNT_STYLE}>
-                    Moves: {this.props.moveCount}
-                </div>
-                <div style={RESET_BUTTON_STYLE}>
-                <input
-                    type="button"
-                    value="Reset"
-                    onClick={this._reset}
-                    className="simple-button"
-                />
-                </div>
-            </div>
-            <div className="clearfix" />
-        </div>;
-    },
-
-    _width: function() {
-        if (this.props.cells.length !== 0) {
-            return this.props.cells[0].length;
-        } else {
-            return 0; // default to 0
-        }
-    },
-
     componentDidMount: function() {
         this._initNextPatterns();
     },
@@ -230,6 +191,14 @@ const LightsPuzzle = React.createClass({
     componentDidUpdate: function(prevProps) {
         if (prevProps.flipPattern !== this.props.flipPattern) {
             this._initNextPatterns();
+        }
+    },
+
+    _width: function() {
+        if (this.props.cells.length !== 0) {
+            return this.props.cells[0].length;
+        } else {
+            return 0; // default to 0
         }
     },
 
@@ -271,6 +240,33 @@ const LightsPuzzle = React.createClass({
 
     simpleValidate: function(rubric) {
         return validate(rubric, this.getUserInput());
+    },
+
+    render: function() {
+        const width = this._width();
+        const tileSize = MAIN_TILE_SIZE;
+        const pxWidth = width * (tileSize + 2 * CELL_PADDING);
+        return <div>
+            <TileGrid
+                cells={this.props.cells}
+                size={tileSize}
+                onChange={this._flipTile}
+            />
+            <div style={{width: pxWidth}}>
+                <div style={MOVE_COUNT_STYLE}>
+                    Moves: {this.props.moveCount}
+                </div>
+                <div style={RESET_BUTTON_STYLE}>
+                <input
+                    type="button"
+                    value="Reset"
+                    onClick={this._reset}
+                    className="simple-button"
+                />
+                </div>
+            </div>
+            <div className="clearfix" />
+        </div>;
     },
 });
 

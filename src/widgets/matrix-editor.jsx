@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -42,8 +38,6 @@ const getMatrixSize = function(matrix) {
 };
 
 const MatrixEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
@@ -62,6 +56,8 @@ const MatrixEditor = React.createClass({
         suffix: React.PropTypes.string,
     },
 
+    mixins: [EditorJsonify, Changeable],
+
     getDefaultProps: function() {
         return {
             answers: [[]],
@@ -70,6 +66,25 @@ const MatrixEditor = React.createClass({
             prefix: "",
             suffix: "",
         };
+    },
+
+    onMatrixBoardSizeChange: function(range) {
+        const matrixSize = getMatrixSize(this.props.answers);
+        if (range[0] !== null && range[1] !== null) {
+            range = [
+                Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
+                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
+            ];
+            const answers = _(Math.min(range[0], matrixSize[0])).times(row => {
+                return _(Math.min(range[1], matrixSize[1])).times(col => {
+                    return this.props.answers[row][col];
+                });
+            });
+            this.props.onChange({
+                matrixBoardSize: range,
+                answers: answers,
+            });
+        }
     },
 
     render: function() {
@@ -115,25 +130,6 @@ const MatrixEditor = React.createClass({
                 />
             </div>
         </div>;
-    },
-
-    onMatrixBoardSizeChange: function(range) {
-        const matrixSize = getMatrixSize(this.props.answers);
-        if (range[0] !== null && range[1] !== null) {
-            range = [
-                Math.round(Math.min(Math.max(range[0], 1), MAX_BOARD_SIZE)),
-                Math.round(Math.min(Math.max(range[1], 1), MAX_BOARD_SIZE)),
-            ];
-            const answers = _(Math.min(range[0], matrixSize[0])).times(row => {
-                return _(Math.min(range[1], matrixSize[1])).times(col => {
-                    return this.props.answers[row][col];
-                });
-            });
-            this.props.onChange({
-                matrixBoardSize: range,
-                answers: answers,
-            });
-        }
     },
 });
 

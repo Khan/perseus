@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -18,8 +14,6 @@ const defaultExplanationProps = {
 };
 
 const Explanation = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: PerseusApi.Options.propTypes,
         explanation: React.PropTypes.string,
@@ -30,6 +24,8 @@ const Explanation = React.createClass({
         widgets: React.PropTypes.any,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return defaultExplanationProps;
     },
@@ -39,6 +35,14 @@ const Explanation = React.createClass({
             expanded: false,
             contentHeight: 0,
         };
+    },
+
+    componentDidMount: function() {
+        this._updateHeight();
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        this._updateHeight();
     },
 
     _onClick: function() {
@@ -75,12 +79,12 @@ const Explanation = React.createClass({
         }
     },
 
-    componentDidMount: function() {
-        this._updateHeight();
+    getUserInput: function() {
+        return {};
     },
 
-    componentDidUpdate: function(prevProps, prevState) {
-        this._updateHeight();
+    simpleValidate: function(rubric) {
+        return Explanation.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -111,14 +115,6 @@ const Explanation = React.createClass({
                 />
             </div>
         </div>;
-    },
-
-    getUserInput: function() {
-        return {};
-    },
-
-    simpleValidate: function(rubric) {
-        return Explanation.validate(this.getUserInput(), rubric);
     },
 });
 

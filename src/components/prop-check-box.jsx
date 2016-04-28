@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -16,14 +12,14 @@ const PropCheckBox = React.createClass({
         onChange: React.PropTypes.func,
     },
 
+    getDefaultProps: function() {
+        return this.DEFAULT_PROPS;
+    },
+
     DEFAULT_PROPS: {
         label: null,
         onChange: null,
         labelAlignment: "left",
-    },
-
-    getDefaultProps: function() {
-        return this.DEFAULT_PROPS;
     },
 
     propName: function() {
@@ -43,6 +39,13 @@ const PropCheckBox = React.createClass({
         return this.props.labelAlignment === "left";
     },
 
+    toggle: function() {
+        const propName = this.propName();
+        const changes = {};
+        changes[propName] = !this.props[propName];
+        this.props.onChange(changes);
+    },
+
     render: function() {
         const propName = this.propName();
         return <label>
@@ -54,13 +57,6 @@ const PropCheckBox = React.createClass({
             />
             {!this._labelAlignLeft() && this.props.label}
         </label>;
-    },
-
-    toggle: function() {
-        const propName = this.propName();
-        const changes = {};
-        changes[propName] = !this.props[propName];
-        this.props.onChange(changes);
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -32,6 +28,19 @@ const Sorter = React.createClass({
         };
     },
 
+    handleChange: function(e) {
+        this.props.onChange(e);
+        this.props.trackInteraction();
+    },
+
+    getUserInput: function() {
+        return {options: this.refs.sortable.getOptions()};
+    },
+
+    simpleValidate: function(rubric) {
+        return Sorter.validate(this.getUserInput(), rubric);
+    },
+
     render: function() {
         const options = shuffle(
             this.props.correct,
@@ -48,19 +57,6 @@ const Sorter = React.createClass({
                 ref="sortable"
             />
         </div>;
-    },
-
-    handleChange: function(e) {
-        this.props.onChange(e);
-        this.props.trackInteraction();
-    },
-
-    getUserInput: function() {
-        return {options: this.refs.sortable.getOptions()};
-    },
-
-    simpleValidate: function(rubric) {
-        return Sorter.validate(this.getUserInput(), rubric);
     },
 });
 

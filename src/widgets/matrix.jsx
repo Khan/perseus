@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const classNames = require("classnames");
@@ -135,134 +131,6 @@ const Matrix = React.createClass({
     componentDidMount: function() {
         // Used in the `onBlur` and `onFocus` handlers
         this.cursorPosition = [0, 0];
-    },
-
-    render: function() {
-        // Set the input sizes through JS so we can control the size of the
-        // brackets. (If we set them in CSS we won't know values until the
-        // inputs are rendered.)
-        const dimensions = this.props.apiOptions.staticRender ?
-                MOBILE_DIMENSIONS : NORMAL_DIMENSIONS;
-        const { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
-
-        const matrixSize = getMatrixSize(this.props.answers);
-        const maxRows = this.props.matrixBoardSize[0];
-        const maxCols = this.props.matrixBoardSize[1];
-        const cursorRow = this.props.cursorPosition[0];
-        const cursorCol = this.props.cursorPosition[1];
-
-        const highlightedRow = Math.max(cursorRow, matrixSize[0] - 1);
-        const highlightedCol = Math.max(cursorCol, matrixSize[1] - 1);
-        const bracketHeight = (highlightedRow + 1) *
-                (INPUT_HEIGHT + 2 * INPUT_MARGIN);
-        const bracketOffset = (highlightedCol + 1) *
-                (INPUT_WIDTH + 2 * INPUT_MARGIN);
-
-        const className = classNames({
-            "perseus-matrix": true,
-            "static-mode": this.props.static,
-            "the-matrix": this.state.enterTheMatrix >= 5,
-        });
-
-        return <div className={className}>
-            {this.props.prefix && <div className="matrix-prefix">
-                <Renderer content={this.props.prefix} />
-            </div>}
-            <div className="matrix-input">
-                <div
-                    className={"matrix-bracket bracket-left"}
-                    style={{
-                        height: bracketHeight,
-                    }}
-                >
-                </div>
-                <div
-                    className={"matrix-bracket bracket-right"}
-                    style={{
-                        height: bracketHeight,
-                        left: bracketOffset,
-                    }}
-                >
-                </div>
-                {_(maxRows).times(row => {
-                    const rowVals = this.props.answers[row];
-                    return <div className="matrix-row" key={row}>
-                        {_(maxCols).times((col) => {
-                            const outside = row > highlightedRow ||
-                                    col > highlightedCol;
-                            const inputProps = {
-                                className: outside ? "outside" : "inside",
-                                ref: getRefForPath(getInputPath(row, col)),
-                                value: rowVals ? rowVals[col] : null,
-                                style: {
-                                    height: INPUT_HEIGHT,
-                                    width: INPUT_WIDTH,
-                                    margin: INPUT_MARGIN,
-                                },
-                                disabled: this.props.apiOptions.readOnly,
-                                onFocus: () => {
-                                    // We store this locally so that we can use
-                                    // the new information in the `onBlur`
-                                    // handler, which happens before the props
-                                    // change has time to propagate.
-                                    // TODO(emily): Try to fix `MathOutput` so
-                                    // it correctly sends blur events before
-                                    // focus events.
-                                    this.cursorPosition = [row, col];
-                                    this.props.onChange({
-                                        cursorPosition: [row, col],
-                                    }, () => {
-                                        // This isn't a user interaction, so
-                                        // return false to signal that the
-                                        // matrix shouldn't be focused
-                                        return false;
-                                    });
-                                    this._handleFocus(row, col);
-                                },
-                                onBlur: () => {
-                                    if (row === this.cursorPosition[0] &&
-                                        col === this.cursorPosition[1]) {
-                                        this.props.onChange({
-                                            cursorPosition: [0, 0],
-                                        }, () => {
-                                            // This isn't a user interaction,
-                                            // so return false to signal that
-                                            // the matrix shouldn't be focused
-                                            return false;
-                                        });
-                                    }
-                                    this._handleBlur(row, col);
-                                },
-                                onKeyDown: (e) => {
-                                    this.handleKeyDown(row, col, e);
-                                },
-                                onChange: (value) => {
-                                    this.onValueChange(row, col, value);
-                                },
-                            };
-
-                            let MatrixInput;
-                            if (this.props.apiOptions.staticRender) {
-                                MatrixInput = <MathOutput {...inputProps} />;
-                            } else if (this.props.numericInput) {
-                                MatrixInput = <NumberInput {...inputProps} />;
-                            } else {
-                                MatrixInput = <TextInput {...inputProps} />;
-                            }
-                            return <span
-                                key={col}
-                                className="matrix-input-field"
-                            >
-                                {MatrixInput}
-                            </span>;
-                        })}
-                    </div>;
-                })}
-            </div>
-            {this.props.suffix && <div className="matrix-suffix">
-                <Renderer content={this.props.suffix} />
-            </div>}
-        </div>;
     },
 
     getInputPaths: function() {
@@ -400,6 +268,134 @@ const Matrix = React.createClass({
 
     simpleValidate: function(rubric) {
         return Matrix.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        // Set the input sizes through JS so we can control the size of the
+        // brackets. (If we set them in CSS we won't know values until the
+        // inputs are rendered.)
+        const dimensions = this.props.apiOptions.staticRender ?
+                MOBILE_DIMENSIONS : NORMAL_DIMENSIONS;
+        const { INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH } = dimensions;
+
+        const matrixSize = getMatrixSize(this.props.answers);
+        const maxRows = this.props.matrixBoardSize[0];
+        const maxCols = this.props.matrixBoardSize[1];
+        const cursorRow = this.props.cursorPosition[0];
+        const cursorCol = this.props.cursorPosition[1];
+
+        const highlightedRow = Math.max(cursorRow, matrixSize[0] - 1);
+        const highlightedCol = Math.max(cursorCol, matrixSize[1] - 1);
+        const bracketHeight = (highlightedRow + 1) *
+                (INPUT_HEIGHT + 2 * INPUT_MARGIN);
+        const bracketOffset = (highlightedCol + 1) *
+                (INPUT_WIDTH + 2 * INPUT_MARGIN);
+
+        const className = classNames({
+            "perseus-matrix": true,
+            "static-mode": this.props.static,
+            "the-matrix": this.state.enterTheMatrix >= 5,
+        });
+
+        return <div className={className}>
+            {this.props.prefix && <div className="matrix-prefix">
+                <Renderer content={this.props.prefix} />
+            </div>}
+            <div className="matrix-input">
+                <div
+                    className={"matrix-bracket bracket-left"}
+                    style={{
+                        height: bracketHeight,
+                    }}
+                >
+                </div>
+                <div
+                    className={"matrix-bracket bracket-right"}
+                    style={{
+                        height: bracketHeight,
+                        left: bracketOffset,
+                    }}
+                >
+                </div>
+                {_(maxRows).times(row => {
+                    const rowVals = this.props.answers[row];
+                    return <div className="matrix-row" key={row}>
+                        {_(maxCols).times((col) => {
+                            const outside = row > highlightedRow ||
+                                    col > highlightedCol;
+                            const inputProps = {
+                                className: outside ? "outside" : "inside",
+                                ref: getRefForPath(getInputPath(row, col)),
+                                value: rowVals ? rowVals[col] : null,
+                                style: {
+                                    height: INPUT_HEIGHT,
+                                    width: INPUT_WIDTH,
+                                    margin: INPUT_MARGIN,
+                                },
+                                disabled: this.props.apiOptions.readOnly,
+                                onFocus: () => {
+                                    // We store this locally so that we can use
+                                    // the new information in the `onBlur`
+                                    // handler, which happens before the props
+                                    // change has time to propagate.
+                                    // TODO(emily): Try to fix `MathOutput` so
+                                    // it correctly sends blur events before
+                                    // focus events.
+                                    this.cursorPosition = [row, col];
+                                    this.props.onChange({
+                                        cursorPosition: [row, col],
+                                    }, () => {
+                                        // This isn't a user interaction, so
+                                        // return false to signal that the
+                                        // matrix shouldn't be focused
+                                        return false;
+                                    });
+                                    this._handleFocus(row, col);
+                                },
+                                onBlur: () => {
+                                    if (row === this.cursorPosition[0] &&
+                                        col === this.cursorPosition[1]) {
+                                        this.props.onChange({
+                                            cursorPosition: [0, 0],
+                                        }, () => {
+                                            // This isn't a user interaction,
+                                            // so return false to signal that
+                                            // the matrix shouldn't be focused
+                                            return false;
+                                        });
+                                    }
+                                    this._handleBlur(row, col);
+                                },
+                                onKeyDown: (e) => {
+                                    this.handleKeyDown(row, col, e);
+                                },
+                                onChange: (value) => {
+                                    this.onValueChange(row, col, value);
+                                },
+                            };
+
+                            let MatrixInput;
+                            if (this.props.apiOptions.staticRender) {
+                                MatrixInput = <MathOutput {...inputProps} />;
+                            } else if (this.props.numericInput) {
+                                MatrixInput = <NumberInput {...inputProps} />;
+                            } else {
+                                MatrixInput = <TextInput {...inputProps} />;
+                            }
+                            return <span
+                                key={col}
+                                className="matrix-input-field"
+                            >
+                                {MatrixInput}
+                            </span>;
+                        })}
+                    </div>;
+                })}
+            </div>
+            {this.props.suffix && <div className="matrix-suffix">
+                <Renderer content={this.props.suffix} />
+            </div>}
+        </div>;
     },
 });
 

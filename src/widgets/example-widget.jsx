@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is a simple number-entry widget
  * It is not as powerful as number-input, but has a simpler, more
@@ -21,14 +17,6 @@ const TextInput = React.createClass({
         value: React.PropTypes.string,
     },
 
-    render: function() {
-        return <input
-            ref="input"
-            value={this.props.value || ""}
-            onChange={this.changeValue}
-        />;
-    },
-
     focus: function() {
         this.refs.input.focus();
         return true;
@@ -38,6 +26,14 @@ const TextInput = React.createClass({
         // Translating from the js event e to the value
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
+    },
+
+    render: function() {
+        return <input
+            ref="input"
+            value={this.props.value || ""}
+            onChange={this.changeValue}
+        />;
     },
 });
 
@@ -51,23 +47,15 @@ const ExampleWidget = React.createClass({
         value: React.PropTypes.string,
     },
 
-    getDefaultProps: function() {
-        return {
-            value: "",
-        };
-    },
-
     /**
      * Changeable creates this.change() to tell our parent to update our props
      */
     mixins: [Changeable],
 
-    render: function() {
-        return <TextInput
-            ref="input"
-            value={this.props.value}
-            onChange={this.change("value")}
-        />;
+    getDefaultProps: function() {
+        return {
+            value: "",
+        };
     },
 
     getUserInput: function() {
@@ -98,6 +86,14 @@ const ExampleWidget = React.createClass({
      */
     simpleValidate: function(rubric) {
         return ExampleWidget.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        return <TextInput
+            ref="input"
+            value={this.props.value}
+            onChange={this.change("value")}
+        />;
     },
 });
 

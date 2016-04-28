@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -38,6 +34,32 @@ const ItemEditor = React.createClass({
         const props = _(this.props).pick("question", "answerArea");
 
         this.props.onChange(_(props).extend(newProps), cb, silent);
+    },
+
+    handleEditorChange: function(newProps, cb, silent) {
+        const question = _.extend({}, this.props.question, newProps);
+        this.updateProps({ question }, cb, silent);
+    },
+
+    handleItemExtrasChange: function(newProps, cb, silent) {
+        const answerArea = _.extend({}, this.props.answerArea, newProps);
+        this.updateProps({ answerArea }, cb, silent);
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.questionEditor.getSaveWarnings();
+    },
+
+    serialize: function(options) {
+        return {
+            question: this.refs.questionEditor.serialize(options),
+            answerArea: this.refs.itemExtrasEditor.serialize(options),
+            itemDataVersion: ITEM_DATA_VERSION,
+        };
+    },
+
+    focus: function() {
+        this.questionEditor.focus();
     },
 
     render: function() {
@@ -92,32 +114,6 @@ const ItemEditor = React.createClass({
                 </div>
             </div>
         </div>;
-    },
-
-    handleEditorChange: function(newProps, cb, silent) {
-        const question = _.extend({}, this.props.question, newProps);
-        this.updateProps({ question }, cb, silent);
-    },
-
-    handleItemExtrasChange: function(newProps, cb, silent) {
-        const answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({ answerArea }, cb, silent);
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.questionEditor.getSaveWarnings();
-    },
-
-    serialize: function(options) {
-        return {
-            question: this.refs.questionEditor.serialize(options),
-            answerArea: this.refs.itemExtrasEditor.serialize(options),
-            itemDataVersion: ITEM_DATA_VERSION,
-        };
-    },
-
-    focus: function() {
-        this.questionEditor.focus();
     },
 });
 

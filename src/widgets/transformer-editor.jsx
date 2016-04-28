@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -144,6 +140,13 @@ const ToolSettings = React.createClass({
         };
     },
 
+    changeConstraints: function(changed) {
+        const newConstraints = _.extend({}, this.props.constraints, changed);
+        this.props.onChange({
+            constraints: newConstraints,
+        });
+    },
+
     render: function() {
         return <div>
             {this.props.name}:{' '}
@@ -184,13 +187,6 @@ const ToolSettings = React.createClass({
             }
         </div>;
     },
-
-    changeConstraints: function(changed) {
-        const newConstraints = _.extend({}, this.props.constraints, changed);
-        this.props.onChange({
-            constraints: newConstraints,
-        });
-    },
 });
 
 const TransformationExplorerSettings = React.createClass({
@@ -202,6 +198,33 @@ const TransformationExplorerSettings = React.createClass({
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         tools: React.PropTypes.any.isRequired,
     },
+
+    getMode: function() {
+        return this.props.graphMode + "," + this.props.listMode;
+    },
+
+    changeMode: function(e) {
+        const selected = e.target.value;
+        const modes = selected.split(",");
+
+        this.props.onChange({
+            graphMode: modes[0],
+            listMode: modes[1],
+        });
+    },
+
+    changeHandlerFor: function(toolName) {
+        return change => {
+            const newTools = _.clone(this.props.tools);
+            newTools[toolName] = _.extend({}, this.props.tools[toolName],
+                    change);
+
+            this.props.onChange({
+                tools: newTools,
+            });
+        };
+    },
+
     render: function() {
 
         return <div className="transformer-settings">
@@ -271,32 +294,6 @@ const TransformationExplorerSettings = React.createClass({
                 onChange={this.props.onChange}
             />
         </div>;
-    },
-
-    getMode: function() {
-        return this.props.graphMode + "," + this.props.listMode;
-    },
-
-    changeMode: function(e) {
-        const selected = e.target.value;
-        const modes = selected.split(",");
-
-        this.props.onChange({
-            graphMode: modes[0],
-            listMode: modes[1],
-        });
-    },
-
-    changeHandlerFor: function(toolName) {
-        return change => {
-            const newTools = _.clone(this.props.tools);
-            newTools[toolName] = _.extend({}, this.props.tools[toolName],
-                    change);
-
-            this.props.onChange({
-                tools: newTools,
-            });
-        };
     },
 });
 const ShapeTypes = {
@@ -731,38 +728,14 @@ const TransformationsShapeEditor = React.createClass({
         shape: React.PropTypes.any,
     },
 
-    render: function() {
-        return <div>
-            <Graph
-                ref="graph"
-                box={this.props.graph.box}
-                range={this.props.graph.range}
-                labels={this.props.graph.labels}
-                step={this.props.graph.step}
-                gridStep={this.props.graph.gridStep}
-                markings={this.props.graph.markings}
-                backgroundImage={this.props.graph.backgroundImage}
-                onGraphieUpdated={this.setupGraphie}
-            />
-            <select
-                key="type-select"
-                value={this.getTypeString(this.props.shape.type)}
-                onChange={this.changeType}
-            >
-                <option value="polygon-3">Triangle</option>
-                <option value="polygon-4">Quadrilateral</option>
-                <option value="polygon-5">Pentagon</option>
-                <option value="polygon-6">Hexagon</option>
-                <option value="line">Line</option>
-                <option value="line,line">2 lines</option>
-                <option value="lineSegment">Line segment</option>
-                <option value="lineSegment,lineSegment">
-                    {' '}2 line segments{' '}
-                </option>
-                <option value="angle">Angle</option>
-                <option value="circle">Circle</option>
-            </select>
-        </div>;
+    componentDidMount: function() {
+        this.setupGraphie(this.refs.graph.graphie());
+    },
+
+    componentDidUpdate: function(prevProps) {
+        if (!deepEq(prevProps.shape, this.props.shape)) {
+            this.refs.graph.reset();
+        }
     },
 
     /* Return the option string for a given type */
@@ -803,16 +776,6 @@ const TransformationsShapeEditor = React.createClass({
         });
     },
 
-    componentDidMount: function() {
-        this.setupGraphie(this.refs.graph.graphie());
-    },
-
-    componentDidUpdate: function(prevProps) {
-        if (!deepEq(prevProps.shape, this.props.shape)) {
-            this.refs.graph.reset();
-        }
-    },
-
     updateCoords: function() {
         this.props.onChange({
             shape: this.shape.toJSON(),
@@ -828,6 +791,39 @@ const TransformationsShapeEditor = React.createClass({
         });
     },
 
+    render: function() {
+        return <div>
+            <Graph
+                ref="graph"
+                box={this.props.graph.box}
+                range={this.props.graph.range}
+                labels={this.props.graph.labels}
+                step={this.props.graph.step}
+                gridStep={this.props.graph.gridStep}
+                markings={this.props.graph.markings}
+                backgroundImage={this.props.graph.backgroundImage}
+                onGraphieUpdated={this.setupGraphie}
+            />
+            <select
+                key="type-select"
+                value={this.getTypeString(this.props.shape.type)}
+                onChange={this.changeType}
+            >
+                <option value="polygon-3">Triangle</option>
+                <option value="polygon-4">Quadrilateral</option>
+                <option value="polygon-5">Pentagon</option>
+                <option value="polygon-6">Hexagon</option>
+                <option value="line">Line</option>
+                <option value="line,line">2 lines</option>
+                <option value="lineSegment">Line segment</option>
+                <option value="lineSegment,lineSegment">
+                    {' '}2 line segments{' '}
+                </option>
+                <option value="angle">Angle</option>
+                <option value="circle">Circle</option>
+            </select>
+        </div>;
+    },
 });
 
 const TransformerEditor = React.createClass({
@@ -851,6 +847,42 @@ const TransformerEditor = React.createClass({
     // so that we don't have all this duplication
     getDefaultProps: function() {
         return defaultTransformerProps;
+    },
+
+    // propagate a props change on our graph settings to
+    // this.props.graph
+    changeGraph: function(graphChanges, callback) {
+        const newGraph = _.extend({}, this.props.graph, graphChanges);
+        this.props.onChange({
+            graph: newGraph,
+        }, callback);
+    },
+
+    // propagate a props change on our starting graph to
+    // this.props.starting
+    changeStarting: function(startingChanges) {
+        const newStarting = _.extend({}, this.props.starting, startingChanges);
+        this.props.onChange({
+            starting: newStarting,
+        });
+    },
+
+    // propagate a transformations change onto correct.transformations
+    changeTransformer: function(changes, callback) {
+        if (changes.transformations) {
+            changes.correct = {
+                transformations: changes.transformations,
+            };
+            delete changes.transformations;
+        }
+        this.props.onChange(changes, callback);
+    },
+
+    serialize: function() {
+        const json = this.refs.explorer.getEditorJSON();
+        json.correct = json.answer;
+        delete json.answer;
+        return json;
     },
 
     render: function() {
@@ -930,42 +962,6 @@ const TransformerEditor = React.createClass({
                 trackInteraction={() => {}}
             />
         </div>;
-    },
-
-    // propagate a props change on our graph settings to
-    // this.props.graph
-    changeGraph: function(graphChanges, callback) {
-        const newGraph = _.extend({}, this.props.graph, graphChanges);
-        this.props.onChange({
-            graph: newGraph,
-        }, callback);
-    },
-
-    // propagate a props change on our starting graph to
-    // this.props.starting
-    changeStarting: function(startingChanges) {
-        const newStarting = _.extend({}, this.props.starting, startingChanges);
-        this.props.onChange({
-            starting: newStarting,
-        });
-    },
-
-    // propagate a transformations change onto correct.transformations
-    changeTransformer: function(changes, callback) {
-        if (changes.transformations) {
-            changes.correct = {
-                transformations: changes.transformations,
-            };
-            delete changes.transformations;
-        }
-        this.props.onChange(changes, callback);
-    },
-
-    serialize: function() {
-        const json = this.refs.explorer.getEditorJSON();
-        json.correct = json.answer;
-        delete json.answer;
-        return json;
     },
 });
 

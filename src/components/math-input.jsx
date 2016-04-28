@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const React = require("react");
 const ReactDOM = require("react-dom");
@@ -27,94 +23,6 @@ const MathInput = React.createClass({
         value: PT.string,
     },
 
-    render: function() {
-        let className = classNames({
-            "perseus-math-input": true,
-
-            // mathquill usually adds these itself but react removes them when
-            // updating the component.
-            "mq-editable-field": true,
-            "mq-math-mode": true,
-        });
-
-        if (this.props.className) {
-            className = className + " " + this.props.className;
-        }
-
-        let buttons = null;
-        if (this._shouldShowButtons()) {
-            buttons = <TexButtons
-                sets={this.props.buttonSets}
-                className="math-input-buttons absolute"
-                convertDotToTimes={this.props.convertDotToTimes}
-                onInsert={this.insert}
-            />;
-        }
-
-        return <div style={{display: "inline-block"}}>
-            <div style={{display: 'inline-block'}}>
-                <span
-                    className={className}
-                    ref="mathinput"
-                    aria-label={this.props.labelText}
-                    onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}
-                />
-            </div>
-            <div style={{position: "relative"}}>
-                {buttons}
-            </div>
-        </div>;
-    },
-
-    // handlers:
-    // keep track of two related bits of state:
-    // * this.state.focused - whether the buttons are currently shown
-    // * this.mouseDown - whether a mouse click is active that started in the
-    //   buttons div
-
-    handleFocus: function() {
-        this.setState({ focused: true });
-        // TODO(joel) fix properly - we should probably allow onFocus handlers
-        // to this property, but we need to work correctly with them.
-        // if (this.props.onFocus) {
-        //     this.props.onFocus();
-        // }
-    },
-
-    handleMouseDown: function(event) {
-        const focused = ReactDOM.findDOMNode(this).contains(event.target);
-        this.mouseDown = focused;
-        if (!focused) {
-            this.setState({ focused: false });
-        }
-    },
-
-    handleMouseUp: function() {
-        // this mouse click started in the buttons div so we should focus the
-        // input
-        if (this.mouseDown) {
-            this.focus();
-        }
-        this.mouseDown = false;
-    },
-
-    handleBlur: function() {
-        if (!this.mouseDown) {
-            this.setState({ focused: false });
-        }
-    },
-
-    _shouldShowButtons: function() {
-        if (this.props.buttonsVisible === 'always') {
-            return true;
-        } else if (this.props.buttonsVisible === 'never') {
-            return false;
-        } else {
-            return this.state.focused;
-        }
-    },
-
     getDefaultProps: function() {
         return {
             buttonsVisible: 'focused',
@@ -125,35 +33,6 @@ const MathInput = React.createClass({
 
     getInitialState: function() {
         return { focused: false };
-    },
-
-    insert: function(value) {
-        const input = this.mathField();
-        if (_(value).isFunction()) {
-            value(input);
-        } else if (value[0] === '\\') {
-            input.cmd(value).focus();
-        } else {
-            input.write(value).focus();
-        }
-        input.focus();
-    },
-
-    mathField: function(options) {
-        // The MathQuill API is now "versioned" through its own "InterVer"
-        // system. See: https://github.com/mathquill/mathquill/pull/459
-        const MQ = MathQuill.getInterface(2);
-
-        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
-        // seeing that node for the first time, then returns the associated
-        // MathQuill object for that node. It is stable - will always return
-        // the same object when called on the same DOM node.
-        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
-    },
-
-    componentWillUnmount: function() {
-        window.removeEventListener("mousedown", this.handleMouseDown);
-        window.removeEventListener("mouseup", this.handleMouseUp);
     },
 
     componentDidMount: function() {
@@ -255,6 +134,83 @@ const MathInput = React.createClass({
         }
     },
 
+    componentWillUnmount: function() {
+        window.removeEventListener("mousedown", this.handleMouseDown);
+        window.removeEventListener("mouseup", this.handleMouseUp);
+    },
+
+    // handlers:
+    // keep track of two related bits of state:
+    // * this.state.focused - whether the buttons are currently shown
+    // * this.mouseDown - whether a mouse click is active that started in the
+    //   buttons div
+
+    handleFocus: function() {
+        this.setState({ focused: true });
+        // TODO(joel) fix properly - we should probably allow onFocus handlers
+        // to this property, but we need to work correctly with them.
+        // if (this.props.onFocus) {
+        //     this.props.onFocus();
+        // }
+    },
+
+    handleMouseDown: function(event) {
+        const focused = ReactDOM.findDOMNode(this).contains(event.target);
+        this.mouseDown = focused;
+        if (!focused) {
+            this.setState({ focused: false });
+        }
+    },
+
+    handleMouseUp: function() {
+        // this mouse click started in the buttons div so we should focus the
+        // input
+        if (this.mouseDown) {
+            this.focus();
+        }
+        this.mouseDown = false;
+    },
+
+    handleBlur: function() {
+        if (!this.mouseDown) {
+            this.setState({ focused: false });
+        }
+    },
+
+    _shouldShowButtons: function() {
+        if (this.props.buttonsVisible === 'always') {
+            return true;
+        } else if (this.props.buttonsVisible === 'never') {
+            return false;
+        } else {
+            return this.state.focused;
+        }
+    },
+
+    insert: function(value) {
+        const input = this.mathField();
+        if (_(value).isFunction()) {
+            value(input);
+        } else if (value[0] === '\\') {
+            input.cmd(value).focus();
+        } else {
+            input.write(value).focus();
+        }
+        input.focus();
+    },
+
+    mathField: function(options) {
+        // The MathQuill API is now "versioned" through its own "InterVer"
+        // system. See: https://github.com/mathquill/mathquill/pull/459
+        const MQ = MathQuill.getInterface(2);
+
+        // MathQuill.MathField takes a DOM node, MathQuill-ifies it if it's
+        // seeing that node for the first time, then returns the associated
+        // MathQuill object for that node. It is stable - will always return
+        // the same object when called on the same DOM node.
+        return MQ.MathField(ReactDOM.findDOMNode(this.refs.mathinput), options);
+    },
+
     focus: function() {
         this.mathField().focus();
         this.setState({ focused: true });
@@ -263,6 +219,46 @@ const MathInput = React.createClass({
     blur: function() {
         this.mathField().blur();
         this.setState({ focused: false });
+    },
+
+    render: function() {
+        let className = classNames({
+            "perseus-math-input": true,
+
+            // mathquill usually adds these itself but react removes them when
+            // updating the component.
+            "mq-editable-field": true,
+            "mq-math-mode": true,
+        });
+
+        if (this.props.className) {
+            className = className + " " + this.props.className;
+        }
+
+        let buttons = null;
+        if (this._shouldShowButtons()) {
+            buttons = <TexButtons
+                sets={this.props.buttonSets}
+                className="math-input-buttons absolute"
+                convertDotToTimes={this.props.convertDotToTimes}
+                onInsert={this.insert}
+            />;
+        }
+
+        return <div style={{display: "inline-block"}}>
+            <div style={{display: 'inline-block'}}>
+                <span
+                    className={className}
+                    ref="mathinput"
+                    aria-label={this.props.labelText}
+                    onFocus={this.handleFocus}
+                    onBlur={this.handleBlur}
+                />
+            </div>
+            <div style={{position: "relative"}}>
+                {buttons}
+            </div>
+        </div>;
     },
 });
 

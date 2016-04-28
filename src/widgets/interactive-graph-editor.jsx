@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -27,8 +23,6 @@ const deprecatedProps = {
 };
 
 const InteractiveGraphEditor = React.createClass({
-    className: "perseus-widget-interactive-graph",
-
     propTypes: {
         backgroundImage: React.PropTypes.shape({
             url: React.PropTypes.string,
@@ -54,6 +48,9 @@ const InteractiveGraphEditor = React.createClass({
         valid: React.PropTypes.bool,
     },
 
+    // TODO(jack): Use versioning instead of DeprecationMixin
+    mixins: [DeprecationMixin],
+
     getDefaultProps: function() {
         return {
             box: [defaultEditorBoxSize, defaultEditorBoxSize],
@@ -74,9 +71,43 @@ const InteractiveGraphEditor = React.createClass({
         };
     },
 
-    // TODO(jack): Use versioning instead of DeprecationMixin
-    mixins: [DeprecationMixin],
     deprecatedProps: deprecatedProps,
+
+    className: "perseus-widget-interactive-graph",
+
+    changeMatchType: function(e) {
+        const correct = _.extend({}, this.props.correct, {
+            match: e.target.value,
+        });
+        this.props.onChange({correct: correct});
+    },
+
+    serialize: function() {
+        const json = _.pick(this.props, "step", "backgroundImage", "markings",
+            "labels", "showProtractor", "showRuler", "rulerLabel",
+            "rulerTicks", "range", "gridStep", "snapStep");
+
+        const graph = this.refs.graph;
+        if (graph) {
+            const correct = graph && graph.getUserInput();
+            _.extend(json, {
+                // TODO(alpert): Allow specifying flexibleType (whether the
+                // graph type should be a choice or not)
+                graph: {type: correct.type},
+                correct: correct,
+            });
+
+            _.each(["allowReflexAngles", "angleOffsetDeg", "numPoints",
+                        "numSides", "numSegments", "showAngles", "showSides",
+                        "snapTo", "snapDegrees"],
+                    function(key) {
+                        if (_.has(correct, key)) {
+                            json.graph[key] = correct[key];
+                        }
+                    });
+        }
+        return json;
+    },
 
     render: function() {
         let graph;
@@ -223,40 +254,6 @@ const InteractiveGraphEditor = React.createClass({
             </div>}
             {graph}
         </div>;
-    },
-
-    changeMatchType: function(e) {
-        const correct = _.extend({}, this.props.correct, {
-            match: e.target.value,
-        });
-        this.props.onChange({correct: correct});
-    },
-
-    serialize: function() {
-        const json = _.pick(this.props, "step", "backgroundImage", "markings",
-            "labels", "showProtractor", "showRuler", "rulerLabel",
-            "rulerTicks", "range", "gridStep", "snapStep");
-
-        const graph = this.refs.graph;
-        if (graph) {
-            const correct = graph && graph.getUserInput();
-            _.extend(json, {
-                // TODO(alpert): Allow specifying flexibleType (whether the
-                // graph type should be a choice or not)
-                graph: {type: correct.type},
-                correct: correct,
-            });
-
-            _.each(["allowReflexAngles", "angleOffsetDeg", "numPoints",
-                        "numSides", "numSegments", "showAngles", "showSides",
-                        "snapTo", "snapDegrees"],
-                    function(key) {
-                        if (_.has(correct, key)) {
-                            json.graph[key] = correct[key];
-                        }
-                    });
-        }
-        return json;
     },
 });
 

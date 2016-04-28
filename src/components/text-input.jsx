@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 
 const ReactDOM = require("react-dom");
@@ -22,16 +18,6 @@ const TextInput = React.createClass({
             disabled: false,
             value: "",
         };
-    },
-
-    render: function() {
-        return <input
-            {...this.props}
-            type="text"
-            disabled={this.props.disabled}
-            aria-label={this.props.labelText}
-            onChange={(e) => this.props.onChange(e.target.value)}
-        />;
     },
 
     focus: function() {
@@ -63,6 +49,15 @@ const TextInput = React.createClass({
         return ReactDOM.findDOMNode(this).selectionEnd;
     },
 
+    render: function() {
+        return <input
+            {...this.props}
+            type="text"
+            disabled={this.props.disabled}
+            aria-label={this.props.labelText}
+            onChange={(e) => this.props.onChange(e.target.value)}
+        />;
+    },
 });
 
 module.exports = TextInput;

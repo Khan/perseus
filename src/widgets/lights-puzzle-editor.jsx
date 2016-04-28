@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -80,6 +76,10 @@ const Tile = React.createClass({
         value: React.PropTypes.bool.isRequired,
     },
 
+    _flip: function() {
+        this.props.onChange(!this.props.value);
+    },
+
     render: function() {
         const color = this.props.value ? "#55dd55" : "#115511";
         const style = _.extend({}, BASE_TILE_STYLE, {
@@ -91,10 +91,6 @@ const Tile = React.createClass({
             style={style}
             onClick={this._flip}
         />;
-    },
-
-    _flip: function() {
-        this.props.onChange(!this.props.value);
     },
 });
 
@@ -129,8 +125,6 @@ const TileGrid = React.createClass({
 
 // The widget editor
 const LightsPuzzleEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         flipPattern: React.PropTypes.string.isRequired,
         gradeIncompleteAsWrong: React.PropTypes.bool.isRequired,
@@ -139,6 +133,8 @@ const LightsPuzzleEditor = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -162,6 +158,40 @@ const LightsPuzzleEditor = React.createClass({
         } else {
             return 0; // default to 0
         }
+    },
+
+    _handlePatternChange: function(e) {
+        this.change("flipPattern", e.target.value);
+    },
+
+    _changeWidth: function(newWidth) {
+        newWidth = clampToInt(newWidth, 1, MAX_SIZE);
+        this._truncateCells(newWidth, this._height());
+    },
+
+    _changeHeight: function(newHeight) {
+        newHeight = clampToInt(newHeight, 1, MAX_SIZE);
+        this._truncateCells(this._width(), newHeight);
+    },
+
+    _truncateCells: function(newWidth, newHeight) {
+        const newCells = _.times(newHeight, (y) => {
+            return _.times(newWidth, (x) => {
+                // explicitly cast the result to a boolean with !!
+                return !!(this.props.startCells[y] &&
+                        this.props.startCells[y][x]);
+            });
+        });
+
+        this.change({startCells: newCells});
+    },
+
+    _switchTile: function(tileY, tileX) {
+        const newCells = flipTilesPredicate(this.props.startCells, (y, x) => {
+            return y === tileY && x === tileX;
+        });
+
+        this.change({startCells: newCells});
     },
 
     render: function() {
@@ -216,40 +246,6 @@ const LightsPuzzleEditor = React.createClass({
                 />
             </div>
         </div>;
-    },
-
-    _handlePatternChange: function(e) {
-        this.change("flipPattern", e.target.value);
-    },
-
-    _changeWidth: function(newWidth) {
-        newWidth = clampToInt(newWidth, 1, MAX_SIZE);
-        this._truncateCells(newWidth, this._height());
-    },
-
-    _changeHeight: function(newHeight) {
-        newHeight = clampToInt(newHeight, 1, MAX_SIZE);
-        this._truncateCells(this._width(), newHeight);
-    },
-
-    _truncateCells: function(newWidth, newHeight) {
-        const newCells = _.times(newHeight, (y) => {
-            return _.times(newWidth, (x) => {
-                // explicitly cast the result to a boolean with !!
-                return !!(this.props.startCells[y] &&
-                        this.props.startCells[y][x]);
-            });
-        });
-
-        this.change({startCells: newCells});
-    },
-
-    _switchTile: function(tileY, tileX) {
-        const newCells = flipTilesPredicate(this.props.startCells, (y, x) => {
-            return y === tileY && x === tileX;
-        });
-
-        this.change({startCells: newCells});
     },
 });
 

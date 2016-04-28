@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const React = require('react');
@@ -15,8 +11,6 @@ const Renderer = require("../renderer.jsx");
 const Util = require("../util.js");
 
 const Categorizer = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
-
     propTypes: {
         // List of categories (across the top)
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -31,6 +25,8 @@ const Categorizer = React.createClass({
         values: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
+    mixins: [WidgetJsonifyDeprecated, Changeable],
+
     getDefaultProps: function() {
         return {
             items: [],
@@ -43,6 +39,17 @@ const Categorizer = React.createClass({
         return {
             uniqueId: _.uniqueId("perseus_radio_"),
         };
+    },
+
+    onChange: function(itemNum, catNum) {
+        const values = _.clone(this.props.values);
+        values[itemNum] = catNum;
+        this.change("values", values);
+        this.props.trackInteraction();
+    },
+
+    simpleValidate: function(rubric) {
+        return Categorizer.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -111,17 +118,6 @@ const Categorizer = React.createClass({
                 </tr>;
             })}</tbody>
         </table></div>;
-    },
-
-    onChange: function(itemNum, catNum) {
-        const values = _.clone(this.props.values);
-        values[itemNum] = catNum;
-        this.change("values", values);
-        this.props.trackInteraction();
-    },
-
-    simpleValidate: function(rubric) {
-        return Categorizer.validate(this.getUserInput(), rubric);
     },
 });
 

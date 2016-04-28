@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
@@ -46,6 +42,18 @@ const HintEditor = React.createClass({
 
     handleChange: function(e) {
         this.props.onChange({replace:e.target.checked});
+    },
+
+    focus: function() {
+        this.refs.editor.focus();
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serialize: function(options) {
+        return this.refs.editor.serialize(options);
     },
 
     render: function() {
@@ -100,18 +108,6 @@ const HintEditor = React.createClass({
             </div>
         </div>;
     },
-
-    focus: function() {
-        this.refs.editor.focus();
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.editor.getSaveWarnings();
-    },
-
-    serialize: function(options) {
-        return this.refs.editor.serialize(options);
-    },
 });
 
 
@@ -128,6 +124,18 @@ const CombinedHintEditor = React.createClass({
         onRemove: React.PropTypes.func,
         pos: React.PropTypes.number,
         previewWidth: React.PropTypes.number.isRequired,
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serialize: function(options) {
+        return this.refs.editor.serialize(options);
+    },
+
+    focus: function() {
+        this.refs.editor.focus();
     },
 
     render: function() {
@@ -166,18 +174,6 @@ const CombinedHintEditor = React.createClass({
             </div>
         </div>;
     },
-
-    getSaveWarnings: function() {
-        return this.refs.editor.getSaveWarnings();
-    },
-
-    serialize: function(options) {
-        return this.refs.editor.serialize(options);
-    },
-
-    focus: function() {
-        this.refs.editor.focus();
-    },
 });
 
 
@@ -202,42 +198,6 @@ const CombinedHintsEditor = React.createClass({
             onChange: () => {},
             hints: [],
         };
-    },
-
-    render: function() {
-        const hints = this.props.hints;
-        const hintElems = _.map(hints, function(hint, i) {
-            return <CombinedHintEditor
-                ref={"hintEditor" + i}
-                key={"hintEditor" + i}
-                isFirst={i === 0}
-                isLast={i + 1 === hints.length}
-                hint={hint}
-                pos={i}
-                imageUploader={this.props.imageUploader}
-                onChange={this.handleHintChange.bind(this, i)}
-                onRemove={this.handleHintRemove.bind(this, i)}
-                onMove={this.handleHintMove.bind(this, i)}
-                previewWidth={this.props.previewWidth}
-                enabledFeatures={this.props.enabledFeatures}
-            />;
-        }, this);
-
-        return <div className="perseus-hints-editor perseus-editor-table">
-            {hintElems}
-            <div className="perseus-editor-row">
-                <div className="add-hint-container perseus-editor-left-cell">
-                <button
-                    type="button"
-                    className="add-hint simple-button orange"
-                    onClick={this.addHint}
-                >
-                    <span className="icon-plus" />
-                    {' '}Add a hint
-                </button>
-                </div>
-            </div>
-        </div>;
     },
 
     handleHintChange: function(i, newProps, cb, silent) {
@@ -294,6 +254,42 @@ const CombinedHintsEditor = React.createClass({
 
     serializeHint: function(index, options) {
         return this.refs["hintEditor" + index].serialize(options);
+    },
+
+    render: function() {
+        const hints = this.props.hints;
+        const hintElems = _.map(hints, function(hint, i) {
+            return <CombinedHintEditor
+                ref={"hintEditor" + i}
+                key={"hintEditor" + i}
+                isFirst={i === 0}
+                isLast={i + 1 === hints.length}
+                hint={hint}
+                pos={i}
+                imageUploader={this.props.imageUploader}
+                onChange={this.handleHintChange.bind(this, i)}
+                onRemove={this.handleHintRemove.bind(this, i)}
+                onMove={this.handleHintMove.bind(this, i)}
+                previewWidth={this.props.previewWidth}
+                enabledFeatures={this.props.enabledFeatures}
+            />;
+        }, this);
+
+        return <div className="perseus-hints-editor perseus-editor-table">
+            {hintElems}
+            <div className="perseus-editor-row">
+                <div className="add-hint-container perseus-editor-left-cell">
+                <button
+                    type="button"
+                    className="add-hint simple-button orange"
+                    onClick={this.addHint}
+                >
+                    <span className="icon-plus" />
+                    {' '}Add a hint
+                </button>
+                </div>
+            </div>
+        </div>;
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
@@ -40,8 +36,6 @@ const sigfigPrint = function(num, sigfigs) {
 * rolling two second delay, but hidden immediately on further typing.
  */
 const OldUnitInput = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         onBlur: React.PropTypes.func,
@@ -50,6 +44,8 @@ const OldUnitInput = React.createClass({
         value: React.PropTypes.string,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             apiOptions: ApiOptions.defaults,
@@ -57,30 +53,17 @@ const OldUnitInput = React.createClass({
         };
     },
 
-    // TODO(joel) think about showing the error buddy
-    render: function() {
-        const inputType = this.props.apiOptions.staticRender ?
-                React.createFactory(MathOutput) :
-                React.DOM.input;
-        const input = inputType({
-            onChange: this.handleChange,
-            ref: "input",
-            className: ApiClassNames.INTERACTIVE,
-            value: this.props.value,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-        });
+    componentDidUpdate: function() {
+        clearTimeout(this._errorTimeout);
+        if (KAS.unitParse(this.props.value).parsed) {
+            this._hideError();
+        } else {
+            this._errorTimeout = setTimeout(this._showError, 2000);
+        }
+    },
 
-        return <div className="old-unit-input">
-            {input}
-            <div
-                ref="error"
-                className="error"
-                style={{display: "none"}}
-            >
-                <$_>{"I don't understand that"}</$_>
-            </div>
-        </div>;
+    componentWillUnmount: function() {
+        clearTimeout(this._errorTimeout);
     },
 
     _errorTimeout: null,
@@ -104,19 +87,6 @@ const OldUnitInput = React.createClass({
                 $(this).hide();
             });
         }
-    },
-
-    componentDidUpdate: function() {
-        clearTimeout(this._errorTimeout);
-        if (KAS.unitParse(this.props.value).parsed) {
-            this._hideError();
-        } else {
-            this._errorTimeout = setTimeout(this._showError, 2000);
-        }
-    },
-
-    componentWillUnmount: function() {
-        clearTimeout(this._errorTimeout);
     },
 
     handleBlur: function() {
@@ -176,6 +146,32 @@ const OldUnitInput = React.createClass({
     },
 
     // end mobile stuff
+
+    // TODO(joel) think about showing the error buddy
+    render: function() {
+        const inputType = this.props.apiOptions.staticRender ?
+                React.createFactory(MathOutput) :
+                React.DOM.input;
+        const input = inputType({
+            onChange: this.handleChange,
+            ref: "input",
+            className: ApiClassNames.INTERACTIVE,
+            value: this.props.value,
+            onFocus: this.handleFocus,
+            onBlur: this.handleBlur,
+        });
+
+        return <div className="old-unit-input">
+            {input}
+            <div
+                ref="error"
+                className="error"
+                style={{display: "none"}}
+            >
+                <$_>{"I don't understand that"}</$_>
+            </div>
+        </div>;
+    },
 });
 
 // Extract the primitive units from a unit expression. This first simplifies

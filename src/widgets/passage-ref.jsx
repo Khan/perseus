@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global $_:false */
 
 const React = require("react");
@@ -14,14 +10,14 @@ const WidgetJsonifyDeprecated = require("../mixins/widget-jsonify-deprecated.jsx
 const EN_DASH = "\u2013";
 
 const PassageRef = React.createClass({
-    mixins: [WidgetJsonifyDeprecated, Changeable],
-
     propTypes: {
         interWidgets: React.PropTypes.func,
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
         summaryText: React.PropTypes.string,
     },
+
+    mixins: [WidgetJsonifyDeprecated, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -38,9 +34,45 @@ const PassageRef = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        _.defer(this._updateRange);
+    },
+
     shouldComponentUpdate: function(nextProps, nextState) {
         return !_.isEqual(this.props, nextProps) ||
             !_.isEqual(this.state, nextState);
+    },
+
+    componentDidUpdate: function() {
+        _.defer(this._updateRange);
+    },
+
+    _updateRange: function() {
+        const passage = this.props.interWidgets(
+                "passage " + this.props.passageNumber)[0];
+
+        let refInfo = null;
+        if (passage) {
+            refInfo = passage.getReference(this.props.referenceNumber);
+        }
+
+        if (this.isMounted()) {
+            if (refInfo) {
+                this.setState({
+                    lineRange: [refInfo.startLine, refInfo.endLine],
+                    content: refInfo.content,
+                });
+            } else {
+                this.setState({
+                    lineRange: null,
+                    content: null,
+                });
+            }
+        }
+    },
+
+    simpleValidate: function(rubric) {
+        return PassageRef.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -87,42 +119,6 @@ const PassageRef = React.createClass({
                 </div>
             }
         </span>;
-    },
-
-    componentDidMount: function() {
-        _.defer(this._updateRange);
-    },
-
-    componentDidUpdate: function() {
-        _.defer(this._updateRange);
-    },
-
-    _updateRange: function() {
-        const passage = this.props.interWidgets(
-                "passage " + this.props.passageNumber)[0];
-
-        let refInfo = null;
-        if (passage) {
-            refInfo = passage.getReference(this.props.referenceNumber);
-        }
-
-        if (this.isMounted()) {
-            if (refInfo) {
-                this.setState({
-                    lineRange: [refInfo.startLine, refInfo.endLine],
-                    content: refInfo.content,
-                });
-            } else {
-                this.setState({
-                    lineRange: null,
-                    content: null,
-                });
-            }
-        }
-    },
-
-    simpleValidate: function(rubric) {
-        return PassageRef.validate(this.getUserInput(), rubric);
     },
 });
 

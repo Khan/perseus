@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -24,10 +20,6 @@ const StatefulEditorPage = React.createClass({
         return {
             componentClass: EditorPage,
         };
-    },
-
-    render: function() {
-        return <this.props.componentClass {...this.state} />;
     },
 
     getInitialState: function() {
@@ -67,6 +59,10 @@ const StatefulEditorPage = React.createClass({
 
     scorePreview: function() {
         return this.refs.editor.scorePreview();
+    },
+
+    render: function() {
+        return <this.props.componentClass {...this.state} />;
     },
 });
 

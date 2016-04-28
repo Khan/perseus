@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const classNames = require("classnames");
@@ -81,6 +77,90 @@ const NumericInput = React.createClass({
             labelText: "",
             size: "normal",
         };
+    },
+
+    handleChange: function(newValue, cb) {
+        this.props.onChange({ currentValue: newValue }, cb);
+        this.props.trackInteraction();
+    },
+
+    _getInputType: function() {
+        if (this.props.apiOptions.staticRender) {
+            return "tex";
+        } else {
+            return "text";
+        }
+    },
+
+    _handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur([]);
+    },
+
+    focus: function() {
+        this.refs.input.focus();
+        return true;
+    },
+
+    focusInputPath: function(inputPath) {
+        this.refs.input.focus();
+    },
+
+    blurInputPath: function(inputPath) {
+        this.refs.input.blur();
+    },
+
+    getInputPaths: function() {
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        return "number";
+    },
+
+    setInputValue: function(path, newValue, cb) {
+        this.props.onChange({
+            currentValue: newValue,
+        }, cb);
+    },
+
+    getUserInput: function() {
+        return {currentValue: this.props.currentValue};
+    },
+
+    simpleValidate: function(rubric) {
+        return NumericInput.validate(this.getUserInput(), rubric);
+    },
+
+    shouldShowExamples: function() {
+        const noFormsAccepted = this.props.answerForms.length === 0;
+        const allFormsAccepted = this.props.answerForms.length >=
+                _.size(formExamples);
+        return this.props.enabledFeatures.toolTipFormats &&
+                !noFormsAccepted && !allFormsAccepted;
+    },
+
+    examples: function() {
+        // if the set of specified forms are empty, allow all forms
+        const forms = this.props.answerForms.length !== 0 ?
+                        this.props.answerForms :
+                        _.map(_.keys(formExamples), (name) => {
+                            return {
+                                name: name,
+                                simplify: "required",
+                            };
+                        });
+
+        const examples = _.map(forms, (form) => {
+            return formExamples[form.name](form);
+        });
+
+        return [i18n._("**Your answer should be** ")].concat(examples);
     },
 
     render: function() {
@@ -173,90 +253,6 @@ const NumericInput = React.createClass({
                 return input;
             }
         }
-    },
-
-    handleChange: function(newValue, cb) {
-        this.props.onChange({ currentValue: newValue }, cb);
-        this.props.trackInteraction();
-    },
-
-    _getInputType: function() {
-        if (this.props.apiOptions.staticRender) {
-            return "tex";
-        } else {
-            return "text";
-        }
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([]);
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([]);
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
-    },
-
-    focusInputPath: function(inputPath) {
-        this.refs.input.focus();
-    },
-
-    blurInputPath: function(inputPath) {
-        this.refs.input.blur();
-    },
-
-    getInputPaths: function() {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        return [[]];
-    },
-
-    getGrammarTypeForPath: function(inputPath) {
-        return "number";
-    },
-
-    setInputValue: function(path, newValue, cb) {
-        this.props.onChange({
-            currentValue: newValue,
-        }, cb);
-    },
-
-    getUserInput: function() {
-        return {currentValue: this.props.currentValue};
-    },
-
-    simpleValidate: function(rubric) {
-        return NumericInput.validate(this.getUserInput(), rubric);
-    },
-
-    shouldShowExamples: function() {
-        const noFormsAccepted = this.props.answerForms.length === 0;
-        const allFormsAccepted = this.props.answerForms.length >=
-                _.size(formExamples);
-        return this.props.enabledFeatures.toolTipFormats &&
-                !noFormsAccepted && !allFormsAccepted;
-    },
-
-    examples: function() {
-        // if the set of specified forms are empty, allow all forms
-        const forms = this.props.answerForms.length !== 0 ?
-                        this.props.answerForms :
-                        _.map(_.keys(formExamples), (name) => {
-                            return {
-                                name: name,
-                                simplify: "required",
-                            };
-                        });
-
-        const examples = _.map(forms, (form) => {
-            return formExamples[form.name](form);
-        });
-
-        return [i18n._("**Your answer should be** ")].concat(examples);
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -42,29 +38,6 @@ const TextListEditor = React.createClass({
         this.setState({
             items: nextProps.options.concat(""),
         });
-    },
-
-    render: function() {
-        const className = [
-            "perseus-text-list-editor",
-            "ui-helper-clearfix",
-            "layout-" + this.props.layout,
-        ].join(" ");
-
-        const inputs = _.map(this.state.items, function(item, i) {
-            return <li key={i}>
-                <input
-                    ref={"input_" + i}
-                    type="text"
-                    value={item}
-                    onChange={this.onChange.bind(this, i)}
-                    onKeyDown={this.onKeyDown.bind(this, i)}
-                    style={{width: getTextWidth(item)}}
-                />
-            </li>;
-        }, this);
-
-        return <ul className={className}>{inputs}</ul>;
     },
 
     onChange: function(index, event) {
@@ -131,6 +104,29 @@ const TextListEditor = React.createClass({
                 });
             }
         }
+    },
+
+    render: function() {
+        const className = [
+            "perseus-text-list-editor",
+            "ui-helper-clearfix",
+            "layout-" + this.props.layout,
+        ].join(" ");
+
+        const inputs = _.map(this.state.items, function(item, i) {
+            return <li key={i}>
+                <input
+                    ref={"input_" + i}
+                    type="text"
+                    value={item}
+                    onChange={this.onChange.bind(this, i)}
+                    onKeyDown={this.onKeyDown.bind(this, i)}
+                    style={{width: getTextWidth(item)}}
+                />
+            </li>;
+        }, this);
+
+        return <ul className={className}>{inputs}</ul>;
     },
 });
 

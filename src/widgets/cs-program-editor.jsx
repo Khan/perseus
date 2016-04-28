@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -19,13 +15,12 @@ const DEFAULT_HEIGHT = 400;
  * This is used for editing a name/value pair.
  */
 const PairEditor = React.createClass({
-
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         name: React.PropTypes.string,
         value: React.PropTypes.string,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -56,14 +51,25 @@ const PairEditor = React.createClass({
  * This is used for editing a set of name/value pairs.
  */
 const PairsEditor = React.createClass({
-
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         pairs: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
             value: React.PropTypes.string,
         })).isRequired,
+    },
+
+    mixins: [Changeable, EditorJsonify],
+
+    handlePairChange: function(pairIndex, pair) {
+        // If they're both non empty, add a new one
+        const pairs = this.props.pairs.slice();
+        pairs[pairIndex] = pair;
+
+        const lastPair = pairs[pairs.length - 1];
+        if (lastPair.name && lastPair.value) {
+            pairs.push({name: "", value: ""});
+        }
+        this.change("pairs", pairs);
     },
 
     render: function() {
@@ -76,18 +82,6 @@ const PairsEditor = React.createClass({
         return <div>
             {editors}
             </div>;
-    },
-
-    handlePairChange: function(pairIndex, pair) {
-        // If they're both non empty, add a new one
-        const pairs = this.props.pairs.slice();
-        pairs[pairIndex] = pair;
-
-        const lastPair = pairs[pairs.length - 1];
-        if (lastPair.name && lastPair.value) {
-            pairs.push({name: "", value: ""});
-        }
-        this.change("pairs", pairs);
     },
 });
 
@@ -111,9 +105,6 @@ function isolateProgramID(programUrl) {
  * This is the main editor for this widget, to specify all the options.
  */
 const CSProgramEditor = React.createClass({
-
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
         programID: React.PropTypes.string,
@@ -125,6 +116,8 @@ const CSProgramEditor = React.createClass({
         showEditor: React.PropTypes.bool,
     },
 
+    mixins: [Changeable, EditorJsonify],
+
     getDefaultProps: function() {
         return {
             programID: "",
@@ -134,6 +127,31 @@ const CSProgramEditor = React.createClass({
             width: DEFAULT_WIDTH,
             height: DEFAULT_HEIGHT,
         };
+    },
+
+    _handleSettingsChange: function(settings) {
+        this.change({settings: settings.pairs});
+    },
+
+    _handleProgramIDChange: function(programID) {
+        programID = isolateProgramID(programID);
+
+        $.getJSON("https://www.khanacademy.org/api/internal/scratchpads/" +
+            programID)
+            .done((programInfo) => {
+                this.change({
+                    width: programInfo.width,
+                    height: programInfo.height,
+                    programID: programID,
+                });
+            })
+            .fail((jqxhr, textStatus, error) => {
+                this.change({
+                    width: DEFAULT_WIDTH,
+                    height: DEFAULT_HEIGHT,
+                    programID: programID,
+                });
+            });
     },
 
     render: function() {
@@ -174,31 +192,6 @@ const CSProgramEditor = React.createClass({
                 </InfoTip>
             </label>
         </div>;
-    },
-
-    _handleSettingsChange: function(settings) {
-        this.change({settings: settings.pairs});
-    },
-
-    _handleProgramIDChange: function(programID) {
-        programID = isolateProgramID(programID);
-
-        $.getJSON("https://www.khanacademy.org/api/internal/scratchpads/" +
-            programID)
-            .done((programInfo) => {
-                this.change({
-                    width: programInfo.width,
-                    height: programInfo.height,
-                    programID: programID,
-                });
-            })
-            .fail((jqxhr, textStatus, error) => {
-                this.change({
-                    width: DEFAULT_WIDTH,
-                    height: DEFAULT_HEIGHT,
-                    programID: programID,
-                });
-            });
     },
 });
 

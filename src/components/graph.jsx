@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -90,49 +86,8 @@ const Graph = React.createClass({
         };
     },
 
-    render: function() {
-        let image;
-        const imageData = this.props.backgroundImage;
-        if (imageData.url) {
-            const scale = this.props.box[0] / defaultBoxSize;
-            image = <SvgImage
-                src={imageData.url}
-                width={imageData.width}
-                height={imageData.height}
-                scale={scale}
-                responsive={false}
-            />;
-        } else {
-            image = null;
-        }
-
-        return <div
-            className="graphie-container above-scratchpad"
-            style={{
-                width: this.props.box[0],
-                height: this.props.box[1],
-            }}
-            onMouseOut={this.onMouseOut}
-            onMouseOver={this.onMouseOver}
-            onClick={this.onClick}
-        >
-            {image}
-        <div className="graphie" ref="graphieDiv" />
-        </div>;
-    },
-
     componentDidMount: function() {
         this._setupGraphie(true);
-    },
-
-    componentDidUpdate: function() {
-        // Only setupGraphie once per componentDidUpdate().
-        // See explanation in setupGraphie().
-        this._hasSetupGraphieThisUpdate = false;
-        if (this._shouldSetupGraphie) {
-            this._setupGraphie(false);
-            this._shouldSetupGraphie = false;
-        }
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -145,6 +100,16 @@ const Graph = React.createClass({
                 self._shouldSetupGraphie = true;
             }
         });
+    },
+
+    componentDidUpdate: function() {
+        // Only setupGraphie once per componentDidUpdate().
+        // See explanation in setupGraphie().
+        this._hasSetupGraphieThisUpdate = false;
+        if (this._shouldSetupGraphie) {
+            this._setupGraphie(false);
+            this._shouldSetupGraphie = false;
+        }
     },
 
     /* Reset the graphie canvas to its initial state
@@ -342,6 +307,37 @@ const Graph = React.createClass({
         return _.pick(this.props, 'range', 'step', 'markings', 'labels',
                       'backgroundImage', 'showProtractor', 'showRuler',
                       'rulerLabel', 'rulerTicks', 'gridStep', 'snapStep');
+    },
+
+    render: function() {
+        let image;
+        const imageData = this.props.backgroundImage;
+        if (imageData.url) {
+            const scale = this.props.box[0] / defaultBoxSize;
+            image = <SvgImage
+                src={imageData.url}
+                width={imageData.width}
+                height={imageData.height}
+                scale={scale}
+                responsive={false}
+            />;
+        } else {
+            image = null;
+        }
+
+        return <div
+            className="graphie-container above-scratchpad"
+            style={{
+                width: this.props.box[0],
+                height: this.props.box[1],
+            }}
+            onMouseOut={this.onMouseOut}
+            onMouseOver={this.onMouseOver}
+            onClick={this.onClick}
+        >
+            {image}
+        <div className="graphie" ref="graphieDiv" />
+        </div>;
     },
 });
 

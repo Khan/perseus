@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const React = require('react');
 
@@ -18,6 +14,31 @@ const WidgetContainer = React.createClass({
 
     getInitialState: function() {
         return {widgetProps: this.props.initialProps};
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        if (this.props.type !== nextProps.type) {
+            throw new Error(
+                "WidgetContainer can't change widget type; set a different " +
+                "key instead to recreate the container."
+            );
+        }
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        return (
+            this.props.shouldHighlight !== nextProps.shouldHighlight ||
+            this.props.type !== nextProps.type ||
+            this.state.widgetProps !== nextState.widgetProps
+        );
+    },
+
+    getWidget: function() {
+        return this.refs.widget;
+    },
+
+    replaceWidgetProps: function(newWidgetProps) {
+        this.setState({widgetProps: newWidgetProps});
     },
 
     render: function() {
@@ -76,31 +97,6 @@ const WidgetContainer = React.createClass({
             />
             {isStatic && <div style={staticOverlayStyles} />}
         </div>;
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        if (this.props.type !== nextProps.type) {
-            throw new Error(
-                "WidgetContainer can't change widget type; set a different " +
-                "key instead to recreate the container."
-            );
-        }
-    },
-
-    shouldComponentUpdate: function(nextProps, nextState) {
-        return (
-            this.props.shouldHighlight !== nextProps.shouldHighlight ||
-            this.props.type !== nextProps.type ||
-            this.state.widgetProps !== nextState.widgetProps
-        );
-    },
-
-    getWidget: function() {
-        return this.refs.widget;
-    },
-
-    replaceWidgetProps: function(newWidgetProps) {
-        this.setState({widgetProps: newWidgetProps});
     },
 });
 

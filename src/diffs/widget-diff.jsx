@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const React = require("react");
 const _ = require("underscore");
@@ -106,6 +102,10 @@ const DiffEntry = React.createClass({
         };
     },
 
+    expand: function() {
+        this.setState({ expanded: true });
+    },
+
     render: function() {
         const entry = this.props.entry;
         const propertyDeleted = entry.status === "removed";
@@ -177,10 +177,6 @@ const DiffEntry = React.createClass({
                     onClick={this.expand}
                 />}
         </div>;
-    },
-
-    expand: function() {
-        this.setState({ expanded: true });
     },
 });
 

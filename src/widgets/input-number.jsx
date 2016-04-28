@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const classNames = require("classnames");
@@ -118,76 +114,6 @@ const InputNumber = React.createClass({
                 !this.props.apiOptions.staticRender;
     },
 
-    render: function() {
-        if (this.props.apiOptions.customKeypad) {
-            // TODO(charlie): Support "Review Mode".
-            return <KeypadInput
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                onFocus={() => {
-                    configureKeypad(this.props.keypadConfiguration);
-                    this._handleFocus();
-                }}
-                onBlur={this._handleBlur}
-            />;
-        } else {
-            // HACK(johnsullivan): Create a function with shared logic between
-            // this and NumericInput.
-            const rubric = this.props.reviewModeRubric;
-            let correct = null;
-            let answerBlurb = null;
-            if (rubric) {
-                const score = this.simpleValidate(rubric);
-                correct = score.type === "points" &&
-                              score.earned === score.total;
-
-                if (!correct) {
-                    // TODO(johnsullivan): Make this a little more
-                    // human-friendly.
-                    let answerString = String(rubric.value);
-                    if (rubric.inexact && rubric.maxError) {
-                        answerString += " \u00B1 " + rubric.maxError;
-                    }
-                    const answerStrings = [answerString];
-                    answerBlurb = <PossibleAnswers answers={answerStrings} />;
-                }
-            }
-
-            const classes = {};
-            classes["perseus-input-size-" + this.props.size] = true;
-            classes[ApiClassNames.CORRECT] =
-                rubric && correct && this.props.currentValue;
-            classes[ApiClassNames.INCORRECT] =
-                rubric && !correct && this.props.currentValue;
-            classes[ApiClassNames.UNANSWERED] =
-                rubric && !this.props.currentValue;
-
-            const input = <InputWithExamples
-                ref="input"
-                value={this.props.currentValue}
-                onChange={this.handleChange}
-                className={classNames(classes)}
-                type={this._getInputType()}
-                examples={this.examples()}
-                shouldShowExamples={this.shouldShowExamples()}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-                disabled={this.props.apiOptions.readOnly}
-            />;
-
-            if (answerBlurb) {
-                return <span className="perseus-input-with-answer-blurb">
-                    {input}
-                    {answerBlurb}
-                </span>;
-            } else {
-                return input;
-            }
-        }
-    },
-
     handleChange: function(newValue, cb) {
         this.props.onChange({ currentValue: newValue }, cb);
     },
@@ -261,6 +187,76 @@ const InputNumber = React.createClass({
         }, this);
 
         return [i18n._("**Your answer should be** ")].concat(examples);
+    },
+
+    render: function() {
+        if (this.props.apiOptions.customKeypad) {
+            // TODO(charlie): Support "Review Mode".
+            return <KeypadInput
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                onFocus={() => {
+                    configureKeypad(this.props.keypadConfiguration);
+                    this._handleFocus();
+                }}
+                onBlur={this._handleBlur}
+            />;
+        } else {
+            // HACK(johnsullivan): Create a function with shared logic between
+            // this and NumericInput.
+            const rubric = this.props.reviewModeRubric;
+            let correct = null;
+            let answerBlurb = null;
+            if (rubric) {
+                const score = this.simpleValidate(rubric);
+                correct = score.type === "points" &&
+                              score.earned === score.total;
+
+                if (!correct) {
+                    // TODO(johnsullivan): Make this a little more
+                    // human-friendly.
+                    let answerString = String(rubric.value);
+                    if (rubric.inexact && rubric.maxError) {
+                        answerString += " \u00B1 " + rubric.maxError;
+                    }
+                    const answerStrings = [answerString];
+                    answerBlurb = <PossibleAnswers answers={answerStrings} />;
+                }
+            }
+
+            const classes = {};
+            classes["perseus-input-size-" + this.props.size] = true;
+            classes[ApiClassNames.CORRECT] =
+                rubric && correct && this.props.currentValue;
+            classes[ApiClassNames.INCORRECT] =
+                rubric && !correct && this.props.currentValue;
+            classes[ApiClassNames.UNANSWERED] =
+                rubric && !this.props.currentValue;
+
+            const input = <InputWithExamples
+                ref="input"
+                value={this.props.currentValue}
+                onChange={this.handleChange}
+                className={classNames(classes)}
+                type={this._getInputType()}
+                examples={this.examples()}
+                shouldShowExamples={this.shouldShowExamples()}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+                disabled={this.props.apiOptions.readOnly}
+            />;
+
+            if (answerBlurb) {
+                return <span className="perseus-input-with-answer-blurb">
+                    {input}
+                    {answerBlurb}
+                </span>;
+            } else {
+                return input;
+            }
+        }
     },
 });
 

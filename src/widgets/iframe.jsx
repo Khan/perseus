@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is an iframe widget. It is used for rendering an iframe that
  *  then communicates its state via window.postMessage
@@ -22,9 +18,6 @@ const updateQueryString = require("../util.js").updateQueryString;
 
 /* This renders the iframe and handles validation via window.postMessage */
 const Iframe = React.createClass({
-
-    mixins: [Changeable, WidgetJsonifyDeprecated],
-
     propTypes: {
         allowFullScreen: React.PropTypes.bool,
         height: React.PropTypes.string,
@@ -35,6 +28,8 @@ const Iframe = React.createClass({
         width: React.PropTypes.string,
     },
 
+    mixins: [Changeable, WidgetJsonifyDeprecated],
+
     getDefaultProps: function() {
         return {
             allowFullScreen: false,
@@ -43,6 +38,15 @@ const Iframe = React.createClass({
             status: "incomplete",
         };
     },
+
+    componentDidMount: function() {
+        $(window).on("message", this.handleMessageEvent);
+    },
+
+    componentWillUnmount: function() {
+        $(window).off("message", this.handleMessageEvent);
+    },
+
     handleMessageEvent: function(e) {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
@@ -64,12 +68,9 @@ const Iframe = React.createClass({
             message: data.message,
         });
     },
-    componentDidMount: function() {
-        $(window).on("message", this.handleMessageEvent);
-    },
 
-    componentWillUnmount: function() {
-        $(window).off("message", this.handleMessageEvent);
+    simpleValidate: function(rubric) {
+        return Iframe.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -128,10 +129,6 @@ const Iframe = React.createClass({
             style={style} src={url}
             allowFullScreen={this.props.allowFullScreen}
         />;
-    },
-
-    simpleValidate: function(rubric) {
-        return Iframe.validate(this.getUserInput(), rubric);
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 
 const Changeable = require("../mixins/changeable.jsx");
@@ -12,13 +8,13 @@ const NumberInput = require("../components/number-input.jsx");
 const TextInput = require("../components/text-input.jsx");
 
 const PassageRefEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         passageNumber: React.PropTypes.number,
         referenceNumber: React.PropTypes.number,
         summaryText: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {

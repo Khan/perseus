@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -11,8 +7,6 @@ const Changeable   = require("../mixins/changeable.jsx");
 const Editor = require("../editor.jsx");
 
 const GroupEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
@@ -24,6 +18,8 @@ const GroupEditor = React.createClass({
         widgets: React.PropTypes.any,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             content: "",
@@ -33,6 +29,24 @@ const GroupEditor = React.createClass({
             metadata: undefined,
             widgets: {},
         };
+    },
+
+    _renderMetadataEditor: function() {
+        const GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
+        return <GroupMetadataEditor
+            value={this.props.metadata}
+            onChange={this.change("metadata")}
+        />;
+    },
+
+    getSaveWarnings: function() {
+        return this.refs.editor.getSaveWarnings();
+    },
+
+    serialize: function() {
+        return _.extend({}, this.refs.editor.serialize(), {
+            metadata: this.props.metadata,
+        });
     },
 
     render: function() {
@@ -52,24 +66,6 @@ const GroupEditor = React.createClass({
                 onChange={this.props.onChange}
             />
         </div>;
-    },
-
-    _renderMetadataEditor: function() {
-        const GroupMetadataEditor = this.props.apiOptions.GroupMetadataEditor;
-        return <GroupMetadataEditor
-            value={this.props.metadata}
-            onChange={this.change("metadata")}
-        />;
-    },
-
-    getSaveWarnings: function() {
-        return this.refs.editor.getSaveWarnings();
-    },
-
-    serialize: function() {
-        return _.extend({}, this.refs.editor.serialize(), {
-            metadata: this.props.metadata,
-        });
     },
 });
 

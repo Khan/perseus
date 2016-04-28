@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false, $_:false */
 
 const React = require('react');
@@ -336,26 +332,6 @@ const TransformOps = {
             transform: React.PropTypes.any.isRequired,
         },
 
-        render: function() {
-            if (this.props.mode === "dynamic") {
-                return <div>
-                    {TransformOps.toTeX(this.props.transform)}
-                </div>;
-            } else if (this.props.mode === "interactive") {
-                const TransformClass =
-                        Transformations[this.props.transform.type].Input;
-                return <TransformClass
-                    ref="transform"
-                    onChange={this.handleChange}
-                    onFocus={this.props.onFocus}
-                    onBlur={this.props.onBlur}
-                    apiOptions={this.props.apiOptions}
-                    {...this.props.transform}
-                />;
-            } else {
-                throw new Error("Invalid mode: " + this.props.mode);
-            }
-        },
         value: function() {
             if (this.props.mode === "interactive") {
                 return _.extend({
@@ -406,6 +382,26 @@ const TransformOps = {
                 return [];
             } else {
                 return this.refs.transform.getInputPaths();
+            }
+        },
+        render: function() {
+            if (this.props.mode === "dynamic") {
+                return <div>
+                    {TransformOps.toTeX(this.props.transform)}
+                </div>;
+            } else if (this.props.mode === "interactive") {
+                const TransformClass =
+                        Transformations[this.props.transform.type].Input;
+                return <TransformClass
+                    ref="transform"
+                    onChange={this.handleChange}
+                    onFocus={this.props.onFocus}
+                    onBlur={this.props.onBlur}
+                    apiOptions={this.props.apiOptions}
+                    {...this.props.transform}
+                />;
+            } else {
+                throw new Error("Invalid mode: " + this.props.mode);
             }
         },
     }),
@@ -467,6 +463,29 @@ const Transformations = {
                     /* eslint-enable react/no-did-update-set-state */
                 }
             },
+            value: function() {
+                const x = this.refs.x.getValue();
+                const y = this.refs.y.getValue();
+                return {
+                    vector: [x, y],
+                };
+            },
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                const id = _.first(path);
+                const vector = _.clone(this.state.vector);
+                if (id === "x") {
+                    vector[0] = value;
+                } else if (id === "y") {
+                    vector[1] = value;
+                }
+                this.setState({vector: vector}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            getInputPaths: function() {
+                return [["x"], ["y"]];
+            },
             render: function() {
                 const InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
@@ -509,29 +528,6 @@ const Transformations = {
                         Translation by %(vector)s
                     </$_>
                 </div>;
-            },
-            value: function() {
-                const x = this.refs.x.getValue();
-                const y = this.refs.y.getValue();
-                return {
-                    vector: [x, y],
-                };
-            },
-            /* InputPath API */
-            setInputValue: function(path, value, cb) {
-                const id = _.first(path);
-                const vector = _.clone(this.state.vector);
-                if (id === "x") {
-                    vector[0] = value;
-                } else if (id === "y") {
-                    vector[1] = value;
-                }
-                this.setState({vector: vector}, () => {
-                    this.props.onChange(cb);
-                });
-            },
-            getInputPaths: function() {
-                return [["x"], ["y"]];
             },
         }),
     },
@@ -602,6 +598,34 @@ const Transformations = {
                     /* eslint-enable react/no-did-update-set-state */
                 }
             },
+            value: function() {
+                const angleDeg = this.refs.angleDeg.getValue();
+                const centerX = this.refs.centerX.getValue();
+                const centerY = this.refs.centerY.getValue();
+                return {
+                    angleDeg: angleDeg,
+                    center: [centerX, centerY],
+                };
+            },
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                const id = _.first(path);
+                let angleDeg = _.clone(this.state.angleDeg);
+                const center = _.clone(this.state.center);
+                if (id === "angleDeg") {
+                    angleDeg = value;
+                } else if (id === "centerX") {
+                    center[0] = value;
+                } else if (id === "centerY") {
+                    center[1] = value;
+                }
+                this.setState({angleDeg: angleDeg, center: center}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            getInputPaths: function() {
+                return [["centerX"], ["centerY"], ["angleDeg"]];
+            },
             render: function() {
                 const InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
@@ -661,34 +685,6 @@ const Transformations = {
                 </$_>;
 
                 return <div>{text}</div>;
-            },
-            value: function() {
-                const angleDeg = this.refs.angleDeg.getValue();
-                const centerX = this.refs.centerX.getValue();
-                const centerY = this.refs.centerY.getValue();
-                return {
-                    angleDeg: angleDeg,
-                    center: [centerX, centerY],
-                };
-            },
-            /* InputPath API */
-            setInputValue: function(path, value, cb) {
-                const id = _.first(path);
-                let angleDeg = _.clone(this.state.angleDeg);
-                const center = _.clone(this.state.center);
-                if (id === "angleDeg") {
-                    angleDeg = value;
-                } else if (id === "centerX") {
-                    center[0] = value;
-                } else if (id === "centerY") {
-                    center[1] = value;
-                }
-                this.setState({angleDeg: angleDeg, center: center}, () => {
-                    this.props.onChange(cb);
-                });
-            },
-            getInputPaths: function() {
-                return [["centerX"], ["centerY"], ["angleDeg"]];
             },
         }),
     },
@@ -757,6 +753,42 @@ const Transformations = {
                     /* eslint-enable react/no-did-update-set-state */
                 }
             },
+            changePoint: function(i, j, val, cb) {
+                const line = _.map(this.state.line, _.clone);
+                line[i][j] = val;
+                this.setState({line: line}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            value: function() {
+                const x1 = this.refs.x1.getValue();
+                const y1 = this.refs.y1.getValue();
+                const x2 = this.refs.x2.getValue();
+                const y2 = this.refs.y2.getValue();
+                return {
+                    line: [[x1, y1], [x2, y2]],
+                };
+            },
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                const id = _.first(path);
+                let j;
+                if (id[0] === "x") {
+                    j = 0;
+                } else if (id[0] === "y") {
+                    j = 1;
+                }
+                let i;
+                if (id[1] === "1") {
+                    i = 0;
+                } else if (id[1] === "2") {
+                    i = 1;
+                }
+                this.changePoint(i, j, value, cb);
+            },
+            getInputPaths: function() {
+                return [["x1"], ["y1"], ["x2"], ["y2"]];
+            },
             render: function() {
                 const InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
@@ -810,42 +842,6 @@ const Transformations = {
                         Reflection over the line from %(point1)s to %(point2)s
                     </$_>
                 </div>;
-            },
-            changePoint: function(i, j, val, cb) {
-                const line = _.map(this.state.line, _.clone);
-                line[i][j] = val;
-                this.setState({line: line}, () => {
-                    this.props.onChange(cb);
-                });
-            },
-            value: function() {
-                const x1 = this.refs.x1.getValue();
-                const y1 = this.refs.y1.getValue();
-                const x2 = this.refs.x2.getValue();
-                const y2 = this.refs.y2.getValue();
-                return {
-                    line: [[x1, y1], [x2, y2]],
-                };
-            },
-            /* InputPath API */
-            setInputValue: function(path, value, cb) {
-                const id = _.first(path);
-                let j;
-                if (id[0] === "x") {
-                    j = 0;
-                } else if (id[0] === "y") {
-                    j = 1;
-                }
-                let i;
-                if (id[1] === "1") {
-                    i = 0;
-                } else if (id[1] === "2") {
-                    i = 1;
-                }
-                this.changePoint(i, j, value, cb);
-            },
-            getInputPaths: function() {
-                return [["x1"], ["y1"], ["x2"], ["y2"]];
             },
         }),
     },
@@ -917,6 +913,34 @@ const Transformations = {
                     /* eslint-enable react/no-did-update-set-state */
                 }
             },
+            value: function() {
+                const scale = this.refs.scale.getValue();
+                const x = this.refs.x.getValue();
+                const y = this.refs.y.getValue();
+                return {
+                    scale: scale,
+                    center: [x, y],
+                };
+            },
+            /* InputPath API */
+            setInputValue: function(path, value, cb) {
+                const id = _.first(path);
+                let scale = this.state.scale;
+                const center = _.clone(this.state.center);
+                if (id === "x") {
+                    center[0] = value;
+                } else if (id === "y") {
+                    center[1] = value;
+                } else if (id === "scale") {
+                    scale = value;
+                }
+                this.setState({scale: scale, center: center}, () => {
+                    this.props.onChange(cb);
+                });
+            },
+            getInputPaths: function() {
+                return [["x"], ["y"], ["scale"]];
+            },
             render: function() {
                 const InputComponent = (this.props.apiOptions.staticRender) ?
                         MathOutput :
@@ -971,34 +995,6 @@ const Transformations = {
                         Dilation about %(point)s by %(scale)s
                     </$_>
                 </div>;
-            },
-            value: function() {
-                const scale = this.refs.scale.getValue();
-                const x = this.refs.x.getValue();
-                const y = this.refs.y.getValue();
-                return {
-                    scale: scale,
-                    center: [x, y],
-                };
-            },
-            /* InputPath API */
-            setInputValue: function(path, value, cb) {
-                const id = _.first(path);
-                let scale = this.state.scale;
-                const center = _.clone(this.state.center);
-                if (id === "x") {
-                    center[0] = value;
-                } else if (id === "y") {
-                    center[1] = value;
-                } else if (id === "scale") {
-                    scale = value;
-                }
-                this.setState({scale: scale, center: center}, () => {
-                    this.props.onChange(cb);
-                });
-            },
-            getInputPaths: function() {
-                return [["x"], ["y"], ["scale"]];
             },
         }),
     },
@@ -1441,6 +1437,27 @@ const TransformationList = React.createClass({
         transformations: React.PropTypes.arrayOf(React.PropTypes.object),
     },
 
+    _transformationRefs: function() {
+        return _.times(this.props.transformations.length, (i) => {
+            return this.refs["transformation" + i];
+        });
+    },
+
+    value: function() {
+        return _.invoke(this._transformationRefs(), "value");
+    },
+
+    handleChange: function(changed, callback) {
+        this.props.onChange(this.value(), callback);
+    },
+
+    focusLast: function() {
+        const transformationRefs = this._transformationRefs();
+        if (transformationRefs.length !== 0) {
+            _.last(transformationRefs).focus();
+        }
+    },
+
     render: function() {
         if (this.props.mode === "static") {
             return <span />;  // don't render anything
@@ -1466,27 +1483,6 @@ const TransformationList = React.createClass({
         return <div className="perseus-transformation-list">
             {transformationList}
         </div>;
-    },
-
-    _transformationRefs: function() {
-        return _.times(this.props.transformations.length, (i) => {
-            return this.refs["transformation" + i];
-        });
-    },
-
-    value: function() {
-        return _.invoke(this._transformationRefs(), "value");
-    },
-
-    handleChange: function(changed, callback) {
-        this.props.onChange(this.value(), callback);
-    },
-
-    focusLast: function() {
-        const transformationRefs = this._transformationRefs();
-        if (transformationRefs.length !== 0) {
-            _.last(transformationRefs).focus();
-        }
     },
 });
 
@@ -1530,6 +1526,21 @@ const ToolsBar = React.createClass({
         };
     },
 
+    changeSelected: function(tool) {
+        this.props.removeTool(this.state.selected);
+
+        if (!tool || tool === this.state.selected) {
+            this.setState({
+                selected: null,
+            });
+        } else {
+            this.props.addTool(tool);
+            this.setState({
+                selected: tool,
+            });
+        }
+    },
+
     render: function() {
         const tools = _.map(Transformations, function(tool, type) {
             if (this.props.enabled[type]) {
@@ -1562,21 +1573,6 @@ const ToolsBar = React.createClass({
             <div className="clear"></div>
         </div>;
     },
-
-    changeSelected: function(tool) {
-        this.props.removeTool(this.state.selected);
-
-        if (!tool || tool === this.state.selected) {
-            this.setState({
-                selected: null,
-            });
-        } else {
-            this.props.addTool(tool);
-            this.setState({
-                selected: tool,
-            });
-        }
-    },
 });
 
 const AddTransformBar = React.createClass({
@@ -1585,6 +1581,12 @@ const AddTransformBar = React.createClass({
         apiOptions: ApiOptions.propTypes,
         enabled: React.PropTypes.objectOf(React.PropTypes.bool),
         onUndoClick: React.PropTypes.func,
+    },
+
+    changeSelected: function(tool) {
+        if (tool) {
+            this.props.addTool(tool);
+        }
     },
 
     render: function() {
@@ -1619,12 +1621,6 @@ const AddTransformBar = React.createClass({
             <div className="clear"></div>
         </div>;
     },
-
-    changeSelected: function(tool) {
-        if (tool) {
-            this.props.addTool(tool);
-        }
-    },
 });
 
 const Transformer = React.createClass({
@@ -1653,78 +1649,6 @@ const Transformer = React.createClass({
         return _.defaults({
             transformations: [],
         }, defaultTransformerProps);
-    },
-
-    render: function() {
-        // Fill in any missing value in this.props.graph
-        // this can happen because the graph json doesn't include
-        // box, for example
-        const graph = _.extend(
-                defaultGraphProps(this.props.graph, defaultBoxSize),
-                this.props.graph
-        );
-
-        const interactiveToolsMode = this.props.graphMode === "interactive";
-
-        const ToolsBarClass = interactiveToolsMode ?
-                ToolsBar :
-                AddTransformBar;
-
-        // This style is applied inline because it is dependent on the
-        // size of the graph as set by the graph.box prop, and this also
-        // lets us specify it in the same place the graph's width is
-        // specified.
-        const toolsBar = <div style={{width: graph.box[0]}}>
-            <ToolsBarClass
-                ref="toolsBar"
-                enabled={pluckObject(this.props.tools, "enabled")}
-                apiOptions={this.props.apiOptions}
-                addTool={this.addTool}
-                removeTool={this.removeTool}
-                onUndoClick={this.handleUndoClick}
-            />
-        </div>;
-
-        return <div className={"perseus-widget perseus-widget-transformer"}>
-            <Graph
-                ref="graph"
-                box={graph.box}
-                range={graph.range}
-                labels={graph.labels}
-                step={graph.step}
-                gridStep={graph.gridStep}
-                markings={graph.markings}
-                backgroundImage={graph.backgroundImage}
-                showProtractor={graph.showProtractor}
-                onGraphieUpdated={this.setupGraphie}
-            />
-
-            {!interactiveToolsMode && (
-                "Add transformations below:"
-            )}
-
-            {this.props.graphMode === "static" && [
-                <br key="static-br" />,
-                <em key="static-nomove">
-                    {' '}Note: For this question, the shape will not move.{' '}
-                </em>,
-            ]}
-
-            {interactiveToolsMode && toolsBar}
-
-            <TransformationList
-                ref="transformationList"
-                mode={this.props.listMode}
-                transformations={this.props.transformations}
-                onChange={this.setTransformationProps}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                apiOptions={this.props.apiOptions}
-            />
-
-            {!interactiveToolsMode && toolsBar}
-
-        </div>;
     },
 
     componentDidMount: function() {
@@ -2501,6 +2425,78 @@ const Transformer = React.createClass({
     getGrammarTypeForPath: function(path) {
         assert(path.length >= 2);
         return this._passToInner('getGrammarTypeForPath', path);
+    },
+
+    render: function() {
+        // Fill in any missing value in this.props.graph
+        // this can happen because the graph json doesn't include
+        // box, for example
+        const graph = _.extend(
+                defaultGraphProps(this.props.graph, defaultBoxSize),
+                this.props.graph
+        );
+
+        const interactiveToolsMode = this.props.graphMode === "interactive";
+
+        const ToolsBarClass = interactiveToolsMode ?
+                ToolsBar :
+                AddTransformBar;
+
+        // This style is applied inline because it is dependent on the
+        // size of the graph as set by the graph.box prop, and this also
+        // lets us specify it in the same place the graph's width is
+        // specified.
+        const toolsBar = <div style={{width: graph.box[0]}}>
+            <ToolsBarClass
+                ref="toolsBar"
+                enabled={pluckObject(this.props.tools, "enabled")}
+                apiOptions={this.props.apiOptions}
+                addTool={this.addTool}
+                removeTool={this.removeTool}
+                onUndoClick={this.handleUndoClick}
+            />
+        </div>;
+
+        return <div className={"perseus-widget perseus-widget-transformer"}>
+            <Graph
+                ref="graph"
+                box={graph.box}
+                range={graph.range}
+                labels={graph.labels}
+                step={graph.step}
+                gridStep={graph.gridStep}
+                markings={graph.markings}
+                backgroundImage={graph.backgroundImage}
+                showProtractor={graph.showProtractor}
+                onGraphieUpdated={this.setupGraphie}
+            />
+
+            {!interactiveToolsMode && (
+                "Add transformations below:"
+            )}
+
+            {this.props.graphMode === "static" && [
+                <br key="static-br" />,
+                <em key="static-nomove">
+                    {' '}Note: For this question, the shape will not move.{' '}
+                </em>,
+            ]}
+
+            {interactiveToolsMode && toolsBar}
+
+            <TransformationList
+                ref="transformationList"
+                mode={this.props.listMode}
+                transformations={this.props.transformations}
+                onChange={this.setTransformationProps}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                apiOptions={this.props.apiOptions}
+            />
+
+            {!interactiveToolsMode && toolsBar}
+
+        </div>;
     },
 });
 

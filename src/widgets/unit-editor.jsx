@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
 // terms of a certain type.
 // TODO(joel): Allow sigfigs within a range rather than an exact expected
@@ -41,28 +37,12 @@ const UnitExample = React.createClass({
         name: React.PropTypes.string,
     },
 
-    render: function() {
-        let icon;
-        if (this.state.valid) {
-            icon = <span>
-                <i className="icon-ok unit-example-okay" />
-                {this.state.solvedExample}
-            </span>;
-        } else {
-            icon = <i className="icon-remove unit-example-not-okay" />;
-        }
-
-        return <div>
-            {icon} {this.props.name}
-        </div>;
+    componentWillMount: function() {
+        this._checkValidity(this.props);
     },
 
     componentWillReceiveProps: function(nextProps) {
         this._checkValidity(nextProps);
-    },
-
-    componentWillMount: function() {
-        this._checkValidity(this.props);
     },
 
     _checkValidity: function({ name, original, sigfigs }) {
@@ -106,11 +86,25 @@ const UnitExample = React.createClass({
             solvedExample,
         });
     },
+
+    render: function() {
+        let icon;
+        if (this.state.valid) {
+            icon = <span>
+                <i className="icon-ok unit-example-okay" />
+                {this.state.solvedExample}
+            </span>;
+        } else {
+            icon = <i className="icon-remove unit-example-not-okay" />;
+        }
+
+        return <div>
+            {icon} {this.props.name}
+        </div>;
+    },
 });
 
 const UnitInputEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         accepting: React.PropTypes.oneOf([ALL, SOME]),
         acceptingUnits: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -119,12 +113,76 @@ const UnitInputEditor = React.createClass({
         value: React.PropTypes.string,
     },
 
+    mixins: [Changeable, EditorJsonify],
+
     getDefaultProps: function() {
         return {
             accepting: ALL,
             sigfigs: 3,
             value: "5x10^5 kg m / s^2",
         };
+    },
+
+    componentWillMount: function() {
+        this.groupId = _.uniqueId("accepting");
+        this._doOriginal(this.props);
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this._doOriginal(nextProps);
+    },
+
+    handleAcceptingUnitsChange: function(event) {
+        const acceptingUnits = event.target.value
+            .split(",")
+            .map(str => str.trim())
+            .filter(str => str !== "");
+        this.change({ acceptingUnits });
+    },
+
+    handleSigfigChange: function(sigfigs) {
+        this.change({ sigfigs });
+    },
+
+    _checkSigfigValidity: function(sigfigs) {
+        return sigfigs > 0 && sigfigs <= MAX_SIGFIGS;
+    },
+
+    _setAccepting: function(val) {
+        this.change({ accepting: val });
+    },
+
+    _doOriginal: function(props) {
+        const tryParse = KAS.unitParse(props.value);
+        this.parsed = false;
+
+        // Only update this state if the unit parsed *and* it has a magnitude
+        // attached to it. KAS can also parse units without magnitudes ("1.2
+        // g" vs "g").
+        if (tryParse.parsed && tryParse.type === "unitMagnitude") {
+            this.original = tryParse.expr;
+            this.parsed = true;
+        }
+    },
+
+    onChange: function(event) {
+        this.props.onChange({ value: event.target.value });
+    },
+
+    getSaveWarnings: function() {
+        const { value, accepting, acceptingUnits } = this.props;
+        const warnings = [];
+
+        const tryParse = KAS.unitParse(value);
+        if (!tryParse.parsed) {
+            warnings.push("Answer did not parse");
+        }
+
+        if (accepting === SOME && acceptingUnits.length === 0) {
+            warnings.push("There are no accepted units");
+        }
+
+        return warnings;
     },
 
     render: function() {
@@ -201,68 +259,6 @@ const UnitInputEditor = React.createClass({
 
             {acceptingElem}
         </div>;
-    },
-
-    handleAcceptingUnitsChange: function(event) {
-        const acceptingUnits = event.target.value
-            .split(",")
-            .map(str => str.trim())
-            .filter(str => str !== "");
-        this.change({ acceptingUnits });
-    },
-
-    handleSigfigChange: function(sigfigs) {
-        this.change({ sigfigs });
-    },
-
-    _checkSigfigValidity: function(sigfigs) {
-        return sigfigs > 0 && sigfigs <= MAX_SIGFIGS;
-    },
-
-    _setAccepting: function(val) {
-        this.change({ accepting: val });
-    },
-
-    componentWillMount: function() {
-        this.groupId = _.uniqueId("accepting");
-        this._doOriginal(this.props);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this._doOriginal(nextProps);
-    },
-
-    _doOriginal: function(props) {
-        const tryParse = KAS.unitParse(props.value);
-        this.parsed = false;
-
-        // Only update this state if the unit parsed *and* it has a magnitude
-        // attached to it. KAS can also parse units without magnitudes ("1.2
-        // g" vs "g").
-        if (tryParse.parsed && tryParse.type === "unitMagnitude") {
-            this.original = tryParse.expr;
-            this.parsed = true;
-        }
-    },
-
-    onChange: function(event) {
-        this.props.onChange({ value: event.target.value });
-    },
-
-    getSaveWarnings: function() {
-        const { value, accepting, acceptingUnits } = this.props;
-        const warnings = [];
-
-        const tryParse = KAS.unitParse(value);
-        if (!tryParse.parsed) {
-            warnings.push("Answer did not parse");
-        }
-
-        if (accepting === SOME && acceptingUnits.length === 0) {
-            warnings.push("There are no accepted units");
-        }
-
-        return warnings;
     },
 });
 

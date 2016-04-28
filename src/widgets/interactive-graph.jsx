@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const React = require('react');
@@ -320,11 +316,7 @@ const InteractiveGraph = React.createClass({
         trackInteraction: React.PropTypes.func.isRequired,
     },
 
-    getInitialState: function() {
-        return {
-            shouldShowInstructions: this._getShouldShowInstructions(),
-        };
-    },
+    mixins: [DeprecationMixin],
 
     getDefaultProps: function() {
         return {
@@ -344,14 +336,24 @@ const InteractiveGraph = React.createClass({
         };
     },
 
-    mixins: [DeprecationMixin],
-    deprecatedProps: deprecatedProps,
+    getInitialState: function() {
+        return {
+            shouldShowInstructions: this._getShouldShowInstructions(),
+        };
+    },
 
-    _getShouldShowInstructions: function(props) {
-        props = props || this.props;
-        return this.isClickToAddPoints(props) && (
-            props.graph.coords == null || props.graph.coords.length === 0
-        );
+    componentDidMount: function() {
+        this.setGraphie(this.refs.graph.graphie());
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
+            this.shouldResetGraphie = true;
+            this.setState({
+                shouldShowInstructions:
+                        this._getShouldShowInstructions(nextProps),
+            });
+        }
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -377,300 +379,13 @@ const InteractiveGraph = React.createClass({
         }
     },
 
-    render: function() {
-        let typeSelect;
-        let extraOptions;
-        if (this.props.flexibleType) {
-            typeSelect = <select
-                value={this.props.graph.type}
-                onChange={e => {
-                    const type = e.target.value;
-                    this.onChange({
-                        graph: {type: type},
-                    });
-                }}
-            >
-                <option value="linear">Linear function</option>
-                <option value="quadratic">Quadratic function</option>
-                <option value="sinusoid">Sinusoid function</option>
-                <option value="circle">Circle</option>
-                <option value="point">Point(s)</option>
-                <option value="linear-system">Linear System</option>
-                <option value="polygon">Polygon</option>
-                <option value="segment">Line Segment(s)</option>
-                <option value="ray">Ray</option>
-                <option value="angle">Angle</option>
-            </select>;
+    deprecatedProps: deprecatedProps,
 
-            if (this.props.graph.type === "point") {
-                extraOptions = <select
-                    key="point-select"
-                    value={this.props.graph.numPoints || 1}
-                    onChange={e => {
-                        // Convert numbers, leave UNLIMITED intact:
-                        const num = +e.target.value || e.target.value;
-                        this.onChange({
-                            graph: {
-                                type: "point",
-                                numPoints: num,
-                                coords: null,
-                            },
-                        });
-                    }}
-                >
-                    {_.map(_.range(1, 7), function(n) {
-                        return <option value={n}>
-                            {n} point{n > 1 && "s"}
-                        </option>;
-                    })}
-                    <option value={UNLIMITED}>unlimited</option>
-                </select>;
-            } else if (this.props.graph.type === "polygon") {
-                extraOptions = <div>
-                    <div>
-                        <select
-                            key="polygon-select"
-                            value={this.props.graph.numSides || 3}
-                            onChange={e => {
-                                // Convert numbers, leave UNLIMITED intact:
-                                const num = +e.target.value || e.target.value;
-                                const graph = _.extend({}, this.props.graph, {
-                                    numSides: num,
-                                    coords: null,
-                                    snapTo: "grid", // reset the snap for
-                                                    // UNLIMITED, which only
-                                                    // supports "grid"
-                                });
-                                this.onChange({graph: graph});
-                            }}
-                        >
-                            {_.map(_.range(3, 13), function(n) {
-                                return <option value={n}>{n} sides</option>;
-                            })}
-                            <option value={UNLIMITED}>unlimited sides</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label> Snap to{' '}
-                            <select
-                                key="polygon-snap"
-                                value={this.props.graph.snapTo}
-                                onChange={e => {
-                                    const graph = _.extend({},
-                                        this.props.graph,
-                                        {
-                                            snapTo: e.target.value,
-                                            coords: null,
-                                        });
-                                    this.onChange({graph: graph});
-                                }}
-                            >
-                                <option value="grid">grid</option>
-                                {(this.props.graph.numSides !== UNLIMITED) && [
-                                    <option value="angles">
-                                        {' '}interior angles{' '}
-                                    </option>,
-                                    <option value="sides">
-                                        {' '}side measures{' '}
-                                    </option>,
-                                ]}
-                            </select>
-                        </label>
-                        <InfoTip>
-                            <p>These options affect the movement of the vertex
-                            points. The grid option will guide the points to
-                            the nearest half step along the grid.</p>
-
-                            <p>The interior angle and side measure options
-                            guide the points to the nearest whole angle or
-                            side</p> measure respectively.{' '}
-                        </InfoTip>
-                    </div>
-                    <div>
-                        <label>Show angle measures:{' '}
-                            <input
-                                type="checkbox"
-                                checked={this.props.graph.showAngles}
-                                onChange={this.toggleShowAngles}
-                            />
-                        </label>
-                        <InfoTip>
-                            <p>Displays the interior angle measures.</p>
-                        </InfoTip>
-                    </div>
-                    <div>
-                        <label>Show side measures:{' '}
-                            <input
-                                type="checkbox"
-                                checked={this.props.graph.showSides}
-                                onChange={this.toggleShowSides}
-                            />
-                        </label>
-                        <InfoTip>
-                            <p>Displays the side lengths.</p>
-                        </InfoTip>
-                    </div>
-                </div>;
-            } else if (this.props.graph.type === "segment") {
-                extraOptions = <select
-                    key="segment-select"
-                    value={this.props.graph.numSegments || 1}
-                    onChange={e => {
-                        const num = +e.target.value;
-                        this.onChange({
-                            graph: {
-                                type: "segment",
-                                numSegments: num,
-                                coords: null,
-                            },
-                        });
-                    }}
-                >
-                    {_.map(_.range(1, 7), function(n) {
-                        return <option value={n}>
-                            {n} segment{n > 1 && "s"}
-                        </option>;
-                    })}
-                </select>;
-            } else if (this.props.graph.type === "angle") {
-                const allowReflexAngles = defaultVal(
-                    this.props.graph.allowReflexAngles,
-                    true
-                );
-                extraOptions = <div>
-                    <div>
-                        <label>Show angle measure:{' '}
-                            <input
-                                type="checkbox"
-                                checked={this.props.graph.showAngles}
-                                onChange={this.toggleShowAngles}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label>Allow reflex angles:{' '}
-                            <input
-                                type="checkbox"
-                                checked={allowReflexAngles}
-                                onChange={newVal => {
-                                    this.onChange({
-                                        graph: _.extend({}, this.props.graph, {
-                                            allowReflexAngles:
-                                                    !allowReflexAngles,
-                                            coords: null,
-                                        }),
-                                    });
-                                }}
-                            />
-                        </label>
-                        <InfoTip>
-                            <p>
-                                Reflex angles are angles with a measure
-                                greater than 180 degrees.
-                            </p>
-                            <p>
-                                By default, these should remain enabled.
-                            </p>
-                        </InfoTip>
-                    </div>
-                    <div>
-                        <label>Snap to increments of{' '}
-                            <NumberInput
-                                key="degree-snap"
-                                placeholder={1}
-                                value={this.props.graph.snapDegrees}
-                                onChange={newVal => {
-                                    this.onChange({
-                                        graph: _.extend({}, this.props.graph, {
-                                            snapDegrees: Math.abs(newVal),
-                                            coords: null,
-                                        }),
-                                    });
-                                }}
-                            />
-                            {' '}degrees{' '}
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            {' '}With an offset of{' '}
-                            <NumberInput
-                                key="angle-offset"
-                                placeholder={0}
-                                value={this.props.graph.angleOffsetDeg}
-                                onChange={newVal => {
-                                    this.onChange({
-                                        graph: _.extend({}, this.props.graph, {
-                                            angleOffsetDeg: newVal,
-                                            coords: null,
-                                        }),
-                                    });
-                                }}
-                            />
-                            {' '}degrees{' '}
-                        </label>
-                    </div>
-                </div>;
-            }
-        }
-
-        const box = this.props.box;
-
-        let instructions;
-        if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
-            if  (this.props.graph.type === "point") {
-                instructions = i18n._("Click to add points");
-            } else if (this.props.graph.type === "polygon") {
-                instructions = i18n._("Click to add vertices");
-            }
-        } else {
-            instructions = undefined;
-        }
-
-        const onMouseDown = this.isClickToAddPoints() ?
-            this.handleAddPointsMouseDown :
-            null;
-
-        const gridStep = this.props.gridStep || Util.getGridStep(
-                this.props.range,
-                this.props.step,
-                defaultBoxSize
+    _getShouldShowInstructions: function(props) {
+        props = props || this.props;
+        return this.isClickToAddPoints(props) && (
+            props.graph.coords == null || props.graph.coords.length === 0
         );
-        const snapStep = this.props.snapStep || Util.snapStepFromGridStep(
-            gridStep
-        );
-
-        return <div
-            className={"perseus-widget perseus-widget-interactive-graph"}
-            style={{
-                width: box[0],
-                height: this.props.flexibleType ? "auto" : box[1],
-            }}
-        >
-            <Graph
-                instructions={instructions}
-                ref="graph"
-                box={this.props.box}
-                labels={this.props.labels}
-                range={this.props.range}
-                step={this.props.step}
-                gridStep={gridStep}
-                snapStep={snapStep}
-                markings={this.props.markings}
-                backgroundImage={this.props.backgroundImage}
-                showProtractor={this.props.showProtractor}
-                showRuler={this.props.showRuler}
-                rulerLabel={this.props.rulerLabel}
-                rulerTicks={this.props.rulerTicks}
-                onMouseDown={onMouseDown}
-                onGraphieUpdated={this.setGraphie}
-            />
-            {typeSelect}{extraOptions}
-        </div>;
-    },
-
-    componentDidMount: function() {
-        this.setGraphie(this.refs.graph.graphie());
     },
 
     setGraphie: function(newGraphie) {
@@ -762,16 +477,6 @@ const InteractiveGraph = React.createClass({
             }
             this.trashCan.attr({
                 opacity: opacity,
-            });
-        }
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        if (this.isClickToAddPoints() !== this.isClickToAddPoints(nextProps)) {
-            this.shouldResetGraphie = true;
-            this.setState({
-                shouldShowInstructions:
-                        this._getShouldShowInstructions(nextProps),
             });
         }
     },
@@ -1774,6 +1479,298 @@ const InteractiveGraph = React.createClass({
     },
 
     focus: $.noop,
+
+    render: function() {
+        let typeSelect;
+        let extraOptions;
+        if (this.props.flexibleType) {
+            typeSelect = <select
+                value={this.props.graph.type}
+                onChange={e => {
+                    const type = e.target.value;
+                    this.onChange({
+                        graph: {type: type},
+                    });
+                }}
+            >
+                <option value="linear">Linear function</option>
+                <option value="quadratic">Quadratic function</option>
+                <option value="sinusoid">Sinusoid function</option>
+                <option value="circle">Circle</option>
+                <option value="point">Point(s)</option>
+                <option value="linear-system">Linear System</option>
+                <option value="polygon">Polygon</option>
+                <option value="segment">Line Segment(s)</option>
+                <option value="ray">Ray</option>
+                <option value="angle">Angle</option>
+            </select>;
+
+            if (this.props.graph.type === "point") {
+                extraOptions = <select
+                    key="point-select"
+                    value={this.props.graph.numPoints || 1}
+                    onChange={e => {
+                        // Convert numbers, leave UNLIMITED intact:
+                        const num = +e.target.value || e.target.value;
+                        this.onChange({
+                            graph: {
+                                type: "point",
+                                numPoints: num,
+                                coords: null,
+                            },
+                        });
+                    }}
+                >
+                    {_.map(_.range(1, 7), function(n) {
+                        return <option value={n}>
+                            {n} point{n > 1 && "s"}
+                        </option>;
+                    })}
+                    <option value={UNLIMITED}>unlimited</option>
+                </select>;
+            } else if (this.props.graph.type === "polygon") {
+                extraOptions = <div>
+                    <div>
+                        <select
+                            key="polygon-select"
+                            value={this.props.graph.numSides || 3}
+                            onChange={e => {
+                                // Convert numbers, leave UNLIMITED intact:
+                                const num = +e.target.value || e.target.value;
+                                const graph = _.extend({}, this.props.graph, {
+                                    numSides: num,
+                                    coords: null,
+                                    snapTo: "grid", // reset the snap for
+                                                    // UNLIMITED, which only
+                                                    // supports "grid"
+                                });
+                                this.onChange({graph: graph});
+                            }}
+                        >
+                            {_.map(_.range(3, 13), function(n) {
+                                return <option value={n}>{n} sides</option>;
+                            })}
+                            <option value={UNLIMITED}>unlimited sides</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label> Snap to{' '}
+                            <select
+                                key="polygon-snap"
+                                value={this.props.graph.snapTo}
+                                onChange={e => {
+                                    const graph = _.extend({},
+                                        this.props.graph,
+                                        {
+                                            snapTo: e.target.value,
+                                            coords: null,
+                                        });
+                                    this.onChange({graph: graph});
+                                }}
+                            >
+                                <option value="grid">grid</option>
+                                {(this.props.graph.numSides !== UNLIMITED) && [
+                                    <option value="angles">
+                                        {' '}interior angles{' '}
+                                    </option>,
+                                    <option value="sides">
+                                        {' '}side measures{' '}
+                                    </option>,
+                                ]}
+                            </select>
+                        </label>
+                        <InfoTip>
+                            <p>These options affect the movement of the vertex
+                            points. The grid option will guide the points to
+                            the nearest half step along the grid.</p>
+
+                            <p>The interior angle and side measure options
+                            guide the points to the nearest whole angle or
+                            side</p> measure respectively.{' '}
+                        </InfoTip>
+                    </div>
+                    <div>
+                        <label>Show angle measures:{' '}
+                            <input
+                                type="checkbox"
+                                checked={this.props.graph.showAngles}
+                                onChange={this.toggleShowAngles}
+                            />
+                        </label>
+                        <InfoTip>
+                            <p>Displays the interior angle measures.</p>
+                        </InfoTip>
+                    </div>
+                    <div>
+                        <label>Show side measures:{' '}
+                            <input
+                                type="checkbox"
+                                checked={this.props.graph.showSides}
+                                onChange={this.toggleShowSides}
+                            />
+                        </label>
+                        <InfoTip>
+                            <p>Displays the side lengths.</p>
+                        </InfoTip>
+                    </div>
+                </div>;
+            } else if (this.props.graph.type === "segment") {
+                extraOptions = <select
+                    key="segment-select"
+                    value={this.props.graph.numSegments || 1}
+                    onChange={e => {
+                        const num = +e.target.value;
+                        this.onChange({
+                            graph: {
+                                type: "segment",
+                                numSegments: num,
+                                coords: null,
+                            },
+                        });
+                    }}
+                >
+                    {_.map(_.range(1, 7), function(n) {
+                        return <option value={n}>
+                            {n} segment{n > 1 && "s"}
+                        </option>;
+                    })}
+                </select>;
+            } else if (this.props.graph.type === "angle") {
+                const allowReflexAngles = defaultVal(
+                    this.props.graph.allowReflexAngles,
+                    true
+                );
+                extraOptions = <div>
+                    <div>
+                        <label>Show angle measure:{' '}
+                            <input
+                                type="checkbox"
+                                checked={this.props.graph.showAngles}
+                                onChange={this.toggleShowAngles}
+                            />
+                        </label>
+                    </div>
+                    <div>
+                        <label>Allow reflex angles:{' '}
+                            <input
+                                type="checkbox"
+                                checked={allowReflexAngles}
+                                onChange={newVal => {
+                                    this.onChange({
+                                        graph: _.extend({}, this.props.graph, {
+                                            allowReflexAngles:
+                                                    !allowReflexAngles,
+                                            coords: null,
+                                        }),
+                                    });
+                                }}
+                            />
+                        </label>
+                        <InfoTip>
+                            <p>
+                                Reflex angles are angles with a measure
+                                greater than 180 degrees.
+                            </p>
+                            <p>
+                                By default, these should remain enabled.
+                            </p>
+                        </InfoTip>
+                    </div>
+                    <div>
+                        <label>Snap to increments of{' '}
+                            <NumberInput
+                                key="degree-snap"
+                                placeholder={1}
+                                value={this.props.graph.snapDegrees}
+                                onChange={newVal => {
+                                    this.onChange({
+                                        graph: _.extend({}, this.props.graph, {
+                                            snapDegrees: Math.abs(newVal),
+                                            coords: null,
+                                        }),
+                                    });
+                                }}
+                            />
+                            {' '}degrees{' '}
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            {' '}With an offset of{' '}
+                            <NumberInput
+                                key="angle-offset"
+                                placeholder={0}
+                                value={this.props.graph.angleOffsetDeg}
+                                onChange={newVal => {
+                                    this.onChange({
+                                        graph: _.extend({}, this.props.graph, {
+                                            angleOffsetDeg: newVal,
+                                            coords: null,
+                                        }),
+                                    });
+                                }}
+                            />
+                            {' '}degrees{' '}
+                        </label>
+                    </div>
+                </div>;
+            }
+        }
+
+        const box = this.props.box;
+
+        let instructions;
+        if (this.isClickToAddPoints() && this.state.shouldShowInstructions) {
+            if  (this.props.graph.type === "point") {
+                instructions = i18n._("Click to add points");
+            } else if (this.props.graph.type === "polygon") {
+                instructions = i18n._("Click to add vertices");
+            }
+        } else {
+            instructions = undefined;
+        }
+
+        const onMouseDown = this.isClickToAddPoints() ?
+            this.handleAddPointsMouseDown :
+            null;
+
+        const gridStep = this.props.gridStep || Util.getGridStep(
+                this.props.range,
+                this.props.step,
+                defaultBoxSize
+        );
+        const snapStep = this.props.snapStep || Util.snapStepFromGridStep(
+            gridStep
+        );
+
+        return <div
+            className={"perseus-widget perseus-widget-interactive-graph"}
+            style={{
+                width: box[0],
+                height: this.props.flexibleType ? "auto" : box[1],
+            }}
+        >
+            <Graph
+                instructions={instructions}
+                ref="graph"
+                box={this.props.box}
+                labels={this.props.labels}
+                range={this.props.range}
+                step={this.props.step}
+                gridStep={gridStep}
+                snapStep={snapStep}
+                markings={this.props.markings}
+                backgroundImage={this.props.backgroundImage}
+                showProtractor={this.props.showProtractor}
+                showRuler={this.props.showRuler}
+                rulerLabel={this.props.rulerLabel}
+                rulerTicks={this.props.rulerTicks}
+                onMouseDown={onMouseDown}
+                onGraphieUpdated={this.setGraphie}
+            />
+            {typeSelect}{extraOptions}
+        </div>;
+    },
 });
 
 

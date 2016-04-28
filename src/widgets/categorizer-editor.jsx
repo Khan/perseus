@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const Changeable = require("../mixins/changeable.jsx");
 const _ = require("underscore");
@@ -13,8 +9,6 @@ const TextListEditor = require("../components/text-list-editor.jsx");
 const Categorizer = require("./categorizer.jsx").widget;
 
 const CategorizerEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
         items: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -22,6 +16,8 @@ const CategorizerEditor = React.createClass({
         randomizeItems: React.PropTypes.bool,
         values: React.PropTypes.arrayOf(React.PropTypes.number),
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {

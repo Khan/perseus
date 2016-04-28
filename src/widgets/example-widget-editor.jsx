@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 
 const Changeable = require("../mixins/changeable.jsx");
@@ -12,11 +8,11 @@ const EditorJsonify = require("../mixins/editor-jsonify.jsx");
  * of the screen in the demo. Only the question writer sees this.
  */
 const ExampleWidgetEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         correct: React.PropTypes.string,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
@@ -30,6 +26,11 @@ const ExampleWidgetEditor = React.createClass({
         });
     },
 
+    focus: function() {
+        this.refs.input.focus();
+        return true;
+    },
+
     render: function() {
         return <div>
             <label>
@@ -41,11 +42,6 @@ const ExampleWidgetEditor = React.createClass({
                 />
             </label>
         </div>;
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
     },
 });
 

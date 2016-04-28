@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -39,13 +35,13 @@ const defaultInteractionProps = {
 // TODO(eater): Factor this out
 //
 const PointEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -89,8 +85,6 @@ const PointEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 const LineEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         arrows: React.PropTypes.string,
         color: React.PropTypes.string,
@@ -101,6 +95,8 @@ const LineEditor = React.createClass({
         strokeDasharray: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -185,8 +181,6 @@ const LineEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 const MovablePointEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         constraint: React.PropTypes.string,
         constraintFn: React.PropTypes.string,
@@ -195,6 +189,8 @@ const MovablePointEditor = React.createClass({
         startY: React.PropTypes.string,
         varSubscript: React.PropTypes.number,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -247,8 +243,6 @@ const MovablePointEditor = React.createClass({
 // TODO(eater): Rethink how constraints are represented
 //
 const MovableLineEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         constraint: React.PropTypes.string,
         constraintFn: React.PropTypes.string,
@@ -260,6 +254,8 @@ const MovableLineEditor = React.createClass({
         startX: React.PropTypes.string,
         startY: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -341,8 +337,6 @@ const MovableLineEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 const FunctionEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         color: React.PropTypes.string,
         funcName: React.PropTypes.string,
@@ -352,6 +346,8 @@ const FunctionEditor = React.createClass({
         strokeWidth: React.PropTypes.number,
         value: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -421,8 +417,6 @@ const FunctionEditor = React.createClass({
 // TODO(eater): Factor this out
 //
 const ParametricEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         color: React.PropTypes.string,
         rangeMax: React.PropTypes.string,
@@ -432,6 +426,8 @@ const ParametricEditor = React.createClass({
         x: React.PropTypes.string,
         y: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -511,14 +507,14 @@ const ParametricEditor = React.createClass({
 // TODO(eater): Add text direction
 //
 const LabelEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
         label: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -572,8 +568,6 @@ const LabelEditor = React.createClass({
 // TODO(eater): Factor this out maybe?
 //
 const RectangleEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         color: React.PropTypes.string,
         coordX: React.PropTypes.string,
@@ -581,6 +575,8 @@ const RectangleEditor = React.createClass({
         height: React.PropTypes.string,
         width: React.PropTypes.string,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return {
@@ -640,13 +636,13 @@ const RectangleEditor = React.createClass({
 });
 
 const InteractionEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     // TODO(eater): Make more better
     propTypes: {
         elements: React.PropTypes.arrayOf(React.PropTypes.object),
         graph: React.PropTypes.objectOf(React.PropTypes.any),
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return defaultInteractionProps;

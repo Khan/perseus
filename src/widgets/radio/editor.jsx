@@ -1,7 +1,4 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
 /* global i18n */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
 const _ = require("underscore");
@@ -75,8 +72,6 @@ const ChoiceEditor = React.createClass({
 
 
 const RadioEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         // We don't use ApiOptions.propTypes here because it requires the props
         // and they're optional for this component.
@@ -96,6 +91,8 @@ const RadioEditor = React.createClass({
         static: React.PropTypes.bool,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             choices: [{}, {}],
@@ -106,108 +103,6 @@ const RadioEditor = React.createClass({
             onePerLine: true,
             randomize: false,
         };
-    },
-
-    render: function() {
-        return <div>
-            <div className="perseus-widget-row">
-
-                <div className="perseus-widget-left-col">
-                    <div>
-                        <PropCheckBox
-                            label="One answer per line"
-                            labelAlignment="right"
-                            onePerLine={this.props.onePerLine}
-                            onChange={this.props.onChange}
-                        />
-                        <InfoTip>
-                            <p>
-                                Use one answer per line unless your question
-                                has images that might cause the answers to go
-                                off the page.
-                            </p>
-                        </InfoTip>
-                    </div>
-                </div>
-
-                <div className="perseus-widget-right-col">
-                    <PropCheckBox
-                        label="Multiple selections"
-                        labelAlignment="right"
-                        multipleSelect={this.props.multipleSelect}
-                        onChange={this.onMultipleSelectChange}
-                    />
-                </div>
-                <div className="perseus-widget-left-col">
-                    <PropCheckBox
-                        label="Randomize order"
-                        labelAlignment="right"
-                        randomize={this.props.randomize}
-                        onChange={this.props.onChange}
-                    />
-                </div>
-                {!this.props.static &&
-                    <div className="perseus-widget-right-col">
-                        <PropCheckBox
-                            label="Radio deselect enabled"
-                            labelAlignment="right"
-                            deselectEnabled={this.props.deselectEnabled}
-                            onChange={this.props.onChange}
-                        />
-                    </div>}
-            </div>
-
-            <BaseRadio
-                ref="baseRadio"
-                multipleSelect={this.props.multipleSelect}
-                onePerLine={true}
-                labelWrap={false}
-                apiOptions={this.props.apiOptions}
-                choices={this.props.choices.map(function(choice, i) {
-                    return {
-                        content: <ChoiceEditor
-                            ref={`choice-editor${i}`}
-                            choice={choice}
-                            onContentChange={(newProps) => {
-                                if ("content" in newProps) {
-                                    this.onContentChange(i, newProps.content);
-                                }
-                            }}
-                            onClueChange={(newProps) => {
-                                if ("content" in newProps) {
-                                    this.onClueChange(i, newProps.content);
-                                }
-                            }}
-                            onDelete={this.onDelete.bind(this, i)}
-                            showDelete={this.props.choices.length >= 2}
-                        />,
-                        isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                        checked: choice.correct,
-                    };
-                }, this)}
-                onCheckedChange={this.onCheckedChange}
-            />
-
-            <div className="add-choice-container">
-                <a
-                    href="#" className="simple-button orange"
-                    onClick={this.addChoice.bind(this, false)}
-                >
-                    <span className="icon-plus" />
-                    {' '}Add a choice{' '}
-                </a>
-
-                {!this.props.hasNoneOfTheAbove &&
-                    <a
-                        href="#" className="simple-button"
-                        onClick={this.addChoice.bind(this, true)}
-                    >
-                        <span className="icon-plus" />
-                        {' '}None of the above{' '}
-                    </a>}
-            </div>
-
-        </div>;
     },
 
     onMultipleSelectChange: function(allowMultiple) {
@@ -321,6 +216,108 @@ const RadioEditor = React.createClass({
         return _.pick(this.props, "choices", "randomize", "multipleSelect",
             "displayCount", "hasNoneOfTheAbove", "onePerLine",
             "deselectEnabled");
+    },
+
+    render: function() {
+        return <div>
+            <div className="perseus-widget-row">
+
+                <div className="perseus-widget-left-col">
+                    <div>
+                        <PropCheckBox
+                            label="One answer per line"
+                            labelAlignment="right"
+                            onePerLine={this.props.onePerLine}
+                            onChange={this.props.onChange}
+                        />
+                        <InfoTip>
+                            <p>
+                                Use one answer per line unless your question
+                                has images that might cause the answers to go
+                                off the page.
+                            </p>
+                        </InfoTip>
+                    </div>
+                </div>
+
+                <div className="perseus-widget-right-col">
+                    <PropCheckBox
+                        label="Multiple selections"
+                        labelAlignment="right"
+                        multipleSelect={this.props.multipleSelect}
+                        onChange={this.onMultipleSelectChange}
+                    />
+                </div>
+                <div className="perseus-widget-left-col">
+                    <PropCheckBox
+                        label="Randomize order"
+                        labelAlignment="right"
+                        randomize={this.props.randomize}
+                        onChange={this.props.onChange}
+                    />
+                </div>
+                {!this.props.static &&
+                    <div className="perseus-widget-right-col">
+                        <PropCheckBox
+                            label="Radio deselect enabled"
+                            labelAlignment="right"
+                            deselectEnabled={this.props.deselectEnabled}
+                            onChange={this.props.onChange}
+                        />
+                    </div>}
+            </div>
+
+            <BaseRadio
+                ref="baseRadio"
+                multipleSelect={this.props.multipleSelect}
+                onePerLine={true}
+                labelWrap={false}
+                apiOptions={this.props.apiOptions}
+                choices={this.props.choices.map(function(choice, i) {
+                    return {
+                        content: <ChoiceEditor
+                            ref={`choice-editor${i}`}
+                            choice={choice}
+                            onContentChange={(newProps) => {
+                                if ("content" in newProps) {
+                                    this.onContentChange(i, newProps.content);
+                                }
+                            }}
+                            onClueChange={(newProps) => {
+                                if ("content" in newProps) {
+                                    this.onClueChange(i, newProps.content);
+                                }
+                            }}
+                            onDelete={this.onDelete.bind(this, i)}
+                            showDelete={this.props.choices.length >= 2}
+                        />,
+                        isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                        checked: choice.correct,
+                    };
+                }, this)}
+                onCheckedChange={this.onCheckedChange}
+            />
+
+            <div className="add-choice-container">
+                <a
+                    href="#" className="simple-button orange"
+                    onClick={this.addChoice.bind(this, false)}
+                >
+                    <span className="icon-plus" />
+                    {' '}Add a choice{' '}
+                </a>
+
+                {!this.props.hasNoneOfTheAbove &&
+                    <a
+                        href="#" className="simple-button"
+                        onClick={this.addChoice.bind(this, true)}
+                    >
+                        <span className="icon-plus" />
+                        {' '}None of the above{' '}
+                    </a>}
+            </div>
+
+        </div>;
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -10,8 +6,6 @@ const InfoTip = require("../components/info-tip.jsx");
 const EditorJsonify = require("../mixins/editor-jsonify.jsx");
 
 const DropdownEditor = React.createClass({
-    mixins: [EditorJsonify],
-
     propTypes: {
         choices: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
@@ -21,6 +15,8 @@ const DropdownEditor = React.createClass({
         placeholder: React.PropTypes.string,
     },
 
+    mixins: [EditorJsonify],
+
     getDefaultProps: function() {
         return {
             placeholder: "",
@@ -29,6 +25,52 @@ const DropdownEditor = React.createClass({
                 correct: false,
             }],
         };
+    },
+
+    onPlaceholderChange: function(e) {
+        const placeholder = e.target.value;
+        this.props.onChange({placeholder: placeholder});
+    },
+
+    onCorrectChange: function(choiceIndex) {
+        const choices = _.map(this.props.choices, function(choice, i) {
+            return _.extend({}, choice, {
+                correct: i === choiceIndex,
+            });
+        });
+        this.props.onChange({choices: choices});
+    },
+
+    onContentChange: function(choiceIndex, e) {
+        const choices = this.props.choices.slice();
+        const choice = _.clone(choices[choiceIndex]);
+        choice.content = e.target.value;
+        choices[choiceIndex] = choice;
+        this.props.onChange({choices: choices});
+    },
+
+    addChoice: function(e) {
+        e.preventDefault();
+
+        const choices = this.props.choices;
+        const blankChoice = {content: "", correct: false};
+        this.props.onChange({
+            choices: choices.concat([blankChoice]),
+        }, this.focus.bind(this, choices.length));
+    },
+
+    removeChoice: function(choiceIndex, e) {
+        e.preventDefault();
+        const choices = _(this.props.choices).clone();
+        choices.splice(choiceIndex, 1);
+        this.props.onChange({
+            choices: choices,
+        });
+    },
+
+    focus: function(i) {
+        ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
+        return true;
     },
 
     render: function() {
@@ -100,52 +142,6 @@ const DropdownEditor = React.createClass({
                 </a>
             </div>
         </div>;
-    },
-
-    onPlaceholderChange: function(e) {
-        const placeholder = e.target.value;
-        this.props.onChange({placeholder: placeholder});
-    },
-
-    onCorrectChange: function(choiceIndex) {
-        const choices = _.map(this.props.choices, function(choice, i) {
-            return _.extend({}, choice, {
-                correct: i === choiceIndex,
-            });
-        });
-        this.props.onChange({choices: choices});
-    },
-
-    onContentChange: function(choiceIndex, e) {
-        const choices = this.props.choices.slice();
-        const choice = _.clone(choices[choiceIndex]);
-        choice.content = e.target.value;
-        choices[choiceIndex] = choice;
-        this.props.onChange({choices: choices});
-    },
-
-    addChoice: function(e) {
-        e.preventDefault();
-
-        const choices = this.props.choices;
-        const blankChoice = {content: "", correct: false};
-        this.props.onChange({
-            choices: choices.concat([blankChoice]),
-        }, this.focus.bind(this, choices.length));
-    },
-
-    removeChoice: function(choiceIndex, e) {
-        e.preventDefault();
-        const choices = _(this.props.choices).clone();
-        choices.splice(choiceIndex, 1);
-        this.props.onChange({
-            choices: choices,
-        });
-    },
-
-    focus: function(i) {
-        ReactDOM.findDOMNode(this.refs["editor" + i]).focus();
-        return true;
     },
 });
 

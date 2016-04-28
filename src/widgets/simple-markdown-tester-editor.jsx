@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is the editor for the simple-markdown-tester widget. This is what shows
  * up on the left side of the screen in the demo. Only the question writer
@@ -18,14 +14,6 @@ const TextArea = React.createClass({
         value: React.PropTypes.string,
     },
 
-    render: function() {
-        return <textarea
-            ref="input"
-            value={this.props.value || ""}
-            onChange={this.changeValue}
-        />;
-    },
-
     focus: function() {
         this.refs.input.focus();
         return true;
@@ -36,19 +24,32 @@ const TextArea = React.createClass({
         // of the textbox to send to onChange
         this.props.onChange(e.target.value);
     },
+
+    render: function() {
+        return <textarea
+            ref="input"
+            value={this.props.value || ""}
+            onChange={this.changeValue}
+        />;
+    },
 });
 
 const SimpleMarkdownTesterEditor = React.createClass({
-    mixins: [Changeable, EditorJsonify],
-
     propTypes: {
         value: React.PropTypes.string,
     },
+
+    mixins: [Changeable, EditorJsonify],
 
     getDefaultProps: function() {
         return {
             value: "",
         };
+    },
+
+    focus: function() {
+        this.refs.input.focus();
+        return true;
     },
 
     render: function() {
@@ -64,11 +65,6 @@ const SimpleMarkdownTesterEditor = React.createClass({
                 </div>
             </label>
         </div>;
-    },
-
-    focus: function() {
-        this.refs.input.focus();
-        return true;
     },
 });
 

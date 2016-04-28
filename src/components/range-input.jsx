@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const NumberInput = require("../components/number-input.jsx");
 
@@ -27,6 +23,15 @@ const RangeInput = React.createClass({
         };
     },
 
+    onChange: function(i, newVal) {
+        const value = this.props.value;
+        if (i === 0) {
+            this.props.onChange([newVal, value[1]]);
+        } else {
+            this.props.onChange([value[0], newVal]);
+        }
+    },
+
     render: function() {
         const value = this.props.value;
         const checkValidity = this.props.checkValidity || truth;
@@ -48,16 +53,6 @@ const RangeInput = React.createClass({
             />
         </div>;
     },
-
-    onChange: function(i, newVal) {
-        const value = this.props.value;
-        if (i === 0) {
-            this.props.onChange([newVal, value[1]]);
-        } else {
-            this.props.onChange([value[0], newVal]);
-        }
-    },
-
 });
 
 module.exports = RangeInput;

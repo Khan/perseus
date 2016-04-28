@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const FancySelect = require("../components/fancy-select.jsx");
 const React = require('react');
@@ -33,6 +29,28 @@ const Dropdown = React.createClass({
             placeholder: "",
             apiOptions: ApiOptions.defaults,
         };
+    },
+
+    focus: function() {
+        ReactDOM.findDOMNode(this).focus();
+        return true;
+    },
+
+    _handleChangeEvent: function(e) {
+        this._handleChange(parseInt(e.target.value));
+    },
+
+    _handleChange: function(selected) {
+        this.props.trackInteraction();
+        this.props.onChange({selected: selected});
+    },
+
+    getUserInput: function() {
+        return {value: this.props.selected};
+    },
+
+    simpleValidate: function(rubric) {
+        return Dropdown.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -83,28 +101,6 @@ const Dropdown = React.createClass({
                 })}
             </select>;
         }
-    },
-
-    focus: function() {
-        ReactDOM.findDOMNode(this).focus();
-        return true;
-    },
-
-    _handleChangeEvent: function(e) {
-        this._handleChange(parseInt(e.target.value));
-    },
-
-    _handleChange: function(selected) {
-        this.props.trackInteraction();
-        this.props.onChange({selected: selected});
-    },
-
-    getUserInput: function() {
-        return {value: this.props.selected};
-    },
-
-    simpleValidate: function(rubric) {
-        return Dropdown.validate(this.getUserInput(), rubric);
     },
 });
 

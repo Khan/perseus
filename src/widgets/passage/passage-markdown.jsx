@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global $_:false */
 
 const React = require("react");
@@ -50,12 +46,12 @@ const RefStart = React.createClass({
         refContent: React.PropTypes.node.isRequired,
     },
 
-    render: function() {
-        return <span style={REF_STYLE}>_</span>;
-    },
-
     getRefContent: function() {
         return this.props.refContent;
+    },
+
+    render: function() {
+        return <span style={REF_STYLE}>_</span>;
     },
 });
 

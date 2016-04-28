@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -70,8 +66,6 @@ const defaultInteractionProps = {
 };
 
 const Interaction = React.createClass({
-    mixins: [Changeable],
-
     // TODO(eater): Make more better
     propTypes: {
         elements: React.PropTypes.arrayOf(React.PropTypes.object),
@@ -79,6 +73,8 @@ const Interaction = React.createClass({
         graph: React.PropTypes.any,
         trackInteraction: React.PropTypes.func,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return defaultInteractionProps;
@@ -89,6 +85,13 @@ const Interaction = React.createClass({
             variables: this._getInitialVariables(this.props.elements),
             functions: this._getInitialFunctions(this.props.elements),
         };
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            variables: this._getInitialVariables(nextProps.elements),
+            functions: this._getInitialFunctions(nextProps.elements),
+        });
     },
 
     _getInitialVariables: function(elements) {
@@ -146,13 +149,6 @@ const Interaction = React.createClass({
     _getInitialFunctions: function(elements) {
         return _.map(_.where(elements, {type: "function"}),
             (element) => element.options.funcName);
-    },
-
-    componentWillReceiveProps: function(nextProps) {
-        this.setState({
-            variables: this._getInitialVariables(nextProps.elements),
-            functions: this._getInitialFunctions(nextProps.elements),
-        });
     },
 
     _setupGraphie: function(graphie, options) {
@@ -235,6 +231,17 @@ const Interaction = React.createClass({
         return vars;
     },
 
+    getUserInput: function() {
+        // TODO(eater): Perhaps we want to be able to record the state of the
+        // user's interaction. Unfortunately sending all the props will
+        // probably make the attempt payload too large. So for now, don't send
+        // anything.
+        return {};
+    },
+
+    simpleValidate: function(rubric) {
+        return Interaction.validate(this.getUserInput(), rubric);
+    },
 
     render: function() {
         return <Graphie
@@ -474,18 +481,6 @@ const Interaction = React.createClass({
                 }
             }, this)}
         </Graphie>;
-    },
-
-    getUserInput: function() {
-        // TODO(eater): Perhaps we want to be able to record the state of the
-        // user's interaction. Unfortunately sending all the props will
-        // probably make the attempt payload too large. So for now, don't send
-        // anything.
-        return {};
-    },
-
-    simpleValidate: function(rubric) {
-        return Interaction.validate(this.getUserInput(), rubric);
     },
 });
 

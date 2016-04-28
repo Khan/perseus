@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const React = require("react");
 const _ = require("underscore");
@@ -28,8 +24,6 @@ const DEFAULT_INVALID_MESSAGE = "It looks like you left something blank or " +
     "entered in an invalid answer.";
 
 const GradedGroup = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
@@ -41,6 +35,8 @@ const GradedGroup = React.createClass({
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         widgets: React.PropTypes.any,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -55,6 +51,78 @@ const GradedGroup = React.createClass({
             status: GRADING_STATUSES.ungraded,
             message: "",
         };
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        return nextProps !== this.props || nextState !== this.state;
+    },
+
+    // This is a little strange because the id of the widget that actually
+    // changed is going to be lost in favor of the group widget's id. The
+    // widgets prop also wasn't actually changed, and this only serves to
+    // alert our renderer (our parent) of the fact that some interaction
+    // has occurred.
+    _onInteractWithWidget: function(id) {
+        // Reset grading display when user changes answer
+        this.setState({
+            status: GRADING_STATUSES.ungraded,
+            message: "",
+        });
+
+        if (this.refs.renderer) {
+            this.change("widgets", this.props.widgets);
+        }
+    },
+
+    _checkAnswer: function() {
+        const score = this.refs.renderer.score();
+
+        let status;
+        let message;
+        if (score.type === "points") {
+            status = score.total === score.earned ?
+                GRADING_STATUSES.correct : GRADING_STATUSES.incorrect;
+            message = score.message || "";
+        } else { // score.type is "invalid"
+            status = GRADING_STATUSES.invalid;
+            message = score.message ?
+                `${INVALID_MESSAGE_PREFIX} ${score.message}` :
+                `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
+        }
+
+        this.setState({
+            status: status,
+            message: message,
+        });
+
+        this.props.trackInteraction({
+            status: status,
+        });
+    },
+
+    // Mobile API
+    getInputPaths: function() {
+        return this.refs.renderer.getInputPaths();
+    },
+
+    setInputValue: function(path, newValue, cb) {
+        return this.refs.renderer.setInputValue(path, newValue, cb);
+    },
+
+    getAcceptableFormatsForInputPath: function(path) {
+        return this.refs.renderer.getAcceptableFormatsForInputPath(path);
+    },
+
+    focus: function() {
+        return this.refs.renderer.focus();
+    },
+
+    focusInputPath: function(path) {
+        this.refs.renderer.focusPath(path);
+    },
+
+    blurInputPath: function(path) {
+        this.refs.renderer.blurPath(path);
     },
 
     render: function() {
@@ -111,78 +179,6 @@ const GradedGroup = React.createClass({
                 onClick={this._checkAnswer}
             />
         </div>;
-    },
-
-    // This is a little strange because the id of the widget that actually
-    // changed is going to be lost in favor of the group widget's id. The
-    // widgets prop also wasn't actually changed, and this only serves to
-    // alert our renderer (our parent) of the fact that some interaction
-    // has occurred.
-    _onInteractWithWidget: function(id) {
-        // Reset grading display when user changes answer
-        this.setState({
-            status: GRADING_STATUSES.ungraded,
-            message: "",
-        });
-
-        if (this.refs.renderer) {
-            this.change("widgets", this.props.widgets);
-        }
-    },
-
-    _checkAnswer: function() {
-        const score = this.refs.renderer.score();
-
-        let status;
-        let message;
-        if (score.type === "points") {
-            status = score.total === score.earned ?
-                GRADING_STATUSES.correct : GRADING_STATUSES.incorrect;
-            message = score.message || "";
-        } else { // score.type is "invalid"
-            status = GRADING_STATUSES.invalid;
-            message = score.message ?
-                `${INVALID_MESSAGE_PREFIX} ${score.message}` :
-                `${INVALID_MESSAGE_PREFIX} ${DEFAULT_INVALID_MESSAGE}`;
-        }
-
-        this.setState({
-            status: status,
-            message: message,
-        });
-
-        this.props.trackInteraction({
-            status: status,
-        });
-    },
-
-    shouldComponentUpdate: function(nextProps, nextState) {
-        return nextProps !== this.props || nextState !== this.state;
-    },
-
-    // Mobile API
-    getInputPaths: function() {
-        return this.refs.renderer.getInputPaths();
-    },
-
-    setInputValue: function(path, newValue, cb) {
-        return this.refs.renderer.setInputValue(path, newValue, cb);
-    },
-
-    getAcceptableFormatsForInputPath: function(path) {
-        return this.refs.renderer.getAcceptableFormatsForInputPath(path);
-    },
-
-    focus: function() {
-        return this.refs.renderer.focus();
-    },
-
-    focusInputPath: function(path) {
-        this.refs.renderer.focusPath(path);
-    },
-
-    blurInputPath: function(path) {
-        this.refs.renderer.blurPath(path);
     },
 });
 

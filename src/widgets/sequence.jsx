@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -12,8 +8,6 @@ const Renderer = require("../renderer.jsx");
 const Util = require("../util.js");
 
 const Sequence = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         enabledFeatures: EnabledFeatures.propTypes,
@@ -24,6 +18,8 @@ const Sequence = React.createClass({
         })),
         trackInteraction: React.PropTypes.func.isRequired,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -43,6 +39,24 @@ const Sequence = React.createClass({
 
     shouldComponentUpdate: function(nextProps, nextState) {
         return nextProps !== this.props || nextState !== this.state;
+    },
+
+    _handleInteraction: function(groupWidgetId) {
+        const step = parseInt(groupWidgetId.split(" ")[1]);
+        if (step === this.state.visible - 1) {
+            const widget =
+                this.refs.renderer.getWidgetInstance("group " + step);
+            const score = widget.simpleValidate();
+
+            if (score.type === "points" && score.total === score.earned) {
+                this.setState({
+                    visible: this.state.visible + 1,
+                });
+                this.props.trackInteraction({
+                    visible: this.state.visible + 1,
+                });
+            }
+        }
     },
 
     render: function() {
@@ -77,24 +91,6 @@ const Sequence = React.createClass({
                 enabledFeatures={this.props.enabledFeatures}
             />
         </div>;
-    },
-
-    _handleInteraction: function(groupWidgetId) {
-        const step = parseInt(groupWidgetId.split(" ")[1]);
-        if (step === this.state.visible - 1) {
-            const widget =
-                this.refs.renderer.getWidgetInstance("group " + step);
-            const score = widget.simpleValidate();
-
-            if (score.type === "points" && score.total === score.earned) {
-                this.setState({
-                    visible: this.state.visible + 1,
-                });
-                this.props.trackInteraction({
-                    visible: this.state.visible + 1,
-                });
-            }
-        }
     },
 });
 

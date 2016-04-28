@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -26,6 +22,14 @@ const SorterEditor = React.createClass({
             layout: HORIZONTAL,
             padding: true,
         };
+    },
+
+    onLayoutChange: function(e) {
+        this.props.onChange({layout: e.target.value});
+    },
+
+    serialize: function() {
+        return _.pick(this.props, "correct", "layout", "padding");
     },
 
     render: function() {
@@ -75,14 +79,6 @@ const SorterEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
-    },
-
-    onLayoutChange: function(e) {
-        this.props.onChange({layout: e.target.value});
-    },
-
-    serialize: function() {
-        return _.pick(this.props, "correct", "layout", "padding");
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const ReactCreateFragment = require("react-addons-create-fragment");
@@ -168,6 +164,26 @@ const WidgetEditor = React.createClass({
         this.props.onChange(newWidgetInfo);
     },
 
+    getSaveWarnings: function() {
+        const issuesFunc = this.refs.widget.getSaveWarnings;
+        return issuesFunc ? issuesFunc() : [];
+    },
+
+    serialize: function() {
+        // TODO(alex): Make this properly handle the case where we load json
+        // with a more recent widget version than this instance of Perseus
+        // knows how to handle.
+        const widgetInfo = this.state.widgetInfo;
+        return {
+            type: widgetInfo.type,
+            alignment: widgetInfo.alignment,
+            static: widgetInfo.static,
+            graded: widgetInfo.graded,
+            options: this.refs.widget.serialize(),
+            version: widgetInfo.version,
+        };
+    },
+
     render: function() {
         const widgetInfo = this.state.widgetInfo;
 
@@ -251,26 +267,6 @@ const WidgetEditor = React.createClass({
             </div>
         </div>;
     },
-
-    getSaveWarnings: function() {
-        const issuesFunc = this.refs.widget.getSaveWarnings;
-        return issuesFunc ? issuesFunc() : [];
-    },
-
-    serialize: function() {
-        // TODO(alex): Make this properly handle the case where we load json
-        // with a more recent widget version than this instance of Perseus
-        // knows how to handle.
-        const widgetInfo = this.state.widgetInfo;
-        return {
-            type: widgetInfo.type,
-            alignment: widgetInfo.alignment,
-            static: widgetInfo.static,
-            graded: widgetInfo.graded,
-            options: this.refs.widget.serialize(),
-            version: widgetInfo.version,
-        };
-    },
 });
 
 // This is more general than the actual markdown image parsing regex,
@@ -351,6 +347,30 @@ const Editor = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        // This can't be in componentWillMount because that's happening during
+        // the middle of our parent's render, so we can't call
+        // this.props.onChange during that, since it calls our parent's
+        // setState
+        this._sizeImages(this.props);
+
+        $(ReactDOM.findDOMNode(this.refs.textarea))
+            .on('copy cut', this._maybeCopyWidgets)
+            .on('paste', this._maybePasteWidgets);
+    },
+
+    componentDidUpdate: function(prevProps) {
+        // TODO(alpert): Maybe fix React so this isn't necessary
+        const textarea = ReactDOM.findDOMNode(this.refs.textarea);
+        textarea.value = this.props.content;
+
+        // This can't be in componentWillReceiveProps because that's happening
+        // during the middle of our parent's render.
+        if (this.props.content !== prevProps.content) {
+            this._sizeImages(this.props);
+        }
+    },
+
     getWidgetEditor: function(id, type) {
         if (!Widgets.getEditor(type)) {
             return;
@@ -420,29 +440,6 @@ const Editor = React.createClass({
                 );
             });
         });
-    },
-    componentDidMount: function() {
-        // This can't be in componentWillMount because that's happening during
-        // the middle of our parent's render, so we can't call
-        // this.props.onChange during that, since it calls our parent's
-        // setState
-        this._sizeImages(this.props);
-
-        $(ReactDOM.findDOMNode(this.refs.textarea))
-            .on('copy cut', this._maybeCopyWidgets)
-            .on('paste', this._maybePasteWidgets);
-    },
-
-    componentDidUpdate: function(prevProps) {
-        // TODO(alpert): Maybe fix React so this isn't necessary
-        const textarea = ReactDOM.findDOMNode(this.refs.textarea);
-        textarea.value = this.props.content;
-
-        // This can't be in componentWillReceiveProps because that's happening
-        // during the middle of our parent's render.
-        if (this.props.content !== prevProps.content) {
-            this._sizeImages(this.props);
-        }
     },
 
     handleDrop: function(e) {
@@ -833,6 +830,38 @@ const Editor = React.createClass({
         textarea.selectionEnd = textarea.value.length;
     },
 
+    serialize: function(options) {
+        // need to serialize the widgets since the state might not be
+        // completely represented in props. ahem //transformer// (and
+        // interactive-graph and plotter).
+        const widgets = {};
+        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
+        _.each(widgetIds, id => {
+            widgets[id] = this.refs[id].serialize();
+        });
+
+        // Preserve the data associated with deleted widgets in their last
+        // modified form. This is only intended to be useful in the context of
+        // immediate cut and paste operations if Editor.serialize() is called
+        // in between the two (which ideally should not be happening).
+        // TODO(alex): Remove this once all widget.serialize() methods
+        //             have been fixed to only return props,
+        //             and the above no longer applies.
+        if (options && options.keepDeletedWidgets) {
+            _.chain(this.props.widgets)
+                .keys()
+                .reject((id) => _.contains(widgetIds, id))
+                .each((id) => { widgets[id] = this.props.widgets[id]; });
+        }
+
+        return {
+            replace: this.props.replace,
+            content: this.props.content,
+            images: this.props.images,
+            widgets: widgets,
+        };
+    },
+
     render: function() {
         let pieces;
         let widgets;
@@ -978,39 +1007,6 @@ const Editor = React.createClass({
             {wordCountDisplay}
             {widgetsAndTemplates}
         </div>;
-    },
-
-
-    serialize: function(options) {
-        // need to serialize the widgets since the state might not be
-        // completely represented in props. ahem //transformer// (and
-        // interactive-graph and plotter).
-        const widgets = {};
-        const widgetIds = _.intersection(this.widgetIds, _.keys(this.refs));
-        _.each(widgetIds, id => {
-            widgets[id] = this.refs[id].serialize();
-        });
-
-        // Preserve the data associated with deleted widgets in their last
-        // modified form. This is only intended to be useful in the context of
-        // immediate cut and paste operations if Editor.serialize() is called
-        // in between the two (which ideally should not be happening).
-        // TODO(alex): Remove this once all widget.serialize() methods
-        //             have been fixed to only return props,
-        //             and the above no longer applies.
-        if (options && options.keepDeletedWidgets) {
-            _.chain(this.props.widgets)
-                .keys()
-                .reject((id) => _.contains(widgetIds, id))
-                .each((id) => { widgets[id] = this.props.widgets[id]; });
-        }
-
-        return {
-            replace: this.props.replace,
-            content: this.props.content,
-            images: this.props.images,
-            widgets: widgets,
-        };
     },
 });
 

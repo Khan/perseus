@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, react/sort-comp */
+/* eslint-disable no-undef */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -31,9 +31,6 @@ function getUrlFromProgramID(programID) {
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
 const CSProgram = React.createClass({
-
-    mixins: [Changeable],
-
     propTypes: {
         height: React.PropTypes.number,
         message: React.PropTypes.string,
@@ -45,6 +42,36 @@ const CSProgram = React.createClass({
         width: React.PropTypes.number,
     },
 
+    mixins: [Changeable],
+
+    statics: {
+        // The widget's grading function
+        validate: function(state, rubric) {
+            // The iframe can tell us whether it's correct or incorrect,
+            //  and pass an optional message
+            if (state.status === "correct") {
+                return {
+                    type: "points",
+                    earned: 1,
+                    total: 1,
+                    message: state.message || null,
+                };
+            } else if (state.status === "incorrect") {
+                return {
+                    type: "points",
+                    earned: 0,
+                    total: 1,
+                    message: state.message || null,
+                };
+            } else {
+                return {
+                    type: "invalid",
+                    message: "Keep going, you're not there yet!",
+                };
+            }
+        },
+    },
+
     getDefaultProps: function() {
         return {
             // optional message
@@ -53,6 +80,14 @@ const CSProgram = React.createClass({
             showEditor: false,
             status: "incomplete",
         };
+    },
+
+    componentDidMount: function() {
+        $(window).on("message", this.handleMessageEvent);
+    },
+
+    componentWillUnmount: function() {
+        $(window).off("message", this.handleMessageEvent);
     },
 
     handleMessageEvent: function(e) {
@@ -77,12 +112,11 @@ const CSProgram = React.createClass({
         });
     },
 
-    componentDidMount: function() {
-        $(window).on("message", this.handleMessageEvent);
-    },
-
-    componentWillUnmount: function() {
-        $(window).off("message", this.handleMessageEvent);
+    simpleValidate: function(rubric) {
+        return Scratchpad.validate({
+            status: this.props.status,
+            message: this.props.message,
+        }, rubric);
     },
 
     render: function() {
@@ -136,41 +170,6 @@ const CSProgram = React.createClass({
             className={className}
             allowFullScreen={true}
         />;
-    },
-
-    simpleValidate: function(rubric) {
-        return Scratchpad.validate({
-            status: this.props.status,
-            message: this.props.message,
-        }, rubric);
-    },
-
-    statics: {
-        // The widget's grading function
-        validate: function(state, rubric) {
-            // The iframe can tell us whether it's correct or incorrect,
-            //  and pass an optional message
-            if (state.status === "correct") {
-                return {
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: state.message || null,
-                };
-            } else if (state.status === "incorrect") {
-                return {
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: state.message || null,
-                };
-            } else {
-                return {
-                    type: "invalid",
-                    message: "Keep going, you're not there yet!",
-                };
-            }
-        },
     },
 });
 

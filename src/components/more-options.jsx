@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* A div that shows/hides its children.
  * (meant for use with editor widgets)
  */
@@ -25,6 +21,10 @@ const MoreOptions = React.createClass({
         };
     },
 
+    toggle: function() {
+        this.setState({show: !this.state.show});
+    },
+
     render: function() {
         return <div className="more-options-container">
             {this.state.show && this.props.children}
@@ -35,10 +35,6 @@ const MoreOptions = React.createClass({
                 } Options...
             </div>
         </div>;
-    },
-
-    toggle: function() {
-        this.setState({show: !this.state.show});
     },
 });
 

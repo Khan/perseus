@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global $_:false */
 
 const InfoTip = require("../components/info-tip.jsx");
@@ -210,44 +206,6 @@ const Histogram = React.createClass({
         return _.map(data, pathForData);
     },
 
-    render: function() {
-        const data = this.props.data;
-        const range = this._range();
-
-        const options = {
-            xAxisLabel: this.props.xAxisLabel,
-            yAxisLabel: this.props.yAxisLabel,
-            box: this.props.box,
-            range: range,
-            data: data,
-            scale: [Util.scaleFromExtent(range[0], this.props.box[0]),
-                        Util.scaleFromExtent(range[1], this.props.box[1])],
-        };
-
-        const axisStyle = {
-            stroke: "#000",
-            strokeWidth: 1,
-            opacity: 1.0,
-        };
-        const origin = [range[0][0], 0];
-        const bottomRight = [range[0][1], 0];
-
-        return <Graphie
-            box={options.box}
-            range={options.range}
-            options={options}
-            setup={this._setupGraphie}
-            onMouseMove={this.handleMouseInteraction}
-            onMouseDown={this.handleMouseInteraction}
-        >
-            <Line start={origin} end={bottomRight} style={axisStyle} />
-            {/* Only plot these cool extra features if there's data */}
-            {data && this._renderData()}
-            {data && this._renderCircle()}
-            {data && this._renderThresholdLine()}
-        </Graphie>;
-    },
-
     _setupGraphie: function(graphie, options) {
         const data = options.data;
         const range = options.range;
@@ -359,11 +317,47 @@ const Histogram = React.createClass({
         const xRange = range[0];
         return xRange[0] + (xRange[1] - xRange[0]) / 3;
     },
+
+    render: function() {
+        const data = this.props.data;
+        const range = this._range();
+
+        const options = {
+            xAxisLabel: this.props.xAxisLabel,
+            yAxisLabel: this.props.yAxisLabel,
+            box: this.props.box,
+            range: range,
+            data: data,
+            scale: [Util.scaleFromExtent(range[0], this.props.box[0]),
+                        Util.scaleFromExtent(range[1], this.props.box[1])],
+        };
+
+        const axisStyle = {
+            stroke: "#000",
+            strokeWidth: 1,
+            opacity: 1.0,
+        };
+        const origin = [range[0][0], 0];
+        const bottomRight = [range[0][1], 0];
+
+        return <Graphie
+            box={options.box}
+            range={options.range}
+            options={options}
+            setup={this._setupGraphie}
+            onMouseMove={this.handleMouseInteraction}
+            onMouseDown={this.handleMouseInteraction}
+        >
+            <Line start={origin} end={bottomRight} style={axisStyle} />
+            {/* Only plot these cool extra features if there's data */}
+            {data && this._renderData()}
+            {data && this._renderCircle()}
+            {data && this._renderThresholdLine()}
+        </Graphie>;
+    },
 });
 
 const Simulator = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         data: React.PropTypes.arrayOf(React.PropTypes.number),
@@ -381,11 +375,7 @@ const Simulator = React.createClass({
         yAxisLabel: React.PropTypes.string,
     },
 
-    getInitialState: function() {
-        return {
-            invalidInput: false,
-        };
-    },
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -402,6 +392,12 @@ const Simulator = React.createClass({
         };
     },
 
+    getInitialState: function() {
+        return {
+            invalidInput: false,
+        };
+    },
+
     componentWillMount: function() {
         if (this.props.randomSeed != null) {
             this.generateNumber = Util.seededRNG(this.props.randomSeed);
@@ -412,144 +408,6 @@ const Simulator = React.createClass({
         if (nextProps.randomSeed !== this.props.randomSeed) {
             this.generateNumber = Util.seededRNG(nextProps.randomSeed);
         }
-    },
-
-    render: function() {
-        const inputStyle = {
-            marginLeft: "5px",
-        };
-
-        const highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
-        const highlightStyle = _.extend({}, inputStyle, {
-            WebkitBoxShadow: highlight,
-            MozBoxShadow: highlight,
-            boxShadow: highlight,
-            transition: "all 0.15s",
-        });
-        const unhighlightStyle = _.extend({}, inputStyle, {
-            transition: "all 0.15s",
-        });
-        const style = (this.state.invalidInput) ? highlightStyle
-                                              : unhighlightStyle;
-
-        const InputComponent = this.props.apiOptions.staticRender ? MathOutput
-                                                                : NumberInput;
-
-        const proportionInput = <div>
-            <InputComponent
-                ref="userProportion"
-                style={style}
-                value={this.calculateDisplayProportion()}
-                checkValidity={this.checkProportionValidity}
-                disabled={this.props.apiOptions.readOnly}
-                onChange={this.handleUserProportionChange}
-                onFocus={() => this.props.onFocus(["userProportion"])}
-                onBlur={() => this.props.onBlur(["userProportion"])}
-            />
-            <InfoTip>
-                <p>This controls the proportion or percentage that will be used
-                   in your simulation.</p>
-            </InfoTip>
-        </div>;
-
-        const sampleSizeInput = <div>
-            <InputComponent
-                ref="sampleSize"
-                style={style}
-                value={this.props.sampleSize}
-                checkValidity={(val) => val >= 0}
-                disabled={this.props.apiOptions.readOnly}
-                onChange={this.handleSampleSizeChange}
-                onFocus={() => this.props.onFocus(["sampleSize"])}
-                onBlur={() => this.props.onBlur(["sampleSize"])}
-            />
-            <InfoTip>
-                <p>This controls the sample size that will be used in your
-                   simulation. For example, if you set this to 100, then for
-                   each trial, responses from 100 participants will be
-                   simulated.</p>
-            </InfoTip>
-        </div>;
-
-        const numTrialsDisplay = <div style={{float: "right"}}>
-            <b>{this.props.numTrials}</b>
-            <InfoTip>
-                <p>This is the number of trials used in the simulation. For
-                   example, if set to 50, then the survey will be conducted 50
-                   times.</p>
-            </InfoTip>
-        </div>;
-
-        // Generates a table from a set of titles and values.
-        const generateTable = (contents) => {
-            const header = <thead>
-                <tr>
-                    <th>Parameter</th>
-                    <th>Value</th>
-                </tr>
-            </thead>;
-
-            const body = <tbody>
-                {_.map(contents, (row, i) => {
-                    return <tr key={i}>
-                        <td>{row.title}</td>
-                        <td>{row.value}</td>
-                    </tr>;
-                })}
-            </tbody>;
-
-            return <table>
-                {header}
-                {body}
-            </table>;
-        };
-
-        // Contents for the table to-be generated
-        const contents = [
-            {
-                title: this.props.proportionLabel + ":",
-                value: proportionInput,
-            },
-            {
-                title: "Sample size:",
-                value: sampleSizeInput,
-            },
-            {
-                title: "Number of trials:",
-                value: numTrialsDisplay,
-            },
-        ];
-
-        // The 'Run Simulation' button
-        const buttonStyle = {
-            margin: "20px 0",
-        };
-        const startButton = <button
-            className="simple-button"
-            style={buttonStyle}
-            disabled={this.props.apiOptions.readOnly}
-            onClick={this.handleRunSimulation}
-        >
-            <$_>Run simulation</$_>
-        </button>;
-
-        // When we plot data, ticks on the x-axis require some vertical padding
-        const histogramStyle = {
-            paddingBottom: (this.props.data) ? 40 : 0,
-        };
-        const histogram = <div style={histogramStyle}>
-            <Histogram
-                data={this.props.data}
-                xAxisLabel={this.props.xAxisLabel}
-                yAxisLabel={this.props.yAxisLabel}
-            />
-        </div>;
-
-        return <div>
-            {generateTable(contents)}
-            {startButton}
-            {histogram}
-        </div>;
     },
 
     calculateDisplayProportion: function() {
@@ -691,6 +549,144 @@ const Simulator = React.createClass({
 
     simpleValidate: function(rubric) {
         return Simulator.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        const inputStyle = {
+            marginLeft: "5px",
+        };
+
+        const highlight = "0px 0px 0px 2px rgba(255, 165, 0, 1)";
+        const highlightStyle = _.extend({}, inputStyle, {
+            WebkitBoxShadow: highlight,
+            MozBoxShadow: highlight,
+            boxShadow: highlight,
+            transition: "all 0.15s",
+        });
+        const unhighlightStyle = _.extend({}, inputStyle, {
+            transition: "all 0.15s",
+        });
+        const style = (this.state.invalidInput) ? highlightStyle
+                                              : unhighlightStyle;
+
+        const InputComponent = this.props.apiOptions.staticRender ? MathOutput
+                                                                : NumberInput;
+
+        const proportionInput = <div>
+            <InputComponent
+                ref="userProportion"
+                style={style}
+                value={this.calculateDisplayProportion()}
+                checkValidity={this.checkProportionValidity}
+                disabled={this.props.apiOptions.readOnly}
+                onChange={this.handleUserProportionChange}
+                onFocus={() => this.props.onFocus(["userProportion"])}
+                onBlur={() => this.props.onBlur(["userProportion"])}
+            />
+            <InfoTip>
+                <p>This controls the proportion or percentage that will be used
+                   in your simulation.</p>
+            </InfoTip>
+        </div>;
+
+        const sampleSizeInput = <div>
+            <InputComponent
+                ref="sampleSize"
+                style={style}
+                value={this.props.sampleSize}
+                checkValidity={(val) => val >= 0}
+                disabled={this.props.apiOptions.readOnly}
+                onChange={this.handleSampleSizeChange}
+                onFocus={() => this.props.onFocus(["sampleSize"])}
+                onBlur={() => this.props.onBlur(["sampleSize"])}
+            />
+            <InfoTip>
+                <p>This controls the sample size that will be used in your
+                   simulation. For example, if you set this to 100, then for
+                   each trial, responses from 100 participants will be
+                   simulated.</p>
+            </InfoTip>
+        </div>;
+
+        const numTrialsDisplay = <div style={{float: "right"}}>
+            <b>{this.props.numTrials}</b>
+            <InfoTip>
+                <p>This is the number of trials used in the simulation. For
+                   example, if set to 50, then the survey will be conducted 50
+                   times.</p>
+            </InfoTip>
+        </div>;
+
+        // Generates a table from a set of titles and values.
+        const generateTable = (contents) => {
+            const header = <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                </tr>
+            </thead>;
+
+            const body = <tbody>
+                {_.map(contents, (row, i) => {
+                    return <tr key={i}>
+                        <td>{row.title}</td>
+                        <td>{row.value}</td>
+                    </tr>;
+                })}
+            </tbody>;
+
+            return <table>
+                {header}
+                {body}
+            </table>;
+        };
+
+        // Contents for the table to-be generated
+        const contents = [
+            {
+                title: this.props.proportionLabel + ":",
+                value: proportionInput,
+            },
+            {
+                title: "Sample size:",
+                value: sampleSizeInput,
+            },
+            {
+                title: "Number of trials:",
+                value: numTrialsDisplay,
+            },
+        ];
+
+        // The 'Run Simulation' button
+        const buttonStyle = {
+            margin: "20px 0",
+        };
+        const startButton = <button
+            className="simple-button"
+            style={buttonStyle}
+            disabled={this.props.apiOptions.readOnly}
+            onClick={this.handleRunSimulation}
+        >
+            <$_>Run simulation</$_>
+        </button>;
+
+        // When we plot data, ticks on the x-axis require some vertical padding
+        const histogramStyle = {
+            paddingBottom: (this.props.data) ? 40 : 0,
+        };
+        const histogram = <div style={histogramStyle}>
+            <Histogram
+                data={this.props.data}
+                xAxisLabel={this.props.xAxisLabel}
+                yAxisLabel={this.props.yAxisLabel}
+            />
+        </div>;
+
+        return <div>
+            {generateTable(contents)}
+            {startButton}
+            {histogram}
+        </div>;
     },
 });
 

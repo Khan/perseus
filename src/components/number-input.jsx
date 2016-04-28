@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const React = require('react');
 const ReactDOM = require("react-dom");
@@ -64,34 +60,6 @@ const NumberInput = React.createClass({
         return {
             format: this.props.format,
         };
-    },
-
-    render: function() {
-        let classes = classNames({
-            "number-input": true,
-            "invalid-input": !this._checkValidity(this.props.value),
-            "mini": this.props.size === "mini",
-            "small": this.props.size === "small",
-            "normal": this.props.size === "normal",
-        });
-        if (this.props.className != null) {
-            classes = classes + " " + this.props.className;
-        }
-
-        return <input
-            {...this.props}
-            className={classes}
-            type="text"
-            ref="input"
-            onChange={this._handleChange}
-            onFocus={this._handleFocus}
-            onBlur={this._handleBlur}
-            onKeyPress={this._handleBlur}
-            onKeyDown={this._onKeyDown}
-            onTouchStart={captureScratchpadTouchStart}
-            defaultValue={toNumericString(this.props.value, this.state.format)}
-            value={undefined}
-        />;
     },
 
     componentDidUpdate: function(prevProps) {
@@ -217,6 +185,34 @@ const NumberInput = React.createClass({
     _setValue: function(val, format) {
         $(ReactDOM.findDOMNode(this.refs.input)).val(
             toNumericString(val, format));
+    },
+
+    render: function() {
+        let classes = classNames({
+            "number-input": true,
+            "invalid-input": !this._checkValidity(this.props.value),
+            "mini": this.props.size === "mini",
+            "small": this.props.size === "small",
+            "normal": this.props.size === "normal",
+        });
+        if (this.props.className != null) {
+            classes = classes + " " + this.props.className;
+        }
+
+        return <input
+            {...this.props}
+            className={classes}
+            type="text"
+            ref="input"
+            onChange={this._handleChange}
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur}
+            onKeyPress={this._handleBlur}
+            onKeyDown={this._onKeyDown}
+            onTouchStart={captureScratchpadTouchStart}
+            defaultValue={toNumericString(this.props.value, this.state.format)}
+            value={undefined}
+        />;
     },
 });
 

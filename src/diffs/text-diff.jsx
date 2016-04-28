@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const classNames = require("classnames");
 const React = require("react");
 const _ = require("underscore");
@@ -85,6 +81,10 @@ const TextDiff = React.createClass({
         this.setState({
             collapsed: nextProps.before === nextProps.after,
         });
+    },
+
+    handleExpand: function() {
+        this.setState({ collapsed: false });
     },
 
     render: function() {
@@ -172,10 +172,6 @@ const TextDiff = React.createClass({
                 </div>;
             })}
         </div>;
-    },
-
-    handleExpand: function() {
-        this.setState({ collapsed: false });
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /**
  * This is an example graphie-using widget
  *
@@ -26,13 +22,13 @@ const kpoint = require("kmath").point;
  * users enter their answers.
  */
 const ExampleGraphieWidget = React.createClass({
-    mixins: [Changeable, WidgetJsonifyDeprecated],
-
     propTypes: {
         coord: React.PropTypes.arrayOf(React.PropTypes.number),
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         graph: React.PropTypes.any.isRequired,
     },
+
+    mixins: [Changeable, WidgetJsonifyDeprecated],
 
     getDefaultProps: function() {
         return {
@@ -51,26 +47,6 @@ const ExampleGraphieWidget = React.createClass({
                 showProtractor: false,
             },
         };
-    },
-
-    render: function() {
-        return <Graphie
-            ref="graphie"
-            box={this.props.graph.box}
-            range={this.props.graph.range}
-            options={this.props.graph}
-            setup={this.setupGraphie}
-        >
-            <MovablePoint
-                pointSize={5}
-                coord={this.props.coord || [0, 0]}
-                constraints={[
-                    MovablePoint.constraints.snap(),
-                    MovablePoint.constraints.bound(),
-                ]}
-                onMove={this.movePoint}
-            />
-        </Graphie>;
     },
 
     movePoint: function(newCoord) {
@@ -106,6 +82,26 @@ const ExampleGraphieWidget = React.createClass({
 
     simpleValidate: function(rubric) {
         return ExampleGraphieWidget.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        return <Graphie
+            ref="graphie"
+            box={this.props.graph.box}
+            range={this.props.graph.range}
+            options={this.props.graph}
+            setup={this.setupGraphie}
+        >
+            <MovablePoint
+                pointSize={5}
+                coord={this.props.coord || [0, 0]}
+                constraints={[
+                    MovablePoint.constraints.snap(),
+                    MovablePoint.constraints.bound(),
+                ]}
+                onMove={this.movePoint}
+            />
+        </Graphie>;
     },
 });
 

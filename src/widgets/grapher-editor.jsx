@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -21,8 +17,6 @@ const {
 } = require("./grapher/util.jsx");
 
 const GrapherEditor = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         availableTypes: React.PropTypes.arrayOf(React.PropTypes.string),
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
@@ -32,12 +26,37 @@ const GrapherEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
     },
 
+    mixins: [Changeable],
+
     getDefaultProps: function() {
         return {
             correct: DEFAULT_GRAPHER_PROPS.plot,
             graph: DEFAULT_GRAPHER_PROPS.graph,
             availableTypes: DEFAULT_GRAPHER_PROPS.availableTypes,
         };
+    },
+
+    handleAvailableTypesChange: function(newAvailableTypes) {
+        let correct = this.props.correct;
+
+        // If the currently 'correct' type is removed from the list of types,
+        // we need to change it to avoid impossible questions.
+        if (!_.contains(newAvailableTypes, this.props.correct.type)) {
+            const graph = this.props.graph;
+            const newType = GrapherUtil.chooseType(newAvailableTypes);
+            correct = GrapherUtil.defaultPlotProps(newType, graph);
+        }
+        this.props.onChange({
+            availableTypes: newAvailableTypes,
+            correct: correct,
+        });
+    },
+
+    serialize: function() {
+        return _.chain(this.props)
+                .pick("correct", "availableTypes")
+                .extend({ graph: _.omit(this.props.graph, "box") })
+                .value();
     },
 
     render: function() {
@@ -107,29 +126,6 @@ const GrapherEditor = React.createClass({
             </div>
             {graph}
         </div>;
-    },
-
-    handleAvailableTypesChange: function(newAvailableTypes) {
-        let correct = this.props.correct;
-
-        // If the currently 'correct' type is removed from the list of types,
-        // we need to change it to avoid impossible questions.
-        if (!_.contains(newAvailableTypes, this.props.correct.type)) {
-            const graph = this.props.graph;
-            const newType = GrapherUtil.chooseType(newAvailableTypes);
-            correct = GrapherUtil.defaultPlotProps(newType, graph);
-        }
-        this.props.onChange({
-            availableTypes: newAvailableTypes,
-            correct: correct,
-        });
-    },
-
-    serialize: function() {
-        return _.chain(this.props)
-                .pick("correct", "availableTypes")
-                .extend({ graph: _.omit(this.props.graph, "box") })
-                .value();
     },
 });
 

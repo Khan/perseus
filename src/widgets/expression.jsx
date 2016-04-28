@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 /* global i18n:false */
 
 const classNames = require("classnames");
@@ -77,8 +73,6 @@ const insertBraces = value => {
 
 // The new, MathQuill input expression widget
 const Expression = React.createClass({
-    mixins: [Changeable],
-
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         buttonSets: TexButtons.buttonSetsType,
@@ -94,6 +88,8 @@ const Expression = React.createClass({
         value: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
     },
+
+    mixins: [Changeable],
 
     getDefaultProps: function() {
         return {
@@ -115,6 +111,38 @@ const Expression = React.createClass({
         };
     },
 
+    // Whenever the input value changes, attempt to parse it.
+    //
+    // Clear any errors if this parse succeeds, show an error within a second
+    // if it fails.
+    componentWillReceiveProps: function(nextProps) {
+        if (!_.isEqual(this.props.value, nextProps.value) ||
+            !_.isEqual(this.props.functions, nextProps.functions)) {
+
+            clearTimeout(this.errorTimeout);
+
+            if (this.parse(nextProps.value, nextProps).parsed) {
+                this.setState({showErrorTooltip: false});
+            } else {
+                // Store timeout ID so that we can clear it above
+                this.errorTimeout = setTimeout(() => {
+                    const apiResult = this.props.apiOptions.onInputError(
+                        null, // reserved for some widget identifier
+                        this.props.value,
+                        ERROR_MESSAGE
+                    );
+                    if (apiResult !== false) {
+                        this.setState({showErrorTooltip: true});
+                    }
+                }, 2000);
+            }
+        }
+    },
+
+    componentWillUnmount: function() {
+        clearTimeout(this.errorTimeout);
+    },
+
     parse: function(value, props) {
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
@@ -123,6 +151,77 @@ const Expression = React.createClass({
             _.extend(options, window.icu.getDecimalFormatSymbols());
         }
         return KAS.parse(insertBraces(value), options);
+    },
+
+    changeAndTrack: function(e, cb) {
+        this.change("value", e, cb);
+        this.props.trackInteraction();
+    },
+
+    _handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur([]);
+    },
+
+    errorTimeout: null,
+
+    focus: function() {
+        if (this.props.apiOptions.customKeypad) {
+            this.refs.input.focus();
+        } else {
+            // The buttons are often on top of text you're trying to read, so
+            // don't focus the editor automatically.
+        }
+
+        return true;
+    },
+
+    focusInputPath: function(inputPath) {
+        this.refs.input.focus();
+    },
+
+    blurInputPath: function(inputPath) {
+        this.refs.input.blur();
+    },
+
+    // HACK(joel)
+    insert: function(text) {
+        if (!this.props.apiOptions.staticRender) {
+            this.refs.input.insert(text);
+        }
+    },
+
+    getInputPaths: function() {
+        // The widget itself is an input, so we return a single empty list to
+        // indicate this.
+        return [[]];
+    },
+
+    getGrammarTypeForPath: function(inputPath) {
+        return "expression";
+    },
+
+    setInputValue: function(path, newValue, cb) {
+        this.props.onChange({
+            value: newValue,
+        }, cb);
+    },
+
+    getAcceptableFormatsForInputPath: function() {
+        // TODO(charlie): What format does the mobile team want this in?
+        return null;
+    },
+
+    getUserInput: function() {
+        return insertBraces(this.props.value);
+    },
+
+    simpleValidate: function(rubric, onInputError) {
+        onInputError = onInputError || function() { };
+        return Expression.validate(this.getUserInput(), rubric, onInputError);
     },
 
     render: function() {
@@ -206,109 +305,6 @@ const Expression = React.createClass({
                 {this.state.showErrorTooltip && errorTooltip}
             </span>;
         }
-    },
-
-    changeAndTrack: function(e, cb) {
-        this.change("value", e, cb);
-        this.props.trackInteraction();
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([]);
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([]);
-    },
-
-    errorTimeout: null,
-
-    // Whenever the input value changes, attempt to parse it.
-    //
-    // Clear any errors if this parse succeeds, show an error within a second
-    // if it fails.
-    componentWillReceiveProps: function(nextProps) {
-        if (!_.isEqual(this.props.value, nextProps.value) ||
-            !_.isEqual(this.props.functions, nextProps.functions)) {
-
-            clearTimeout(this.errorTimeout);
-
-            if (this.parse(nextProps.value, nextProps).parsed) {
-                this.setState({showErrorTooltip: false});
-            } else {
-                // Store timeout ID so that we can clear it above
-                this.errorTimeout = setTimeout(() => {
-                    const apiResult = this.props.apiOptions.onInputError(
-                        null, // reserved for some widget identifier
-                        this.props.value,
-                        ERROR_MESSAGE
-                    );
-                    if (apiResult !== false) {
-                        this.setState({showErrorTooltip: true});
-                    }
-                }, 2000);
-            }
-        }
-    },
-
-    componentWillUnmount: function() {
-        clearTimeout(this.errorTimeout);
-    },
-
-    focus: function() {
-        if (this.props.apiOptions.customKeypad) {
-            this.refs.input.focus();
-        } else {
-            // The buttons are often on top of text you're trying to read, so
-            // don't focus the editor automatically.
-        }
-
-        return true;
-    },
-
-    focusInputPath: function(inputPath) {
-        this.refs.input.focus();
-    },
-
-    blurInputPath: function(inputPath) {
-        this.refs.input.blur();
-    },
-
-    // HACK(joel)
-    insert: function(text) {
-        if (!this.props.apiOptions.staticRender) {
-            this.refs.input.insert(text);
-        }
-    },
-
-    getInputPaths: function() {
-        // The widget itself is an input, so we return a single empty list to
-        // indicate this.
-        return [[]];
-    },
-
-    getGrammarTypeForPath: function(inputPath) {
-        return "expression";
-    },
-
-    setInputValue: function(path, newValue, cb) {
-        this.props.onChange({
-            value: newValue,
-        }, cb);
-    },
-
-    getAcceptableFormatsForInputPath: function() {
-        // TODO(charlie): What format does the mobile team want this in?
-        return null;
-    },
-
-    getUserInput: function() {
-        return insertBraces(this.props.value);
-    },
-
-    simpleValidate: function(rubric, onInputError) {
-        onInputError = onInputError || function() { };
-        return Expression.validate(this.getUserInput(), rubric, onInputError);
     },
 });
 
@@ -449,75 +445,16 @@ const OldExpression = React.createClass({
         };
     },
 
-    parse: function(value, props) {
-        // TODO(jack): Disable icu for content creators here, or
-        // make it so that solution answers with ','s or '.'s work
-        const options = _.pick(props || this.props, "functions");
-        if (window.icu && window.icu.getDecimalFormatSymbols) {
-            _.extend(options, window.icu.getDecimalFormatSymbols());
-        }
-        return KAS.parse(value, options);
-    },
-
     componentWillMount: function() {
         this.updateParsedTex(this.props.value);
     },
 
-    componentWillReceiveProps: function(nextProps) {
-        this.updateParsedTex(nextProps.value, nextProps);
-    },
-
-    render: function() {
-        const result = this.parse(this.props.value);
-        const shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
-
-        return <span className="perseus-widget-expression-old">
-            <span className="output">
-                <span
-                    className="tex"
-                    style={{opacity: result.parsed ? 1.0 : 0.5}}
-                >
-                    <TeX>{this.state.lastParsedTex}</TeX>
-                </span>
-                <span className="placeholder">
-                    <span
-                        ref="error" className="error"
-                        style={{display: "none"}}
-                    >
-                        <span className="buddy" />
-                        <span className="message"><span>
-                            {ERROR_MESSAGE}
-                        </span></span>
-                    </span>
-                </span>
-            </span>
-            <InputWithExamples
-                ref="input"
-                value={this.props.value}
-                onKeyDown={this.handleKeyDown}
-                onKeyPress={this.handleKeyPress}
-                onChange={this.handleChange}
-                examples={this.examples()}
-                shouldShowExamples={shouldShowExamples}
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
-                id={this.props.widgetId}
-            />
-        </span>;
-    },
-
-    _handleFocus: function() {
-        this.props.onFocus([]);
-    },
-
-    _handleBlur: function() {
-        this.props.onBlur([]);
-    },
-
-    errorTimeout: null,
-
     componentDidMount: function() {
         this.componentDidUpdate();
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.updateParsedTex(nextProps.value, nextProps);
     },
 
     componentDidUpdate: function() {
@@ -532,6 +469,26 @@ const OldExpression = React.createClass({
     componentWillUnmount: function() {
         clearTimeout(this.errorTimeout);
     },
+
+    parse: function(value, props) {
+        // TODO(jack): Disable icu for content creators here, or
+        // make it so that solution answers with ','s or '.'s work
+        const options = _.pick(props || this.props, "functions");
+        if (window.icu && window.icu.getDecimalFormatSymbols) {
+            _.extend(options, window.icu.getDecimalFormatSymbols());
+        }
+        return KAS.parse(value, options);
+    },
+
+    _handleFocus: function() {
+        this.props.onFocus([]);
+    },
+
+    _handleBlur: function() {
+        this.props.onBlur([]);
+    },
+
+    errorTimeout: null,
 
     showError: function() {
         const apiResult = this.props.apiOptions.onInputError(
@@ -693,6 +650,45 @@ const OldExpression = React.createClass({
             i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"),
             i18n._("For $\\neq$, enter **=/=**"),
         ];
+    },
+
+    render: function() {
+        const result = this.parse(this.props.value);
+        const shouldShowExamples = this.props.enabledFeatures.toolTipFormats;
+
+        return <span className="perseus-widget-expression-old">
+            <span className="output">
+                <span
+                    className="tex"
+                    style={{opacity: result.parsed ? 1.0 : 0.5}}
+                >
+                    <TeX>{this.state.lastParsedTex}</TeX>
+                </span>
+                <span className="placeholder">
+                    <span
+                        ref="error" className="error"
+                        style={{display: "none"}}
+                    >
+                        <span className="buddy" />
+                        <span className="message"><span>
+                            {ERROR_MESSAGE}
+                        </span></span>
+                    </span>
+                </span>
+            </span>
+            <InputWithExamples
+                ref="input"
+                value={this.props.value}
+                onKeyDown={this.handleKeyDown}
+                onKeyPress={this.handleKeyPress}
+                onChange={this.handleChange}
+                examples={this.examples()}
+                shouldShowExamples={shouldShowExamples}
+                onFocus={this._handleFocus}
+                onBlur={this._handleBlur}
+                id={this.props.widgetId}
+            />
+        </span>;
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -114,6 +110,151 @@ const PlotterEditor = React.createClass({
                 });
             };
         }
+    },
+
+    handleChangeTickStep: function(value) {
+        this.setState({
+            tickStep: value,
+        });
+    },
+
+    handleChangeRange: function(newValue) {
+        this.setState({
+            minX: newValue[0],
+            maxX: newValue[1],
+        });
+    },
+
+    changeLabelInterval: function(value) {
+        this.props.onChange({
+            labelInterval: value,
+        });
+    },
+
+    handlePlotterChange: function(newProps) {
+        const props = {};
+        props[this.state.editing] = newProps.values;
+        this.props.onChange(props);
+    },
+
+    changeType: function(type) {
+        let categories;
+        if (type === HISTOGRAM) {
+            // Switching to histogram, add a label (0) to the left
+            categories = [formatNumber(0)].concat(this.props.categories);
+            this.props.onChange({type: type, categories: categories});
+        } else if (this.props.type === HISTOGRAM) {
+            // Switching from histogram, remove a label from the left
+            categories = this.props.categories.slice(1);
+            this.props.onChange({type: type, categories: categories});
+        } else {
+            this.props.onChange({type: type});
+        }
+
+        if (categories) {
+            ReactDOM.findDOMNode(this.refs.categories).value =
+                categories.join(", ");
+        }
+    },
+
+    changeLabel: function(i, e) {
+        const labels = _.clone(this.props.labels);
+        labels[i] = e.target.value;
+        this.props.onChange({labels: labels});
+    },
+
+    changePicUrl: function(value) {
+        // We don't need the labels and other data in the plotter, so just
+        // extract the raw image and use that.
+        // TODO(emily): Maybe indicate that such a change has happened?
+        const url = SvgImage.getRealImageUrl(value);
+
+        this.props.onChange({picUrl: url});
+    },
+
+    changeCategories: function(categories) {
+        let n = categories.length;
+        if (this.props.type === HISTOGRAM) {
+            // Histograms with n labels/categories have n - 1 buckets
+            n--;
+        }
+        const value = this.props.scaleY;
+
+        this.props.onChange({
+            categories: categories,
+            correct: padArray(this.props.correct, n, value),
+            starting: padArray(this.props.starting, n, value),
+        });
+    },
+
+    changeScale: function(e) {
+        const oldScale = this.props.scaleY;
+        const newScale = +e.target.value || editorDefaults.scaleY;
+
+        const scale = function(value) {
+            return value * newScale / oldScale;
+        };
+
+        const maxY = scale(this.props.maxY);
+
+        this.props.onChange({
+            scaleY: newScale,
+            maxY: maxY,
+            correct: _.map(this.props.correct, scale),
+            starting: _.map(this.props.starting, scale),
+        });
+
+        ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
+    },
+
+    changeMax: function(e) {
+        this.props.onChange({
+            maxY: +e.target.value || editorDefaults.maxY,
+        });
+    },
+
+    changeSnaps: function(e) {
+        this.props.onChange({
+            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
+        });
+    },
+
+    changeEditing: function(editing) {
+        this.setState({editing: editing});
+    },
+
+    setCategoriesFromScale: function() {
+        const scale = this.state.tickStep || 1;
+        const min = this.state.minX || 0;
+        const max = this.state.maxX || 0;
+        const length = Math.floor((max - min) / scale) * scale;
+
+        let categories;
+        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
+            // Ranges for histogram and dotplot labels should start at zero
+            categories = _.range(0, length + scale, scale);
+        } else {
+            categories = _.range(scale, length + scale, scale);
+        }
+
+        categories = _.map(categories, (num) => num + min);
+        categories = _.map(categories, formatNumber);
+
+        this.changeCategories(categories);
+
+        ReactDOM.findDOMNode(this.refs.categories).value =
+            categories.join(", ");
+    },
+
+    serialize: function() {
+        const json = _.pick(this.props, "correct", "starting", "type", "labels",
+            "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
+
+        if (this.props.type === PIC) {
+            json.picUrl = this.props.picUrl;
+        }
+
+        return json;
     },
 
     render: function() {
@@ -301,151 +442,6 @@ const PlotterEditor = React.createClass({
                 onChange={this.handlePlotterChange}
             />
         </div>;
-    },
-
-    handleChangeTickStep: function(value) {
-        this.setState({
-            tickStep: value,
-        });
-    },
-
-    handleChangeRange: function(newValue) {
-        this.setState({
-            minX: newValue[0],
-            maxX: newValue[1],
-        });
-    },
-
-    changeLabelInterval: function(value) {
-        this.props.onChange({
-            labelInterval: value,
-        });
-    },
-
-    handlePlotterChange: function(newProps) {
-        const props = {};
-        props[this.state.editing] = newProps.values;
-        this.props.onChange(props);
-    },
-
-    changeType: function(type) {
-        let categories;
-        if (type === HISTOGRAM) {
-            // Switching to histogram, add a label (0) to the left
-            categories = [formatNumber(0)].concat(this.props.categories);
-            this.props.onChange({type: type, categories: categories});
-        } else if (this.props.type === HISTOGRAM) {
-            // Switching from histogram, remove a label from the left
-            categories = this.props.categories.slice(1);
-            this.props.onChange({type: type, categories: categories});
-        } else {
-            this.props.onChange({type: type});
-        }
-
-        if (categories) {
-            ReactDOM.findDOMNode(this.refs.categories).value =
-                categories.join(", ");
-        }
-    },
-
-    changeLabel: function(i, e) {
-        const labels = _.clone(this.props.labels);
-        labels[i] = e.target.value;
-        this.props.onChange({labels: labels});
-    },
-
-    changePicUrl: function(value) {
-        // We don't need the labels and other data in the plotter, so just
-        // extract the raw image and use that.
-        // TODO(emily): Maybe indicate that such a change has happened?
-        const url = SvgImage.getRealImageUrl(value);
-
-        this.props.onChange({picUrl: url});
-    },
-
-    changeCategories: function(categories) {
-        let n = categories.length;
-        if (this.props.type === HISTOGRAM) {
-            // Histograms with n labels/categories have n - 1 buckets
-            n--;
-        }
-        const value = this.props.scaleY;
-
-        this.props.onChange({
-            categories: categories,
-            correct: padArray(this.props.correct, n, value),
-            starting: padArray(this.props.starting, n, value),
-        });
-    },
-
-    changeScale: function(e) {
-        const oldScale = this.props.scaleY;
-        const newScale = +e.target.value || editorDefaults.scaleY;
-
-        const scale = function(value) {
-            return value * newScale / oldScale;
-        };
-
-        const maxY = scale(this.props.maxY);
-
-        this.props.onChange({
-            scaleY: newScale,
-            maxY: maxY,
-            correct: _.map(this.props.correct, scale),
-            starting: _.map(this.props.starting, scale),
-        });
-
-        ReactDOM.findDOMNode(this.refs.maxY).value = maxY;
-    },
-
-    changeMax: function(e) {
-        this.props.onChange({
-            maxY: +e.target.value || editorDefaults.maxY,
-        });
-    },
-
-    changeSnaps: function(e) {
-        this.props.onChange({
-            snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
-        });
-    },
-
-    changeEditing: function(editing) {
-        this.setState({editing: editing});
-    },
-
-    setCategoriesFromScale: function() {
-        const scale = this.state.tickStep || 1;
-        const min = this.state.minX || 0;
-        const max = this.state.maxX || 0;
-        const length = Math.floor((max - min) / scale) * scale;
-
-        let categories;
-        if (this.props.type === HISTOGRAM || this.props.type === DOTPLOT) {
-            // Ranges for histogram and dotplot labels should start at zero
-            categories = _.range(0, length + scale, scale);
-        } else {
-            categories = _.range(scale, length + scale, scale);
-        }
-
-        categories = _.map(categories, (num) => num + min);
-        categories = _.map(categories, formatNumber);
-
-        this.changeCategories(categories);
-
-        ReactDOM.findDOMNode(this.refs.categories).value =
-            categories.join(", ");
-    },
-
-    serialize: function() {
-        const json = _.pick(this.props, "correct", "starting", "type", "labels",
-            "categories", "scaleY", "maxY", "snapsPerLine", "labelInterval");
-
-        if (this.props.type === PIC) {
-            json.picUrl = this.props.picUrl;
-        }
-
-        return json;
     },
 });
 

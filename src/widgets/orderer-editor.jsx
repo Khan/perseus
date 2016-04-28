@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -36,6 +32,55 @@ const OrdererEditor = React.createClass({
             otherOptions: [
                 {content: "$y$"},
             ],
+        };
+    },
+
+    onOptionsChange: function(whichOptions, options, cb) {
+        const props = {};
+        props[whichOptions] = _.map(options, function(option) {
+            return {content: option};
+        });
+        this.props.onChange(props, cb);
+    },
+
+    onLayoutChange: function(e) {
+        this.props.onChange({layout: e.target.value});
+    },
+
+    onHeightChange: function(e) {
+        this.props.onChange({height: e.target.value});
+    },
+
+    serialize: function() {
+        // We combine the correct answer and the other cards by merging them,
+        // removing duplicates and empty cards, and sorting them into
+        // categories based on their content
+        const options =
+        _.chain(_.pluck(this.props.correctOptions, 'content'))
+         .union(_.pluck(this.props.otherOptions, 'content'))
+         .uniq()
+         .reject(function(content) { return content === ""; })
+         .sort()
+         .sortBy(function(content) {
+             if (/\d/.test(content)) {
+                 return 0;
+             } else if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
+                 return 2;
+             } else {
+                 return 1;
+             }
+         })
+         .map(function(content) {
+             return { content: content };
+         })
+         .value();
+
+        return {
+            options: options,
+            correctOptions: this.props.correctOptions,
+            otherOptions: this.props.otherOptions,
+            height: this.props.height,
+            layout: this.props.layout,
         };
     },
 
@@ -100,55 +145,6 @@ const OrdererEditor = React.createClass({
                 </InfoTip>
             </div>
         </div>;
-    },
-
-    onOptionsChange: function(whichOptions, options, cb) {
-        const props = {};
-        props[whichOptions] = _.map(options, function(option) {
-            return {content: option};
-        });
-        this.props.onChange(props, cb);
-    },
-
-    onLayoutChange: function(e) {
-        this.props.onChange({layout: e.target.value});
-    },
-
-    onHeightChange: function(e) {
-        this.props.onChange({height: e.target.value});
-    },
-
-    serialize: function() {
-        // We combine the correct answer and the other cards by merging them,
-        // removing duplicates and empty cards, and sorting them into
-        // categories based on their content
-        const options =
-        _.chain(_.pluck(this.props.correctOptions, 'content'))
-         .union(_.pluck(this.props.otherOptions, 'content'))
-         .uniq()
-         .reject(function(content) { return content === ""; })
-         .sort()
-         .sortBy(function(content) {
-             if (/\d/.test(content)) {
-                 return 0;
-             } else if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                 return 2;
-             } else {
-                 return 1;
-             }
-         })
-         .map(function(content) {
-             return { content: content };
-         })
-         .value();
-
-        return {
-            options: options,
-            correctOptions: this.props.correctOptions,
-            otherOptions: this.props.otherOptions,
-            height: this.props.height,
-            layout: this.props.layout,
-        };
     },
 });
 

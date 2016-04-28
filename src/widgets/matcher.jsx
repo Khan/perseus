@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -40,6 +36,32 @@ const Matcher = React.createClass({
             leftHeight: 0,
             rightHeight: 0,
         };
+    },
+
+    changeAndTrack: function(e) {
+        this.props.onChange(e);
+        this.props.trackInteraction();
+    },
+
+    onMeasureLeft: function(dimensions) {
+        const height = _.max(dimensions.heights);
+        this.setState({leftHeight: height});
+    },
+
+    onMeasureRight: function(dimensions) {
+        const height = _.max(dimensions.heights);
+        this.setState({rightHeight: height});
+    },
+
+    getUserInput: function() {
+        return {
+            left: this.refs.left.getOptions(),
+            right: this.refs.right.getOptions(),
+        };
+    },
+
+    simpleValidate: function(rubric) {
+        return Matcher.validate(this.getUserInput(), rubric);
     },
 
     render: function() {
@@ -91,32 +113,6 @@ const Matcher = React.createClass({
                 />
             </div>
         </div>;
-    },
-
-    changeAndTrack: function(e) {
-        this.props.onChange(e);
-        this.props.trackInteraction();
-    },
-
-    onMeasureLeft: function(dimensions) {
-        const height = _.max(dimensions.heights);
-        this.setState({leftHeight: height});
-    },
-
-    onMeasureRight: function(dimensions) {
-        const height = _.max(dimensions.heights);
-        this.setState({rightHeight: height});
-    },
-
-    getUserInput: function() {
-        return {
-            left: this.refs.left.getOptions(),
-            right: this.refs.right.getOptions(),
-        };
-    },
-
-    simpleValidate: function(rubric) {
-        return Matcher.validate(this.getUserInput(), rubric);
     },
 });
 

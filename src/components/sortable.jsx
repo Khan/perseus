@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -90,67 +86,6 @@ const Draggable = React.createClass({
         this.isMouseMoveUpBound = false;
     },
 
-    componentWillUnmount: function() {
-        // Event handlers should be unbound before component unmounting, but
-        // just in case...
-        if (this.isMouseMoveUpBound) {
-            this.unbindMouseMoveUp();
-        }
-    },
-
-    getCurrentPosition: function() {
-        return {
-            left: this.state.startPosition.left +
-                  this.state.mouse.left -
-                  this.state.startMouse.left,
-            top: this.state.startPosition.top +
-                 this.state.mouse.top -
-                 this.state.startMouse.top,
-        };
-    },
-
-    render: function() {
-        const className = [
-            PREFIX + "-card",
-            PREFIX + "-draggable",
-            PREFIX + "-" + this.props.type,
-            ApiClassNames.INTERACTIVE,
-        ].join(" ");
-
-        const style = {
-            position: "static",
-        };
-
-        if (this.props.type === DRAGGING || this.props.type === ANIMATING) {
-            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
-        }
-
-        if (this.props.width) {
-            style.width = this.props.width + 1; // Fix for non-integer widths
-        }
-        if (this.props.height) {
-            style.height = this.props.height;
-        }
-        if (this.props.margin != null) {
-            style.margin = this.props.margin;
-        }
-
-        return <li
-            className={className}
-            style={style}
-            onMouseDown={this.onMouseDown}
-            onTouchStart={this.onMouseDown}
-            onTouchMove={this.onMouseMove}
-            onTouchEnd={this.onMouseUp}
-            onTouchCancel={this.onMouseUp}
-        >
-            <Renderer
-                content={this.props.content}
-                onRender={this.props.onRender}
-            />
-        </li>;
-    },
-
     componentDidUpdate: function(prevProps) {
         if (this.props.type === prevProps.type) {
             return;
@@ -175,6 +110,25 @@ const Draggable = React.createClass({
             // Ensure that any animations are done
             $(ReactDOM.findDOMNode(this)).finish();
         }
+    },
+
+    componentWillUnmount: function() {
+        // Event handlers should be unbound before component unmounting, but
+        // just in case...
+        if (this.isMouseMoveUpBound) {
+            this.unbindMouseMoveUp();
+        }
+    },
+
+    getCurrentPosition: function() {
+        return {
+            left: this.state.startPosition.left +
+                  this.state.mouse.left -
+                  this.state.startMouse.left,
+            top: this.state.startPosition.top +
+                 this.state.mouse.top -
+                 this.state.startMouse.top,
+        };
     },
 
     bindMouseMoveUp: function() {
@@ -243,6 +197,48 @@ const Draggable = React.createClass({
             // Dragging -> Animating
             this.props.onMouseUp();
         }
+    },
+
+    render: function() {
+        const className = [
+            PREFIX + "-card",
+            PREFIX + "-draggable",
+            PREFIX + "-" + this.props.type,
+            ApiClassNames.INTERACTIVE,
+        ].join(" ");
+
+        const style = {
+            position: "static",
+        };
+
+        if (this.props.type === DRAGGING || this.props.type === ANIMATING) {
+            _.extend(style, {position: "absolute"}, this.getCurrentPosition());
+        }
+
+        if (this.props.width) {
+            style.width = this.props.width + 1; // Fix for non-integer widths
+        }
+        if (this.props.height) {
+            style.height = this.props.height;
+        }
+        if (this.props.margin != null) {
+            style.margin = this.props.margin;
+        }
+
+        return <li
+            className={className}
+            style={style}
+            onMouseDown={this.onMouseDown}
+            onTouchStart={this.onMouseDown}
+            onTouchMove={this.onMouseMove}
+            onTouchEnd={this.onMouseUp}
+            onTouchCancel={this.onMouseUp}
+        >
+            <Renderer
+                content={this.props.content}
+                onRender={this.props.onRender}
+            />
+        </li>;
     },
 });
 
@@ -387,63 +383,6 @@ const Sortable = React.createClass({
         }, this.measureItems);
     }, 20),
 
-    render: function() {
-        let className = [PREFIX, "layout-" + this.props.layout].join(" ");
-        const cards = [];
-
-        className += this.props.padding ? "" : " unpadded";
-
-        _.each(this.state.items, function(item, i, items) {
-            const isLast = (i === items.length - 1);
-            const isStatic = (item.type === STATIC || item.type === DISABLED);
-            let margin;
-
-            if (this.props.layout === HORIZONTAL) {
-                margin = "0 " + this.props.margin + "px 0 0"; // right
-            } else if (this.props.layout === VERTICAL) {
-                margin = "0 0 " + this.props.margin + "px 0"; // bottom
-            }
-
-            cards.push(
-                <Draggable
-                    content={item.option}
-                    key={item.key}
-                    type={item.type}
-                    ref={item.key}
-                    width={item.width}
-                    height={item.height}
-                    margin={isLast && isStatic ? 0 : margin}
-                    endPosition={item.endPosition}
-                    onRender={this.remeasureItems}
-                    onMouseDown={this.onMouseDown.bind(this, item.key)}
-                    onMouseMove={this.onMouseMove.bind(this, item.key)}
-                    onMouseUp={this.onMouseUp.bind(this, item.key)}
-                    onTouchMove={this.onMouseMove.bind(this, item.key)}
-                    onTouchEnd={this.onMouseUp.bind(this, item.key)}
-                    onTouchCancel={this.onMouseUp.bind(this, item.key)}
-                    onAnimationEnd={this.onAnimationEnd.bind(this,
-                        item.key)}
-                />
-            );
-
-            if (item.type === DRAGGING || item.type === ANIMATING) {
-                cards.push(
-                    <Placeholder
-                        key={"placeholder_" + item.key}
-                        ref={"placeholder_" + item.key}
-                        width={item.width}
-                        height={item.height}
-                        margin={isLast ? 0 : margin}
-                    />
-                );
-            }
-        }, this);
-
-        return <ul className={className}>
-            {cards}
-        </ul>;
-    },
-
     onMouseDown: function(key) {
         // Static -> Dragging
         const items = _.map(this.state.items, function(item) {
@@ -533,6 +472,63 @@ const Sortable = React.createClass({
 
     getOptions: function() {
         return _.pluck(this.state.items, "option");
+    },
+
+    render: function() {
+        let className = [PREFIX, "layout-" + this.props.layout].join(" ");
+        const cards = [];
+
+        className += this.props.padding ? "" : " unpadded";
+
+        _.each(this.state.items, function(item, i, items) {
+            const isLast = (i === items.length - 1);
+            const isStatic = (item.type === STATIC || item.type === DISABLED);
+            let margin;
+
+            if (this.props.layout === HORIZONTAL) {
+                margin = "0 " + this.props.margin + "px 0 0"; // right
+            } else if (this.props.layout === VERTICAL) {
+                margin = "0 0 " + this.props.margin + "px 0"; // bottom
+            }
+
+            cards.push(
+                <Draggable
+                    content={item.option}
+                    key={item.key}
+                    type={item.type}
+                    ref={item.key}
+                    width={item.width}
+                    height={item.height}
+                    margin={isLast && isStatic ? 0 : margin}
+                    endPosition={item.endPosition}
+                    onRender={this.remeasureItems}
+                    onMouseDown={this.onMouseDown.bind(this, item.key)}
+                    onMouseMove={this.onMouseMove.bind(this, item.key)}
+                    onMouseUp={this.onMouseUp.bind(this, item.key)}
+                    onTouchMove={this.onMouseMove.bind(this, item.key)}
+                    onTouchEnd={this.onMouseUp.bind(this, item.key)}
+                    onTouchCancel={this.onMouseUp.bind(this, item.key)}
+                    onAnimationEnd={this.onAnimationEnd.bind(this,
+                        item.key)}
+                />
+            );
+
+            if (item.type === DRAGGING || item.type === ANIMATING) {
+                cards.push(
+                    <Placeholder
+                        key={"placeholder_" + item.key}
+                        ref={"placeholder_" + item.key}
+                        width={item.width}
+                        height={item.height}
+                        margin={isLast ? 0 : margin}
+                    />
+                );
+            }
+        }, this);
+
+        return <ul className={className}>
+            {cards}
+        </ul>;
     },
 });
 

@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require("react");
 const _ = require("underscore");
 
@@ -19,8 +15,6 @@ const defaultExplanationProps = {
 };
 
 const ExplanationEditor = React.createClass({
-    mixins: [EditorJsonify, Changeable],
-
     propTypes: {
         explanation: React.PropTypes.string,
         hidePrompt: React.PropTypes.string,
@@ -28,6 +22,8 @@ const ExplanationEditor = React.createClass({
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         widgets: React.PropTypes.any,
     },
+
+    mixins: [EditorJsonify, Changeable],
 
     getDefaultProps: function() {
         return defaultExplanationProps;

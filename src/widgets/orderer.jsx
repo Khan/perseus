@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/sort-comp */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const ReactDOM = require("react-dom");
 const _ = require("underscore");
@@ -77,49 +73,8 @@ const Card = React.createClass({
         };
     },
 
-    render: function() {
-        let style = {};
-
-        if (this.props.floating) {
-            style = {
-                position: "absolute",
-                left: this.props.startOffset.left,
-                top: this.props.startOffset.top,
-            };
-        }
-
-        if (this.props.width) {
-            style.width = this.props.width;
-        }
-
-        const className = ["card"];
-        if (this.props.stack) {
-            className.push("stack");
-        }
-        if (this.props.floating && !this.props.animating) {
-            className.push("dragging");
-            style.left += this.props.mouse.left - this.props.startMouse.left;
-            style.top += this.props.mouse.top - this.props.startMouse.top;
-        }
-
-        // Pull out the content to get rendered
-        const rendererProps = _.pick(this.props, "content");
-
-        const onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
-
-        return <div
-            className={"card-wrap " + ApiClassNames.INTERACTIVE}
-            style={style}
-            onMouseDown={onMouseDown}
-            onTouchStart={onMouseDown}
-            onTouchMove={this.onMouseMove}
-            onTouchEnd={this.onMouseUp}
-            onTouchCancel={this.onMouseUp}
-        >
-                <div className={className.join(" ")}>
-                    <Renderer {...rendererProps} />
-                </div>
-            </div>;
+    componentDidMount: function() {
+        this.mouseMoveUpBound = false;
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
@@ -132,10 +87,6 @@ const Card = React.createClass({
             this.props.content !== nextProps.content ||
             // TODO(alpert): Remove ref here after fixing facebook/react#1392.
             this.props.fakeRef !== nextProps.fakeRef;
-    },
-
-    componentDidMount: function() {
-        this.mouseMoveUpBound = false;
     },
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -209,6 +160,51 @@ const Card = React.createClass({
             this.props.onMouseUp && this.props.onMouseUp(loc);
         }
     },
+
+    render: function() {
+        let style = {};
+
+        if (this.props.floating) {
+            style = {
+                position: "absolute",
+                left: this.props.startOffset.left,
+                top: this.props.startOffset.top,
+            };
+        }
+
+        if (this.props.width) {
+            style.width = this.props.width;
+        }
+
+        const className = ["card"];
+        if (this.props.stack) {
+            className.push("stack");
+        }
+        if (this.props.floating && !this.props.animating) {
+            className.push("dragging");
+            style.left += this.props.mouse.left - this.props.startMouse.left;
+            style.top += this.props.mouse.top - this.props.startMouse.top;
+        }
+
+        // Pull out the content to get rendered
+        const rendererProps = _.pick(this.props, "content");
+
+        const onMouseDown = (this.props.animating) ? $.noop : this.onMouseDown;
+
+        return <div
+            className={"card-wrap " + ApiClassNames.INTERACTIVE}
+            style={style}
+            onMouseDown={onMouseDown}
+            onTouchStart={onMouseDown}
+            onTouchMove={this.onMouseMove}
+            onTouchEnd={this.onMouseUp}
+            onTouchCancel={this.onMouseUp}
+        >
+                <div className={className.join(" ")}>
+                    <Renderer {...rendererProps} />
+                </div>
+            </div>;
+    },
 });
 
 const NORMAL = "normal";
@@ -252,100 +248,6 @@ const Orderer = React.createClass({
         if (!_.isEqual(this.props.current, nextProps.current)) {
             this.setState({current: nextProps.current});
         }
-    },
-
-    render: function() {
-        // This is the card we are currently dragging
-        const dragging = this.state.dragging &&
-            <Card
-                ref="dragging"
-                floating={true}
-                content={this.state.dragContent}
-                startOffset={this.state.offsetPos}
-                startMouse={this.state.grabPos}
-                mouse={this.state.mousePos}
-                width={this.state.dragWidth}
-                onMouseUp={this.onRelease}
-                onMouseMove={this.onMouseMove}
-                key={this.state.dragKey || "draggingCard"}
-            />;
-
-        // This is the card that is currently animating
-        const animating = this.state.animating &&
-            <Card
-                floating={true}
-                animating={true}
-                content={this.state.dragContent}
-                startOffset={this.state.offsetPos}
-                width={this.state.dragWidth}
-                animateTo={this.state.animateTo}
-                onAnimationEnd={this.state.onAnimationEnd}
-                key={this.state.dragKey || "draggingCard"}
-            />;
-
-        // This is the list of draggable, rearrangable cards
-        const sortableCards = _.map(this.state.current, function(opt, i) {
-            return <Card
-                ref={"sortable" + i}
-                fakeRef={"sortable" + i}
-                floating={false}
-                content={opt.content}
-                width={opt.width}
-                key={opt.key}
-                onMouseDown={(this.state.animating) ?
-                    $.noop :
-                    this.onClick.bind(null, "current", i)}
-            />;
-        }, this);
-
-        if (this.state.placeholderIndex != null) {
-            const placeholder = <PlaceholderCard
-                ref="placeholder"
-                width={this.state.dragWidth}
-                height={this.state.dragHeight}
-                key="placeholder"
-            />;
-            sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
-        }
-
-        const anySortableCards = sortableCards.length > 0;
-        sortableCards.push(dragging, animating);
-
-        // If there are no cards in the list, then add a "hint" card
-        const sortable = <div className="ui-helper-clearfix draggable-box">
-            {!anySortableCards && <DragHintCard />}
-            <div ref="dragList">{sortableCards}</div>
-        </div>;
-
-        // This is the bank of stacks of cards
-        const bank = <div ref="bank" className="bank ui-helper-clearfix">
-            {_.map(this.props.options, (opt, i) => {
-                return <Card
-                    ref={"bank" + i}
-                    floating={false}
-                    content={opt.content}
-                    stack={true}
-                    key={i}
-                    onMouseDown={(this.state.animating) ?
-                        $.noop :
-                        this.onClick.bind(null, "bank", i)}
-                    onMouseMove={this.onMouseMove}
-                    onMouseUp={this.onRelease}
-                />;
-            }, this)}
-        </div>;
-
-        return <div
-            className={"draggy-boxy-thing orderer " +
-                "height-" + this.props.height + " " +
-                "layout-" + this.props.layout + " " +
-                "above-scratchpad blank-background " +
-                "ui-helper-clearfix " + ApiClassNames.INTERACTIVE}
-            ref="orderer"
-        >
-            {bank}
-            {sortable}
-        </div>;
     },
 
     onClick: function(type, index, loc, draggable) {
@@ -538,6 +440,100 @@ const Orderer = React.createClass({
 
     simpleValidate: function(rubric) {
         return Orderer.validate(this.getUserInput(), rubric);
+    },
+
+    render: function() {
+        // This is the card we are currently dragging
+        const dragging = this.state.dragging &&
+            <Card
+                ref="dragging"
+                floating={true}
+                content={this.state.dragContent}
+                startOffset={this.state.offsetPos}
+                startMouse={this.state.grabPos}
+                mouse={this.state.mousePos}
+                width={this.state.dragWidth}
+                onMouseUp={this.onRelease}
+                onMouseMove={this.onMouseMove}
+                key={this.state.dragKey || "draggingCard"}
+            />;
+
+        // This is the card that is currently animating
+        const animating = this.state.animating &&
+            <Card
+                floating={true}
+                animating={true}
+                content={this.state.dragContent}
+                startOffset={this.state.offsetPos}
+                width={this.state.dragWidth}
+                animateTo={this.state.animateTo}
+                onAnimationEnd={this.state.onAnimationEnd}
+                key={this.state.dragKey || "draggingCard"}
+            />;
+
+        // This is the list of draggable, rearrangable cards
+        const sortableCards = _.map(this.state.current, function(opt, i) {
+            return <Card
+                ref={"sortable" + i}
+                fakeRef={"sortable" + i}
+                floating={false}
+                content={opt.content}
+                width={opt.width}
+                key={opt.key}
+                onMouseDown={(this.state.animating) ?
+                    $.noop :
+                    this.onClick.bind(null, "current", i)}
+            />;
+        }, this);
+
+        if (this.state.placeholderIndex != null) {
+            const placeholder = <PlaceholderCard
+                ref="placeholder"
+                width={this.state.dragWidth}
+                height={this.state.dragHeight}
+                key="placeholder"
+            />;
+            sortableCards.splice(this.state.placeholderIndex, 0, placeholder);
+        }
+
+        const anySortableCards = sortableCards.length > 0;
+        sortableCards.push(dragging, animating);
+
+        // If there are no cards in the list, then add a "hint" card
+        const sortable = <div className="ui-helper-clearfix draggable-box">
+            {!anySortableCards && <DragHintCard />}
+            <div ref="dragList">{sortableCards}</div>
+        </div>;
+
+        // This is the bank of stacks of cards
+        const bank = <div ref="bank" className="bank ui-helper-clearfix">
+            {_.map(this.props.options, (opt, i) => {
+                return <Card
+                    ref={"bank" + i}
+                    floating={false}
+                    content={opt.content}
+                    stack={true}
+                    key={i}
+                    onMouseDown={(this.state.animating) ?
+                        $.noop :
+                        this.onClick.bind(null, "bank", i)}
+                    onMouseMove={this.onMouseMove}
+                    onMouseUp={this.onRelease}
+                />;
+            }, this)}
+        </div>;
+
+        return <div
+            className={"draggy-boxy-thing orderer " +
+                "height-" + this.props.height + " " +
+                "layout-" + this.props.layout + " " +
+                "above-scratchpad blank-background " +
+                "ui-helper-clearfix " + ApiClassNames.INTERACTIVE}
+            ref="orderer"
+        >
+            {bank}
+            {sortable}
+        </div>;
     },
 });
 
