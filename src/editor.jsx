@@ -94,24 +94,26 @@ const WidgetSelect = React.createClass({
 // with all available transforms applied, but the results of those
 // transforms will not be propogated upwards until serialization.
 const WidgetEditor = React.createClass({
+    /* eslint-disable react/jsx-sort-prop-types */
     propTypes: {
         // Unserialized props
+        apiOptions: ApiOptions.propTypes,
         id: React.PropTypes.string.isRequired,
         onChange: React.PropTypes.func.isRequired,
         onRemove: React.PropTypes.func.isRequired,
-        apiOptions: ApiOptions.propTypes,
 
         // Serialized props
-        type: React.PropTypes.string.isRequired,
         alignment: React.PropTypes.string,
-        static: React.PropTypes.bool,
         graded: React.PropTypes.bool,
         options: React.PropTypes.any,
+        static: React.PropTypes.bool,
+        type: React.PropTypes.string.isRequired,
         version: React.PropTypes.shape({
             major: React.PropTypes.number.isRequired,
             minor: React.PropTypes.number.isRequired,
         }),
     },
+    /* eslint-enable react/jsx-sort-prop-types */
 
     getInitialState: function() {
         return {

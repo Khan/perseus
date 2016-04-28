@@ -1,7 +1,3 @@
-/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-sort-prop-types */
-/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 const React = require('react');
 const _ = require("underscore");
 
@@ -20,6 +16,7 @@ const EN_DASH = "\u2013";
 
 const NumberLineEditor = React.createClass({
     propTypes: {
+        /* eslint-disable react/jsx-sort-prop-types */
         range: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
 
         labelRange: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
@@ -41,6 +38,7 @@ const NumberLineEditor = React.createClass({
         onChange: React.PropTypes.func.isRequired,
 
         static: React.PropTypes.bool,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
 
     mixins: [EditorJsonify],

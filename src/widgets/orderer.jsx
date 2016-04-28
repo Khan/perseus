@@ -45,6 +45,7 @@ const PropTypes = {
 
 const Card = React.createClass({
     propTypes: {
+        /* eslint-disable react/jsx-sort-prop-types */
         floating: React.PropTypes.bool.isRequired,
         animating: React.PropTypes.bool,
         width: React.PropTypes.number,
@@ -64,6 +65,7 @@ const Card = React.createClass({
 
         content: React.PropTypes.string,
         fakeRef: React.PropTypes.string,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
 
     getDefaultProps: function() {

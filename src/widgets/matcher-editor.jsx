@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -11,12 +11,14 @@ const TextListEditor = require("../components/text-list-editor.jsx");
 
 const MatcherEditor = React.createClass({
     propTypes: {
+        /* eslint-disable react/jsx-sort-prop-types */
         left: React.PropTypes.arrayOf(React.PropTypes.string),
         right: React.PropTypes.arrayOf(React.PropTypes.string),
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func.isRequired,
         orderMatters: React.PropTypes.bool,
         padding: React.PropTypes.bool,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
 
     getDefaultProps: function() {

@@ -158,6 +158,7 @@ const LightsPuzzle = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
+        /* eslint-disable react/jsx-sort-prop-types */
         cells: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(React.PropTypes.bool)
         ),
@@ -166,6 +167,7 @@ const LightsPuzzle = React.createClass({
         ),
         flipPattern: React.PropTypes.string.isRequired,
         moveCount: React.PropTypes.number.isRequired,
+        /* eslint-enable react/jsx-sort-prop-types */
     },
 
     getDefaultProps: function() {
