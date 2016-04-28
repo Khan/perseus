@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -16,15 +16,15 @@ const Table = require("./table.jsx").widget;
 
 const TableEditor = React.createClass({
     propTypes: {
-        rows: React.PropTypes.number,
-        columns: React.PropTypes.number,
-        headers: React.PropTypes.arrayOf(React.PropTypes.string),
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.string
             )
         ),
+        columns: React.PropTypes.number,
+        headers: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func.isRequired,
+        rows: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -34,10 +34,10 @@ const TableEditor = React.createClass({
             return Util.stringArrayOfSize(defaultColumns);
         });
         return {
+            answers: blankAnswers,
+            columns: defaultColumns,
             headers: [""],
             rows: defaultRows,
-            columns: defaultColumns,
-            answers: blankAnswers,
         };
     },
 

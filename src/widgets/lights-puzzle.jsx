@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -81,8 +81,8 @@ const PATTERNS = {
 const Tile = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
-        value: React.PropTypes.bool.isRequired,
         size: React.PropTypes.number.isRequired,
+        value: React.PropTypes.bool.isRequired,
     },
 
     render: function() {

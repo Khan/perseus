@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -45,30 +45,30 @@ const MatrixEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        matrixBoardSize: React.PropTypes.arrayOf(
-            React.PropTypes.number
-        ).isRequired,
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.number
             )
         ),
-        labelStyle: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
-        prefix: React.PropTypes.string,
-        suffix: React.PropTypes.string,
         cursorPosition: React.PropTypes.arrayOf(
             React.PropTypes.number
         ),
+        labelStyle: React.PropTypes.string,
+        matrixBoardSize: React.PropTypes.arrayOf(
+            React.PropTypes.number
+        ).isRequired,
+        onChange: React.PropTypes.func.isRequired,
+        prefix: React.PropTypes.string,
+        suffix: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            matrixBoardSize: [3, 3],
             answers: [[]],
+            cursorPosition: [0, 0],
+            matrixBoardSize: [3, 3],
             prefix: "",
             suffix: "",
-            cursorPosition: [0, 0],
         };
     },
 

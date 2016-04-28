@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -21,31 +21,30 @@ const TEX = "tex";
 
 const InputWithExamples = React.createClass({
     propTypes: {
-        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
-        value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
-        className: React.PropTypes.string,
-        examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-        shouldShowExamples: React.PropTypes.bool,
-        convertDotToTimes: React.PropTypes.bool,
         buttonSet: React.PropTypes.string,
         buttonsVisible: React.PropTypes.oneOf(['always', 'never', 'focused']),
-        labelText: React.PropTypes.string,
-        onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
+        className: React.PropTypes.string,
+        convertDotToTimes: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-
+        examples: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
         // A unique string identifying this InputWithExamples
         id: React.PropTypes.string.isRequired,
+        labelText: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        shouldShowExamples: React.PropTypes.bool,
+        type: React.PropTypes.oneOf([MATH, TEXT, TEX]),
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            type: TEXT,
-            shouldShowExamples: true,
-            onFocus: function() { },
-            onBlur: function() { },
             disabled: false,
+            onBlur: function() { },
+            onFocus: function() { },
+            shouldShowExamples: true,
+            type: TEXT,
         };
     },
 

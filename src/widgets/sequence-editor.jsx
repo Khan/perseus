@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -10,8 +10,8 @@ const Editor = require("../editor.jsx");
 
 const StepControlButton = React.createClass({
     propTypes: {
-        onClick: React.PropTypes.func.isRequired,
         icon: React.PropTypes.string.isRequired,
+        onClick: React.PropTypes.func.isRequired,
     },
 
     render: function() {
@@ -34,12 +34,12 @@ const StepControlButton = React.createClass({
 
 const SequenceEditor = React.createClass({
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         json:  React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
             widgets: React.PropTypes.object,
             images: React.PropTypes.object,
         })),
-        apiOptions: ApiOptions.propTypes,
         onChange: React.PropTypes.func.isRequired,
     },
 

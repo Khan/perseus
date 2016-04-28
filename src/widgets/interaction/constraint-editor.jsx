@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -15,24 +15,24 @@ const ConstraintEditor = React.createClass({
 
     propTypes: {
         constraint: React.PropTypes.string,
-        snap: React.PropTypes.number,
         constraintFn: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
-        constraintXMin: React.PropTypes.string,
         constraintXMax: React.PropTypes.string,
-        constraintYMin: React.PropTypes.string,
+        constraintXMin: React.PropTypes.string,
         constraintYMax: React.PropTypes.string,
+        constraintYMin: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        snap: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
             constraint: "none",
-            snap: 0.5,
             constraintFn: "0",
-            constraintXMin: "-10",
             constraintXMax: "10",
-            constraintYMin: "-10",
+            constraintXMin: "-10",
             constraintYMax: "10",
+            constraintYMin: "-10",
+            snap: 0.5,
         };
     },
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -26,21 +26,21 @@ const Iframe = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
-        width: React.PropTypes.string,
+        allowFullScreen: React.PropTypes.bool,
         height: React.PropTypes.string,
-        url: React.PropTypes.string,
+        message: React.PropTypes.string,
         settings: React.PropTypes.arrayOf(React.PropTypes.object),
         status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
-        message: React.PropTypes.string,
-        allowFullScreen: React.PropTypes.bool,
+        url: React.PropTypes.string,
+        width: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            status: "incomplete",
+            allowFullScreen: false,
             // optional message
             message: null,
-            allowFullScreen: false,
+            status: "incomplete",
         };
     },
     handleMessageEvent: function(e) {

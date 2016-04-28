@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -14,22 +14,22 @@ const ItemEditor = React.createClass({
     propTypes: {
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         answerArea: React.PropTypes.any,
+        apiOptions: ApiOptions.propTypes,
+        gradeMessage: React.PropTypes.string,
         imageUploader: React.PropTypes.func,
         onChange: React.PropTypes.func,
-        wasAnswered: React.PropTypes.bool,
-        gradeMessage: React.PropTypes.string,
-        apiOptions: ApiOptions.propTypes,
         previewWidth: React.PropTypes.number.isRequired,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         question: React.PropTypes.any,
+        wasAnswered: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            onChange: () => {},
-            question: {},
             answerArea: {},
             apiOptions: ApiOptions.defaults,
+            onChange: () => {},
+            question: {},
         };
     },
 

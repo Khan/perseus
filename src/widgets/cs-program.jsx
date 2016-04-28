@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable no-undef, react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -35,23 +35,23 @@ const CSProgram = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
-        programID: React.PropTypes.string,
-        width: React.PropTypes.number,
         height: React.PropTypes.number,
-        settings: React.PropTypes.arrayOf(React.PropTypes.object),
-        showEditor: React.PropTypes.bool,
-        showButtons: React.PropTypes.bool,
-        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
         message: React.PropTypes.string,
+        programID: React.PropTypes.string,
+        settings: React.PropTypes.arrayOf(React.PropTypes.object),
+        showButtons: React.PropTypes.bool,
+        showEditor: React.PropTypes.bool,
+        status: React.PropTypes.oneOf(['incomplete', 'incorrect', 'correct']),
+        width: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
-            showEditor: false,
-            showButtons: false,
-            status: "incomplete",
             // optional message
             message: null,
+            showButtons: false,
+            showEditor: false,
+            status: "incomplete",
         };
     },
 

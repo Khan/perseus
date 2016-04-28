@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -47,23 +47,23 @@ const answerTypes = {
 
 const InputNumberEditor = React.createClass({
     propTypes: {
-        value: React.PropTypes.number,
-        simplify: React.PropTypes.oneOf(['required', 'optional', 'enforced']),
-        size: React.PropTypes.oneOf(['normal', 'small']),
+        answerType: React.PropTypes.string,
         inexact: React.PropTypes.bool,
         maxError: React.PropTypes.number,
-        answerType: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
+        simplify: React.PropTypes.oneOf(['required', 'optional', 'enforced']),
+        size: React.PropTypes.oneOf(['normal', 'small']),
+        value: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
-            value: 0,
-            simplify: "required",
-            size: "normal",
+            answerType: "number",
             inexact: false,
             maxError: 0.1,
-            answerType: "number",
+            simplify: "required",
+            size: "normal",
+            value: 0,
         };
     },
 

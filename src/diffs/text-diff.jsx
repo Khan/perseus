@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -31,11 +31,11 @@ const classFor = function(entry, ifAdded, ifRemoved) {
 
 const ImageDiffSide = React.createClass({
     propTypes: {
-        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
         images: React.PropTypes.arrayOf(React.PropTypes.shape({
             status: React.PropTypes.string.isRequired,
             value: React.PropTypes.string.isRequired,
         })).isRequired,
+        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
     },
 
     render: function() {
@@ -61,15 +61,15 @@ const ImageDiffSide = React.createClass({
 
 const TextDiff = React.createClass({
     propTypes: {
-        before: React.PropTypes.string,
         after: React.PropTypes.string,
+        before: React.PropTypes.string,
         title: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            before: "",
             after: "",
+            before: "",
             title: "",
         };
     },

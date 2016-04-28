@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -32,10 +32,10 @@ const ExpressionEditor = React.createClass({
 
     propTypes: {
         answerForms: React.PropTypes.arrayOf(answerFormType),
-        onChange: React.PropTypes.func.isRequired,
-        times: React.PropTypes.bool,
         buttonSets: TexButtons.buttonSetsType,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        onChange: React.PropTypes.func.isRequired,
+        times: React.PropTypes.bool,
         value: React.PropTypes.string,
         widgetId: React.PropTypes.string,
     },
@@ -43,9 +43,9 @@ const ExpressionEditor = React.createClass({
     getDefaultProps: function() {
         return {
             answerForms: [],
-            times: false,
             buttonSets: ["basic"],
             functions: ["f", "g", "h"],
+            times: false,
         };
     },
 
@@ -368,11 +368,11 @@ const AnswerOption = React.createClass({
         // Must the answer have the same form as this answer.
         form: React.PropTypes.bool.isRequired,
 
-        // Must the answer be simplified.
-        simplify: React.PropTypes.bool.isRequired,
-
         onChange: React.PropTypes.func.isRequired,
         onDelete: React.PropTypes.func.isRequired,
+
+        // Must the answer be simplified.
+        simplify: React.PropTypes.bool.isRequired,
     },
 
     getInitialState: function() {

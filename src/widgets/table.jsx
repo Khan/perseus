@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -46,6 +46,8 @@ const getRefForPath = function(path) {
 
 const Table = React.createClass({
     propTypes: {
+        // The editor to use when editableHeaders is enabled
+        Editor: React.PropTypes.func,
         answers: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.string
@@ -53,8 +55,6 @@ const Table = React.createClass({
         ),
         apiOptions: ApiOptions.propTypes,
         editableHeaders: React.PropTypes.bool,
-        // The editor to use when editableHeaders is enabled
-        Editor: React.PropTypes.func,
         headers: React.PropTypes.arrayOf(React.PropTypes.string),
         onBlur: React.PropTypes.func,
         onChange: React.PropTypes.func,
@@ -69,12 +69,12 @@ const Table = React.createClass({
             return Util.stringArrayOfSize(defaultColumns);
         });
         return {
-            apiOptions: ApiOptions.defaults,
-            headers: [""],
-            editableHeaders: false,
-            rows: defaultRows,
-            columns: defaultColumns,
             answers: blankAnswers,
+            apiOptions: ApiOptions.defaults,
+            columns: defaultColumns,
+            editableHeaders: false,
+            headers: [""],
+            rows: defaultRows,
         };
     },
 

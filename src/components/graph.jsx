@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -43,50 +43,50 @@ function numSteps(range, step) {
 
 const Graph = React.createClass({
     propTypes: {
+        backgroundImage: React.PropTypes.shape({
+            url: React.PropTypes.string,
+        }),
         box: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        instructions: React.PropTypes.string,
         labels: React.PropTypes.arrayOf(React.PropTypes.string),
+        markings: React.PropTypes.string,
+        onClick: React.PropTypes.func,
+        onGraphieUpdated: React.PropTypes.func,
+        onMouseDown: React.PropTypes.func,
+        onMouseMove: React.PropTypes.func,
+        onMouseUp: React.PropTypes.func,
         range: React.PropTypes.arrayOf(
             React.PropTypes.arrayOf(
                 React.PropTypes.number
             )
         ),
-        step: React.PropTypes.arrayOf(React.PropTypes.number),
-        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-        markings: React.PropTypes.string,
-        backgroundImage: React.PropTypes.shape({
-            url: React.PropTypes.string,
-        }),
-        showProtractor: React.PropTypes.bool,
-        showRuler: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
         rulerTicks: React.PropTypes.number,
-        onGraphieUpdated: React.PropTypes.func,
-        instructions: React.PropTypes.string,
-        onClick: React.PropTypes.func,
-        onMouseDown: React.PropTypes.func,
-        onMouseUp: React.PropTypes.func,
-        onMouseMove: React.PropTypes.func,
+        showProtractor: React.PropTypes.bool,
+        showRuler: React.PropTypes.bool,
+        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+        step: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
         return {
-            box: [defaultBoxSize, defaultBoxSize],
-            labels: ["x", "y"],
-            range: [[-10, 10], [-10, 10]],
-            step: [1, 1],
-            gridStep: [1, 1],
-            snapStep: [0.5, 0.5],
-            markings: "graph",
             backgroundImage: defaultBackgroundImage,
-            showProtractor: false,
-            showRuler: false,
+            box: [defaultBoxSize, defaultBoxSize],
+            gridStep: [1, 1],
+            instructions: null,
+            labels: ["x", "y"],
+            markings: "graph",
+            onClick: null,
+            onGraphieUpdated: null,
+            onMouseDown: null,
+            range: [[-10, 10], [-10, 10]],
             rulerLabel: "",
             rulerTicks: 10,
-            instructions: null,
-            onGraphieUpdated: null,
-            onClick: null,
-            onMouseDown: null,
+            showProtractor: false,
+            showRuler: false,
+            snapStep: [0.5, 0.5],
+            step: [1, 1],
         };
     },
 

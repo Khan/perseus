@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -324,30 +324,30 @@ const Editor = React.createClass({
         // We don't use EnabledFeatures.propTypes here because it requires the
         // props and they're optional for this component.
         enabledFeatures: React.PropTypes.any,
+        imageUploader: React.PropTypes.func,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         images: React.PropTypes.any,
-        imageUploader: React.PropTypes.func,
         immutableWidgets: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.string,
         replace: React.PropTypes.bool,
         showWordCount: React.PropTypes.bool,
+        widgetEnabled: React.PropTypes.bool,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         widgets: React.PropTypes.any,
-        widgetEnabled: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            content: "",
-            placeholder: "",
-            widgets: {},
-            images: {},
-            disabled: false,
-            widgetEnabled: true,
-            immutableWidgets: false,
-            showWordCount: false,
             apiOptions: ApiOptions.defaults,
+            content: "",
+            disabled: false,
+            images: {},
+            immutableWidgets: false,
+            placeholder: "",
+            showWordCount: false,
+            widgetEnabled: true,
+            widgets: {},
         };
     },
 

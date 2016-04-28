@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -15,9 +15,9 @@ const Group = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
+        icon: React.PropTypes.node,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         images: React.PropTypes.any,
-        icon: React.PropTypes.node,
         interWidgets: React.PropTypes.func,
         onBlur: React.PropTypes.func,
         onFocus: React.PropTypes.func,
@@ -30,9 +30,9 @@ const Group = React.createClass({
     getDefaultProps: function() {
         return {
             content: "",
-            widgets: {},
-            images: {},
             icon: null,
+            images: {},
+            widgets: {},
         };
     },
 

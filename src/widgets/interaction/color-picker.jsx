@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const ButtonGroup = require("react-components/button-group.jsx");
@@ -17,15 +17,15 @@ const ColorPicker = React.createClass({
         KhanColors.LIGHT_RED, "#fff"],
 
     propTypes: {
-        value: React.PropTypes.string,
         lightColors: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: KhanColors.BLACK,
             lightColors: false,
+            value: KhanColors.BLACK,
         };
     },
 

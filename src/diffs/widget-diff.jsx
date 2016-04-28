@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -19,12 +19,12 @@ const UNCHANGED = "unchanged";
 
 const DiffSide = React.createClass({
     propTypes: {
-        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
         className: React.PropTypes.string.isRequired,
-        showKey: React.PropTypes.bool.isRequired,
-        propKey: React.PropTypes.string.isRequired,
-        value: React.PropTypes.string,
         depth: React.PropTypes.number.isRequired,
+        propKey: React.PropTypes.string.isRequired,
+        showKey: React.PropTypes.bool.isRequired,
+        side: React.PropTypes.oneOf([BEFORE, AFTER]).isRequired,
+        value: React.PropTypes.string,
     },
 
     render: function() {
@@ -78,13 +78,13 @@ const CollapsedRow = React.createClass({
 // Component representing a single property that may be nested.
 const DiffEntry = React.createClass({
     propTypes: {
+        depth: React.PropTypes.number,
         entry: React.PropTypes.shape({
             key: React.PropTypes.string,
             children: React.PropTypes.array,
             before: React.PropTypes.string,
             after: React.PropTypes.string,
         }),
-        depth: React.PropTypes.number,
         expanded: React.PropTypes.bool,
     },
 
@@ -176,10 +176,10 @@ const DiffEntry = React.createClass({
 
 const WidgetDiff = React.createClass({
     propTypes: {
-        before: React.PropTypes.shape({
+        after: React.PropTypes.shape({
             options: React.PropTypes.object,
         }).isRequired,
-        after: React.PropTypes.shape({
+        before: React.PropTypes.shape({
             options: React.PropTypes.object,
         }).isRequired,
         title: React.PropTypes.string.isRequired,

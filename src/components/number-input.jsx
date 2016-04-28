@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -31,32 +31,32 @@ const getNumericFormat = KhanMath.getNumericFormat;
  */
 const NumberInput = React.createClass({
     propTypes: {
+        checkValidity: React.PropTypes.func,
         className: React.PropTypes.string,
-        value: React.PropTypes.number,
         format: React.PropTypes.string,
+        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]),
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        onFormatChange: React.PropTypes.func,
+        onKeyDown: React.PropTypes.func,
         placeholder: React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.number,
         ]),
-        onBlur: React.PropTypes.func,
-        onChange: React.PropTypes.func.isRequired,
-        onFocus: React.PropTypes.func,
-        onKeyDown: React.PropTypes.func,
-        onFormatChange: React.PropTypes.func,
-        checkValidity: React.PropTypes.func,
         size: React.PropTypes.string,
-        label: React.PropTypes.oneOf(["put your labels outside your inputs!"]),
         useArrowKeys: React.PropTypes.bool,
+        value: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
-            value: null,
-            placeholder: null,
+            checkValidity: () => true,
             format: null,
             onFormatChange: () => null,
-            checkValidity: () => true,
+            placeholder: null,
             useArrowKeys: false,
+            value: null,
         };
     },
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -14,24 +14,24 @@ const GroupEditor = React.createClass({
     mixins: [Changeable],
 
     propTypes: {
+        apiOptions: ApiOptions.propTypes,
         content: React.PropTypes.string,
-        // TODO(JJC1138): This could be replaced with a more specific prop spec:
-        widgets: React.PropTypes.any,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         images: React.PropTypes.any,
         metadata: React.PropTypes.any,
         onChange: React.PropTypes.func.isRequired,
-        apiOptions: ApiOptions.propTypes,
+        // TODO(JJC1138): This could be replaced with a more specific prop spec:
+        widgets: React.PropTypes.any,
     },
 
     getDefaultProps: function() {
         return {
             content: "",
-            widgets: {},
             images: {},
             // `undefined` instead of `null` so that getDefaultProps works for
             // `the GroupMetadataEditor`
             metadata: undefined,
+            widgets: {},
         };
     },
 

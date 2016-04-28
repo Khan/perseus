@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React     = require("react");
@@ -118,8 +118,8 @@ const buttonSetsType = React.PropTypes.arrayOf(
 const TexButtons = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
-        sets: buttonSetsType.isRequired,
         onInsert: React.PropTypes.func.isRequired,
+        sets: buttonSetsType.isRequired,
     },
 
     render: function() {

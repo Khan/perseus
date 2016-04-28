@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React        = require('react');
@@ -31,24 +31,24 @@ const MeasurerEditor = React.createClass({
             left: React.PropTypes.number,
         }),
         onChange: React.PropTypes.func.isRequired,
+        rulerLabel: React.PropTypes.string,
+        rulerLength: React.PropTypes.number,
+        rulerPixels: React.PropTypes.number,
+        rulerTicks: React.PropTypes.number,
         showProtractor: React.PropTypes.bool,
         showRuler: React.PropTypes.bool,
-        rulerLabel: React.PropTypes.string,
-        rulerTicks: React.PropTypes.number,
-        rulerPixels: React.PropTypes.number,
-        rulerLength: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
             box: [480, 480],
             image: {},
+            rulerLabel: "",
+            rulerLength: 10,
+            rulerPixels: 40,
+            rulerTicks: 10,
             showProtractor: true,
             showRuler: false,
-            rulerLabel: "",
-            rulerTicks: 10,
-            rulerPixels: 40,
-            rulerLength: 10,
         };
     },
 

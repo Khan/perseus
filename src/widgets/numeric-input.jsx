@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -48,11 +48,6 @@ const formExamples = {
 
 const NumericInput = React.createClass({
     propTypes: {
-        currentValue: React.PropTypes.string,
-        size: React.PropTypes.oneOf(["normal", "small"]),
-        enabledFeatures: EnabledFeatures.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        coefficient: React.PropTypes.bool,
         answerForms: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string.isRequired,
             simplify: React.PropTypes.oneOf([
@@ -60,6 +55,10 @@ const NumericInput = React.createClass({
                 "optional",
             ]).isRequired,
         })),
+        apiOptions: ApiOptions.propTypes,
+        coefficient: React.PropTypes.bool,
+        currentValue: React.PropTypes.string,
+        enabledFeatures: EnabledFeatures.propTypes,
         keypadConfiguration: keypadConfigurationPropType,
         labelText: React.PropTypes.string,
         onBlur: React.PropTypes.func,
@@ -67,19 +66,20 @@ const NumericInput = React.createClass({
         onFocus: React.PropTypes.func,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         reviewModeRubric: React.PropTypes.any,
+        size: React.PropTypes.oneOf(["normal", "small"]),
         trackInteraction: React.PropTypes.func.isRequired,
         widgetId: React.PropTypes.string.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            currentValue: "",
-            size: "normal",
-            enabledFeatures: EnabledFeatures.defaults,
+            answerForms: [],
             apiOptions: ApiOptions.defaults,
             coefficient: false,
-            answerForms: [],
+            currentValue: "",
+            enabledFeatures: EnabledFeatures.defaults,
             labelText: "",
+            size: "normal",
         };
     },
 

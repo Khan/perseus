@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -29,9 +29,9 @@ const ExampleGraphieWidget = React.createClass({
     mixins: [Changeable, WidgetJsonifyDeprecated],
 
     propTypes: {
+        coord: React.PropTypes.arrayOf(React.PropTypes.number),
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         graph: React.PropTypes.any.isRequired,
-        coord: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {

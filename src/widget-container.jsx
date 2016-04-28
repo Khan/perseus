@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -10,10 +10,10 @@ const Widgets = require("./widgets.js");
 
 const WidgetContainer = React.createClass({
     propTypes: {
-        shouldHighlight: React.PropTypes.bool.isRequired,
-        type: React.PropTypes.string,
         enabledFeatures: EnabledFeatures.propTypes,
         initialProps: React.PropTypes.any.isRequired,
+        shouldHighlight: React.PropTypes.bool.isRequired,
+        type: React.PropTypes.string,
     },
 
     getInitialState: function() {

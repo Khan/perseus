@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -45,8 +45,8 @@ const NumericInputEditor = React.createClass({
         answers: React.PropTypes.arrayOf(React.PropTypes.object),
         coefficient: React.PropTypes.bool,
         labelText: React.PropTypes.string,
-        size: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
+        size: React.PropTypes.string,
     },
 
     mixins: [EditorJsonify, Changeable],
@@ -54,9 +54,9 @@ const NumericInputEditor = React.createClass({
     getDefaultProps: function() {
         return {
             answers: [initAnswer("correct")],
-            size: "normal",
             coefficient: false,
             labelText: "",
+            size: "normal",
         };
     },
 

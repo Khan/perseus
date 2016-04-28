@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -18,12 +18,12 @@ const OrdererEditor = React.createClass({
         correctOptions: React.PropTypes.arrayOf(React.PropTypes.shape({
             content: React.PropTypes.string,
         })),
-        otherOptions: React.PropTypes.arrayOf(React.PropTypes.shape({
-            content: React.PropTypes.string,
-        })),
         height: React.PropTypes.oneOf([NORMAL, AUTO]),
         layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         onChange: React.PropTypes.func.isRequired,
+        otherOptions: React.PropTypes.arrayOf(React.PropTypes.shape({
+            content: React.PropTypes.string,
+        })),
     },
 
     getDefaultProps: function() {
@@ -31,11 +31,11 @@ const OrdererEditor = React.createClass({
             correctOptions: [
                 {content: "$x$"},
             ],
+            height: NORMAL,
+            layout: HORIZONTAL,
             otherOptions: [
                 {content: "$y$"},
             ],
-            height: NORMAL,
-            layout: HORIZONTAL,
         };
     },
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* global i18n */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -18,10 +18,10 @@ const ChoiceEditor = React.createClass({
     propTypes: {
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         choice: React.PropTypes.any,
-        showDelete: React.PropTypes.bool,
         onClueChange: React.PropTypes.func,
         onContentChange: React.PropTypes.func,
         onDelete: React.PropTypes.func,
+        showDelete: React.PropTypes.bool,
     },
 
     render: function() {
@@ -83,25 +83,25 @@ const RadioEditor = React.createClass({
             clue: React.PropTypes.string,
             correct: React.PropTypes.bool,
         })),
+        deselectEnabled: React.PropTypes.bool,
         displayCount: React.PropTypes.number,
-        randomize: React.PropTypes.bool,
         hasNoneOfTheAbove: React.PropTypes.bool,
         multipleSelect: React.PropTypes.bool,
-        onePerLine: React.PropTypes.bool,
-        deselectEnabled: React.PropTypes.bool,
-        static: React.PropTypes.bool,
         onChange: React.PropTypes.func.isRequired,
+        onePerLine: React.PropTypes.bool,
+        randomize: React.PropTypes.bool,
+        static: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             choices: [{}, {}],
+            deselectEnabled: false,
             displayCount: null,
-            randomize: false,
             hasNoneOfTheAbove: false,
             multipleSelect: false,
             onePerLine: true,
-            deselectEnabled: false,
+            randomize: false,
         };
     },
 

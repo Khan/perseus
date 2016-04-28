@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -17,12 +17,12 @@ const PREFIX = "perseus-sortable";
 // A placeholder that appears in the sortable whenever an item is dragged.
 const Placeholder = React.createClass({
     propTypes: {
-        width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
         margin: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.string,
         ]),
+        width: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -53,23 +53,23 @@ const DISABLED = "disabled";
 // [Dis|en]abling:  Static|Dragging|Animating -> Disabled -> Static
 const Draggable = React.createClass({
     propTypes: {
-        type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
         content: React.PropTypes.string.isRequired,
         endPosition: React.PropTypes.shape({
             left: React.PropTypes.number,
             top: React.PropTypes.number,
         }).isRequired,
-        onRender: React.PropTypes.func.isRequired,
-        onMouseDown: React.PropTypes.func.isRequired,
-        onMouseMove: React.PropTypes.func.isRequired,
-        onMouseUp: React.PropTypes.func.isRequired,
-        onAnimationEnd: React.PropTypes.func.isRequired,
-        width: React.PropTypes.number,
         height: React.PropTypes.number,
         margin: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.string,
         ]),
+        onAnimationEnd: React.PropTypes.func.isRequired,
+        onMouseDown: React.PropTypes.func.isRequired,
+        onMouseMove: React.PropTypes.func.isRequired,
+        onMouseUp: React.PropTypes.func.isRequired,
+        onRender: React.PropTypes.func.isRequired,
+        type: React.PropTypes.oneOf([STATIC, DRAGGING, ANIMATING, DISABLED]),
+        width: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
@@ -251,25 +251,25 @@ const VERTICAL = "vertical";
 // The main sortable component.
 const Sortable = React.createClass({
     propTypes: {
-        options: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
-        padding: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
         constraints: React.PropTypes.any,
-        onMeasure: React.PropTypes.func,
+        disabled: React.PropTypes.bool,
+        layout: React.PropTypes.oneOf([HORIZONTAL, VERTICAL]),
         margin: React.PropTypes.number,
         onChange: React.PropTypes.func,
+        onMeasure: React.PropTypes.func,
+        options: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+        padding: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            layout: HORIZONTAL,
-            padding: true,
-            disabled: false,
             constraints: {},
-            onMeasure: function() {},
+            disabled: false,
+            layout: HORIZONTAL,
             margin: 5,
             onChange: function() {},
+            onMeasure: function() {},
+            padding: true,
         };
     },
 

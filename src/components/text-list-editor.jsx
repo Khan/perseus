@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -20,15 +20,15 @@ function getTextWidth(text) {
 
 const TextListEditor = React.createClass({
     propTypes: {
-        options: React.PropTypes.arrayOf(React.PropTypes.string),
         layout: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
+        options: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {
         return {
-            options: [],
             layout: "horizontal",
+            options: [],
         };
     },
 

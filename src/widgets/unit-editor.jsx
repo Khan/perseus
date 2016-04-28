@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 // TODO(joel): teach KAS how to accept an answer only if it's expressed in
@@ -112,18 +112,18 @@ const UnitInputEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {
-        onChange: React.PropTypes.func.isRequired,
-        value: React.PropTypes.string,
-        acceptingUnits: React.PropTypes.arrayOf(React.PropTypes.string),
         accepting: React.PropTypes.oneOf([ALL, SOME]),
+        acceptingUnits: React.PropTypes.arrayOf(React.PropTypes.string),
+        onChange: React.PropTypes.func.isRequired,
         sigfigs: React.PropTypes.number,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: "5x10^5 kg m / s^2",
             accepting: ALL,
             sigfigs: 3,
+            value: "5x10^5 kg m / s^2",
         };
     },
 

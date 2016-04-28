@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -89,24 +89,24 @@ const IframeEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {
-        url: React.PropTypes.string,
+        allowFullScreen: React.PropTypes.bool,
+        height: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
         settings: React.PropTypes.arrayOf(React.PropTypes.shape({
             name: React.PropTypes.string,
             value: React.PropTypes.string,
         })),
+        url: React.PropTypes.string,
         width: React.PropTypes.string,
-        height: React.PropTypes.string,
-        allowFullScreen: React.PropTypes.bool,
-        onChange: React.PropTypes.func.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            url: "",
-            settings: [{name: "", value: ""}],
-            width: "400",
-            height: "400",
             allowFullScreen: false,
+            height: "400",
+            settings: [{name: "", value: ""}],
+            url: "",
+            width: "400",
         };
     },
 

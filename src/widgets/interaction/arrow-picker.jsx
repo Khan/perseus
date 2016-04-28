@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+/* eslint-disable react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const ButtonGroup = require("react-components/button-group.jsx");
@@ -7,8 +7,8 @@ const React = require("react");
 
 const ArrowPicker = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
         onChange: React.PropTypes.func.isRequired,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -76,8 +76,8 @@ const flipTilesPredicate = (oldCells, predicate) => {
 const Tile = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func.isRequired,
-        value: React.PropTypes.bool.isRequired,
         size: React.PropTypes.number.isRequired,
+        value: React.PropTypes.bool.isRequired,
     },
 
     render: function() {
@@ -131,23 +131,23 @@ const LightsPuzzleEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {
-        startCells: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(React.PropTypes.bool)
-        ),
         flipPattern: React.PropTypes.string.isRequired,
         gradeIncompleteAsWrong: React.PropTypes.bool.isRequired,
         onChange: React.PropTypes.func.isRequired,
+        startCells: React.PropTypes.arrayOf(
+            React.PropTypes.arrayOf(React.PropTypes.bool)
+        ),
     },
 
     getDefaultProps: function() {
         return {
+            flipPattern: "plus",
+            gradeIncompleteAsWrong: false,
             startCells: [
                 [false, false, false],
                 [false, false, false],
                 [false, false, false],
             ],
-            flipPattern: "plus",
-            gradeIncompleteAsWrong: false,
         };
     },
 

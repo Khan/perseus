@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -22,6 +22,7 @@ const TextInput = require("../components/text-input.jsx");
 const KhanColors = require("../util/colors.js");
 
 const defaultInteractionProps = {
+    elements: [],
     graph: {
         box: [400, 400],
         labels: ["x", "y"],
@@ -30,7 +31,6 @@ const defaultInteractionProps = {
         gridStep: [1, 1],
         markings: "graph",
     },
-    elements: [],
 };
 
 //
@@ -42,16 +42,16 @@ const PointEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
+        color: React.PropTypes.string,
         coordX: React.PropTypes.string,
         coordY: React.PropTypes.string,
-        color: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
+            color: KhanColors.BLACK,
             coordX: "0",
             coordY: "0",
-            color: KhanColors.BLACK,
         };
     },
 
@@ -92,25 +92,25 @@ const LineEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        startX: React.PropTypes.string,
-        startY: React.PropTypes.string,
+        arrows: React.PropTypes.string,
+        color: React.PropTypes.string,
         endX: React.PropTypes.string,
         endY: React.PropTypes.string,
-        color: React.PropTypes.string,
+        startX: React.PropTypes.string,
+        startY: React.PropTypes.string,
         strokeDasharray: React.PropTypes.string,
-        arrows: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
-            startX: "-5",
-            startY: "5",
+            arrows: "",
+            color: KhanColors.BLACK,
             endX: "5",
             endY: "5",
-            color: KhanColors.BLACK,
+            startX: "-5",
+            startY: "5",
             strokeDasharray: "",
-            arrows: "",
             strokeWidth: 2,
         };
     },
@@ -186,25 +186,25 @@ const MovablePointEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
+        constraint: React.PropTypes.string,
+        constraintFn: React.PropTypes.string,
+        snap: React.PropTypes.number,
         startX: React.PropTypes.string,
         startY: React.PropTypes.string,
-        constraint: React.PropTypes.string,
-        snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string,
         varSubscript: React.PropTypes.number,
     },
 
     getDefaultProps: function() {
         return {
+            constraint: "none",
+            constraintFn: "0",
+            constraintXMax: "10",
+            constraintXMin: "-10",
+            constraintYMax: "10",
+            constraintYMin: "-10",
+            snap: 0.5,
             startX: "0",
             startY: "0",
-            constraint: "none",
-            snap: 0.5,
-            constraintFn: "0",
-            constraintXMin: "-10",
-            constraintXMax: "10",
-            constraintYMin: "-10",
-            constraintYMax: "10",
         };
     },
 
@@ -248,30 +248,30 @@ const MovableLineEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        startX: React.PropTypes.string,
-        startY: React.PropTypes.string,
+        constraint: React.PropTypes.string,
+        constraintFn: React.PropTypes.string,
+        endSubscript: React.PropTypes.number,
         endX: React.PropTypes.string,
         endY: React.PropTypes.string,
-        constraint: React.PropTypes.string,
         snap: React.PropTypes.number,
-        constraintFn: React.PropTypes.string,
         startSubscript: React.PropTypes.number,
-        endSubscript: React.PropTypes.number,
+        startX: React.PropTypes.string,
+        startY: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            startX: "-5",
-            startY: "5",
+            constraint: "none",
+            constraintFn: "0",
+            constraintXMax: "10",
+            constraintXMin: "-10",
+            constraintYMax: "10",
+            constraintYMin: "-10",
             endX: "5",
             endY: "5",
-            constraint: "none",
             snap: 0.5,
-            constraintFn: "0",
-            constraintXMin: "-10",
-            constraintXMax: "10",
-            constraintYMin: "-10",
-            constraintYMax: "10",
+            startX: "-5",
+            startY: "5",
         };
     },
 
@@ -340,23 +340,23 @@ const FunctionEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        funcName: React.PropTypes.string,
-        value: React.PropTypes.string,
-        rangeMin: React.PropTypes.string,
-        rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
+        funcName: React.PropTypes.string,
+        rangeMax: React.PropTypes.string,
+        rangeMin: React.PropTypes.string,
         strokeDasharray: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: "x",
-            rangeMin: "-10",
-            rangeMax: "10",
             color: KhanColors.BLUE,
+            rangeMax: "10",
+            rangeMin: "-10",
             strokeDasharray: "",
             strokeWidth: 2,
+            value: "x",
         };
     },
 
@@ -418,24 +418,24 @@ const ParametricEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        x: React.PropTypes.string,
-        y: React.PropTypes.string,
-        rangeMin: React.PropTypes.string,
-        rangeMax: React.PropTypes.string,
         color: React.PropTypes.string,
+        rangeMax: React.PropTypes.string,
+        rangeMin: React.PropTypes.string,
         strokeDasharray: React.PropTypes.string,
         strokeWidth: React.PropTypes.number,
+        x: React.PropTypes.string,
+        y: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            x: "cos(t)",
-            y: "sin(t)",
-            rangeMin: "0",
-            rangeMax: "2\\pi",
             color: KhanColors.BLUE,
+            rangeMax: "2\\pi",
+            rangeMin: "0",
             strokeDasharray: "",
             strokeWidth: 2,
+            x: "cos(t)",
+            y: "sin(t)",
         };
     },
 
@@ -514,9 +514,9 @@ const LabelEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
+            color: KhanColors.BLACK,
             coordX: "0",
             coordY: "0",
-            color: KhanColors.BLACK,
             label: "\\phi",
         };
     },
@@ -576,11 +576,11 @@ const RectangleEditor = React.createClass({
 
     getDefaultProps: function() {
         return {
+            color: KhanColors.LIGHT_BLUE,
             coordX: "-5",
             coordY: "5",
-            width: "2",
             height: "3",
-            color: KhanColors.LIGHT_BLUE,
+            width: "2",
         };
     },
 

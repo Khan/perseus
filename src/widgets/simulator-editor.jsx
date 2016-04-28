@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -19,20 +19,20 @@ const SimulatorEditor = React.createClass({
     mixins: [Changeable, EditorJsonify],
 
     propTypes: {
-        xAxisLabel: React.PropTypes.string,
-        yAxisLabel: React.PropTypes.string,
         numTrials: React.PropTypes.number,
         proportionLabel: React.PropTypes.string,
         proportionOrPercentage: React.PropTypes.string,
+        xAxisLabel: React.PropTypes.string,
+        yAxisLabel: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            xAxisLabel: "Proportion (%)",
-            yAxisLabel: "Number of times seen",
             numTrials: 100,
             proportionLabel: "Underlying proportion",
             proportionOrPercentage: "proportion",
+            xAxisLabel: "Proportion (%)",
+            yAxisLabel: "Number of times seen",
         };
     },
 

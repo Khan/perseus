@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -8,19 +8,19 @@ const ReactDOM = require("react-dom");
 
 const TextInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
         className: React.PropTypes.string,
-        labelText: React.PropTypes.string,
-        onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
         disabled: React.PropTypes.bool,
+        labelText: React.PropTypes.string,
+        onBlur: React.PropTypes.func,
+        onChange: React.PropTypes.func.isRequired,
+        onFocus: React.PropTypes.func,
+        value: React.PropTypes.string,
     },
 
     getDefaultProps: function() {
         return {
-            value: "",
             disabled: false,
+            value: "",
         };
     },
 

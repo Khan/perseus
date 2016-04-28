@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global $_:false */
@@ -35,18 +35,18 @@ const maxSampleSize = 1000;
 
 const Histogram = React.createClass({
     propTypes: {
+        box: React.PropTypes.arrayOf(React.PropTypes.number),
         data: React.PropTypes.arrayOf(React.PropTypes.number),
         xAxisLabel: React.PropTypes.string,
         yAxisLabel: React.PropTypes.string,
-        box: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
         return {
+            box: [defaultBoxSize, defaultBoxSize],
             data: null,
             xAxisLabel: "Proportion (%)",
             yAxisLabel: "Number of times seen",
-            box: [defaultBoxSize, defaultBoxSize],
         };
     },
 
@@ -386,16 +386,16 @@ const Simulator = React.createClass({
 
     getDefaultProps: function() {
         return {
+            apiOptions: ApiOptions.defaults,
             data: null,
-            userProportion: null,
-            sampleSize: null,
             numTrials: null,
-            randomSeed: 0,
-            xAxisLabel: "Proportion (%)",
-            yAxisLabel: "Number of times seen",
             proportionLabel: "Underlying proportion",
             proportionOrPercentage: "proportion",
-            apiOptions: ApiOptions.defaults,
+            randomSeed: 0,
+            sampleSize: null,
+            userProportion: null,
+            xAxisLabel: "Proportion (%)",
+            yAxisLabel: "Number of times seen",
         };
     },
 

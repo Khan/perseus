@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -16,19 +16,19 @@ const CategorizerEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        items: React.PropTypes.arrayOf(React.PropTypes.string),
         categories: React.PropTypes.arrayOf(React.PropTypes.string),
+        items: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func.isRequired,
-        values: React.PropTypes.arrayOf(React.PropTypes.number),
         randomizeItems: React.PropTypes.bool,
+        values: React.PropTypes.arrayOf(React.PropTypes.number),
     },
 
     getDefaultProps: function() {
         return {
-            items: [],
             categories: [],
-            values: [],
+            items: [],
             randomizeItems: false,
+            values: [],
         };
     },
 

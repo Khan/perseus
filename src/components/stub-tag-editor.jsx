@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types */
+/* eslint-disable react/jsx-closing-bracket-location */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /**
@@ -22,8 +22,8 @@ const EMPTY_ARRAY = [];
 
 const StubTagEditor = React.createClass({
     propTypes: {
-        value: React.PropTypes.arrayOf(React.PropTypes.string),
         onChange: React.PropTypes.func.isRequired,
+        value: React.PropTypes.arrayOf(React.PropTypes.string),
     },
 
     getDefaultProps: function() {

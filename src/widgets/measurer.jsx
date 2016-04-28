@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React        = require('react');
@@ -22,28 +22,28 @@ const Measurer = React.createClass({
             top: React.PropTypes.number,
             left: React.PropTypes.number,
         }),
-        showProtractor: React.PropTypes.bool,
         protractorX: React.PropTypes.number,
         protractorY: React.PropTypes.number,
-        showRuler: React.PropTypes.bool,
         rulerLabel: React.PropTypes.string,
-        rulerTicks: React.PropTypes.number,
-        rulerPixels: React.PropTypes.number,
         rulerLength: React.PropTypes.number,
+        rulerPixels: React.PropTypes.number,
+        rulerTicks: React.PropTypes.number,
+        showProtractor: React.PropTypes.bool,
+        showRuler: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
             box: [480, 480],
             image: {},
-            showProtractor: true,
             protractorX: 7.5,
             protractorY: 0.5,
-            showRuler: false,
             rulerLabel: "",
-            rulerTicks: 10,
-            rulerPixels: 40,
             rulerLength: 10,
+            rulerPixels: 40,
+            rulerTicks: 10,
+            showProtractor: true,
+            showRuler: false,
         };
     },
 

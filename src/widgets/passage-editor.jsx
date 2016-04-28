@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -16,18 +16,18 @@ const PassageEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        onChange: React.PropTypes.func.isRequired,
-        passageTitle: React.PropTypes.string,
-        passageText: React.PropTypes.string,
         footnotes: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        passageText: React.PropTypes.string,
+        passageTitle: React.PropTypes.string,
         showLineNumbers: React.PropTypes.bool,
     },
 
     getDefaultProps: function() {
         return {
-            passageTitle: "",
-            passageText: "",
             footnotes: "",
+            passageText: "",
+            passageTitle: "",
             showLineNumbers: true,
         };
     },

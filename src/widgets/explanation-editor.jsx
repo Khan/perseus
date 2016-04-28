@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require("react");
@@ -12,9 +12,9 @@ const Editor = require("../editor.jsx");
 const TextInput = require("../components/text-input.jsx");
 
 const defaultExplanationProps = {
-    showPrompt: "Explain",
-    hidePrompt: "Hide explanation",
     explanation: "explanation goes here\n\nmore explanation",
+    hidePrompt: "Hide explanation",
+    showPrompt: "Explain",
     widgets: {},
 };
 
@@ -22,9 +22,9 @@ const ExplanationEditor = React.createClass({
     mixins: [EditorJsonify, Changeable],
 
     propTypes: {
-        showPrompt: React.PropTypes.string,
-        hidePrompt: React.PropTypes.string,
         explanation: React.PropTypes.string,
+        hidePrompt: React.PropTypes.string,
+        showPrompt: React.PropTypes.string,
         // TODO(JJC1138): This could be replaced with a more specific prop spec:
         widgets: React.PropTypes.any,
     },

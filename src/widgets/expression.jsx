@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 /* global i18n:false */
@@ -86,9 +86,9 @@ const Expression = React.createClass({
         enabledFeatures: EnabledFeatures.propTypes,
         functions: React.PropTypes.arrayOf(React.PropTypes.string),
         keypadConfiguration: keypadConfigurationPropType,
+        onBlur: React.PropTypes.func,
         onChange: React.PropTypes.func.isRequired,
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
         times: React.PropTypes.bool,
         trackInteraction: React.PropTypes.func.isRequired,
         value: React.PropTypes.string,
@@ -97,14 +97,14 @@ const Expression = React.createClass({
 
     getDefaultProps: function() {
         return {
-            value: "",
-            times: false,
-            functions: [],
-            buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
-            onFocus: function() { },
-            onBlur: function() { },
-            enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
+            enabledFeatures: EnabledFeatures.defaults,
+            functions: [],
+            onBlur: function() { },
+            onFocus: function() { },
+            times: false,
+            value: "",
         };
     },
 
@@ -418,25 +418,25 @@ _.extend(Expression, {
 const OldExpression = React.createClass({
     propTypes: {
         apiOptions: ApiOptions.propTypes,
+        enabledFeatures: EnabledFeatures.propTypes,
+        functions: React.PropTypes.arrayOf(React.PropTypes.string),
+        onBlur: React.PropTypes.func,
         onChange: React.PropTypes.func.isRequired,
         onFocus: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
-        value: React.PropTypes.string,
         times: React.PropTypes.bool,
-        functions: React.PropTypes.arrayOf(React.PropTypes.string),
-        enabledFeatures: EnabledFeatures.propTypes,
+        value: React.PropTypes.string,
         widgetId: React.PropTypes.string.isRequired,
     },
 
     getDefaultProps: function() {
         return {
-            value: "",
-            times: false,
-            functions: [],
-            onFocus: function() { },
-            onBlur: function() { },
-            enabledFeatures: EnabledFeatures.defaults,
             apiOptions: ApiOptions.defaults,
+            enabledFeatures: EnabledFeatures.defaults,
+            functions: [],
+            onBlur: function() { },
+            onFocus: function() { },
+            times: false,
+            value: "",
         };
     },
 

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -12,13 +12,13 @@ const truth = () => true;
  */
 const RangeInput = React.createClass({
     propTypes: {
-        value: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+        checkValidity: React.PropTypes.func,
         onChange: React.PropTypes.func.isRequired,
         placeholder: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
             React.PropTypes.string,
             React.PropTypes.number,
         ])),
-        checkValidity: React.PropTypes.func,
+        value: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
     },
 
     getDefaultProps: function() {

@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const React = require('react');
@@ -13,8 +13,8 @@ const ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 const PlaceholderCard = React.createClass({
     propTypes: {
-        width: React.PropTypes.number.isRequired,
         height: React.PropTypes.number.isRequired,
+        width: React.PropTypes.number.isRequired,
     },
 
     render: function() {
@@ -228,11 +228,11 @@ const Orderer = React.createClass({
 
     getDefaultProps: function() {
         return {
-            current: [],
-            options: [],
             correctOptions: [],
+            current: [],
             height: NORMAL,
             layout: HORIZONTAL,
+            options: [],
         };
     },
 

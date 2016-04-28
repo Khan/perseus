@@ -1,5 +1,5 @@
 /* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+/* eslint-disable react/jsx-closing-bracket-location, react/jsx-indent-props, react/sort-comp */
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 const classNames = require("classnames");
@@ -16,15 +16,15 @@ const PT = React.PropTypes;
 // A WYSIWYG math input that calls `onChange(LaTeX-string)`
 const MathInput = React.createClass({
     propTypes: {
-        className: React.PropTypes.string,
-        value: PT.string,
-        onChange: PT.func.isRequired,
-        convertDotToTimes: PT.bool,
-        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
         buttonSets: TexButtons.buttonSetsType.isRequired,
+        buttonsVisible: PT.oneOf(['always', 'never', 'focused']),
+        className: React.PropTypes.string,
+        convertDotToTimes: PT.bool,
         labelText: React.PropTypes.string,
-        onFocus: PT.func,
         onBlur: PT.func,
+        onChange: PT.func.isRequired,
+        onFocus: PT.func,
+        value: PT.string,
     },
 
     render: function() {
@@ -114,9 +114,9 @@ const MathInput = React.createClass({
 
     getDefaultProps: function() {
         return {
-            value: "",
-            convertDotToTimes: false,
             buttonsVisible: 'focused',
+            convertDotToTimes: false,
+            value: "",
         };
     },
 
