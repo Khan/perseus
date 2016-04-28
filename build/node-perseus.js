@@ -1,6 +1,6 @@
 /*! Nodeified Perseus | http://github.com/Khan/perseus */
-// commit a73d4eca59594c14f3f262a5791079ab15e452eb
-// branch master
+// commit b8da7489ae215f9e19be4926eb63e58022bfa6a1
+// branch csprogram-simplevalidate-fix-4
 // @generated
 module.exports =
 /******/ (function(modules) { // webpackBootstrap
@@ -218,7 +218,7 @@ module.exports =
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(63);
+	var version = __webpack_require__(64);
 
 	__webpack_require__(28);
 
@@ -241,7 +241,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	__webpack_require__(28);
-	var Version = __webpack_require__(63);
+	var Version = __webpack_require__(64);
 	var Widgets = __webpack_require__(35);
 
 	var ItemVersion = _.clone(Widgets.getVersionVector());
@@ -35492,7 +35492,7 @@ module.exports =
 	// file names, and jQuery is normally delivered in a lowercase file name.
 	// Do this after creating the global so that if an AMD module wants to call
 	// noConflict to hide this version of jQuery, it will work.
-	if ( "function" === "function" && __webpack_require__(64) && __webpack_require__(64).jQuery ) {
+	if ( "function" === "function" && __webpack_require__(61) && __webpack_require__(61).jQuery ) {
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () { return jQuery; }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	}
 
@@ -44006,8 +44006,8 @@ module.exports =
 
 	// Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified release
 	// http://groups.google.com/group/raphaeljs/browse_thread/thread/c34c75ad8d431544
-	__webpack_require__(61);
-	var knumber = __webpack_require__(62);
+	__webpack_require__(62);
+	var knumber = __webpack_require__(63);
 
 	$.extend(KhanUtil, {
 
@@ -49677,7 +49677,7 @@ module.exports =
 	var ApiOptions = __webpack_require__(11).Options;
 	var Editor = __webpack_require__(18);
 	var ItemExtrasEditor = __webpack_require__(162);
-	var ITEM_DATA_VERSION = __webpack_require__(63).itemDataVersion;
+	var ITEM_DATA_VERSION = __webpack_require__(64).itemDataVersion;
 
 	var ItemEditor = React.createClass({
 	    displayName: "ItemEditor",
@@ -50120,7 +50120,7 @@ module.exports =
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
 
 	var kvector = __webpack_require__(58);
-	var knumber = __webpack_require__(62);
+	var knumber = __webpack_require__(63);
 
 	var kpoint = KhanUtil.kpoint = {
 
@@ -50240,7 +50240,7 @@ module.exports =
 	 */
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
 
-	var knumber = __webpack_require__(62);
+	var knumber = __webpack_require__(63);
 
 	function arraySum(array) {
 	    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
@@ -51328,6 +51328,14 @@ module.exports =
 
 /***/ },
 /* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -55089,7 +55097,7 @@ module.exports =
 
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -55200,7 +55208,7 @@ module.exports =
 
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -55213,14 +55221,6 @@ module.exports =
 			"minor": 1
 		}
 	};
-
-/***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
 /* 65 */
@@ -55749,7 +55749,7 @@ module.exports =
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
 
 	var kpoint = __webpack_require__(57);
-	var knumber = __webpack_require__(62);
+	var knumber = __webpack_require__(63);
 
 	var kline = KhanUtil.kline = {
 
@@ -56335,7 +56335,7 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/**
@@ -56470,8 +56470,12 @@ module.exports =
 	            allowFullScreen: true });
 	    },
 
+	    getUserInput: function () {
+	        return null;
+	    },
+
 	    simpleValidate: function (rubric) {
-	        return Scratchpad.validate({
+	        return CSProgram.validate({
 	            status: this.props.status,
 	            message: this.props.message
 	        }, rubric);
@@ -62923,7 +62927,7 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var Graph = __webpack_require__(196);
+	var Graph = __webpack_require__(193);
 	var InfoTip = __webpack_require__(161);
 	var Interactive2 = __webpack_require__(180);
 	var NumberInput = __webpack_require__(192);
@@ -66099,11 +66103,11 @@ module.exports =
 	var NumberInput = __webpack_require__(192);
 	var Renderer = __webpack_require__(34);
 	var TextInput = __webpack_require__(173);
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 
 	var ApiOptions = __webpack_require__(11).Options;
 
-	var assert = __webpack_require__(194).assert;
+	var assert = __webpack_require__(195).assert;
 	var stringArrayOfSize = __webpack_require__(12).stringArrayOfSize;
 
 	// We store two sets of dimensions for the brackets, because mobile formatting
@@ -66727,7 +66731,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var Renderer = __webpack_require__(34);
-	var Sortable = __webpack_require__(195);
+	var Sortable = __webpack_require__(196);
 
 	var shuffle = __webpack_require__(12).shuffle;
 	var seededRNG = __webpack_require__(12).seededRNG;
@@ -67735,7 +67739,7 @@ module.exports =
 	var Changeable = __webpack_require__(168);
 
 	var NumberInput = __webpack_require__(192);
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 
 	var ApiOptions = __webpack_require__(11).Options;
 
@@ -67748,7 +67752,7 @@ module.exports =
 	var bound = function (x, gt, lt) {
 	    return Math.min(Math.max(x, gt), lt);
 	};
-	var assert = __webpack_require__(194).assert;
+	var assert = __webpack_require__(195).assert;
 
 	var EN_DASH = "–";
 
@@ -73441,7 +73445,7 @@ module.exports =
 	var Changeable = __webpack_require__(168);
 
 	var ApiOptions = __webpack_require__(11).Options;
-	var assert = __webpack_require__(194).assert;
+	var assert = __webpack_require__(195).assert;
 
 	var Graphie = __webpack_require__(158);
 	var Path = Graphie.Path;
@@ -73453,7 +73457,7 @@ module.exports =
 	var MovableLine = Graphie.MovableLine;
 
 	var NumberInput = __webpack_require__(192);
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 	var seededRNG = __webpack_require__(12).seededRNG;
 	var Util = __webpack_require__(12);
 	var knumber = __webpack_require__(211).number;
@@ -74343,7 +74347,7 @@ module.exports =
 	var React = __webpack_require__(49);
 	var _ = __webpack_require__(50);
 
-	var Sortable = __webpack_require__(195);
+	var Sortable = __webpack_require__(196);
 
 	var shuffle = __webpack_require__(12).shuffle;
 
@@ -74561,13 +74565,13 @@ module.exports =
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
 
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 	var Renderer = __webpack_require__(34);
 	var Util = __webpack_require__(12);
 
 	var ApiOptions = __webpack_require__(11).Options;
 
-	var assert = __webpack_require__(194).assert;
+	var assert = __webpack_require__(195).assert;
 
 	/* Input handling: Maps a (row, column) pair to a unique ref used by React,
 	 * and extracts (row, column) pairs from input paths, used to allow outsiders
@@ -75070,9 +75074,9 @@ module.exports =
 	var ReactDOM = __webpack_require__(53);
 	var _ = __webpack_require__(50);
 
-	var Graph = __webpack_require__(196);
+	var Graph = __webpack_require__(193);
 	var NumberInput = __webpack_require__(192);
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 	var TeX = __webpack_require__(149);
 
 	var ApiOptions = __webpack_require__(11).Options;
@@ -75094,7 +75098,7 @@ module.exports =
 	var kray = __webpack_require__(211).ray;
 	var kline = __webpack_require__(211).line;
 
-	var assert = __webpack_require__(194).assert;
+	var assert = __webpack_require__(195).assert;
 
 	var defaultBoxSize = 400;
 	var defaultBackgroundImage = {
@@ -77454,7 +77458,7 @@ module.exports =
 
 	var ApiOptions = __webpack_require__(11).Options;
 
-	var Graph = __webpack_require__(196);
+	var Graph = __webpack_require__(193);
 	var GraphSettings = __webpack_require__(182);
 	var InfoTip = __webpack_require__(161);
 	var PropCheckBox = __webpack_require__(44);
@@ -78457,7 +78461,7 @@ module.exports =
 	var ApiClassNames = __webpack_require__(11).ClassNames;
 	var ApiOptions = __webpack_require__(11).Options;
 	var Changeable = __webpack_require__(168);
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 
 	var _require = __webpack_require__(203);
 
@@ -81240,7 +81244,7 @@ module.exports =
 
 	var deepEq = __webpack_require__(12).deepEq;
 	var nestedMap = __webpack_require__(12).nestedMap;
-	var assert = __webpack_require__(194).assert;
+	var assert = __webpack_require__(195).assert;
 
 	var createGraphie = KhanUtil.createGraphie;
 
@@ -83423,7 +83427,7 @@ module.exports =
 	var MathInput = __webpack_require__(176);
 	var Renderer = __webpack_require__(34);
 	var TextInput = __webpack_require__(173);
-	var MathOutput = __webpack_require__(193);
+	var MathOutput = __webpack_require__(194);
 
 	var captureScratchpadTouchStart = __webpack_require__(12).captureScratchpadTouchStart;
 
@@ -86839,6 +86843,339 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(49);
+	var ReactDOM = __webpack_require__(53);
+	var _ = __webpack_require__(50);
+
+	var Util = __webpack_require__(12);
+
+	var SvgImage = __webpack_require__(39);
+
+	var defaultBoxSize = 400;
+	var defaultBackgroundImage = {
+	    url: null
+	};
+
+	/* Style objects */
+	var defaultInstructionsStyle = {
+	    fontStyle: "italic",
+	    fontWeight: "bold",
+	    fontSize: "32px",
+	    width: "100%",
+	    height: "100%",
+	    textAlign: "center",
+	    backgroundColor: "white",
+	    position: "absolute",
+	    zIndex: 1,
+	    transition: "opacity .25s ease-in-out",
+	    "-moz-transition": "opacity .25s ease-in-out",
+	    "-webkit-transition": "opacity .25s ease-in-out"
+	};
+
+	var instructionsTextStyle = {
+	    position: "relative",
+	    top: "25%"
+	};
+
+	function numSteps(range, step) {
+	    return Math.floor((range[1] - range[0]) / step);
+	}
+
+	var Graph = React.createClass({
+	    displayName: "Graph",
+
+	    propTypes: {
+	        box: React.PropTypes.array.isRequired,
+	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
+	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
+	        step: React.PropTypes.arrayOf(React.PropTypes.number),
+	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
+	        markings: React.PropTypes.string,
+	        backgroundImage: React.PropTypes.shape({
+	            url: React.PropTypes.string
+	        }),
+	        showProtractor: React.PropTypes.bool,
+	        showRuler: React.PropTypes.bool,
+	        rulerLabel: React.PropTypes.string,
+	        rulerTicks: React.PropTypes.number,
+	        onGraphieUpdated: React.PropTypes.func,
+	        instructions: React.PropTypes.string,
+	        onClick: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            box: [defaultBoxSize, defaultBoxSize],
+	            labels: ["x", "y"],
+	            range: [[-10, 10], [-10, 10]],
+	            step: [1, 1],
+	            gridStep: [1, 1],
+	            snapStep: [0.5, 0.5],
+	            markings: "graph",
+	            backgroundImage: defaultBackgroundImage,
+	            showProtractor: false,
+	            showRuler: false,
+	            rulerLabel: "",
+	            rulerTicks: 10,
+	            instructions: null,
+	            onGraphieUpdated: null,
+	            onClick: null,
+	            onMouseDown: null };
+	    },
+
+	    render: function () {
+	        var image;
+	        var imageData = this.props.backgroundImage;
+	        if (imageData.url) {
+	            var scale = this.props.box[0] / defaultBoxSize;
+	            image = React.createElement(SvgImage, { src: imageData.url,
+	                width: imageData.width,
+	                height: imageData.height,
+	                scale: scale,
+	                responsive: false });
+	        } else {
+	            image = null;
+	        }
+
+	        return React.createElement(
+	            "div",
+	            {
+	                className: "graphie-container above-scratchpad",
+	                style: {
+	                    width: this.props.box[0],
+	                    height: this.props.box[1]
+	                },
+	                onMouseOut: this.onMouseOut,
+	                onMouseOver: this.onMouseOver,
+	                onClick: this.onClick },
+	            image,
+	            React.createElement("div", { className: "graphie", ref: "graphieDiv" })
+	        );
+	    },
+
+	    componentDidMount: function () {
+	        this._setupGraphie(true);
+	    },
+
+	    componentDidUpdate: function () {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // See explanation in setupGraphie().
+	        this._hasSetupGraphieThisUpdate = false;
+	        if (this._shouldSetupGraphie) {
+	            this._setupGraphie(false);
+	            this._shouldSetupGraphie = false;
+	        }
+	    },
+
+	    componentWillReceiveProps: function (nextProps) {
+	        var potentialChanges = ["labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep"];
+	        var self = this;
+	        _.each(potentialChanges, function (prop) {
+	            if (!_.isEqual(self.props[prop], nextProps[prop])) {
+	                self._shouldSetupGraphie = true;
+	            }
+	        });
+	    },
+
+	    /* Reset the graphie canvas to its initial state
+	     *
+	     * Use when re-rendering the parent component and you need a blank
+	     * graphie.
+	     */
+	    reset: function () {
+	        this._setupGraphie(false);
+	    },
+
+	    graphie: function () {
+	        return this._graphie;
+	    },
+
+	    pointsFromNormalized: function (coordsList, noSnap) {
+	        var self = this;
+	        return _.map(coordsList, function (coords) {
+	            return _.map(coords, function (coord, i) {
+	                var range = self.props.range[i];
+	                if (noSnap) {
+	                    return range[0] + (range[1] - range[0]) * coord;
+	                } else {
+	                    var step = self.props.step[i];
+	                    var nSteps = numSteps(range, step);
+	                    var tick = Math.round(coord * nSteps);
+	                    return range[0] + step * tick;
+	                }
+	            });
+	        });
+	    },
+
+	    _setupGraphie: function (initialMount) {
+	        // Only setupGraphie once per componentDidUpdate().
+	        // This prevents this component from rendering graphie
+	        // and then immediately re-render graphie because its
+	        // parent component asked it to. This will happen when
+	        // props on the parent and props on this component both
+	        // require graphie to be re-rendered.
+	        if (this._hasSetupGraphieThisUpdate) {
+	            return;
+	        }
+
+	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
+	        $(graphieDiv).empty();
+	        var labels = this.props.labels;
+	        var range = this.props.range;
+	        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
+
+	        var gridConfig = this._getGridConfig();
+	        graphie.snap = this.props.snapStep;
+
+	        if (this.props.markings === "graph") {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                axisArrows: "<->",
+	                labelFormat: function (s) {
+	                    return "\\small{" + s + "}";
+	                },
+	                gridStep: this.props.gridStep,
+	                tickStep: _.pluck(gridConfig, "tickStep"),
+	                labelStep: 1,
+	                unityLabels: _.pluck(gridConfig, "unityLabel")
+	            });
+	            graphie.label([0, range[1][1]], labels[1], "above");
+	            graphie.label([range[0][1], 0], labels[0], "right");
+	        } else if (this.props.markings === "grid") {
+	            graphie.graphInit({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale"),
+	                gridStep: this.props.gridStep,
+	                axes: false,
+	                ticks: false,
+	                labels: false
+	            });
+	        } else if (this.props.markings === "none") {
+	            graphie.init({
+	                range: range,
+	                scale: _.pluck(gridConfig, "scale")
+	            });
+	        }
+
+	        // Add instructions just before mouse layer
+	        var visible = 0.5;
+	        var invisible = 0;
+	        var $instructionsWrapper;
+	        if (this.props.instructions) {
+	            var $instructionsWrapper = $("<div/>");
+	            _.each(defaultInstructionsStyle, function (value, key) {
+	                $instructionsWrapper.css(key, value);
+	            });
+	            $instructionsWrapper.css("opacity", visible);
+
+	            var $instructions = $("<span/>", {
+	                text: this.props.instructions
+	            });
+	            _.each(instructionsTextStyle, function (value, key) {
+	                $instructions.css(key, value);
+	            });
+
+	            $instructionsWrapper.append($instructions);
+	            $(graphieDiv).append($instructionsWrapper);
+	        } else {
+	            $instructionsWrapper = undefined;
+	        }
+
+	        // Add some handlers for instructions text (if necessary)
+	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function (coord) {
+	            if ($instructionsWrapper) {
+	                $instructionsWrapper.remove();
+	                $instructionsWrapper = null;
+	            }
+	            this.props.onMouseDown(coord);
+	        }, this) : null;
+
+	        var onMouseOver = $instructionsWrapper ? function () {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
+	        } : null;
+
+	        var onMouseOut = $instructionsWrapper ? function () {
+	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
+	        } : null;
+
+	        graphie.addMouseLayer({
+	            onClick: this.props.onClick,
+	            onMouseDown: onMouseDown,
+	            onMouseOver: onMouseOver,
+	            onMouseOut: onMouseOut,
+	            onMouseUp: this.props.onMouseUp,
+	            onMouseMove: this.props.onMouseMove,
+	            allowScratchpad: true
+	        });
+
+	        this._updateProtractor();
+	        this._updateRuler();
+
+	        // We set this flag before jumping into our callback
+	        // to avoid recursing if our callback calls reset() itself
+	        this._hasSetupGraphieThisUpdate = true;
+	        if (!initialMount && this.props.onGraphieUpdated) {
+	            // Calling a parent callback in componentDidMount is bad and
+	            // results in hard-to-reason-about lifecycle problems (esp. with
+	            // refs), so we do it only on update and rely on the parent to
+	            // query for the graphie object on initial mount
+	            this.props.onGraphieUpdated(graphie);
+	        }
+	    },
+
+	    _getGridConfig: function () {
+	        var self = this;
+	        return _.map(self.props.step, function (step, i) {
+	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
+	        });
+	    },
+
+	    _updateProtractor: function () {
+	        if (this.protractor) {
+	            this.protractor.remove();
+	        }
+
+	        if (this.props.showProtractor) {
+	            var coord = this.pointsFromNormalized([[0.5, 0.05]])[0];
+	            this.protractor = this._graphie.protractor(coord);
+	        }
+	    },
+
+	    _updateRuler: function () {
+	        if (this.ruler) {
+	            this.ruler.remove();
+	        }
+
+	        if (this.props.showRuler) {
+	            var coord = this.pointsFromNormalized([[0.5, 0.25]])[0];
+	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
+	            this.ruler = this._graphie.ruler({
+	                center: coord,
+	                label: this.props.rulerLabel,
+	                pixelsPerUnit: this._graphie.scale[0],
+	                ticksPerUnit: this.props.rulerTicks,
+	                units: Math.round(0.8 * extent)
+	            });
+	        }
+	    },
+
+	    toJSON: function () {
+	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
+	    }
+	});
+
+	module.exports = Graph;
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-undef, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -86969,7 +87306,7 @@ module.exports =
 	module.exports = MathOutput;
 
 /***/ },
-/* 194 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -87105,7 +87442,7 @@ module.exports =
 	module.exports = InteractiveUtil;
 
 /***/ },
-/* 195 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -87611,339 +87948,6 @@ module.exports =
 	});
 
 	module.exports = Sortable;
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-redeclare, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(49);
-	var ReactDOM = __webpack_require__(53);
-	var _ = __webpack_require__(50);
-
-	var Util = __webpack_require__(12);
-
-	var SvgImage = __webpack_require__(39);
-
-	var defaultBoxSize = 400;
-	var defaultBackgroundImage = {
-	    url: null
-	};
-
-	/* Style objects */
-	var defaultInstructionsStyle = {
-	    fontStyle: "italic",
-	    fontWeight: "bold",
-	    fontSize: "32px",
-	    width: "100%",
-	    height: "100%",
-	    textAlign: "center",
-	    backgroundColor: "white",
-	    position: "absolute",
-	    zIndex: 1,
-	    transition: "opacity .25s ease-in-out",
-	    "-moz-transition": "opacity .25s ease-in-out",
-	    "-webkit-transition": "opacity .25s ease-in-out"
-	};
-
-	var instructionsTextStyle = {
-	    position: "relative",
-	    top: "25%"
-	};
-
-	function numSteps(range, step) {
-	    return Math.floor((range[1] - range[0]) / step);
-	}
-
-	var Graph = React.createClass({
-	    displayName: "Graph",
-
-	    propTypes: {
-	        box: React.PropTypes.array.isRequired,
-	        labels: React.PropTypes.arrayOf(React.PropTypes.string),
-	        range: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.number)),
-	        step: React.PropTypes.arrayOf(React.PropTypes.number),
-	        gridStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        snapStep: React.PropTypes.arrayOf(React.PropTypes.number),
-	        markings: React.PropTypes.string,
-	        backgroundImage: React.PropTypes.shape({
-	            url: React.PropTypes.string
-	        }),
-	        showProtractor: React.PropTypes.bool,
-	        showRuler: React.PropTypes.bool,
-	        rulerLabel: React.PropTypes.string,
-	        rulerTicks: React.PropTypes.number,
-	        onGraphieUpdated: React.PropTypes.func,
-	        instructions: React.PropTypes.string,
-	        onClick: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            box: [defaultBoxSize, defaultBoxSize],
-	            labels: ["x", "y"],
-	            range: [[-10, 10], [-10, 10]],
-	            step: [1, 1],
-	            gridStep: [1, 1],
-	            snapStep: [0.5, 0.5],
-	            markings: "graph",
-	            backgroundImage: defaultBackgroundImage,
-	            showProtractor: false,
-	            showRuler: false,
-	            rulerLabel: "",
-	            rulerTicks: 10,
-	            instructions: null,
-	            onGraphieUpdated: null,
-	            onClick: null,
-	            onMouseDown: null };
-	    },
-
-	    render: function () {
-	        var image;
-	        var imageData = this.props.backgroundImage;
-	        if (imageData.url) {
-	            var scale = this.props.box[0] / defaultBoxSize;
-	            image = React.createElement(SvgImage, { src: imageData.url,
-	                width: imageData.width,
-	                height: imageData.height,
-	                scale: scale,
-	                responsive: false });
-	        } else {
-	            image = null;
-	        }
-
-	        return React.createElement(
-	            "div",
-	            {
-	                className: "graphie-container above-scratchpad",
-	                style: {
-	                    width: this.props.box[0],
-	                    height: this.props.box[1]
-	                },
-	                onMouseOut: this.onMouseOut,
-	                onMouseOver: this.onMouseOver,
-	                onClick: this.onClick },
-	            image,
-	            React.createElement("div", { className: "graphie", ref: "graphieDiv" })
-	        );
-	    },
-
-	    componentDidMount: function () {
-	        this._setupGraphie(true);
-	    },
-
-	    componentDidUpdate: function () {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // See explanation in setupGraphie().
-	        this._hasSetupGraphieThisUpdate = false;
-	        if (this._shouldSetupGraphie) {
-	            this._setupGraphie(false);
-	            this._shouldSetupGraphie = false;
-	        }
-	    },
-
-	    componentWillReceiveProps: function (nextProps) {
-	        var potentialChanges = ["labels", "range", "step", "markings", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep"];
-	        var self = this;
-	        _.each(potentialChanges, function (prop) {
-	            if (!_.isEqual(self.props[prop], nextProps[prop])) {
-	                self._shouldSetupGraphie = true;
-	            }
-	        });
-	    },
-
-	    /* Reset the graphie canvas to its initial state
-	     *
-	     * Use when re-rendering the parent component and you need a blank
-	     * graphie.
-	     */
-	    reset: function () {
-	        this._setupGraphie(false);
-	    },
-
-	    graphie: function () {
-	        return this._graphie;
-	    },
-
-	    pointsFromNormalized: function (coordsList, noSnap) {
-	        var self = this;
-	        return _.map(coordsList, function (coords) {
-	            return _.map(coords, function (coord, i) {
-	                var range = self.props.range[i];
-	                if (noSnap) {
-	                    return range[0] + (range[1] - range[0]) * coord;
-	                } else {
-	                    var step = self.props.step[i];
-	                    var nSteps = numSteps(range, step);
-	                    var tick = Math.round(coord * nSteps);
-	                    return range[0] + step * tick;
-	                }
-	            });
-	        });
-	    },
-
-	    _setupGraphie: function (initialMount) {
-	        // Only setupGraphie once per componentDidUpdate().
-	        // This prevents this component from rendering graphie
-	        // and then immediately re-render graphie because its
-	        // parent component asked it to. This will happen when
-	        // props on the parent and props on this component both
-	        // require graphie to be re-rendered.
-	        if (this._hasSetupGraphieThisUpdate) {
-	            return;
-	        }
-
-	        var graphieDiv = ReactDOM.findDOMNode(this.refs.graphieDiv);
-	        $(graphieDiv).empty();
-	        var labels = this.props.labels;
-	        var range = this.props.range;
-	        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
-
-	        var gridConfig = this._getGridConfig();
-	        graphie.snap = this.props.snapStep;
-
-	        if (this.props.markings === "graph") {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                axisArrows: "<->",
-	                labelFormat: function (s) {
-	                    return "\\small{" + s + "}";
-	                },
-	                gridStep: this.props.gridStep,
-	                tickStep: _.pluck(gridConfig, "tickStep"),
-	                labelStep: 1,
-	                unityLabels: _.pluck(gridConfig, "unityLabel")
-	            });
-	            graphie.label([0, range[1][1]], labels[1], "above");
-	            graphie.label([range[0][1], 0], labels[0], "right");
-	        } else if (this.props.markings === "grid") {
-	            graphie.graphInit({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale"),
-	                gridStep: this.props.gridStep,
-	                axes: false,
-	                ticks: false,
-	                labels: false
-	            });
-	        } else if (this.props.markings === "none") {
-	            graphie.init({
-	                range: range,
-	                scale: _.pluck(gridConfig, "scale")
-	            });
-	        }
-
-	        // Add instructions just before mouse layer
-	        var visible = 0.5;
-	        var invisible = 0;
-	        var $instructionsWrapper;
-	        if (this.props.instructions) {
-	            var $instructionsWrapper = $("<div/>");
-	            _.each(defaultInstructionsStyle, function (value, key) {
-	                $instructionsWrapper.css(key, value);
-	            });
-	            $instructionsWrapper.css("opacity", visible);
-
-	            var $instructions = $("<span/>", {
-	                text: this.props.instructions
-	            });
-	            _.each(instructionsTextStyle, function (value, key) {
-	                $instructions.css(key, value);
-	            });
-
-	            $instructionsWrapper.append($instructions);
-	            $(graphieDiv).append($instructionsWrapper);
-	        } else {
-	            $instructionsWrapper = undefined;
-	        }
-
-	        // Add some handlers for instructions text (if necessary)
-	        var onMouseDown = $instructionsWrapper || this.props.onMouseDown ? _.bind(function (coord) {
-	            if ($instructionsWrapper) {
-	                $instructionsWrapper.remove();
-	                $instructionsWrapper = null;
-	            }
-	            this.props.onMouseDown(coord);
-	        }, this) : null;
-
-	        var onMouseOver = $instructionsWrapper ? function () {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", invisible);
-	        } : null;
-
-	        var onMouseOut = $instructionsWrapper ? function () {
-	            $instructionsWrapper && $instructionsWrapper.css("opacity", visible);
-	        } : null;
-
-	        graphie.addMouseLayer({
-	            onClick: this.props.onClick,
-	            onMouseDown: onMouseDown,
-	            onMouseOver: onMouseOver,
-	            onMouseOut: onMouseOut,
-	            onMouseUp: this.props.onMouseUp,
-	            onMouseMove: this.props.onMouseMove,
-	            allowScratchpad: true
-	        });
-
-	        this._updateProtractor();
-	        this._updateRuler();
-
-	        // We set this flag before jumping into our callback
-	        // to avoid recursing if our callback calls reset() itself
-	        this._hasSetupGraphieThisUpdate = true;
-	        if (!initialMount && this.props.onGraphieUpdated) {
-	            // Calling a parent callback in componentDidMount is bad and
-	            // results in hard-to-reason-about lifecycle problems (esp. with
-	            // refs), so we do it only on update and rely on the parent to
-	            // query for the graphie object on initial mount
-	            this.props.onGraphieUpdated(graphie);
-	        }
-	    },
-
-	    _getGridConfig: function () {
-	        var self = this;
-	        return _.map(self.props.step, function (step, i) {
-	            return Util.gridDimensionConfig(step, self.props.range[i], self.props.box[i], self.props.gridStep[i]);
-	        });
-	    },
-
-	    _updateProtractor: function () {
-	        if (this.protractor) {
-	            this.protractor.remove();
-	        }
-
-	        if (this.props.showProtractor) {
-	            var coord = this.pointsFromNormalized([[0.5, 0.05]])[0];
-	            this.protractor = this._graphie.protractor(coord);
-	        }
-	    },
-
-	    _updateRuler: function () {
-	        if (this.ruler) {
-	            this.ruler.remove();
-	        }
-
-	        if (this.props.showRuler) {
-	            var coord = this.pointsFromNormalized([[0.5, 0.25]])[0];
-	            var extent = this._graphie.range[0][1] - this._graphie.range[0][0];
-	            this.ruler = this._graphie.ruler({
-	                center: coord,
-	                label: this.props.rulerLabel,
-	                pixelsPerUnit: this._graphie.scale[0],
-	                ticksPerUnit: this.props.rulerTicks,
-	                units: Math.round(0.8 * extent)
-	            });
-	        }
-	    },
-
-	    toJSON: function () {
-	        return _.pick(this.props, "range", "step", "markings", "labels", "backgroundImage", "showProtractor", "showRuler", "rulerLabel", "rulerTicks", "gridStep", "snapStep");
-	    }
-	});
-
-	module.exports = Graph;
 
 /***/ },
 /* 197 */
@@ -90565,7 +90569,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 	var GraphieClasses = __webpack_require__(205);
 	var Interactive2 = __webpack_require__(180);
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 
 	var assert = InteractiveUtil.assert;
 
@@ -92713,7 +92717,7 @@ module.exports =
 	 */
 	var _ = __webpack_require__(50);
 
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 	var assert = InteractiveUtil.assert;
@@ -93007,7 +93011,7 @@ module.exports =
 
 	var MovablePointOptions = __webpack_require__(232);
 	var WrappedEllipse = __webpack_require__(233);
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 	var objective_ = __webpack_require__(145);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -93298,7 +93302,7 @@ module.exports =
 
 	var MovableLineOptions = __webpack_require__(234);
 	var WrappedLine = __webpack_require__(235);
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 	var objective_ = __webpack_require__(145);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -93556,7 +93560,7 @@ module.exports =
 	var _ = __webpack_require__(50);
 
 	var MovablePolygonOptions = __webpack_require__(236);
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 	var objective_ = __webpack_require__(145);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
@@ -95502,7 +95506,7 @@ module.exports =
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var _ = __webpack_require__(50);
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 	var WrappedDefaults = __webpack_require__(240);
 	var kpoint = __webpack_require__(211).point;
 	var kvector = __webpack_require__(211).vector;
@@ -96255,7 +96259,7 @@ module.exports =
 	 */
 
 	var _ = __webpack_require__(50);
-	var InteractiveUtil = __webpack_require__(194);
+	var InteractiveUtil = __webpack_require__(195);
 	var objective_ = __webpack_require__(145);
 	var kvector = __webpack_require__(211).vector;
 
@@ -96521,8 +96525,8 @@ module.exports =
 	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <http://lodash.com/license>
 	 */
-	var createCallback = __webpack_require__(255),
-	    forOwn = __webpack_require__(256);
+	var createCallback = __webpack_require__(256),
+	    forOwn = __webpack_require__(255);
 
 	/**
 	 * Checks if the given callback returns truey value for **all** elements of
@@ -96947,6 +96951,62 @@ module.exports =
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	 * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+	 * Build: `lodash modularize modern exports="npm" -o ./npm/`
+	 * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <http://lodash.com/license>
+	 */
+	var baseCreateCallback = __webpack_require__(242),
+	    keys = __webpack_require__(243),
+	    objectTypes = __webpack_require__(244);
+
+	/**
+	 * Iterates over own enumerable properties of an object, executing the callback
+	 * for each property. The callback is bound to `thisArg` and invoked with three
+	 * arguments; (value, key, object). Callbacks may exit iteration early by
+	 * explicitly returning `false`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @type Function
+	 * @category Objects
+	 * @param {Object} object The object to iterate over.
+	 * @param {Function} [callback=identity] The function called per iteration.
+	 * @param {*} [thisArg] The `this` binding of `callback`.
+	 * @returns {Object} Returns `object`.
+	 * @example
+	 *
+	 * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+	 *   console.log(key);
+	 * });
+	 * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
+	 */
+	var forOwn = function(collection, callback, thisArg) {
+	  var index, iterable = collection, result = iterable;
+	  if (!iterable) return result;
+	  if (!objectTypes[typeof iterable]) return result;
+	  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
+	    var ownIndex = -1,
+	        ownProps = objectTypes[typeof iterable] && keys(iterable),
+	        length = ownProps ? ownProps.length : 0;
+
+	    while (++ownIndex < length) {
+	      index = ownProps[ownIndex];
+	      if (callback(iterable[index], index, collection) === false) return result;
+	    }
+	  return result
+	};
+
+	module.exports = forOwn;
+
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Lo-Dash 2.4.4 (Custom Build) <http://lodash.com/>
 	 * Build: `lodash modularize modern exports="npm" -o ./npm/`
 	 * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
@@ -97027,62 +97087,6 @@ module.exports =
 	}
 
 	module.exports = createCallback;
-
-
-/***/ },
-/* 256 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
-	 * Build: `lodash modularize modern exports="npm" -o ./npm/`
-	 * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <http://lodash.com/license>
-	 */
-	var baseCreateCallback = __webpack_require__(242),
-	    keys = __webpack_require__(243),
-	    objectTypes = __webpack_require__(244);
-
-	/**
-	 * Iterates over own enumerable properties of an object, executing the callback
-	 * for each property. The callback is bound to `thisArg` and invoked with three
-	 * arguments; (value, key, object). Callbacks may exit iteration early by
-	 * explicitly returning `false`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @type Function
-	 * @category Objects
-	 * @param {Object} object The object to iterate over.
-	 * @param {Function} [callback=identity] The function called per iteration.
-	 * @param {*} [thisArg] The `this` binding of `callback`.
-	 * @returns {Object} Returns `object`.
-	 * @example
-	 *
-	 * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
-	 *   console.log(key);
-	 * });
-	 * // => logs '0', '1', and 'length' (property order is not guaranteed across environments)
-	 */
-	var forOwn = function(collection, callback, thisArg) {
-	  var index, iterable = collection, result = iterable;
-	  if (!iterable) return result;
-	  if (!objectTypes[typeof iterable]) return result;
-	  callback = callback && typeof thisArg == 'undefined' ? callback : baseCreateCallback(callback, thisArg, 3);
-	    var ownIndex = -1,
-	        ownProps = objectTypes[typeof iterable] && keys(iterable),
-	        length = ownProps ? ownProps.length : 0;
-
-	    while (++ownIndex < length) {
-	      index = ownProps[ownIndex];
-	      if (callback(iterable[index], index, collection) === false) return result;
-	    }
-	  return result
-	};
-
-	module.exports = forOwn;
 
 
 /***/ },
@@ -97317,8 +97321,8 @@ module.exports =
 	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <http://lodash.com/license>
 	 */
-	var forIn = __webpack_require__(267),
-	    getArray = __webpack_require__(266),
+	var forIn = __webpack_require__(266),
+	    getArray = __webpack_require__(267),
 	    isFunction = __webpack_require__(265),
 	    objectTypes = __webpack_require__(244),
 	    releaseArray = __webpack_require__(268);
@@ -97763,33 +97767,6 @@ module.exports =
 	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <http://lodash.com/license>
 	 */
-	var arrayPool = __webpack_require__(270);
-
-	/**
-	 * Gets an array from the array pool or creates a new one if the pool is empty.
-	 *
-	 * @private
-	 * @returns {Array} The array from the pool.
-	 */
-	function getArray() {
-	  return arrayPool.pop() || [];
-	}
-
-	module.exports = getArray;
-
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
-	 * Build: `lodash modularize modern exports="npm" -o ./npm/`
-	 * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <http://lodash.com/license>
-	 */
 	var baseCreateCallback = __webpack_require__(242),
 	    objectTypes = __webpack_require__(244);
 
@@ -97836,6 +97813,33 @@ module.exports =
 	};
 
 	module.exports = forIn;
+
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+	 * Build: `lodash modularize modern exports="npm" -o ./npm/`
+	 * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
+	 * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
+	 * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+	 * Available under MIT license <http://lodash.com/license>
+	 */
+	var arrayPool = __webpack_require__(270);
+
+	/**
+	 * Gets an array from the array pool or creates a new one if the pool is empty.
+	 *
+	 * @private
+	 * @returns {Array} The array from the pool.
+	 */
+	function getArray() {
+	  return arrayPool.pop() || [];
+	}
+
+	module.exports = getArray;
 
 
 /***/ },
