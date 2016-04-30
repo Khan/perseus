@@ -13,6 +13,7 @@ var PossibleAnswers = require("../components/possible-answers.jsx");
 var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
+const KhanAnswerTypes = require("../util/answer-types.js");
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -235,7 +236,7 @@ _.extend(NumericInput, {
         var allAnswerForms = _.pluck(answerFormButtons, "value");
 
         var createValidator = (answer) =>
-            Khan.answerTypes.number.createValidatorFunctional(
+            KhanAnswerTypes.number.createValidatorFunctional(
                 answer.value, {
                     message: answer.message,
                     simplify: answer.status === "correct" ?

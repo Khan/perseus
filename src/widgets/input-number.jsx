@@ -9,6 +9,7 @@ var _ = require("underscore");
 var InputWithExamples = require("../components/input-with-examples.jsx");
 var ParseTex          = require("../tex-wrangler.js").parseTex;
 var PossibleAnswers = require("../components/possible-answers.jsx");
+const KhanAnswerTypes = require("../util/answer-types.js");
 
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var ApiOptions = require("../perseus-api.jsx").Options;
@@ -238,7 +239,7 @@ _.extend(InputNumber, {
         if (rubric.answerType == null) {
             rubric.answerType = "number";
         }
-        var val = Khan.answerTypes.number.createValidatorFunctional(
+        var val = KhanAnswerTypes.number.createValidatorFunctional(
             rubric.value, {
                 simplify: rubric.simplify,
                 inexact: rubric.inexact || undefined,

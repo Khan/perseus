@@ -13,6 +13,7 @@ var TextInput = require("../components/text-input.jsx");
 var MathOutput = require("../components/math-output.jsx");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
+const KhanAnswerTypes = require("../util/answer-types.js");
 
 var assert = require("../interactive2/interactive-util.js").assert;
 var stringArrayOfSize = require("../util.js").stringArrayOfSize;
@@ -401,7 +402,7 @@ _.extend(Matrix, {
         var incorrectSize = solutionSize[0] !== suppliedSize[0] ||
                 solutionSize[1] !== suppliedSize[1];
 
-        var createValidator = Khan.answerTypes
+        var createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
         var message = null;
         var hasEmptyCell = false;

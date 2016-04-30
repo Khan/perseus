@@ -12,6 +12,7 @@ var ApiOptions = require("../perseus-api.jsx").Options;
 var Changeable = require("../mixins/changeable.jsx");
 var ApiOptions = require("../perseus-api.jsx").Options;
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
+const KhanAnswerTypes = require("../util/answer-types.js");
 
 var EnabledFeatures = require("../enabled-features.jsx");
 
@@ -311,7 +312,7 @@ _.extend(Expression, {
         }
 
         var createValidator = answer => {
-            return Khan.answerTypes.expression.createValidatorFunctional(
+            return KhanAnswerTypes.expression.createValidatorFunctional(
                 // We don't give options to KAS.parse here because that is
                 // parsing the solution answer, not the student answer, and we
                 // don't want a solution to work if the student is using a

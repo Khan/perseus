@@ -11,6 +11,7 @@ var Renderer = require("../renderer.jsx");
 var Util = require("../util.js");
 
 var ApiOptions = require("../perseus-api.jsx").Options;
+const KhanAnswerTypes = require("../util/answer-types.js");
 
 var assert = require("../interactive2/interactive-util.js").assert;
 
@@ -268,7 +269,7 @@ _.extend(Table, {
                 message: null
             };
         }
-        var createValidator = Khan.answerTypes
+        var createValidator = KhanAnswerTypes
                                   .number.createValidatorFunctional;
         var message = null;
         var allCorrect = _.every(solution, function (rowSolution) {

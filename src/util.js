@@ -3,6 +3,7 @@
 /* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 var _ = require("underscore");
+const KhanAnswerTypes = require("./util/answer-types.js");
 
 var nestedMap = function(children, func, context) {
     if (_.isArray(children)) {
@@ -172,7 +173,7 @@ var Util = {
     firstNumericalParse: function(text) {
         // TODO(alpert): This is sort of hacky...
         var first;
-        var val = Khan.answerTypes.predicate.createValidatorFunctional(
+        var val = KhanAnswerTypes.predicate.createValidatorFunctional(
             function(ans) {
                 first = ans;
                 return true;  /* break */
