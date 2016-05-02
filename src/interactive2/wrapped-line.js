@@ -7,6 +7,7 @@ var InteractiveUtil = require("./interactive-util.js");
 var WrappedDefaults = require("./wrapped-defaults.js");
 var kpoint = require("kmath").point;
 var kvector = require("kmath").vector;
+const KhanMath = require("../util/math.js");
 
 var DEFAULT_OPTIONS = {
     thickness: 2,
@@ -64,9 +65,9 @@ _.extend(WrappedLine.prototype, WrappedDefaults, {
             )
         );
         var lineLength = polarDiff[0];
-        var angle = KhanUtil.bound(polarDiff[1]);
+        var angle = KhanMath.bound(polarDiff[1]);
         var delta = kvector.subtract(scaledStart, this.initialPoint);
-        var scale = KhanUtil.bound(lineLength / this.initialLength);
+        var scale = KhanMath.bound(lineLength / this.initialLength);
 
         // Construct and apply transformation string
         var do3dTransform = InteractiveUtil.getCanUse3dTransform();

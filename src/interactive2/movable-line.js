@@ -15,6 +15,7 @@ var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 var kvector = require("kmath").vector;
+const KhanColors = require("../util/colors.js");
 
 var FUNCTION_ARRAY_OPTIONS = [
     "add",
@@ -122,15 +123,15 @@ _.extend(MovableLine.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPERTIES!)
-        var normalColor = (state.static) ? KhanUtil.DYNAMIC :
-                                           KhanUtil.INTERACTIVE;
+        var normalColor = (state.static) ? KhanColors.DYNAMIC :
+                                           KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({
             stroke: normalColor,
             "stroke-width": 2
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
-            stroke: KhanUtil.INTERACTING,
+            stroke: KhanColors.INTERACTING,
             "stroke-width": 3
         }, state.highlightStyle);
 

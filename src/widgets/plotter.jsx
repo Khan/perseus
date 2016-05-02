@@ -9,6 +9,8 @@ var _ = require("underscore");
 var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 
 var deepEq = require("../util.js").deepEq;
+const KhanMath = require("../util/math.js");
+const KhanColors = require("../util/colors.js");
 
 var BAR = "bar",
     LINE = "line",
@@ -194,7 +196,7 @@ var Plotter = React.createClass({
             for (var y = 0; y <= c.dimY; y += c.scaleY) {
                 graphie.label(
                     [0, y],
-                    KhanUtil.roundToApprox(y, 2),
+                    KhanMath.roundToApprox(y, 2),
                     "left",
                     /* isTeX */ true /* for the \approx symbol */
                 );
@@ -372,7 +374,7 @@ var Plotter = React.createClass({
         };
 
         graphie.style({
-            stroke: "none", fill: KhanUtil.LIGHT_BLUE, opacity: 1.0
+            stroke: "none", fill: KhanColors.LIGHT_BLUE, opacity: 1.0
         }, function() {
             config.graph.bars[i] = graphie.path([
                 [x - barHalfWidth, 0],
@@ -405,7 +407,7 @@ var Plotter = React.createClass({
                 constrainX: true
             },
             normalStyle: {
-                "stroke": KhanUtil.INTERACTIVE,
+                "stroke": KhanColors.INTERACTIVE,
                 // Don't display graph handles in static mode
                 "stroke-width": this.props.static ? 0 : 4,
             },
@@ -444,8 +446,8 @@ var Plotter = React.createClass({
                 constrainX: true
             },
             normalStyle: {
-                fill: KhanUtil.INTERACTIVE,
-                stroke: KhanUtil.INTERACTIVE
+                fill: KhanColors.INTERACTIVE,
+                stroke: KhanColors.INTERACTIVE
             },
             snapY: c.scaleY / self.props.snapsPerLine,
         });
@@ -482,8 +484,8 @@ var Plotter = React.createClass({
                      DOT_PLOT_POINT_SIZE / graphie.scale[1]
                  ],
                  {
-                    fill: KhanUtil.INTERACTIVE,
-                    stroke: KhanUtil.INTERACTIVE
+                    fill: KhanColors.INTERACTIVE,
+                    stroke: KhanColors.INTERACTIVE
                  });
         });
     },

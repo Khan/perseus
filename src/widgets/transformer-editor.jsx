@@ -21,6 +21,7 @@ const knumber = require("kmath").number;
 const kpoint = require("kmath").point;
 const kray = require("kmath").ray;
 const kvector = require("kmath").vector;
+const KhanColors = require("../util/colors.js");
 
 function arraySum(array) {
     return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
@@ -604,7 +605,7 @@ var ShapeTypes = {
                 var radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
                 perimeter = graphie.circle(coord0, radius, _.extend({
-                    stroke: KhanUtil.DYNAMIC,
+                    stroke: KhanColors.DYNAMIC,
                     "stroke-width": 2,
                 }, options.normalStyle));
             };

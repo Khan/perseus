@@ -18,6 +18,7 @@ var MovableLine  = Graphie.MovableLine;
 var knumber = require("kmath").number;
 var kvector = require("kmath").vector;
 var kpoint = require("kmath").point;
+const KhanColors = require("../util/colors.js");
 
 /* Mixins. */
 var Changeable   = require("../mixins/changeable.jsx");
@@ -172,7 +173,7 @@ var FunctionGrapher = React.createClass({
     renderPlot: function() {
         var model = this.props.model;
         var xRange = this.props.graph.range[0];
-        var style = { stroke: KhanUtil.DYNAMIC };
+        var style = { stroke: KhanColors.DYNAMIC };
 
         var coeffs = model.getCoefficients(this._coords(), this._asymptote());
         if (!coeffs) {

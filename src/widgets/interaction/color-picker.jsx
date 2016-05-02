@@ -5,13 +5,15 @@
 var ButtonGroup = require("react-components/button-group.jsx");
 var React = require("react");
 
-var ColorPicker = React.createClass({
-    COLORS: [KhanUtil.BLACK, KhanUtil.BLUE, KhanUtil.GREEN, KhanUtil.PINK,
-        KhanUtil.PURPLE, KhanUtil.RED, KhanUtil.GRAY],
+const KhanColors = require("../../util/colors.js");
 
-    LIGHT_COLORS: [KhanUtil.LIGHT_BLUE, KhanUtil.LIGHT_ORANGE,
-        KhanUtil.LIGHT_PINK, KhanUtil.LIGHT_GREEN, KhanUtil.LIGHT_PURPLE,
-        KhanUtil.LIGHT_RED, "#fff"],
+var ColorPicker = React.createClass({
+    COLORS: [KhanColors.BLACK, KhanColors.BLUE, KhanColors.GREEN,
+        KhanColors.PINK, KhanColors.PURPLE, KhanColors.RED, KhanColors.GRAY],
+
+    LIGHT_COLORS: [KhanColors.LIGHT_BLUE, KhanColors.LIGHT_ORANGE,
+        KhanColors.LIGHT_PINK, KhanColors.LIGHT_GREEN, KhanColors.LIGHT_PURPLE,
+        KhanColors.LIGHT_RED, "#fff"],
 
     propTypes: {
         value: React.PropTypes.string,
@@ -21,7 +23,7 @@ var ColorPicker = React.createClass({
 
     getDefaultProps: function() {
         return {
-            value: KhanUtil.BLACK,
+            value: KhanColors.BLACK,
             lightColors: false
         };
     },

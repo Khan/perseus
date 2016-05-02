@@ -14,6 +14,7 @@ var ApiClassNames   = require("../perseus-api.jsx").ClassNames;
 var ApiOptions      = require("../perseus-api.jsx").Options;
 var EnabledFeatures = require("../enabled-features.jsx");
 const KhanAnswerTypes = require("../util/answer-types.js");
+const KhanMath = require("../util/math.js");
 
 var answerFormButtons = [
     {title: "Integers", value: "integer", content: "6"},
@@ -96,11 +97,11 @@ var NumericInput = React.createClass({
                         format = answer.answerForms[0];
                     }
 
-                    var answerString = KhanUtil.toNumericString(answer.value,
+                    var answerString = KhanMath.toNumericString(answer.value,
                                                                 format);
                     if (answer.maxError) {
                         answerString += " \u00B1 " +
-                            KhanUtil.toNumericString(answer.maxError, format);
+                            KhanMath.toNumericString(answer.maxError, format);
                     }
                     return answerString;
                 });

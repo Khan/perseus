@@ -6,6 +6,5 @@ define(function(require) {
 
     require("./ke/utils/graphie.js");
     require("./ke/utils/interactive.js");
-    require("./ke/utils/math.js");
 
 });

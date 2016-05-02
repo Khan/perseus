@@ -27,6 +27,8 @@ var MathOutput  = require("../components/math-output.jsx");
 var seededRNG    = require("../util.js").seededRNG;
 var Util         = require("../util.js");
 var knumber      = require("kmath").number;
+const KhanColors = require("../util/colors.js");
+const KhanMath = require("../util/math.js");
 
 var defaultBoxSize = 400;
 var maxSampleSize = 1000;
@@ -123,8 +125,8 @@ var Histogram = React.createClass({
                 sector: (proportionBelow !== 1),
                 unscaled: true,
                 style: {
-                    fill: KhanUtil.LIGHT_RED,
-                    stroke: KhanUtil.RED
+                    fill: KhanColors.LIGHT_RED,
+                    stroke: KhanColors.RED
                 }
             };
 
@@ -141,8 +143,8 @@ var Histogram = React.createClass({
                 sector: (proportionBelow !== 0),
                 unscaled: true,
                 style: {
-                    fill: KhanUtil.LIGHT_BLUE,
-                    stroke: KhanUtil.BLUE
+                    fill: KhanColors.LIGHT_BLUE,
+                    stroke: KhanColors.BLUE
                 },
             };
 
@@ -194,8 +196,8 @@ var Histogram = React.createClass({
             var isBelow = this.state.threshold != null &&
                     i <= this.state.threshold;
             var style = {
-                fill: (isBelow) ?  KhanUtil.LIGHT_RED : KhanUtil.LIGHT_BLUE,
-                stroke: (isBelow) ? KhanUtil.RED : KhanUtil.BLUE
+                fill: (isBelow) ?  KhanColors.LIGHT_RED : KhanColors.LIGHT_BLUE,
+                stroke: (isBelow) ? KhanColors.RED : KhanColors.BLUE
             };
             var coords = [
                 [i, 0],
@@ -262,7 +264,7 @@ var Histogram = React.createClass({
             if (data) {
                 graphie.label(
                     [range[0][0], y],
-                    KhanUtil.roundToApprox(y, 2),
+                    KhanMath.roundToApprox(y, 2),
                     "left",
                     /* isTeX */ true /* for the \approx symbol */
                 );

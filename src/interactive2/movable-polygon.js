@@ -14,6 +14,7 @@ var InteractiveUtil = require("./interactive-util.js");
 var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
+const KhanColors = require("../util/colors.js");
 
 // State parameters that should be converted into an array of
 // functions
@@ -125,8 +126,8 @@ _.extend(MovablePolygon.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        var normalColor = (state.static) ? KhanUtil.DYNAMIC :
-                                           KhanUtil.INTERACTIVE;
+        var normalColor = (state.static) ? KhanColors.DYNAMIC :
+                                           KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({}, state.normalStyle, {
             "stroke-width": 2,
             "fill-opacity": 0,
@@ -135,16 +136,16 @@ _.extend(MovablePolygon.prototype, {
         }, options.normalStyle);
 
         state.highlightStyle = _.extend({}, {
-            "stroke": KhanUtil.INTERACTING,
+            "stroke": KhanColors.INTERACTING,
             "stroke-width": 2,
-            "fill": KhanUtil.INTERACTING,
+            "fill": KhanColors.INTERACTING,
             "fill-opacity": 0.05
         }, state.highlightStyle);
 
         state.labelStyle = _.extend({}, {
-            "stroke": KhanUtil.DYNAMIC,
+            "stroke": KhanColors.DYNAMIC,
             "stroke-width": 1,
-            "color": KhanUtil.DYNAMIC
+            "color": KhanColors.DYNAMIC
         }, state.labelStyle);
 
         if (!state.static) {

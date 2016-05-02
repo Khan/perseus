@@ -30,6 +30,8 @@ var kvector = require("kmath").vector;
 var kpoint = require("kmath").point;
 var kray = require("kmath").ray;
 var kline = require("kmath").line;
+const KhanMath = require("../util/math.js");
+const KhanColors = require("../util/colors.js");
 
 var assert = require("../interactive2/interactive-util.js").assert;
 
@@ -136,8 +138,8 @@ var defaultTransformerProps = {
 };
 
 function colorForTool(tool) {
-    return tool.constraints.fixed ? KhanUtil.DYNAMIC
-                                  : KhanUtil.INTERACTIVE;
+    return tool.constraints.fixed ? KhanColors.DYNAMIC
+                                  : KhanColors.INTERACTIVE;
 }
 
 
@@ -163,11 +165,11 @@ function dilatePointFromCenter(point, dilationCenter, scale) {
 
 // TODO(jack): i18nize this
 function stringFromDecimal(number) {
-    return String(KhanUtil.roundTo(9, number));
+    return String(KhanMath.roundTo(9, number));
 }
 
 function stringFromFraction(number) {
-    var frac = KhanUtil.toFraction(number, knumber.DEFAULT_TOLERANCE);
+    var frac = KhanMath.toFraction(number, knumber.DEFAULT_TOLERANCE);
     if (frac[1] === 1) {
         return stringFromDecimal(number);
     } else {
@@ -1268,7 +1270,7 @@ var ShapeTypes = {
                 var radius = kpoint.distanceToPoint(coord0, coord1);
                 perimeter.remove();
                 perimeter = graphie.circle(coord0, radius, _.extend({
-                    stroke: KhanUtil.DYNAMIC,
+                    stroke: KhanColors.DYNAMIC,
                     "stroke-width": 2,
                 }, options.normalStyle));
             };
@@ -1642,7 +1644,7 @@ var Transformer = React.createClass({
                 fixed: true,
                 shape: this.props.correct.shape,
                 normalStyle: {
-                    stroke: KhanUtil.GRAY,
+                    stroke: KhanColors.GRAY,
                     "stroke-dasharray": "",
                     "stroke-width": 2
                 }
@@ -1693,8 +1695,8 @@ var Transformer = React.createClass({
             showPoints: (this.props.graphMode !== "static"),
             translatable: translatable,
             onMove: function (dX, dY) {
-                dX = KhanUtil.roundToNearest(graphie.snap[0], dX);
-                dY = KhanUtil.roundToNearest(graphie.snap[1], dY);
+                dX = KhanMath.roundToNearest(graphie.snap[0], dX);
+                dY = KhanMath.roundToNearest(graphie.snap[1], dY);
                 self.addTransform({
                     type: "translation",
                     vector: [dX, dY]
@@ -1702,14 +1704,14 @@ var Transformer = React.createClass({
                 return [dX, dY];
             },
             normalPointStyle: {
-                fill: (translatable ? KhanUtil.INTERACTIVE
-                                    : KhanUtil.DYNAMIC),
-                stroke: (translatable ? KhanUtil.INTERACTIVE
-                                      : KhanUtil.DYNAMIC)
+                fill: (translatable ? KhanColors.INTERACTIVE
+                                    : KhanColors.DYNAMIC),
+                stroke: (translatable ? KhanColors.INTERACTIVE
+                                      : KhanColors.DYNAMIC)
             },
             highlightPointStyle: {
-                fill: KhanUtil.INTERACTING,
-                stroke: KhanUtil.INTERACTING
+                fill: KhanColors.INTERACTING,
+                stroke: KhanColors.INTERACTING
             }
         });
     },
@@ -1791,7 +1793,7 @@ var Transformer = React.createClass({
     snapCoord: function(coord) {
         var graphie = this.graphie();
         return _.map(coord, function (val, dim) {
-            return KhanUtil.roundToNearest(graphie.snap[dim], val);
+            return KhanMath.roundToNearest(graphie.snap[dim], val);
         });
     },
 
@@ -1804,7 +1806,7 @@ var Transformer = React.createClass({
         );
         var directionPolar = [
             1,
-            KhanUtil.roundToNearest(45, origDirectionPolar[1])
+            KhanMath.roundToNearest(45, origDirectionPolar[1])
         ];
         var direction = kvector.cartFromPolarDeg(directionPolar);
         var coords = _.map([-1, 1], function(directionCoefficient) {
@@ -1867,7 +1869,7 @@ var Transformer = React.createClass({
                     "stroke-dasharray": "- "
                 },
                 highlightStyle: {
-                    "stroke": KhanUtil.INTERACTING,
+                    "stroke": KhanColors.INTERACTING,
                     "stroke-width": 2,
                     "stroke-dasharray": "- " // TODO(jack) solid doesn't
                                              // work here, but would be
@@ -1906,9 +1908,9 @@ var Transformer = React.createClass({
                 fill: normalColor
             },
             highlightStyle: {
-                stroke: KhanUtil.INTERACTING,
+                stroke: KhanColors.INTERACTING,
                 "stroke-width": 3,
-                fill: KhanUtil.INTERACTING
+                fill: KhanColors.INTERACTING
             },
             onMoveEnd: updateReflectionTool
         });
@@ -1930,7 +1932,7 @@ var Transformer = React.createClass({
                 hoverWidth: this.scaleToCurrentRange(0.4),
                 lengthAngle: 17,
                 onMove: function(newAngle) {
-                    return KhanUtil.roundToNearest(45, newAngle);
+                    return KhanMath.roundToNearest(45, newAngle);
                 },
                 onMoveEnd: updateReflectionTool
             });
@@ -2018,8 +2020,8 @@ var Transformer = React.createClass({
             },
             highlightStyle: {
                 "stroke-dasharray": "",
-                stroke: KhanUtil.INTERACTING,
-                fill: KhanUtil.INTERACTING
+                stroke: KhanColors.INTERACTING,
+                fill: KhanColors.INTERACTING
             }
         });
 
@@ -2091,10 +2093,10 @@ var Transformer = React.createClass({
                 "fill-opacity": 0
             },
             circleHighlightStyle: {
-                "stroke": KhanUtil.INTERACTING,
+                "stroke": KhanColors.INTERACTING,
                 "stroke-width": 2,
                 "stroke-dasharray": "",
-                "fill": KhanUtil.INTERACTING,
+                "fill": KhanColors.INTERACTING,
                 "fill-opacity": 0.05
             },
             centerNormalStyle: {

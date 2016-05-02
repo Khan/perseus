@@ -19,6 +19,8 @@ const NumberInput = require("../components/number-input.jsx");
 const TeX = require("react-components/tex.jsx");
 const TextInput = require("../components/text-input.jsx");
 
+const KhanColors = require("../util/colors.js");
+
 var defaultInteractionProps = {
     graph: {
         box: [400, 400],
@@ -49,7 +51,7 @@ const PointEditor = React.createClass({
         return {
             coordX: "0",
             coordY: "0",
-            color: KhanUtil.BLACK,
+            color: KhanColors.BLACK,
         };
     },
 
@@ -106,7 +108,7 @@ var LineEditor = React.createClass({
             startY: "5",
             endX: "5",
             endY: "5",
-            color: KhanUtil.BLACK,
+            color: KhanColors.BLACK,
             strokeDasharray: "",
             arrows: "",
             strokeWidth: 2,
@@ -348,7 +350,7 @@ var FunctionEditor = React.createClass({
             value: "x",
             rangeMin: "-10",
             rangeMax: "10",
-            color: KhanUtil.BLUE,
+            color: KhanColors.BLUE,
             strokeDasharray: "",
             strokeWidth: 2,
         };
@@ -427,7 +429,7 @@ var ParametricEditor = React.createClass({
             y: "sin(t)",
             rangeMin: "0",
             rangeMax: "2\\pi",
-            color: KhanUtil.BLUE,
+            color: KhanColors.BLUE,
             strokeDasharray: "",
             strokeWidth: 2,
         };
@@ -510,7 +512,7 @@ var LabelEditor = React.createClass({
         return {
             coordX: "0",
             coordY: "0",
-            color: KhanUtil.BLACK,
+            color: KhanColors.BLACK,
             label: "\\phi",
         };
     },
@@ -574,7 +576,7 @@ var RectangleEditor = React.createClass({
             coordY: "5",
             width: "2",
             height: "3",
-            color: KhanUtil.LIGHT_BLUE,
+            color: KhanColors.LIGHT_BLUE,
         };
     },
 

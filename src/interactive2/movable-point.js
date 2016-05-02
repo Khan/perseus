@@ -63,6 +63,7 @@ var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 
 var kpoint = require("kmath").point;
+const KhanColors = require("../util/colors.js");
 
 // State parameters that should be converted into an array of
 // functions
@@ -165,8 +166,8 @@ _.extend(MovablePoint.prototype, {
         // We use _.extend instead of _.defaults because we don't want
         // to modify the passed-in copy (especially if it's from
         // DEFAULT_PROPS/STATE!)
-        var normalColor = (state.static) ? KhanUtil.DYNAMIC
-                                         : KhanUtil.INTERACTIVE;
+        var normalColor = (state.static) ? KhanColors.DYNAMIC
+                                         : KhanColors.INTERACTIVE;
         state.normalStyle = _.extend({
             fill: normalColor,
             stroke: normalColor,
@@ -174,8 +175,8 @@ _.extend(MovablePoint.prototype, {
         }, state.normalStyle);
 
         state.highlightStyle = _.extend({
-            fill: KhanUtil.INTERACTING,
-            stroke: KhanUtil.INTERACTING,
+            fill: KhanColors.INTERACTING,
+            stroke: KhanColors.INTERACTING,
             scale: 2
         }, state.highlightStyle);
 

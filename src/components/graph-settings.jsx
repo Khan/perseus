@@ -15,6 +15,7 @@ var PropCheckBox = require("../components/prop-check-box.jsx");
 var RangeInput = require("../components/range-input.jsx");
 var TeX = require("react-components/tex.jsx");
 var Util = require("../util.js");
+const KhanMath = require("../util/math.js");
 
 var defaultBoxSize = 340;
 var defaultBackgroundImage = {
@@ -85,9 +86,9 @@ var GraphSettings = React.createClass({
 
     render: function() {
         var scale = [
-            KhanUtil.roundTo(2,
+            KhanMath.roundTo(2,
                 Util.scaleFromExtent(this.props.range[0], this.props.box[0])),
-            KhanUtil.roundTo(2,
+            KhanMath.roundTo(2,
                 Util.scaleFromExtent(this.props.range[1], this.props.box[1]))];
 
         return <div>

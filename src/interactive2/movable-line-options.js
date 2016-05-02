@@ -10,6 +10,7 @@ var WrappedLine = require("./wrapped-line.js");
 var WrappedPath = require("./wrapped-path.js");
 var kvector = require("kmath").vector;
 var kpoint = require("kmath").point;
+const KhanMath = require("../util/math.js");
 
 /**
  * Helper functions
@@ -112,7 +113,7 @@ var createArrow = function(graph, style) {
             "translateX(" + (clipPoint[0] + scale * center[0]) + "px) " +
             "translateY(" + (clipPoint[1] + scale * center[1]) + "px) " +
             "translateZ(0) " +
-            "rotate(" + (360 - KhanUtil.bound(angle)) + "deg)");
+            "rotate(" + (360 - KhanMath.bound(angle)) + "deg)");
     };
 
     return arrowHead;

@@ -7,6 +7,8 @@ var GraphieClasses = require("./graphie-classes.jsx");
 var Interactive2 = require("../interactive2.js");
 var InteractiveUtil = require("../interactive2/interactive-util.js");
 
+const KhanColors = require("../util/colors.js");
+
 var assert = InteractiveUtil.assert;
 
 var MovablePoint = GraphieClasses.createClass({
@@ -179,8 +181,8 @@ var PlotParametric = GraphieClasses.createSimpleClass((graphie, props) => {
 
 var Point = GraphieClasses.createSimpleClass((graphie, props) => {
     return graphie.ellipse(props.coord, graphie.unscaleVector([4, 4]), {
-        fill: props.color || KhanUtil.BLACK,
-        stroke: props.color || KhanUtil.BLACK,
+        fill: props.color || KhanColors.BLACK,
+        stroke: props.color || KhanColors.BLACK,
     });
 });
 

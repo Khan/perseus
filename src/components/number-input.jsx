@@ -11,8 +11,10 @@ var firstNumericalParse = require("../util.js").firstNumericalParse;
 var captureScratchpadTouchStart =
         require("../util.js").captureScratchpadTouchStart;
 var knumber = require("kmath").number;
-var toNumericString = KhanUtil.toNumericString;
-var getNumericFormat = KhanUtil.getNumericFormat;
+const KhanMath = require("../util/math.js");
+
+var toNumericString = KhanMath.toNumericString;
+var getNumericFormat = KhanMath.getNumericFormat;
 
 /* An input box that accepts only numeric strings
  *

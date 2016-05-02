@@ -4,6 +4,7 @@ const _ = require("underscore");
 
 const retrieveMathFormula = require("./tex.js").retrieveMathFormula;
 const localeToFixed = require("./locale-to-fixed.js");
+const KhanMath = require("./math.js");
 
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
@@ -466,7 +467,7 @@ const KhanAnswerTypes = {
                     const denom = parseFloat(match[2]);
                     const simplified = denom > 0 &&
                         (options.ratio || match[2] !== "1") &&
-                        KhanUtil.getGCD(num, denom) === 1;
+                        KhanMath.getGCD(num, denom) === 1;
                     return [{
                         value: num / denom,
                         exact: simplified,
@@ -562,7 +563,7 @@ const KhanAnswerTypes = {
                         const num = parseFloat(match[3]);
                         const denom = parseFloat(match[4]);
                         const simplified = num < denom &&
-                            KhanUtil.getGCD(num, denom) === 1;
+                            KhanMath.getGCD(num, denom) === 1;
 
                         possibilities = [{
                             value: sign * (integ + num / denom),
@@ -689,7 +690,7 @@ const KhanAnswerTypes = {
                         const num = parseFloat(match[3]);
                         const denom = parseFloat(match[4]);
                         const simplified = num < denom &&
-                            KhanUtil.getGCD(num, denom) === 1;
+                            KhanMath.getGCD(num, denom) === 1;
 
                         return [{
                             value: sign * (integ + num / denom),
@@ -970,7 +971,7 @@ const KhanAnswerTypes = {
                 .appendTo(solutionarea);
 
             const ansSquared = parseFloat(solutionText);
-            const ans = KhanUtil.splitRadical(ansSquared);
+            const ans = KhanMath.splitRadical(ansSquared);
 
             return {
                 validator: KhanAnswerTypes.radical.createValidatorFunctional(
@@ -991,9 +992,9 @@ const KhanAnswerTypes = {
             }, options);
 
             // The provided answer is the square of what is meant to be
-            // entered. Use KhanUtil.splitRadical to find the different parts
+            // entered. Use KhanMath.splitRadical to find the different parts
             ansSquared = parseFloat(ansSquared);
-            const ans = KhanUtil.splitRadical(ansSquared);
+            const ans = KhanMath.splitRadical(ansSquared);
 
             return function(guess) {
                 // If nothing typed into either box, don't grade the answer
@@ -1072,7 +1073,7 @@ const KhanAnswerTypes = {
                 .appendTo(solutionarea).tex();
 
             const ansCubed = parseFloat(solutionText);
-            const ans = KhanUtil.splitCube(ansCubed);
+            const ans = KhanMath.splitCube(ansCubed);
 
             return {
                 validator: KhanAnswerTypes.cuberoot.createValidatorFunctional(
@@ -1093,9 +1094,9 @@ const KhanAnswerTypes = {
             }, options);
 
             // The provided answer is the cube of what is meant to be
-            // entered. Use KhanUtil.splitCube to find the different parts
+            // entered. Use KhanMath.splitCube to find the different parts
             ansCubed = parseFloat(ansCubed);
-            const ans = KhanUtil.splitCube(ansCubed);
+            const ans = KhanMath.splitCube(ansCubed);
 
             return function(guess) {
                 // If nothing typed into either box, don't grade the answer
@@ -1589,7 +1590,7 @@ const KhanAnswerTypes = {
                 // when we slice off some of the choices later, we don't always
                 // slice off the same ones.
                 possibleChoices = $solutionClone.get().concat(
-                    KhanUtil.shuffle($choicesClone.children().get())
+                    KhanMath.shuffle($choicesClone.children().get())
                 );
             }
 
@@ -1626,7 +1627,7 @@ const KhanAnswerTypes = {
 
             // Shuffle the answers if we're not in category mode
             if (!isCategory) {
-                shownChoices = KhanUtil.shuffle(shownChoices);
+                shownChoices = KhanMath.shuffle(shownChoices);
             }
 
             // Find the index of the correct answer
@@ -2020,7 +2021,7 @@ const KhanAnswerTypes = {
                 }
 
                 // Sort, and join with xs
-                guess = KhanUtil.sortNumbers(terms).join("x");
+                guess = KhanMath.sortNumbers(terms).join("x");
                 // perform simple string comparison
                 return {
                     empty: guess === "",

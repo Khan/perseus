@@ -13,6 +13,7 @@ var Util          = require("../util.js");
 
 var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
+const KhanColors = require("../util/colors.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
@@ -763,8 +764,8 @@ var InteractiveGraph = React.createClass({
                     self.onChange({graph: graph});
                 },
                 normalStyle: {
-                    stroke: KhanUtil.INTERACTIVE,
-                    fill: KhanUtil.INTERACTIVE
+                    stroke: KhanColors.INTERACTIVE,
+                    fill: KhanColors.INTERACTIVE
                 }
             });
         });
@@ -883,7 +884,7 @@ var InteractiveGraph = React.createClass({
             this.parabola.attr({ path: path });
         } else {
             this.parabola = this.graphie.parabola(a, b, c);
-            this.parabola.attr({ stroke: KhanUtil.DYNAMIC });
+            this.parabola.attr({ stroke: KhanColors.DYNAMIC });
             this.parabola.toBack();
         }
     },
@@ -957,7 +958,7 @@ var InteractiveGraph = React.createClass({
             this.sinusoid.attr({ path: path });
         } else {
             this.sinusoid = this.graphie.sinusoid(a, b, c, d);
-            this.sinusoid.attr({ stroke: KhanUtil.DYNAMIC });
+            this.sinusoid.attr({ stroke: KhanColors.DYNAMIC });
             this.sinusoid.toBack();
         }
     },
@@ -1002,7 +1003,7 @@ var InteractiveGraph = React.createClass({
         var coords = InteractiveGraph.getLinearSystemCoords(this.props.graph,
             this.props);
 
-        var segmentColors = [KhanUtil.INTERACTIVE, KhanUtil.GREEN];
+        var segmentColors = [KhanColors.INTERACTIVE, KhanColors.GREEN];
         var points = this.points = _.map(coords,
                 (segmentCoords, segmentIndex) => {
             var segmentPoints = _.map(segmentCoords, (coord, i) => {
@@ -1113,8 +1114,8 @@ var InteractiveGraph = React.createClass({
                 }
             },
             normalStyle: {
-                stroke: KhanUtil.INTERACTIVE,
-                fill: KhanUtil.INTERACTIVE
+                stroke: KhanColors.INTERACTIVE,
+                fill: KhanColors.INTERACTIVE
             }
         });
 
@@ -1415,8 +1416,8 @@ var InteractiveGraph = React.createClass({
             },
             onMoveEnd: onMoveEndHandler,
             normalStyle: {
-                stroke: KhanUtil.INTERACTIVE,
-                fill: KhanUtil.INTERACTIVE
+                stroke: KhanColors.INTERACTIVE,
+                fill: KhanColors.INTERACTIVE
             }
         });
         point.state.isInitialMove = true;
@@ -1491,8 +1492,8 @@ var InteractiveGraph = React.createClass({
                 return Interactive2.addMovablePoint(graphie, {
                     coord: coord,
                     normalStyle: {
-                        stroke: KhanUtil.INTERACTIVE,
-                        fill: KhanUtil.INTERACTIVE
+                        stroke: KhanColors.INTERACTIVE,
+                        fill: KhanColors.INTERACTIVE
                     },
                     constraints: [
                         Interactive2.MovablePoint.constraints.bound(),
@@ -1523,10 +1524,10 @@ var InteractiveGraph = React.createClass({
                     updateCoordProps
                 ],
                 normalStyle: {
-                    stroke: KhanUtil.INTERACTIVE
+                    stroke: KhanColors.INTERACTIVE
                 },
                 highlightStyle: {
-                    stroke: KhanUtil.INTERACTING
+                    stroke: KhanColors.INTERACTING
                 }
             });
             _.invoke(points, "toFront");
@@ -1669,8 +1670,8 @@ var InteractiveGraph = React.createClass({
             return graphie.addMovablePoint(_.extend({
                 coord: coord,
                 normalStyle: {
-                    stroke: KhanUtil.INTERACTIVE,
-                    fill: KhanUtil.INTERACTIVE
+                    stroke: KhanColors.INTERACTIVE,
+                    fill: KhanColors.INTERACTIVE
                 }
             }, i === 1 ? {
                 snapX: graphie.snap[0],

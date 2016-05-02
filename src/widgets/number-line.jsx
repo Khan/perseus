@@ -19,6 +19,8 @@ var MovablePoint = Graphie.MovablePoint;
 var Line = Graphie.Line;
 
 var knumber = require("kmath").number;
+const KhanMath = require("../util/math.js");
+const KhanColors = require("../util/colors.js");
 
 var bound = (x, gt, lt) => Math.min(Math.max(x, gt), lt);
 var assert = require("../interactive2/interactive-util.js").assert;
@@ -75,15 +77,15 @@ var _label = (graphie, labelStyle, pos, value, base) => {
         return graphie.label([pos, -0.53],
             Math.round(value * 100) / 100, "center");
     } else if (labelStyle === "improper") {
-        const frac = KhanUtil.toFraction(value);
+        const frac = KhanMath.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatImproper(frac[0], frac[1]), "center");
     } else if (labelStyle === "mixed") {
-        const frac = KhanUtil.toFraction(value);
+        const frac = KhanMath.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatMixed(frac[0], frac[1]), "center");
     } else if (labelStyle === "non-reduced") {
-        const frac = KhanUtil.toFraction(value);
+        const frac = KhanMath.toFraction(value);
         return graphie.label([pos, -0.53],
                 formatNonReduced(frac[0], frac[1], base), "center");
     }
@@ -113,7 +115,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
         }
         var getDenom = (x) => knumber.toFraction(x)[1];
         var denoms = _.map(fractions, getDenom);
-        base = _.reduce(denoms, (x, y) => KhanUtil.getLCM(x, y));
+        base = _.reduce(denoms, (x, y) => KhanMath.getLCM(x, y));
     } else {
         base = undefined;
     }
@@ -130,7 +132,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     }
 
     // Render the text labels
-    graphie.style({color: KhanUtil.DYNAMIC}, () => {
+    graphie.style({color: KhanColors.DYNAMIC}, () => {
         results.push(_label(graphie, props.labelStyle, leftLabel, leftLabel,
             base));
         results.push(_label(graphie, props.labelStyle, rightLabel, rightLabel,
@@ -140,7 +142,7 @@ var TickMarks = Graphie.createSimpleClass((graphie, props) => {
     // Render the labels' lines
     graphie.style(
         {
-            stroke: KhanUtil.DYNAMIC,
+            stroke: KhanColors.DYNAMIC,
             strokeWidth: 3.5,
         },
         () => {
@@ -354,19 +356,19 @@ var NumberLine = React.createClass({
         // it can't be interacted with.
         var fill;
         if (isOpen) {
-            fill = KhanUtil._BACKGROUND;
+            fill = KhanColors._BACKGROUND;
         } else if (props.static) {
-            fill = KhanUtil.DYNAMIC;
+            fill = KhanColors.DYNAMIC;
         } else {
-            fill = KhanUtil.INTERACTIVE;
+            fill = KhanColors.INTERACTIVE;
         }
         var normalStyle = {
             fill: fill,
-            stroke: props.static ? KhanUtil.DYNAMIC : KhanUtil.INTERACTIVE,
+            stroke: props.static ? KhanColors.DYNAMIC : KhanColors.INTERACTIVE,
             "stroke-width": isOpen ? 3 : 1,
         };
         var highlightStyle = {
-            fill: isOpen ? KhanUtil._BACKGROUND : KhanUtil.INTERACTING,
+            fill: isOpen ? KhanColors._BACKGROUND : KhanColors.INTERACTING,
             "stroke-width": isOpen ? 3 : 1,
         };
 
@@ -419,7 +421,7 @@ var NumberLine = React.createClass({
             var end = this._getInequalityEndpoint(props);
             var style = {
                 arrows: "->",
-                stroke: KhanUtil.DYNAMIC,
+                stroke: KhanColors.DYNAMIC,
                 strokeWidth: 3.5,
             };
 
