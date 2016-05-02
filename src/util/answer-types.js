@@ -2,6 +2,9 @@
 
 const _ = require("underscore");
 
+const retrieveMathFormula = require("./tex.js").retrieveMathFormula;
+const localeToFixed = require("./locale-to-fixed.js");
+
 const MAXERROR_EPSILON = Math.pow(2, -42);
 
 // Function used to get the text of the choices, which is then used
@@ -20,7 +23,7 @@ const extractRawCode = function(elem) {
                 // this at some point and make it just return the formula, not
                 // the wrapping.
                 '<code><script type="math/tex">' +
-                KhanUtil.retrieveMathFormula(elem) +
+                retrieveMathFormula(elem) +
                 '</script></code>'
             );
         });
@@ -357,7 +360,7 @@ const KhanAnswerTypes = {
                 log: i18n._("an expression, like <code>\\log(100)</code>"),
 
                 percent: i18n._("a percent, like <code>%(NUM)s\\%</code>", {
-                    NUM: KhanUtil.localeToFixed(12.34, 2),
+                    NUM: localeToFixed(12.34, 2),
                 }),
 
                 mixed: i18n._("a mixed number, like <code>1\\ 3/4</code>"),
@@ -367,11 +370,11 @@ const KhanAnswerTypes = {
                         return i18n._(
                             "an <em>exact</em> decimal, like " +
                                 "<code>%(NUM)s</code>", {
-                                    NUM: KhanUtil.localeToFixed(0.75, 2),
+                                    NUM: localeToFixed(0.75, 2),
                                 });
                     } else {
                         return i18n._("a decimal, like <code>%(NUM)s</code>", {
-                            NUM: KhanUtil.localeToFixed(0.75, 2),
+                            NUM: localeToFixed(0.75, 2),
                         });
                     }
                 })(),
