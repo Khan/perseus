@@ -15,7 +15,8 @@ var deepEq = require("../util.js").deepEq;
 var nestedMap = require("../util.js").nestedMap;
 var assert = require("../interactive2/interactive-util.js").assert;
 
-var createGraphie = KhanUtil.createGraphie;
+const GraphUtils = require("../util/graph-utils.js");
+var createGraphie = GraphUtils.createGraphie;
 
 var Graphie = React.createClass({
     propTypes: {

@@ -7,6 +7,7 @@ var ReactDOM = require("react-dom");
 var _ = require("underscore");
 
 var Util = require("../util.js");
+const GraphUtils = require("../util/graph-utils.js");
 
 var SvgImage = require("../components/svg-image.jsx");
 
@@ -185,7 +186,7 @@ var Graph = React.createClass({
         $(graphieDiv).empty();
         var labels = this.props.labels;
         var range = this.props.range;
-        var graphie = this._graphie = KhanUtil.createGraphie(graphieDiv);
+        var graphie = this._graphie = GraphUtils.createGraphie(graphieDiv);
 
         var gridConfig = this._getGridConfig();
         graphie.snap = this.props.snapStep;

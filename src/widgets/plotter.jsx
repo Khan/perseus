@@ -11,6 +11,7 @@ var ApiClassNames = require("../perseus-api.jsx").ClassNames;
 var deepEq = require("../util.js").deepEq;
 const KhanMath = require("../util/math.js");
 const KhanColors = require("../util/colors.js");
+const GraphUtils = require("../util/graph-utils.js");
 
 var BAR = "bar",
     LINE = "line",
@@ -113,7 +114,7 @@ var Plotter = React.createClass({
         self.shouldSetupGraphie = false;
         var graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
         $(graphieDiv).empty();
-        var graphie = KhanUtil.createGraphie(graphieDiv);
+        var graphie = GraphUtils.createGraphie(graphieDiv);
 
         // TODO(jakesandlund): It's not the react way to hang
         // something off the component object, but since graphie

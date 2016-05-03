@@ -15,6 +15,7 @@ var objective_ = require("./objective_.js");
 var assert = InteractiveUtil.assert;
 var normalizeOptions = InteractiveUtil.normalizeOptions;
 const KhanColors = require("../util/colors.js");
+const GraphUtils = require("../util/graph-utils.js");
 
 // State parameters that should be converted into an array of
 // functions
@@ -236,7 +237,7 @@ _.extend(MovablePolygon.prototype, {
             );
         }
 
-        return KhanUtil.unscaledSvgPath(coords);
+        return GraphUtils.unscaledSvgPath(coords);
     },
 
     coords: function() {

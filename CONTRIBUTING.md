@@ -40,8 +40,7 @@ the Perseus source code:
    by [khan-excercises](https://github.com/Khan/khan-exercises), our legacy
    exercise framework.
  * For graph or visual widgets, we often make use of:
-    * [graphie](https://github.com/Khan/khan-exercises/blob/master/utils/graphie.js),
-       which exists within khan-exercises, and
+    * [graphie](https://github.com/Khan/perseus/blob/master/src/util/graphie.js), and
     * The [React <Graphie> component](https://github.com/Khan/perseus/blob/master/src/components/graphie.jsx),
       a react layer on top of graphie and Interactive2.
 

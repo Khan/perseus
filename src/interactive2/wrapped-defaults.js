@@ -28,7 +28,13 @@ var WrappedDefaults = _.extend({
 
     toFront: function () {
         var parentNode = this.wrapper.parentNode;
-        parentNode.appendChild(this.wrapper);
+        // TODO(emily): Sometimes, we call `.remove()` but then hold a
+        // reference to this object, and sometimes call `.toFront` on it.
+        // Notably, this happens in the reflection transformation in the
+        // Transformer widget. This is a hacky fix. Make this less bad.
+        if (parentNode) {
+            parentNode.appendChild(this.wrapper);
+        }
     },
 
     toBack: function () {

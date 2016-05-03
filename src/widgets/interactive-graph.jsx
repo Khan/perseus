@@ -14,6 +14,7 @@ var Util          = require("../util.js");
 var knumber = require("kmath").number;
 var kpoint = require("kmath").point;
 const KhanColors = require("../util/colors.js");
+const GraphUtils = require("../util/graph-utils.js");
 
 var DeprecationMixin = Util.DeprecationMixin;
 
@@ -1311,7 +1312,7 @@ var InteractiveGraph = React.createClass({
                 });
 
                 var getAngle = function(a, vertex, b) {
-                    var angle = KhanUtil.findAngle(
+                    var angle = GraphUtils.findAngle(
                         coords[rel(a)], coords[rel(b)], coords[rel(vertex)]
                     );
                     return (angle + 360) % 360;
@@ -1341,7 +1342,7 @@ var InteractiveGraph = React.createClass({
                 var side = Math.sin(innerAngles[1] * Math.PI / 180) /
                     Math.sin(innerAngles[2] * Math.PI / 180) * knownSide;
 
-                var outerAngle = KhanUtil.findAngle(coords[rel(1)],
+                var outerAngle = GraphUtils.findAngle(coords[rel(1)],
                     coords[rel(-1)]);
 
                 var offset = this.graphie.polar(
@@ -1377,7 +1378,7 @@ var InteractiveGraph = React.createClass({
                 var innerAngle = lawOfCosines(sides[0],
                     sides[2], sides[1]);
 
-                var outerAngle = KhanUtil.findAngle(coords[rel(1)],
+                var outerAngle = GraphUtils.findAngle(coords[rel(1)],
                     coords[rel(-1)]);
 
                 var onLeft = sign(ccw(
@@ -2108,7 +2109,7 @@ _.extend(InteractiveGraph, {
 
     getAngleEquationString: function(props) {
         var coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        var angle = KhanUtil.findAngle(coords[2], coords[0], coords[1]);
+        var angle = GraphUtils.findAngle(coords[2], coords[0], coords[1]);
         return angle.toFixed(0) + "\u00B0 angle" +
                 " at (" + coords[1].join(", ") + ")";
     },
@@ -2276,7 +2277,7 @@ _.extend(InteractiveGraph, {
                 var match;
                 if (rubric.correct.match === "congruent") {
                     var angles = _.map([guess, correct], function(coords) {
-                        var angle = KhanUtil.findAngle(
+                        var angle = GraphUtils.findAngle(
                             coords[2], coords[0], coords[1]);
                         return (angle + 360) % 360;
                     });
