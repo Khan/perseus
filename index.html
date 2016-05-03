@@ -13,182 +13,30 @@
 
 <link rel="stylesheet/less" type="text/css" href="stylesheets/exercise-content-package/perseus.less" />
 <link rel="stylesheet/less" type="text/css" href="stylesheets/perseus-admin-package/editor.less" />
+
 <script>less = {env: 'development', logLevel: 1};</script>
 <script src="lib/less.js"></script>
 
 </head>
 <body>
-
-<div id="extras">
-    <button id="serialize">serialize</button>
-    <button id="scorePreview">Score</button>
-    <button id="permalink">permalink</button>
-    <span>Seed:</span><span id="problemNum"></span>
-    <span>Features:</span><span id="enabledFeatures"></span>
-    <span>Scratchpad:</span><span id="scratchpadEnabled">enabled</span>
-</div>
-
-<!-- Begin Perseus HTML -->
 <div id="perseus-container">
 </div>
-<!-- End Perseus HTML -->
-
 <!-- put an empty div here so the margin on the perseus editor has something
 to "push against" (without the div, the padding goes off the page, and the
 add hint button ends up touching the bottom of the page). -->
 <div class="clear"></div>
-
 <script src="lib/babel-polyfills.min.js"></script>
 <script src="lib/jquery.js"></script>
 <script src="lib/underscore.js"></script>
 <script src="lib/react-with-addons.js"></script>
-<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+<script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-f3c5d145ec6d4e408f74f28e1aad49db&amp;delayStartupUntil=configured"></script>
 <script src="lib/katex/katex.js"></script>
 <script src="lib/mathquill/mathquill-basic.js"></script>
 <script src="lib/kas.js"></script>
 <script src="lib/i18n.js"></script>
 <script src="lib/jquery.qtip.js"></script>
 
-<script>
-    var icu = {
-        getDecimalFormatSymbols: function() {
-            return {
-                decimal_separator: ".",
-                grouping_separator: ",",
-                minus: "-"
-            };
-        }
-    };
-    var KhanUtil = {
-        debugLog: function() {},
-        localeToFixed: function(num, precision) {
-            return num.toFixed(precision);
-        }
-    };
-    var Khan = {
-        Util: KhanUtil,
-        error: function() {},
-        query: {debug: ""},
-        imageBase: "/images/",
-        scratchpad: {
-            enable: function() {
-                Khan.scratchpad.enabled = true;
-                document.getElementById("scratchpadEnabled").innerText =
-                    "enabled";
-            },
-            disable: function() {
-                Khan.scratchpad.enabled = false;
-                document.getElementById("scratchpadEnabled").innerText =
-                    "disabled";
-            },
-            enabled: true,
-        }
-    };
-    var Exercises = {
-        localMode: true,
-
-        useKatex: true,
-
-        khanExercisesUrlBase: "../",
-
-        getCurrentFramework: function() {
-            return "khan-exercises";
-        },
-
-        PerseusBridge: {
-            cleanupProblem: function() {
-                return false;
-            }
-        }
-    };
-</script>
-
-<script src="build/perseus-4.js"></script>
-
-<script>
-(function() {
-
-window.Perseus = Perseus;
-window.ReactDOM = React.__internalReactDOM;
-
-var defaultQuestion = {
-    "question": {
-        "content": "",
-        "widgets": {}
-    },
-    "answerArea": {
-        "calculator": false
-    },
-    "hints": []
-};
-
-var editor;
-var problemNum = _.random(1, 99);
-var enabledFeatures = {
-    highlight: true,
-    toolTipFormats: true,
-    useMathQuill: true
-};
-
-$('#serialize').on('click', function() {
-    console.log(JSON.stringify(editor.serialize(), null, 4));
-});
-$('#scorePreview').on('click', function() {
-    console.log(editor.scorePreview());
-});
-$('#permalink').on('click', function(e) {
-    window.location.hash = "content=" +
-        encodeURIComponent(JSON.stringify(editor.serialize()));
-    e.preventDefault();
-});
-$('#problemNum').text(problemNum);
-$('#enabledFeatures').html(_.map(enabledFeatures, function(enabled, feature) {
-    return '<span style="margin-left: 5px; background: ' +
-            (enabled ? "#aaffaa" : "#ffcccc") + ';">' + feature + '</span>';
-}).join(''));
-
-var query = Perseus.Util.parseQueryString(window.location.hash.substring(1));
-var question = query.content ? JSON.parse(query.content) : defaultQuestion;
-
-Perseus.init({skipMathJax: false}).then(function() {
-
-    var editorProps = _.extend(question, {
-        problemNum: problemNum,
-        enabledFeatures: enabledFeatures,
-        developerMode: true,
-        imageUploader: function(image, callback) {
-            _.delay(callback, 1000, "http://fake.image.url");
-        },
-        apiOptions: {
-            __onInputError: function() {
-                var args = _.toArray(arguments);
-                console.log.apply(console, ["onInputError:"].concat(args));
-                return false;
-            },
-            __interceptInputFocus: function() {
-                var args = _.toArray(arguments);
-                console.log.apply(console, ["interceptInputFocus:"].concat(args));
-                return;
-            }
-        }
-    });
-
-    var StatefulEditorPage = React.createFactory(Perseus.StatefulEditorPage);
-    editor = ReactDOM.render(
-        StatefulEditorPage(editorProps, null),
-        document.getElementById("perseus-container")
-    );
-
-    // Some hacks to make debugging nicer
-    window.editorPage = editor.refs.editor;
-    window.itemRenderer = window.editorPage.renderer;
-}).then(function() {
-}, function(err) {
-    console.error(err);
-});
-
-})();
-</script>
+<script src="build/demo-perseus.js"></script>
 
 </body>
 </html>
