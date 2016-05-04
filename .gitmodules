@@ -1,6 +1,3 @@
-[submodule "ke"]
-	path = ke
-	url = https://github.com/Khan/khan-exercises.git
 [submodule "react-components"]
 	path = react-components
 	url = https://github.com/Khan/react-components.git
@@ -13,3 +10,6 @@
 [submodule "hubble"]
 	path = hubble
 	url = https://github.com/joelburget/hubble.git
+[submodule "lib/mathjax"]
+	path = lib/mathjax
+	url = https://github.com/Khan/khan-MathJax.git

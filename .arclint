@@ -8,11 +8,11 @@
         "(^build/*)",
         "(^fonts/*)",
         "(^hubble/*)",
-        "(^ke/*)",
         "(^kmath/*)",
         "(^lib/*)",
         "(^react-components/*)",
-        "(^simple-markdown/*)"
+        "(^simple-markdown/*)",
+        "(^stylesheets/local-only/*)"
       ]
     }
   }

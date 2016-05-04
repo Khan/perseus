@@ -60,7 +60,7 @@ require("../lib/jquery.js");
 updateGlobals();
 
 // First-party global dependencies
-require("../ke/local-only/i18n.js");
+require("../lib/i18n.js");
 updateGlobals();
 
 global.__EDITOR__ = true;

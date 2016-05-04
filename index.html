@@ -5,8 +5,8 @@
 <meta charset="utf-8">
 <title>Perseus</title>
 
-<link rel="stylesheet" type="text/css" href="ke/css/khan-site.css" />
-<link rel="stylesheet" type="text/css" href="ke/css/khan-exercise.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-site.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/local-only/khan-exercise.css" />
 <link rel="stylesheet" type="text/css" href="lib/katex/katex.css" />
 <link rel="stylesheet" type="text/css" href="lib/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="lib/mathquill/mathquill.css" />
@@ -46,6 +46,8 @@ add hint button ends up touching the bottom of the page). -->
 <script src="lib/katex/katex.js"></script>
 <script src="lib/mathquill/mathquill-basic.js"></script>
 <script src="lib/kas.js"></script>
+<script src="lib/i18n.js"></script>
+<script src="lib/jquery.qtip.js"></script>
 
 <script>
     var icu = {
@@ -67,7 +69,7 @@ add hint button ends up touching the bottom of the page). -->
         Util: KhanUtil,
         error: function() {},
         query: {debug: ""},
-        imageBase: "/ke/images/",
+        imageBase: "/images/",
         scratchpad: {
             enable: function() {
                 Khan.scratchpad.enabled = true;
@@ -82,33 +84,29 @@ add hint button ends up touching the bottom of the page). -->
             enabled: true,
         }
     };
+    var Exercises = {
+        localMode: true,
+
+        useKatex: true,
+
+        khanExercisesUrlBase: "../",
+
+        getCurrentFramework: function() {
+            return "khan-exercises";
+        },
+
+        PerseusBridge: {
+            cleanupProblem: function() {
+                return false;
+            }
+        }
+    };
 </script>
 
-<script src="ke/local-only/i18n.js"></script>
-<script src="ke/local-only/jquery.qtip.js"></script>
-<script src="ke/exercises-stub.js"></script>
-<script src="ke/local-only/require.js"></script>
+<script src="build/perseus-4.js"></script>
 
 <script>
 (function() {
-
-requirejs.config({
-    waitSeconds: 120
-});
-
-// Load khan-exercises modules, then perseus
-require(["ke-deps.js"], function() {
-    // pre built
-    require(["build/perseus-4.js"], initPerseus);
-
-    // pre built with source maps
-    // require(["build/perseus.debug.js"], initPerseus);
-
-    // built on demand
-    // require(["src/perseus.js"], initPerseus);
-});
-
-function initPerseus(Perseus) {
 
 window.Perseus = Perseus;
 window.ReactDOM = React.__internalReactDOM;
@@ -188,8 +186,6 @@ Perseus.init({skipMathJax: false}).then(function() {
 }, function(err) {
     console.error(err);
 });
-
-}
 
 })();
 </script>

@@ -5,8 +5,8 @@
 <meta charset="utf-8">
 <title>Diff Test</title>
 
-<link rel="stylesheet" type="text/css" href="/ke/css/khan-site.css" />
-<link rel="stylesheet" type="text/css" href="/ke/css/khan-exercise.css" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/local-only/khan-site.css" />
+<link rel="stylesheet" type="text/css" href="/stylesheets/local-only/khan-exercise.css" />
 <link rel="stylesheet" type="text/css" href="/lib/katex/katex.css" />
 <link rel="stylesheet" type="text/css" href="/lib/mathquill/mathquill.css" />
 
@@ -26,52 +26,69 @@
 <script src="/lib/jquery.js"></script>
 <script src="/lib/underscore.js"></script>
 <script src="/lib/react-with-addons.js"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full&amp;delayStartupUntil=configured"></script>
+<script src="lib/mathjax/2.1/MathJax.js?config=KAthJax-f3c5d145ec6d4e408f74f28e1aad49db&amp;delayStartupUntil=configured"></script>
 <script src="/lib/katex/katex.js"></script>
 <script src="/lib/mathquill/mathquill-basic.js"></script>
 <script src="/lib/kas.js"></script>
+<script src="/lib/i18n.js"></script>
+<script src="/lib/jquery.qtip.js"></script>
 
 <script>
+    var icu = {
+        getDecimalFormatSymbols: function() {
+            return {
+                decimal_separator: ".",
+                grouping_separator: ",",
+                minus: "-"
+            };
+        }
+    };
     var KhanUtil = {
-        debugLog: function() {}
+        debugLog: function() {},
+        localeToFixed: function(num, precision) {
+            return num.toFixed(precision);
+        }
     };
     var Khan = {
         Util: KhanUtil,
         error: function() {},
         query: {debug: ""},
-        imageBase: "/ke/images/",
+        imageBase: "/images/",
         scratchpad: {
+            enable: function() {},
             disable: function() {},
-            enable: function() {}
+        }
+    };
+    var langMatch = window.location.search.slice(1).match(
+        /(?:^|&)lang=([^&]*)(?:&|$)/
+    );
+    var KA = {
+        // This is reset down below when we parse the query string.
+        language: langMatch ? langMatch[1] : "en"
+    };
+    var Exercises = {
+        localMode: true,
+
+        useKatex: true,
+
+        khanExercisesUrlBase: "../",
+
+        getCurrentFramework: function() {
+            return "khan-exercises";
+        },
+
+        PerseusBridge: {
+            cleanupProblem: function() {
+                return false;
+            }
         }
     };
 </script>
 
-<script src="ke/local-only/i18n.js"></script>
-<script src="ke/local-only/jquery.qtip.js"></script>
-<script src="ke/exercises-stub.js"></script>
-<script src="ke/local-only/require.js"></script>
+<script src="live-build/editor-perseus.js"></script>
 
 <script>
 (function() {
-
-requirejs.config({
-    waitSeconds: 120
-});
-
-// Load khan-exercises modules, then perseus
-require(["ke-deps.js"], function() {
-    // pre built
-    // require(["build/perseus.js"], initPerseus);
-
-    // pre built with source maps
-    // require(["build/perseus.debug.js"], initPerseus);
-
-    // built on demand
-    require(["live-build/editor-perseus.js"], initPerseus);
-});
-
-function initPerseus(Perseus) {
 
 window.Perseus = Perseus;
 window.ReactDOM = React.__internalReactDOM;
@@ -149,8 +166,6 @@ $("#swap").click(function() {
     }, null), itemMountNode);
     swapped = !swapped;
 });
-
-};
 
 })();
 

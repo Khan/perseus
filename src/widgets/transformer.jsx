@@ -1943,7 +1943,7 @@ var Transformer = React.createClass({
                 function() {
             reflectButton.update();
             $(reflectButton).trigger("move"); // update the rotation handle,
-                    // which watches for this in ke/utils/interactive.js.
+                    // which watches for this in util/interactive.js.
         });
 
         // Update the line and reflect button when the reflectRotateHandle is

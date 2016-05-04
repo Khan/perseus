@@ -19,9 +19,8 @@ global.jsdom = jsdom;
 
 var common = require("./common.js");
 
-// First-party global dependencies
-require("./ke-deps-shim.js");
-common.updateGlobals();
+global.Khan = window.Khan = {};
+global.KhanUtil = window.KhanUtil = Khan.KhanUtil = {};
 
 require("../lib/mathquill/mathquill-basic.js");
 common.updateGlobals();

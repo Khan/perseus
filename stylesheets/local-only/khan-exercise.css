@@ -1,0 +1,1281 @@
+.exercise, .vars, #next { display: none; }
+p.question { font-weight: bold; }
+var { font-style: normal; }
+
+.hint_blue { color: #6495ED; }
+.hint_orange { color: #FFA500; }
+.hint_pink { color: #FF00AF; }
+.hint_red { color: #DF0030; }
+.hint_green { color: #28AE7B; }
+.hint_gray { color: gray; }
+.hint_purple{ color: #9D38BD; }
+
+.last-hint { font-weight: bold; }
+
+div.subhint {
+    border: 1px solid #aaaaaa;
+    background: #f9f9f9;
+    display: none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+a.show-subhint {
+    font-size: 12px;
+    font-style: italic;
+    background-color: #FDFDFD;
+}
+
+a.show-definition {
+    background-color: #FDFDFD;
+}
+
+div.definition {
+    position: absolute;
+    border: 1px solid #aaaaaa;
+    background: #f9f9f9;
+    display: none;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+#workarea { margin-left: 30px; }
+#hintsarea { margin-left: 50px; }
+.solutionarea ul { list-style: none; }
+.solutionarea li { padding: 7px 0; }
+.solutionarea li label { display: block; }
+.solutionarea li input[type=radio] { float: left; margin-top: 4px; }
+.solutionarea li .value { display: block; min-height: 22px; margin-left: 18px; }
+
+#extras li { display: inline; }
+#extras li:before { content: "| "; }
+#extras li:first-child:before { content: ""; }
+
+#scratchpad-show {
+	position: relative;
+	z-index: 1;
+}
+
+#answer_area #check-answer-results { overflow: hidden; margin: 5px 0; }
+#answer_area #check-answer-results .check-answer-message { font-size: 12px; line-height: 20px; margin: 0; }
+#sad, #happy { float: left; margin: 0 6px 4px 0; }
+
+.examples { color: #777; margin-left: 20px; list-style-type: disc; }
+.examples li { margin: 5px 0; }
+
+#problemarea { font-size: 14px; width: 70%; min-height: 378px; position: relative; float: left; padding-bottom: 38px; }
+
+#solution { font-size: 14px; }
+#solution label { display: block; white-space: nowrap; }
+
+#tester-info { border: 1px solid #AAA; background: #F0F0F0; padding: 10px; margin: 10px 0; }
+#debug var { font: 14px Menlo, Courier, monospace; word-wrap: break-word; }
+
+code { font-family: Menlo, Courier, monospace; }
+table.limit { margin: 5px; }
+table.limit th { font-weight: bold; text-align: center; }
+table.limit td { border: 1px solid #AAA; }
+table.limit th, table.limit td { padding: 5px; }
+table.limit th:first-child { text-align: right; }
+
+.solutionarea input[type=text],
+.solutionarea input[type=number] {
+    width: 80px;
+}
+.solutionarea .short20 input[type=text],
+.solutionarea .short20 input[type=number] {
+    width: 20px;
+}
+.solutionarea .short25 input[type=text],
+.solutionarea .short25 input[type=number] {
+    width: 25px;
+}
+.solutionarea .short28 input[type=text],
+.solutionarea .short28 input[type=number] {
+    width: 28px;
+}
+.solutionarea .short30 input[type=text],
+.solutionarea .short30 input[type=number] {
+    width: 30px;
+}
+.solutionarea .short32 input[type=text],
+.solutionarea .short32 input[type=number] {
+    width: 32px;
+}
+.solutionarea .short35 input[type=text],
+.solutionarea .short35 input[type=number] {
+    width: 35px;
+}
+.solutionarea .short40 input[type=text],
+.solutionarea .short40 input[type=number] {
+    width: 40px;
+}
+.solutionarea .short50 input[type=text],
+.solutionarea .short50 input[type=number] {
+    width: 50px;
+}
+#readonly { display: none; }
+
+.radical .surd { font: 150% Arial; padding: 0 0 0 5px; }
+.radical .overline { border-top: 1px solid #000; padding: 6px 1px 0 3px; margin-left: -1px; }
+.solutionarea .radical input[type=text],
+.solutionarea .radical input[type=number] {
+    width: 40px;
+}
+
+body.debug .graphie { outline: 1px dashed #fdd; }
+.graphie svg { position: absolute; top: 0; left: 0; }
+
+#scratchpad {
+    display: none;
+    margin: 0 10px;
+    overflow: hidden;
+    padding-bottom: 40px;
+}
+#scratchpad div {
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+#scratchpad-not-available { display: none; }
+#extras .report-issue-link { float: right; }
+
+#tester-info.info-box { background: #f2e4bf; }
+#tester-info .box { border: 1px solid black; padding: 2px 4px; margin-left: 5px; }
+#tester-info .group-box { border: 1px solid #aaa; padding: 6px 4px 6px 0px; margin-left: 2px; }
+
+#browserwarning { background: white; margin: 0 1px; padding: 18px; font-size: 120%; text-align: center; }
+
+#answer_area .answer-buttons input.simple-button,
+#answer_area input.simple-button.full-width {
+  width: 100%;
+}
+#answer_area #answercontent { position: relative; z-index: 2; } /* above-scratchpad */
+#answer_area .hint-box { position: relative; z-index: 1;}
+
+#problemarea a:link,
+#problemarea input,
+#problemarea label,  /* HACK(aria): for radios */
+#problemarea select {  /* for dropdowns */
+    position: relative; z-index: 3; /* interactive-content */
+}
+
+#answer_area .calculator {
+    width: 181px;
+    margin: 0 auto;
+}
+
+.calculator-angle-mode .selected-anglemode {
+    color: #050505;
+}
+
+.calculator-angle-mode .unselected-anglemode {
+    color: #BBBBBB;
+}
+
+#answer_area .calculator .history {
+    font: 14px/1.5 Menlo, Monaco, Courier, monospace;
+    margin: 0 0 10px;
+    width: 183px;
+
+    background-color: white;
+    border-radius: 5px;
+}
+
+#answer_area .calculator .history #calc-output-content {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 80px;
+}
+
+#answer_area .calculator .history #calc-output {
+    height: 80px;
+    text-align: left;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#answer_area .calculator .history .output {
+    text-align: right;
+    margin-right: 3px;
+}
+
+#answer_area .calculator .history input {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: block;
+    font: inherit;
+    margin: 5px 3px 3px;
+    width: 98%;
+    padding-left: 25px;
+    padding-right: 8px;
+    text-align: right;
+    border: none;
+    outline-width: 0;
+}
+
+#answer_area .calculator .history .input {
+    position: relative;
+}
+
+#answer_area .calculator .history .input-history {
+    position: relative;
+    margin-left: 3px;
+}
+
+#answer_area .calculator .history .status a {
+    position: absolute;
+    font: 10px/1.5 Menlo, Monaco, Courier, monospace;
+    color: #999;
+    text-decoration: none;
+    line-height: 9px;
+    height: 19px;
+    top: 5px;
+    left: 6px;
+}
+
+#answer_area .calculator .keypad .calc-row {
+    margin: 5px 0;
+}
+
+#answer_area .calculator .keypad .calc-row a {
+    background: #ccc;
+    border-radius: 2px;
+    color: #000;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    text-align: center;
+    text-decoration: none;
+    width: 31px;
+}
+
+#answer_area .calculator .keypad .calc-row a:hover {
+    background: #bbb;
+}
+
+#answer_area .calculator .keypad .calc-row a:active {
+    background: #aaa;
+}
+
+#answer_area .calculator .keypad .calc-row a.dark {
+    background: #aaa;
+}
+
+#answer_area .calculator .keypad .calc-row a.dark:hover {
+    background: #999;
+}
+
+#answer_area .calculator .keypad .calc-row a.dark:active {
+    background: #888;
+}
+
+#answer_area .calculator .keypad a sup {
+    vertical-align: super;
+    font-size: 80%;
+    line-height: 0;
+}
+
+#answer_area .calculator .keypad a.wide {
+    width: 67px;
+}
+
+#solutionarea {
+    min-height: 35px;
+    padding: 10px;
+    margin: 0 -10px;
+    border-bottom: 1px solid #c3c3c3;
+    overflow: visible;
+}
+
+.workarea #solutionarea {
+    border-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+#answer_area .answer-buttons {
+  margin: 0 -10px;
+  padding: 10px 10px 0;
+  position: relative;
+}
+
+#show-prereqs-button {
+  margin-top: 15px;
+}
+
+#positive-reinforcement img {
+  width: 28px;
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  cursor: pointer;
+}
+
+#answer_area input.simple-button[disabled=disabled] { opacity: 0.5; filter: alpha(opacity = 50); cursor: default; }
+#answer_area input.simple-button[disabled=disabled]:hover { color: #fff !important; }
+#answer_area input.simple-button.orange[disabled=disabled]:hover { border-color: #bf4f04 !important; border-bottom-color: #803503 !important; }
+#answer_area input.simple-button.green[disabled=disabled]:hover { border-color: #76a005 !important; border-bottom-color: #557303 !important; }
+
+.simple-button.disabled { opacity: 0.5; filter: alpha(opacity = 50); cursor: default; }
+
+#hint-remainder { color: #777; }
+
+#footer .simple-button, .info-box .simple-button { padding: 3px 10px; top: -1px }
+.info-box .simple-button { top: 0; }
+
+#issue #issue-status.error { font-weight: bold; color: #A21; font-size: 1.2em; }
+#issue-link { font-style: italic; }
+#issue .issue-form input[type=text] { display: block; width: 98%; }
+#issue .issue-form textarea { display: block; width: 98%; height: 100px; }
+#issue-cancel { float: right; }
+#issue fieldset {
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding-left: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  line-height: 22px;
+  margin-bottom: 3px;
+}
+#issue fieldset legend { padding-left: 5px; padding-right: 5px; }
+#issue fieldset label { display: inline; }
+#issue fieldset li { margin-top: 0px; margin-bottom: 0px; }
+
+var, div.graphie { white-space: pre; }
+
+#throbber { position: relative; top: 4px; left: 4px; }
+#issue-throbber { position: relative; top: 3px; }
+
+.exp input { vertical-align: super; font-size: 9px; height: 11px; }
+
+.correct-activity {
+  background-color: #69bb00;
+  text-shadow: 0 -1px 0 #557303;
+}
+
+.incorrect-activity {
+  background-color: #e12c2d;
+  text-shadow: 0 -1px 0 #921118;
+}
+
+.hint-activity {
+  background-color: #f19726;
+  text-shadow: 0 -1px 0 #B55C00;
+}
+
+.user-activity {
+  margin: 8px;
+  padding: 2px 5px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  float: left;
+  cursor: pointer;
+  color: white;
+}
+
+.user-activity input {
+  cursor: pointer;
+}
+
+div.timeline-time {
+  float: left;
+  padding-top: 10px;
+}
+
+div.timeline-time:before {
+  padding: 3px;
+  content: "~";
+}
+
+div.timeline-time:after {
+  padding: 3px;
+  content: "~";
+}
+
+div.timeline-total {
+  border-top: 1px solid #999;
+}
+
+#timelinecontainer {
+  border: 1px solid #c6d1ad;
+  border-top: 0px;
+  position: relative;
+}
+
+#timelinecontainer:before, #timelinecontainer:after {
+  content: "";
+  display: table;
+}
+
+#timelinecontainer:after {
+  clear: both;
+}
+
+#timelinecontainer {
+  zoom: 1;
+}
+
+#timeline {
+  overflow: hidden;
+  position: absolute;
+  left: 265px;
+  right: 225px;
+  border-left: 1px solid #c6d1ad;
+  border-right: 1px solid #c6d1ad;
+}
+
+#timeline-events {
+  width: 10000px;
+}
+
+/* Allow the timeline to scroll all the way to the end with a little margin */
+#timeline-events:after, #timeline-events:before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 1px;
+  float: left;
+}
+
+#timeline p {
+  margin: 0;
+}
+
+#previous-problem {
+  margin: 5px;
+  cursor: pointer;
+  float: left;
+  width: 100px;
+}
+
+#previous-step {
+  margin: 5px;
+  cursor: pointer;
+  float: left;
+  width: 100px;
+}
+
+#next-step {
+  margin: 5px;
+  cursor: pointer;
+  float: right;
+  width: 80px;
+}
+
+#previous-step span {
+  background: url(/images/previous-step.png) no-repeat 0 50% transparent;
+  padding: 4px 0 4px 25px;
+}
+
+#next-step span {
+  background: url(/images/next-step.png) no-repeat 100% 50% transparent;
+  padding: 4px 25px 4px 0;
+}
+
+#next-problem {
+  margin: 5px;
+  cursor: pointer;
+  float: right;
+  width: 80px;
+}
+
+.user-activity.activated {
+  border: 2px solid #888;
+}
+
+/* Version of the site used by Khan/exercise-browser for the iframe preview */
+
+html.exercise-browser {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.exercise-browser body {
+  min-width: 0;
+  width: 790px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.exercise-browser header, .exercise-browser footer, .exercise-browser .topic-exercise-badge, .exercise-browser #extras, .exercise-browser .exercises-stack, .exercise-browser .related-video-box  {
+  display: none !important;
+}
+
+.exercise-browser #outer-wrapper, .exercise-browser #page-container, .exercise-browser #page-container-inner {
+  background: #ffffff;
+}
+
+.exercise-browser article {
+  border: none;
+}
+
+.exercise-browser #container.single-exercise {
+  min-width: 0;
+}
+
+.exercise-browser #page-container {
+  width: 790px;
+  min-width: 0;
+}
+
+.exercise-browser .problem-types {
+  margin-right: 20px;
+}
+
+.exercise-browser .problem-type-link {
+  display: block;
+  margin-bottom: 5px;
+  padding: 6px;
+  background: #36A6C4;
+  border-radius: 5px;
+  border: 1px solid #7FC8E6;
+  color: white;
+}
+
+.exercise-browser .problem-type-link:hover {
+  color: white;
+  background: #1C758C;
+  text-decoration: none;
+}
+
+.exercise-browser .problem-type-link:visited {
+  color: #C2EAFF;
+  text-decoration: none;
+}
+
+
+.lite header, .lite footer, .lite #extras, .lite .exercise-badge, .lite .hint-box, .lite .related-video-box {
+	display: none !important;
+}
+
+.lite #page-container, .lite #container {
+	min-width: 0;
+	border-width: 0;
+}
+
+.lite #streak-bar-container {
+	position: absolute;
+	top: 10px;
+	left: 15px;
+}
+
+.lite #answercontent {
+	position: absolute;
+	right: 5px;
+	top: 12px;
+	padding: 0px;
+	border: none;
+	-webkit-box-shadow: none;
+	overflow: visible;
+}
+
+.lite #answercontent > * {
+	float: left;
+	margin-right: 10px;
+}
+
+/* TODO: Find a better way to display these. */
+.lite #throbber, .lite #check-answer-results {
+	display: none !important;
+}
+
+.lite #answercontent .info-box-header {
+	font-size: 16px;
+}
+
+.lite #answercontent .examples {
+	display: none !important;
+}
+
+.lite .ui-icon {
+	width: 18px;
+	height: 18px;
+}
+
+.lite h1 {
+	font-family: inherit;
+}
+
+.lite #solutionarea input {
+	font-size: 14px;
+}
+
+.lite #answercontent .simple-button {
+	margin-top: -5px;
+	color: #fff !important;
+	font-size: 14px;
+	text-shadow: none;
+}
+
+#warning-bar {
+	width: 100%;
+	height: 35px;
+	text-align: center;
+	font-size: 15px;
+	display: none;
+	padding: 6px 0;
+	position: relative;
+	z-index: 2;
+}
+
+#warning-bar span {
+	position: relative;
+	top: 5px;
+}
+
+#warning-bar-close {
+	top: 5px;
+	float: right;
+	right: 20px;
+	position: relative;
+}
+
+#warning-bar-content a {
+	text-decoration: underline;
+}
+
+#warning-bar.error {
+  background-color: #D61914;
+  color: #eee;
+}
+
+#warning-bar.error a {
+  color: #eee;
+}
+
+#warning-bar.warning {
+  background-color: #f5e722;
+  color: #222;
+}
+
+#warning-bar.warning a {
+  color: #222;
+}
+
+/* Faux table styles that allow revealing data row by row in hints */
+
+.fake_header > span {
+	font-weight: bold;
+	display: inline-block;
+	padding-left: 10px;
+	border-bottom: 2px solid #CCCCCC;
+}
+
+.fake_row > span {
+	display: inline-block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	border-bottom: 1px solid #DDD;
+}
+
+.fake_row:nth-child(n) > span {
+	border-bottom: none;
+}
+
+.fake_row:nth-child(2n+1) > span {
+	background-color: #F3F3F3;
+}
+
+#timelinecontainer .simple-button {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.thumbnail a {
+  outline: none;
+  color: #fff;
+}
+
+.thumbnail a:hover {
+  text-decoration: none;
+}
+
+.thumbnail div.thumb {
+  background-size: 200px 150px;
+  background-position: no-repeat top left;
+  background-position: 0px -25px;
+  background-position-y: -80px\9;
+  background-position-x: -100px\9;
+  width: 200px;
+  height: 100px;
+  border: 1px solid #aaa;
+  -webkit-box-shadow: 0 0 3px #ccc;
+  -moz-box-shadow: 0 0 3px #ccc;
+  box-shadow: 0 0 3px #ccc;
+  margin-left: 14px; /* to line up with other titles */
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+.thumbnail div.thumbnail_label {
+  padding: 5px 10px;
+  max-width: 180px;
+  margin: 0;
+  text-align: left;
+  margin-top: 68px;
+  background: #333;
+  background-color: rgba(30, 30, 30, 0.9);
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.thumbnail div.thumbnail_desc {
+  width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.thumbnail div.thumbnail_teaser {
+  height: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.sortable {
+	background: #eee;
+	border: 1px solid #ccc;
+	border-bottom: 1px solid #aaa;
+	padding: 13px;
+	position: relative;
+	z-index: 2;
+
+	box-shadow: 0 1px 2px #ccc;
+	-moz-box-shadow: 0 1px 2px #ccc;
+	-webkit-box-shadow: 0 1px 2px #ccc;
+}
+
+.sortable > ul {
+	list-style-type: none;
+}
+
+.sortable > ul > li {
+	background-color: #fff;
+	border: 1px solid #b9b9b9;
+	border-bottom-color: #939393;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	cursor: pointer;
+	margin-right: 4px;
+	min-width: 65px;
+	height: 65px;
+	text-align: center;
+	font-size: 1.2em;
+	float: left;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.sortable > ul > li.placeholder {
+	background:#ddd;
+	border: 0;
+	border: 1px solid #ccc;
+	float: left;
+}
+
+
+.sortable code {
+	line-height: 65px;
+}
+
+.sortable > ul > li:hover {
+	border-color: #ffa500;
+	box-shadow: 0 0 4px #c56f00;
+	-moz-box-shadow: 0 0 4px #c56f00;
+	-ms-box-shadow: 0 0 4px #c56f00;
+	-o-box-shadow: 0 0 4px #c56f00;
+	-webkit-box-shadow: 0 0 4px #c56f00;
+}
+
+.sortable > ul > li:active, .sortable > ul > li.dragging {
+	background-color: #ffedcd;
+	opacity: 0.8;
+	filter: alpha(opacity = 80);
+}
+
+.box-whisker-sortable > .sortable {
+    background: #f8f8f8;
+    border: 0;
+    border-bottom: 0;
+    box-shadow: 0 0 0;
+    -moz-box-shadow: 0 0 0;
+    -webkit-box-shadow: 0 0 0;
+    padding-right: 0;
+}
+
+.box-whisker-sortable > .sortable > ul > li {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    margin-right: 2px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+}
+.box-whisker-sortable > .sortable code {
+    line-height: 32px;
+}
+
+#problemarea div#congruent-triangles {
+    outline-color: #999;
+    outline-style: dashed;
+    outline-width: 1px;
+}
+
+/* Video hints */
+
+.video-hint {
+  margin-bottom: 20px;
+}
+
+/* Question-based hints */
+
+.qhint {
+  border: 1px solid #aaaaaa;
+  background: #f9f9f9;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.qhint-answer {
+  display: none;
+}
+
+.qhint-feedback {
+  font-weight: bold;
+  color: #6495ED;
+}
+
+.qhint-feedback.correct {
+  color: #28AE7B;
+}
+
+.qhint-feedback.incorrect {
+  color: #CE4444;
+}
+
+/*Worked example hints*/
+.example-hint,
+{
+  margin-bottom: 15px;
+}
+/* Fancy matrix input - goes along with matrix-input.js */
+
+.matrix-input {
+    padding: 15px;
+    margin-top: 10px;
+    background-color: #eee;
+    width: 165px;
+}
+
+.solutionarea .matrix-row {
+    float: left;  /* contain inner floats */
+    clear: both;
+}
+
+.solutionarea .matrix-row .sol {
+    margin: 0;
+    float: left;
+}
+
+.solutionarea .matrix-row .sol input[type=text],
+.solutionarea .matrix-row .sol input[type=number] {
+    width: 45px;
+    height: 30px;
+    border: none;
+    margin: 3px;
+    padding: 1px;
+}
+
+.matrix-input .matrix-bracket {
+    width: 6px;
+    position: absolute;
+    border-top: 2px solid #888;
+    border-bottom: 2px solid #888;
+    /* margin-top must have the same magnitude
+       as the border widths */
+    margin-top: -2px;
+}
+
+.matrix-input .matrix-bracket.bracket-left {
+    border-left: 2px solid #888;
+    /* margin-left for the left bracket must have
+       the same magnitude as the border widths */
+    margin-left: -2px;
+}
+
+.matrix-input .matrix-bracket.bracket-right {
+    border-right: 2px solid #888;
+}
+
+.matrix-input:after {
+    content: "";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
+}
+
+table.periodic-table td.element {
+    border: 1px solid;
+    min-width: 37px;
+    min-height: 37px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+table.periodic-table td.element div.atomic-num {
+}
+table.periodic-table td.element div.symbol {
+    font-weight: bold;
+}
+table.periodic-table td.element div.weight {
+    font-size: 10px;
+}
+
+.plugging_in_values > span {
+    width: 80px;
+}
+table.plugging_in_values_hint td {
+    padding-left: 40px;
+}
+
+span.hover-hint {
+    color: #005987;
+    border-bottom: 1px dashed #005987;
+}
+span.hover-hint:hover {
+    color: #678d00;
+    border-bottom: 1px dashed #678d00;
+    cursor: pointer;
+}
+
+.vis-deriv-hint-graph {
+    display: block;
+    float: left;
+    margin-right: 50px;
+}
+
+#problemarea .quarter-graph {
+    float: left;
+    margin-bottom: 45px;
+    margin-right: 45px;
+}
+
+#problemarea .estimation span {
+    width: 100px;
+}
+#problemarea .estimation span:first-child {
+    width: 50px;
+}
+
+#solutionarea table.rational-exp td {
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+#solutionarea table.rational-exp td.soln-top {
+    padding-bottom: 1px;
+}
+#solutionarea table.rational-exp td.soln-bot {
+    padding-top: 1px;
+    border-top: 1px solid black;
+}
+
+#solutionarea table.rational-exp td.soln-dom {
+    padding-left: 3px;
+}
+
+#problemarea div.z-score-table > span {
+    width: 32px;
+    font-size: 11px;
+    padding: 5px;
+}
+
+#problemarea div.z-score-table > span:first-child {
+    font-weight: bold;
+    width: 22px;
+    border-right: 2px solid #CCCCCC;
+}
+
+#problemarea div.focus-information {
+    padding-bottom: 12px;
+    height: 70px;
+    clear: both;
+}
+
+#problemarea div.focus-information div {
+    display: block;
+}
+#problemarea div.focus-information-column-left {
+    float: left;
+    width: 30%;
+}
+#problemarea div.focus-information-column-right {
+    float: right;
+    width: 55%;
+}
+
+#problemarea .reading-tables > span {
+    text-align: center;
+    width: 65px;
+}
+#problemarea .reading-tables > span:first-child {
+    text-align: left;
+    width: 100px;
+}
+
+#problemarea .reading > span {
+    width: 32px;
+    font-size: 11px;
+    padding: 5px;
+}
+
+#problemarea .reading.fake_header > span {
+    text-align: center;
+}
+
+#problemarea .reading > span:first-child {
+    font-weight: bold;
+    width: 22px;
+    border-right: 2px solid #CCCCCC;
+}
+
+#problemarea .problem .graph-caption {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#solutionarea .intuition-equation td {
+    text-align: right;
+    padding-left: 5px;
+}
+
+.question li span.sort-key {
+    visibility: hidden;
+    position: absolute;
+}
+
+.problem table.problem-equation td {
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+}
+.problem table.problem-equation input {
+    width: 25px;
+    margin-right: 5px;
+    vertical-align: super;
+}
+
+#coin-flip-sequence-charts {
+    height: 324px;
+    position: relative;
+    width: 496px;
+}
+
+#coin-flip-sequence-charts .graphie {
+    height: 324px;
+    width: 496px;
+    position: absolute !important;
+}
+
+#coin-flip-sequence-chart-1 {
+    left: 496px;
+}
+
+#coin-flip-sequence-chart-2 {
+    left: 992px;
+}
+
+#coin-flip-sequence-chart-3 {
+    left: 1488px;
+}
+
+.view-coin-flip-sequence-patterns {
+    margin-top: 12px;
+}
+
+.view-coin-flip-sequence-patterns span {
+    color: #ccc;
+}
+
+.view-coin-flip-sequence-patterns a {
+    margin: 0 5px;
+}
+
+.view-coin-flip-sequence-patterns a.selected {
+    font-weight: bold;
+    color: #444 !important;
+    cursor: default;
+    text-decoration: none !important;
+}
+
+.coin-flip-sequence-heads {
+    background: #a6a6a6;
+    color: #333;
+}
+
+.coin-flip-sequence-heads,
+.coin-flip-sequence-tails {
+    border-right: 1px solid #888;
+    float: left;
+    font-family: Verdana, sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 0 2px;
+    text-align: center;
+    width: 16px;
+}
+
+.coin-flip-sequence-tails {
+    background: #595959;
+    color: #ccc;
+}
+
+body.debug span.error {
+    font-weight: bold;
+    color: #FFF;
+    background: #F00;
+    font-size: 1.4em;
+    padding: 0.2em;
+    text-decoration: line-through;
+}
+
+/* Work around bug added in https://khanacademy.kilnhg.com/Review/K109777 */
+.new-header .MathJax .math {
+    color: inherit;
+}
+
+.solutionarea .info-box .mini-button {
+    margin: 0px 10px 0px 0px;
+    padding: 0px 5px;
+    width: 25px;
+    height: 18px;
+}
+
+.solutionarea #number-label {
+    clear: both;
+    margin: 0px 0px;
+    padding: 14px 0px 0px 0px;
+}
+
+/* Expression/equation input (see "expression" answer type) */
+.solutionarea .expression {
+    box-sizing: border-box;
+    display: block;
+    max-width: 240px;
+    width: 100%;
+}
+
+.solutionarea .expression > .output {
+    background: #f2f2f2;
+    display: inline-block;
+    border-radius: 5px;
+    padding-top: 10px;
+    margin: 10px 0;
+    /* HACK(aria) above scratchpad so that users have somewhere to
+     * "click off of" to hide the expression dialog.
+     * Also important because it can get a silly scrollbar and we
+     * want users to be able to scroll even if the scratchpad is
+     * open. We should probably make this wider eventually. */
+    position: relative; z-index: 2;
+}
+
+.solutionarea .expression > .output > .tex {
+    display: block;
+    min-height: 42px;
+    overflow-x: scroll;
+    padding: 2px 10px 16px 10px;
+}
+
+.solutionarea .expression > .input {
+    position: relative;
+    z-index: 3; /* interactive-content */
+}
+
+.solutionarea .expression > .input > input {
+    border: 1px solid #a4a4a4;
+    border-radius: 5px;
+    direction: ltr;
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 6px;
+}
+
+.solutionarea .expression > .output,
+.solutionarea .expression > .output > .tex,
+.solutionarea .expression > .input > input {
+    box-sizing: border-box;
+    max-width: 240px;
+    width: 100%;
+}
+
+.solutionarea .expression > .input > input.error {
+    padding-right: 25px;
+}
+
+.solutionarea .expression > .input > .error-div {
+    position: absolute;
+    right: 6px;
+    top: -3px;
+}
+
+.solutionarea .expression > .input > .error-div > .error-icon {
+    color: #fcc335;
+    font-size: 20px;
+}
+
+body:not(.mobile) ul.inequalities-one-line-radios,
+body:not(.mobile) ul.inequalities-one-line-radios > li {
+    display: inline;
+}
+
+body.mobile ul.inequalities-one-line-radios > li {
+    padding: 7px 0;
+}
+
+.inequalities-padding#grid {
+    margin-bottom: 2em;
+}
