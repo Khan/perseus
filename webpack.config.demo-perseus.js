@@ -5,5 +5,8 @@ module.exports = {
         publicPath: "/build/",
         filename: "demo-perseus.js",
     },
+    devServer: {
+        historyApiFallback: "/build/",
+    },
     module: require('./webpack.config.js').module,
 };

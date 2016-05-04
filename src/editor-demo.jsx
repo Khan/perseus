@@ -19,32 +19,15 @@ const enabledFeatures = {
     useMathQuill: true,
 };
 
-const defaultQuestion = {
-    "question": {
-        "content": "",
-        "images": {},
-        "widgets": {},
-    },
-    "answerArea": {
-        "calculator": false,
-    },
-    "itemDataVersion": {
-        "major": 0,
-        "minor": 1,
-    },
-    "hints": [],
-};
-
 const EditorDemo = React.createClass({
     propTypes: {
         problemNum: React.PropTypes.number,
-        question: React.PropTypes.any,
+        question: React.PropTypes.any.isRequired,
     },
 
     getDefaultProps: function() {
         return {
             problemNum: 1,
-            question: defaultQuestion,
         };
     },
 
@@ -62,17 +45,18 @@ const EditorDemo = React.createClass({
         console.log(this.refs.editor.scorePreview());
     },
 
+    _getContentHash: function() {
+        return Util.strongEncodeURIComponent(JSON.stringify(this.refs.editor.serialize()));
+    },
+
     permalink: function(e) {
-        window.location.hash = `content=${
-            Util.strongEncodeURIComponent(JSON.stringify(this.refs.editor.serialize()))
-        }`;
+        window.location.hash = `content=${this._getContentHash()}`;
         e.preventDefault();
     },
 
     viewRendered: function(e) {
         const link = document.createElement("a");
-        link.href = "/testrender.html#content=" +
-            Util.strongEncodeURIComponent(JSON.stringify(this.refs.editor.serialize()));
+        link.href = window.location.pathname + "?renderer#content=" + this._getContentHash();
         link.target = "_blank";
         link.click();
         e.preventDefault();
