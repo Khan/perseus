@@ -1,11 +1,22 @@
-build/
-lib/
-node_modules/
-test/qunit-1.11.0.js
-react-components/
-node/environment.js
-src/sigfigs.jsx
+# stylesheets (hard to fix due to new CSS rules)
 stylesheets/exercise-content-package/perseus.less
+stylesheets/exercise-content-package/widgets/
 stylesheets/exercise-content-package/articles.less
 stylesheets/perseus-admin-package/editor.less
 stylesheets/perseus-admin-package/perseus.less
+
+# third party code
+lib/
+src/sigfigs.jsx
+test/qunit-1.11.0.js
+
+# submodules (react-components/ and ke/ have their own lint_blacklist.txt)
+simple-markdown/
+kmath/
+hubble/
+
+# temporary files
+node_modules/
+
+# built files
+build/

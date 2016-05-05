@@ -1,5 +1,5 @@
-React = require("../lib/react-with-addons.js");
-_ = require("../lib/underscore.js");
+window.React = require("../lib/react-with-addons.js");
+window._ = require("../lib/underscore.js");
 
 require("../lib/jquery.js");
 

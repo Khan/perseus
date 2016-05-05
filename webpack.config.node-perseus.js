@@ -1,5 +1,3 @@
-var path = require("path");
-
 module.exports = {
     entry: "./src/node-perseus.js",
     output: {

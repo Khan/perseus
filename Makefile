@@ -17,7 +17,7 @@ help:
 	@echo "make test                     # run all tests"
 	@echo "# NOTE: you can append SUPPRESSINSTALL=TRUE to avoid running npm install. Useful if you temporarily have no internet."
 
-build: clean install shorttest fastbuild shortnodetest shorteditortest
+build: clean install lint shorttest fastbuild shortnodetest shorteditortest
 fastbuild: $(PERSEUS_BUILD_JS) $(PERSEUS_NODE_BUILD_JS) $(PERSEUS_EDITOR_BUILD_JS) $(PERSEUS_BUILD_CSS) $(PERSEUS_VERSION_FILE)
 
 $(PERSEUS_BUILD_JS): install

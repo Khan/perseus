@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 require("./environment.js");
-var ItemVersion = require("../src/item-version.js");
+const ItemVersion = require("../src/item-version.js");
 
 console.log(
     "/* eslint-disable comma-dangle */\n\n" +

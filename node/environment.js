@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 require("../lib/babel-polyfills.min.js");
 var _ = require("../lib/underscore.js");
 
@@ -30,7 +31,7 @@ common.updateGlobals();
 Object.defineProperty(global.document, "compatMode", {
     get: function() {
         return "CSS1Compat";
-    }
+    },
 });
 global.katex = common.window.katex = require("../lib/katex/katex.js");
 
@@ -48,7 +49,7 @@ global.expect = function(thing) {
         },
         toBe: function(other) {
             assert(thing === other, "" + thing + " != " + other);
-        }
+        },
     };
 };
 
