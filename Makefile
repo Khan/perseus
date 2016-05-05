@@ -55,10 +55,10 @@ $(PERSEUS_EDITOR_BUILD_JS): install
 
 $(PERSEUS_BUILD_CSS): install
 	mkdir -p build
-	echo '// Perseus CSS' > $@
-	echo "// commit `git rev-parse HEAD`" >> $@
-	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
-	echo "// @gene""rated" >> $@
+	echo '/* Perseus CSS' > $@
+	echo " * commit `git rev-parse HEAD`" >> $@
+	echo " * branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	echo " * @gene""rated */" >> $@
 	./node_modules/.bin/lessc stylesheets/exercise-content-package/perseus.less >> $@
 
 $(PERSEUS_VERSION_FILE): install

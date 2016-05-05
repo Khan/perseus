@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 09490e83e7c9310954176326f5ea20d7f2443bec
+// commit 8e295164d87b3052a446ed9f1f65d49ae8b8298b
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1045,7 +1045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        // Require here to prevent recursive imports
-	        var SvgImage = __webpack_require__(29);
+	        var SvgImage = __webpack_require__(30);
 	        img.src = SvgImage.getRealImageUrl(url);
 	    },
 
@@ -1109,7 +1109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(30);
+	var Traversal = __webpack_require__(29);
 	var Widgets = __webpack_require__(27);
 
 	var isUpgradedWidgetInfoRenderableBy = function (widgetInfo, widgetRendererVersion) {
@@ -1180,7 +1180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(30);
+	var Traversal = __webpack_require__(29);
 	var Widgets = __webpack_require__(27);
 
 	module.exports = {
@@ -1218,7 +1218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var traversal = __webpack_require__(30);
+	var traversal = __webpack_require__(29);
 	var PerseusMarkdown = __webpack_require__(31);
 
 	// Takes a renderer content and parses the markdown for images
@@ -3208,10 +3208,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	_.each([[__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(108)], [__webpack_require__(109), true && __webpack_require__(132)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)], [__webpack_require__(124), true && __webpack_require__(125)],
+	_.each([[__webpack_require__(57), true && __webpack_require__(58)], [__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(130)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)],
 	// These widgets are only used when testing things, so remove them in the
 	// non-editor bundle.
-	true && [__webpack_require__(126), __webpack_require__(127)], true && [__webpack_require__(128), __webpack_require__(129)], true && [__webpack_require__(130), __webpack_require__(131)]], function (data) {
+	true && [__webpack_require__(124), __webpack_require__(125)], true && [__webpack_require__(126), __webpack_require__(127)], true && [__webpack_require__(128), __webpack_require__(129)]], function (data) {
 	  data && Widgets.register(data[0].name, /* widget */data[0], /* editor */data[1]);
 	});
 
@@ -3360,7 +3360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var getHintsPlacement = __webpack_require__(44);
 
-	var _require = __webpack_require__(133);
+	var _require = __webpack_require__(131);
 
 	var mapObject = _require.mapObject;
 
@@ -3730,7 +3730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
-	var _require = __webpack_require__(133);
+	var _require = __webpack_require__(131);
 
 	var mapObject = _require.mapObject;
 
@@ -4015,7 +4015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var i18n = window.i18n;
 
 	var HintRenderer = __webpack_require__(45);
-	var SvgImage = __webpack_require__(29);
+	var SvgImage = __webpack_require__(30);
 	var EnabledFeatures = __webpack_require__(32);
 
 	var HintsRenderer = React.createClass({
@@ -4196,7 +4196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var JiptParagraphs = __webpack_require__(46);
 	var PerseusMarkdown = __webpack_require__(31);
 	var QuestionParagraph = __webpack_require__(47);
-	var SvgImage = __webpack_require__(29);
+	var SvgImage = __webpack_require__(30);
 	var TeX = __webpack_require__(48);
 	var WidgetContainer = __webpack_require__(49);
 	var Widgets = __webpack_require__(27);
@@ -4207,7 +4207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
-	var _require = __webpack_require__(133);
+	var _require = __webpack_require__(131);
 
 	var mapObject = _require.mapObject;
 	var mapObjectFromArray = _require.mapObjectFromArray;
@@ -5879,6 +5879,125 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
+	/**
+	 * Traverses a {content, widgets, images} renderer props object,
+	 * such as `itemData.question`
+	 *
+	 * This traversal is deep and handles some widget prop upgrades
+	 * (TODO(aria): Handle minor prop upgrades :) )
+	 *
+	 * This is the right way to traverse itemData.
+	 *
+	 * NOTE: We should not expose this on the perseus API yet. Instead,
+	 * build the traversal method you want inside perseus, and use this
+	 * from that. We might eventually expose this, but I'd like to be
+	 * more confident in the interface provided first.
+	 */
+
+	var _ = __webpack_require__(16);
+	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
+	var objective_ = __webpack_require__(131);
+
+	var Widgets = __webpack_require__(27);
+
+	var noop = function () {};
+
+	var deepCallbackFor = function (contentCallback, widgetCallback, optionsCallback) {
+	    var deepCallback = function (widgetInfo, widgetId) {
+	        // This doesn't modify the widget info if the widget info
+	        // is at a later version than is supported, which is important
+	        // for our latestVersion test below.
+	        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+	        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
+
+	        // Only traverse our children if we can understand this version
+	        // of the widget props.
+	        // TODO(aria): This will break if the traversal code assumes that
+	        // any props that usually get defaulted in are present. That is,
+	        // it can fail on minor version upgrades.
+	        // For this reason, and because the upgrade code doesn't handle
+	        // minor versions correctly (it doesn't report anything useful
+	        // about what minor version a widget is actually at, since it
+	        // doesn't have meaning in the context of upgrades), we
+	        // just check the major version here.
+	        // TODO(aria): This is seriously quirky and would be unpleasant
+	        // to think about while writing traverseChildWidgets code. Please
+	        // make all of this a little tighter.
+	        // I think once we use react class defaultProps instead of relying
+	        // on getDefaultProps, this will become easier.
+	        var newWidgetInfo;
+	        if (latestVersion && upgradedWidgetInfo.version.major === latestVersion.major) {
+	            newWidgetInfo = Widgets.traverseChildWidgets(upgradedWidgetInfo, function (rendererOptions) {
+	                return traverseRenderer(rendererOptions, contentCallback,
+	                // so that we traverse grandchildren, too:
+	                deepCallback, optionsCallback);
+	            });
+	        } else {
+	            newWidgetInfo = upgradedWidgetInfo;
+	        }
+
+	        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
+	        if (userWidgetInfo !== undefined) {
+	            return userWidgetInfo;
+	        } else {
+	            return newWidgetInfo;
+	        }
+	    };
+	    return deepCallback;
+	};
+
+	var traverseRenderer = function (rendererOptions, contentCallback, deepWidgetCallback, optionsCallback) {
+
+	    var newContent = rendererOptions.content;
+	    if (rendererOptions.content != null) {
+	        var modifiedContent = contentCallback(rendererOptions.content);
+	        if (modifiedContent !== undefined) {
+	            newContent = modifiedContent;
+	        }
+	    }
+
+	    var newWidgets = objective_.mapObject(rendererOptions.widgets || {}, function (widgetInfo, widgetId) {
+	        // Widgets without info or a type are empty widgets, and
+	        // should always be renderable. It's also annoying to write
+	        // checks for this everywhere, so we just filter them out once and
+	        // for all!
+	        if (widgetInfo == null || widgetInfo.type == null) {
+	            return widgetInfo;
+	        }
+	        return deepWidgetCallback(widgetInfo, widgetId);
+	    });
+
+	    var newOptions = _.extend({}, rendererOptions, {
+	        content: newContent,
+	        widgets: newWidgets });
+	    var userOptions = optionsCallback(newOptions);
+	    if (userOptions !== undefined) {
+	        return userOptions;
+	    } else {
+	        return newOptions;
+	    }
+	};
+
+	var traverseRendererDeep = function (rendererOptions, contentCallback, widgetCallback, optionsCallback) {
+
+	    contentCallback = contentCallback || noop;
+	    widgetCallback = widgetCallback || noop;
+	    optionsCallback = optionsCallback || noop;
+
+	    return traverseRenderer(rendererOptions, contentCallback, deepCallbackFor(contentCallback, widgetCallback, optionsCallback), optionsCallback);
+	};
+
+	module.exports = {
+	    traverseRendererDeep: traverseRendererDeep };
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 	/* globals KA */
 	var classNames = __webpack_require__(41);
 	var React = __webpack_require__(15);
@@ -6459,125 +6578,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } });
 
 	module.exports = SvgImage;
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	/**
-	 * Traverses a {content, widgets, images} renderer props object,
-	 * such as `itemData.question`
-	 *
-	 * This traversal is deep and handles some widget prop upgrades
-	 * (TODO(aria): Handle minor prop upgrades :) )
-	 *
-	 * This is the right way to traverse itemData.
-	 *
-	 * NOTE: We should not expose this on the perseus API yet. Instead,
-	 * build the traversal method you want inside perseus, and use this
-	 * from that. We might eventually expose this, but I'd like to be
-	 * more confident in the interface provided first.
-	 */
-
-	var _ = __webpack_require__(16);
-	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-	var objective_ = __webpack_require__(133);
-
-	var Widgets = __webpack_require__(27);
-
-	var noop = function () {};
-
-	var deepCallbackFor = function (contentCallback, widgetCallback, optionsCallback) {
-	    var deepCallback = function (widgetInfo, widgetId) {
-	        // This doesn't modify the widget info if the widget info
-	        // is at a later version than is supported, which is important
-	        // for our latestVersion test below.
-	        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
-	        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
-
-	        // Only traverse our children if we can understand this version
-	        // of the widget props.
-	        // TODO(aria): This will break if the traversal code assumes that
-	        // any props that usually get defaulted in are present. That is,
-	        // it can fail on minor version upgrades.
-	        // For this reason, and because the upgrade code doesn't handle
-	        // minor versions correctly (it doesn't report anything useful
-	        // about what minor version a widget is actually at, since it
-	        // doesn't have meaning in the context of upgrades), we
-	        // just check the major version here.
-	        // TODO(aria): This is seriously quirky and would be unpleasant
-	        // to think about while writing traverseChildWidgets code. Please
-	        // make all of this a little tighter.
-	        // I think once we use react class defaultProps instead of relying
-	        // on getDefaultProps, this will become easier.
-	        var newWidgetInfo;
-	        if (latestVersion && upgradedWidgetInfo.version.major === latestVersion.major) {
-	            newWidgetInfo = Widgets.traverseChildWidgets(upgradedWidgetInfo, function (rendererOptions) {
-	                return traverseRenderer(rendererOptions, contentCallback,
-	                // so that we traverse grandchildren, too:
-	                deepCallback, optionsCallback);
-	            });
-	        } else {
-	            newWidgetInfo = upgradedWidgetInfo;
-	        }
-
-	        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
-	        if (userWidgetInfo !== undefined) {
-	            return userWidgetInfo;
-	        } else {
-	            return newWidgetInfo;
-	        }
-	    };
-	    return deepCallback;
-	};
-
-	var traverseRenderer = function (rendererOptions, contentCallback, deepWidgetCallback, optionsCallback) {
-
-	    var newContent = rendererOptions.content;
-	    if (rendererOptions.content != null) {
-	        var modifiedContent = contentCallback(rendererOptions.content);
-	        if (modifiedContent !== undefined) {
-	            newContent = modifiedContent;
-	        }
-	    }
-
-	    var newWidgets = objective_.mapObject(rendererOptions.widgets || {}, function (widgetInfo, widgetId) {
-	        // Widgets without info or a type are empty widgets, and
-	        // should always be renderable. It's also annoying to write
-	        // checks for this everywhere, so we just filter them out once and
-	        // for all!
-	        if (widgetInfo == null || widgetInfo.type == null) {
-	            return widgetInfo;
-	        }
-	        return deepWidgetCallback(widgetInfo, widgetId);
-	    });
-
-	    var newOptions = _.extend({}, rendererOptions, {
-	        content: newContent,
-	        widgets: newWidgets });
-	    var userOptions = optionsCallback(newOptions);
-	    if (userOptions !== undefined) {
-	        return userOptions;
-	    } else {
-	        return newOptions;
-	    }
-	};
-
-	var traverseRendererDeep = function (rendererOptions, contentCallback, widgetCallback, optionsCallback) {
-
-	    contentCallback = contentCallback || noop;
-	    widgetCallback = widgetCallback || noop;
-	    optionsCallback = optionsCallback || noop;
-
-	    return traverseRenderer(rendererOptions, contentCallback, deepCallbackFor(contentCallback, widgetCallback, optionsCallback), optionsCallback);
-	};
-
-	module.exports = {
-	    traverseRendererDeep: traverseRendererDeep };
 
 /***/ },
 /* 31 */
@@ -7260,7 +7260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Editor = __webpack_require__(11);
 	var HintRenderer = __webpack_require__(45);
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 
 	/* Renders a hint editor box
 	 *
@@ -7558,7 +7558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Editor = __webpack_require__(11);
-	var ItemExtrasEditor = __webpack_require__(58);
+	var ItemExtrasEditor = __webpack_require__(133);
 	var ITEM_DATA_VERSION = __webpack_require__(56).itemDataVersion;
 
 	var ItemEditor = React.createClass({
@@ -7698,8 +7698,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 
 	var diff = __webpack_require__(137);
-	var splitDiff = __webpack_require__(135);
-	var stringArrayDiff = __webpack_require__(136);
+	var splitDiff = __webpack_require__(134);
+	var stringArrayDiff = __webpack_require__(135);
 
 	var BEFORE = "before";
 	var AFTER = "after";
@@ -7902,7 +7902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classNames = __webpack_require__(41);
 	var React = __webpack_require__(15);
 
-	var performDiff = __webpack_require__(134);
+	var performDiff = __webpack_require__(136);
 
 	var indentationFromDepth = function (depth) {
 	    return (depth - 1) * 20;
@@ -8150,7 +8150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(30);
+	var Traversal = __webpack_require__(29);
 
 	var findPassageRefR = new RegExp(
 	// [[ passage-ref 1]]
@@ -8257,6 +8257,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
@@ -8339,6 +8343,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 43 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
@@ -9956,214 +9964,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-
-	var React = __webpack_require__(15);
-
-	var ReactComponentsInfoTip = __webpack_require__(146);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-
-	    getInitialState: function () {
-	        return {
-	            didMount: false };
-	    },
-
-	    componentDidMount: function () {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({ didMount: true });
-	        /* eslint-enable react/no-did-mount-set-state */
-	    },
-
-	    render: function () {
-	        if (this.state.didMount) {
-	            return React.createElement(ReactComponentsInfoTip, this.props);
-	        } else {
-	            return React.createElement("div", null);
-	        }
-	    } });
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-
-	var InfoTip = __webpack_require__(57);
-
-	var ItemExtrasEditor = React.createClass({
-	    displayName: "ItemExtrasEditor",
-
-	    propTypes: {
-	        calculator: React.PropTypes.bool,
-	        chi2Table: React.PropTypes.bool,
-	        onChange: React.PropTypes.func.isRequired,
-	        periodicTable: React.PropTypes.bool,
-	        tTable: React.PropTypes.bool,
-	        zTable: React.PropTypes.bool },
-
-	    getDefaultProps: function () {
-	        return {
-	            calculator: false,
-	            chi2Table: false,
-	            periodicTable: false,
-	            tTable: false,
-	            zTable: false };
-	    },
-
-	    serialize: function () {
-	        return {
-	            calculator: this.props.calculator,
-	            chi2Table: this.props.chi2Table,
-	            periodicTable: this.props.periodicTable,
-	            tTable: this.props.tTable,
-	            zTable: this.props.zTable };
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-answer-editor" },
-	            React.createElement(
-	                "div",
-	                { className: "perseus-answer-options" },
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show calculator:",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.calculator,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ calculator: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show periodic table:",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.periodicTable,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ periodicTable: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show z table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.zTable,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ zTable: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show t table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.tTable,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ tTable: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show chi-squared table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.chi2Table,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ chi2Table: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = ItemExtrasEditor;
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 	var classNames = __webpack_require__(41);
-	var Changeable = __webpack_require__(147);
-	var WidgetJsonifyDeprecated = __webpack_require__(148);
+	var Changeable = __webpack_require__(146);
+	var WidgetJsonifyDeprecated = __webpack_require__(147);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
@@ -10344,7 +10152,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   clicked */
 
 /***/ },
-/* 60 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10352,14 +10160,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var _ = __webpack_require__(16);
 
-	var EditorJsonify = __webpack_require__(149);
+	var EditorJsonify = __webpack_require__(148);
 	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(51);
 
-	var Categorizer = __webpack_require__(59).widget;
+	var Categorizer = __webpack_require__(57).widget;
 
 	var CategorizerEditor = React.createClass({
 	    displayName: "CategorizerEditor",
@@ -10437,7 +10245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// for content creators to catch and fix.
 
 /***/ },
-/* 61 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10451,7 +10259,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var updateQueryString = __webpack_require__(6).updateQueryString;
 
 	var PADDING_WIDTH = 2;
@@ -10618,7 +10426,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: CSProgram };
 
 /***/ },
-/* 62 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10628,11 +10436,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var BlurInput = __webpack_require__(150);
-	var InfoTip = __webpack_require__(57);
+	var BlurInput = __webpack_require__(149);
+	var InfoTip = __webpack_require__(132);
 	var PropCheckBox = __webpack_require__(34);
 
 	var DEFAULT_WIDTH = 400;
@@ -10836,7 +10644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CSProgramEditor;
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10844,7 +10652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var classNames = __webpack_require__(41);
-	var FancySelect = __webpack_require__(151);
+	var FancySelect = __webpack_require__(150);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
@@ -10999,7 +10807,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Always visible so we can animate them with css
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11010,8 +10818,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(57);
-	var EditorJsonify = __webpack_require__(149);
+	var InfoTip = __webpack_require__(132);
+	var EditorJsonify = __webpack_require__(148);
 
 	var DropdownEditor = React.createClass({
 	    displayName: "DropdownEditor",
@@ -11179,7 +10987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DropdownEditor;
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11190,7 +10998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var PerseusApi = __webpack_require__(5);
 	var Renderer = __webpack_require__(26);
 
@@ -11320,7 +11128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * clickable */
 
 /***/ },
-/* 66 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11330,11 +11138,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var Editor = __webpack_require__(11);
-	var TextInput = __webpack_require__(152);
+	var TextInput = __webpack_require__(151);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -11417,7 +11225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExplanationEditor;
 
 /***/ },
-/* 67 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11427,20 +11235,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classNames = __webpack_require__(41);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
-	var Tooltip = __webpack_require__(153);
+	var Tooltip = __webpack_require__(152);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var EnabledFeatures = __webpack_require__(32);
 
-	var InputWithExamples = __webpack_require__(154);
-	var MathInput = __webpack_require__(155);
+	var InputWithExamples = __webpack_require__(153);
+	var MathInput = __webpack_require__(154);
 	var TeX = __webpack_require__(48); // OldExpression only
-	var TexButtons = __webpack_require__(156);
+	var TexButtons = __webpack_require__(155);
 
 	var EnabledFeatures = __webpack_require__(32);
 
@@ -12071,7 +11879,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mult = mult.replace(/\\cdot/g, "\\times");
 	        }
 
-	        return [i18n._("**Acceptable Formats**"), mult, i18n._("For $3y$, enter **3y** or **3*y**"), i18n._("For $\\dfrac{1}{x}$, enter **1/x**"), i18n._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"), i18n._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"), i18n._("For $x^{y}$, enter **x^y**"), i18n._("For $x^{2/3}$, enter **x^(2/3)**"), i18n._("For $\\sqrt{x}$, enter **sqrt(x)**"), i18n._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\](x)**"), i18n._("For $\\pi$, enter **pi**"), i18n._("For $\\sin \\theta$, enter **sin(theta)**"), i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"), i18n._("For $\\neq$, enter **=/=**")];
+	        return [i18n._("**Acceptable Formats**"), mult, i18n._("For $3y$, enter **3y** or **3*y**"), i18n._("For $\\dfrac{1}{x}$, enter **1/x**"), i18n._("For $\\dfrac{1}{xy}$, enter **1/(xy)**"), i18n._("For $\\dfrac{2}{x + 3}$, enter **2/(x + 3)**"), i18n._("For $x^{y}$, enter **x^y**"), i18n._("For $x^{2/3}$, enter **x^(2/3)**"), i18n._("For $\\sqrt{x}$, enter **sqrt(x)**"), i18n._("For $\\sqrt[3]{x}$, enter **sqrt\\[3\\]{x}**"), i18n._("For $\\pi$, enter **pi**"), i18n._("For $\\sin \\theta$, enter **sin(theta)**"), i18n._("For $\\le$ or $\\ge$, enter **<=** or **>=**"), i18n._("For $\\neq$, enter **=/=**")];
 	    }
 	});
 
@@ -12143,7 +11951,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(alex): Better error feedback for mobile
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -12155,15 +11963,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var lens = __webpack_require__(181);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 	var PropCheckBox = __webpack_require__(34);
-	var SortableArea = __webpack_require__(157);
+	var SortableArea = __webpack_require__(156);
 	var TeX = __webpack_require__(48); // OldExpression only
-	var TexButtons = __webpack_require__(156);
+	var TexButtons = __webpack_require__(155);
 
-	var Expression = __webpack_require__(67).Expression;
+	var Expression = __webpack_require__(65).Expression;
 
 	// An answer can be considered correct, wrong, or ungraded.
 	var CONSIDERED = ["correct", "wrong", "ungraded"];
@@ -12671,7 +12479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExpressionEditor;
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -12683,8 +12491,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Interactive2 = __webpack_require__(158);
-	var SvgImage = __webpack_require__(29);
+	var Interactive2 = __webpack_require__(157);
+	var SvgImage = __webpack_require__(30);
 	var Util = __webpack_require__(6);
 	var ButtonGroup = __webpack_require__(43);
 
@@ -12698,7 +12506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kpoint = __webpack_require__(182).point;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var _require = __webpack_require__(171);
 
@@ -13067,7 +12875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13077,13 +12885,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
-	var GraphSettings = __webpack_require__(159);
-	var InfoTip = __webpack_require__(57);
-	var MultiButtonGroup = __webpack_require__(160);
+	var GraphSettings = __webpack_require__(158);
+	var InfoTip = __webpack_require__(132);
+	var MultiButtonGroup = __webpack_require__(159);
 
-	var Grapher = __webpack_require__(69).widget;
+	var Grapher = __webpack_require__(67).widget;
 
 	var _require = __webpack_require__(171);
 
@@ -13221,7 +13029,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GrapherEditor;
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13235,7 +13043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var Renderer = __webpack_require__(26);
 
 	// A Graded Group is more or less a Group widget that displays a check
@@ -13413,7 +13221,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tracking: "all" };
 
 /***/ },
-/* 72 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13424,7 +13232,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var Editor = __webpack_require__(11);
 
 	var GradedGroupEditor = React.createClass({
@@ -13472,7 +13280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GradedGroupEditor;
 
 /***/ },
-/* 73 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13485,7 +13293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var Renderer = __webpack_require__(26);
 
 	var Group = React.createClass({
@@ -13650,7 +13458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hidden: false };
 
 /***/ },
-/* 74 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13661,7 +13469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var Editor = __webpack_require__(11);
 
@@ -13730,7 +13538,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* the metadata editor; used for tags on khanacademy.org */
 
 /***/ },
-/* 75 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13749,8 +13557,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var WidgetJsonifyDeprecated = __webpack_require__(148);
+	var Changeable = __webpack_require__(146);
+	var WidgetJsonifyDeprecated = __webpack_require__(147);
 	var updateQueryString = __webpack_require__(6).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
@@ -13884,7 +13692,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hidden: true };
 
 /***/ },
-/* 76 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13894,10 +13702,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(149);
 	var PropCheckBox = __webpack_require__(34);
 
 	/**
@@ -14060,7 +13868,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = IframeEditor;
 
 /***/ },
-/* 77 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14078,9 +13886,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var Renderer = __webpack_require__(26);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
-	var SvgImage = __webpack_require__(29);
+	var SvgImage = __webpack_require__(30);
 
 	var defaultBoxSize = 400;
 	var defaultRange = [0, 10];
@@ -14247,7 +14055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ImageWidget };
 
 /***/ },
-/* 78 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14259,13 +14067,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(149);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(57);
-	var RangeInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(132);
+	var RangeInput = __webpack_require__(160);
 
 	var defaultBoxSize = 400;
 	var defaultRange = [0, 10];
@@ -14678,7 +14486,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ImageEditor;
 
 /***/ },
-/* 79 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14689,7 +14497,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InputWithExamples = __webpack_require__(154);
+	var InputWithExamples = __webpack_require__(153);
 	var ParseTex = __webpack_require__(161).parseTex;
 	var PossibleAnswers = __webpack_require__(162);
 
@@ -14962,7 +14770,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    transform: propTransform };
 
 /***/ },
-/* 80 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14975,8 +14783,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var BlurInput = __webpack_require__(150);
-	var InfoTip = __webpack_require__(57);
+	var BlurInput = __webpack_require__(149);
+	var InfoTip = __webpack_require__(132);
 
 	var answerTypes = {
 	    number: {
@@ -15225,7 +15033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(emily): don't use a hidden checkbox for alignment */
 
 /***/ },
-/* 81 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -15235,7 +15043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var Graphie = __webpack_require__(53);
 
@@ -15674,7 +15482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(eater): why so slow?
 
 /***/ },
-/* 82 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -15686,19 +15494,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var ArrowPicker = __webpack_require__(172);
 	var ColorPicker = __webpack_require__(173);
 	var ConstraintEditor = __webpack_require__(174);
 	var DashPicker = __webpack_require__(175);
 	var ElementContainer = __webpack_require__(176);
-	var GraphSettings = __webpack_require__(159);
-	var MathInput = __webpack_require__(155);
-	var NumberInput = __webpack_require__(164);
+	var GraphSettings = __webpack_require__(158);
+	var MathInput = __webpack_require__(154);
+	var NumberInput = __webpack_require__(163);
 	var TeX = __webpack_require__(48);
-	var TextInput = __webpack_require__(152);
+	var TextInput = __webpack_require__(151);
 
 	var defaultInteractionProps = {
 	    graph: {
@@ -17019,7 +16827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractionEditor;
 
 /***/ },
-/* 83 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -17029,10 +16837,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Graph = __webpack_require__(165);
-	var InfoTip = __webpack_require__(57);
-	var Interactive2 = __webpack_require__(158);
-	var NumberInput = __webpack_require__(164);
+	var Graph = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var Interactive2 = __webpack_require__(157);
+	var NumberInput = __webpack_require__(163);
 	var Util = __webpack_require__(6);
 
 	var knumber = __webpack_require__(182).number;
@@ -19256,7 +19064,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// supports "grid"
 
 /***/ },
-/* 84 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19270,10 +19078,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(159);
-	var InfoTip = __webpack_require__(57);
+	var GraphSettings = __webpack_require__(158);
+	var InfoTip = __webpack_require__(132);
 
-	var InteractiveGraph = __webpack_require__(83).widget;
+	var InteractiveGraph = __webpack_require__(81).widget;
 
 	var defaultBoxSize = 400;
 	var defaultEditorBoxSize = 340;
@@ -19584,7 +19392,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveGraphEditor;
 
 /***/ },
-/* 85 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19592,8 +19400,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(147);
-	var WidgetJsonifyDeprecated = __webpack_require__(148);
+	var Changeable = __webpack_require__(146);
+	var WidgetJsonifyDeprecated = __webpack_require__(147);
 
 	var MAX_SIZE = 8;
 
@@ -19919,7 +19727,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 86 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19929,12 +19737,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var NumberInput = __webpack_require__(164);
+	var NumberInput = __webpack_require__(163);
 	var PropCheckBox = __webpack_require__(34);
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 
 	var MAX_SIZE = 8;
 
@@ -20190,7 +19998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LightsPuzzleEditor;
 
 /***/ },
-/* 87 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20202,10 +20010,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var NumberInput = __webpack_require__(164);
+	var NumberInput = __webpack_require__(163);
 	var Renderer = __webpack_require__(26);
-	var TextInput = __webpack_require__(152);
-	var MathOutput = __webpack_require__(166);
+	var TextInput = __webpack_require__(151);
+	var MathOutput = __webpack_require__(165);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -20672,7 +20480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// the matrix shouldn't be focused
 
 /***/ },
-/* 88 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20682,13 +20490,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var Editor = __webpack_require__(11);
-	var RangeInput = __webpack_require__(163);
+	var RangeInput = __webpack_require__(160);
 
-	var Matrix = __webpack_require__(87).widget;
+	var Matrix = __webpack_require__(85).widget;
 
 	// Really large matrices will cause issues with question formatting, so we
 	// have to cap it at some point.
@@ -20822,7 +20630,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MatrixEditor;
 
 /***/ },
-/* 89 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20833,7 +20641,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Renderer = __webpack_require__(26);
-	var Sortable = __webpack_require__(167);
+	var Sortable = __webpack_require__(166);
 
 	var shuffle = __webpack_require__(6).shuffle;
 	var seededRNG = __webpack_require__(6).seededRNG;
@@ -20976,7 +20784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Matcher };
 
 /***/ },
-/* 90 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20986,7 +20794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(51);
 
@@ -21138,7 +20946,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MatcherEditor;
 
 /***/ },
-/* 91 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21308,7 +21116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 92 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21318,13 +21126,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
 	var PropCheckBox = __webpack_require__(34);
-	var RangeInput = __webpack_require__(163);
+	var RangeInput = __webpack_require__(160);
 
 	var defaultImage = {
 	    url: null,
@@ -21585,18 +21393,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MeasurerEditor;
 
 /***/ },
-/* 93 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
 
-	var draw = __webpack_require__(178);
+	var draw = __webpack_require__(177);
 
-	var _require = __webpack_require__(179);
+	var _require = __webpack_require__(178);
 
 	var layout = _require.layout;
 
-	var SmilesParser = __webpack_require__(180);
+	var SmilesParser = __webpack_require__(179);
 
 	var parse = SmilesParser.parse;
 	var ParseError = SmilesParser.ParseError;
@@ -21757,7 +21565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    molecule: Molecule };
 
 /***/ },
-/* 94 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21766,10 +21574,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var EditorJsonify = __webpack_require__(149);
-	var Changeable = __webpack_require__(147);
-	var NumberInput = __webpack_require__(164);
-	var TextInput = __webpack_require__(152);
+	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(146);
+	var NumberInput = __webpack_require__(163);
+	var TextInput = __webpack_require__(151);
 
 	var MoleculeWidgetEditor = React.createClass({
 	    displayName: "MoleculeWidgetEditor",
@@ -21826,7 +21634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   spacing right. */
 
 /***/ },
-/* 95 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21838,10 +21646,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
-	var NumberInput = __webpack_require__(164);
-	var MathOutput = __webpack_require__(166);
+	var NumberInput = __webpack_require__(163);
+	var MathOutput = __webpack_require__(165);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -22441,7 +22249,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 96 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -22451,13 +22259,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var EditorJsonify = __webpack_require__(149);
+	var EditorJsonify = __webpack_require__(148);
 
 	var ButtonGroup = __webpack_require__(43);
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
 	var PropCheckBox = __webpack_require__(34);
-	var RangeInput = __webpack_require__(163);
+	var RangeInput = __webpack_require__(160);
 
 	var knumber = __webpack_require__(182).number;
 	var bound = function (x, gt, lt) {
@@ -22962,7 +22770,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   since it isn't used. */ /* element of (little E) symbol @Nolint */
 
 /***/ },
-/* 97 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -22973,7 +22781,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InputWithExamples = __webpack_require__(154);
+	var InputWithExamples = __webpack_require__(153);
 	var ParseTex = __webpack_require__(161).parseTex;
 	var PossibleAnswers = __webpack_require__(162);
 
@@ -23321,7 +23129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 98 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23331,16 +23139,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var ButtonGroup = __webpack_require__(43);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(57);
-	var MultiButtonGroup = __webpack_require__(160);
-	var NumberInput = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var MultiButtonGroup = __webpack_require__(159);
+	var NumberInput = __webpack_require__(163);
 	var PropCheckBox = __webpack_require__(34);
-	var TextInput = __webpack_require__(152);
+	var TextInput = __webpack_require__(151);
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 
@@ -23826,7 +23634,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumericInputEditor;
 
 /***/ },
-/* 99 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24377,7 +24185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Orderer };
 
 /***/ },
-/* 100 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24387,7 +24195,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 	var TextListEditor = __webpack_require__(51);
 
 	var NORMAL = "normal",
@@ -24579,7 +24387,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = OrdererEditor;
 
 /***/ },
-/* 101 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24590,10 +24398,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var Renderer = __webpack_require__(26);
-	var PassageMarkdown = __webpack_require__(177);
+	var PassageMarkdown = __webpack_require__(180);
 
 	var Passage = React.createClass({
 	    displayName: "Passage",
@@ -24912,7 +24720,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 102 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24922,11 +24730,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 	var PropCheckBox = __webpack_require__(34);
 
 	var PassageEditor = React.createClass({
@@ -25035,7 +24843,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageEditor;
 
 /***/ },
-/* 103 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25045,9 +24853,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var PerseusMarkdown = __webpack_require__(31);
-	var WidgetJsonifyDeprecated = __webpack_require__(148);
+	var WidgetJsonifyDeprecated = __webpack_require__(147);
 
 	var EN_DASH = "–";
 
@@ -25182,7 +24990,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* curly quotes */
 
 /***/ },
-/* 104 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25191,12 +24999,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
-	var TextInput = __webpack_require__(152);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
+	var TextInput = __webpack_require__(151);
 
 	var PassageRefEditor = React.createClass({
 	    displayName: "PassageRefEditor",
@@ -25276,7 +25084,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageRefEditor;
 
 /***/ },
-/* 105 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25286,8 +25094,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var WidgetJsonifyDeprecated = __webpack_require__(148);
+	var Changeable = __webpack_require__(146);
+	var WidgetJsonifyDeprecated = __webpack_require__(147);
 	var Renderer = __webpack_require__(26);
 
 	var PassageRefTarget = React.createClass({
@@ -25343,7 +25151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 106 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25353,8 +25161,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var PassageRefTargetEditor = React.createClass({
 	    displayName: "PassageRefTargetEditor",
@@ -25390,7 +25198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageRefTargetEditor;
 
 /***/ },
-/* 107 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25977,7 +25785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// ...widgetPropTypes,
 
 /***/ },
-/* 108 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -25990,14 +25798,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var BlurInput = __webpack_require__(150);
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
-	var RangeInput = __webpack_require__(163);
-	var SvgImage = __webpack_require__(29);
+	var BlurInput = __webpack_require__(149);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
+	var RangeInput = __webpack_require__(160);
+	var SvgImage = __webpack_require__(30);
 	var TextListEditor = __webpack_require__(51);
 
-	var Plotter = __webpack_require__(107).widget;
+	var Plotter = __webpack_require__(105).widget;
 
 	var knumber = __webpack_require__(182).knumber;
 
@@ -26513,7 +26321,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PlotterEditor;
 
 /***/ },
-/* 109 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26524,7 +26332,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var shuffle = __webpack_require__(6).shuffle;
 
-	var Radio = __webpack_require__(168);
+	var Radio = __webpack_require__(167);
 
 	var _choiceTransform = function (editorProps, problemNum) {
 	    var _maybeRandomize = function (array) {
@@ -26614,12 +26422,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propUpgrades: propUpgrades };
 
 /***/ },
-/* 110 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
 
-	var Molecule = __webpack_require__(93).molecule;
+	var Molecule = __webpack_require__(91).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -26754,7 +26562,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ReactionDiagramWidget };
 
 /***/ },
-/* 111 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -26765,11 +26573,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var NumberInput = __webpack_require__(164);
-	var TextInput = __webpack_require__(152);
+	var NumberInput = __webpack_require__(163);
+	var TextInput = __webpack_require__(151);
 
 	var ReactionDiagramWidgetEditor = React.createClass({
 	    displayName: "ReactionDiagramWidgetEditor",
@@ -26905,7 +26713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactionDiagramWidgetEditor;
 
 /***/ },
-/* 112 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26916,7 +26724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
@@ -27025,7 +26833,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tracking: "all" };
 
 /***/ },
-/* 113 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27206,19 +27014,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SequenceEditor;
 
 /***/ },
-/* 114 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var assert = __webpack_require__(144).assert;
@@ -27232,8 +27040,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePoint = Graphie.MovablePoint;
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(164);
-	var MathOutput = __webpack_require__(166);
+	var NumberInput = __webpack_require__(163);
+	var MathOutput = __webpack_require__(165);
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
 	var knumber = __webpack_require__(182).number;
@@ -27962,7 +27770,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* Only plot these cool extra features if there's data */
 
 /***/ },
-/* 115 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27972,11 +27780,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
 
 	var maxTrials = 5000;
 
@@ -28113,7 +27921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimulatorEditor;
 
 /***/ },
-/* 116 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28123,7 +27931,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Sortable = __webpack_require__(167);
+	var Sortable = __webpack_require__(166);
 
 	var shuffle = __webpack_require__(6).shuffle;
 
@@ -28201,7 +28009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Sorter };
 
 /***/ },
-/* 117 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28211,7 +28019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(57);
+	var InfoTip = __webpack_require__(132);
 	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(51);
 
@@ -28330,7 +28138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SorterEditor;
 
 /***/ },
-/* 118 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28341,7 +28149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var MathOutput = __webpack_require__(166);
+	var MathOutput = __webpack_require__(165);
 	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
@@ -28661,7 +28469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 119 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28674,11 +28482,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
 	var Editor = __webpack_require__(11);
 
-	var Table = __webpack_require__(118).widget;
+	var Table = __webpack_require__(116).widget;
 
 	var TableEditor = React.createClass({
 	    displayName: "TableEditor",
@@ -28837,7 +28645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TableEditor;
 
 /***/ },
-/* 120 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -28850,9 +28658,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Graph = __webpack_require__(165);
-	var NumberInput = __webpack_require__(164);
-	var MathOutput = __webpack_require__(166);
+	var Graph = __webpack_require__(164);
+	var NumberInput = __webpack_require__(163);
+	var MathOutput = __webpack_require__(165);
 	var TeX = __webpack_require__(48);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -31222,7 +31030,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Transformer };
 
 /***/ },
-/* 121 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -31234,12 +31042,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var Graph = __webpack_require__(165);
-	var GraphSettings = __webpack_require__(159);
-	var InfoTip = __webpack_require__(57);
+	var Graph = __webpack_require__(164);
+	var GraphSettings = __webpack_require__(158);
+	var InfoTip = __webpack_require__(132);
 	var PropCheckBox = __webpack_require__(34);
 
-	var Transformer = __webpack_require__(120).widget;
+	var Transformer = __webpack_require__(118).widget;
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var getGridStep = __webpack_require__(6).getGridStep;
@@ -32217,7 +32025,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TransformerEditor;
 
 /***/ },
-/* 122 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32236,10 +32044,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(147);
-	var MathOutput = __webpack_require__(166);
+	var Changeable = __webpack_require__(146);
+	var MathOutput = __webpack_require__(165);
 
-	var _require = __webpack_require__(169);
+	var _require = __webpack_require__(168);
 
 	var SignificantFigures = _require.SignificantFigures;
 	var displaySigFigs = _require.displaySigFigs;
@@ -32496,7 +32304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// end mobile stuff
 
 /***/ },
-/* 123 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32511,12 +32319,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var NumberInput = __webpack_require__(164);
+	var NumberInput = __webpack_require__(163);
 
-	var _require = __webpack_require__(169);
+	var _require = __webpack_require__(168);
 
 	var displaySigFigs = _require.displaySigFigs;
 
@@ -32784,7 +32592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UnitInputEditor;
 
 /***/ },
-/* 124 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32798,7 +32606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var FixedToResponsive = __webpack_require__(52);
 
 	// Current default is 720p, based on the typical videos we upload currently
@@ -32887,7 +32695,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Video };
 
 /***/ },
-/* 125 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32897,11 +32705,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var InfoTip = __webpack_require__(57);
-	var BlurInput = __webpack_require__(150);
+	var InfoTip = __webpack_require__(132);
+	var BlurInput = __webpack_require__(149);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 
@@ -32965,7 +32773,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = VideoEditor;
 
 /***/ },
-/* 126 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32982,8 +32790,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
-	var Changeable = __webpack_require__(147);
-	var WidgetJsonifyDeprecated = __webpack_require__(148);
+	var Changeable = __webpack_require__(146);
+	var WidgetJsonifyDeprecated = __webpack_require__(147);
 
 	var Graphie = __webpack_require__(53);
 	var MovablePoint = Graphie.MovablePoint;
@@ -33115,7 +32923,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ExampleGraphieWidget };
 
 /***/ },
-/* 127 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33124,10 +32932,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
-	var ExampleGraphieWidget = __webpack_require__(126).widget;
+	var ExampleGraphieWidget = __webpack_require__(124).widget;
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -33178,7 +32986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExampleGraphieWidgetEditor;
 
 /***/ },
-/* 128 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33195,7 +33003,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var _ = __webpack_require__(16);
 
 	var TextInput = React.createClass({
@@ -33330,7 +33138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ExampleWidget };
 
 /***/ },
-/* 129 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33339,8 +33147,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -33388,7 +33196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExampleWidgetEditor;
 
 /***/ },
-/* 130 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33398,7 +33206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var PerseusMarkdown = __webpack_require__(31);
 	var mdParse = PerseusMarkdown.parse;
@@ -33492,7 +33300,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 131 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33506,8 +33314,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(147);
-	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(146);
+	var EditorJsonify = __webpack_require__(148);
 
 	var TextArea = React.createClass({
 	    displayName: "TextArea",
@@ -33575,7 +33383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimpleMarkdownTesterEditor;
 
 /***/ },
-/* 132 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33586,12 +33394,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 	var Editor = __webpack_require__(11);
 	var PropCheckBox = __webpack_require__(34);
 
-	var InfoTip = __webpack_require__(57);
-	var BaseRadio = __webpack_require__(170);
+	var InfoTip = __webpack_require__(132);
+	var BaseRadio = __webpack_require__(169);
 
 	var ChoiceEditor = React.createClass({
 	    displayName: "ChoiceEditor",
@@ -33901,7 +33709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RadioEditor;
 
 /***/ },
-/* 133 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33980,84 +33788,207 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 134 */
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+
+	var React = __webpack_require__(15);
+
+	var ReactComponentsInfoTip = __webpack_require__(170);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+
+	    getInitialState: function () {
+	        return {
+	            didMount: false };
+	    },
+
+	    componentDidMount: function () {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({ didMount: true });
+	        /* eslint-enable react/no-did-mount-set-state */
+	    },
+
+	    render: function () {
+	        if (this.state.didMount) {
+	            return React.createElement(ReactComponentsInfoTip, this.props);
+	        } else {
+	            return React.createElement("div", null);
+	        }
+	    } });
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var */
+	/* eslint-disable no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var UNCHANGED = "unchanged";
-	var CHANGED = "changed";
-	var ADDED = "added";
-	var REMOVED = "removed";
+	var React = __webpack_require__(15);
 
-	// For values which do not have further values nested within them (strings,
-	// numbers, and booleans)
-	var valueEntry = function (before, after, key) {
-	    var status;
-	    if (before === after) {
-	        status = UNCHANGED;
-	    } else if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        status = CHANGED;
-	    }
+	var InfoTip = __webpack_require__(132);
 
-	    return {
-	        after: JSON.stringify(after),
-	        before: JSON.stringify(before),
-	        children: [],
-	        key: key,
-	        status: status
-	    };
-	};
+	var ItemExtrasEditor = React.createClass({
+	    displayName: "ItemExtrasEditor",
 
-	// For values which require a more granular diff (objects and arrays)
-	var objectEntry = function (before, after, key) {
-	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
-	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
-	    var keys = _.union(beforeKeys, afterKeys);
+	    propTypes: {
+	        calculator: React.PropTypes.bool,
+	        chi2Table: React.PropTypes.bool,
+	        onChange: React.PropTypes.func.isRequired,
+	        periodicTable: React.PropTypes.bool,
+	        tTable: React.PropTypes.bool,
+	        zTable: React.PropTypes.bool },
 
-	    var children = _.map(keys, function (key) {
-	        return performDiff((before || {})[key], (after || {})[key], key);
-	    });
+	    getDefaultProps: function () {
+	        return {
+	            calculator: false,
+	            chi2Table: false,
+	            periodicTable: false,
+	            tTable: false,
+	            zTable: false };
+	    },
 
-	    var status;
-	    if (before === undefined) {
-	        status = ADDED;
-	    } else if (after === undefined) {
-	        status = REMOVED;
-	    } else {
-	        var changed = _.any(children, function (child) {
-	            return child.status !== UNCHANGED;
-	        });
-	        status = changed ? CHANGED : UNCHANGED;
-	    }
+	    serialize: function () {
+	        return {
+	            calculator: this.props.calculator,
+	            chi2Table: this.props.chi2Table,
+	            periodicTable: this.props.periodicTable,
+	            tTable: this.props.tTable,
+	            zTable: this.props.zTable };
+	    },
 
-	    return {
-	        after: "",
-	        before: "",
-	        children: children,
-	        key: key,
-	        status: status
-	    };
-	};
+	    render: function () {
+	        var _this = this;
 
-	var performDiff = function (before, after, /* optional */key) {
-	    if (typeof before === "object" || typeof after === "object") {
-	        return objectEntry(before, after, key);
-	    } else {
-	        return valueEntry(before, after, key);
-	    }
-	};
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-answer-editor" },
+	            React.createElement(
+	                "div",
+	                { className: "perseus-answer-options" },
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show calculator:",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.calculator,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ calculator: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show periodic table:",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.periodicTable,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ periodicTable: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show z table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.zTable,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ zTable: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show t table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.tTable,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ tTable: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show chi-squared table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.chi2Table,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ chi2Table: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
+	                    )
+	                )
+	            )
+	        );
+	    } });
 
-	module.exports = performDiff;
+	module.exports = ItemExtrasEditor;
 
 /***/ },
-/* 135 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -34093,7 +34024,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = splitDiff;
 
 /***/ },
-/* 136 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -34183,6 +34114,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	module.exports = stringArrayDiff;
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var UNCHANGED = "unchanged";
+	var CHANGED = "changed";
+	var ADDED = "added";
+	var REMOVED = "removed";
+
+	// For values which do not have further values nested within them (strings,
+	// numbers, and booleans)
+	var valueEntry = function (before, after, key) {
+	    var status;
+	    if (before === after) {
+	        status = UNCHANGED;
+	    } else if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        status = CHANGED;
+	    }
+
+	    return {
+	        after: JSON.stringify(after),
+	        before: JSON.stringify(before),
+	        children: [],
+	        key: key,
+	        status: status
+	    };
+	};
+
+	// For values which require a more granular diff (objects and arrays)
+	var objectEntry = function (before, after, key) {
+	    var beforeKeys = _.isObject(before) ? _(before).keys() : [];
+	    var afterKeys = _.isObject(after) ? _(after).keys() : [];
+	    var keys = _.union(beforeKeys, afterKeys);
+
+	    var children = _.map(keys, function (key) {
+	        return performDiff((before || {})[key], (after || {})[key], key);
+	    });
+
+	    var status;
+	    if (before === undefined) {
+	        status = ADDED;
+	    } else if (after === undefined) {
+	        status = REMOVED;
+	    } else {
+	        var changed = _.any(children, function (child) {
+	            return child.status !== UNCHANGED;
+	        });
+	        status = changed ? CHANGED : UNCHANGED;
+	    }
+
+	    return {
+	        after: "",
+	        before: "",
+	        children: children,
+	        key: key,
+	        status: status
+	    };
+	};
+
+	var performDiff = function (before, after, /* optional */key) {
+	    if (typeof before === "object" || typeof after === "object") {
+	        return objectEntry(before, after, key);
+	    } else {
+	        return valueEntry(before, after, key);
+	    }
+	};
+
+	module.exports = performDiff;
 
 /***/ },
 /* 137 */
@@ -34607,6 +34615,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
 	var button = {
 	    buttonStyle: {
 	        backgroundColor: 'white',
@@ -34650,6 +34662,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 141 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-throw-literal, no-undef, no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/**
 	 * KaTeX A11y
@@ -35268,7 +35284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 	var GraphieClasses = __webpack_require__(142);
-	var Interactive2 = __webpack_require__(158);
+	var Interactive2 = __webpack_require__(157);
 	var InteractiveUtil = __webpack_require__(144);
 
 	var assert = InteractiveUtil.assert;
@@ -37021,134 +37037,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(15);
-	var RCSS = __webpack_require__(138);
-	var _ = __webpack_require__(16);
-
-	var colors = {
-	    grayLight: '#aaa',
-	    basicBorderColor: '#ccc',
-	    white: '#fff'
-	};
-
-	var infoTip = {
-	    display: 'inline-block',
-	    marginLeft: '5px',
-	    position: 'relative'
-	};
-
-	var infoTipI = {
-	    cursor: 'pointer'
-	};
-
-	var infoTipContainer = {
-	    position: 'absolute',
-	    'top': '-12px',
-	    left: '22px',
-	    zIndex: '1000'
-	};
-
-	var triangleBeforeAfter = {
-	    borderBottom: '9px solid transparent',
-	    borderTop: '9px solid transparent',
-	    content: ' ',
-	    height: '0',
-	    position: 'absolute',
-	    'top': '0',
-	    width: '0'
-	};
-
-	var infoTipTriangle = {
-	    height: '10px',
-	    left: '0',
-	    position: 'absolute',
-	    'top': '8px',
-	    width: '0',
-	    zIndex: '1',
-
-	    ':before': _.extend({}, triangleBeforeAfter, {
-	        borderRight: '9px solid #bbb',
-	        right: '0' }),
-
-	    ':after': _.extend({}, triangleBeforeAfter, {
-	        borderRight: '9px solid ' + colors.white,
-	        right: '-1px'
-	    })
-	};
-
-	var basicBorder = {
-	    border: '1px solid ' + colors.basicBorderColor
-	};
-
-	var boxShadow = function (str) {
-	    return { boxShadow: str };
-	};
-
-	var verticalShadow = RCSS.merge(basicBorder, boxShadow('0 1px 3px ' + colors.basicBorderColor), { borderBottom: '1px solid ' + colors.grayLight });
-
-	var infoTipContentContainer = RCSS.merge(verticalShadow, {
-	    background: colors.white,
-	    padding: '5px 10px',
-	    width: '240px'
-	});
-
-	RCSS.createClass(infoTip);
-	RCSS.createClass(infoTipI);
-	RCSS.createClass(infoTipTriangle);
-	RCSS.createClass(verticalShadow);
-	RCSS.createClass(infoTipContainer);
-	RCSS.createClass(infoTipContentContainer);
-
-	var questionMark = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII='; // @NoLint
-
-	var InfoTip = React.createClass({
-	    displayName: 'InfoTip',
-
-	    getInitialState: function () {
-	        return {
-	            hover: false
-	        };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'div',
-	            { className: infoTip.className },
-	            React.createElement('img', { width: 10,
-	                height: 10,
-	                src: questionMark,
-	                onMouseEnter: this.handleMouseEnter,
-	                onMouseLeave: this.handleMouseLeave }),
-	            React.createElement(
-	                'div',
-	                { className: infoTipContainer.className,
-	                    style: { display: this.state.hover ? 'block' : 'none' } },
-	                React.createElement('div', { className: infoTipTriangle.className }),
-	                React.createElement(
-	                    'div',
-	                    { className: infoTipContentContainer.className },
-	                    this.props.children
-	                )
-	            )
-	        );
-	    },
-
-	    handleMouseEnter: function () {
-	        this.setState({ hover: true });
-	    },
-
-	    handleMouseLeave: function () {
-	        this.setState({ hover: false });
-	    }
-	});
-
-	module.exports = InfoTip;
-	/* keep the classes here - used for selectors on KA */
-
-/***/ },
-/* 147 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -37240,7 +37128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Changeable;
 
 /***/ },
-/* 148 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37263,7 +37151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 149 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37284,10 +37172,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = EditorJsonify;
 
 /***/ },
-/* 150 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 
@@ -37334,7 +37226,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = BlurInput;
 
 /***/ },
-/* 151 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37599,7 +37491,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   of the optionSizer, not next to it */
 
 /***/ },
-/* 152 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -37675,8 +37567,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextInput;
 
 /***/ },
-/* 153 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, indent, no-var, one-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
@@ -38037,7 +37933,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* The contents of the tooltip */
 
 /***/ },
-/* 154 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38045,14 +37941,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Tooltip = __webpack_require__(153);
+	var Tooltip = __webpack_require__(152);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var MathInput = __webpack_require__(155);
+	var MathInput = __webpack_require__(154);
 	var Renderer = __webpack_require__(26);
-	var TextInput = __webpack_require__(152);
-	var MathOutput = __webpack_require__(166);
+	var TextInput = __webpack_require__(151);
+	var MathOutput = __webpack_require__(165);
 
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
@@ -38253,7 +38149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InputWithExamples;
 
 /***/ },
-/* 155 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38265,7 +38161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var TexButtons = __webpack_require__(156);
+	var TexButtons = __webpack_require__(155);
 
 	// TODO(alex): Package MathQuill
 	var MathQuill = window.MathQuill;
@@ -38532,7 +38428,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathInput;
 
 /***/ },
-/* 156 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38814,8 +38710,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TexButtons;
 
 /***/ },
-/* 157 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
@@ -38982,7 +38882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// item: what is this?
 
 /***/ },
-/* 158 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -39015,7 +38915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Interactive2;
 
 /***/ },
-/* 159 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -39026,13 +38926,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(147);
+	var Changeable = __webpack_require__(146);
 
 	var ButtonGroup = __webpack_require__(43);
-	var InfoTip = __webpack_require__(57);
-	var NumberInput = __webpack_require__(164);
+	var InfoTip = __webpack_require__(132);
+	var NumberInput = __webpack_require__(163);
 	var PropCheckBox = __webpack_require__(34);
-	var RangeInput = __webpack_require__(163);
+	var RangeInput = __webpack_require__(160);
 	var TeX = __webpack_require__(48);
 	var Util = __webpack_require__(6);
 
@@ -39599,8 +39499,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GraphSettings;
 
 /***/ },
-/* 160 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
@@ -39702,6 +39606,79 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = MultiButtonGroup;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var NumberInput = __webpack_require__(163);
+
+	var truth = function () {
+	    return true;
+	};
+
+	/* A minor abstraction on top of NumberInput for ranges
+	 *
+	 */
+	var RangeInput = React.createClass({
+	    displayName: "RangeInput",
+
+	    propTypes: {
+	        value: React.PropTypes.array.isRequired,
+	        onChange: React.PropTypes.func.isRequired,
+	        placeholder: React.PropTypes.array,
+	        checkValidity: React.PropTypes.func
+	    },
+
+	    getDefaultProps: function () {
+	        return {
+	            placeholder: [null, null]
+	        };
+	    },
+
+	    render: function () {
+	        var value = this.props.value;
+	        var checkValidity = this.props.checkValidity || truth;
+
+	        return React.createElement(
+	            "div",
+	            { className: "range-input" },
+	            React.createElement(NumberInput, _extends({}, this.props, {
+	                value: value[0],
+	                checkValidity: function (val) {
+	                    return checkValidity([val, value[1]]);
+	                },
+	                onChange: this.onChange.bind(this, 0),
+	                placeholder: this.props.placeholder[0] })),
+	            React.createElement(NumberInput, _extends({}, this.props, {
+	                value: value[1],
+	                checkValidity: function (val) {
+	                    return checkValidity([value[0], val]);
+	                },
+	                onChange: this.onChange.bind(this, 1),
+	                placeholder: this.props.placeholder[1] }))
+	        );
+	    },
+
+	    onChange: function (i, newVal) {
+	        var value = this.props.value;
+	        if (i === 0) {
+	            this.props.onChange([newVal, value[1]]);
+	        } else {
+	            this.props.onChange([value[0], newVal]);
+	        }
+	    }
+
+	});
+
+	module.exports = RangeInput;
 
 /***/ },
 /* 161 */
@@ -39923,79 +39900,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var NumberInput = __webpack_require__(164);
-
-	var truth = function () {
-	    return true;
-	};
-
-	/* A minor abstraction on top of NumberInput for ranges
-	 *
-	 */
-	var RangeInput = React.createClass({
-	    displayName: "RangeInput",
-
-	    propTypes: {
-	        value: React.PropTypes.array.isRequired,
-	        onChange: React.PropTypes.func.isRequired,
-	        placeholder: React.PropTypes.array,
-	        checkValidity: React.PropTypes.func
-	    },
-
-	    getDefaultProps: function () {
-	        return {
-	            placeholder: [null, null]
-	        };
-	    },
-
-	    render: function () {
-	        var value = this.props.value;
-	        var checkValidity = this.props.checkValidity || truth;
-
-	        return React.createElement(
-	            "div",
-	            { className: "range-input" },
-	            React.createElement(NumberInput, _extends({}, this.props, {
-	                value: value[0],
-	                checkValidity: function (val) {
-	                    return checkValidity([val, value[1]]);
-	                },
-	                onChange: this.onChange.bind(this, 0),
-	                placeholder: this.props.placeholder[0] })),
-	            React.createElement(NumberInput, _extends({}, this.props, {
-	                value: value[1],
-	                checkValidity: function (val) {
-	                    return checkValidity([value[0], val]);
-	                },
-	                onChange: this.onChange.bind(this, 1),
-	                placeholder: this.props.placeholder[1] }))
-	        );
-	    },
-
-	    onChange: function (i, newVal) {
-	        var value = this.props.value;
-	        if (i === 0) {
-	            this.props.onChange([newVal, value[1]]);
-	        } else {
-	            this.props.onChange([value[0], newVal]);
-	        }
-	    }
-
-	});
-
-	module.exports = RangeInput;
-
-/***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, max-len, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-after-keywords */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
@@ -40208,7 +40112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumberInput;
 
 /***/ },
-/* 165 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -40221,7 +40125,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var SvgImage = __webpack_require__(29);
+	var SvgImage = __webpack_require__(30);
 
 	var defaultBoxSize = 400;
 	var defaultBackgroundImage = {
@@ -40541,7 +40445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Graph;
 
 /***/ },
-/* 166 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -40552,7 +40456,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var TeX = __webpack_require__(48);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Tooltip = __webpack_require__(153);
+	var Tooltip = __webpack_require__(152);
 	var ModifyTex = __webpack_require__(161).modifyTex;
 
 	var MathOutput = React.createClass({
@@ -40675,7 +40579,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathOutput;
 
 /***/ },
-/* 167 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -41183,7 +41087,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sortable;
 
 /***/ },
-/* 168 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global i18n */
@@ -41192,10 +41096,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Renderer = __webpack_require__(26);
-	var PassageRef = __webpack_require__(103);
+	var PassageRef = __webpack_require__(101);
 	var Util = __webpack_require__(6);
 
-	var BaseRadio = __webpack_require__(170);
+	var BaseRadio = __webpack_require__(169);
 
 	var Radio = React.createClass({
 	    displayName: "Radio",
@@ -41410,7 +41314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radio;
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -41879,7 +41783,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    displaySigFigs: displaySigFigs };
 
 /***/ },
-/* 170 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global i18n, $_ */
@@ -42067,6 +41971,138 @@ return /******/ (function(modules) { // webpackBootstrap
 	// somehow? Would changing our choice of key somehow break
 	// any voodoo happening inside a choice's child Renderers
 	// by changing when we mount/unmount?
+
+/***/ },
+/* 170 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var RCSS = __webpack_require__(138);
+	var _ = __webpack_require__(16);
+
+	var colors = {
+	    grayLight: '#aaa',
+	    basicBorderColor: '#ccc',
+	    white: '#fff'
+	};
+
+	var infoTip = {
+	    display: 'inline-block',
+	    marginLeft: '5px',
+	    position: 'relative'
+	};
+
+	var infoTipI = {
+	    cursor: 'pointer'
+	};
+
+	var infoTipContainer = {
+	    position: 'absolute',
+	    'top': '-12px',
+	    left: '22px',
+	    zIndex: '1000'
+	};
+
+	var triangleBeforeAfter = {
+	    borderBottom: '9px solid transparent',
+	    borderTop: '9px solid transparent',
+	    content: ' ',
+	    height: '0',
+	    position: 'absolute',
+	    'top': '0',
+	    width: '0'
+	};
+
+	var infoTipTriangle = {
+	    height: '10px',
+	    left: '0',
+	    position: 'absolute',
+	    'top': '8px',
+	    width: '0',
+	    zIndex: '1',
+
+	    ':before': _.extend({}, triangleBeforeAfter, {
+	        borderRight: '9px solid #bbb',
+	        right: '0' }),
+
+	    ':after': _.extend({}, triangleBeforeAfter, {
+	        borderRight: '9px solid ' + colors.white,
+	        right: '-1px'
+	    })
+	};
+
+	var basicBorder = {
+	    border: '1px solid ' + colors.basicBorderColor
+	};
+
+	var boxShadow = function (str) {
+	    return { boxShadow: str };
+	};
+
+	var verticalShadow = RCSS.merge(basicBorder, boxShadow('0 1px 3px ' + colors.basicBorderColor), { borderBottom: '1px solid ' + colors.grayLight });
+
+	var infoTipContentContainer = RCSS.merge(verticalShadow, {
+	    background: colors.white,
+	    padding: '5px 10px',
+	    width: '240px'
+	});
+
+	RCSS.createClass(infoTip);
+	RCSS.createClass(infoTipI);
+	RCSS.createClass(infoTipTriangle);
+	RCSS.createClass(verticalShadow);
+	RCSS.createClass(infoTipContainer);
+	RCSS.createClass(infoTipContentContainer);
+
+	var questionMark = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII='; // @NoLint
+
+	var InfoTip = React.createClass({
+	    displayName: 'InfoTip',
+
+	    getInitialState: function () {
+	        return {
+	            hover: false
+	        };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'div',
+	            { className: infoTip.className },
+	            React.createElement('img', { width: 10,
+	                height: 10,
+	                src: questionMark,
+	                onMouseEnter: this.handleMouseEnter,
+	                onMouseLeave: this.handleMouseLeave }),
+	            React.createElement(
+	                'div',
+	                { className: infoTipContainer.className,
+	                    style: { display: this.state.hover ? 'block' : 'none' } },
+	                React.createElement('div', { className: infoTipTriangle.className }),
+	                React.createElement(
+	                    'div',
+	                    { className: infoTipContentContainer.className },
+	                    this.props.children
+	                )
+	            )
+	        );
+	    },
+
+	    handleMouseEnter: function () {
+	        this.setState({ hover: true });
+	    },
+
+	    handleMouseLeave: function () {
+	        this.setState({ hover: false });
+	    }
+	});
+
+	module.exports = InfoTip;
+	/* keep the classes here - used for selectors on KA */
 
 /***/ },
 /* 171 */
@@ -42862,9 +42898,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TeX = __webpack_require__(48);
 
 	var ButtonGroup = __webpack_require__(43);
-	var Changeable = __webpack_require__(147);
-	var MathInput = __webpack_require__(155);
-	var NumberInput = __webpack_require__(164);
+	var Changeable = __webpack_require__(146);
+	var MathInput = __webpack_require__(154);
+	var NumberInput = __webpack_require__(163);
 
 	var ConstraintEditor = React.createClass({
 	    displayName: "ConstraintEditor",
@@ -43176,6 +43212,777 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Draw some text into a 2D canvas drawing context.
+	 *
+	 * Args:
+	 *     ctx: the 2D drawing context
+	 *     item: the rendering instruction for the text.  Must look like: {
+	 *         type: "text",
+	 *         pos: [x, y],
+	 *         value: "some text to draw",
+	 *     }
+	 *
+	 */
+	function drawText(ctx, item) {
+	    if (item.value === null) {
+	        return;
+	    }
+	    ctx.fillStyle = styles.fgColor;
+	    ctx.font = styles.font;
+	    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1, item.pos[1] + styles.fontSizePx / 2);
+	}
+
+	/**
+	 * Draw a double line into a 2D canvas drawing context.
+	 *
+	 * Apparently the way you do this is to stroke an extra-wide line in the
+	 * foreground color and then a smaller line in the background color. 5:3
+	 * foreground:background width looks reasonable for drawing chemical bonds.
+	 *
+	 * Args:
+	 *     ctx: the 2D drawing context
+	 *     item: the rendering instruction for the line.  Must look like: {
+	 *         type: "line:double",
+	 *         startPos: [x, y],
+	 *         endPos: [x, y],
+	 *     }
+	 */
+	function drawDoubleLine(ctx, item) {
+	    // Outer line that forms both of the bond lines.
+	    var path = new Path2D();
+	    ctx.lineWidth = 5 * styles.lineWidth;
+	    ctx.strokeStyle = styles.fgColor;
+	    path.moveTo(item.startPos[0], item.startPos[1]);
+	    path.lineTo(item.endPos[0], item.endPos[1]);
+	    ctx.stroke(path);
+
+	    // Inner white line that separates the two bond lines.
+	    path = new Path2D();
+	    ctx.lineWidth = 3 * styles.lineWidth;
+	    ctx.strokeStyle = styles.bgColor;
+	    path.moveTo(item.startPos[0], item.startPos[1]);
+	    path.lineTo(item.endPos[0], item.endPos[1]);
+	    ctx.stroke(path);
+	}
+
+	/**
+	 * Draw a triple line into a 2D canvas drawing context.
+	 *
+	 * Following the strategy for the double line, we stroke a very wide
+	 * foreground-color line, then a medium background-color line, then a narrow
+	 * foreground-color line.
+	 *
+	 * Args:
+	 *     ctx: the 2D drawing context
+	 *     item: the rendering instruction for the line.  Must look like: {
+	 *         type: "line:triple",
+	 *         startPos: [x, y],
+	 *         endPos: [x, y],
+	 *     }
+	 */
+	function drawTripleLine(ctx, item) {
+	    // TODO(colin): consolidate duplicated code from the three line drawing
+	    // functions.
+
+	    // Outer line that will form the two outer bond lines.
+	    var path = new Path2D();
+	    ctx.lineWidth = 7 * styles.lineWidth;
+	    ctx.strokeStyle = styles.fgColor;
+	    path.moveTo(item.startPos[0], item.startPos[1]);
+	    path.lineTo(item.endPos[0], item.endPos[1]);
+	    ctx.stroke(path);
+
+	    // Middle white line that separates the bonds
+	    path = new Path2D();
+	    ctx.lineWidth = 5 * styles.lineWidth;
+	    ctx.strokeStyle = styles.bgColor;
+	    path.moveTo(item.startPos[0], item.startPos[1]);
+	    path.lineTo(item.endPos[0], item.endPos[1]);
+	    ctx.stroke(path);
+
+	    // Inner line that forms the middle bond line.
+	    drawLine(ctx, item);
+	}
+
+	/**
+	 * Draw a single line into a 2D canvas drawing context
+	 *
+	 * Args:
+	 *     ctx: the 2D drawing context
+	 *     item: the rendering instruction for the line.  Must look like: {
+	 *         type: "line:single",
+	 *         startPos: [x, y],
+	 *         endPos: [x, y],
+	 *     }
+	 */
+	function drawLine(ctx, item) {
+	    var path = new Path2D();
+	    ctx.lineWidth = styles.lineWidth;
+	    ctx.strokeStyle = styles.fgColor;
+	    path.moveTo(item.startPos[0], item.startPos[1]);
+	    path.lineTo(item.endPos[0], item.endPos[1]);
+	    ctx.stroke(path);
+	}
+
+	/**
+	 * Lookup table that maps drawing instruction types to the functions that
+	 * render them.
+	 */
+	var drawingFuncs = {
+	    text: drawText,
+	    "line:single": drawLine,
+	    "line:double": drawDoubleLine,
+	    "line:triple": drawTripleLine };
+
+	/**
+	 * Draw a single rendering instruction into a 2D canvas drawing context.
+	 */
+	function drawItem(ctx) {
+	    return function (item) {
+	        drawingFuncs[item.type](ctx, item);
+	    };
+	}
+
+	/**
+	 * Lookup table for drawing priorities.
+	 *
+	 * Types with lower priorities are drawn first.
+	 */
+	var ordering = {
+	    "line:single": 0,
+	    "line:double": 0,
+	    "line:triple": 0,
+	    text: 1 };
+
+	/**
+	 * Sorting comparison function that orders rendering instructions according to
+	 * their type's priority.
+	 */
+	function compareElements(item0, item1) {
+	    return ordering[item0.type] - ordering[item1.type];
+	}
+
+	/**
+	 * Draw an array of rendering instructions into a 2D canvas drawing context.
+	 */
+	function draw(ctx, items) {
+	    items.sort(compareElements).forEach(drawItem(ctx));
+	}
+
+	var styles = {
+	    bgColor: "rgb(255, 255, 255)",
+	    fgColor: "rgb(0, 0, 0)",
+	    fontSizePx: 12,
+	    lineWidth: 1 };
+
+	styles.font = styles.fontSizePx + "px sans";
+
+	module.exports = draw;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * A molecule layout engine.
+	 *
+	 * This module transforms the SMILES syntax tree into a set of rendering
+	 * instructions.  A rendering instruction is an object indicating what type of
+	 * thing to render (e.g. text or line), where to render it, and any other style
+	 * properties needed.
+	 *
+	 * For instance, an oxygen atom might be rendered as
+	 * {type: "text", value: "O", pos: [0, 0], idx: "1,0"}
+	 */
+
+	// Default length of the bond.  This currently corresponds directly to pixels
+	// in the renderer, but we may want this just to be arbitrary in the future.
+	var bondLength = 30;
+
+	/**
+	 * Compute a coordinate by moving an angle and length from an origin point.
+	 *
+	 * Args:
+	 *     origin: a list of the [x, y] coordinates of the origin
+	 *     angle: an angle in degrees from the origin, following the typical
+	 *         convention of +x axis = 0 degrees, +y axis = 90 degrees.
+	 *     length: the distance to the new point
+	 * Return:
+	 *     a two-element list containing the [x, y] coordinates of the point.
+	 */
+	function polarAdd(origin, angle, length) {
+	    var x = origin[0];
+	    var y = origin[1];
+	    return [x + Math.cos(angle * 2 * Math.PI / 360) * length, y + -1 * Math.sin(angle * 2 * Math.PI / 360) * length];
+	}
+
+	/**
+	 * Compute the layout for a single atom.
+	 *
+	 * Args:
+	 *     atom: the atom node for which layout is being created, as returned from
+	 *         convertTree; the computed position of this atom is added to this
+	 *         object in place, in addition to being returned in the layout
+	 *         instruction.
+	 *         TODO(colin): refactor so that we don't need to modify this in place
+	 *     atoms: the list of all atoms, as returned from convertTree, used to
+	 *         position this atom appropriately relative to its neighbors
+	 *     bonds: the list of all bonds, as returned from convertTree, used to
+	 *         determine the geometry based on bond type
+	 *     rotationAngle: a constant rotation for the whole molecule (in degrees)
+	 *
+	 * Return:
+	 *     a rendering instruction for the atom, containing a type (text), the text
+	 *     to render, the position, and the atom index
+	 */
+	function atomLayout(atom, atoms, bonds, rotationAngle) {
+	    var textValue = atom.symbol;
+	    if (textValue === "C" && Object.keys(atoms).length !== 1) {
+	        // By convention, don't render the C for carbon in a chain.
+	        textValue = null;
+	    }
+
+	    if (atom.idx === "1,0") {
+	        // The first atom is special-cased because there are no neighbors for
+	        // relative positioning.
+	        var _pos = [0, 0];
+	        atom.pos = _pos;
+	        // Conventionally, molecules are rendered where the first bond is not
+	        // horizontal, but at a 30 degree angle, so subtract 30 degrees for the
+	        // first atom's direction.
+	        atom.baseAngle = -30 + rotationAngle;
+	        return { type: "text", value: textValue, pos: _pos, idx: atom.idx };
+	    }
+	    // If we're an atom with any other index than the case just handled, we're
+	    // guaranteed to have a neighbor who has a defined position.
+	    var prevPositionedAtom = atoms[atom.connections.find(function (c) {
+	        return atoms[c].pos;
+	    })];
+
+	    // Find this atom's index in the previous atom's connections
+	    var myIndex = prevPositionedAtom.connections.indexOf(atom.idx);
+
+	    var baseAngleIncrement = 60;
+	    var angleIncrement = 120;
+	    if (prevPositionedAtom.connections.length === 4) {
+	        // By convention, if an atom has 4 bonds, we represent it with 90
+	        // degree angles in 2D, even though it would have tetrahedral geometry
+	        // with ~110 degree angles in 3D.
+	        angleIncrement = 90;
+	        baseAngleIncrement = 90;
+	    } else if (bonds.find(function (bond) {
+	        return bond.bondType === "triple" && bond.to === atom.idx;
+	    }) || bonds.find(function (bond) {
+	        return bond.bondType === "triple" && bond.to === prevPositionedAtom.idx;
+	    })) {
+	        // Triple bonds have a bond angle of 180 degrees, so don't change the
+	        // direction in which we made the previous bond.
+	        angleIncrement = 0;
+	        baseAngleIncrement = 0;
+	    }
+
+	    var angle = 0;
+	    var idxPath = prevPositionedAtom.idx.split(":");
+	    var lastAtomIdx = idxPath[idxPath.length - 1].split(",")[0];
+
+	    // Conventionally, a single chain of atoms is rendered as a zig-zag pattern
+	    // with 120 degree angles.  This means we need to flip the angle every
+	    // other atom.  The parser ensures that indices always alternate odd-even,
+	    // including taking into account branch points.
+	    // TODO(colin): don't depend on the parser's indexing scheme and just track
+	    // this entirely in the layout engine.
+	    if (parseInt(lastAtomIdx) % 2 !== 0) {
+	        angle = prevPositionedAtom.baseAngle - (baseAngleIncrement - angleIncrement * myIndex);
+	    } else {
+	        angle = prevPositionedAtom.baseAngle + (baseAngleIncrement - angleIncrement * myIndex);
+	    }
+
+	    var pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
+
+	    atom.pos = pos;
+	    atom.baseAngle = angle;
+
+	    return { type: "text", value: textValue, pos: pos, idx: atom.idx };
+	}
+
+	/**
+	 * Get the start and end position for a bond connecting two atoms.
+	 *
+	 * If we have non-carbon atoms that render with explicit letters connected by a
+	 * bond, we don't want the line for the bond to extend into the lettering for
+	 * the atom.
+	 *
+	 * This function returns the start and end positions of the bond's line, taking
+	 * into account that one or both end points might need to be moved to make room
+	 * for text.
+	 *
+	 * TODO(colin): this makes assumptions about the relative sizes of the length
+	 * of a bond and the text.  Think about alternate ways to represent this that
+	 * might not have that problem.
+	 */
+	function maybeShrinkLines(fromAtom, toAtom) {
+	    var shrinkFactor = 0.25;
+	    var fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
+	    var toPos = [toAtom.pos[0], toAtom.pos[1]];
+	    if (fromAtom.symbol !== "C") {
+	        fromPos = [toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1])];
+	    }
+	    if (toAtom.symbol !== "C") {
+	        // For carbon atoms, conventionally we don't draw any letter, so this
+	        // special cases drawing the bond lines all the way to the point where
+	        // they meet.
+	        toPos = [fromAtom.pos[0] - (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1])];
+	    }
+	    return [fromPos, toPos];
+	}
+
+	/**
+	 * Compute the layout for a bond between two atoms.
+	 *
+	 * Args:
+	 *     bond: the bond node for which the layout is being computed, as returned
+	 *         by convertTree
+	 *     atoms: the list of all atoms returned by convertTree, which should
+	 *         already have been processed for layout and thus have positions set
+	 *
+	 * Return:
+	 *     a rendering instruction for the bond containing a type
+	 *     (line:{single,double,triple}) and the line's endpoints
+	 */
+	function bondLayout(bond, atoms) {
+	    var fromAtom = atoms[bond.from];
+	    var toAtom = atoms[bond.to];
+	    var startAndEndPos = maybeShrinkLines(fromAtom, toAtom);
+	    return {
+	        type: "line:" + bond.bondType,
+	        startPos: startAndEndPos[0],
+	        endPos: startAndEndPos[1] };
+	}
+
+	/**
+	 * Convert an array of atom indices to a single string unique identifier.
+	 *
+	 * For linear molecules, or for atoms in the main chain, this will just be the
+	 * atom index, something like "0,1".  For branched molecules, however, we
+	 * uniquely identify atoms by an array of atoms where the branching happened,
+	 * followed by the index in the current branch (like ["0,1", "1,2", "1,1"]).
+	 * This function just joins the parts with a colon so that we can have nice
+	 * object keys that still track the series of branches to get to an atom, which
+	 * is guaranteed to be a unique identifier.
+	 *
+	 */
+	function idxString(idx) {
+	    return idx.join(":");
+	}
+
+	/**
+	 * Convert the parse tree output by the parser into an ordered list of atoms
+	 * and bonds to render.
+	 *
+	 * Args:
+	 *     atoms: the output list of atoms that we're in the process of building.
+	 *         This should be the empty list if not being called recursively.
+	 *     bonds: the output list of bonds that we're in the process of building.
+	 *         This should be the empty list if not being called recursively.
+	 *     tree: the parse tree generated by the SMILES parser module.
+	 *
+	 * Return:
+	 *     the final value of atoms and bonds, which are lists of all the atom
+	 *     nodes and bond nodes, respectively, that need to be rendered.
+	 */
+	function convertTree(atoms, bonds, tree) {
+	    if (tree === null) {
+	        return [atoms, bonds];
+	    }
+	    if (tree.type === "atom") {
+	        (function () {
+	            var treeIdx = idxString(tree.idx);
+	            atoms[treeIdx] = { idx: treeIdx, symbol: tree.symbol, connections: [] };
+	            if (tree.bonds) {
+	                tree.bonds.forEach(function (b) {
+	                    var toIdx = idxString(b.to.idx);
+	                    atoms[treeIdx].connections.push(toIdx);
+	                    bonds.push({ from: treeIdx, to: toIdx, bondType: b.bondType });
+	                    convertTree(atoms, bonds, b.to);
+	                    atoms[toIdx].connections.push(treeIdx);
+	                });
+	            }
+	        })();
+	    }
+	    return [atoms, bonds];
+	}
+
+	/**
+	 * Recursively process the queue of atoms that need to have layout computed.
+	 *
+	 * Args:
+	 *     outputs: the array of atom rendering instructions we're in the process
+	 *         of building.  This should be the empty array if not being called
+	 *         recursively.
+	 *     atomProcessingQueue: the array of unique identifier strings (see the
+	 *         comment for idxString for more information about these) of atoms
+	 *         currently in line to be processed.  When not being called
+	 *         recursively, this should be a array with a single element, the
+	 *         unique identifier of the first atom in the structure ("1,0" in the
+	 *         current scheme).
+	 *     atoms: the array of all atom nodes to be rendered, as returned by
+	 *         convertTree
+	 *     bonds: the array of all bond nodes to be rendered, as returned by
+	 *         convertTree
+	 *
+	 * Return:
+	 *     an array of rendering instructions for all the atoms in the molecule
+	 */
+	function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds, rotationAngle) {
+	    if (atomProcessingQueue.length === 0) {
+	        return outputs;
+	    }
+
+	    var queuedAtomIdx = atomProcessingQueue.shift();
+	    var atom = atoms[queuedAtomIdx];
+	    atom.connections.forEach(function (c) {
+	        if (!atoms[c].pos) {
+	            atomProcessingQueue.push(c);
+	        }
+	    });
+	    return atomLayoutHelper(outputs.concat(atomLayout(atom, atoms, bonds, rotationAngle)), atomProcessingQueue, atoms, bonds, rotationAngle);
+	}
+
+	/**
+	 * Recursively process the queue of bonds that need to have layout computed.
+	 *
+	 * Args:
+	 *     outputs: the array of bond rendering instructions we're in the process
+	 *         of building.  This should be the empty array or the array of all
+	 *         atom rendering instructions if not being called recursively.
+	 *     atoms: the array of all atom nodes to be rendered, as returned by
+	 *         convertTree
+	 *     bonds: the array of all bond nodes to be rendered, as returned by
+	 *         convertTree
+	 *
+	 * Return:
+	 *     an array of rendering instructions for all the bonds in the molecule
+	 *     concatenated to the initial value of outputs
+	 */
+	function bondLayoutHelper(outputs, atoms, bonds) {
+	    if (bonds.length === 0) {
+	        return outputs;
+	    }
+	    return bondLayoutHelper(outputs.concat(bondLayout(bonds[0], atoms)), atoms, bonds.slice(1));
+	}
+
+	/**
+	 * Compute an array of rendering instructions from the parse tree of a molecule.
+	 *
+	 * Args:
+	 *     tree: the parse tree as returned by the SMILES parser module
+	 *     rotationAngle: a global rotation (in degrees) to be applied to the whole
+	 *         molecule; this is manually adjustable in the widget.
+	 *
+	 * Return:
+	 *     an array of rendering instructions for all the atoms and bonds in the
+	 *     molecule suitable for processing by the renderer
+	 */
+	function layout(tree, rotationAngle) {
+	    var converted = convertTree({}, [], tree);
+	    var atoms = converted[0];
+	    var bonds = converted[1];
+	    var outputs = atomLayoutHelper([], ["1,0"], atoms, bonds, rotationAngle);
+	    return bondLayoutHelper(outputs, atoms, bonds);
+	}
+
+	module.exports = {
+	    layout: layout,
+	    // The remainder are exported for testing and are not intended for external
+	    // use.
+	    _atomLayout: atomLayout,
+	    _bondLayout: bondLayout,
+	    _bondLength: bondLength,
+	    _convertTree: convertTree };
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	// Regexp defining characters that are valid SMILES characters that this parser
+	// can parse.  In addition to serving as a sort of validation, this also keeps
+	// out unimplemented features (like cycles and stereochemistry), which use
+	// additional characters.
+	var smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
+
+	// Regexp defining what characters are valid as atom names.  This includes
+	// common 1-character elements, Cl and Br for convenience, and the open
+	// bracket, which can be used to include anything as an atom name.
+	var atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
+
+	function ParseError(message) {
+	    this.message = message;
+	}
+
+	/**
+	 * Perform a functional update of a possibly nested object.
+	 *
+	 * Args:
+	 *     obj: an object, will not be modified
+	 *     keylist: a list of keys whose values will be updated in the object.
+	 *         This represents a path to a value inside nested objects.  For
+	 *         example, if keylist == ["a", "b", "c"], then a new object is
+	 *         returned with obj["a"]["b"]["c"] updated.  Note that if any of the
+	 *         keys is not already present, this will insert {} as a default value
+	 *         for that key.
+	 *     val: the new value to associate with the keypath
+	 *
+	 * Return: a new object, which is a shallow copy of the original with the value
+	 *     at the specified keypath replaced.
+	 */
+	function _mset(obj, keylist, val) {
+	    var k0 = keylist[0];
+	    var rest = keylist.slice(1);
+	    var newObj = undefined;
+	    if (Array.isArray(obj)) {
+	        newObj = [].concat(obj);
+	    } else {
+	        newObj = _extends({}, obj || {});
+	    }
+	    var newVal = val;
+	    if (rest.length > 0) {
+	        newVal = _mset(newObj[k0], rest, val);
+	    }
+	    newObj[k0] = newVal;
+	    return newObj;
+	}
+
+	/**
+	 * Perform a functional increment of a value in a nested object.
+	 *
+	 * Args:
+	 *     obj: an object; this will not be modified
+	 *     keylist: a list of keys representing a path into a nested object.  (See
+	 *         `_mset` for examples.)
+	 *
+	 * Return:
+	 *     an object that is a shallow copy of obj, with the value at the specified
+	 *     path incremeneted.
+	 */
+	function _inc(obj, keylist) {
+	    var val = keylist.reduce(function (acc, elt) {
+	        return acc[elt];
+	    }, obj);
+
+	    return _mset(obj, keylist, val + 1);
+	}
+
+	function validate(smiles) {
+	    return smilesRe.test(smiles);
+	}
+
+	/**
+	 * Parse a bond modifier character, updating the context object so that the
+	 * next bond created has this modifier.
+	 */
+	function parseBondModifier(smiles, ctx) {
+	    var firstChar = smiles[0];
+	    var rest = smiles.slice(1);
+	    if (firstChar === "=") {
+	        return parse(rest, _mset(ctx, ["bond", "bondType"], "double"));
+	    } else if (firstChar === "#") {
+	        return parse(rest, _mset(ctx, ["bond", "bondType"], "triple"));
+	    }
+	    throw new ParseError("Invalid character: " + firstChar);
+	}
+
+	/**
+	 * Slice the input string, removing a parenthesized expression.
+	 * (Will handle nested parentheses.)
+	 *
+	 * parenStack should be a list containing any open parentheses already
+	 * encountered.  (Usually, this will be ["("])
+	 */
+	function sliceFromMatchingCloseParen(smiles, parenStack) {
+	    if (parenStack.length === 0) {
+	        return smiles;
+	    }
+
+	    if (smiles === "") {
+	        throw new ParseError("Mismatched parentheses");
+	    }
+
+	    var firstChar = smiles[0];
+	    var rest = smiles.slice(1);
+
+	    if (firstChar === "(") {
+	        return sliceFromMatchingCloseParen(rest, parenStack.concat(firstChar));
+	    }
+
+	    if (firstChar === ")") {
+	        return sliceFromMatchingCloseParen(rest, parenStack.slice(1));
+	    }
+
+	    return sliceFromMatchingCloseParen(rest, parenStack);
+	}
+
+	/**
+	 * Parse a branch, as indicated by the presence of a parenthesized experession.
+	 *
+	 * This returns a list of all branches (including the continuation of the
+	 * backbone) that should be added to the previous atom's bond list.
+	 */
+	function parseParenthesizedExpression(smiles, ctx) {
+	    var firstChar = smiles[0];
+	    var rest = smiles.slice(1);
+	    if (firstChar === "(") {
+	        var newCtx = _extends({}, ctx, { parens: ctx.parens + "(" });
+	        // increment the branch index
+	        newCtx = _inc(ctx, ["idx", ctx.idx.length - 1, 1]);
+
+	        var inBranchIdx = -1;
+	        if (ctx.idx[ctx.idx.length - 1][0] % 2 === 0) {
+	            // HACK(colin): this is so that we preserve the odd/even series in
+	            // indices in branches; the layout engine uses this to select
+	            // angles, and if we don't do this, editing one part of a molecule
+	            // can cause another to flop around oddly.
+	            // TODO(colin): this should just start at 0 all the time, and the
+	            // layout engine should figure out continuity.
+	            inBranchIdx = 0;
+	        }
+	        var parenCtx = _extends({}, newCtx, {
+	            idx: newCtx.idx.concat([[inBranchIdx, 0]]),
+	            parens: newCtx.parens.concat("(") });
+	        var parenExpr = parse(rest, parenCtx);
+	        var remainder = parse(sliceFromMatchingCloseParen(rest, ["("]), newCtx);
+	        return [parenExpr].concat(remainder);
+	    } else if (firstChar === ")") {
+	        if (ctx.parens[ctx.parens.length - 1] !== "(") {
+	            throw new ParseError("Mismatched parentheses");
+	        }
+	        return null;
+	    } else {
+	        throw new ParseError("Invalid bare character: " + firstChar);
+	    }
+	}
+
+	/**
+	 * Get the symbol of the next atom in the molecule.
+	 *
+	 * Return a 2-element list containing that symbol and the remainder of the
+	 * molecule.
+	 */
+	function readAtomSymbol(smiles, _ctx) {
+	    var sym = null;
+	    var rest = null;
+	    if (smiles[0] === "[") {
+	        var closingIdx = smiles.indexOf("]");
+	        if (closingIdx === -1) {
+	            return ["", smiles];
+	        }
+	        sym = smiles.slice(1, closingIdx);
+	        rest = smiles.slice(closingIdx + 1);
+	    } else {
+	        var match = atomRe.exec(smiles);
+	        sym = match[1];
+	        rest = smiles.slice(sym.length);
+	    }
+
+	    return [sym, rest];
+	}
+
+	/**
+	 * Parse the next atom in the molecule, returning an atom object if this is the
+	 * first atom in the molecule, or a bond object with this atom as the
+	 * destination of the bond if this is not the first atom.
+	 */
+	function parseAtom(smiles, ctx) {
+	    var symbolInfo = readAtomSymbol(smiles, ctx);
+	    var atom = symbolInfo[0];
+	    if (atom === "") {
+	        return ["error", "Unable to parse bracketed atom."];
+	    }
+	    var rest = symbolInfo[1];
+
+	    // Atoms are indexed by a list of two-element lists.  In each two-element
+	    // list, the first element is the atom counter, and the second element is
+	    // the branch counter.  Branches are 1-indexed so that the main chain of
+	    // the molecule can be indicated by 0.  Atoms may be either 0- or
+	    // 1-indexed, defaulting to 1, to maintain a alternating pattern of
+	    // odd/even indices. So, for example, if an atom has a branch off the main
+	    // chain, and its atom index is x, then the indices of atoms are:
+	    //     Atom where branch occurs: [[x, 0]]
+	    //     First atom in the branch: [[x, 1], [1, 0]]  (assuming x is even)
+	    //     Next atom in the main chain: [[x + 1, 0]]
+
+	    // increment the atom counter and reset the branch counter
+	    var newCtx = _mset(ctx, ["idx", ctx.idx.length - 1], [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
+	    var restOfMolecule = parse(rest, _mset(newCtx, ["bond", "bondType"], "single"));
+	    if (!Array.isArray(restOfMolecule) && !!restOfMolecule) {
+	        //TODO(colin): fix this awkwardness.
+	        restOfMolecule = [restOfMolecule];
+	    }
+	    var atomObj = {
+	        type: "atom",
+	        symbol: atom,
+	        bonds: restOfMolecule,
+	        idx: newCtx.idx };
+	    if (ctx.bond) {
+	        return {
+	            type: "bond",
+	            bondType: ctx.bond.bondType,
+	            to: atomObj };
+	    }
+	    return atomObj;
+	}
+
+	function startsWithAtom(s) {
+	    return atomRe.test(s);
+	}
+
+	function isModifierChar(s) {
+	    return s === "=" || s === "#";
+	}
+
+	/**
+	 * Parse a SMILES string to an internal tree representation.
+	 *
+	 * Args:
+	 *   smiles [string]: a string representing the molecule.
+	 *
+	 * Returns: the parse tree (see top-of file docstring for details).
+	 *
+	 * Throws:
+	 *     ParseError: if the input is not valid SMILES or contains features not
+	 *         yet implemented.
+	 */
+	function parse(smiles, ctx) {
+	    if (!validate(smiles)) {
+	        throw new ParseError("Invalid input.");
+	    }
+
+	    if (!smiles || smiles.length === 0) {
+	        return null;
+	    }
+
+	    if (startsWithAtom(smiles)) {
+	        return parseAtom(smiles, ctx || { idx: [[0, 0]], parens: [], stack: [],
+	            bondModifiers: [] });
+	    } else if (isModifierChar(smiles[0])) {
+	        // TODO(colin): add a better error message in the case where the input
+	        // is invalid and starts with a modifier character?
+	        return parseBondModifier(smiles, ctx);
+	    } else {
+	        // TODO(colin): add additional cases for unimplemented bits of SMILES
+	        // syntax.
+	        return parseParenthesizedExpression(smiles, ctx);
+	    }
+	}
+
+	module.exports = { parse: parse, ParseError: ParseError };
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -43512,777 +44319,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _rulesForTesting: rules };
 
 /***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Draw some text into a 2D canvas drawing context.
-	 *
-	 * Args:
-	 *     ctx: the 2D drawing context
-	 *     item: the rendering instruction for the text.  Must look like: {
-	 *         type: "text",
-	 *         pos: [x, y],
-	 *         value: "some text to draw",
-	 *     }
-	 *
-	 */
-	function drawText(ctx, item) {
-	    if (item.value === null) {
-	        return;
-	    }
-	    ctx.fillStyle = styles.fgColor;
-	    ctx.font = styles.font;
-	    ctx.fillText(item.value, item.pos[0] - styles.fontSizePx / 2 + 1, item.pos[1] + styles.fontSizePx / 2);
-	}
-
-	/**
-	 * Draw a double line into a 2D canvas drawing context.
-	 *
-	 * Apparently the way you do this is to stroke an extra-wide line in the
-	 * foreground color and then a smaller line in the background color. 5:3
-	 * foreground:background width looks reasonable for drawing chemical bonds.
-	 *
-	 * Args:
-	 *     ctx: the 2D drawing context
-	 *     item: the rendering instruction for the line.  Must look like: {
-	 *         type: "line:double",
-	 *         startPos: [x, y],
-	 *         endPos: [x, y],
-	 *     }
-	 */
-	function drawDoubleLine(ctx, item) {
-	    // Outer line that forms both of the bond lines.
-	    var path = new Path2D();
-	    ctx.lineWidth = 5 * styles.lineWidth;
-	    ctx.strokeStyle = styles.fgColor;
-	    path.moveTo(item.startPos[0], item.startPos[1]);
-	    path.lineTo(item.endPos[0], item.endPos[1]);
-	    ctx.stroke(path);
-
-	    // Inner white line that separates the two bond lines.
-	    path = new Path2D();
-	    ctx.lineWidth = 3 * styles.lineWidth;
-	    ctx.strokeStyle = styles.bgColor;
-	    path.moveTo(item.startPos[0], item.startPos[1]);
-	    path.lineTo(item.endPos[0], item.endPos[1]);
-	    ctx.stroke(path);
-	}
-
-	/**
-	 * Draw a triple line into a 2D canvas drawing context.
-	 *
-	 * Following the strategy for the double line, we stroke a very wide
-	 * foreground-color line, then a medium background-color line, then a narrow
-	 * foreground-color line.
-	 *
-	 * Args:
-	 *     ctx: the 2D drawing context
-	 *     item: the rendering instruction for the line.  Must look like: {
-	 *         type: "line:triple",
-	 *         startPos: [x, y],
-	 *         endPos: [x, y],
-	 *     }
-	 */
-	function drawTripleLine(ctx, item) {
-	    // TODO(colin): consolidate duplicated code from the three line drawing
-	    // functions.
-
-	    // Outer line that will form the two outer bond lines.
-	    var path = new Path2D();
-	    ctx.lineWidth = 7 * styles.lineWidth;
-	    ctx.strokeStyle = styles.fgColor;
-	    path.moveTo(item.startPos[0], item.startPos[1]);
-	    path.lineTo(item.endPos[0], item.endPos[1]);
-	    ctx.stroke(path);
-
-	    // Middle white line that separates the bonds
-	    path = new Path2D();
-	    ctx.lineWidth = 5 * styles.lineWidth;
-	    ctx.strokeStyle = styles.bgColor;
-	    path.moveTo(item.startPos[0], item.startPos[1]);
-	    path.lineTo(item.endPos[0], item.endPos[1]);
-	    ctx.stroke(path);
-
-	    // Inner line that forms the middle bond line.
-	    drawLine(ctx, item);
-	}
-
-	/**
-	 * Draw a single line into a 2D canvas drawing context
-	 *
-	 * Args:
-	 *     ctx: the 2D drawing context
-	 *     item: the rendering instruction for the line.  Must look like: {
-	 *         type: "line:single",
-	 *         startPos: [x, y],
-	 *         endPos: [x, y],
-	 *     }
-	 */
-	function drawLine(ctx, item) {
-	    var path = new Path2D();
-	    ctx.lineWidth = styles.lineWidth;
-	    ctx.strokeStyle = styles.fgColor;
-	    path.moveTo(item.startPos[0], item.startPos[1]);
-	    path.lineTo(item.endPos[0], item.endPos[1]);
-	    ctx.stroke(path);
-	}
-
-	/**
-	 * Lookup table that maps drawing instruction types to the functions that
-	 * render them.
-	 */
-	var drawingFuncs = {
-	    text: drawText,
-	    "line:single": drawLine,
-	    "line:double": drawDoubleLine,
-	    "line:triple": drawTripleLine };
-
-	/**
-	 * Draw a single rendering instruction into a 2D canvas drawing context.
-	 */
-	function drawItem(ctx) {
-	    return function (item) {
-	        drawingFuncs[item.type](ctx, item);
-	    };
-	}
-
-	/**
-	 * Lookup table for drawing priorities.
-	 *
-	 * Types with lower priorities are drawn first.
-	 */
-	var ordering = {
-	    "line:single": 0,
-	    "line:double": 0,
-	    "line:triple": 0,
-	    text: 1 };
-
-	/**
-	 * Sorting comparison function that orders rendering instructions according to
-	 * their type's priority.
-	 */
-	function compareElements(item0, item1) {
-	    return ordering[item0.type] - ordering[item1.type];
-	}
-
-	/**
-	 * Draw an array of rendering instructions into a 2D canvas drawing context.
-	 */
-	function draw(ctx, items) {
-	    items.sort(compareElements).forEach(drawItem(ctx));
-	}
-
-	var styles = {
-	    bgColor: "rgb(255, 255, 255)",
-	    fgColor: "rgb(0, 0, 0)",
-	    fontSizePx: 12,
-	    lineWidth: 1 };
-
-	styles.font = styles.fontSizePx + "px sans";
-
-	module.exports = draw;
-
-/***/ },
-/* 179 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A molecule layout engine.
-	 *
-	 * This module transforms the SMILES syntax tree into a set of rendering
-	 * instructions.  A rendering instruction is an object indicating what type of
-	 * thing to render (e.g. text or line), where to render it, and any other style
-	 * properties needed.
-	 *
-	 * For instance, an oxygen atom might be rendered as
-	 * {type: "text", value: "O", pos: [0, 0], idx: "1,0"}
-	 */
-
-	// Default length of the bond.  This currently corresponds directly to pixels
-	// in the renderer, but we may want this just to be arbitrary in the future.
-	var bondLength = 30;
-
-	/**
-	 * Compute a coordinate by moving an angle and length from an origin point.
-	 *
-	 * Args:
-	 *     origin: a list of the [x, y] coordinates of the origin
-	 *     angle: an angle in degrees from the origin, following the typical
-	 *         convention of +x axis = 0 degrees, +y axis = 90 degrees.
-	 *     length: the distance to the new point
-	 * Return:
-	 *     a two-element list containing the [x, y] coordinates of the point.
-	 */
-	function polarAdd(origin, angle, length) {
-	    var x = origin[0];
-	    var y = origin[1];
-	    return [x + Math.cos(angle * 2 * Math.PI / 360) * length, y + -1 * Math.sin(angle * 2 * Math.PI / 360) * length];
-	}
-
-	/**
-	 * Compute the layout for a single atom.
-	 *
-	 * Args:
-	 *     atom: the atom node for which layout is being created, as returned from
-	 *         convertTree; the computed position of this atom is added to this
-	 *         object in place, in addition to being returned in the layout
-	 *         instruction.
-	 *         TODO(colin): refactor so that we don't need to modify this in place
-	 *     atoms: the list of all atoms, as returned from convertTree, used to
-	 *         position this atom appropriately relative to its neighbors
-	 *     bonds: the list of all bonds, as returned from convertTree, used to
-	 *         determine the geometry based on bond type
-	 *     rotationAngle: a constant rotation for the whole molecule (in degrees)
-	 *
-	 * Return:
-	 *     a rendering instruction for the atom, containing a type (text), the text
-	 *     to render, the position, and the atom index
-	 */
-	function atomLayout(atom, atoms, bonds, rotationAngle) {
-	    var textValue = atom.symbol;
-	    if (textValue === "C" && Object.keys(atoms).length !== 1) {
-	        // By convention, don't render the C for carbon in a chain.
-	        textValue = null;
-	    }
-
-	    if (atom.idx === "1,0") {
-	        // The first atom is special-cased because there are no neighbors for
-	        // relative positioning.
-	        var _pos = [0, 0];
-	        atom.pos = _pos;
-	        // Conventionally, molecules are rendered where the first bond is not
-	        // horizontal, but at a 30 degree angle, so subtract 30 degrees for the
-	        // first atom's direction.
-	        atom.baseAngle = -30 + rotationAngle;
-	        return { type: "text", value: textValue, pos: _pos, idx: atom.idx };
-	    }
-	    // If we're an atom with any other index than the case just handled, we're
-	    // guaranteed to have a neighbor who has a defined position.
-	    var prevPositionedAtom = atoms[atom.connections.find(function (c) {
-	        return atoms[c].pos;
-	    })];
-
-	    // Find this atom's index in the previous atom's connections
-	    var myIndex = prevPositionedAtom.connections.indexOf(atom.idx);
-
-	    var baseAngleIncrement = 60;
-	    var angleIncrement = 120;
-	    if (prevPositionedAtom.connections.length === 4) {
-	        // By convention, if an atom has 4 bonds, we represent it with 90
-	        // degree angles in 2D, even though it would have tetrahedral geometry
-	        // with ~110 degree angles in 3D.
-	        angleIncrement = 90;
-	        baseAngleIncrement = 90;
-	    } else if (bonds.find(function (bond) {
-	        return bond.bondType === "triple" && bond.to === atom.idx;
-	    }) || bonds.find(function (bond) {
-	        return bond.bondType === "triple" && bond.to === prevPositionedAtom.idx;
-	    })) {
-	        // Triple bonds have a bond angle of 180 degrees, so don't change the
-	        // direction in which we made the previous bond.
-	        angleIncrement = 0;
-	        baseAngleIncrement = 0;
-	    }
-
-	    var angle = 0;
-	    var idxPath = prevPositionedAtom.idx.split(":");
-	    var lastAtomIdx = idxPath[idxPath.length - 1].split(",")[0];
-
-	    // Conventionally, a single chain of atoms is rendered as a zig-zag pattern
-	    // with 120 degree angles.  This means we need to flip the angle every
-	    // other atom.  The parser ensures that indices always alternate odd-even,
-	    // including taking into account branch points.
-	    // TODO(colin): don't depend on the parser's indexing scheme and just track
-	    // this entirely in the layout engine.
-	    if (parseInt(lastAtomIdx) % 2 !== 0) {
-	        angle = prevPositionedAtom.baseAngle - (baseAngleIncrement - angleIncrement * myIndex);
-	    } else {
-	        angle = prevPositionedAtom.baseAngle + (baseAngleIncrement - angleIncrement * myIndex);
-	    }
-
-	    var pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
-
-	    atom.pos = pos;
-	    atom.baseAngle = angle;
-
-	    return { type: "text", value: textValue, pos: pos, idx: atom.idx };
-	}
-
-	/**
-	 * Get the start and end position for a bond connecting two atoms.
-	 *
-	 * If we have non-carbon atoms that render with explicit letters connected by a
-	 * bond, we don't want the line for the bond to extend into the lettering for
-	 * the atom.
-	 *
-	 * This function returns the start and end positions of the bond's line, taking
-	 * into account that one or both end points might need to be moved to make room
-	 * for text.
-	 *
-	 * TODO(colin): this makes assumptions about the relative sizes of the length
-	 * of a bond and the text.  Think about alternate ways to represent this that
-	 * might not have that problem.
-	 */
-	function maybeShrinkLines(fromAtom, toAtom) {
-	    var shrinkFactor = 0.25;
-	    var fromPos = [fromAtom.pos[0], fromAtom.pos[1]];
-	    var toPos = [toAtom.pos[0], toAtom.pos[1]];
-	    if (fromAtom.symbol !== "C") {
-	        fromPos = [toAtom.pos[0] - (1 - shrinkFactor) * (toAtom.pos[0] - fromAtom.pos[0]), toAtom.pos[1] - (1 - shrinkFactor) * (toAtom.pos[1] - fromAtom.pos[1])];
-	    }
-	    if (toAtom.symbol !== "C") {
-	        // For carbon atoms, conventionally we don't draw any letter, so this
-	        // special cases drawing the bond lines all the way to the point where
-	        // they meet.
-	        toPos = [fromAtom.pos[0] - (1 - shrinkFactor) * (fromAtom.pos[0] - toAtom.pos[0]), fromAtom.pos[1] - (1 - shrinkFactor) * (fromAtom.pos[1] - toAtom.pos[1])];
-	    }
-	    return [fromPos, toPos];
-	}
-
-	/**
-	 * Compute the layout for a bond between two atoms.
-	 *
-	 * Args:
-	 *     bond: the bond node for which the layout is being computed, as returned
-	 *         by convertTree
-	 *     atoms: the list of all atoms returned by convertTree, which should
-	 *         already have been processed for layout and thus have positions set
-	 *
-	 * Return:
-	 *     a rendering instruction for the bond containing a type
-	 *     (line:{single,double,triple}) and the line's endpoints
-	 */
-	function bondLayout(bond, atoms) {
-	    var fromAtom = atoms[bond.from];
-	    var toAtom = atoms[bond.to];
-	    var startAndEndPos = maybeShrinkLines(fromAtom, toAtom);
-	    return {
-	        type: "line:" + bond.bondType,
-	        startPos: startAndEndPos[0],
-	        endPos: startAndEndPos[1] };
-	}
-
-	/**
-	 * Convert an array of atom indices to a single string unique identifier.
-	 *
-	 * For linear molecules, or for atoms in the main chain, this will just be the
-	 * atom index, something like "0,1".  For branched molecules, however, we
-	 * uniquely identify atoms by an array of atoms where the branching happened,
-	 * followed by the index in the current branch (like ["0,1", "1,2", "1,1"]).
-	 * This function just joins the parts with a colon so that we can have nice
-	 * object keys that still track the series of branches to get to an atom, which
-	 * is guaranteed to be a unique identifier.
-	 *
-	 */
-	function idxString(idx) {
-	    return idx.join(":");
-	}
-
-	/**
-	 * Convert the parse tree output by the parser into an ordered list of atoms
-	 * and bonds to render.
-	 *
-	 * Args:
-	 *     atoms: the output list of atoms that we're in the process of building.
-	 *         This should be the empty list if not being called recursively.
-	 *     bonds: the output list of bonds that we're in the process of building.
-	 *         This should be the empty list if not being called recursively.
-	 *     tree: the parse tree generated by the SMILES parser module.
-	 *
-	 * Return:
-	 *     the final value of atoms and bonds, which are lists of all the atom
-	 *     nodes and bond nodes, respectively, that need to be rendered.
-	 */
-	function convertTree(atoms, bonds, tree) {
-	    if (tree === null) {
-	        return [atoms, bonds];
-	    }
-	    if (tree.type === "atom") {
-	        (function () {
-	            var treeIdx = idxString(tree.idx);
-	            atoms[treeIdx] = { idx: treeIdx, symbol: tree.symbol, connections: [] };
-	            if (tree.bonds) {
-	                tree.bonds.forEach(function (b) {
-	                    var toIdx = idxString(b.to.idx);
-	                    atoms[treeIdx].connections.push(toIdx);
-	                    bonds.push({ from: treeIdx, to: toIdx, bondType: b.bondType });
-	                    convertTree(atoms, bonds, b.to);
-	                    atoms[toIdx].connections.push(treeIdx);
-	                });
-	            }
-	        })();
-	    }
-	    return [atoms, bonds];
-	}
-
-	/**
-	 * Recursively process the queue of atoms that need to have layout computed.
-	 *
-	 * Args:
-	 *     outputs: the array of atom rendering instructions we're in the process
-	 *         of building.  This should be the empty array if not being called
-	 *         recursively.
-	 *     atomProcessingQueue: the array of unique identifier strings (see the
-	 *         comment for idxString for more information about these) of atoms
-	 *         currently in line to be processed.  When not being called
-	 *         recursively, this should be a array with a single element, the
-	 *         unique identifier of the first atom in the structure ("1,0" in the
-	 *         current scheme).
-	 *     atoms: the array of all atom nodes to be rendered, as returned by
-	 *         convertTree
-	 *     bonds: the array of all bond nodes to be rendered, as returned by
-	 *         convertTree
-	 *
-	 * Return:
-	 *     an array of rendering instructions for all the atoms in the molecule
-	 */
-	function atomLayoutHelper(outputs, atomProcessingQueue, atoms, bonds, rotationAngle) {
-	    if (atomProcessingQueue.length === 0) {
-	        return outputs;
-	    }
-
-	    var queuedAtomIdx = atomProcessingQueue.shift();
-	    var atom = atoms[queuedAtomIdx];
-	    atom.connections.forEach(function (c) {
-	        if (!atoms[c].pos) {
-	            atomProcessingQueue.push(c);
-	        }
-	    });
-	    return atomLayoutHelper(outputs.concat(atomLayout(atom, atoms, bonds, rotationAngle)), atomProcessingQueue, atoms, bonds, rotationAngle);
-	}
-
-	/**
-	 * Recursively process the queue of bonds that need to have layout computed.
-	 *
-	 * Args:
-	 *     outputs: the array of bond rendering instructions we're in the process
-	 *         of building.  This should be the empty array or the array of all
-	 *         atom rendering instructions if not being called recursively.
-	 *     atoms: the array of all atom nodes to be rendered, as returned by
-	 *         convertTree
-	 *     bonds: the array of all bond nodes to be rendered, as returned by
-	 *         convertTree
-	 *
-	 * Return:
-	 *     an array of rendering instructions for all the bonds in the molecule
-	 *     concatenated to the initial value of outputs
-	 */
-	function bondLayoutHelper(outputs, atoms, bonds) {
-	    if (bonds.length === 0) {
-	        return outputs;
-	    }
-	    return bondLayoutHelper(outputs.concat(bondLayout(bonds[0], atoms)), atoms, bonds.slice(1));
-	}
-
-	/**
-	 * Compute an array of rendering instructions from the parse tree of a molecule.
-	 *
-	 * Args:
-	 *     tree: the parse tree as returned by the SMILES parser module
-	 *     rotationAngle: a global rotation (in degrees) to be applied to the whole
-	 *         molecule; this is manually adjustable in the widget.
-	 *
-	 * Return:
-	 *     an array of rendering instructions for all the atoms and bonds in the
-	 *     molecule suitable for processing by the renderer
-	 */
-	function layout(tree, rotationAngle) {
-	    var converted = convertTree({}, [], tree);
-	    var atoms = converted[0];
-	    var bonds = converted[1];
-	    var outputs = atomLayoutHelper([], ["1,0"], atoms, bonds, rotationAngle);
-	    return bondLayoutHelper(outputs, atoms, bonds);
-	}
-
-	module.exports = {
-	    layout: layout,
-	    // The remainder are exported for testing and are not intended for external
-	    // use.
-	    _atomLayout: atomLayout,
-	    _bondLayout: bondLayout,
-	    _bondLength: bondLength,
-	    _convertTree: convertTree };
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	// Regexp defining characters that are valid SMILES characters that this parser
-	// can parse.  In addition to serving as a sort of validation, this also keeps
-	// out unimplemented features (like cycles and stereochemistry), which use
-	// additional characters.
-	var smilesRe = new RegExp("^[A-Za-z\\[\\]()=#+-]*$");
-
-	// Regexp defining what characters are valid as atom names.  This includes
-	// common 1-character elements, Cl and Br for convenience, and the open
-	// bracket, which can be used to include anything as an atom name.
-	var atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
-
-	function ParseError(message) {
-	    this.message = message;
-	}
-
-	/**
-	 * Perform a functional update of a possibly nested object.
-	 *
-	 * Args:
-	 *     obj: an object, will not be modified
-	 *     keylist: a list of keys whose values will be updated in the object.
-	 *         This represents a path to a value inside nested objects.  For
-	 *         example, if keylist == ["a", "b", "c"], then a new object is
-	 *         returned with obj["a"]["b"]["c"] updated.  Note that if any of the
-	 *         keys is not already present, this will insert {} as a default value
-	 *         for that key.
-	 *     val: the new value to associate with the keypath
-	 *
-	 * Return: a new object, which is a shallow copy of the original with the value
-	 *     at the specified keypath replaced.
-	 */
-	function _mset(obj, keylist, val) {
-	    var k0 = keylist[0];
-	    var rest = keylist.slice(1);
-	    var newObj = undefined;
-	    if (Array.isArray(obj)) {
-	        newObj = [].concat(obj);
-	    } else {
-	        newObj = _extends({}, obj || {});
-	    }
-	    var newVal = val;
-	    if (rest.length > 0) {
-	        newVal = _mset(newObj[k0], rest, val);
-	    }
-	    newObj[k0] = newVal;
-	    return newObj;
-	}
-
-	/**
-	 * Perform a functional increment of a value in a nested object.
-	 *
-	 * Args:
-	 *     obj: an object; this will not be modified
-	 *     keylist: a list of keys representing a path into a nested object.  (See
-	 *         `_mset` for examples.)
-	 *
-	 * Return:
-	 *     an object that is a shallow copy of obj, with the value at the specified
-	 *     path incremeneted.
-	 */
-	function _inc(obj, keylist) {
-	    var val = keylist.reduce(function (acc, elt) {
-	        return acc[elt];
-	    }, obj);
-
-	    return _mset(obj, keylist, val + 1);
-	}
-
-	function validate(smiles) {
-	    return smilesRe.test(smiles);
-	}
-
-	/**
-	 * Parse a bond modifier character, updating the context object so that the
-	 * next bond created has this modifier.
-	 */
-	function parseBondModifier(smiles, ctx) {
-	    var firstChar = smiles[0];
-	    var rest = smiles.slice(1);
-	    if (firstChar === "=") {
-	        return parse(rest, _mset(ctx, ["bond", "bondType"], "double"));
-	    } else if (firstChar === "#") {
-	        return parse(rest, _mset(ctx, ["bond", "bondType"], "triple"));
-	    }
-	    throw new ParseError("Invalid character: " + firstChar);
-	}
-
-	/**
-	 * Slice the input string, removing a parenthesized expression.
-	 * (Will handle nested parentheses.)
-	 *
-	 * parenStack should be a list containing any open parentheses already
-	 * encountered.  (Usually, this will be ["("])
-	 */
-	function sliceFromMatchingCloseParen(smiles, parenStack) {
-	    if (parenStack.length === 0) {
-	        return smiles;
-	    }
-
-	    if (smiles === "") {
-	        throw new ParseError("Mismatched parentheses");
-	    }
-
-	    var firstChar = smiles[0];
-	    var rest = smiles.slice(1);
-
-	    if (firstChar === "(") {
-	        return sliceFromMatchingCloseParen(rest, parenStack.concat(firstChar));
-	    }
-
-	    if (firstChar === ")") {
-	        return sliceFromMatchingCloseParen(rest, parenStack.slice(1));
-	    }
-
-	    return sliceFromMatchingCloseParen(rest, parenStack);
-	}
-
-	/**
-	 * Parse a branch, as indicated by the presence of a parenthesized experession.
-	 *
-	 * This returns a list of all branches (including the continuation of the
-	 * backbone) that should be added to the previous atom's bond list.
-	 */
-	function parseParenthesizedExpression(smiles, ctx) {
-	    var firstChar = smiles[0];
-	    var rest = smiles.slice(1);
-	    if (firstChar === "(") {
-	        var newCtx = _extends({}, ctx, { parens: ctx.parens + "(" });
-	        // increment the branch index
-	        newCtx = _inc(ctx, ["idx", ctx.idx.length - 1, 1]);
-
-	        var inBranchIdx = -1;
-	        if (ctx.idx[ctx.idx.length - 1][0] % 2 === 0) {
-	            // HACK(colin): this is so that we preserve the odd/even series in
-	            // indices in branches; the layout engine uses this to select
-	            // angles, and if we don't do this, editing one part of a molecule
-	            // can cause another to flop around oddly.
-	            // TODO(colin): this should just start at 0 all the time, and the
-	            // layout engine should figure out continuity.
-	            inBranchIdx = 0;
-	        }
-	        var parenCtx = _extends({}, newCtx, {
-	            idx: newCtx.idx.concat([[inBranchIdx, 0]]),
-	            parens: newCtx.parens.concat("(") });
-	        var parenExpr = parse(rest, parenCtx);
-	        var remainder = parse(sliceFromMatchingCloseParen(rest, ["("]), newCtx);
-	        return [parenExpr].concat(remainder);
-	    } else if (firstChar === ")") {
-	        if (ctx.parens[ctx.parens.length - 1] !== "(") {
-	            throw new ParseError("Mismatched parentheses");
-	        }
-	        return null;
-	    } else {
-	        throw new ParseError("Invalid bare character: " + firstChar);
-	    }
-	}
-
-	/**
-	 * Get the symbol of the next atom in the molecule.
-	 *
-	 * Return a 2-element list containing that symbol and the remainder of the
-	 * molecule.
-	 */
-	function readAtomSymbol(smiles, _ctx) {
-	    var sym = null;
-	    var rest = null;
-	    if (smiles[0] === "[") {
-	        var closingIdx = smiles.indexOf("]");
-	        if (closingIdx === -1) {
-	            return ["", smiles];
-	        }
-	        sym = smiles.slice(1, closingIdx);
-	        rest = smiles.slice(closingIdx + 1);
-	    } else {
-	        var match = atomRe.exec(smiles);
-	        sym = match[1];
-	        rest = smiles.slice(sym.length);
-	    }
-
-	    return [sym, rest];
-	}
-
-	/**
-	 * Parse the next atom in the molecule, returning an atom object if this is the
-	 * first atom in the molecule, or a bond object with this atom as the
-	 * destination of the bond if this is not the first atom.
-	 */
-	function parseAtom(smiles, ctx) {
-	    var symbolInfo = readAtomSymbol(smiles, ctx);
-	    var atom = symbolInfo[0];
-	    if (atom === "") {
-	        return ["error", "Unable to parse bracketed atom."];
-	    }
-	    var rest = symbolInfo[1];
-
-	    // Atoms are indexed by a list of two-element lists.  In each two-element
-	    // list, the first element is the atom counter, and the second element is
-	    // the branch counter.  Branches are 1-indexed so that the main chain of
-	    // the molecule can be indicated by 0.  Atoms may be either 0- or
-	    // 1-indexed, defaulting to 1, to maintain a alternating pattern of
-	    // odd/even indices. So, for example, if an atom has a branch off the main
-	    // chain, and its atom index is x, then the indices of atoms are:
-	    //     Atom where branch occurs: [[x, 0]]
-	    //     First atom in the branch: [[x, 1], [1, 0]]  (assuming x is even)
-	    //     Next atom in the main chain: [[x + 1, 0]]
-
-	    // increment the atom counter and reset the branch counter
-	    var newCtx = _mset(ctx, ["idx", ctx.idx.length - 1], [1 + ctx.idx[ctx.idx.length - 1][0], 0]);
-	    var restOfMolecule = parse(rest, _mset(newCtx, ["bond", "bondType"], "single"));
-	    if (!Array.isArray(restOfMolecule) && !!restOfMolecule) {
-	        //TODO(colin): fix this awkwardness.
-	        restOfMolecule = [restOfMolecule];
-	    }
-	    var atomObj = {
-	        type: "atom",
-	        symbol: atom,
-	        bonds: restOfMolecule,
-	        idx: newCtx.idx };
-	    if (ctx.bond) {
-	        return {
-	            type: "bond",
-	            bondType: ctx.bond.bondType,
-	            to: atomObj };
-	    }
-	    return atomObj;
-	}
-
-	function startsWithAtom(s) {
-	    return atomRe.test(s);
-	}
-
-	function isModifierChar(s) {
-	    return s === "=" || s === "#";
-	}
-
-	/**
-	 * Parse a SMILES string to an internal tree representation.
-	 *
-	 * Args:
-	 *   smiles [string]: a string representing the molecule.
-	 *
-	 * Returns: the parse tree (see top-of file docstring for details).
-	 *
-	 * Throws:
-	 *     ParseError: if the input is not valid SMILES or contains features not
-	 *         yet implemented.
-	 */
-	function parse(smiles, ctx) {
-	    if (!validate(smiles)) {
-	        throw new ParseError("Invalid input.");
-	    }
-
-	    if (!smiles || smiles.length === 0) {
-	        return null;
-	    }
-
-	    if (startsWithAtom(smiles)) {
-	        return parseAtom(smiles, ctx || { idx: [[0, 0]], parens: [], stack: [],
-	            bondModifiers: [] });
-	    } else if (isModifierChar(smiles[0])) {
-	        // TODO(colin): add a better error message in the case where the input
-	        // is invalid and starts with a modifier character?
-	        return parseBondModifier(smiles, ctx);
-	    } else {
-	        // TODO(colin): add additional cases for unimplemented bits of SMILES
-	        // syntax.
-	        return parseParenthesizedExpression(smiles, ctx);
-	    }
-	}
-
-	module.exports = { parse: parse, ParseError: ParseError };
-
-/***/ },
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -44291,14 +44327,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * lens constructor thaws, freeze delegates to type's freeze
 	 */
 
-	var util = __webpack_require__(194);
+	var util = __webpack_require__(189);
 	    var clone = util.clone;
 	    var isObject = util.isObject;
 	    var merge = util.merge;
 
-	var arr = __webpack_require__(195);
-	var obj = __webpack_require__(196);
-	var str = __webpack_require__(197);
+	var arr = __webpack_require__(190);
+	var obj = __webpack_require__(191);
+	var str = __webpack_require__(192);
 
 	// equivalents, without requiring it
 	// find the implementation to use for a given object
@@ -44429,11 +44465,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	    number: __webpack_require__(189),
-	    vector: __webpack_require__(190),
-	    point: __webpack_require__(191),
-	    line: __webpack_require__(192),
-	    ray: __webpack_require__(193),
+	    number: __webpack_require__(193),
+	    vector: __webpack_require__(194),
+	    point: __webpack_require__(195),
+	    line: __webpack_require__(196),
+	    ray: __webpack_require__(197),
 	};
 
 
@@ -44883,7 +44919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePointOptions = __webpack_require__(198);
 	var WrappedEllipse = __webpack_require__(199);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(133);
+	var objective_ = __webpack_require__(131);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -45174,7 +45210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovableLineOptions = __webpack_require__(200);
 	var WrappedLine = __webpack_require__(201);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(133);
+	var objective_ = __webpack_require__(131);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -45432,7 +45468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovablePolygonOptions = __webpack_require__(202);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(133);
+	var objective_ = __webpack_require__(131);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -45899,6 +45935,150 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var isObject = function(obj) {
+	    return obj === Object(obj);;
+	}
+
+	var merge = function() {
+	    var obj = {};
+
+	    for (var i = 0; i < arguments.length; i++) {
+	        var source = arguments[i];
+	        if (source) {
+	            for (var prop in source) {
+	                obj[prop] = source[prop];
+	            }
+	        }
+	    }
+
+	    return obj;
+	};
+
+	var clone = function(obj) {
+	    if (!isObject(obj)) {
+	        return obj;
+	    }
+
+	    return Array.isArray(obj) ? obj.slice() : merge(obj);
+	};
+
+	module.exports = { isObject: isObject, merge: merge, clone: clone };
+
+
+/***/ },
+/* 190 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.slice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle, 1);
+	    return newArr;
+	};
+
+	/*
+	// Lens must point to a member of an array. We'll insert into that array.
+	lens.prototype.insertAt = function(lensArr, toInsert) {
+	    var obj = this._wrapped;
+
+	    var arrLens = lensArr.slice(0, -1);
+	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
+
+	    var arrIdx = lensArr[lensArr.length-1];
+	    arr.splice(arrIdx, 0, toInsert);
+	    return lens(obj).set(arrLens, arr);
+	};
+
+	lens.prototype.insertBefore = lens.prototype.insertAt;
+	lens.prototype.insertAfter = function(lensArr, toInsert) {
+	    var newLens = lensArr.slice();
+	    newLens[newLens.length-1] += 1;
+	    return lens(this._wrapped).insertAt(newLens, toInsert);
+	};
+	*/
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 191 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var clone = __webpack_require__(189).clone;
+
+	var get = function(obj, monocle) {
+	    return obj[monocle];
+	};
+
+	var set = function(obj, monocle, val) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = val;
+	    return newObj;
+	};
+
+	var mod = function(obj, monocle, f) {
+	    var newObj = clone(obj);
+	    newObj[monocle] = f(obj[monocle]);
+	    return newObj;
+	};
+
+	var del = function(obj, monocle) {
+	    var newObj = clone(obj);
+	    delete newObj[monocle];
+	    return newObj;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 192 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var get = function(arr, monocle) {
+	    return arr[monocle];
+	};
+
+	var set = function(arr, monocle, val) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = val;
+	    return newArr;
+	};
+
+	var mod = function(arr, monocle, f) {
+	    var newArr = arr.splice();
+	    newArr[monocle] = f(arr[monocle]);
+	    return newArr;
+	};
+
+	var del = function(arr, monocle) {
+	    var newArr = arr.slice();
+	    newArr.splice(monocle);
+	    return newArr;
+	};
+
+	module.exports = { get: get, set: set, mod: mod, del: del };
+
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/*
 	 * Number Utils
 	 * A number is a js-number, e.g. 5.12
@@ -46008,7 +46188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 190 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46017,7 +46197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var knumber = __webpack_require__(189);
+	var knumber = __webpack_require__(193);
 
 	function arraySum(array) {
 	    return _.reduce(array, function(memo, arg) { return memo + arg; }, 0);
@@ -46226,7 +46406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 191 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46235,8 +46415,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var _ = __webpack_require__(16);
-	var kvector = __webpack_require__(190);
-	var knumber = __webpack_require__(189);
+	var kvector = __webpack_require__(194);
+	var knumber = __webpack_require__(193);
 
 	var kpoint = {
 
@@ -46342,7 +46522,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 192 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46350,8 +46530,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * A line is an array of two points e.g. [[-5, 0], [5, 0]].
 	 */
 
-	var kpoint = __webpack_require__(191);
-	var kvector = __webpack_require__(190);
+	var kpoint = __webpack_require__(195);
+	var kvector = __webpack_require__(194);
 
 	var kline = {
 
@@ -46395,7 +46575,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 193 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46405,8 +46585,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * traveling along the positive x-axis.
 	 */
 
-	var kvector = __webpack_require__(190);
-	var kpoint = __webpack_require__(191);
+	var kvector = __webpack_require__(194);
+	var kpoint = __webpack_require__(195);
 
 	var kray = {
 
@@ -46424,150 +46604,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = kray;
 
-
-
-/***/ },
-/* 194 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isObject = function(obj) {
-	    return obj === Object(obj);;
-	}
-
-	var merge = function() {
-	    var obj = {};
-
-	    for (var i = 0; i < arguments.length; i++) {
-	        var source = arguments[i];
-	        if (source) {
-	            for (var prop in source) {
-	                obj[prop] = source[prop];
-	            }
-	        }
-	    }
-
-	    return obj;
-	};
-
-	var clone = function(obj) {
-	    if (!isObject(obj)) {
-	        return obj;
-	    }
-
-	    return Array.isArray(obj) ? obj.slice() : merge(obj);
-	};
-
-	module.exports = { isObject: isObject, merge: merge, clone: clone };
-
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.slice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle, 1);
-	    return newArr;
-	};
-
-	/*
-	// Lens must point to a member of an array. We'll insert into that array.
-	lens.prototype.insertAt = function(lensArr, toInsert) {
-	    var obj = this._wrapped;
-
-	    var arrLens = lensArr.slice(0, -1);
-	    var arr = lens(obj).get(arrLens).slice(); // slice to copy
-
-	    var arrIdx = lensArr[lensArr.length-1];
-	    arr.splice(arrIdx, 0, toInsert);
-	    return lens(obj).set(arrLens, arr);
-	};
-
-	lens.prototype.insertBefore = lens.prototype.insertAt;
-	lens.prototype.insertAfter = function(lensArr, toInsert) {
-	    var newLens = lensArr.slice();
-	    newLens[newLens.length-1] += 1;
-	    return lens(this._wrapped).insertAt(newLens, toInsert);
-	};
-	*/
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var clone = __webpack_require__(194).clone;
-
-	var get = function(obj, monocle) {
-	    return obj[monocle];
-	};
-
-	var set = function(obj, monocle, val) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = val;
-	    return newObj;
-	};
-
-	var mod = function(obj, monocle, f) {
-	    var newObj = clone(obj);
-	    newObj[monocle] = f(obj[monocle]);
-	    return newObj;
-	};
-
-	var del = function(obj, monocle) {
-	    var newObj = clone(obj);
-	    delete newObj[monocle];
-	    return newObj;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
-
-
-/***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var get = function(arr, monocle) {
-	    return arr[monocle];
-	};
-
-	var set = function(arr, monocle, val) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = val;
-	    return newArr;
-	};
-
-	var mod = function(arr, monocle, f) {
-	    var newArr = arr.splice();
-	    newArr[monocle] = f(arr[monocle]);
-	    return newArr;
-	};
-
-	var del = function(arr, monocle) {
-	    var newArr = arr.slice();
-	    newArr.splice(monocle);
-	    return newArr;
-	};
-
-	module.exports = { get: get, set: set, mod: mod, del: del };
 
 
 /***/ },
@@ -47520,7 +47556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(133);
+	var objective_ = __webpack_require__(131);
 	var kvector = __webpack_require__(182).vector;
 
 	/*

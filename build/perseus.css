@@ -1,7 +1,7 @@
-// Perseus CSS
-// commit 09490e83e7c9310954176326f5ea20d7f2443bec
-// branch master
-// @generated
+/* Perseus CSS
+ * commit 8e295164d87b3052a446ed9f1f65d49ae8b8298b
+ * branch master
+ * @generated */
 .perseus-sr-only {
   border: 0;
   clip: rect(0, 0, 0, 0);
@@ -1253,97 +1253,100 @@ body.sat-section .perseus-widget-passage {
     border-bottom: 1px solid #dddddd;
   }
 }
-body.mobile .framework-perseus #problemarea input[type=radio],
-body.mobile .framework-perseus #problemarea input[type=checkbox] {
-  float: left;
-  margin-right: 7px;
-}
-body.mobile .perseus-widget-radio {
-  background: none;
-  color: #aaaaaa;
-  margin-left: 0;
-}
-body.mobile .perseus-widget-radio span.checkbox {
-  position: relative;
-  z-index: 3;
-  position: absolute;
-  margin-right: 26px;
-  display: block;
-  top: 50%;
-  margin: -14px 0 0 0;
-  width: auto;
-}
-body.mobile .perseus-widget-radio .perseus-radio-option {
-  background: white;
-  position: relative;
-  border: 2px solid #aaaaaa;
-  border-radius: 28px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: block;
-  font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
-  margin-left: 0;
-  margin-bottom: 10px;
-  overflow: hidden;
-  padding: 8px 10px !important;
-}
-body.mobile .perseus-widget-radio .perseus-radio-option:active {
-  background-color: #1c758a;
-  border-color: #1c758a;
-  color: white;
-}
-body.mobile .perseus-widget-radio .perseus-radio-option:active input[type=radio],
-body.mobile .perseus-widget-radio .perseus-radio-option:active input[type=checkbox] {
-  border-color: #aaaaaa;
-  background-color: white;
-}
-body.mobile .perseus-widget-radio .perseus-radio-option.perseus-radio-selected {
-  border-color: #1c758a;
-  color: #1c758a;
-  font-weight: bold;
-}
-body.mobile .perseus-widget-radio .perseus-radio-option.perseus-radio-selected:active {
-  color: white;
-}
-body.mobile .perseus-widget-radio .perseus-radio-option .perseus-radio-option-content {
-  margin-left: 40px;
-  display: inline-block;
-}
-body.mobile .perseus-widget-radio input[type=radio],
-body.mobile .perseus-widget-radio input[type=checkbox] {
-  -webkit-appearance: none;
-  appearance: none;
-  border: 2px solid #aaaaaa;
-  border-radius: 25px;
-  float: left;
-}
-body.mobile .perseus-widget-radio input[type=radio] {
-  height: 25px;
-  margin-right: 10px;
-  outline: none;
-  width: 25px;
-}
-body.mobile .perseus-widget-radio input[type=radio]:checked {
-  background: #1c758a;
-  border: 2px solid #1c758a;
-}
-body.mobile .perseus-widget-radio input[type=checkbox] {
-  position: absolute;
-  outline: none;
-}
-body.mobile .perseus-widget-radio input[type=checkbox]:before {
-  color: #aaaaaa;
-  font: 15pt "FontAwesome";
-  left: 0;
-  position: relative;
-  top: 1px;
-}
-body.mobile .perseus-widget-radio input[type=checkbox]:checked {
-  border-color: #1c758a;
-}
-body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
-  color: #1c758a;
-  content: "\f00c";
+@media (min-width: 768px) {
+  body.mobile .framework-perseus #problemarea input[type=radio],
+  body.mobile .framework-perseus #problemarea input[type=checkbox] {
+    float: left;
+    margin-left: 0;
+    margin-right: 7px;
+  }
+  body.mobile .perseus-widget-radio {
+    background: none;
+    color: #aaaaaa;
+    margin-left: 0;
+  }
+  body.mobile .perseus-widget-radio span.checkbox {
+    position: relative;
+    z-index: 3;
+    position: absolute;
+    margin-right: 26px;
+    display: block;
+    top: 50%;
+    margin: -14px 0 0 0;
+    width: auto;
+  }
+  body.mobile .perseus-widget-radio .perseus-radio-option {
+    background: white;
+    position: relative;
+    border: 2px solid #aaaaaa;
+    border-radius: 28px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font: 700 14pt/30px "Avenir", "Helvetica", "Arial", sans-serif;
+    margin-left: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 8px 10px !important;
+  }
+  body.mobile .perseus-widget-radio .perseus-radio-option:active {
+    background-color: #1c758a;
+    border-color: #1c758a;
+    color: white;
+  }
+  body.mobile .perseus-widget-radio .perseus-radio-option:active input[type=radio],
+  body.mobile .perseus-widget-radio .perseus-radio-option:active input[type=checkbox] {
+    border-color: #aaaaaa;
+    background-color: white;
+  }
+  body.mobile .perseus-widget-radio .perseus-radio-option.perseus-radio-selected {
+    border-color: #1c758a;
+    color: #1c758a;
+    font-weight: bold;
+  }
+  body.mobile .perseus-widget-radio .perseus-radio-option.perseus-radio-selected:active {
+    color: white;
+  }
+  body.mobile .perseus-widget-radio .perseus-radio-option .perseus-radio-option-content {
+    margin-left: 40px;
+    display: inline-block;
+  }
+  body.mobile .perseus-widget-radio input[type=radio],
+  body.mobile .perseus-widget-radio input[type=checkbox] {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid #aaaaaa;
+    border-radius: 25px;
+    float: left;
+  }
+  body.mobile .perseus-widget-radio input[type=radio] {
+    height: 25px;
+    margin-right: 10px;
+    outline: none;
+    width: 25px;
+  }
+  body.mobile .perseus-widget-radio input[type=radio]:checked {
+    background: #1c758a;
+    border: 2px solid #1c758a;
+  }
+  body.mobile .perseus-widget-radio input[type=checkbox] {
+    position: absolute;
+    outline: none;
+  }
+  body.mobile .perseus-widget-radio input[type=checkbox]:before {
+    color: #aaaaaa;
+    font: 15pt "FontAwesome";
+    left: 0;
+    position: relative;
+    top: 1px;
+  }
+  body.mobile .perseus-widget-radio input[type=checkbox]:checked {
+    border-color: #1c758a;
+  }
+  body.mobile .perseus-widget-radio input[type=checkbox]:checked:before {
+    color: #1c758a;
+    content: "\f00c";
+  }
 }
 body.sat-section .framework-perseus #problemarea input[type=radio],
 #sat-mission .framework-perseus #problemarea input[type=radio],
