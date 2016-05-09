@@ -4,6 +4,7 @@ SUPPRESSINSTALL=FALSE
 
 PERSEUS_BUILD_JS=build/perseus.js
 PERSEUS_BUILD_CSS=build/perseus.css
+PERSEUS_DEMO_BUILD_JS=build/demo-perseus.js
 PERSEUS_NODE_BUILD_JS=build/node-perseus.js
 PERSEUS_EDITOR_BUILD_JS=build/editor-perseus.js
 PERSEUS_VERSION_FILE=build/perseus-item-version.js
@@ -42,6 +43,17 @@ $(PERSEUS_NODE_BUILD_JS): install
 	cat $@.tmp >> $@
 	rm $@.tmp
 
+
+$(PERSEUS_DEMO_BUILD_JS): install
+	mkdir -p build
+	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack --config webpack.config.demo-perseus.js
+	mv $@ $@.tmp
+	echo '/*! Demo perseus | http://github.com/Khan/perseus */' > $@
+	echo "// commit `git rev-parse HEAD`" >> $@
+	echo "// branch `git rev-parse --abbrev-ref HEAD`" >> $@
+	cat $@.tmp >> $@
+	rm $@.tmp
+
 $(PERSEUS_EDITOR_BUILD_JS): install
 	mkdir -p build
 	NODE_ENV=production INCLUDE_EDITORS=true ./node_modules/.bin/webpack
@@ -77,13 +89,19 @@ server-offline:
 	INCLUDE_EDITORS=true __DEV__=true ./node_modules/.bin/webpack-dev-server --config webpack.config.demo-perseus.js --port $(PORT) --output-public-path build/ --devtool inline-source-map
 
 demo:
-	git checkout gh-pages
+	if [ -z $$TRAVIS ]; then echo "make demo must be run on travis"; exit 1; fi
+	git remote set-branches --add origin gh-pages # Travis only contains Master, so gh-pages must be added
+	git fetch origin
+	git checkout -B gh-pages origin/gh-pages
 	git reset --hard origin/master
-	make build
-	git add -f $(PERSEUS_BUILD_JS)
+	make build/demo-perseus.js
+	git add -f build/demo-perseus.js
+	git config user.name "Emily Eisenberg" # Git requires an author for the commit
+	git config user.email "emily@khanacademy.org"
 	git commit -nm 'demo update'
-	git checkout master
-	git push -f origin gh-pages:gh-pages
+	git checkout origin/master
+	# We now need to push using a specific SSH key, which is authorized to edit the repository
+	ssh-agent bash -c 'ssh-add travis_deploy_rsa; git push -f git@github.com:Khan/perseus.git gh-pages:gh-pages'
 
 # Pull submodules if they are empty.
 # This should make first-time installation easier.
@@ -153,4 +171,3 @@ build/ke.js:
 
 jest: build/ke.js
 	./node_modules/.bin/jest
-

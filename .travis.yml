@@ -1,5 +1,8 @@
 install: make install
-script: make test
+# This decrypts the github deploy key (the encrypted_*_key is stored on Travis)
+before_script: openssl aes-256-cbc -K $encrypted_be637d43ba05_key -iv $encrypted_be637d43ba05_iv -in travis_deploy_rsa.enc -out travis_deploy_rsa -d && chmod 400 travis_deploy_rsa
+script: make
+after_success: '[ "$TRAVIS_PULL_REQUEST" == "false" -a "$TRAVIS_BRANCH" == "master" ] && make demo'
 notifications:
   on_success: change
   on_failure: always
