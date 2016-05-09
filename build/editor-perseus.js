@@ -1,5 +1,5 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit 8e295164d87b3052a446ed9f1f65d49ae8b8298b
+// commit b33e3464dec6ad085e502e3f3dea56f539afe5cf
 // branch master
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1045,7 +1045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        };
 
 	        // Require here to prevent recursive imports
-	        var SvgImage = __webpack_require__(30);
+	        var SvgImage = __webpack_require__(29);
 	        img.src = SvgImage.getRealImageUrl(url);
 	    },
 
@@ -1109,7 +1109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(29);
+	var Traversal = __webpack_require__(30);
 	var Widgets = __webpack_require__(27);
 
 	var isUpgradedWidgetInfoRenderableBy = function (widgetInfo, widgetRendererVersion) {
@@ -1180,7 +1180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(29);
+	var Traversal = __webpack_require__(30);
 	var Widgets = __webpack_require__(27);
 
 	module.exports = {
@@ -1218,7 +1218,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var _ = __webpack_require__(16);
 
-	var traversal = __webpack_require__(29);
+	var traversal = __webpack_require__(30);
 	var PerseusMarkdown = __webpack_require__(31);
 
 	// Takes a renderer content and parses the markdown for images
@@ -3208,10 +3208,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// As new widgets get added here, please also make sure they get added in
 	// webapp perseus/traversal.py so they can be properly translated.
-	_.each([[__webpack_require__(57), true && __webpack_require__(58)], [__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(130)], [__webpack_require__(108), true && __webpack_require__(109)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)],
+	_.each([[__webpack_require__(59), true && __webpack_require__(60)], [__webpack_require__(61), true && __webpack_require__(62)], [__webpack_require__(63), true && __webpack_require__(64)], [__webpack_require__(65), true && __webpack_require__(66)], [__webpack_require__(67), true && __webpack_require__(68)], [__webpack_require__(69), true && __webpack_require__(70)], [__webpack_require__(71), true && __webpack_require__(72)], [__webpack_require__(73), true && __webpack_require__(74)], [__webpack_require__(75), true && __webpack_require__(76)], [__webpack_require__(77), true && __webpack_require__(78)], [__webpack_require__(79), true && __webpack_require__(80)], [__webpack_require__(81), true && __webpack_require__(82)], [__webpack_require__(83), true && __webpack_require__(84)], [__webpack_require__(85), true && __webpack_require__(86)], [__webpack_require__(87), true && __webpack_require__(88)], [__webpack_require__(89), true && __webpack_require__(90)], [__webpack_require__(91), true && __webpack_require__(92)], [__webpack_require__(93), true && __webpack_require__(94)], [__webpack_require__(95), true && __webpack_require__(96)], [__webpack_require__(97), true && __webpack_require__(98)], [__webpack_require__(99), true && __webpack_require__(100)], [__webpack_require__(101), true && __webpack_require__(102)], [__webpack_require__(103), true && __webpack_require__(104)], [__webpack_require__(105), true && __webpack_require__(106)], [__webpack_require__(107), true && __webpack_require__(108)], [__webpack_require__(109), true && __webpack_require__(132)], [__webpack_require__(110), true && __webpack_require__(111)], [__webpack_require__(112), true && __webpack_require__(113)], [__webpack_require__(114), true && __webpack_require__(115)], [__webpack_require__(116), true && __webpack_require__(117)], [__webpack_require__(118), true && __webpack_require__(119)], [__webpack_require__(120), true && __webpack_require__(121)], [__webpack_require__(122), true && __webpack_require__(123)], [__webpack_require__(124), true && __webpack_require__(125)],
 	// These widgets are only used when testing things, so remove them in the
 	// non-editor bundle.
-	true && [__webpack_require__(124), __webpack_require__(125)], true && [__webpack_require__(126), __webpack_require__(127)], true && [__webpack_require__(128), __webpack_require__(129)]], function (data) {
+	true && [__webpack_require__(126), __webpack_require__(127)], true && [__webpack_require__(128), __webpack_require__(129)], true && [__webpack_require__(130), __webpack_require__(131)]], function (data) {
 	  data && Widgets.register(data[0].name, /* widget */data[0], /* editor */data[1]);
 	});
 
@@ -3360,7 +3360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Util = __webpack_require__(6);
 	var getHintsPlacement = __webpack_require__(44);
 
-	var _require = __webpack_require__(131);
+	var _require = __webpack_require__(133);
 
 	var mapObject = _require.mapObject;
 
@@ -3730,7 +3730,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
-	var _require = __webpack_require__(131);
+	var _require = __webpack_require__(133);
 
 	var mapObject = _require.mapObject;
 
@@ -4015,7 +4015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var i18n = window.i18n;
 
 	var HintRenderer = __webpack_require__(45);
-	var SvgImage = __webpack_require__(30);
+	var SvgImage = __webpack_require__(29);
 	var EnabledFeatures = __webpack_require__(32);
 
 	var HintsRenderer = React.createClass({
@@ -4196,7 +4196,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var JiptParagraphs = __webpack_require__(46);
 	var PerseusMarkdown = __webpack_require__(31);
 	var QuestionParagraph = __webpack_require__(47);
-	var SvgImage = __webpack_require__(30);
+	var SvgImage = __webpack_require__(29);
 	var TeX = __webpack_require__(48);
 	var WidgetContainer = __webpack_require__(49);
 	var Widgets = __webpack_require__(27);
@@ -4207,7 +4207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
-	var _require = __webpack_require__(131);
+	var _require = __webpack_require__(133);
 
 	var mapObject = _require.mapObject;
 	var mapObjectFromArray = _require.mapObjectFromArray;
@@ -5879,125 +5879,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* eslint-disable no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	/**
-	 * Traverses a {content, widgets, images} renderer props object,
-	 * such as `itemData.question`
-	 *
-	 * This traversal is deep and handles some widget prop upgrades
-	 * (TODO(aria): Handle minor prop upgrades :) )
-	 *
-	 * This is the right way to traverse itemData.
-	 *
-	 * NOTE: We should not expose this on the perseus API yet. Instead,
-	 * build the traversal method you want inside perseus, and use this
-	 * from that. We might eventually expose this, but I'd like to be
-	 * more confident in the interface provided first.
-	 */
-
-	var _ = __webpack_require__(16);
-	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
-	var objective_ = __webpack_require__(131);
-
-	var Widgets = __webpack_require__(27);
-
-	var noop = function () {};
-
-	var deepCallbackFor = function (contentCallback, widgetCallback, optionsCallback) {
-	    var deepCallback = function (widgetInfo, widgetId) {
-	        // This doesn't modify the widget info if the widget info
-	        // is at a later version than is supported, which is important
-	        // for our latestVersion test below.
-	        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
-	        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
-
-	        // Only traverse our children if we can understand this version
-	        // of the widget props.
-	        // TODO(aria): This will break if the traversal code assumes that
-	        // any props that usually get defaulted in are present. That is,
-	        // it can fail on minor version upgrades.
-	        // For this reason, and because the upgrade code doesn't handle
-	        // minor versions correctly (it doesn't report anything useful
-	        // about what minor version a widget is actually at, since it
-	        // doesn't have meaning in the context of upgrades), we
-	        // just check the major version here.
-	        // TODO(aria): This is seriously quirky and would be unpleasant
-	        // to think about while writing traverseChildWidgets code. Please
-	        // make all of this a little tighter.
-	        // I think once we use react class defaultProps instead of relying
-	        // on getDefaultProps, this will become easier.
-	        var newWidgetInfo;
-	        if (latestVersion && upgradedWidgetInfo.version.major === latestVersion.major) {
-	            newWidgetInfo = Widgets.traverseChildWidgets(upgradedWidgetInfo, function (rendererOptions) {
-	                return traverseRenderer(rendererOptions, contentCallback,
-	                // so that we traverse grandchildren, too:
-	                deepCallback, optionsCallback);
-	            });
-	        } else {
-	            newWidgetInfo = upgradedWidgetInfo;
-	        }
-
-	        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
-	        if (userWidgetInfo !== undefined) {
-	            return userWidgetInfo;
-	        } else {
-	            return newWidgetInfo;
-	        }
-	    };
-	    return deepCallback;
-	};
-
-	var traverseRenderer = function (rendererOptions, contentCallback, deepWidgetCallback, optionsCallback) {
-
-	    var newContent = rendererOptions.content;
-	    if (rendererOptions.content != null) {
-	        var modifiedContent = contentCallback(rendererOptions.content);
-	        if (modifiedContent !== undefined) {
-	            newContent = modifiedContent;
-	        }
-	    }
-
-	    var newWidgets = objective_.mapObject(rendererOptions.widgets || {}, function (widgetInfo, widgetId) {
-	        // Widgets without info or a type are empty widgets, and
-	        // should always be renderable. It's also annoying to write
-	        // checks for this everywhere, so we just filter them out once and
-	        // for all!
-	        if (widgetInfo == null || widgetInfo.type == null) {
-	            return widgetInfo;
-	        }
-	        return deepWidgetCallback(widgetInfo, widgetId);
-	    });
-
-	    var newOptions = _.extend({}, rendererOptions, {
-	        content: newContent,
-	        widgets: newWidgets });
-	    var userOptions = optionsCallback(newOptions);
-	    if (userOptions !== undefined) {
-	        return userOptions;
-	    } else {
-	        return newOptions;
-	    }
-	};
-
-	var traverseRendererDeep = function (rendererOptions, contentCallback, widgetCallback, optionsCallback) {
-
-	    contentCallback = contentCallback || noop;
-	    widgetCallback = widgetCallback || noop;
-	    optionsCallback = optionsCallback || noop;
-
-	    return traverseRenderer(rendererOptions, contentCallback, deepCallbackFor(contentCallback, widgetCallback, optionsCallback), optionsCallback);
-	};
-
-	module.exports = {
-	    traverseRendererDeep: traverseRendererDeep };
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
 	/* globals KA */
 	var classNames = __webpack_require__(41);
 	var React = __webpack_require__(15);
@@ -6578,6 +6459,125 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } });
 
 	module.exports = SvgImage;
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	/**
+	 * Traverses a {content, widgets, images} renderer props object,
+	 * such as `itemData.question`
+	 *
+	 * This traversal is deep and handles some widget prop upgrades
+	 * (TODO(aria): Handle minor prop upgrades :) )
+	 *
+	 * This is the right way to traverse itemData.
+	 *
+	 * NOTE: We should not expose this on the perseus API yet. Instead,
+	 * build the traversal method you want inside perseus, and use this
+	 * from that. We might eventually expose this, but I'd like to be
+	 * more confident in the interface provided first.
+	 */
+
+	var _ = __webpack_require__(16);
+	// TODO(aria): Pull this out of interactive2 / replace with new _.mapObject
+	var objective_ = __webpack_require__(133);
+
+	var Widgets = __webpack_require__(27);
+
+	var noop = function () {};
+
+	var deepCallbackFor = function (contentCallback, widgetCallback, optionsCallback) {
+	    var deepCallback = function (widgetInfo, widgetId) {
+	        // This doesn't modify the widget info if the widget info
+	        // is at a later version than is supported, which is important
+	        // for our latestVersion test below.
+	        var upgradedWidgetInfo = Widgets.upgradeWidgetInfoToLatestVersion(widgetInfo);
+	        var latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
+
+	        // Only traverse our children if we can understand this version
+	        // of the widget props.
+	        // TODO(aria): This will break if the traversal code assumes that
+	        // any props that usually get defaulted in are present. That is,
+	        // it can fail on minor version upgrades.
+	        // For this reason, and because the upgrade code doesn't handle
+	        // minor versions correctly (it doesn't report anything useful
+	        // about what minor version a widget is actually at, since it
+	        // doesn't have meaning in the context of upgrades), we
+	        // just check the major version here.
+	        // TODO(aria): This is seriously quirky and would be unpleasant
+	        // to think about while writing traverseChildWidgets code. Please
+	        // make all of this a little tighter.
+	        // I think once we use react class defaultProps instead of relying
+	        // on getDefaultProps, this will become easier.
+	        var newWidgetInfo;
+	        if (latestVersion && upgradedWidgetInfo.version.major === latestVersion.major) {
+	            newWidgetInfo = Widgets.traverseChildWidgets(upgradedWidgetInfo, function (rendererOptions) {
+	                return traverseRenderer(rendererOptions, contentCallback,
+	                // so that we traverse grandchildren, too:
+	                deepCallback, optionsCallback);
+	            });
+	        } else {
+	            newWidgetInfo = upgradedWidgetInfo;
+	        }
+
+	        var userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
+	        if (userWidgetInfo !== undefined) {
+	            return userWidgetInfo;
+	        } else {
+	            return newWidgetInfo;
+	        }
+	    };
+	    return deepCallback;
+	};
+
+	var traverseRenderer = function (rendererOptions, contentCallback, deepWidgetCallback, optionsCallback) {
+
+	    var newContent = rendererOptions.content;
+	    if (rendererOptions.content != null) {
+	        var modifiedContent = contentCallback(rendererOptions.content);
+	        if (modifiedContent !== undefined) {
+	            newContent = modifiedContent;
+	        }
+	    }
+
+	    var newWidgets = objective_.mapObject(rendererOptions.widgets || {}, function (widgetInfo, widgetId) {
+	        // Widgets without info or a type are empty widgets, and
+	        // should always be renderable. It's also annoying to write
+	        // checks for this everywhere, so we just filter them out once and
+	        // for all!
+	        if (widgetInfo == null || widgetInfo.type == null) {
+	            return widgetInfo;
+	        }
+	        return deepWidgetCallback(widgetInfo, widgetId);
+	    });
+
+	    var newOptions = _.extend({}, rendererOptions, {
+	        content: newContent,
+	        widgets: newWidgets });
+	    var userOptions = optionsCallback(newOptions);
+	    if (userOptions !== undefined) {
+	        return userOptions;
+	    } else {
+	        return newOptions;
+	    }
+	};
+
+	var traverseRendererDeep = function (rendererOptions, contentCallback, widgetCallback, optionsCallback) {
+
+	    contentCallback = contentCallback || noop;
+	    widgetCallback = widgetCallback || noop;
+	    optionsCallback = optionsCallback || noop;
+
+	    return traverseRenderer(rendererOptions, contentCallback, deepCallbackFor(contentCallback, widgetCallback, optionsCallback), optionsCallback);
+	};
+
+	module.exports = {
+	    traverseRendererDeep: traverseRendererDeep };
 
 /***/ },
 /* 31 */
@@ -7260,7 +7260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Editor = __webpack_require__(11);
 	var HintRenderer = __webpack_require__(45);
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 
 	/* Renders a hint editor box
 	 *
@@ -7558,7 +7558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var Editor = __webpack_require__(11);
-	var ItemExtrasEditor = __webpack_require__(133);
+	var ItemExtrasEditor = __webpack_require__(58);
 	var ITEM_DATA_VERSION = __webpack_require__(56).itemDataVersion;
 
 	var ItemEditor = React.createClass({
@@ -8150,7 +8150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 
-	var Traversal = __webpack_require__(29);
+	var Traversal = __webpack_require__(30);
 
 	var findPassageRefR = new RegExp(
 	// [[ passage-ref 1]]
@@ -9964,14 +9964,214 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
+	 * server without causing a checksum mismatch on the client.
+	 * (RCSS generates classnames with a randomSuffix, which ensures that any
+	 * two sets of generated classnames will not match.)
+	 */
+
+	var React = __webpack_require__(15);
+
+	var ReactComponentsInfoTip = __webpack_require__(146);
+
+	var InfoTip = React.createClass({
+	    displayName: "InfoTip",
+
+	    getInitialState: function () {
+	        return {
+	            didMount: false };
+	    },
+
+	    componentDidMount: function () {
+	        /* eslint-disable react/no-did-mount-set-state */
+	        this.setState({ didMount: true });
+	        /* eslint-enable react/no-did-mount-set-state */
+	    },
+
+	    render: function () {
+	        if (this.state.didMount) {
+	            return React.createElement(ReactComponentsInfoTip, this.props);
+	        } else {
+	            return React.createElement("div", null);
+	        }
+	    } });
+
+	module.exports = InfoTip;
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable no-var */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+
+	var InfoTip = __webpack_require__(57);
+
+	var ItemExtrasEditor = React.createClass({
+	    displayName: "ItemExtrasEditor",
+
+	    propTypes: {
+	        calculator: React.PropTypes.bool,
+	        chi2Table: React.PropTypes.bool,
+	        onChange: React.PropTypes.func.isRequired,
+	        periodicTable: React.PropTypes.bool,
+	        tTable: React.PropTypes.bool,
+	        zTable: React.PropTypes.bool },
+
+	    getDefaultProps: function () {
+	        return {
+	            calculator: false,
+	            chi2Table: false,
+	            periodicTable: false,
+	            tTable: false,
+	            zTable: false };
+	    },
+
+	    serialize: function () {
+	        return {
+	            calculator: this.props.calculator,
+	            chi2Table: this.props.chi2Table,
+	            periodicTable: this.props.periodicTable,
+	            tTable: this.props.tTable,
+	            zTable: this.props.zTable };
+	    },
+
+	    render: function () {
+	        var _this = this;
+
+	        return React.createElement(
+	            "div",
+	            { className: "perseus-answer-editor" },
+	            React.createElement(
+	                "div",
+	                { className: "perseus-answer-options" },
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show calculator:",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.calculator,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ calculator: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show periodic table:",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.periodicTable,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ periodicTable: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show z table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.zTable,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ zTable: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show t table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.tTable,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ tTable: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
+	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    null,
+	                    React.createElement(
+	                        "label",
+	                        null,
+	                        "Show chi-squared table (statistics):",
+	                        " ",
+	                        React.createElement("input", {
+	                            type: "checkbox", checked: this.props.chi2Table,
+	                            onChange: function (e) {
+	                                _this.props.onChange({ chi2Table: e.target.checked });
+	                            }
+	                        })
+	                    ),
+	                    React.createElement(
+	                        InfoTip,
+	                        null,
+	                        "This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
+	                    )
+	                )
+	            )
+	        );
+	    } });
+
+	module.exports = ItemExtrasEditor;
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
 	var classNames = __webpack_require__(41);
-	var Changeable = __webpack_require__(146);
-	var WidgetJsonifyDeprecated = __webpack_require__(147);
+	var Changeable = __webpack_require__(147);
+	var WidgetJsonifyDeprecated = __webpack_require__(148);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
@@ -10152,7 +10352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   clicked */
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10160,14 +10360,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var _ = __webpack_require__(16);
 
-	var EditorJsonify = __webpack_require__(148);
+	var EditorJsonify = __webpack_require__(149);
 	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(51);
 
-	var Categorizer = __webpack_require__(57).widget;
+	var Categorizer = __webpack_require__(59).widget;
 
 	var CategorizerEditor = React.createClass({
 	    displayName: "CategorizerEditor",
@@ -10245,7 +10445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// for content creators to catch and fix.
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10259,7 +10459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var updateQueryString = __webpack_require__(6).updateQueryString;
 
 	var PADDING_WIDTH = 2;
@@ -10426,7 +10626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: CSProgram };
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10436,11 +10636,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var BlurInput = __webpack_require__(149);
-	var InfoTip = __webpack_require__(132);
+	var BlurInput = __webpack_require__(150);
+	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
 
 	var DEFAULT_WIDTH = 400;
@@ -10644,7 +10844,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = CSProgramEditor;
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10652,7 +10852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var classNames = __webpack_require__(41);
-	var FancySelect = __webpack_require__(150);
+	var FancySelect = __webpack_require__(151);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
@@ -10807,7 +11007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Always visible so we can animate them with css
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10818,8 +11018,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
-	var EditorJsonify = __webpack_require__(148);
+	var InfoTip = __webpack_require__(57);
+	var EditorJsonify = __webpack_require__(149);
 
 	var DropdownEditor = React.createClass({
 	    displayName: "DropdownEditor",
@@ -10987,7 +11187,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = DropdownEditor;
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -10998,7 +11198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var PerseusApi = __webpack_require__(5);
 	var Renderer = __webpack_require__(26);
 
@@ -11128,7 +11328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * clickable */
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11138,11 +11338,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var Editor = __webpack_require__(11);
-	var TextInput = __webpack_require__(151);
+	var TextInput = __webpack_require__(152);
 
 	var defaultExplanationProps = {
 	    showPrompt: "Explain",
@@ -11225,7 +11425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExplanationEditor;
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11235,20 +11435,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	var classNames = __webpack_require__(41);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
-	var Tooltip = __webpack_require__(152);
+	var Tooltip = __webpack_require__(153);
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var ApiOptions = __webpack_require__(5).Options;
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 
 	var EnabledFeatures = __webpack_require__(32);
 
-	var InputWithExamples = __webpack_require__(153);
-	var MathInput = __webpack_require__(154);
+	var InputWithExamples = __webpack_require__(154);
+	var MathInput = __webpack_require__(155);
 	var TeX = __webpack_require__(48); // OldExpression only
-	var TexButtons = __webpack_require__(155);
+	var TexButtons = __webpack_require__(156);
 
 	var EnabledFeatures = __webpack_require__(32);
 
@@ -11951,7 +12151,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(alex): Better error feedback for mobile
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -11963,15 +12163,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var lens = __webpack_require__(181);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
-	var SortableArea = __webpack_require__(156);
+	var SortableArea = __webpack_require__(157);
 	var TeX = __webpack_require__(48); // OldExpression only
-	var TexButtons = __webpack_require__(155);
+	var TexButtons = __webpack_require__(156);
 
-	var Expression = __webpack_require__(65).Expression;
+	var Expression = __webpack_require__(67).Expression;
 
 	// An answer can be considered correct, wrong, or ungraded.
 	var CONSIDERED = ["correct", "wrong", "ungraded"];
@@ -12479,7 +12679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExpressionEditor;
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -12491,8 +12691,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Interactive2 = __webpack_require__(157);
-	var SvgImage = __webpack_require__(30);
+	var Interactive2 = __webpack_require__(158);
+	var SvgImage = __webpack_require__(29);
 	var Util = __webpack_require__(6);
 	var ButtonGroup = __webpack_require__(43);
 
@@ -12506,7 +12706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var kpoint = __webpack_require__(182).point;
 
 	/* Mixins. */
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var _require = __webpack_require__(171);
 
@@ -12875,7 +13075,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -12885,13 +13085,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
-	var GraphSettings = __webpack_require__(158);
-	var InfoTip = __webpack_require__(132);
-	var MultiButtonGroup = __webpack_require__(159);
+	var GraphSettings = __webpack_require__(159);
+	var InfoTip = __webpack_require__(57);
+	var MultiButtonGroup = __webpack_require__(160);
 
-	var Grapher = __webpack_require__(67).widget;
+	var Grapher = __webpack_require__(69).widget;
 
 	var _require = __webpack_require__(171);
 
@@ -13029,7 +13229,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GrapherEditor;
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13043,7 +13243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var Renderer = __webpack_require__(26);
 
 	// A Graded Group is more or less a Group widget that displays a check
@@ -13221,7 +13421,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tracking: "all" };
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13232,7 +13432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var Editor = __webpack_require__(11);
 
 	var GradedGroupEditor = React.createClass({
@@ -13280,7 +13480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GradedGroupEditor;
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -13293,7 +13493,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var Renderer = __webpack_require__(26);
 
 	var Group = React.createClass({
@@ -13458,7 +13658,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hidden: false };
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13469,7 +13669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var Editor = __webpack_require__(11);
 
@@ -13538,7 +13738,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* the metadata editor; used for tags on khanacademy.org */
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13557,8 +13757,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var WidgetJsonifyDeprecated = __webpack_require__(147);
+	var Changeable = __webpack_require__(147);
+	var WidgetJsonifyDeprecated = __webpack_require__(148);
 	var updateQueryString = __webpack_require__(6).updateQueryString;
 
 	/* This renders the iframe and handles validation via window.postMessage */
@@ -13692,7 +13892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hidden: true };
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13702,10 +13902,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var BlurInput = __webpack_require__(149);
+	var BlurInput = __webpack_require__(150);
 	var PropCheckBox = __webpack_require__(34);
 
 	/**
@@ -13868,7 +14068,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = IframeEditor;
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -13886,9 +14086,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ApiOptions = __webpack_require__(5).Options;
 	var Renderer = __webpack_require__(26);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
-	var SvgImage = __webpack_require__(30);
+	var SvgImage = __webpack_require__(29);
 
 	var defaultBoxSize = 400;
 	var defaultRange = [0, 10];
@@ -14055,7 +14255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ImageWidget };
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14067,13 +14267,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var BlurInput = __webpack_require__(149);
+	var BlurInput = __webpack_require__(150);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(132);
-	var RangeInput = __webpack_require__(160);
+	var InfoTip = __webpack_require__(57);
+	var RangeInput = __webpack_require__(161);
 
 	var defaultBoxSize = 400;
 	var defaultRange = [0, 10];
@@ -14486,7 +14686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ImageEditor;
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14497,9 +14697,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InputWithExamples = __webpack_require__(153);
-	var ParseTex = __webpack_require__(161).parseTex;
-	var PossibleAnswers = __webpack_require__(162);
+	var InputWithExamples = __webpack_require__(154);
+	var ParseTex = __webpack_require__(162).parseTex;
+	var PossibleAnswers = __webpack_require__(163);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
@@ -14770,7 +14970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    transform: propTransform };
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -14783,8 +14983,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var BlurInput = __webpack_require__(149);
-	var InfoTip = __webpack_require__(132);
+	var BlurInput = __webpack_require__(150);
+	var InfoTip = __webpack_require__(57);
 
 	var answerTypes = {
 	    number: {
@@ -15033,7 +15233,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* TODO(emily): don't use a hidden checkbox for alignment */
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -15043,7 +15243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var Graphie = __webpack_require__(53);
 
@@ -15482,7 +15682,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// TODO(eater): why so slow?
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -15494,19 +15694,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var ArrowPicker = __webpack_require__(172);
 	var ColorPicker = __webpack_require__(173);
 	var ConstraintEditor = __webpack_require__(174);
 	var DashPicker = __webpack_require__(175);
 	var ElementContainer = __webpack_require__(176);
-	var GraphSettings = __webpack_require__(158);
-	var MathInput = __webpack_require__(154);
-	var NumberInput = __webpack_require__(163);
+	var GraphSettings = __webpack_require__(159);
+	var MathInput = __webpack_require__(155);
+	var NumberInput = __webpack_require__(164);
 	var TeX = __webpack_require__(48);
-	var TextInput = __webpack_require__(151);
+	var TextInput = __webpack_require__(152);
 
 	var defaultInteractionProps = {
 	    graph: {
@@ -16827,7 +17027,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractionEditor;
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -16837,10 +17037,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Graph = __webpack_require__(164);
-	var InfoTip = __webpack_require__(132);
-	var Interactive2 = __webpack_require__(157);
-	var NumberInput = __webpack_require__(163);
+	var Graph = __webpack_require__(165);
+	var InfoTip = __webpack_require__(57);
+	var Interactive2 = __webpack_require__(158);
+	var NumberInput = __webpack_require__(164);
 	var Util = __webpack_require__(6);
 
 	var knumber = __webpack_require__(182).number;
@@ -19064,7 +19264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// supports "grid"
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19078,10 +19278,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DeprecationMixin = Util.DeprecationMixin;
 
-	var GraphSettings = __webpack_require__(158);
-	var InfoTip = __webpack_require__(132);
+	var GraphSettings = __webpack_require__(159);
+	var InfoTip = __webpack_require__(57);
 
-	var InteractiveGraph = __webpack_require__(81).widget;
+	var InteractiveGraph = __webpack_require__(83).widget;
 
 	var defaultBoxSize = 400;
 	var defaultEditorBoxSize = 340;
@@ -19392,7 +19592,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InteractiveGraphEditor;
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19400,8 +19600,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(146);
-	var WidgetJsonifyDeprecated = __webpack_require__(147);
+	var Changeable = __webpack_require__(147);
+	var WidgetJsonifyDeprecated = __webpack_require__(148);
 
 	var MAX_SIZE = 8;
 
@@ -19727,7 +19927,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -19737,12 +19937,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var NumberInput = __webpack_require__(163);
+	var NumberInput = __webpack_require__(164);
 	var PropCheckBox = __webpack_require__(34);
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 
 	var MAX_SIZE = 8;
 
@@ -19998,7 +20198,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = LightsPuzzleEditor;
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20010,10 +20210,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var NumberInput = __webpack_require__(163);
+	var NumberInput = __webpack_require__(164);
 	var Renderer = __webpack_require__(26);
-	var TextInput = __webpack_require__(151);
-	var MathOutput = __webpack_require__(165);
+	var TextInput = __webpack_require__(152);
+	var MathOutput = __webpack_require__(166);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -20480,7 +20680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// the matrix shouldn't be focused
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20490,13 +20690,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var Editor = __webpack_require__(11);
-	var RangeInput = __webpack_require__(160);
+	var RangeInput = __webpack_require__(161);
 
-	var Matrix = __webpack_require__(85).widget;
+	var Matrix = __webpack_require__(87).widget;
 
 	// Really large matrices will cause issues with question formatting, so we
 	// have to cap it at some point.
@@ -20630,7 +20830,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MatrixEditor;
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20641,7 +20841,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Renderer = __webpack_require__(26);
-	var Sortable = __webpack_require__(166);
+	var Sortable = __webpack_require__(167);
 
 	var shuffle = __webpack_require__(6).shuffle;
 	var seededRNG = __webpack_require__(6).seededRNG;
@@ -20784,7 +20984,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Matcher };
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -20794,7 +20994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(51);
 
@@ -20946,7 +21146,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MatcherEditor;
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21116,7 +21316,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21126,13 +21326,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
 	var PropCheckBox = __webpack_require__(34);
-	var RangeInput = __webpack_require__(160);
+	var RangeInput = __webpack_require__(161);
 
 	var defaultImage = {
 	    url: null,
@@ -21393,7 +21593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MeasurerEditor;
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
@@ -21565,7 +21765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    molecule: Molecule };
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21574,10 +21774,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var EditorJsonify = __webpack_require__(148);
-	var Changeable = __webpack_require__(146);
-	var NumberInput = __webpack_require__(163);
-	var TextInput = __webpack_require__(151);
+	var EditorJsonify = __webpack_require__(149);
+	var Changeable = __webpack_require__(147);
+	var NumberInput = __webpack_require__(164);
+	var TextInput = __webpack_require__(152);
 
 	var MoleculeWidgetEditor = React.createClass({
 	    displayName: "MoleculeWidgetEditor",
@@ -21634,7 +21834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   spacing right. */
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -21646,10 +21846,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
-	var NumberInput = __webpack_require__(163);
-	var MathOutput = __webpack_require__(165);
+	var NumberInput = __webpack_require__(164);
+	var MathOutput = __webpack_require__(166);
 
 	var ApiOptions = __webpack_require__(5).Options;
 
@@ -22249,7 +22449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticTransform: staticTransform };
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -22259,13 +22459,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var EditorJsonify = __webpack_require__(148);
+	var EditorJsonify = __webpack_require__(149);
 
 	var ButtonGroup = __webpack_require__(43);
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
 	var PropCheckBox = __webpack_require__(34);
-	var RangeInput = __webpack_require__(160);
+	var RangeInput = __webpack_require__(161);
 
 	var knumber = __webpack_require__(182).number;
 	var bound = function (x, gt, lt) {
@@ -22770,7 +22970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   since it isn't used. */ /* element of (little E) symbol @Nolint */
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -22781,9 +22981,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InputWithExamples = __webpack_require__(153);
-	var ParseTex = __webpack_require__(161).parseTex;
-	var PossibleAnswers = __webpack_require__(162);
+	var InputWithExamples = __webpack_require__(154);
+	var ParseTex = __webpack_require__(162).parseTex;
+	var PossibleAnswers = __webpack_require__(163);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
@@ -23129,7 +23329,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -23139,16 +23339,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var ButtonGroup = __webpack_require__(43);
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(132);
-	var MultiButtonGroup = __webpack_require__(159);
-	var NumberInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(57);
+	var MultiButtonGroup = __webpack_require__(160);
+	var NumberInput = __webpack_require__(164);
 	var PropCheckBox = __webpack_require__(34);
-	var TextInput = __webpack_require__(151);
+	var TextInput = __webpack_require__(152);
 
 	var firstNumericalParse = __webpack_require__(6).firstNumericalParse;
 
@@ -23634,7 +23834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumericInputEditor;
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24185,7 +24385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Orderer };
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24195,7 +24395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 	var TextListEditor = __webpack_require__(51);
 
 	var NORMAL = "normal",
@@ -24387,7 +24587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = OrdererEditor;
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24398,7 +24598,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var Renderer = __webpack_require__(26);
 	var PassageMarkdown = __webpack_require__(180);
@@ -24720,7 +24920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24730,11 +24930,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var Editor = __webpack_require__(11);
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
 
 	var PassageEditor = React.createClass({
@@ -24843,7 +25043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageEditor;
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24853,9 +25053,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var PerseusMarkdown = __webpack_require__(31);
-	var WidgetJsonifyDeprecated = __webpack_require__(147);
+	var WidgetJsonifyDeprecated = __webpack_require__(148);
 
 	var EN_DASH = "–";
 
@@ -24990,7 +25190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* curly quotes */
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -24999,12 +25199,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
-	var TextInput = __webpack_require__(151);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
+	var TextInput = __webpack_require__(152);
 
 	var PassageRefEditor = React.createClass({
 	    displayName: "PassageRefEditor",
@@ -25084,7 +25284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageRefEditor;
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25094,8 +25294,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var WidgetJsonifyDeprecated = __webpack_require__(147);
+	var Changeable = __webpack_require__(147);
+	var WidgetJsonifyDeprecated = __webpack_require__(148);
 	var Renderer = __webpack_require__(26);
 
 	var PassageRefTarget = React.createClass({
@@ -25151,7 +25351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25161,8 +25361,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var PassageRefTargetEditor = React.createClass({
 	    displayName: "PassageRefTargetEditor",
@@ -25198,7 +25398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PassageRefTargetEditor;
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -25785,7 +25985,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// ...widgetPropTypes,
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -25798,14 +25998,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var BlurInput = __webpack_require__(149);
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
-	var RangeInput = __webpack_require__(160);
-	var SvgImage = __webpack_require__(30);
+	var BlurInput = __webpack_require__(150);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
+	var RangeInput = __webpack_require__(161);
+	var SvgImage = __webpack_require__(29);
 	var TextListEditor = __webpack_require__(51);
 
-	var Plotter = __webpack_require__(105).widget;
+	var Plotter = __webpack_require__(107).widget;
 
 	var knumber = __webpack_require__(182).knumber;
 
@@ -26321,7 +26521,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PlotterEditor;
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26332,7 +26532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var shuffle = __webpack_require__(6).shuffle;
 
-	var Radio = __webpack_require__(167);
+	var Radio = __webpack_require__(168);
 
 	var _choiceTransform = function (editorProps, problemNum) {
 	    var _maybeRandomize = function (array) {
@@ -26422,12 +26622,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    propUpgrades: propUpgrades };
 
 /***/ },
-/* 108 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(15);
 
-	var Molecule = __webpack_require__(91).molecule;
+	var Molecule = __webpack_require__(93).molecule;
 
 	var Separator = React.createClass({
 	    displayName: "Separator",
@@ -26562,7 +26762,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ReactionDiagramWidget };
 
 /***/ },
-/* 109 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -26573,11 +26773,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var NumberInput = __webpack_require__(163);
-	var TextInput = __webpack_require__(151);
+	var NumberInput = __webpack_require__(164);
+	var TextInput = __webpack_require__(152);
 
 	var ReactionDiagramWidgetEditor = React.createClass({
 	    displayName: "ReactionDiagramWidgetEditor",
@@ -26713,7 +26913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ReactionDiagramWidgetEditor;
 
 /***/ },
-/* 110 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -26724,7 +26924,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
@@ -26833,7 +27033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tracking: "all" };
 
 /***/ },
-/* 111 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27014,19 +27214,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SequenceEditor;
 
 /***/ },
-/* 112 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-unused-vars, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-no-undef, react/jsx-sort-prop-types, react/prop-types, react/sort-comp, space-unary-ops */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var ApiOptions = __webpack_require__(5).Options;
 	var assert = __webpack_require__(144).assert;
@@ -27040,8 +27240,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePoint = Graphie.MovablePoint;
 	var MovableLine = Graphie.MovableLine;
 
-	var NumberInput = __webpack_require__(163);
-	var MathOutput = __webpack_require__(165);
+	var NumberInput = __webpack_require__(164);
+	var MathOutput = __webpack_require__(166);
 	var seededRNG = __webpack_require__(6).seededRNG;
 	var Util = __webpack_require__(6);
 	var knumber = __webpack_require__(182).number;
@@ -27770,7 +27970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* Only plot these cool extra features if there's data */
 
 /***/ },
-/* 113 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27780,11 +27980,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
 
 	var maxTrials = 5000;
 
@@ -27921,7 +28121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimulatorEditor;
 
 /***/ },
-/* 114 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -27931,7 +28131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Sortable = __webpack_require__(166);
+	var Sortable = __webpack_require__(167);
 
 	var shuffle = __webpack_require__(6).shuffle;
 
@@ -28009,7 +28209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Sorter };
 
 /***/ },
-/* 115 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28019,7 +28219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var InfoTip = __webpack_require__(132);
+	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
 	var TextListEditor = __webpack_require__(51);
 
@@ -28138,7 +28338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SorterEditor;
 
 /***/ },
-/* 116 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28149,7 +28349,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var MathOutput = __webpack_require__(165);
+	var MathOutput = __webpack_require__(166);
 	var Renderer = __webpack_require__(26);
 	var Util = __webpack_require__(6);
 
@@ -28469,7 +28669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 117 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -28482,11 +28682,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
 	var Editor = __webpack_require__(11);
 
-	var Table = __webpack_require__(116).widget;
+	var Table = __webpack_require__(118).widget;
 
 	var TableEditor = React.createClass({
 	    displayName: "TableEditor",
@@ -28645,7 +28845,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TableEditor;
 
 /***/ },
-/* 118 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -28658,9 +28858,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Graph = __webpack_require__(164);
-	var NumberInput = __webpack_require__(163);
-	var MathOutput = __webpack_require__(165);
+	var Graph = __webpack_require__(165);
+	var NumberInput = __webpack_require__(164);
+	var MathOutput = __webpack_require__(166);
 	var TeX = __webpack_require__(48);
 
 	var ApiOptions = __webpack_require__(5).Options;
@@ -31030,7 +31230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Transformer };
 
 /***/ },
-/* 119 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -31042,12 +31242,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiOptions = __webpack_require__(5).Options;
 
-	var Graph = __webpack_require__(164);
-	var GraphSettings = __webpack_require__(158);
-	var InfoTip = __webpack_require__(132);
+	var Graph = __webpack_require__(165);
+	var GraphSettings = __webpack_require__(159);
+	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
 
-	var Transformer = __webpack_require__(118).widget;
+	var Transformer = __webpack_require__(120).widget;
 
 	var deepEq = __webpack_require__(6).deepEq;
 	var getGridStep = __webpack_require__(6).getGridStep;
@@ -32025,7 +32225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TransformerEditor;
 
 /***/ },
-/* 120 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32044,10 +32244,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
 	var ApiOptions = __webpack_require__(5).Options;
-	var Changeable = __webpack_require__(146);
-	var MathOutput = __webpack_require__(165);
+	var Changeable = __webpack_require__(147);
+	var MathOutput = __webpack_require__(166);
 
-	var _require = __webpack_require__(168);
+	var _require = __webpack_require__(169);
 
 	var SignificantFigures = _require.SignificantFigures;
 	var displaySigFigs = _require.displaySigFigs;
@@ -32304,7 +32504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// end mobile stuff
 
 /***/ },
-/* 121 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32319,12 +32519,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var NumberInput = __webpack_require__(163);
+	var NumberInput = __webpack_require__(164);
 
-	var _require = __webpack_require__(168);
+	var _require = __webpack_require__(169);
 
 	var displaySigFigs = _require.displaySigFigs;
 
@@ -32592,7 +32792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = UnitInputEditor;
 
 /***/ },
-/* 122 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32606,7 +32806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var FixedToResponsive = __webpack_require__(52);
 
 	// Current default is 720p, based on the typical videos we upload currently
@@ -32695,7 +32895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: Video };
 
 /***/ },
-/* 123 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32705,11 +32905,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var InfoTip = __webpack_require__(132);
-	var BlurInput = __webpack_require__(149);
+	var InfoTip = __webpack_require__(57);
+	var BlurInput = __webpack_require__(150);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 
@@ -32773,7 +32973,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = VideoEditor;
 
 /***/ },
-/* 124 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32790,8 +32990,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Util = __webpack_require__(6);
-	var Changeable = __webpack_require__(146);
-	var WidgetJsonifyDeprecated = __webpack_require__(147);
+	var Changeable = __webpack_require__(147);
+	var WidgetJsonifyDeprecated = __webpack_require__(148);
 
 	var Graphie = __webpack_require__(53);
 	var MovablePoint = Graphie.MovablePoint;
@@ -32923,7 +33123,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ExampleGraphieWidget };
 
 /***/ },
-/* 125 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -32932,10 +33132,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
-	var ExampleGraphieWidget = __webpack_require__(124).widget;
+	var ExampleGraphieWidget = __webpack_require__(126).widget;
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -32986,7 +33186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExampleGraphieWidgetEditor;
 
 /***/ },
-/* 126 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33003,7 +33203,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	var React = __webpack_require__(15);
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var _ = __webpack_require__(16);
 
 	var TextInput = React.createClass({
@@ -33138,7 +33338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    widget: ExampleWidget };
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33147,8 +33347,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	/**
 	 * This is the widget's editor. This is what shows up on the left side
@@ -33196,7 +33396,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ExampleWidgetEditor;
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33206,7 +33406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var PerseusMarkdown = __webpack_require__(31);
 	var mdParse = PerseusMarkdown.parse;
@@ -33300,7 +33500,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33314,8 +33514,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var React = __webpack_require__(15);
 
-	var Changeable = __webpack_require__(146);
-	var EditorJsonify = __webpack_require__(148);
+	var Changeable = __webpack_require__(147);
+	var EditorJsonify = __webpack_require__(149);
 
 	var TextArea = React.createClass({
 	    displayName: "TextArea",
@@ -33383,7 +33583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = SimpleMarkdownTesterEditor;
 
 /***/ },
-/* 130 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33394,12 +33594,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(15);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 	var Editor = __webpack_require__(11);
 	var PropCheckBox = __webpack_require__(34);
 
-	var InfoTip = __webpack_require__(132);
-	var BaseRadio = __webpack_require__(169);
+	var InfoTip = __webpack_require__(57);
+	var BaseRadio = __webpack_require__(170);
 
 	var ChoiceEditor = React.createClass({
 	    displayName: "ChoiceEditor",
@@ -33709,7 +33909,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RadioEditor;
 
 /***/ },
-/* 131 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -33786,206 +33986,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    mapObject: mapObject,
 	    mapObjectFromArray: mapObjectFromArray
 	};
-
-/***/ },
-/* 132 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * A wrapper around react-components/info-tip.jsx that can be rendered on the
-	 * server without causing a checksum mismatch on the client.
-	 * (RCSS generates classnames with a randomSuffix, which ensures that any
-	 * two sets of generated classnames will not match.)
-	 */
-
-	var React = __webpack_require__(15);
-
-	var ReactComponentsInfoTip = __webpack_require__(170);
-
-	var InfoTip = React.createClass({
-	    displayName: "InfoTip",
-
-	    getInitialState: function () {
-	        return {
-	            didMount: false };
-	    },
-
-	    componentDidMount: function () {
-	        /* eslint-disable react/no-did-mount-set-state */
-	        this.setState({ didMount: true });
-	        /* eslint-enable react/no-did-mount-set-state */
-	    },
-
-	    render: function () {
-	        if (this.state.didMount) {
-	            return React.createElement(ReactComponentsInfoTip, this.props);
-	        } else {
-	            return React.createElement("div", null);
-	        }
-	    } });
-
-	module.exports = InfoTip;
-
-/***/ },
-/* 133 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable no-var */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-
-	var InfoTip = __webpack_require__(132);
-
-	var ItemExtrasEditor = React.createClass({
-	    displayName: "ItemExtrasEditor",
-
-	    propTypes: {
-	        calculator: React.PropTypes.bool,
-	        chi2Table: React.PropTypes.bool,
-	        onChange: React.PropTypes.func.isRequired,
-	        periodicTable: React.PropTypes.bool,
-	        tTable: React.PropTypes.bool,
-	        zTable: React.PropTypes.bool },
-
-	    getDefaultProps: function () {
-	        return {
-	            calculator: false,
-	            chi2Table: false,
-	            periodicTable: false,
-	            tTable: false,
-	            zTable: false };
-	    },
-
-	    serialize: function () {
-	        return {
-	            calculator: this.props.calculator,
-	            chi2Table: this.props.chi2Table,
-	            periodicTable: this.props.periodicTable,
-	            tTable: this.props.tTable,
-	            zTable: this.props.zTable };
-	    },
-
-	    render: function () {
-	        var _this = this;
-
-	        return React.createElement(
-	            "div",
-	            { className: "perseus-answer-editor" },
-	            React.createElement(
-	                "div",
-	                { className: "perseus-answer-options" },
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show calculator:",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.calculator,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ calculator: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "Use the calculator when completing difficult calculations is NOT the intent of the question. DON’T use the calculator when testing the student’s ability to complete different types of computations."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show periodic table:",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.periodicTable,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ periodicTable: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a periodic table of the elements, e.g., for answering chemistry questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show z table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.zTable,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ zTable: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show t table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.tTable,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ tTable: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    null,
-	                    React.createElement(
-	                        "label",
-	                        null,
-	                        "Show chi-squared table (statistics):",
-	                        " ",
-	                        React.createElement("input", {
-	                            type: "checkbox", checked: this.props.chi2Table,
-	                            onChange: function (e) {
-	                                _this.props.onChange({ chi2Table: e.target.checked });
-	                            }
-	                        })
-	                    ),
-	                    React.createElement(
-	                        InfoTip,
-	                        null,
-	                        "This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
-	                    )
-	                )
-	            )
-	        );
-	    } });
-
-	module.exports = ItemExtrasEditor;
 
 /***/ },
 /* 134 */
@@ -35284,7 +35284,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 	var GraphieClasses = __webpack_require__(142);
-	var Interactive2 = __webpack_require__(157);
+	var Interactive2 = __webpack_require__(158);
 	var InteractiveUtil = __webpack_require__(144);
 
 	var assert = InteractiveUtil.assert;
@@ -37037,6 +37037,138 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+	var RCSS = __webpack_require__(138);
+	var _ = __webpack_require__(16);
+
+	var colors = {
+	    grayLight: '#aaa',
+	    basicBorderColor: '#ccc',
+	    white: '#fff'
+	};
+
+	var infoTip = {
+	    display: 'inline-block',
+	    marginLeft: '5px',
+	    position: 'relative'
+	};
+
+	var infoTipI = {
+	    cursor: 'pointer'
+	};
+
+	var infoTipContainer = {
+	    position: 'absolute',
+	    'top': '-12px',
+	    left: '22px',
+	    zIndex: '1000'
+	};
+
+	var triangleBeforeAfter = {
+	    borderBottom: '9px solid transparent',
+	    borderTop: '9px solid transparent',
+	    content: ' ',
+	    height: '0',
+	    position: 'absolute',
+	    'top': '0',
+	    width: '0'
+	};
+
+	var infoTipTriangle = {
+	    height: '10px',
+	    left: '0',
+	    position: 'absolute',
+	    'top': '8px',
+	    width: '0',
+	    zIndex: '1',
+
+	    ':before': _.extend({}, triangleBeforeAfter, {
+	        borderRight: '9px solid #bbb',
+	        right: '0' }),
+
+	    ':after': _.extend({}, triangleBeforeAfter, {
+	        borderRight: '9px solid ' + colors.white,
+	        right: '-1px'
+	    })
+	};
+
+	var basicBorder = {
+	    border: '1px solid ' + colors.basicBorderColor
+	};
+
+	var boxShadow = function (str) {
+	    return { boxShadow: str };
+	};
+
+	var verticalShadow = RCSS.merge(basicBorder, boxShadow('0 1px 3px ' + colors.basicBorderColor), { borderBottom: '1px solid ' + colors.grayLight });
+
+	var infoTipContentContainer = RCSS.merge(verticalShadow, {
+	    background: colors.white,
+	    padding: '5px 10px',
+	    width: '240px'
+	});
+
+	RCSS.createClass(infoTip);
+	RCSS.createClass(infoTipI);
+	RCSS.createClass(infoTipTriangle);
+	RCSS.createClass(verticalShadow);
+	RCSS.createClass(infoTipContainer);
+	RCSS.createClass(infoTipContentContainer);
+
+	var questionMark = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII='; // @NoLint
+
+	var InfoTip = React.createClass({
+	    displayName: 'InfoTip',
+
+	    getInitialState: function () {
+	        return {
+	            hover: false
+	        };
+	    },
+
+	    render: function () {
+	        return React.createElement(
+	            'div',
+	            { className: infoTip.className },
+	            React.createElement('img', { width: 10,
+	                height: 10,
+	                src: questionMark,
+	                onMouseEnter: this.handleMouseEnter,
+	                onMouseLeave: this.handleMouseLeave }),
+	            React.createElement(
+	                'div',
+	                { className: infoTipContainer.className,
+	                    style: { display: this.state.hover ? 'block' : 'none' } },
+	                React.createElement('div', { className: infoTipTriangle.className }),
+	                React.createElement(
+	                    'div',
+	                    { className: infoTipContentContainer.className },
+	                    this.props.children
+	                )
+	            )
+	        );
+	    },
+
+	    handleMouseEnter: function () {
+	        this.setState({ hover: true });
+	    },
+
+	    handleMouseLeave: function () {
+	        this.setState({ hover: false });
+	    }
+	});
+
+	module.exports = InfoTip;
+	/* keep the classes here - used for selectors on KA */
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, no-var */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -37128,7 +37260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Changeable;
 
 /***/ },
-/* 147 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37151,7 +37283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = WidgetJsonifyDeprecated;
 
 /***/ },
-/* 148 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37172,7 +37304,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = EditorJsonify;
 
 /***/ },
-/* 149 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -37226,7 +37358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = BlurInput;
 
 /***/ },
-/* 150 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37491,7 +37623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	   of the optionSizer, not next to it */
 
 /***/ },
-/* 151 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -37567,7 +37699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TextInput;
 
 /***/ },
-/* 152 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37933,7 +38065,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* The contents of the tooltip */
 
 /***/ },
-/* 153 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -37941,14 +38073,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var Tooltip = __webpack_require__(152);
+	var Tooltip = __webpack_require__(153);
 	var _ = __webpack_require__(16);
 
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var MathInput = __webpack_require__(154);
+	var MathInput = __webpack_require__(155);
 	var Renderer = __webpack_require__(26);
-	var TextInput = __webpack_require__(151);
-	var MathOutput = __webpack_require__(165);
+	var TextInput = __webpack_require__(152);
+	var MathOutput = __webpack_require__(166);
 
 	var captureScratchpadTouchStart = __webpack_require__(6).captureScratchpadTouchStart;
 
@@ -38149,7 +38281,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = InputWithExamples;
 
 /***/ },
-/* 154 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38161,7 +38293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var TexButtons = __webpack_require__(155);
+	var TexButtons = __webpack_require__(156);
 
 	// TODO(alex): Package MathQuill
 	var MathQuill = window.MathQuill;
@@ -38428,7 +38560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathInput;
 
 /***/ },
-/* 155 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38710,7 +38842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = TexButtons;
 
 /***/ },
-/* 156 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38882,7 +39014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// item: what is this?
 
 /***/ },
-/* 157 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38915,7 +39047,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Interactive2;
 
 /***/ },
-/* 158 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -38926,13 +39058,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var Changeable = __webpack_require__(146);
+	var Changeable = __webpack_require__(147);
 
 	var ButtonGroup = __webpack_require__(43);
-	var InfoTip = __webpack_require__(132);
-	var NumberInput = __webpack_require__(163);
+	var InfoTip = __webpack_require__(57);
+	var NumberInput = __webpack_require__(164);
 	var PropCheckBox = __webpack_require__(34);
-	var RangeInput = __webpack_require__(160);
+	var RangeInput = __webpack_require__(161);
 	var TeX = __webpack_require__(48);
 	var Util = __webpack_require__(6);
 
@@ -39499,7 +39631,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = GraphSettings;
 
 /***/ },
-/* 159 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
@@ -39608,7 +39740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MultiButtonGroup;
 
 /***/ },
-/* 160 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -39618,7 +39750,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var React = __webpack_require__(15);
-	var NumberInput = __webpack_require__(163);
+	var NumberInput = __webpack_require__(164);
 
 	var truth = function () {
 	    return true;
@@ -39681,7 +39813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RangeInput;
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -39843,7 +39975,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -39894,7 +40026,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PossibleAnswers;
 
 /***/ },
-/* 163 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -40112,7 +40244,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = NumberInput;
 
 /***/ },
-/* 164 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -40125,7 +40257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var SvgImage = __webpack_require__(30);
+	var SvgImage = __webpack_require__(29);
 
 	var defaultBoxSize = 400;
 	var defaultBackgroundImage = {
@@ -40445,7 +40577,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Graph;
 
 /***/ },
-/* 165 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -40456,8 +40588,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var TeX = __webpack_require__(48);
 	var ApiClassNames = __webpack_require__(5).ClassNames;
-	var Tooltip = __webpack_require__(152);
-	var ModifyTex = __webpack_require__(161).modifyTex;
+	var Tooltip = __webpack_require__(153);
+	var ModifyTex = __webpack_require__(162).modifyTex;
 
 	var MathOutput = React.createClass({
 	    displayName: "MathOutput",
@@ -40579,7 +40711,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MathOutput;
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
@@ -41087,7 +41219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Sortable;
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global i18n */
@@ -41096,10 +41228,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _ = __webpack_require__(16);
 
 	var Renderer = __webpack_require__(26);
-	var PassageRef = __webpack_require__(101);
+	var PassageRef = __webpack_require__(103);
 	var Util = __webpack_require__(6);
 
-	var BaseRadio = __webpack_require__(169);
+	var BaseRadio = __webpack_require__(170);
 
 	var Radio = React.createClass({
 	    displayName: "Radio",
@@ -41314,7 +41446,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Radio;
 
 /***/ },
-/* 168 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -41783,7 +41915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    displaySigFigs: displaySigFigs };
 
 /***/ },
-/* 169 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global i18n, $_ */
@@ -41971,138 +42103,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	// somehow? Would changing our choice of key somehow break
 	// any voodoo happening inside a choice's child Renderers
 	// by changing when we mount/unmount?
-
-/***/ },
-/* 170 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, max-len, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-	var RCSS = __webpack_require__(138);
-	var _ = __webpack_require__(16);
-
-	var colors = {
-	    grayLight: '#aaa',
-	    basicBorderColor: '#ccc',
-	    white: '#fff'
-	};
-
-	var infoTip = {
-	    display: 'inline-block',
-	    marginLeft: '5px',
-	    position: 'relative'
-	};
-
-	var infoTipI = {
-	    cursor: 'pointer'
-	};
-
-	var infoTipContainer = {
-	    position: 'absolute',
-	    'top': '-12px',
-	    left: '22px',
-	    zIndex: '1000'
-	};
-
-	var triangleBeforeAfter = {
-	    borderBottom: '9px solid transparent',
-	    borderTop: '9px solid transparent',
-	    content: ' ',
-	    height: '0',
-	    position: 'absolute',
-	    'top': '0',
-	    width: '0'
-	};
-
-	var infoTipTriangle = {
-	    height: '10px',
-	    left: '0',
-	    position: 'absolute',
-	    'top': '8px',
-	    width: '0',
-	    zIndex: '1',
-
-	    ':before': _.extend({}, triangleBeforeAfter, {
-	        borderRight: '9px solid #bbb',
-	        right: '0' }),
-
-	    ':after': _.extend({}, triangleBeforeAfter, {
-	        borderRight: '9px solid ' + colors.white,
-	        right: '-1px'
-	    })
-	};
-
-	var basicBorder = {
-	    border: '1px solid ' + colors.basicBorderColor
-	};
-
-	var boxShadow = function (str) {
-	    return { boxShadow: str };
-	};
-
-	var verticalShadow = RCSS.merge(basicBorder, boxShadow('0 1px 3px ' + colors.basicBorderColor), { borderBottom: '1px solid ' + colors.grayLight });
-
-	var infoTipContentContainer = RCSS.merge(verticalShadow, {
-	    background: colors.white,
-	    padding: '5px 10px',
-	    width: '240px'
-	});
-
-	RCSS.createClass(infoTip);
-	RCSS.createClass(infoTipI);
-	RCSS.createClass(infoTipTriangle);
-	RCSS.createClass(verticalShadow);
-	RCSS.createClass(infoTipContainer);
-	RCSS.createClass(infoTipContentContainer);
-
-	var questionMark = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NDkxMSwgMjAxMy8xMC8yOS0xMTo0NzoxNiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2N2M3NTAxYS04YmVlLTQ0M2MtYmRiNS04OGM2N2IxN2NhYzEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUJCRTk4Qjc4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUJCRTk4QjY4NjAwMTFFMzg3QUJDNEI4Mzk2QTRGQkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NGE5ZDI0OTMtODk1NC00OGFkLTlhMTgtZDAwM2MwYWNjNDJlIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjY3Yzc1MDFhLThiZWUtNDQzYy1iZGI1LTg4YzY3YjE3Y2FjMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqm89uYAAADMSURBVHjaXJA9DoJAEIUH1M4TUHIFsCMGen9OwCGw1YRGW2ntKel0exsojHIBC0ouQAyUviFDstmXfNmZeS+zm7XSNCXRFiRgJf0bXIHixpbhGdxBBJYC1w/xaA424MhNEATkui71fU9KqfEU78UbD9PdbJRlOdae55GmhIP+1NV1TcMwkOM41DSNHvRtMhTHMRVFQW3b6mOLgx99kue5GRp/gIOZuZGvNpTNwjD8oliANU+qqqKu6/TQBdymN57AHjzBT+B6Jx79BRgAvc49kQA4yxgAAAAASUVORK5CYII='; // @NoLint
-
-	var InfoTip = React.createClass({
-	    displayName: 'InfoTip',
-
-	    getInitialState: function () {
-	        return {
-	            hover: false
-	        };
-	    },
-
-	    render: function () {
-	        return React.createElement(
-	            'div',
-	            { className: infoTip.className },
-	            React.createElement('img', { width: 10,
-	                height: 10,
-	                src: questionMark,
-	                onMouseEnter: this.handleMouseEnter,
-	                onMouseLeave: this.handleMouseLeave }),
-	            React.createElement(
-	                'div',
-	                { className: infoTipContainer.className,
-	                    style: { display: this.state.hover ? 'block' : 'none' } },
-	                React.createElement('div', { className: infoTipTriangle.className }),
-	                React.createElement(
-	                    'div',
-	                    { className: infoTipContentContainer.className },
-	                    this.props.children
-	                )
-	            )
-	        );
-	    },
-
-	    handleMouseEnter: function () {
-	        this.setState({ hover: true });
-	    },
-
-	    handleMouseLeave: function () {
-	        this.setState({ hover: false });
-	    }
-	});
-
-	module.exports = InfoTip;
-	/* keep the classes here - used for selectors on KA */
 
 /***/ },
 /* 171 */
@@ -42898,9 +42898,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TeX = __webpack_require__(48);
 
 	var ButtonGroup = __webpack_require__(43);
-	var Changeable = __webpack_require__(146);
-	var MathInput = __webpack_require__(154);
-	var NumberInput = __webpack_require__(163);
+	var Changeable = __webpack_require__(147);
+	var MathInput = __webpack_require__(155);
+	var NumberInput = __webpack_require__(164);
 
 	var ConstraintEditor = React.createClass({
 	    displayName: "ConstraintEditor",
@@ -44919,7 +44919,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovablePointOptions = __webpack_require__(198);
 	var WrappedEllipse = __webpack_require__(199);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var objective_ = __webpack_require__(133);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -45210,7 +45210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var MovableLineOptions = __webpack_require__(200);
 	var WrappedLine = __webpack_require__(201);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var objective_ = __webpack_require__(133);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -45468,7 +45468,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var MovablePolygonOptions = __webpack_require__(202);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var objective_ = __webpack_require__(133);
 	var assert = InteractiveUtil.assert;
 	var normalizeOptions = InteractiveUtil.normalizeOptions;
 
@@ -47556,7 +47556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _ = __webpack_require__(16);
 	var InteractiveUtil = __webpack_require__(144);
-	var objective_ = __webpack_require__(131);
+	var objective_ = __webpack_require__(133);
 	var kvector = __webpack_require__(182).vector;
 
 	/*

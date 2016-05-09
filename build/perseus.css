@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit 8e295164d87b3052a446ed9f1f65d49ae8b8298b
+ * commit b33e3464dec6ad085e502e3f3dea56f539afe5cf
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -1046,6 +1046,7 @@ body.mobile .perseus-matrix .math-output {
 }
 .perseus-widget-passage-container .passage-text div.paragraph {
   font-size: 17px;
+  line-height: 22px;
   margin: 0;
   text-indent: 20px;
 }
