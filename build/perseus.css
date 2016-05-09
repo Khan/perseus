@@ -1,5 +1,5 @@
 /* Perseus CSS
- * commit b33e3464dec6ad085e502e3f3dea56f539afe5cf
+ * commit a73d4eca59594c14f3f262a5791079ab15e452eb
  * branch master
  * @generated */
 .perseus-sr-only {
@@ -1079,7 +1079,7 @@ body.mobile .perseus-matrix .math-output {
   box-sizing: border-box;
   display: block;
   height: 22px;
-  padding-top: 1px;
+  padding-top: 3px;
 }
 .perseus-widget-passage-container .line-numbers .line-marker {
   padding-top: 3px;
