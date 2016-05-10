@@ -26,6 +26,7 @@ const Choice = React.createClass({
         // because many of the properties on Options.propTypes are required.
         apiOptions: React.PropTypes.shape({
             responsiveStyling: React.PropTypes.bool,
+            mobileStyling: React.PropTypes.bool,
         }),
         checked: React.PropTypes.bool,
         className: React.PropTypes.string,
@@ -80,6 +81,20 @@ const Choice = React.createClass({
                 },
             },
 
+            // TODO(david): Avoid using min-width -- we've been trying to use
+            // max-width
+            mobileInput: {
+                [mediaQueries.mdOrLarger]: {
+                    "-webkit-appearance": "none",
+                    appearance: "none",
+                    border: `2px solid ${styleConstants.gray}`,
+                    borderRadius: 25,
+                    width: 25,
+                    marginLeft: 5,
+                    float: "left",
+                },
+            },
+
             responsiveRadioInput: {
                 [mediaQueries.smOrSmaller]: {
                     borderRadius: "50%",
@@ -93,6 +108,24 @@ const Choice = React.createClass({
                         height: circleSize,
                         width: circleSize,
                     },
+                },
+            },
+
+            mobileRadioInput: {
+                [mediaQueries.mdOrLarger]: {
+                    height: 25,
+                    outline: "none",
+                    ":checked": {
+                        background: styleConstants.blue,
+                        border: `2px solid ${styleConstants.blue}`,
+                    },
+                },
+            },
+
+            mobileRadioOptionContent: {
+                [mediaQueries.mdOrLarger]: {
+                    marginLeft: 40,
+                    display: "inline-block",
                 },
             },
 
@@ -122,6 +155,36 @@ const Choice = React.createClass({
                         height: circleSize,
                         width: circleSize,
                     },
+                },
+            },
+
+            mobileCheckboxInput: {
+                [mediaQueries.mdOrLarger]: {
+                    position: "absolute",
+                    outline: "none",
+                    height: 25,
+                    ":checked": {
+                        borderColor: styleConstants.blue,
+                    },
+                    ":checked::before": {
+                        font: `15pt "FontAwesome"`,
+                        left: 0,
+                        position: "relative",
+                        top: 1,
+                        color: styleConstants.blue,
+                        content: `"\\f00c"`,
+                    },
+                },
+            },
+
+            mobileCheckboxOptionContent: {
+                [mediaQueries.mdOrLarger]: {
+                    position: "absolute",
+                    marginRight: 26,
+                    display: "block",
+                    top: "50%",
+                    margin: "-14px 0 0 0",
+                    width: "auto",
                 },
             },
 
@@ -188,6 +251,7 @@ const Choice = React.createClass({
 
         const styles = Choice.styles;
         const responsive = this.props.apiOptions.responsiveStyling;
+        const mobile = this.props.apiOptions.mobileStyling;
 
         const className = classNames(
             this.props.className,
@@ -213,7 +277,12 @@ const Choice = React.createClass({
                 responsive && this.props.type === "radio" &&
                     styles.responsiveRadioInput,
                 responsive && this.props.type === "checkbox" &&
-                    styles.responsiveCheckboxInput
+                    styles.responsiveCheckboxInput,
+                mobile && styles.mobileInput,
+                mobile && this.props.type === "radio" &&
+                    styles.mobileRadioInput,
+                mobile && this.props.type === "checkbox" &&
+                    styles.mobileCheckboxInput
             ),
         };
 
@@ -241,6 +310,10 @@ const Choice = React.createClass({
         const fadeOutLabelWhenDisabled =
             this.props.disabled && this.props.apiOptions.responsiveStyling;
 
+        const checkboxContentClassname = "checkbox " +
+            css(styles.mobile && sharedStyles.perseusInteractive,
+                styles.mobile && styles.mobileCheckboxOptionContent);
+
         return <label
             className={className}
             style={{opacity: fadeOutLabelWhenDisabled ? 0.5 : 1.0}}
@@ -248,7 +321,7 @@ const Choice = React.createClass({
             {input}
             <div className="description">
                 <div className="checkbox-and-option">
-                    <span className="checkbox">
+                    <span className={checkboxContentClassname}>
                         <div className={"pos-back " + css(styles.pos)}></div>
                         <div className={"pos " + css(styles.pos)}>
                             <span className="perseus-sr-only">
@@ -260,10 +333,11 @@ const Choice = React.createClass({
                     {/* A pseudo-label. <label> is slightly broken on iOS,
                         so this works around that. Unfortunately, it is
                         simplest to just work around that everywhere. */}
-                    <span className={
-                            ClassNames.RADIO.OPTION_CONTENT + " " +
-                            ClassNames.INTERACTIVE
-                        }
+                    <span className={classNames(
+                            ClassNames.RADIO.OPTION_CONTENT,
+                            ClassNames.INTERACTIVE,
+                            css(mobile && styles.mobileRadioOptionContent)
+                        )}
                         style={{ cursor: "default" }}
                     >
                         <div>

@@ -71,6 +71,7 @@ const BaseRadio = React.createClass({
         apiOptions: React.PropTypes.shape({
             readOnly: React.PropTypes.bool,
             responsiveStyling: React.PropTypes.bool,
+            mobileStyling: React.PropTypes.bool,
         }),
         choices: ChoicesType,
         deselectEnabled: React.PropTypes.bool,
@@ -91,6 +92,12 @@ const BaseRadio = React.createClass({
                 fontWeight: "bold",
             },
 
+            mobileInstructions: {
+                [mediaQueries.mdOrLarger]: {
+                    marginBottom: 20,
+                },
+            },
+
             radio: {
                 // Avoid centering
                 width: "100%",
@@ -103,6 +110,48 @@ const BaseRadio = React.createClass({
                     marginLeft: styleConstants.negativePhoneMargin,
                     marginRight: styleConstants.negativePhoneMargin,
                     width: "auto",
+                },
+            },
+
+            mobileRadio: {
+                [mediaQueries.mdOrLarger]: {
+                    background: "none",
+                    color: styleConstants.gray,
+                    marginLeft: 0,
+                },
+            },
+
+            mobileRadioOption: {
+                [mediaQueries.mdOrLarger]: {
+                    background: "white",
+                    position: "relative",
+                    border: `2px solid ${styleConstants.gray}`,
+                    borderRadius: 28,
+                    boxSizing: "border-box",
+                    cursor: "pointer",
+                    display: "block",
+                    font: `700 14pt/30px
+                        "Avenir", "Helvetica", "Arial", sans-serif`,
+                    marginLeft: 20,
+                    marginBottom: 10,
+                    overflow: "hidden",
+                    padding: "8px 10px",
+                    ":active": {
+                        backgroundColor: styleConstants.blue,
+                        borderColor: styleConstants.blue,
+                        color: "white",
+                    },
+                },
+            },
+
+            mobileRadioSelected: {
+                [mediaQueries.mdOrLarger]: {
+                    borderColor: styleConstants.blue,
+                    color: styleConstants.blue,
+                    fontWeight: "bold",
+                    ":active": {
+                        color: "white",
+                    },
                 },
             },
 
@@ -176,6 +225,7 @@ const BaseRadio = React.createClass({
         const styles = BaseRadio.styles;
 
         const responsive = this.props.apiOptions.responsiveStyling;
+        const mobile = this.props.apiOptions.mobileStyling;
 
         const className = classNames(
             "perseus-widget-radio",
@@ -183,7 +233,8 @@ const BaseRadio = React.createClass({
                 sharedStyles.aboveScratchpad,
                 sharedStyles.blankBackground,
                 styles.radio,
-                responsive && styles.responsiveRadio
+                responsive && styles.responsiveRadio,
+                mobile && styles.mobileRadio
             ),
             "above-scratchpad",
             "blank-background",
@@ -192,6 +243,9 @@ const BaseRadio = React.createClass({
             }
         );
 
+        const instructionsClassName = "instructions " + css(styles.instructions,
+            mobile && styles.mobileInstructions);
+
         return <fieldset className="perseus-widget-radio-fieldset">
             <legend className="perseus-sr-only">{this.props.multipleSelect ?
                 <$_>Select all that apply.</$_> :
@@ -199,7 +253,7 @@ const BaseRadio = React.createClass({
             }</legend>
             <ul className={className}>
                 {this.props.multipleSelect &&
-                    <div className={"instructions " + css(styles.instructions)}>
+                    <div className={instructionsClassName}>
                         <$_>Select all that apply.</$_>
                     </div>}
                 {this.props.choices.map(function(choice, i) {
@@ -241,7 +295,10 @@ const BaseRadio = React.createClass({
                         css(
                             styles.item,
                             !this.props.onePerLine && styles.inlineItem,
-                            responsive && styles.responsiveItem
+                            responsive && styles.responsiveItem,
+                            mobile && styles.mobileRadioOption,
+                            mobile &&
+                                choice.checked && styles.mobileRadioSelected
                         ),
                         // TODO(aria): Make test case for these API classNames
                         ApiClassNames.RADIO.OPTION,
