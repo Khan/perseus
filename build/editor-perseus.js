@@ -1,6 +1,6 @@
 /*! Perseus with editors | http://github.com/Khan/perseus */
-// commit a73d4eca59594c14f3f262a5791079ab15e452eb
-// branch master
+// commit b8da7489ae215f9e19be4926eb63e58022bfa6a1
+// branch csprogram-simplevalidate-fix-4
 // @generated
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -10449,7 +10449,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-undef, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
+	/* eslint-disable comma-dangle, no-var, react/forbid-prop-types, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	/**
@@ -10584,8 +10584,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            allowFullScreen: true });
 	    },
 
+	    getUserInput: function () {
+	        return null;
+	    },
+
 	    simpleValidate: function (rubric) {
-	        return Scratchpad.validate({
+	        return CSProgram.validate({
 	            status: this.props.status,
 	            message: this.props.message
 	        }, rubric);
@@ -10639,7 +10643,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(147);
 	var EditorJsonify = __webpack_require__(149);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(151);
 	var InfoTip = __webpack_require__(57);
 	var PropCheckBox = __webpack_require__(34);
 
@@ -10852,7 +10856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
 
 	var classNames = __webpack_require__(41);
-	var FancySelect = __webpack_require__(151);
+	var FancySelect = __webpack_require__(150);
 	var React = __webpack_require__(15);
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
@@ -13905,7 +13909,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(147);
 	var EditorJsonify = __webpack_require__(149);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(151);
 	var PropCheckBox = __webpack_require__(34);
 
 	/**
@@ -14270,7 +14274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Changeable = __webpack_require__(147);
 	var EditorJsonify = __webpack_require__(149);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(151);
 	var Editor = __webpack_require__(11);
 	var InfoTip = __webpack_require__(57);
 	var RangeInput = __webpack_require__(161);
@@ -14983,7 +14987,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var Util = __webpack_require__(6);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(151);
 	var InfoTip = __webpack_require__(57);
 
 	var answerTypes = {
@@ -25998,7 +26002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ReactDOM = __webpack_require__(17);
 	var _ = __webpack_require__(16);
 
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(151);
 	var InfoTip = __webpack_require__(57);
 	var NumberInput = __webpack_require__(164);
 	var RangeInput = __webpack_require__(161);
@@ -32909,7 +32913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var EditorJsonify = __webpack_require__(149);
 
 	var InfoTip = __webpack_require__(57);
-	var BlurInput = __webpack_require__(150);
+	var BlurInput = __webpack_require__(151);
 
 	var KA_VIDEO_URL = /khanacademy\.org\/.*\/v\/(.*)$/;
 
@@ -37307,60 +37311,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
-	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
-	/* To fix, remove an entry above, run ka-lint, and fix errors. */
-
-	var React = __webpack_require__(15);
-
-	/* You know when you want to propagate input to a parent...
-	 * but then that parent does something with the input...
-	 * then changing the props of the input...
-	 * on every keystroke...
-	 * so if some input is invalid or incomplete...
-	 * the input gets reset or otherwise effed...
-	 *
-	 * This is the solution.
-	 *
-	 * Enough melodrama. Its an input that only sends changes
-	 * to its parent on blur.
-	 */
-	var BlurInput = React.createClass({
-	    displayName: "BlurInput",
-
-	    propTypes: {
-	        value: React.PropTypes.string.isRequired,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    getInitialState: function () {
-	        return { value: this.props.value };
-	    },
-	    render: function () {
-	        return React.createElement("input", _extends({}, this.props, {
-	            type: "text",
-	            value: this.state.value,
-	            onChange: this.handleChange,
-	            onBlur: this.handleBlur }));
-	    },
-	    componentWillReceiveProps: function (nextProps) {
-	        this.setState({ value: nextProps.value });
-	    },
-	    handleChange: function (e) {
-	        this.setState({ value: e.target.value });
-	    },
-	    handleBlur: function (e) {
-	        this.props.onChange(e.target.value);
-	    }
-	});
-
-	module.exports = BlurInput;
-
-/***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* TODO(csilvers): fix these lint errors (http://eslint.org/docs/rules): */
 	/* eslint-disable comma-dangle, indent, no-undef, no-var, react/jsx-closing-bracket-location, react/jsx-indent-props, react/jsx-sort-prop-types, react/prop-types, react/sort-comp */
 	/* To fix, remove an entry above, run ka-lint, and fix errors. */
@@ -37621,6 +37571,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = FancySelect;
 	/* position this absolutely so it goes on top
 	   of the optionSizer, not next to it */
+
+/***/ },
+/* 151 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	/* TODO(emily): fix these lint errors (http://eslint.org/docs/rules): */
+	/* eslint-disable comma-dangle, no-var, react/jsx-closing-bracket-location, react/jsx-sort-prop-types, react/sort-comp */
+	/* To fix, remove an entry above, run ka-lint, and fix errors. */
+
+	var React = __webpack_require__(15);
+
+	/* You know when you want to propagate input to a parent...
+	 * but then that parent does something with the input...
+	 * then changing the props of the input...
+	 * on every keystroke...
+	 * so if some input is invalid or incomplete...
+	 * the input gets reset or otherwise effed...
+	 *
+	 * This is the solution.
+	 *
+	 * Enough melodrama. Its an input that only sends changes
+	 * to its parent on blur.
+	 */
+	var BlurInput = React.createClass({
+	    displayName: "BlurInput",
+
+	    propTypes: {
+	        value: React.PropTypes.string.isRequired,
+	        onChange: React.PropTypes.func.isRequired
+	    },
+	    getInitialState: function () {
+	        return { value: this.props.value };
+	    },
+	    render: function () {
+	        return React.createElement("input", _extends({}, this.props, {
+	            type: "text",
+	            value: this.state.value,
+	            onChange: this.handleChange,
+	            onBlur: this.handleBlur }));
+	    },
+	    componentWillReceiveProps: function (nextProps) {
+	        this.setState({ value: nextProps.value });
+	    },
+	    handleChange: function (e) {
+	        this.setState({ value: e.target.value });
+	    },
+	    handleBlur: function (e) {
+	        this.props.onChange(e.target.value);
+	    }
+	});
+
+	module.exports = BlurInput;
 
 /***/ },
 /* 152 */
