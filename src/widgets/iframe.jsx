@@ -11,6 +11,7 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
+/* globals KA */
 var React = require("react");
 var _ = require("underscore");
 
@@ -86,6 +87,24 @@ var Iframe = React.createClass({
             url = updateQueryString(url, "height", this.props.height);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", window.location.origin);
+        }
+
+        // Zero-rated users may incur data charges for viewing non-zero.ka.org
+        // resources, so we need to warn them first.
+        if (typeof KA !== "undefined" && KA.isZeroRated) {
+            if (url.match(/https?:\/\/[^\/]*khanacademy.org/)) {
+                // Internal URLs should be rewritten to point at zero.ka.org,
+                // unless they already do so
+                if (!url.match(/zero.khanacademy.org/)) {
+                    url = url.replace('khanacademy.org',
+                                      'zero.khanacademy.org');
+                }
+            } else {
+                // External URLs should be rewritten to point at a warning
+                // interstitial
+                url = ('/zero/external-link?context=iframe&url=' +
+                            encodeURIComponent(url));
+            }
         }
 
         // Turn array of [{name: "", value: ""}] into object
